@@ -12,5 +12,9 @@ public class Application extends Controller {
     public static void index() {
         render();
     }
+    public static void success(String data) {
+        System.out.println("\n\n\nApplication.success " + data);
+       ok();
+    }
 
 }
