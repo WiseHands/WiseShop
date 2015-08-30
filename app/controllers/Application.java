@@ -3,6 +3,7 @@ package controllers;
 import com.liqpay.LiqPay;
 import play.*;
 import play.mvc.*;
+import org.apache.commons.codec.binary.Base64;
 
 import java.util.*;
 
@@ -18,11 +19,16 @@ public class Application extends Controller {
     }
     public static void success(String data) {
         LiqPayLocal liqpay = new LiqPayLocal(PUBLIC_KEY, PRIVATE_KEY);
+
         String sign = liqpay.strToSign(
                 PRIVATE_KEY +
                         data +
                         PRIVATE_KEY
         );
+
+        byte[] decodedBytes = Base64.decodeBase64(data);
+        System.out.println("decodedBytes " + new String(decodedBytes));
+
         System.out.println("\n\n\nApplication.success " + sign);
        ok();
     }
