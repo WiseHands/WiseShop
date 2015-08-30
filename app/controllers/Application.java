@@ -23,7 +23,7 @@ public class Application extends Controller {
                         data +
                         PRIVATE_KEY
         );
-        System.out.println("\n\n\nApplication.success " + data);
+        System.out.println("\n\n\nApplication.success " + sign);
        ok();
     }
 
