@@ -1,242 +1,194 @@
-<!--
-Au<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
+<!--
+	Twenty by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<head>
-    <title>Замовити їжу з доставкою у Львові | Submarine</title>
-    <link href="public/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
-    <link href="public/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link rel="stylesheet" href="public/css/chocolat.css" type="text/css" media="screen"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="їжа, доставка, львів" />
-    <meta name="interkassa-verification" content="4f75d591ea0e181a1616ceb67108bc91" />
+	<head>
+		<title>Їжа з доставкою по Львову | Submarine</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="public/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="public/assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="public/assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body class="index">
+		<div id="page-wrapper">
 
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <script src="public/js/modernizr.custom.97074.js"></script>
-    <script src="public/js/jquery-1.8.3.min.js"></script>
-    <!---->
-    <script type="text/javascript" src="public/js/move-top.js"></script>
-    <script type="text/javascript" src="public/js/easing.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event){
-                event.preventDefault();
-                $('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
-            });
-        });
-    </script>
-    <!---->
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1 id="logo"><a href="index.html">Їжа з доставкою по Львову</span></a></h1>
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="#">Submarine</a></li>
+							<!-- <li class="submenu">
+								<a href="#">Layouts</a>
+								<ul>
+									<li><a href="left-sidebar.html">Left Sidebar</a></li>
+									<li><a href="right-sidebar.html">Right Sidebar</a></li>
+									<li><a href="no-sidebar.html">No Sidebar</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li class="submenu">
+										<a href="#">Submenu</a>
+										<ul>
+											<li><a href="#">Dolore Sed</a></li>
+											<li><a href="#">Consequat</a></li>
+											<li><a href="#">Lorem Magna</a></li>
+											<li><a href="#">Sed Magna</a></li>
+											<li><a href="#">Ipsum Nisl</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><a href="#" class="button special">Sign Up</a></li> -->
+						</ul>
+					</nav>
+				</header>
 
-</head>
-<!--banner-->
-<div id="home" class="banner">
-    <div class="top-menu">
-        <div class="container">
-            <nav class="cl-effect-1">
-                <span class="menu"><img src="public/images/nav-icon.png" alt=""/></span>
-                <ul>
-                    <li><a class="scroll" href="#home">Млинці</a></li>
-                    <li><a class="scroll" href="#about">Енергокульки</a></li>
-                    <li><a class="scroll" href="#service">Салат</a></li>
-                    <li><a class="scroll" href="#gallery">Фреші</a></li>
-                    <li><a class="scroll" href="#skills">Смузі</a></li>
-                    <li><a class="scroll" href="#testi">Проростки</a></li>
-                </ul>
-            </nav>
-        </div>
-        <!-- script-for-menu -->
-        <script>
-            $("span.menu").click(function(){
-                $(".top-menu ul").slideToggle("slow" , function(){
-                });
-            });
-        </script>
-        <!-- script-for-menu -->
+			<!-- Banner -->
+				<section id="banner">
 
-    </div>
-    <div class="banner-info">
-        <div class="container">
-            <h2>Їжа з доставкою по Львову</h2>
-        </div>
-    </div>
-    <div class="banner-form">
-        <div class="container">
-            <p>Фруктові млинці, 100₴, доставка по Львові включена</p>
-            <form>
-                <input type="text" value="" placeholder="Ім'я">
-                <input type="text" value="" placeholder="Телефон">
-                <input type="submit" value="Купити">
-                <a href="https://www.liqpay.com/api/checkout?data=eyJ2ZXJzaW9uIjozLCJwdWJsaWNfa2V5IjoiaTcwMzM3OTU1ODY2IiwiYW1vdW50IjoiMSIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQpNGA0YPQutGC0L7QstGWINC80LvQuNC90YbRliDQtyDQtNC%2B0YHRgtCw0LLQutC%2B0Y4iLCJ0eXBlIjoiYnV5Iiwic2FuZGJveCI6IjEiLCJzZXJ2ZXJfdXJsIjoiaHR0cDovL3N1Ym1hcmluZS5sdml2LnVhL3N1Y2Nlc3MiLCJsYW5ndWFnZSI6ImVuIiwicGF5X3dheSI6ImNhcmQsbGlxcGF5LGRlbGF5ZWQsaW52b2ljZSxwcml2YXQyNCJ9&signature=tXzHG3ObEQkw8DoMgsmflkMRtJc%3D">Купити</a>
-            </form>
-        </div>
-    </div>
-</div>
-<!---->
-<!--script-->
-<script src="public/js/jquery.chocolat.js"></script>
-<!--light-box-files -->
-<script type="text/javascript">
-    $(function() {
-        $('.gallery a').Chocolat();
-    });
-</script>
-<!--script-->
+					<!--
+						".inner" is set up as an inline-block so it automatically expands
+						in both directions to fit whatever's inside it. This means it won't
+						automatically wrap lines, so be sure to use line breaks where
+						appropriate (<br />).
+					-->
+					<div class="inner">
+						<div id="pageoneorder">
+							<header>
+								<h2>3 Млинці</h2>
+							</header>
+							<p><strong>цільнозерновe</strong> борошно,
+							<br />
+							нутелла, банани, апельсини
+							<br />
+							фініки, кунжут, родзинки
+							<br />
+							<hr />
+							Ціна (з доставкою): 99 грн.</p>
+							<footer>
+								<ul class="buttons vertical">
+									<li><a href="#" onclick="showSecondPage();" class="button fit scrolly">Замовити</a></li>
+								</ul>
+							</footer>
+						</div>
+						
+						<div id="pagetwoorder">
+							<input required type="text" placeholder="Ім'я"/>
+							<br />
+							<input required type="text" placeholder="Телефон"/>
+							<br />
+							<input required type="text" placeholder="Адреса"/>
+							<br />
+							<input required type="text" placeholder="Кількість порцій"/>
+							<br />
+							<p>Ціна: <strong>99</strong> грн</p>
+							<footer>
+								<ul class="buttons vertical">
+									<li><a href="#main" class="button fit scrolly">Оплатити</a></li>
+								</ul>
+							</footer>
+							<br />
+							<small>
+								після оплати, на протязі 15 хв, з вами звяжуться<br />
+								середній час виконання ~1,5 год
+							</small>
+						</div>
+					</div>
 
-<!---->
-<!---->
-<div id="testi" class="pricing">
-    <div class="container">
-        <div class="pricing-text">
-            <h3>Testimonials</h3>
-        </div>
-        <!-- start slider -->
-        <div class="pricing-grids">
-            <div class="slider">
-                <ul class="rslides" id="slider2">
-                    <li>
-                        <div class="col-md-6 pricing-plans">
-                            <p>Fusce ultrices, arcu nec semper facilisi. In imperdiet lacinia venenatis. Nulla justo nunc, fermentum vitae enim sit amet,
-                                condimentum dapibus urna. Nam eget purus sed.</p>
-                            <div class="pic1">
-                                <img src="images/m1.jpg" alt=""/>
-                            </div>
-                            <div class="pic-info">
-                                <h5>John Doe</h5>
-                                <a href="#">CEO, THE RIVERS COMPANY</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="col-md-6 pricing-plans">
-                            <p>Suspendisse potenti. Nulla facilisi. In imperdiet lacinia venenatis. Nulla justo nunc, fermentum vitae enim sit amet,
-                                condimentum dapibus urna. Nam eget purus sed.</p>
-                            <div class="pic1">
-                                <img src="images/m2.jpg" alt=""/>
-                            </div>
-                            <div class="pic-info">
-                                <h5>John Doe</h5>
-                                <a href="#">CEO, THE RIVERS COMPANY</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </li>
-                    <li>
-                        <div class="col-md-6 pricing-plans">
-                            <p>Suspendisse potenti. Nulla facilisi. In imperdiet lacinia venenatis. Nulla justo nunc, fermentum vitae amet,
-                                condimentum dapibus urna. Nam eget purus sed.</p>
-                            <div class="pic1">
-                                <img src="images/m2.jpg" alt=""/>
-                            </div>
-                            <div class="pic-info">
-                                <h5>John Doe</h5>
-                                <a href="#">CEO, THE RIVERS COMPANY</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="col-md-6 pricing-plans">
-                            <p>Fusce ultrices, arcu nec semper facilisi. In imperdiet lacinia venenatis. Nulla justo nunc, fermentum vitae amet,
-                                condimentum dapibus urna. Nam eget purus sed.</p>
-                            <div class="pic1">
-                                <img src="images/m1.jpg" alt=""/>
-                            </div>
-                            <div class="pic-info">
-                                <h5>John Doe</h5>
-                                <a href="#">CEO, THE RIVERS COMPANY</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </li>
-                    <li>
-                        <div class="col-md-6 pricing-plans">
-                            <p>Duis eget urna ultricies facilisi In imperdiet lacinia venenatis. Nulla justo nunc, fermentum vitae enim sit amet,
-                                condimentum dapibus urna. Nam eget purus sed.</p>
-                            <div class="pic1">
-                                <img src="images/m1.jpg" alt=""/>
-                            </div>
-                            <div class="pic-info">
-                                <h5>John Doe</h5>
-                                <a href="#">CEO, THE RIVERS COMPANY</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="col-md-6 pricing-plans">
-                            <p>Suspendisse potenti. Nulla facilisi. In imperdiet lacinia venenatis. Nulla justo nunc, fermentum vitae enim amet,
-                                condimentum dapibus urna. Nam eget purus sed.</p>
-                            <div class="pic1">
-                                <img src="images/m3.jpg" alt=""/>
-                            </div>
-                            <div class="pic-info">
-                                <h5>John Doe</h5>
-                                <a href="#">CEO, THE RIVERS COMPANY</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </li>
-                </ul>
-            </div>
-            <!-- end slider -->
-        </div>
-    </div>
-</div>
-<!---->
-<div id="contact" class="contact">
-    <div class="container">
-        <h3>Contact</h3>
-        <div class="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6139400.007323361!2d12.573610799999999!3d41.292460049999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12d4fe82448dd203%3A0xe22cf55c24635e6f!2sItaly!5e0!3m2!1sen!2sin!4v1432959759826" style="border:0"></iframe>
-        </div>
-        <form>
-            <div class="col-md-6 contact-left">
-                <input type="text" placeholder="Name" required/>
-                <input type="text" placeholder="Email" required/>
-                <input type="text" placeholder="Phone" required/>
-            </div>
-            <div class="col-md-6 contact-right">
-                <textarea placeholder="Message"></textarea>
-                <input type="submit" value="SEND"/>
-            </div>
-            <div class="clearfix"></div>
-        </form>
-    </div>
-</div>
-<!---->
-<div class="footer">
-    <div class="container">
-        <div class="copywrite">
-            <p> © Submarine | +38 063 03 86 173 | submarine.lviv@gmail.com</p>
-        </div>
-        <!-- 		 <div class="social">
-                        <a href="#"><i class="facebook"></i></a>
-                        <a href="#"><i class="twitter"></i></a>
-                        <a href="#"><i class="dribble"></i></a>
-                        <a href="#"><i class="google"></i></a>
-                        <a href="#"><i class="youtube"></i></a>
-                 </div>
-         -->		 <div class="clearfix"></div>
-    </div>
-</div>
-<script type="text/javascript">
-    $(document).ready(function() {
-        /*
-        var defaults = {
-        containerID: 'toTop', // fading element id
-        containerHoverID: 'toTopHover', // fading element hover id
-        scrollSpeed: 1200,
-        easingType: 'linear'
-        };
-        */
-        $().UItoTop({ easingType: 'easeOutQuart' });
-    });
-</script>
-<a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-<!---->
-</body>
+				</section>
+
+			<!-- Main -->
+			<article id="main">
+
+					<!-- Two -->
+						<section class="wrapper style1 container special">
+							<div class="row">
+<!-- 								<div class="4u 12u(narrower)">
+
+									<section>
+										<span class="icon featured fa-check"></span>
+										<header>
+											<h3>Олександр Лесюк, студент НУ ЛП</h3>
+										</header>
+										<p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+									</section>
+
+								</div>
+
+-->								<div class="12u 12u(narrower)">
+
+									<section>
+										<span class="icon featured fa-check"></span>
+										<header>
+											<h3>Богдан Варщук, CTO Teamvoy</h3>
+										</header>
+										<p>У @bohdAq просто божественні млинці із фруктами на сніданок ^_^</p>
+									</section>
+
+								</div>
+<!-- 								<div class="4u 12u(narrower)">
+
+									<section>
+										<span class="icon featured fa-check"></span>
+										<header>
+											<h3>Катя Янчук, студентка УКУ</h3>
+										</header>
+										<p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+									</section>
+
+								</div> -->							</div>
+						</section>
+
+				</article>
+
+				
+
+			<!-- CTA -->
+				*{<section id="cta">}*
+
+					*{<header>}*
+						*{<h2>Хочеш відслідкувати <strong>стан замовлення</strong>?</h2>}*
+						*{<p>Дізнайся етап приготування млинців та розташування велокур'єра</p>}*
+					*{</header>}*
+					*{<footer>}*
+						*{<ul class="buttons">}*
+							*{<li><a href="#" class="button special">Перевірити</a></li>}*
+							*{<!-- <li><a href="#" class="button">LOL Wut</a></li> -->}*
+						*{</ul>}*
+					*{</footer>}*
+
+				*{</section>}*
+
+			<!-- Footer -->
+				<footer id="footer">
+
+					<ul class="icons">
+						<li><a href="https://twitter.com/bohdAq" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.facebook.com/bogdan.tsap" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="https://github.com/bohdaq/submarine" class="icon circle fa-github"><span class="label">Github</span></a></li>
+					</ul>
+
+					<ul class="copyright">
+						<li>&copy; Submarine </li> <li> +380630386173 </li> <li>bohdaq@gmail.com</li> <li>Дизайн: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="public/assets/js/jquery.min.js"></script>
+			<script src="public/assets/js/jquery.dropotron.min.js"></script>
+			<script src="public/assets/js/jquery.scrolly.min.js"></script>
+			<script src="public/assets/js/jquery.scrollgress.min.js"></script>
+			<script src="public/assets/js/skel.min.js"></script>
+			<script src="public/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="public/assets/js/main.js"></script>
+
+	</body>
 </html>
