@@ -13,6 +13,24 @@
 		<link rel="stylesheet" href="public/assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="public/assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="public/assets/css/ie9.css" /><![endif]-->
+        <script type="text/javascript">
+            function getPaymentForm(){
+                var name = document.getElementById('name').value;
+                var phone = document.getElementById('phone').value;
+                var address = document.getElementById('address').value;
+                var numOfPortions = document.getElementById('numOfPortions').value;
+
+                var url = "getForm?name=" + name +
+                            "&phone=" + phone +
+                            "&address=" + address +
+                            "&numberOfPortions=" + numOfPortions;
+
+                $.get( url, function( data ) {
+                    $("#formContainer").append(data);
+                    $("#formContainer").children()[0].submit()
+                });
+            }
+        </script>
 	</head>
 	<body class="index">
 		<div id="page-wrapper">
@@ -77,15 +95,15 @@
 						</div>
 						
 						<div id="pagetwoorder">
-							<input required type="text" placeholder="Ім'я"/>
+							<input id="name" required type="text" placeholder="Ім'я"/>
 							<br />
-							<input required type="text" placeholder="Телефон"/>
+							<input id="phone" required type="text" placeholder="Телефон"/>
 							<br />
-							<input required type="text" placeholder="Адреса"/>
+							<input id="address" required type="text" placeholder="Адреса"/>
 							<br />
-							<input required type="text" placeholder="Кількість порцій"/>
+							<input id="numOfPortions" required type="text" placeholder="Кількість порцій"/>
 							<br />
-							<p>Ціна: <strong>99</strong> грн</p>
+							<p>Ціна: <strong id="price">99</strong> грн</p>
 							<footer>
 								<ul class="buttons vertical">
 									<li><a href="#main" class="button fit scrolly">Оплатити</a></li>
@@ -179,6 +197,10 @@
 				</footer>
 
 		</div>
+
+        <div style="display: none;" id="formContainer">
+
+        </div>
 
 		<!-- Scripts -->
 			<script src="public/assets/js/jquery.min.js"></script>

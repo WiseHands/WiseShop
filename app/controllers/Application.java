@@ -34,9 +34,9 @@ public class Application extends Controller {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(new String(decodedBytes));
         Long orderId = (Long) jsonObject.get("order_id");
-        Order order = Order.findById(orderId);
-        order.payment = "Done";
-        order.delivery = "In queue To Cook";
+        OrderModel orderItem = OrderModel.findById(orderId);
+        orderItem.payment = "Done";
+        orderItem.delivery = "In queue To Cook";
 
         System.out.println("\n\n\nApplication.success " + sign);
        ok();
@@ -44,27 +44,27 @@ public class Application extends Controller {
     public static void makePaymentForm(String name, String phone, String address, Integer numberOfPortions){
         long timeOfADeal = new Date().getTime();
 
-        Order order = new Order();
-        order.name = name;
-        order.phone = phone;
-        order.address = address;
-        order.numOfPortions = numberOfPortions;
-        order.payment = "Waiting for payment";
-        order.delivery = "Not Started";
-        order.time = timeOfADeal;
-        order.save();
+        OrderModel orderItem = new OrderModel();
+        orderItem.name = name;
+        orderItem.phone = phone;
+        orderItem.address = address;
+        orderItem.numOfPortions = numberOfPortions;
+        orderItem.payment = "Waiting for payment";
+        orderItem.delivery = "Not Started";
+        orderItem.time = timeOfADeal;
+        orderItem.save();
 
         HashMap params = new HashMap();
         params.put("version", "3");
-        params.put("amount", 99 * order.numOfPortions);
+        params.put("amount", 99 * orderItem.numOfPortions);
         params.put("currency", "UAH");
-        params.put("description", order.name + order.phone + order.address + order.numOfPortions + order.time);
-        params.put("order_id", order.getId());
+        params.put("description", orderItem.name + orderItem.phone + orderItem.address + orderItem.numOfPortions + orderItem.time);
+        params.put("order_id", orderItem.getId());
+        params.put("sandbox", "1");
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
         System.out.println(html);
-        String json = new JSONObject().put("form", html.replaceAll("\"", "\'")).toString();
-        System.out.println(json);
+        renderHtml(html);
     }
 
 }
