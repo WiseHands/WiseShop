@@ -37,6 +37,7 @@ public class Application extends Controller {
         OrderModel orderItem = OrderModel.findById(orderId);
         orderItem.payment = "Done";
         orderItem.delivery = "In queue To Cook";
+        orderItem.save();
 
         System.out.println("\n\n\nApplication.success " + sign);
        ok();
