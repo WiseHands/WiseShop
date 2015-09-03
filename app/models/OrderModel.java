@@ -11,6 +11,5 @@ public class OrderModel extends Model {
     public String address;
     public Integer numOfPortions;
     public Long time;
-    public String payment;
-    public String delivery;
+    public String status;
 }

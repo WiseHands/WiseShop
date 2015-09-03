@@ -30,6 +30,11 @@
                     $("#formContainer").children()[0].submit()
                 });
             }
+            function displayActualPrice(){
+                var numOfPortions = document.getElementById('numOfPortions').value;
+                var price = document.getElementById('price');
+                price.textContent = numOfPortions * 25;
+            }
         </script>
 	</head>
 	<body class="index">
@@ -37,7 +42,7 @@
 
 			<!-- Header -->
 				<header id="header" class="alt">
-					<h1 id="logo"><a href="index.html">Їжа з доставкою по Львову</span></a></h1>
+					<h1 id="logo"><a href="/">Їжа з доставкою по Львову</span></a></h1>
 					<nav id="nav">
 						<ul>
 							<li class="current"><a href="#">Submarine</a></li>
@@ -77,16 +82,16 @@
 					<div class="inner">
 						<div id="pageoneorder">
 							<header>
-								<h2>3 Млинці</h2>
+								<h2>Млинець</h2>
 							</header>
 							<p><strong>цільнозерновe</strong> борошно,
 							<br />
 							нутелла, банани, апельсини
 							<br />
 							фініки, кунжут, родзинки
-							<br />
-							<hr />
-							Ціна (з доставкою): 99 грн.</p>
+							*{<br />}*
+							*{<hr />}*
+							*{Ціна (з доставкою): 99 грн.</p>}*
 							<footer>
 								<ul class="buttons vertical">
 									<li><a href="#" onclick="showSecondPage();" class="button fit scrolly">Замовити</a></li>
@@ -98,15 +103,18 @@
 							<input id="name" required type="text" placeholder="Ім'я"/>
 							<br />
 							<input id="phone" required type="text" placeholder="Телефон"/>
+                            <br />
+                            <input onchange="displayActualPrice();" id="numOfPortions" required type="text" placeholder="Кількість млинців"/>
+                            <br />
+                            <input id="email" required type="text" placeholder="Email"/>
+                            <br />
+                            <input id="address" required type="text" placeholder="Адреса"/>
 							<br />
-							<input id="address" required type="text" placeholder="Адреса"/>
-							<br />
-							<input id="numOfPortions" required type="text" placeholder="Кількість порцій"/>
-							<br />
-							<p>Ціна: <strong id="price">99</strong> грн</p>
+                            <textarea placeholder="Коментар"></textarea>
+							<p>Ціна: <strong id="price">0</strong> грн</p>
 							<footer>
 								<ul class="buttons vertical">
-									<li><a onclick="getPaymentForm();" href="#main" class="button fit scrolly">Оплатити</a></li>
+									<li><a onclick="getPaymentForm();" class="button fit scrolly">Оплатити</a></li>
 								</ul>
 							</footer>
 							<br />

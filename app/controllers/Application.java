@@ -35,8 +35,7 @@ public class Application extends Controller {
         JSONObject jsonObject = (JSONObject) parser.parse(new String(decodedBytes));
         Long orderId = Long.parseLong(jsonObject.get("order_id").toString());
         OrderModel orderItem = OrderModel.findById(orderId);
-        orderItem.payment = "Done";
-        orderItem.delivery = "In queue To Cook";
+        orderItem.status = "Payment Done";
         orderItem.save();
 
         System.out.println("\n\n\nApplication.success " + sign);
@@ -50,14 +49,13 @@ public class Application extends Controller {
         orderItem.phone = phone;
         orderItem.address = address;
         orderItem.numOfPortions = numberOfPortions;
-        orderItem.payment = "Waiting for payment";
-        orderItem.delivery = "Not Started";
+        orderItem.status = "Waiting for payment";
         orderItem.time = timeOfADeal;
         orderItem.save();
 
         HashMap params = new HashMap();
         params.put("version", "3");
-        params.put("amount", 99 * orderItem.numOfPortions);
+        params.put("amount", 25 * orderItem.numOfPortions);
         params.put("currency", "UAH");
         params.put("description", orderItem.name + orderItem.phone + orderItem.address + orderItem.numOfPortions + orderItem.time);
         params.put("order_id", orderItem.getId());
