@@ -5,6 +5,7 @@
 # Home page
 GET     /                                       Application.index
 *    /success                                Application.success
+GET     /admin                                  Application.admin
 GET     /getForm                                Application.makePaymentForm
 
 # Ignore favicon requests

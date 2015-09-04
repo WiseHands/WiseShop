@@ -16,10 +16,16 @@ public class Application extends Controller {
 
     private static final String PUBLIC_KEY = Play.configuration.getProperty("liqpay.public.key");
     private static final String PRIVATE_KEY = Play.configuration.getProperty("liqpay.private.key");
+    private static final String SANDBOX = Play.configuration.getProperty("liqpay.sandbox");
 
     public static void index() {
         render();
     }
+
+    public static void admin() {
+        render();
+    }
+
     public static void success(String data) throws ParseException {
         final LiqPayLocal liqpay = new LiqPayLocal(PUBLIC_KEY, PRIVATE_KEY);
 
@@ -55,11 +61,13 @@ public class Application extends Controller {
 
         HashMap params = new HashMap();
         params.put("version", "3");
-        params.put("amount", 25 * orderItem.numOfPortions);
+        int price = 25 * orderItem.numOfPortions;
+        double finalPrice = price + price*2.75;
+        params.put("amount", finalPrice);
         params.put("currency", "UAH");
         params.put("description", orderItem.name + orderItem.phone + orderItem.address + orderItem.numOfPortions + orderItem.time);
         params.put("order_id", orderItem.getId());
-        params.put("sandbox", "1");
+        params.put("sandbox", SANDBOX);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
         System.out.println(html);
