@@ -62,7 +62,7 @@ public class Application extends Controller {
         HashMap params = new HashMap();
         params.put("version", "3");
         int price = 25 * orderItem.numOfPortions;
-        double finalPrice = price + price*2.75;
+        double finalPrice = price + price*0.0275;
         params.put("amount", finalPrice);
         params.put("currency", "UAH");
         params.put("description", orderItem.name + orderItem.phone + orderItem.address + orderItem.numOfPortions + orderItem.time);
