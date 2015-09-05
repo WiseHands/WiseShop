@@ -1,10 +1,13 @@
 package controllers;
 
 import com.liqpay.LiqPay;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import play.*;
+import play.libs.Mail;
 import play.mvc.*;
 import org.apache.commons.codec.binary.Base64;
 
@@ -26,7 +29,7 @@ public class Application extends Controller {
         render();
     }
 
-    public static void success(String data) throws ParseException {
+    public static void success(String data) throws ParseException, EmailException {
         final LiqPayLocal liqpay = new LiqPayLocal(PUBLIC_KEY, PRIVATE_KEY);
 
         String sign = liqpay.strToSign(
@@ -44,13 +47,30 @@ public class Application extends Controller {
         orderItem.status = "Payment Done";
         orderItem.save();
 
+        SimpleEmail email = new SimpleEmail();
+        email.setFrom("bohdaq@gmail.com");
+        email.addTo("bohdaq@gmail.com");
+        email.setSubject("Нове замовлення");
+        email.setMsg("Order id: " + orderId);
+        Mail.send(email);
+
+        email = new SimpleEmail();
+        email.setFrom("bohdaq@gmail.com");
+        email.addTo(orderItem.email);
+        email.setSubject("Ваше замовлення успішно оплачено");
+        email.setMsg("Order id: " + orderId);
+        Mail.send(email);
+
+
+
         System.out.println("\n\n\nApplication.success " + sign);
        ok();
     }
-    public static void makePaymentForm(String name, String phone, String address, Integer numberOfPortions){
+    public static void makePaymentForm(String name, String phone, String address, String email, Integer numberOfPortions){
         long timeOfADeal = new Date().getTime();
 
         OrderModel orderItem = new OrderModel();
+        orderItem.email = email;
         orderItem.name = name;
         orderItem.phone = phone;
         orderItem.address = address;
