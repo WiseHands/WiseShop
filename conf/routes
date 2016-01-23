@@ -4,8 +4,10 @@
 
 # Home page
 GET     /                                       Application.index
-*    /success                                Application.success
+GET     /ru                                       Application.indexRu
+*    /success                                	Application.success
 GET     /admin                                  Application.admin
+GET     /mail                                  	Application.email
 GET     /getForm                                Application.makePaymentForm
 
 # Ignore favicon requests

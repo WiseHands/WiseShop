@@ -25,6 +25,10 @@ public class Application extends Controller {
         render();
     }
 
+    public static void indexRu() {
+        render();
+    }
+
     public static void admin() {
         render();
     }
@@ -45,7 +49,7 @@ public class Application extends Controller {
         Long orderId = Long.parseLong(jsonObject.get("order_id").toString());
         OrderModel orderItem = OrderModel.findById(orderId);
         orderItem.status = "Payment Done";
-        orderItem.save();
+        //orderItem.save();
 
         SimpleEmail email = new SimpleEmail();
         email.setFrom("bohdaq@gmail.com");
@@ -56,7 +60,8 @@ public class Application extends Controller {
 
         email = new SimpleEmail();
         email.setFrom("bohdaq@gmail.com");
-        email.addTo(orderItem.email);
+        email.addTo("hello@happybag.me");
+        email.addTo("sviatoslav.p5@gmail.com");
         email.setSubject("Ваше замовлення успішно оплачено");
         email.setMsg("Order id: " + orderId);
         Mail.send(email);
@@ -66,32 +71,31 @@ public class Application extends Controller {
         System.out.println("\n\n\nApplication.success " + sign);
        ok();
     }
-    public static void makePaymentForm(String name, String phone, String address, String email, Integer numberOfPortions){
-        long timeOfADeal = new Date().getTime();
-
-        OrderModel orderItem = new OrderModel();
-        orderItem.email = email;
-        orderItem.name = name;
-        orderItem.phone = phone;
-        orderItem.address = address;
-        orderItem.numOfPortions = numberOfPortions;
-        orderItem.status = "Waiting for payment";
-        orderItem.time = timeOfADeal;
-        orderItem.save();
-
+    public static void makePaymentForm(Integer numberOfPortions){
         HashMap params = new HashMap();
         params.put("version", "3");
-        int price = 25 * orderItem.numOfPortions;
+        int price = 60 * numberOfPortions;
         double finalPrice = price + price*0.0275;
         params.put("amount", finalPrice);
         params.put("currency", "UAH");
-        params.put("description", orderItem.name + orderItem.phone + orderItem.address + orderItem.numOfPortions + orderItem.time);
-        params.put("order_id", orderItem.getId());
+        params.put("description", "sadsad");
+        params.put("order_id", 123132);
         params.put("sandbox", SANDBOX);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
         System.out.println(html);
         renderHtml(html);
+    }
+
+    public static void email() throws EmailException {
+        System.out.println("emailll\n\n\n2");
+
+        SimpleEmail email = new SimpleEmail();
+        email.setFrom("bohdaq@gmail.com");
+        email.addTo("bohdaq@gmail.com");
+        email.setSubject("Нове замовлення");
+        email.setMsg("Order id");
+        Mail.send(email);
     }
 
 }
