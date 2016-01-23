@@ -125,9 +125,10 @@
 									<a href="#contacts" >КОНТАКТЫ</a>
 									<ul>
 										<!-- <li style="opacity: 0.7;"><a href="#contacts" >НАШИ МАГАЗИНЫ</a></li> -->
-										<li style="opacity: 0.7;"><a href="#contacts" >ОПЛАТА</a></li>
-										<li style="opacity: 0.7;"><a href="#contacts" >ДОСТАВКА</a></li>
-										<li style="opacity: 0.7;"><a href="#contacts" >КОНТАКТЫ</a></li>
+										<li style="opacity: 0.7;"><a onclick="jQuery('#map').removeClass('showed');" href="#contacts" >ОПЛАТА</a></li>
+										<li style="opacity: 0.7;"><a onclick="jQuery('#map').removeClass('showed');" href="#contacts" >ДОСТАВКА</a></li>
+										<li style="opacity: 0.7;"><a onclick="jQuery('#map').removeClass('showed');" href="#contacts" >КОНТАКТЫ</a></li>
+										<li style="opacity: 0.7;"><a onclick="jQuery('#map').addClass('showed');" href="#contacts" >МАГАЗИНы</a></li>
 									</ul>
 								</li>
 								<li class="scroll_btn"><a href="/" >UA</a></li>
@@ -707,6 +708,7 @@
 						<p>г. Львов, ул. Героев Майдана 10 79012</p>
 						<p>+38 (093) 209 21 08</p>
 						<p><a href="mailto:hello@happybag.me">hello@happybag.me</a></p>
+						<input class="contact_btn" type="submit" onclick="jQuery('#map').addClass('showed');" value="Посмотреть магазиниы">
 						<ul class="social">
 							<li><a href="http://www.facebook.com/happybag.me"><i class="fa fa-facebook"></i></a></li>
 						</ul>
@@ -715,37 +717,12 @@
 			</div><!-- //ROW -->
 		</div><!-- //CONTAINER -->
 	</footer><!-- //FOOTER -->
-
-	<script type="text/javascript">
-            function getPaymentForm(){
-                var name = document.getElementById('name').value;
-                var phone = document.getElementById('phone').value;
-                var address = document.getElementById('address').value;
-                var numOfPortions = document.getElementById('numOfPortions').value;
-
-                var url = "getForm?name=" + name +
-                            "&phone=" + phone +
-                            "&address=" + address +
-                            "&numberOfPortions=" + numOfPortions;
-
-                $.get( url, function( data ) {
-                    $("#formContainer").append(data);
-                    $("#formContainer").children()[0].submit()
-                });
-            }
-            function displayActualPrice(){
-                var numOfPortions = document.getElementById('numOfPortions').value;
-                var price = document.getElementById('price');
-                price.textContent = numOfPortions * 25;
-            }
-        </script>
 	
 	
-	<!-- MAP -->
 	<div id="map">
 		<a class="map_hide" href="javascript:void(0);" ><i class="fa fa-angle-right"></i><i class="fa fa-angle-left"></i></a>
-		<iframe src="http://maps.google.com/maps?f=q&amp;give%20a%20hand=s_q&amp;hl=en&amp;geocode=&amp;q=london&amp;sll=37.0625,-95.677068&amp;sspn=42.631141,90.263672&amp;ie=UTF8&amp;hq=&amp;hnear=London,+United+Kingdom&amp;ll=51.500141,-0.126257&amp;spn=0.026448,0.039396&amp;z=14&amp;output=embed" ></iframe>
-	</div><!-- //MAP -->
+		<iframe src="https://www.google.com/maps/d/embed?mid=z38Pr2OpVPVA.kxlAaF59JNU8" ></iframe>
+	</div>
 
 </div>
 </body>

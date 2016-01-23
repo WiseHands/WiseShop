@@ -4,7 +4,8 @@
 
 # Home page
 GET     /                                       Application.index
-GET     /ru                                       Application.indexRu
+GET     /ru                                     Application.indexRu
+GET     /map                                    Application.map(format:'xml')
 *    /success                                	Application.success
 GET     /admin                                  Application.admin
 GET     /mail                                  	Application.email
