@@ -95,9 +95,25 @@
                                                 data-dismiss="modal"
                                                 aria-label="Close"><span aria-hidden="true">×</span>
                                         </button>
-                                        <h4 class="modal-title text-center" id="myModalLabel"><b>Тип доставки</b></h4>
+                                        <h4 class="modal-title text-center" id="myModalLabel"><b>Оформлення замовлення</b></h4>
                                     </div>
                                     <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Ім'я</label>
+                                            <input type="email" class="form-control"
+                                                   id="exampleInputEmail1"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Номер телефону</label>
+                                            <input type="email" class="form-control"
+                                                   id="exampleInputEmail1"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Адреса</label>
+                                            <input type="password" class="form-control"
+                                                   id="exampleInputPassword1"/>
+                                        </div>
+                                        <label>Тип доставки</label>
                                         <label class="radio">
                                             <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER">
                                             <i>Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)</i>
@@ -111,6 +127,8 @@
                                             <i>Самовивіз</i>
                                         </label>
                                     </div>
+
+
                                     <div class="modal-footer">
                                         <h3 class="modal-total"><strong>{{total + " " + delivery()}} грн</strong></h3>
                                         <button type="button" class="btn btn-success" ng-click="makeOrder()">Оплатити <span class="glyphicon glyphicon-play"></button>
