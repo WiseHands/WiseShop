@@ -106,7 +106,13 @@ public class Application extends Controller {
         System.out.println("\n\n\nApplication.success " + sign);
        ok();
     }
-    public static void pay(String deliveryType) throws ParseException {
+    public static void pay(String deliveryType, String name, String phone, String address) throws ParseException {
+        System.out.println(name);
+        System.out.println(phone);
+        System.out.println(address);
+
+        //TODO: add validation
+
         JSONParser parser = new JSONParser();
         JSONArray jsonArray = (JSONArray) parser.parse(params.get("body"));
 
@@ -133,27 +139,27 @@ public class Application extends Controller {
         //SAVING ORDER TO DB
         OrderModel orderModel = new OrderModel();
         orderModel.price = totalCost;
+        orderModel.name = name;
+        orderModel.phone = phone;
+        orderModel.address = address;
+        orderModel = orderModel.save();
 
         //LIQPAY:
         HashMap params = new HashMap();
         params.put("version", "3");
         params.put("amount", totalCost);
         params.put("currency", "UAH");
-        params.put("description", "sadsad");
-        params.put("order_id", 2);
+        params.put("description", "sadsad"); //TODO: description
+        params.put("order_id", orderModel.id);
         params.put("sandbox", SANDBOX);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
-        System.out.println(html);
+
+//        JSONObject response = new JSONObject();
+//        response.put("status", "ok");
+//        response.put("form", html);
+
         renderHtml(html);
-
-
-
-
-        renderJSON(jsonArray.toString());
-
-
-
     }
 
     public static void email() throws EmailException {

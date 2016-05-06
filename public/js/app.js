@@ -145,21 +145,48 @@
             };
 
             $scope.makeOrder = function (){
-                var urlParams = encodeURIComponent(
-                                '?deliveryType=' + $scope.delivery.radio
-                                + '&name=' + $scope.name +
-                                + '&phone' + $scope.phone +
-                                + 'address' + $scope.address);
+                var params = {
+                    deliveryType: $scope.delivery.radio,
+                    phone: $scope.phone,
+                    name: $scope.name,
+                    address: $scope.address
+                };
+
+                var encodedParams = encodeQueryData(params);
+
                 $http({
                     method: 'POST',
-                    url: '/pay' + urlParams,
+                    url: '/pay?' + encodedParams,
                     data: $scope.selectedItems
                 })
-                .success(function (data) {
-                    console.log(data);
-                })
+                .then(function successCallback(response) {
+                    $scope.successfullResponse = true;
+                    var modalContent = document.querySelector(".proceedWithPayment");
+                    debugger;
+                    modalContent.innerHTML = response.data;
+                    modalContent.firstChild.style.textAlign = 'center';
+
+                    document.querySelector('.toPayment').style.display = 'none';
+                }, function errorCallback(data) {
+                    $scope.successfullResponse = false;
+
+                    document.querySelector('.toPayment').style.display = 'block';
+                });
             };
 
         });
 
 })();
+
+// Usage:
+//   var data = { 'first name': 'George', 'last name': 'Jetson', 'age': 110 };
+//   var querystring = EncodeQueryData(data);
+//
+function encodeQueryData(data)
+{
+    var ret = [];
+    for (var d in data)
+        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return ret.join("&");
+}
+
