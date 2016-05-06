@@ -92,7 +92,7 @@
 
             $scope.delivery = function () {
                 if ($scope.delivery.radio === 'NOVAPOSHTA'){
-                   return '≈ + 25';
+                   return '+ ≈25';
                 } else if ($scope.delivery.radio === 'COURIER') {
                     if($scope.total < $scope.minOrderForFreeDelivery){
                         return ' + 35';
@@ -145,9 +145,14 @@
             };
 
             $scope.makeOrder = function (){
+                var urlParams = encodeURIComponent(
+                                '?deliveryType=' + $scope.delivery.radio
+                                + '&name=' + $scope.name +
+                                + '&phone' + $scope.phone +
+                                + 'address' + $scope.address);
                 $http({
                     method: 'POST',
-                    url: '/pay?deliveryType=' + $scope.delivery.radio, //selfTake of novaPoshta
+                    url: '/pay' + urlParams,
                     data: $scope.selectedItems
                 })
                 .success(function (data) {

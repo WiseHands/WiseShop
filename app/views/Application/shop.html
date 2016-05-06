@@ -99,21 +99,23 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Ім'я</label>
-                                            <input type="email" class="form-control"
-                                                   id="exampleInputEmail1"/>
+                                            <label>Ім'я
+                                                <input class="form-control" ng-model="name"/>
+                                            </label>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Номер телефону</label>
-                                            <input type="email" class="form-control"
-                                                   id="exampleInputEmail1"/>
+                                            <label>Номер телефону
+                                                <input class="form-control" ng-model="phone"/>
+                                            </label>
+
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Адреса</label>
-                                            <input type="password" class="form-control"
-                                                   id="exampleInputPassword1"/>
+                                            <label for="address">Адреса</label>
+                                            <input class="form-control"
+                                                   id="address"
+                                                   ng-model="address"/>
                                         </div>
-                                        <label>Тип доставки</label>
+                                        <label class="deliveryType">Тип доставки</label>
                                         <label class="radio">
                                             <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER">
                                             <i>Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)</i>
