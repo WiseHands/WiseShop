@@ -5,11 +5,12 @@
 # Home page
 GET     /                                       Application.index
 GET     /ru                                     Application.indexRu
+GET     /shop                                   Application.shop
 GET     /map                                    Application.map(format:'xml')
 *    /success                                	Application.success
 GET     /admin                                  Application.admin
 GET     /mail                                  	Application.email
-GET     /getForm                                Application.makePaymentForm
+POST     /pay                                    Application.pay
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -3,6 +3,8 @@ package controllers;
 import com.liqpay.LiqPay;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
+import org.hibernate.criterion.Order;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -21,6 +23,31 @@ public class Application extends Controller {
     private static final String PRIVATE_KEY = Play.configuration.getProperty("liqpay.private.key");
     private static final String SANDBOX = Play.configuration.getProperty("liqpay.sandbox");
 
+    private static final Integer FREESHIPPINGMINCOST = 501;
+
+
+    private class DeliveryType {
+        private static final String NOVAPOSHTA = "NOVAPOSHTA";
+        private static final String SELFTAKE = "SELFTAKE";
+        private static final String COURIER = "COURIER";
+    }
+
+    private static final Map<Integer, Integer> priceInfo;
+    static
+    {
+        priceInfo = new HashMap<Integer, Integer>();
+        priceInfo.put(1, 60);
+        priceInfo.put(2, 7);
+        priceInfo.put(3, 50);
+        priceInfo.put(4, 50);
+        priceInfo.put(5, 50);
+        priceInfo.put(6, 50);
+        priceInfo.put(7, 50);
+        priceInfo.put(8, 50);
+        priceInfo.put(9, 6);
+        priceInfo.put(10, 50);
+    }
+
     public static void index() {
         render();
     }
@@ -30,6 +57,10 @@ public class Application extends Controller {
     }
 
     public static void indexRu() {
+        render();
+    }
+
+    public static void shop() {
         render();
     }
 
@@ -75,20 +106,54 @@ public class Application extends Controller {
         System.out.println("\n\n\nApplication.success " + sign);
        ok();
     }
-    public static void makePaymentForm(Integer numberOfPortions){
+    public static void pay(String deliveryType) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray = (JSONArray) parser.parse(params.get("body"));
+
+        int totalCost = 0;
+
+        for (ListIterator iter = jsonArray.listIterator(); iter.hasNext(); ) {
+            JSONObject element = (JSONObject) iter.next();
+//            System.out.println(element.get("productId"));
+            int productId = Integer.parseInt(element.get("productId").toString());
+            int quantity = Integer.parseInt(element.get("quantity").toString());
+            totalCost += priceInfo.get(productId) * quantity;
+        }
+
+        if (deliveryType.equals(DeliveryType.NOVAPOSHTA)){
+            totalCost += 25;
+        } else if (deliveryType.equals(DeliveryType.COURIER)){
+            if (totalCost < FREESHIPPINGMINCOST){
+                totalCost += 35;
+            }
+        }
+
+        System.out.println("TOTAL COST: " + totalCost);
+
+        //SAVING ORDER TO DB
+        OrderModel orderModel = new OrderModel();
+        orderModel.price = totalCost;
+
+        //LIQPAY:
         HashMap params = new HashMap();
         params.put("version", "3");
-        int price = 60 * numberOfPortions;
-        double finalPrice = price + price*0.0275;
-        params.put("amount", finalPrice);
+        params.put("amount", totalCost);
         params.put("currency", "UAH");
         params.put("description", "sadsad");
-        params.put("order_id", 123132);
+        params.put("order_id", 2);
         params.put("sandbox", SANDBOX);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
         System.out.println(html);
         renderHtml(html);
+
+
+
+
+        renderJSON(jsonArray.toString());
+
+
+
     }
 
     public static void email() throws EmailException {

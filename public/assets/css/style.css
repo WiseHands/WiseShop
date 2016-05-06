@@ -1,0 +1,55 @@
+﻿
+/* =============================================================
+   GENERAL STYLES
+ ============================================================ */
+body {
+    font-family: 'Open Sans', sans-serif;
+   
+}
+.pad-top {
+    padding-top:60px;
+}
+.text-center {
+    text-align:center;
+}
+/*TO SET SOME SPACE AT BOTTOM OF BUTTON*/
+.btn {
+    margin-bottom:10px;
+    display: inline;
+}
+/*TO MAKE HEADING TEXT COLORED*/
+h2,.h2 {
+    padding:20px;
+    color: #F00;
+}
+
+/*TO CREATE SPACE BETWEEN ROW*/
+.pad-row {
+    padding-top:20px;
+    padding-bottom:20px;
+
+}
+.fixed-height {
+    height: 75px;
+}
+.price-alignment {
+    padding-bottom: 8px;
+    padding-left: 10px;
+    display: block;
+}
+.btn-sm {
+    display: block;
+}
+/*avoiding horizontal scrolling*/
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+/*modal price padding before Orderbutton*/
+.modal-total {
+    display: inline;
+    padding-right: 10px;
+}
+.media {
+    max-width: 60%;
+}
