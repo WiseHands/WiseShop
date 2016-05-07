@@ -7,10 +7,12 @@ GET     /                                       Application.index
 GET     /ru                                     Application.indexRu
 GET     /shop                                   Application.shop
 GET     /map                                    Application.map(format:'xml')
-*    /success                                	Application.success
+*       /success                                Application.success
 GET     /admin                                  Application.admin
 GET     /mail                                  	Application.email
-POST     /pay                                    Application.pay
+POST    /pay                                    Application.pay
+*       /done                                   Application.done
+*       /fail                                   Application.fail
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

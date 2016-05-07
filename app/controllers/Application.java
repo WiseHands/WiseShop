@@ -12,6 +12,7 @@ import play.*;
 import play.libs.Mail;
 import play.mvc.*;
 import org.apache.commons.codec.binary.Base64;
+import java.util.UUID;
 
 import java.util.*;
 
@@ -61,6 +62,14 @@ public class Application extends Controller {
     }
 
     public static void shop() {
+        render();
+    }
+
+    public static void done() {
+        render();
+    }
+
+    public static void fail() {
         render();
     }
 
@@ -142,6 +151,8 @@ public class Application extends Controller {
         orderModel.name = name;
         orderModel.phone = phone;
         orderModel.address = address;
+        String uuid = UUID.randomUUID().toString();
+        orderModel.uuid = uuid;
         orderModel = orderModel.save();
 
         //LIQPAY:
@@ -150,7 +161,7 @@ public class Application extends Controller {
         params.put("amount", totalCost);
         params.put("currency", "UAH");
         params.put("description", "sadsad"); //TODO: description
-        params.put("order_id", orderModel.id);
+        params.put("order_id", uuid);
         params.put("sandbox", SANDBOX);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);

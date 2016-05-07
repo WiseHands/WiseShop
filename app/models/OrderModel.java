@@ -10,6 +10,7 @@ public class OrderModel extends Model {
     public String email;
     public String phone;
     public String address;
+    public String uuid;
     public Integer price;
     public Long time;
     public String status;
