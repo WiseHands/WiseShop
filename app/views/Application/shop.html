@@ -19,9 +19,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">HappyBag</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="glyphicon glyphicon-shopping-cart"></span>
             </button>
         </div>
         <div class="navbar-collapse collapse">
@@ -93,7 +91,6 @@
             </div>
         </div>
     </nav>
-
     <div class="row">
         <div class="{{container}}">
                 <div class="row  pad-row row-centered">
@@ -131,8 +128,7 @@
                                            ng-model="item.quantity"
                                            ng-init="item.quantity=1"
                                            ng-change="calculateTotal()"
-                                           min="1"
-                                    >
+                                           min="1">
                                 </td>
                                 <td class="col-sm-1 col-md-1 text-center"><strong>{{item.price}}</strong></td>
                                 <td class="col-sm-1 col-md-1 text-center"><strong>{{item.quantity * item.priceNum}} грн</strong></td>
@@ -153,14 +149,12 @@
                                 <td>   </td>
                                 <td>   </td>
                                 <td>
-
                                 <td>
                                     <button type="button"
                                             class="btn btn-success pull-right btn-sm"
                                             data-toggle="modal"
                                             data-target="#preOrderModal"
-                                            ng-click="courierCondition()"
-                                    >
+                                            ng-click="courierCondition()">
                                         Замовити <span class="glyphicon glyphicon-play"></span>
                                     </button></td>
                             </tr>
@@ -170,7 +164,6 @@
                 </div>
         </div>
     </div>
-
     <div class="modal fade" id="preOrderModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -193,7 +186,6 @@
                             <label>Номер телефону
                                 <input class="form-control" ng-model="phone"/>
                             </label>
-
                         </div>
                         <div class="form-group">
                             <label for="address">Адреса</label>
@@ -216,11 +208,8 @@
                         </label>
                     </div>
                     <div class="proceedWithPayment" ng-show="successfullResponse">
-
                     </div>
                 </div>
-
-
                 <div class="modal-footer">
                     <h3 class="modal-total"><strong>{{total + " " + delivery()}} грн</strong></h3>
                     <button type="button" class="btn btn-success toPayment" ng-click="makeOrder()">До Оплати <span class="glyphicon glyphicon-play"></button>
