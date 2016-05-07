@@ -24,17 +24,13 @@
         </div>
         <div class="navbar-collapse collapse">
             <div class="navbar-header navbar-right">
-                <div class="col-md-6 contact" ng-show="showList">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-10">
-                            <table class="table table-hover">
+                            <table class="col-md-12 table table-hover" ng-show="showList">
                                 <thead>
                                 <tr>
                                     <th>Товар</th>
                                     <th>Кількість</th>
                                     <th class="text-center">Ціна</th>
                                     <th class="text-center">Разом</th>
-                                    <th> </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -61,33 +57,22 @@
                                         </button></td>
                                 </tr>
                                 <tr>
-                                    <td>   </td>
-                                    <td>   </td>
-                                    <td>   </td>
-                                    <td><h3>Ціна без доставки</h3></td>
-                                    <td class="text-right"><h3><strong>{{total}} грн</strong></h3></td>
-                                </tr>
-                                <tr>
-                                    <td>   </td>
-                                    <td>   </td>
-                                    <td>   </td>
+                                    <td><p>Ціна без доставки</p></td>
+                                    <td class="text-right"><p><strong>{{total}} грн</strong></p></td>
                                     <td>
-
+                                    </td>
                                     <td>
                                         <button type="button"
-                                                class="btn btn-success pull-right btn-sm"
+                                                class="btn btn-success btn-sm"
                                                 data-toggle="modal"
-                                                data-target="#preOrderModal"
-                                                ng-click="courierCondition()">
+                                                data-target="#preOrderModal">
                                             Замовити <span class="glyphicon glyphicon-play"></span>
                                         </button>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </nav>
@@ -153,8 +138,7 @@
                                     <button type="button"
                                             class="btn btn-success pull-right btn-sm"
                                             data-toggle="modal"
-                                            data-target="#preOrderModal"
-                                            ng-click="courierCondition()">
+                                            data-target="#preOrderModal">
                                         Замовити <span class="glyphicon glyphicon-play"></span>
                                     </button></td>
                             </tr>
