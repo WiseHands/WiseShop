@@ -106,12 +106,12 @@
             };
 
             $scope.selectedItems = [];
-            $scope.leftSideView = "col-md-2 col-sm-6";
+            $scope.leftSideView = "col-md-2 col-sm-4 col-xs-6";
             $scope.container = "col-md-12";
             $scope.showList = false;
             $scope.buyStart = function (index, $event) {
-                if ($scope.leftSideView === "col-md-2 col-sm-6") {
-                    $scope.leftSideView = "col-md-3 col-sm-6";
+                if ($scope.leftSideView === "col-md-2 col-sm-4 col-xs-6") {
+                    $scope.leftSideView = "col-md-3 col-sm-4 col-xs-6";
                     $scope.container = "col-md-6";
                     $scope.showList = true;
                 }
@@ -130,7 +130,7 @@
                 $scope.selectedItems.splice(index, 1);
                 $scope.calculateTotal();
                 if($scope.selectedItems.length == 0) {
-                    $scope.leftSideView = "col-md-2 col-sm-6";
+                    $scope.leftSideView = "col-md-2 col-sm-4 col-xs-6";
                     $scope.container = "col-md-12";
                     $scope.showList = false;
                 }

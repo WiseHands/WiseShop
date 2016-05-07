@@ -14,9 +14,145 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
 </head>
-<body ng-app="sweety">
+<body ng-app="sweety" ng-controller="ListViewController as list">
 
-<div class="row"  ng-controller="ListViewController as list">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Brand</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse">
+        <div class="navbar-header navbar-right">
+            <div class="col-md-6" ng-show="showList">
+                <div class="row">
+                    <div class="col-sm-12 col-md-10">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Товар</th>
+                                <th>Кількість</th>
+                                <th class="text-center">Ціна</th>
+                                <th class="text-center">Разом</th>
+                                <th> </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in selectedItems">
+                                <td class="col-sm-8 col-md-6">
+                                    <div class="media">
+                                        <img class="img-responsive img-thumbnail" ng-src="{{item.image}}">
+                                    </div>
+                                </td>
+                                <td class="col-sm-1 col-md-1">
+                                    <input type="number"
+                                           class="form-control"
+                                           ng-model="item.quantity"
+                                           ng-init="item.quantity=1"
+                                           ng-change="calculateTotal()"
+                                           min="1"
+                                    >
+                                </td>
+                                <td class="col-sm-1 col-md-1 text-center"><strong>{{item.price}}</strong></td>
+                                <td class="col-sm-1 col-md-1 text-center"><strong>{{item.quantity * item.priceNum}} грн</strong></td>
+                                <td class="col-sm-1 col-md-1">
+                                    <button type="button" class="btn btn-danger btn-sm" ng-click="removeSelectedItem($index)">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Видалити
+                                    </button></td>
+                            </tr>
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td><h3>Ціна без доставки</h3></td>
+                                <td class="text-right"><h3><strong>{{total}} грн</strong></h3></td>
+                            </tr>
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>
+
+                                <td>
+                                    <button type="button"
+                                            class="btn btn-success pull-right btn-sm"
+                                            data-toggle="modal"
+                                            data-target="#preOrderModal"
+                                            ng-click="courierCondition()"
+                                    >
+                                        Замовити <span class="glyphicon glyphicon-play"></span>
+                                    </button></td>
+                            </tr>
+                            <div class="modal fade" id="preOrderModal" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button"
+                                                    class="close"
+                                                    data-dismiss="modal"
+                                                    aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title text-center" id="myModalLabel"><b>Оформлення замовлення</b></h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="fillingInfo" ng-hide="successfullResponse">
+                                                <div class="form-group">
+                                                    <label>Ім'я
+                                                        <input class="form-control" ng-model="name"/>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Номер телефону
+                                                        <input class="form-control" ng-model="phone"/>
+                                                    </label>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="address">Адреса</label>
+                                                    <input class="form-control"
+                                                           id="address"
+                                                           ng-model="address"/>
+                                                </div>
+                                                <label class="deliveryType">Тип доставки</label>
+                                                <label class="radio">
+                                                    <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER">
+                                                    <i>Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)</i>
+                                                </label>
+                                                <label class="radio">
+                                                    <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA">
+                                                    <i>Замовити доставку до найближчого відділення Нової Пошти - від 25 грн, при попередній оплаті через картку Приват Банку</i>
+                                                </label>
+                                                <label class="radio">
+                                                    <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE">
+                                                    <i>Самовивіз</i>
+                                                </label>
+                                            </div>
+                                            <div class="proceedWithPayment" ng-show="successfullResponse">
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="modal-footer">
+                                            <h3 class="modal-total"><strong>{{total + " " + delivery()}} грн</strong></h3>
+                                            <button type="button" class="btn btn-success toPayment" ng-click="makeOrder()">До Оплати <span class="glyphicon glyphicon-play"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="row">
     <div class="{{container}}">
             <div class="row  pad-row row-centered">
                 <div class="{{leftSideView}}" ng-repeat="product in products">
@@ -27,7 +163,7 @@
                 </div>
             </div>
     </div>
-    <div class="col-md-6" ng-show="showList">
+    <div class="col-md-6 listView" ng-show="showList">
             <div class="row">
                 <div class="col-sm-12 col-md-10">
                     <table class="table table-hover">
