@@ -24,7 +24,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <div class="navbar-header navbar-right">
-                <div class="col-md-6" ng-show="showList">
+                <div class="col-md-6 contact" ng-show="showList">
                     <div class="row">
                         <div class="col-sm-12 col-md-10">
                             <table class="table table-hover">
@@ -57,7 +57,7 @@
                                     <td class="col-sm-1 col-md-1 text-center"><strong>{{item.quantity * item.priceNum}} грн</strong></td>
                                     <td class="col-sm-1 col-md-1">
                                         <button type="button" class="btn btn-danger btn-sm" ng-click="removeSelectedItem($index)">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Видалити
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </button></td>
                                 </tr>
                                 <tr>
@@ -91,7 +91,7 @@
             </div>
         </div>
     </nav>
-    <div class="row">
+    <div class="row sweetsList">
         <div class="{{container}}">
                 <div class="row  pad-row row-centered">
                     <div class="{{leftSideView}}" ng-repeat="product in products">
