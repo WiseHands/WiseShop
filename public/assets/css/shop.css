@@ -79,7 +79,7 @@ h2,.h2 {
     .navbar {
         display: block;
     }
-    .listView {
-        display: none;
-    }
+    /*.listView {*/
+        /*display: none;*/
+    /*}*/
 }
