@@ -162,7 +162,6 @@
                 .then(function successCallback(response) {
                     $scope.successfullResponse = true;
                     var modalContent = document.querySelector(".proceedWithPayment");
-                    debugger;
                     modalContent.innerHTML = response.data;
                     modalContent.firstChild.style.textAlign = 'center';
 
@@ -179,10 +178,6 @@
 
 })();
 
-// Usage:
-//   var data = { 'first name': 'George', 'last name': 'Jetson', 'age': 110 };
-//   var querystring = EncodeQueryData(data);
-//
 function encodeQueryData(data)
 {
     var ret = [];
