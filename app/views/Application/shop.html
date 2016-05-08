@@ -106,7 +106,7 @@
                                         <img class="img-responsive img-thumbnail" ng-src="{{item.image}}">
                                     </div>
                                 </td>
-                                <td><p>{{item.title}}</p></td>
+                                <td><p><i>{{item.title}}</i></p></td>
                                 <td class="col-sm-1 col-md-1">
                                     <input type="number"
                                            class="form-control"
@@ -162,42 +162,54 @@
                 </div>
                 <div class="modal-body">
                     <div class="fillingInfo" ng-hide="successfullResponse">
-                        <div class="form-group">
-                            <label>Ім'я
-                                <input class="form-control" ng-model="name"/>
+                        <form name="orderForm">
+                            <div class="form-group">
+                                <label>Ім'я
+                                    <input class="form-control" ng-model="name" type="text" name="name" ng-change="nameValidation()" required/>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Номер телефону
+                                    <input class="form-control"
+                                           type="number"
+                                           ng-model="phone"
+                                           name="phone"
+                                           placeholder="0931234567"
+                                           ng-minlength="10"
+                                           ng-maxlength="10"
+                                           required/>
+                                </label>
+                                <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 10 чисел</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Адреса</label>
+                                <input class="form-control"
+                                       id="address"
+                                       ng-model="address"
+                                       type="text"
+                                       required/>
+                            </div>
+                            <label class="deliveryType">Тип доставки</label>
+                            <label class="radio">
+                                <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER" ng-required="!delivery.radio">
+                                <i>Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)</i>
                             </label>
-                        </div>
-                        <div class="form-group">
-                            <label>Номер телефону
-                                <input class="form-control" ng-model="phone"/>
+                            <label class="radio">
+                                <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA" ng-required="!delivery.radio">
+                                <i>Замовити доставку до найближчого відділення Нової Пошти - від 25 грн, при попередній оплаті через картку ПриватБанку</i>
                             </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Адреса</label>
-                            <input class="form-control"
-                                   id="address"
-                                   ng-model="address"/>
-                        </div>
-                        <label class="deliveryType">Тип доставки</label>
-                        <label class="radio">
-                            <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER">
-                            <i>Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)</i>
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA">
-                            <i>Замовити доставку до найближчого відділення Нової Пошти - від 25 грн, при попередній оплаті через картку Приват Банку</i>
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE">
-                            <i>Самовивіз</i>
-                        </label>
+                            <label class="radio">
+                                <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">
+                                <i>Самовивіз</i>
+                            </label>
+                        </form>
                     </div>
                     <div class="proceedWithPayment" ng-show="successfullResponse">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <h3 class="modal-total"><strong>{{total + " " + delivery()}} грн</strong></h3>
-                    <button type="button" class="btn btn-success toPayment" ng-click="makeOrder()">До Оплати <span class="glyphicon glyphicon-play"></button>
+                    <button type="button" class="btn btn-success toPayment" ng-click="makeOrder()" ng-disabled="orderForm.$invalid">До Оплати <span class="glyphicon glyphicon-play"></button>
                 </div>
             </div>
         </div>

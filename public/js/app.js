@@ -90,6 +90,7 @@
 
             ];
 
+            $scope.nameValidation
             $scope.delivery = function () {
                 if ($scope.delivery.radio === 'NOVAPOSHTA'){
                    return '+ ≈25';
