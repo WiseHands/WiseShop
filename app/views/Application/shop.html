@@ -101,7 +101,7 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="item in selectedItems">
-                                <td class="col-sm-8 col-md-6">
+                                <td class="col-sm-8 col-md-2">
                                     <div class="media">
                                         <img class="img-responsive img-thumbnail" ng-src="{{item.image}}">
                                     </div>
@@ -124,10 +124,16 @@
                             </tr>
                             <tr>
                                 <td>   </td>
-                                <td>   </td>
-                                <td>   </td>
-                                <td><h3>Ціна без доставки</h3></td>
-                                <td class="text-right"><h3><strong>{{total}} грн</strong></h3></td>
+                                <td><h4>Ціна без доставки</h4></td>
+                                <td><h4><strong>{{total}} грн</strong></td>
+                                <td></td>
+                                <td class="text-right"></h3></td>
+                                <td><button type="button"
+                                            class="btn btn-success pull-right btn-sm"
+                                            data-toggle="modal"
+                                            data-target="#preOrderModal">
+                                    <span class="glyphicon glyphicon-play"></span> Замовити
+                                </button></td>
                             </tr>
                             <tr>
                                 <td>   </td>
@@ -135,12 +141,8 @@
                                 <td>   </td>
                                 <td>
                                 <td>
-                                    <button type="button"
-                                            class="btn btn-success pull-right btn-sm"
-                                            data-toggle="modal"
-                                            data-target="#preOrderModal">
-                                        <span class="glyphicon glyphicon-play"></span> Замовити
-                                    </button></td>
+                                    </td>
+                                <td
                             </tr>
                             </tbody>
                         </table>
