@@ -51,7 +51,7 @@ h2,.h2 {
     padding-right: 10px;
 }
 .media {
-    max-width: 70%;
+    max-width: 85%;
 }
 /*navbar hiding*/
 .navbar {
@@ -78,15 +78,19 @@ h2,.h2 {
 @media (max-width: 992px) {
     .navbar {
         display: block;
+        margin-bottom: 3em;
     }
     .listView {
         display: none;
             }
-    .collapse {
-        margin-left: 0px;
-        margin-right: 0px;
-    }
-    .sweetsList {
-        margin-top: 3em;
-    }
+    /*.collapse {*/
+        /*margin-left: 0px;*/
+        /*margin-right: 0px;*/
+    /*}*/
+    /*.sweetsList {*/
+        /*margin-top: 3em;*/
+    /*}*/
+    /*.xsListView {*/
+        /*margin-top: 3 em;*/
+    /*}*/
 }

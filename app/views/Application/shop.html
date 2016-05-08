@@ -15,7 +15,7 @@
 
 </head>
 <body ng-app="sweety" ng-controller="ListViewController as list">
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-show="showList">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">HappyBag</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-show="showList">
@@ -24,7 +24,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <div class="navbar-header navbar-right">
-                            <table class="col-md-12 table table-hover" ng-show="showList">
+                            <table class="col-md-12 table table-hover xsListView">
                                 <thead>
                                 <tr>
                                     <th>Товар</th>
@@ -86,13 +86,13 @@
                     </div>
                 </div>
         </div>
-        <div class="col-md-6 listView" ng-show="showList">
-                <div class="row">
-                    <div class="col-sm-12 col-md-10">
+                <div class="row listView" ng-show="showList">
+                    <div class="col-sm-6 col-md-6">
                         <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th>Товар</th>
+                                <th>Назва</th>
                                 <th>Кількість</th>
                                 <th class="text-center">Ціна</th>
                                 <th class="text-center">Разом</th>
@@ -106,6 +106,7 @@
                                         <img class="img-responsive img-thumbnail" ng-src="{{item.image}}">
                                     </div>
                                 </td>
+                                <td><p>{{item.title}}</p></td>
                                 <td class="col-sm-1 col-md-1">
                                     <input type="number"
                                            class="form-control"
@@ -138,14 +139,13 @@
                                             class="btn btn-success pull-right btn-sm"
                                             data-toggle="modal"
                                             data-target="#preOrderModal">
-                                        Замовити <span class="glyphicon glyphicon-play"></span>
+                                        <span class="glyphicon glyphicon-play"></span> Замовити
                                     </button></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-        </div>
     </div>
     <div class="modal fade" id="preOrderModal" aria-hidden="true">
         <div class="modal-dialog">
