@@ -30,7 +30,7 @@ h2,.h2 {
 
 }
 .fixed-height {
-    height: 50px;
+    height: 60px;
 }
 .price-alignment {
     padding-bottom: 8px;
@@ -75,30 +75,23 @@ h2,.h2 {
 .navbar-collapse.collapse.in{
     display:block !important;
 }
-@media (max-width: 992px) {
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
     .navbar {
         display: block;
         margin-bottom: 3em;
     }
     .listView {
         display: none;
-            }
-    /*.collapse {*/
-        /*margin-left: 0px;*/
-        /*margin-right: 0px;*/
-    /*}*/
-    /*.sweetsList {*/
-        /*margin-top: 3em;*/
-    /*}*/
-    /*.xsListView {*/
-        /*margin-top: 3 em;*/
-    /*}*/
+    }
+    .fixed-height {
+        height: 5.5em;
+    }
+    .buy-margin {
+        margin-top: 3em;
+    }
 }
-/*validation styling*/
-/*input.ng-dirty {*/
-    /*border: 1px solid red;*/
-/*}*/
-
+/*hiding Google logo*/
 .pac-container {
     z-index: 2000;
 }

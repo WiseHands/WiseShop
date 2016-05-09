@@ -76,10 +76,10 @@
         </div>
     </nav>
     <div class="row sweetsList">
-        <div class="{{container}}">
+        <div class="{{container}}" ng-class="{'buy-margin': showList}">
                 <div class="row  pad-row row-centered">
-                    <div class="{{leftSideView}}" ng-repeat="product in products">
-                        <img ng-src="{{product.image}}" class="img-responsive img-thumbnail" alt=""></img>
+                    <div class="{{leftSideView}} productsList well" ng-repeat="product in products">
+                        <img ng-src="{{product.image}}" class="img-responsive" alt=""></img>
                         <p class="text-center fixed-height"><i>{{product.title}}</i></p>
                         <p class="text-center price-alignment"><b>{{product.price}}</b></p>
                         <a href="#" class="btn btn-primary btn-sm" ng-click="buyStart($index, $event)">Придбати</a>
