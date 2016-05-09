@@ -118,6 +118,7 @@
                 }
                 if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
                     $scope.products[index].quantity = 1;
+                    // &scope.item.quantity ++;
                     $scope.selectedItems.push($scope.products[index]);
                     $scope.calculateTotal();
                 }

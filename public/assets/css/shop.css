@@ -30,7 +30,7 @@ h2,.h2 {
 
 }
 .fixed-height {
-    height: 75px;
+    height: 50px;
 }
 .price-alignment {
     padding-bottom: 8px;
@@ -98,3 +98,10 @@ h2,.h2 {
 /*input.ng-dirty {*/
     /*border: 1px solid red;*/
 /*}*/
+
+.pac-container {
+    z-index: 2000;
+}
+.pac-logo:after {
+    display: none !important;
+}
