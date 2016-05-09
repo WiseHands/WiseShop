@@ -76,7 +76,7 @@ h2,.h2 {
     display:block !important;
 }
 /* Smartphones (portrait) ----------- */
-@media only screen and (max-width : 440px) {
+@media only screen and (max-device-width : 480px) {
     .navbar {
         display: block;
         margin-bottom: 3em;
@@ -96,6 +96,42 @@ h2,.h2 {
     .media {
         max-width: 50%;
     }
+}
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-device-width: 568px) and (max-device-width: 767px){
+    .navbar {
+        display: block;
+        margin-bottom: 3em;
+    }
+    .navbar-collapse {
+        max-height: 15em;
+    }
+    .fixed-height {
+        height: 5.5em;
+    }
+    .buy-margin {
+        margin-top: 3em;
+    }
+    .listView {
+        display: none;
+    }
+    .img-responsive {
+        max-width: 50%;
+        display: inline;
+        float: left;
+    }
+    .media {
+        max-width: 30%;
+    }
+    .navbar-collapse {
+        max-height: 10.5em;
+    }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
+
+}
+.well {
+    background-color: white;
 }
 /*hiding Google logo*/
 .pac-container {
