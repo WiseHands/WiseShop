@@ -30,7 +30,7 @@ h2,.h2 {
 
 }
 .fixed-height {
-    height: 75px;
+    height: 6em;
 }
 .price-alignment {
     padding-bottom: 8px;
@@ -103,9 +103,6 @@ h2,.h2 {
         display: block;
         margin-bottom: 3em;
     }
-    .navbar-collapse {
-        max-height: 15em;
-    }
     .fixed-height {
         height: 5.5em;
     }
@@ -127,8 +124,26 @@ h2,.h2 {
         max-height: 10.5em;
     }
 }
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
-
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px){
+    .listView {
+        display: none;
+    }
+    .navbar {
+        display: block;
+        margin-bottom: 3em;
+    }
+    .buy-margin {
+        margin-top: 3em;
+    }
+    .media {
+        max-width: 10%;
+    }
+    .navbar-collapse {
+        max-height: 5em;
+    }
+    .fixed-height {
+        height: 3.5em;
+    }
 }
 .well {
     background-color: white;
