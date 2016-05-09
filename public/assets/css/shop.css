@@ -76,7 +76,7 @@ h2,.h2 {
     display:block !important;
 }
 /* Smartphones (portrait) ----------- */
-@media only screen and (max-width : 320px) {
+@media only screen and (max-width : 440px) {
     .navbar {
         display: block;
         margin-bottom: 3em;
