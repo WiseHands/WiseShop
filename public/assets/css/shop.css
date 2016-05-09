@@ -30,7 +30,7 @@ h2,.h2 {
 
 }
 .fixed-height {
-    height: 60px;
+    height: 75px;
 }
 .price-alignment {
     padding-bottom: 8px;
@@ -89,6 +89,12 @@ h2,.h2 {
     }
     .buy-margin {
         margin-top: 3em;
+    }
+    .navbar-collapse {
+        max-height: 15em;
+    }
+    .media {
+        max-width: 50%;
     }
 }
 /*hiding Google logo*/

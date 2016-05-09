@@ -25,14 +25,26 @@
         <div class="navbar-collapse collapse">
             <div class="navbar-header navbar-right">
                             <table class="col-md-12 table table-hover xsListView">
-                                <thead>
+                                <tr>
+                                    <td><p>Ціна без доставки</p></td>
+                                    <td class="text-right"><p><strong>{{total}} грн</strong></p></td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-success btn-sm"
+                                                data-toggle="modal"
+                                                data-target="#preOrderModal">
+                                            <span class="glyphicon glyphicon-play"></span>
+                                        </button>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th>Товар</th>
                                     <th>Кількість</th>
-                                    <th class="text-center">Ціна</th>
                                     <th class="text-center">Разом</th>
+                                    <th class="text-center"></th>
                                 </tr>
-                                </thead>
                                 <tbody>
                                 <tr ng-repeat="item in selectedItems">
                                     <td class="col-sm-8 col-md-6">
@@ -46,29 +58,13 @@
                                                ng-model="item.quantity"
                                                ng-init="item.quantity=1"
                                                ng-change="calculateTotal()"
-                                               min="1"
-                                        >
+                                               min="1">
                                     </td>
-                                    <td class="col-sm-1 col-md-1 text-center"><strong>{{item.price}}</strong></td>
-                                    <td class="col-sm-1 col-md-1 text-center"><strong>{{item.quantity * item.priceNum}} грн</strong></td>
+                                    <td class="text-center"><strong>{{item.quantity * item.priceNum}} грн</strong></td>
                                     <td class="col-sm-1 col-md-1">
                                         <button type="button" class="btn btn-danger btn-sm" ng-click="removeSelectedItem($index)">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </button></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Ціна без доставки</p></td>
-                                    <td class="text-right"><p><strong>{{total}} грн</strong></p></td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <button type="button"
-                                                class="btn btn-success btn-sm"
-                                                data-toggle="modal"
-                                                data-target="#preOrderModal">
-                                            Замовити <span class="glyphicon glyphicon-play"></span>
-                                        </button>
-                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
