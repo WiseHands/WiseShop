@@ -1,6 +1,9 @@
 /**
  * Created by Reverie on 04/28/2016.
  */
+function initAutocomplete() {
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode']});
+}
 (function(){
     angular.module('sweety', [])
         .controller('ListViewController', function($scope, $http) {
@@ -90,7 +93,34 @@
 
             ];
 
-            $scope.nameValidation
+            $scope.init = function() {
+                var placeSearch, autocomplete;
+                var componentForm = {
+                    street_number: 'short_name',
+                    route: 'long_name',
+                    locality: 'long_name',
+                    administrative_area_level_1: 'short_name',
+                    country: 'long_name',
+                    postal_code: 'short_name'
+                };
+
+                function geolocate() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            var geolocation = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+                            var circle = new google.maps.Circle({
+                                center: geolocation,
+                                radius: position.coords.accuracy
+                            });
+                            autocomplete.setBounds(circle.getBounds());
+                        });
+                    }
+                }
+            };
+
             $scope.delivery = function () {
                 if ($scope.delivery.radio === 'NOVAPOSHTA'){
                    return '+ ≈25';
