@@ -75,10 +75,8 @@
         <div class="{{container}}" ng-class="{'buy-margin': showList}">
                 <div class="row  pad-row row-centered">
                     <div class="{{leftSideView}} productsList well" ng-repeat="product in products">
-                        <div class="contentImg">
                             <img ng-src="{{product.image}}" class="img-responsive" alt=""></img>
                             <p class="text-center fixed-height"><i>{{product.title}}</i></p>
-                        </div>
                         <p class="text-center price-alignment"><b>{{product.price}}</b></p>
                         <a href="#" class="btn btn-primary btn-sm" ng-click="buyStart($index, $event)">Придбати</a>
                     </div>
@@ -97,8 +95,6 @@
                                 <th>
                                     <button type="button"
                                             class="btn btn-danger btn-xs"
-                                            data-toggle="modal"
-                                            data-target="#preOrderModal">
                                         <span class="glyphicon glyphicon-remove"></span> Видалити все
                                     </button>
                                 </th>
@@ -170,8 +166,8 @@
                     <div class="fillingInfo" ng-hide="successfullResponse">
                         <form name="orderForm">
                             <div class="form-group">
-                                <label>Ім'я
-                                    <input class="form-control" ng-model="name" type="text" name="name" ng-change="nameValidation()" required/>
+                                <label>П.І.П.
+                                    <input class="form-control" ng-model="name" type="text" name="name" placeholder="Петренко І. І." required/>
                                 </label>
                             </div>
                             <div class="form-group">
@@ -204,7 +200,7 @@
                             </label>
                             <label class="radio">
                                 <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA" ng-required="!delivery.radio">
-                                <i>Замовити доставку до найближчого відділення Нової Пошти - від 25 грн, при попередній оплаті через картку ПриватБанку</i>
+                                <i>Замовити доставку до найближчого відділення Нової Пошти - від 35 грн, при попередній оплаті через картку ПриватБанку</i>
                             </label>
                             <label class="radio">
                                 <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">
