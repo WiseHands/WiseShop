@@ -115,7 +115,7 @@ public class Application extends Controller {
         System.out.println("\n\n\nApplication.success " + sign);
        ok();
     }
-    public static void pay(String deliveryType, String name, String phone, String address) throws ParseException {
+    public static void pay(String deliveryType, String name, String phone, String address, String newPostDepartment) throws ParseException {
         System.out.println(name);
         System.out.println(phone);
         System.out.println(address);
@@ -136,7 +136,7 @@ public class Application extends Controller {
         }
 
         if (deliveryType.equals(DeliveryType.NOVAPOSHTA)){
-            totalCost += 25;
+            totalCost += 35;
         } else if (deliveryType.equals(DeliveryType.COURIER)){
             if (totalCost < FREESHIPPINGMINCOST){
                 totalCost += 35;
@@ -153,14 +153,16 @@ public class Application extends Controller {
         orderModel.address = address;
         String uuid = UUID.randomUUID().toString();
         orderModel.uuid = uuid;
+        orderModel.newPostDepartment = newPostDepartment;
         orderModel = orderModel.save();
+        System.out.println(orderModel);
 
         //LIQPAY:
         HashMap params = new HashMap();
         params.put("version", "3");
         params.put("amount", totalCost);
         params.put("currency", "UAH");
-        params.put("description", "sadsad"); //TODO: description
+        params.put("description", orderModel.name);
         params.put("order_id", uuid);
         params.put("sandbox", SANDBOX);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);

@@ -184,7 +184,8 @@ function initAutocomplete() {
                     deliveryType: $scope.delivery.radio,
                     phone: $scope.phone,
                     name: $scope.name,
-                    address: $scope.address
+                    address: $scope.address,
+                    newPostDepartment: $scope.delivery.newPost
                 };
 
                 var encodedParams = encodeQueryData(params);

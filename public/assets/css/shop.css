@@ -155,3 +155,6 @@ h2,.h2 {
 .pac-logo:after {
     display: none !important;
 }
+.newPost {
+    padding-left: 25px;
+}
