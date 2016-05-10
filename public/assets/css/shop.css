@@ -131,6 +131,13 @@ h2,.h2 {
     .navbar {
         display: block;
         margin-bottom: 3em;
+        overflow: hidden;
+        overflow-y: auto;
+        position: absolute;
+        width: 100%;
+    }
+    .navbarLandscapeScrollMaxHeight {
+        height: 19em;
     }
     .buy-margin {
         margin-top: 3em;
@@ -139,11 +146,12 @@ h2,.h2 {
         max-width: 10%;
     }
     .navbar-collapse {
-        max-height: 5em;
+        height: 5em;
     }
     .fixed-height {
         height: 3.5em;
     }
+
 }
 .well {
     background-color: white;

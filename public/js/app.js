@@ -171,6 +171,14 @@ function initAutocomplete() {
                 }
             };
 
+            $scope.removeAll = function () {
+                $scope.selectedItems.length = 0;
+                $scope.leftSideView = "col-md-2 col-sm-4 col-xs-6";
+                $scope.container = "col-md-12";
+                $scope.showList = false;
+
+            };
+
             $scope.calculateTotal = function(){
                 $scope.total = 0;
                 for(var i =0; i < $scope.selectedItems.length; i++){

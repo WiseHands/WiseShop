@@ -15,11 +15,11 @@
 
 </head>
 <body ng-app="sweety" ng-controller="ListViewController as list">
-    <nav class="navbar navbar-default navbar-fixed-top" ng-show="showList">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-show="showList" ng-class="{'navbarLandscapeScrollMaxHeight': landscapeScroll}">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">HappyBag</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-show="showList">
-                <span class="glyphicon glyphicon-shopping-cart"></span>
+                <span class="glyphicon glyphicon-shopping-cart" ng-click="landscapeScroll = !landscapeScroll" ng-init="landscapeScroll = false"></span>
             </button>
         </div>
         <div class="navbar-collapse collapse">
@@ -95,6 +95,8 @@
                                 <th>
                                     <button type="button"
                                             class="btn btn-danger btn-xs"
+                                            ng-show="selectedItems.length > 1"
+                                            ng-click="removeAll()"
                                         <span class="glyphicon glyphicon-remove"></span> Видалити все
                                     </button>
                                 </th>
