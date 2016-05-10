@@ -123,7 +123,7 @@ function initAutocomplete() {
 
             $scope.delivery = function () {
                 if ($scope.delivery.radio === 'NOVAPOSHTA'){
-                   return '+ ≈25';
+                   return '+ ≈35';
                 } else if ($scope.delivery.radio === 'COURIER') {
                     if($scope.total < $scope.minOrderForFreeDelivery){
                         return ' + 35';
@@ -153,6 +153,7 @@ function initAutocomplete() {
 
                 } else {
                     $scope.products[index].quantity ++;
+                    $scope.calculateTotal();
                 }
                 if ($event.stopPropagation) $event.stopPropagation();
                 if ($event.preventDefault) $event.preventDefault();
@@ -183,7 +184,8 @@ function initAutocomplete() {
                     deliveryType: $scope.delivery.radio,
                     phone: $scope.phone,
                     name: $scope.name,
-                    address: $scope.address
+                    address: $scope.address,
+                    newPostDepartment: $scope.delivery.newPost
                 };
 
                 var encodedParams = encodeQueryData(params);
