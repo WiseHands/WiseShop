@@ -204,7 +204,7 @@
                             </label>
                             <label class="newPost" ng-show="delivery.radio === 'NOVAPOSHTA'">
                                 <p>Введіть номер відділення Нової Пошти</p>
-                                <input type="text" ng-model="delivery.newPost">
+                                <input type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
                             </label>
                             <label class="radio">
                                 <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">
