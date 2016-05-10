@@ -166,3 +166,6 @@ h2,.h2 {
 .newPost {
     padding-left: 25px;
 }
+.modal-total {
+    display: inline-block;
+}
