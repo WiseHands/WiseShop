@@ -2,6 +2,7 @@
 .DS_Store
 *.ser
 *.pyc
+public/bower_components
 
 # Files related to Play build or usage
 id

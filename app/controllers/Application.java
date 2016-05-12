@@ -1,5 +1,7 @@
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.liqpay.LiqPay;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -49,6 +51,22 @@ public class Application extends Controller {
         priceInfo.put(10, 50);
     }
 
+    private static final Map<Integer, String> itemNameById;
+    static
+    {
+        itemNameById = new HashMap<Integer, String>();
+        itemNameById.put(1, "Шоколадки з передбаченнями «ТОРБА ЩАСТЯ»");
+        itemNameById.put(2, "Шоколадка з передбаченням");
+        itemNameById.put(3, "Набір шоколадок 7 сторін моєї любові");
+        itemNameById.put(4, "Набір шоколадок 7 сторін Любові");
+        itemNameById.put(5, "Набір шоколадок БУДДА");
+        itemNameById.put(6, "Набір шоколадок DRUZI");
+        itemNameById.put(7, "Набір шоколадок Маленький принц");
+        itemNameById.put(8, "Набір шоколадок «Мафія»");
+        itemNameById.put(9, "Печиво з передбаченням");
+        itemNameById.put(10, "ІМБИРКИ ЗІ ЛЬВОВА-печиво з передбаченнями");
+    }
+
     public static void index() {
         render();
     }
@@ -91,8 +109,8 @@ public class Application extends Controller {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(new String(decodedBytes));
         Long orderId = Long.parseLong(jsonObject.get("order_id").toString());
-        OrderModel orderItem = OrderModel.findById(orderId);
-        orderItem.status = "Payment Done";
+//        OrderModel orderItem = OrderModel.findById(orderId);
+//        orderItem.status = "Payment Done";
         //orderItem.save();
 
         SimpleEmail email = new SimpleEmail();
@@ -116,28 +134,35 @@ public class Application extends Controller {
        ok();
     }
     public static void pay(String deliveryType, String name, String phone, String address, String newPostDepartment) throws ParseException {
-        System.out.println(name);
-        System.out.println(phone);
-        System.out.println(address);
-
         //TODO: add validation
-
         JSONParser parser = new JSONParser();
         JSONArray jsonArray = (JSONArray) parser.parse(params.get("body"));
 
         int totalCost = 0;
 
+        OrderDTO orderDto = new OrderDTO();
+        orderDto = orderDto.save();
+
         for (ListIterator iter = jsonArray.listIterator(); iter.hasNext(); ) {
             JSONObject element = (JSONObject) iter.next();
-//            System.out.println(element.get("productId"));
+
             int productId = Integer.parseInt(element.get("productId").toString());
+            String title = itemNameById.get(productId);
             int quantity = Integer.parseInt(element.get("quantity").toString());
+
+            OrderItem orderItem = new OrderItem();
+            orderItem.title = title;
+            orderItem.quantity = quantity;
+            orderItem.order = orderDto;
+            orderDto.orders = new ArrayList<OrderItem>();
+            orderDto.orders.add(orderItem);
+
+            orderItem.save();
+
             totalCost += priceInfo.get(productId) * quantity;
         }
 
-        if (deliveryType.equals(DeliveryType.NOVAPOSHTA)){
-            totalCost += 35;
-        } else if (deliveryType.equals(DeliveryType.COURIER)){
+        if (deliveryType.equals(DeliveryType.COURIER)){
             if (totalCost < FREESHIPPINGMINCOST){
                 totalCost += 35;
             }
@@ -146,31 +171,26 @@ public class Application extends Controller {
         System.out.println("TOTAL COST: " + totalCost);
 
         //SAVING ORDER TO DB
-        OrderModel orderModel = new OrderModel();
-        orderModel.price = totalCost;
-        orderModel.name = name;
-        orderModel.phone = phone;
-        orderModel.address = address;
+        orderDto.total = Double.valueOf(totalCost);
+        orderDto.name = name;
+        orderDto.phone = phone;
+        orderDto.address = address;
         String uuid = UUID.randomUUID().toString();
-        orderModel.uuid = uuid;
-        orderModel.newPostDepartment = newPostDepartment;
-        orderModel = orderModel.save();
-        System.out.println(orderModel);
+        orderDto.uuid = uuid;
+        orderDto.departmentNumber = newPostDepartment;
+        orderDto = orderDto.save();
+        System.out.println(orderDto);
 
         //LIQPAY:
         HashMap params = new HashMap();
         params.put("version", "3");
         params.put("amount", totalCost);
         params.put("currency", "UAH");
-        params.put("description", orderModel.name);
+        params.put("description", orderDto.name);
         params.put("order_id", uuid);
         params.put("sandbox", SANDBOX);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
-
-//        JSONObject response = new JSONObject();
-//        response.put("status", "ok");
-//        response.put("form", html);
 
         renderHtml(html);
     }
@@ -184,6 +204,15 @@ public class Application extends Controller {
         email.setSubject("Нове замовлення");
         email.setMsg("Order id");
         Mail.send(email);
+    }
+
+    public static void orders() throws Exception {
+        List<OrderDTO> orders = OrderDTO.findAll();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(orders);
+
+        renderJSON(json);
     }
 
 }

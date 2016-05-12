@@ -10,6 +10,7 @@ GET     /map                                    Application.map(format:'xml')
 *       /success                                Application.success
 GET     /admin                                  Application.admin
 GET     /mail                                  	Application.email
+GET     /orders                                 Application.orders
 POST    /pay                                    Application.pay
 *       /done                                   Application.done
 *       /fail                                   Application.fail
