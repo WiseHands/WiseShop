@@ -141,6 +141,7 @@ public class Application extends Controller {
         int totalCost = 0;
 
         OrderDTO orderDto = new OrderDTO();
+        orderDto.orders = new ArrayList<OrderItem>();
         orderDto = orderDto.save();
 
         for (ListIterator iter = jsonArray.listIterator(); iter.hasNext(); ) {
@@ -154,7 +155,6 @@ public class Application extends Controller {
             orderItem.title = title;
             orderItem.quantity = quantity;
             orderItem.order = orderDto;
-            orderDto.orders = new ArrayList<OrderItem>();
             orderDto.orders.add(orderItem);
 
             orderItem.save();
