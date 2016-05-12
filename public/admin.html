@@ -38,10 +38,11 @@
                 last-response="{{data}}">
         </iron-ajax>
         <paper-datatable id="datatable" data="{{data}}" selectable multi-selection>
-            <paper-datatable-column header="П.І.П." property="name" type="String" sortable default="Default"></paper-datatable-column>
+            <paper-datatable-column header="П.І.П." property="name" type="String" sortable default="Не вказано"></paper-datatable-column>
             <paper-datatable-column header="Сума замовлення" property="total" type="Number" sortable default="1"></paper-datatable-column>
-            <paper-datatable-column header="Адреса" property="address" type="String" sortable default="Default"></paper-datatable-column>
-            <paper-datatable-column header="№ відділення" property="departmentNumber" type="String" sortable default="Default"></paper-datatable-column>
+            <paper-datatable-column header="Телефон" property="phone" type="String" sortable default="Не вказано"></paper-datatable-column>
+            <paper-datatable-column header="Адреса" property="address" type="String" sortable default="Не вказано"></paper-datatable-column>
+            <paper-datatable-column header="№ відділення" property="departmentNumber" type="String" sortable default="Не вказано"></paper-datatable-column>
             <paper-datatable-column header="Замовлення"
                                     property="orders"
                                     style="min-width: 300px" cell-style="font-family:monospace;"
