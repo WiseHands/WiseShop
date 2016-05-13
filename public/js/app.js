@@ -122,9 +122,7 @@ function initAutocomplete() {
             };
 
             $scope.delivery = function () {
-                if ($scope.delivery.radio === 'NOVAPOSHTA'){
-                   return '+ ≈35';
-                } else if ($scope.delivery.radio === 'COURIER') {
+                 if ($scope.delivery.radio === 'COURIER') {
                     if($scope.total < $scope.minOrderForFreeDelivery){
                         return ' + 35';
                     } else {
