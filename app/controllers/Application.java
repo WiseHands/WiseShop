@@ -218,11 +218,13 @@ public class Application extends Controller {
     }
 
     public static void login(String email, String password) throws Exception {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         String SVYAT = "sviatoslav.p5@gmail.com";
         String BOGDAN = "bohdaq@gmail.com";
         String VOVA = "patlavovach@gmail.com";
 
         String PASSWORD = "rjylbnth";
+
 
         if (email.equals(SVYAT) || email.equals(BOGDAN) || email.equals(VOVA)){
             if (password.equals(PASSWORD)) {
