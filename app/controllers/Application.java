@@ -28,6 +28,8 @@ public class Application extends Controller {
 
     private static final Integer FREESHIPPINGMINCOST = 501;
 
+    private static final String X_AUTH_TOKEN = "fa8426a0-8eaf-4d22-8e13-7c1b16a9370c";
+
 
     private class DeliveryType {
         private static final String NOVAPOSHTA = "NOVAPOSHTA";
@@ -213,6 +215,23 @@ public class Application extends Controller {
         String json = gson.toJson(orders);
 
         renderJSON(json);
+    }
+
+    public static void login(String email, String password) throws Exception {
+        String SVYAT = "sviatoslav.p5@gmail.com";
+        String BOGDAN = "bohdaq@gmail.com";
+        String VOVA = "patlavovach@gmail.com";
+
+        String PASSWORD = "rjylbnth";
+
+
+        if (email.equals(SVYAT) || email.equals(BOGDAN) || email.equals(VOVA)){
+            if (password.equals(PASSWORD)) {
+                renderJSON("{ \"status\": \"ok\", \"token\": \"" + X_AUTH_TOKEN + "\" }");
+            }
+        }
+
+        renderJSON("{ \"status\": \"error\", \"reason\": \"Wrong email and/or passkey\" }");
     }
 
 }

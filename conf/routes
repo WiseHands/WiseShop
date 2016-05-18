@@ -12,6 +12,8 @@ GET     /admin                                  Application.admin
 GET     /mail                                  	Application.email
 GET     /orders                                 Application.orders
 POST    /pay                                    Application.pay
+POST    /login                                  Application.login
+
 *       /done                                   Application.done
 *       /fail                                   Application.fail
 
