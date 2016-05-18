@@ -224,14 +224,13 @@ public class Application extends Controller {
 
         String PASSWORD = "rjylbnth";
 
-
         if (email.equals(SVYAT) || email.equals(BOGDAN) || email.equals(VOVA)){
             if (password.equals(PASSWORD)) {
-                renderJSON("{ \"status\": \"ok\", \"token\": \"" + X_AUTH_TOKEN + "\" }");
+                response.setHeader("X-AUTH-TOKEN", X_AUTH_TOKEN);
+                ok();
             }
         }
-
-        renderJSON("{ \"status\": \"error\", \"reason\": \"Wrong email and/or passkey\" }");
+        forbidden();
     }
 
 }
