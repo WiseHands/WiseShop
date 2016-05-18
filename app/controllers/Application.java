@@ -219,6 +219,7 @@ public class Application extends Controller {
 
     public static void login(String email, String password) throws Exception {
         response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
         String SVYAT = "sviatoslav.p5@gmail.com";
         String BOGDAN = "bohdaq@gmail.com";
         String VOVA = "patlavovach@gmail.com";
