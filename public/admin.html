@@ -34,6 +34,7 @@
         <iron-ajax
                 auto
                 url="/orders"
+                headers='{"X-AUTH-TOKEN": "{{token}}"}'
                 handle-as="json"
                 last-response="{{data}}">
         </iron-ajax>
@@ -73,6 +74,14 @@
 
                 Polymer({
                     is: 'admin-view',
+
+                    properties: {
+                        token: {
+                            type: String,
+                            value: window.sessionStorage.token,
+                            notify: true
+                        }
+                    },
 
                     ready: function () {
                         this.formatVal = function(value){
