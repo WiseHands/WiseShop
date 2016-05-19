@@ -8,11 +8,14 @@ GET     /ru                                     Application.indexRu
 GET     /shop                                   Application.shop
 GET     /map                                    Application.map(format:'xml')
 *       /success                                Application.success
+
 GET     /admin                                  Application.admin
+GET     /login                                  Application.login
+
 GET     /mail                                  	Application.email
 GET     /orders                                 Application.orders
 POST    /pay                                    Application.pay
-POST    /login                                  Application.login
+POST    /signin                                 Application.signin
 
 *       /done                                   Application.done
 *       /fail                                   Application.fail

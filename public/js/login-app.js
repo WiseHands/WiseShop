@@ -1,0 +1,36 @@
+(function () {
+    angular.module('sweety', [])
+        .controller('ListViewController', function($scope, $http, $window) {
+            $scope.logIn = function (){
+                var params = {
+                    email: $scope.email,
+                    password: $scope.password
+                };
+
+                var encodedParams = encodeQueryData(params);
+
+                $http({
+                    method: 'POST',
+                    url: 'http://happybag.me/signin?' + encodedParams
+                })
+                    .success(function (data, status, headers, config) {
+                        var token = headers("X-AUTH-TOKEN");
+                        console.log(token);
+                        $window.sessionStorage.token = token;
+                        $window.location.href = 'http://happybag.me/public/admin.html';
+                    }).
+                error(function (data, status) {
+                    console.log(JSON.stringify(data));
+                    console.log(JSON.stringify(status));
+                    $scope.deniedMsg = true;
+                });
+            };
+        })
+})();
+function encodeQueryData(data)
+{
+    var ret = [];
+    for (var d in data)
+        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return ret.join("&");
+}

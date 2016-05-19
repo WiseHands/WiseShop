@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login form</title>
+    <link href="/public/css/login-style.css" rel="stylesheet">
+</head>
+<body ng-app="sweety" ng-controller="ListViewController">
+<h1 class="register-title">Login</h1>
+<form class="register" name="loginForm">
+    <input label="Email" type="email" placeholder="Email address" ng-model="email" class="register-input" required>
+    <input label="Password" type="password" placeholder="Password" ng-model="password" class="register-input" required>
+    <input type="submit" value="Sign In" class="register-button" ng-click="logIn()" ng-disabled="loginForm.$invalid">
+    <p class="deniedMsg" ng-show="deniedMsg">Access denied!</p>
+</form>
+<script type="text/javascript" src="/public/js/angular.js"></script>
+<script type="text/javascript" src="/public/js/login-app.js"></script>
+</body>
+</html>

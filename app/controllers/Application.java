@@ -69,6 +69,12 @@ public class Application extends Controller {
         itemNameById.put(10, "ІМБИРКИ ЗІ ЛЬВОВА-печиво з передбаченнями");
     }
 
+    @Before
+    static void corsHeaders() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
+    }
+
     public static void index() {
         render();
     }
@@ -96,6 +102,11 @@ public class Application extends Controller {
     public static void admin() {
         render();
     }
+
+    public static void login() {
+        render();
+    }
+
 
     public static void success(String data) throws ParseException, EmailException {
         final LiqPayLocal liqpay = new LiqPayLocal(PUBLIC_KEY, PRIVATE_KEY);
@@ -217,9 +228,7 @@ public class Application extends Controller {
         renderJSON(json);
     }
 
-    public static void login(String email, String password) throws Exception {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
+    public static void signin(String email, String password) throws Exception {
         String SVYAT = "sviatoslav.p5@gmail.com";
         String BOGDAN = "bohdaq@gmail.com";
         String VOVA = "patlavovach@gmail.com";
