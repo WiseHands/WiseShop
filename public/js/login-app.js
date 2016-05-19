@@ -17,7 +17,7 @@
                         var token = headers("X-AUTH-TOKEN");
                         console.log(token);
                         $window.sessionStorage.token = token;
-                        $window.location.href = 'http://happybag.me/public/admin.html';
+                        $window.location.href = 'http://happybag.me/admin';
                     }).
                 error(function (data, status) {
                     console.log(JSON.stringify(data));

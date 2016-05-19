@@ -1,3 +1,34 @@
-<body>
-opop
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <![endif]-->
+    <title>HappyBag</title>
+    <link href="public/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="public/css/admin.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body ng-app="adminView" ng-controller="AdminController">
+    <h3 class="text-center">Замовлення:</h3>
+    <h4 class="text-center"><i>{{status}}</i></h4>
+    <div class="well margin-well" ng-repeat="item in orders">
+        <div class="row row-centered">
+            <div class="col-xs-6">
+                <h4>{{item.name}}</h4>
+            </div>
+            <div class="col-xs-6">
+                <h4 class="text-right">{{item.total}} грн</h4>
+            </div>
+        </div>
+    </div>
+<script src="public/js/angular.js"></script>
+<script src="public/assets/plugins/jquery-1.10.2.js"></script>
+<script src="public/assets/plugins/bootstrap.js"></script>
+<script src="public/js/admin.js"></script>
 </body>
+</html>
