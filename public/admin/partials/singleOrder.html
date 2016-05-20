@@ -1,0 +1,20 @@
+<div class="well margin-well">
+    <div class="row text-center">
+        <div class="col-xs-12">
+            <h4 class="tagPadding"><b>П.І.П. замовника: </b><p><i>{{order.name}}</i></p></h4>
+            <h4 class="tagPadding"><b>Номер телефону: </b><p><i>{{order.phone}}</i></p></h4>
+            <h4 class="tagPadding" ng-show="order.deliveryType === 'COURIER' || order.deliveryType === 'SELFTAKE'"><b>Адреса: </b><p><i>{{order.address}}</i></p></h4>
+            <h4 class="tagPadding" ng-show="order.deliveryType === 'NOVAPOSHTA'"><b>Номер відділення: </b><p><i>{{order.departmentNumber}}</i></p></h4>
+            <h4 class="tagPadding"><b>Сума замовлення: </b><p><i>{{order.total}} грн</i></p></h4>
+            <h4><b>Замовлення: </b></h4>
+                <div class="row" ng-repeat="chocolate in order.orders">
+                    <div class="col-xs-6">
+                        <p>{{chocolate.title}}</p>
+                    </div>
+                    <div class="col-xs-6">
+                        <p>{{chocolate.quantity}} шт.</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

@@ -14,6 +14,7 @@ GET     /login                                  Application.login
 
 GET     /mail                                  	Application.email
 GET     /orders                                 Application.orders
+GET     /order/{id}                             Application.order
 POST    /pay                                    Application.pay
 POST    /signin                                 Application.signin
 

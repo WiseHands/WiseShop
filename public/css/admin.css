@@ -2,5 +2,11 @@
 .margin-well {
     margin-left: 1.5em;
     margin-right: 1.5em;
+    margin-top: 1.5em;
+
+}
+p {
+    padding-top: 1em;
+    padding-bottom: 1em;
 
 }

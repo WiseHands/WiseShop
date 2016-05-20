@@ -6,6 +6,7 @@ import play.db.jpa.Model;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class OrderDTO extends Model {
@@ -20,6 +21,9 @@ public class OrderDTO extends Model {
 
     @Expose
     public String address;
+
+    @Expose
+    public String deliveryType;
 
     @Expose
     public Long time;

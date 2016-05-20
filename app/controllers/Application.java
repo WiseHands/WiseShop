@@ -176,9 +176,14 @@ public class Application extends Controller {
         }
 
         if (deliveryType.equals(DeliveryType.COURIER)){
+            orderDto.deliveryType = DeliveryType.COURIER;
             if (totalCost < FREESHIPPINGMINCOST){
                 totalCost += 35;
             }
+        } else if(deliveryType.equals(DeliveryType.NOVAPOSHTA)){
+            orderDto.deliveryType = DeliveryType.NOVAPOSHTA;
+        } else {
+            orderDto.deliveryType = DeliveryType.SELFTAKE;
         }
 
         System.out.println("TOTAL COST: " + totalCost);
@@ -224,6 +229,15 @@ public class Application extends Controller {
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(orders);
+
+        renderJSON(json);
+    }
+
+    public static void order(String id) throws Exception {
+        OrderDTO order = OrderDTO.find("byUuid",id).first();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(order);
 
         renderJSON(json);
     }

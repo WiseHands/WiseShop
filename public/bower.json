@@ -21,6 +21,7 @@
     "paper-dialog-scrollable": "*",
     "paper-button": "*",
     "paper-input": "*",
-    "iron-ajax": "*"
+    "iron-ajax": "*",
+    "angular-route": "1.4.x"
   }
 }
