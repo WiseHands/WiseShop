@@ -146,10 +146,16 @@ public class Application extends Controller {
         System.out.println("\n\n\nApplication.success " + sign);
        ok();
     }
-    public static void pay(String deliveryType, String name, String phone, String address, String newPostDepartment) throws ParseException {
+    public static void pay() throws ParseException {
         //TODO: add validation
         JSONParser parser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) parser.parse(params.get("body"));
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        String deliveryType = (String) jsonBody.get("deliveryType");
+        String name = (String) jsonBody.get("name");
+        String phone = (String) jsonBody.get("phone");
+        String address = (String) jsonBody.get("address");
+        String newPostDepartment = (String) jsonBody.get("newPostDepartment");
+        JSONArray jsonArray = (JSONArray) jsonBody.get("selectedItems");
 
         int totalCost = 0;
 

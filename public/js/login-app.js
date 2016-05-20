@@ -11,13 +11,13 @@
 
                 $http({
                     method: 'POST',
-                    url: 'http://happybag.me/signin?' + encodedParams
+                    url: '/signin?' + encodedParams
                 })
                     .success(function (data, status, headers, config) {
                         var token = headers("X-AUTH-TOKEN");
                         console.log(token);
                         $window.sessionStorage.token = token;
-                        $window.location.href = 'http://happybag.me/admin';
+                        $window.location.href = '/admin';
                     }).
                 error(function (data, status) {
                     console.log(JSON.stringify(data));

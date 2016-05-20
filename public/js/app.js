@@ -188,18 +188,19 @@ function initAutocomplete() {
             $scope.makeOrder = function (){
                 var params = {
                     deliveryType: $scope.delivery.radio,
-                    phone: $scope.phone,
+                    phone: new String($scope.phone),
                     name: $scope.name,
                     address: $scope.address,
-                    newPostDepartment: $scope.delivery.newPost
+                    newPostDepartment: $scope.delivery.newPost,
+                    selectedItems: $scope.selectedItems
                 };
 
                 var encodedParams = encodeQueryData(params);
 
                 $http({
                     method: 'POST',
-                    url: '/pay?' + encodedParams,
-                    data: $scope.selectedItems
+                    url: '/pay',
+                    data: params
                 })
                 .then(function successCallback(response) {
                     $scope.successfullResponse = true;
