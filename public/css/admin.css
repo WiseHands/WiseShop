@@ -2,11 +2,16 @@
 .margin-well {
     margin-left: 1.5em;
     margin-right: 1.5em;
-    margin-top: 4em;
+    margin-top: 4.5em;
 
 }
 p {
     padding-top: 1em;
     padding-bottom: 1em;
 
+}
+.navHeader {
+    text-align: center;
+    margin-top: 0.88em;
+    padding-right: 3em;
 }
