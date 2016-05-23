@@ -190,7 +190,7 @@ function initAutocomplete() {
                     deliveryType: $scope.delivery.radio,
                     phone: new String($scope.phone),
                     name: $scope.name,
-                    address: $scope.address,
+                    address: document.getElementById('address').value,
                     newPostDepartment: $scope.delivery.newPost,
                     selectedItems: $scope.selectedItems
                 };
