@@ -36,7 +36,7 @@
                             }
                         }, function errorCallback(data) {
                             $scope.status = 'Щось пішло не так...';
-                        });
-
+                        });                    
             }]);
+
 })();
