@@ -11,7 +11,16 @@ p {
 
 }
 .navHeader {
+    position: absolute;
+    width: 100%;
+    left: 0;
     text-align: center;
+    margin:0 auto;
     margin-top: 0.88em;
-    padding-right: 3em;
+}
+.navbar-brand {
+    margin-top: -0.88em;
+}
+.paddFromRight {
+    margin-right: 2em;
 }
