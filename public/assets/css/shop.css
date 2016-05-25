@@ -169,3 +169,6 @@ h2,.h2 {
 .modal-total {
     display: inline-block;
 }
+.radioPadding {
+    padding-left: 1.4em;
+}

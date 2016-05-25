@@ -17,6 +17,10 @@
                     templateUrl:'public/admin/partials/singleOrder.html',
                     controller:'SingleOrderCtrl'
                 }).
+                when('/products',{
+                    templateUrl:'public/admin/partials/products.html',
+                    // controller:'SingleOrderCtrl'
+                }).
                     otherwise({
                     redirectTo:'/'
                 });

@@ -195,23 +195,25 @@
                                        ng-init="init()"
                                        required/>
                             </div>
-                            <label class="deliveryType">Тип доставки</label>
-                            <label class="radio">
-                                <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER" ng-required="!delivery.radio">
-                                <i>Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)</i>
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA" ng-required="!delivery.radio">
-                                <i>Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)</i>
-                            </label>
-                            <label class="newPost" ng-show="delivery.radio === 'NOVAPOSHTA'">
-                                <p>Введіть номер відділення Нової Пошти</p>
-                                <input type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">
-                                <i>Самовивіз</i>
-                            </label>
+                                <label class="deliveryType">Тип доставки</label>
+                                    <div class="radioPadding">
+                                        <label class="radio">
+                                            <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER" ng-required="!delivery.radio">
+                                            <i>Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)</i>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA" ng-required="!delivery.radio">
+                                            <i>Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)</i>
+                                        </label>
+                                        <label class="newPost" ng-show="delivery.radio === 'NOVAPOSHTA'">
+                                            <p>Введіть номер відділення Нової Пошти</p>
+                                            <input type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">
+                                            <i>Самовивіз</i>
+                                        </label>
+                                    </div>
                         </form>
                     </div>
                     <div class="proceedWithPayment" ng-show="successfullResponse">

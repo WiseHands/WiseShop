@@ -2,31 +2,10 @@
 .margin-well {
     margin-left: 1.5em;
     margin-right: 1.5em;
-    margin-top: 4.5em;
-
 }
 p {
     padding-top: 1em;
     padding-bottom: 1em;
-
-}
-/*singleOrderWell*/
-.navHeader {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    text-align: center;
-    margin:0 auto;
-    margin-top: 0.88em;
-}
-.navbar-brand {
-    margin-top: -0.88em;
-}
-.paddFromRight {
-    margin-right: 2em;
-}
-.statusMargin {
-    margin-top: 3.5em;
 }
 .orderListSideMargin {
     margin-right: 1em;
