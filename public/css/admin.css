@@ -10,6 +10,7 @@ p {
     padding-bottom: 1em;
 
 }
+/*singleOrderWell*/
 .navHeader {
     position: absolute;
     width: 100%;
@@ -23,4 +24,21 @@ p {
 }
 .paddFromRight {
     margin-right: 2em;
+}
+.statusMargin {
+    margin-top: 3.5em;
+}
+.orderListSideMargin {
+    margin-right: 1em;
+    margin-left: 1em;
+
+}
+.vcenter {
+    margin-top: 0.4em;
+    display: none;
+}
+@media only screen and (max-device-width : 480px) {
+    .vcenter {
+        display: inline;
+    }
 }

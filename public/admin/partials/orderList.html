@@ -1,14 +1,35 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="navbar-header">
-        <h4 class="navHeader">
-            <b>Замовлення:</b>
-        </h4>
-    </div>
+
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header text-center">
+            <div class="row">
+                <div class="col-xs-10 vcenter">
+                    <h4 class="pull-left"><b>Замовлення</b></h4>
+                </div>
+                <div class="col-xs-2">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#/">Замовлення</a></li>
+                <li><a href="#/">Товари</a></li>
+            </ul>
+        </div>
 </nav>
 
-<h3 class="text-center"></h3>
-<h4 class="text-center"><i>{{status}}</i></h4>
-<div class="well margin-well" ng-repeat="item in orders">
+<h4 class="text-center statusMargin"><i>{{status}}</i></h4>
+<div class="well orderListSideMargin" ng-repeat="item in orders">
     <a href ="#/details/{{item.uuid}}"><div class="row row-centered">
         <div class="col-xs-6">
             <h4>{{item.name}}</h4>
@@ -16,5 +37,5 @@
         <div class="col-xs-6">
             <h4 class="text-right">{{item.total}} грн</h4>
         </div>
-    </div>
-</div></a>
+    </div></a>
+</div>

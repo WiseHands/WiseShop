@@ -10,11 +10,11 @@
 <div class="well margin-well">
     <div class="row text-center">
         <div class="col-xs-12">
-            <h4 class="tagPadding"><b>П.І.П. замовника: </b><p><i>{{order.name}}</i></p></h4>
-            <h4 class="tagPadding"><b>Номер телефону: </b><p><i>{{order.phone}}</i></p></h4>
-            <h4 class="tagPadding" ng-show="order.deliveryType === 'COURIER' || order.deliveryType === 'SELFTAKE'"><b>Адреса: </b><p><i>{{order.address}}</i></p></h4>
-            <h4 class="tagPadding" ng-show="order.deliveryType === 'NOVAPOSHTA'"><b>Номер відділення: </b><p><i>{{order.departmentNumber}}</i></p></h4>
-            <h4 class="tagPadding"><b>Сума замовлення: </b><p><i>{{order.total}} грн</i></p></h4>
+            <h4><b>П.І.П. замовника: </b><p><i>{{order.name}}</i></p></h4>
+            <h4><b>Номер телефону: </b><p><i>{{order.phone}}</i></p></h4>
+            <h4 ng-show="order.deliveryType === 'COURIER' || order.deliveryType === 'SELFTAKE'"><b>Адреса: </b><p><i>{{order.address}}</i></p></h4>
+            <h4 ng-show="order.deliveryType === 'NOVAPOSHTA'"><b>Номер відділення: </b><p><i>{{order.departmentNumber}}</i></p></h4>
+            <h4><b>Сума замовлення: </b><p><i>{{order.total}} грн</i></p></h4>
             <h4><b>Замовлення: </b></h4>
                 <div class="row" ng-repeat="chocolate in order.orders">
                     <div class="col-xs-6">
@@ -26,7 +26,6 @@
                 </div>
             <button type="button"
                     class="btn btn-danger btn-xs"
-                    ng-click="removeOrder()"
                     data-toggle="modal"
                     data-target="#deleteOrder">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Видалити
@@ -40,7 +39,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <p><i>Ви дійсно хочете видалити дане замовлення?</i></p>
-                <button type="button" class="btn btn-danger btn-sm center-block">Видалити замовлення</button>
+                <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteOrder()">Видалити замовлення</button>
         </div>
     </div>
 </div>

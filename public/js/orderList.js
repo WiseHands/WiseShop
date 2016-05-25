@@ -36,7 +36,24 @@
                             }
                         }, function errorCallback(data) {
                             $scope.status = 'Щось пішло не так...';
-                        });                    
+                        });
+                    $scope.deleteOrder = function () {
+                        $http({
+                            method: 'DELETE',
+                            url: '/order/' + $routeParams.uuid
+                        });
+                            // .then(function successCallback(response) {
+                            //     var data = response.data;
+                            //     if(data.length === 0) {
+                            //         $scope.status = 'Замовлення відсутні';
+                            //     } else {
+                            //         $scope.order = response.data;
+                            //         console.log($scope.order);
+                            //     }
+                            // }, function errorCallback(data) {
+                            //     $scope.status = 'Щось пішло не так...';
+                            // });
+                    }
             }]);
 
 })();
