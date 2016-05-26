@@ -19,7 +19,7 @@
                 }).
                 when('/products',{
                     templateUrl:'public/admin/partials/products.html',
-                    // controller:'SingleOrderCtrl'
+                    controller:'SubmitNewProductCtrl'
                 }).
                     otherwise({
                     redirectTo:'/'

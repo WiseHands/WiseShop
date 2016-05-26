@@ -22,4 +22,31 @@
             </ul>
         </div>
 </nav>
-<p>Hello, motherfucker!!!</p>
+<div class="well margin-well">
+    <div class="row">
+        <div class="col-xs-12">
+            <form ng-submit="submitProduct()">
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend class="text-center">Додати новий товар</legend>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Назва товару</label>
+                        <input id="textinput" name="textinput" type="text" placeholder="Назва товару" class="form-control input-md" ng-model="product.name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="textarea">Опис товару</label>
+                        <textarea class="form-control" id="textarea" name="textarea" placeholder="Опис товару" ng-model="product.description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="filebutton">Додати фото товару</label>
+                        <input id="filebutton" name="filebutton" class="input-file" type="file" ng-files="getTheFiles($files)" required>
+                    </div>
+                    <div class="form-group">
+                        <button id="singlebutton" name="singlebutton" class="btn btn-primary col-xs-12" type="submit">Додати товар</button>
+                    </div>
+                </fieldset>
+            </form >
+        </div>
+    </div>
+</div>

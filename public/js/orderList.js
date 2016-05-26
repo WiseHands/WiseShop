@@ -26,17 +26,17 @@
                         method: 'GET',
                         url: '/order/' + $routeParams.uuid
                     })
-                        .then(function successCallback(response) {
-                            var data = response.data;
-                            if(data.length === 0) {
-                                $scope.status = 'Замовлення відсутні';
-                            } else {
-                                $scope.order = response.data;
-                                console.log($scope.order);
-                            }
-                        }, function errorCallback(data) {
-                            $scope.status = 'Щось пішло не так...';
-                        });
+                    .then(function successCallback(response) {
+                        var data = response.data;
+                        if(data.length === 0) {
+                            $scope.status = 'Замовлення відсутні';
+                        } else {
+                            $scope.order = response.data;
+                            console.log($scope.order);
+                        }
+                    }, function errorCallback(data) {
+                        $scope.status = 'Щось пішло не так...';
+                    });
                     $scope.deleteOrder = function () {
                         $http({
                             method: 'DELETE',
@@ -54,6 +54,46 @@
                             //     $scope.status = 'Щось пішло не так...';
                             // });
                     }
-            }]);
+            }])
+        .directive('ngFiles', ['$parse', function ($parse) {
 
+            function fn_link(scope, element, attrs) {
+                var onChange = $parse(attrs.ngFiles);
+                element.on('change', function (event) {
+                    onChange(scope, { $files: event.target.files });
+                });
+            };
+
+            return {
+                link: fn_link
+            }
+        } ])
+        .controller('SubmitNewProductCtrl', function ($scope, $http) {
+            var formdata = new FormData();
+            $scope.getTheFiles = function ($files) {
+                angular.forEach($files, function (value, key) {
+                    formdata.append(key, value);
+                });
+            };
+            $scope.submitProduct = function () {
+                formdata.append('name', $scope.product.name);
+                formdata.append('description', $scope.product.description);
+
+                var request = {
+                    method: 'POST',
+                    url: '/products/',
+                    data: formdata,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                };
+                $http(request)
+                    .success(function (data) {
+                        alert(data);
+                    })
+                    .error(function () {
+                        console.log(error);
+                    });
+            };
+        })
 })();
