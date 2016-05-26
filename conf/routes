@@ -19,6 +19,7 @@ POST    /pay                                    Application.pay
 POST    /signin                                 Application.signin
 
 GET     /products                               ProductAPI.list
+GET     /products/{uuid}                        ProductAPI.details
 POST    /products                               ProductAPI.create
 DELETE  /products/{uuid}                        ProductAPI.delete
 

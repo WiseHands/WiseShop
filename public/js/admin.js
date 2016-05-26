@@ -12,22 +12,26 @@
                     when('/',{
                         templateUrl:'public/admin/partials/orderList.html',
                         controller:'orderListController'
-                }).
-                when('/details/:uuid',{
-                    templateUrl:'public/admin/partials/singleOrder.html',
-                    controller:'SingleOrderCtrl'
-                }).
-                when('/products',{
-                    templateUrl:'public/admin/partials/products.html',
-                    controller:'ProductListCtrl'
-
-                }).
-                when('/products/new',{
-                    templateUrl:'public/admin/partials/addNewProduct.html',
-                    controller:'SubmitNewProductCtrl'
-                }).
-                    otherwise({
-                    redirectTo:'/'
+                    }).
+                    when('/details/:uuid',{
+                        templateUrl:'public/admin/partials/singleOrder.html',
+                        controller:'SingleOrderCtrl'
+                    }).
+                    when('/products',{
+                        templateUrl:'public/admin/partials/products.html',
+                        controller:'ProductListCtrl'
+    
+                    }).
+                    when('/products/new',{
+                        templateUrl:'public/admin/partials/addNewProduct.html',
+                        controller:'SubmitNewProductCtrl'
+                    }).
+                    when('/products/details/:uuid',{
+                        templateUrl:'public/admin/partials/productDetails.html',
+                        controller:'ProductDetailsCtrl'
+                    }).
+                        otherwise({
+                        redirectTo:'/'
                 });
             }]);
 })();

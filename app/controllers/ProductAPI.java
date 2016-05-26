@@ -38,4 +38,12 @@ public class ProductAPI extends Controller {
         ok();
     }
 
+    public static void details(String uuid) throws Exception {
+        Product product = (Product) Product.findById(uuid);
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(product);
+
+        renderJSON(json);
+    }
+
 }

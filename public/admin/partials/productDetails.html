@@ -1,0 +1,40 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header text-center">
+            <div class="row">
+                <div class="col-xs-2">
+                    <a href="#/products"><span class="glyphicon glyphicon-arrow-left vertcialCentering"></span></a>
+                </div>
+                <div class=" col-xs-8 vcenter">
+                    <h4><b>Деталі</b></h4>
+                </div>
+            </div>
+        </div>
+</nav>
+<div class="well wellSideMargin">
+    <div class="row text-center">
+        <div class="col-xs-12">
+            <img ng-src="/public/product_images/{{product.filename}}" class="img-responsive" alt=""></img>
+            <h4><b>Назва товару: </b><p><i>{{product.name}}</i></p></h4>
+            <h4><b>Опис товару: </b><p><i>{{product.description}}</i></p></h4>
+            <h4><b>Ціна товару: </b><p><i>{{product.price}} грн</i></p></h4>
+            <button type="button"
+                    class="btn btn-danger btn-xs"
+                    data-toggle="modal"
+                    data-target="#deleteOrder">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Видалити
+            </button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteOrder" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p><i>Ви дійсно хочете видалити дане замовлення?</i></p>
+                <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteOrder()">Видалити замовлення</button>
+            </div>
+        </div>
+    </div>
+</div>
