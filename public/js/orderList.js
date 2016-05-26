@@ -71,9 +71,7 @@
         .controller('SubmitNewProductCtrl', function ($scope, $http) {
             var formdata = new FormData();
             $scope.getTheFiles = function ($files) {
-                angular.forEach($files, function (value, key) {
-                    formdata.append(key, value);
-                });
+                formdata.append('photo', $files[0]);
             };
             $scope.submitProduct = function () {
                 formdata.append('name', $scope.product.name);
@@ -81,7 +79,7 @@
 
                 var request = {
                     method: 'POST',
-                    url: '/products/',
+                    url: '/product',
                     data: formdata,
                     headers: {
                         'Content-Type': undefined

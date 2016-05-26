@@ -121,7 +121,7 @@ public class Application extends Controller {
         System.out.println("decodedBytes " + new String(decodedBytes));
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(new String(decodedBytes));
-        Long orderId = Long.parseLong(jsonObject.get("order_id").toString());
+        long orderId = Long.parseLong(jsonObject.get("order_id").toString());
 //        OrderModel orderItem = OrderModel.findById(orderId);
 //        orderItem.status = "Payment Done";
         //orderItem.save();

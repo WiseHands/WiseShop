@@ -18,6 +18,9 @@ GET     /order/{id}                             Application.order
 POST    /pay                                    Application.pay
 POST    /signin                                 Application.signin
 
+GET     /product                                ProductAPI.list
+POST    /product                                ProductAPI.create
+
 *       /done                                   Application.done
 *       /fail                                   Application.fail
 
