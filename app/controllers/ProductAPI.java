@@ -33,4 +33,10 @@ public class ProductAPI extends Controller {
         renderJSON(json);
     }
 
+    public static void delete(String uuid) throws Exception {
+        Product product = Product.findById(uuid);
+        product.delete();
+        ok();
+    }
+
 }

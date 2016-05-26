@@ -1,12 +1,22 @@
 package models;
 
 import com.google.gson.annotations.Expose;
-import play.db.jpa.Model;
+import org.hibernate.annotations.GenericGenerator;
+import play.db.jpa.GenericModel;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.util.UUID;
 
 @Entity
-public class Product extends Model{
+public class Product extends GenericModel {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Expose
+    public String uuid;
+
     @Expose
     public String name;
 
@@ -16,12 +26,10 @@ public class Product extends Model{
     @Expose
     public String filename;
 
-    @Expose
-    public String imgPath;
-
     public Product(String name, String description, String filename) {
         this.name = name;
         this.description = description;
         this.filename = filename;
+        this.uuid = UUID.randomUUID().toString();
     }
 }

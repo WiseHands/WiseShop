@@ -20,6 +20,7 @@ POST    /signin                                 Application.signin
 
 GET     /product                                ProductAPI.list
 POST    /product                                ProductAPI.create
+DELETE  /product                                ProductAPI.delete
 
 *       /done                                   Application.done
 *       /fail                                   Application.fail
