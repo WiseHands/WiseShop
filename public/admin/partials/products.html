@@ -24,3 +24,15 @@
             </ul>
         </div>
 </nav>
+<h4 class="text-center"><i>{{status}}</i></h4>
+<div class="well wellSideMargin" ng-repeat="product in products">
+    <a><div class="row row-centered">
+        <div class="col-xs-6">
+            <h4 class="text-left">{{product.name}}</h4>
+            <!--<img ng-src="/public/product_images/{{product.filename}}" class="img-responsive" alt=""></img>-->
+        </div>
+        <div class="col-xs-6">
+            <h4 class="text-right">{{product.price}} грн</h4>
+        </div>
+    </div></a>
+</div>
