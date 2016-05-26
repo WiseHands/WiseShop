@@ -76,6 +76,8 @@
             $scope.submitProduct = function () {
                 formdata.append('name', $scope.product.name);
                 formdata.append('description', $scope.product.description);
+                formdata.append('price', $scope.product.price);
+
 
                 var request = {
                     method: 'POST',

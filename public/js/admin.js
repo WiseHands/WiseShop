@@ -19,6 +19,9 @@
                 }).
                 when('/products',{
                     templateUrl:'public/admin/partials/products.html',
+                }).
+                when('/products/new',{
+                    templateUrl:'public/admin/partials/addNewProduct.html',
                     controller:'SubmitNewProductCtrl'
                 }).
                     otherwise({

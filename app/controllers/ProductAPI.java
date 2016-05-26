@@ -13,12 +13,12 @@ import java.util.*;
 public class ProductAPI extends Controller {
     public static final String USERIMAGESPATH = "public/product_images/";
 
-    public static void create(String name, String description, Upload photo) throws Exception {
+    public static void create(String name, String description, Float price, Upload photo) throws Exception {
         FileOutputStream out = new FileOutputStream(USERIMAGESPATH + photo.getFileName());
         out.write(photo.asBytes());
         out.close();
 
-        Product product = new Product(name, description, photo.getFileName());
+        Product product = new Product(name, description, price, photo.getFileName());
         product.save();
         ok();
     }

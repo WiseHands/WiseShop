@@ -24,11 +24,15 @@ public class Product extends GenericModel {
     public String description;
 
     @Expose
+    public Float price;
+
+    @Expose
     public String filename;
 
-    public Product(String name, String description, String filename) {
+    public Product(String name, String description, Float price, String filename) {
         this.name = name;
         this.description = description;
+        this.price = price;
         this.filename = filename;
     }
 }
