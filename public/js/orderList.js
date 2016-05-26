@@ -79,7 +79,7 @@
 
                 var request = {
                     method: 'POST',
-                    url: '/product',
+                    url: '/products',
                     data: formdata,
                     headers: {
                         'Content-Type': undefined
