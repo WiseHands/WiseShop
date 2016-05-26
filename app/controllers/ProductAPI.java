@@ -14,12 +14,11 @@ public class ProductAPI extends Controller {
     public static final String USERIMAGESPATH = "public/product_images/";
 
     public static void create(String name, String description, Upload photo) throws Exception {
-        Product product = new Product(name, description, photo.getFileName());
-
         FileOutputStream out = new FileOutputStream(USERIMAGESPATH + photo.getFileName());
         out.write(photo.asBytes());
         out.close();
 
+        Product product = new Product(name, description, photo.getFileName());
         product.save();
         ok();
     }
@@ -34,7 +33,7 @@ public class ProductAPI extends Controller {
     }
 
     public static void delete(String uuid) throws Exception {
-        Product product = Product.findById(uuid);
+        Product product = (Product) Product.findById(uuid);
         product.delete();
         ok();
     }

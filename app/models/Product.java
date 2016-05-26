@@ -30,6 +30,5 @@ public class Product extends GenericModel {
         this.name = name;
         this.description = description;
         this.filename = filename;
-        this.uuid = UUID.randomUUID().toString();
     }
 }
