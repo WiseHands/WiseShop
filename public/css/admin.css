@@ -1,15 +1,11 @@
 /*TO CREATE SPACE BETWEEN ROW*/
-.margin-well {
-    margin-left: 1.5em;
-    margin-right: 1.5em;
-}
 p {
     padding-top: 1em;
     padding-bottom: 1em;
 }
-.orderListSideMargin {
-    margin-right: 1em;
-    margin-left: 1em;
+.wellSideMargin {
+    margin-right: 0.9em;
+    margin-left: 0.9em;
 
 }
 .vcenter {
