@@ -20,7 +20,11 @@ public class ProductAPI extends Controller {
 
         Product product = new Product(name, description, price, photo.getFileName());
         product.save();
-        ok();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(product);
+        
+        renderJSON(json);
     }
 
     public static void list() throws Exception {

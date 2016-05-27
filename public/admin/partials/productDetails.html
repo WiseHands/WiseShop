@@ -21,19 +21,19 @@
             <button type="button"
                     class="btn btn-danger btn-xs"
                     data-toggle="modal"
-                    data-target="#deleteOrder">
+                    data-target="#deleteProduct">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Видалити
             </button>
         </div>
     </div>
 </div>
-<div class="modal fade" id="deleteOrder" tabindex="-1" role="dialog">
+<div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <p><i>Ви дійсно хочете видалити дане замовлення?</i></p>
-                <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteOrder()">Видалити замовлення</button>
+                <p><i>Ви дійсно хочете видалити даний товар?</i></p>
+                <a href="#/products"><button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteProduct()">Видалити замовлення</button></a>
             </div>
         </div>
     </div>

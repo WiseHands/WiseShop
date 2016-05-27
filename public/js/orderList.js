@@ -68,7 +68,7 @@
                 link: fn_link
             }
         } ])
-        .controller('SubmitNewProductCtrl', function ($scope, $http) {
+        .controller('SubmitNewProductCtrl', function ($scope, $location, $http) {
             var formdata = new FormData();
             $scope.getTheFiles = function ($files) {
                 formdata.append('photo', $files[0]);
@@ -89,7 +89,7 @@
                 };
                 $http(request)
                     .success(function (data) {
-                        alert(data);
+                        $location.path('/products/details/' + data.uuid);
                     })
                     .error(function () {
                         console.log(error);
@@ -120,32 +120,24 @@
                     url: '/products/' + $routeParams.uuid
                 })
                     .then(function successCallback(response) {
-                        var data = response.data;
-                        if(data.length === 0) {
-                            $scope.status = 'Замовлення відсутні';
-                        } else {
                             $scope.product = response.data;
                             console.log($scope.product);
-                        }
-                    }, function errorCallback(data) {
-                        $scope.status = 'Щось пішло не так...';
+                    }, function errorCallback(error) {
+                        console.log(error);
                     });
-                $scope.deleteOrder = function () {
+                $scope.deleteProduct = function () {
                     $http({
                         method: 'DELETE',
-                        url: '/order/' + $routeParams.uuid
-                    });
-                    // .then(function successCallback(response) {
-                    //     var data = response.data;
-                    //     if(data.length === 0) {
-                    //         $scope.status = 'Замовлення відсутні';
-                    //     } else {
-                    //         $scope.order = response.data;
-                    //         console.log($scope.order);
-                    //     }
-                    // }, function errorCallback(data) {
-                    //     $scope.status = 'Щось пішло не так...';
-                    // });
+                        url: '/products/' + $routeParams.uuid
+                    })
+                        .then(function successCallback(response) {
+                            $('#deleteProduct').modal('hide');
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+                        }, function errorCallback(error) {
+                            console.log(error);
+                        });
+
                 }
             }])
 })();
