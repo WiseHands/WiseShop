@@ -125,15 +125,21 @@
                     }, function errorCallback(error) {
                         console.log(error);
                     });
+                $scope.deleteMessage = 'Ви дійсно хочете видалити даний товар?';
+                $scope.hideModal = function () {
+                    $('#deleteProduct').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                };
                 $scope.deleteProduct = function () {
                     $http({
                         method: 'DELETE',
                         url: '/products/' + $routeParams.uuid
                     })
                         .then(function successCallback(response) {
-                            $('#deleteProduct').modal('hide');
-                            $('body').removeClass('modal-open');
-                            $('.modal-backdrop').remove();
+                            $scope.deleteMessage = 'Товар видалений.';
+                            $scope.deleteButton = true;
+
                         }, function errorCallback(error) {
                             console.log(error);
                         });

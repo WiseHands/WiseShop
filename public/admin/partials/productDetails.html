@@ -32,8 +32,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <p><i>Ви дійсно хочете видалити даний товар?</i></p>
-                <a href="#/products"><button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteProduct()">Видалити замовлення</button></a>
+                <p><i>{{deleteMessage}}</i></p>
+                <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteProduct()" ng-hide="deleteButton">Видалити товар</button>
+                <a href="#/products"><button type="button" class="btn btn-success btn-sm center-block" ng-show="deleteButton" ng-click="hideModal()">Ok</button></a>
+
             </div>
         </div>
     </div>
