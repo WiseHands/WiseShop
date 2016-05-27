@@ -112,8 +112,8 @@
                     $scope.status = 'Щось пішло не так...';
                 });
         })
-        .controller('ProductDetailsCtrl', ['$http', '$scope', '$routeParams',
-            function($http, $scope, $routeParams) {
+        .controller('ProductDetailsCtrl', ['$http', '$scope', '$routeParams', '$location',
+            function($http, $scope, $routeParams, $location) {
                 $scope.uuid = $routeParams.uuid;
                 $http({
                     method: 'GET',
@@ -140,6 +140,19 @@
                             $scope.deleteMessage = 'Товар видалений.';
                             $scope.deleteButton = true;
 
+                        }, function errorCallback(error) {
+                            console.log(error);
+                        });
+
+                };
+                $scope.updateProduct = function () {
+                    $http({
+                        method: 'PUT',
+                        url: '/products/' + $routeParams.uuid,
+                        data: $scope.product
+                    })
+                        .then(function successCallback(response) {
+                            $location.path('/products/details/' + response.data.uuid);
                         }, function errorCallback(error) {
                             console.log(error);
                         });

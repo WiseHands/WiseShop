@@ -30,6 +30,10 @@
                         templateUrl:'public/admin/partials/productDetails.html',
                         controller:'ProductDetailsCtrl'
                     }).
+                when('/products/details/:uuid/edit',{
+                    templateUrl:'public/admin/partials/editProduct.html',
+                    controller:'ProductDetailsCtrl'
+                }).
                         otherwise({
                         redirectTo:'/'
                 });

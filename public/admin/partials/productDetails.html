@@ -8,13 +8,16 @@
                 <div class=" col-xs-8 vcenter">
                     <h4><b>Деталі</b></h4>
                 </div>
+                <div class="col-xs-2">
+                    <a href="#/products/details/{{product.uuid}}/edit"><span class="glyphicon glyphicon-pencil vertcialCentering"></span></a>
+                </div>
             </div>
         </div>
 </nav>
 <div class="well wellSideMargin">
     <div class="row text-center">
         <div class="col-xs-12">
-            <img ng-src="/public/product_images/{{product.filename}}" class="img-responsive" alt=""></img>
+            <img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive" alt=""></img>
             <h4><b>Назва товару: </b><p><i>{{product.name}}</i></p></h4>
             <h4><b>Опис товару: </b><p><i>{{product.description}}</i></p></h4>
             <h4><b>Ціна товару: </b><p><i>{{product.price}} грн</i></p></h4>
