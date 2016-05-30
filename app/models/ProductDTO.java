@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-public class Product extends GenericModel {
+public class ProductDTO extends GenericModel {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -29,7 +29,7 @@ public class Product extends GenericModel {
     @Expose
     public String fileName;
 
-    public Product(String name, String description, Double price, String filename) {
+    public ProductDTO(String name, String description, Double price, String filename) {
         this.name = name;
         this.description = description;
         this.price = price;

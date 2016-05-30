@@ -2,7 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.Product;
+import models.ProductDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.data.Upload;
@@ -26,25 +26,25 @@ public class ProductAPI extends Controller {
         out.write(photo.asBytes());
         out.close();
 
-        Product product = new Product(name, description, price, photo.getFileName());
-        product.save();
+        ProductDTO productDTO = new ProductDTO(name, description, price, photo.getFileName());
+        productDTO.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(product);
+        String json = gson.toJson(productDTO);
 
         renderJSON(json);
     }
 
     public static void details(String uuid) throws Exception {
-        Product product = (Product) Product.findById(uuid);
+        ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(product);
+        String json = gson.toJson(productDTO);
 
         renderJSON(json);
     }
 
     public static void list() throws Exception {
-        List<Product> orders = Product.findAll();
+        List<ProductDTO> orders = ProductDTO.findAll();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(orders);
@@ -61,30 +61,30 @@ public class ProductAPI extends Controller {
         Double price = (Double) Double.parseDouble(jsonBody.get("price").toString());
 
 
-        Product product = (Product) Product.findById(uuid);
+        ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
         if (name != null){
-            product.name = name;
+            productDTO.name = name;
         }
         if (description != null){
-            product.description = description;
+            productDTO.description = description;
         }
         if (price != null){
-            product.price = price;
+            productDTO.price = price;
         }
         if (fileName != null){
-            product.fileName = fileName;
+            productDTO.fileName = fileName;
         }
-        product.save();
+        productDTO.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(product);
+        String json = gson.toJson(productDTO);
 
         renderJSON(json);
     }
 
     public static void delete(String uuid) throws Exception {
-        Product product = (Product) Product.findById(uuid);
-        product.delete();
+        ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
+        productDTO.delete();
         ok();
     }
 

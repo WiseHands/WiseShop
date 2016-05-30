@@ -26,7 +26,7 @@ $(document).ready(function() {
 	var table = $('#example').DataTable( {
 		dom: 'Rlfrtip',
 		colReorder: {
-			order: [ 4, 3, 2, 1, 0 ]
+			orderDTO: [ 4, 3, 2, 1, 0 ]
 		}
 	} );
 	
@@ -49,11 +49,11 @@ $(document).ready(function() {
 
 			<div class="info">
 				<p>One useful control option to present the end user when using ColReorder is the ability to reset the column ordering to that which was found in the HTML. This
-				can be done by calling the <code>reset</code> API function. While ColReorder does not provide a visual element for this itself (in order to provide maximum
+				can be done by calling the <code>reset</code> API function. While ColReorder does not provide a visual element for this itself (in orderDTO to provide maximum
 				flexibility) it is easy to hook to an event handler, as shown in this example.</p>
 
 				<p>For full information about the ColReorder API, please refer to the <a href="//datatables.net/extensions/colreorder/api">ColReorder API documentation</a>.</p>
-			</div><button id="reset">Reset to original HTML order</button><br>
+			</div><button id="reset">Reset to original HTML orderDTO</button><br>
 			<br>
 
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -553,7 +553,7 @@ $(document).ready(function() {
 	var table = $('#example').DataTable( {
 		dom: 'Rlfrtip',
 		colReorder: {
-			order: [ 4, 3, 2, 1, 0 ]
+			orderDTO: [ 4, 3, 2, 1, 0 ]
 		}
 	} );
 	
@@ -579,7 +579,7 @@ $(document).ready(function() {
 
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in orderDTO to correctly display the table. The
 						additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 

@@ -26,7 +26,7 @@ $(document).ready(function() {
 	$('#example').dataTable( {
 		dom: 'Rlfrtip',
 		colReorder: {
-			order: [ 4, 3, 2, 1, 0, 5 ]
+			orderDTO: [ 4, 3, 2, 1, 0, 5 ]
 		}
 	} );
 } );
@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 			<div class="info">
 				<p>ColReorder provides the ability to specify a column ordering which is not that of the HTML (which typically you will want) through the parameter
-				<code>colReorder.order</code>. This is an array of integers with the column ordering you want.</p>
+				<code>colReorder.orderDTO</code>. This is an array of integers with the column ordering you want.</p>
 
 				<p>For full information about the ColReorder options, please refer to the <a href="//datatables.net/extensions/colreorder/options">ColReorder options
 				documentation</a>.</p>
@@ -546,7 +546,7 @@ $(document).ready(function() {
 	$('#example').dataTable( {
 		dom: 'Rlfrtip',
 		colReorder: {
-			order: [ 4, 3, 2, 1, 0, 5 ]
+			orderDTO: [ 4, 3, 2, 1, 0, 5 ]
 		}
 	} );
 } );</code>
@@ -566,7 +566,7 @@ $(document).ready(function() {
 
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in orderDTO to correctly display the table. The
 						additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 

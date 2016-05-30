@@ -33,7 +33,7 @@
             </style>
         <iron-ajax
                 auto
-                url="/orders"
+                url="/orderDTOs"
                 headers='{"X-AUTH-TOKEN": "{{token}}"}'
                 handle-as="json"
                 last-response="{{data}}">
@@ -51,7 +51,7 @@
             </paper-datatable-column>
             <paper-datatable-column header="№ відділення" property="departmentNumber" type="String" sortable default="Не вказано"></paper-datatable-column>
             <paper-datatable-column header="Замовлення"
-                                    property="orders"
+                                    property="orderDTOs"
                                     style="min-width: 300px" cell-style="font-family:monospace;"
                                     dialog
                                     edit-icon

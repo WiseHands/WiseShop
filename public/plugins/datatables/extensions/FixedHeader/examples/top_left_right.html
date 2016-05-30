@@ -35,7 +35,7 @@
 
 $(document).ready(function() {
 	var table = $('#example').DataTable( {
-		"order": [ 1, 'asc' ],
+		"orderDTO": [ 1, 'asc' ],
 		"ajax": "../../../examples/ajax/data/objects.txt",
 		"columns": [
 			{ title: '',           data: null, defaultContent: "" },
@@ -55,12 +55,12 @@ $(document).ready(function() {
 		}
 	} );
 
-	table.on( 'order.dt search.dt', function () {
-		table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	table.on( 'orderDTO.dt search.dt', function () {
+		table.column(0, {search:'applied', orderDTO:'applied'}).nodes().each( function (cell, i) {
 			cell.innerHTML = i+1;
 		} );
 
-		table.column(-1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+		table.column(-1, {search:'applied', orderDTO:'applied'}).nodes().each( function (cell, i) {
 			cell.innerHTML = i+1;
 		} );
 	} ).draw();
@@ -108,7 +108,7 @@ $(document).ready(function() {
 					<p>The Javascript shown below is used to initialise the table shown in this
 					example:</p><code class="multiline brush: js;">$(document).ready(function() {
 	var table = $('#example').DataTable( {
-		&quot;order&quot;: [ 1, 'asc' ],
+		&quot;orderDTO&quot;: [ 1, 'asc' ],
 		&quot;ajax&quot;: &quot;../../../examples/ajax/data/objects.txt&quot;,
 		&quot;columns&quot;: [
 			{ title: '',           data: null, defaultContent: &quot;&quot; },
@@ -128,12 +128,12 @@ $(document).ready(function() {
 		}
 	} );
 
-	table.on( 'order.dt search.dt', function () {
-		table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	table.on( 'orderDTO.dt search.dt', function () {
+		table.column(0, {search:'applied', orderDTO:'applied'}).nodes().each( function (cell, i) {
 			cell.innerHTML = i+1;
 		} );
 
-		table.column(-1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+		table.column(-1, {search:'applied', orderDTO:'applied'}).nodes().each( function (cell, i) {
 			cell.innerHTML = i+1;
 		} );
 	} ).draw();
@@ -158,7 +158,7 @@ $(document).ready(function() {
 				<div class="css">
 					<div>
 						<p>This example uses a little bit of additional CSS beyond what is loaded from the library
-						files (below), in order to correctly display the table. The additional CSS used is shown
+						files (below), in orderDTO to correctly display the table. The additional CSS used is shown
 						below:</p><code class="multiline brush: js;">div.dataTables_wrapper {
 		width: 150%;
 	}
@@ -213,7 +213,7 @@ $(document).ready(function() {
 							<li class="active"><a href="./top_left_right.html">Header, left and right all
 							fixed</a></li>
 							<li><a href="./two_tables.html">Multiple tables</a></li>
-							<li><a href="./zIndexes.html">z-index order control</a></li>
+							<li><a href="./zIndexes.html">z-index orderDTO control</a></li>
 						</ul>
 					</div>
 				</div>

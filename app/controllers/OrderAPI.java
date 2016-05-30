@@ -3,9 +3,9 @@ package controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.liqpay.LiqPay;
-import models.Order;
-import models.OrderItem;
-import models.Product;
+import models.OrderDTO;
+import models.OrderItemDTO;
+import models.ProductDTO;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -52,59 +52,47 @@ public class OrderAPI extends Controller {
 
         int totalCost = 0;
 
-        Order orderDto = new Order();
-        orderDto.orders = new ArrayList<OrderItem>();
-        orderDto = orderDto.save();
-
-        for (ListIterator iter = jsonArray.listIterator(); iter.hasNext(); ) {
-            JSONObject element = (JSONObject) iter.next();
-
-            int productId = Integer.parseInt(element.get("productId").toString());
-            Product product = (Product) Product.findById(productId);
-            int quantity = Integer.parseInt(element.get("quantity").toString());
-
-            OrderItem orderItem = new OrderItem();
-            orderItem.product = product;
-            orderItem.quantity = quantity;
-            orderItem.order = orderDto;
-            orderDto.orders.add(orderItem);
-
-            orderItem.save();
-
-            totalCost += product.price * quantity;
-        }
-
         if (deliveryType.equals(DeliveryType.COURIER)){
-            orderDto.deliveryType = DeliveryType.COURIER;
             if (totalCost < FREESHIPPINGMINCOST){
                 totalCost += 35;
             }
-        } else if(deliveryType.equals(DeliveryType.NOVAPOSHTA)){
-            orderDto.deliveryType = DeliveryType.NOVAPOSHTA;
-        } else {
-            orderDto.deliveryType = DeliveryType.SELFTAKE;
         }
 
         System.out.println("TOTAL COST: " + totalCost);
 
-        //SAVING ORDER TO DB
-        orderDto.total = Double.valueOf(totalCost);
-        orderDto.name = name;
-        orderDto.phone = phone;
-        orderDto.address = address;
-        String uuid = UUID.randomUUID().toString();
-        orderDto.uuid = uuid;
-        orderDto.departmentNumber = newPostDepartment;
-        orderDto = orderDto.save();
-        System.out.println(orderDto);
+        OrderDTO orderDTO = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, Double.valueOf(totalCost));
+        System.out.println(orderDTO);
+        orderDTO = orderDTO.save();
+
+        List<OrderItemDTO> orders = new ArrayList<OrderItemDTO>();
+
+        for (ListIterator iter = jsonArray.listIterator(); iter.hasNext(); ) {
+            JSONObject element = (JSONObject) iter.next();
+
+            ProductDTO productDTO = (ProductDTO) ProductDTO.findById(element.get("uuid"));
+            int quantity = Integer.parseInt(element.get("quantity").toString());
+
+            OrderItemDTO orderItemDTO = new OrderItemDTO();
+            orderItemDTO.productDTO = productDTO;
+            orderItemDTO.quantity = quantity;
+            orderItemDTO.save();
+            orders.add(orderItemDTO);
+
+            totalCost += productDTO.price * quantity;
+        }
+        orderDTO.orders = orders;
+        orderDTO.total = Double.valueOf(totalCost);
+        orderDTO.save();
+
+
 
         //LIQPAY:
         HashMap params = new HashMap();
         params.put("version", "3");
         params.put("amount", totalCost);
         params.put("currency", "UAH");
-        params.put("description", orderDto);
-        params.put("order_id", uuid);
+        params.put("description", orderDTO);
+        params.put("order_id", orderDTO.uuid);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
 
@@ -112,28 +100,28 @@ public class OrderAPI extends Controller {
     }
 
     public static void details(String id) throws Exception {
-        Order order = Order.find("byUuid",id).first();
+        OrderDTO orderDTO = OrderDTO.find("byUuid",id).first();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(order);
+        String json = gson.toJson(orderDTO);
 
         renderJSON(json);
     }
 
 
     public static void list() throws Exception {
-        List<Order> orders = Order.findAll();
+        List<OrderDTO> orderDTOs = OrderDTO.findAll();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(orders);
+        String json = gson.toJson(orderDTOs);
 
         renderJSON(json);
     }
 
 
     public static void delete(String id) throws Exception {
-        Order order = Order.find("byUuid",id).first();
-        order.delete();
+        OrderDTO orderDTO = OrderDTO.find("byUuid",id).first();
+        orderDTO.delete();
         ok();
     }
 
@@ -160,7 +148,7 @@ public class OrderAPI extends Controller {
         email.setFrom("bohdaq@gmail.com");
         email.addTo("bohdaq@gmail.com");
         email.setSubject("Нове замовлення");
-        email.setMsg("Order id: " + orderId);
+        email.setMsg("OrderDTO id: " + orderId);
         Mail.send(email);
 
         email = new SimpleEmail();
@@ -168,7 +156,7 @@ public class OrderAPI extends Controller {
         email.addTo("hello@happybag.me");
         email.addTo("sviatoslav.p5@gmail.com");
         email.setSubject("Ваше замовлення успішно оплачено");
-        email.setMsg("Order id: " + orderId);
+        email.setMsg("OrderDTO id: " + orderId);
         Mail.send(email);
 
 

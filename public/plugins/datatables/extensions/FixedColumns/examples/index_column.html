@@ -59,11 +59,11 @@ $(document).ready(function() {
 			"class": "index",
 			targets: 0
 		} ],
-		order: [[ 1, 'asc' ]]
+		orderDTO: [[ 1, 'asc' ]]
 	} );
 
-	table.on( 'order.dt search.dt', function () {
-		table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	table.on( 'orderDTO.dt search.dt', function () {
+		table.column(0, {search:'applied', orderDTO:'applied'}).nodes().each( function (cell, i) {
 			cell.innerHTML = i+1;
 		} );
 	} ).draw();
@@ -86,7 +86,7 @@ $(document).ready(function() {
 				fixed column can be styled with CSS to show it more prominently.</p>
 			</div>
 
-			<table id="example" class="stripe row-border order-column" cellspacing="0" width="100%">
+			<table id="example" class="stripe row-border orderDTO-column" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th></th>
@@ -811,11 +811,11 @@ $(document).ready(function() {
 			&quot;class&quot;: &quot;index&quot;,
 			targets: 0
 		} ],
-		order: [[ 1, 'asc' ]]
+		orderDTO: [[ 1, 'asc' ]]
 	} );
 
-	table.on( 'order.dt search.dt', function () {
-		table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	table.on( 'orderDTO.dt search.dt', function () {
+		table.column(0, {search:'applied', orderDTO:'applied'}).nodes().each( function (cell, i) {
 			cell.innerHTML = i+1;
 		} );
 	} ).draw();
@@ -838,7 +838,7 @@ $(document).ready(function() {
 
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in orderDTO to correctly display the table. The
 						additional CSS used is shown below:</p><code class="multiline language-css">/* Ensure that the demo table scrolls */
 	th, td { white-space: nowrap; }
 	div.dataTables_wrapper {

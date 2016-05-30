@@ -74,10 +74,10 @@
     <div class="row sweetsList">
         <div class="{{container}}" ng-class="{'buy-margin': showList}">
                 <div class="row  pad-row row-centered">
-                    <div class="{{leftSideView}} productsList well" ng-repeat="product in products">
-                            <img ng-src="public/product_images/{{product.fileName}}" class="img-responsive" alt=""></img>
-                            <p class="text-center fixed-height"><i>{{product.name}}</i></p>
-                        <p class="text-center price-alignment"><b>{{product.price}} грн</b></p>
+                    <div class="{{leftSideView}} productsList well" ng-repeat="productDTO in products">
+                            <img ng-src="public/product_images/{{productDTO.fileName}}" class="img-responsive" alt=""></img>
+                            <p class="text-center fixed-height"><i>{{productDTO.name}}</i></p>
+                        <p class="text-center price-alignment"><b>{{productDTO.price}} грн</b></p>
                         <a href="#" class="btn btn-primary btn-sm" ng-click="buyStart($index, $event)">Придбати</a>
                     </div>
                 </div>

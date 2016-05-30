@@ -25,4 +25,4 @@ Where not otherwise indicated, all plugin content is authored by CKSource engine
 Trademarks
 ----------
 
-CKEditor is a trademark of CKSource - Frederico Knabben. All other brand and product names are trademarks, registered trademarks or service marks of their respective holders.
+CKEditor is a trademark of CKSource - Frederico Knabben. All other brand and productDTO names are trademarks, registered trademarks or service marks of their respective holders.
