@@ -125,7 +125,7 @@ function initAutocomplete() {
 
                 $http({
                     method: 'POST',
-                    url: '/orders',
+                    url: '/order',
                     data: params
                 })
                 .then(function successCallback(response) {

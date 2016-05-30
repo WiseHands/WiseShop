@@ -26,7 +26,7 @@
                         templateUrl:'public/admin/partials/addNewProduct.html',
                         controller:'SubmitNewProductCtrl'
                     }).
-                    when('/products/details/:uuid',{
+                    when('/product/details/:uuid',{
                         templateUrl:'public/admin/partials/productDetails.html',
                         controller:'ProductDetailsCtrl'
                     }).

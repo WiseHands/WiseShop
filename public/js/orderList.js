@@ -37,23 +37,24 @@
                     }, function errorCallback(data) {
                         $scope.status = 'Щось пішло не так...';
                     });
-                    $scope.deleteOrder = function () {
-                        $http({
-                            method: 'DELETE',
-                            url: '/order/' + $routeParams.uuid
+                $scope.deleteMessage = 'Ви дійсно хочете видалити дане замовлення?';
+                $scope.hideModal = function () {
+                    $('#deleteProduct').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                };
+                $scope.deleteOrder = function () {
+                    $http({
+                        method: 'DELETE',
+                        url: '/order/' + $routeParams.uuid
+                    })
+                        .then(function successCallback(response) {
+                            $scope.deleteMessage = 'Замовлення видалене.';
+                            $scope.deleteButton = true;
+                        }, function errorCallback(error) {
+                            console.log(error);
                         });
-                            // .then(function successCallback(response) {
-                            //     var data = response.data;
-                            //     if(data.length === 0) {
-                            //         $scope.status = 'Замовлення відсутні';
-                            //     } else {
-                            //         $scope.order = response.data;
-                            //         console.log($scope.order);
-                            //     }
-                            // }, function errorCallback(data) {
-                            //     $scope.status = 'Щось пішло не так...';
-                            // });
-                    }
+                }
             }])
         .directive('ngFiles', ['$parse', function ($parse) {
 
@@ -81,7 +82,7 @@
 
                 var request = {
                     method: 'POST',
-                    url: '/products',
+                    url: '/product',
                     data: formdata,
                     headers: {
                         'Content-Type': undefined
@@ -89,7 +90,7 @@
                 };
                 $http(request)
                     .success(function (data) {
-                        $location.path('/products/details/' + data.uuid);
+                        $location.path('/product/details/' + data.uuid);
                     })
                     .error(function () {
                         console.log(error);
@@ -117,7 +118,7 @@
                 $scope.uuid = $routeParams.uuid;
                 $http({
                     method: 'GET',
-                    url: '/products/' + $routeParams.uuid
+                    url: '/product/' + $routeParams.uuid
                 })
                     .then(function successCallback(response) {
                             $scope.product = response.data;
@@ -134,7 +135,7 @@
                 $scope.deleteProduct = function () {
                     $http({
                         method: 'DELETE',
-                        url: '/products/' + $routeParams.uuid
+                        url: '/product/' + $routeParams.uuid
                     })
                         .then(function successCallback(response) {
                             $scope.deleteMessage = 'Товар видалений.';
@@ -148,11 +149,11 @@
                 $scope.updateProduct = function () {
                     $http({
                         method: 'PUT',
-                        url: '/products/' + $routeParams.uuid,
+                        url: '/product/' + $routeParams.uuid,
                         data: $scope.product
                     })
                         .then(function successCallback(response) {
-                            $location.path('/products/details/' + response.data.uuid);
+                            $location.path('/product/details/' + response.data.uuid);
                         }, function errorCallback(error) {
                             console.log(error);
                         });

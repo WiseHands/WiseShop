@@ -60,7 +60,7 @@ public class OrderAPI extends Controller {
 
         System.out.println("TOTAL COST: " + totalCost);
 
-        OrderDTO orderDTO = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, Double.valueOf(totalCost));
+        OrderDTO orderDTO = new OrderDTO(name, phone, address, deliveryType, newPostDepartment);
         System.out.println(orderDTO);
         orderDTO = orderDTO.save();
 
@@ -80,7 +80,7 @@ public class OrderAPI extends Controller {
 
             totalCost += productDTO.price * quantity;
         }
-        orderDTO.orders = orders;
+        orderDTO.items = orders;
         orderDTO.total = Double.valueOf(totalCost);
         orderDTO.save();
 
@@ -99,8 +99,8 @@ public class OrderAPI extends Controller {
         renderHtml(html);
     }
 
-    public static void details(String id) throws Exception {
-        OrderDTO orderDTO = OrderDTO.find("byUuid",id).first();
+    public static void details(String uuid) throws Exception {
+        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(orderDTO);
@@ -119,8 +119,8 @@ public class OrderAPI extends Controller {
     }
 
 
-    public static void delete(String id) throws Exception {
-        OrderDTO orderDTO = OrderDTO.find("byUuid",id).first();
+    public static void delete(String uuid) throws Exception {
+        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
         orderDTO.delete();
         ok();
     }

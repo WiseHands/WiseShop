@@ -40,7 +40,7 @@ public class OrderDTO extends GenericModel {
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)
-    public List<OrderItemDTO> orders;
+    public List<OrderItemDTO> items;
 
     public OrderDTO(String name, String phone, String address, String deliveryType, String departmentNumber) {
         this.name = name;

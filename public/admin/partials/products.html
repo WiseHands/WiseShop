@@ -25,14 +25,13 @@
         </div>
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
-<div class="well wellSideMargin" ng-repeat="productDTO in products">
-    <a href="#/products/details/{{productDTO.uuid}}"><div class="row row-centered">
+<div class="well wellSideMargin" ng-repeat="product in products">
+    <a href="#/product/details/{{product.uuid}}"><div class="row row-centered">
         <div class="col-xs-6">
-            <h4 class="text-left">{{productDTO.name}}</h4>
-            <!--<img ng-src="/public/product_images/{{productDTO.filename}}" class="img-responsive" alt=""></img>-->
+            <h4 class="text-left">{{product.name}}</h4>
         </div>
         <div class="col-xs-6">
-            <h4 class="text-right">{{productDTO.price}} грн</h4>
+            <h4 class="text-right">{{product.price}} грн</h4>
         </div>
     </div></a>
 </div>

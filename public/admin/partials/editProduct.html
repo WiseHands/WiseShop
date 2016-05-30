@@ -3,7 +3,7 @@
         <div class="navbar-header text-center">
             <div class="row">
                 <div class="col-xs-2">
-                    <a href="#/products/details/{{productDTO.uuid}}"><span class="glyphicon glyphicon-arrow-left vertcialCentering"></span></a>
+                    <a href="#/products/details/{{product.uuid}}"><span class="glyphicon glyphicon-arrow-left vertcialCentering"></span></a>
                 </div>
                 <div class=" col-xs-8 vcenter">
                     <h4><b>Редагування</b></h4>
@@ -17,18 +17,18 @@
 <div class="well wellSideMargin">
     <div class="row text-center">
         <div class="col-xs-12">
-            <img ng-src="/public/product_images/{{productDTO.fileName}}" class="img-responsive" alt=""></img>
+            <img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive" alt=""></img>
             <h4><b>Назва товару: </b>
                 <p><i>
-                <input name="textinput" type="text" class="form-control input-md" ng-model="productDTO.name">
+                <input name="textinput" type="text" class="form-control input-md" ng-model="product.name">
                 </i></p></h4>
             <h4><b>Опис товару: </b>
                 <p><i>
-                    <textarea class="form-control" name="textarea" ng-model="productDTO.description"></textarea>
+                    <textarea class="form-control" name="textarea" ng-model="product.description"></textarea>
                 </i></p></h4>
             <h4><b>Ціна товару: </b>
                 <p><i>
-                    <input name="textinput" type="number" class="form-control input-md" ng-model="productDTO.price">
+                    <input name="textinput" type="number" class="form-control input-md" ng-model="product.price">
                 </i></p></h4>
         </div>
     </div>

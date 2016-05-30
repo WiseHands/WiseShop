@@ -19,7 +19,7 @@ public class OrderItemDTO extends GenericModel{
     public Integer quantity;
 
     @Expose
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     public ProductDTO productDTO;
 
 }

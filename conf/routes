@@ -15,15 +15,15 @@ GET     /login                                  Application.login
 POST    /signin                                 Application.signin
 
 GET     /products                               ProductAPI.list
-GET     /products/{uuid}                        ProductAPI.details
-POST    /products                               ProductAPI.create
-PUT     /products/{uuid}                        ProductAPI.update
-DELETE  /products/{uuid}                        ProductAPI.delete
+GET     /product/{uuid}                         ProductAPI.details
+POST    /product                                ProductAPI.create
+PUT     /product/{uuid}                         ProductAPI.update
+DELETE  /product/{uuid}                         ProductAPI.delete
 
 GET     /orders                                 OrderAPI.list
-GET     /orders/{uuid}                          OrderAPI.details
-POST    /orders                                 OrderAPI.create
-DELETE  /orders/{uuid}                          OrderAPI.delete
+GET     /order/{uuid}                           OrderAPI.details
+POST    /order                                  OrderAPI.create
+DELETE  /order/{uuid}                           OrderAPI.delete
 
 *       /done                                   Application.done
 *       /fail                                   Application.fail

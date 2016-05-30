@@ -2,39 +2,28 @@
     <div class="container-fluid">
         <div class="navbar-header text-center">
             <div class="row">
-                <div class="col-xs-offset-2 col-xs-8 vcenter">
-                    <h4><b>Деталі</b></h4>
-                </div>
                 <div class="col-xs-2">
-                    <button type="button"
-                            class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger"
-                            data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1">
-                    </button>
+                    <a href="#/"><span class="glyphicon glyphicon-arrow-left vertcialCentering"></span></a>
+                </div>
+                <div class="col-xs-8 col-md-offset-2 vcenter">
+                    <h4><b>Деталі замовлення</b></h4>
                 </div>
             </div>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#/">Замовлення</a></li>
-                <li><a href="#/products">Товари</a></li>
-            </ul>
         </div>
 </nav>
 
 <div class="well wellSideMargin">
     <div class="row text-center">
         <div class="col-xs-12">
-            <h4><b>П.І.П. замовника: </b><p><i>{{orderDTO.name}}</i></p></h4>
-            <h4><b>Номер телефону: </b><p><i>{{orderDTO.phone}}</i></p></h4>
-            <h4 ng-show="orderDTO.deliveryType === 'COURIER' || orderDTO.deliveryType === 'SELFTAKE'"><b>Адреса: </b><p><i>{{orderDTO.address}}</i></p></h4>
-            <h4 ng-show="orderDTO.deliveryType === 'NOVAPOSHTA'"><b>Номер відділення: </b><p><i>{{orderDTO.departmentNumber}}</i></p></h4>
-            <h4><b>Сума замовлення: </b><p><i>{{orderDTO.total}} грн</i></p></h4>
+            <h4><b>П.І.П. замовника: </b><p><i>{{order.name}}</i></p></h4>
+            <h4><b>Номер телефону: </b><p><i>{{order.phone}}</i></p></h4>
+            <h4><b>Адреса: </b><p><i>{{order.address}}</i></p></h4>
+            <h4 ng-show="order.deliveryType === 'NOVAPOSHTA'"><b>Номер відділення: </b><p><i>{{order.departmentNumber}}</i></p></h4>
+            <h4><b>Сума замовлення: </b><p><i>{{order.total}} грн</i></p></h4>
             <h4><b>Замовлення: </b></h4>
-                <div class="row" ng-repeat="chocolate in orderDTO.orderDTOs">
+                <div class="row" ng-repeat="chocolate in order.items">
                     <div class="col-xs-6">
-                        <p>{{chocolate.title}}</p>
+                        <p>{{chocolate.productDTO.name}}</p>
                     </div>
                     <div class="col-xs-6">
                         <p>{{chocolate.quantity}} шт.</p>
@@ -54,8 +43,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <p><i>Ви дійсно хочете видалити дане замовлення?</i></p>
-                <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteOrder()">Видалити замовлення</button>
+                <p><i>{{deleteMessage}}</i></p>
+                <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteOrder()" ng-hide="deleteButton">Видалити замовлення</button>
+                <a href="#/"><button type="button" class="btn btn-success btn-sm center-block" ng-show="deleteButton" ng-click="hideModal()">Ok</button></a>
+
             </div>
         </div>
     </div>
