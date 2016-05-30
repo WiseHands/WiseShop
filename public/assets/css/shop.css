@@ -172,3 +172,6 @@ h2,.h2 {
 .radioPadding {
     padding-left: 1.4em;
 }
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
