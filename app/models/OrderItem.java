@@ -15,5 +15,5 @@ public class OrderItem extends Model{
     public Integer quantity;
 
     @ManyToOne
-    public OrderDTO order;
+    public Order order;
 }

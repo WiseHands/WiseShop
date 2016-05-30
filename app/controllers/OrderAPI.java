@@ -3,23 +3,23 @@ package controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.liqpay.LiqPay;
+import models.Order;
+import models.OrderItem;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import play.*;
+import play.Play;
 import play.libs.Mail;
-import play.mvc.*;
-import org.apache.commons.codec.binary.Base64;
-import java.util.UUID;
+import play.mvc.Before;
+import play.mvc.Controller;
 
 import java.util.*;
 
-import models.*;
-
-public class Application extends Controller {
+public class OrderAPI extends Controller {
 
     private static final String PUBLIC_KEY = Play.configuration.getProperty("liqpay.public.key");
     private static final String PRIVATE_KEY = Play.configuration.getProperty("liqpay.private.key");

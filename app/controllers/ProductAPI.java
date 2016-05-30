@@ -2,7 +2,6 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.OrderDTO;
 import models.Product;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

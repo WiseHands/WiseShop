@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class OrderDTO extends Model {
+public class Order extends Model {
     @Expose
     public String name;
 

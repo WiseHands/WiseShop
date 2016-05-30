@@ -4,9 +4,7 @@ import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +18,8 @@ public class Product extends GenericModel {
     @Expose
     public String name;
 
+    @Lob
+    @Column( length = 100000 )
     @Expose
     public String description;
 
