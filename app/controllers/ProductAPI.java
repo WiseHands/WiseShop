@@ -6,6 +6,7 @@ import models.Product;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.data.Upload;
+import play.mvc.Before;
 import play.mvc.Controller;
 
 import java.io.FileOutputStream;
@@ -13,6 +14,12 @@ import java.util.*;
 
 public class ProductAPI extends Controller {
     public static final String USERIMAGESPATH = "public/product_images/";
+
+    @Before
+    static void corsHeaders() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
+    }
 
     public static void create(String name, String description, Double price, Upload photo) throws Exception {
         FileOutputStream out = new FileOutputStream(USERIMAGESPATH + photo.getFileName());
@@ -28,6 +35,14 @@ public class ProductAPI extends Controller {
         renderJSON(json);
     }
 
+    public static void details(String uuid) throws Exception {
+        Product product = (Product) Product.findById(uuid);
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(product);
+
+        renderJSON(json);
+    }
+
     public static void list() throws Exception {
         List<Product> orders = Product.findAll();
 
@@ -35,12 +50,6 @@ public class ProductAPI extends Controller {
         String json = gson.toJson(orders);
 
         renderJSON(json);
-    }
-
-    public static void delete(String uuid) throws Exception {
-        Product product = (Product) Product.findById(uuid);
-        product.delete();
-        ok();
     }
 
     public static void update(String uuid) throws Exception {
@@ -73,12 +82,10 @@ public class ProductAPI extends Controller {
         renderJSON(json);
     }
 
-    public static void details(String uuid) throws Exception {
+    public static void delete(String uuid) throws Exception {
         Product product = (Product) Product.findById(uuid);
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(product);
-
-        renderJSON(json);
+        product.delete();
+        ok();
     }
 
 }

@@ -12,10 +12,6 @@ GET     /map                                    Application.map(format:'xml')
 GET     /admin                                  Application.admin
 GET     /login                                  Application.login
 
-GET     /mail                                  	Application.email
-GET     /orders                                 Application.orders
-GET     /order/{id}                             Application.order
-POST    /pay                                    Application.pay
 POST    /signin                                 Application.signin
 
 GET     /products                               ProductAPI.list
@@ -23,6 +19,11 @@ GET     /products/{uuid}                        ProductAPI.details
 POST    /products                               ProductAPI.create
 PUT     /products/{uuid}                        ProductAPI.update
 DELETE  /products/{uuid}                        ProductAPI.delete
+
+GET     /orders                                 OrderAPI.list
+GET     /orders/{uuid}                          OrderAPI.details
+POST    /orders                                 OrderAPI.create
+DELETE  /orders/{uuid}                          OrderAPI.delete
 
 *       /done                                   Application.done
 *       /fail                                   Application.fail
