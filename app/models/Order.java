@@ -6,12 +6,11 @@ import play.db.jpa.Model;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Entity
 public class Order extends Model {
-    @Expose
-    public String name;
 
     @Expose
     public Double total;
@@ -29,6 +28,9 @@ public class Order extends Model {
     public Long time;
 
     @Expose
+    public String name;
+
+    @Expose
     public String phone;
 
     @Expose
@@ -38,4 +40,8 @@ public class Order extends Model {
     @OneToMany
     public List<OrderItem> orders;
 
+    @Override
+    public String toString() {
+        return String.format("Order by %s, phone: %s, deliveryType: %s new postDepartment: %s", name, phone, deliveryType, departmentNumber);
+    }
 }

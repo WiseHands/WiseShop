@@ -23,7 +23,6 @@ public class Application extends Controller {
 
     private static final String PUBLIC_KEY = Play.configuration.getProperty("liqpay.public.key");
     private static final String PRIVATE_KEY = Play.configuration.getProperty("liqpay.private.key");
-    private static final String SANDBOX = Play.configuration.getProperty("liqpay.sandbox");
 
     private static final Integer FREESHIPPINGMINCOST = 501;
 
@@ -34,38 +33,6 @@ public class Application extends Controller {
         private static final String NOVAPOSHTA = "NOVAPOSHTA";
         private static final String SELFTAKE = "SELFTAKE";
         private static final String COURIER = "COURIER";
-    }
-
-    private static final Map<Integer, Integer> priceInfo;
-    static
-    {
-        priceInfo = new HashMap<Integer, Integer>();
-        priceInfo.put(1, 60);
-        priceInfo.put(2, 7);
-        priceInfo.put(3, 50);
-        priceInfo.put(4, 50);
-        priceInfo.put(5, 50);
-        priceInfo.put(6, 50);
-        priceInfo.put(7, 50);
-        priceInfo.put(8, 50);
-        priceInfo.put(9, 6);
-        priceInfo.put(10, 50);
-    }
-
-    private static final Map<Integer, String> itemNameById;
-    static
-    {
-        itemNameById = new HashMap<Integer, String>();
-        itemNameById.put(1, "Шоколадки з передбаченнями «ТОРБА ЩАСТЯ»");
-        itemNameById.put(2, "Шоколадка з передбаченням");
-        itemNameById.put(3, "Набір шоколадок 7 сторін моєї любові");
-        itemNameById.put(4, "Набір шоколадок 7 сторін Любові");
-        itemNameById.put(5, "Набір шоколадок БУДДА");
-        itemNameById.put(6, "Набір шоколадок DRUZI");
-        itemNameById.put(7, "Набір шоколадок Маленький принц");
-        itemNameById.put(8, "Набір шоколадок «Мафія»");
-        itemNameById.put(9, "Печиво з передбаченням");
-        itemNameById.put(10, "ІМБИРКИ ЗІ ЛЬВОВА-печиво з передбаченнями");
     }
 
     @Before
@@ -166,18 +133,18 @@ public class Application extends Controller {
             JSONObject element = (JSONObject) iter.next();
 
             int productId = Integer.parseInt(element.get("productId").toString());
-            String title = itemNameById.get(productId);
+            Product product = (Product) Product.findById(productId);
             int quantity = Integer.parseInt(element.get("quantity").toString());
 
             OrderItem orderItem = new OrderItem();
-            orderItem.title = title;
+            orderItem.product = product;
             orderItem.quantity = quantity;
             orderItem.order = orderDto;
             orderDto.orders.add(orderItem);
 
             orderItem.save();
 
-            totalCost += priceInfo.get(productId) * quantity;
+            totalCost += product.price * quantity;
         }
 
         if (deliveryType.equals(DeliveryType.COURIER)){
@@ -209,25 +176,14 @@ public class Application extends Controller {
         params.put("version", "3");
         params.put("amount", totalCost);
         params.put("currency", "UAH");
-        params.put("description", orderDto.name);
+        params.put("description", orderDto);
         params.put("order_id", uuid);
-        params.put("sandbox", SANDBOX);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
 
         renderHtml(html);
     }
-
-    public static void email() throws EmailException {
-        System.out.println("emailll\n\n\n2");
-
-        SimpleEmail email = new SimpleEmail();
-        email.setFrom("bohdaq@gmail.com");
-        email.addTo("bohdaq@gmail.com");
-        email.setSubject("Нове замовлення");
-        email.setMsg("Order id");
-        Mail.send(email);
-    }
+    
 
     public static void orders() throws Exception {
         List<Order> orders = Order.findAll();

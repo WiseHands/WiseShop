@@ -5,6 +5,7 @@ import play.db.jpa.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class OrderItem extends Model{
@@ -13,6 +14,10 @@ public class OrderItem extends Model{
 
     @Expose
     public Integer quantity;
+
+    @Expose
+    @OneToOne
+    public Product product;
 
     @ManyToOne
     public Order order;
