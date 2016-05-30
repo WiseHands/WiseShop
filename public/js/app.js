@@ -8,90 +8,16 @@ function initAutocomplete() {
     angular.module('sweety', [])
         .controller('ListViewController', function($scope, $http) {
             $scope.minOrderForFreeDelivery = 501;
-            var prefix = 'public/images/shop';
-            $scope.products = [
-                {
-                    productId: 1,
-                    image: prefix + '/item0.jpg',
-                    title: 'Шоколадки з передбаченнями «ТОРБА ЩАСТЯ»',
-                    price: '60 грн',
-                    priceNum: 60
+            $http({
+                method: 'GET',
+                url: '/products'
+            })
+                .then(function successCallback(response) {
+                    $scope.products = response.data;
 
-                },
-                {
-                    productId: 2,
-                    image: prefix + '/item1.jpg',
-                    title: 'Шоколадка з передбаченням',
-                    price: '7 грн/шт',
-                    priceNum: 7
-
-                },
-                {
-                    productId: 3,
-                    image: prefix + '/item2.jpg',
-                    title: 'Набір шоколадок "7 сторін моєї любові"',
-                    price: '50 грн/шт',
-                    priceNum: 50
-
-                },
-                {
-                    productId: 4,
-                    image: prefix + '/item3.jpg',
-                    title: 'Набір шоколадок "7 сторін Любові"',
-                    price: '50 грн/шт',
-                    priceNum: 50
-
-                },
-                {
-                    productId: 5,
-                    image: prefix + '/item4.jpg',
-                    title: 'Набір шоколадок "БУДДА"',
-                    price: '50 грн/шт',
-                    priceNum: 50
-
-                },
-                {
-                    productId: 6,
-                    image: prefix + '/item5.jpg',
-                    title: 'Набір шоколадок "DRUZI"',
-                    price: '50 грн/шт',
-                    priceNum: 50
-
-                },
-                {
-                    productId: 7,
-                    image: prefix + '/item6.jpg',
-                    title: 'Набір шоколадок "Маленький принц"',
-                    price: '50 грн/шт',
-                    priceNum: 50
-
-                },
-                {
-                    productId: 8,
-                    image: prefix + '/item7.jpg',
-                    title: 'Набір шоколадок «Мафія»',
-                    price: '50 грн/шт',
-                    priceNum: 50
-
-                },
-                {
-                    productId: 9,
-                    image: prefix + '/item8.jpg',
-                    title: 'Печиво з передбаченням',
-                    price: '6 грн/шт',
-                    priceNum: 6
-
-                },
-                {
-                    productId: 10,
-                    image: prefix + '/item9.jpg',
-                    title: 'ІМБИРКИ ЗІ ЛЬВОВА - печиво з передбаченнями',
-                    price: '50 грн',
-                    priceNum: 50
-
-                }
-
-            ];
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
 
             $scope.init = function() {
                 var placeSearch, autocomplete;
@@ -181,7 +107,7 @@ function initAutocomplete() {
                 $scope.total = 0;
                 for(var i =0; i < $scope.selectedItems.length; i++){
                     var item = $scope.selectedItems[i];
-                    $scope.total += (item.quantity * item.priceNum);
+                    $scope.total += (item.quantity * item.price);
                 }
             };
 
@@ -199,7 +125,7 @@ function initAutocomplete() {
 
                 $http({
                     method: 'POST',
-                    url: '/pay',
+                    url: '/orders',
                     data: params
                 })
                 .then(function successCallback(response) {
