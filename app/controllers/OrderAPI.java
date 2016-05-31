@@ -89,10 +89,10 @@ public class OrderAPI extends Controller {
 
         //LIQPAY:
         HashMap params = new HashMap();
-        params.put("version", "3");
-        params.put("amount", totalCost);
+        params.put("action", "pay");
+        params.put("amount", orderDTO.total);
         params.put("currency", "UAH");
-        params.put("description", orderDTO);
+        params.put("description", "new payment");
         params.put("order_id", orderDTO.uuid);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
