@@ -178,12 +178,12 @@
                                            type="number"
                                            ng-model="phone"
                                            name="phone"
-                                           placeholder="0931234567"
-                                           ng-minlength="10"
-                                           ng-maxlength="10"
+                                           placeholder="80931234567"
+                                           ng-minlength="11"
+                                           ng-maxlength="11"
                                            required/>
                                 </label>
-                                <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 10 чисел</span>
+                                <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 11 чисел</span>
                             </div>
                             <div class="form-group">
                                 <label for="address">Адреса</label>
