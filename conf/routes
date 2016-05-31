@@ -7,7 +7,6 @@ GET     /                                       Application.index
 GET     /ru                                     Application.indexRu
 GET     /shop                                   Application.shop
 GET     /map                                    Application.map(format:'xml')
-*       /success                                Application.success
 
 GET     /admin                                  Application.admin
 GET     /login                                  Application.login
@@ -24,6 +23,8 @@ GET     /orders                                 OrderAPI.list
 GET     /order/{uuid}                           OrderAPI.details
 POST    /order                                  OrderAPI.create
 DELETE  /order/{uuid}                           OrderAPI.delete
+*       /success                                OrderAPI.success
+
 
 *       /done                                   Application.done
 *       /fail                                   Application.fail
