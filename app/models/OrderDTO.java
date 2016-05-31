@@ -1,6 +1,7 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import enums.OrderState;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
@@ -37,6 +38,9 @@ public class OrderDTO extends GenericModel {
     @Expose
     public Double total;
 
+    @Enumerated(EnumType.STRING)
+    public OrderState state;
+
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)
@@ -49,5 +53,6 @@ public class OrderDTO extends GenericModel {
         this.deliveryType = deliveryType;
         this.departmentNumber = departmentNumber;
         this.time = System.currentTimeMillis();
+        this.state = OrderState.NEW;
     }
 }

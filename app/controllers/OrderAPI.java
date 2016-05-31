@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.liqpay.LiqPay;
+import enums.OrderState;
 import models.OrderDTO;
 import models.OrderItemDTO;
 import models.ProductDTO;
@@ -137,31 +138,23 @@ public class OrderAPI extends Controller {
 
         byte[] decodedBytes = Base64.decodeBase64(data);
         System.out.println("decodedBytes " + new String(decodedBytes));
+        System.out.println("\n\n\nPayment received!!!!\n\n\n");
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(new String(decodedBytes));
-        long orderId = Long.parseLong(jsonObject.get("order_id").toString());
-//        OrderModel orderItem = OrderModel.findById(orderId);
-//        orderItem.status = "Payment Done";
-        //orderItem.save();
+        String orderId = String.valueOf(jsonObject.get("order_id"));
+
+        OrderDTO orderDTO = OrderDTO.find("byUuid",orderId).first();
+        orderDTO.state  = OrderState.PAYED;
+        orderDTO.save();
 
         SimpleEmail email = new SimpleEmail();
         email.setFrom("bohdaq@gmail.com");
         email.addTo("bohdaq@gmail.com");
         email.setSubject("Нове замовлення");
-        email.setMsg("OrderDTO id: " + orderId);
+        email.setMsg("Order uuid: " + orderId);
         Mail.send(email);
 
-        email = new SimpleEmail();
-        email.setFrom("bohdaq@gmail.com");
-        email.addTo("hello@happybag.me");
-        email.addTo("sviatoslav.p5@gmail.com");
-        email.setSubject("Ваше замовлення успішно оплачено");
-        email.setMsg("OrderDTO id: " + orderId);
-        Mail.send(email);
-
-
-
-        System.out.println("\n\n\nApplication.success " + sign);
+        System.out.println("\n\n\nEnd of Payment received!!!!\n\n\n");
         ok();
     }
 
