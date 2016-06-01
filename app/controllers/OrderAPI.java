@@ -92,7 +92,7 @@ public class OrderAPI extends Controller {
         params.put("action", "pay");
         params.put("amount", orderDTO.total);
         params.put("currency", "UAH");
-        params.put("description", "new payment");
+        params.put("description", "New Payment: " + orderDTO.toString());
         params.put("order_id", orderDTO.uuid);
         LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
         String html = liqpay.cnb_form(params);
@@ -151,7 +151,14 @@ public class OrderAPI extends Controller {
         email.setFrom("bohdaq@gmail.com");
         email.addTo("bohdaq@gmail.com");
         email.setSubject("Нове замовлення");
-        email.setMsg("Order uuid: " + orderId);
+        email.setMsg("Деталі: " + orderDTO.toString());
+        Mail.send(email);
+
+        email = new SimpleEmail();
+        email.setFrom("bohdaq@gmail.com");
+        email.addTo("sviatoslav.p5@gmail.com");
+        email.setSubject("Нове замовлення");
+        email.setMsg("Деталі: " + orderDTO.toString());
         Mail.send(email);
 
         System.out.println("\n\n\nEnd of Payment received!!!!\n\n\n");

@@ -38,9 +38,9 @@ public class OrderDTO extends GenericModel {
     @Expose
     public Double total;
 
+    @Expose
     @Enumerated(EnumType.STRING)
     public OrderState state;
-
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)
@@ -54,5 +54,24 @@ public class OrderDTO extends GenericModel {
         this.departmentNumber = departmentNumber;
         this.time = System.currentTimeMillis();
         this.state = OrderState.NEW;
+    }
+
+    private String returnIfNotNull(String target){
+        if(target != null){
+            return target;
+        } else {
+            return "";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.name + "\n" +
+                this.phone +  "\n" +
+                this.deliveryType +
+                returnIfNotNull(this.address) + "\n" +
+                returnIfNotNull(this.departmentNumber) + "\n" +
+                total + "\n" +
+                "http://happybag.me/admin#/details/" + this.uuid;
     }
 }
