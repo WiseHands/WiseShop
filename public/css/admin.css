@@ -24,3 +24,17 @@ p {
 .vertcialCentering {
     margin-top: 1.1em;
 }
+.rowBackground {
+    background-color: #f8f8f8;
+    box-sizing: border-box;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid lightgrey;
+}
+.orderState {
+    margin-bottom: 0;
+    border: none;
+}
+.thumbnail {
+
+}

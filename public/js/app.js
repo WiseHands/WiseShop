@@ -54,7 +54,7 @@ function initAutocomplete() {
                     } else {
                         return '';
                     }
-                } else if ($scope.delivery.radio == 'SELFTAKE'){
+                } else if ($scope.delivery.radio === 'SELFTAKE'){
                     return '';
                 }
                 return '';

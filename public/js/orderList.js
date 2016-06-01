@@ -18,6 +18,15 @@
                 }, function errorCallback(data) {
                     $scope.status = 'Щось пішло не так...';
                 });
+
+            $scope.orderState = function(item){
+                if (item.state === "NEW"){
+                    return '#00EF55';
+                } else {
+                    return '#00BA0D';
+                }
+            }
+
         })
         .controller('SingleOrderCtrl', ['$http', '$scope', '$routeParams',
             function($http, $scope, $routeParams) {
@@ -54,7 +63,15 @@
                         }, function errorCallback(error) {
                             console.log(error);
                         });
-                }
+                };
+                $scope.orderState = function(order){
+                    if (!order) return;
+                    if (order.state === "NEW"){
+                        return 'Нове';
+                    } else {
+                        return 'Оплачено';
+                    }
+                };
             }])
         .directive('ngFiles', ['$parse', function ($parse) {
 
