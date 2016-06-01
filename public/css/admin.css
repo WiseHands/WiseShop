@@ -35,6 +35,9 @@ p {
     margin-bottom: 0;
     border: none;
 }
-.thumbnail {
-
+.dropdown-menu {
+    left: -9em;
+}
+ .dropdown-menu li {
+    margin: 0.7em 0;
 }
