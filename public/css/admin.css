@@ -38,6 +38,17 @@ p {
 .dropdown-menu {
     left: -9em;
 }
- .dropdown-menu li {
+.dropdown-menu li {
     margin: 0.7em 0;
+}
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.parentTextCentering {
+    margin-top: 1em;
+}
+.childTextCentering {
+    margin-top: 0.55em;
 }
