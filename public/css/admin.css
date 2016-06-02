@@ -22,7 +22,7 @@ p {
     }
 }
 .vertcialCentering {
-    margin-top: 1.1em;
+    margin-top: 1.3em;
 }
 .rowBackground {
     background-color: #f8f8f8;
@@ -36,7 +36,7 @@ p {
     border: none;
 }
 .dropdown-menu {
-    left: -9em;
+    top: 3.35em;
 }
 .dropdown-menu li {
     margin: 0.7em 0;
@@ -51,4 +51,29 @@ p {
 }
 .childTextCentering {
     margin-top: 0.55em;
+}
+/*Checkboxes styling*/
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span {
+    width: 1em;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+    display: none;
+}
+.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+    display: none;
+}
+.fixedWidth {
+    width: 15.5em;
 }
