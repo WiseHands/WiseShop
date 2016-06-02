@@ -126,6 +126,46 @@ public class OrderAPI extends Controller {
         ok();
     }
 
+    public static void markPayed(String uuid) throws Exception {
+        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
+        orderDTO.state = OrderState.PAYED;
+        orderDTO.save();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(orderDTO);
+        renderJSON(json);
+    }
+
+    public static void markShipped(String uuid) throws Exception {
+        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
+        orderDTO.state = OrderState.SHIPPED;
+        orderDTO.save();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(orderDTO);
+        renderJSON(json);
+    }
+
+    public static void markCancelled(String uuid) throws Exception {
+        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
+        orderDTO.state = OrderState.CANCELLED;
+        orderDTO.save();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(orderDTO);
+        renderJSON(json);
+    }
+
+    public static void markReturned(String uuid) throws Exception {
+        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
+        orderDTO.state = OrderState.RETURNED;
+        orderDTO.save();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(orderDTO);
+        renderJSON(json);
+    }
+
     //TODO: implement
     public static void success(String data) throws ParseException, EmailException {
         final LiqPayLocal liqpay = new LiqPayLocal(PUBLIC_KEY, PRIVATE_KEY);

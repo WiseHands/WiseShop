@@ -23,6 +23,10 @@ GET     /orders                                 OrderAPI.list
 GET     /order/{uuid}                           OrderAPI.details
 POST    /order                                  OrderAPI.create
 DELETE  /order/{uuid}                           OrderAPI.delete
+PUT     /order/{uuid}/payed                     OrderAPI.markPayed
+PUT     /order/{uuid}/cancelled                 OrderAPI.markCancelled
+PUT     /order/{uuid}/shipped                   OrderAPI.markShipped
+PUT     /order/{uuid}/returned                  OrderAPI.markReturned
 *       /success                                OrderAPI.success
 
 

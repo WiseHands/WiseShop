@@ -21,9 +21,15 @@
 
             $scope.orderState = function(item){
                 if (item.state === "NEW"){
-                    return '#00EF55';
-                } else {
+                    return '#0B1BF2';
+                } else if (item.state === "PAYED") {
                     return '#00BA0D';
+                } else if (item.state === "CANCELLED") {
+                    return '#BC0005';
+                } else if (item.state === "SHIPPED") {
+                    return '#9715BC';
+                } else if (item.state === "RETURNED") {
+                    return '#A27C20';
                 }
             }
 
@@ -68,9 +74,59 @@
                     if (!order) return;
                     if (order.state === "NEW"){
                         return 'Нове';
-                    } else {
+                    } else if (order.state === "PAYED") {
                         return 'Оплачено';
+                    } else if (order.state === "CANCELLED") {
+                        return 'Скасовано';
+                    } else if (order.state === "SHIPPED") {
+                        return 'Надіслано';
+                    } else if (order.state === "RETURNED") {
+                        return 'Повернено';
                     }
+                };
+                $scope.payedOrder = function () {
+                    $http({
+                        method: 'PUT',
+                        url: '/order/' + $routeParams.uuid + '/payed'
+                    })
+                        .then(function successCallback(response){
+                            $scope.order = response.data;
+                        }, function errorCallback(error){
+                            console.log(error);
+                        });
+                };
+                $scope.cancelledOrder = function () {
+                    $http({
+                        method: 'PUT',
+                        url: '/order/' + $routeParams.uuid + '/cancelled'
+                    })
+                        .then(function successCallback(response){
+                            $scope.order = response.data;
+                        }, function errorCallback(error){
+                            console.log(error);
+                        });
+                };
+                $scope.shippedOrder = function () {
+                    $http({
+                        method: 'PUT',
+                        url: '/order/' + $routeParams.uuid + '/shipped'
+                    })
+                        .then(function successCallback(response){
+                            $scope.order = response.data;
+                        }, function errorCallback(error){
+                            console.log(error);
+                        });
+                };
+                $scope.returnedOrder = function () {
+                    $http({
+                        method: 'PUT',
+                        url: '/order/' + $routeParams.uuid + '/returned'
+                    })
+                        .then(function successCallback(response){
+                            $scope.order = response.data;
+                        }, function errorCallback(error){
+                            console.log(error);
+                        });
                 };
             }])
         .directive('ngFiles', ['$parse', function ($parse) {
