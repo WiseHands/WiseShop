@@ -45,15 +45,7 @@
                 }
 
                 return item;
-            }
-            $scope.startFiltering = function () {
-                shared.setFilterOptions($scope.options);
-                $window.location.href = "#/filter";
             };
-            
-           
-
-
         })
         .controller('SingleOrderCtrl', ['$http', '$scope', '$routeParams',
             function($http, $scope, $routeParams) {
@@ -254,25 +246,26 @@
 
                 }
             }])
-        .controller('filterOptionsController', function ($scope, shared, $window){
-            $scope.filterOptions = [];
+        .controller('FilterOptionsController', function ($scope, shared){
+            $scope.filterOptions = shared.filterOptions || [];
+            
             $scope.orderStateFilter = function (orderState) {
                 var i = $.inArray(orderState, $scope.filterOptions);
                 if (i > -1) {
                     $scope.filterOptions.splice(i, 1);
+                    shared.setFilterOptions($scope.filterOptions);
                 } else {
                     $scope.filterOptions.push(orderState);
+                    shared.setFilterOptions($scope.filterOptions);
                 }
             };
-            $scope.startFiltering = function () {
-                shared.setFilterOptions($scope.filterOptions);
-                $window.location.href = "#/";
+
+            $scope.isOptionChecked = function (type) {
+              return $.inArray(type, $scope.filterOptions) > -1;
             };
             function loadOptions() {
-                $scope.options = shared.getFilterOptions();
+                $scope.filterOptions = shared.getFilterOptions();
             }
-
             loadOptions();
-
         })
 })();

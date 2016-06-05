@@ -9,7 +9,7 @@
                     <h4><b>Критерії пошуку</b></h4>
                 </div>
                 <div class="dropdown col-xs-2">
-                  <span class="glyphicon glyphicon-search vertcialCentering" ng-click="startFiltering()"</span>
+                  <a href="#/"><span class="glyphicon glyphicon-search vertcialCentering"</span></a>
                 </div>
             </div>
         </div>
@@ -17,21 +17,21 @@
 <div class="container-fluid">
         <div class="col-xs-12">
             <div class="[ form-group ]">
-                <input type="checkbox" name="fancy-checkbox-default1" id="fancy-checkbox-default1" autocomplete="off" ng-click="orderStateFilter('NEW')"/>
+                <input type="checkbox" name="fancy-checkbox-default1" id="fancy-checkbox-default1" autocomplete="off" ng-click="orderStateFilter('NEW')" ng-checked="isOptionChecked('NEW')"/>
                 <div class="[ btn-group ]">
                     <label for="fancy-checkbox-default1" class="[ btn btn-default ]">
                         <span class="[ glyphicon glyphicon-ok ]"></span>
                         <span> </span>
                     </label>
                     <label for="fancy-checkbox-default1" class="[ btn btn-default active ] fixedWidth">
-                        <b>Нові замовлення</b>
+                        <b>{{}}Нові замовлення</b>
                     </label>
                 </div>
             </div>
         </div>
         <div class="col-xs-12">
             <div class="[ form-group ]">
-                <input type="checkbox" name="fancy-checkbox-default2" id="fancy-checkbox-default2" autocomplete="off" ng-click="orderStateFilter('PAYED')"/>
+                <input type="checkbox" name="fancy-checkbox-default2" id="fancy-checkbox-default2" autocomplete="off" ng-click="orderStateFilter('PAYED')" ng-checked="isOptionChecked('PAYED')"/>
                 <div class="[ btn-group ]">
                     <label for="fancy-checkbox-default2" class="[ btn btn-default ]">
                         <span class="[ glyphicon glyphicon-ok ]"></span>

@@ -36,7 +36,7 @@
                     }).
                     when('/filter',{
                         templateUrl:'public/admin/partials/filterOrders.html',
-                        controller:'filterOptionsController'
+                        controller:'FilterOptionsController'
                     }).
                         otherwise({
                         redirectTo:'/'
