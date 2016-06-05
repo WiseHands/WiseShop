@@ -3,7 +3,7 @@
  */
 (function () {
     angular.module('orderList', [])
-        .controller('orderListController', function ($scope, $http) {
+        .controller('orderListController', function ($scope, $http, shared, $window) {
             $http({
                 method: 'GET',
                 url: '/orders'
@@ -31,7 +31,28 @@
                 } else if (item.state === "RETURNED") {
                     return '#A27C20';
                 }
+            };            
+            function loadOptions() {
+                $scope.options = shared.getFilterOptions();
             }
+
+            loadOptions();
+
+            $scope.orderFilter = function(item) {
+                if ($scope.options.length > 0) {
+                    if ($.inArray(item.state, $scope.options) < 0)
+                        return;
+                }
+
+                return item;
+            }
+            $scope.startFiltering = function () {
+                shared.setFilterOptions($scope.options);
+                $window.location.href = "#/filter";
+            };
+            
+           
+
 
         })
         .controller('SingleOrderCtrl', ['$http', '$scope', '$routeParams',
@@ -233,4 +254,25 @@
 
                 }
             }])
+        .controller('filterOptionsController', function ($scope, shared, $window){
+            $scope.filterOptions = [];
+            $scope.orderStateFilter = function (orderState) {
+                var i = $.inArray(orderState, $scope.filterOptions);
+                if (i > -1) {
+                    $scope.filterOptions.splice(i, 1);
+                } else {
+                    $scope.filterOptions.push(orderState);
+                }
+            };
+            $scope.startFiltering = function () {
+                shared.setFilterOptions($scope.filterOptions);
+                $window.location.href = "#/";
+            };
+            function loadOptions() {
+                $scope.options = shared.getFilterOptions();
+            }
+
+            loadOptions();
+
+        })
 })();

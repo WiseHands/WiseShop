@@ -36,10 +36,22 @@
                     }).
                     when('/filter',{
                         templateUrl:'public/admin/partials/filterOrders.html',
-                        controller:'ProductDetailsCtrl'
+                        controller:'filterOptionsController'
                     }).
                         otherwise({
                         redirectTo:'/'
                 });
-            }]);
+            }])
+        .service('shared',function(){
+            var filterOptions = [];
+            return{
+                getFilterOptions: function(){
+                    return filterOptions;
+                },
+                setFilterOptions: function(value){
+                    filterOptions = value;
+                }
+            };
+        })
+
 })();

@@ -13,7 +13,7 @@
                     <h4><b>Замовлення</b></h4>
                 </div>
                 <div class="col-xs-2">
-                    <a href="#/filter"><span class="glyphicon glyphicon-filter vertcialCentering"></span></a>
+                    <span class="glyphicon glyphicon-filter vertcialCentering" ng-click="startFiltering()"></span>
                 </div>
             </div>
         </div>
@@ -25,14 +25,14 @@
         </div>
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
-<div class="wellSideMargin rowBackground" ng-repeat="item in orders">
+<div class="wellSideMargin rowBackground" ng-repeat="item in orders | filter:orderFilter">
     <a href ="#/details/{{item.uuid}}">
         <div class="row">
             <div class="col-xs-7 parentTextCentering">
-                <h5 class="truncate text-center">{{item.name}}</h5>
+                <h5 class="truncate text-center">{{options}}{{item.name}}</h5>
             </div>
             <div class="col-xs-4 childTextCentering">
-                <p class="text-center">{{item.total}} ₴</p>
+                <p class="text-center">₴ {{item.total}}</p>
             </div>
             <div class="col-xs-1 thumbnail orderState text-center" ng-style="{ 'background-color': orderState(item) }">
                 <p>&nbsp;</p>

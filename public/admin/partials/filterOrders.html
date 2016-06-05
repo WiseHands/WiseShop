@@ -9,16 +9,15 @@
                     <h4><b>Критерії пошуку</b></h4>
                 </div>
                 <div class="dropdown col-xs-2">
-                    <span class="glyphicon glyphicon-search vertcialCentering"></span>
+                  <span class="glyphicon glyphicon-search vertcialCentering" ng-click="startFiltering()"</span>
                 </div>
             </div>
         </div>
 </nav>
 <div class="container-fluid">
-    <div class="row">
         <div class="col-xs-12">
             <div class="[ form-group ]">
-                <input type="checkbox" name="fancy-checkbox-default1" id="fancy-checkbox-default1" autocomplete="off" />
+                <input type="checkbox" name="fancy-checkbox-default1" id="fancy-checkbox-default1" autocomplete="off" ng-click="orderStateFilter('NEW')"/>
                 <div class="[ btn-group ]">
                     <label for="fancy-checkbox-default1" class="[ btn btn-default ]">
                         <span class="[ glyphicon glyphicon-ok ]"></span>
@@ -32,7 +31,7 @@
         </div>
         <div class="col-xs-12">
             <div class="[ form-group ]">
-                <input type="checkbox" name="fancy-checkbox-default2" id="fancy-checkbox-default2" autocomplete="off" />
+                <input type="checkbox" name="fancy-checkbox-default2" id="fancy-checkbox-default2" autocomplete="off" ng-click="orderStateFilter('PAYED')"/>
                 <div class="[ btn-group ]">
                     <label for="fancy-checkbox-default2" class="[ btn btn-default ]">
                         <span class="[ glyphicon glyphicon-ok ]"></span>
@@ -72,7 +71,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <div class="col-xs-12">
         <div class="[ form-group ]">
             <input type="checkbox" name="fancy-checkbox-default5" id="fancy-checkbox-default5" autocomplete="off" />
@@ -87,5 +85,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>
