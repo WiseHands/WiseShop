@@ -25,6 +25,7 @@
         </div>
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
+<h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0"><i>No</i></h4>
 <div class="wellSideMargin rowBackground" ng-repeat="item in orders | filter:orderFilter">
     <a href ="#/details/{{item.uuid}}">
         <div class="row">
