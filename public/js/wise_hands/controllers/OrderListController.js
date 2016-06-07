@@ -42,4 +42,11 @@
 
                 return item;
             };
+            $scope.search = function (item) {
+                if (!$scope.query){
+                    return true;
+                }
+                return ((item.name.indexOf($scope.query) || '') !== -1) ||
+                    ((item.total.toString().indexOf($scope.query) || '') !== -1);
+            };
         });
