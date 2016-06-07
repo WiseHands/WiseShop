@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
                 <div class="col-xs-9">
-                    <input type="text" class="form-control" placeholder="Пошук">
+                    <input type="text" class="form-control" placeholder="Пошук" ng-model="searchOptions">
                 </div>
                 <div class="col-xs-1">
                     <span class="glyphicon glyphicon-sort-by-attributes-alt searchVerticalCentering"></span>
@@ -39,7 +39,7 @@
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
 <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0"><i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i></h4>
-<div class="wellSideMargin rowBackground" ng-repeat="item in orders | filter:orderFilter">
+<div class="wellSideMargin rowBackground" ng-repeat="item in orders | filter:orderFilter | filter:searchOptions">
     <a href ="#/details/{{item.uuid}}">
         <div class="row">
             <div class="col-xs-7 parentTextCentering">
