@@ -81,3 +81,7 @@ p {
 .searchVerticalCentering {
     margin-top: 0.7em;
 }
+
+.iconColor {
+    color: black;
+}

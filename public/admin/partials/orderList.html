@@ -29,17 +29,17 @@
                     <input type="text" class="form-control" placeholder="Пошук" ng-model="searchOptions">
                 </div>
                 <div class="col-xs-1">
-                    <span class="glyphicon glyphicon-sort-by-attributes-alt searchVerticalCentering"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt searchVerticalCentering" ng-click="sort=!sort""></span>
                 </div>
                 <div class="col-xs-1">
-                    <a href="#/filter"><span class="glyphicon glyphicon-filter searchVerticalCentering"></span></a>
+                    <a href="#/filter" class="iconColor"><span class="glyphicon glyphicon-filter searchVerticalCentering"></span></a>
                 </div>
             </ul>
         </div>
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
 <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0"><i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i></h4>
-<div class="wellSideMargin rowBackground" ng-repeat="item in orders | filter:orderFilter | filter:searchOptions">
+<div class="wellSideMargin rowBackground" ng-repeat="item in orders | filter:orderFilter | filter:searchOptions | orderBy:'time':sort">
     <a href ="#/details/{{item.uuid}}">
         <div class="row">
             <div class="col-xs-7 parentTextCentering">
