@@ -13,7 +13,7 @@
                     <h4><b>Замовлення</b></h4>
                 </div>
                 <div class="col-xs-2">
-                    <a href="#/filter"><span class="glyphicon glyphicon-filter vertcialCentering"></span></a>
+                    <a class="collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2"><span class="glyphicon glyphicon-eye-open vertcialCentering"></span></a>
                 </div>
             </div>
         </div>
@@ -23,9 +23,22 @@
                 <li><a href="#/products">Товари</a></li>
             </ul>
         </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+            <ul class="nav navbar-nav">
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" placeholder="Пошук">
+                </div>
+                <div class="col-xs-1">
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt searchVerticalCentering"></span>
+                </div>
+                <div class="col-xs-1">
+                    <a href="#/filter"><span class="glyphicon glyphicon-filter searchVerticalCentering"></span></a>
+                </div>
+            </ul>
+        </div>
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
-<h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0"><i>No</i></h4>
+<h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0"><i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i></h4>
 <div class="wellSideMargin rowBackground" ng-repeat="item in orders | filter:orderFilter">
     <a href ="#/details/{{item.uuid}}">
         <div class="row">

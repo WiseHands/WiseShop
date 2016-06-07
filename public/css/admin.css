@@ -77,3 +77,7 @@ p {
 .fixedWidth {
     width: 15.5em;
 }
+/*Vertical centering search glyphicons */
+.searchVerticalCentering {
+    margin-top: 0.7em;
+}
