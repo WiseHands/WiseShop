@@ -1,23 +1,25 @@
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header text-center">
             <div class="row">
-                <div class="col-xs-2">
-                    <a href="#/product/details/{{product.uuid}}"><span class="glyphicon glyphicon-arrow-left vertcialCentering"></span></a>
+                <div class="col-xs-2 col-sm-2">
+                    <a href="#/product/details/{{product.uuid}}">
+                        <span class="glyphicon glyphicon-arrow-left verticalCentering landscapeFloatLeft"></span>
+                    </a>
                 </div>
-                <div class=" col-xs-8 vcenter">
+                <div class=" col-xs-8 col-sm-8 vcenter">
                     <h4><b>Редагування</b></h4>
                 </div>
-                <div class="col-xs-2">
-                    <span class="glyphicon glyphicon-floppy-disk vertcialCentering" ng-click="updateProduct()"></span>
+                <div class="col-xs-2 col-sm-2">
+                    <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="updateProduct()"></span>
                 </div>
             </div>
         </div>
 </nav>
 <div class="well wellSideMargin">
     <div class="row text-center">
-        <div class="col-xs-12">
-            <img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive" alt=""></img>
+        <div class="col-xs-12 col-sm-12">
+            <img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive center-block landscapeImageScale" alt=""></img>
             <h4><b>Назва товару: </b>
                 <p><i>
                 <input name="textinput" type="text" class="form-control input-md" ng-model="product.name">

@@ -3,6 +3,10 @@ p {
     padding-top: 1em;
     padding-bottom: 1em;
 }
+/*margin for fixed navbar*/
+body {
+    margin-top: 4.7em;
+}
 .wellSideMargin {
     margin-right: 0.9em;
     margin-left: 0.9em;
@@ -12,18 +16,7 @@ p {
     margin-top: 0.4em;
     display: none;
 }
-@media only screen and (max-device-width : 480px) {
-    .vcenter {
-        display: inline;
-    }
-    .row {
-        margin-left: 0px;
-        margin-right: 0px;
-    }
-}
-.vertcialCentering {
-    margin-top: 1.3em;
-}
+
 .rowBackground {
     background-color: #f8f8f8;
     box-sizing: border-box;
@@ -31,10 +24,7 @@ p {
     margin-bottom: 1em;
     border: 1px solid lightgrey;
 }
-.orderState {
-    margin-bottom: 0;
-    border: none;
-}
+
 .dropdown-menu {
     top: 3.35em;
 }
@@ -74,9 +64,7 @@ p {
 .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
     display: none;
 }
-.fixedWidth {
-    width: 15.5em;
-}
+
 /*Vertical centering search glyphicons */
 .searchVerticalCentering {
     margin-top: 0.7em;
@@ -84,4 +72,67 @@ p {
 
 .iconColor {
     color: black;
+}
+.verticalCentering {
+margin-top: 1.3em;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-device-width : 480px) {
+    .vcenter {
+        display: inline;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .landscapeFloatLeft {
+        float: left;
+    }
+    .landscapeFloatRight {
+        float: right;
+    }
+    .orderState {
+        margin-bottom: 0;
+        border: none;
+
+    }
+    .landscapeView {
+        display: none;
+    }
+    .fixedWidth {
+        width: 15.5em;
+    }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-device-width: 568px) and (max-device-width: 767px){
+    .vcenter {
+        display: inline;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .landscapeFloatLeft {
+        float: left;
+    }
+    .landscapeFloatRight {
+        float: right;
+    }
+    .orderState {
+        margin-bottom: 0;
+        border: none;
+        max-width: 1.4em;
+        float: right;
+    }
+    .portraitView {
+        display: none;
+    }
+    .fixedWidth {
+        width: 14.2em;
+    }
+    .landscapeImageScale {
+        max-width: 40%;
+    }
 }

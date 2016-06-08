@@ -1,19 +1,21 @@
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header text-center">
             <div class="row">
-                <div class="col-xs-3">
+                <div class="col-xs-3 col-sm-3">
                     <button type="button"
-                            class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger"
+                            class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"
                             data-toggle="collapse"
                             data-target="#bs-example-navbar-collapse-1">
                     </button>
                 </div>
-                <div class="col-xs-7 vcenter">
+                <div class="col-xs-7 col-sm-7 vcenter">
                     <h4><b>Замовлення</b></h4>
                 </div>
-                <div class="col-xs-2">
-                    <a class="collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2"><span class="glyphicon glyphicon-eye-open vertcialCentering"></span></a>
+                <div class="col-xs-2 col-sm-2">
+                    <a class="collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                        <span class="glyphicon glyphicon-eye-open verticalCentering landscapeFloatRight"></span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -25,30 +27,32 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
-                <div class="col-xs-9">
+                <div class="col-xs-8 col-sm-8">
                     <input type="text" class="form-control" placeholder="Пошук" ng-model="query">
                 </div>
-                <div class="col-xs-1">
+                <div class="col-xs-4 col-sm-4">
                     <span class="glyphicon glyphicon-sort-by-attributes-alt searchVerticalCentering" ng-click="sort=!sort"></span>
-                </div>
-                <div class="col-xs-1">
-                    <a href="#/filter" class="iconColor"><span class="glyphicon glyphicon-filter searchVerticalCentering"></span></a>
+                    <a href="#/filter" class="iconColor">
+                        <span class="glyphicon glyphicon-filter searchVerticalCentering landscapeFloatRight"></span>
+                    </a>
                 </div>
             </ul>
         </div>
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
-<h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0"><i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i></h4>
+<h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
+    <i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i>
+</h4>
 <div class="wellSideMargin rowBackground" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':sort">
     <a href ="#/details/{{item.uuid}}">
         <div class="row">
-            <div class="col-xs-7 parentTextCentering">
-                <h5 class="truncate text-center">{{item.name}}</h5>
+            <div class="col-xs-7 col-sm-7 parentTextCentering">
+                <h5 class="truncate text-center"><i>{{item.name}}</i></h5>
             </div>
-            <div class="col-xs-4 childTextCentering">
-                <p class="text-center">₴ {{item.total}}</p>
+            <div class="col-xs-4 col-sm-4 childTextCentering">
+                <p class="text-center">₴ <b>{{item.total}}</b></p>
             </div>
-            <div class="col-xs-1 thumbnail orderState text-center" ng-style="{ 'background-color': orderState(item) }">
+            <div class="col-xs-1 col-sm-1 thumbnail orderState text-center" ng-style="{ 'background-color': orderState(item) }">
                 <p>&nbsp;</p>
             </div>
         </div>
