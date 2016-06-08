@@ -77,6 +77,13 @@ body {
 margin-top: 1.3em;
 }
 
+.landscapeFloatLeft {
+    float: left;
+}
+.landscapeFloatRight {
+    float: right;
+}
+
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
     .vcenter {
@@ -85,12 +92,6 @@ margin-top: 1.3em;
     .row {
         margin-left: 0px;
         margin-right: 0px;
-    }
-    .landscapeFloatLeft {
-        float: left;
-    }
-    .landscapeFloatRight {
-        float: right;
     }
     .orderState {
         margin-bottom: 0;
@@ -103,6 +104,10 @@ margin-top: 1.3em;
     .fixedWidth {
         width: 15.5em;
     }
+    .tabletView {
+        display: none;
+    }
+
 }
 
 /* Smartphones (landscape) ----------- */
@@ -113,12 +118,6 @@ margin-top: 1.3em;
     .row {
         margin-left: 0px;
         margin-right: 0px;
-    }
-    .landscapeFloatLeft {
-        float: left;
-    }
-    .landscapeFloatRight {
-        float: right;
     }
     .orderState {
         margin-bottom: 0;
@@ -135,4 +134,41 @@ margin-top: 1.3em;
     .landscapeImageScale {
         max-width: 40%;
     }
+    .tabletView {
+        display: none;
+    }
+
+        
+}
+/* Tablet ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .smartPhoneView {
+        display: none;
+    }
+    .tabletTextCentering {
+        margin-top: 0.85em;
+    }
+    .orderState {
+        margin-bottom: 0;
+        border: none;
+        max-width: 1.4em;
+        float: right;
+    }
+    .searchBarCentering {
+        margin-top: 0.6em;
+    }
+    .vcenter {
+        display: inline;
+    }
+    .portraitView {
+        display: none;
+    }
+    .fixedWidth {
+        width: 14.2em;
+    }
+
 }

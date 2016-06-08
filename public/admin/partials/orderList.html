@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header text-center">
             <div class="row">
@@ -38,6 +38,25 @@
                 </div>
             </ul>
         </div>
+</nav>
+<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
+    <div class="row">
+        <div class="col-xs-2 col-sm-2">
+            <a href="#/"><h4 class="tabletTextCentering">Замовлення</h4></a>
+        </div>
+        <div class="col-xs-2 col-sm-2">
+            <a href="#/products"><h4 class="tabletTextCentering">Товари</h4></a>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <input type="text" class="form-control searchBarCentering pull-left" placeholder="Пошук" ng-model="query">
+        </div>
+        <div class="col-xs-2 col-sm-2">
+            <span class="glyphicon glyphicon-sort-by-attributes-alt verticalCentering" ng-click="sort=!sort"></span>
+            <a href="#/filter" class="iconColor">
+                <span class="glyphicon glyphicon-filter verticalCentering landscapeFloatRight"></span>
+            </a>
+        </div>
+    </div>
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
 <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">

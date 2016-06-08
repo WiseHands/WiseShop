@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header text-center">
             <div class="row">
@@ -25,6 +25,21 @@
                 <li><a href="#/products">Товари</a></li>
             </ul>
         </div>
+</nav>
+<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
+    <div class="row">
+        <div class="col-xs-2 col-sm-2">
+            <a href="#/"><h4 class="tabletTextCentering">Замовлення</h4></a>
+        </div>
+        <div class="col-xs-2 col-sm-2">
+            <a href="#/products"><h4 class="tabletTextCentering">Товари</h4></a>
+        </div>
+        <div class="col-xs-8 col-sm-8">
+            <a href="#/products/new">
+                <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"></span>
+            </a>
+        </div>
+    </div>
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
 <div class="well wellSideMargin" ng-repeat="product in products">
