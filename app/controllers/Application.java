@@ -25,7 +25,6 @@ public class Application extends Controller {
     @Before
     static void interceptAction(){
         corsHeaders();
-        checkAuthentification();
     }
 
     static void checkAuthentification() {
