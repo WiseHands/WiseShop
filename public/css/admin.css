@@ -138,6 +138,15 @@ margin-top: 1.3em;
     .tabletView {
         display: none;
     }
+    .leftSidePadding {
+        padding-right: 0;
+        padding-left: 0;
+
+    }
+    .rightSidePadding {
+        padding-right: 0;
+
+    }
 
         
 }
