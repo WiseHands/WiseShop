@@ -173,4 +173,7 @@ margin-top: 1.3em;
     .ordersView {
         display: none;
     }
+    .landscapeImageScale {
+        max-width: 40%;
+    }
 }

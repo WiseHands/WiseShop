@@ -42,13 +42,17 @@
     </div>
 </nav>
 <h4 class="text-center"><i>{{status}}</i></h4>
-<div class="well wellSideMargin" ng-repeat="product in products">
-    <a href="#/product/details/{{product.uuid}}"><div class="row row-centered">
-        <div class="col-xs-6 col-sm-6">
-            <h5 class="text-left"><i>{{product.name}}</i></h5>
+<div class="wellSideMargin" ng-repeat="product in products">
+    <div class="col-xs-12 col-sm-6">
+        <div class="row rowBackground">
+            <a href="#/product/details/{{product.uuid}}">
+                <div class="col-xs-9 col-sm-9">
+                    <h5 class="text-left truncate"><i>{{product.name}}</i></h5>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <h5 class="text-right">₴ <b>{{product.price}}</b></h5>
+                </div>
+            </a>
         </div>
-        <div class="col-xs-6 col-sm-6">
-            <h5 class="text-right">₴ <b>{{product.price}}</b></h5>
-        </div>
-    </div></a>
+    </div>
 </div>
