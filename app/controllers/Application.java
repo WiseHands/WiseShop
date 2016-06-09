@@ -88,6 +88,7 @@ public class Application extends Controller {
     }
 
     public static void admin() {
+        checkAuthentification();
         render();
     }
 
