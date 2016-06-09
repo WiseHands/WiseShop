@@ -40,12 +40,9 @@ public class Application extends Controller {
         forbidden();
     }
 
-    public static void index() {
+    public static void index(String client) {
+        System.out.println("client domain: " + client);
         render();
-    }
-
-    public static void client(String client) {
-        System.out.println("client domain: " + client);;
     }
 
     public static void map() {
