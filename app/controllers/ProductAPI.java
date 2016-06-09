@@ -21,7 +21,6 @@ public class ProductAPI extends Controller {
     @Before
     static void interceptAction(){
         corsHeaders();
-        checkAuthentification();
     }
 
 
@@ -31,8 +30,8 @@ public class ProductAPI extends Controller {
     }
 
     static void checkAuthentification() {
-        String token = request.headers.get(X_AUTH_TOKEN).value();
         if (request.headers.get(X_AUTH_TOKEN) != null){
+            String token = request.headers.get(X_AUTH_TOKEN).value();
             UserDTO user = UserDTO.find("byEmail", token).first();
 
             if(user == null)
@@ -41,6 +40,8 @@ public class ProductAPI extends Controller {
     }
 
     public static void create(String name, String description, Double price, Upload photo) throws Exception {
+        checkAuthentification();
+
         FileOutputStream out = new FileOutputStream(USERIMAGESPATH + photo.getFileName());
         out.write(photo.asBytes());
         out.close();
@@ -72,6 +73,8 @@ public class ProductAPI extends Controller {
     }
 
     public static void update(String uuid) throws Exception {
+        checkAuthentification();
+
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         String name = (String) jsonBody.get("name");
@@ -102,6 +105,8 @@ public class ProductAPI extends Controller {
     }
 
     public static void delete(String uuid) throws Exception {
+        checkAuthentification();
+
         ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
         productDTO.delete();
         ok();

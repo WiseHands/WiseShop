@@ -37,7 +37,6 @@ public class Application extends Controller {
         } else {
             forbidden("Empty X-AUTH-TOKEN");
         }
-
     }
 
     static void corsHeaders() {
