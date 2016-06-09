@@ -14,7 +14,7 @@ GET     /admin                                  Application.admin
 GET     /login                                  Application.login
 
 
-POST    /signin                                 Application.signin
+POST    /signin                                 UserAPI.login
 
 GET     /products                               ProductAPI.list
 GET     /product/{uuid}                         ProductAPI.details
