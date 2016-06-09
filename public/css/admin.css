@@ -1,3 +1,9 @@
+/*Animations*/
+
+
+
+
+
 /*TO CREATE SPACE BETWEEN ROW*/
 p {
     padding-top: 1em;
@@ -19,7 +25,6 @@ body {
 
 .rowBackground {
     background-color: #f8f8f8;
-    /*box-sizing: border-box;*/
     border-radius: 0.5em;
     margin-bottom: 1em;
     border: 1px solid lightgrey;
@@ -96,6 +101,7 @@ margin-top: 1.3em;
     float: right;
 }
 
+
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
     .vcenter {
@@ -138,17 +144,7 @@ margin-top: 1.3em;
     .tabletView {
         display: none;
     }
-    .leftSidePadding {
-        padding-right: 0;
-        padding-left: 0;
 
-    }
-    .rightSidePadding {
-        padding-right: 0;
-
-    }
-
-        
 }
 /* Tablet ----------- */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {

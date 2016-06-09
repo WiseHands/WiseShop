@@ -19,6 +19,8 @@
                 <li ng-click="shippedOrder()"><a>Надіслано</a></li>
                 <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
                 <li ng-click="returnedOrder()"><a>Повернено</a></li>
+                <li class="divider"></li>
+                <li data-toggle="modal" data-target="#deleteOrder"><a>Видалити</a></li>
             </ul>
         </div>
     </div>
@@ -33,21 +35,17 @@
             <h4 ng-show="order.deliveryType === 'NOVAPOSHTA'"><b>Номер відділення: </b><p><i>{{order.departmentNumber}}</i></p></h4>
             <h4><b>Сума замовлення: </b><p><i>{{order.total}} грн</i></p></h4>
             <h4><b>Статус замовлення: </b><p><i>{{orderState(order)}}</i></p></h4>
+        </div>
+        <div class="col-xs-12 col-sm-6">
             <h4><b>Замовлення: </b></h4>
-                <div class="row" ng-repeat="chocolate in order.items">
-                    <div class="col-xs-6 col-sm-6">
-                        <p>{{chocolate.productDTO.name}}</p>
-                    </div>
-                    <div class="col-xs-6 col-sm-6">
-                        <p>{{chocolate.quantity}} шт.</p>
-                    </div>
+            <div class="row" ng-repeat="chocolate in order.items">
+                <div class="col-xs-6 col-sm-6">
+                    <p>{{chocolate.productDTO.name}}</p>
                 </div>
-            <button type="button"
-                    class="btn btn-danger btn-xs"
-                    data-toggle="modal"
-                    data-target="#deleteOrder">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Видалити
-            </button>
+                <div class="col-xs-6 col-sm-6">
+                    <p>{{chocolate.quantity}} шт.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
