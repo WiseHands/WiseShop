@@ -11,6 +11,8 @@ GET     /map                                    Application.map(format:'xml')
 GET     /admin                                  Application.admin
 GET     /login                                  Application.login
 
+GET		{client}.happybag.me/					Application.client
+
 POST    /signin                                 Application.signin
 
 GET     /products                               ProductAPI.list

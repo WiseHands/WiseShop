@@ -44,6 +44,10 @@ public class Application extends Controller {
         render();
     }
 
+    public static void client(String client) {
+        System.out.println('client domain: ' + client);;
+    }
+
     public static void map() {
         render();
     }
