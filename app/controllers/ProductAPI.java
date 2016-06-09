@@ -36,6 +36,8 @@ public class ProductAPI extends Controller {
 
             if(user == null)
                 forbidden("Invalid X-AUTH-TOKEN: " + token);
+        } else {
+            forbidden("Empty X-AUTH-TOKEN");
         }
     }
 
