@@ -45,7 +45,7 @@ public class Application extends Controller {
     }
 
     public static void client(String client) {
-        System.out.println('client domain: ' + client);;
+        System.out.println("client domain: " + client);;
     }
 
     public static void map() {
