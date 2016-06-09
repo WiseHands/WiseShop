@@ -3,6 +3,7 @@
 # ~~~~
 
 # Home page
+GET		{client}.org/							Application.index
 GET		{client}.happybag.me/					Application.index
 GET     /                                       Application.index
 GET     /ru                                     Application.indexRu
