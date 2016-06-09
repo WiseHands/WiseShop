@@ -20,7 +20,28 @@ import java.util.*;
 import models.*;
 
 public class Application extends Controller {
-    private static final String X_AUTH_TOKEN = "fa8426a0-8eaf-4d22-8e13-7c1b16a9370c";
+    private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
+
+    @Before
+    static void interceptAction(){
+        corsHeaders();
+        checkAuthentification();
+    }
+
+    static void checkAuthentification() {
+        String token = request.headers.get(X_AUTH_TOKEN).value();
+        if (request.headers.get(X_AUTH_TOKEN) != null){
+            UserDTO user = UserDTO.find("byEmail", token).first();
+
+            if(user == null)
+                forbidden("Invalid X-AUTH-TOKEN: " + token);
+        }
+    }
+
+    static void corsHeaders() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
+    }
 
 
     public static void signin(String email, String password) throws Exception {
@@ -40,7 +61,8 @@ public class Application extends Controller {
         forbidden();
     }
 
-    public static void index() {
+    public static void index(String client) {
+        System.out.println("client domain: " + client);
         render();
     }
 

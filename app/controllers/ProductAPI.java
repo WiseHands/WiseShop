@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.ProductDTO;
+import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.data.Upload;
@@ -15,10 +16,28 @@ import java.util.*;
 public class ProductAPI extends Controller {
     public static final String USERIMAGESPATH = "public/product_images/";
 
+    private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
+
     @Before
+    static void interceptAction(){
+        corsHeaders();
+        checkAuthentification();
+    }
+
+
     static void corsHeaders() {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
+    }
+
+    static void checkAuthentification() {
+        String token = request.headers.get(X_AUTH_TOKEN).value();
+        if (request.headers.get(X_AUTH_TOKEN) != null){
+            UserDTO user = UserDTO.find("byEmail", token).first();
+
+            if(user == null)
+                forbidden("Invalid X-AUTH-TOKEN: " + token);
+        }
     }
 
     public static void create(String name, String description, Double price, Upload photo) throws Exception {

@@ -7,6 +7,7 @@ import enums.OrderState;
 import models.OrderDTO;
 import models.OrderItemDTO;
 import models.ProductDTO;
+import models.UserDTO;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -28,6 +29,8 @@ public class OrderAPI extends Controller {
 
     private static final Integer FREESHIPPINGMINCOST = 501;
 
+    private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
+
     private class DeliveryType {
         private static final String NOVAPOSHTA = "NOVAPOSHTA";
         private static final String SELFTAKE = "SELFTAKE";
@@ -35,9 +38,24 @@ public class OrderAPI extends Controller {
     }
 
     @Before
+    static void interceptAction(){
+        corsHeaders();
+        checkAuthentification();
+    }
+
     static void corsHeaders() {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
+    }
+
+    static void checkAuthentification() {
+        String token = request.headers.get(X_AUTH_TOKEN).value();
+        if (request.headers.get(X_AUTH_TOKEN) != null){
+            UserDTO user = UserDTO.find("byEmail", token).first();
+
+            if(user == null)
+                forbidden("Invalid X-AUTH-TOKEN: " + token);
+        }
     }
 
     public static void create() throws ParseException {

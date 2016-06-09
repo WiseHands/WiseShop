@@ -3,6 +3,8 @@
 # ~~~~
 
 # Home page
+GET		{client}.org/							Application.index
+GET		{client}.happybag.me/					Application.index
 GET     /                                       Application.index
 GET     /ru                                     Application.indexRu
 GET     /shop                                   Application.shop
@@ -10,6 +12,7 @@ GET     /map                                    Application.map(format:'xml')
 
 GET     /admin                                  Application.admin
 GET     /login                                  Application.login
+
 
 POST    /signin                                 Application.signin
 
