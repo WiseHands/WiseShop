@@ -29,13 +29,16 @@ public class Application extends Controller {
     }
 
     static void checkAuthentification() {
-        String token = request.headers.get(X_AUTH_TOKEN).value();
         if (request.headers.get(X_AUTH_TOKEN) != null){
+            String token = request.headers.get(X_AUTH_TOKEN).value();
             UserDTO user = UserDTO.find("byEmail", token).first();
 
             if(user == null)
                 forbidden("Invalid X-AUTH-TOKEN: " + token);
+        } else {
+            forbidden("Empty X-AUTH-TOKEN");
         }
+
     }
 
     static void corsHeaders() {
