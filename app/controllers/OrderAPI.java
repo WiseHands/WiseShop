@@ -40,7 +40,6 @@ public class OrderAPI extends Controller {
     @Before
     static void interceptAction(){
         corsHeaders();
-        checkAuthentification();
     }
 
     static void corsHeaders() {
@@ -49,8 +48,8 @@ public class OrderAPI extends Controller {
     }
 
     static void checkAuthentification() {
-        String token = request.headers.get(X_AUTH_TOKEN).value();
         if (request.headers.get(X_AUTH_TOKEN) != null){
+            String token = request.headers.get(X_AUTH_TOKEN).value();
             UserDTO user = UserDTO.find("byEmail", token).first();
 
             if(user == null)
@@ -129,6 +128,8 @@ public class OrderAPI extends Controller {
 
 
     public static void list() throws Exception {
+        checkAuthentification();
+
         List<OrderDTO> orderDTOs = OrderDTO.findAll();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -139,12 +140,16 @@ public class OrderAPI extends Controller {
 
 
     public static void delete(String uuid) throws Exception {
+        checkAuthentification();
+
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
         orderDTO.delete();
         ok();
     }
 
     public static void markPayed(String uuid) throws Exception {
+        checkAuthentification();
+
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
         orderDTO.state = OrderState.PAYED;
         orderDTO.save();
@@ -155,6 +160,8 @@ public class OrderAPI extends Controller {
     }
 
     public static void markShipped(String uuid) throws Exception {
+        checkAuthentification();
+
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
         orderDTO.state = OrderState.SHIPPED;
         orderDTO.save();
@@ -165,6 +172,8 @@ public class OrderAPI extends Controller {
     }
 
     public static void markCancelled(String uuid) throws Exception {
+        checkAuthentification();
+
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
         orderDTO.state = OrderState.CANCELLED;
         orderDTO.save();
@@ -175,6 +184,8 @@ public class OrderAPI extends Controller {
     }
 
     public static void markReturned(String uuid) throws Exception {
+        checkAuthentification();
+
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
         orderDTO.state = OrderState.RETURNED;
         orderDTO.save();
