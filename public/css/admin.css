@@ -19,7 +19,7 @@ body {
 
 .rowBackground {
     background-color: #f8f8f8;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     border-radius: 0.5em;
     margin-bottom: 1em;
     border: 1px solid lightgrey;
@@ -84,6 +84,18 @@ margin-top: 1.3em;
     float: right;
 }
 
+.saveProductButton {
+    background-color: #F5F5F5;
+    border:none;
+}
+
+.orderState {
+    margin-bottom: 0;
+    border: none;
+    max-width: 1.4em;
+    float: right;
+}
+
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
     .vcenter {
@@ -92,11 +104,6 @@ margin-top: 1.3em;
     .row {
         margin-left: 0px;
         margin-right: 0px;
-    }
-    .orderState {
-        margin-bottom: 0;
-        border: none;
-
     }
     .landscapeView {
         display: none;
@@ -118,12 +125,6 @@ margin-top: 1.3em;
     .row {
         margin-left: 0px;
         margin-right: 0px;
-    }
-    .orderState {
-        margin-bottom: 0;
-        border: none;
-        max-width: 1.4em;
-        float: right;
     }
     .portraitView {
         display: none;
@@ -152,12 +153,6 @@ margin-top: 1.3em;
     .tabletTextCentering {
         margin-top: 0.85em;
     }
-    .orderState {
-        margin-bottom: 0;
-        border: none;
-        max-width: 1.4em;
-        float: right;
-    }
     .searchBarCentering {
         margin-top: 0.6em;
     }
@@ -170,5 +165,7 @@ margin-top: 1.3em;
     .fixedWidth {
         width: 14.2em;
     }
-
+    .ordersView {
+        display: none;
+    }
 }

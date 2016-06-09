@@ -62,17 +62,34 @@
 <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
     <i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i>
 </h4>
-<div class="wellSideMargin rowBackground" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':sort">
+<div class="wellSideMargin rowBackground ordersView" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':sort">
     <a href ="#/details/{{item.uuid}}">
         <div class="row">
-            <div class="col-xs-7 col-sm-7 parentTextCentering">
+            <div class="col-xs-7 col-sm-3 parentTextCentering">
                 <h5 class="truncate text-center"><i>{{item.name}}</i></h5>
             </div>
-            <div class="col-xs-4 col-sm-4 childTextCentering">
+            <div class="col-xs-4 col-sm-2 childTextCentering">
                 <p class="text-center">₴ <b>{{item.total}}</b></p>
             </div>
             <div class="col-xs-1 col-sm-1 thumbnail orderState text-center" ng-style="{ 'background-color': orderState(item) }">
                 <p>&nbsp;</p>
+            </div>
+        </div>
+    </a>
+</div>
+<div class="wellSideMargin tabletView" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':sort">
+    <a href ="#/details/{{item.uuid}}">
+        <div class="col-sm-6">
+            <div class="row rowBackground">
+                <div class="col-sm-7 parentTextCentering">
+                    <h5 class="truncate text-center"><i>{{item.name}}</i></h5>
+                </div>
+                <div class="col-sm-4 childTextCentering">
+                    <p class="text-center">₴ <b>{{item.total}}</b></p>
+                </div>
+                <div class="col-sm-1 thumbnail orderState text-center landscapeFloatRight" ng-style="{ 'background-color': orderState(item) }">
+                    <p>&nbsp;</p>
+                </div>
             </div>
         </div>
     </a>
