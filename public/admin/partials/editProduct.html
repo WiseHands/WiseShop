@@ -1,20 +1,17 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header text-center">
-            <div class="row">
-                <div class="col-xs-2 col-sm-2">
-                    <a href="#/product/details/{{product.uuid}}">
-                        <span class="glyphicon glyphicon-arrow-left verticalCentering landscapeFloatLeft"></span>
-                    </a>
-                </div>
-                <div class=" col-xs-8 col-sm-8 vcenter">
-                    <h4><b>Редагування</b></h4>
-                </div>
-                <div class="col-xs-2 col-sm-2">
-                    <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="updateProduct()"></span>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-xs-2 col-sm-2">
+            <a href="#/product/details/{{product.uuid}}">
+                <span class="glyphicon glyphicon-arrow-left verticalCentering landscapeFloatLeft"></span>
+            </a>
         </div>
+        <div class=" col-xs-8 col-sm-8 vcenter">
+            <h4 class="text-center"><b>Редагування</b></h4>
+        </div>
+        <div class="col-xs-2 col-sm-2">
+            <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="updateProduct()"></span>
+        </div>
+    </div>
 </nav>
 <div class="well wellSideMargin">
     <div class="row text-center">
