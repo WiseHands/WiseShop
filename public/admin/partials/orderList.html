@@ -60,13 +60,22 @@
         </div>
     </div>
 </nav>
-<h4 class="text-center"><i>{{status}}</i></h4>
-<h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
-    <i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i>
-</h4>
+<div class="navbar navbar-default navbar-fixed-left">
+    <a class="navbar-brand" href="#">HappyBag</a>
+    <ul class="nav navbar-nav">
+        <li><a href="#/">Замовлення</a></li>
+        <li><a href="#/products">Товари</a></li>
+    </ul>
+</div>
+<div class="container-fluid">
+    <h4 class="text-center"><i>{{status}}</i></h4>
+    <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
+        <i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i>
+    </h4>
+</div>
 <div class="wellSideMargin" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':sort">
     <a href ="#/details/{{item.uuid}}">
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-xs-12 col-sm-6 rightPadding">
             <div class="row rowBackground">
                 <div class=" col-xs-7 col-sm-7 parentTextCentering">
                     <h5 class="truncate text-center"><i>{{item.name}}</i></h5>
