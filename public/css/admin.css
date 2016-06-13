@@ -129,6 +129,9 @@ p {
 .filterOrdersTopMargin {
     padding-top: 0.7em;
 }
+.desktopNavDivider {
+    width: 12em;
+}
 
 .smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView {
     display: none;
