@@ -1,76 +1,10 @@
-/*Desktop navbar*/
-.navbar-fixed-left {
-    width: 200px;
-    position: fixed;
-    border-radius: 0;
-    height: 100%;
-    margin-top: 0;
-}
-
-.navbar-fixed-left .navbar-nav > li {
-    float: none;  /* Cancel default li float: left */
-    width: 139px;
-}
-
-.navbar-fixed-left + .container {
-    padding-left: 160px;
-}
-
-/* On using dropdown menu (To right shift popuped) */
-.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
-    margin-top: -50px;
-    margin-left: 140px;
-}
-/*TO CREATE SPACE BETWEEN ROW*/
-p {
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-/*margin for fixed navbar*/
-
-.wellSideMargin {
-    margin-right: 0.1em;
-    margin-left: 15.5em;
-
-}
-.rightPadding {
-    padding-right: 2.5em;
-}
-
-.vcenter {
-    margin-top: 0.4em;
-    display: none;
-}
-
-.rowBackground {
-    background-color: #f8f8f8;
-    border-radius: 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid lightgrey;
-}
-
 .dropdown-menu {
     top: 3.35em;
 }
 .dropdown-menu li {
     margin: 0.7em 0;
 }
-.truncate {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.parentTextCentering {
-    margin-top: 1em;
-}
-.childTextCentering {
-    margin-top: 0.55em;
-}
-.buttonTopMargin {
-    margin-top: 0.5em;
-    margin-bottom: 1em;
 
-}
 
 /*Checkboxes styling*/
 .form-group input[type="checkbox"] {
@@ -95,45 +29,112 @@ p {
     display: none;
 }
 
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/*Desktop navbar*/
+.navbar-fixed-left {
+    width: 200px;
+    position: fixed;
+    border-radius: 0;
+    height: 100%;
+    margin-top: 0;
+}
+.navbar-fixed-left .navbar-nav > li {
+    float: none;  /* Cancel default li float: left */
+    width: 139px;
+}
+.navbar-fixed-left + .container {
+    padding-left: 160px;
+}
+/* On using dropdown menu (To right shift popuped) */
+.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+    margin-top: -50px;
+    margin-left: 140px;
+}
+
+
+
+/*TO CREATE SPACE BETWEEN ROW*/
+p {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+
+/*margin for fixed navbar*/
+.wellSideMargin {
+    margin-right: 0.1em;
+    margin-left: 15.5em;
+}
+.rightPadding {
+    padding-right: 2.5em;
+}
+.vcenter {
+    margin-top: 0.4em;
+    display: none;
+}
+.rowBackground {
+    background-color: #f8f8f8;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid lightgrey;
+}
+.parentTextCentering {
+    margin-top: 1em;
+}
+.childTextCentering {
+    margin-top: 0.55em;
+}
+.buttonTopMargin {
+    margin-top: 0.5em;
+}
+
+
 /*Vertical centering search glyphicons */
 .searchVerticalCentering {
     margin-top: 0.7em;
 }
-
 .iconColor {
     color: black;
 }
 .verticalCentering {
-margin-top: 1.3em;
+    margin-top: 1.3em;
 }
-
 .landscapeFloatLeft {
     float: left;
 }
 .landscapeFloatRight {
     float: right;
 }
-
 .saveProductButton {
     background-color: #F5F5F5;
     border:none;
 }
-
 .orderState {
     margin-bottom: 0;
     border: none;
     max-width: 1.4em;
     float: right;
 }
-.smartPhoneView {
-    display: none;
-}
-.tabletView {
-    display: none;
-}
 .desktopFixedWidth {
     width: 9em;
 }
+
+.filterOrdersTopMargin {
+    padding-top: 0.7em;
+}
+
+.smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView {
+    display: none;
+}
+
+
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
     .vcenter {
@@ -143,34 +144,27 @@ margin-top: 1.3em;
         margin-left: 0px;
         margin-right: 0px;
     }
-    .landscapeView {
-        display: none;
-    }
     .fixedWidth {
         width: 15.5em;
-    }
-    .tabletView {
-        display: none;
     }
     body {
         margin-top: 4.7em;
     }
-    .smartPhoneView {
-        display: inherit;
-    }
-    .navbar-fixed-left {
-        display: none;
-    }
     .wellSideMargin {
         margin-right: 0.9em;
         margin-left: 0.9em;
-
     }
     .rightPadding {
         padding-right: 0;
     }
-
+    .desktopView, .portraitView, .smartPhoneView {
+        display: inherit;
+    }
+    .navbar-fixed-left, .tabletView, .landscapeView, .desktopFilterView {
+        display: none;
+    }
 }
+
 
 /* Smartphones (landscape) ----------- */
 @media only screen and (min-device-width: 568px) and (max-device-width: 767px){
@@ -181,47 +175,36 @@ margin-top: 1.3em;
         margin-left: 0px;
         margin-right: 0px;
     }
-    .portraitView {
-        display: none;
-    }
     .fixedWidth {
         width: 14.2em;
     }
     .landscapeImageScale {
         max-width: 40%;
     }
-    .tabletView {
-        display: none;
-    }
     body {
         margin-top: 4.7em;
-    }
-    .landscapeView {
-        display: inherit;
-    }
-    .smartPhoneView {
-        display: inherit;
-    }
-    .navbar-fixed-left {
-        display: none;
     }
     .wellSideMargin {
         margin-right: 0.9em;
         margin-left: 0.9em;
-
     }
     .rightPadding {
         padding-right: 0;
     }
+    .desktopView, .smartPhoneView, .landscapeView {
+        display: inherit;
+    }
+    .navbar-fixed-left, .tabletView, .portraitView, .desktopFilterView {
+        display: none;
+    }
 }
+
+
 /* Tablet ----------- */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
     .row {
         margin-left: 0px;
         margin-right: 0px;
-    }
-    .smartPhoneView {
-        display: none;
     }
     .tabletTextCentering {
         margin-top: 0.85em;
@@ -232,14 +215,8 @@ margin-top: 1.3em;
     .vcenter {
         display: inline;
     }
-    .portraitView {
-        display: none;
-    }
     .fixedWidth {
         width: 14.2em;
-    }
-    .ordersView {
-        display: none;
     }
     .landscapeImageScale {
         max-width: 40%;
@@ -247,19 +224,18 @@ margin-top: 1.3em;
     body {
         margin-top: 4.7em;
     }
-    .tabletView {
-        display: inherit;
-    }
-    .navbar-fixed-left {
-        display: none;
-    }
     .wellSideMargin {
         margin-right: 0.9em;
         margin-left: 0.9em;
-
     }
     .rightPadding {
         padding-right: 0;
+    }
+    .landscapeView, .desktopView, .tabletView {
+        display: inherit;
+    }
+    .navbar-fixed-left, .ordersView, .portraitView,  .smartPhoneView, .desktopFilterView {
+        display: none;
     }
 }
 
