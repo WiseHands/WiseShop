@@ -16,7 +16,7 @@
                     .success(function (data, status, headers, config) {
                         var token = headers("X-AUTH-TOKEN");
                         console.log(token);
-                        $window.sessionStorage.token = token;
+                        localStorage.setItem('X-AUTH-TOKEN', token) ;
                         $window.location.href = '/admin';
                     }).
                 error(function (data, status) {

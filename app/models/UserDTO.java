@@ -25,11 +25,12 @@ public class UserDTO extends GenericModel {
     public String password;
 
 
-    public String token;
+    @Column( columnDefinition = "BINARY(16)", length = 16 )
+    public UUID token;
 
     public UserDTO(String email, String password) {
         this.email = email;
         this.password = password;
-        this.token = UUID.randomUUID().toString();
+        this.token = UUID.randomUUID();
     }
 }

@@ -38,7 +38,7 @@ public class UserAPI extends Controller {
             if(user == null)
                 forbidden("Email not found: " + email);
 
-            response.setHeader(X_AUTH_TOKEN, user.token);
+            response.setHeader(X_AUTH_TOKEN, user.token.toString());
             renderJSON(json(user));
         } else {
             forbidden("Email Not Valid: " + email);

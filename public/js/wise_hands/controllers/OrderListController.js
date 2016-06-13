@@ -1,9 +1,14 @@
     angular.module('WiseHands')
         .controller('OrderListController', function ($scope, $http, shared) {
-            $http({
+            var req = {
                 method: 'GET',
-                url: '/orders'
-            })
+                url: '/orders',
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN')
+                },
+                data: {}
+            }
+            $http(req)
                 .then(function successCallback(response) {
                     var data = response.data;
                     if(data.length === 0) {
