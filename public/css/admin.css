@@ -94,6 +94,10 @@ p {
 .buttonTopMargin {
     margin-top: 0.5em;
 }
+.singleOrderLeftMargin {
+    margin-right: 1em;
+}
+
 
 
 /*Vertical centering search glyphicons */

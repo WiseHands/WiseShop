@@ -14,6 +14,7 @@
                     aria-haspopup="true"
                     aria-expanded="true">
             </span>
+
             <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">
                 <li ng-click="payedOrder()"><a>Оплачено</a></li>
                 <li ng-click="shippedOrder()"><a>Надіслано</a></li>
@@ -31,28 +32,33 @@
         <a href="#/"><span class="glyphicon glyphicon-arrow-left"></span></a>
     </div>
     <hr class="col-md-11 desktopNavDivider">
-    <div class="dropdown col-xs-2 col-sm-2">
-        <button type="button"
+    <div class="dropdown">
+
+        <button
                 class="dropdown btn btn-default col-md-offset-1 col-md-10">
                 <span
                             class="dropdown-toggle glyphicon glyphicon-pencil pull-left"
                             data-toggle="dropdown"
-                            id="dropdownMenu1"
+                            id="dropdownMenu2"
                             aria-haspopup="true"
                             aria-expanded="true">
-                </span>Змінити статус
+                </span>
+                <ul aria-labelledby="dropdownMenu2">
+                    <li ng-click="payedOrder()"><a>Оплачено</a></li>
+                    <li ng-click="shippedOrder()"><a>Надіслано</a></li>
+                    <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
+                    <li ng-click="returnedOrder()"><a>Повернено</a></li>
+                    <li class="divider"></li>
+                    <li data-toggle="modal" data-target="#deleteOrder"><a>Видалити</a></li>
+                </ul>
+            Змінити статус
         </button>
-        <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">
-            <li ng-click="payedOrder()"><a>Оплачено</a></li>
-            <li ng-click="shippedOrder()"><a>Надіслано</a></li>
-            <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
-            <li ng-click="returnedOrder()"><a>Повернено</a></li>
-            <li class="divider"></li>
-            <li data-toggle="modal" data-target="#deleteOrder"><a>Видалити</a></li>
-        </ul>
     </div>
 </div>
-<div class="well wellSideMargin">
+<div class="container-fluid">
+    <h4></h4>
+</div>
+<div class="well wellSideMargin singleOrderLeftMargin">
     <div class="row text-center">
         <div class="col-xs-12 col-sm-6">
             <h4><b>П.І.П. замовника: </b><p><i>{{order.name}}</i></p></h4>
