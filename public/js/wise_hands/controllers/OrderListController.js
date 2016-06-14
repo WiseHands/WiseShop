@@ -35,19 +35,32 @@
                     return '#A27C20';
                 }
             };
-
+            
+            $scope.orderStateFilter = function (orderState) {
+                var i = $.inArray(orderState, $scope.filterOptions);
+                if (i > -1) {
+                    $scope.filterOptions.splice(i, 1);
+                    shared.setFilterOptions($scope.filterOptions);
+                } else {
+                    $scope.filterOptions.push(orderState);
+                    shared.setFilterOptions($scope.filterOptions);
+                }
+            };
 
             function loadOptions() {
-                $scope.options = shared.getFilterOptions();
+                $scope.filterOptions = shared.getFilterOptions();
                 $scope.isSortingActive = shared.getSortOptions();
             }
 
             loadOptions();
 
+            $scope.isOptionChecked = function (type) {
+                return $.inArray(type, $scope.filterOptions) > -1;
+            };
             
             $scope.orderFilter = function(item) {
-                if ($scope.options.length > 0) {
-                    if ($.inArray(item.state, $scope.options) < 0)
+                if ($scope.filterOptions.length > 0) {
+                    if ($.inArray(item.state, $scope.filterOptions) < 0)
                         return;
                 }
 

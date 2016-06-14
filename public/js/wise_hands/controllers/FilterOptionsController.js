@@ -14,15 +14,15 @@ angular.module('WiseHands')
             }
         };
 
-        $scope.isOptionChecked = function (type) {
-            return $.inArray(type, $scope.filterOptions) > -1;
-        };
         function loadOptions() {
             $scope.filterOptions = shared.getFilterOptions();
             $scope.isSortingActive = shared.getSortOptions();
         }
         loadOptions();
-        // $scope.isSortingActive = shared.isSortingActive;
+
+        $scope.isOptionChecked = function (type) {
+            return $.inArray(type, $scope.filterOptions) > -1;
+        };
 
         var req = {
             method: 'GET',
@@ -67,5 +67,14 @@ angular.module('WiseHands')
 
         $scope.setSortOption = function () {
             shared.setSortOptions($scope.isSortingActive);
+        };
+
+        $scope.orderFilter = function(item) {
+            if ($scope.filterOptions.length > 0) {
+                if ($.inArray(item.state, $scope.filterOptions) < 0)
+                    return;
+            }
+
+            return item;
         };
     });
