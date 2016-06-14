@@ -1,12 +1,19 @@
 angular.module('WiseHands')
-    .service('shared',function(){
+    .service('shared',function() {
         var filterOptions = [];
-        return{
-            getFilterOptions: function(){
+        var isSortingActive = true;
+        return {
+            getFilterOptions: function () {
                 return filterOptions;
             },
-            setFilterOptions: function(value){
+            setFilterOptions: function (value) {
                 filterOptions = value;
+            },
+            getSortOptions: function () {
+                return isSortingActive;
+            },
+            setSortOptions: function (sortOption) {
+                isSortingActive = sortOption;
             }
-        };
+        }
     });

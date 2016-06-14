@@ -1,5 +1,7 @@
     angular.module('WiseHands')
         .controller('OrderListController', function ($scope, $http, shared) {
+            $scope.isSortingActive = shared.isSortingActive;
+            
             var req = {
                 method: 'GET',
                 url: '/orders',
@@ -33,12 +35,16 @@
                     return '#A27C20';
                 }
             };
+
+
             function loadOptions() {
                 $scope.options = shared.getFilterOptions();
+                $scope.isSortingActive = shared.getSortOptions();
             }
 
             loadOptions();
 
+            
             $scope.orderFilter = function(item) {
                 if ($scope.options.length > 0) {
                     if ($.inArray(item.state, $scope.options) < 0)
@@ -53,5 +59,8 @@
                 }
                 return ((item.name.indexOf($scope.query) || '') !== -1) ||
                     ((item.total.toString().indexOf($scope.query) || '') !== -1);
+            };
+            $scope.setSortOption = function () {
+                shared.setSortOptions($scope.isSortingActive);
             };
         });

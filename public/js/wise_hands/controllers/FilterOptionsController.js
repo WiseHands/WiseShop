@@ -1,6 +1,7 @@
 angular.module('WiseHands')
     .controller('FilterOptionsController', function ($scope, $http, shared){
         $scope.filterOptions = shared.filterOptions || [];
+        $scope.isSortingActive = shared.isSortingActive;
 
         $scope.orderStateFilter = function (orderState) {
             var i = $.inArray(orderState, $scope.filterOptions);
@@ -18,8 +19,11 @@ angular.module('WiseHands')
         };
         function loadOptions() {
             $scope.filterOptions = shared.getFilterOptions();
+            $scope.isSortingActive = shared.getSortOptions();
         }
         loadOptions();
+        // $scope.isSortingActive = shared.isSortingActive;
+
         var req = {
             method: 'GET',
             url: '/orders',
@@ -59,5 +63,9 @@ angular.module('WiseHands')
             }
             return ((item.name.indexOf($scope.query) || '') !== -1) ||
                 ((item.total.toString().indexOf($scope.query) || '') !== -1);
+        };
+
+        $scope.setSortOption = function () {
+            shared.setSortOptions($scope.isSortingActive);
         };
     });

@@ -216,7 +216,7 @@
         </div>
         <button type="button"
                 class="btn btn-default buttonTopMargin col-md-offset-1 col-md-10"
-                ng-click="sort=!sort">
+                ng-click="isSortingActive=!isSortingActive">
             <span class="glyphicon glyphicon-sort-by-attributes-alt pull-left"></span>
             Сортування
         </button>
@@ -319,13 +319,13 @@
             </div>
         </div>
     </div>
-    <a href="#/"><button type="button" class="btn btn-default buttonTopMargin col-md-offset-1 col-md-10">
+    <a href="#/"><button type="button" class="btn btn-default buttonTopMargin col-md-offset-1 col-md-10" ng-click="setSortOption()">
         <span class="glyphicon glyphicon-search pull-left"></span>
         Фільтрувати
     </button></a>
 </div>
 <div class="container-fluid filterOrdersTopMargin"></div>
-<div class="wellSideMargin desktopFilterView" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':sort">
+<div class="wellSideMargin desktopFilterView" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
     <a href ="#/details/{{item.uuid}}">
         <div class="col-xs-12 col-sm-6 rightPadding">
             <div class="row rowBackground">
