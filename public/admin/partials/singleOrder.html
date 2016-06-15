@@ -27,32 +27,27 @@
     </div>
 </nav>
 <div class="navbar navbar-default navbar-fixed-left">
-    <a class="navbar-brand">HappyBag</a>
-    <div class="col-md-12">
-        <a href="#/"><span class="glyphicon glyphicon-arrow-left"></span></a>
+    <div class="row col-md-12 verticalCentering">
+        <a href="#/">
+            <span class="glyphicon glyphicon-arrow-left col-md-1"></span>
+            <p class="col-md-9 pull-left desktopBackArrow">Назад</p>
+        </a>
     </div>
     <hr class="col-md-11 desktopNavDivider">
-    <div class="dropdown">
-
-        <button
-                class="dropdown btn btn-default col-md-offset-1 col-md-10">
-                <span
-                            class="dropdown-toggle glyphicon glyphicon-pencil pull-left"
-                            data-toggle="dropdown"
-                            id="dropdownMenu2"
-                            aria-haspopup="true"
-                            aria-expanded="true">
-                </span>
-                <ul aria-labelledby="dropdownMenu2">
-                    <li ng-click="payedOrder()"><a>Оплачено</a></li>
-                    <li ng-click="shippedOrder()"><a>Надіслано</a></li>
-                    <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
-                    <li ng-click="returnedOrder()"><a>Повернено</a></li>
-                    <li class="divider"></li>
-                    <li data-toggle="modal" data-target="#deleteOrder"><a>Видалити</a></li>
-                </ul>
+    <div class="btn-group col-md-offset-1 col-md-9">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Змінити статус
         </button>
+        <div class="dropdown-menu">
+            <ul class="desktopDropdown text-center">
+                <li ng-click="payedOrder()"><a>Оплачено</a></li>
+                <li ng-click="shippedOrder()"><a>Надіслано</a></li>
+                <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
+                <li ng-click="returnedOrder()"><a>Повернено</a></li>
+                <hr>
+                <li data-toggle="modal" data-target="#deleteOrder"><a>Видалити</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 <div class="container-fluid">
