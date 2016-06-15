@@ -41,9 +41,21 @@
         </div>
     </div>
 </nav>
-<h4 class="text-center"><i>{{status}}</i></h4>
-<div class="wellSideMargin" ng-repeat="product in products">
-    <div class="col-xs-12 col-sm-6">
+
+<div class="navbar navbar-default navbar-fixed-left">
+    <a class="navbar-brand">HappyBag</a>
+    <ul class="nav navbar-nav">
+        <li><a href="#/">Замовлення</a></li>
+        <li><a href="#/products">Товари</a></li>
+        <hr class="desktopNavProductsDivider">
+    </ul>
+</div>
+
+<div class="container-fluid">
+    <h4 class="text-center"><i>{{status}}</i></h4>
+</div>
+<div class="wellSideMargin desktopView" ng-repeat="product in products">
+    <div class="col-xs-12 col-sm-6 rightPadding">
         <div class="row rowBackground">
             <a href="#/product/details/{{product.uuid}}">
                 <div class="col-xs-9 col-sm-9">
@@ -51,6 +63,28 @@
                 </div>
                 <div class="col-xs-3 col-sm-3">
                     <h5 class="text-right">₴ <b>{{product.price}}</b></h5>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="wellSideMargin desktopProductsView" ng-repeat="product in products">
+    <div class="col-xs-12 col-sm-6 rightPadding">
+        <div class="row rowBackground productImageTopPadding">
+            <a href="#/product/details/{{product.uuid}}">
+                <div class="thumbnail col-md-3">
+                    <img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive"></img>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="text-left truncate"><i>{{product.name}}</i></h5>
+                    </div>
+                    <div class="col-md-2">
+                        <h5 class="text-right">₴ <b>{{product.price}}</b></h5>
+                    </div>
+                    <div class="col-md-8">
+                        <h5 class="productDescriptionTruncate">{{product.description}}</h5>
+                    </div>
                 </div>
             </a>
         </div>

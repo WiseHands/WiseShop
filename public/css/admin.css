@@ -53,6 +53,33 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.productDescriptionTruncate {
+    line-height: 1.5em;
+    max-height: 3em;
+    overflow: hidden;
+    /*text-overflow: ellipsis;*/
+    position: relative;
+    text-align: justify;
+    margin-right: -1em;
+    padding-right: 1em;
+}
+
+.productDescriptionTruncate:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.productDescriptionTruncate:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: white;
+
+}
 
 
 /*Desktop navbar*/
@@ -155,6 +182,15 @@ p {
     width: 12em;
     margin-top: 0;
 }
+.desktopNavProductsDivider {
+    width: 14.2em;
+
+}
+.productImageTopPadding {
+    padding-top: 1.5em;
+    padding-left: 1em;
+
+}
 
 .smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView {
     display: none;
@@ -186,7 +222,7 @@ p {
     .desktopView, .portraitView, .smartPhoneView {
         display: inherit;
     }
-    .navbar-fixed-left, .tabletView, .landscapeView, .desktopFilterView {
+    .navbar-fixed-left, .tabletView, .landscapeView, .desktopFilterView, .desktopProductsView {
         display: none;
     }
 }
@@ -220,7 +256,7 @@ p {
     .desktopView, .smartPhoneView, .landscapeView {
         display: inherit;
     }
-    .navbar-fixed-left, .tabletView, .portraitView, .desktopFilterView {
+    .navbar-fixed-left, .tabletView, .portraitView, .desktopFilterView, .desktopProductsView {
         display: none;
     }
 }
@@ -260,7 +296,7 @@ p {
     .landscapeView, .desktopView, .tabletView {
         display: inherit;
     }
-    .navbar-fixed-left, .ordersView, .portraitView,  .smartPhoneView, .desktopFilterView {
+    .navbar-fixed-left, .ordersView, .portraitView,  .smartPhoneView, .desktopFilterView, .desktopProductsView {
         display: none;
     }
 }
