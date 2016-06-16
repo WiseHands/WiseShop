@@ -29,7 +29,11 @@
                 $scope.deleteOrder = function () {
                     $http({
                         method: 'DELETE',
-                        url: '/order/' + $routeParams.uuid
+                        url: '/order/' + $routeParams.uuid,
+                        headers: {
+                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        }
                     })
                         .then(function successCallback(response) {
                             $scope.deleteMessage = 'Замовлення видалене.';

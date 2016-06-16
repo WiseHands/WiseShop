@@ -20,7 +20,11 @@ angular.module('WiseHands')
             $scope.deleteProduct = function () {
                 $http({
                     method: 'DELETE',
-                    url: '/product/' + $routeParams.uuid
+                    url: '/product/' + $routeParams.uuid,
+                    headers: {
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
                 })
                     .then(function successCallback(response) {
                         $scope.deleteMessage = 'Товар видалений.';
