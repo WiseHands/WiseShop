@@ -25,6 +25,7 @@ public class UserAPI extends Controller {
             UserDTO user = new UserDTO(email, password);
             user.save();
 
+            System.out.println(json(user));
             renderJSON(json(user));
         } else {
             forbidden("Email Not Valid: " + email);
@@ -37,6 +38,9 @@ public class UserAPI extends Controller {
 
             if(user == null)
                 forbidden("Email not found: " + email);
+
+            if(!user.password.equals(password))
+                forbidden("Wrong password");
 
             response.setHeader(X_AUTH_TOKEN, user.token.toString());
             renderJSON(json(user));

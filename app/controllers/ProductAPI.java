@@ -16,7 +16,8 @@ import java.util.*;
 public class ProductAPI extends Controller {
     public static final String USERIMAGESPATH = "public/product_images/";
 
-    private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
+    private static final String X_AUTH_TOKEN = "x-auth-token";
+    private static final String X_AUTH_USER_ID = "x-auth-user-id";
 
     @Before
     static void interceptAction(){
@@ -30,9 +31,11 @@ public class ProductAPI extends Controller {
     }
 
     static void checkAuthentification() {
-        if (request.headers.get(X_AUTH_TOKEN) != null){
+        boolean authHeadersPopulated = request.headers.get(X_AUTH_TOKEN) != null && request.headers.get(X_AUTH_USER_ID) != null;
+        if (authHeadersPopulated){
+            String userId = request.headers.get(X_AUTH_USER_ID).value();
             String token = request.headers.get(X_AUTH_TOKEN).value();
-            UserDTO user = UserDTO.find("byEmail", token).first();
+            UserDTO user = UserDTO.findById(userId);
 
             if(user == null)
                 forbidden("Invalid X-AUTH-TOKEN: " + token);

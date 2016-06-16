@@ -4,7 +4,11 @@
                 $scope.uuid = $routeParams.uuid;
                 $http({
                     method: 'GET',
-                    url: '/order/' + $routeParams.uuid
+                    url: '/order/' + $routeParams.uuid,
+                    headers: {
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
                 })
                     .then(function successCallback(response) {
                         var data = response.data;
@@ -51,7 +55,11 @@
                 $scope.payedOrder = function () {
                     $http({
                         method: 'PUT',
-                        url: '/order/' + $routeParams.uuid + '/payed'
+                        url: '/order/' + $routeParams.uuid + '/payed',
+                        headers: {
+                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        }
                     })
                         .then(function successCallback(response){
                             $scope.order = response.data;
@@ -62,7 +70,11 @@
                 $scope.cancelledOrder = function () {
                     $http({
                         method: 'PUT',
-                        url: '/order/' + $routeParams.uuid + '/cancelled'
+                        url: '/order/' + $routeParams.uuid + '/cancelled',
+                        headers: {
+                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        }
                     })
                         .then(function successCallback(response){
                             $scope.order = response.data;
@@ -73,7 +85,11 @@
                 $scope.shippedOrder = function () {
                     $http({
                         method: 'PUT',
-                        url: '/order/' + $routeParams.uuid + '/shipped'
+                        url: '/order/' + $routeParams.uuid + '/shipped',
+                        headers: {
+                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        }
                     })
                         .then(function successCallback(response){
                             $scope.order = response.data;
@@ -84,7 +100,11 @@
                 $scope.returnedOrder = function () {
                     $http({
                         method: 'PUT',
-                        url: '/order/' + $routeParams.uuid + '/returned'
+                        url: '/order/' + $routeParams.uuid + '/returned',
+                        headers: {
+                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        }
                     })
                         .then(function successCallback(response){
                             $scope.order = response.data;

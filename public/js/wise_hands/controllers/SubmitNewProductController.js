@@ -15,7 +15,8 @@ angular.module('WiseHands')
                 url: '/product',
                 data: formdata,
                 headers: {
-                    'Content-Type': undefined
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
                 }
             };
             $http(request)

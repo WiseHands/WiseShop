@@ -15,8 +15,16 @@
                 })
                     .success(function (data, status, headers, config) {
                         var token = headers("X-AUTH-TOKEN");
-                        console.log(token);
+                        var userId = data.uuid;
+                        
+                        if(!token || !userId){
+                            $scope.deniedMsg = true;
+                            return;
+                        }
+                        
+                        localStorage.setItem('X-AUTH-USER-ID', userId) ;
                         localStorage.setItem('X-AUTH-TOKEN', token) ;
+                        
                         $window.location.href = '/admin';
                     }).
                 error(function (data, status) {

@@ -30,6 +30,7 @@ public class OrderAPI extends Controller {
     private static final Integer FREESHIPPINGMINCOST = 501;
 
     private static final String X_AUTH_TOKEN = "x-auth-token";
+    private static final String X_AUTH_USER_ID = "x-auth-user-id";
 
     private class DeliveryType {
         private static final String NOVAPOSHTA = "NOVAPOSHTA";
@@ -48,18 +49,11 @@ public class OrderAPI extends Controller {
     }
 
     static void checkAuthentification() {
-        if (request.headers.get("x-auth-token") != null){
-            String token = request.headers.get("x-auth-token").value();
-            System.out.println("Token: " + token);
-            UUID id = UUID.fromString(token);
-            UserDTO user = (UserDTO) UserDTO.find("byToken", id).first();
-            System.out.println(user);
-
-            user = (UserDTO) UserDTO.find("byEmail", "bohdaq@gmail.com").first();
-            System.out.println(user);
-
-            user = (UserDTO) UserDTO.find("email", "bohdaq@gmail.com").first();
-            System.out.println(user);
+        boolean authHeadersPopulated = request.headers.get(X_AUTH_TOKEN) != null && request.headers.get(X_AUTH_USER_ID) != null;
+        if (authHeadersPopulated){
+            String userId = request.headers.get(X_AUTH_USER_ID).value();
+            String token = request.headers.get(X_AUTH_TOKEN).value();
+            UserDTO user = UserDTO.findById(userId);
 
             if(user == null)
                 forbidden("Invalid X-AUTH-TOKEN: " + token);
@@ -129,6 +123,8 @@ public class OrderAPI extends Controller {
     }
 
     public static void details(String uuid) throws Exception {
+        checkAuthentification();
+
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

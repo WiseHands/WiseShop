@@ -4,6 +4,10 @@
     ])
         .config(['$routeProvider',
             function ($routeProvider) {
+                if(!localStorage.getItem('X-AUTH-TOKEN')){
+                    window.location.hash = '';
+                    window.location.pathname = '/login';
+                }
                 $routeProvider.
                     when('/',{
                         templateUrl:'public/admin/partials/orderList.html',

@@ -35,7 +35,11 @@ angular.module('WiseHands')
                 $http({
                     method: 'PUT',
                     url: '/product/' + $routeParams.uuid,
-                    data: $scope.product
+                    data: $scope.product,
+                    headers: {
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
                 })
                     .then(function successCallback(response) {
                         $location.path('/product/details/' + response.data.uuid);

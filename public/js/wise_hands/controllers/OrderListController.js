@@ -6,7 +6,8 @@
                 method: 'GET',
                 url: '/orders',
                 headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN')
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
                 },
                 data: {}
             }
