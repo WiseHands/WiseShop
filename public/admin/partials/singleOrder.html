@@ -15,7 +15,7 @@
                     aria-expanded="true">
             </span>
 
-            <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">
+            <ul class="dropdown-menu pull-right tabletDropdown" aria-labelledby="dropdownMenu1">
                 <li ng-click="payedOrder()"><a>Оплачено</a></li>
                 <li ng-click="shippedOrder()"><a>Надіслано</a></li>
                 <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
@@ -34,20 +34,19 @@
         </a>
     </div>
     <hr class="col-md-11 desktopNavDivider">
-    <div class="btn-group col-md-offset-1 col-md-9">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Змінити статус
-        </button>
-        <div class="dropdown-menu">
-            <ul class="desktopDropdown text-center">
-                <li ng-click="payedOrder()"><a>Оплачено</a></li>
-                <li ng-click="shippedOrder()"><a>Надіслано</a></li>
-                <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
-                <li ng-click="returnedOrder()"><a>Повернено</a></li>
-                <hr>
-                <li data-toggle="modal" data-target="#deleteOrder"><a>Видалити</a></li>
-            </ul>
-        </div>
+    <button type="button" class="btn btn-default dropdown-toggle col-md-offset-1 col-md-10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-pencil pull-left"></span>
+        Змінити статус
+    </button>
+    <div class="dropdown-menu desktopDropdown">
+        <ul class="text-center">
+            <li ng-click="payedOrder()"><a>Оплачено</a></li>
+            <li ng-click="shippedOrder()"><a>Надіслано</a></li>
+            <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
+            <li ng-click="returnedOrder()"><a>Повернено</a></li>
+            <hr>
+            <li data-toggle="modal" data-target="#deleteOrder"><a>Видалити</a></li>
+        </ul>
     </div>
 </div>
 <div class="container-fluid">

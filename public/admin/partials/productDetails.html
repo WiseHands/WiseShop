@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top desktopView" role="navigation">
     <div class="row">
         <div class="col-xs-2 col-sm-2">
             <a href="#/products">
@@ -24,7 +24,27 @@
         </div>
     </div>
 </nav>
-<div class="well wellSideMargin">
+
+<div class="navbar navbar-default navbar-fixed-left">
+    <div class="row col-md-12 verticalCentering">
+        <a href="#/products">
+            <span class="glyphicon glyphicon-arrow-left col-md-1"></span>
+            <p class="col-md-9 pull-left desktopBackArrow">Назад</p>
+        </a>
+    </div>
+    <hr class="col-md-11 desktopNavDivider">
+        <a href="#/products/details/{{product.uuid}}/edit">
+            <button type="button" class="btn btn-default col-md-offset-1 col-md-10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-pencil pull-left"></span>
+                Змінити опис
+            </button>
+        </a>
+</div>
+<div class="container-fluid">
+    <h4></h4>
+</div>
+
+<div class="well wellSideMargin singleOrderLeftMargin">
     <div class="row text-center">
         <div class="col-xs-12 col-sm-12">
             <img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive center-block landscapeImageScale" alt=""></img>

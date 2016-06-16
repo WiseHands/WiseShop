@@ -26,7 +26,4 @@ angular.module('WiseHands')
                     console.log(error);
                 });
         };
-        // $(".button").click( function() {
-        //     $('#addNewProductForm').trigger('submit');
-        // });
     });

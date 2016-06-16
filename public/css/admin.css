@@ -1,14 +1,26 @@
-.dropdown-menu {
+.tabletDropdown {
     top: 3.35em;
 }
-.dropdown-menu li {
+.tabletDropdown li {
     margin: 0.7em 0;
 }
 
-
 .desktopDropdown {
+    top: 7.5em;
+    margin-left: 1.3em;
+
+}
+.desktopDropdown li {
+    margin: 0.7em 0;
+
+}
+
+
+.desktopDropdown ul {
     list-style-type: none;
     padding-left: 0;
+
+
 }
 .desktopDropdown a {
     color: inherit;
@@ -47,7 +59,7 @@
     display: none;
 }
 
-
+/*Text Truncating*/
 .truncate {
     white-space: nowrap;
     overflow: hidden;
@@ -63,7 +75,6 @@
     margin-right: -1em;
     padding-right: 1em;
 }
-
 .productDescriptionTruncate:before {
     content: '...';
     position: absolute;
@@ -78,7 +89,6 @@
     height: 1em;
     margin-top: 0.2em;
     background: white;
-
 }
 
 
