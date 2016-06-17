@@ -31,7 +31,7 @@
             </div>
             <br/>
             <input class="button-submit full-width" type="submit" value="SIGN IN" ng-click="logIn()" ng-disabled="loginForm.$invalid">
-            <p class="deniedMsg" ng-show="deniedMsg">{{accessDeniedMessage}}</p>
+            <p class="deniedMsg" ng-show="deniedMsg" ng-cloak>{{accessDeniedMessage}}</p>
 
             <div class="row">
                 <a href="#" class="forgot">Forgot your password?</a>
