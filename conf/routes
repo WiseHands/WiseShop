@@ -12,6 +12,7 @@ GET     /map                                    Application.map(format:'xml')
 
 GET     /admin                                  Application.admin
 GET     /login                                  Application.login
+GET     /register                               Application.register
 
 
 POST    /signin                                 UserAPI.login
