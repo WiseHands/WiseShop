@@ -18,7 +18,10 @@
                         var userId = data.uuid;
                         
                         if(!token || !userId){
-                            $scope.deniedMsg = true;
+                            $scope.deniedMsg = false;
+
+                            console.error('Token or userID not returned in server response');
+
                             return;
                         }
                         
@@ -31,6 +34,7 @@
                     console.log(JSON.stringify(data));
                     console.log(JSON.stringify(status));
                     $scope.deniedMsg = true;
+                    $scope.accessDeniedMessage = data.status;
                 });
             };
         })

@@ -6,6 +6,8 @@ import models.OrderDTO;
 import models.UserDTO;
 import play.mvc.Before;
 import play.mvc.Controller;
+import responses.InvalidPassword;
+import responses.UserDoesNotExist;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -28,7 +30,8 @@ public class UserAPI extends Controller {
             System.out.println(json(user));
             renderJSON(json(user));
         } else {
-            forbidden("Email Not Valid: " + email);
+            UserDoesNotExist error = new UserDoesNotExist();
+            forbidden(json(error));
         }
     }
 
@@ -37,15 +40,18 @@ public class UserAPI extends Controller {
             UserDTO user = UserDTO.find("byEmail", email).first();
 
             if(user == null)
-                forbidden("Email not found: " + email);
+                forbidden(json(new UserDoesNotExist()));
 
-            if(!user.password.equals(password))
-                forbidden("Wrong password");
+            if(!user.password.equals(password)) {
+                InvalidPassword error = new InvalidPassword();
+                forbidden(json(error));
+            }
 
             response.setHeader(X_AUTH_TOKEN, user.token.toString());
             renderJSON(json(user));
         } else {
-            forbidden("Email Not Valid: " + email);
+            UserDoesNotExist error = new UserDoesNotExist();
+            forbidden(json(error));
         }
     }
 
@@ -62,6 +68,7 @@ public class UserAPI extends Controller {
 
 
     private static String json(Object object){
+        response.setHeader("Content-Type", "application/json");
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         return gson.toJson(object);
     }
