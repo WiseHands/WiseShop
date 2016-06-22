@@ -21,10 +21,21 @@
                     url: '/signup?' + encodedParams
                 })
                     .success(function (data, status, headers) {
-                        // var token = headers("X-AUTH-TOKEN");
-                        // var userId = data.uuid;
+                        var token = headers("X-AUTH-TOKEN");
+                        var userId = data.uuid;
 
-                        // $window.location.href = '/admin';
+                        if(!token || !userId){
+                            $scope.deniedMsg = false;
+
+                            console.error('Token or userID not returned in server response');
+
+                            return;
+                        }
+
+                        localStorage.setItem('X-AUTH-USER-ID', userId) ;
+                        localStorage.setItem('X-AUTH-TOKEN', token) ;
+
+                        $window.location.href = '/admin';
                     }).
                 error(function (error) {
                     console.log(error);
