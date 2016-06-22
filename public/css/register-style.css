@@ -255,7 +255,3 @@ form {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
-input.button-submit[disabled], input.button-submit[disabled]:hover {
-    background-color: #616161;
-    border-color: #616161;
-}

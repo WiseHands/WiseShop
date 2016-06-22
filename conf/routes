@@ -5,6 +5,7 @@
 # Home page
 GET		{client}.org/							Application.index
 GET		{client}.happybag.me/					Application.index
+GET		{client}/					            Application.index
 GET     /                                       Application.index
 GET     /ru                                     Application.indexRu
 GET     /shop                                   Application.shop
@@ -16,6 +17,7 @@ GET     /register                               Application.register
 
 
 POST    /signin                                 UserAPI.login
+POST    /signup                                 UserAPI.register
 
 GET     /products                               ProductAPI.list
 GET     /product/{uuid}                         ProductAPI.details

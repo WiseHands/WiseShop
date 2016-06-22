@@ -13,7 +13,7 @@
                     method: 'POST',
                     url: '/signin?' + encodedParams
                 })
-                    .success(function (data, status, headers, config) {
+                    .success(function (data, status, headers) {
                         var token = headers("X-AUTH-TOKEN");
                         var userId = data.uuid;
                         

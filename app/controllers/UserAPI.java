@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import models.ClientDTO;
 import models.OrderDTO;
 import models.UserDTO;
 import play.mvc.Before;
@@ -22,12 +23,18 @@ public class UserAPI extends Controller {
     }
 
 
-    public static void register(String email, String password, String repeatPassword) throws Exception {
+    public static void register(String email, String password, String repeatPassword,
+                                String shopName, String shopID, String publicLiqPayKey,
+                                String privateLiqPayKey, String clientDomain) throws Exception {
         if (isValidEmailAddress(email)) {
             UserDTO user = new UserDTO(email, password);
             user.save();
 
+            ClientDTO client = new ClientDTO(email, password, shopName, shopID, publicLiqPayKey, privateLiqPayKey, clientDomain);
+            client.save();
+
             System.out.println(json(user));
+            response.setHeader(X_AUTH_TOKEN, user.token.toString());
             renderJSON(json(user));
         } else {
             UserDoesNotExist error = new UserDoesNotExist();

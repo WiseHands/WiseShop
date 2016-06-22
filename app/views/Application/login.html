@@ -16,7 +16,7 @@
 <div class="row">
     <div class="container">
         <h2 class="title">Wise Hands</h2>
-        <form class="form-signin" name="loginForm">
+        <form class="form-signin" name="loginForm" ng-submit="logIn()">
             <div class="row">
                 <div class="column">
                     <label>E-MAIL </label>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <br/>
-            <input class="button-submit full-width" type="submit" value="LOG IN" ng-click="logIn()" ng-disabled="loginForm.$invalid">
+            <input class="button-submit full-width" type="submit" value="LOG IN">
             <p class="deniedMsg" ng-show="deniedMsg" ng-cloak>{{accessDeniedMessage}}</p>
 
             <div class="row">
