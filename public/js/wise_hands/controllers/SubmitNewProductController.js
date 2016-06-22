@@ -8,22 +8,19 @@ angular.module('WiseHands')
             formdata.append('name', $scope.product.name);
             formdata.append('description', $scope.product.description);
             formdata.append('price', $scope.product.price);
-    
-    
-            var request = {
-                method: 'POST',
-                url: '/product',
-                data: formdata,
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
-            };
-            $http(request)
-                .success(function (data) {
+
+            $http.post('/product', formdata, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
+                })
+                .success(function(data){
                     $location.path('/product/details/' + data.uuid);
                 })
-                .error(function () {
+                .error(function(){
                     console.log(error);
                 });
         };
