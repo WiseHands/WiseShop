@@ -1,6 +1,3 @@
-/**
- * Created by Reverie on 04/28/2016.
- */
 function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode']});
 }
@@ -14,10 +11,10 @@ function initAutocomplete() {
             })
                 .then(function successCallback(response) {
                     $scope.products = response.data;
-
                 }, function errorCallback(error) {
                     console.log(error);
                 });
+
 
             $scope.init = function() {
                 var placeSearch, autocomplete;
@@ -141,6 +138,7 @@ function initAutocomplete() {
                     document.querySelector('.toPayment').style.display = 'block';
                 });
             };
+
 
         });
     

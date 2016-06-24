@@ -11,4 +11,6 @@ angular.module('WiseHands')
         return {
             link: fn_link
         }
-    } ]);
+    }
+
+    ]);

@@ -22,6 +22,7 @@
     "paper-button": "*",
     "paper-input": "*",
     "iron-ajax": "*",
-    "angular-route": "1.4.x"
+    "angular-route": "1.4.x",
+    "image-engine-angular": "^1.0.1"
   }
 }

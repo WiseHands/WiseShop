@@ -9,7 +9,8 @@
         <div class="col-xs-2 col-sm-2">
             <button class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight saveProductButton"
                     form="addNewProductForm"
-                    type="submit"></button>
+                    type="submit">
+            </button>
         </div>
     </div>
 </nav>
@@ -67,8 +68,9 @@
                         <input name="filebutton"
                                class="input-file"
                                type="file"
+                               id="file-input"
                                ng-files="getTheFiles($files)"
-                               required>
+                               required />
                     </div>
                 </fieldset>
             </form >
