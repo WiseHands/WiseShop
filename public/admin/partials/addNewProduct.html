@@ -65,15 +65,16 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">Додати фото товару</label>
-                        <input name="filebutton"
+                        <input name="imageLoader"
                                class="input-file"
                                type="file"
-                               id="file-input"
+                               id="imageLoader"
                                ng-files="getTheFiles($files)"
                                required />
                     </div>
                 </fieldset>
             </form >
+            <canvas id="imageCanvas"></canvas>
         </div>
     </div>
 </div>
