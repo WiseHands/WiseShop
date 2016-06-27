@@ -77,4 +77,12 @@
             $scope.setSortOption = function () {
                 shared.setSortOptions($scope.isSortingActive);
             };
+
+            $scope.isFilterOn = function(){
+                if ($scope.filterOptions.length > 0){
+                    return '#5AD43D';
+                } else {
+                    return '#000000';
+                }
+            };
         });

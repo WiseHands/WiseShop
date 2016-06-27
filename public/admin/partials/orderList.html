@@ -41,7 +41,7 @@
                               ng-hide="isSortingActive">
                         </span>
                     </div>
-                    <a href="#/filter" class="iconColor">
+                    <a href="#/filter" ng-style="{ 'color': isFilterOn() }">
                         <span class="glyphicon glyphicon-filter landscapeFloatRight"></span>
                     </a>
                 </div>
@@ -68,7 +68,7 @@
                   ng-click="isSortingActive=!isSortingActive; setSortOption()"
                   ng-hide="isSortingActive">
             </span>
-            <a href="#/filter" class="iconColor">
+            <a href="#/filter"  ng-style="{ 'color': isFilterOn() }">
                 <span class="glyphicon glyphicon-filter verticalCentering landscapeFloatRight"></span>
             </a>
         </div>
@@ -206,7 +206,7 @@
                 <div class="col-xs-4 col-sm-4 childTextCentering">
                     <p class="text-center">₴ <b>{{item.total}}</b></p>
                 </div>
-                <div class="col-xs-1 col-sm-1 thumbnail orderState text-center landscapeFloatRight" ng-style="{ 'background-color': orderState(item) }">
+                <div class="col-xs-1 col-sm-1 thumbnail orderState text-center landscapeFloatRight" ng-style="{ 'background-color': orderState(item)}">
                     <p>&nbsp;</p>
                 </div>
             </div>
