@@ -32,7 +32,14 @@
                 </div>
                 <div class="col-xs-3 col-sm-3 searchVerticalCentering">
                     <div class="col-xs-8">
-                    <span class="glyphicon glyphicon-sort-by-attributes-alt pull-right" ng-click="isSortingActive=!isSortingActive"></span>
+                        <span class="glyphicon glyphicon-sort-by-attributes-alt pull-right"
+                              ng-click="isSortingActive=!isSortingActive; setSortOption()"
+                              ng-show="isSortingActive">
+                        </span>
+                        <span class="glyphicon glyphicon-sort-by-attributes pull-right"
+                              ng-click="isSortingActive=!isSortingActive; setSortOption()"
+                              ng-hide="isSortingActive">
+                        </span>
                     </div>
                     <a href="#/filter" class="iconColor">
                         <span class="glyphicon glyphicon-filter landscapeFloatRight"></span>
@@ -53,7 +60,14 @@
             <input type="text" class="form-control searchBarCentering" placeholder="Пошук" ng-model="query">
         </div>
         <div class="col-xs-2 col-sm-2">
-            <span class="glyphicon glyphicon-sort-by-attributes-alt verticalCentering" ng-click="isSortingActive=!isSortingActive"></span>
+            <span class="glyphicon glyphicon-sort-by-attributes-alt verticalCentering"
+                  ng-click="isSortingActive=!isSortingActive; setSortOption()"
+                  ng-show="isSortingActive">
+            </span>
+            <span class="glyphicon glyphicon-sort-by-attributes verticalCentering"
+                  ng-click="isSortingActive=!isSortingActive; setSortOption()"
+                  ng-hide="isSortingActive">
+            </span>
             <a href="#/filter" class="iconColor">
                 <span class="glyphicon glyphicon-filter verticalCentering landscapeFloatRight"></span>
             </a>
@@ -72,7 +86,8 @@
             <button type="button"
                     class="btn btn-default buttonTopMargin col-md-offset-1 col-md-10"
                     ng-click="isSortingActive=!isSortingActive; setSortOption()">
-                <span class="glyphicon glyphicon-sort-by-attributes-alt pull-left"></span>
+                <span class="glyphicon glyphicon-sort-by-attributes-alt pull-left" ng-show="isSortingActive"></span>
+                <span class="glyphicon glyphicon-sort-by-attributes pull-left" ng-hide="isSortingActive"></span>
                 Сортування
             </button>
     </ul>

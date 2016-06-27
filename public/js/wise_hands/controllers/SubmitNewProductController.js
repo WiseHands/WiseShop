@@ -34,7 +34,7 @@ angular.module('WiseHands')
             };
             reader.readAsDataURL(e.target.files[0]);
         }
-
+    
         $scope.submitProduct = function () {
             fd.append('name', $scope.product.name);
             fd.append('description', $scope.product.description);
