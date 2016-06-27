@@ -24,17 +24,17 @@ angular.module('WiseHands')
                     var ctx = canvas.getContext("2d");
                     ctx.drawImage(img, 0, 0, width, height);
                     var dataURL = canvas.toDataURL('image/jpeg', 0.5);
+
+
+
                     var blob = dataURItoBlob(dataURL);
-                    fd.append('photo', blob);
+                    fd.append('photo', blob, "product" + Date.now());
                 };
                 img.src = event.target.result;
             };
             reader.readAsDataURL(e.target.files[0]);
         }
 
-        $scope.getTheFiles = function ($files) {
-
-        };
         $scope.submitProduct = function () {
             fd.append('name', $scope.product.name);
             fd.append('description', $scope.product.description);
@@ -57,25 +57,6 @@ angular.module('WiseHands')
         };
     });
 
-// function dataURItoBlob(dataURI) {
-//     // convert base64/URLEncoded data component to raw binary data held in a string
-//     var byteString;
-//     if (dataURI.split(',')[0].indexOf('base64') >= 0)
-//         byteString = atob(dataURI.split(',')[1]);
-//     else
-//         byteString = unescape(dataURI.split(',')[1]);
-//
-//     // separate out the mime component
-//     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-//
-//     // write the bytes of the string to a typed array
-//     var ia = new Uint8Array(byteString.length);
-//     for (var i = 0; i < byteString.length; i++) {
-//         ia[i] = byteString.charCodeAt(i);
-//     }
-//
-//     return new Blob([ia], {type:mimeString});
-// }
 function dataURItoBlob(dataURI) {
     var binary = atob(dataURI.split(',')[1]);
     var array = [];
