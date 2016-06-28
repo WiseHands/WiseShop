@@ -1,5 +1,6 @@
 angular.module('WiseHands')
-    .controller('FilterOptionsController', function ($scope, $http, shared){
+    .controller('FilterOptionsController', function ($scope, $http, shared, $route){
+        $scope.$route = $route;
         $scope.filterOptions = shared.filterOptions || [];
         $scope.isSortingActive = shared.isSortingActive;
 

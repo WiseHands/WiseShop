@@ -1,5 +1,6 @@
 angular.module('WiseHands')
-    .controller('SubmitNewProductController', function ($scope, $location, $http) {
+    .controller('SubmitNewProductController', function ($scope, $location, $http, $route) {
+        $scope.$route = $route;
         var fd = new FormData();
 
         var imageLoader = document.getElementById('imageLoader');

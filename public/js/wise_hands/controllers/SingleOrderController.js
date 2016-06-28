@@ -1,6 +1,7 @@
     angular.module('WiseHands')
         .controller('SingleOrderController', ['$http', '$scope', '$routeParams',
-            function($http, $scope, $routeParams) {
+            function($http, $scope, $routeParams, $route) {
+                $scope.$route = $route;
                 $scope.uuid = $routeParams.uuid;
                 $http({
                     method: 'GET',

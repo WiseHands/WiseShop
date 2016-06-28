@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="#/">Замовлення</a></li>
-                <li><a href="#/products">Товари</a></li>
+                <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>
             </ul>
         </div>
 </nav>
@@ -32,7 +32,7 @@
             <a href="#/"><h4 class="tabletTextCentering">Замовлення</h4></a>
         </div>
         <div class="col-xs-2 col-sm-2">
-            <a href="#/products"><h4 class="tabletTextCentering">Товари</h4></a>
+            <a href="#/products"><h4 class="tabletTextCentering" ng-class="{ordersActiveState: $route.current.activetab == 'productlist'}">Товари</h4></a>
         </div>
         <div class="col-xs-8 col-sm-8">
             <a href="#/products/new">
@@ -46,7 +46,7 @@
     <a class="navbar-brand">HappyBag</a>
     <ul class="nav navbar-nav">
         <li><a href="#/">Замовлення</a></li>
-        <li><a href="#/products">Товари</a></li>
+        <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>
         <hr class="desktopNavProductsDivider">
     </ul>
     <a href="#/products/new">

@@ -1,5 +1,6 @@
 angular.module('WiseHands')
-    .controller('ProductListController', function ($scope, $http) {
+    .controller('ProductListController', function ($scope, $http, $route) {
+        $scope.$route = $route;
         $http({
             method: 'GET',
             url: '/products'

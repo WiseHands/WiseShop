@@ -1,5 +1,6 @@
     angular.module('WiseHands')
-        .controller('OrderListController', function ($scope, $http, shared) {
+        .controller('OrderListController', function ($scope, $http, shared, $route) {
+            $scope.$route = $route;
             $scope.isSortingActive = shared.isSortingActive;
             
             var req = {

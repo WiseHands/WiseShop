@@ -311,3 +311,10 @@ p {
     }
 }
 
+.ordersActiveState {
+    color: #000;
+}
+.ordersActiveStateDesktop {
+   font-weight: bold;
+    font-style: italic;
+}

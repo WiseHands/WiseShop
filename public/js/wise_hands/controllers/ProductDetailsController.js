@@ -1,6 +1,7 @@
 angular.module('WiseHands')
     .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', '$location',
-        function($http, $scope, $routeParams, $location) {
+        function($http, $scope, $routeParams, $location, $route) {
+            $scope.$route = $route;
             $scope.uuid = $routeParams.uuid;
             $http({
                 method: 'GET',
