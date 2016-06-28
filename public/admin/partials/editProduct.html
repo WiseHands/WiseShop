@@ -17,15 +17,16 @@
 <div class="navbar navbar-default navbar-fixed-left">
     <div class="row col-md-12 verticalCentering">
         <a href="#/product/details/{{product.uuid}}">
-            <span class="glyphicon glyphicon-arrow-left col-md-1"></span>
-            <p class="col-md-9 pull-left desktopBackArrow">Назад</p>
+            <button type="button" class="btn btn-default col-md-offset-1 col-md-12">
+                <span class="glyphicon glyphicon-arrow-left pull-left"></span>
+                Назад
+            </button>
         </a>
     </div>
-    <hr class="col-md-11 desktopNavDivider">
-        <button type="button" class="btn btn-default col-md-offset-1 col-md-10" aria-haspopup="true" aria-expanded="false" ng-click="updateProduct()">
-            <span class="glyphicon glyphicon-floppy-disk pull-left"></span>
-            Зберегти зміни
-        </button>
+    <button type="button" class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin" aria-haspopup="true" aria-expanded="false" ng-click="updateProduct()">
+        <span class="glyphicon glyphicon-floppy-disk pull-left"></span>
+        Зберегти зміни
+    </button>
 </div>
 <div class="container-fluid">
     <h4></h4>

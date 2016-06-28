@@ -28,17 +28,18 @@
 <div class="navbar navbar-default navbar-fixed-left">
     <div class="row col-md-12 verticalCentering">
         <a href="#/products">
-            <span class="glyphicon glyphicon-arrow-left col-md-1"></span>
-            <p class="col-md-9 pull-left desktopBackArrow">Назад</p>
-        </a>
-    </div>
-    <hr class="col-md-11 desktopNavDivider">
-        <a href="#/products/details/{{product.uuid}}/edit">
-            <button type="button" class="btn btn-default col-md-offset-1 col-md-10" aria-haspopup="true" aria-expanded="false">
-                <span class="glyphicon glyphicon-pencil pull-left"></span>
-                Змінити опис
+            <button type="button" class="btn btn-default col-md-offset-1 col-md-12">
+                <span class="glyphicon glyphicon-arrow-left pull-left"></span>
+                Назад
             </button>
         </a>
+    </div>
+    <a href="#/products/details/{{product.uuid}}/edit">
+        <button type="button" class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-pencil pull-left"></span>
+            Змінити опис
+        </button>
+    </a>
     <button type="button" class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteProduct">
         <span class="glyphicon glyphicon-remove pull-left"></span>
         Видалити товар
