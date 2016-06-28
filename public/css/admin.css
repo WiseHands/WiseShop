@@ -224,7 +224,7 @@ p {
     }
     .wellSideMargin {
         margin-right: 0.9em;
-        margin-left: 0.9em;
+        margin-left: 0;
     }
     .rightPadding {
         padding-right: 0;
@@ -258,7 +258,7 @@ p {
     }
     .wellSideMargin {
         margin-right: 0.9em;
-        margin-left: 0.9em;
+        margin-left: 0;
     }
     .rightPadding {
         padding-right: 0;
