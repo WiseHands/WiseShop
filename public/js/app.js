@@ -80,6 +80,15 @@ function initAutocomplete() {
                 if ($event.preventDefault) $event.preventDefault();
                 $event.cancelBubble = true;
                 $event.returnValue = false;
+
+
+                var elementTarget = document.getElementById("basket");
+
+                elementTarget.classList.remove("hvr-buzz-out-active");
+
+                elementTarget.offsetWidth = elementTarget.offsetWidth;
+
+                elementTarget.classList.add("hvr-buzz-out-active");
             };
 
             $scope.removeSelectedItem = function (index){
