@@ -1,3 +1,5 @@
+
+
 .tabletDropdown {
     top: 3.35em;
 }
@@ -69,7 +71,7 @@
     line-height: 1.5em;
     max-height: 3em;
     overflow: hidden;
-    /*text-overflow: ellipsis;*/
+    text-overflow: ellipsis;
     position: relative;
     text-align: justify;
     margin-right: -1em;
@@ -126,9 +128,14 @@ p {
 .wellSideMargin {
     margin-right: 0.1em;
     margin-left: 15.5em;
+
 }
 .rightPadding {
     padding-right: 2.5em;
+    margin-top: 1em;
+}
+.desktopTopMargin {
+    margin-top: 1em;
 }
 .vcenter {
     margin-top: 0.4em;
@@ -151,6 +158,10 @@ p {
 }
 .singleOrderLeftMargin {
     margin-right: 1em;
+
+}
+.productStatusMargin {
+    margin-bottom: -0.8em;
 }
 
 
@@ -223,11 +234,15 @@ p {
         margin-top: 4.7em;
     }
     .wellSideMargin {
-        margin-right: 0.9em;
+        margin-right: 1rem;
         margin-left: 0;
     }
     .rightPadding {
-        padding-right: 0;
+         padding-right: 0;
+         margin-top: 0;
+     }
+    .singleOrderLeftMargin {
+        margin-left: 1rem;
     }
     .desktopView, .portraitView, .smartPhoneView {
         display: inherit;
@@ -262,6 +277,10 @@ p {
     }
     .rightPadding {
         padding-right: 0;
+        margin-top: 0;
+    }
+    .singleOrderLeftMargin {
+        margin-left: 1rem;
     }
     .desktopView, .smartPhoneView, .landscapeView {
         display: inherit;
@@ -302,6 +321,7 @@ p {
     }
     .rightPadding {
         padding-right: 0;
+        margin-top: 0;
     }
     .landscapeView, .desktopView, .tabletView {
         display: inherit;

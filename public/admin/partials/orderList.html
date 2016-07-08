@@ -190,9 +190,9 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
     <h4 class="text-center"><i>{{status}}</i></h4>
-    <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
+    <h4 class="text-center">
         <i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i>
     </h4>
 </div>
