@@ -1,6 +1,6 @@
 (function () {
     angular.module('WiseHands', [
-        'ngRoute'
+        'ngRoute', 'angularSpinners'
     ])
         .config(['$routeProvider',
             function ($routeProvider) {

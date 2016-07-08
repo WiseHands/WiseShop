@@ -213,6 +213,10 @@ p {
 
 }
 
+.desktopSpinner {
+    margin-left: 12em;
+}
+
 .smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView, .productImage {
     display: none;
 }

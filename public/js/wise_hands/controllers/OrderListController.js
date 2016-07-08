@@ -1,5 +1,5 @@
     angular.module('WiseHands')
-        .controller('OrderListController', function ($scope, $http, shared, $route) {
+        .controller('OrderListController', function ($scope, $http, shared, $route, spinnerService) {
             $scope.$route = $route;
             $scope.isSortingActive = shared.isSortingActive;
             
@@ -11,9 +11,14 @@
                     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
                 },
                 data: {}
-            }
+            };
+
+            $scope.getResource = function () {
+                spinnerService.show('mySpinner');
+
             $http(req)
                 .then(function successCallback(response) {
+                    spinnerService.hide('mySpinner');
                     var data = response.data;
                     if(data.length === 0) {
                         $scope.status = 'Замовлення відсутні';
@@ -22,7 +27,7 @@
                     }
                 }, function errorCallback(data) {
                     $scope.status = 'Щось пішло не так...';
-                });
+                });};
 
             $scope.orderState = function(item){
                 if (item.state === "NEW"){
