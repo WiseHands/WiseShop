@@ -327,6 +327,9 @@
         <i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i>
     </h4>
 </div>
+<div class="row text-center desktopSpinner desktopFilterView">
+    <spinner class="center-block" name="mySpinner" img-src="public/spinner/box.gif" on-loaded="getResource()"></spinner>
+</div>
 <div class="wellSideMargin desktopFilterView" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
     <a href ="#/details/{{item.uuid}}">
         <div class="col-xs-12 col-sm-6 rightPadding">

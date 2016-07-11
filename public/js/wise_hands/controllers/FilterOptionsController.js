@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('FilterOptionsController', function ($scope, $http, shared, $route){
+    .controller('FilterOptionsController', function ($scope, $http, shared, $route, spinnerService){
         $scope.$route = $route;
         $scope.filterOptions = shared.filterOptions || [];
         $scope.isSortingActive = shared.isSortingActive;
@@ -34,8 +34,22 @@ angular.module('WiseHands')
             },
             data: {}
         };
+        var req = {
+            method: 'GET',
+            url: '/orders',
+            headers: {
+                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            },
+            data: {}
+        };
+
+        $scope.getResource = function () {
+            spinnerService.show('mySpinner');
+            
         $http(req)
             .then(function successCallback(response) {
+                spinnerService.hide('mySpinner');
                 var data = response.data;
                 if(data.length === 0) {
                     $scope.status = 'Замовлення відсутні';
@@ -43,8 +57,10 @@ angular.module('WiseHands')
                     $scope.orders = response.data;
                 }
             }, function errorCallback(data) {
+                spinnerService.hide('mySpinner');
                 $scope.status = 'Щось пішло не так...';
             });
+        };
 
         $scope.orderState = function(item){
             if (item.state === "NEW"){

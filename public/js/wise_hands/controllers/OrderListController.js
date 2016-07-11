@@ -26,8 +26,10 @@
                         $scope.orders = response.data;
                     }
                 }, function errorCallback(data) {
+                    spinnerService.hide('mySpinner');
                     $scope.status = 'Щось пішло не так...';
-                });};
+                });
+            };
 
             $scope.orderState = function(item){
                 if (item.state === "NEW"){

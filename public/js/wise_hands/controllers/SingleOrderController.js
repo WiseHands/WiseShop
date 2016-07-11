@@ -3,6 +3,7 @@
             function($http, $scope, $routeParams, $route) {
                 $scope.$route = $route;
                 $scope.uuid = $routeParams.uuid;
+                $scope.loading = true;
                 $http({
                     method: 'GET',
                     url: '/order/' + $routeParams.uuid,
@@ -12,6 +13,7 @@
                     }
                 })
                     .then(function successCallback(response) {
+                        $scope.loading = false;
                         var data = response.data;
                         if(data.length === 0) {
                             $scope.status = 'Замовлення відсутні';
