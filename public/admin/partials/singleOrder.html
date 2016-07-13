@@ -7,12 +7,14 @@
             <h4 class="text-center"><b>Деталі замовлення</b></h4>
         </div>
         <div class="dropdown col-xs-2 col-sm-2">
+            <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
             <span   type="button"
                     class="dropdown-toggle glyphicon glyphicon-pencil verticalCentering landscapeFloatRight"
                     data-toggle="dropdown"
                     id="dropdownMenu1"
                     aria-haspopup="true"
-                    aria-expanded="true">
+                    aria-expanded="true"
+                    ng-hide="loading">
             </span>
 
             <ul class="dropdown-menu pull-right tabletDropdown" aria-labelledby="dropdownMenu1">
@@ -39,6 +41,9 @@
             <span class="glyphicon glyphicon-pencil pull-left"></span>
         Змінити статус
     </button>
+    <div class="col-md-12">
+        <spinner class="col-md-offset-2" name="mySpinner" img-src="public/spinner/box.gif" show="loading"></spinner>
+    </div>
     <div class="dropdown-menu desktopDropdown col-md-10">
         <ul class="text-center">
             <li ng-click="payedOrder()"><a>Оплачено</a></li>
@@ -52,9 +57,6 @@
 </div>
 <div class="container-fluid desktopProductsView">
     <h4></h4>
-</div>
-<div class="row text-center desktopSpinner">
-    <spinner class="center-block" name="mySpinner" img-src="public/spinner/box.gif" show="loading"></spinner>
 </div>
 <div class="well wellSideMargin singleOrderLeftMargin">
     <div class="row text-center">

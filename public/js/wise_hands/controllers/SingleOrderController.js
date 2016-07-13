@@ -21,6 +21,7 @@
                             $scope.order = response.data;
                         }
                     }, function errorCallback(data) {
+                        $scope.loading = false;
                         $scope.status = 'Щось пішло не так...';
                     });
                 $scope.deleteMessage = 'Ви дійсно хочете видалити дане замовлення?';
@@ -60,6 +61,7 @@
                     }
                 };
                 $scope.payedOrder = function () {
+                    $scope.loading = true;
                     $http({
                         method: 'PUT',
                         url: '/order/' + $routeParams.uuid + '/payed',
@@ -69,12 +71,15 @@
                         }
                     })
                         .then(function successCallback(response){
+                            $scope.loading = false;
                             $scope.order = response.data;
                         }, function errorCallback(error){
+                            $scope.loading = false;
                             console.log(error);
                         });
                 };
                 $scope.cancelledOrder = function () {
+                    $scope.loading = true;
                     $http({
                         method: 'PUT',
                         url: '/order/' + $routeParams.uuid + '/cancelled',
@@ -84,12 +89,15 @@
                         }
                     })
                         .then(function successCallback(response){
+                            $scope.loading = false;
                             $scope.order = response.data;
                         }, function errorCallback(error){
+                            $scope.loading = false;
                             console.log(error);
                         });
                 };
                 $scope.shippedOrder = function () {
+                    $scope.loading = true;
                     $http({
                         method: 'PUT',
                         url: '/order/' + $routeParams.uuid + '/shipped',
@@ -99,12 +107,15 @@
                         }
                     })
                         .then(function successCallback(response){
+                            $scope.loading = false;
                             $scope.order = response.data;
                         }, function errorCallback(error){
+                            $scope.loading = false;
                             console.log(error);
                         });
                 };
                 $scope.returnedOrder = function () {
+                    $scope.loading = true;
                     $http({
                         method: 'PUT',
                         url: '/order/' + $routeParams.uuid + '/returned',
@@ -114,8 +125,10 @@
                         }
                     })
                         .then(function successCallback(response){
+                            $scope.loading = false;
                             $scope.order = response.data;
                         }, function errorCallback(error){
+                            $scope.loading = false;
                             console.log(error);
                         });
                 };

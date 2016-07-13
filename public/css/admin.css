@@ -248,6 +248,9 @@ p {
     .singleOrderLeftMargin {
         margin-left: 1rem;
     }
+    .spinnerCentering {
+        margin-top: 0.8em;
+    }
     .desktopView, .portraitView, .smartPhoneView {
         display: inherit;
     }
@@ -285,6 +288,9 @@ p {
     }
     .singleOrderLeftMargin {
         margin-left: 1rem;
+    }
+    .spinnerCentering {
+        margin-top: 0.8em;
     }
     .desktopView, .smartPhoneView, .landscapeView {
         display: inherit;
@@ -326,6 +332,9 @@ p {
     .rightPadding {
         padding-right: 0;
         margin-top: 0;
+    }
+    .spinnerCentering {
+        margin-top: 0.8em;
     }
     .landscapeView, .desktopView, .tabletView {
         display: inherit;
