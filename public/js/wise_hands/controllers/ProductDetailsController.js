@@ -21,7 +21,10 @@ angular.module('WiseHands')
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
             };
+            $scope.deleteButton = true;
             $scope.deleteProduct = function () {
+                $scope.deleteButton = false;
+                $scope.modalSpinner = true;
                 $http({
                     method: 'DELETE',
                     url: '/product/' + $routeParams.uuid,
@@ -31,10 +34,12 @@ angular.module('WiseHands')
                     }
                 })
                     .then(function successCallback(response) {
+                        $scope.modalSpinner = false;
+                        $scope.succesfullDelete = true;
                         $scope.deleteMessage = 'Товар видалений.';
-                        $scope.deleteButton = true;
 
                     }, function errorCallback(error) {
+                        $scope.modalSpinner = false;
                         console.log(error);
                     });
 
