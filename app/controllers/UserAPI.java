@@ -34,7 +34,7 @@ public class UserAPI extends Controller {
             client.save();
 
             System.out.println(json(user));
-            response.setHeader(X_AUTH_TOKEN, user.token.toString());
+            response.setHeader(X_AUTH_TOKEN, user.token);
             renderJSON(json(user));
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
@@ -54,7 +54,7 @@ public class UserAPI extends Controller {
                 forbidden(json(error));
             }
 
-            response.setHeader(X_AUTH_TOKEN, user.token.toString());
+            response.setHeader(X_AUTH_TOKEN, user.token);
             renderJSON(json(user));
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
