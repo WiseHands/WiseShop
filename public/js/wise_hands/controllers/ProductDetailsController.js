@@ -3,13 +3,16 @@ angular.module('WiseHands')
         function($http, $scope, $routeParams, $location, $route) {
             $scope.$route = $route;
             $scope.uuid = $routeParams.uuid;
+            $scope.loading = true;
             $http({
                 method: 'GET',
                 url: '/product/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {
+                    $scope.loading = false;
                     $scope.product = response.data;
                 }, function errorCallback(error) {
+                    $scope.loading = false;
                     console.log(error);
                 });
             $scope.deleteMessage = 'Ви дійсно хочете видалити даний товар?';

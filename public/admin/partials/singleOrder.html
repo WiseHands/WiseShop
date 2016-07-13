@@ -89,9 +89,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <p><i>{{deleteMessage}}</i></p>
-                <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteOrder()" ng-hide="deleteButton">Видалити замовлення</button>
-                <a href="#/">
-                    <button type="button" class="btn btn-success btn-sm center-block" ng-show="deleteButton" ng-click="hideModal()">Ok</button>
+                <div class="col-xs-8">
+                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="public/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteOrder()" ng-show="deleteButton">Видалити замовлення</button>
+                <a href="#/" class="col-xs-12">
+                    <button type="button" class="btn btn-success btn-sm center-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
                 </a>
 
             </div>

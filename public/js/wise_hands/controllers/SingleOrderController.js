@@ -26,11 +26,14 @@
                     });
                 $scope.deleteMessage = 'Ви дійсно хочете видалити дане замовлення?';
                 $scope.hideModal = function () {
-                    $('#deleteProduct').modal('hide');
+                    $('#deleteOrder').modal('hide');
                     $('body').removeClass('modal-open');
                     $('.modal-backdrop').remove();
                 };
+                $scope.deleteButton = true;
                 $scope.deleteOrder = function () {
+                    $scope.deleteButton = false;
+                    $scope.modalSpinner = true;
                     $http({
                         method: 'DELETE',
                         url: '/order/' + $routeParams.uuid,
@@ -41,8 +44,10 @@
                     })
                         .then(function successCallback(response) {
                             $scope.deleteMessage = 'Замовлення видалене.';
-                            $scope.deleteButton = true;
+                            $scope.modalSpinner = false;
+                            $scope.succesfullDelete = true;
                         }, function errorCallback(error) {
+                            $scope.modalSpinner = false;
                             console.log(error);
                         });
                 };
