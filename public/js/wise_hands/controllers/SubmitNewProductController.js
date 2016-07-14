@@ -37,6 +37,7 @@ angular.module('WiseHands')
         }
     
         $scope.submitProduct = function () {
+            $scope.loading = true;
             fd.append('name', $scope.product.name);
             fd.append('description', $scope.product.description);
             fd.append('price', $scope.product.price);
@@ -50,9 +51,11 @@ angular.module('WiseHands')
                     }
                 })
                 .success(function(data){
+                    $scope.loading = false;
                     $location.path('/product/details/' + data.uuid);
                 })
                 .error(function(){
+                    $scope.loading = false;
                     console.log(error);
                 });
         };
