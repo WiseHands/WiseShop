@@ -25,50 +25,50 @@
         </div>
         <div class="navbar-collapse collapse">
             <div class="navbar-header navbar-right">
-                            <table class="col-md-12 table table-hover xsListView">
-                                <tr>
-                                    <td><p>Ціна без доставки</p></td>
-                                    <td class="text-right"><p><strong>{{total}} грн</strong></p></td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <button type="button"
-                                                class="btn btn-success btn-sm"
-                                                data-toggle="modal"
-                                                data-target="#preOrderModal">
-                                            <span class="glyphicon glyphicon-play"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Товар</th>
-                                    <th>Кількість</th>
-                                    <th class="text-center">Разом</th>
-                                    <th class="text-center"></th>
-                                </tr>
-                                <tbody>
-                                <tr ng-repeat="item in selectedItems">
-                                    <td class="col-sm-8 col-md-6">
-                                        <div class="media">
-                                            <img class="img-responsive img-thumbnail" ng-src="public/product_images/{{item.fileName}}">
-                                        </div>
-                                    </td>
-                                    <td class="col-sm-1 col-md-1">
-                                        <input type="number"
-                                               class="form-control"
-                                               ng-model="item.quantity"
-                                               ng-init="item.quantity=1"
-                                               ng-change="calculateTotal()"
-                                               min="1">
-                                    </td>
-                                    <td class="text-center"><strong>{{item.quantity * item.price}} грн</strong></td>
-                                    <td class="col-sm-1 col-md-1">
-                                        <button type="button" class="btn btn-danger btn-sm" ng-click="removeSelectedItem($index)">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        </button></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                <div class="row dropdownTable">
+                    <div class="col-xs-4"><p>Ціна без доставки</p></div>
+                    <div class="col-xs-4 text-center"><p><strong>{{total}} грн</strong></p></div>
+                    <div class="col-xs-4 buttonRightPadding">
+                        <button type="button"
+                                class="btn btn-success btn-sm pull-right"
+                                data-toggle="modal"
+                                data-target="#preOrderModal">
+                            <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                    </div>
+                </div>
+                <hr class="dividerMargin">
+                <div class="row tableHeaderMargin">
+                    <div class="col-xs-3 text-left">Товар</div>
+                    <div class="col-xs-3 text-center">Кількість</div>
+                    <div class="col-xs-3 text-right">Разом</div>
+                    <div class="col-xs-3"></div>
+                </div>
+                <div ng-repeat="item in selectedItems">
+                    <div class="row vcenter">
+                        <div class="col-xs-3">
+                            <div class="media pull-left">
+                                <img class="img-responsive img-thumbnail center-block" ng-src="public/product_images/{{item.fileName}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <input type="number"
+                                   class="form-control landscapeWidth center-block"
+                                   ng-model="item.quantity"
+                                   ng-init="item.quantity=1"
+                                   ng-change="calculateTotal()"
+                                   min="1">
+                        </div>
+                        <div class="col-xs-3 text-right"><strong>{{item.quantity * item.price}} грн</strong></div>
+                        <div class="col-xs-3">
+                            <button type="button" class="btn btn-danger btn-sm pull-right" ng-click="removeSelectedItem($index)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="dividerMargin">
+                </div>
+
             </div>
         </div>
     </nav>
