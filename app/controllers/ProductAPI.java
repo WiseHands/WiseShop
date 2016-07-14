@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.ProductDTO;
+import models.ShopDTO;
 import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -44,14 +45,15 @@ public class ProductAPI extends Controller {
         }
     }
 
-    public static void create(String name, String description, Double price, Upload photo) throws Exception {
+    public static void create(String client, String name, String description, Double price, Upload photo) throws Exception {
         checkAuthentification();
 
         FileOutputStream out = new FileOutputStream(USERIMAGESPATH + photo.getFileName());
         out.write(photo.asBytes());
         out.close();
 
-        ProductDTO productDTO = new ProductDTO(name, description, price, photo.getFileName());
+        ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
+        ProductDTO productDTO = new ProductDTO(name, description, price, photo.getFileName(), shopDTO);
         productDTO.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -60,7 +62,7 @@ public class ProductAPI extends Controller {
         renderJSON(json);
     }
 
-    public static void details(String uuid) throws Exception {
+    public static void details(String client, String uuid) throws Exception {
         ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(productDTO);
@@ -68,8 +70,9 @@ public class ProductAPI extends Controller {
         renderJSON(json);
     }
 
-    public static void list() throws Exception {
-        List<ProductDTO> orders = ProductDTO.findAll();
+    public static void list(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        List<ProductDTO> orders = ProductDTO.find("byShop", shop).fetch();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(orders);
@@ -77,7 +80,7 @@ public class ProductAPI extends Controller {
         renderJSON(json);
     }
 
-    public static void update(String uuid) throws Exception {
+    public static void update(String client, String uuid) throws Exception {
         checkAuthentification();
 
         JSONParser parser = new JSONParser();
@@ -109,7 +112,7 @@ public class ProductAPI extends Controller {
         renderJSON(json);
     }
 
-    public static void delete(String uuid) throws Exception {
+    public static void delete(String client, String uuid) throws Exception {
         checkAuthentification();
 
         ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);

@@ -46,7 +46,10 @@ public class OrderDTO extends GenericModel {
     @OneToMany(cascade = CascadeType.ALL)
     public List<OrderItemDTO> items;
 
-    public OrderDTO(String name, String phone, String address, String deliveryType, String departmentNumber) {
+    @ManyToOne
+    public ShopDTO shop;
+
+    public OrderDTO(String name, String phone, String address, String deliveryType, String departmentNumber, ShopDTO shop) {
         this.name = name;
         this.phone = phone;
         this.address = address;
@@ -54,6 +57,7 @@ public class OrderDTO extends GenericModel {
         this.departmentNumber = departmentNumber;
         this.time = System.currentTimeMillis();
         this.state = OrderState.NEW;
+        this.shop = shop;
     }
 
     private String returnIfNotNull(String target){
@@ -71,6 +75,7 @@ public class OrderDTO extends GenericModel {
                 this.deliveryType +
                 returnIfNotNull(this.address) + "\n" +
                 returnIfNotNull(this.departmentNumber) + "\n" +
+                returnIfNotNull(this.shop.domain) + "\n" +
                 total + "\n" +
                 "http://happybag.me/admin#/details/" + this.uuid;
     }

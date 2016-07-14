@@ -3,41 +3,39 @@
 # ~~~~
 
 # Home page
-GET		{client}.org/							Application.index
-GET		{client}.happybag.me/					Application.index
 GET		{client}/					            Application.index
-GET     /                                       Application.index
-GET     /ru                                     Application.indexRu
-GET     /shop                                   Application.shop
-GET     /map                                    Application.map(format:'xml')
+GET     {client}/                                       Application.index
+GET     {client}/ru                                     Application.indexRu
+GET     {client}/shop                                   Application.shop
+GET     {client}/map                                    Application.map(format:'xml')
 
-GET     /admin                                  Application.admin
-GET     /login                                  Application.login
-GET     /register                               Application.register
-
-
-POST    /signin                                 UserAPI.login
-POST    /signup                                 UserAPI.register
-
-GET     /products                               ProductAPI.list
-GET     /product/{uuid}                         ProductAPI.details
-POST    /product                                ProductAPI.create
-PUT     /product/{uuid}                         ProductAPI.update
-DELETE  /product/{uuid}                         ProductAPI.delete
-
-GET     /orders                                 OrderAPI.list
-GET     /order/{uuid}                           OrderAPI.details
-POST    /order                                  OrderAPI.create
-DELETE  /order/{uuid}                           OrderAPI.delete
-PUT     /order/{uuid}/payed                     OrderAPI.markPayed
-PUT     /order/{uuid}/cancelled                 OrderAPI.markCancelled
-PUT     /order/{uuid}/shipped                   OrderAPI.markShipped
-PUT     /order/{uuid}/returned                  OrderAPI.markReturned
-*       /success                                OrderAPI.success
+GET     {client}/admin                                  Application.admin
+GET     {client}/login                                  Application.login
+GET     {client}/register                               Application.register
 
 
-*       /done                                   Application.done
-*       /fail                                   Application.fail
+POST    {client}/signin                                 UserAPI.login
+POST    {client}/signup                                 UserAPI.register
+
+GET     {client}/products                               ProductAPI.list
+GET     {client}/product/{uuid}                         ProductAPI.details
+POST    {client}/product                                ProductAPI.create
+PUT     {client}/product/{uuid}                         ProductAPI.update
+DELETE  {client}/product/{uuid}                         ProductAPI.delete
+
+GET     {client}/orders                                 OrderAPI.list
+GET     {client}/order/{uuid}                           OrderAPI.details
+POST    {client}/order                                  OrderAPI.create
+DELETE  {client}/order/{uuid}                           OrderAPI.delete
+PUT     {client}/order/{uuid}/payed                     OrderAPI.markPayed
+PUT     {client}/order/{uuid}/cancelled                 OrderAPI.markCancelled
+PUT     {client}/order/{uuid}/shipped                   OrderAPI.markShipped
+PUT     {client}/order/{uuid}/returned                  OrderAPI.markReturned
+*       {client}/success                                OrderAPI.success
+
+
+*       {client}/done                                   Application.done
+*       {client}/fail                                   Application.fail
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
