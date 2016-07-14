@@ -248,3 +248,11 @@ h2,.h2 {
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
 }
+.totalPrice {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    padding-top: 0;
+    display: inline;
+    color: #727272;
+}
+
