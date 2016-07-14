@@ -6,10 +6,11 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class ClientDTO extends GenericModel {
+public class ShopDTO extends GenericModel {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -18,16 +19,13 @@ public class ClientDTO extends GenericModel {
     public String uuid;
 
     @Expose
-    public String email;
-
-    @Expose
-    public String password;
-
-    @Expose
     public String shopName;
 
     @Expose
     public String shopId;
+
+    @Expose
+    public String domain;
 
     @Expose
     public String liqpayPublicKey;
@@ -35,18 +33,23 @@ public class ClientDTO extends GenericModel {
     @Expose
     public String liqpayPrivateKey;
 
-    @Expose
-    public String customDomain;
+    @ManyToOne
+    public UserDTO user;
 
-    public ClientDTO(String email, String password, String shopName,
+
+    public ShopDTO(UserDTO user, String shopName,
                      String shopId, String liqpayPublicKey,
                      String liqpayPrivateKey, String customDomain) {
-        this.email = email;
-        this.password = password;
+        if (user.shopList == null) {
+            user.shopList = new ArrayList<ShopDTO>();
+        }
+        user.shopList.add(this);
+
         this.shopName = shopName;
         this.shopId = shopId;
         this.liqpayPublicKey = liqpayPublicKey;
         this.liqpayPrivateKey = liqpayPrivateKey;
-        this.customDomain = customDomain;
+        this.domain = customDomain;
+        this.user = user;
     }
 }

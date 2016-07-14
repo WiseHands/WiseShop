@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.liqpay.LiqPay;
 import enums.OrderState;
-import models.OrderDTO;
-import models.OrderItemDTO;
-import models.ProductDTO;
-import models.UserDTO;
+import models.*;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -62,7 +59,10 @@ public class OrderAPI extends Controller {
         }
     }
 
-    public static void create() throws ParseException {
+    public static void create(String client) throws ParseException {
+
+        ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
+
         //TODO: add validation
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -83,7 +83,7 @@ public class OrderAPI extends Controller {
 
         System.out.println("TOTAL COST: " + totalCost);
 
-        OrderDTO orderDTO = new OrderDTO(name, phone, address, deliveryType, newPostDepartment);
+        OrderDTO orderDTO = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, shopDTO);
         System.out.println(orderDTO);
         orderDTO = orderDTO.save();
 
@@ -122,7 +122,7 @@ public class OrderAPI extends Controller {
         renderHtml(html);
     }
 
-    public static void details(String uuid) throws Exception {
+    public static void details(String client, String uuid) throws Exception {
         checkAuthentification();
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
@@ -134,10 +134,11 @@ public class OrderAPI extends Controller {
     }
 
 
-    public static void list() throws Exception {
+    public static void list(String client) throws Exception {
         checkAuthentification();
 
-        List<OrderDTO> orderDTOs = OrderDTO.findAll();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        List<OrderDTO> orderDTOs = OrderDTO.find("byShop", shop).fetch();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(orderDTOs);
@@ -146,7 +147,7 @@ public class OrderAPI extends Controller {
     }
 
 
-    public static void delete(String uuid) throws Exception {
+    public static void delete(String client, String uuid) throws Exception {
         checkAuthentification();
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
@@ -154,7 +155,7 @@ public class OrderAPI extends Controller {
         ok();
     }
 
-    public static void markPayed(String uuid) throws Exception {
+    public static void markPayed(String client, String uuid) throws Exception {
         checkAuthentification();
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
@@ -166,7 +167,7 @@ public class OrderAPI extends Controller {
         renderJSON(json);
     }
 
-    public static void markShipped(String uuid) throws Exception {
+    public static void markShipped(String client, String uuid) throws Exception {
         checkAuthentification();
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
@@ -178,7 +179,7 @@ public class OrderAPI extends Controller {
         renderJSON(json);
     }
 
-    public static void markCancelled(String uuid) throws Exception {
+    public static void markCancelled(String client, String uuid) throws Exception {
         checkAuthentification();
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
@@ -190,7 +191,7 @@ public class OrderAPI extends Controller {
         renderJSON(json);
     }
 
-    public static void markReturned(String uuid) throws Exception {
+    public static void markReturned(String client, String uuid) throws Exception {
         checkAuthentification();
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
@@ -203,7 +204,7 @@ public class OrderAPI extends Controller {
     }
 
     //TODO: implement
-    public static void success(String data) throws ParseException, EmailException {
+    public static void success(String client, String data) throws ParseException, EmailException {
         final LiqPayLocal liqpay = new LiqPayLocal(PUBLIC_KEY, PRIVATE_KEY);
 
         String sign = liqpay.strToSign(

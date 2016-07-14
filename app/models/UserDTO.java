@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,6 +23,9 @@ public class UserDTO extends GenericModel {
     @Expose
     public String password;
 
+    @Expose
+    @OneToMany
+    public List<ShopDTO> shopList;
 
     @Column
     public String token;
