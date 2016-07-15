@@ -94,10 +94,11 @@ function initAutocomplete() {
             $scope.removeSelectedItem = function (index){
                 $scope.selectedItems.splice(index, 1);
                 $scope.calculateTotal();
-                if($scope.selectedItems.length == 0) {
+                if($scope.selectedItems.length === 0) {
                     $scope.leftSideView = "col-md-2 col-sm-4 col-xs-6";
                     $scope.container = "col-md-12";
                     $scope.showList = false;
+                    $('#basketDropdown').click();
                 }
             };
 

@@ -87,15 +87,16 @@ h2,.h2 {
     .fixed-height {
         height: 5.5em;
     }
+    .buttonRightPadding {
+        padding-right: 0;
+    }
+    .leftPadding {
+        padding-left: 0;
+    }
     .buy-margin {
-        margin-top: 3em;
+        margin-top: 3.5em;
     }
-    .navbar-collapse {
-        height: 11em;
-    }
-    .landscapeWidth {
-        max-width: 3em;
-    }
+
 
 }
 /* Smartphones (landscape) ----------- */
@@ -107,9 +108,6 @@ h2,.h2 {
     .fixed-height {
         height: 5.5em;
     }
-    .buy-margin {
-        margin-top: 3em;
-    }
     .listView {
         display: none;
     }
@@ -119,11 +117,22 @@ h2,.h2 {
         float: left;
     }
     .navbar-collapse {
-       height: 10.5em;
+        height: 11.5em;
+        max-height: 10em;
+        width: 100%;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling:touch;
     }
-    .landscapeWidth {
-        max-width: 3em;
+    .buttonRightPadding {
+        padding-right: 0;
     }
+    .leftPadding {
+        padding-left: 0;
+    }
+    .buy-margin {
+        margin-top: 3.5em;
+    }
+
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px){
     .listView {
@@ -138,10 +147,7 @@ h2,.h2 {
         width: 100%;
     }
     .navbarLandscapeScrollMaxHeight {
-        height: 19em;
-    }
-    .buy-margin {
-        margin-top: 3em;
+        height: 30%;
     }
     .media {
         max-width: 50%;
@@ -152,8 +158,13 @@ h2,.h2 {
     .fixed-height {
         height: 3.5em;
     }
+    .buy-margin {
+        margin-top: 3.5em;
+    }
 
 }
+
+
 .well {
     background-color: white;
 }
@@ -270,6 +281,10 @@ h2,.h2 {
     display: flex;
     align-items: center;
 }
+.inputWidth {
+    max-width: 3em;
+}
+
 
 
 
