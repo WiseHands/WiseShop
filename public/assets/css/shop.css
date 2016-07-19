@@ -96,7 +96,9 @@ h2,.h2 {
     .buy-margin {
         margin-top: 3.5em;
     }
-
+    .inputWidth {
+        max-width: 3em;
+    }
 
 }
 /* Smartphones (landscape) ----------- */
@@ -132,7 +134,9 @@ h2,.h2 {
     .buy-margin {
         margin-top: 3.5em;
     }
-
+    .inputWidth {
+        max-width: 3em;
+    }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px){
     .listView {
@@ -163,6 +167,9 @@ h2,.h2 {
         position: fixed;
         margin-left: 0px;
         margin-right: 0px;
+    }
+    .inputWidth {
+        max-width: 3em;
     }
 }
 
@@ -283,9 +290,21 @@ h2,.h2 {
     display: flex;
     align-items: center;
 }
-.inputWidth {
-    max-width: 3em;
+
+.buttonCentering {
+    margin: 0 auto;
 }
+.removeButtonRightPadding {
+    padding-left: 0;
+}
+
+.productCard {
+    padding: 0 0;
+}
+.imageTopPadding {
+    padding-top: 0.5em;
+}
+
 
 
 
