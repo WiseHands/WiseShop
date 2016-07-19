@@ -32,14 +32,6 @@ h2,.h2 {
 .fixed-height {
     height: 6em;
 }
-.price-alignment {
-    padding-bottom: 8px;
-    padding-left: 10px;
-    display: block;
-}
-.btn-sm {
-    display: block;
-}
 /*avoiding horizontal scrolling*/
 .row {
     margin-left: 0px;
@@ -301,8 +293,15 @@ h2,.h2 {
 .productCard {
     padding: 0 0;
 }
-.imageTopPadding {
+.imagePadding {
     padding-top: 0.5em;
+    padding-bottom: 1em;
+}
+.inputWidth {
+    max-width: 4em;
+}
+p {
+    word-wrap:break-word;
 }
 
 

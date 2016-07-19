@@ -76,14 +76,14 @@
         <div class="{{container}}" ng-class="{'buy-margin': showList}">
             <div class="row  pad-row row-centered text-center">
                 <div class="{{leftSideView}} well productCard" ng-repeat="productDTO in products">
-                    <div class="col-md-12 imageTopPadding">
+                    <div class="col-md-12 imagePadding">
                         <img ng-src="public/product_images/{{productDTO.fileName}}" class="img-responsive" alt=""></img>
                     </div>
                     <div class="col-md-12">
                         <p class="text-center fixed-height"><i>{{productDTO.name}}</i></p>
                     </div>
                     <div class="col-md-12">
-                        <p class="text-center price-alignment"><b>{{productDTO.price}} грн</b></p>
+                        <p class="text-center"><b>{{productDTO.price}} грн</b></p>
                     </div>
                     <div class="col-md-12">
                         <button id="runBasketAnimation" href="#" class="btn btn-primary btn-sm btn-block" ng-click="buyStart($index, $event)">Придбати</button>
@@ -96,28 +96,31 @@
                     <div class="row vcenter">
                         <div class="col-md-5">Назва</div>
                         <div class="col-md-2">Кількість</div>
-                        <div class="col-md-2">Разом</div>
+                        <div class="col-md-2 text-center">Разом</div>
                         <div class="col-md-3">
                             <button type="button"
                                     class="btn btn-danger btn-xs buttonCentering btn-block removeButtonRightPadding"
                                     ng-show="selectedItems.length > 1"
                                     ng-click="removeAll()">
                                  Видалити все
+                            </button>
                         </div>
                     </div>
                     <hr class="dividerMargin">
                     <div ng-repeat="item in selectedItems">
                         <div class="row vcenter">
-                            <div class="col-md-5"><p><i>{{item.name}}</i></p></div>
+                            <div class="col-md-5">
+                                <p class="wordBreak"><i>{{item.name}}</i></p>
+                            </div>
                             <div class="col-md-2">
                                 <input type="number"
-                                       class="form-control "
+                                       class="form-control inputWidth"
                                        ng-model="item.quantity"
                                        ng-init="item.quantity=1"
                                        ng-change="calculateTotal()"
                                        min="1">
                             </div>
-                            <div class="col-md-2 text-left"><strong>{{item.quantity * item.price}} грн</strong></div>
+                            <div class="col-md-2 text-center"><strong>{{item.quantity * item.price}} грн</strong></div>
                             <div class="col-md-3">
                                 <button type="button" class="btn btn-danger btn-sm btn-block buttonCentering" ng-click="removeSelectedItem($index)">
                                      Видалити
