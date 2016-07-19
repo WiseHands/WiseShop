@@ -6,22 +6,6 @@ body {
     font-family: 'Open Sans', sans-serif;
    
 }
-.pad-top {
-    padding-top:60px;
-}
-.text-center {
-    text-align:center;
-}
-/*TO SET SOME SPACE AT BOTTOM OF BUTTON*/
-.btn {
-    margin-bottom:10px;
-    display: inline;
-}
-/*TO MAKE HEADING TEXT COLORED*/
-h2,.h2 {
-    padding:20px;
-    color: #F00;
-}
 
 /*TO CREATE SPACE BETWEEN ROW*/
 .pad-row {
@@ -29,9 +13,7 @@ h2,.h2 {
     padding-bottom:20px;
 
 }
-.fixed-height {
-    height: 6em;
-}
+
 /*avoiding horizontal scrolling*/
 .row {
     margin-left: 0px;
@@ -76,9 +58,6 @@ h2,.h2 {
     .listView {
         display: none;
     }
-    .fixed-height {
-        height: 5.5em;
-    }
     .buttonRightPadding {
         padding-right: 0;
     }
@@ -98,9 +77,6 @@ h2,.h2 {
     .navbar {
         display: block;
         margin-bottom: 3em;
-    }
-    .fixed-height {
-        height: 5.5em;
     }
     .listView {
         display: none;
@@ -148,9 +124,6 @@ h2,.h2 {
     }
     .navbar-collapse {
         height: 5em;
-    }
-    .fixed-height {
-        height: 3.5em;
     }
     .buy-margin {
         margin-top: 3.5em;
@@ -302,6 +275,9 @@ h2,.h2 {
 }
 p {
     word-wrap:break-word;
+}
+.buttonBotPadding {
+    padding-bottom: 1em;
 }
 
 

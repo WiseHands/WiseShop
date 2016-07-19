@@ -41,7 +41,7 @@
                 <div class="row tableHeaderMargin">
                     <div class="col-xs-3 col-sm-3 text-left leftPadding">Товар</div>
                     <div class="col-xs-3 col-sm-3 text-center">Кількість</div>
-                    <div class="col-xs-3 col-sm-3 text-right">Разом</div>
+                    <div class="col-xs-3 col-sm-3 text-center">Разом</div>
                     <div class="col-xs-3 col-sm-3"></div>
                 </div>
                 <div ng-repeat="item in selectedItems">
@@ -59,7 +59,7 @@
                                    ng-change="calculateTotal()"
                                    min="1">
                         </div>
-                        <div class="col-xs-3 col-sm-3 text-right"><strong>{{item.quantity * item.price}} грн</strong></div>
+                        <div class="col-xs-3 col-sm-3 text-center"><strong>{{item.quantity * item.price}} грн</strong></div>
                         <div class="col-xs-3 col-sm-3 buttonRightPadding">
                             <button type="button" class="btn btn-danger btn-sm pull-right buttonCentering" ng-click="removeSelectedItem($index)">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -85,7 +85,7 @@
                     <div class="col-md-12">
                         <p class="text-center"><b>{{productDTO.price}} грн</b></p>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 buttonBotPadding">
                         <button id="runBasketAnimation" href="#" class="btn btn-primary btn-sm btn-block" ng-click="buyStart($index, $event)">Придбати</button>
                     </div>
                 </div>
@@ -169,12 +169,12 @@
                                            type="number"
                                            ng-model="phone"
                                            name="phone"
-                                           placeholder="80931234567"
-                                           ng-minlength="11"
-                                           ng-maxlength="11"
+                                           ng-value="+380"
+                                           ng-minlength="12"
+                                           ng-maxlength="12"
                                            required/>
                                 </label>
-                                <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 11 чисел</span>
+                                <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 12 чисел</span>
                             </div>
                             <div class="form-group">
                                 <label for="address">Адреса</label>
