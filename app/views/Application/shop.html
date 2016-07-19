@@ -46,9 +46,9 @@
                 </div>
                 <div ng-repeat="item in selectedItems">
                     <div class="row vcenter">
-                        <div class="col-xs-3 col-sm-3 leftPadding">
+                        <div class="col-xs-3 col-sm-3 leftPadding productTooltip">
                             <div class="media pull-left">
-                                <img class="img-responsive img-thumbnail center-block" ng-src="public/product_images/{{item.fileName}}">
+                                <img class="img-responsive img-thumbnail center-block productTooltip" ng-src="public/product_images/{{item.fileName}}" data-toggle="tooltip" data-placement="top" title="{{item.name}}" ng-click="showProductTooltip()">
                             </div>
                         </div>
                         <div class="col-xs-3 col-sm-3">

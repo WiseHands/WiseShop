@@ -10,27 +10,21 @@
             $(this).css('max-height', 'none');
             $(this).css('height', 'auto');
 
-            // Then add size (no units) to array
             heights.push($(this).height());
         });
 
-        // Find max height of all elements
         var max = Math.max.apply( Math, heights );
 
-        // Set all heights to max height
         $(selector).each(function() {
             $(this).css('height', max + 'px');
         });
     }
 
     $(window).load(function() {
-        // Fix heights on page load
         equalizeHeights(".fixed-height");
 
-        // Fix heights on window resize
         $(window).resize(function() {
 
-            // Needs to be a timeout function so it doesn't fire every ms of resize
             setTimeout(function() {
                 equalizeHeights(".fixed-height");
             }, 120);
@@ -189,6 +183,11 @@ function initAutocomplete() {
 
                     document.querySelector('.toPayment').style.display = 'block';
                 });
+            };
+            $scope.showProductTooltip = function () {
+                    $('.productTooltip').on('click',function(){
+                        $(this).tooltip('show');
+                    });
             };
 
 
