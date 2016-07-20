@@ -1,4 +1,4 @@
 angular.module('WiseHands')
-    .controller('SettingsController', function ($scope, $location, $http, $route) {
+    .controller('SettingsController', function ($scope, $route) {
         $scope.$route = $route;
     });

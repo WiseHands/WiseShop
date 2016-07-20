@@ -49,6 +49,11 @@
                         controller:'SettingsController',
                         activetab: 'settings'
                     }).
+                    when('/delivery/newPost',{
+                        templateUrl:'public/admin/partials/newPostDelivery.html',
+                        controller:'NewPostDeliveryController',
+                        activetab: 'settings'
+                    }).
                         otherwise({
                         redirectTo:'/'
                 });

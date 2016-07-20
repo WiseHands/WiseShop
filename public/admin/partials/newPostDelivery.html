@@ -1,0 +1,44 @@
+<nav class="navbar navbar-default navbar-fixed-top desktopView" role="navigation">
+    <div class="row">
+        <div class="col-xs-2 col-sm-2">
+            <a href="#/settings">
+                <span class="glyphicon glyphicon-arrow-left verticalCentering landscapeFloatLeft"></span>
+            </a>
+        </div>
+        <div class=" col-xs-8 col-sm-8 vcenter">
+            <h4 class="text-center"><b>Нова Пошта</b></h4>
+        </div>
+        <div class="col-xs-2 col-sm-2">
+            <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
+            <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="updateProduct()" ng-hide="loading"></span>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid portraitView">
+    <div class="col-xs-12 col-sm-6">
+        <div class="[ form-group ]">
+            <input type="checkbox"
+                   name="fancy-checkbox-default1"
+                   id="fancy-checkbox-default1"
+                   autocomplete="off"
+                   ng-click="orderStateFilter('NEW')"
+                   ng-checked="isOptionChecked('NEW')"/>
+            <div class="[ btn-group ]">
+                <label for="fancy-checkbox-default1" class="[ btn btn-default ]">
+                    <span class="[ glyphicon glyphicon-ok ]"></span>
+                    <span> </span>
+                </label>
+                <label for="fancy-checkbox-default1" class="[ btn btn-default active ] fixedWidth">
+                    <b>Увімкнуто</b>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <h5><b>Текст повідомлення: </b>
+            <p><i>
+                <textarea class="form-control" name="textarea" ng-model="product.description"></textarea>
+            </i></p></h5>
+    </div>
+</div>
