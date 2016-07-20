@@ -5,6 +5,7 @@
 }
 .tabletDropdown li {
     margin: 0.7em 0;
+    text-align: center;
 }
 
 .desktopDropdown {

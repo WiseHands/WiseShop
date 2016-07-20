@@ -1,6 +1,42 @@
+(function($){
+    function equalizeHeights(selector) {
+        var heights = new Array();
+
+        // Loop to get all element heights
+        $(selector).each(function() {
+
+            // Need to let sizes be whatever they want so no overflow on resize
+            $(this).css('min-height', '0');
+            $(this).css('max-height', 'none');
+            $(this).css('height', 'auto');
+
+            heights.push($(this).height());
+        });
+
+        var max = Math.max.apply( Math, heights );
+
+        $(selector).each(function() {
+            $(this).css('height', max + 'px');
+        });
+    }
+
+    $(window).load(function() {
+        equalizeHeights(".fixed-height");
+
+        $(window).resize(function() {
+
+            setTimeout(function() {
+                equalizeHeights(".fixed-height");
+            }, 120);
+        });
+    });
+})(jQuery);
+
+
 function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode']});
 }
+
 (function(){
     angular.module('sweety', [])
         .controller('ListViewController', function($scope, $http) {
@@ -94,10 +130,11 @@ function initAutocomplete() {
             $scope.removeSelectedItem = function (index){
                 $scope.selectedItems.splice(index, 1);
                 $scope.calculateTotal();
-                if($scope.selectedItems.length == 0) {
+                if($scope.selectedItems.length === 0) {
                     $scope.leftSideView = "col-md-2 col-sm-4 col-xs-6";
                     $scope.container = "col-md-12";
                     $scope.showList = false;
+                    $('#basketDropdown').click();
                 }
             };
 
@@ -147,6 +184,11 @@ function initAutocomplete() {
                     document.querySelector('.toPayment').style.display = 'block';
                 });
             };
+            $scope.showProductTooltip = function () {
+                    $('.productTooltip').on('click',function(){
+                        $(this).tooltip('show');
+                    });
+            };
 
 
         });
@@ -161,4 +203,5 @@ function encodeQueryData(data)
         ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
     return ret.join("&");
 }
+
 

@@ -9,14 +9,16 @@
             <h4 class="text-center"><b>Деталі товару</b></h4>
         </div>
         <div class="dropdown col-xs-2 col-sm-2">
+            <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
             <span   type="button"
                     class="dropdown-toggle glyphicon glyphicon-pencil verticalCentering landscapeFloatRight"
                     data-toggle="dropdown"
                     id="dropdownMenu1"
                     aria-haspopup="true"
-                    aria-expanded="true">
+                    aria-expanded="true"
+                    ng-hide="loading">
             </span>
-            <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">
+            <ul class="dropdown-menu pull-right tabletDropdown" aria-labelledby="dropdownMenu1">
                 <li><a href="#/products/details/{{product.uuid}}/edit">Редагувати</a></li>
                 <li class="divider"></li>
                 <li data-toggle="modal" data-target="#deleteProduct"><a>Видалити</a></li>
@@ -44,6 +46,9 @@
         <span class="glyphicon glyphicon-remove pull-left"></span>
         Видалити товар
     </button>
+    <div class="col-md-12">
+        <spinner class="col-md-offset-2" name="mySpinner" img-src="public/spinner/box.gif" show="loading"></spinner>
+    </div>
 </div>
 <div class="container-fluid desktopProductsView">
     <h4></h4>
@@ -66,10 +71,17 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <p><i>{{deleteMessage}}</i></p>
-                <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteProduct()" ng-hide="deleteButton">Видалити товар</button>
-                <a href="#/products">
-                    <button type="button" class="btn btn-success btn-sm center-block" ng-show="deleteButton" ng-click="hideModal()">Ok</button>
+                <div class="col-xs-12 text-center">
+                    <p><i>{{deleteMessage}}</i></p>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="public/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <a class="col-xs-12">
+                    <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteProduct()" ng-show="deleteButton">Видалити товар</button>
+                </a>
+                <a href="#/products" class="col-xs-12">
+                    <button type="button" class="btn btn-success btn-sm center-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
                 </a>
             </div>
         </div>

@@ -6,22 +6,6 @@ body {
     font-family: 'Open Sans', sans-serif;
    
 }
-.pad-top {
-    padding-top:60px;
-}
-.text-center {
-    text-align:center;
-}
-/*TO SET SOME SPACE AT BOTTOM OF BUTTON*/
-.btn {
-    margin-bottom:10px;
-    display: inline;
-}
-/*TO MAKE HEADING TEXT COLORED*/
-h2,.h2 {
-    padding:20px;
-    color: #F00;
-}
 
 /*TO CREATE SPACE BETWEEN ROW*/
 .pad-row {
@@ -29,17 +13,7 @@ h2,.h2 {
     padding-bottom:20px;
 
 }
-.fixed-height {
-    height: 6em;
-}
-.price-alignment {
-    padding-bottom: 8px;
-    padding-left: 10px;
-    display: block;
-}
-.btn-sm {
-    display: block;
-}
+
 /*avoiding horizontal scrolling*/
 .row {
     margin-left: 0px;
@@ -84,30 +58,25 @@ h2,.h2 {
     .listView {
         display: none;
     }
-    .fixed-height {
-        height: 5.5em;
+    .buttonRightPadding {
+        padding-right: 0;
+    }
+    .leftPadding {
+        padding-left: 0;
     }
     .buy-margin {
-        margin-top: 3em;
+        margin-top: 3.5em;
     }
-    .navbar-collapse {
-        height: 11em;
+    .inputWidth {
+        max-width: 3em;
     }
-    .media {
-        max-width: 50%;
-    }
+
 }
 /* Smartphones (landscape) ----------- */
 @media only screen and (min-device-width: 568px) and (max-device-width: 767px){
     .navbar {
         display: block;
         margin-bottom: 3em;
-    }
-    .fixed-height {
-        height: 5.5em;
-    }
-    .buy-margin {
-        margin-top: 3em;
     }
     .listView {
         display: none;
@@ -117,11 +86,24 @@ h2,.h2 {
         display: inline;
         float: left;
     }
-    .media {
-        max-width: 30%;
-    }
     .navbar-collapse {
-       height: 10.5em;
+        height: 11.5em;
+        max-height: 10em;
+        width: 100%;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling:touch;
+    }
+    .buttonRightPadding {
+        padding-right: 0;
+    }
+    .leftPadding {
+        padding-left: 0;
+    }
+    .buy-margin {
+        margin-top: 3.5em;
+    }
+    .inputWidth {
+        max-width: 3em;
     }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px){
@@ -136,23 +118,27 @@ h2,.h2 {
         position: absolute;
         width: 100%;
     }
-    .navbarLandscapeScrollMaxHeight {
-        height: 19em;
-    }
-    .buy-margin {
-        margin-top: 3em;
-    }
+
     .media {
-        max-width: 10%;
+        max-width: 50%;
     }
     .navbar-collapse {
         height: 5em;
     }
-    .fixed-height {
-        height: 3.5em;
+    .buy-margin {
+        margin-top: 3.5em;
     }
-
+    .navbar-fixed-top {
+        position: fixed;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .inputWidth {
+        max-width: 3em;
+    }
 }
+
+
 .well {
     background-color: white;
 }
@@ -248,3 +234,53 @@ h2,.h2 {
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
 }
+.totalPrice {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    padding-top: 0;
+    display: inline;
+    color: #727272;
+}
+.dropdownTable {
+    padding-top: 1em;
+}
+.dividerMargin {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+.tableHeaderMargin {
+    margin-bottom: 0.5em;
+}
+.vcenter {
+    display: flex;
+    align-items: center;
+}
+
+.buttonCentering {
+    margin: 0 auto;
+}
+.removeButtonRightPadding {
+    padding-left: 0;
+}
+
+.productCard {
+    padding: 0 0;
+}
+.imagePadding {
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+}
+.inputWidth {
+    max-width: 4em;
+}
+p {
+    word-wrap:break-word;
+}
+.buttonBotPadding {
+    padding-bottom: 1em;
+}
+
+
+
+
+

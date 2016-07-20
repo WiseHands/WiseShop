@@ -45,7 +45,7 @@ public class Application extends Controller {
     }
 
 
-    public static void signin(String email, String password) throws Exception {
+    public static void signin(String client, String email, String password) throws Exception {
         String SVYAT = "sviatoslav.p5@gmail.com";
         String BOGDAN = "bohdaq@gmail.com";
         String VOVA = "patlavovach@gmail.com";
@@ -70,35 +70,35 @@ public class Application extends Controller {
         render();
     }
 
-    public static void map() {
+    public static void map(String client) {
         render();
     }
 
-    public static void indexRu() {
+    public static void indexRu(String client) {
         render();
     }
 
-    public static void shop() {
+    public static void shop(String client) {
         render();
     }
 
-    public static void done() {
+    public static void done(String client) {
         render();
     }
 
-    public static void fail() {
+    public static void fail(String client) {
         render();
     }
 
-    public static void admin() {
+    public static void admin(String client) {
         render();
     }
 
-    public static void login() {
+    public static void login(String client) {
         render();
     }
 
-    public static void register() {
+    public static void register(String client) {
         render();
     }
 

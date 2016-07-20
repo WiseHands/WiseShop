@@ -2,8 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.ClientDTO;
-import models.OrderDTO;
+import models.ShopDTO;
 import models.UserDTO;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -30,10 +29,11 @@ public class UserAPI extends Controller {
             UserDTO user = new UserDTO(email, password);
             user.save();
 
-            ClientDTO client = new ClientDTO(email, password, shopName, shopID, publicLiqPayKey, privateLiqPayKey, clientDomain);
-            client.save();
+            ShopDTO shop = new ShopDTO(user, shopName, shopID, publicLiqPayKey, privateLiqPayKey, clientDomain);
+            shop.save();
 
             System.out.println(json(user));
+            System.out.println(json(shop));
             response.setHeader(X_AUTH_TOKEN, user.token);
             renderJSON(json(user));
         } else {

@@ -29,10 +29,14 @@ public class ProductDTO extends GenericModel {
     @Expose
     public String fileName;
 
-    public ProductDTO(String name, String description, Double price, String filename) {
+    @ManyToOne
+    public ShopDTO shop;
+
+    public ProductDTO(String name, String description, Double price, String filename, ShopDTO shop) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.fileName = filename;
+        this.shop = shop;
     }
 }
