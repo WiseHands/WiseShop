@@ -36,8 +36,11 @@ public class ShopDTO extends GenericModel {
     @ManyToOne
     public UserDTO user;
 
+    @Expose
+    @OneToOne
+    public DeliveryDTO delivery;
 
-    public ShopDTO(UserDTO user, String shopName,
+    public ShopDTO(UserDTO user, DeliveryDTO delivery, String shopName,
                      String shopId, String liqpayPublicKey,
                      String liqpayPrivateKey, String customDomain) {
         if (user.shopList == null) {
@@ -45,6 +48,7 @@ public class ShopDTO extends GenericModel {
         }
         user.shopList.add(this);
 
+        this.delivery = delivery;
         this.shopName = shopName;
         this.shopId = shopId;
         this.liqpayPublicKey = liqpayPublicKey;

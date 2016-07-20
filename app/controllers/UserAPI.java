@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import models.DeliveryDTO;
 import models.ShopDTO;
 import models.UserDTO;
 import play.mvc.Before;
@@ -29,7 +30,14 @@ public class UserAPI extends Controller {
             UserDTO user = new UserDTO(email, password);
             user.save();
 
-            ShopDTO shop = new ShopDTO(user, shopName, shopID, publicLiqPayKey, privateLiqPayKey, clientDomain);
+            DeliveryDTO delivery = new DeliveryDTO(
+                    true, "Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
+                    true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)",
+                    true, "Самовивіз"
+            );
+            delivery.save();
+
+            ShopDTO shop = new ShopDTO(user, delivery, shopName, shopID, publicLiqPayKey, privateLiqPayKey, clientDomain);
             shop.save();
 
             System.out.println(json(user));
@@ -55,6 +63,7 @@ public class UserAPI extends Controller {
             }
 
             response.setHeader(X_AUTH_TOKEN, user.token);
+            System.out.println(json(user));
             renderJSON(json(user));
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
@@ -75,7 +84,6 @@ public class UserAPI extends Controller {
 
 
     private static String json(Object object){
-        response.setHeader("Content-Type", "application/json");
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         return gson.toJson(object);
     }

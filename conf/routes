@@ -23,6 +23,9 @@ POST    {client}/product                                ProductAPI.create
 PUT     {client}/product/{uuid}                         ProductAPI.update
 DELETE  {client}/product/{uuid}                         ProductAPI.delete
 
+GET     {client}/delivery                               DeliveryAPI.details
+POST    {client}/delivery                               DeliveryAPI.update
+
 GET     {client}/orders                                 OrderAPI.list
 GET     {client}/order/{uuid}                           OrderAPI.details
 POST    {client}/order                                  OrderAPI.create

@@ -1,5 +1,6 @@
 package jobs;
 
+import models.DeliveryDTO;
 import models.ProductDTO;
 import models.ShopDTO;
 import models.UserDTO;
@@ -37,7 +38,14 @@ public class DatastoreSetup extends Job {
     }
 
     private void createShop(UserDTO user, String shopName, String domain) {
-        ShopDTO shop = new ShopDTO(user, shopName, shopName, shopName, shopName, domain);
+        DeliveryDTO delivery = new DeliveryDTO(
+                true, "Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
+                true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)",
+                true, "Самовивіз"
+                );
+        delivery.save();
+
+        ShopDTO shop = new ShopDTO(user, delivery, shopName, shopName, shopName, shopName, domain);
         shop.save();
         createProducts(shop);
     }
