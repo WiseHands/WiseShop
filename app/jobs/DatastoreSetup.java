@@ -20,21 +20,24 @@ public class DatastoreSetup extends Job {
         if (isDBEmpty){
             UserDTO user = new UserDTO(SVYAT, PASSWORD);
             user.save();
-            createShopOnLocalHost(user);
+            createShop(user, "wisehands", "localhost");
+            createShop(user, "HappyBag", "happybag.me");
 
             user = new UserDTO(BOGDAN, PASSWORD);
             user.save();
-            createShopOnLocalHost(user);
-
+            createShop(user, "wisehands", "localhost");
+            createShop(user, "HappyBag", "happybag.me");
 
             user = new UserDTO(VOVA, PASSWORD);
             user.save();
-            createShopOnLocalHost(user);
+            createShop(user, "wisehands", "localhost");
+            createShop(user, "HappyBag", "happybag.me");
+
         }
     }
 
-    private void createShopOnLocalHost(UserDTO user) {
-        ShopDTO shop = new ShopDTO(user, "wisehands", "wisehands", "wisehands", "wisehands", "localhost");
+    private void createShop(UserDTO user, String shopName, String domain) {
+        ShopDTO shop = new ShopDTO(user, shopName, shopName, shopName, shopName, domain);
         shop.save();
         createProducts(shop);
     }
