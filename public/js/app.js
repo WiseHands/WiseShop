@@ -2,10 +2,8 @@
     function equalizeHeights(selector) {
         var heights = new Array();
 
-        // Loop to get all element heights
         $(selector).each(function() {
 
-            // Need to let sizes be whatever they want so no overflow on resize
             $(this).css('min-height', '0');
             $(this).css('max-height', 'none');
             $(this).css('height', 'auto');

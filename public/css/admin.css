@@ -352,3 +352,7 @@ p {
    font-weight: bold;
     font-style: italic;
 }
+.vcentering {
+    display: flex;
+    align-items: center;
+}

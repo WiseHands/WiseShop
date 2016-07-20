@@ -44,6 +44,11 @@
                         controller:'FilterOptionsController',
                         activetab: 'orderlist'
                     }).
+                    when('/settings',{
+                        templateUrl:'public/admin/partials/settings.html',
+                        controller:'SettingsController',
+                        activetab: 'settings'
+                    }).
                         otherwise({
                         redirectTo:'/'
                 });
