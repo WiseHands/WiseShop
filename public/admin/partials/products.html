@@ -29,11 +29,17 @@
 </nav>
 <nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
     <div class="row">
-        <div class="col-xs-2 col-sm-2">
-            <a href="#/"><h4 class="tabletTextCentering">Замовлення</h4></a>
-        </div>
-        <div class="col-xs-2 col-sm-2">
-            <a href="#/products"><h4 class="tabletTextCentering" ng-class="{ordersActiveState: $route.current.activetab == 'productlist'}">Товари</h4></a>
+        <div class="col-xs-4 col-sm-4 searchBarCentering">
+            <div class="dropdown pull-left">
+                <button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span class="glyphicon glyphicon-option-vertical"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#/">Замовлення</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>
+                    <li><a href="#/settings">Доставка</a></li>
+                </ul>
+            </div>
         </div>
         <div class="col-xs-8 col-sm-8">
             <a href="#/products/new">

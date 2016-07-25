@@ -340,6 +340,10 @@ p {
     .spinnerCentering {
         margin-top: 0.8em;
     }
+    .navButtonBackground {
+        background-color: #f8f8f8;
+        border: none;
+    }
     .landscapeView, .desktopView, .tabletView {
         display: inherit;
     }
@@ -362,4 +366,7 @@ p {
 .checkboxCentering {
     float: none;
     left: -50%;
+}
+.searchBoxPadding {
+    padding-right: 0;
 }

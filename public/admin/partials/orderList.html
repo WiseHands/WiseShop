@@ -51,28 +51,35 @@
 </nav>
 <nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
     <div class="row">
-        <div class="col-xs-2 col-sm-2">
-            <a href="#/"><h4 class="tabletTextCentering" ng-class="{ordersActiveState: $route.current.activetab == 'orderlist'}">Замовлення</h4></a>
+        <div class="col-xs-2 col-sm-2 searchBarCentering">
+            <div class="dropdown pull-left">
+                <button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span class="glyphicon glyphicon-option-vertical"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/">Замовлення</a></li>
+                    <li><a href="#/products">Товари</a></li>
+                    <li><a href="#/settings">Доставка</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="col-xs-2 col-sm-2">
-            <a href="#/products"><h4 class="tabletTextCentering">Товари</h4></a>
-        </div>
-        <div class="col-xs-6 col-sm-6">
+        <div class="col-xs-8 col-sm-8 searchBoxPadding">
             <input type="text" class="form-control searchBarCentering" placeholder="Пошук" ng-model="query">
         </div>
         <div class="col-xs-2 col-sm-2">
-            <span class="glyphicon glyphicon-sort-by-attributes-alt verticalCentering"
+            <span class="glyphicon glyphicon-sort-by-attributes-alt verticalCentering col-sm-6"
                   ng-click="isSortingActive=!isSortingActive; setSortOption()"
                   ng-show="isSortingActive">
             </span>
-            <span class="glyphicon glyphicon-sort-by-attributes verticalCentering"
+            <span class="glyphicon glyphicon-sort-by-attributes verticalCentering col-sm-6"
                   ng-click="isSortingActive=!isSortingActive; setSortOption()"
                   ng-hide="isSortingActive">
             </span>
             <a href="#/filter"  ng-style="{ 'color': isFilterOn() }">
-                <span class="glyphicon glyphicon-filter verticalCentering landscapeFloatRight"></span>
+                <span class="glyphicon glyphicon-filter verticalCentering landscapeFloatRight col-sm-6"></span>
             </a>
         </div>
+    </div>
     </div>
 </nav>
 <div class="navbar navbar-default navbar-fixed-left">
