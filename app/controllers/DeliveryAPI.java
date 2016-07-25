@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import models.DeliveryDTO;
 import models.ShopDTO;
 import models.UserDTO;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import play.mvc.Before;
 import play.mvc.Controller;
 
@@ -43,8 +45,28 @@ public class DeliveryAPI extends Controller {
         renderJSON(json(delivery));
     }
 
-    public static void update(DeliveryDTO delivery) throws Exception {
+    public static void update() throws Exception {
         checkAuthentification();
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        String uuid = (String) jsonBody.get("uuid");
+        String courierText = (String) jsonBody.get("courierText");
+        String selfTakeText = (String) jsonBody.get("selfTakeText");
+        String newPostText = (String) jsonBody.get("newPostText");
+
+        Boolean isCourierAvailable = (Boolean) jsonBody.get("isCourierAvailable");
+        Boolean isSelfTakeAvailable = (Boolean) jsonBody.get("isSelfTakeAvailable");
+        Boolean isNewPostAvailable = (Boolean) jsonBody.get("isNewPostAvailable");
+
+        DeliveryDTO delivery = DeliveryDTO.findById(uuid);
+        delivery.isCourierAvailable = isCourierAvailable;
+        delivery.courierText = courierText;
+        delivery.isSelfTakeAvailable = isSelfTakeAvailable;
+        delivery.selfTakeText = selfTakeText;
+        delivery.isNewPostAvailable = isNewPostAvailable;
+        delivery.newPostText = newPostText;
+
         delivery.save();
         renderJSON(json(delivery));
     }
