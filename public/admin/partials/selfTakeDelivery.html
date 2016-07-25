@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class=" col-xs-8 col-sm-8 vcenter">
-            <h4 class="text-center"><b>Нова Пошта</b></h4>
+            <h4 class="text-center"><b>Самовивіз</b></h4>
         </div>
         <div class="col-xs-2 col-sm-2">
             <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
@@ -22,7 +22,7 @@
                    name="fancy-checkbox-default1"
                    id="fancy-checkbox-default1"
                    autocomplete="off"
-                   ng-model="delivery.isNewPostAvailable"/>
+                   ng-model="delivery.isSelfTakeAvailable"/>
             <div class="[ btn-group ]">
                 <label for="fancy-checkbox-default1" class="[ btn btn-default ]">
                     <span class="[ glyphicon glyphicon-ok ]"></span>
@@ -37,7 +37,7 @@
     <div class="col-xs-12 col-sm-6">
         <h5><b>Текст повідомлення: </b>
             <p><i>
-                <textarea class="form-control" name="textarea" ng-model="delivery.newPostText" rows="6"></textarea>
+                <textarea class="form-control" name="textarea" ng-model="delivery.selfTakeText" rows="6"></textarea>
             </i></p></h5>
     </div>
 </div>

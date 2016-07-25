@@ -42,11 +42,11 @@
             <img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive center-block landscapeImageScale" alt=""></img>
             <h4><b>Назва товару: </b>
                 <p><i>
-                <input name="textinput" type="text" class="form-control input-md" ng-model="product.name">
+                <textarea name="productTitle" class="form-control input-md" ng-model="product.name" rows="2"></textarea>
                 </i></p></h4>
             <h4><b>Опис товару: </b>
                 <p><i>
-                    <textarea class="form-control" name="textarea" ng-model="product.description"></textarea>
+                    <textarea class="form-control" name="textarea" ng-model="product.description" rows="4"></textarea>
                 </i></p></h4>
             <h4><b>Ціна товару: </b>
                 <p><i>

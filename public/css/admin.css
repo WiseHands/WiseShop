@@ -293,6 +293,9 @@ p {
     .spinnerCentering {
         margin-top: 0.8em;
     }
+    .containerSize {
+        max-width: 65%;
+    }
     .desktopView, .smartPhoneView, .landscapeView {
         display: inherit;
     }
@@ -355,4 +358,8 @@ p {
 .vcentering {
     display: flex;
     align-items: center;
+}
+.checkboxCentering {
+    float: none;
+    left: -50%;
 }

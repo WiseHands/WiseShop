@@ -46,12 +46,22 @@
                     }).
                     when('/settings',{
                         templateUrl:'public/admin/partials/settings.html',
-                        controller:'SettingsController',
+                        controller:'DeliverySettingsController',
                         activetab: 'settings'
                     }).
                     when('/delivery/newPost',{
                         templateUrl:'public/admin/partials/newPostDelivery.html',
-                        controller:'NewPostDeliveryController',
+                        controller:'DeliverySettingsController',
+                        activetab: 'settings'
+                    }).
+                    when('/delivery/courier',{
+                        templateUrl:'public/admin/partials/courierDelivery.html',
+                        controller:'DeliverySettingsController',
+                        activetab: 'settings'
+                    }).
+                    when('/delivery/selfTake',{
+                        templateUrl:'public/admin/partials/selfTakeDelivery.html',
+                        controller:'DeliverySettingsController',
                         activetab: 'settings'
                     }).
                         otherwise({
