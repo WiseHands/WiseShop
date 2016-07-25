@@ -40,8 +40,8 @@ public class DatastoreSetup extends Job {
     private void createShop(UserDTO user, String shopName, String domain) {
         DeliveryDTO delivery = new DeliveryDTO(
                 true, "Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
-                true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)",
-                true, "Самовивіз"
+                true, "Самовивіз",
+                true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)"
                 );
         delivery.save();
 
