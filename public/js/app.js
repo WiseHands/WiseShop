@@ -49,7 +49,6 @@ function initAutocomplete() {
                     console.log(error);
                 });
 
-            $scope.getDeliveryTypes = function(){
                 $http({
                     method: 'GET',
                     url: '/delivery'
@@ -59,7 +58,6 @@ function initAutocomplete() {
                     }, function errorCallback(error) {
                         console.log(error);
                     });
-            };
 
             $scope.init = function() {
                 var placeSearch, autocomplete;
