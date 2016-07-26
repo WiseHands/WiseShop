@@ -49,6 +49,17 @@ function initAutocomplete() {
                     console.log(error);
                 });
 
+            $scope.getDeliveryTypes = function(){
+                $http({
+                    method: 'GET',
+                    url: '/delivery'
+                })
+                    .then(function successCallback(response) {
+                        $scope.deliverance = response.data;
+                    }, function errorCallback(error) {
+                        console.log(error);
+                    });
+            };
 
             $scope.init = function() {
                 var placeSearch, autocomplete;

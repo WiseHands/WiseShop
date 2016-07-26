@@ -136,7 +136,8 @@
                             <button type="button"
                                     class="btn btn-success btn-block btn-sm buttonCentering"
                                     data-toggle="modal"
-                                    data-target="#preOrderModal">
+                                    data-target="#preOrderModal"
+                                    ng-click="getDeliveryTypes()">
                                  Замовити
                             </button>
                         </div>
@@ -188,21 +189,21 @@
                             </div>
                                 <label class="deliveryType">Тип доставки</label>
                                     <div class="radioPadding">
-                                        <label class="radio">
+                                        <label class="radio" ng-show="deliverance.isCourierAvailable">
                                             <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER" ng-required="!delivery.radio">
-                                            <i>Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)</i>
+                                            <i>{{deliverance.courierText}}</i>
                                         </label>
-                                        <label class="radio">
+                                        <label class="radio" ng-show="deliverance.isNewPostAvailable">
                                             <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA" ng-required="!delivery.radio">
-                                            <i>Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)</i>
+                                            <i>{{deliverance.newPostText}}</i>
                                         </label>
                                         <label class="newPost" ng-show="delivery.radio === 'NOVAPOSHTA'">
                                             <p>Введіть номер відділення Нової Пошти</p>
                                             <input type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
                                         </label>
-                                        <label class="radio">
+                                        <label class="radio" ng-show="deliverance.isSelfTakeAvailable">
                                             <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">
-                                            <i>Самовивіз</i>
+                                            <i>{{deliverance.selfTakeText}}</i>
                                         </label>
                                     </div>
                         </form>
