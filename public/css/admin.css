@@ -218,6 +218,11 @@ p {
     margin-left: 12em;
 }
 
+
+.verticalPaddingDelivery {
+    padding-top: 2em;
+}
+
 .smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView, .productImage {
     display: none;
 }
@@ -251,6 +256,9 @@ p {
     }
     .spinnerCentering {
         margin-top: 0.8em;
+    }
+    .verticalPaddingDelivery {
+        padding-top: 0;
     }
     .desktopView, .portraitView, .smartPhoneView {
         display: inherit;
@@ -295,6 +303,9 @@ p {
     }
     .containerSize {
         max-width: 65%;
+    }
+    .verticalPaddingDelivery {
+        padding-top: 0;
     }
     .desktopView, .smartPhoneView, .landscapeView {
         display: inherit;
@@ -344,6 +355,9 @@ p {
         background-color: #f8f8f8;
         border: none;
     }
+    .verticalPaddingDelivery {
+        padding-top: 0;
+    }
     .landscapeView, .desktopView, .tabletView {
         display: inherit;
     }
@@ -363,10 +377,7 @@ p {
     display: flex;
     align-items: center;
 }
-.checkboxCentering {
-    float: none;
-    left: -50%;
-}
 .searchBoxPadding {
     padding-right: 0;
 }
+
