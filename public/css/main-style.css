@@ -55,7 +55,7 @@ a:hover {
 /* Buttons */
 .button,
 button,
-input[type="submit"],
+input,
 input[type="reset"],
 input[type="button"] {
     display: inline-block;
@@ -81,7 +81,7 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover,
 .button:focus,
-button:focus,
+button:focus, input,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
@@ -89,7 +89,7 @@ input[type="button"]:focus {
     border-color: #888;
     outline: 0; }
 .button.button-submit,
-button.button-submit,
+button.button-submit, input,
 input[type="submit"].button-submit,
 input[type="reset"].button-submit,
 input[type="button"].button-submit {
@@ -101,7 +101,7 @@ button.button-submit:hover,
 input[type="submit"].button-submit:hover,
 input[type="reset"].button-submit:hover,
 input[type="button"].button-submit:hover,
-.button.button-submit:focus,
+.button.button-submit:focus, input,
 button.button-submit:focus,
 input[type="submit"].button-submit:focus,
 input[type="reset"].button-submit:focus,

@@ -20,7 +20,6 @@ public class UserDTO extends GenericModel {
     @Expose
     public String email;
 
-    @Expose
     public String password;
 
     @Expose

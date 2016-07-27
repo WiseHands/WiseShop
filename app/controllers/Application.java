@@ -63,11 +63,16 @@ public class Application extends Controller {
     }
 
     public static void index(String client) {
+        if(client.equals("happybag.me")){
+            render();
+        }
+
         System.out.println("client domain: " + client);
         if (client.equals("localhost") || client.equals("wisehands.me")){
             renderTemplate("WiseHands/index.html");
         }
-        render();
+
+        renderTemplate("Application/shop.html");
     }
 
     public static void map(String client) {

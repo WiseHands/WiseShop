@@ -4,6 +4,18 @@
     ])
         .config(['$routeProvider',
             function ($routeProvider) {
+                var urlParam = function(name, w){
+                    w = w || window;
+                    var rx = new RegExp('[\&|\?]'+name+'=([^\&\#]+)'),
+                        val = w.location.search.match(rx);
+                    return !val ? '':val[1];
+                };
+
+                localStorage.setItem('X-AUTH-USER-ID', urlParam("X-AUTH-USER-ID")) ;
+                localStorage.setItem('X-AUTH-TOKEN',  urlParam("X-AUTH-TOKEN")) ;
+
+                history.pushState({}, '', 'admin' );
+
                 if(!localStorage.getItem('X-AUTH-TOKEN')){
                     window.location.hash = '';
                     window.location.pathname = '/login';

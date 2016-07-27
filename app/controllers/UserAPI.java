@@ -40,10 +40,10 @@ public class UserAPI extends Controller {
             ShopDTO shop = new ShopDTO(user, delivery, shopName, shopID, publicLiqPayKey, privateLiqPayKey, clientDomain);
             shop.save();
 
-            System.out.println(json(user));
-            System.out.println(json(shop));
+            user = UserDTO.find("byEmail", email).first();
             response.setHeader(X_AUTH_TOKEN, user.token);
-            renderJSON(json(user));
+            String json = json(user);
+            renderText(json);
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
             forbidden(json(error));
@@ -63,8 +63,9 @@ public class UserAPI extends Controller {
             }
 
             response.setHeader(X_AUTH_TOKEN, user.token);
-            System.out.println(json(user));
-            renderJSON(json(user));
+            String json = json(user);
+            System.out.println("\n\n\nRendering json: \n" + json);
+            renderJSON(json);
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
             forbidden(json(error));

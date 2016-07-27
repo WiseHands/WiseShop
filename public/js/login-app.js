@@ -25,10 +25,18 @@
                             return;
                         }
                         
-                        localStorage.setItem('X-AUTH-USER-ID', userId) ;
-                        localStorage.setItem('X-AUTH-TOKEN', token) ;
+
+
+                        if (data.shopList.length === 1){
+                            localStorage.setItem('X-AUTH-USER-ID', userId) ;
+                            localStorage.setItem('X-AUTH-TOKEN', token) ;
+
+                            var shop = data.shopList[0];
+                            var domain = shop.domain;
+                            window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
+                            '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
+                        }
                         
-                        $window.location.href = '/admin';
                     }).
                 error(function (data, status) {
                     console.log(JSON.stringify(data));
