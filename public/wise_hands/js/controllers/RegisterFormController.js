@@ -1,17 +1,23 @@
-(function () {
-    angular.module('sweety', [])
-        .controller('LoginFormController', function($scope, $http) {
-            $scope.logIn = function (){
+    angular.module('sweety')
+        .controller('RegisterFormController', function($scope, $http, $window) {
+            $scope.signIn = function (){
                 var params = {
                     email: $scope.email,
-                    password: $scope.password
+                    password: $scope.password,
+                    passwordConfirmation: $scope.password,
+                    shopName: $scope.shopName,
+                    shopID: $scope.shopID,
+                    publicLiqPayKey: $scope.publicLiqPay,
+                    privateLiqPayKey: $scope.privateLiqPay,
+                    clientDomain: $scope.domain
+
                 };
 
                 var encodedParams = encodeQueryData(params);
 
                 $http({
                     method: 'POST',
-                    url: '/signin?' + encodedParams
+                    url: '/signup?' + encodedParams
                 })
                     .success(function (data, status, headers) {
                         var token = headers("X-AUTH-TOKEN");
@@ -19,47 +25,28 @@
 
                         if(!token || !userId){
                             $scope.deniedMsg = false;
+
                             console.error('Token or userID not returned in server response');
+
                             return;
                         }
 
-                        localStorage.setItem('X-AUTH-USER-ID', userId) ;
-                        localStorage.setItem('X-AUTH-TOKEN', token) ;
-
                         if (data.shopList.length === 1){
+                            localStorage.setItem('X-AUTH-USER-ID', userId) ;
+                            localStorage.setItem('X-AUTH-TOKEN', token) ;
+
                             var shop = data.shopList[0];
                             var domain = shop.domain;
                             window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
                                 '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
                         }
-                        if (data.shopList.length > 1) {
-                            $scope.showShopList = true;
-                            $scope.user = data;
-
-
-                        }
-
-
+                        
                     }).
-                error(function (data, status) {
-                    console.log(JSON.stringify(data));
-
-                    console.log(JSON.stringify(status));
-                    $scope.deniedMsg = true;
-                    $scope.accessDeniedMessage = data.status;
+                error(function (error) {
+                    console.log(error);
                 });
-
             };
-            $scope.properShop = function (shop) {
-                var domain = shop.domain;
-                var userId = localStorage.getItem('X-AUTH-USER-ID');
-                var token = localStorage.getItem('X-AUTH-TOKEN');
-                window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
-                    '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
-            }
-        })
-})();
-
+        });
 function encodeQueryData(data)
 {
     var ret = [];

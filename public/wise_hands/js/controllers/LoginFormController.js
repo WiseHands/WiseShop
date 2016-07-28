@@ -1,5 +1,4 @@
-(function () {
-    angular.module('sweety', [])
+    angular.module('sweety')
         .controller('LoginFormController', function($scope, $http) {
             $scope.logIn = function (){
                 var params = {
@@ -30,7 +29,7 @@
                             var shop = data.shopList[0];
                             var domain = shop.domain;
                             window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
-                                '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
+                            '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
                         }
                         if (data.shopList.length > 1) {
                             $scope.showShopList = true;
@@ -57,9 +56,7 @@
                 window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
                     '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
             }
-        })
-})();
-
+        });
 function encodeQueryData(data)
 {
     var ret = [];

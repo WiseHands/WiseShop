@@ -1,4 +1,5 @@
-    angular.module('sweety')
+(function (){
+    angular.module('sweety', [])
         .controller('RegisterFormController', function($scope, $http, $window) {
             $scope.signIn = function (){
                 var params = {
@@ -40,13 +41,14 @@
                             window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
                                 '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
                         }
-                        
+
                     }).
                 error(function (error) {
                     console.log(error);
                 });
             };
-        });
+        })
+})();   
 function encodeQueryData(data)
 {
     var ret = [];
