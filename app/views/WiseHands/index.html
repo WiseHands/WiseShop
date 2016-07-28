@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="sweety">
 <head>
-
-	<meta charset="utf-8">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<!--[if IE]>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<![endif]-->
 	<title>Wise Hands</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<link href="public/css/main-style.css" rel="stylesheet" />
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="public/css/main-style.css">
+
 
 </head>
-<div class="row">
-	<div class="container">
-		<h2 class="title">Wise Hands</h2>
-		<form class="form-signin" name="loginForm">
-			<div class="row">
-				<div class="column">
-					<label>Create your own web-store in 2 minutes!</label>
-				</div>
-			</div>
-			<a href="/register"><input class="button-submit full-width" value="REGISTER"></a>
-			<a href="/login"><input class="button-submit full-width" value="LOG IN"></a>
-		</form>
-	</div>
-</div>
+<body>
+<div ng-view></div>
+
+<script src="public/js/angular.js"></script>
+<script src="public/bower_components/angular-route/angular-route.js"></script>
+<script src="public/assets/plugins/jquery-1.10.2.js"></script>
+
+<script src="public/wise_hands/js/routes/routesConfig.js"></script>
+
+<script src="public/js/login-app.js"></script>
+<script src="public/js/register-app.js"></script>
+
 
 </body>
 </html>

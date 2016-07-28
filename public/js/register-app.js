@@ -1,6 +1,5 @@
-(function () {
-    angular.module('sweety', [])
-        .controller('ListViewController', function($scope, $http, $window) {
+    angular.module('sweety')
+        .controller('RegisterFormController', function($scope, $http, $window) {
             $scope.signIn = function (){
                 var params = {
                     email: $scope.email,
@@ -47,8 +46,7 @@
                     console.log(error);
                 });
             };
-        })
-})();
+        });
 function encodeQueryData(data)
 {
     var ret = [];

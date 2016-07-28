@@ -13,7 +13,7 @@
 </head>
 <body ng-app="sweety" ng-controller="ListViewController">
 
-<div class="row" ng-cloak="">
+<div class="row" ng-cloak>
     <div class="container">
         <h2 class="title">Wise Hands</h2>
         <form class="form-signin" name="loginForm" ng-submit="logIn()">
@@ -39,7 +39,7 @@
                 <a href="#" class="forgot" ng-show="showShopList">Choose proper web-store</a>
             </div>
             <div ng-repeat="shop in user.shopList">
-                <input class="button-submit full-width" value="{{shop.shopName}}" ng-click="properShop(shop)">
+                <input class="button-submit full-width buttonStyling" value="{{shop.shopName}}" ng-click="properShop(shop)">
             </div>
         </form>
     </div>

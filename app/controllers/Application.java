@@ -100,11 +100,11 @@ public class Application extends Controller {
     }
 
     public static void login(String client) {
-        render();
+        renderTemplate("WiseHands/login.html");
     }
 
     public static void register(String client) {
-        render();
+        renderTemplate("WiseHands/register.html");
     }
 
 }

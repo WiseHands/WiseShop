@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Register Form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="public/css/register-style.css">
+
+</head>
+<body ng-app="sweety" ng-controller="ListViewController">
+
+<div class="row">
+    <div class="container">
+        <h2 class="title">Wise Hands</h2>
+        <form class="form-signin" name="loginForm" ng-submit="signIn()">
+            <div class="row">
+                <div class="column">
+                    <label>E-MAIL </label>
+                    <input id="email" class="full-width" type="email" placeholder="E-mail" ng-model="email" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label>PASSWORD </label>
+                    <input id="password" class="full-width" type="password" placeholder="Password" ng-model="password" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label>CONFIRM YOUR PASSWORD </label>
+                    <input id="password" class="full-width" type="password" placeholder="Confirm your password" ng-model="confirmPassword" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label>SHOP NAME </label>
+                    <input id="shopname" class="full-width" type="text" placeholder="Shop name" ng-model="shopName" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label>SHOP ID </label>
+                    <input id="shopid" class="full-width" type="text" placeholder="Shop ID" ng-model="shopID" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label>LIQPAY PUBLIC KEY </label>
+                    <input id="liqpayPublic" class="full-width" type="text" placeholder="LiqPay public key" ng-model="publicLiqPay" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label>LIQPAY PRIVATE KEY </label>
+                    <input id="liqpayPrivate" class="full-width" type="text" placeholder="LiqPay private key" ng-model="privateLiqPay" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label>YOUR DOMAIN </label>
+                    <input id="domain" class="full-width" type="text" placeholder="Your domain" ng-model="domain" required>
+                </div>
+            </div>
+            <br/>
+            <input class="button-submit full-width buttonStyling" type="submit" value="SIGN IN">
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="/public/js/angular.js"></script>
+<script type="text/javascript" src="/public/js/register-app.js"></script>
+</body>
+</html>

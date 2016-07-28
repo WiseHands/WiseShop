@@ -1,6 +1,5 @@
-(function () {
-    angular.module('sweety', [])
-        .controller('ListViewController', function($scope, $http, $window) {
+    angular.module('sweety')
+        .controller('LoginFormController', function($scope, $http) {
             $scope.logIn = function (){
                 var params = {
                     email: $scope.email,
@@ -57,8 +56,7 @@
                 window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
                     '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
             }
-        })
-})();
+        });
 function encodeQueryData(data)
 {
     var ret = [];

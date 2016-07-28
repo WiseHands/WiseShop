@@ -54,7 +54,7 @@ a:hover {
 
 /* Buttons */
 .button,
-button, input,
+button, .buttonStyling,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
@@ -76,7 +76,7 @@ input[type="button"] {
     cursor: pointer;
     box-sizing: border-box; }
 .button:hover,
-button:hover, input:hover,
+button:hover, .buttonStyling:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover,
@@ -89,7 +89,7 @@ input[type="button"]:focus {
     border-color: #888;
     outline: 0; }
 .button.button-submit,
-button.button-submit, input.button-submit,
+button.button-submit, .buttonStyling.button-submit,
 input[type="submit"].button-submit,
 input[type="reset"].button-submit,
 input[type="button"].button-submit {
@@ -97,7 +97,7 @@ input[type="button"].button-submit {
     background-color: #126471;
     border-color: #126471; }
 .button.button-submit:hover,
-button.button-submit:hover, input.button-submit:hover,
+button.button-submit:hover, .buttonStyling.button-submit:hover,
 input[type="submit"].button-submit:hover,
 input[type="reset"].button-submit:hover,
 input[type="button"].button-submit:hover,
