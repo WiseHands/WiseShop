@@ -2,16 +2,8 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.DeliveryDTO;
-import models.ShopDTO;
-import models.UserDTO;
 import play.mvc.Before;
 import play.mvc.Controller;
-import responses.InvalidPassword;
-import responses.UserDoesNotExist;
-
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -41,7 +33,7 @@ public class DnsLookUpAPI extends Controller {
                 forbidden(domain + " DNS record not set to " + localIp);
             }
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             forbidden("Unknown Host " + domain);
         }
     }
