@@ -30,7 +30,7 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.loading = false;
-                    $location.path('/settings');
+                    $location.path('/delivery');
                 }, function errorCallback(error) {
                     $scope.loading = false;
                     console.log(error);

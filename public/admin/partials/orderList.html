@@ -23,7 +23,8 @@
             <ul class="nav navbar-nav">
                 <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/">Замовлення</a></li>
                 <li><a href="#/products">Товари</a></li>
-                <li><a href="#/settings">Доставка</a></li>
+                <li><a href="#/delivery">Доставка</a></li>
+                <li><a href="#/settings">Налаштування</a></li>
             </ul>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
@@ -59,7 +60,8 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/">Замовлення</a></li>
                     <li><a href="#/products">Товари</a></li>
-                    <li><a href="#/settings">Доставка</a></li>
+                    <li><a href="#/delivery">Доставка</a></li>
+                    <li><a href="#/settings">Налаштування</a></li>
                 </ul>
             </div>
         </div>
@@ -87,7 +89,8 @@
     <ul class="nav navbar-nav">
         <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'orderlist'}"><a href="#/">Замовлення</a></li>
         <li><a href="#/products">Товари</a></li>
-        <li><a href="#/settings">Доставка</a></li>
+        <li><a href="#/delivery">Доставка</a></li>
+        <li><a href="#/settings">Налаштування</a></li>
         <hr>
             <div class="col-md-12">
                 <input type="text" class="form-control searchBarCentering" placeholder="Пошук" ng-model="query">

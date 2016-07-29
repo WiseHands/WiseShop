@@ -23,13 +23,14 @@
             <ul class="nav navbar-nav">
                 <li><a href="#/">Замовлення</a></li>
                 <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>
-                <li><a href="#/settings">Доставка</a></li>
+                <li><a href="#/delivery">Доставка</a></li>
+                <li><a href="#/settings">Налаштування</a></li>
             </ul>
         </div>
 </nav>
 <nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
     <div class="row">
-        <div class="col-xs-4 col-sm-4 searchBarCentering">
+        <div class="col-xs-5 col-sm-5 searchBarCentering">
             <div class="dropdown pull-left">
                 <button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <span class="glyphicon glyphicon-option-vertical"></span>
@@ -37,11 +38,15 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><a href="#/">Замовлення</a></li>
                     <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>
-                    <li><a href="#/settings">Доставка</a></li>
+                    <li><a href="#/delivery">Доставка</a></li>
+                    <li><a href="#/settings">Налаштування</a></li>
                 </ul>
             </div>
         </div>
-        <div class="col-xs-8 col-sm-8">
+        <div class="col-xs-5 col-sm-5 vcenter">
+            <h4><b>Товари</b></h4>
+        </div>
+        <div class="col-xs-2 col-sm-2">
             <a href="#/products/new">
                 <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"></span>
             </a>
@@ -54,7 +59,8 @@
     <ul class="nav navbar-nav">
         <li><a href="#/">Замовлення</a></li>
         <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>
-        <li><a href="#/settings">Доставка</a></li>
+        <li><a href="#/delivery">Доставка</a></li>
+        <li><a href="#/settings">Налаштування</a></li>
         <hr class="desktopNavProductsDivider">
     </ul>
     <a href="#/products/new">

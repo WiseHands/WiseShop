@@ -11,10 +11,12 @@
                     return !val ? '':val[1];
                 };
 
-                localStorage.setItem('X-AUTH-USER-ID', urlParam("X-AUTH-USER-ID")) ;
-                localStorage.setItem('X-AUTH-TOKEN',  urlParam("X-AUTH-TOKEN")) ;
+                if(urlParam("X-AUTH-USER-ID") !== "") {
+                    localStorage.setItem('X-AUTH-USER-ID', urlParam("X-AUTH-USER-ID")) ;
+                    localStorage.setItem('X-AUTH-TOKEN',  urlParam("X-AUTH-TOKEN")) ;
+                    history.pushState({}, '', 'admin' );
+                }
 
-                history.pushState({}, '', 'admin' );
 
                 if(!localStorage.getItem('X-AUTH-TOKEN')){
                     window.location.hash = '';
@@ -56,24 +58,29 @@
                         controller:'FilterOptionsController',
                         activetab: 'orderlist'
                     }).
-                    when('/settings',{
-                        templateUrl:'public/admin/partials/settings.html',
+                    when('/delivery',{
+                        templateUrl:'public/admin/partials/delivery.html',
                         controller:'DeliverySettingsController',
-                        activetab: 'settings'
+                        activetab: 'delivery'
                     }).
                     when('/delivery/newPost',{
                         templateUrl:'public/admin/partials/newPostDelivery.html',
                         controller:'DeliverySettingsController',
-                        activetab: 'settings'
+                        activetab: 'delivery'
                     }).
                     when('/delivery/courier',{
                         templateUrl:'public/admin/partials/courierDelivery.html',
                         controller:'DeliverySettingsController',
-                        activetab: 'settings'
+                        activetab: 'delivery'
                     }).
                     when('/delivery/selfTake',{
                         templateUrl:'public/admin/partials/selfTakeDelivery.html',
                         controller:'DeliverySettingsController',
+                        activetab: 'delivery'
+                    }).
+                    when('/settings',{
+                        templateUrl:'public/admin/partials/settings.html',
+                        controller:'SettingsController',
                         activetab: 'settings'
                     }).
                         otherwise({

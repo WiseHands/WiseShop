@@ -10,7 +10,7 @@
                     </button>
                 </div>
                 <div class="col-xs-7 col-sm-7 vcenter">
-                    <h4><b>Налаштування</b></h4>
+                    <h4><b>Доставка</b></h4>
                 </div>
             </div>
         </div>
@@ -18,8 +18,8 @@
             <ul class="nav navbar-nav">
                 <li><a href="#/">Замовлення</a></li>
                 <li><a href="#/products">Товари</a></li>
-                <li><a href="#/delivery">Доставка</a></li>
-                <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
+                <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery">Доставка</a></li>
+                <li><a href="#/settings">Налаштування</a></li>
             </ul>
         </div>
 </nav>
@@ -34,13 +34,13 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><a href="#/">Замовлення</a></li>
                     <li><a href="#/products">Товари</a></li>
-                    <li><a href="#/delivery">Доставка</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery">Доставка</a></li>
+                    <li><a href="#/settings">Налаштування</a></li>
                 </ul>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 vcenter">
-            <h4><b>Налаштування</b></h4>
+            <h4><b>Доставка</b></h4>
         </div>
     </div>
 </nav>
@@ -50,8 +50,41 @@
     <ul class="nav navbar-nav">
         <li><a href="#/">Замовлення</a></li>
         <li><a href="#/products">Товари</a></li>
-        <li><a href="#/delivery">Доставка</a></li>
-        <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
+        <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'delivery'}"><a href="#/delivery">Доставка</a></li>
+        <li><a href="#/settings">Налаштування</a></li>
         <hr class="desktopNavProductsDivider">
     </ul>
+</div>
+
+<div class="container-fluid containerSize col-md-offset-3 verticalPaddingDelivery">
+    <a href="#/delivery/newPost">
+        <div class="col-xs-12 col-sm-12 col-md-11 vcentering thumbnail">
+            <div class="col-xs-3">
+                <img src="public/logoimages/nova-poshta-logo.png" class="img-responsive">
+            </div>
+            <div class="col-xs-9">
+                <h4>Нова Пошта</h4>
+            </div>
+        </div>
+    </a>
+    <a href="#/delivery/courier">
+        <div class="col-xs-12 col-sm-12 col-md-11 vcentering thumbnail">
+            <div class="col-xs-3">
+                <img src="public/logoimages/courier-logo.png" class="img-responsive">
+            </div>
+            <div class="col-xs-9">
+                <h4>Доставка Кур'єром</h4>
+            </div>
+        </div>
+    </a>
+    <a href="#/delivery/selfTake">
+        <div class="col-xs-12 col-sm-12 col-md-11 vcentering thumbnail">
+            <div class="col-xs-3">
+                <img src="public/logoimages/self-take.png" class="img-responsive">
+            </div>
+            <div class="col-xs-9">
+                <h4>Самовивіз</h4>
+            </div>
+        </div>
+    </a>
 </div>
