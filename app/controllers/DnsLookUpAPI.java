@@ -8,7 +8,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class DnsLookUpAPI extends Controller {
-    private static final String SERVER_IP = "91.224.11.24";
 
     @Before
     static void corsHeaders() {
@@ -25,10 +24,10 @@ public class DnsLookUpAPI extends Controller {
             String domainIp = InetAddress.getByName(domain).getHostAddress();
             System.out.println("DnsLookUpAPI checkDns " + domain + ": " + domainIp);
 
-            if(SERVER_IP.equals(domainIp)){
+            if(inetAddress.getHostAddress().equals(domainIp)){
                 ok();
             } else {
-                forbidden(domain + " DNS record not set to " + SERVER_IP);
+                forbidden(domain + " DNS record not set to " + inetAddress.getHostAddress());
             }
         } catch (UnknownHostException e) {
             System.out.println(e.getStackTrace());
