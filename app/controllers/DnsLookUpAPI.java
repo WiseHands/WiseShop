@@ -31,7 +31,7 @@ public class DnsLookUpAPI extends Controller {
                 forbidden(domain + " DNS record not set to " + SERVER_IP);
             }
         } catch (UnknownHostException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
             forbidden("Unknown Host " + domain);
         }
     }
