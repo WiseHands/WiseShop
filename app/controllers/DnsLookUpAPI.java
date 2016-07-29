@@ -26,10 +26,14 @@ public class DnsLookUpAPI extends Controller {
 
 
     public static void checkDns(String domain) throws Exception {
+        System.out.println("DnsLookUpAPI checkDns domain: " + domain);
+
         try {
             InetAddress inetAddress = InetAddress.getLocalHost();
             String localIp = inetAddress.getHostAddress();
+            System.out.println("DnsLookUpAPI checkDns localIp: " + localIp);
             String domainIp = InetAddress.getByName(domain).getHostAddress();
+            System.out.println("DnsLookUpAPI checkDns " + domain + ": " + domainIp);
 
             if(localIp.equals(domainIp)){
                 ok();
