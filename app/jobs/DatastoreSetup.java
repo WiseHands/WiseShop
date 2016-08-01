@@ -45,7 +45,7 @@ public class DatastoreSetup extends Job {
                 );
         delivery.save();
 
-        ShopDTO shop = new ShopDTO(user, delivery, shopName, shopName, shopName, shopName, domain);
+        ShopDTO shop = new ShopDTO(user, delivery, shopName, shopName, shopName, domain);
         shop.save();
         createProducts(shop);
     }
