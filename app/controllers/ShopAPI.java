@@ -10,8 +10,8 @@ import play.mvc.Before;
 import play.mvc.Controller;
 
 public class ShopAPI extends Controller {
-    private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
-    private static final String X_AUTH_USER_ID = "X-AUTH-USER-ID";
+    private static final String X_AUTH_TOKEN = "x-auth-token";
+    private static final String X_AUTH_USER_ID = "x-auth-user-id";
 
     @Before
     static void corsHeaders() {

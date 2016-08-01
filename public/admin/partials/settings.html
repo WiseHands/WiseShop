@@ -12,6 +12,9 @@
                 <div class="col-xs-7 col-sm-7 vcenter">
                     <h4><b>Налаштування</b></h4>
                 </div>
+                <div class="col-xs-2 col-sm-2">
+                    <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
+                </div>
             </div>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -22,6 +25,7 @@
                 <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
             </ul>
         </div>
+
 </nav>
 
 <nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
@@ -42,6 +46,9 @@
         <div class="col-xs-6 col-sm-6 vcenter">
             <h4><b>Налаштування</b></h4>
         </div>
+        <div class="col-xs-1 col-sm-1">
+            <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
+        </div>
     </div>
 </nav>
 
@@ -54,4 +61,21 @@
         <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
         <hr class="desktopNavProductsDivider">
     </ul>
+    <div class="col-md-12">
+        <spinner class="col-md-offset-2" name="mySpinner" img-src="public/spinner/box.gif" show="loading"></spinner>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="well">
+        <form id="productForm" method="post" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-12 selectContainer">
+                    <select class="form-control" name="size">
+                        <option ng-selected="{{hostName === shop.domain}}" ng-repeat="shop in shops">{{shop.shopName}}</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
