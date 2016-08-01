@@ -14,10 +14,21 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 $scope.loading = false;
                 $scope.shops = response.data;
+
+                $scope.shops.forEach(function(shop, key, array) {
+                    if (shop.domain === $scope.hostName){
+                        $scope.selectedShop = shop;
+                    }
+                });
+
             }, function errorCallback(data) {
                 $scope.loading = false;
                 $scope.status = 'Щось пішло не так...';
             });
+
+        $scope.shopSelected = function (shop) {
+            window.location.href = window.location.protocol + "//" + $scope.selectedShop.domain + ":" + window.location.port + "/admin#/settings";
+        };
 
         $scope.createNewStore = function () {
 
