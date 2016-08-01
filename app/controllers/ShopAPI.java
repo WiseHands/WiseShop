@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import models.DeliveryDTO;
 import models.ShopDTO;
 import models.UserDTO;
 import org.json.simple.JSONObject;
@@ -64,6 +65,24 @@ public class ShopAPI extends Controller {
         shop.liqpayPrivateKey = liqpayPrivateKey;
 
         shop.save();
+        renderJSON(json(shop));
+    }
+
+    public static void create(String name, String domain, String publicLiqpayKey, String privateLiqPayKey) throws Exception {
+        checkAuthentification();
+
+        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        UserDTO user = UserDTO.findById(userId);
+
+        DeliveryDTO delivery = new DeliveryDTO(
+                true, "Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
+                true, "Самовивіз",
+                true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)"
+        );
+        delivery.save();
+
+        ShopDTO shop = new ShopDTO(user, delivery, name, publicLiqpayKey, privateLiqPayKey, domain);
+        shop = shop.save();
         renderJSON(json(shop));
     }
 

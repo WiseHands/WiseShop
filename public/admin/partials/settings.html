@@ -68,14 +68,60 @@
 
 <div class="container-fluid">
     <div class="well">
-        <form id="productForm" method="post" class="form-horizontal">
+        <form id="productForm" class="form-horizontal">
             <div class="form-group">
-                <div class="col-xs-12 selectContainer">
+                <div class="col-xs-12">
                     <select class="form-control" name="size">
                         <option ng-selected="{{hostName === shop.domain}}" ng-repeat="shop in shops">{{shop.shopName}}</option>
                     </select>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#createNewStoreModal">Створити новий магазин</button>
+                </div>
+            </div>
         </form>
+    </div>
+</div>
+<div class="modal fade" id="createNewStoreModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title text-center" id="myModalLabel"><b>Створити новий магазин</b></h4>
+            </div>
+            <div class="modal-body">
+                <form name="createNewStoreForm">
+                    <div class="form-group">
+                        <label>Назва магазину
+                            <input class="form-control" ng-model="newStore.name" type="text" required/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Домен
+                            <input class="form-control" ng-model="newStore.domain" type="text" placeholder="mynewstore.com" required/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Публічний LiqPay ключ
+                            <input class="form-control" ng-model="newStore.publicLiqpay" type="text" required/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Приватний LiqPay ключ
+                            <input class="form-control" ng-model="newStore.privateLiqpay" type="text" required/>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success toPayment" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">Створити <span class="glyphicon glyphicon-play"></button>
+            </div>
+        </div>
     </div>
 </div>

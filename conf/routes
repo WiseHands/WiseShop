@@ -24,7 +24,8 @@ PUT     {client}/product/{uuid}                         ProductAPI.update
 DELETE  {client}/product/{uuid}                         ProductAPI.delete
 
 GET     {client}/shops                               	ShopAPI.list
-PUT     {client}/details                                ShopAPI.update
+POST    {client}/shop                            	    ShopAPI.create
+PUT     {client}/shop/details                           ShopAPI.update
 
 GET     {client}/delivery                               DeliveryAPI.details
 PUT     {client}/delivery                               DeliveryAPI.update
