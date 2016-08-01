@@ -22,9 +22,6 @@ public class ShopDTO extends GenericModel {
     public String shopName;
 
     @Expose
-    public String shopId;
-
-    @Expose
     public String domain;
 
     @Expose
@@ -40,9 +37,11 @@ public class ShopDTO extends GenericModel {
     @OneToOne
     public DeliveryDTO delivery;
 
-    public ShopDTO(UserDTO user, DeliveryDTO delivery, String shopName,
-                     String shopId, String liqpayPublicKey,
-                     String liqpayPrivateKey, String customDomain) {
+    public ShopDTO(UserDTO user, DeliveryDTO delivery,
+                     String shopName,
+                     String liqpayPublicKey,
+                     String liqpayPrivateKey,
+                     String customDomain) {
         if (user.shopList == null) {
             user.shopList = new ArrayList<ShopDTO>();
         }
@@ -50,7 +49,6 @@ public class ShopDTO extends GenericModel {
 
         this.delivery = delivery;
         this.shopName = shopName;
-        this.shopId = shopId;
         this.liqpayPublicKey = liqpayPublicKey;
         this.liqpayPrivateKey = liqpayPrivateKey;
         this.domain = customDomain;

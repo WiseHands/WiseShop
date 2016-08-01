@@ -37,7 +37,7 @@ public class UserAPI extends Controller {
             );
             delivery.save();
 
-            ShopDTO shop = new ShopDTO(user, delivery, shopName, shopID, publicLiqPayKey, privateLiqPayKey, clientDomain);
+            ShopDTO shop = new ShopDTO(user, delivery, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
             shop.save();
 
             user = UserDTO.find("byEmail", email).first();
