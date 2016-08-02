@@ -18,7 +18,6 @@ public class ProductDTO extends GenericModel {
     @Expose
     public String name;
 
-    @Lob
     @Column( length = 100000 )
     @Expose
     public String description;

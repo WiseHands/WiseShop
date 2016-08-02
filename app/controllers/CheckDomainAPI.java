@@ -2,12 +2,13 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import models.ShopDTO;
 import play.mvc.Before;
 import play.mvc.Controller;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class DnsLookUpAPI extends Controller {
+public class CheckDomainAPI extends Controller {
 
     @Before
     static void corsHeaders() {
@@ -17,14 +18,18 @@ public class DnsLookUpAPI extends Controller {
 
 
     public static void checkDns(String domain) throws Exception {
-        System.out.println("DnsLookUpAPI checkDns domain: " + domain);
+        System.out.println("CheckDomainAPI checkDns domain: " + domain);
 
         try {
             InetAddress inetAddress = InetAddress.getLocalHost();
             String domainIp = InetAddress.getByName(domain).getHostAddress();
-            System.out.println("DnsLookUpAPI checkDns " + domain + ": " + domainIp);
+            System.out.println("CheckDomainAPI checkDns " + domain + ": " + domainIp);
 
             if(inetAddress.getHostAddress().equals(domainIp)){
+                boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
+                if (isDomainRegisteredAlready) {
+                    forbidden(domain + " is used by another user. Please select other one");
+                }
                 ok();
             } else {
                 forbidden(domain + " DNS record not set to " + inetAddress.getHostAddress());
