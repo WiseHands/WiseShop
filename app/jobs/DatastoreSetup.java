@@ -4,6 +4,7 @@ import models.DeliveryDTO;
 import models.ProductDTO;
 import models.ShopDTO;
 import models.UserDTO;
+import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
@@ -17,22 +18,33 @@ public class DatastoreSetup extends Job {
 
 
     public void doJob() throws Exception {
+        boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
         boolean isDBEmpty = UserDTO.findAll().size() == 0;
         if (isDBEmpty){
             UserDTO user = new UserDTO(SVYAT, PASSWORD);
             user.save();
-            createShop(user, "wisehands", "localhost");
-            createShop(user, "HappyBag", "happybag.me");
+
+            if (isDevEnv) {
+                createShop(user, "wisehands", "localhost");
+            } else {
+                createShop(user, "HappyBag", "happybag.me");
+            }
 
             user = new UserDTO(BOGDAN, PASSWORD);
             user.save();
-            createShop(user, "wisehands", "localhost");
-            createShop(user, "HappyBag", "happybag.me");
+            if (isDevEnv) {
+                createShop(user, "wisehands", "localhost");
+            } else {
+                createShop(user, "HappyBag", "happybag.me");
+            }
 
             user = new UserDTO(VOVA, PASSWORD);
             user.save();
-            createShop(user, "wisehands", "localhost");
-            createShop(user, "HappyBag", "happybag.me");
+            if (isDevEnv) {
+                createShop(user, "wisehands", "localhost");
+            } else {
+                createShop(user, "HappyBag", "happybag.me");
+            }
 
         }
     }
