@@ -32,6 +32,8 @@ angular.module('WiseHands')
 
         $scope.createNewStore = function () {
 
+            $scope.loading = true;
+
             var params = {
                 name: $scope.newStore.name,
                 domain: $scope.newStore.domain,
@@ -50,10 +52,11 @@ angular.module('WiseHands')
                 }
             })
                 .success(function (data, status, headers) {
+                    $scope.loading = false;
                     $scope.shops.push(data);
-                    console.log(data);
                 }).
             error(function (error) {
+                $scope.loading = false;
                 console.log(error);
             });
         }

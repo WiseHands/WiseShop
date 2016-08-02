@@ -1,4 +1,4 @@
-
+@import url("http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.min.css")
 
 .tabletDropdown {
     top: 3.35em;
@@ -223,6 +223,11 @@ p {
     padding-top: 2em;
 }
 
+.settingsDesktopContainer {
+    margin-left: 14.5em;
+    padding-top: 1em;
+}
+
 .smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView, .productImage {
     display: none;
 }
@@ -258,6 +263,10 @@ p {
         margin-top: 0.8em;
     }
     .verticalPaddingDelivery {
+        padding-top: 0;
+    }
+    .settingsDesktopContainer {
+        margin-left: 0;
         padding-top: 0;
     }
     .desktopView, .portraitView, .smartPhoneView {
@@ -305,6 +314,10 @@ p {
         max-width: 65%;
     }
     .verticalPaddingDelivery {
+        padding-top: 0;
+    }
+    .settingsDesktopContainer {
+        margin-left: 0;
         padding-top: 0;
     }
     .desktopView, .smartPhoneView, .landscapeView {
@@ -358,6 +371,10 @@ p {
     .verticalPaddingDelivery {
         padding-top: 0;
     }
+    .settingsDesktopContainer {
+        margin-left: 0;
+        padding-top: 0;
+    }
     .landscapeView, .desktopView, .tabletView {
         display: inherit;
     }
@@ -380,4 +397,5 @@ p {
 .searchBoxPadding {
     padding-right: 0;
 }
+
 

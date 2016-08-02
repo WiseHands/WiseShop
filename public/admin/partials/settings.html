@@ -66,7 +66,8 @@
     </div>
 </div>
 
-<div class="container-fluid">
+
+<div class="container-fluid settingsDesktopContainer">
     <div class="well">
         <form id="productForm" class="form-horizontal">
             <div class="form-group">
@@ -74,13 +75,33 @@
                     <select class="form-control"
                             ng-model="selectedShop"
                             ng-change="shopSelected(shop)"
-                            ng-options="shop as shop.shopName for shop in shops"
-                            name="size">
+                            ng-options="shop as shop.shopName for shop in shops">
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-xs-12">
+                <div class="">
+                    <label class="col-xs-12">Назва магазину
+                        <input class="form-control" type="text"/>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <label class="col-xs-12">Публічний LiqPay ключ
+                        <input class="form-control" type="text"/>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <label class="col-xs-12">Приватний LiqPay ключ
+                        <input class="form-control" type="text"/>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-offset-8 col-sm-4">
                     <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#createNewStoreModal">Створити новий магазин</button>
                 </div>
             </div>
