@@ -3,12 +3,16 @@ angular.module('WiseHands')
         $scope.$route = $route;
         $scope.loading = true;
         $scope.hostName = window.location.hostname;
+
+        var token = localStorage.getItem('X-AUTH-TOKEN');
+        var userId = localStorage.getItem('X-AUTH-USER-ID')
+
         $http({
             method: 'GET',
             url: '/shops',
             headers: {
-                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                'X-AUTH-TOKEN': token,
+                'X-AUTH-USER-ID': userId
             }
         })
             .then(function successCallback(response) {
@@ -27,7 +31,11 @@ angular.module('WiseHands')
             });
 
         $scope.shopSelected = function (shop) {
-            window.location.href = window.location.protocol + "//" + $scope.selectedShop.domain + ":" + window.location.port + "/admin#/settings";
+            window.location.href = window.location.protocol + "//"
+            						+ $scope.selectedShop.domain + ":" + window.location.port
+            						+ "/admin"
+            						+ '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token +
+           						 	+ "#/settings";
         };
 
         $scope.createNewStore = function () {
