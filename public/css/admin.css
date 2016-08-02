@@ -387,7 +387,7 @@ p {
     color: #000;
 }
 .ordersActiveStateDesktop {
-   font-weight: bold;
+    font-weight: bold;
     font-style: italic;
 }
 .vcentering {
@@ -398,4 +398,12 @@ p {
     padding-right: 0;
 }
 
+.errorTextStyling {
+    color: red;
+    word-wrap:break-word;
+    padding-top: 0;
+}
+.errorMessageContainer {
+    padding-left: 0;
+}
 

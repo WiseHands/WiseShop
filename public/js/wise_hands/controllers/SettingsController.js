@@ -57,6 +57,7 @@ angular.module('WiseHands')
                 }).
             error(function (error) {
                 $scope.loading = false;
+                $scope.errorMessage = error;
                 console.log(error);
             });
         }

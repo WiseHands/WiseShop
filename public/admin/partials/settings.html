@@ -119,32 +119,41 @@
                 </button>
                 <h4 class="modal-title text-center" id="myModalLabel"><b>Створити новий магазин</b></h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body col-xs-12">
                 <form name="createNewStoreForm">
                     <div class="form-group">
-                        <label>Назва магазину
+                        <label class="col-xs-12">Назва магазину
                             <input class="form-control" ng-model="newStore.name" type="text" required/>
                         </label>
                     </div>
                     <div class="form-group">
-                        <label>Домен
+                        <label class="col-xs-12">Домен
                             <input class="form-control" ng-model="newStore.domain" type="text" placeholder="mynewstore.com" required/>
                         </label>
                     </div>
                     <div class="form-group">
-                        <label>Публічний LiqPay ключ
+                        <label class="col-xs-12">Публічний LiqPay ключ
                             <input class="form-control" ng-model="newStore.publicLiqpay" type="text" required/>
                         </label>
                     </div>
                     <div class="form-group">
-                        <label>Приватний LiqPay ключ
+                        <label class="col-xs-12">Приватний LiqPay ключ
                             <input class="form-control" ng-model="newStore.privateLiqpay" type="text" required/>
                         </label>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <div class="col-xs-7 text-left errorMessageContainer">
+                            <p class="errorTextStyling">{{errorMessage}}</p>
+                        </div>
+                        <button type="button"
+                                class="btn btn-success btn-sm col-xs-5"
+                                ng-click="createNewStore()"
+                                ng-disabled="createNewStoreForm.$invalid">Створити <span class="glyphicon glyphicon-play">
+                        </button>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success toPayment" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">Створити <span class="glyphicon glyphicon-play"></button>
             </div>
         </div>
     </div>
