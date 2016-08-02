@@ -44,7 +44,7 @@ angular.module('WiseHands')
 
             var params = {
                 name: $scope.newStore.name,
-                domain: $scope.newStore.domain,
+                domain: angular.lowercase($scope.newStore.domain),
                 publicLiqpay: $scope.newStore.publicLiqpay,
                 privateLiqpay: $scope.newStore.privateLiqpay
             };
@@ -62,6 +62,11 @@ angular.module('WiseHands')
                 .success(function (data, status, headers) {
                     $scope.loading = false;
                     $scope.shops.push(data);
+                    window.location.href = window.location.protocol + "//"
+                        + $scope.newStore.domain + ":" + window.location.port
+                        + "/admin"
+                        + '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token +
+                        + "#/settings";
                 }).
             error(function (error) {
                 $scope.loading = false;
