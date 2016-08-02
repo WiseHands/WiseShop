@@ -3,12 +3,16 @@ package controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.ShopDTO;
+import play.Play;
 import play.mvc.Before;
 import play.mvc.Controller;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class CheckDomainAPI extends Controller {
+
+    public static final String SERVER_IP = "91.224.11.24";
+    public static final String DEV_IP = "127.0.0.1";
 
     @Before
     static void corsHeaders() {
@@ -17,27 +21,37 @@ public class CheckDomainAPI extends Controller {
     }
 
 
-    public static void checkDns(String domain) throws Exception {
-        System.out.println("CheckDomainAPI checkDns domain: " + domain);
-
+    public static void checkDomain(String domain) throws Exception {
         try {
-            InetAddress inetAddress = InetAddress.getLocalHost();
-            String domainIp = InetAddress.getByName(domain).getHostAddress();
-            System.out.println("CheckDomainAPI checkDns " + domain + ": " + domainIp);
 
-            if(inetAddress.getHostAddress().equals(domainIp)){
-                boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
-                if (isDomainRegisteredAlready) {
-                    forbidden(domain + " is used by another user. Please select other one");
+            boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
+
+            if(isDevEnv){
+                if (domain.contains(".localhost")) {
+                    boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
+                    if (isDomainRegisteredAlready) {
+                        forbidden(domain + " is used by another user. Please select other one");
+                    }
+                    ok();
                 }
-                ok();
+                forbidden("domain in dev env should follow yourdomain.localhost pattern. You entered " + domain);
             } else {
-                forbidden(domain + " DNS record not set to " + inetAddress.getHostAddress());
+                String domainIp = InetAddress.getByName(domain).getHostAddress();
+                if (domainIp.equals(SERVER_IP)) {
+                    boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
+                    if (isDomainRegisteredAlready) {
+                        forbidden(domain + " is used by another user. Please select other one");
+                    }
+                    ok();
+                }
+                forbidden("domain ip address is not correct: " + domainIp);
             }
+
         } catch (UnknownHostException e) {
             System.out.println(e.getStackTrace());
-            forbidden("Unknown Host " + domain);
+            forbidden("Unknown Host for domain enetered for shop: " + domain);
         }
+
     }
 
 

@@ -7,12 +7,18 @@ import models.ShopDTO;
 import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.Play;
 import play.mvc.Before;
 import play.mvc.Controller;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class ShopAPI extends Controller {
     private static final String X_AUTH_TOKEN = "x-auth-token";
     private static final String X_AUTH_USER_ID = "x-auth-user-id";
+    public static final String SERVER_IP = "91.224.11.24";
+
 
     @Before
     static void corsHeaders() {
@@ -71,6 +77,50 @@ public class ShopAPI extends Controller {
     public static void create(String name, String domain, String publicLiqpayKey, String privateLiqPayKey) throws Exception {
         checkAuthentification();
 
+        try {
+
+            boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
+
+            if(isDevEnv){
+                if (domain.contains(".localhost")) {
+                    boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
+                    if (isDomainRegisteredAlready) {
+                        forbidden(domain + " is used by another user. Please select other one");
+                    }
+                    ShopDTO shop = createShop(name, domain, publicLiqpayKey, privateLiqPayKey);
+                    renderJSON(json(shop));
+                }
+                forbidden("Domain in dev env should follow yourdomain.localhost pattern. You entered " + domain);
+            } else {
+                String domainIp = InetAddress.getByName(domain).getHostAddress();
+                if (domainIp.equals(SERVER_IP)) {
+                    boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
+                    if (isDomainRegisteredAlready) {
+                        forbidden(domain + " is used by another user. Please select other one");
+                    }
+                    ShopDTO shop = createShop(name, domain, publicLiqpayKey, privateLiqPayKey);
+                    renderJSON(json(shop));
+                }
+                forbidden("domain ip address is not correct: " + domainIp);
+            }
+
+        } catch (UnknownHostException e) {
+            System.out.println(e.getStackTrace());
+            forbidden("Unknown Host for domain enetered for shop: " + domain);
+        }
+
+
+
+    }
+
+
+    private static String json(Object object){
+        response.setHeader("Content-Type", "application/json");
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return gson.toJson(object);
+    }
+
+    private static ShopDTO createShop(String name, String domain, String publicLiqpayKey, String privateLiqPayKey){
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO user = UserDTO.findById(userId);
 
@@ -82,15 +132,7 @@ public class ShopAPI extends Controller {
         delivery.save();
 
         ShopDTO shop = new ShopDTO(user, delivery, name, publicLiqpayKey, privateLiqPayKey, domain);
-        shop = shop.save();
-        renderJSON(json(shop));
-    }
-
-
-    private static String json(Object object){
-        response.setHeader("Content-Type", "application/json");
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        return gson.toJson(object);
+        return shop = shop.save();
     }
 
 }

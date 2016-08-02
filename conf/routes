@@ -40,7 +40,7 @@ PUT     {client}/order/{uuid}/shipped                   OrderAPI.markShipped
 PUT     {client}/order/{uuid}/returned                  OrderAPI.markReturned
 *       {client}/success                                OrderAPI.success
 
-GET     {client}/checkdns                               DnsLookUpApi.checkDns
+GET     {client}/checkdomain                            CheckDomainApi.checkDomain
 
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
