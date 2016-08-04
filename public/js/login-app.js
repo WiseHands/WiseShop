@@ -29,6 +29,7 @@
                         if (data.shopList.length === 1){
                             var shop = data.shopList[0];
                             var domain = shop.domain;
+                            localStorage.setItem('active-shop', shop);
                             window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
                                 '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
                         }

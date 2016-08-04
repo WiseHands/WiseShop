@@ -22,6 +22,7 @@ angular.module('WiseHands')
                 $scope.shops.forEach(function(shop, key, array) {
                     if (shop.domain === $scope.hostName){
                         $scope.selectedShop = shop;
+                        console.log($scope.selectedShop);   
                     }
                 });
 
@@ -71,6 +72,26 @@ angular.module('WiseHands')
             error(function (error) {
                 $scope.loading = false;
                 $scope.errorMessage = error;
+                console.log(error);
+            });
+        };
+        $scope.updateStoreSettings = function () {
+            $scope.loading = true;
+            $http({
+                method: 'PUT',
+                url: '/shop',
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                },
+                data: $scope.selectedShop
+            })
+                .success(function (data, status, headers) {
+                    $scope.loading = false;
+                    console.log($scope.selectedShop);
+                }).
+            error(function (error) {
+                $scope.loading = false;
                 console.log(error);
             });
         }

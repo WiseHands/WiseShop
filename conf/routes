@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET		{client}/					            Application.index
+GET		{client}/					                Application.index
 GET     {client}/                                       Application.index
 GET     {client}/ru                                     Application.indexRu
 GET     {client}/shop                                   Application.shop
@@ -24,8 +24,9 @@ PUT     {client}/product/{uuid}                         ProductAPI.update
 DELETE  {client}/product/{uuid}                         ProductAPI.delete
 
 GET     {client}/shops                               	ShopAPI.list
+GET     {client}/shop/details                           ShopAPI.details
 POST    {client}/shop                            	    ShopAPI.create
-PUT     {client}/shop/details                           ShopAPI.update
+PUT     {client}/shop                                   ShopAPI.update
 
 GET     {client}/delivery                               DeliveryAPI.details
 PUT     {client}/delivery                               DeliveryAPI.update

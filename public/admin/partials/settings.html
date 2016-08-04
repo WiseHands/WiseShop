@@ -14,6 +14,7 @@
                 </div>
                 <div class="col-xs-2 col-sm-2">
                     <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
+                    <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="updateStoreSettings()" ng-hide="loading"></span>
                 </div>
             </div>
         </div>
@@ -48,6 +49,7 @@
         </div>
         <div class="col-xs-1 col-sm-1">
             <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
+            <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="setNewPostOptions()" ng-hide="loading"></span>
         </div>
     </div>
 </nav>
@@ -61,6 +63,10 @@
         <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
         <hr class="desktopNavProductsDivider">
     </ul>
+    <button type="button" class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin" aria-haspopup="true" aria-expanded="false" ng-click="setNewPostOptions()">
+        <span class="glyphicon glyphicon-floppy-disk pull-left"></span>
+        Зберегти зміни
+    </button>
     <div class="col-md-12">
         <spinner class="col-md-offset-2" name="mySpinner" img-src="public/spinner/box.gif" show="loading"></spinner>
     </div>
@@ -82,21 +88,21 @@
             <div class="form-group">
                 <div class="">
                     <label class="col-xs-12">Назва магазину
-                        <input class="form-control" type="text"/>
+                        <input class="form-control" type="text" ng-model="selectedShop.shopName"/>
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="">
                     <label class="col-xs-12">Публічний LiqPay ключ
-                        <input class="form-control" type="text"/>
+                        <input class="form-control" type="text" ng-model="selectedShop.liqpayPublicKey"/>
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="">
                     <label class="col-xs-12">Приватний LiqPay ключ
-                        <input class="form-control" type="text"/>
+                        <input class="form-control" type="text" ng-model="selectedShop.liqpayPrivateKey"/>
                     </label>
                 </div>
             </div>

@@ -48,9 +48,9 @@ public class ShopAPI extends Controller {
         renderJSON(json(user.shopList));
     }
 
-    public static void details(String client, String shopId) throws Exception {
+    public static void details(String client) throws Exception { // /shop/details
         checkAuthentification();
-        ShopDTO shop = ShopDTO.findById(shopId);
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
         renderJSON(json(shop));
     }
 
@@ -61,16 +61,18 @@ public class ShopAPI extends Controller {
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         String uuid = (String) jsonBody.get("uuid");
         String domain = (String) jsonBody.get("domain");
+        String shopName = (String) jsonBody.get("shopName");
         String liqpayPublicKey = (String) jsonBody.get("liqpayPublicKey");
         String liqpayPrivateKey = (String) jsonBody.get("liqpayPrivateKey");
 
 
         ShopDTO shop = ShopDTO.findById(uuid);
         shop.domain = domain;
+        shop.shopName = shopName;
         shop.liqpayPublicKey = liqpayPublicKey;
         shop.liqpayPrivateKey = liqpayPrivateKey;
 
-        shop.save();
+        shop = shop.save();
         renderJSON(json(shop));
     }
 
