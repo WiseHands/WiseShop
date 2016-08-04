@@ -1,6 +1,12 @@
 angular.module('WiseHands')
     .controller('ProductListController', function ($scope, $http, $route, spinnerService) {
         $scope.$route = $route;
+
+        $scope.activeShop = {
+            domain: '',
+            shopName: ''
+        };
+        
         $scope.getResource = function () {
             spinnerService.show('mySpinner');
         $http({
@@ -35,5 +41,9 @@ angular.module('WiseHands')
             }, function errorCallback(data) {
                 $scope.status = 'Щось пішло не так...';
             });
+
+        $scope.getUrl = function (shop) {
+            return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
+        }
         
     });

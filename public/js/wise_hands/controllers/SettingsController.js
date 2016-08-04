@@ -5,7 +5,13 @@ angular.module('WiseHands')
         $scope.hostName = window.location.hostname;
 
         var token = localStorage.getItem('X-AUTH-TOKEN');
-        var userId = localStorage.getItem('X-AUTH-USER-ID')
+        var userId = localStorage.getItem('X-AUTH-USER-ID');
+
+
+        $scope.activeShop = {
+            domain: '',
+            shopName: ''
+        };
 
         $http({
             method: 'GET',
@@ -111,6 +117,10 @@ angular.module('WiseHands')
                 console.log(error);
             });
         };
+
+        $scope.getUrl = function (shop) {
+            return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
+        }
 
         
     });

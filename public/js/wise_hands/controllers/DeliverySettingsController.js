@@ -2,6 +2,12 @@ angular.module('WiseHands')
     .controller('DeliverySettingsController', function ($scope, $route, $http, $location) {
         $scope.$route = $route;
         $scope.loading = true;
+
+        $scope.activeShop = {
+            domain: '',
+            shopName: ''
+        };
+        
         $http({
             method: 'GET',
             url: '/delivery',
@@ -51,4 +57,8 @@ angular.module('WiseHands')
             }, function errorCallback(data) {
                 $scope.status = 'Щось пішло не так...';
             });
+
+        $scope.getUrl = function (shop) {
+            return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
+        }
     });
