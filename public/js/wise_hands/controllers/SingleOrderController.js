@@ -24,6 +24,7 @@
                         $scope.loading = false;
                         $scope.status = 'Щось пішло не так...';
                     });
+                
                 $scope.deleteMessage = 'Ви дійсно хочете видалити дане замовлення?';
                 $scope.hideModal = function () {
                     $('#deleteOrder').modal('hide');

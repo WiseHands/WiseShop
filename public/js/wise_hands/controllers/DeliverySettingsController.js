@@ -36,5 +36,19 @@ angular.module('WiseHands')
                     console.log(error);
                 });
 
-        }
+        };
+        $http({
+            method: 'GET',
+            url: '/shop/details',
+            headers: {
+                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            }
+        })
+            .then(function successCallback(response) {
+                $scope.activeShop = response.data;
+
+            }, function errorCallback(data) {
+                $scope.status = 'Щось пішло не так...';
+            });
     });

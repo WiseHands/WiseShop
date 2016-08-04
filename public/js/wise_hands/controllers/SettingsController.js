@@ -22,12 +22,27 @@ angular.module('WiseHands')
                 $scope.shops.forEach(function(shop, key, array) {
                     if (shop.domain === $scope.hostName){
                         $scope.selectedShop = shop;
-                        console.log($scope.selectedShop);   
                     }
                 });
 
             }, function errorCallback(data) {
                 $scope.loading = false;
+                $scope.status = 'Щось пішло не так...';
+            });
+
+        $http({
+            method: 'GET',
+            url: '/shop/details',
+            headers: {
+                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            }
+        })
+            .then(function successCallback(response) {
+                $scope.activeShop = response.data;
+
+
+            }, function errorCallback(data) {
                 $scope.status = 'Щось пішло не так...';
             });
 
@@ -88,13 +103,16 @@ angular.module('WiseHands')
             })
                 .success(function (data, status, headers) {
                     $scope.loading = false;
-                    console.log($scope.selectedShop);
+                    document.title = $scope.selectedShop.shopName;
+                    $scope.activeShop = $scope.selectedShop;
                 }).
             error(function (error) {
                 $scope.loading = false;
                 console.log(error);
             });
-        }
+        };
+
+        
     });
 
 function encodeQueryData(data)

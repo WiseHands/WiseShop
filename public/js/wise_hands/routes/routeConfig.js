@@ -87,4 +87,20 @@
                         redirectTo:'/'
                 });
             }])
+        .run(function ($http) {
+            $http({
+                method: 'GET',
+                url: '/shop/details',
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                }
+            })
+                .then(function successCallback(response) {
+                    document.title = response.data.shopName;
+
+                }, function errorCallback(data) {
+                    console.log(data);
+                });
+        })
 })();
