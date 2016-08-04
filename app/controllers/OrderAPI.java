@@ -116,7 +116,7 @@ public class OrderAPI extends Controller {
         params.put("currency", "UAH");
         params.put("description", "New Payment: " + orderDTO.toString());
         params.put("order_id", orderDTO.uuid);
-        LiqPay liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
+        LiqPay liqpay = new LiqPay(shopDTO.liqpayPublicKey, shopDTO.liqpayPrivateKey);
         String html = liqpay.cnb_form(params);
 
         renderHtml(html);
