@@ -2,6 +2,11 @@
         .controller('OrderListController', function ($scope, $http, shared, $route, spinnerService) {
             $scope.$route = $route;
             $scope.isSortingActive = shared.isSortingActive;
+
+            $scope.activeShop = {
+                domain: '',
+                shopName: ''
+            };
             
             var req = {
                 method: 'GET',
