@@ -14,7 +14,13 @@
                 </div>
                 <div class="col-xs-2 col-sm-2">
                     <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
-                    <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="updateStoreSettings()" ng-hide="loading"></span>
+                    <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"
+                          ng-hide="loading"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                          data-toggle="modal"
+                          data-target="#createNewStoreModal">
+                    </span>
                 </div>
             </div>
         </div>
@@ -49,7 +55,11 @@
         </div>
         <div class="col-xs-1 col-sm-1">
             <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
-            <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="updateStoreSettings()" ng-hide="loading"></span>
+            <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  data-toggle="modal"
+                  data-target="#createNewStoreModal" ng-hide="loading"></span>
         </div>
     </div>
 </nav>
@@ -63,9 +73,14 @@
         <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
         <hr class="desktopNavProductsDivider">
     </ul>
-    <button type="button" class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin" aria-haspopup="true" aria-expanded="false" ng-click="updateStoreSettings()">
-        <span class="glyphicon glyphicon-floppy-disk pull-left"></span>
-        Зберегти зміни
+    <button type="button"
+            class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin btn-inline"
+            aria-haspopup="true"
+            aria-expanded="false"
+            data-toggle="modal"
+            data-target="#createNewStoreModal">
+        <span class="glyphicon glyphicon-plus pull-left"></span>
+        Новий магазин
     </button>
     <div class="col-md-12">
         <spinner class="col-md-offset-2" name="mySpinner" img-src="public/spinner/box.gif" show="loading"></spinner>
@@ -107,8 +122,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-xs-12 col-sm-offset-8 col-sm-4">
-                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#createNewStoreModal">Створити новий магазин</button>
+                <div class="col-xs-12 col-sm-offset-9 col-sm-3">
+                    <button class="btn btn-primary btn-block" ng-click="updateStoreSettings()">Зберегти зміни</button>
                 </div>
             </div>
         </form>
