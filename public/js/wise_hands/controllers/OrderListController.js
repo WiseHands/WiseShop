@@ -110,4 +110,8 @@
                     return '#000000';
                 }
             };
+
+            $scope.getUrl = function (shop) {
+                return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
+            }
         });
