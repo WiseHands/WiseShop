@@ -14,6 +14,10 @@ public class DatastoreSetup extends Job {
     private static final String BOGDAN = "bohdaq@gmail.com";
     private static final String VOVA = "patlavovach@gmail.com";
 
+    private static final String HAPPYBAG_PUBLIC_LIQPAY_KEY = "i65251982315";
+    private static final String HAPPYBAG_PRIVATE_LIQPAY_KEY = "NLsgd1zKW30EvBkPNeuQodXzmvcA7shcrQ7o0Mbs";
+
+
     private static final String PASSWORD = "rjylbnth";
 
 
@@ -57,7 +61,7 @@ public class DatastoreSetup extends Job {
                 );
         delivery.save();
 
-        ShopDTO shop = new ShopDTO(user, delivery, shopName, shopName, shopName, domain);
+        ShopDTO shop = new ShopDTO(user, delivery, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
         shop.save();
         createProducts(shop);
     }
