@@ -54,20 +54,21 @@ public class ShopAPI extends Controller {
         renderJSON(json(shop));
     }
 
-    public static void update() throws Exception {
+    public static void update(String client) throws Exception {
         checkAuthentification();
+
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        System.out.println("Keys from db: " + shop.liqpayPublicKey + ", " + shop.liqpayPrivateKey);
+
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        String uuid = (String) jsonBody.get("uuid");
-        String domain = (String) jsonBody.get("domain");
+
         String name = (String) jsonBody.get("shopName");
         String liqpayPublicKey = (String) jsonBody.get("liqpayPublicKey");
         String liqpayPrivateKey = (String) jsonBody.get("liqpayPrivateKey");
+        System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
 
-
-        ShopDTO shop = ShopDTO.findById(uuid);
-        shop.domain = domain;
         shop.liqpayPublicKey = liqpayPublicKey;
         shop.liqpayPrivateKey = liqpayPrivateKey;
         shop.shopName = name;
