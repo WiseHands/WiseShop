@@ -24,18 +24,13 @@ body {
     display: inline;
     padding-right: 10px;
 }
-.media {
-    max-width: 100%;
-}
 /*navbar hiding*/
-.navbar {
-    display: none;
-}
+
 .navbar-header {
     float: none;
 }
-.navbar-toggle {
-    display: block;
+.navbar-toggle, .desktopView {
+    display: none;
 }
 .navbar-collapse.collapse {
     display: none!important;
@@ -49,6 +44,8 @@ body {
 .navbar-collapse.collapse.in{
     display:block !important;
 }
+
+
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
     .navbar {
@@ -64,11 +61,11 @@ body {
     .leftPadding {
         padding-left: 0;
     }
-    .buy-margin {
-        margin-top: 3.5em;
-    }
     .inputWidth {
         max-width: 3em;
+    }
+    .navbar-toggle, .desktopView {
+        display: block;
     }
 
 }
@@ -99,11 +96,11 @@ body {
     .leftPadding {
         padding-left: 0;
     }
-    .buy-margin {
-        margin-top: 3.5em;
-    }
     .inputWidth {
         max-width: 3em;
+    }
+    .navbar-toggle, .desktopView {
+        display: block;
     }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px){
@@ -125,9 +122,6 @@ body {
     .navbar-collapse {
         height: 5em;
     }
-    .buy-margin {
-        margin-top: 3.5em;
-    }
     .navbar-fixed-top {
         position: fixed;
         margin-left: 0px;
@@ -135,6 +129,9 @@ body {
     }
     .inputWidth {
         max-width: 3em;
+    }
+    .navbar-toggle, .desktopView {
+        display: block;
     }
 }
 
@@ -280,7 +277,9 @@ p {
     padding-bottom: 1em;
 }
 
-
+.buy-margin {
+    margin-top: 3.5em;
+}
 
 
 
