@@ -75,5 +75,10 @@ angular.module('WiseHands')
                     canvas.getContext("2d").drawImage(img, 0,0, canvas.width, canvas.height);
                 });
                 img.setAttribute("src", '/public/product_images/' + $scope.product.fileName);
+            };
+            
+            $scope.uploadNewProductImage = function () {
+                $('#imageLoader').click();
             }
+            
         }]);

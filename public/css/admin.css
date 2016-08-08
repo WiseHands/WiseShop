@@ -231,6 +231,9 @@ p {
     display: none;
 }
 
+.hiddenFileInput {
+    display: none !important;
+}
 
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
