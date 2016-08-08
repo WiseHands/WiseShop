@@ -20,7 +20,7 @@ POST    {client}/signup                                 UserAPI.register
 GET     {client}/products                               ProductAPI.list
 GET     {client}/product/{uuid}                         ProductAPI.details
 POST    {client}/product                                ProductAPI.create
-PUT     {client}/product/{uuid}                         ProductAPI.update
+PUT     {client}/product                                ProductAPI.update
 DELETE  {client}/product/{uuid}                         ProductAPI.delete
 
 GET     {client}/shops                               	ShopAPI.list

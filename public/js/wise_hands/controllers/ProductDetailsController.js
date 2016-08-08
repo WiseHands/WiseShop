@@ -11,10 +11,13 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
                     $scope.loading = false;
                     $scope.product = response.data;
+                    $scope.loadImgOntoCanvas();
                 }, function errorCallback(error) {
                     $scope.loading = false;
                     console.log(error);
                 });
+
+
             $scope.deleteMessage = 'Ви дійсно хочете видалити даний товар?';
             $scope.hideModal = function () {
                 $('#deleteProduct').modal('hide');
@@ -60,5 +63,17 @@ angular.module('WiseHands')
                         console.log(error);
                     });
             
+            };
+
+            $scope.loadImgOntoCanvas = function () {
+                var img = new window.Image();
+                img.addEventListener("load", function () {
+                    var canvas = document.getElementById("editCanvas");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+
+                    canvas.getContext("2d").drawImage(img, 0,0, canvas.width, canvas.height);
+                });
+                img.setAttribute("src", '/public/product_images/' + $scope.product.fileName);
             }
         }]);

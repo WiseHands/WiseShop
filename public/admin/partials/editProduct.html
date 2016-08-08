@@ -39,7 +39,15 @@
 <div class="well wellSideMargin singleOrderLeftMargin">
     <div class="row text-center">
         <div class="col-xs-12 col-sm-12">
-            <img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive center-block landscapeImageScale" alt=""></img>
+                <canvas class="img-responsive center-block landscapeImageScale" id="editCanvas"></canvas>
+
+
+
+            <!--<input name="imageLoader"-->
+                   <!--class="input-file"-->
+                   <!--type="file"-->
+                   <!--id="imageLoader"-->
+                   <!--required />-->
             <h4><b>Назва товару: </b>
                 <p><i>
                 <textarea name="productTitle" class="form-control input-md" ng-model="product.name" rows="2"></textarea>

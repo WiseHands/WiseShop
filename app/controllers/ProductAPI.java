@@ -11,7 +11,10 @@ import play.data.Upload;
 import play.mvc.Before;
 import play.mvc.Controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class ProductAPI extends Controller {
@@ -48,12 +51,14 @@ public class ProductAPI extends Controller {
     public static void create(String client, String name, String description, Double price, Upload photo) throws Exception {
         checkAuthentification();
 
-        FileOutputStream out = new FileOutputStream(USERIMAGESPATH + photo.getFileName());
+        Files.createDirectories(Paths.get(USERIMAGESPATH + client));
+
+        FileOutputStream out = new FileOutputStream(USERIMAGESPATH + client + "/" + photo.getFileName());
         out.write(photo.asBytes());
         out.close();
 
         ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
-        ProductDTO productDTO = new ProductDTO(name, description, price, photo.getFileName(), shopDTO);
+        ProductDTO productDTO = new ProductDTO(name, description, price, client + "/" + photo.getFileName(), shopDTO);
         productDTO.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -80,18 +85,25 @@ public class ProductAPI extends Controller {
         renderJSON(json);
     }
 
-    public static void update(String client, String uuid) throws Exception {
+    public static void update(String client, String uuid, String name, String description, Double price, Upload photo) throws Exception {
         checkAuthentification();
 
-        JSONParser parser = new JSONParser();
-        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        String name = (String) jsonBody.get("name");
-        String description = (String) jsonBody.get("description");
-        String fileName = (String) jsonBody.get("fileName");
-        Double price = (Double) Double.parseDouble(jsonBody.get("price").toString());
-
-
         ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
+
+        if(photo != null) {
+            File file = new File(USERIMAGESPATH + productDTO.fileName);
+            if(!file.delete()){
+                error("error deleting file: " + USERIMAGESPATH + productDTO.fileName);
+            }
+
+            FileOutputStream out = new FileOutputStream(USERIMAGESPATH + client + "/" + photo.getFileName());
+            out.write(photo.asBytes());
+            out.close();
+
+            productDTO.fileName = client + "/" + photo.getFileName();
+        }
+
+
         if (name != null){
             productDTO.name = name;
         }
@@ -101,9 +113,7 @@ public class ProductAPI extends Controller {
         if (price != null){
             productDTO.price = price;
         }
-        if (fileName != null){
-            productDTO.fileName = fileName;
-        }
+
         productDTO.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -115,8 +125,12 @@ public class ProductAPI extends Controller {
     public static void delete(String client, String uuid) throws Exception {
         checkAuthentification();
 
-        ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
-        productDTO.delete();
+        ProductDTO product = (ProductDTO) ProductDTO.findById(uuid);
+        File file = new File(USERIMAGESPATH + product.fileName);
+        if(!file.delete()){
+            error("error deleting file: " + USERIMAGESPATH + product.fileName);
+        }
+        product.delete();
         ok();
     }
 
