@@ -54,6 +54,11 @@ public class ShopAPI extends Controller {
         renderJSON(json(shop));
     }
 
+    public static void publicInfo(String client) throws Exception { // /shop/details
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        renderText(shop.shopName);
+    }
+
     public static void update(String client) throws Exception {
         checkAuthentification();
 

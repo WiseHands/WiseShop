@@ -8,7 +8,7 @@
     <!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
-    <title>HappyBag</title>
+    <title></title>
     <link href="public/assets/css/bootstrap.css" rel="stylesheet" />
     <link href="public/assets/css/shop.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
@@ -17,7 +17,7 @@
 <body ng-app="sweety" ng-controller="ListViewController as list" ng-cloak>
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="navbar-header">
-            <a class="navbar-brand">HappyBag</a>
+            <a class="navbar-brand">{{shopName}}</a>
             <button id="basketDropdown" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-show="showList">
                 <p class="totalPrice"><i>{{total}}</i></p>
                 <span id="basket" class="glyphicon glyphicon-shopping-cart hvr-buzz-out"></span>
