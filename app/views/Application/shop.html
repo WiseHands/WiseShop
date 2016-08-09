@@ -9,221 +9,425 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
     <title></title>
-    <link href="public/assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="public/assets/css/shop.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+    <link rel="stylesheet" href="public/assets/fonts/font-awesome.min.css">
+
+    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="public/assets/css/mdb.min.css" rel="stylesheet" />
+    <!--<link href="public/assets/css/shop.css" rel="stylesheet" />-->
 
 </head>
-<body ng-app="sweety" ng-controller="ListViewController as list" ng-cloak>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="navbar-header">
-            <a class="navbar-brand">{{shopName}}</a>
-            <button id="basketDropdown" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-show="showList">
-                <p class="totalPrice"><i>{{total}}</i></p>
-                <span id="basket" class="glyphicon glyphicon-shopping-cart hvr-buzz-out"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse ">
-            <div class="navbar-header desktopView">
-                <div class="row dropdownTable vcenter">
-                    <div class="col-xs-4 col-sm-4 leftPadding">Ціна без доставки</div>
-                    <div class="col-xs-4 col-sm-4 text-center"><strong>{{total}} грн</strong></div>
-                    <div class="col-xs-4 col-sm-4 buttonRightPadding">
-                        <button type="button"
-                                class="btn btn-success btn-sm pull-right buttonCentering"
-                                data-toggle="modal"
-                                data-target="#preOrderModal"
-                                ng-click="getDeliveryTypes()">
-                            <span class="glyphicon glyphicon-play"></span>
-                        </button>
-                    </div>
-                </div>
-                <hr class="dividerMargin">
-                <div class="row tableHeaderMargin">
-                    <div class="col-xs-3 col-sm-3 text-left leftPadding">Товар</div>
-                    <div class="col-xs-3 col-sm-3 text-center">Кількість</div>
-                    <div class="col-xs-3 col-sm-3 text-center">Разом</div>
-                    <div class="col-xs-3 col-sm-3"></div>
-                </div>
-                <div ng-repeat="item in selectedItems">
-                    <div class="row vcenter">
-                        <div class="col-xs-3 col-sm-3 leftPadding productTooltip">
-                            <div class="media pull-left">
-                                <img class="img-responsive img-thumbnail center-block productTooltip" ng-src="public/product_images/{{item.fileName}}" data-toggle="tooltip" data-placement="top" title="{{item.name}}" ng-click="showProductTooltip()">
-                            </div>
-                        </div>
-                        <div class="col-xs-3 col-sm-3">
-                            <input type="number"
-                                   class="form-control inputWidth center-block"
-                                   ng-model="item.quantity"
-                                   ng-init="item.quantity=1"
-                                   ng-change="calculateTotal()"
-                                   min="1">
-                        </div>
-                        <div class="col-xs-3 col-sm-3 text-center"><strong>{{item.quantity * item.price}} грн</strong></div>
-                        <div class="col-xs-3 col-sm-3 buttonRightPadding">
-                            <button type="button" class="btn btn-danger btn-sm pull-right buttonCentering" ng-click="removeSelectedItem($index)">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <hr class="dividerMargin">
-                </div>
+<body class="fixed-sn mdb-skin" ng-app="sweety" ng-controller="ListViewController as list" ng-cloak>
 
+<!--Navigation-->
+<header>
+    <!-- Sidebar navigation -->
+    <ul id="slide-out" class="side-nav fixed custom-scrollbar">
+
+        <!-- Logo -->
+        <li>
+            <div class="logo-wrapper waves-light">
+                <a href="#"><img src="http://mdbootstrap.com/wp-content/uploads/2015/12/mdb-white2.png" class="img-fluid flex-center"></a>
             </div>
+        </li>
+        <!--/. Logo -->
+
+        <!--Social-->
+        <li>
+            <ul class="social">
+                <li><a href="https://www.facebook.com/mdbootstrap" target="_blank" class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>
+                <li><a class="icons-sm git-ic"><i class="fa fa-github"> </i></a></li>
+                <li><a href="https://www.linkedin.com/in/dawid-adach-97435534/pl" target="_blank" class="icons-sm li-ic"><i class="fa fa-linkedin"> </i></a></li>
+                <li><a class="icons-sm yt-ic"><i class="fa fa-youtube"> </i></a></li>
+                <li><a href="https://plus.google.com/u/0/+Mdbootstrap" target="_blank" class="icons-sm gplus-ic"><i class="fa fa-google-plus"> </i></a></li>
+            </ul>
+        </li>
+        <!--/Social-->
+
+        <!--Search Form-->
+        <li>
+            <form class="search-form" role="search">
+                <div class="form-group waves-light">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
+        </li>
+        <!--/.Search Form-->
+
+        <!-- Side navigation links -->
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-heart"></i> New Arrivals<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#" class="waves-effect">Handbags</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Shoes</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Dresses</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Skirts</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Jeans</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Outerwear</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-diamond"></i> Accessories<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#" class="waves-effect">Jewelry</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Wallets & Purses</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-gitlab"></i> For kids<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#" class="waves-effect">Girls</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Boys</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-sun-o"></i> Summer<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#" class="waves-effect">Swimsuits</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Sandals</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-briefcase"></i> Fall / Winter<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#" class="waves-effect">Coats</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Boots</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-coffee "></i> Spring<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#" class="waves-effect">Denim jackets</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Sneakers</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <!--/. Side navigation links -->
+
+    </ul>
+    <nav class="navbar navbar-fixed-top scrolling-navbar double-nav green">
+
+        <!-- SideNav slide-out button -->
+        <div class="pull-left">
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
         </div>
+
+        <!-- Breadcrumb-->
+        <div class="breadcrumb-dn">
+            <p>MDB E-commerce Home Page</p>
+        </div>
+
+
+        <ul class="nav navbar-nav pull-right">
+
+            <li class="nav-item ">
+                <a class="nav-link"> <span class="label red z-depth-1">2</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Cart</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link"><i class="fa fa-envelope"></i> <span class="hidden-sm-down">Contact</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link"><i class="fa fa-comments-o"></i> <span class="hidden-sm-down">Support</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link"><i class="fa fa-sign-in"></i> <span class="hidden-sm-down">Register</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <span class="hidden-sm-down">Profile</span></a>
+                <div class="dropdown-menu dropdown-primary dd-right" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href="#">My account</a>
+                </div>
+            </li>
+        </ul>
+
     </nav>
-    <div class="row">
-        <div class="{{container}} buy-margin">
-            <div class="row  pad-row row-centered text-center">
-                <div class="{{leftSideView}} well productCard" ng-repeat="productDTO in products">
-                    <div class="col-md-12 imagePadding">
-                        <img ng-src="public/product_images/{{productDTO.fileName}}" class="img-responsive" alt=""></img>
+    <!--/.Navbar-->
+
+</header>
+<!--/Navigation-->
+
+    <!--<nav class="navbar navbar-default navbar-fixed-top">-->
+        <!--<div class="navbar-header">-->
+            <!--<a class="navbar-brand">{{shopName}}</a>-->
+            <!--<button id="basketDropdown" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-show="showList">-->
+                <!--<p class="totalPrice"><i>{{total}}</i></p>-->
+                <!--<span id="basket" class="glyphicon glyphicon-shopping-cart hvr-buzz-out"></span>-->
+            <!--</button>-->
+        <!--</div>-->
+        <!--<div class="navbar-collapse collapse ">-->
+            <!--<div class="navbar-header desktopView">-->
+                <!--<div class="row dropdownTable vcenter">-->
+                    <!--<div class="col-xs-4 col-sm-4 leftPadding">Ціна без доставки</div>-->
+                    <!--<div class="col-xs-4 col-sm-4 text-center"><strong>{{total}} грн</strong></div>-->
+                    <!--<div class="col-xs-4 col-sm-4 buttonRightPadding">-->
+                        <!--<button type="button"-->
+                                <!--class="btn btn-success btn-sm pull-right buttonCentering"-->
+                                <!--data-toggle="modal"-->
+                                <!--data-target="#preOrderModal"-->
+                                <!--ng-click="getDeliveryTypes()">-->
+                            <!--<span class="glyphicon glyphicon-play"></span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<hr class="dividerMargin">-->
+                <!--<div class="row tableHeaderMargin">-->
+                    <!--<div class="col-xs-3 col-sm-3 text-left leftPadding">Товар</div>-->
+                    <!--<div class="col-xs-3 col-sm-3 text-center">Кількість</div>-->
+                    <!--<div class="col-xs-3 col-sm-3 text-center">Разом</div>-->
+                    <!--<div class="col-xs-3 col-sm-3"></div>-->
+                <!--</div>-->
+                <!--<div ng-repeat="item in selectedItems">-->
+                    <!--<div class="row vcenter">-->
+                        <!--<div class="col-xs-3 col-sm-3 leftPadding productTooltip">-->
+                            <!--<div class="media pull-left">-->
+                                <!--<img class="img-responsive img-thumbnail center-block productTooltip" ng-src="public/product_images/{{item.fileName}}" data-toggle="tooltip" data-placement="top" title="{{item.name}}" ng-click="showProductTooltip()">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-3 col-sm-3">-->
+                            <!--<input type="number"-->
+                                   <!--class="form-control inputWidth center-block"-->
+                                   <!--ng-model="item.quantity"-->
+                                   <!--ng-init="item.quantity=1"-->
+                                   <!--ng-change="calculateTotal()"-->
+                                   <!--min="1">-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-3 col-sm-3 text-center"><strong>{{item.quantity * item.price}} грн</strong></div>-->
+                        <!--<div class="col-xs-3 col-sm-3 buttonRightPadding">-->
+                            <!--<button type="button" class="btn btn-danger btn-sm pull-right buttonCentering" ng-click="removeSelectedItem($index)">-->
+                                <!--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<hr class="dividerMargin">-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</div>-->
+    <!--</nav>-->
+    <!--<div class="row">-->
+        <!--<div class="{{container}} buy-margin">-->
+            <!--<div class="row  pad-row row-centered text-center">-->
+                <!--<div class="{{leftSideView}} well productCard" ng-repeat="productDTO in products">-->
+                    <!--<div class="col-md-12 imagePadding">-->
+                        <!--<img ng-src="public/product_images/{{productDTO.fileName}}" class="img-responsive" alt=""></img>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-12">-->
+                        <!--<p class="text-center fixed-height"><i>{{productDTO.name}}</i></p>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-12">-->
+                        <!--<p class="text-center"><b>{{productDTO.price}} грн</b></p>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-12 buttonBotPadding">-->
+                        <!--<button id="runBasketAnimation" href="#" class="btn btn-primary btn-sm btn-block" ng-click="buyStart($index, $event)">Придбати</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+            <!--<div class="row listView pad-row buy-margin" ng-show="showList">-->
+                <!--<div class="col-sm-6 col-md-6">-->
+                    <!--<div class="row vcenter">-->
+                        <!--<div class="col-md-5">Назва</div>-->
+                        <!--<div class="col-md-2">Кількість</div>-->
+                        <!--<div class="col-md-2 text-center">Разом</div>-->
+                        <!--<div class="col-md-3">-->
+                            <!--<button type="button"-->
+                                    <!--class="btn btn-danger btn-xs buttonCentering btn-block removeButtonRightPadding"-->
+                                    <!--ng-show="selectedItems.length > 1"-->
+                                    <!--ng-click="removeAll()">-->
+                                 <!--Видалити все-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<hr class="dividerMargin">-->
+                    <!--<div ng-repeat="item in selectedItems">-->
+                        <!--<div class="row vcenter">-->
+                            <!--<div class="col-md-5">-->
+                                <!--<p class="wordBreak"><i>{{item.name}}</i></p>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-2">-->
+                                <!--<input type="number"-->
+                                       <!--class="form-control inputWidth"-->
+                                       <!--ng-model="item.quantity"-->
+                                       <!--ng-init="item.quantity=1"-->
+                                       <!--ng-change="calculateTotal()"-->
+                                       <!--min="1">-->
+                            <!--</div>-->
+                            <!--<div class="col-md-2 text-center"><strong>{{item.quantity * item.price}} грн</strong></div>-->
+                            <!--<div class="col-md-3">-->
+                                <!--<button type="button" class="btn btn-danger btn-sm btn-block buttonCentering" ng-click="removeSelectedItem($index)">-->
+                                     <!--Видалити-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<hr class="dividerMargin">-->
+                    <!--</div>-->
+                    <!--<div class="row vcenter">-->
+                        <!--<div class="col-md-5"><h4>Ціна без доставки</h4></div>-->
+                        <!--<div class="col-md-4 text-center"><h4><strong>{{total}} грн</strong></div>-->
+                        <!--<div class="col-md-3">-->
+                            <!--<button type="button"-->
+                                    <!--class="btn btn-success btn-block btn-sm buttonCentering"-->
+                                    <!--data-toggle="modal"-->
+                                    <!--data-target="#preOrderModal"-->
+                                    <!--ng-click="getDeliveryTypes()">-->
+                                 <!--Замовити-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+    <!--</div>-->
+
+    <main class="p-t-6">
+        <div class="container text-xs-center">
+            <div class="col-lg-4 col-md-6" ng-repeat="productDTO in products">
+
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card image-->
+                    <div class="view overlay hm-white-slight z-depth-1">
+                        <img ng-src="public/product_images/{{productDTO.fileName}}" class="img-fluid" alt="">
+                        <a>
+                            <div class="mask"></div>
+                        </a>
                     </div>
-                    <div class="col-md-12">
-                        <p class="text-center fixed-height"><i>{{productDTO.name}}</i></p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="text-center"><b>{{productDTO.price}} грн</b></p>
-                    </div>
-                    <div class="col-md-12 buttonBotPadding">
-                        <button id="runBasketAnimation" href="#" class="btn btn-primary btn-sm btn-block" ng-click="buyStart($index, $event)">Придбати</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row listView pad-row buy-margin" ng-show="showList">
-                <div class="col-sm-6 col-md-6">
-                    <div class="row vcenter">
-                        <div class="col-md-5">Назва</div>
-                        <div class="col-md-2">Кількість</div>
-                        <div class="col-md-2 text-center">Разом</div>
-                        <div class="col-md-3">
-                            <button type="button"
-                                    class="btn btn-danger btn-xs buttonCentering btn-block removeButtonRightPadding"
-                                    ng-show="selectedItems.length > 1"
-                                    ng-click="removeAll()">
-                                 Видалити все
-                            </button>
+                    <!--/.Card image-->
+
+                    <!--Card content-->
+                    <div class="card-block text-xs-center">
+                        <!--Category & Title-->
+                        <h4 class="card-title fixed-height"><strong><a href="">{{productDTO.name}}</a></strong></h4>
+
+                        <!--Description-->
+                        <p class="card-text productDescriptionTruncate">{{productDTO.description}}</p>
+
+                        <!--Card footer-->
+                        <div class="card-footer">
+                            <span class="left">{{productDTO.price}} грн</span>
+                            <span class="right"><a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-heart"></i></a></span>
                         </div>
+
                     </div>
-                    <hr class="dividerMargin">
-                    <div ng-repeat="item in selectedItems">
-                        <div class="row vcenter">
-                            <div class="col-md-5">
-                                <p class="wordBreak"><i>{{item.name}}</i></p>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="number"
-                                       class="form-control inputWidth"
-                                       ng-model="item.quantity"
-                                       ng-init="item.quantity=1"
-                                       ng-change="calculateTotal()"
-                                       min="1">
-                            </div>
-                            <div class="col-md-2 text-center"><strong>{{item.quantity * item.price}} грн</strong></div>
-                            <div class="col-md-3">
-                                <button type="button" class="btn btn-danger btn-sm btn-block buttonCentering" ng-click="removeSelectedItem($index)">
-                                     Видалити
+                    <!--/.Card content-->
+
+                </div>
+                <!--/.Card-->
+                <div class="modal fade" id="preOrderModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
+                                <h4 class="modal-title text-center" id="myModalLabel"><b>Оформлення замовлення</b></h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="fillingInfo" ng-hide="successfullResponse">
+                                    <form name="orderForm">
+                                        <div class="form-group">
+                                            <label>П.І.П.
+                                                <input class="form-control" ng-model="name" type="text" name="name" placeholder="Петренко Іван Григорович" required/>
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Номер телефону
+                                                <input class="form-control"
+                                                       type="number"
+                                                       ng-model="phone"
+                                                       name="phone"
+                                                       ng-value="+380"
+                                                       ng-minlength="12"
+                                                       ng-maxlength="12"
+                                                       required/>
+                                            </label>
+                                            <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 12 чисел</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address">Адреса</label>
+                                            <input class="form-control"
+                                                   placeholder="Введіть адресу"
+                                                   id="address"
+                                                   ng-model="address"
+                                                   type="text"
+                                                   ng-init="init()"
+                                                   required/>
+                                        </div>
+                                        <label class="deliveryType">Тип доставки</label>
+                                        <div class="radioPadding">
+                                            <label class="radio" ng-show="deliverance.isCourierAvailable">
+                                                <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER" ng-required="!delivery.radio">
+                                                <i>{{deliverance.courierText}}</i>
+                                            </label>
+                                            <label class="radio" ng-show="deliverance.isNewPostAvailable">
+                                                <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA" ng-required="!delivery.radio">
+                                                <i>{{deliverance.newPostText}}</i>
+                                            </label>
+                                            <label class="newPost" ng-show="delivery.radio === 'NOVAPOSHTA'">
+                                                <p>Введіть номер відділення Нової Пошти</p>
+                                                <input type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
+                                            </label>
+                                            <label class="radio" ng-show="deliverance.isSelfTakeAvailable">
+                                                <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">
+                                                <i>{{deliverance.selfTakeText}}</i>
+                                            </label>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="proceedWithPayment" ng-show="successfullResponse">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <h4 class="modal-total"><strong>{{total + " " + delivery()}} грн</strong></h4>
+                                <button type="button" class="btn btn-success toPayment" ng-click="makeOrder()" ng-disabled="orderForm.$invalid">До Оплати <span class="glyphicon glyphicon-play"></button>
                             </div>
                         </div>
-                        <hr class="dividerMargin">
-                    </div>
-                    <div class="row vcenter">
-                        <div class="col-md-5"><h4>Ціна без доставки</h4></div>
-                        <div class="col-md-4 text-center"><h4><strong>{{total}} грн</strong></div>
-                        <div class="col-md-3">
-                            <button type="button"
-                                    class="btn btn-success btn-block btn-sm buttonCentering"
-                                    data-toggle="modal"
-                                    data-target="#preOrderModal"
-                                    ng-click="getDeliveryTypes()">
-                                 Замовити
-                            </button>
-                        </div>
                     </div>
                 </div>
-            </div>
-    </div>
-    <div class="modal fade" id="preOrderModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title text-center" id="myModalLabel"><b>Оформлення замовлення</b></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="fillingInfo" ng-hide="successfullResponse">
-                        <form name="orderForm">
-                            <div class="form-group">
-                                <label>П.І.П.
-                                    <input class="form-control" ng-model="name" type="text" name="name" placeholder="Петренко Іван Григорович" required/>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label>Номер телефону
-                                    <input class="form-control"
-                                           type="number"
-                                           ng-model="phone"
-                                           name="phone"
-                                           ng-value="+380"
-                                           ng-minlength="12"
-                                           ng-maxlength="12"
-                                           required/>
-                                </label>
-                                <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 12 чисел</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Адреса</label>
-                                <input class="form-control"
-                                       placeholder="Введіть адресу"
-                                       id="address"
-                                       ng-model="address"
-                                       type="text"
-                                       ng-init="init()"
-                                       required/>
-                            </div>
-                                <label class="deliveryType">Тип доставки</label>
-                                    <div class="radioPadding">
-                                        <label class="radio" ng-show="deliverance.isCourierAvailable">
-                                            <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER" ng-required="!delivery.radio">
-                                            <i>{{deliverance.courierText}}</i>
-                                        </label>
-                                        <label class="radio" ng-show="deliverance.isNewPostAvailable">
-                                            <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA" ng-required="!delivery.radio">
-                                            <i>{{deliverance.newPostText}}</i>
-                                        </label>
-                                        <label class="newPost" ng-show="delivery.radio === 'NOVAPOSHTA'">
-                                            <p>Введіть номер відділення Нової Пошти</p>
-                                            <input type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
-                                        </label>
-                                        <label class="radio" ng-show="deliverance.isSelfTakeAvailable">
-                                            <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">
-                                            <i>{{deliverance.selfTakeText}}</i>
-                                        </label>
-                                    </div>
-                        </form>
-                    </div>
-                    <div class="proceedWithPayment" ng-show="successfullResponse">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <h4 class="modal-total"><strong>{{total + " " + delivery()}} грн</strong></h4>
-                    <button type="button" class="btn btn-success toPayment" ng-click="makeOrder()" ng-disabled="orderForm.$invalid">До Оплати <span class="glyphicon glyphicon-play"></button>
-                </div>
-            </div>
         </div>
-    </div>
+    </main>
+
 
     <script src="public/js/angular.js"></script>
-    <script src="public/assets/plugins/jquery-1.10.2.js"></script>
-    <script src="public/assets/plugins/bootstrap.js"></script>
-    <script src="public/assets/plugins/jquery.easing.min.js"></script>
+    <script src="public/assets/js/jquery-2.2.3.min.js"></script>
+    <script src="public/assets/js/tether.min.js"></script>
+    <script src="public/assets/js/bootstrap.min.js"></script>
+    <script src="public/assets/js/mdb.min.js"></script>
+
+    <script>
+        // SideNav init
+        $(".button-collapse").sideNav();
+        var el = document.querySelector('.custom-scrollbar');
+        Ps.initialize(el);
+    </script>
 
     <script src="public/js/app.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChjd1ZIoUdxAwO4XCvBVBUQgbQkxRLLL0&signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>

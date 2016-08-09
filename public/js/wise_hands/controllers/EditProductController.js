@@ -74,20 +74,6 @@ angular.module('WiseHands')
                 fd.append('description', $scope.product.description);
                 fd.append('price', $scope.product.price);
 
-                // $http({
-                //     method: 'PUT',
-                //     url: '/product/' + $routeParams.uuid,
-                //     data: $scope.product,
-                //     headers: {
-                //         'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                //         'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                //     }
-                // })
-                //     .then(function successCallback(response) {
-                //         $location.path('/product/details/' + response.data.uuid);
-                //     }, function errorCallback(error) {
-                //         console.log(error);
-                //     });
 
                 $http.put('/product', fd, {
                         transformRequest: angular.identity,
