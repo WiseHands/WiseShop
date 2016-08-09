@@ -50,7 +50,7 @@
                     }).
                     when('/products/details/:uuid/edit',{
                         templateUrl:'public/admin/partials/editProduct.html',
-                        controller:'ProductDetailsController',
+                        controller:'EditProductController',
                         activetab: 'productlist'
                     }).
                     when('/filter',{

@@ -11,7 +11,6 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
                     $scope.loading = false;
                     $scope.product = response.data;
-                    $scope.loadImgOntoCanvas();
                 }, function errorCallback(error) {
                     $scope.loading = false;
                     console.log(error);
@@ -47,38 +46,8 @@ angular.module('WiseHands')
                     });
 
             };
-            $scope.updateProduct = function () {
-                $http({
-                    method: 'PUT',
-                    url: '/product/' + $routeParams.uuid,
-                    data: $scope.product,
-                    headers: {
-                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                    }
-                })
-                    .then(function successCallback(response) {
-                        $location.path('/product/details/' + response.data.uuid);
-                    }, function errorCallback(error) {
-                        console.log(error);
-                    });
-            
-            };
 
-            $scope.loadImgOntoCanvas = function () {
-                var img = new window.Image();
-                img.addEventListener("load", function () {
-                    var canvas = document.getElementById("editCanvas");
-                    canvas.width = img.width;
-                    canvas.height = img.height;
 
-                    canvas.getContext("2d").drawImage(img, 0,0, canvas.width, canvas.height);
-                });
-                img.setAttribute("src", '/public/product_images/' + $scope.product.fileName);
-            };
-            
-            $scope.uploadNewProductImage = function () {
-                $('#imageLoader').click();
-            }
+           
             
         }]);
