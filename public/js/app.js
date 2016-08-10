@@ -116,15 +116,8 @@ function initAutocomplete() {
             };
 
             $scope.selectedItems = [];
-            $scope.leftSideView = "col-md-2 col-sm-4 col-xs-6";
-            $scope.container = "col-md-12";
-            $scope.showList = false;
             $scope.buyStart = function (index, $event) {
-                if ($scope.leftSideView === "col-md-2 col-sm-4 col-xs-6") {
-                    $scope.leftSideView = "col-md-3 col-sm-4 col-xs-6";
-                    $scope.container = "col-md-6";
-                    $scope.showList = true;
-                }
+
                 if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
                     $scope.products[index].quantity = 1;
                     $scope.selectedItems.push($scope.products[index]);
@@ -139,32 +132,22 @@ function initAutocomplete() {
                 $event.cancelBubble = true;
                 $event.returnValue = false;
 
+                $scope.totalItems = 0;
+                $scope.selectedItems.forEach(function(selectedItem, key, array) {
+                    $scope.totalItems += selectedItem.quantity;
 
-                var elementTarget = document.getElementById("basket");
+                });
 
-                elementTarget.classList.remove("hvr-buzz-out-active");
-
-                elementTarget.offsetWidth = elementTarget.offsetWidth;
-
-                elementTarget.classList.add("hvr-buzz-out-active");
             };
 
             $scope.removeSelectedItem = function (index){
                 $scope.selectedItems.splice(index, 1);
                 $scope.calculateTotal();
-                if($scope.selectedItems.length === 0) {
-                    $scope.leftSideView = "col-md-2 col-sm-4 col-xs-6";
-                    $scope.container = "col-md-12";
-                    $scope.showList = false;
-                    $('#basketDropdown').click();
-                }
             };
 
             $scope.removeAll = function () {
                 $scope.selectedItems.length = 0;
-                $scope.leftSideView = "col-md-2 col-sm-4 col-xs-6";
-                $scope.container = "col-md-12";
-                $scope.showList = false;
+                $scope.calculateTotal();
 
             };
 

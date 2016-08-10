@@ -1,285 +1,285 @@
 ﻿
-/* =============================================================
-   GENERAL STYLES
- ============================================================ */
-body {
-    font-family: 'Open Sans', sans-serif;
-   
-}
+/*!* =============================================================*/
+   /*GENERAL STYLES*/
+ /*============================================================ *!*/
+/*body {*/
+    /*font-family: 'Open Sans', sans-serif;*/
+   /**/
+/*}*/
 
-/*TO CREATE SPACE BETWEEN ROW*/
-.pad-row {
-    padding-top:20px;
-    padding-bottom:20px;
+/*!*TO CREATE SPACE BETWEEN ROW*!*/
+/*.pad-row {*/
+    /*padding-top:20px;*/
+    /*padding-bottom:20px;*/
 
-}
+/*}*/
 
-/*avoiding horizontal scrolling*/
-.row {
-    margin-left: 0px;
-    margin-right: 0px;
-}
-/*modal price padding before Orderbutton*/
-.modal-total {
-    display: inline;
-    padding-right: 10px;
-}
-/*navbar hiding*/
+/*!*avoiding horizontal scrolling*!*/
+/*.row {*/
+    /*margin-left: 0px;*/
+    /*margin-right: 0px;*/
+/*}*/
+/*!*modal price padding before Orderbutton*!*/
+/*.modal-total {*/
+    /*display: inline;*/
+    /*padding-right: 10px;*/
+/*}*/
+/*!*navbar hiding*!*/
 
-.navbar-header {
-    float: none;
-}
-.navbar-toggle, .desktopView {
-    display: none;
-}
-.navbar-collapse.collapse {
-    display: none!important;
-}
-.navbar-nav {
-    float: none!important;
-}
-.navbar-nav>li {
-    float: none;
-}
-.navbar-collapse.collapse.in{
-    display:block !important;
-}
-
-
-/* Smartphones (portrait) ----------- */
-@media only screen and (max-device-width : 480px) {
-    .navbar {
-        display: block;
-        margin-bottom: 3em;
-    }
-    .listView {
-        display: none;
-    }
-    .buttonRightPadding {
-        padding-right: 0;
-    }
-    .leftPadding {
-        padding-left: 0;
-    }
-    .inputWidth {
-        max-width: 3em;
-    }
-    .navbar-toggle, .desktopView {
-        display: block;
-    }
-
-}
-/* Smartphones (landscape) ----------- */
-@media only screen and (min-device-width: 568px) and (max-device-width: 767px){
-    .navbar {
-        display: block;
-        margin-bottom: 3em;
-    }
-    .listView {
-        display: none;
-    }
-    .img-responsive {
-        max-width: 50%;
-        display: inline;
-        float: left;
-    }
-    .navbar-collapse {
-        height: 11.5em;
-        max-height: 10em;
-        width: 100%;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling:touch;
-    }
-    .buttonRightPadding {
-        padding-right: 0;
-    }
-    .leftPadding {
-        padding-left: 0;
-    }
-    .inputWidth {
-        max-width: 3em;
-    }
-    .navbar-toggle, .desktopView {
-        display: block;
-    }
-}
-@media only screen and (min-device-width: 768px) and (max-device-width: 1023px){
-    .listView {
-        display: none;
-    }
-    .navbar {
-        display: block;
-        margin-bottom: 3em;
-        overflow: hidden;
-        overflow-y: auto;
-        position: absolute;
-        width: 100%;
-    }
-
-    .media {
-        max-width: 50%;
-    }
-    .navbar-collapse {
-        height: 5em;
-    }
-    .navbar-fixed-top {
-        position: fixed;
-        margin-left: 0px;
-        margin-right: 0px;
-    }
-    .inputWidth {
-        max-width: 3em;
-    }
-    .navbar-toggle, .desktopView {
-        display: block;
-    }
-}
+/*.navbar-header {*/
+    /*float: none;*/
+/*}*/
+/*.navbar-toggle, .desktopView {*/
+    /*display: none;*/
+/*}*/
+/*.navbar-collapse.collapse {*/
+    /*display: none!important;*/
+/*}*/
+/*.navbar-nav {*/
+    /*float: none!important;*/
+/*}*/
+/*.navbar-nav>li {*/
+    /*float: none;*/
+/*}*/
+/*.navbar-collapse.collapse.in{*/
+    /*display:block !important;*/
+/*}*/
 
 
-.well {
-    background-color: white;
-}
-/*hiding Google logo*/
-.pac-container {
-    z-index: 2000;
-}
-.pac-logo:after {
-    display: none !important;
-}
-.newPost {
-    padding-left: 25px;
-}
-.modal-total {
-    display: inline-block;
-}
-.radioPadding {
-    padding-left: 1.4em;
-}
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
-}
+/*!* Smartphones (portrait) ----------- *!*/
+/*@media only screen and (max-device-width : 480px) {*/
+    /*.navbar {*/
+        /*display: block;*/
+        /*margin-bottom: 3em;*/
+    /*}*/
+    /*.listView {*/
+        /*display: none;*/
+    /*}*/
+    /*.buttonRightPadding {*/
+        /*padding-right: 0;*/
+    /*}*/
+    /*.leftPadding {*/
+        /*padding-left: 0;*/
+    /*}*/
+    /*.inputWidth {*/
+        /*max-width: 3em;*/
+    /*}*/
+    /*.navbar-toggle, .desktopView {*/
+        /*display: block;*/
+    /*}*/
 
-@keyframes hvr-buzz-out {
-    10% {
-        -webkit-transform: translateX(3px) rotate(2deg);
-        transform: translateX(3px) rotate(2deg);
-    }
+/*}*/
+/*!* Smartphones (landscape) ----------- *!*/
+/*@media only screen and (min-device-width: 568px) and (max-device-width: 767px){*/
+    /*.navbar {*/
+        /*display: block;*/
+        /*margin-bottom: 3em;*/
+    /*}*/
+    /*.listView {*/
+        /*display: none;*/
+    /*}*/
+    /*.img-responsive {*/
+        /*max-width: 50%;*/
+        /*display: inline;*/
+        /*float: left;*/
+    /*}*/
+    /*.navbar-collapse {*/
+        /*height: 11.5em;*/
+        /*max-height: 10em;*/
+        /*width: 100%;*/
+        /*overflow-y: scroll;*/
+        /*-webkit-overflow-scrolling:touch;*/
+    /*}*/
+    /*.buttonRightPadding {*/
+        /*padding-right: 0;*/
+    /*}*/
+    /*.leftPadding {*/
+        /*padding-left: 0;*/
+    /*}*/
+    /*.inputWidth {*/
+        /*max-width: 3em;*/
+    /*}*/
+    /*.navbar-toggle, .desktopView {*/
+        /*display: block;*/
+    /*}*/
+/*}*/
+/*@media only screen and (min-device-width: 768px) and (max-device-width: 1023px){*/
+    /*.listView {*/
+        /*display: none;*/
+    /*}*/
+    /*.navbar {*/
+        /*display: block;*/
+        /*margin-bottom: 3em;*/
+        /*overflow: hidden;*/
+        /*overflow-y: auto;*/
+        /*position: absolute;*/
+        /*width: 100%;*/
+    /*}*/
 
-    20% {
-        -webkit-transform: translateX(-3px) rotate(-2deg);
-        transform: translateX(-3px) rotate(-2deg);
-    }
+    /*.media {*/
+        /*max-width: 50%;*/
+    /*}*/
+    /*.navbar-collapse {*/
+        /*height: 5em;*/
+    /*}*/
+    /*.navbar-fixed-top {*/
+        /*position: fixed;*/
+        /*margin-left: 0px;*/
+        /*margin-right: 0px;*/
+    /*}*/
+    /*.inputWidth {*/
+        /*max-width: 3em;*/
+    /*}*/
+    /*.navbar-toggle, .desktopView {*/
+        /*display: block;*/
+    /*}*/
+/*}*/
 
-    30% {
-        -webkit-transform: translateX(3px) rotate(2deg);
-        transform: translateX(3px) rotate(2deg);
-    }
 
-    40% {
-        -webkit-transform: translateX(-3px) rotate(-2deg);
-        transform: translateX(-3px) rotate(-2deg);
-    }
+/*.well {*/
+    /*background-color: white;*/
+/*}*/
+/*!*hiding Google logo*!*/
+/*.pac-container {*/
+    /*z-index: 2000;*/
+/*}*/
+/*.pac-logo:after {*/
+    /*display: none !important;*/
+/*}*/
+/*.newPost {*/
+    /*padding-left: 25px;*/
+/*}*/
+/*.modal-total {*/
+    /*display: inline-block;*/
+/*}*/
+/*.radioPadding {*/
+    /*padding-left: 1.4em;*/
+/*}*/
+/*[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {*/
+    /*display: none !important;*/
+/*}*/
 
-    50% {
-        -webkit-transform: translateX(2px) rotate(1deg);
-        transform: translateX(2px) rotate(1deg);
-    }
+/*@keyframes hvr-buzz-out {*/
+    /*10% {*/
+        /*-webkit-transform: translateX(3px) rotate(2deg);*/
+        /*transform: translateX(3px) rotate(2deg);*/
+    /*}*/
 
-    60% {
-        -webkit-transform: translateX(-2px) rotate(-1deg);
-        transform: translateX(-2px) rotate(-1deg);
-    }
+    /*20% {*/
+        /*-webkit-transform: translateX(-3px) rotate(-2deg);*/
+        /*transform: translateX(-3px) rotate(-2deg);*/
+    /*}*/
 
-    70% {
-        -webkit-transform: translateX(2px) rotate(1deg);
-        transform: translateX(2px) rotate(1deg);
-    }
+    /*30% {*/
+        /*-webkit-transform: translateX(3px) rotate(2deg);*/
+        /*transform: translateX(3px) rotate(2deg);*/
+    /*}*/
 
-    80% {
-        -webkit-transform: translateX(-2px) rotate(-1deg);
-        transform: translateX(-2px) rotate(-1deg);
-    }
+    /*40% {*/
+        /*-webkit-transform: translateX(-3px) rotate(-2deg);*/
+        /*transform: translateX(-3px) rotate(-2deg);*/
+    /*}*/
 
-    90% {
-        -webkit-transform: translateX(1px) rotate(0);
-        transform: translateX(1px) rotate(0);
-    }
+    /*50% {*/
+        /*-webkit-transform: translateX(2px) rotate(1deg);*/
+        /*transform: translateX(2px) rotate(1deg);*/
+    /*}*/
 
-    100% {
-        -webkit-transform: translateX(-1px) rotate(0);
-        transform: translateX(-1px) rotate(0);
-    }
-}
+    /*60% {*/
+        /*-webkit-transform: translateX(-2px) rotate(-1deg);*/
+        /*transform: translateX(-2px) rotate(-1deg);*/
+    /*}*/
 
-.hvr-buzz-out {
-    display: inline-block;
-    vertical-align: middle;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -moz-osx-font-smoothing: grayscale;
-}
-.hvr-buzz-out-active {
-    -webkit-animation-name: hvr-buzz-out;
-    animation-name: hvr-buzz-out;
-    -webkit-animation-duration: 0.75s;
-    animation-duration: 0.75s;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    -webkit-animation-iteration-count: 1;
-    animation-iteration-count: 1;
-}
-.totalPrice {
-    font-size: 1.2rem;
-    margin-bottom: 0;
-    padding-top: 0;
-    display: inline;
-    color: #727272;
-}
-.dropdownTable {
-    padding-top: 1em;
-}
-.dividerMargin {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-}
-.tableHeaderMargin {
-    margin-bottom: 0.5em;
-}
-.vcenter {
-    display: flex;
-    align-items: center;
-}
+    /*70% {*/
+        /*-webkit-transform: translateX(2px) rotate(1deg);*/
+        /*transform: translateX(2px) rotate(1deg);*/
+    /*}*/
 
-.buttonCentering {
-    margin: 0 auto;
-}
-.removeButtonRightPadding {
-    padding-left: 0;
-}
+    /*80% {*/
+        /*-webkit-transform: translateX(-2px) rotate(-1deg);*/
+        /*transform: translateX(-2px) rotate(-1deg);*/
+    /*}*/
 
-.productCard {
-    padding: 0 0;
-}
-.imagePadding {
-    padding-top: 0.5em;
-    padding-bottom: 1em;
-}
-.inputWidth {
-    max-width: 4em;
-}
-p {
-    word-wrap:break-word;
-}
-.buttonBotPadding {
-    padding-bottom: 1em;
-}
+    /*90% {*/
+        /*-webkit-transform: translateX(1px) rotate(0);*/
+        /*transform: translateX(1px) rotate(0);*/
+    /*}*/
 
-.buy-margin {
-    margin-top: 3.5em;
-}
+    /*100% {*/
+        /*-webkit-transform: translateX(-1px) rotate(0);*/
+        /*transform: translateX(-1px) rotate(0);*/
+    /*}*/
+/*}*/
+
+/*.hvr-buzz-out {*/
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+    /*-webkit-transform: translateZ(0);*/
+    /*transform: translateZ(0);*/
+    /*box-shadow: 0 0 1px rgba(0, 0, 0, 0);*/
+    /*-webkit-backface-visibility: hidden;*/
+    /*backface-visibility: hidden;*/
+    /*-moz-osx-font-smoothing: grayscale;*/
+/*}*/
+/*.hvr-buzz-out-active {*/
+    /*-webkit-animation-name: hvr-buzz-out;*/
+    /*animation-name: hvr-buzz-out;*/
+    /*-webkit-animation-duration: 0.75s;*/
+    /*animation-duration: 0.75s;*/
+    /*-webkit-animation-timing-function: linear;*/
+    /*animation-timing-function: linear;*/
+    /*-webkit-animation-iteration-count: 1;*/
+    /*animation-iteration-count: 1;*/
+/*}*/
+/*.totalPrice {*/
+    /*font-size: 1.2rem;*/
+    /*margin-bottom: 0;*/
+    /*padding-top: 0;*/
+    /*display: inline;*/
+    /*color: #727272;*/
+/*}*/
+/*.dropdownTable {*/
+    /*padding-top: 1em;*/
+/*}*/
+/*.dividerMargin {*/
+    /*margin-top: 0.5em;*/
+    /*margin-bottom: 0.5em;*/
+/*}*/
+/*.tableHeaderMargin {*/
+    /*margin-bottom: 0.5em;*/
+/*}*/
+/*.vcenter {*/
+    /*display: flex;*/
+    /*align-items: center;*/
+/*}*/
+
+/*.buttonCentering {*/
+    /*margin: 0 auto;*/
+/*}*/
+/*.removeButtonRightPadding {*/
+    /*padding-left: 0;*/
+/*}*/
+
+/*.productCard {*/
+    /*padding: 0 0;*/
+/*}*/
+/*.imagePadding {*/
+    /*padding-top: 0.5em;*/
+    /*padding-bottom: 1em;*/
+/*}*/
+/*.inputWidth {*/
+    /*max-width: 4em;*/
+/*}*/
+/*p {*/
+    /*word-wrap:break-word;*/
+/*}*/
+/*.buttonBotPadding {*/
+    /*padding-bottom: 1em;*/
+/*}*/
+
+/*.buy-margin {*/
+    /*margin-top: 3.5em;*/
+/*}*/
 
 .productDescriptionTruncate {
     line-height: 1.5em;
@@ -307,5 +307,13 @@ p {
     background: white;
 }
 
+.headerCentering:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
 
-
+.removeAllRedIcon {
+    color: red;
+}
