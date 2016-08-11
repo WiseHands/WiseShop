@@ -309,7 +309,7 @@
             <div class="col-lg-4 col-md-6" ng-repeat="productDTO in products">
 
                 <!--Card-->
-                <div class="card">
+                <div class="card row inline">
 
                     <!--Card image-->
                     <div class="view overlay hm-white-slight z-depth-1">
@@ -340,57 +340,133 @@
                 </div>
 
 
-                <div class="modal fade cart-modal" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                <div class="modal fade cart-modal row" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog col-xs-12 modalPosition" role="document">
                         <!--Content-->
                         <div class="modal-content">
                             <!--Header-->
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Ваша корзина</h4>
+                            <div ng-hide="modalHide" ng-init="modalHide=false">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Ваша корзина</h4>
+                                </div>
+                                <!--Body-->
+                                <div class="modal-body">
+
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th class="headerCentering">Назва товару</th>
+                                            <th class="headerCentering">Ціна</th>
+                                            <th ng-click="removeAll()"><a><i class="fa fa-remove center-block removeAllRedIcon"></i></a></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="item in selectedItems">
+                                            <td>
+                                                {{item.name}}
+                                            </td>
+                                            <td><strong>{{item.price}}</strong> ₴ x
+                                                <input  class="inputTextCentering"
+                                                        type="number"
+                                                        ng-model="item.quantity"
+                                                        ng-init="item.quantity=1"
+                                                        ng-change="calculateTotal()"
+                                                        min="1"> шт.
+                                                </input>
+                                            </td>
+                                            <td ng-click="removeSelectedItem($index)"><a><i class="fa fa-remove center-block"></i></a></td>
+                                        </tr>
+                                        <tr class="total">
+                                            <td><i>Разом</i></td>
+                                            <td><i>{{total}}</i> ₴</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <button class="btn btn-primary"
+                                            ng-show="selectedItems.length !== 0"
+                                            ng-click="getDeliveryTypes(); modalHide = !modalHide">
+                                        Замовити
+                                    </button>
+
+                                </div>
+                                <!--Footer-->
+                                <div class="modal-footer">
+                                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>-->
+                                </div>
                             </div>
-                            <!--Body-->
-                            <div class="modal-body">
-
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th class="headerCentering">Назва товару</th>
-                                        <th class="headerCentering">Ціна</th>
-                                        <th ng-click="removeAll()"><a><i class="fa fa-remove center-block removeAllRedIcon"></i></a></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="item in selectedItems">
-                                        <td>
-                                            {{item.name}}
-                                        </td>
-                                        <td><strong>{{item.price}}</strong> ₴ x
-                                            <input  class="inputTextCentering"
-                                                    type="number"
-                                                   ng-model="item.quantity"
-                                                   ng-init="item.quantity=1"
-                                                   ng-change="calculateTotal()"
-                                                   min="1"> шт.
-                                                 </input>
-                                             </td>
-                                             <td ng-click="removeSelectedItem($index)"><a><i class="fa fa-remove center-block"></i></a></td>
-                                         </tr>
-                                         <tr class="total">
-                                             <td><i>Разом</i></td>
-                                             <td><i>{{total}}</i> ₴</td>
-                                         </tr>
-                                         </tbody>
-                                     </table>
-
-                                     <button class="btn btn-primary">Замовити</button>
-
-                                 </div>
-                                 <!--Footer-->
-                            <div class="modal-footer">
-                                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>-->
+                            <div ng-show="modalHide">
+                                <div class="modal-header">
+                                    <button type="button"
+                                            class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"
+                                            ng-click="modalHide = !modalHide"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <h4 class="modal-title text-center" id="myModalLabel"><b>Оформлення замовлення</b></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="fillingInfo" ng-hide="successfullResponse">
+                                        <form name="orderForm">
+                                            <div class="form-group">
+                                                <label>П.І.П.
+                                                    <input class="form-control" ng-model="name" type="text" name="name" placeholder="Петренко Іван Григорович" required/>
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Номер телефону
+                                                    <input class="form-control"
+                                                           type="number"
+                                                           ng-model="phone"
+                                                           name="phone"
+                                                           ng-value="+380"
+                                                           ng-minlength="12"
+                                                           ng-maxlength="12"
+                                                           required/>
+                                                </label>
+                                                <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 12 чисел</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="address">Адреса</label>
+                                                <input class="form-control"
+                                                       placeholder="Введіть адресу"
+                                                       id="address"
+                                                       ng-model="address"
+                                                       type="text"
+                                                       ng-init="init()"
+                                                       required/>
+                                            </div>
+                                            <label class="deliveryType">Тип доставки</label>
+                                            <div>
+                                                <label class="radio" ng-show="deliverance.isCourierAvailable">
+                                                    <input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER" ng-required="!delivery.radio">
+                                                    <i>{{deliverance.courierText}}</i>
+                                                </label>
+                                                <label class="radio" ng-show="deliverance.isNewPostAvailable">
+                                                    <input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA" ng-required="!delivery.radio">
+                                                    <i>{{deliverance.newPostText}}</i>
+                                                </label>
+                                                <label class="newPost" ng-show="delivery.radio === 'NOVAPOSHTA'">
+                                                    <p>Введіть номер відділення Нової Пошти</p>
+                                                    <input type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
+                                                </label>
+                                                <label class="radio" ng-show="deliverance.isSelfTakeAvailable">
+                                                    <input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">
+                                                    <i>{{deliverance.selfTakeText}}</i>
+                                                </label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="proceedWithPayment" ng-show="successfullResponse">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <h4 class="modal-total"><strong>{{total + " " + delivery()}} грн</strong></h4>
+                                    <button type="button" class="btn btn-success toPayment" ng-click="makeOrder()" ng-disabled="orderForm.$invalid">До Оплати <span class="glyphicon glyphicon-play"></button>
+                                </div>
                             </div>
                         </div>
                         <!--/.Content-->
@@ -398,76 +474,10 @@
                 </div>
 
                 <!--/.Card-->
-                <!--<div class="modal fade" id="preOrderModal" aria-hidden="true">-->
+                <!--<div class="modal fade" id="preOrderModal" aria-hidden="true" ng-show="modalHide">-->
                     <!--<div class="modal-dialog">-->
                         <!--<div class="modal-content">-->
-                            <!--<div class="modal-header">-->
-                                <!--<button type="button"-->
-                                        <!--class="close"-->
-                                        <!--data-dismiss="modal"-->
-                                        <!--aria-label="Close"><span aria-hidden="true">×</span>-->
-                                <!--</button>-->
-                                <!--<h4 class="modal-title text-center" id="myModalLabel"><b>Оформлення замовлення</b></h4>-->
-                            <!--</div>-->
-                            <!--<div class="modal-body">-->
-                                <!--<div class="fillingInfo" ng-hide="successfullResponse">-->
-                                    <!--<form name="orderForm">-->
-                                        <!--<div class="form-group">-->
-                                            <!--<label>П.І.П.-->
-                                                <!--<input class="form-control" ng-model="name" type="text" name="name" placeholder="Петренко Іван Григорович" required/>-->
-                                            <!--</label>-->
-                                        <!--</div>-->
-                                        <!--<div class="form-group">-->
-                                            <!--<label>Номер телефону-->
-                                                <!--<input class="form-control"-->
-                                                       <!--type="number"-->
-                                                       <!--ng-model="phone"-->
-                                                       <!--name="phone"-->
-                                                       <!--ng-value="+380"-->
-                                                       <!--ng-minlength="12"-->
-                                                       <!--ng-maxlength="12"-->
-                                                       <!--required/>-->
-                                            <!--</label>-->
-                                            <!--<span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 12 чисел</span>-->
-                                        <!--</div>-->
-                                        <!--<div class="form-group">-->
-                                            <!--<label for="address">Адреса</label>-->
-                                            <!--<input class="form-control"-->
-                                                   <!--placeholder="Введіть адресу"-->
-                                                   <!--id="address"-->
-                                                   <!--ng-model="address"-->
-                                                   <!--type="text"-->
-                                                   <!--ng-init="init()"-->
-                                                   <!--required/>-->
-                                        <!--</div>-->
-                                        <!--<label class="deliveryType">Тип доставки</label>-->
-                                        <!--<div class="radioPadding">-->
-                                            <!--<label class="radio" ng-show="deliverance.isCourierAvailable">-->
-                                                <!--<input type="radio" name="deliverance" ng-model="delivery.radio" value="COURIER" ng-required="!delivery.radio">-->
-                                                <!--<i>{{deliverance.courierText}}</i>-->
-                                            <!--</label>-->
-                                            <!--<label class="radio" ng-show="deliverance.isNewPostAvailable">-->
-                                                <!--<input type="radio" name="deliverance" ng-model="delivery.radio" value="NOVAPOSHTA" ng-required="!delivery.radio">-->
-                                                <!--<i>{{deliverance.newPostText}}</i>-->
-                                            <!--</label>-->
-                                            <!--<label class="newPost" ng-show="delivery.radio === 'NOVAPOSHTA'">-->
-                                                <!--<p>Введіть номер відділення Нової Пошти</p>-->
-                                                <!--<input type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>-->
-                                            <!--</label>-->
-                                            <!--<label class="radio" ng-show="deliverance.isSelfTakeAvailable">-->
-                                                <!--<input type="radio" name="deliverance" ng-model="delivery.radio" value="SELFTAKE" ng-required="!delivery.radio">-->
-                                                <!--<i>{{deliverance.selfTakeText}}</i>-->
-                                            <!--</label>-->
-                                        <!--</div>-->
-                                    <!--</form>-->
-                                <!--</div>-->
-                                <!--<div class="proceedWithPayment" ng-show="successfullResponse">-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="modal-footer">-->
-                                <!--<h4 class="modal-total"><strong>{{total + " " + delivery()}} грн</strong></h4>-->
-                                <!--<button type="button" class="btn btn-success toPayment" ng-click="makeOrder()" ng-disabled="orderForm.$invalid">До Оплати <span class="glyphicon glyphicon-play"></button>-->
-                            <!--</div>-->
+                            <!---->
                         <!--</div>-->
                     <!--</div>-->
                 <!--</div>-->

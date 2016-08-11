@@ -69,8 +69,10 @@
     /*}*/
 
 /*}*/
-/*!* Smartphones (landscape) ----------- *!*/
-/*@media only screen and (min-device-width: 568px) and (max-device-width: 767px){*/
+
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-device-width: 568px) and (max-device-width: 767px){
     /*.navbar {*/
         /*display: block;*/
         /*margin-bottom: 3em;*/
@@ -102,8 +104,11 @@
     /*.navbar-toggle, .desktopView {*/
         /*display: block;*/
     /*}*/
-/*}*/
-/*@media only screen and (min-device-width: 768px) and (max-device-width: 1023px){*/
+    /*.card {*/
+       /*transform: scale(0.9);*/
+    /*}*/
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px){
     /*.listView {*/
         /*display: none;*/
     /*}*/
@@ -133,7 +138,12 @@
     /*.navbar-toggle, .desktopView {*/
         /*display: block;*/
     /*}*/
-/*}*/
+    /*.centered {*/
+        /*left: 50%;*/
+        /*transform: translateX(-50%);*/
+
+    /*}*/
+}
 
 
 /*.well {*/
@@ -155,9 +165,7 @@
 /*.radioPadding {*/
     /*padding-left: 1.4em;*/
 /*}*/
-/*[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {*/
-    /*display: none !important;*/
-/*}*/
+
 
 /*@keyframes hvr-buzz-out {*/
     /*10% {*/
@@ -281,6 +289,10 @@
     /*margin-top: 3.5em;*/
 /*}*/
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
 .productDescriptionTruncate {
     line-height: 1.5em;
     max-height: 3em;
@@ -319,4 +331,11 @@
 }
 .inputTextCentering {
     text-align: center;
+}
+.modalPosition {
+    float: right;
+}
+
+body.modal-open {
+    overflow: hidden;
 }
