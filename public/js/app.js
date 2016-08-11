@@ -143,6 +143,7 @@ function initAutocomplete() {
             $scope.removeSelectedItem = function (index){
                 $scope.selectedItems.splice(index, 1);
                 $scope.calculateTotal();
+                
             };
 
             $scope.removeAll = function () {
@@ -157,6 +158,12 @@ function initAutocomplete() {
                     var item = $scope.selectedItems[i];
                     $scope.total += (item.quantity * item.price);
                 }
+                $scope.totalItems = 0;
+                $scope.selectedItems.forEach(function(selectedItem, key, array) {
+                    $scope.totalItems += selectedItem.quantity;
+
+                });
+
             };
 
             $scope.makeOrder = function (){
