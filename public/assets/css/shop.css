@@ -317,3 +317,6 @@
 .removeAllRedIcon {
     color: red;
 }
+.inputTextCentering {
+    text-align: center;
+}

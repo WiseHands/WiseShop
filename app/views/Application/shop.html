@@ -331,7 +331,7 @@
                         <!--Card footer-->
                         <div class="card-footer">
                             <span class="left">{{productDTO.price}} грн</span>
-                            <span class="right" ng-click="buyStart($index, $event)"><a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-heart"></i></a></span>
+                            <span class="right" ng-click="buyStart($index, $event)"><a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-shopping-cart"></i></a></span>
                         </div>
 
                     </div>
@@ -364,21 +364,31 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="item in selectedItems">
-                                        <td>{{item.name}}</td>
-                                        <td><strong>{{item.price}}</strong> ₴ x <strong>{{item.quantity}}</strong></td>
-                                        <td ng-click="removeSelectedItem($index)"><a><i class="fa fa-remove center-block"></i></a></td>
-                                    </tr>
-                                    <tr class="total">
-                                        <td><i>Разом</i></td>
-                                        <td><i>{{total}}</i> ₴</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                        <td>
+                                            {{item.name}}
+                                        </td>
+                                        <td><strong>{{item.price}}</strong> ₴ x
+                                            <input  class="inputTextCentering"
+                                                    type="number"
+                                                   ng-model="item.quantity"
+                                                   ng-init="item.quantity=1"
+                                                   ng-change="calculateTotal()"
+                                                   min="1"> шт.
+                                                 </input>
+                                             </td>
+                                             <td ng-click="removeSelectedItem($index)"><a><i class="fa fa-remove center-block"></i></a></td>
+                                         </tr>
+                                         <tr class="total">
+                                             <td><i>Разом</i></td>
+                                             <td><i>{{total}}</i> ₴</td>
+                                         </tr>
+                                         </tbody>
+                                     </table>
 
-                                <button class="btn btn-primary">Замовити</button>
+                                     <button class="btn btn-primary">Замовити</button>
 
-                            </div>
-                            <!--Footer-->
+                                 </div>
+                                 <!--Footer-->
                             <div class="modal-footer">
                                 <!--<button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>-->
                             </div>

@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <br/>
-                <input class="button-submit full-width buttonStyling" type="submit" value="LOG IN">
+                <button class="button-submit full-width buttonStyling" type="submit">LOG IN</button>
                 <p class="deniedMsg" ng-show="deniedMsg" ng-cloak>{{accessDeniedMessage}}</p>
 
             </div>
@@ -24,7 +24,7 @@
                 <a href="#" class="forgot" ng-show="showShopList">Choose proper web-store</a>
             </div>
             <div ng-repeat="shop in user.shopList">
-                <input class="button-submit full-width buttonStyling" value="{{shop.shopName}}" ng-click="properShop(shop)">
+                <button class="button-submit full-width buttonStyling" ng-click="properShop(shop)">{{shop.shopName}}</button>
             </div>
         </form>
     </div>
