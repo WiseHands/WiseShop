@@ -333,9 +333,12 @@
     text-align: center;
 }
 .modalPosition {
-    float: right;
+    float: none;
 }
 
 body.modal-open {
     overflow: hidden;
+}
+.floatLeft {
+    float: left;
 }
