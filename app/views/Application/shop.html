@@ -193,7 +193,9 @@
                     <h4 class="card-title fixed-height"><strong><a href="">{{productDTO.name}}</a></strong></h4>
 
                     <!--Description-->
-                    <a class="productTooltip fixed-height" data-toggle="tooltip" data-placement="top" title="{{productDTO.description}}" ng-click="showProductTooltip()"><p class="card-text productDescriptionTruncate">{{productDTO.description}}</p></a>
+                    <div class="fixed-height">
+                        <a class="productTooltip fixed-height" data-toggle="tooltip" data-placement="top" title="{{productDTO.description}}" ng-click="showProductTooltip()"><p class="card-text productDescriptionTruncate">{{productDTO.description}}</p></a>
+                    </div>
 
                     <!--Card footer-->
                     <div class="card-footer">

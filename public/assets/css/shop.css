@@ -351,3 +351,7 @@ body.modal-open {
 .productTooltip {
     color: #000;
 }
+
+.minHeight {
+    min-height: 4.5em;
+}

@@ -28,6 +28,16 @@
             }, 120);
         });
     });
+    $(window).load(function() {
+        equalizeHeights(".fixed-height2");
+
+        $(window).resize(function() {
+
+            setTimeout(function() {
+                equalizeHeights(".fixed-height");
+            }, 120);
+        });
+    });
 })(jQuery);
 
 
