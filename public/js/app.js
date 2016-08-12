@@ -169,8 +169,8 @@ function initAutocomplete() {
             $scope.makeOrder = function (){
                 var params = {
                     deliveryType: $scope.delivery.radio,
-                    phone: new String($scope.phone),
-                    name: $scope.name,
+                    phone: new String(document.getElementById('phone').value),
+                    name: document.getElementById('name').value,
                     address: document.getElementById('address').value,
                     newPostDepartment: $scope.delivery.newPost,
                     selectedItems: $scope.selectedItems

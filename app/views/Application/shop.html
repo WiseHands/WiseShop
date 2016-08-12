@@ -193,7 +193,7 @@
                     <h4 class="card-title fixed-height"><strong><a href="">{{productDTO.name}}</a></strong></h4>
 
                     <!--Description-->
-                    <a class="productTooltip" data-toggle="tooltip" data-placement="top" title="{{productDTO.description}}" ng-click="showProductTooltip()"><p class="card-text productDescriptionTruncate">{{productDTO.description}}</p></a>
+                    <a class="productTooltip fixed-height" data-toggle="tooltip" data-placement="top" title="{{productDTO.description}}" ng-click="showProductTooltip()"><p class="card-text productDescriptionTruncate">{{productDTO.description}}</p></a>
 
                     <!--Card footer-->
                     <div class="card-footer">
@@ -278,13 +278,19 @@
                                     <form name="orderForm">
                                         <div class="form-group">
                                             <h6><b>П.І.П.</b>
-                                                <input class="form-control" ng-model="name" type="text" name="name" placeholder="Петренко Іван Григорович" required/>
+                                                <input class="form-control"
+                                                       id="name"
+                                                       ng-model="name"
+                                                       type="text" name="name"
+                                                       placeholder="Петренко Іван Григорович"
+                                                       required/>
                                             </h6>
                                         </div>
                                         <div class="form-group">
                                             <h6><b>Номер телефону</b>
                                                 <input class="form-control"
                                                        type="number"
+                                                       id="phone"
                                                        ng-model="phone"
                                                        name="phone"
                                                        ng-value="+380"
