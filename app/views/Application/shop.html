@@ -334,14 +334,14 @@
                                                        ng-required="!delivery.radio"
                                                        value="NOVAPOSHTA">
                                                 <label for="radio2" ng-show="deliverance.isNewPostAvailable"><i>{{deliverance.newPostText}}</i></label>
+                                                <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
+                                                    <label for="newPostDepartment" class="center-block">
+                                                        <h6><b>Введіть номер відділення Нової Пошти</b></h6>
+                                                        <input id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
+                                                    </label>
+                                                </fieldset>
                                             </fieldset>
 
-                                            <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
-                                                <label for="newPostDepartment" class="center-block">
-                                                    <h6><b>Введіть номер відділення Нової Пошти</b></h6>
-                                                    <input id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
-                                                </label>
-                                            </fieldset>
 
                                             <fieldset class="form-group">
                                                 <input name="deliverance"
@@ -361,7 +361,7 @@
                             </div>
                             <div class="modal-footer">
                                 <h4 class="modal-total"><strong>{{total + " " + delivery()}} грн</strong></h4>
-                                <button type="button" class="btn btn-success toPayment" ng-click="makeOrder()" ng-disabled="orderForm.$invalid">До Оплати <span class="glyphicon glyphicon-play"></button>
+                                <button type="button" class="btn btn-success toPayment" ng-click="makeOrder()" ng-disabled="orderForm.$invalid">До Оплати </button>
                             </div>
                         </div>
                     </div>
