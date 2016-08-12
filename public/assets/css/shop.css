@@ -342,3 +342,12 @@ body.modal-open {
 .floatLeft {
     float: left;
 }
+
+.cardPadding {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.productTooltip {
+    color: #000;
+}
