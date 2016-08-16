@@ -58,3 +58,31 @@
         <hr class="desktopNavProductsDivider">
     </ul>
 </div>
+
+
+<div class="container-fluid settingsDesktopContainer">
+    <div class="well">
+        <form id="productForm" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-xs-12">Номер телефону
+                    <input class="form-control" type="number" ng-model="phone"/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12">E-mail
+                    <input class="form-control" type="email" ng-model="email"/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12">Опис
+                    <textarea class="form-control" type="text" ng-model="description"></textarea>
+                </label>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-offset-9 col-sm-3">
+                    <button class="btn btn-primary btn-block" ng-click="updateStoreSettings()">Зберегти зміни</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
