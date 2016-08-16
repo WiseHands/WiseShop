@@ -38,6 +38,7 @@ function initAutocomplete() {
 (function(){
     angular.module('WiseShop')
         .controller('ShopController', function($scope, $http) {
+            
             $scope.minOrderForFreeDelivery = 501;
             $http({
                 method: 'GET',
@@ -67,12 +68,10 @@ function initAutocomplete() {
                 url: '/shop/details/public'
             })
                 .then(function successCallback(response) {
-                    debugger;
                     document.title = response.data;
                     $scope.shopName = response.data;
 
                 }, function errorCallback(error) {
-                    debugger;
                     console.log(error);
                 });
 
@@ -204,7 +203,7 @@ function initAutocomplete() {
                     });
             };
 
-
+           
         });
     
 

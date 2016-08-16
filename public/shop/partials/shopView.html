@@ -1,4 +1,3 @@
-<!--Navigation-->
 <header>
     <!--&lt;!&ndash; Sidebar navigation &ndash;&gt;-->
     <!--<ul id="slide-out" class="side-nav fixed custom-scrollbar">-->
@@ -109,7 +108,7 @@
     <!--&lt;!&ndash;/. Side navigation links &ndash;&gt;-->
 
     <!--</ul>-->
-    <nav class="navbar navbar-fixed-top scrolling-navbar double-nav blue">
+    <nav class="navbar navbar-fixed-top scrolling-navbar double-nav green">
 
         <!-- SideNav slide-out button -->
         <!--<div class="pull-left">-->
@@ -128,7 +127,7 @@
                 <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0"> <span class="label red z-depth-1">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Корзина</span></a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link"><i class="fa fa-envelope"></i> <span class="hidden-sm-down">Contact</span></a>
+                <a class="nav-link" href="#/contacts"><i class="fa fa-envelope"></i> <span class="hidden-sm-down">Contact</span></a>
             </li>
             <!--<li class="nav-item ">-->
             <!--<a class="nav-link"><i class="fa fa-comments-o"></i> <span class="hidden-sm-down">Support</span></a>-->
@@ -154,45 +153,35 @@
     <div class="container row cardPadding center-block">
         <div class="col-lg-4 col-md-6" ng-repeat="productDTO in products">
 
-            <!--Card-->
             <div class="card inline">
 
-                <!--Card image-->
                 <div class="view overlay hm-white-slight z-depth-1">
                     <img ng-src="public/product_images/{{productDTO.fileName}}" class="img-fluid" alt="">
                     <a>
                         <div class="mask"></div>
                     </a>
                 </div>
-                <!--/.Card image-->
 
-                <!--Card content-->
                 <div class="card-block text-xs-center">
-                    <!--Category & Title-->
                     <h4 class="card-title fixed-height"><strong><a href="">{{productDTO.name}}</a></strong></h4>
 
-                    <!--Description-->
                     <div class="fixed-height">
                         <a class="productTooltip fixed-height" data-toggle="tooltip" data-placement="top" title="{{productDTO.description}}" ng-click="showProductTooltip()"><p class="card-text productDescriptionTruncate">{{productDTO.description}}</p></a>
                     </div>
 
-                    <!--Card footer-->
                     <div class="card-footer">
                         <span class="left">{{productDTO.price}} грн</span>
                         <span class="right" ng-click="buyStart($index, $event)"><a data-toggle="tooltip" data-placement="top" title="Додати в Корзину"><i class="fa fa-shopping-cart"></i></a></span>
                     </div>
 
                 </div>
-                <!--/.Card content-->
 
             </div>
 
 
             <div class="modal fade cart-modal row" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog col-xs-12 modalPosition" role="document">
-                    <!--Content-->
                     <div class="modal-content">
-                        <!--Header-->
                         <div ng-hide="modalHide" ng-init="modalHide=false">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -200,7 +189,6 @@
                                 </button>
                                 <h4 class="modal-title" id="myModalLabel">Ваша корзина</h4>
                             </div>
-                            <!--Body-->
                             <div class="modal-body">
 
                                 <table class="table table-bordered table-hover">
@@ -235,7 +223,6 @@
                                 </table>
 
                             </div>
-                            <!--Footer-->
                             <div class="modal-footer">
                                 <button class="btn btn-primary"
                                         ng-show="selectedItems.length !== 0"
@@ -344,7 +331,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--/.Content-->
                 </div>
             </div>
         </div>
