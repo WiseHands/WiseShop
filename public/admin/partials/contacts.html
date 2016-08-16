@@ -10,7 +10,11 @@
                     </button>
                 </div>
                 <div class="col-xs-7 col-sm-7 vcenter">
-                    <h4><b>Доставка</b></h4>
+                    <h4><b>Контакти</b></h4>
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
+                    <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="setNewPostOptions()" ng-hide="loading"></span>
                 </div>
             </div>
         </div>
@@ -27,7 +31,7 @@
 
 <nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
     <div class="row">
-        <div class="col-xs-5 col-sm-5 searchBarCentering">
+        <div class="col-xs-2 col-sm-2 searchBarCentering">
             <div class="dropdown pull-left">
                 <button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <span class="glyphicon glyphicon-option-vertical"></span>
@@ -41,8 +45,12 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-6 col-sm-6 vcenter">
-            <h4><b>Доставка</b></h4>
+        <div class="col-xs-8 col-sm-8 vcenter text-center">
+            <h4><b>Контакти</b></h4>
+        </div>
+        <div class="col-xs-2 col-sm-2">
+            <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="public/spinner/box-xs.gif" show="loading"></spinner>
+            <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="setNewPostOptions()" ng-hide="loading"></span>
         </div>
     </div>
 </nav>
@@ -57,6 +65,13 @@
         <li><a href="#/settings">Налаштування</a></li>
         <hr class="desktopNavProductsDivider">
     </ul>
+    <button type="button" class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin" aria-haspopup="true" aria-expanded="false" ng-click="setNewPostOptions()">
+        <span class="glyphicon glyphicon-floppy-disk pull-left"></span>
+        Зберегти зміни
+    </button>
+    <div class="col-md-12">
+        <spinner class="col-md-offset-2" name="mySpinner" img-src="public/spinner/box.gif" show="loading"></spinner>
+    </div>
 </div>
 
 
@@ -65,23 +80,23 @@
         <form id="productForm" class="form-horizontal">
             <div class="form-group">
                 <label class="col-xs-12">Номер телефону
-                    <input class="form-control" type="number" ng-model="phone"/>
+                    <input class="form-control" type="text" ng-model="contacts.phone"/>
                 </label>
             </div>
             <div class="form-group">
                 <label class="col-xs-12">E-mail
-                    <input class="form-control" type="email" ng-model="email"/>
+                    <input class="form-control" type="email" ng-model="contacts.email"/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12">Адреса
+                    <input class="form-control" type="text" ng-model="contacts.address"/>
                 </label>
             </div>
             <div class="form-group">
                 <label class="col-xs-12">Опис
-                    <textarea class="form-control" type="text" ng-model="description"></textarea>
+                    <textarea class="form-control" type="text" ng-model="contacts.description"></textarea>
                 </label>
-            </div>
-            <div class="form-group">
-                <div class="col-xs-12 col-sm-offset-9 col-sm-3">
-                    <button class="btn btn-primary btn-block" ng-click="updateStoreSettings()">Зберегти зміни</button>
-                </div>
             </div>
         </form>
     </div>

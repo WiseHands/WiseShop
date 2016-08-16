@@ -15,7 +15,7 @@ import play.mvc.Controller;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class ContactsAPI extends Controller {
+public class ContactAPI extends Controller {
     private static final String X_AUTH_TOKEN = "x-auth-token";
     private static final String X_AUTH_USER_ID = "x-auth-user-id";
 

@@ -7,22 +7,18 @@ angular.module('WiseHands')
             domain: '',
             shopName: ''
         };
-        //
-        // $http({
-        //     method: 'GET',
-        //     url: '/delivery',
-        //     headers: {
-        //         'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-        //         'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-        //     }
-        // })
-        //     .then(function successCallback(response) {
-        //         $scope.loading = false;
-        //         $scope.delivery = response.data;
-        //     }, function errorCallback(data) {
-        //         $scope.loading = false;
-        //         $scope.status = 'Щось пішло не так...';
-        //     });
+
+        $http({
+            method: 'GET',
+            url: '/contact/details'
+        })
+            .then(function successCallback(response) {
+                $scope.loading = false;
+                $scope.contacts = response.data;
+            }, function errorCallback(data) {
+                $scope.loading = false;
+                $scope.status = 'Щось пішло не так...';
+            });
         // $scope.setNewPostOptions = function () {
         //     $scope.loading = true;
         //     $http({

@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import models.ContactDTO;
 import models.DeliveryDTO;
 import models.ShopDTO;
 import models.UserDTO;
@@ -139,7 +140,10 @@ public class ShopAPI extends Controller {
         );
         delivery.save();
 
-        ShopDTO shop = new ShopDTO(user, delivery, name, publicLiqpayKey, privateLiqPayKey, domain);
+        ContactDTO contact = new ContactDTO("+380", "me@email.com", "lviv", "25,67:48.54", "best company ever");
+        contact.save();
+
+        ShopDTO shop = new ShopDTO(user, delivery, contact, name, publicLiqpayKey, privateLiqPayKey, domain);
         return shop = shop.save();
     }
 

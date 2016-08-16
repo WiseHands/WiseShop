@@ -30,16 +30,12 @@ public class ContactDTO extends GenericModel {
     @Expose
     public String description;
 
-    @OneToOne
-    public ShopDTO shop;
-
-    public ContactDTO(String phone, String email, String address, String latLng, String description, ShopDTO shop) {
+    public ContactDTO(String phone, String email, String address, String latLng, String description) {
         this.phone = phone;
         this.address = address;
         this.email = email;
         this.latLng = latLng;
         this.description = description;
-        this.shop = shop;
     }
 
     private String returnIfNotNull(String target){

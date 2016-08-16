@@ -1,9 +1,6 @@
 package jobs;
 
-import models.DeliveryDTO;
-import models.ProductDTO;
-import models.ShopDTO;
-import models.UserDTO;
+import models.*;
 import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
@@ -61,7 +58,10 @@ public class DatastoreSetup extends Job {
                 );
         delivery.save();
 
-        ShopDTO shop = new ShopDTO(user, delivery, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
+        ContactDTO contact = new ContactDTO("+380", "me@email.com", "lviv", "25,67:48.54", "best company ever");
+        contact.save();
+
+        ShopDTO shop = new ShopDTO(user, delivery, contact, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
         shop.save();
         createProducts(shop, domain);
     }
