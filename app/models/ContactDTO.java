@@ -1,0 +1,53 @@
+package models;
+
+import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.GenericGenerator;
+import play.db.jpa.GenericModel;
+
+import javax.persistence.*;
+
+@Entity
+public class ContactDTO extends GenericModel {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Expose
+    public String uuid;
+
+    @Expose
+    public String phone;
+
+    @Expose
+    public String email;
+
+    @Expose
+    public String address;
+
+    @Expose
+    public String latLng;
+
+    @Expose
+    public String description;
+
+    @OneToOne
+    public ShopDTO shop;
+
+    public ContactDTO(String phone, String email, String address, String latLng, String description, ShopDTO shop) {
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.latLng = latLng;
+        this.description = description;
+        this.shop = shop;
+    }
+
+    private String returnIfNotNull(String target){
+        if(target != null){
+            return target;
+        } else {
+            return "";
+        }
+    }
+
+}
