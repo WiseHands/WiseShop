@@ -1,4 +1,4 @@
-    angular.module('sweety')
+    angular.module('WiseHandsMain')
         .controller('LoginFormController', function($scope, $http) {
             $scope.logIn = function (){
                 var params = {

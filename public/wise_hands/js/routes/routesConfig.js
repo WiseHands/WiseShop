@@ -1,5 +1,5 @@
 (function () {
-    angular.module('sweety', [
+    angular.module('WiseHandsMain', [
             'ngRoute'
         ])
         .config(['$routeProvider',

@@ -1,4 +1,4 @@
-    angular.module('sweety')
+    angular.module('WiseHandsMain')
         .controller('RegisterFormController', function($scope, $http, $window) {
             $scope.signIn = function (){
                 var params = {
