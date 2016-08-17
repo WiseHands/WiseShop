@@ -19,26 +19,25 @@ angular.module('WiseHands')
                 $scope.loading = false;
                 $scope.status = 'Щось пішло не так...';
             });
-        // $scope.setNewPostOptions = function () {
-        //     $scope.loading = true;
-        //     $http({
-        //         method: 'PUT',
-        //         url: '/delivery',
-        //         data: $scope.delivery,
-        //         headers: {
-        //             'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-        //             'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-        //         }
-        //     })
-        //         .then(function successCallback(response) {
-        //             $scope.loading = false;
-        //             $location.path('/delivery');
-        //         }, function errorCallback(error) {
-        //             $scope.loading = false;
-        //             console.log(error);
-        //         });
-        //
-        // };
+        $scope.updateContacts = function () {
+            $scope.loading = true;
+            $http({
+                method: 'PUT',
+                url: '/contact',
+                data: $scope.contacts,
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                }
+            })
+                .then(function successCallback(response) {
+                    $scope.loading = false;
+                }, function errorCallback(error) {
+                    $scope.loading = false;
+                    console.log(error);
+                });
+
+        };
         $http({
             method: 'GET',
             url: '/shop/details',

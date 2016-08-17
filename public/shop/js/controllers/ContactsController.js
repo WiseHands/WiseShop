@@ -17,6 +17,15 @@
                 window.location.reload();
             };
 
+            $http({
+                method: 'GET',
+                url: '/contact/details'
+            })
+                .then(function successCallback(response) {
+                    $scope.contacts = response.data;
+                }, function errorCallback(data) {
+                    $scope.status = 'Щось пішло не так...';
+                });
 
         });
 
