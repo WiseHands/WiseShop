@@ -205,6 +205,8 @@ public class OrderAPI extends Controller {
 
     //TODO: implement
     public static void success(String client, String data) throws ParseException, EmailException {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
         final LiqPayLocal liqpay = new LiqPayLocal(PUBLIC_KEY, PRIVATE_KEY);
 
         String sign = liqpay.strToSign(
@@ -218,7 +220,19 @@ public class OrderAPI extends Controller {
         System.out.println("\n\n\nPayment received!!!!\n\n\n");
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(new String(decodedBytes));
+
         String orderId = String.valueOf(jsonObject.get("order_id"));
+
+
+//      {"action":"pay","payment_id":227526513,"status":"failure","err_code":"err_payment","version":3,"type":"buy","paytype":"liqpay","public_key":"i65251982315","acq_id":414963,"order_id":"db608b98569d1c7e01569d23558f002f","liqpay_order_id":"MP0UFZIY1471515262399494","description":"New Payment: Тест\n380630386173\nSELFTAKEЛьвів\n\nhappybag.me\n7.0\nhttp://happybag.me/admin#/details/db608b98569d1c7e01569d23558f002f","sender_phone":"380630386173","sender_first_name":"Bogdan","sender_last_name":"Tsap","sender_card_mask2":"516933*85","sender_card_bank":"pb","sender_card_type":"mc","sender_card_country":804,"ip":"93.75.203.125","amount":7.0,"currency":"UAH","sender_commission":0.0,"receiver_commission":0.19,"agent_commission":0.0,"amount_debit":7.0,"amount_credit":7.0,"commission_debit":0.0,"commission_credit":0.19,"currency_debit":"UAH","currency_credit":"UAH","sender_bonus":0.0,"amount_bonus":0.0,"mpi_eci":"7","is_3ds":false,"create_date":1471515267044,"end_date":1471515267044,"transaction_id":227526513,"code":"err_payment"}
+
+        String status = String.valueOf(jsonObject.get("status"));
+        if (status.equals("failure")){
+            OrderDTO orderDTO = OrderDTO.find("byUuid",orderId).first();
+            orderDTO.state  = OrderState.PAYMENT_ERROR;
+            orderDTO.save();
+            return;
+        }
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",orderId).first();
         orderDTO.state  = OrderState.PAYED;
@@ -230,6 +244,8 @@ public class OrderAPI extends Controller {
         email.setSubject("Нове замовлення");
         email.setMsg("Деталі: " + orderDTO.toString());
         Mail.send(email);
+
+        //TODO implement multi user support @OneToMany
 
         email = new SimpleEmail();
         email.setFrom("bohdaq@gmail.com");
