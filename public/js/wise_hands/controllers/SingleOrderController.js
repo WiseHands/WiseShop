@@ -19,6 +19,14 @@
                             $scope.status = 'Замовлення відсутні';
                         } else {
                             $scope.order = response.data;
+                            var date = new Date($scope.order.time);
+                            var ddyymm = new Date($scope.order.time).toISOString().slice(0,10);
+                            var hour = date.getHours();
+                            var minute = date.getMinutes();
+                            if (minute === 0) {
+                                minute = '00';
+                            }
+                            $scope.properDate = ddyymm + ' ' + hour + ':' + minute;
                         }
                     }, function errorCallback(data) {
                         $scope.loading = false;
@@ -64,6 +72,8 @@
                         return 'Надіслано';
                     } else if (order.state === "RETURNED") {
                         return 'Повернено';
+                    } else if (order.state === "PAYMENT_ERROR") {
+                        return 'Помилка оплати';
                     }
                 };
                 $scope.payedOrder = function () {
