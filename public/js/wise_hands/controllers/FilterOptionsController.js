@@ -73,6 +73,8 @@ angular.module('WiseHands')
                 return '#9715BC';
             } else if (item.state === "RETURNED") {
                 return '#A27C20';
+            } else if (item.state === "PAYMENT_ERROR") {
+                return '#14CCC5';
             }
         };
         $scope.setSortOption = function () {

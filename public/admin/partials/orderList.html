@@ -123,7 +123,7 @@
                     <span> </span>
                 </label>
                 <label for="fancy-checkbox-default1" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b>Нові</b>
+                    <b class="pull-left">Нові</b>
                 </label>
             </div>
         </div>
@@ -142,7 +142,7 @@
                     <span> </span>
                 </label>
                 <label for="fancy-checkbox-default2" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b>Оплачені</b>
+                    <b class="pull-left">Оплачені</b>
                 </label>
             </div>
         </div>
@@ -161,7 +161,7 @@
                     <span> </span>
                 </label>
                 <label for="fancy-checkbox-default3" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b>Повернені</b>
+                    <b class="pull-left">Повернені</b>
                 </label>
             </div>
         </div>
@@ -180,7 +180,7 @@
                     <span> </span>
                 </label>
                 <label for="fancy-checkbox-default4" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b>Скасовані</b>
+                    <b class="pull-left">Скасовані</b>
                 </label>
             </div>
         </div>
@@ -199,7 +199,26 @@
                     <span> </span>
                 </label>
                 <label for="fancy-checkbox-default5" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b>Відправлені</b>
+                    <b class="pull-left">Відправлені</b>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="[ form-group ]">
+            <input type="checkbox"
+                   name="fancy-checkbox-default6"
+                   id="fancy-checkbox-default6"
+                   autocomplete="off"
+                   ng-click="orderStateFilter('PAYMENT_ERROR')"
+                   ng-checked="isOptionChecked('PAYMENT_ERROR')" />
+            <div class="[ btn-group ]">
+                <label for="fancy-checkbox-default6" class="[ btn btn-default ]">
+                    <span class="[ glyphicon glyphicon-ok ]"></span>
+                    <span> </span>
+                </label>
+                <label for="fancy-checkbox-default6" class="[ btn btn-default active ] desktopFixedWidth">
+                    <b class="pull-left">Помилка</b>
                 </label>
             </div>
         </div>
