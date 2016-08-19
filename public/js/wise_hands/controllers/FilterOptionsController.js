@@ -4,6 +4,26 @@ angular.module('WiseHands')
         $scope.filterOptions = shared.filterOptions || [];
         $scope.isSortingActive = shared.isSortingActive;
 
+        $scope.activeShop = {
+            domain: '',
+            shopName: ''
+        };
+
+        $http({
+            method: 'GET',
+            url: '/shop/details',
+            headers: {
+                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            }
+        })
+            .then(function successCallback(response) {
+                $scope.activeShop = response.data;
+
+            }, function errorCallback(data) {
+                $scope.status = 'Щось пішло не так...';
+            });
+
         $scope.orderStateFilter = function (orderState) {
             var i = $.inArray(orderState, $scope.filterOptions);
             if (i > -1) {
@@ -97,4 +117,7 @@ angular.module('WiseHands')
             return ((item.name.toLowerCase().indexOf($scope.query) || '') !== -1) ||
                 ((item.total.toString().indexOf($scope.query) || '') !== -1) || ((item.name.indexOf($scope.query) || '') !== -1);
         };
+        $scope.getUrl = function (shop) {
+            return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
+        }
     });

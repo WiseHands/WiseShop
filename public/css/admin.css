@@ -408,4 +408,15 @@ p {
 .errorMessageContainer {
     padding-left: 0;
 }
+.checkboxGroup {
+    padding-top: 1em;
+    /*padding-right: 1.5em;*/
+}
+.buttonMargins {
+    margin-top: 1em;
+
+}
+.noPaddingLeft {
+    padding-left: 0;
+}
 

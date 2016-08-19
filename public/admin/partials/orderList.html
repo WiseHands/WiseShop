@@ -95,136 +95,140 @@
         <li><a href="#/contacts">Контакти</a></li>
         <li><a href="#/settings">Налаштування</a></li>
         <hr>
-            <div class="col-md-12">
-                <input type="text" class="form-control searchBarCentering" placeholder="Пошук" ng-model="query">
-            </div>
-            <button type="button"
-                    class="btn btn-default buttonTopMargin col-md-offset-1 col-md-10"
-                    ng-click="isSortingActive=!isSortingActive; setSortOption()">
-                <span class="glyphicon glyphicon-sort-by-attributes-alt pull-left" ng-show="isSortingActive"></span>
-                <span class="glyphicon glyphicon-sort-by-attributes pull-left" ng-hide="isSortingActive"></span>
-                Сортування
-            </button>
     </ul>
-    <div class="col-md-12">
-        <h4 class="text-center"><i class="">Замовлення</i></h4>
-    </div>
-    <div class="col-md-12">
-        <div class="[ form-group ]">
-            <input type="checkbox"
-                   name="fancy-checkbox-default1"
-                   id="fancy-checkbox-default1"
-                   autocomplete="off"
-                   ng-click="orderStateFilter('NEW')"
-                   ng-checked="isOptionChecked('NEW')"/>
-            <div class="[ btn-group ]">
-                <label for="fancy-checkbox-default1" class="[ btn btn-default ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
-                </label>
-                <label for="fancy-checkbox-default1" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b class="pull-left">Нові</b>
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="[ form-group ]">
-            <input type="checkbox"
-                   name="fancy-checkbox-default2"
-                   id="fancy-checkbox-default2"
-                   autocomplete="off"
-                   ng-click="orderStateFilter('PAYED')"
-                   ng-checked="isOptionChecked('PAYED')"/>
-            <div class="[ btn-group ]">
-                <label for="fancy-checkbox-default2" class="[ btn btn-default ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
-                </label>
-                <label for="fancy-checkbox-default2" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b class="pull-left">Оплачені</b>
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="[ form-group ]">
-            <input type="checkbox"
-                   name="fancy-checkbox-default3"
-                   id="fancy-checkbox-default3"
-                   autocomplete="off"
-                   ng-click="orderStateFilter('RETURNED')"
-                   ng-checked="isOptionChecked('RETURNED')" />
-            <div class="[ btn-group ]">
-                <label for="fancy-checkbox-default3" class="[ btn btn-default ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
-                </label>
-                <label for="fancy-checkbox-default3" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b class="pull-left">Повернені</b>
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="[ form-group ]">
-            <input type="checkbox"
-                   name="fancy-checkbox-default4"
-                   id="fancy-checkbox-default4"
-                   autocomplete="off"
-                   ng-click="orderStateFilter('CANCELLED')"
-                   ng-checked="isOptionChecked('CANCELLED')" />
-            <div class="[ btn-group ]">
-                <label for="fancy-checkbox-default4" class="[ btn btn-default ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
-                </label>
-                <label for="fancy-checkbox-default4" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b class="pull-left">Скасовані</b>
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="[ form-group ]">
-            <input type="checkbox"
-                   name="fancy-checkbox-default5"
-                   id="fancy-checkbox-default5"
-                   autocomplete="off"
-                   ng-click="orderStateFilter('SHIPPED')"
-                   ng-checked="isOptionChecked('SHIPPED')" />
-            <div class="[ btn-group ]">
-                <label for="fancy-checkbox-default5" class="[ btn btn-default ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
-                </label>
-                <label for="fancy-checkbox-default5" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b class="pull-left">Відправлені</b>
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="[ form-group ]">
-            <input type="checkbox"
-                   name="fancy-checkbox-default6"
-                   id="fancy-checkbox-default6"
-                   autocomplete="off"
-                   ng-click="orderStateFilter('PAYMENT_ERROR')"
-                   ng-checked="isOptionChecked('PAYMENT_ERROR')" />
-            <div class="[ btn-group ]">
-                <label for="fancy-checkbox-default6" class="[ btn btn-default ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
-                </label>
-                <label for="fancy-checkbox-default6" class="[ btn btn-default active ] desktopFixedWidth">
-                    <b class="pull-left">Помилка</b>
-                </label>
-            </div>
-        </div>
-    </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid desktopFilterView">
+    <div class="row buttonMargins">
+        <div class="col-md-offset-3 col-md-6">
+            <input type="text" class="form-control searchBarCentering" placeholder="Пошук" ng-model="query">
+        </div>
+        <button type="button"
+                class="btn btn-default col-md-2"
+                ng-click="isSortingActive=!isSortingActive; setSortOption()">
+            <span class="glyphicon glyphicon-sort-by-attributes-alt pull-left" ng-show="isSortingActive"></span>
+            <span class="glyphicon glyphicon-sort-by-attributes pull-left" ng-hide="isSortingActive"></span>
+            Сортування
+        </button>
+    </div>
+    <div class="checkboxGroup row">
+        <div class="col-md-3 col-md-offset-3">
+            <div class="[ form-group ]">
+                <input type="checkbox"
+                       name="fancy-checkbox-default1"
+                       id="fancy-checkbox-default1"
+                       autocomplete="off"
+                       ng-click="orderStateFilter('NEW')"
+                       ng-checked="isOptionChecked('NEW')"/>
+                <div class="[ btn-group ]">
+                    <label for="fancy-checkbox-default1" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                    </label>
+                    <label for="fancy-checkbox-default1" class="[ btn btn-default active ] desktopFixedWidth">
+                        <b class="pull-left">Нові</b>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="[ form-group ]">
+                <input type="checkbox"
+                       name="fancy-checkbox-default2"
+                       id="fancy-checkbox-default2"
+                       autocomplete="off"
+                       ng-click="orderStateFilter('PAYED')"
+                       ng-checked="isOptionChecked('PAYED')"/>
+                <div class="[ btn-group ]">
+                    <label for="fancy-checkbox-default2" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                    </label>
+                    <label for="fancy-checkbox-default2" class="[ btn btn-default active ] desktopFixedWidth">
+                        <b class="pull-left">Оплачені</b>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 noPaddingLeft">
+            <div class="[ form-group ]">
+                <input type="checkbox"
+                       name="fancy-checkbox-default3"
+                       id="fancy-checkbox-default3"
+                       autocomplete="off"
+                       ng-click="orderStateFilter('RETURNED')"
+                       ng-checked="isOptionChecked('RETURNED')" />
+                <div class="[ btn-group ]">
+                    <label for="fancy-checkbox-default3" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                    </label>
+                    <label for="fancy-checkbox-default3" class="[ btn btn-default active ] desktopFixedWidth">
+                        <b class="pull-left">Повернені</b>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-3">
+            <div class="[ form-group ]">
+                <input type="checkbox"
+                       name="fancy-checkbox-default4"
+                       id="fancy-checkbox-default4"
+                       autocomplete="off"
+                       ng-click="orderStateFilter('CANCELLED')"
+                       ng-checked="isOptionChecked('CANCELLED')" />
+                <div class="[ btn-group ]">
+                    <label for="fancy-checkbox-default4" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                    </label>
+                    <label for="fancy-checkbox-default4" class="[ btn btn-default active ] desktopFixedWidth">
+                        <b class="pull-left">Скасовані</b>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="[ form-group ]">
+                <input type="checkbox"
+                       name="fancy-checkbox-default5"
+                       id="fancy-checkbox-default5"
+                       autocomplete="off"
+                       ng-click="orderStateFilter('SHIPPED')"
+                       ng-checked="isOptionChecked('SHIPPED')" />
+                <div class="[ btn-group ]">
+                    <label for="fancy-checkbox-default5" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                    </label>
+                    <label for="fancy-checkbox-default5" class="[ btn btn-default active ] desktopFixedWidth">
+                        <b class="pull-left">Відправлені</b>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 noPaddingLeft">
+            <div class="[ form-group ]">
+                <input type="checkbox"
+                       name="fancy-checkbox-default6"
+                       id="fancy-checkbox-default6"
+                       autocomplete="off"
+                       ng-click="orderStateFilter('PAYMENT_ERROR')"
+                       ng-checked="isOptionChecked('PAYMENT_ERROR')" />
+                <div class="[ btn-group ]">
+                    <label for="fancy-checkbox-default6" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                    </label>
+                    <label for="fancy-checkbox-default6" class="[ btn btn-default active ] desktopFixedWidth">
+                        <b class="pull-left">Помилка</b>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-md-offset-2 col-md-10">
     <h4 class="text-center"><i>{{status}}</i></h4>
     <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
         <i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i>
