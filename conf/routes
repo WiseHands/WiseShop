@@ -15,7 +15,7 @@ GET     {client}/register                               Application.register
 
 
 POST    {client}/signin                                 UserAPI.login
-POST    {client}/login/google                           UserAPI.googleLogin
+POST    {client}/storeauthcode                          UserAPI.storeauthcode
 POST    {client}/signup                                 UserAPI.register
 
 GET     {client}/products                               ProductAPI.list
