@@ -145,6 +145,8 @@ public class UserAPI extends Controller {
 
         String json = json(user);
         System.out.println(json);
+
+        response.setHeader(X_AUTH_TOKEN, user.token);
         renderJSON(json);
     }
 
