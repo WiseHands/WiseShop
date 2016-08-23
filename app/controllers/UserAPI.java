@@ -1,5 +1,8 @@
 package controllers;
 
+import com.google.api.client.googleapis.auth.oauth2.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.ContactDTO;
@@ -13,6 +16,8 @@ import responses.UserDoesNotExist;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import java.io.File;
+import java.io.FileReader;
 
 public class UserAPI extends Controller {
     private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
@@ -78,6 +83,50 @@ public class UserAPI extends Controller {
 
     public static void storeauthcode(String authCode) throws Exception {
         System.out.println(authCode);
+
+        String CLIENT_SECRET_FILE = "conf/client_secret.json";
+        String REDIRECT_URI = "postmessage";
+
+        GoogleClientSecrets clientSecrets =
+                GoogleClientSecrets.load(
+                        JacksonFactory.getDefaultInstance(), new FileReader(CLIENT_SECRET_FILE));
+        GoogleTokenResponse tokenResponse =
+                new GoogleAuthorizationCodeTokenRequest(
+                        new NetHttpTransport(),
+                        JacksonFactory.getDefaultInstance(),
+                        "https://www.googleapis.com/oauth2/v4/token",
+                        clientSecrets.getDetails().getClientId(),
+                        clientSecrets.getDetails().getClientSecret(),
+                        authCode,
+                        REDIRECT_URI)  // Specify the same redirect URI that you use with your web
+                        // app. If you don't have a web version of your app, you can
+                        // specify an empty string.
+                        .execute();
+        String accessToken = tokenResponse.getAccessToken();
+
+        GoogleCredential credential = new GoogleCredential().setAccessToken(accessToken);
+
+        GoogleIdToken idToken = tokenResponse.parseIdToken();
+        GoogleIdToken.Payload payload = idToken.getPayload();
+        String userId = payload.getSubject();  // Use this value as a key to identify a user.
+        String email = payload.getEmail();
+        boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+        String name = (String) payload.get("name");
+        String pictureUrl = (String) payload.get("picture");
+        String locale = (String) payload.get("locale");
+        String familyName = (String) payload.get("family_name");
+        String givenName = (String) payload.get("given_name");
+
+        System.out.println(userId);
+        System.out.println(email);
+        System.out.println(emailVerified);
+        System.out.println(name);
+        System.out.println(pictureUrl);
+        System.out.println(locale);
+        System.out.println(familyName);
+        System.out.println(givenName);
+
+
     }
 
     public static boolean isValidEmailAddress(String email) {
