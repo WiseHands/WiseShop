@@ -76,6 +76,22 @@ public class UserAPI extends Controller {
         }
     }
 
+    public static void googleLogin(String email) throws Exception {
+        if (isValidEmailAddress(email)) {
+            UserDTO user = UserDTO.find("byEmail", email).first();
+
+            if(user == null)
+                forbidden(json(new UserDoesNotExist()));
+
+            response.setHeader(X_AUTH_TOKEN, user.token);
+            String json = json(user);
+            renderJSON(json);
+        } else {
+            UserDoesNotExist error = new UserDoesNotExist();
+            forbidden(json(error));
+        }
+    }
+
     public static boolean isValidEmailAddress(String email) {
         boolean result = true;
         try {

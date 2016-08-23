@@ -35,8 +35,6 @@
 			// Retrieve the singleton for the GoogleAuth library and set up the client.
 			auth2 = gapi.auth2.init({
 				client_id: '226448583548-f0d5694lbcpl72juk3ul53utg6gl92hj.apps.googleusercontent.com',
-				cookiepolicy: 'single_host_origin',
-				// Request scopes in addition to 'profile' and 'email'
 				scope: 'profile email'
 			});
 			attachSignin(document.getElementById('my-signin2'));
@@ -51,6 +49,17 @@
 					console.log('Name: ' + profile.getName());
 					console.log('Image URL: ' + profile.getImageUrl());
 					console.log('Email: ' + profile.getEmail());
+
+					$.ajax({
+						type: 'POST',
+						url: '/login/google?email=' + profile.getEmail(),
+						contentType: 'application/octet-stream; charset=utf-8',
+						success: function(result) {
+							console.log(result);
+
+						},
+						processData: false
+					});
 				}, function(error) {
 					alert(JSON.stringify(error, undefined, 2));
 				});
