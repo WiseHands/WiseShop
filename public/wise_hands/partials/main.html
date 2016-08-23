@@ -2,14 +2,22 @@
     <div class="container">
         <h2 class="title">Wise Hands</h2>
         <form class="form-signin" name="loginForm">
-            <div class="row">
-                <div class="column">
-                    <label>Create your own web-store in 2 minutes!</label>
+            <div ng-hide="showShopList">
+                <div class="row">
+                    <div class="column">
+                        <label>Create your own web-store in 2 minutes!</label>
+                    </div>
                 </div>
+                <a href="#/register"><button class="button-submit full-width buttonStyling">REGISTER</button></a>
+                <button class="button-submit full-width buttonStyling" id="my-signin2">SIGN IN WITH GOOGLE</button>
+                <a href="#/login"><button class="button-submit full-width buttonStyling">SIGN IN</button></a>
             </div>
-            <a href="#/register"><button class="button-submit full-width buttonStyling">REGISTER</button></a>
-            <button class="button-submit full-width buttonStyling" id="my-signin2">SIGN IN WITH GOOGLE</button>
-            <a href="#/login"><button class="button-submit full-width buttonStyling">SIGN IN</button></a>
+            <div class="row">
+                <a href="#" class="forgot" ng-show="showShopList">Choose proper web-store</a>
+            </div>
+            <div ng-repeat="shop in user.shopList">
+                <button class="button-submit full-width buttonStyling" ng-click="properShop(shop)">{{shop.shopName}}</button>
+            </div>
         </form>
     </div>
 </div>

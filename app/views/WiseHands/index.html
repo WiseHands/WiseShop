@@ -29,41 +29,41 @@
 <script src="public/wise_hands/js/controllers/RegisterFormController.js"></script>
 
 <script>
-	var googleUser = {};
-	var startApp = function() {
-		gapi.load('auth2', function(){
-			// Retrieve the singleton for the GoogleAuth library and set up the client.
-			auth2 = gapi.auth2.init({
-				client_id: '226448583548-f0d5694lbcpl72juk3ul53utg6gl92hj.apps.googleusercontent.com',
-				scope: 'profile email'
-			});
-			attachSignin(document.getElementById('my-signin2'));
-		});
-	};
-	function attachSignin(element) {
-		console.log(element.id);
-		auth2.attachClickHandler(element, {},
-				function(googleUser) {
-					var profile = googleUser.getBasicProfile();
-					console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-					console.log('Name: ' + profile.getName());
-					console.log('Image URL: ' + profile.getImageUrl());
-					console.log('Email: ' + profile.getEmail());
-
-					$.ajax({
-						type: 'POST',
-						url: '/login/google?email=' + profile.getEmail(),
-						contentType: 'application/octet-stream; charset=utf-8',
-						success: function(result) {
-							console.log(result);
-
-						},
-						processData: false
-					});
-				}, function(error) {
-					alert(JSON.stringify(error, undefined, 2));
-				});
-	}
+//	var googleUser = {};
+//	var startApp = function() {
+//		gapi.load('auth2', function(){
+//			// Retrieve the singleton for the GoogleAuth library and set up the client.
+//			auth2 = gapi.auth2.init({
+//				client_id: '226448583548-f0d5694lbcpl72juk3ul53utg6gl92hj.apps.googleusercontent.com',
+//				scope: 'profile email'
+//			});
+//			attachSignin(document.getElementById('my-signin2'));
+//		});
+//	};
+//	function attachSignin(element) {
+//		console.log(element.id);
+//		auth2.attachClickHandler(element, {},
+//				function(googleUser) {
+//					var profile = googleUser.getBasicProfile();
+//					console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+//					console.log('Name: ' + profile.getName());
+//					console.log('Image URL: ' + profile.getImageUrl());
+//					console.log('Email: ' + profile.getEmail());
+//
+//					$.ajax({
+//						type: 'POST',
+//						url: '/login/google?email=' + profile.getEmail(),
+//						contentType: 'application/octet-stream; charset=utf-8',
+//						success: function(result) {
+//							console.log(result);
+//
+//						},
+//						processData: false
+//					});
+//				}, function(error) {
+//					alert(JSON.stringify(error, undefined, 2));
+//				});
+//	}
 </script>
 
 <script src="https://apis.google.com/js/platform.js?onload=startApp" async defer></script>
