@@ -44,8 +44,8 @@ angular.module('WiseHands')
                 reader.onload = function(event){
                     var img = new Image();
                     img.onload = function(){
-                        var MAX_WIDTH = 512;
-                        var MAX_HEIGHT = 512;
+                        var MAX_WIDTH = 576;
+                        var MAX_HEIGHT = 432;
                         var width = img.width;
                         var height = img.height;
                         height = MAX_HEIGHT;
