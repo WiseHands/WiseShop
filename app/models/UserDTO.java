@@ -18,6 +18,25 @@ public class UserDTO extends GenericModel {
     public String uuid;
 
     @Expose
+    public String googleId;
+
+    @Expose
+    public String name;
+
+    @Expose
+    public String givenName;
+
+    @Expose
+    public String familyName;
+
+    @Expose
+    public String locale;
+
+
+    @Expose
+    public String profileUrl;
+
+    @Expose
     public String email;
 
     public String password;

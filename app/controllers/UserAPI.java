@@ -126,7 +126,26 @@ public class UserAPI extends Controller {
         System.out.println(familyName);
         System.out.println(givenName);
 
+        if(!emailVerified){
+            error("user have not verified email address on google");
+        }
 
+        UserDTO user = UserDTO.find("byEmail", email).first();
+        if(user == null){
+            error("user not registered"); //TODO: google sign should already register user!!!
+        }
+
+        user.googleId = userId;
+        user.name = name;
+        user.profileUrl = pictureUrl;
+        user.locale = locale;
+        user.familyName = familyName;
+        user.givenName = givenName;
+        user.save();
+
+        String json = json(user);
+        System.out.println(json);
+        renderJSON(json);
     }
 
     public static boolean isValidEmailAddress(String email) {
