@@ -255,3 +255,24 @@ form {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*background-color: #b61924;*/
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+canvas {
+    display: block;
+    vertical-align: bottom;
+    /*position: absolute;*/
+}
+#best {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}

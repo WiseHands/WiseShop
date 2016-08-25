@@ -23,6 +23,7 @@
     "paper-input": "*",
     "iron-ajax": "*",
     "angular-route": "1.4.x",
-    "image-engine-angular": "^1.0.1"
+    "image-engine-angular": "^1.0.1",
+    "particles.js": "^2.0.0"
   }
 }
