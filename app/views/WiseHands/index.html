@@ -41,39 +41,13 @@
           //scope: 'additional_scope'
         });
       });
-	  $('#signinButton').click(function() {
-    	console.log('click');
-		// signInCallback defined in step 6.
-		window.auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInCallback);
-	  });
     }
 
-	function signInCallback(authResult) {
-	  if (authResult['code']) {
 
-		// Hide the sign-in button now that the user is authorized, for example:
-		$('#signinButton').attr('style', 'display: none');
-
-		// Send the code to the server //TODO: change to http://wisehands.me
-		$.ajax({
-		  type: 'POST',
-		  url: '/storeauthcode?authCode=' + authResult['code'],
-		  contentType: 'application/octet-stream; charset=utf-8',
-		  success: function(result) {
-			console.log(result);
-		  },
-		  processData: false,
-		  data: authResult['code']
-		});
-	  } else {
-		// There was an error.
-	  }
-	}
 </script>
 
 <script>
 	particlesJS.load('particles-js', 'public/assets/particles.json', function() {
-		console.log('callback - particles.js config loaded');
 	});
 </script>
 

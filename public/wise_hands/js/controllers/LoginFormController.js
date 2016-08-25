@@ -116,7 +116,30 @@
 
 
                         });
+            }
+            
+            $scope.googleSignIn = function () {
+                window.auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInCallback);
+
             };
+
+            function signInCallback(authResult) {
+                if (authResult['code']) {
+                    // Send the code to the server //TODO: change to http://wisehands.me
+                    $.ajax({
+                        type: 'POST',
+                        url: '/storeauthcode?authCode=' + authResult['code'],
+                        contentType: 'application/octet-stream; charset=utf-8',
+                        success: function(user) {
+                            console.log(user);
+                        },
+                        processData: false,
+                        data: authResult['code']
+                    });
+                } else {
+                    // There was an error.
+                }
+            }
 
             window.startApp = startApp;
         });
