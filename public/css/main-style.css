@@ -12,6 +12,10 @@ body {
     padding:3rem 0rem 7rem 0rem;
 }
 
+html, body {
+    margin: 0 auto;
+}
+
 h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     margin-bottom: 2rem;
@@ -187,6 +191,10 @@ label > .label-body {
     .container {
         width: 85%;
         padding: 0; }
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 }
 
 @media (min-width: 550px) {
@@ -198,6 +206,10 @@ label > .label-body {
     h4 { font-size: 2.2rem; }
     h5 { font-size: 2.0rem; }
     h6 { font-size: 1.5rem; }
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 }
 
 
@@ -275,8 +287,5 @@ canvas {
     position: absolute;
     width: 100%;
     height: 100%;
-}
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
+    overflow-x:hidden;
 }
