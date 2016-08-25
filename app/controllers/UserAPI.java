@@ -66,6 +66,9 @@ public class UserAPI extends Controller {
             if(user == null)
                 forbidden(json(new UserDoesNotExist()));
 
+            if(user.password == null) // if the user used google sign in and hacker tries to login via empty password
+                forbidden(json(new UserDoesNotExist()));
+
             if(!user.password.equals(password)) {
                 InvalidPassword error = new InvalidPassword();
                 forbidden(json(error));
