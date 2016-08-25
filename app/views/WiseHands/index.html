@@ -17,7 +17,8 @@
 
 </head>
 <body>
-<div ng-view></div>
+
+<div id="particles-js"><div id="best" ng-view></div></div>
 
 <script src="public/js/angular.js"></script>
 <script src="public/bower_components/angular-route/angular-route.js"></script>
@@ -27,6 +28,8 @@
 
 <script src="public/wise_hands/js/controllers/LoginFormController.js"></script>
 <script src="public/wise_hands/js/controllers/RegisterFormController.js"></script>
+
+<script src="public/bower_components/particles.js/particles.min.js"></script>
 
 <script>
 	function start() {
@@ -65,6 +68,12 @@
 		// There was an error.
 	  }
 	}
+</script>
+
+<script>
+	particlesJS.load('particles-js', 'public/assets/particles.json', function() {
+		console.log('callback - particles.js config loaded');
+	});
 </script>
 
 <script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
