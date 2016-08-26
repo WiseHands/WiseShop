@@ -4,13 +4,16 @@
         <form class="form-signin" name="loginForm">
             <div ng-hide="showShopList">
                 <div class="row">
-                    <div class="column">
+                    <div class="column labelBotMargin">
                         <label>Create your own web-store in 2 minutes!</label>
                     </div>
+                    <div class="column">
+                        <button class="button-submit full-width buttonStyling" ng-click="googleSignIn()">SIGN IN WITH GOOGLE</button>
+                    </div>
+                    <div class="column">
+                        <a href="#/emailsignin"><label>Click here to use email/password</label></a>
+                    </div>
                 </div>
-                <a href="#/register"><button class="button-submit full-width buttonStyling">REGISTER</button></a>
-                <button class="button-submit full-width buttonStyling" ng-click="googleSignIn()">SIGN IN WITH GOOGLE</button>
-                <a href="#/login"><button class="button-submit full-width buttonStyling">SIGN IN</button></a>
             </div>
             <div class="row">
                 <a href="#" class="forgot" ng-show="showShopList">Choose proper web-store</a>
