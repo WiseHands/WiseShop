@@ -72,6 +72,11 @@ public class Application extends Controller {
             renderTemplate("WiseHands/index.html");
         }
 
+        ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
+        if (shopDTO == null) {
+            notFound("The requested Shop is not available. Contact administrator    ");
+        }
+
         renderTemplate("Application/shop.html");
     }
 
@@ -84,6 +89,11 @@ public class Application extends Controller {
     }
 
     public static void shop(String client) {
+        ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
+        if (shopDTO == null) {
+            notFound("The requested Shop is not available. Contact administrator    ");
+        }
+
         render();
     }
 
