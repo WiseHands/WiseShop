@@ -120,6 +120,10 @@ angular.module('WiseHands')
 
         $scope.getUrl = function (shop) {
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
+        };
+        $scope.signOut = function () {
+            localStorage.clear();
+            window.location = '/';
         }
 
         
