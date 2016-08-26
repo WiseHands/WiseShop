@@ -205,6 +205,7 @@ p {
 }
 .desktopNavProductsDivider {
     width: 14.2em;
+    margin: 0;
 
 }
 .productImageTopPadding {
@@ -419,4 +420,6 @@ p {
 .noPaddingLeft {
     padding-left: 0;
 }
-
+ .hrMargin {
+     margin: 0;
+ }

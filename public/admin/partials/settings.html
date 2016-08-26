@@ -31,6 +31,8 @@
                 <li><a href="#/delivery">Доставка</a></li>
                 <li><a href="#/contacts">Контакти</a></li>
                 <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
+                <hr class="hrMargin">
+                <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
             </ul>
         </div>
 
@@ -49,6 +51,8 @@
                     <li><a href="#/delivery">Доставка</a></li>
                     <li><a href="#/contacts">Контакти</a></li>
                     <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
+                    <hr class="hrMargin">
+                    <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
                 </ul>
             </div>
         </div>
@@ -75,6 +79,7 @@
         <li><a href="#/contacts">Контакти</a></li>
         <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
         <hr class="desktopNavProductsDivider">
+        <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
     </ul>
     <button type="button"
             class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin btn-inline"

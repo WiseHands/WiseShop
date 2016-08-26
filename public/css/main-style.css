@@ -9,7 +9,7 @@ body {
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #222;
     background-color: rgb(14, 41, 53);
-    padding:3rem 0rem 7rem 0rem;
+    padding:0rem 0rem 7rem 0rem;
 }
 
 html, body {
@@ -44,7 +44,9 @@ a:hover {
     max-width: 960px;
     margin: 0 auto;
     padding: 0 20px;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    padding-bottom: 3rem;
+}
 
 .column {
     width: 100%;
@@ -252,6 +254,7 @@ form {
 .title{
     color:#E6E9EA;
     text-align:center;
+    padding-top: 3rem;
 }
 
 .forgot{
