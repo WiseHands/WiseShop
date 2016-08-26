@@ -18,6 +18,10 @@
                     templateUrl:'public/wise_hands/partials/register-form.html',
                     controller:'RegisterFormController',
                 }).
+                when('/emailsignin',{
+                    templateUrl:'public/wise_hands/partials/login_registerForm.html',
+                    controller:'LoginFormController',
+                }).
                 otherwise({
                     redirectTo:'/'
                 });

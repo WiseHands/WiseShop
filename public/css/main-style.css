@@ -289,3 +289,6 @@ canvas {
     height: 100%;
     overflow-x:hidden;
 }
+.labelBotMargin {
+    margin-bottom: 1rem;
+}
