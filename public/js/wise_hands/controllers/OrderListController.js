@@ -24,7 +24,6 @@
             $http(req)
                 .then(function successCallback(response) {
                     spinnerService.hide('mySpinner');
-                    debugger;
                     var data = response.data;
                     if(data.length === 0) {
                         $scope.status = 'Замовлення відсутні';
