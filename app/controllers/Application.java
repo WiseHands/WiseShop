@@ -100,7 +100,11 @@ public class Application extends Controller {
     }
 
     public static void login(String client) {
-        renderTemplate("WiseHands/login.html");
+        if (client.equals("localhost")){
+            redirect("http://localhost:3334");
+        } else {
+            redirect("http://wisehands.me");
+        }
     }
 
     public static void register(String client) {
