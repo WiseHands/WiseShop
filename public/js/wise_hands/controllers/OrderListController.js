@@ -24,13 +24,18 @@
             $http(req)
                 .then(function successCallback(response) {
                     spinnerService.hide('mySpinner');
+                    debugger;
                     var data = response.data;
                     if(data.length === 0) {
                         $scope.status = 'Замовлення відсутні';
                     } else {
                         $scope.orders = response.data;
                     }
-                }, function errorCallback(data) {
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        console.log('do logout here');
+                        $scope.signOut();
+                    }
                     spinnerService.hide('mySpinner');
                     $scope.status = 'Щось пішло не так...';
                 });

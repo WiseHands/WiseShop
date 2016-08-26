@@ -53,7 +53,9 @@ public class OrderAPI extends Controller {
             UserDTO user = UserDTO.findById(userId);
 
             if(user == null)
-                forbidden("Invalid X-AUTH-TOKEN: " + token);
+                forbidden("Invalid X-AUTH-USER-ID: " + token);
+            if(!user.token.equals(token))
+                forbidden("Invalid X-AUTH-TOKEN");
         } else {
             forbidden("Empty X-AUTH-TOKEN");
         }
