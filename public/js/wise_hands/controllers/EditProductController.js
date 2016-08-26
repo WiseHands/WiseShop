@@ -1,6 +1,6 @@
 angular.module('WiseHands')
-    .controller('EditProductController', ['$http', '$scope', '$routeParams', '$location',
-        function($http, $scope, $routeParams, $location, $route) {
+    .controller('EditProductController', ['$http', '$scope', '$routeParams', '$location', 'signout',
+        function($http, $scope, $routeParams, $location, $route, signout) {
             $scope.$route = $route;
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
@@ -87,9 +87,12 @@ angular.module('WiseHands')
                         $scope.loading = false;
                         $location.path('/product/details/' + data.uuid);
                     })
-                    .error(function(){
+                    .error(function(response){
+                        if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            signout.signOut();
+                        }
                         $scope.loading = false;
-                        console.log(error);
+                        console.log(response);
                     });
 
             };

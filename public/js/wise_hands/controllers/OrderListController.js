@@ -1,5 +1,5 @@
     angular.module('WiseHands')
-        .controller('OrderListController', function ($scope, $http, shared, $route, spinnerService) {
+        .controller('OrderListController', function ($scope, $http, shared, $route, spinnerService, signout) {
             $scope.$route = $route;
             $scope.isSortingActive = shared.isSortingActive;
 
@@ -32,8 +32,7 @@
                     }
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        console.log('do logout here');
-                        $scope.signOut();
+                        signout.signOut();
                     }
                     spinnerService.hide('mySpinner');
                     $scope.status = 'Щось пішло не так...';
@@ -51,7 +50,10 @@
                 .then(function successCallback(response) {
                     $scope.activeShop = response.data;
 
-                }, function errorCallback(data) {
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
                     $scope.status = 'Щось пішло не так...';
                 });
 
@@ -125,8 +127,5 @@
             $scope.getUrl = function (shop) {
                 return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
             };
-            $scope.signOut = function () {
-                localStorage.clear();
-                window.location = '/';
-            }
+            $scope.signOut = signout.signOut;
         });

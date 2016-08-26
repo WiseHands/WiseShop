@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('SubmitNewProductController', function ($scope, $location, $http, $route) {
+    .controller('SubmitNewProductController', function ($scope, $location, $http, $route, signout) {
         $scope.$route = $route;
         var fd = new FormData();
 
@@ -54,9 +54,12 @@ angular.module('WiseHands')
                     $scope.loading = false;
                     $location.path('/product/details/' + data.uuid);
                 })
-                .error(function(){
+                .error(function(response){
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
                     $scope.loading = false;
-                    console.log(error);
+                    console.log(response);
                 });
         };
     });
