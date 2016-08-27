@@ -46,9 +46,6 @@ PUT     {client}/order/{uuid}/returned                  OrderAPI.markReturned
 GET     {client}/contact/details                         ContactAPI.details
 PUT     {client}/contact                                 ContactAPI.update
 
-
-GET     {client}/checkdomain                            CheckDomainApi.checkDomain
-
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 
