@@ -242,6 +242,7 @@ public class OrderAPI extends Controller {
 
     private static void sendEmailAboutNewOrder(ShopDTO shop, OrderDTO order, String status) throws EmailException {
         SimpleEmail email = new SimpleEmail();
+        email.setCharset("UTF-16");
         email.setFrom("bohdaq@gmail.com");
         for (UserDTO user : shop.userList) {
             System.out.println("AddTo: " + user.email);
