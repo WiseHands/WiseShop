@@ -11,19 +11,13 @@ import org.apache.commons.mail.SimpleEmail;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import play.Play;
 import play.libs.Mail;
+import services.SmsSender;
 
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import javax.inject.Inject;
 import java.util.*;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 
 public class OrderAPI extends AuthController {
@@ -40,7 +34,10 @@ public class OrderAPI extends AuthController {
         private static final String COURIER = "COURIER";
     }
 
-    public static void create(String client) throws ParseException, EmailException {
+    @Inject
+    static SmsSender sender;
+
+    public static void create(String client) throws Exception {
 
         ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
 
@@ -89,6 +86,8 @@ public class OrderAPI extends AuthController {
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         sendEmailAboutNewOrder(shop, order, "");
+        sender.sendSms(order.phone, "Ваше замовлення прийнято, найближчим часом менеджер звя'яжеться з Вами");
+        //TODO notify manager
 
         //LIQPAY:
         HashMap params = new HashMap();
@@ -117,6 +116,7 @@ public class OrderAPI extends AuthController {
 
     public static void list(String client) throws Exception {
         checkAuthentification();
+        //sender.sendSms("380630386173", "testing guice");
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         List<OrderDTO> orderDTOs = OrderDTO.find("byShop", shop).fetch();
@@ -139,12 +139,12 @@ public class OrderAPI extends AuthController {
     public static void markPayed(String client, String uuid) throws Exception {
         checkAuthentification();
 
-        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
-        orderDTO.state = OrderState.PAYED;
-        orderDTO.save();
+        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        order.state = OrderState.PAYED;
+        order.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(orderDTO);
+        String json = gson.toJson(order);
         renderJSON(json);
     }
 
@@ -184,7 +184,7 @@ public class OrderAPI extends AuthController {
         renderJSON(json);
     }
 
-    public static void success(String client, String data) throws ParseException, EmailException {
+    public static void success(String client, String data) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         final LiqPayLocal liqpay = new LiqPayLocal(PUBLIC_KEY, PRIVATE_KEY);
@@ -211,12 +211,16 @@ public class OrderAPI extends AuthController {
         if (status.equals("failure")){
             order.state  = OrderState.PAYMENT_ERROR;
             order.save();
+            sender.sendSms(order.phone, "Нажаль сталась помилка при оплаті Вашого замовлення");
             sendEmailAboutNewOrder(shop, order, "Payment Not Received");
             return;
         }
 
         order.state  = OrderState.PAYED;
         order.save();
+
+        sender.sendSms(order.phone, "Ваше замовлення оплачено, дякуємо");
+
         sendEmailAboutNewOrder(shop, order, "Payment Received");
 
         ok();
@@ -234,97 +238,5 @@ public class OrderAPI extends AuthController {
         email.setMsg(order.toString());
         Mail.send(email);
     }
-
-    private static void calcSum() throws NoSuchAlgorithmException, IOException {
-        final String PUBLIC_KEY = "4c4404453e03a68de05e5205ab50e605";
-        final String PRIVATE_KEY = "6cd0d950d9c51d29f800e8db9c5377b6";
-        final String API_VERSION = "3.0";
-        final String ACTION = "sendSMS";
-        final String SENDER = "Info";
-
-        String phone = "380630386173";
-        String text = "test";
-
-        final String LIFETIME = "0";
-        final String DATETIME = "";
-
-        final String BASE_URL = "http://atompark.com/api/sms/3.0/sendSMS";
-
-
-
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("version", API_VERSION);
-        params.put("action", ACTION);
-        params.put("key", PUBLIC_KEY);
-        params.put("sender", SENDER);
-        params.put("text", text);
-        params.put("phone", phone);
-        params.put("datetime", DATETIME);
-        params.put("sms_lifetime", LIFETIME);
-
-        params = new TreeMap<String, String>(params);
-        StringBuilder sum = new StringBuilder();
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            sum.append(entry.getValue());
-        }
-        sum.append(PRIVATE_KEY);
-        System.out.println(sum.toString());
-
-
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(sum.toString().getBytes());
-
-        byte byteData[] = md.digest();
-
-        StringBuffer hexString = new StringBuffer();
-        for (int i=0;i<byteData.length;i++) {
-            String hex=Integer.toHexString(0xff & byteData[i]);
-            if(hex.length()==1) hexString.append('0');
-            hexString.append(hex);
-        }
-
-        String conrolSum = hexString.toString();
-        System.out.println(conrolSum); //5df1dcf83853644cdfec9a2af14a68bc
-
-        String url = BASE_URL +
-                "?key=" + PUBLIC_KEY +
-                "&sum=" + conrolSum +
-                "&sender=" + SENDER +
-                "&text=" + text +
-                "&phone=" + phone +
-                "&datetime=" + DATETIME +
-                "&sms_lifetime=" + LIFETIME;
-
-        final String USER_AGENT = "Mozilla/5.0";
-
-
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-        // optional default is GET
-        con.setRequestMethod("GET");
-
-        //add request header
-        con.setRequestProperty("User-Agent", USER_AGENT);
-
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        //print result
-        System.out.println(response.toString());
-    }
-
-//http://atompark.com/api/sms/3.0/sendSMS?key=4c4404453e03a68de05e5205ab50e605&sum=9eaf7aa9b4ea3fb762f4fe7d3f12b39a&sender=Info&text=test&phone=380630386173&datetime=&sms_lifetime=0
 
 }
