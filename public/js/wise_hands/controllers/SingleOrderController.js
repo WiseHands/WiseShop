@@ -1,6 +1,6 @@
     angular.module('WiseHands')
-        .controller('SingleOrderController', ['$http', '$scope', '$routeParams',
-            function($http, $scope, $routeParams, $route) {
+        .controller('SingleOrderController', ['$http', '$scope', '$routeParams', 'signout',
+            function($http, $scope, $routeParams, $route, signout) {
                 $scope.$route = $route;
                 $scope.uuid = $routeParams.uuid;
                 $scope.loading = true;
@@ -28,7 +28,10 @@
                             }
                             $scope.properDate = ddyymm + ' ' + hour + ':' + minute;
                         }
-                    }, function errorCallback(data) {
+                    }, function errorCallback(response) {
+                        if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            signout.signOut();
+                        }
                         $scope.loading = false;
                         $scope.status = 'Щось пішло не так...';
                     });
@@ -55,9 +58,12 @@
                             $scope.deleteMessage = 'Замовлення видалене.';
                             $scope.modalSpinner = false;
                             $scope.succesfullDelete = true;
-                        }, function errorCallback(error) {
+                        }, function errorCallback(response) {
+                            if (response.data === 'Invalid X-AUTH-TOKEN') {
+                                signout.signOut();
+                            }
                             $scope.modalSpinner = false;
-                            console.log(error);
+                            console.log(response);
                         });
                 };
                 $scope.orderState = function(order){
@@ -89,9 +95,12 @@
                         .then(function successCallback(response){
                             $scope.loading = false;
                             $scope.order = response.data;
-                        }, function errorCallback(error){
+                        }, function errorCallback(response){
+                            if (response.data === 'Invalid X-AUTH-TOKEN') {
+                                signout.signOut();
+                            }
                             $scope.loading = false;
-                            console.log(error);
+                            console.log(response);
                         });
                 };
                 $scope.cancelledOrder = function () {
@@ -107,9 +116,12 @@
                         .then(function successCallback(response){
                             $scope.loading = false;
                             $scope.order = response.data;
-                        }, function errorCallback(error){
+                        }, function errorCallback(response){
+                            if (response.data === 'Invalid X-AUTH-TOKEN') {
+                                signout.signOut();
+                            }
                             $scope.loading = false;
-                            console.log(error);
+                            console.log(response);
                         });
                 };
                 $scope.shippedOrder = function () {
@@ -125,9 +137,12 @@
                         .then(function successCallback(response){
                             $scope.loading = false;
                             $scope.order = response.data;
-                        }, function errorCallback(error){
+                        }, function errorCallback(response){
+                            if (response.data === 'Invalid X-AUTH-TOKEN') {
+                                signout.signOut();
+                            }
                             $scope.loading = false;
-                            console.log(error);
+                            console.log(response);
                         });
                 };
                 $scope.returnedOrder = function () {
@@ -143,9 +158,12 @@
                         .then(function successCallback(response){
                             $scope.loading = false;
                             $scope.order = response.data;
-                        }, function errorCallback(error){
+                        }, function errorCallback(response){
+                            if (response.data === 'Invalid X-AUTH-TOKEN') {
+                                signout.signOut();
+                            }
                             $scope.loading = false;
-                            console.log(error);
+                            console.log(response);
                         });
                 };
             }]);

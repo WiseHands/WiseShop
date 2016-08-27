@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('FilterOptionsController', function ($scope, $http, shared, $route, spinnerService){
+    .controller('FilterOptionsController', function ($scope, $http, shared, $route, spinnerService, signout){
         $scope.$route = $route;
         $scope.filterOptions = shared.filterOptions || [];
         $scope.isSortingActive = shared.isSortingActive;
@@ -20,7 +20,10 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
 
-            }, function errorCallback(data) {
+            }, function errorCallback(response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
                 $scope.status = 'Щось пішло не так...';
             });
 
@@ -54,15 +57,6 @@ angular.module('WiseHands')
             },
             data: {}
         };
-        var req = {
-            method: 'GET',
-            url: '/orders',
-            headers: {
-                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-            },
-            data: {}
-        };
 
         $scope.getResource = function () {
             spinnerService.show('mySpinner');
@@ -76,7 +70,10 @@ angular.module('WiseHands')
                 } else {
                     $scope.orders = response.data;
                 }
-            }, function errorCallback(data) {
+            }, function errorCallback(response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
                 spinnerService.hide('mySpinner');
                 $scope.status = 'Щось пішло не так...';
             });
@@ -120,8 +117,5 @@ angular.module('WiseHands')
         $scope.getUrl = function (shop) {
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
         };
-        $scope.signOut = function () {
-            localStorage.clear();
-            window.location = '/';
-        }
+        $scope.signOut = signout.signOut;
     });

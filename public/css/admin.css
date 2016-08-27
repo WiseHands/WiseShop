@@ -423,3 +423,6 @@ p {
  .hrMargin {
      margin: 0;
  }
+.navbar-fixed-left ul li:hover {
+    cursor: pointer;
+}

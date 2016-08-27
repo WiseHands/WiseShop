@@ -42,7 +42,7 @@ public class UserDTO extends GenericModel {
     public String password;
 
     @Expose
-    @OneToMany
+    @ManyToMany
     public List<ShopDTO> shopList;
 
     @Column

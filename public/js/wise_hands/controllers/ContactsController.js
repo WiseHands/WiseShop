@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('ContactsController', function ($scope, $route, $http, $location) {
+    .controller('ContactsController', function ($scope, $route, $http, signout) {
         $scope.$route = $route;
         $scope.loading = true;
 
@@ -32,9 +32,12 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.loading = false;
-                }, function errorCallback(error) {
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
                     $scope.loading = false;
-                    console.log(error);
+                    console.log(response);
                 });
 
         };
@@ -49,15 +52,15 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
 
-            }, function errorCallback(data) {
+            }, function errorCallback(response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
                 $scope.status = 'Щось пішло не так...';
             });
 
         $scope.getUrl = function (shop) {
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
         };
-        $scope.signOut = function () {
-            localStorage.clear();
-            window.location = '/';
-        }
+        $scope.signOut = signout.signOut;
     });

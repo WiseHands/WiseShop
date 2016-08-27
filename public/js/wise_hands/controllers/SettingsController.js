@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('SettingsController', function ($scope, $route, $http) {
+    .controller('SettingsController', function ($scope, $route, $http, signout) {
         $scope.$route = $route;
         $scope.loading = true;
         $scope.hostName = window.location.hostname;
@@ -31,7 +31,10 @@ angular.module('WiseHands')
                     }
                 });
 
-            }, function errorCallback(data) {
+            }, function errorCallback(response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
                 $scope.loading = false;
                 $scope.status = 'Щось пішло не так...';
             });
@@ -48,7 +51,10 @@ angular.module('WiseHands')
                 $scope.activeShop = response.data;
 
 
-            }, function errorCallback(data) {
+            }, function errorCallback(response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
                 $scope.status = 'Щось пішло не так...';
             });
 
@@ -112,19 +118,19 @@ angular.module('WiseHands')
                     document.title = $scope.selectedShop.shopName;
                     $scope.activeShop = $scope.selectedShop;
                 }).
-            error(function (error) {
+            error(function (response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
                 $scope.loading = false;
-                console.log(error);
+                console.log(response);
             });
         };
 
         $scope.getUrl = function (shop) {
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
         };
-        $scope.signOut = function () {
-            localStorage.clear();
-            window.location = '/';
-        }
+        $scope.signOut = signout.signOut;
 
         
     });

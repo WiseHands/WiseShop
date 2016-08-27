@@ -18,6 +18,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserAPI extends Controller {
     private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
@@ -46,7 +48,8 @@ public class UserAPI extends Controller {
             ContactDTO contact = new ContactDTO("+380", "me@email.com", "Lviv", "25,67:48.54", "Best Company Ever");
             contact.save();
 
-            ShopDTO shop = new ShopDTO(user, delivery, contact, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
+            List<UserDTO> users = new ArrayList<UserDTO>();
+            ShopDTO shop = new ShopDTO(users, delivery, contact, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
             shop.save();
 
             user = UserDTO.find("byEmail", email).first();

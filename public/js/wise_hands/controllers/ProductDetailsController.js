@@ -1,6 +1,6 @@
 angular.module('WiseHands')
-    .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', '$location',
-        function($http, $scope, $routeParams, $location, $route) {
+    .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', '$location', 'signout',
+        function($http, $scope, $routeParams, $location, $route, signout) {
             $scope.$route = $route;
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
@@ -40,9 +40,12 @@ angular.module('WiseHands')
                         $scope.succesfullDelete = true;
                         $scope.deleteMessage = 'Товар видалений.';
 
-                    }, function errorCallback(error) {
+                    }, function errorCallback(response) {
+                        if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            signout.signOut();
+                        }
                         $scope.modalSpinner = false;
-                        console.log(error);
+                        console.log(response);
                     });
 
             };

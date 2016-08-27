@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('ProductListController', function ($scope, $http, $route, spinnerService) {
+    .controller('ProductListController', function ($scope, $http, $route, spinnerService, signout) {
         $scope.$route = $route;
 
         $scope.activeShop = {
@@ -38,15 +38,15 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
 
-            }, function errorCallback(data) {
+            }, function errorCallback(response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
                 $scope.status = 'Щось пішло не так...';
             });
 
         $scope.getUrl = function (shop) {
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
         };
-        $scope.signOut = function () {
-            localStorage.clear();
-            window.location = '/';
-        }
+        $scope.signOut = signout.signOut;
     });

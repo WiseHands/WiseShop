@@ -70,13 +70,13 @@ public class OrderDTO extends GenericModel {
 
     @Override
     public String toString() {
-        return this.name + "\n" +
-                this.phone +  "\n" +
-                this.deliveryType +
+        return  "Name: " + this.name + "\n" +
+                "Phone: " + this.phone +  "\n" +
+                "Delivery: " +this.deliveryType +
                 returnIfNotNull(this.address) + "\n" +
                 returnIfNotNull(this.departmentNumber) + "\n" +
                 returnIfNotNull(this.shop.domain) + "\n" +
-                total + "\n" +
-                "http://happybag.me/admin#/details/" + this.uuid;
+                "Total: " + total + "\n" +
+                "Details: " + "http://happybag.me/admin#/details/" + this.uuid;
     }
 }

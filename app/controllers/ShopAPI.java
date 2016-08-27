@@ -14,6 +14,8 @@ import play.mvc.Controller;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShopAPI extends Controller {
     private static final String X_AUTH_TOKEN = "x-auth-token";
@@ -143,7 +145,10 @@ public class ShopAPI extends Controller {
         ContactDTO contact = new ContactDTO("+380", "me@email.com", "lviv", "25,67:48.54", "best company ever");
         contact.save();
 
-        ShopDTO shop = new ShopDTO(user, delivery, contact, name, publicLiqpayKey, privateLiqPayKey, domain);
+        List<UserDTO> users = new ArrayList<UserDTO>();
+        users.add(user);
+
+        ShopDTO shop = new ShopDTO(users, delivery, contact, name, publicLiqpayKey, privateLiqPayKey, domain);
         return shop = shop.save();
     }
 

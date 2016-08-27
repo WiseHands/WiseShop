@@ -30,8 +30,9 @@ public class ShopDTO extends GenericModel {
     @Expose
     public String liqpayPrivateKey;
 
-    @ManyToOne
-    public UserDTO user;
+    @Expose
+    @ManyToMany
+    public List<UserDTO> userList;
 
     @Expose
     @OneToOne
@@ -41,17 +42,23 @@ public class ShopDTO extends GenericModel {
     @OneToOne
     public ContactDTO contact;
 
-    public ShopDTO(UserDTO user,
+    public ShopDTO(List<UserDTO> users,
                    DeliveryDTO delivery,
                    ContactDTO contact,
                    String shopName,
                    String liqpayPublicKey,
                    String liqpayPrivateKey,
                    String customDomain) {
-        if (user.shopList == null) {
-            user.shopList = new ArrayList<ShopDTO>();
+
+
+        this.userList = users;
+
+        for (UserDTO user : users) {
+            if(user.shopList == null) {
+                user.shopList = new ArrayList<ShopDTO>();
+            }
+            user.shopList.add(this);
         }
-        user.shopList.add(this);
 
         this.delivery = delivery;
         this.contact = contact;
@@ -59,6 +66,5 @@ public class ShopDTO extends GenericModel {
         this.liqpayPublicKey = liqpayPublicKey;
         this.liqpayPrivateKey = liqpayPrivateKey;
         this.domain = customDomain;
-        this.user = user;
     }
 }
