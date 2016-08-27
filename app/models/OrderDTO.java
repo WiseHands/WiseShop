@@ -72,10 +72,9 @@ public class OrderDTO extends GenericModel {
     public String toString() {
         return  "Name: " + this.name + "\n" +
                 "Phone: " + this.phone +  "\n" +
-                "Delivery: " +this.deliveryType +
-                returnIfNotNull(this.address) + "\n" +
-                returnIfNotNull(this.departmentNumber) + "\n" +
-                returnIfNotNull(this.shop.domain) + "\n" +
+                "Delivery: " + this.deliveryType + "\n" +
+                "Address: " + returnIfNotNull(this.address) + "\n" +
+                "Department: " + returnIfNotNull(this.departmentNumber) + "\n" +
                 "Total: " + total + "\n" +
                 "Details: " + "http://" + this.shop.domain + "/admin#/details/" + this.uuid;
     }
