@@ -11,14 +11,11 @@ import org.apache.commons.mail.SimpleEmail;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import play.Play;
 import play.libs.Mail;
 import services.SmsSender;
 
 import javax.inject.Inject;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 
@@ -40,7 +37,7 @@ public class OrderAPI extends AuthController {
     @Inject
     static SmsSender sender;
 
-    public static void create(String client) throws ParseException, EmailException {
+    public static void create(String client) throws Exception {
 
         ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
 
@@ -89,6 +86,8 @@ public class OrderAPI extends AuthController {
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         sendEmailAboutNewOrder(shop, order, "");
+        sender.sendSms(order.phone, "Ваше замовлення прийнято, найближчим часом менеджер звя'яжеться з Вами");
+        //TODO notify manager
 
         //LIQPAY:
         HashMap params = new HashMap();
@@ -140,12 +139,12 @@ public class OrderAPI extends AuthController {
     public static void markPayed(String client, String uuid) throws Exception {
         checkAuthentification();
 
-        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
-        orderDTO.state = OrderState.PAYED;
-        orderDTO.save();
+        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        order.state = OrderState.PAYED;
+        order.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(orderDTO);
+        String json = gson.toJson(order);
         renderJSON(json);
     }
 
@@ -185,7 +184,7 @@ public class OrderAPI extends AuthController {
         renderJSON(json);
     }
 
-    public static void success(String client, String data) throws ParseException, EmailException {
+    public static void success(String client, String data) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         final LiqPayLocal liqpay = new LiqPayLocal(PUBLIC_KEY, PRIVATE_KEY);
@@ -212,12 +211,16 @@ public class OrderAPI extends AuthController {
         if (status.equals("failure")){
             order.state  = OrderState.PAYMENT_ERROR;
             order.save();
+            sender.sendSms(order.phone, "Нажаль сталась помилка при оплаті Вашого замовлення");
             sendEmailAboutNewOrder(shop, order, "Payment Not Received");
             return;
         }
 
         order.state  = OrderState.PAYED;
         order.save();
+
+        sender.sendSms(order.phone, "Ваше замовлення оплачено, дякуємо");
+
         sendEmailAboutNewOrder(shop, order, "Payment Received");
 
         ok();
