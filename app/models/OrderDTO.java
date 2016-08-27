@@ -77,6 +77,6 @@ public class OrderDTO extends GenericModel {
                 returnIfNotNull(this.departmentNumber) + "\n" +
                 returnIfNotNull(this.shop.domain) + "\n" +
                 "Total: " + total + "\n" +
-                "Details: " + "http://happybag.me/admin#/details/" + this.uuid;
+                "Details: " + "http://" + this.shop.domain + "/admin#/details/" + this.uuid;
     }
 }

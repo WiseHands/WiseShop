@@ -30,7 +30,6 @@ public class ShopDTO extends GenericModel {
     @Expose
     public String liqpayPrivateKey;
 
-    @Expose
     @ManyToMany
     public List<UserDTO> userList;
 
