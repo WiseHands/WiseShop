@@ -5,6 +5,9 @@ import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @OnApplicationStart
 public class DatastoreSetup extends Job {
     private static final String SVYAT = "sviatoslav.p5@gmail.com";
@@ -19,38 +22,22 @@ public class DatastoreSetup extends Job {
 
 
     public void doJob() throws Exception {
+
+
+
+
         boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
         boolean isDBEmpty = UserDTO.findAll().size() == 0;
         if (isDBEmpty){
-            UserDTO user = new UserDTO(SVYAT, PASSWORD);
-            user.save();
-
             if (isDevEnv) {
-                createShop(user, "wisehands", "localhost");
+                createShop("wisehands", "localhost");
             } else {
-                createShop(user, "HappyBag", "happybag.me");
+                createShop("HappyBag", "happybag.me");
             }
-
-            user = new UserDTO(BOGDAN, PASSWORD);
-            user.save();
-            if (isDevEnv) {
-                createShop(user, "wisehands", "localhost");
-            } else {
-                createShop(user, "HappyBag", "happybag.me");
-            }
-
-            user = new UserDTO(VOVA, PASSWORD);
-            user.save();
-            if (isDevEnv) {
-                createShop(user, "wisehands", "localhost");
-            } else {
-                createShop(user, "HappyBag", "happybag.me");
-            }
-
         }
     }
 
-    private void createShop(UserDTO user, String shopName, String domain) {
+    private void createShop(String shopName, String domain) {
         DeliveryDTO delivery = new DeliveryDTO(
                 true, "Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
                 true, "Самовивіз",
@@ -61,8 +48,22 @@ public class DatastoreSetup extends Job {
         ContactDTO contact = new ContactDTO("+380", "me@email.com", "lviv", "25,67:48.54", "best company ever");
         contact.save();
 
-        ShopDTO shop = new ShopDTO(user, delivery, contact, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
+        List<UserDTO> users = new ArrayList<UserDTO>();
+        UserDTO user = new UserDTO(SVYAT, PASSWORD);
+        user.save();
+        users.add(user);
+
+        user = new UserDTO(BOGDAN, PASSWORD);
+        user.save();
+        users.add(user);
+
+        user = new UserDTO(VOVA, PASSWORD);
+        user.save();
+        users.add(user);
+
+        ShopDTO shop = new ShopDTO(users, delivery, contact, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
         shop.save();
+
         createProducts(shop, domain);
     }
 
