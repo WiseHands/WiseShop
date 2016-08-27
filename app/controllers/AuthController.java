@@ -1,5 +1,7 @@
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import models.*;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -31,5 +33,10 @@ public class AuthController extends Controller {
         } else {
             forbidden("Empty X-AUTH-TOKEN");
         }
+    }
+
+    private static String json(Object object){
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return gson.toJson(object);
     }
 }
