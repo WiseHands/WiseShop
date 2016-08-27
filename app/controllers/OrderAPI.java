@@ -15,9 +15,16 @@ import org.json.simple.parser.ParseException;
 import play.Play;
 import play.libs.Mail;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 
 public class OrderAPI extends AuthController {
 
@@ -228,19 +235,32 @@ public class OrderAPI extends AuthController {
         Mail.send(email);
     }
 
-    private static void calcSum() throws NoSuchAlgorithmException {
+    private static void calcSum() throws NoSuchAlgorithmException, IOException {
         final String PUBLIC_KEY = "4c4404453e03a68de05e5205ab50e605";
         final String PRIVATE_KEY = "6cd0d950d9c51d29f800e8db9c5377b6";
+        final String API_VERSION = "3.0";
+        final String ACTION = "sendSMS";
+        final String SENDER = "Info";
+
+        String phone = "380630386173";
+        String text = "test";
+
+        final String LIFETIME = "0";
+        final String DATETIME = "";
+
+        final String BASE_URL = "http://atompark.com/api/sms/3.0/sendSMS";
+
+
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("version", "3.0");
-        params.put("action", "sendSMS");
+        params.put("version", API_VERSION);
+        params.put("action", ACTION);
         params.put("key", PUBLIC_KEY);
-        params.put("sender", "Info");
-        params.put("text", "test");
-        params.put("phone", "380630386173");
-        params.put("datetime", "");
-        params.put("sms_lifetime", "0");
+        params.put("sender", SENDER);
+        params.put("text", text);
+        params.put("phone", phone);
+        params.put("datetime", DATETIME);
+        params.put("sms_lifetime", LIFETIME);
 
         params = new TreeMap<String, String>(params);
         StringBuilder sum = new StringBuilder();
@@ -265,6 +285,44 @@ public class OrderAPI extends AuthController {
 
         String conrolSum = hexString.toString();
         System.out.println(conrolSum); //5df1dcf83853644cdfec9a2af14a68bc
+
+        String url = BASE_URL +
+                "?key=" + PUBLIC_KEY +
+                "&sum=" + conrolSum +
+                "&sender=" + SENDER +
+                "&text=" + text +
+                "&phone=" + phone +
+                "&datetime=" + DATETIME +
+                "&sms_lifetime=" + LIFETIME;
+
+        final String USER_AGENT = "Mozilla/5.0";
+
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // optional default is GET
+        con.setRequestMethod("GET");
+
+        //add request header
+        con.setRequestProperty("User-Agent", USER_AGENT);
+
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        //print result
+        System.out.println(response.toString());
     }
 
 //http://atompark.com/api/sms/3.0/sendSMS?key=4c4404453e03a68de05e5205ab50e605&sum=9eaf7aa9b4ea3fb762f4fe7d3f12b39a&sender=Info&text=test&phone=380630386173&datetime=&sms_lifetime=0
