@@ -105,6 +105,7 @@
                     document.title = response.data.shopName;
 
                 }, function errorCallback(data) {
+	                window.location.pathname = '/login';
                     console.log(data);
                 });
         })
