@@ -93,8 +93,11 @@ public class OrderAPI extends AuthController {
         params.put("action", "pay");
         params.put("amount", order.total);
         params.put("currency", "UAH");
-        params.put("description", order);
+        params.put("description", "New Order");
         params.put("order_id", order.uuid);
+        System.out.println(params);
+        System.out.println(shopDTO.liqpayPrivateKey);
+        System.out.println(shopDTO.liqpayPublicKey);
         LiqPay liqpay = new LiqPay(shopDTO.liqpayPublicKey, shopDTO.liqpayPrivateKey);
         String html = liqpay.cnb_form(params);
 
