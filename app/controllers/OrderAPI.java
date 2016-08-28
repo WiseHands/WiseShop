@@ -86,7 +86,7 @@ public class OrderAPI extends AuthController {
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         sendEmailAboutNewOrder(shop, order, "");
-        sender.sendSms(order.phone, "Ваше замовлення прийнято, найближчим часом менеджер звя'яжеться з Вами");
+        sender.sendSms(order.phone, "Замовлення_Прийнято.Скоро_з_Вами_сконтактують");
         //TODO notify manager
 
         //LIQPAY:
@@ -211,7 +211,7 @@ public class OrderAPI extends AuthController {
         if (status.equals("failure")){
             order.state  = OrderState.PAYMENT_ERROR;
             order.save();
-            sender.sendSms(order.phone, "Нажаль сталась помилка при оплаті Вашого замовлення");
+            sender.sendSms(order.phone, "Нажаль_сталась_помилка_при_оплаті_Вашого_замовлення");
             sendEmailAboutNewOrder(shop, order, "Payment Not Received");
             return;
         }
@@ -219,7 +219,7 @@ public class OrderAPI extends AuthController {
         order.state  = OrderState.PAYED;
         order.save();
 
-        sender.sendSms(order.phone, "Ваше замовлення оплачено, дякуємо");
+        sender.sendSms(order.phone, "Ваше_замовлення_оплачено,_дякуємо");
 
         sendEmailAboutNewOrder(shop, order, "Payment Received");
 

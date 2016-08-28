@@ -67,7 +67,7 @@ public class SmsSenderImpl implements SmsSender {
                 "?key=" + PUBLIC_KEY +
                 "&sum=" + conrolSum +
                 "&sender=" + SENDER +
-                "&text=" + URLEncoder.encode(text, "ISO-8859-1") +
+                "&text=" + text +
                 "&phone=" + phone +
                 "&datetime=" + DATETIME +
                 "&sms_lifetime=" + LIFETIME;
