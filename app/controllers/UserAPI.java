@@ -33,9 +33,9 @@ public class UserAPI extends Controller {
 
     public static void register(String email, String password, String repeatPassword,
                                 String shopName, String shopID, String publicLiqPayKey,
-                                String privateLiqPayKey, String clientDomain) throws Exception {
+                                String privateLiqPayKey, String clientDomain, String phone) throws Exception {
         if (isValidEmailAddress(email)) {
-            UserDTO user = new UserDTO(email, password);
+            UserDTO user = new UserDTO(email, password, phone);
             user.save();
 
             DeliveryDTO delivery = new DeliveryDTO(
