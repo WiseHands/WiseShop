@@ -1,5 +1,5 @@
 # Application dependencies
-# play install guice
+# play install guice and copy $PLAY_HOME/modules/guice-1.2 to $PROJECT/modules/
 
 require:
     - play

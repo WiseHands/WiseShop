@@ -86,7 +86,6 @@ public class OrderAPI extends AuthController {
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         sendEmailAboutNewOrder(shop, order, "");
-        sender.sendSms(order.phone, "Замовлення_Прийнято.Скоро_з_Вами_сконтактують");
         //TODO notify manager
 
         //LIQPAY:
@@ -98,6 +97,9 @@ public class OrderAPI extends AuthController {
         params.put("order_id", order.uuid);
         LiqPay liqpay = new LiqPay(shopDTO.liqpayPublicKey, shopDTO.liqpayPrivateKey);
         String html = liqpay.cnb_form(params);
+
+        sender.sendSms(order.phone, "Замовлення_ПрийнятоСкоро_з_Вами_сконтактують");
+
 
         renderHtml(html);
     }
