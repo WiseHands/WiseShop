@@ -20,13 +20,15 @@ public class DatastoreSetup extends Job {
 
     private static final String PASSWORD = "rjylbnth";
 
+    private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
+
+
 
     public void doJob() throws Exception {
 
 
 
 
-        boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
         boolean isDBEmpty = UserDTO.findAll().size() == 0;
         if (isDBEmpty){
             if (isDevEnv) {
@@ -49,17 +51,19 @@ public class DatastoreSetup extends Job {
         contact.save();
 
         List<UserDTO> users = new ArrayList<UserDTO>();
-        UserDTO user = new UserDTO(SVYAT, PASSWORD);
+        UserDTO user = new UserDTO(BOGDAN, PASSWORD);
         user.save();
         users.add(user);
 
-        user = new UserDTO(BOGDAN, PASSWORD);
-        user.save();
-        users.add(user);
-
-        user = new UserDTO(VOVA, PASSWORD);
-        user.save();
-        users.add(user);
+        if(!isDevEnv) {
+            user = new UserDTO(SVYAT, PASSWORD);
+            user.save();
+            users.add(user);
+    
+            user = new UserDTO(VOVA, PASSWORD);
+            user.save();
+            users.add(user);
+        }
 
         ShopDTO shop = new ShopDTO(users, delivery, contact, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
         shop.save();
