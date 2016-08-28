@@ -101,7 +101,8 @@ public class OrderAPI extends AuthController {
         LiqPay liqpay = new LiqPay(shopDTO.liqpayPublicKey, shopDTO.liqpayPrivateKey);
         String html = liqpay.cnb_form(params);
 
-        sender.sendSms(order.phone, "Замовлення_ПрийнятоСкоро_з_Вами_сконтактують");
+        String smsText = "Замовлення (сума " + order.total + ") прийнято. Скоро з Вами сконтактують";
+        sender.sendSms(order.phone, smsText);
 
 
         renderHtml(html);
@@ -121,7 +122,6 @@ public class OrderAPI extends AuthController {
 
     public static void list(String client) throws Exception {
         checkAuthentification();
-        //sender.sendSms("380630386173", "testing guice");
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         List<OrderDTO> orderDTOs = OrderDTO.find("byShop", shop).fetch();
@@ -216,7 +216,8 @@ public class OrderAPI extends AuthController {
         if (status.equals("failure")){
             order.state  = OrderState.PAYMENT_ERROR;
             order.save();
-            sender.sendSms(order.phone, "Нажаль_сталась_помилка_при_оплаті_Вашого_замовлення");
+            String smsText = "Помилка оплати (сума " + order.total + ")";
+            sender.sendSms(order.phone, smsText);
             sendEmailAboutNewOrder(shop, order, "Payment Not Received");
             return;
         }
@@ -224,7 +225,8 @@ public class OrderAPI extends AuthController {
         order.state  = OrderState.PAYED;
         order.save();
 
-        sender.sendSms(order.phone, "Ваше_замовлення_оплачено,_дякуємо");
+        String smsText = "Успішно оплачено (сума " + order.total + ")";
+        sender.sendSms(order.phone, smsText);
 
         sendEmailAboutNewOrder(shop, order, "Payment Received");
 

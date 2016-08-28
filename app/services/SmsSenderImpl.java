@@ -4,15 +4,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * Created by bohdaq on 8/28/16.
- */
 public class SmsSenderImpl implements SmsSender {
     public void sendSms(String phone, String text) throws Exception {
         System.out.println("sendSms");
@@ -67,7 +63,7 @@ public class SmsSenderImpl implements SmsSender {
                 "?key=" + PUBLIC_KEY +
                 "&sum=" + conrolSum +
                 "&sender=" + SENDER +
-                "&text=" + text +
+                "&text=" + text.replaceAll(" ", "%20") +
                 "&phone=" + phone +
                 "&datetime=" + DATETIME +
                 "&sms_lifetime=" + LIFETIME;
