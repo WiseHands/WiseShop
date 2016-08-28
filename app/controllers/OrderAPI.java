@@ -101,9 +101,12 @@ public class OrderAPI extends AuthController {
         LiqPay liqpay = new LiqPay(shopDTO.liqpayPublicKey, shopDTO.liqpayPrivateKey);
         String html = liqpay.cnb_form(params);
 
-        String smsText = "Замовлення (сума " + order.total + ") прийнято. Скоро з Вами сконтактують";
+        String smsText = "Замовлення (" + order.name + ", сума " + order.total + ") прийнято. Скоро з Вами сконтактують";
         sender.sendSms(order.phone, smsText);
-
+        for (UserDTO user : shop.userList) {
+            smsText = "Нове замовлення " + order.name + ", сума " + order.total;
+            sender.sendSms(order.phone, smsText);
+        }
 
         renderHtml(html);
     }
@@ -216,19 +219,25 @@ public class OrderAPI extends AuthController {
         if (status.equals("failure")){
             order.state  = OrderState.PAYMENT_ERROR;
             order.save();
-            String smsText = "Помилка оплати (сума " + order.total + ")";
+            String smsText = "Помилка при оплаті " + order.name + ", сума " + order.total;
+            for (UserDTO user : shop.userList) {
+                sender.sendSms(order.phone, smsText);
+            }
             sender.sendSms(order.phone, smsText);
-            sendEmailAboutNewOrder(shop, order, "Payment Not Received");
+            sendEmailAboutNewOrder(shop, order, "Помилка оплати");
             return;
         }
 
         order.state  = OrderState.PAYED;
         order.save();
 
-        String smsText = "Успішно оплачено (сума " + order.total + ")";
+        String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
         sender.sendSms(order.phone, smsText);
+        for (UserDTO user : shop.userList) {
+            sender.sendSms(order.phone, smsText);
+        }
 
-        sendEmailAboutNewOrder(shop, order, "Payment Received");
+        sendEmailAboutNewOrder(shop, order, "Замовлення оплачено");
 
         ok();
     }

@@ -51,16 +51,16 @@ public class DatastoreSetup extends Job {
         contact.save();
 
         List<UserDTO> users = new ArrayList<UserDTO>();
-        UserDTO user = new UserDTO(BOGDAN, PASSWORD);
+        UserDTO user = new UserDTO(BOGDAN, PASSWORD, "380630386173");
         user.save();
         users.add(user);
 
         if(!isDevEnv) {
-            user = new UserDTO(SVYAT, PASSWORD);
+            user = new UserDTO(SVYAT, PASSWORD, "380932092108");
             user.save();
             users.add(user);
-    
-            user = new UserDTO(VOVA, PASSWORD);
+
+            user = new UserDTO(VOVA, PASSWORD, "380631206871");
             user.save();
             users.add(user);
         }

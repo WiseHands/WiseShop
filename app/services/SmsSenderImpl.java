@@ -1,5 +1,7 @@
 package services;
 
+import play.Play;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -10,10 +12,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SmsSenderImpl implements SmsSender {
+
+    private static final String PUBLIC_KEY = Play.configuration.getProperty("atompark.public.key");
+    private static final String PRIVATE_KEY = Play.configuration.getProperty("atompark.private.key");
+
     public void sendSms(String phone, String text) throws Exception {
-        System.out.println("sendSms");
-        final String PUBLIC_KEY = "4c4404453e03a68de05e5205ab50e605";
-        final String PRIVATE_KEY = "6cd0d950d9c51d29f800e8db9c5377b6";
         final String API_VERSION = "3.0";
         final String ACTION = "sendSMS";
         final String SENDER = "Info";
@@ -22,8 +25,6 @@ public class SmsSenderImpl implements SmsSender {
         final String DATETIME = "";
 
         final String BASE_URL = "http://atompark.com/api/sms/3.0/sendSMS";
-
-
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("version", API_VERSION);
@@ -41,7 +42,6 @@ public class SmsSenderImpl implements SmsSender {
             sum.append(entry.getValue());
         }
         sum.append(PRIVATE_KEY);
-        System.out.println(sum.toString());
 
 
         MessageDigest md = MessageDigest.getInstance("MD5");
@@ -57,7 +57,6 @@ public class SmsSenderImpl implements SmsSender {
         }
 
         String conrolSum = hexString.toString();
-        System.out.println(conrolSum);
 
         String url = BASE_URL +
                 "?key=" + PUBLIC_KEY +

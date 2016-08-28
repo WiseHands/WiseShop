@@ -24,6 +24,9 @@ public class UserDTO extends GenericModel {
     public String name;
 
     @Expose
+    public String phone;
+
+    @Expose
     public String givenName;
 
     @Expose
@@ -48,8 +51,9 @@ public class UserDTO extends GenericModel {
     @Column
     public String token;
 
-    public UserDTO(String email, String password) {
+    public UserDTO(String email, String password, String phone) {
         this.email = email;
+        this.phone = phone;
         this.password = password;
         this.token = UUID.randomUUID().toString();
     }
