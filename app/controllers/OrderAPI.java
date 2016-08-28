@@ -105,7 +105,7 @@ public class OrderAPI extends AuthController {
         sender.sendSms(order.phone, smsText);
         for (UserDTO user : shop.userList) {
             smsText = "Нове замовлення " + order.name + ", сума " + order.total;
-            sender.sendSms(order.phone, smsText);
+            sender.sendSms(user.phone, smsText);
         }
 
         renderHtml(html);
@@ -221,7 +221,7 @@ public class OrderAPI extends AuthController {
             order.save();
             String smsText = "Помилка при оплаті " + order.name + ", сума " + order.total;
             for (UserDTO user : shop.userList) {
-                sender.sendSms(order.phone, smsText);
+                sender.sendSms(user.phone, smsText);
             }
             sender.sendSms(order.phone, smsText);
             sendEmailAboutNewOrder(shop, order, "Помилка оплати");
@@ -234,7 +234,7 @@ public class OrderAPI extends AuthController {
         String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
         sender.sendSms(order.phone, smsText);
         for (UserDTO user : shop.userList) {
-            sender.sendSms(order.phone, smsText);
+            sender.sendSms(user.phone, smsText);
         }
 
         sendEmailAboutNewOrder(shop, order, "Замовлення оплачено");
