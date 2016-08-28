@@ -22,8 +22,6 @@ public class DatastoreSetup extends Job {
 
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
 
-
-
     public void doJob() throws Exception {
 
 

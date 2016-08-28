@@ -225,21 +225,24 @@ public class OrderAPI extends AuthController {
             }
             sender.sendSms(order.phone, smsText);
             sendEmailAboutNewOrder(shop, order, "Помилка оплати");
-            return;
+
+            ok();
+        } else {
+            order.state  = OrderState.PAYED;
+            order.save();
+
+            String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
+            sender.sendSms(order.phone, smsText);
+            for (UserDTO user : shop.userList) {
+                sender.sendSms(user.phone, smsText);
+            }
+
+            sendEmailAboutNewOrder(shop, order, "Замовлення оплачено");
+
+            ok();
         }
 
-        order.state  = OrderState.PAYED;
-        order.save();
 
-        String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
-        sender.sendSms(order.phone, smsText);
-        for (UserDTO user : shop.userList) {
-            sender.sendSms(user.phone, smsText);
-        }
-
-        sendEmailAboutNewOrder(shop, order, "Замовлення оплачено");
-
-        ok();
     }
 
     private static void sendEmailAboutNewOrder(ShopDTO shop, OrderDTO order, String status) throws EmailException {
