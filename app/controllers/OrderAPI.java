@@ -6,13 +6,11 @@ import com.liqpay.LiqPay;
 import enums.OrderState;
 import models.*;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
-import play.libs.Mail;
+import services.MailSender;
 import services.SmsSender;
 
 import javax.inject.Inject;
@@ -35,7 +33,10 @@ public class OrderAPI extends AuthController {
     }
 
     @Inject
-    static SmsSender sender;
+    static SmsSender smsSender;
+
+    @Inject
+    static MailSender mailSender;
 
     public static void create(String client) throws Exception {
 
@@ -85,7 +86,7 @@ public class OrderAPI extends AuthController {
         order.save();
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        sendEmailAboutNewOrder(shop, order, "");
+        mailSender.sendEmail(shop, order, "Нове замовлення");
         //TODO notify manager
 
         //LIQPAY:
@@ -102,10 +103,10 @@ public class OrderAPI extends AuthController {
         String html = liqpay.cnb_form(params);
 
         String smsText = "Замовлення (" + order.name + ", сума " + order.total + ") прийнято. Скоро з Вами сконтактують";
-        sender.sendSms(order.phone, smsText);
+        smsSender.sendSms(order.phone, smsText);
         for (UserDTO user : shop.userList) {
             smsText = "Нове замовлення " + order.name + ", сума " + order.total;
-            sender.sendSms(user.phone, smsText);
+            smsSender.sendSms(user.phone, smsText);
         }
 
         renderHtml(html);
@@ -224,10 +225,10 @@ public class OrderAPI extends AuthController {
             order.save();
             String smsText = "Помилка при оплаті " + order.name + ", сума " + order.total;
             for (UserDTO user : shop.userList) {
-                sender.sendSms(user.phone, smsText);
+                smsSender.sendSms(user.phone, smsText);
             }
-            sender.sendSms(order.phone, smsText);
-            sendEmailAboutNewOrder(shop, order, "Помилка оплати");
+            smsSender.sendSms(order.phone, smsText);
+            mailSender.sendEmail(shop, order, "Помилка оплати");
 
             ok();
         } else {
@@ -235,30 +236,17 @@ public class OrderAPI extends AuthController {
             order.save();
 
             String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
-            sender.sendSms(order.phone, smsText);
+            smsSender.sendSms(order.phone, smsText);
             for (UserDTO user : shop.userList) {
-                sender.sendSms(user.phone, smsText);
+                smsSender.sendSms(user.phone, smsText);
             }
 
-            sendEmailAboutNewOrder(shop, order, "Замовлення оплачено");
+            mailSender.sendEmail(shop, order, "Замовлення оплачено");
 
             ok();
         }
 
 
-    }
-
-    private static void sendEmailAboutNewOrder(ShopDTO shop, OrderDTO order, String status) throws EmailException {
-        SimpleEmail email = new SimpleEmail();
-        email.setCharset("UTF-16");
-        email.setFrom("bohdaq@gmail.com");
-        for (UserDTO user : shop.userList) {
-            System.out.println("AddTo: " + user.email);
-            email.addTo(user.email);
-        }
-        email.setSubject("New Order " + status);
-        email.setMsg(order.toString());
-        Mail.send(email);
     }
 
 }
