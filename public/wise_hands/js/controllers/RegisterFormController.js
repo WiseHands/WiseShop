@@ -10,8 +10,6 @@
                     phone: $scope.phone,
                     shopName: $scope.shopName,
                     passwordConfirmation: $scope.password,
-                    publicLiqPayKey: $scope.publicLiqPay,
-                    privateLiqPayKey: $scope.privateLiqPay,
                     clientDomain: $scope.domain
 
                 };
