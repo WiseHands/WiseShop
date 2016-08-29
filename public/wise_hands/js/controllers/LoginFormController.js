@@ -1,5 +1,5 @@
     angular.module('WiseHandsMain')
-        .controller('LoginFormController', function($scope, $http) {
+        .controller('LoginFormController', function($scope, $http, userService) {
             $scope.logIn = function (){
                 var params = {
                     email: $scope.email,
@@ -39,10 +39,8 @@
 					})
 					.success(successLoginHandler)
 					.error(errorLoginHandler);
-                } else {
-                    // There was an error.
                 }
-            };
+            }
 
             function successLoginHandler(data, status, headers) {
 				var token = headers("X-AUTH-TOKEN");
@@ -57,21 +55,22 @@
 				localStorage.setItem('X-AUTH-USER-ID', userId) ;
 				localStorage.setItem('X-AUTH-TOKEN', token) ;
 
-				if (data.shopList.length === 1){
+				if (data.shopList && data.shopList.length === 1){
 					var shop = data.shopList[0];
 					var domain = shop.domain;
 					window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
 					'?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
-				}
-				if (data.shopList.length > 1) {
+				} else	if (data.shopList && data.shopList.length > 1) {
 					$scope.showShopList = true;
 					$scope.user = data;
+				} if (!data.shopList || data.shopList.length === 0) {
+                    window.location = '#/register';
+                    data.isGoogleSignIn = true;
+                    userService.user = data;
+                }
 
 
-				}
-
-
-			};
+			}
 
 			function errorLoginHandler (data, status) {
 				console.log(JSON.stringify(data));

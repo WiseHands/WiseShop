@@ -4,20 +4,32 @@
         <form class="form-signin" name="loginForm" ng-submit="signIn()">
             <div class="row">
                 <div class="column">
-                    <label>E-MAIL </label>
-                    <input id="email" class="full-width" type="email" placeholder="E-mail" ng-model="email" required>
+                    <label>NAME </label>
+                    <input id="name" class="full-width" type="text" placeholder="Name" ng-model="user.name" required>
                 </div>
             </div>
             <div class="row">
+                <div class="column">
+                    <label>PHONE NUMBER </label>
+                    <input id="phonenumber" class="full-width" type="number" placeholder="Phone number" ng-model="phone" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label>E-MAIL </label>
+                    <input id="email" class="full-width" type="email" placeholder="E-mail" ng-model="user.email" required>
+                </div>
+            </div>
+            <div class="row" ng-hide="user.isGoogleSignIn">
                 <div class="column">
                     <label>PASSWORD </label>
-                    <input id="password" class="full-width" type="password" placeholder="Password" ng-model="password" required>
+                    <input id="password" class="full-width" type="password" placeholder="Password" ng-model="password" ng-required="!user.isGoogleSignIn">
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-hide="user.isGoogleSignIn">
                 <div class="column">
                     <label>CONFIRM YOUR PASSWORD </label>
-                    <input id="password" class="full-width" type="password" placeholder="Confirm your password" ng-model="confirmPassword" required>
+                    <input id="password" class="full-width" type="password" placeholder="Confirm your password" ng-model="confirmPassword" ng-required="!user.isGoogleSignIn">
                 </div>
             </div>
             <div class="row">
@@ -28,8 +40,8 @@
             </div>
             <div class="row">
                 <div class="column">
-                    <label>SHOP ID </label>
-                    <input id="shopid" class="full-width" type="text" placeholder="Shop ID" ng-model="shopID" required>
+                    <label>YOUR DOMAIN </label>
+                    <input id="domain" class="full-width" type="text" placeholder="Your domain" ng-model="domain" required>
                 </div>
             </div>
             <div class="row">
@@ -44,15 +56,8 @@
                     <input id="liqpayPrivate" class="full-width" type="text" placeholder="LiqPay private key" ng-model="privateLiqPay" required>
                 </div>
             </div>
-            <div class="row">
-                <div class="column">
-                    <label>YOUR DOMAIN </label>
-                    <input id="domain" class="full-width" type="text" placeholder="Your domain" ng-model="domain" required>
-                </div>
-            </div>
             <br/>
             <button class="button-submit full-width buttonStyling" type="submit">SIGN IN</button>
-
         </form>
     </div>
 </div>

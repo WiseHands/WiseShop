@@ -1,12 +1,15 @@
     angular.module('WiseHandsMain')
-        .controller('RegisterFormController', function($scope, $http, $window) {
+        .controller('RegisterFormController', function($scope, $http, userService) {
+            $scope.user = userService.user;
+
             $scope.signIn = function (){
                 var params = {
-                    email: $scope.email,
+                    name: $scope.user.name,
+                    email: $scope.user.email,
                     password: $scope.password,
-                    passwordConfirmation: $scope.password,
+                    phone: $scope.phone,
                     shopName: $scope.shopName,
-                    shopID: $scope.shopID,
+                    passwordConfirmation: $scope.password,
                     publicLiqPayKey: $scope.publicLiqPay,
                     privateLiqPayKey: $scope.privateLiqPay,
                     clientDomain: $scope.domain
