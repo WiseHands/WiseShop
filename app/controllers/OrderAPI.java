@@ -37,7 +37,8 @@ public class OrderAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         if(shop.liqpayPrivateKey == null) {
-            error("no liqpay keys defined");
+            forbidden("no liqpay keys defined");
+            return;
         }
 
         //TODO: add validation
