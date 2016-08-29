@@ -10,7 +10,7 @@ public class MailSenderImpl implements MailSender {
     public void sendEmail(ShopDTO shop, OrderDTO order, String status) throws Exception {
         SimpleEmail email = new SimpleEmail();
         email.setCharset("UTF-16");
-        email.setFrom("bohdaq@gmail.com");
+        email.setFrom("noreply@" + shop.domain);
         for (UserDTO user : shop.userList) {
             System.out.println("AddTo: " + user.email);
             email.addTo(user.email);
