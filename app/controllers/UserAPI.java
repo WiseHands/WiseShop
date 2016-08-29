@@ -32,10 +32,21 @@ public class UserAPI extends Controller {
 
 
     public static void register(String email, String password, String repeatPassword,
-                                String shopName, String shopID, String publicLiqPayKey,
+                                String shopName, String name, String publicLiqPayKey,
                                 String privateLiqPayKey, String clientDomain, String phone) throws Exception {
         if (isValidEmailAddress(email)) {
-            UserDTO user = new UserDTO(email, password, phone);
+            //GOOGLE SIGN IN
+            UserDTO user = UserDTO.find("byEmail", email).first();
+            if (user != null) {
+                user.phone = phone;
+            } else if (user == null) {
+                //NOT GOOGLE SIGN IN
+                if (!password.equals(repeatPassword)) {
+                    error("password mismatch");
+                }
+                user = new UserDTO(email, password, phone);
+                user.name = name;
+            }
             user.save();
 
             DeliveryDTO delivery = new DeliveryDTO(
@@ -52,9 +63,9 @@ public class UserAPI extends Controller {
             ShopDTO shop = new ShopDTO(users, delivery, contact, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
             shop.save();
 
-            user = UserDTO.find("byEmail", email).first();
             response.setHeader(X_AUTH_TOKEN, user.token);
             String json = json(user);
+            System.out.println("\nUserAPI register: \n" + json);
             renderText(json);
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
