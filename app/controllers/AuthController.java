@@ -35,7 +35,7 @@ public class AuthController extends Controller {
         }
     }
 
-    private static String json(Object object){
+    protected static String json(Object object){
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         return gson.toJson(object);
     }
