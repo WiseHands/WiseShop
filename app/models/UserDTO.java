@@ -52,7 +52,7 @@ public class UserDTO extends GenericModel {
     public String token;
 
     public UserDTO() {
-
+        this.token = UUID.randomUUID().toString();
     }
 
     public UserDTO(String email, String password, String phone) {
