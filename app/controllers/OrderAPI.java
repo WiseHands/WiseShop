@@ -89,6 +89,9 @@ public class OrderAPI extends AuthController {
             smsSender.sendSms(user.phone, smsText);
         }
 
+        if(shop.liqpayPrivateKey == null) {
+            error("no liqpay keys defined");
+        }
         String payButton = liqPay.payButton(order, shop);
         renderHtml(payButton);
     }
