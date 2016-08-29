@@ -36,7 +36,10 @@ public class OrderAPI extends AuthController {
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
-        if(shop.liqpayPrivateKey == null) {
+        boolean isLiqPayKeysAbsent = shop.liqpayPrivateKey == ""  || shop.liqpayPrivateKey == null
+                || shop.liqpayPublicKey == ""  || shop.liqpayPublicKey == null;
+        System.out.println("LiqPayKeys: " + isLiqPayKeysAbsent);
+        if(isLiqPayKeysAbsent) {
             forbidden("no liqpay keys defined");
             return;
         }
