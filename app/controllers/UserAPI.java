@@ -139,6 +139,7 @@ public class UserAPI extends Controller {
         UserDTO user = UserDTO.find("byEmail", email).first();
         if(user == null){
             user = new UserDTO();
+            user.email = email;
         }
 
         user.googleId = userId;
