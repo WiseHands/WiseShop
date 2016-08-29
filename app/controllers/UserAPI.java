@@ -13,7 +13,10 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import responses.InvalidPassword;
 import responses.UserDoesNotExist;
+import services.MailSender;
+import services.SmsSender;
 
+import javax.inject.Inject;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.File;
@@ -29,6 +32,9 @@ public class UserAPI extends Controller {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
     }
+
+    @Inject
+    static SmsSender smsSender;
 
 
     public static void register(String email, String password, String repeatPassword,
@@ -56,16 +62,19 @@ public class UserAPI extends Controller {
             );
             delivery.save();
 
-            ContactDTO contact = new ContactDTO("+380", "me@email.com", "Lviv", "25,67:48.54", "Best Company Ever");
+            ContactDTO contact = new ContactDTO(user.phone, user.email, "Lviv", "25,67:48.54", "Best Company Ever");
             contact.save();
 
             List<UserDTO> users = new ArrayList<UserDTO>();
+            users.add(user);
             ShopDTO shop = new ShopDTO(users, delivery, contact, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
             shop.save();
 
             response.setHeader(X_AUTH_TOKEN, user.token);
             String json = json(user);
             System.out.println("\nUserAPI register: \n" + json);
+            String greetingText = "Успішно створено Ваш новий магазин " + shop.shopName;
+            smsSender.sendSms(user.phone, greetingText);
             renderText(json);
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
