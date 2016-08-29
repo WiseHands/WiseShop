@@ -82,7 +82,7 @@ public class OrderAPI extends AuthController {
         mailSender.sendEmail(shop, order, "Нове замовлення");
 
 
-        String smsText = "Замовлення (" + order.name + ", сума " + order.total + ") прийнято. Скоро з Вами сконтактують";
+        String smsText = "Замовлення (" + order.name + ", сума " + order.total + ") прийнято.";
         smsSender.sendSms(order.phone, smsText);
         for (UserDTO user : shop.userList) {
             smsText = "Нове замовлення " + order.name + ", сума " + order.total;
