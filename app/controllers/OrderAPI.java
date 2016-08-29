@@ -36,6 +36,10 @@ public class OrderAPI extends AuthController {
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
+        if(shop.liqpayPrivateKey == null) {
+            error("no liqpay keys defined");
+        }
+
         //TODO: add validation
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -89,9 +93,7 @@ public class OrderAPI extends AuthController {
             smsSender.sendSms(user.phone, smsText);
         }
 
-        if(shop.liqpayPrivateKey == null) {
-            error("no liqpay keys defined");
-        }
+
         String payButton = liqPay.payButton(order, shop);
         renderHtml(payButton);
     }
