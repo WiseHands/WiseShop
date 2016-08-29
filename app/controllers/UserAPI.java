@@ -138,7 +138,7 @@ public class UserAPI extends Controller {
 
         UserDTO user = UserDTO.find("byEmail", email).first();
         if(user == null){
-            error("user not registered"); //TODO: google sign should already register user!!!
+            user = new UserDTO();
         }
 
         user.googleId = userId;

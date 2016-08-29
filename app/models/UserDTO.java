@@ -51,6 +51,10 @@ public class UserDTO extends GenericModel {
     @Column
     public String token;
 
+    public UserDTO() {
+
+    }
+
     public UserDTO(String email, String password, String phone) {
         this.email = email;
         this.phone = phone;
