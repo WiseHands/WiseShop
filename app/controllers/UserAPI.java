@@ -9,6 +9,7 @@ import models.ContactDTO;
 import models.DeliveryDTO;
 import models.ShopDTO;
 import models.UserDTO;
+import play.db.jpa.JPA;
 import play.mvc.Before;
 import play.mvc.Controller;
 import responses.InvalidPassword;
@@ -19,6 +20,7 @@ import services.SmsSender;
 import javax.inject.Inject;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.persistence.Query;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -37,17 +39,18 @@ public class UserAPI extends Controller {
     static SmsSender smsSender;
 
 
-    public static void register(String email, String password, String repeatPassword,
+    public static void register(String email, String password, String passwordConfirmation,
                                 String shopName, String name, String publicLiqPayKey,
                                 String privateLiqPayKey, String clientDomain, String phone) throws Exception {
         if (isValidEmailAddress(email)) {
             //GOOGLE SIGN IN
             UserDTO user = UserDTO.find("byEmail", email).first();
+            System.out.println(user);
             if (user != null) {
                 user.phone = phone;
             } else if (user == null) {
                 //NOT GOOGLE SIGN IN
-                if (!password.equals(repeatPassword)) {
+                if (!password.equals(passwordConfirmation)) {
                     error("password mismatch");
                 }
                 user = new UserDTO(email, password, phone);
@@ -156,7 +159,7 @@ public class UserAPI extends Controller {
             error("user have not verified email address on google");
         }
 
-        UserDTO user = UserDTO.find("byEmail", email).first();
+        UserDTO user = UserDTO.find("email", email).first();
         if(user == null){
             user = new UserDTO();
             user.email = email;
