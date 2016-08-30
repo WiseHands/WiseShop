@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import models.OrderItemDTO;
 import models.ProductDTO;
 import models.ShopDTO;
 import models.UserDTO;
@@ -126,11 +127,19 @@ public class ProductAPI extends Controller {
         checkAuthentification();
 
         ProductDTO product = (ProductDTO) ProductDTO.findById(uuid);
+        List<OrderItemDTO> items = OrderItemDTO.find("byProductDTO", product).fetch();
+        for (OrderItemDTO item : items) {
+            item.delete();
+        }
+
+        product.delete();
+
         File file = new File(USERIMAGESPATH + product.fileName);
         if(!file.delete()){
-            error("error deleting file: " + USERIMAGESPATH + product.fileName);
+            System.out.println("error deleting file: " + USERIMAGESPATH + product.fileName);
         }
-        product.delete();
+
+        
         ok();
     }
 
