@@ -41,6 +41,13 @@ angular.module('WiseHands')
                 $scope.loading = false;
                 $scope.status = 'Щось пішло не так...';
             });
+
+        $scope.hideModal = function () {
+            $('#createNewUser').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        };
+
         $scope.createNewUser = function () {
             $scope.loading = true;
             $http({
@@ -53,6 +60,8 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.loading = false;
+                    $scope.users.push(response.data);
+                    $scope.hideModal();
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();

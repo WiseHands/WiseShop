@@ -92,19 +92,6 @@ public class ShopAPI extends Controller {
 
 
     public static void listUsers(String client) throws Exception {
-        boolean authHeadersPopulated = request.headers.get(X_AUTH_TOKEN) != null && request.headers.get(X_AUTH_USER_ID) != null;
-        if (authHeadersPopulated){
-            String userId = request.headers.get(X_AUTH_USER_ID).value();
-            String token = request.headers.get(X_AUTH_TOKEN).value();
-            UserDTO user = UserDTO.findById(userId);
-
-            if(user == null)
-                forbidden("Invalid X-AUTH-TOKEN: " + token);
-
-
-        } else {
-            forbidden("Empty X-AUTH-TOKEN");
-        }
         checkAuthentification();
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -130,7 +117,7 @@ public class ShopAPI extends Controller {
         shop.save();
 
         mailSender.sendEmailToInvitedUser(shop, user);
-        renderJSON(json(shop));
+        renderJSON(json(user));
     }
 
     public static void removeUserFromShop(String client, String email) throws Exception {
