@@ -11,7 +11,9 @@ import org.json.simple.parser.JSONParser;
 import play.Play;
 import play.mvc.Before;
 import play.mvc.Controller;
+import services.MailSender;
 
+import javax.inject.Inject;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class ShopAPI extends Controller {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Expose-Headers", X_AUTH_TOKEN);
     }
+
+    @Inject
+    static MailSender mailSender;
 
 
     static void checkAuthentification() {
@@ -82,6 +87,64 @@ public class ShopAPI extends Controller {
         shop.shopName = name;
 
         shop = shop.save();
+        renderJSON(json(shop));
+    }
+
+
+    public static void listUsers(String client) throws Exception {
+        boolean authHeadersPopulated = request.headers.get(X_AUTH_TOKEN) != null && request.headers.get(X_AUTH_USER_ID) != null;
+        if (authHeadersPopulated){
+            String userId = request.headers.get(X_AUTH_USER_ID).value();
+            String token = request.headers.get(X_AUTH_TOKEN).value();
+            UserDTO user = UserDTO.findById(userId);
+
+            if(user == null)
+                forbidden("Invalid X-AUTH-TOKEN: " + token);
+
+
+        } else {
+            forbidden("Empty X-AUTH-TOKEN");
+        }
+        checkAuthentification();
+
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
+        renderJSON(json(shop.userList));
+    }
+
+
+    public static void addUserToShop(String client, String email) throws Exception {
+        checkAuthentification();
+
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        UserDTO user = UserDTO.find("byEmail", email).first();
+
+        if (user == null) {
+            user = new UserDTO();
+            user.email = email;
+        }
+        user.shopList.add(shop);
+        user = user.save();
+
+        shop.userList.add(user);
+        shop.save();
+
+        mailSender.sendEmailToInvitedUser(shop, user);
+        renderJSON(json(shop));
+    }
+
+    public static void removeUserFromShop(String client, String email) throws Exception {
+        checkAuthentification();
+
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
+        UserDTO user = UserDTO.find("byEmail", email).first();
+        if( user != null) {
+            shop.userList.remove(user);
+        } else {
+            forbidden("user with such email not found");
+        }
+
         renderJSON(json(shop));
     }
 

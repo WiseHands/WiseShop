@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,6 +54,7 @@ public class UserDTO extends GenericModel {
 
     public UserDTO() {
         this.token = UUID.randomUUID().toString();
+        this.shopList = new ArrayList<ShopDTO>();
     }
 
     public UserDTO(String email, String password, String phone) {
@@ -60,5 +62,6 @@ public class UserDTO extends GenericModel {
         this.phone = phone;
         this.password = password;
         this.token = UUID.randomUUID().toString();
+        this.shopList = new ArrayList<ShopDTO>();
     }
 }

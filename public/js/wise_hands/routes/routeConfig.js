@@ -88,6 +88,11 @@
                         controller:'ContactsController',
                         activetab: 'contacts'
                     }).
+                    when('/usersettings',{
+                        templateUrl:'public/admin/partials/usersSettings.html',
+                        controller:'UsersSettingsController',
+                        activetab: 'usersettings'
+                    }).
                         otherwise({
                         redirectTo:'/'
                 });

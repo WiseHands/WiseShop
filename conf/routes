@@ -29,6 +29,10 @@ GET     {client}/shop/details/public                    ShopAPI.publicInfo
 POST    {client}/shop                            	    ShopAPI.create
 PUT     {client}/shop                                   ShopAPI.update
 
+GET     {client}/shop/user                              ShopAPI.listUsers
+POST    {client}/shop/user                              ShopAPI.addUserToShop
+DELETE  {client}/shop/user                              ShopAPI.removeUserFromShop
+
 GET     {client}/delivery                               DeliveryAPI.details
 PUT     {client}/delivery                               DeliveryAPI.update
 

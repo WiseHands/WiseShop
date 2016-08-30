@@ -426,3 +426,9 @@ p {
 .navbar-fixed-left ul li:hover {
     cursor: pointer;
 }
+.noMarginBot {
+    margin-bottom: 0;
+}
+.noPaddingBot {
+    padding-bottom: 0;
+}
