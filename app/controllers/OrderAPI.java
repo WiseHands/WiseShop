@@ -76,12 +76,15 @@ public class OrderAPI extends AuthController {
             int quantity = Integer.parseInt(element.get("quantity").toString());
 
             OrderItemDTO orderItem = new OrderItemDTO();
-            orderItem.productDTO = product;
+            orderItem.name = product.name;
+            orderItem.description = product.description;
+            orderItem.price = product.price;
+            orderItem.fileName = product.fileName;
             orderItem.quantity = quantity;
             orderItem.save();
             orders.add(orderItem);
 
-            totalCost += product.price * quantity;
+            totalCost += product.price * orderItem.quantity;
         }
         order.items = orders;
         order.total = Double.valueOf(totalCost);

@@ -127,11 +127,6 @@ public class ProductAPI extends Controller {
         checkAuthentification();
 
         ProductDTO product = (ProductDTO) ProductDTO.findById(uuid);
-        List<OrderItemDTO> items = OrderItemDTO.find("byProductDTO", product).fetch();
-        for (OrderItemDTO item : items) {
-            item.delete();
-        }
-
         product.delete();
 
         File file = new File(USERIMAGESPATH + product.fileName);
@@ -139,7 +134,7 @@ public class ProductAPI extends Controller {
             System.out.println("error deleting file: " + USERIMAGESPATH + product.fileName);
         }
 
-        
+
         ok();
     }
 

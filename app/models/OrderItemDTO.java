@@ -16,10 +16,19 @@ public class OrderItemDTO extends GenericModel{
     public String uuid;
 
     @Expose
-    public Integer quantity;
+    public String name;
+
+    @Column( length = 100000 )
+    @Expose
+    public String description;
 
     @Expose
-    @OneToOne(cascade = CascadeType.PERSIST)
-    public ProductDTO productDTO;
+    public Double price;
+
+    @Expose
+    public String fileName;
+
+    @Expose
+    public Integer quantity;
 
 }
