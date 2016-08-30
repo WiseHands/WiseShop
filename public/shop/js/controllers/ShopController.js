@@ -1,43 +1,15 @@
-(function($){
-    function equalizeHeights(selector) {
-        var heights = new Array();
-
-        $(selector).each(function() {
-
-            $(this).css('min-height', '0');
-            $(this).css('max-height', 'none');
-            $(this).css('height', 'auto');
-
-            heights.push($(this).height());
-        });
-
-        var max = Math.max.apply( Math, heights );
-
-        $(selector).each(function() {
-            $(this).css('height', max + 'px');
-        });
-    }
-
-    $(window).load(function() {
-        equalizeHeights(".fixed-height");
-
-        $(window).resize(function() {
-
-            setTimeout(function() {
-                equalizeHeights(".fixed-height");
-            }, 120);
-        });
-    });
-})(jQuery);
 
 
-function initAutocomplete() {
-    autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode']});
-}
+
+// function initAutocomplete() {
+//     autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode']});
+// }
 
 (function(){
     angular.module('WiseShop')
         .controller('ShopController', function($scope, $http) {
+
+
             
             $scope.minOrderForFreeDelivery = 501;
             $http({
@@ -46,6 +18,7 @@ function initAutocomplete() {
             })
                 .then(function successCallback(response) {
                     $scope.products = response.data;
+
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -75,33 +48,33 @@ function initAutocomplete() {
                     console.log(error);
                 });
 
-            $scope.init = function() {
-                var placeSearch, autocomplete;
-                var componentForm = {
-                    street_number: 'short_name',
-                    route: 'long_name',
-                    locality: 'long_name',
-                    administrative_area_level_1: 'short_name',
-                    country: 'long_name',
-                    postal_code: 'short_name'
-                };
-
-                function geolocate() {
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            var geolocation = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            };
-                            var circle = new google.maps.Circle({
-                                center: geolocation,
-                                radius: position.coords.accuracy
-                            });
-                            autocomplete.setBounds(circle.getBounds());
-                        });
-                    }
-                }
-            };
+            // $scope.init = function() {
+            //     var placeSearch, autocomplete;
+            //     var componentForm = {
+            //         street_number: 'short_name',
+            //         route: 'long_name',
+            //         locality: 'long_name',
+            //         administrative_area_level_1: 'short_name',
+            //         country: 'long_name',
+            //         postal_code: 'short_name'
+            //     };
+            //
+            //     function geolocate() {
+            //         if (navigator.geolocation) {
+            //             navigator.geolocation.getCurrentPosition(function(position) {
+            //                 var geolocation = {
+            //                     lat: position.coords.latitude,
+            //                     lng: position.coords.longitude
+            //                 };
+            //                 var circle = new google.maps.Circle({
+            //                     center: geolocation,
+            //                     radius: position.coords.accuracy
+            //                 });
+            //                 autocomplete.setBounds(circle.getBounds());
+            //             });
+            //         }
+            //     }
+            // };
 
             $scope.delivery = function () {
                  if ($scope.delivery.radio === 'COURIER') {
@@ -168,6 +141,9 @@ function initAutocomplete() {
             };
 
             $scope.makeOrder = function (){
+
+                $scope.loading = true;
+
                 var params = {
                     deliveryType: $scope.delivery.radio,
                     phone: new String(document.getElementById('phone').value),
@@ -185,6 +161,7 @@ function initAutocomplete() {
                     data: params
                 })
                 .then(function successCallback(response) {
+                    $scope.loading = false;
                     $scope.successfullResponse = true;
                     var modalContent = document.querySelector(".proceedWithPayment");
                     modalContent.innerHTML = response.data;
@@ -192,6 +169,7 @@ function initAutocomplete() {
 
                     document.querySelector('.toPayment').style.display = 'none';
                 }, function errorCallback(data) {
+                    $scope.loading = false;
                     $scope.successfullResponse = false;
 
                     document.querySelector('.toPayment').style.display = 'block';
@@ -202,6 +180,38 @@ function initAutocomplete() {
                         $(this).tooltip('show');
                     });
             };
+
+            function equalizeHeights(selector) {
+                var heights = new Array();
+
+                $(selector).each(function() {
+
+                    $(this).css('min-height', '0');
+                    $(this).css('max-height', 'none');
+                    $(this).css('height', 'auto');
+
+                    heights.push($(this).height());
+                });
+
+                var max = Math.max.apply( Math, heights );
+
+                $(selector).each(function() {
+                    $(this).css('height', max + 'px');
+                });
+            }
+
+            $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+                equalizeHeights(".fixed-height");
+
+                $(window).resize(function() {
+
+                    setTimeout(function() {
+                        equalizeHeights(".fixed-height");
+                    }, 120);
+                });
+            });
+
+
 
            
         });
@@ -218,5 +228,6 @@ function encodeQueryData(data)
         ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
     return ret.join("&");
 }
+
 
 

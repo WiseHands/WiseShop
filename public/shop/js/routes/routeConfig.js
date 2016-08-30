@@ -1,6 +1,6 @@
 (function () {
     angular.module('WiseShop', [
-            'ngRoute'
+            'ngRoute', 'angularSpinners'
         ])
         .config(['$routeProvider',
             function ($routeProvider) {

@@ -3,7 +3,6 @@
 # ~~~~
 
 # Home page
-GET		{client}/					                Application.index
 GET     {client}/                                       Application.index
 GET     {client}/ru                                     Application.indexRu
 GET     {client}/shop                                   Application.shop
