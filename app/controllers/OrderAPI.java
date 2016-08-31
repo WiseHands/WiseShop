@@ -172,6 +172,8 @@ public class OrderAPI extends AuthController {
         renderJSON(json(order));
     }
 
+    // add button i will pay at receiving
+    // add NEW or ABSENT product
     public static void success(String client, String data) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
@@ -189,7 +191,7 @@ public class OrderAPI extends AuthController {
         }
 
         String status = String.valueOf(jsonObject.get("status"));
-        if (status.equals("failure")){
+        if (status.equals("failure") || status.equals("wait_accept")){
             order.state  = OrderState.PAYMENT_ERROR;
             order.save();
             String smsText = "Помилка при оплаті " + order.name + ", сума " + order.total;
