@@ -57,6 +57,7 @@ public class ContactAPI extends Controller {
         String phone = (String) jsonBody.get("phone");
         String description = (String) jsonBody.get("description");
         String address = (String) jsonBody.get("address");
+        String latLng = (String) jsonBody.get("latLng");
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         ContactDTO contact = shop.contact;
@@ -64,6 +65,7 @@ public class ContactAPI extends Controller {
         contact.phone = phone;
         contact.address = address;
         contact.description = description;
+        contact.latLng = latLng;
 
         contact.save();
 
