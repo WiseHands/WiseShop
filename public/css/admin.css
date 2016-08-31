@@ -432,3 +432,8 @@ p {
 .noPaddingBot {
     padding-bottom: 0;
 }
+
+.removeUserButton:hover {
+    cursor: pointer;
+    color: red;
+}

@@ -128,6 +128,9 @@ public class ShopAPI extends Controller {
         UserDTO user = UserDTO.find("byEmail", email).first();
         if( user != null) {
             shop.userList.remove(user);
+            shop = shop.save();
+            user.shopList.remove(shop);
+            user = user.save();
         } else {
             forbidden("user with such email not found");
         }

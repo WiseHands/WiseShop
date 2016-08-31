@@ -102,9 +102,12 @@
 
 <div class="container-fluid settingsDesktopContainer">
     <div class="col-xs-12 col-sm-6 col-md-6 rightPadding" ng-repeat="user in users">
-        <div class="row rowBackground">
-            <div class="col-xs-12 col-sm-12">
-                <h5 class="text-center truncate"><i>{{user.email}}</i></h5>
+        <div class="row rowBackground vcentering">
+            <div class="col-xs-10 col-sm-10">
+                <h5 class="text-left truncate"><i>{{user.email}}</i></h5>
+            </div>
+            <div class="col-xs-2 col-sm-2 removeUserButton" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)">
+                <span class="glyphicon glyphicon-remove pull-right"></span>
             </div>
         </div>
     </div>
@@ -141,6 +144,29 @@
                 </form>
             </div>
             <div class="modal-footer noPaddingBot">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center">
+                    <p><i>{{deleteMessage}}</i></p>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="public/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <a class="col-xs-12">
+                    <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteUser()" ng-show="deleteButton">Видалити користувача</button>
+                </a>
+                <a class="col-xs-12">
+                    <button type="button" class="btn btn-success btn-sm center-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
+                </a>
             </div>
         </div>
     </div>
