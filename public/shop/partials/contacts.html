@@ -207,36 +207,27 @@
         <!--/First column-->
 
         <!--Second column-->
-        <div class="col-md-12">
-
+        <div class="col-md-8">
             <!--Google map-->
-            <div id="map-container" class="z-depth-1-half map-container" style="height: 400px"></div>
-
-            <br>
-            <!--Buttons-->
-            <div class="row text-xs-center">
-                <div class="col-md-4">
-                    <a class="btn-floating btn-small mdb-color"><i class="fa fa-map-marker"></i></a>
-                    <p>{{contacts.address}}</p>
-                    <!--<p>United States</p>-->
-                </div>
-
-                <div class="col-md-4">
-                    <a class="btn-floating btn-small mdb-color"><i class="fa fa-phone"></i></a>
-                    <p>{{contacts.phone}}</p>
-                    <!--<p>Mon - Fri, 8:00-22:00</p>-->
-                </div>
-
-                <div class="col-md-4">
-                    <a class="btn-floating btn-small mdb-color"><i class="fa fa-envelope"></i></a>
-                    <p>{{contacts.email}}</p>
-                    <!--<p>sale@gmail.com</p>-->
-                </div>
-            </div>
-
+            <div id="map-container" class="z-depth-1-half map-container" style="height: 300px"></div>
         </div>
-        <!--/Second column-->
+        <!--Buttons-->
+        <div class="col-md-4">
+            <ul class="text-xs-center">
+                <li class="wow fadeInUp" data-wow-delay="0.2s"><a class="btn-floating btn-small mdb-color"><i class="fa fa-map-marker"></i></a>
+                    <p>{{contacts.address}}</p>
+                </li>
 
+                <li class="wow fadeInUp" data-wow-delay="0.3s"><a class="btn-floating btn-small mdb-color" data-toggle="modal" data-target="#contact-form"><i class="fa fa-phone"></i></a>
+                    <p>{{contacts.phone}}</p>
+                </li>
+
+                <li class="wow fadeInUp" data-wow-delay="0.4s"><a class="btn-floating btn-small mdb-color" data-toggle="modal" data-target="#contact-form"><i class="fa fa-envelope"></i></a>
+                    <p>{{contacts.email}}</p>
+                </li>
+            </ul>
+        </div>
+    <!--/Second column-->
     </div>
 
 </section>

@@ -23,7 +23,6 @@
             })
                 .then(function successCallback(response) {
                     $scope.contacts = response.data;
-                    console.log(response.data);
                     window.init_map($scope.contacts.latLng);
                 }, function errorCallback(data) {
                     $scope.status = 'Щось пішло не так...';
