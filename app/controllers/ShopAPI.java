@@ -195,7 +195,7 @@ public class ShopAPI extends Controller {
         );
         delivery.save();
 
-        ContactDTO contact = new ContactDTO("+380", "me@email.com", "lviv", "25,67:48.54", "best company ever");
+        ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Львів, вул. Академіка Люльки, 4", "49.848596:24.0229203", "МИ СТВОРИЛИ ТОРБУ ЩАСТЯ ДЛЯ ТОГО, ЩОБ МІЛЬЙОНИ ЛЮДЕЙ МАЛИ МОЖЛИВІСТЬ КОЖНОГО ДНЯ ВЧАСНО ОТРИМУВАТИ ЦІКАВІ ВІДПОВІДІ ТА СВОЄ НАТХНЕННЯ НА ЧУДОВИЙ ДЕНЬ");
         contact.save();
 
         List<UserDTO> users = new ArrayList<UserDTO>();
