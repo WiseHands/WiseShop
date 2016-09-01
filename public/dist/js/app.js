@@ -119,7 +119,7 @@ $.AdminLTE.options = {
     black: "#222222",
     gray: "#d2d6de"
   },
-  //The standard screen sizes that bootstrap uses.
+  //The standard screen sizes that bootstrap 4.0.0 uses.
   //If you change these in the variables.less file, change
   //them here too.
   screenSizes: {
