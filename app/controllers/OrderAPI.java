@@ -97,7 +97,7 @@ public class OrderAPI extends AuthController {
         smsSender.sendSms(order.phone, smsText);
         for (UserDTO user : shop.userList) {
             smsText = "Нове замовлення " + order.name + ", сума " + order.total;
-            smsSender.sendSms(user.phone, smsText);
+            smsSender.sendSms(shop.contact.phone, smsText);
         }
 
 

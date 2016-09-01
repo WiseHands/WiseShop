@@ -14,10 +14,8 @@ public class MailSenderImpl implements MailSender {
         SimpleEmail email = new SimpleEmail();
         email.setCharset("UTF-16");
         email.setFrom("noreply@" + shop.domain);
-        for (UserDTO user : shop.userList) {
-            System.out.println("AddTo: " + user.email);
-            email.addTo(user.email);
-        }
+        System.out.println("AddTo: " + shop.contact.email);
+        email.addTo(shop.contact.email);
         email.setSubject(status);
         email.setMsg(order.toString());
         Mail.send(email);

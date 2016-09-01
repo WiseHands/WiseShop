@@ -77,7 +77,7 @@ public class UserAPI extends Controller {
             String json = json(user);
             System.out.println("\nUserAPI register: \n" + json);
             String greetingText = "Успішно створено Ваш новий магазин " + shop.shopName;
-            smsSender.sendSms(user.phone, greetingText);
+            smsSender.sendSms(shop.contact.phone, greetingText);
             renderText(json);
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
