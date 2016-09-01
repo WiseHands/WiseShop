@@ -66,3 +66,7 @@ body.modal-open {
 .minHeight {
     min-height: 4.5em;
 }
+
+.priceAlignment {
+    margin-top: 0.7em;
+}

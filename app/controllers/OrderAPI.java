@@ -100,9 +100,13 @@ public class OrderAPI extends AuthController {
             smsSender.sendSms(shop.contact.phone, smsText);
         }
 
+        try {
+            String payButton = liqPay.payButton(order, shop);
+            renderHtml(payButton);
+        } catch (Exception e) {
+            renderHtml("");
+        }
 
-        String payButton = liqPay.payButton(order, shop);
-        renderHtml(payButton);
     }
 
     public static void details(String client, String uuid) throws Exception {
