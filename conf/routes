@@ -9,9 +9,6 @@ GET     {client}/shop                                   Application.shop
 GET     {client}/map                                    Application.map(format:'xml')
 
 GET     {client}/admin                                  Application.admin
-GET     {client}/login                                  Application.login
-GET     {client}/register                               Application.register
-
 
 POST    {client}/signin                                 UserAPI.login
 POST    {client}/storeauthcode                          UserAPI.storeauthcode
@@ -57,6 +54,7 @@ GET     /favicon.ico                            404
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
+GET     /wisehands/                             staticDir:wisehands
 GET		/google3d064e8f1e55f5ab.html			staticFile:google3d064e8f1e55f5ab.html
 
 # Catch all

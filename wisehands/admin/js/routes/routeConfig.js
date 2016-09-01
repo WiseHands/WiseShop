@@ -24,72 +24,72 @@
                 }
                 $routeProvider.
                     when('/',{
-                        templateUrl:'public/admin/partials/orderList.html',
+                        templateUrl:'wisehands/admin/partials/orderList.html',
                         controller:'OrderListController',
                         activetab: 'orderlist'
                     }).
                     when('/details/:uuid',{
-                        templateUrl:'public/admin/partials/singleOrder.html',
+                        templateUrl:'wisehands/admin/partials/singleOrder.html',
                         controller:'SingleOrderController',
                         activetab: 'orderlist'
                     }).
                     when('/products',{
-                        templateUrl:'public/admin/partials/products.html',
+                        templateUrl:'wisehands/admin/partials/products.html',
                         controller:'ProductListController',
                         activetab: 'productlist'
                     }).
                     when('/products/new',{
-                        templateUrl:'public/admin/partials/addNewProduct.html',
+                        templateUrl:'wisehands/admin/partials/addNewProduct.html',
                         controller:'SubmitNewProductController',
                         activetab: 'productlist'
                     }).
                     when('/product/details/:uuid',{
-                        templateUrl:'public/admin/partials/productDetails.html',
+                        templateUrl:'wisehands/admin/partials/productDetails.html',
                         controller:'ProductDetailsController',
                         activetab: 'productlist'
                     }).
                     when('/products/details/:uuid/edit',{
-                        templateUrl:'public/admin/partials/editProduct.html',
+                        templateUrl:'wisehands/admin/partials/editProduct.html',
                         controller:'EditProductController',
                         activetab: 'productlist'
                     }).
                     when('/filter',{
-                        templateUrl:'public/admin/partials/filterOrders.html',
+                        templateUrl:'wisehands/admin/partials/filterOrders.html',
                         controller:'FilterOptionsController',
                         activetab: 'orderlist'
                     }).
                     when('/delivery',{
-                        templateUrl:'public/admin/partials/delivery.html',
+                        templateUrl:'wisehands/admin/partials/delivery.html',
                         controller:'DeliverySettingsController',
                         activetab: 'delivery'
                     }).
                     when('/delivery/newPost',{
-                        templateUrl:'public/admin/partials/newPostDelivery.html',
+                        templateUrl:'wisehands/admin/partials/newPostDelivery.html',
                         controller:'DeliverySettingsController',
                         activetab: 'delivery'
                     }).
                     when('/delivery/courier',{
-                        templateUrl:'public/admin/partials/courierDelivery.html',
+                        templateUrl:'wisehands/admin/partials/courierDelivery.html',
                         controller:'DeliverySettingsController',
                         activetab: 'delivery'
                     }).
                     when('/delivery/selfTake',{
-                        templateUrl:'public/admin/partials/selfTakeDelivery.html',
+                        templateUrl:'wisehands/admin/partials/selfTakeDelivery.html',
                         controller:'DeliverySettingsController',
                         activetab: 'delivery'
                     }).
                     when('/settings',{
-                        templateUrl:'public/admin/partials/settings.html',
+                        templateUrl:'wisehands/admin/partials/settings.html',
                         controller:'SettingsController',
                         activetab: 'settings'
                     }).
                     when('/contacts',{
-                        templateUrl:'public/admin/partials/contacts.html',
+                        templateUrl:'wisehands/admin/partials/contacts.html',
                         controller:'ContactsController',
                         activetab: 'contacts'
                     }).
                     when('/usersettings',{
-                        templateUrl:'public/admin/partials/usersSettings.html',
+                        templateUrl:'wisehands/admin/partials/usersSettings.html',
                         controller:'UsersSettingsController',
                         activetab: 'usersettings'
                     }).

@@ -437,3 +437,6 @@ p {
     cursor: pointer;
     color: red;
 }
+.noUnderline:hover {
+    text-underline: none;
+}
