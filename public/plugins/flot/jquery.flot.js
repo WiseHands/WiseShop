@@ -292,8 +292,8 @@ Licensed under the MIT license.
 	// @param {string} layer A string of space-separated CSS classes uniquely
 	//     identifying the layer containing this text.
 	// @param {string} text Text string to retrieve info for.
-	// @param {(string|object)=} font Either a string of space-separated CSS
-	//     classes or a font-spec object, defining the text's font and style.
+	// @param {(string|object)=} fonts Either a string of space-separated CSS
+	//     classes or a fonts-spec object, defining the text's fonts and style.
 	// @param {number=} angle Angle at which to rotate the text, in degrees.
 	//     Angle is currently unused, it will be implemented in the future.
 	// @param {number=} width Maximum width of the text before it wraps.
@@ -307,7 +307,7 @@ Licensed under the MIT license.
 
 		text = "" + text;
 
-		// If the font is a font-spec object, generate a CSS font definition
+		// If the fonts is a fonts-spec object, generate a CSS fonts definition
 
 		if (typeof font === "object") {
 			textStyle = font.style + " " + font.variant + " " + font.weight + " " + font.size + "px/" + font.lineHeight + "px " + font.family;
@@ -375,8 +375,8 @@ Licensed under the MIT license.
 	// @param {number} x X coordinate at which to draw the text.
 	// @param {number} y Y coordinate at which to draw the text.
 	// @param {string} text Text string to draw.
-	// @param {(string|object)=} font Either a string of space-separated CSS
-	//     classes or a font-spec object, defining the text's font and style.
+	// @param {(string|object)=} fonts Either a string of space-separated CSS
+	//     classes or a fonts-spec object, defining the text's fonts and style.
 	// @param {number=} angle Angle at which to rotate the text, in degrees.
 	//     Angle is currently unused, it will be implemented in the future.
 	// @param {number=} width Maximum width of the text before it wraps.
@@ -453,8 +453,8 @@ Licensed under the MIT license.
 	// @param {number=} x X coordinate of the text.
 	// @param {number=} y Y coordinate of the text.
 	// @param {string=} text Text string to remove.
-	// @param {(string|object)=} font Either a string of space-separated CSS
-	//     classes or a font-spec object, defining the text's font and style.
+	// @param {(string|object)=} fonts Either a string of space-separated CSS
+	//     classes or a fonts-spec object, defining the text's fonts and style.
 	// @param {number=} angle Angle at which the text is rotated, in degrees.
 	//     Angle is currently unused, it will be implemented in the future.
 
@@ -746,7 +746,7 @@ Licensed under the MIT license.
                 options.grid.tickColor = $.color.parse(options.grid.color).scale('a', 0.22).toString();
 
             // Fill in defaults for axis options, including any unspecified
-            // font-spec fields, if a font-spec was provided.
+            // fonts-spec fields, if a fonts-spec was provided.
 
             // If no x/y axis options were provided, create one of each anyway,
             // since the rest of the code assumes that they exist.
@@ -757,9 +757,9 @@ Licensed under the MIT license.
                 fontDefaults = {
                     style: placeholder.css("font-style"),
                     size: Math.round(0.8 * fontSizeDefault),
-                    variant: placeholder.css("font-variant"),
-                    weight: placeholder.css("font-weight"),
-                    family: placeholder.css("font-family")
+                    variant: placeholder.css("fonts-variant"),
+                    weight: placeholder.css("fonts-weight"),
+                    family: placeholder.css("fonts-family")
                 };
 
             axisCount = options.xaxes.length || 1;
@@ -2750,7 +2750,7 @@ Licensed under the MIT license.
             if (fragments.length == 0)
                 return;
 
-            var table = '<table style="font-size:smaller;color:' + options.grid.color + '">' + fragments.join("") + '</table>';
+            var table = '<table style="fonts-size:smaller;color:' + options.grid.color + '">' + fragments.join("") + '</table>';
             if (options.legend.container != null)
                 $(options.legend.container).html(table);
             else {

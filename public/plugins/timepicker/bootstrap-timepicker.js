@@ -270,15 +270,15 @@
         templateContent;
 
       if (this.showInputs) {
-        hourTemplate = '<input type="text" name="hour" class="bootstrap 4.0.0-timepicker-hour form-control" maxlength="2"/>';
-        minuteTemplate = '<input type="text" name="minute" class="bootstrap 4.0.0-timepicker-minute form-control" maxlength="2"/>';
-        secondTemplate = '<input type="text" name="second" class="bootstrap 4.0.0-timepicker-second form-control" maxlength="2"/>';
-        meridianTemplate = '<input type="text" name="meridian" class="bootstrap 4.0.0-timepicker-meridian form-control" maxlength="2"/>';
+        hourTemplate = '<input type="text" name="hour" class="bootstrap4.0.0-timepicker-hour form-control" maxlength="2"/>';
+        minuteTemplate = '<input type="text" name="minute" class="bootstrap4.0.0-timepicker-minute form-control" maxlength="2"/>';
+        secondTemplate = '<input type="text" name="second" class="bootstrap4.0.0-timepicker-second form-control" maxlength="2"/>';
+        meridianTemplate = '<input type="text" name="meridian" class="bootstrap4.0.0-timepicker-meridian form-control" maxlength="2"/>';
       } else {
-        hourTemplate = '<span class="bootstrap 4.0.0-timepicker-hour"></span>';
-        minuteTemplate = '<span class="bootstrap 4.0.0-timepicker-minute"></span>';
-        secondTemplate = '<span class="bootstrap 4.0.0-timepicker-second"></span>';
-        meridianTemplate = '<span class="bootstrap 4.0.0-timepicker-meridian"></span>';
+        hourTemplate = '<span class="bootstrap4.0.0-timepicker-hour"></span>';
+        minuteTemplate = '<span class="bootstrap4.0.0-timepicker-minute"></span>';
+        secondTemplate = '<span class="bootstrap4.0.0-timepicker-second"></span>';
+        meridianTemplate = '<span class="bootstrap4.0.0-timepicker-meridian"></span>';
       }
 
       templateContent = '<table>'+
@@ -325,7 +325,7 @@
 
       switch(this.template) {
       case 'modal':
-        template = '<div class="bootstrap 4.0.0-timepicker-widget modal hide fade in" data-backdrop="'+ (this.modalBackdrop ? 'true' : 'false') +'">'+
+        template = '<div class="bootstrap4.0.0-timepicker-widget modal hide fade in" data-backdrop="'+ (this.modalBackdrop ? 'true' : 'false') +'">'+
           '<div class="modal-header">'+
             '<a href="#" class="close" data-dismiss="modal">×</a>'+
             '<h3>Pick a Time</h3>'+
@@ -339,7 +339,7 @@
         '</div>';
         break;
       case 'dropdown':
-        template = '<div class="bootstrap 4.0.0-timepicker-widget dropdown-menu">'+ templateContent +'</div>';
+        template = '<div class="bootstrap4.0.0-timepicker-widget dropdown-menu">'+ templateContent +'</div>';
         break;
       }
 
@@ -676,7 +676,7 @@
       var self = this;
       $(document).on('mousedown.timepicker', function (e) {
         // Clicked outside the timepicker, hide it
-        if ($(e.target).closest('.bootstrap 4.0.0-timepicker-widget').length === 0) {
+        if ($(e.target).closest('.bootstrap4.0.0-timepicker-widget').length === 0) {
           self.hideWidget();
         }
       });
@@ -752,24 +752,24 @@
           second = this.second < 10 ? '0' + this.second : this.second;
 
       if (this.showInputs) {
-        this.$widget.find('input.bootstrap 4.0.0-timepicker-hour').val(hour);
-        this.$widget.find('input.bootstrap 4.0.0-timepicker-minute').val(minute);
+        this.$widget.find('input.bootstrap4.0.0-timepicker-hour').val(hour);
+        this.$widget.find('input.bootstrap4.0.0-timepicker-minute').val(minute);
 
         if (this.showSeconds) {
-          this.$widget.find('input.bootstrap 4.0.0-timepicker-second').val(second);
+          this.$widget.find('input.bootstrap4.0.0-timepicker-second').val(second);
         }
         if (this.showMeridian) {
-          this.$widget.find('input.bootstrap 4.0.0-timepicker-meridian').val(this.meridian);
+          this.$widget.find('input.bootstrap4.0.0-timepicker-meridian').val(this.meridian);
         }
       } else {
-        this.$widget.find('span.bootstrap 4.0.0-timepicker-hour').text(hour);
-        this.$widget.find('span.bootstrap 4.0.0-timepicker-minute').text(minute);
+        this.$widget.find('span.bootstrap4.0.0-timepicker-hour').text(hour);
+        this.$widget.find('span.bootstrap4.0.0-timepicker-minute').text(minute);
 
         if (this.showSeconds) {
-          this.$widget.find('span.bootstrap 4.0.0-timepicker-second').text(second);
+          this.$widget.find('span.bootstrap4.0.0-timepicker-second').text(second);
         }
         if (this.showMeridian) {
-          this.$widget.find('span.bootstrap 4.0.0-timepicker-meridian').text(this.meridian);
+          this.$widget.find('span.bootstrap4.0.0-timepicker-meridian').text(this.meridian);
         }
       }
     },
@@ -778,10 +778,10 @@
       if (this.$widget === false) {
         return;
       }
-      var time = $('input.bootstrap 4.0.0-timepicker-hour', this.$widget).val() + ':' +
-        $('input.bootstrap 4.0.0-timepicker-minute', this.$widget).val() +
-        (this.showSeconds ? ':' + $('input.bootstrap 4.0.0-timepicker-second', this.$widget).val() : '') +
-        (this.showMeridian ? ' ' + $('input.bootstrap 4.0.0-timepicker-meridian', this.$widget).val() : '');
+      var time = $('input.bootstrap4.0.0-timepicker-hour', this.$widget).val() + ':' +
+        $('input.bootstrap4.0.0-timepicker-minute', this.$widget).val() +
+        (this.showSeconds ? ':' + $('input.bootstrap4.0.0-timepicker-second', this.$widget).val() : '') +
+        (this.showMeridian ? ' ' + $('input.bootstrap4.0.0-timepicker-meridian', this.$widget).val() : '');
 
       this.setTime(time);
     },
@@ -892,10 +892,10 @@
     showInputs: true,
     showMeridian: true,
     template: 'dropdown',
-    appendWidgetTo: '.bootstrap 4.0.0-timepicker',
+    appendWidgetTo: '.bootstrap4.0.0-timepicker',
 	upArrowStyle: 'glyphicon glyphicon-chevron-up',
 	downArrowStyle: 'glyphicon glyphicon-chevron-down',
-	containerClass: 'bootstrap 4.0.0-timepicker'
+	containerClass: 'bootstrap4.0.0-timepicker'
   };
 
   $.fn.timepicker.Constructor = Timepicker;

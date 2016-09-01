@@ -28,7 +28,7 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	sWrapper:      "dataTables_wrapper form-inline dt-bootstrap 4.0.0",
+	sWrapper:      "dataTables_wrapper form-inline dt-bootstrap4.0.0",
 	sFilterInput:  "form-control input-sm",
 	sLengthSelect: "form-control input-sm"
 } );
@@ -175,7 +175,7 @@ if ( DataTable.TableTools ) {
 		}
 	} );
 
-	// Have the collection use a bootstrap 4.0.0 compatible drop down
+	// Have the collection use a bootstrap4.0.0 compatible drop down
 	$.extend( true, DataTable.TableTools.DEFAULTS.oTags, {
 		"collection": {
 			"container": "ul",

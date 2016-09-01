@@ -7,11 +7,11 @@
 
                 $routeProvider.
                 when('/',{
-                    templateUrl:'public/shop/partials/shopView.html',
+                    templateUrl:'wisehands/shop/partials/shopView.html',
                     controller:'ShopController'
                 }).
                 when('/contacts',{
-                    templateUrl:'public/shop/partials/contacts.html',
+                    templateUrl:'wisehands/shop/partials/contacts.html',
                     controller:'ContactsController'
                 }).
                 otherwise({

@@ -503,7 +503,7 @@ if (!document.createElement('canvas').getContext) {
     try {
       style.font = styleString;
     } catch (ex) {
-      // Ignore failures to set to invalid font.
+      // Ignore failures to set to invalid fonts.
     }
 
     return fontStyleCache[styleString] = {
@@ -1296,7 +1296,7 @@ if (!document.createElement('canvas').getContext) {
                  '<g_vml_:textpath on="true" string="',
                  encodeHtmlAttribute(text),
                  '" style="v-text-align:', textAlign,
-                 ';font:', encodeHtmlAttribute(fontStyleString),
+                 ';fonts:', encodeHtmlAttribute(fontStyleString),
                  '" /></g_vml_:line>');
 
     this.element_.insertAdjacentHTML('beforeEnd', lineStr.join(''));

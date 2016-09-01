@@ -84,7 +84,7 @@ browser, but needs to redraw with canvas text when exporting as an image.
 										lines = info.lines;
 
 									// Since every element at this level of the cache have the
-									// same font and fill styles, we can just change them once
+									// same fonts and fill styles, we can just change them once
 									// using the values from the first element.
 
 									if (updateStyles) {
@@ -129,8 +129,8 @@ browser, but needs to redraw with canvas text when exporting as an image.
 		//         widths: Width of this line.
 		//         text: Text on this line.
 		//     }],
-		//     font: {
-		//         definition: Canvas font property string.
+		//     fonts: {
+		//         definition: Canvas fonts property string.
 		//         color: Color of the text.
 		//     },
 		// }
@@ -156,7 +156,7 @@ browser, but needs to redraw with canvas text when exporting as an image.
 
 			text = "" + text;
 
-			// If the font is a font-spec object, generate a CSS definition
+			// If the fonts is a fonts-spec object, generate a CSS definition
 
 			if (typeof font === "object") {
 				textStyle = font.style + " " + font.variant + " " + font.weight + " " + font.size + "px " + font.family;
@@ -184,8 +184,8 @@ browser, but needs to redraw with canvas text when exporting as an image.
 
 				var context = this.context;
 
-				// If the font was provided as CSS, create a div with those
-				// classes and examine it to generate a canvas font spec.
+				// If the fonts was provided as CSS, create a div with those
+				// classes and examine it to generate a canvas fonts spec.
 
 				if (typeof font !== "object") {
 
@@ -197,14 +197,14 @@ browser, but needs to redraw with canvas text when exporting as an image.
 					font = {
 						lineHeight: element.height(),
 						style: element.css("font-style"),
-						variant: element.css("font-variant"),
-						weight: element.css("font-weight"),
-						family: element.css("font-family"),
+						variant: element.css("fonts-variant"),
+						weight: element.css("fonts-weight"),
+						family: element.css("fonts-family"),
 						color: element.css("color")
 					};
 
 					// Setting line-height to 1, without units, sets it equal
-					// to the font-size, even if the font-size is abstract,
+					// to the fonts-size, even if the fonts-size is abstract,
 					// like 'smaller'.  This enables us to read the real size
 					// via the element's height, working around browsers that
 					// return the literal 'smaller' value.

@@ -116,7 +116,7 @@
                     fgColor: this.$.data('fgcolor') || '#87CEEB',
                     inputColor: this.$.data('inputcolor'),
                     font: this.$.data('font') || 'Arial',
-                    fontWeight: this.$.data('font-weight') || 'bold',
+                    fontWeight: this.$.data('fonts-weight') || 'bold',
                     inline: false,
                     step: this.$.data('step') || 1,
                     rotation: this.$.data('rotation'),

@@ -478,7 +478,7 @@ Licensed under the BSD-2-Clause License.
       if (angle == null) {
         angle = 0;
       }
-      tt = this.raphael.text(100, 100, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).rotate(angle);
+      tt = this.raphael.text(100, 100, text).attr('font-size', this.options.gridTextSize).attr('fonts-family', this.options.gridTextFamily).attr('fonts-weight', this.options.gridTextWeight).rotate(angle);
       ret = tt.getBBox();
       tt.remove();
       return ret;
@@ -551,7 +551,7 @@ Licensed under the BSD-2-Clause License.
     };
 
     Grid.prototype.drawYAxisLabel = function(xPos, yPos, text) {
-      return this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor).attr('text-anchor', 'end');
+      return this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('fonts-family', this.options.gridTextFamily).attr('fonts-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor).attr('text-anchor', 'end');
     };
 
     Grid.prototype.drawGridLine = function(path) {
@@ -1084,7 +1084,7 @@ Licensed under the BSD-2-Clause License.
     };
 
     Line.prototype.drawXAxisLabel = function(xPos, yPos, text) {
-      return this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor);
+      return this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('fonts-family', this.options.gridTextFamily).attr('fonts-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor);
     };
 
     Line.prototype.drawLinePath = function(path, lineColor, lineIndex) {
@@ -1602,7 +1602,7 @@ Licensed under the BSD-2-Clause License.
 
     Bar.prototype.drawXAxisLabel = function(xPos, yPos, text) {
       var label;
-      return label = this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor);
+      return label = this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('fonts-family', this.options.gridTextFamily).attr('fonts-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor);
     };
 
     Bar.prototype.drawBar = function(xPos, yPos, width, height, barColor, opacity, radiusArray) {
@@ -1779,7 +1779,7 @@ Licensed under the BSD-2-Clause License.
       var text;
       text = this.raphael.text(xPos, yPos, '').attr('font-size', fontSize).attr('fill', color);
       if (fontWeight != null) {
-        text.attr('font-weight', fontWeight);
+        text.attr('fonts-weight', fontWeight);
       }
       return text;
     };
