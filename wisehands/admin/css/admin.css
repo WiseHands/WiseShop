@@ -438,5 +438,5 @@ p {
     color: red;
 }
 .noUnderline:hover {
-    text-underline: none;
+    text-decoration: none;
 }
