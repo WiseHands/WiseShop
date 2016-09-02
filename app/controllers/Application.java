@@ -80,6 +80,10 @@ public class Application extends Controller {
         render();
     }
 
+    public static void superAdmin(String client) {
+        render();
+    }
+
     public static void login(String client) {
         if (client.equals("localhost")){
             renderTemplate("WiseHands/index.html");

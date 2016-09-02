@@ -1,47 +1,113 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="WiseHands">
+<html lang="en" ng-app="SuperWiseHands">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <!--[if IE]>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <![endif]-->
-    <title>{{activeShop.shopName}}</title>
-    <link href="wisehands/assets/bootstrap3/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="wisehands/admin/css/admin.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Super Wise Hands</title>
 
+    <!-- Material Design Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="wisehands/assets/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="wisehands/assets/mdb_superAdmin/css/mdb.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: url("http://mdbootstrap.com/images/regular/nature/img%20(23).jpg") no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
 
 </head>
+
 <body>
+<!-- SideNav slide-out button -->
+<a href="#" data-activates="slide-out" class="navbar-brand button-collapse"><i class="material-icons">menu</i></a>
+<!--/. SideNav slide-out button -->
+
+<!-- Sidebar navigation -->
+<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
+    <!-- Logo -->
+    <div class="logo-wrapper">
+        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+        <div class="rgba-stylish-strong">
+            <p class="user white-text">Admin
+                <br> admin@gmail.com
+            </p>
+        </div>
+    </div>
+    <!--/. Logo -->
+
+    <!-- Side navigation links -->
+    <ul class="collapsible collapsible-accordion">
+        <li><a href="#intro" class="waves-effect waves-light"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="#" class="waves-effect waves-light"><i class="fa fa-money"></i> Sales</a></li>
+        <li><a href="#" class="waves-effect waves-light"><i class="fa fa-line-chart"></i> Conversion</a></li>
+        <li><a href="#" class="waves-effect waves-light"><i class="fa fa-users"></i> Website Traffic</a></li>
+        <li><a href="#" class="waves-effect waves-light"><i class="fa fa-search"></i> SEO</a></li>
+        <li><a href="#" class="waves-effect waves-light"><i class="fa fa-share-alt"></i> Social</a></li>
+    </ul>
+    <!--/. Side navigation links -->
+
+</ul>
+<!--/. Sidebar navigation -->
+
+<!--Navbar-->
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header pull-left">
+            <!-- SideNav slide-out button -->
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+            <!--/. SideNav slide-out button -->
+
+        </div>
+
+        <!-- Navbar Icons -->
+        <ul class="list-inline pull-right text-center">
+            <li><a href="#" class="waves-effect waves-light" data-toggle="modal" data-target="#contact-form"><i class="fa fa-question"></i><br><span>Help</span></a></li>
+            <li><a href="#" class="waves-effect waves-light" data-toggle="modal" data-target="#contact-form"><i class="fa fa-cogs"></i><br><span>Settings</span></a></li>
+            <li><a href="#" class="waves-effect waves-light" data-toggle="modal" data-target="#contact-form"><i class="fa fa-sign-out"></i><br><span>Logout</span></a></li>
+
+        </ul>
+        <!--/. Navbar Icons -->
+    </div>
+</nav>
+
 <div ng-view></div>
 
+
+<!-- SCRIPTS -->
 <script src="wisehands/assets/js/angular.min.js"></script>
 <script src="wisehands/assets/js/angular-route.min.js"></script>
-<script src="wisehands/assets/js/jquery-2.2.3.min.js"></script>
-<script src="wisehands/assets/bootstrap3/js/bootstrap.min.js"></script>
 
-<script src="wisehands/admin/js/routes/routeConfig.js"></script>
+<script src="wisehands/superadmin/js/routes/routeConfig.js"></script>
 
-<script src="wisehands/admin/js/controllers/OrderListController.js"></script>
-<script src="wisehands/admin/js/controllers/SingleOrderController.js"></script>
-<script src="wisehands/admin/js/controllers/ProductListController.js"></script>
-<script src="wisehands/admin/js/controllers/SubmitNewProductController.js"></script>
-<script src="wisehands/admin/js/controllers/ProductDetailsController.js"></script>
-<script src="wisehands/admin/js/controllers/EditProductController.js"></script>
-<script src="wisehands/admin/js/controllers/FilterOptionsController.js"></script>
-<script src="wisehands/admin/js/controllers/DeliverySettingsController.js"></script>
-<script src="wisehands/admin/js/controllers/SettingsController.js"></script>
-<script src="wisehands/admin/js/controllers/ContactsController.js"></script>
-<script src="wisehands/admin/js/controllers/UsersSettingsController.js"></script>
+<script src="wisehands/superadmin/js/controllers/SuperWiseHandsController.js"></script>
 
-<script src="wisehands/admin/js/services/sharedFilterData.js"></script>
-<script src="wisehands/admin/js/services/SignOutService.js"></script>
+<!-- JQuery -->
+<script type="text/javascript" src="wisehands/assets/js/jquery.min.js"></script>
 
-<script src="wisehands/assets/js/angular-spinners.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="wisehands/assets/bootstrap3/js/bootstrap.min.js"></script>
+
+<!-- Material Design Bootstrap -->
+<script type="text/javascript" src="wisehands/assets/mdb_superAdmin/js/mdb.min.js"></script>
+
+<script>
+    // Initialize collapse button
+    $(".button-collapse").sideNav();
+    // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+    $('.collapsible').collapsible();
+</script>
 
 </body>
+
 </html>
