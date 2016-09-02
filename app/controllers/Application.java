@@ -44,48 +44,19 @@ public class Application extends Controller {
         response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
     }
 
-
-    public static void signin(String client, String email, String password) throws Exception {
-        String SVYAT = "sviatoslav.p5@gmail.com";
-        String BOGDAN = "bohdaq@gmail.com";
-        String VOVA = "patlavovach@gmail.com";
-
-        String PASSWORD = "rjylbnth";
-
-
-        if (email.equals(SVYAT) || email.equals(BOGDAN) || email.equals(VOVA)){
-            if (password.equals(PASSWORD)) {
-                response.setHeader("X-AUTH-TOKEN", X_AUTH_TOKEN);
-                ok();
-            }
-        }
-        forbidden();
-    }
-
     public static void index(String client) {
-        if(client.equals("happybag.me")){
-            render();
-        }
-
         System.out.println("client domain: " + client);
+
         if (client.equals("localhost") || client.equals("wisehands.me")){
             renderTemplate("WiseHands/index.html");
         }
 
         ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
         if (shopDTO == null) {
-            notFound("The requested Shop is not available. Contact administrator    ");
+            notFound("The requested Shop is not available. Contact administrator");
         }
 
         renderTemplate("Application/shop.html");
-    }
-
-    public static void map(String client) {
-        render();
-    }
-
-    public static void indexRu(String client) {
-        render();
     }
 
     public static void shop(String client) {
