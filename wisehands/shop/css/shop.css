@@ -76,3 +76,7 @@ body.modal-open {
 .buyButtonBotMargin {
     margin-bottom: .5em;
 }
+
+main {
+    overflow: hidden;
+}
