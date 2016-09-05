@@ -21,7 +21,7 @@
                             $scope.order = response.data;
                             var date = new Date($scope.order.time);
                             var ddyymm = new Date($scope.order.time).toISOString().slice(0,10);
-                            var hour = date.getHours();
+                            var hour = (date.getHours()<10?'0':'') + date.getHours();
                             var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
                             $scope.properDate = ddyymm + ' ' + hour + ':' + minute;
                         }
