@@ -322,8 +322,14 @@
                                         </label>
                                     </form>
                                 </div>
-                                <p ng-show="successfullResponse">Ваше замовлення прийнято. Ви маєте можливість оплатити його при отриманні або онлайн прямо зараз.</p>
-                                <div class="proceedWithPayment" ng-show="successfullResponse">
+                                <div id="paymentButton" class="row" ng-show="successfullResponse">
+                                    <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin">
+                                        <button type="button" class="btn btn-primary-outline waves-effect btn-block" ng-click="payLater(); modalHide = !modalHide">Оплатити при отриманні</button>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        <button type="button" class="btn btn-success-outline waves-effect btn-block" ng-click="payOrder()">Оплатити</button>
+                                    </div>
+                                    <div class="proceedWithPayment"></div>
                                 </div>
                             </div>
                             <div class="modal-footer">

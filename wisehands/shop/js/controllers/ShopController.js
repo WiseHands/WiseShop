@@ -7,7 +7,7 @@
 
 (function(){
     angular.module('WiseShop')
-        .controller('ShopController', function($scope, $http) {
+        .controller('ShopController', function($scope, $http, $timeout) {
 
 
             
@@ -211,8 +211,20 @@
                 });
             });
 
+            $scope.payOrder = function () {
+                $("#paymentButton").click(function(e) {
+                    var rootDiv = document.querySelector('.proceedWithPayment');
+                    rootDiv.firstChild.submit();
+                });
+            };
 
-
+            $scope.payLater = function () {
+                $scope.selectedItems = [];
+                $('#cart-modal-ex').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $scope.successfullResponse = false;
+            }
            
         });
     
