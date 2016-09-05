@@ -88,20 +88,23 @@ public class ProductAPI extends Controller {
 
     public static void update(String client, String uuid, String name, String description, Double price, Upload photo) throws Exception {
         checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
 
         ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
 
         if(photo != null) {
             File file = new File(USERIMAGESPATH + productDTO.fileName);
+            String path = USERIMAGESPATH + shop.domain + "/" + photo.getFileName();
             if(!file.delete()){
-                error("error deleting file: " + USERIMAGESPATH + productDTO.fileName);
+                System.out.println("error deleting file: " + path);
             }
 
-            FileOutputStream out = new FileOutputStream(USERIMAGESPATH + client + "/" + photo.getFileName());
+            FileOutputStream out = new FileOutputStream(path);
             out.write(photo.asBytes());
             out.close();
 
-            productDTO.fileName = client + "/" + photo.getFileName();
+            productDTO.fileName = shop.domain + "/" + photo.getFileName();
         }
 
 
