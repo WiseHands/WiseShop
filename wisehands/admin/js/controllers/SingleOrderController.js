@@ -73,33 +73,13 @@
                         return 'Скасовано';
                     } else if (order.state === "SHIPPED") {
                         return 'Надіслано';
-                    } else if (order.state === "RETURNED") {
-                        return 'Повернено';
+                    } else if (order.state === "MANUALLY_PAYED") {
+                        return 'Післяоплата';
                     } else if (order.state === "PAYMENT_ERROR") {
                         return 'Помилка оплати';
                     }
                 };
-                $scope.payedOrder = function () {
-                    $scope.loading = true;
-                    $http({
-                        method: 'PUT',
-                        url: '/order/' + $routeParams.uuid + '/payed',
-                        headers: {
-                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                        }
-                    })
-                        .then(function successCallback(response){
-                            $scope.loading = false;
-                            $scope.order = response.data;
-                        }, function errorCallback(response){
-                            if (response.data === 'Invalid X-AUTH-TOKEN') {
-                                signout.signOut();
-                            }
-                            $scope.loading = false;
-                            console.log(response);
-                        });
-                };
+                
                 $scope.cancelledOrder = function () {
                     $scope.loading = true;
                     $http({
@@ -142,11 +122,11 @@
                             console.log(response);
                         });
                 };
-                $scope.returnedOrder = function () {
+                $scope.afterPaymentOrder = function () {
                     $scope.loading = true;
                     $http({
                         method: 'PUT',
-                        url: '/order/' + $routeParams.uuid + '/returned',
+                        url: '/order/' + $routeParams.uuid + '/manually-payed',
                         headers: {
                             'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
                             'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')

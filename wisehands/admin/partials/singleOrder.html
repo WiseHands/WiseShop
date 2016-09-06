@@ -18,10 +18,9 @@
             </span>
 
             <ul class="dropdown-menu pull-right tabletDropdown" aria-labelledby="dropdownMenu1">
-                <li ng-click="payedOrder()"><a>Оплачено</a></li>
                 <li ng-click="shippedOrder()"><a>Надіслано</a></li>
                 <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
-                <li ng-click="returnedOrder()"><a>Повернено</a></li>
+                <li ng-click="afterPaymentOrder()"><a>Післяоплата</a></li>
                 <li class="divider"></li>
                 <li data-toggle="modal" data-target="#deleteOrder"><a>Видалити</a></li>
             </ul>
@@ -46,10 +45,9 @@
     </div>
     <div class="dropdown-menu desktopDropdown col-md-10">
         <ul class="text-center">
-            <li ng-click="payedOrder()"><a>Оплачено</a></li>
             <li ng-click="shippedOrder()"><a>Надіслано</a></li>
             <li ng-click="cancelledOrder()"><a>Скасовано</a></li>
-            <li ng-click="returnedOrder()"><a>Повернено</a></li>
+            <li ng-click="afterPaymentOrder()"><a>Післяоплата</a></li>
             <hr>
             <li data-toggle="modal" data-target="#deleteOrder"><a>Видалити</a></li>
         </ul>

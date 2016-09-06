@@ -136,16 +136,6 @@ public class OrderAPI extends AuthController {
         ok();
     }
 
-    public static void markPayed(String client, String uuid) throws Exception {
-        checkAuthentification();
-
-        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
-        order.state = OrderState.PAYED;
-        order.save();
-
-        renderJSON(json(order));
-    }
-
     public static void markShipped(String client, String uuid) throws Exception {
         checkAuthentification();
 
@@ -166,11 +156,11 @@ public class OrderAPI extends AuthController {
         renderJSON(json(order));
     }
 
-    public static void markReturned(String client, String uuid) throws Exception {
+    public static void manuallyPayed(String client, String uuid) throws Exception {
         checkAuthentification();
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
-        order.state = OrderState.RETURNED;
+        order.state = OrderState.MANUALLY_PAYED;
         order.save();
 
         renderJSON(json(order));

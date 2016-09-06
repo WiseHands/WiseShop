@@ -66,7 +66,7 @@
                     return '#BC0005';
                 } else if (item.state === "SHIPPED") {
                     return '#9715BC';
-                } else if (item.state === "RETURNED") {
+                } else if (item.state === "MANUALLY_PAYED") {
                     return '#A27C20';
                 } else if (item.state === "PAYMENT_ERROR") {
                     return '#14CCC5';
