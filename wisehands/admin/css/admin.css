@@ -440,3 +440,7 @@ p {
 .noUnderline:hover {
     text-decoration: none;
 }
+
+textarea {
+    resize: none;
+}
