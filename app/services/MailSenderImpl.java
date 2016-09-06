@@ -27,9 +27,9 @@ public class MailSenderImpl implements MailSender {
         if (!isDevEnv) {
             String loginUrl = "http://";
             if(isDevEnv) {
-                loginUrl += "localhost:3334/login";
+                loginUrl += "localhost:3334/";
             } else {
-                loginUrl += "wisehands.me/login";
+                loginUrl += "wisehands.me/";
             }
 
             SimpleEmail email = new SimpleEmail();
