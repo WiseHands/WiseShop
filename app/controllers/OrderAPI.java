@@ -16,7 +16,7 @@ import java.util.*;
 public class OrderAPI extends AuthController {
 
     private static final Integer FREESHIPPINGMINCOST = 501;
-    private static final Integer SHIPPING_COST = 35;
+    private static final Integer SHIPPING_COST = 40;
 
     private class DeliveryType {
         private static final String NOVAPOSHTA = "NOVAPOSHTA";

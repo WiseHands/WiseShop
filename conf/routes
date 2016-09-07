@@ -46,6 +46,7 @@ PUT     {client}/contact                                ContactAPI.update
 
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
+*       {client}/login                                  Application.login
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
