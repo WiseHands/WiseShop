@@ -92,25 +92,34 @@
             $scope.selectedItems = [];
             $scope.buyStart = function (index, $event) {
 
-                if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
-                    $scope.products[index].quantity = 1;
-                    $scope.selectedItems.push($scope.products[index]);
-                    $scope.calculateTotal();
-
+                var today = new Date();
+                var hours = parseInt(((today.getHours()<10?'0':'') + today.getHours()), 10);
+                if(!(hours >= 11 && hours <= 13)) {
+                    toastr.warning('Ми працюємо з 11-00 до 22-00');
                 } else {
-                    $scope.products[index].quantity ++;
-                    $scope.calculateTotal();
+                    if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
+                        $scope.products[index].quantity = 1;
+                        $scope.selectedItems.push($scope.products[index]);
+                        $scope.calculateTotal();
+
+                    } else {
+                        $scope.products[index].quantity ++;
+                        $scope.calculateTotal();
+                    }
+                    if ($event.stopPropagation) $event.stopPropagation();
+                    if ($event.preventDefault) $event.preventDefault();
+                    $event.cancelBubble = true;
+                    $event.returnValue = false;
+
+                    $scope.totalItems = 0;
+                    $scope.selectedItems.forEach(function(selectedItem, key, array) {
+                        $scope.totalItems += selectedItem.quantity;
+
+                    });
+
                 }
-                if ($event.stopPropagation) $event.stopPropagation();
-                if ($event.preventDefault) $event.preventDefault();
-                $event.cancelBubble = true;
-                $event.returnValue = false;
 
-                $scope.totalItems = 0;
-                $scope.selectedItems.forEach(function(selectedItem, key, array) {
-                    $scope.totalItems += selectedItem.quantity;
 
-                });
 
             };
 
@@ -141,6 +150,7 @@
             };
 
             $scope.makeOrder = function (){
+
 
                 $scope.loading = true;
 
