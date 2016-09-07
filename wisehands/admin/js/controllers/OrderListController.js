@@ -3,6 +3,8 @@
             $scope.$route = $route;
             $scope.isSortingActive = shared.isSortingActive;
 
+
+            
             $scope.activeShop = {
                 domain: '',
                 shopName: ''
@@ -21,23 +23,53 @@
             $scope.getResource = function () {
                 spinnerService.show('mySpinner');
 
-            $http(req)
-                .then(function successCallback(response) {
-                    spinnerService.hide('mySpinner');
-                    var data = response.data;
-                    if(data.length === 0) {
-                        $scope.status = 'Замовлення відсутні';
-                    } else {
-                        $scope.orders = response.data;
-                    }
-                }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
-                    spinnerService.hide('mySpinner');
-                    $scope.status = 'Щось пішло не так...';
-                });
+                $http(req)
+                    .then(function successCallback(response) {
+                        spinnerService.hide('mySpinner');
+                        var data = response.data;
+                        if(data.length === 0) {
+                            $scope.status = 'Замовлення відсутні';
+                        } else {
+                            $scope.orders = response.data;
+                        }
+                    }, function errorCallback(response) {
+                        if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            signout.signOut();
+                        }
+                        spinnerService.hide('mySpinner');
+                        $scope.status = 'Щось пішло не так...';
+                    });
             };
+
+            $scope.refreshOrders = function() {
+                return new Promise( function( resolve, reject ) {
+
+                    spinnerService.show('mySpinner');
+
+                    $http(req)
+                        .then(function successCallback(response) {
+                            spinnerService.hide('mySpinner');
+                            resolve();
+                            var data = response.data;
+                            if(data.length === 0) {
+                                $scope.status = 'Замовлення відсутні';
+                            } else {
+                                $scope.orders = response.data;
+                            }
+                        }, function errorCallback(response) {
+                            if (response.data === 'Invalid X-AUTH-TOKEN') {
+                                reject();
+                                signout.signOut();
+                            }
+                            spinnerService.hide('mySpinner');
+                            $scope.status = 'Щось пішло не так...';
+                        });
+                } );
+            };
+
+            WebPullToRefresh.init( {
+                loadingFunction: $scope.refreshOrders
+            } );
 
             $http({
                 method: 'GET',
@@ -128,4 +160,6 @@
                 return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
             };
             $scope.signOut = signout.signOut;
+
+            
         });

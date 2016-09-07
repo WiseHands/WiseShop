@@ -246,20 +246,27 @@
 <div class="row text-center desktopSpinner">
     <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
 </div>
-<div class="wellSideMargin" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
-    <a href ="#/details/{{item.uuid}}">
-        <div class="col-xs-12 col-sm-6 rightPadding">
-            <div class="row rowBackground">
-                <div class=" col-xs-7 col-sm-7 parentTextCentering">
-                    <h5 class="truncate text-center"><i>{{item.name}}</i></h5>
-                </div>
-                <div class="col-xs-4 col-sm-4 childTextCentering">
-                    <p class="text-center">₴ <b>{{item.total}}</b></p>
-                </div>
-                <div class="col-xs-1 col-sm-1 thumbnail orderState text-center landscapeFloatRight" ng-style="{ 'background-color': orderState(item)}">
-                    <p>&nbsp;</p>
+
+<div id="ptr">
+</div>
+
+<div id="content">
+    <div class="wellSideMargin" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
+        <a href ="#/details/{{item.uuid}}">
+            <div class="col-xs-12 col-sm-6 rightPadding">
+                <div class="row rowBackground">
+                    <div class=" col-xs-7 col-sm-7 parentTextCentering">
+                        <h5 class="truncate text-center"><i>{{item.name}}</i></h5>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 childTextCentering">
+                        <p class="text-center">₴ <b>{{item.total}}</b></p>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 thumbnail orderState text-center landscapeFloatRight" ng-style="{ 'background-color': orderState(item)}">
+                        <p>&nbsp;</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>
+
