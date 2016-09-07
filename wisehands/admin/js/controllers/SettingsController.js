@@ -4,6 +4,7 @@ angular.module('WiseHands')
         $scope.loading = true;
         $scope.hostName = window.location.hostname;
 
+
         var token = localStorage.getItem('X-AUTH-TOKEN');
         var userId = localStorage.getItem('X-AUTH-USER-ID');
 
@@ -104,6 +105,9 @@ angular.module('WiseHands')
         };
         $scope.updateStoreSettings = function () {
             $scope.loading = true;
+            $scope.selectedShop.startTime = ($scope.startTime.getHours()<10?'0':'') + $scope.startTime.getHours();
+            $scope.selectedShop.endTime = ($scope.endTime.getHours()<10?'0':'') + $scope.endTime.getHours();
+            debugger;
             $http({
                 method: 'PUT',
                 url: '/shop',

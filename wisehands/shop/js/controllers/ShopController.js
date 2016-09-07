@@ -94,7 +94,7 @@
 
                 var today = new Date();
                 var hours = parseInt(((today.getHours()<10?'0':'') + today.getHours()), 10);
-                if(!(hours >= 11 && hours <= 21 && location.hostname !== 'korova.lviv.ua') ) {
+                if(!(hours >= 11 && hours <= 12) && location.hostname !== 'localhost' ) {
                     toastr.warning('Ми працюємо з 11-00 до 22-00');
                 } else {
                     if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {

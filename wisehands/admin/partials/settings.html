@@ -112,18 +112,30 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-12">Назва магазину
+                <label class="col-xs-12"><h4>Назва магазину</h4>
                     <input class="form-control" type="text" ng-model="selectedShop.shopName"/>
                 </label>
             </div>
+            <hr class="hrMargin">
             <div class="form-group">
-                <label class="col-xs-12">Публічний LiqPay ключ
+                <label class="col-xs-12"><h4>Години роботи</h4>
+                    <br>
+                    Від:
+                    <input class="form-control" type="time" ng-model="startTime"/>
+                    <br>
+                    До:
+                    <input class="form-control" type="time" ng-model="endTime"/>
+                </label>
+            </div>
+            <hr class="hrMargin">
+            <div class="form-group">
+                <label class="col-xs-12"><h4>Публічний LiqPay ключ</h4>
                     <input class="form-control" type="text" ng-model="selectedShop.liqpayPublicKey"/>
                 </label>
             </div>
             <div class="form-group">
-                <label class="col-xs-12">Приватний LiqPay ключ
-                    <input class="form-control" type="text" ng-model="selectedShop.liqpayPrivateKey"/>
+                <label class="col-xs-12"><h4>Приватний LiqPay ключ</h4>
+                    <input class="form-control" type="password" ng-model="selectedShop.liqpayPrivateKey"/>
                 </label>
             </div>
             <div class="form-group">
