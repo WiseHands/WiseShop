@@ -41,8 +41,14 @@
                 url: '/shop/details/public'
             })
                 .then(function successCallback(response) {
-                    document.title = response.data;
-                    $scope.shopName = response.data;
+                    document.title = response.data.name;
+                    $scope.shopName = response.data.name;
+                    $scope.startTime = new Date(response.data.startTime);
+                    $scope.startHour = ($scope.startTime.getHours()<10?'0':'') + $scope.startTime.getHours();
+                    $scope.startMinute = ($scope.startTime.getMinutes()<10?'0':'') + $scope.startTime.getMinutes();
+                    $scope.endTime = new Date(response.data.endTime);
+                    $scope.endHour = ($scope.endTime.getHours()<10?'0':'') + $scope.endTime.getHours();
+                    $scope.endMinute = ($scope.endTime.getMinutes()<10?'0':'') + $scope.endTime.getMinutes();
 
                 }, function errorCallback(error) {
                     console.log(error);
@@ -93,9 +99,9 @@
             $scope.buyStart = function (index, $event) {
 
                 var today = new Date();
-                var hours = parseInt(((today.getHours()<10?'0':'') + today.getHours()), 10);
-                if(!(hours >= 11 && hours <= 12) && location.hostname !== 'localhost' ) {
-                    toastr.warning('Ми працюємо з 11-00 до 22-00');
+                if(!(today.getHours() >= $scope.startTime.getHours() && today.getHours() <= $scope.endTime.getHours() &&
+                    today.getMinutes() >= $scope.startTime.getMinutes() && today.getMinutes() <= $scope.endTime.getMinutes())) {
+                    toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                 } else {
                     if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
                         $scope.products[index].quantity = 1;

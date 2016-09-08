@@ -28,6 +28,8 @@ angular.module('WiseHands')
 
                 $scope.shops.forEach(function(shop, key, array) {
                     if (shop.domain === $scope.hostName){
+                        shop.startTime = new Date(shop.startTime);
+                        shop.endTime = new Date(shop.endTime);
                         $scope.selectedShop = shop;
                     }
                 });
@@ -50,8 +52,6 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
-
-
             }, function errorCallback(response) {
                 if (response.data === 'Invalid X-AUTH-TOKEN') {
                     signout.signOut();
@@ -103,11 +103,9 @@ angular.module('WiseHands')
                 console.log(error);
             });
         };
+
         $scope.updateStoreSettings = function () {
             $scope.loading = true;
-            $scope.selectedShop.startTime = ($scope.startTime.getHours()<10?'0':'') + $scope.startTime.getHours();
-            $scope.selectedShop.endTime = ($scope.endTime.getHours()<10?'0':'') + $scope.endTime.getHours();
-            debugger;
             $http({
                 method: 'PUT',
                 url: '/shop',

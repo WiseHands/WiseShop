@@ -25,6 +25,12 @@ public class ShopDTO extends GenericModel {
     public String domain;
 
     @Expose
+    public String startTime;
+
+    @Expose
+    public String endTime;
+
+    @Expose
     public String liqpayPublicKey;
 
     @Expose

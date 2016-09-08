@@ -64,7 +64,11 @@ public class ShopAPI extends Controller {
 
     public static void publicInfo(String client) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        renderText(shop.shopName);
+        JSONObject json = new JSONObject();
+        json.put("name", shop.shopName);
+        json.put("startTime", shop.startTime);
+        json.put("endTime", shop.endTime);
+        renderJSON(json);
     }
 
     public static void update(String client) throws Exception {
@@ -80,10 +84,15 @@ public class ShopAPI extends Controller {
         String name = (String) jsonBody.get("shopName");
         String liqpayPublicKey = (String) jsonBody.get("liqpayPublicKey");
         String liqpayPrivateKey = (String) jsonBody.get("liqpayPrivateKey");
+        String startTime = (String) jsonBody.get("startTime");
+        String endTime = (String) jsonBody.get("endTime");
         System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
 
         shop.liqpayPublicKey = liqpayPublicKey;
         shop.liqpayPrivateKey = liqpayPrivateKey;
+
+        shop.startTime = startTime;
+        shop.endTime = endTime;
         shop.shopName = name;
 
         shop = shop.save();
