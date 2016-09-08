@@ -99,8 +99,15 @@
             $scope.buyStart = function (index, $event) {
 
                 var today = new Date();
-                if(!(today.getHours() >= $scope.startTime.getHours() && today.getHours() <= $scope.endTime.getHours() &&
-                    today.getMinutes() >= $scope.startTime.getMinutes() && today.getMinutes() <= $scope.endTime.getMinutes())) {
+
+                var startMinutes = $scope.startTime.getHours() * 60 + $scope.startTime.getMinutes();
+                var endMinuts = $scope.endTime.getHours() * 60 + $scope.endTime.getMinutes();
+                var nowMinutes = today.getHours() * 60 + today.getMinutes();
+
+                var isNotWorkingTime = nowMinutes < startMinutes || nowMinutes >= endMinuts;
+
+
+                if(isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                 } else {
                     if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
