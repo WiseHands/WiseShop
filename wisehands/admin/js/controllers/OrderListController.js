@@ -1,5 +1,5 @@
     angular.module('WiseHands')
-        .controller('OrderListController', function ($scope, $http, shared, $route, spinnerService, signout) {
+        .controller('OrderListController', function ($scope, $http, shared, $route, spinnerService, signout, sideNavInit) {
             $scope.$route = $route;
             $scope.isSortingActive = shared.isSortingActive;
 
@@ -91,17 +91,17 @@
 
             $scope.orderState = function(item){
                 if (item.state === "NEW"){
-                    return '#0B1BF2';
+                    return '#0275d8';
                 } else if (item.state === "PAYED") {
-                    return '#00BA0D';
+                    return '#5cb85c';
                 } else if (item.state === "CANCELLED") {
-                    return '#BC0005';
+                    return '#f0ad4e';
                 } else if (item.state === "SHIPPED") {
-                    return '#9715BC';
+                    return '#5bc0de';
                 } else if (item.state === "MANUALLY_PAYED") {
-                    return '#A27C20';
+                    return '#2BBBAE';
                 } else if (item.state === "PAYMENT_ERROR") {
-                    return '#14CCC5';
+                    return '#d9534f';
                 }
             };
             
@@ -140,7 +140,7 @@
                 if (!$scope.query){
                     return true;
                 }
-                return ((item.name.toLowerCase().indexOf($scope.query) || '') !== -1) ||
+                return ((item.name.toLowerCase().indexOf($scope.query) || '') !== -1) || ((item.name.toUpperCase().indexOf($scope.query) || '') !== -1) ||
                     ((item.total.toString().indexOf($scope.query) || '') !== -1) || ((item.name.indexOf($scope.query) || '') !== -1);
                 
             };
@@ -160,6 +160,6 @@
                 return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
             };
             $scope.signOut = signout.signOut;
-
-            
+            sideNavInit.sideNav();
+           
         });

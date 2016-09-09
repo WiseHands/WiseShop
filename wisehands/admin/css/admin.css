@@ -1,4 +1,10 @@
+body {
+    margin-top: 4.7em;
+}
 
+.noSidePadding {
+    padding: 0;
+}
 .tabletDropdown {
     top: 3.35em;
 }
@@ -238,6 +244,10 @@ p {
 
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
+    .noLeftPadding {
+        padding-right: 0;
+    }
+
     .vcenter {
         display: inline;
     }
@@ -361,8 +371,8 @@ p {
         margin-left: 0.9em;
     }
     .rightPadding {
-        padding-right: 0;
-        margin-top: 0;
+        padding-right: 2.5em;
+        margin-right: 0;
     }
     .spinnerCentering {
         margin-top: 0.8em;
@@ -443,4 +453,17 @@ p {
 
 textarea {
     max-width: 100%;
+}
+
+.noMarginForSearchInput {
+    border-bottom: 1px solid white !important;
+    color: white;
+    display: block;
+}
+
+.noMarginForSearchInput::-webkit-input-placeholder {
+    color: white;
+}
+.whiteColor {
+    color: white;
 }
