@@ -140,8 +140,9 @@
                 if (!$scope.query){
                     return true;
                 }
-                return ((item.name.toLowerCase().indexOf($scope.query) || '') !== -1) || ((item.name.toUpperCase().indexOf($scope.query) || '') !== -1) ||
-                    ((item.total.toString().indexOf($scope.query) || '') !== -1) || ((item.name.indexOf($scope.query) || '') !== -1);
+                $scope.searcText = $scope.query.toLowerCase();
+                return ((item.name.indexOf($scope.searcText) || '') !== -1) ||
+                    ((item.total.toString().indexOf($scope.query) || '') !== -1);
                 
             };
             $scope.setSortOption = function () {
