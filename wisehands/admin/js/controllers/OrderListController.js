@@ -153,7 +153,7 @@
                 if ($scope.filterOptions.length > 0){
                     return '#5AD43D';
                 } else {
-                    return '#000000';
+                    return 'white';
                 }
             };
 

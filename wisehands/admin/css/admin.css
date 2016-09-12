@@ -1,72 +1,3 @@
-body {
-    margin-top: 4.7em;
-}
-
-.noSidePadding {
-    padding: 0;
-}
-.tabletDropdown {
-    top: 3.35em;
-}
-.tabletDropdown li {
-    margin: 0.7em 0;
-    text-align: center;
-}
-
-.desktopDropdown {
-    top: 6.5em;
-    margin-left: 1.15em;
-
-}
-.desktopDropdown li {
-    margin: 0.7em 0;
-
-}
-
-
-.desktopDropdown ul {
-    list-style-type: none;
-    padding-left: 0;
-
-
-}
-.desktopDropdown a {
-    color: inherit;
-    text-decoration: none;
-}
-.desktopDropdown li:hover {
-    cursor: pointer;
-}
-.desktopBackArrow {
-    padding-top: 0;
-    padding-left: 0.5em;
-    padding-bottom: 0;
-    margin-bottom: 0.8em;
-}
-
-/*Checkboxes styling*/
-.form-group input[type="checkbox"] {
-    display: none;
-}
-
-.form-group input[type="checkbox"] + .btn-group > label span {
-    width: 1em;
-}
-
-.form-group input[type="checkbox"] + .btn-group > label span:first-child {
-    display: none;
-}
-.form-group input[type="checkbox"] + .btn-group > label span:last-child {
-    display: inline-block;
-}
-
-.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
-    display: inline-block;
-}
-.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
-    display: none;
-}
-
 /*Text Truncating*/
 .truncate {
     white-space: nowrap;
@@ -99,140 +30,11 @@ body {
     background: white;
 }
 
-
-/*Desktop navbar*/
-.navbar-fixed-left {
-    width: 200px;
-    position: fixed;
-    border-radius: 0;
-    height: 100%;
-    margin-top: 0;
-}
-.navbar-fixed-left .navbar-nav > li {
-    float: none;  /* Cancel default li float: left */
-    width: 139px;
-}
-.navbar-fixed-left + .container {
-    padding-left: 160px;
-}
-/* On using dropdown menu (To right shift popuped) */
-.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
-    margin-top: -50px;
-    margin-left: 140px;
-}
-
-
-
 /*TO CREATE SPACE BETWEEN ROW*/
 .paragraphPadding {
     padding-top: 1em;
     padding-bottom: 1em;
     margin: 0;
-}
-
-
-/*margin for fixed navbar*/
-.wellSideMargin {
-    margin-right: 0.1em;
-    margin-left: 15.5em;
-
-}
-.rightPadding {
-    padding-right: 2.5em;
-    margin-top: 1em;
-}
-.desktopTopMargin {
-    margin-top: 1em;
-}
-.vcenter {
-    margin-top: 0.4em;
-    display: none;
-}
-.rowBackground {
-    background-color: #f8f8f8;
-    border-radius: 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid lightgrey;
-}
-.parentTextCentering {
-    margin-top: 1em;
-}
-.childTextCentering {
-    margin-top: 0.55em;
-}
-.buttonTopMargin {
-    margin-top: 0.5em;
-}
-.singleOrderLeftMargin {
-    margin-right: 1em;
-
-}
-.productStatusMargin {
-    margin-bottom: -0.8em;
-}
-
-
-
-/*Vertical centering search glyphicons */
-.searchVerticalCentering {
-    margin-top: 0.7em;
-}
-.iconColor {
-    color: black;
-}
-.verticalCentering {
-    margin-top: 1.3em;
-}
-.landscapeFloatLeft {
-    float: left;
-}
-.landscapeFloatRight {
-    float: right;
-}
-.saveProductButton {
-    background-color: #F5F5F5;
-    border:none;
-}
-.orderState {
-    margin-bottom: 0;
-    border: none;
-    max-width: 1.4em;
-    float: right;
-}
-.desktopFixedWidth {
-    width: 9em;
-}
-
-.filterOrdersTopMargin {
-    padding-top: 0.7em;
-}
-.desktopNavDivider {
-    width: 12em;
-    margin-top: 0;
-}
-.desktopNavProductsDivider {
-    width: 14.2em;
-    margin: 0;
-
-}
-.productImageTopPadding {
-    padding-top: 1.5em;
-    padding-left: 1em;
-
-}
-
-.desktopSpinner {
-    margin-left: 12em;
-}
-
-
-.verticalPaddingDelivery {
-    padding-top: 2em;
-}
-
-.settingsDesktopContainer {
-    margin-left: 14.5em;
-    padding-top: 1em;
 }
 
 .smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView, .productImage {
@@ -245,44 +47,14 @@ body {
 
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
-    .noLeftPadding {
+    .noRightPadding {
         padding-right: 0;
-    }
-
-    .vcenter {
-        display: inline;
     }
     .row {
         margin-left: 0px;
         margin-right: 0px;
     }
-    .fixedWidth {
-        width: 15.5em;
-    }
-    body {
-        margin-top: 4.7em;
-    }
-    .wellSideMargin {
-        margin-right: 1rem;
-        margin-left: 0;
-    }
-    .rightPadding {
-         padding-right: 0;
-         margin-top: 0;
-     }
-    .singleOrderLeftMargin {
-        margin-left: 1rem;
-    }
-    .spinnerCentering {
-        margin-top: 0.8em;
-    }
-    .verticalPaddingDelivery {
-        padding-top: 0;
-    }
-    .settingsDesktopContainer {
-        margin-left: 0;
-        padding-top: 0;
-    }
+
     .desktopView, .portraitView, .smartPhoneView {
         display: inherit;
     }
@@ -294,45 +66,12 @@ body {
 
 /* Smartphones (landscape) ----------- */
 @media only screen and (min-device-width: 568px) and (max-device-width: 767px){
-    .vcenter {
-        display: inline;
+    .noRightPadding {
+        padding-right: 0;
     }
     .row {
         margin-left: 0px;
         margin-right: 0px;
-    }
-    .fixedWidth {
-        width: 14.2em;
-    }
-    .landscapeImageScale {
-        max-width: 40%;
-    }
-    body {
-        margin-top: 4.7em;
-    }
-    .wellSideMargin {
-        margin-right: 0.9em;
-        margin-left: 0;
-    }
-    .rightPadding {
-        padding-right: 0;
-        margin-top: 0;
-    }
-    .singleOrderLeftMargin {
-        margin-left: 1rem;
-    }
-    .spinnerCentering {
-        margin-top: 0.8em;
-    }
-    .containerSize {
-        max-width: 65%;
-    }
-    .verticalPaddingDelivery {
-        padding-top: 0;
-    }
-    .settingsDesktopContainer {
-        margin-left: 0;
-        padding-top: 0;
     }
     .desktopView, .smartPhoneView, .landscapeView {
         display: inherit;
@@ -345,50 +84,14 @@ body {
 
 /* Tablet ----------- */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    .noRightPadding {
+        padding-right: 0;
+    }
     .row {
         margin-left: 0px;
         margin-right: 0px;
     }
-    .tabletTextCentering {
-        margin-top: 0.85em;
-    }
-    .searchBarCentering {
-        margin-top: 0.6em;
-    }
-    .vcenter {
-        display: inline;
-    }
-    .fixedWidth {
-        width: 14.2em;
-    }
-    .landscapeImageScale {
-        max-width: 40%;
-    }
-    body {
-        margin-top: 4.7em;
-    }
-    .wellSideMargin {
-        margin-right: 0.9em;
-        margin-left: 0.9em;
-    }
-    .rightPadding {
-        padding-right: 2.5em;
-        margin-right: 0;
-    }
-    .spinnerCentering {
-        margin-top: 0.8em;
-    }
-    .navButtonBackground {
-        background-color: #f8f8f8;
-        border: none;
-    }
-    .verticalPaddingDelivery {
-        padding-top: 0;
-    }
-    .settingsDesktopContainer {
-        margin-left: 0;
-        padding-top: 0;
-    }
+
     .landscapeView, .desktopView, .tabletView {
         display: inherit;
     }
@@ -397,19 +100,10 @@ body {
     }
 }
 
-.ordersActiveState {
-    color: #000;
-}
-.ordersActiveStateDesktop {
-    font-weight: bold;
-    font-style: italic;
-}
+
 .vcentering {
     display: flex;
     align-items: center;
-}
-.searchBoxPadding {
-    padding-right: 0;
 }
 
 .errorTextStyling {
@@ -420,23 +114,16 @@ body {
 .errorMessageContainer {
     padding-left: 0;
 }
-.checkboxGroup {
-    padding-top: 1em;
-    /*padding-right: 1.5em;*/
-}
-.buttonMargins {
-    margin-top: 1em;
 
-}
+
 .noPaddingLeft {
     padding-left: 0;
 }
- .hrMargin {
-     margin: 0;
+ .noTopMargin {
+     margin-top: 0;
+     color: darkgray !important;
  }
-.navbar-fixed-left ul li:hover {
-    cursor: pointer;
-}
+
 .noMarginBot {
     margin-bottom: 0;
 }
@@ -455,6 +142,14 @@ body {
 textarea {
     max-width: 100%;
 }
+/*New Styles For New Design*/
+body {
+    margin-top: 4.7em;
+}
+
+.noSidePadding {
+    padding: 0;
+}
 
 .noMarginForSearchInput {
     border-bottom: 1px solid white !important;
@@ -468,3 +163,7 @@ textarea {
 .whiteColor {
     color: white;
 }
+label.whiteCheckBox::after {
+    border: 2px solid white !important;
+}
+

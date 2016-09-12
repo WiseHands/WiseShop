@@ -1,252 +1,7 @@
-<!--<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">-->
-    <!--<div class="container-fluid">-->
-        <!--<div class="navbar-header text-center">-->
-            <!--<div class="row">-->
-                <!--<div class="col-xs-3 col-sm-3">-->
-                    <!--<button type="button"-->
-                            <!--class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"-->
-                            <!--data-toggle="collapse"-->
-                            <!--data-target="#bs-example-navbar-collapse-1">-->
-                    <!--</button>-->
-                <!--</div>-->
-                <!--<div class="col-xs-7 col-sm-7 vcenter">-->
-                    <!--<h4><b>Замовлення</b></h4>-->
-                <!--</div>-->
-                <!--<div class="col-xs-2 col-sm-2">-->
-                    <!--<a class="collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">-->
-                        <!--<span class="glyphicon glyphicon-eye-open verticalCentering landscapeFloatRight"></span>-->
-                    <!--</a>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
-            <!--<ul class="nav navbar-nav">-->
-                <!--<li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/">Замовлення</a></li>-->
-                <!--<li><a href="#/products">Товари</a></li>-->
-                <!--<li><a href="#/delivery">Доставка</a></li>-->
-                <!--<li><a href="#/contacts">Контакти</a></li>-->
-                <!--<li><a href="#/settings">Налаштування</a></li>-->
-                <!--<li><a href="#/usersettings">Користувачі</a></li>-->
-                <!--<hr class="hrMargin">-->
-                <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
-            <!--</ul>-->
-        <!--</div>-->
-        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">-->
-            <!--<ul class="nav navbar-nav">-->
-                <!--<div class="col-xs-9 col-sm-9">-->
-                    <!--<input type="text" class="form-control" placeholder="Пошук" ng-model="query">-->
-                <!--</div>-->
-                <!--<div class="col-xs-3 col-sm-3 searchVerticalCentering">-->
-                    <!--<div class="col-xs-8">-->
-                        <!--<span class="glyphicon glyphicon-sort-by-attributes-alt pull-right"-->
-                              <!--ng-click="isSortingActive=!isSortingActive; setSortOption()"-->
-                              <!--ng-show="isSortingActive">-->
-                        <!--</span>-->
-                        <!--<span class="glyphicon glyphicon-sort-by-attributes pull-right"-->
-                              <!--ng-click="isSortingActive=!isSortingActive; setSortOption()"-->
-                              <!--ng-hide="isSortingActive">-->
-                        <!--</span>-->
-                    <!--</div>-->
-                    <!--<a href="#/filter" ng-style="{ 'color': isFilterOn() }">-->
-                        <!--<span class="glyphicon glyphicon-filter landscapeFloatRight"></span>-->
-                    <!--</a>-->
-                <!--</div>-->
-            <!--</ul>-->
-        <!--</div>-->
-<!--</nav>-->
-<!--<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">-->
-    <!--<div class="row">-->
-        <!--<div class="col-xs-2 col-sm-2 searchBarCentering">-->
-            <!--<div class="dropdown pull-left">-->
-                <!--<button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                    <!--<span class="glyphicon glyphicon-option-vertical"></span>-->
-                <!--</button>-->
-                <!--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
-                    <!--<li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/">Замовлення</a></li>-->
-                    <!--<li><a href="#/products">Товари</a></li>-->
-                    <!--<li><a href="#/delivery">Доставка</a></li>-->
-                    <!--<li><a href="#/contacts">Контакти</a></li>-->
-                    <!--<li><a href="#/settings">Налаштування</a></li>-->
-                    <!--<li><a href="#/usersettings">Користувачі</a></li>-->
-                    <!--<hr class="hrMargin">-->
-                    <!--<li><a ng-click="signOut()" target="_self">Вийти</a></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-xs-8 col-sm-8 searchBoxPadding">-->
-            <!--<input type="text" class="form-control searchBarCentering" placeholder="Пошук" ng-model="query">-->
-        <!--</div>-->
-        <!--<div class="col-xs-2 col-sm-2">-->
-            <!--<span class="glyphicon glyphicon-sort-by-attributes-alt verticalCentering col-sm-6"-->
-                  <!--ng-click="isSortingActive=!isSortingActive; setSortOption()"-->
-                  <!--ng-show="isSortingActive">-->
-            <!--</span>-->
-            <!--<span class="glyphicon glyphicon-sort-by-attributes verticalCentering col-sm-6"-->
-                  <!--ng-click="isSortingActive=!isSortingActive; setSortOption()"-->
-                  <!--ng-hide="isSortingActive">-->
-            <!--</span>-->
-            <!--<a href="#/filter"  ng-style="{ 'color': isFilterOn() }">-->
-                <!--<span class="glyphicon glyphicon-filter verticalCentering landscapeFloatRight col-sm-6"></span>-->
-            <!--</a>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-<!--</nav>-->
-<!--<div class="navbar navbar-default navbar-fixed-left">-->
-    <!--<a href="{{getUrl(activeShop)}}" class="navbar-brand">{{activeShop.shopName}}</a>-->
-    <!--<ul class="nav navbar-nav">-->
-        <!--<li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'orderlist'}"><a href="#/">Замовлення</a></li>-->
-        <!--<li><a href="#/products">Товари</a></li>-->
-        <!--<li><a href="#/delivery">Доставка</a></li>-->
-        <!--<li><a href="#/contacts">Контакти</a></li>-->
-        <!--<li><a href="#/settings">Налаштування</a></li>-->
-        <!--<li><a href="#/usersettings">Користувачі</a></li>-->
-        <!--<hr class="desktopNavProductsDivider">-->
-        <!--<li><a ng-click="signOut()" target="_self">Вийти</a></li>-->
-    <!--</ul>-->
-<!--</div>-->
-<!--<div class="container-fluid desktopFilterView">-->
-    <!--<div class="row buttonMargins">-->
-        <!--<div class="col-md-offset-3 col-md-6">-->
-            <!--<input type="text" class="form-control searchBarCentering" placeholder="Пошук" ng-model="query">-->
-        <!--</div>-->
-        <!--<button type="button"-->
-                <!--class="btn btn-default col-md-2"-->
-                <!--ng-click="isSortingActive=!isSortingActive; setSortOption()">-->
-            <!--<span class="glyphicon glyphicon-sort-by-attributes-alt pull-left" ng-show="isSortingActive"></span>-->
-            <!--<span class="glyphicon glyphicon-sort-by-attributes pull-left" ng-hide="isSortingActive"></span>-->
-            <!--Сортування-->
-        <!--</button>-->
-    <!--</div>-->
-    <!--<div class="checkboxGroup row">-->
-        <!--<div class="col-md-3 col-md-offset-3">-->
-            <!--<div class="[ form-group ]">-->
-                <!--<input type="checkbox"-->
-                       <!--name="fancy-checkbox-default1"-->
-                       <!--id="fancy-checkbox-default1"-->
-                       <!--autocomplete="off"-->
-                       <!--ng-click="orderStateFilter('NEW')"-->
-                       <!--ng-checked="isOptionChecked('NEW')"/>-->
-                <!--<div class="[ btn-group ]">-->
-                    <!--<label for="fancy-checkbox-default1" class="[ btn btn-default ]">-->
-                        <!--<span class="[ glyphicon glyphicon-ok ]"></span>-->
-                        <!--<span> </span>-->
-                    <!--</label>-->
-                    <!--<label for="fancy-checkbox-default1" class="[ btn btn-default active ] desktopFixedWidth">-->
-                        <!--<b class="pull-left">Нові</b>-->
-                    <!--</label>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-md-3">-->
-            <!--<div class="[ form-group ]">-->
-                <!--<input type="checkbox"-->
-                       <!--name="fancy-checkbox-default2"-->
-                       <!--id="fancy-checkbox-default2"-->
-                       <!--autocomplete="off"-->
-                       <!--ng-click="orderStateFilter('PAYED')"-->
-                       <!--ng-checked="isOptionChecked('PAYED')"/>-->
-                <!--<div class="[ btn-group ]">-->
-                    <!--<label for="fancy-checkbox-default2" class="[ btn btn-default ]">-->
-                        <!--<span class="[ glyphicon glyphicon-ok ]"></span>-->
-                        <!--<span> </span>-->
-                    <!--</label>-->
-                    <!--<label for="fancy-checkbox-default2" class="[ btn btn-default active ] desktopFixedWidth">-->
-                        <!--<b class="pull-left">Оплачені</b>-->
-                    <!--</label>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-md-3 noPaddingLeft">-->
-            <!--<div class="[ form-group ]">-->
-                <!--<input type="checkbox"-->
-                       <!--name="fancy-checkbox-default3"-->
-                       <!--id="fancy-checkbox-default3"-->
-                       <!--autocomplete="off"-->
-                       <!--ng-click="orderStateFilter('MANUALLY_PAYED')"-->
-                       <!--ng-checked="isOptionChecked('MANUALLY_PAYED')" />-->
-                <!--<div class="[ btn-group ]">-->
-                    <!--<label for="fancy-checkbox-default3" class="[ btn btn-default ]">-->
-                        <!--<span class="[ glyphicon glyphicon-ok ]"></span>-->
-                        <!--<span> </span>-->
-                    <!--</label>-->
-                    <!--<label for="fancy-checkbox-default3" class="[ btn btn-default active ] desktopFixedWidth">-->
-                        <!--<b class="pull-left">Післяоплата</b>-->
-                    <!--</label>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-md-3 col-md-offset-3">-->
-            <!--<div class="[ form-group ]">-->
-                <!--<input type="checkbox"-->
-                       <!--name="fancy-checkbox-default4"-->
-                       <!--id="fancy-checkbox-default4"-->
-                       <!--autocomplete="off"-->
-                       <!--ng-click="orderStateFilter('CANCELLED')"-->
-                       <!--ng-checked="isOptionChecked('CANCELLED')" />-->
-                <!--<div class="[ btn-group ]">-->
-                    <!--<label for="fancy-checkbox-default4" class="[ btn btn-default ]">-->
-                        <!--<span class="[ glyphicon glyphicon-ok ]"></span>-->
-                        <!--<span> </span>-->
-                    <!--</label>-->
-                    <!--<label for="fancy-checkbox-default4" class="[ btn btn-default active ] desktopFixedWidth">-->
-                        <!--<b class="pull-left">Скасовані</b>-->
-                    <!--</label>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-md-3">-->
-            <!--<div class="[ form-group ]">-->
-                <!--<input type="checkbox"-->
-                       <!--name="fancy-checkbox-default5"-->
-                       <!--id="fancy-checkbox-default5"-->
-                       <!--autocomplete="off"-->
-                       <!--ng-click="orderStateFilter('SHIPPED')"-->
-                       <!--ng-checked="isOptionChecked('SHIPPED')" />-->
-                <!--<div class="[ btn-group ]">-->
-                    <!--<label for="fancy-checkbox-default5" class="[ btn btn-default ]">-->
-                        <!--<span class="[ glyphicon glyphicon-ok ]"></span>-->
-                        <!--<span> </span>-->
-                    <!--</label>-->
-                    <!--<label for="fancy-checkbox-default5" class="[ btn btn-default active ] desktopFixedWidth">-->
-                        <!--<b class="pull-left">Відправлені</b>-->
-                    <!--</label>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-md-3 noPaddingLeft">-->
-            <!--<div class="[ form-group ]">-->
-                <!--<input type="checkbox"-->
-                       <!--name="fancy-checkbox-default6"-->
-                       <!--id="fancy-checkbox-default6"-->
-                       <!--autocomplete="off"-->
-                       <!--ng-click="orderStateFilter('PAYMENT_ERROR')"-->
-                       <!--ng-checked="isOptionChecked('PAYMENT_ERROR')" />-->
-                <!--<div class="[ btn-group ]">-->
-                    <!--<label for="fancy-checkbox-default6" class="[ btn btn-default ]">-->
-                        <!--<span class="[ glyphicon glyphicon-ok ]"></span>-->
-                        <!--<span> </span>-->
-                    <!--</label>-->
-                    <!--<label for="fancy-checkbox-default6" class="[ btn btn-default active ] desktopFixedWidth">-->
-                        <!--<b class="pull-left">Помилка</b>-->
-                    <!--</label>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<hr>-->
-<!--</div>-->
-
-
-
-
-
-
 <nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header pull-left">
             <a  data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
-
         </div>
         <div class="row vcentering">
             <form class="col-xs-offset-1 col-xs-8 waves-effect waves-light">
@@ -262,79 +17,117 @@
                ng-hide="isSortingActive">
                 <i class="fa fa-sort-amount-asc pull-right whiteColor"></i>
             </a>
-            <a href="#/filter" class="col-xs-1 noLeftPadding">
-                <i class="fa fa-filter pull-right whiteColor"></i>
+            <a class="col-xs-1 noRightPadding"
+               type="button"
+               data-toggle="collapse"
+               data-target="#filterOptions"
+               aria-expanded="false"
+               aria-controls="filterOptions">
+                <i class="fa fa-filter pull-right" ng-style="{ 'color': isFilterOn() }">
+                </i>
             </a>
-
         </div>
+        <div class="container-fluid">
+            <div class="collapse row" id="filterOptions">
+                <div class="col-xs-6 col-sm-4">
+                        <input type="checkbox"
+                               class="filled-in"
+                               id="checkbox1"
+                               ng-click="orderStateFilter('NEW')"
+                               ng-checked="isOptionChecked('NEW')">
+                        <label class="white-text whiteCheckBox" for="checkbox1">Нові</label>
+                </div>
+                <div class="col-xs-6 col-sm-4 ">
+                     <input type="checkbox"
+                            class="filled-in"
+                            id="checkbox2"
+                            ng-click="orderStateFilter('PAYED')"
+                            ng-checked="isOptionChecked('PAYED')">
+                     <label class="white-text whiteCheckBox" for="checkbox2">Оплачені</label>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                     <input type="checkbox"
+                            class="filled-in"
+                            id="checkbox3"
+                            ng-click="orderStateFilter('MANUALLY_PAYED')"
+                            ng-checked="isOptionChecked('MANUALLY_PAYED')">
+                     <label class="white-text whiteCheckBox" for="checkbox3">Післяоплата</label>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                     <input type="checkbox"
+                            class="filled-in"
+                            id="checkbox4"
+                            ng-click="orderStateFilter('CANCELLED')"
+                            ng-checked="isOptionChecked('CANCELLED')">
+                     <label class="white-text whiteCheckBox" for="checkbox4">Скасовані</label>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                     <input type="checkbox"
+                            class="filled-in"
+                            id="checkbox5"
+                            ng-click="orderStateFilter('SHIPPED')"
+                            ng-checked="isOptionChecked('SHIPPED')">
+                     <label class="white-text whiteCheckBox" for="checkbox5">Відправлені</label>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                     <input type="checkbox"
+                            class="filled-in"
+                            id="checkbox6"
+                            ng-click="orderStateFilter('PAYMENT_ERROR')"
+                            ng-checked="isOptionChecked('PAYMENT_ERROR')">
+                     <label class="white-text whiteCheckBox" for="checkbox6">Помилка</label>
+                </div>
+         </div>
+     </div>
     </div>
 </nav>
 <ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
-    <div class="logo-wrapper">
-        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
-        <div class="rgba-stylish-strong">
-            <p class="user white-text">Admin
-                <br> admin@gmail.com
-            </p>
-        </div>
-    </div>
+ <div class="logo-wrapper">
+     <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+     <div class="rgba-stylish-strong">
+         <p class="user white-text">Admin
+             <br> admin@gmail.com
+         </p>
+     </div>
+ </div>
 
-    <ul class="collapsible collapsible-accordion">
-        <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
-        <li><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
-        <li><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
-        <li><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
-        <li><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
-        <li><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
-        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
-    </ul>
+ <ul class="collapsible collapsible-accordion">
+     <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
+     <li><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
+     <li><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
+     <li><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
+     <li><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
+     <li><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
+     <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
+ </ul>
 </ul>
 
 <div class="container-fluid noSidePadding">
-        <h4 class="text-center"><i>{{status}}</i></h4>
-        <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
-            <i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i>
-        </h4>
-    <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
-    </div>
-
-    <div id="ptr"></div>
-    <div id="content">
-        <div class="col-sm-6" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
-            <div class="card card-primary text-xs-center z-depth-2"
-                 ng-style="{'background-color': orderState(item)}">
-                <a href ="#/details/{{item.uuid}}">
-                    <div class="row">
-                        <div class="card-block vcentering">
-                            <div class=" col-xs-8 col-sm-8">
-                                <p class="truncate text-center white-text paragraphPadding"><i>{{item.name}}</i></p>
-                            </div>
-                            <div class="col-xs-4 col-sm-4">
-                                <p class="text-center white-text paragraphPadding">₴ <b>{{item.total}}</b></p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <!--<div class="wellSideMargin" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">-->
-            <!--<a href ="#/details/{{item.uuid}}">-->
-                <!--<div class="col-xs-12 col-sm-6">-->
-                    <!--<div class="row rowBackground">-->
-                        <!--<div class=" col-xs-7 col-sm-7 parentTextCentering">-->
-                            <!--<h5 class="truncate text-center"><i>{{item.name}}</i></h5>-->
-                        <!--</div>-->
-                        <!--<div class="col-xs-4 col-sm-4 childTextCentering">-->
-                            <!--<p class="text-center">₴ <b>{{item.total}}</b></p>-->
-                        <!--</div>-->
-                        <!--<div class="col-xs-1 col-sm-1 thumbnail orderState text-center landscapeFloatRight" ng-style="{ 'background-color': orderState(item)}">-->
-                            <!--<p>&nbsp;</p>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</a>-->
-        <!--</div>-->
-    </div>
+     <h4 class="text-center"><i>{{status}}</i></h4>
+     <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
+         <i>Нема жодного замовлення, яке б відповідало критеріям пошуку</i>
+     </h4>
+ <div class="row text-center">
+     <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
+ </div>
+ <div id="ptr"></div>
+ <div id="content">
+     <div class="col-sm-6" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
+         <div class="card card-primary text-xs-center z-depth-2"
+              ng-style="{'background-color': orderState(item)}">
+             <a href ="#/details/{{item.uuid}}">
+                 <div class="row">
+                     <div class="card-block vcentering">
+                         <div class=" col-xs-8 col-sm-8">
+                             <p class="truncate text-center white-text paragraphPadding"><i>{{item.name}}</i></p>
+                         </div>
+                         <div class="col-xs-4 col-sm-4">
+                             <p class="text-center white-text paragraphPadding">₴ <b>{{item.total}}</b></p>
+                         </div>
+                     </div>
+                 </div>
+             </a>
+         </div>
+     </div>
+ </div>
 </div>

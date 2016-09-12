@@ -53,11 +53,6 @@
                         controller:'EditProductController',
                         activetab: 'productlist'
                     }).
-                    when('/filter',{
-                        templateUrl:'wisehands/admin/partials/filterOrders.html',
-                        controller:'FilterOptionsController',
-                        activetab: 'orderlist'
-                    }).
                     when('/delivery',{
                         templateUrl:'wisehands/admin/partials/delivery.html',
                         controller:'DeliverySettingsController',
