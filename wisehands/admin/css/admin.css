@@ -50,6 +50,9 @@
     .noRightPadding {
         padding-right: 0;
     }
+    .noPaddingLeft {
+        padding-left: 0;
+    }
     .row {
         margin-left: 0px;
         margin-right: 0px;
@@ -69,6 +72,9 @@
     .noRightPadding {
         padding-right: 0;
     }
+    .noPaddingLeft {
+        padding-left: 0;
+    }
     .row {
         margin-left: 0px;
         margin-right: 0px;
@@ -86,6 +92,9 @@
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
     .noRightPadding {
         padding-right: 0;
+    }
+    .noPaddingLeft {
+        padding-left: 0;
     }
     .row {
         margin-left: 0px;
@@ -116,9 +125,7 @@
 }
 
 
-.noPaddingLeft {
-    padding-left: 0;
-}
+
  .noTopMargin {
      margin-top: 0;
      color: darkgray !important;
@@ -165,5 +172,8 @@ body {
 }
 label.whiteCheckBox::after {
     border: 2px solid white !important;
+}
+.deleteOrderTopMargin {
+    margin-top: .8em;
 }
 
