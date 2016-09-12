@@ -140,9 +140,10 @@
                 if (!$scope.query){
                     return true;
                 }
-                $scope.searcText = $scope.query.toLowerCase();
-                return ((item.name.indexOf($scope.searcText) || '') !== -1) ||
-                    ((item.total.toString().indexOf($scope.query) || '') !== -1);
+                var searcText = $scope.query.toLowerCase();
+                var lowerCaseName = item.name.toLowerCase();
+                var total = item.total.toString();
+                return lowerCaseName.indexOf(searcText) != -1 || total.indexOf(searcText) !== -1;
                 
             };
             $scope.setSortOption = function () {
