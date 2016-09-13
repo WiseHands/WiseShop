@@ -70,7 +70,17 @@ angular.module('WiseHands')
                 $(this).css('height', max + 'px');
             });
         }
+        $scope.search = function (product) {
+            if (!$scope.query){
+                return true;
+            }
+            var searcText = $scope.query.toLowerCase();
+            var lowerCaseName = product.name.toLowerCase();
+            var total = product.price.toString();
+            return lowerCaseName.indexOf(searcText) != -1 || total.indexOf(searcText) !== -1;
 
+        };
+        
         $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
             equalizeHeights(".fixed-height");
 

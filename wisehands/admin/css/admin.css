@@ -185,6 +185,9 @@ label.whiteCheckBox::after {
 .deleteOrderTopMargin {
     margin-top: .8em;
 }
-
+.saveProductButtonStyling, .saveProductButtonStyling:active, .saveProductButtonStyling:visited, .saveProductButtonStyling:focus {
+    border: none;
+    background-color: #3F729B;
+}
 
 
