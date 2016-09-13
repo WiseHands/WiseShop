@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('ProductListController', function ($scope, $http, $route, spinnerService, signout) {
+    .controller('ProductListController', function ($scope, $http, $route, spinnerService, signout, sideNavInit) {
         $scope.$route = $route;
 
         $scope.activeShop = {
@@ -14,6 +14,7 @@ angular.module('WiseHands')
             url: '/products'
         })
             .then(function successCallback(response) {
+
                 spinnerService.hide('mySpinner');
                 var data = response.data;
                 if(data.length === 0) {
@@ -49,4 +50,36 @@ angular.module('WiseHands')
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
         };
         $scope.signOut = signout.signOut;
+        sideNavInit.sideNav();
+
+        function equalizeHeights(selector) {
+            var heights = new Array();
+
+            $(selector).each(function() {
+
+                $(this).css('min-height', '0');
+                $(this).css('max-height', 'none');
+                $(this).css('height', 'auto');
+
+                heights.push($(this).height());
+            });
+
+            var max = Math.max.apply( Math, heights );
+
+            $(selector).each(function() {
+                $(this).css('height', max + 'px');
+            });
+        }
+
+        $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+            equalizeHeights(".fixed-height");
+
+            $(window).resize(function() {
+
+                setTimeout(function() {
+                    equalizeHeights(".fixed-height");
+                }, 120);
+            });
+        });
+
     });

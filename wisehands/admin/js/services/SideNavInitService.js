@@ -4,7 +4,7 @@ angular.module('WiseHands')
             sideNav: function(){
                 $(".button-collapse").sideNav();
                 $('.collapsible').collapsible();
+                $('div[id^=sidenav-overlay]').click();
             }
-
         }
     });

@@ -1,129 +1,253 @@
-<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">
+<!--<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">-->
+    <!--<div class="container-fluid">-->
+        <!--<div class="navbar-header text-center">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-3 col-sm-3">-->
+                    <!--<button type="button"-->
+                            <!--class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"-->
+                            <!--data-toggle="collapse"-->
+                            <!--data-target="#bs-example-navbar-collapse-1">-->
+                    <!--</button>-->
+                <!--</div>-->
+                <!--<div class="col-xs-6 col-sm-6 vcenter">-->
+                    <!--<h4><b>Товари</b></h4>-->
+                <!--</div>-->
+                <!--<div class="col-xs-3 col-sm-3">-->
+                    <!--<a href="#/products/new">-->
+                        <!--<span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"></span>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li><a href="#/">Замовлення</a></li>-->
+                <!--<li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>-->
+                <!--<li><a href="#/delivery">Доставка</a></li>-->
+                <!--<li><a href="#/contacts">Контакти</a></li>-->
+                <!--<li><a href="#/settings">Налаштування</a></li>-->
+                <!--<li><a href="#/usersettings">Користувачі</a></li>-->
+                <!--<hr class="hrMargin">-->
+                <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+<!--</nav>-->
+<!--<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">-->
+    <!--<div class="row">-->
+        <!--<div class="col-xs-5 col-sm-5 searchBarCentering">-->
+            <!--<div class="dropdown pull-left">-->
+                <!--<button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
+                    <!--<span class="glyphicon glyphicon-option-vertical"></span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
+                    <!--<li><a href="#/">Замовлення</a></li>-->
+                    <!--<li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>-->
+                    <!--<li><a href="#/delivery">Доставка</a></li>-->
+                    <!--<li><a href="#/contacts">Контакти</a></li>-->
+                    <!--<li><a href="#/settings">Налаштування</a></li>-->
+                    <!--<li><a href="#/usersettings">Користувачі</a></li>-->
+                    <!--<hr class="hrMargin">-->
+                    <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-5 col-sm-5 vcenter">-->
+            <!--<h4><b>Товари</b></h4>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2 col-sm-2">-->
+            <!--<a href="#/products/new">-->
+                <!--<span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"></span>-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</nav>-->
+
+<!--<div class="navbar navbar-default navbar-fixed-left">-->
+    <!--<a href="{{getUrl(activeShop)}}" class="navbar-brand">{{activeShop.shopName}}</a>-->
+    <!--<ul class="nav navbar-nav">-->
+        <!--<li><a href="#/">Замовлення</a></li>-->
+        <!--<li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>-->
+        <!--<li><a href="#/delivery">Доставка</a></li>-->
+        <!--<li><a href="#/contacts">Контакти</a></li>-->
+        <!--<li><a href="#/settings">Налаштування</a></li>-->
+        <!--<li><a href="#/usersettings">Користувачі</a></li>-->
+        <!--<hr class="desktopNavProductsDivider">-->
+        <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
+    <!--</ul>-->
+    <!--<a href="#/products/new">-->
+        <!--<button type="button"-->
+                <!--class="btn btn-default buttonTopMargin col-md-offset-1 col-md-10">-->
+            <!--<span class="glyphicon glyphicon-plus pull-left"></span>-->
+            <!--Додати-->
+        <!--</button>-->
+    <!--</a>-->
+<!--</div>-->
+
+<!--<div class="container-fluid productStatusMargin">-->
+    <!--<h4 class="text-center"><i>{{status}}</i></h4>-->
+<!--</div>-->
+<!--<div class="wellSideMargin desktopView" ng-repeat="product in products">-->
+    <!--<div class="col-xs-12 col-sm-6 rightPadding">-->
+        <!--<div class="row rowBackground">-->
+            <!--<a href="#/product/details/{{product.uuid}}">-->
+                <!--<div class="col-xs-9 col-sm-9">-->
+                    <!--<h5 class="text-left truncate"><i>{{product.name}}</i></h5>-->
+                <!--</div>-->
+                <!--<div class="col-xs-3 col-sm-3">-->
+                    <!--<h5 class="text-right">₴ <b>{{product.price}}</b></h5>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+<!--<div class="wellSideMargin desktopProductsView" ng-repeat="product in products">-->
+    <!--<div class="col-xs-12 col-sm-6 rightPadding">-->
+        <!--<div class="row rowBackground productImageTopPadding">-->
+            <!--<a href="#/product/details/{{product.uuid}}">-->
+                <!--<div class="thumbnail col-md-3">-->
+                    <!--<img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive"></img>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-6">-->
+                        <!--<h5 class="text-left truncate"><i>{{product.name}}</i></h5>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-2">-->
+                        <!--<h5 class="text-right">₴ <b>{{product.price}}</b></h5>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-8">-->
+                        <!--<h5 class="productDescriptionTruncate">{{product.description}}</h5>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1" role="navigation">
     <div class="container-fluid">
-        <div class="navbar-header text-center">
-            <div class="row">
-                <div class="col-xs-3 col-sm-3">
-                    <button type="button"
-                            class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"
-                            data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1">
-                    </button>
-                </div>
-                <div class="col-xs-6 col-sm-6 vcenter">
-                    <h4><b>Товари</b></h4>
-                </div>
-                <div class="col-xs-3 col-sm-3">
-                    <a href="#/products/new">
-                        <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"></span>
-                    </a>
-                </div>
-            </div>
+        <div class="navbar-header pull-left">
+            <a  data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#/">Замовлення</a></li>
-                <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>
-                <li><a href="#/delivery">Доставка</a></li>
-                <li><a href="#/contacts">Контакти</a></li>
-                <li><a href="#/settings">Налаштування</a></li>
-                <li><a href="#/usersettings">Користувачі</a></li>
-                <hr class="hrMargin">
-                <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-            </ul>
-        </div>
-</nav>
-<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
-    <div class="row">
-        <div class="col-xs-5 col-sm-5 searchBarCentering">
-            <div class="dropdown pull-left">
-                <button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="glyphicon glyphicon-option-vertical"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#/">Замовлення</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>
-                    <li><a href="#/delivery">Доставка</a></li>
-                    <li><a href="#/contacts">Контакти</a></li>
-                    <li><a href="#/settings">Налаштування</a></li>
-                    <li><a href="#/usersettings">Користувачі</a></li>
-                    <hr class="hrMargin">
-                    <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xs-5 col-sm-5 vcenter">
-            <h4><b>Товари</b></h4>
-        </div>
-        <div class="col-xs-2 col-sm-2">
-            <a href="#/products/new">
-                <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"></span>
+        <div class="row vcentering">
+            <form class="col-xs-offset-1 col-xs-8 waves-effect waves-light">
+                <input class="form-control noMarginForSearchInput" type="text" placeholder="Пошук" ng-model="query">
+            </form>
+            <a class="col-xs-2"
+               ng-click="isSortingActive=!isSortingActive; setSortOption()"
+               ng-show="isSortingActive">
+                <i class="fa fa-sort-amount-desc pull-right whiteColor"></i>
             </a>
+            <a class="col-xs-2"
+               ng-click="isSortingActive=!isSortingActive; setSortOption()"
+               ng-hide="isSortingActive">
+                <i class="fa fa-sort-amount-asc pull-right whiteColor"></i>
+            </a>
+            <a class="col-xs-1 noRightPadding"
+               type="button"
+               data-toggle="collapse"
+               data-target="#filterOptions"
+               aria-expanded="false"
+               aria-controls="filterOptions">
+                <i class="fa fa-filter pull-right" ng-style="{ 'color': isFilterOn() }">
+                </i>
+            </a>
+        </div>
+        <div class="container-fluid">
+            <div class="collapse row" id="filterOptions">
+                <div class="col-xs-6 col-sm-4">
+                    <input type="checkbox"
+                           class="filled-in"
+                           id="checkbox1"
+                           ng-click="orderStateFilter('NEW')"
+                           ng-checked="isOptionChecked('NEW')">
+                    <label class="white-text whiteCheckBox" for="checkbox1">Нові</label>
+                </div>
+                <div class="col-xs-6 col-sm-4 ">
+                    <input type="checkbox"
+                           class="filled-in"
+                           id="checkbox2"
+                           ng-click="orderStateFilter('PAYED')"
+                           ng-checked="isOptionChecked('PAYED')">
+                    <label class="white-text whiteCheckBox" for="checkbox2">Оплачені</label>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                    <input type="checkbox"
+                           class="filled-in"
+                           id="checkbox3"
+                           ng-click="orderStateFilter('MANUALLY_PAYED')"
+                           ng-checked="isOptionChecked('MANUALLY_PAYED')">
+                    <label class="white-text whiteCheckBox" for="checkbox3">Післяоплата</label>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                    <input type="checkbox"
+                           class="filled-in"
+                           id="checkbox4"
+                           ng-click="orderStateFilter('CANCELLED')"
+                           ng-checked="isOptionChecked('CANCELLED')">
+                    <label class="white-text whiteCheckBox" for="checkbox4">Скасовані</label>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                    <input type="checkbox"
+                           class="filled-in"
+                           id="checkbox5"
+                           ng-click="orderStateFilter('SHIPPED')"
+                           ng-checked="isOptionChecked('SHIPPED')">
+                    <label class="white-text whiteCheckBox" for="checkbox5">Відправлені</label>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                    <input type="checkbox"
+                           class="filled-in"
+                           id="checkbox6"
+                           ng-click="orderStateFilter('PAYMENT_ERROR')"
+                           ng-checked="isOptionChecked('PAYMENT_ERROR')">
+                    <label class="white-text whiteCheckBox" for="checkbox6">Помилка</label>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
+<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
+    <div class="logo-wrapper">
+        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+        <div class="rgba-stylish-strong">
+            <p class="user white-text">Admin
+                <br> admin@gmail.com
+            </p>
+        </div>
+    </div>
 
-<div class="navbar navbar-default navbar-fixed-left">
-    <a href="{{getUrl(activeShop)}}" class="navbar-brand">{{activeShop.shopName}}</a>
-    <ul class="nav navbar-nav">
-        <li><a href="#/">Замовлення</a></li>
-        <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'productlist'}"><a href="#/products">Товари</a></li>
-        <li><a href="#/delivery">Доставка</a></li>
-        <li><a href="#/contacts">Контакти</a></li>
-        <li><a href="#/settings">Налаштування</a></li>
-        <li><a href="#/usersettings">Користувачі</a></li>
-        <hr class="desktopNavProductsDivider">
-        <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
+    <ul class="collapsible collapsible-accordion">
+        <li><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
+        <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
+        <li><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
+        <li><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
+        <li><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
+        <li><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
+        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
     </ul>
-    <a href="#/products/new">
-        <button type="button"
-                class="btn btn-default buttonTopMargin col-md-offset-1 col-md-10">
-            <span class="glyphicon glyphicon-plus pull-left"></span>
-            Додати
-        </button>
-    </a>
-</div>
-
-<div class="container-fluid productStatusMargin">
-    <h4 class="text-center"><i>{{status}}</i></h4>
-</div>
-<div class="wellSideMargin desktopView" ng-repeat="product in products">
-    <div class="col-xs-12 col-sm-6 rightPadding">
-        <div class="row rowBackground">
-            <a href="#/product/details/{{product.uuid}}">
-                <div class="col-xs-9 col-sm-9">
-                    <h5 class="text-left truncate"><i>{{product.name}}</i></h5>
-                </div>
-                <div class="col-xs-3 col-sm-3">
-                    <h5 class="text-right">₴ <b>{{product.price}}</b></h5>
-                </div>
-            </a>
-        </div>
+</ul>
+<div class="container-fluid cardTopPadding noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
     </div>
-</div>
-
-<div class="row text-center desktopSpinner">
-    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
-</div>
-
-<div class="wellSideMargin desktopProductsView" ng-repeat="product in products">
-    <div class="col-xs-12 col-sm-6 rightPadding">
-        <div class="row rowBackground productImageTopPadding">
-            <a href="#/product/details/{{product.uuid}}">
-                <div class="thumbnail col-md-3">
-                    <img ng-src="/public/product_images/{{product.fileName}}" class="img-responsive"></img>
+    <div class="col-sm-6 col-md-4" ng-repeat="product in products" on-finish-render="ngRepeatFinished">
+        <a href="#/product/details/{{product.uuid}}">
+            <div class="card card-product hoverable">
+                <div class="card-image waves-effect waves-block waves-light view overlay hm-white-slight">
+                    <img ng-src="/public/product_images/{{product.fileName}}">
+                    <div class="mask"> </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5 class="text-left truncate"><i>{{product.name}}</i></h5>
+                <div class="card-content text-center row">
+                    <div class="col-xs-12 fixed-height">
+                        <h5 class="product-title fixed-height">{{product.name}}</h5>
                     </div>
-                    <div class="col-md-2">
-                        <h5 class="text-right">₴ <b>{{product.price}}</b></h5>
-                    </div>
-                    <div class="col-md-8">
-                        <h5 class="productDescriptionTruncate">{{product.description}}</h5>
+                    <div class="price col-xs-12">
+                        <p class="green-text medium-500">{{product.price}} грн</p>
                     </div>
                 </div>
-            </a>
-        </div>
+            </div>
+        </a>
     </div>
 </div>

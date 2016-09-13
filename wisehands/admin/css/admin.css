@@ -36,7 +36,9 @@
     padding-bottom: 1em;
     margin: 0;
 }
-
+.cardTopPadding {
+    padding-top: 2em;
+}
 .smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView, .productImage {
     display: none;
 }
@@ -52,6 +54,9 @@
     }
     .noPaddingLeft {
         padding-left: 0;
+    }
+    .cardTopPadding {
+        padding-top: 0;
     }
     .row {
         margin-left: 0px;
@@ -74,6 +79,9 @@
     }
     .noPaddingLeft {
         padding-left: 0;
+    }
+    .cardTopPadding {
+        padding-top: 0;
     }
     .row {
         margin-left: 0px;
@@ -155,7 +163,8 @@ body {
 }
 
 .noSidePadding {
-    padding: 0;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .noMarginForSearchInput {
@@ -176,4 +185,6 @@ label.whiteCheckBox::after {
 .deleteOrderTopMargin {
     margin-top: .8em;
 }
+
+
 
