@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('UsersSettingsController', function ($scope, $route, $http, signout) {
+    .controller('UsersSettingsController', function ($scope, $route, $http, signout, sideNavInit) {
         $scope.$route = $route;
         $scope.loading = true;
 
@@ -43,7 +43,7 @@ angular.module('WiseHands')
             });
 
         $scope.hideCreateUserModal = function () {
-            $('#createNewUser').modal('hide');
+            $('#createNewUserModal').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
         };
@@ -120,4 +120,5 @@ angular.module('WiseHands')
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
         };
         $scope.signOut = signout.signOut;
+        sideNavInit.sideNav();
     });

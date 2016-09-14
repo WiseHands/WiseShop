@@ -1,149 +1,210 @@
-<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">
+<!--<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">-->
+    <!--<div class="container-fluid">-->
+        <!--<div class="navbar-header text-center">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-3 col-sm-3">-->
+                    <!--<button type="button"-->
+                            <!--class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"-->
+                            <!--data-toggle="collapse"-->
+                            <!--data-target="#bs-example-navbar-collapse-1">-->
+                    <!--</button>-->
+                <!--</div>-->
+                <!--<div class="col-xs-7 col-sm-7 vcenter">-->
+                    <!--<h4><b>Користувачі</b></h4>-->
+                <!--</div>-->
+                <!--<div class="col-xs-2 col-sm-2">-->
+                    <!--<spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>-->
+                    <!--<span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"-->
+                          <!--ng-hide="loading"-->
+                          <!--aria-haspopup="true"-->
+                          <!--aria-expanded="false"-->
+                          <!--data-toggle="modal"-->
+                          <!--data-target="#createNewUser">-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li><a href="#/">Замовлення</a></li>-->
+                <!--<li><a href="#/products">Товари</a></li>-->
+                <!--<li><a href="#/delivery">Доставка</a></li>-->
+                <!--<li><a href="#/contacts">Контакти</a></li>-->
+                <!--<li><a href="#/settings">Налаштування</a></li>-->
+                <!--<li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings">Користувачі</a></li>-->
+                <!--<hr class="hrMargin">-->
+                <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+<!--</nav>-->
+
+<!--<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">-->
+    <!--<div class="row">-->
+        <!--<div class="col-xs-2 col-sm-2 searchBarCentering">-->
+            <!--<div class="dropdown pull-left">-->
+                <!--<button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
+                    <!--<span class="glyphicon glyphicon-option-vertical"></span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
+                    <!--<li><a href="#/">Замовлення</a></li>-->
+                    <!--<li><a href="#/products">Товари</a></li>-->
+                    <!--<li><a href="#/delivery">Доставка</a></li>-->
+                    <!--<li><a href="#/contacts">Контакти</a></li>-->
+                    <!--<li><a href="#/settings">Налаштування</a></li>-->
+                    <!--<li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings">Користувачі</a></li>-->
+                    <!--<hr class="hrMargin">-->
+                    <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-8 col-sm-8 vcenter text-center">-->
+            <!--<h4><b>Користувачі</b></h4>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2 col-sm-2">-->
+            <!--<spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>-->
+            <!--<span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"-->
+                  <!--ng-hide="loading"-->
+                  <!--aria-haspopup="true"-->
+                  <!--aria-expanded="false"-->
+                  <!--data-toggle="modal"-->
+                  <!--data-target="#createNewUser">-->
+            <!--</span>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</nav>-->
+
+<!--<div class="navbar navbar-default navbar-fixed-left">-->
+    <!--<a href="{{getUrl(activeShop)}}" class="navbar-brand">{{activeShop.shopName}}</a>-->
+    <!--<ul class="nav navbar-nav">-->
+        <!--<li><a href="#/">Замовлення</a></li>-->
+        <!--<li><a href="#/products">Товари</a></li>-->
+        <!--<li><a href="#/delivery">Доставка</a></li>-->
+        <!--<li><a href="#/contacts">Контакти</a></li>-->
+        <!--<li><a href="#/settings">Налаштування</a></li>-->
+        <!--<li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'usersettings'}"><a href="#/usersettings">Користувачі</a></li>-->
+        <!--<hr class="desktopNavProductsDivider">-->
+        <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
+    <!--</ul>-->
+    <!--<button type="button"-->
+            <!--class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin"-->
+            <!--ng-hide="loading"-->
+            <!--aria-haspopup="true"-->
+            <!--aria-expanded="false"-->
+            <!--data-toggle="modal"-->
+            <!--data-target="#createNewUser">-->
+        <!--<span class="glyphicon glyphicon-plus pull-left"></span>-->
+        <!--Новий користувач-->
+    <!--</button>-->
+    <!--<div class="col-md-12">-->
+        <!--<spinner class="col-md-offset-2" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="container-fluid settingsDesktopContainer">-->
+    <!--<div class="col-xs-12 col-sm-6 col-md-6 rightPadding" ng-repeat="user in users">-->
+        <!--<div class="row rowBackground vcentering">-->
+            <!--<div class="col-xs-10 col-sm-10">-->
+                <!--<h5 class="text-left truncate"><i>{{user.email}}</i></h5>-->
+            <!--</div>-->
+            <!--<div class="col-xs-2 col-sm-2 removeUserButton" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)">-->
+                <!--<span class="glyphicon glyphicon-remove pull-right"></span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" id="createNewUser" aria-hidden="true">-->
+    <!--<div class="modal-dialog">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button type="button"-->
+                        <!--class="close"-->
+                        <!--data-dismiss="modal"-->
+                        <!--aria-label="Close"><span aria-hidden="true">×</span>-->
+                <!--</button>-->
+                <!--<h4 class="modal-title text-center" id="myModalLabel"><b>Додати нового користувача</b></h4>-->
+            <!--</div>-->
+            <!--<div class="modal-body col-xs-12">-->
+                <!--<form name="createNewUserForm">-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="col-xs-12">Електронна пошта-->
+                            <!--<input class="form-control" ng-model="newUser.email" type="email" required/>-->
+                        <!--</label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group col-xs-12 noPaddingBot">-->
+                        <!--<div class="col-xs-7 text-left errorMessageContainer">-->
+                            <!--<p class="errorTextStyling">{{errorMessage}}</p>-->
+                        <!--</div>-->
+                        <!--<button type="button"-->
+                                <!--class="btn btn-success btn-sm col-xs-5"-->
+                                <!--ng-click="createNewUser()"-->
+                                <!--ng-disabled="createNewUserForm.$invalid">Додати <span class="glyphicon glyphicon-play"></span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="modal-footer noPaddingBot">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1" role="navigation">
     <div class="container-fluid">
-        <div class="navbar-header text-center">
-            <div class="row">
-                <div class="col-xs-3 col-sm-3">
-                    <button type="button"
-                            class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"
-                            data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1">
-                    </button>
-                </div>
-                <div class="col-xs-7 col-sm-7 vcenter">
-                    <h4><b>Користувачі</b></h4>
-                </div>
-                <div class="col-xs-2 col-sm-2">
-                    <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                    <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"
-                          ng-hide="loading"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                          data-toggle="modal"
-                          data-target="#createNewUser">
-                    </span>
-                </div>
+        <div class="navbar-header pull-left">
+            <a  data-activates="slide-out" class="button-collapse deliveryViewCentering"><i class="fa fa-bars"></i></a>
+        </div>
+        <div class="row vcentering">
+            <div class="col-xs-offset-1 col-xs-10 text-center white-text">
+                <h5>
+                    Користувачі
+                </h5>
             </div>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#/">Замовлення</a></li>
-                <li><a href="#/products">Товари</a></li>
-                <li><a href="#/delivery">Доставка</a></li>
-                <li><a href="#/contacts">Контакти</a></li>
-                <li><a href="#/settings">Налаштування</a></li>
-                <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings">Користувачі</a></li>
-                <hr class="hrMargin">
-                <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-            </ul>
-        </div>
-</nav>
-
-<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
-    <div class="row">
-        <div class="col-xs-2 col-sm-2 searchBarCentering">
-            <div class="dropdown pull-left">
-                <button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="glyphicon glyphicon-option-vertical"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#/">Замовлення</a></li>
-                    <li><a href="#/products">Товари</a></li>
-                    <li><a href="#/delivery">Доставка</a></li>
-                    <li><a href="#/contacts">Контакти</a></li>
-                    <li><a href="#/settings">Налаштування</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings">Користувачі</a></li>
-                    <hr class="hrMargin">
-                    <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xs-8 col-sm-8 vcenter text-center">
-            <h4><b>Користувачі</b></h4>
-        </div>
-        <div class="col-xs-2 col-sm-2">
-            <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-            <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"
-                  ng-hide="loading"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  data-toggle="modal"
-                  data-target="#createNewUser">
-            </span>
+            <a class="col-xs-1 noRightPadding">
+                <i class="fa fa-plus-circle whiteColor pull-right"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   data-toggle="modal"
+                   data-target="#createNewUserModal">
+                </i>
+            </a>
         </div>
     </div>
 </nav>
+<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
+    <div class="logo-wrapper">
+        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+        <div class="rgba-stylish-strong">
+            <p>
+                <a href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</a>
+                admin@gmail.com
+            </p>
+        </div>
+    </div>
 
-<div class="navbar navbar-default navbar-fixed-left">
-    <a href="{{getUrl(activeShop)}}" class="navbar-brand">{{activeShop.shopName}}</a>
-    <ul class="nav navbar-nav">
-        <li><a href="#/">Замовлення</a></li>
-        <li><a href="#/products">Товари</a></li>
-        <li><a href="#/delivery">Доставка</a></li>
-        <li><a href="#/contacts">Контакти</a></li>
-        <li><a href="#/settings">Налаштування</a></li>
-        <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'usersettings'}"><a href="#/usersettings">Користувачі</a></li>
-        <hr class="desktopNavProductsDivider">
-        <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
+    <ul class="collapsible collapsible-accordion">
+        <li><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
+        <li><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
+        <li><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
+        <li><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
+        <li><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
+        <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
+        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
     </ul>
-    <button type="button"
-            class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin"
-            ng-hide="loading"
-            aria-haspopup="true"
-            aria-expanded="false"
-            data-toggle="modal"
-            data-target="#createNewUser">
-        <span class="glyphicon glyphicon-plus pull-left"></span>
-        Новий користувач
-    </button>
-    <div class="col-md-12">
-        <spinner class="col-md-offset-2" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+</ul>
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-</div>
-
-<div class="container-fluid settingsDesktopContainer">
-    <div class="col-xs-12 col-sm-6 col-md-6 rightPadding" ng-repeat="user in users">
-        <div class="row rowBackground vcentering">
-            <div class="col-xs-10 col-sm-10">
-                <h5 class="text-left truncate"><i>{{user.email}}</i></h5>
+    <div class="col-sm-6 col-md-4" ng-repeat="user in users">
+        <div class="testimonial-card z-depth-1">
+            <div class="card-up default-color-dark">
             </div>
-            <div class="col-xs-2 col-sm-2 removeUserButton" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)">
-                <span class="glyphicon glyphicon-remove pull-right"></span>
+            <div class="avatar"><img src="{{user.profileUrl}}" class="img-circle img-responsive">
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="createNewUser" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title text-center" id="myModalLabel"><b>Додати нового користувача</b></h4>
-            </div>
-            <div class="modal-body col-xs-12">
-                <form name="createNewUserForm">
-                    <div class="form-group">
-                        <label class="col-xs-12">Електронна пошта
-                            <input class="form-control" ng-model="newUser.email" type="email" required/>
-                        </label>
-                    </div>
-                    <div class="form-group col-xs-12 noPaddingBot">
-                        <div class="col-xs-7 text-left errorMessageContainer">
-                            <p class="errorTextStyling">{{errorMessage}}</p>
-                        </div>
-                        <button type="button"
-                                class="btn btn-success btn-sm col-xs-5"
-                                ng-click="createNewUser()"
-                                ng-disabled="createNewUserForm.$invalid">Додати <span class="glyphicon glyphicon-play"></span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer noPaddingBot">
+            <div class="card-content">
+                <h5 class="truncate">{{user.email}}</h5>
+                <a class="btn btn-border-danger waves-effect" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)">Видалити</a>
             </div>
         </div>
     </div>
@@ -161,11 +222,35 @@
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
-                <div class="col-xs-12">
-                    <button type="button" class="btn btn-danger btn-sm center-block" ng-click="deleteUser()" ng-show="deleteButton">Видалити користувача</button>
+                <div class="col-xs-offset-3 col-xs-6">
+                    <button type="button" class="btn btn-danger btn-sm btn-block" ng-click="deleteUser()" ng-show="deleteButton">Видалити</button>
                 </div>
-                <div class="col-xs-12">
-                    <button type="button" class="btn btn-success btn-sm center-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
+                <div class="col-xs-offset-4 col-xs-4">
+                    <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="createNewUserModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title h4,responsive">Новий користувач</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="col-md-12" name="createNewUserForm">
+                        <div class="input-field">
+                            <input id="newUserEmail" type="email" class="validate" ng-model="newUser.email" required>
+                            <label for="newUserEmail">E-mail</label>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewUser()" ng-disabled="createNewUserForm.$invalid">Створити</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
