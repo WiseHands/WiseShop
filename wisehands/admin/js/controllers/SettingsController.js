@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('SettingsController', function ($scope, $route, $http, signout) {
+    .controller('SettingsController', function ($scope, $route, $http, signout, sideNavInit) {
         $scope.$route = $route;
         $scope.loading = true;
         $scope.hostName = window.location.hostname;
@@ -100,7 +100,6 @@ angular.module('WiseHands')
             error(function (error) {
                 $scope.loading = false;
                 $scope.errorMessage = error;
-                console.log(error);
             });
         };
 
@@ -133,8 +132,7 @@ angular.module('WiseHands')
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
         };
         $scope.signOut = signout.signOut;
-
-        
+        sideNavInit.sideNav();
     });
 
 function encodeQueryData(data)

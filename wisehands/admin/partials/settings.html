@@ -1,197 +1,270 @@
-<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">
+<!--<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">-->
+    <!--<div class="container-fluid">-->
+        <!--<div class="navbar-header text-center">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-3 col-sm-3">-->
+                    <!--<button type="button"-->
+                            <!--class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"-->
+                            <!--data-toggle="collapse"-->
+                            <!--data-target="#bs-example-navbar-collapse-1">-->
+                    <!--</button>-->
+                <!--</div>-->
+                <!--<div class="col-xs-7 col-sm-7 vcenter">-->
+                    <!--<h4><b>Налаштування</b></h4>-->
+                <!--</div>-->
+                <!--<div class="col-xs-2 col-sm-2">-->
+                    <!--<spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>-->
+                    <!--<span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"-->
+                          <!--ng-hide="loading"-->
+                          <!--aria-haspopup="true"-->
+                          <!--aria-expanded="false"-->
+                          <!--data-toggle="modal"-->
+                          <!--data-target="#createNewStoreModal">-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li><a href="#/">Замовлення</a></li>-->
+                <!--<li><a href="#/products">Товари</a></li>-->
+                <!--<li><a href="#/delivery">Доставка</a></li>-->
+                <!--<li><a href="#/contacts">Контакти</a></li>-->
+                <!--<li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>-->
+                <!--<li><a href="#/usersettings">Користувачі</a></li>-->
+                <!--<hr class="hrMargin">-->
+                <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+
+<!--</nav>-->
+
+<!--<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">-->
+    <!--<div class="row">-->
+        <!--<div class="col-xs-5 col-sm-5 searchBarCentering">-->
+            <!--<div class="dropdown pull-left">-->
+                <!--<button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
+                    <!--<span class="glyphicon glyphicon-option-vertical"></span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
+                    <!--<li><a href="#/">Замовлення</a></li>-->
+                    <!--<li><a href="#/products">Товари</a></li>-->
+                    <!--<li><a href="#/delivery">Доставка</a></li>-->
+                    <!--<li><a href="#/contacts">Контакти</a></li>-->
+                    <!--<li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>-->
+                    <!--<li><a href="#/usersettings">Користувачі</a></li>-->
+                    <!--<hr class="hrMargin">-->
+                    <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-6 col-sm-6 vcenter">-->
+            <!--<h4><b>Налаштування</b></h4>-->
+        <!--</div>-->
+        <!--<div class="col-xs-1 col-sm-1">-->
+            <!--<spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>-->
+            <!--<span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"-->
+                  <!--aria-haspopup="true"-->
+                  <!--aria-expanded="false"-->
+                  <!--data-toggle="modal"-->
+                  <!--data-target="#createNewStoreModal" ng-hide="loading"></span>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</nav>-->
+
+<!--<div class="navbar navbar-default navbar-fixed-left">-->
+    <!--<a href="{{getUrl(activeShop)}}" class="navbar-brand">{{activeShop.shopName}}</a>-->
+    <!--<ul class="nav navbar-nav">-->
+        <!--<li><a href="#/">Замовлення</a></li>-->
+        <!--<li><a href="#/products">Товари</a></li>-->
+        <!--<li><a href="#/delivery">Доставка</a></li>-->
+        <!--<li><a href="#/contacts">Контакти</a></li>-->
+        <!--<li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>-->
+        <!--<li><a href="#/usersettings">Користувачі</a></li>-->
+        <!--<hr class="desktopNavProductsDivider">-->
+        <!--<li ng-click="signOut()" target="_self"><a>Вийти</a></li>-->
+    <!--</ul>-->
+    <!--<button type="button"-->
+            <!--class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin btn-inline"-->
+            <!--aria-haspopup="true"-->
+            <!--aria-expanded="false"-->
+            <!--data-toggle="modal"-->
+            <!--data-target="#createNewStoreModal">-->
+        <!--<span class="glyphicon glyphicon-plus pull-left"></span>-->
+        <!--Новий магазин-->
+    <!--</button>-->
+    <!--<div class="col-md-12">-->
+        <!--<spinner class="col-md-offset-2" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!--<div class="container-fluid settingsDesktopContainer">-->
+    <!--<div class="well">-->
+        <!--<form id="productForm" class="form-horizontal">-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-xs-12">-->
+                    <!--<select class="form-control"-->
+                            <!--ng-model="selectedShop"-->
+                            <!--ng-change="shopSelected(shop)"-->
+                            <!--ng-options="shop as shop.shopName for shop in shops">-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label class="col-xs-12"><h4>Назва магазину</h4>-->
+                    <!--<input class="form-control" type="text" ng-model="selectedShop.shopName"/>-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<hr class="hrMargin">-->
+            <!--<div class="form-group">-->
+                <!--<label class="col-xs-12"><h4>Години роботи</h4>-->
+                    <!--<br>-->
+                    <!--Від:-->
+                    <!--<input class="form-control" type="time" ng-model="selectedShop.startTime"/>-->
+                    <!--<br>-->
+                    <!--До:-->
+                    <!--<input class="form-control" type="time" ng-model="selectedShop.endTime"/>-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<hr class="hrMargin">-->
+            <!--<div class="form-group">-->
+                <!--<label class="col-xs-12"><h4>Публічний LiqPay ключ</h4>-->
+                    <!--<input class="form-control" type="text" ng-model="selectedShop.liqpayPublicKey"/>-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label class="col-xs-12"><h4>Приватний LiqPay ключ</h4>-->
+                    <!--<input class="form-control" type="password" ng-model="selectedShop.liqpayPrivateKey"/>-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-xs-12 col-sm-offset-9 col-sm-3">-->
+                    <!--<button class="btn btn-primary btn-block" ng-click="updateStoreSettings()">Зберегти зміни</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</div>-->
+
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1" role="navigation">
     <div class="container-fluid">
-        <div class="navbar-header text-center">
-            <div class="row">
-                <div class="col-xs-3 col-sm-3">
-                    <button type="button"
-                            class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"
-                            data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1">
-                    </button>
-                </div>
-                <div class="col-xs-7 col-sm-7 vcenter">
-                    <h4><b>Налаштування</b></h4>
-                </div>
-                <div class="col-xs-2 col-sm-2">
-                    <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                    <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"
-                          ng-hide="loading"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                          data-toggle="modal"
-                          data-target="#createNewStoreModal">
-                    </span>
-                </div>
+        <div class="navbar-header pull-left">
+            <a  data-activates="slide-out" class="button-collapse deliveryViewCentering"><i class="fa fa-bars"></i></a>
+        </div>
+        <div class="row vcentering">
+            <div class="col-xs-offset-1 col-xs-10 text-center white-text">
+                <h5>
+                    Налаштування
+                </h5>
             </div>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#/">Замовлення</a></li>
-                <li><a href="#/products">Товари</a></li>
-                <li><a href="#/delivery">Доставка</a></li>
-                <li><a href="#/contacts">Контакти</a></li>
-                <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
-                <li><a href="#/usersettings">Користувачі</a></li>
-                <hr class="hrMargin">
-                <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-            </ul>
-        </div>
-
-</nav>
-
-<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
-    <div class="row">
-        <div class="col-xs-5 col-sm-5 searchBarCentering">
-            <div class="dropdown pull-left">
-                <button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="glyphicon glyphicon-option-vertical"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#/">Замовлення</a></li>
-                    <li><a href="#/products">Товари</a></li>
-                    <li><a href="#/delivery">Доставка</a></li>
-                    <li><a href="#/contacts">Контакти</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
-                    <li><a href="#/usersettings">Користувачі</a></li>
-                    <hr class="hrMargin">
-                    <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-6 vcenter">
-            <h4><b>Налаштування</b></h4>
-        </div>
-        <div class="col-xs-1 col-sm-1">
-            <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-            <span class="glyphicon glyphicon-plus verticalCentering landscapeFloatRight"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  data-toggle="modal"
-                  data-target="#createNewStoreModal" ng-hide="loading"></span>
+            <a class="col-xs-1 noRightPadding">
+                <i class="fa fa-plus-circle whiteColor pull-right"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   data-toggle="modal"
+                   data-target="#createNewStoreModal">
+                </i>
+            </a>
         </div>
     </div>
 </nav>
+<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
+    <div class="logo-wrapper">
+        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+        <div class="rgba-stylish-strong">
+            <p>
+                <a href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</a>
+                admin@gmail.com
+            </p>
+        </div>
+    </div>
 
-<div class="navbar navbar-default navbar-fixed-left">
-    <a href="{{getUrl(activeShop)}}" class="navbar-brand">{{activeShop.shopName}}</a>
-    <ul class="nav navbar-nav">
-        <li><a href="#/">Замовлення</a></li>
-        <li><a href="#/products">Товари</a></li>
-        <li><a href="#/delivery">Доставка</a></li>
-        <li><a href="#/contacts">Контакти</a></li>
-        <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'settings'}"><a href="#/settings">Налаштування</a></li>
-        <li><a href="#/usersettings">Користувачі</a></li>
-        <hr class="desktopNavProductsDivider">
-        <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
+    <ul class="collapsible collapsible-accordion">
+        <li><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
+        <li><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
+        <li><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
+        <li><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
+        <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
+        <li><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
+        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
     </ul>
-    <button type="button"
-            class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin btn-inline"
-            aria-haspopup="true"
-            aria-expanded="false"
-            data-toggle="modal"
-            data-target="#createNewStoreModal">
-        <span class="glyphicon glyphicon-plus pull-left"></span>
-        Новий магазин
-    </button>
-    <div class="col-md-12">
-        <spinner class="col-md-offset-2" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+</ul>
+
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
+    <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
+        <div class="input-field col-md-12">
+            <select class="form-control"
+                    ng-model="selectedShop"
+                    ng-change="shopSelected(shop)"
+                    ng-options="shop as shop.shopName for shop in shops">
+
+            </select>
+        </div>
+        <div class="input-field col-md-12">
+            <p>Назва магазину</p>
+            <input id="shopName" type="text" class="validate" ng-model="selectedShop.shopName">
+        </div>
+        <div class="input-field col-md-12">
+            <p>Години роботи</p>
+            <div class="col-sm-6">
+                <p>Від:</p>
+                <input id="startTime" type="time" class="validate" ng-model="selectedShop.startTime">
+            </div>
+            <div class="col-sm-6">
+                <p>До:</p>
+                <input id="endTime" type="time" class="validate" ng-model="selectedShop.endTime">
+            </div>
+        </div>
+        <div class="input-field col-md-6">
+            <p>Публічний LiqPay ключ</p>
+            <input id="publicLiqPay" type="text" class="validate" ng-model="selectedShop.publicLiqpay">
+        </div>
+        <div class="input-field col-md-6">
+            <p>Приватний LiqPay ключ</p>
+            <input id="privateLiqPay" type="password" class="validate" ng-model="selectedShop.privateLiqpay">
+        </div>
+        <div class="col-md-12">
+            <a class="btn btn-primary waves-effect waves-light pull-right" ng-click="updateStoreSettings()">Зберегти</a>
+        </div>
+    </form>
 </div>
 
-
-<div class="container-fluid settingsDesktopContainer">
-    <div class="well">
-        <form id="productForm" class="form-horizontal">
-            <div class="form-group">
-                <div class="col-xs-12">
-                    <select class="form-control"
-                            ng-model="selectedShop"
-                            ng-change="shopSelected(shop)"
-                            ng-options="shop as shop.shopName for shop in shops">
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-12"><h4>Назва магазину</h4>
-                    <input class="form-control" type="text" ng-model="selectedShop.shopName"/>
-                </label>
-            </div>
-            <hr class="hrMargin">
-            <div class="form-group">
-                <label class="col-xs-12"><h4>Години роботи</h4>
-                    <br>
-                    Від:
-                    <input class="form-control" type="time" ng-model="selectedShop.startTime"/>
-                    <br>
-                    До:
-                    <input class="form-control" type="time" ng-model="selectedShop.endTime"/>
-                </label>
-            </div>
-            <hr class="hrMargin">
-            <div class="form-group">
-                <label class="col-xs-12"><h4>Публічний LiqPay ключ</h4>
-                    <input class="form-control" type="text" ng-model="selectedShop.liqpayPublicKey"/>
-                </label>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-12"><h4>Приватний LiqPay ключ</h4>
-                    <input class="form-control" type="password" ng-model="selectedShop.liqpayPrivateKey"/>
-                </label>
-            </div>
-            <div class="form-group">
-                <div class="col-xs-12 col-sm-offset-9 col-sm-3">
-                    <button class="btn btn-primary btn-block" ng-click="updateStoreSettings()">Зберегти зміни</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="modal fade" id="createNewStoreModal" aria-hidden="true">
+<div class="modal fade" id="createNewStoreModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title text-center" id="myModalLabel"><b>Створити новий магазин</b></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title h4,responsive">Новий магазин</h4>
             </div>
-            <div class="modal-body col-xs-12">
-                <form name="createNewStoreForm">
-                    <div class="form-group">
-                        <label class="col-xs-12">Назва магазину
-                            <input class="form-control" ng-model="newStore.name" type="text" required/>
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-12">Домен
-                            <input class="form-control" ng-model="newStore.domain" type="text" placeholder="mynewstore.com" required/>
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-12">Публічний LiqPay ключ
-                            <input class="form-control" ng-model="newStore.publicLiqpay" type="text" required/>
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-12">Приватний LiqPay ключ
-                            <input class="form-control" ng-model="newStore.privateLiqpay" type="text" required/>
-                        </label>
-                    </div>
-                    <div class="form-group col-xs-12">
-                        <div class="col-xs-7 text-left errorMessageContainer">
-                            <p class="errorTextStyling">{{errorMessage}}</p>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="col-md-12" name="createNewStoreForm">
+                        <div class="input-field">
+                            <input id="newShopName" type="text" class="validate" ng-model="newStore.name" required>
+                            <label for="newShopName">Назва магазину</label>
                         </div>
-                        <button type="button"
-                                class="btn btn-success btn-sm col-xs-5"
-                                ng-click="createNewStore()"
-                                ng-disabled="createNewStoreForm.$invalid">Створити <span class="glyphicon glyphicon-play">
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
+                        <div class="input-field">
+                            <input id="domain" type="text" class="validate" ng-model="newStore.domain" required>
+                            <label for="domain">Домен</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="publicLiqpayKey" type="text" class="validate" ng-model="newStore.publicLiqpay" required>
+                            <label for="publicLiqpayKey">Публічний LiqPay ключ</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="privateLiqpayKey" type="text" class="validate" ng-model="newStore.privateLiqpay" required>
+                            <label for="privateLiqpayKey">Приватний LiqPay ключ</label>
+                        </div>
+                        <div class="text-center">
+                            <p class="errorTextStyling text-center">{{errorMessage}}</p>
+                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">Створити</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

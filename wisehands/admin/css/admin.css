@@ -42,6 +42,9 @@
 .deliveryViewCentering {
     padding-top: .35em !important;
 }
+body {
+    margin-top: 4.7em;
+}
 .smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView, .productImage {
     display: none;
 }
@@ -167,13 +170,15 @@ textarea {
     max-width: 100%;
 }
 /*New Styles For New Design*/
-body {
-    margin-top: 4.7em;
-}
+
 
 .noSidePadding {
     padding-right: 0;
     padding-left: 0;
+}
+.noSideMargin {
+    margin-right: 0;
+    margin-left: 0;
 }
 
 .noMarginForSearchInput {
@@ -198,5 +203,7 @@ label.whiteCheckBox::after {
     border: none;
     background-color: #3F729B;
 }
-
+.labelBotPadding {
+    padding-bottom: 1em;
+}
 

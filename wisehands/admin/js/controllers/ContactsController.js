@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('ContactsController', function ($scope, $route, $http, signout) {
+    .controller('ContactsController', function ($scope, $route, $http, signout, sideNavInit) {
         $scope.$route = $route;
         $scope.loading = true;
 
@@ -63,4 +63,6 @@ angular.module('WiseHands')
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
         };
         $scope.signOut = signout.signOut;
+        sideNavInit.sideNav();
+
     });

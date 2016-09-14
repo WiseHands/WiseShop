@@ -1,116 +1,68 @@
-<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1" role="navigation">
     <div class="container-fluid">
-        <div class="navbar-header text-center">
-            <div class="row">
-                <div class="col-xs-3 col-sm-3">
-                    <button type="button"
-                            class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"
-                            data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1">
-                    </button>
-                </div>
-                <div class="col-xs-7 col-sm-7 vcenter">
-                    <h4><b>Контакти</b></h4>
-                </div>
-                <div class="col-xs-2 col-sm-2">
-                    <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                    <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="updateContacts()" ng-hide="loading"></span>
-                </div>
+        <div class="navbar-header pull-left">
+            <a  data-activates="slide-out" class="button-collapse deliveryViewCentering"><i class="fa fa-bars"></i></a>
+        </div>
+        <div class="row vcentering">
+            <div class="col-xs-offset-1 col-xs-10 text-center white-text">
+                <h5>
+                    Контакти
+                </h5>
             </div>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#/">Замовлення</a></li>
-                <li><a href="#/products">Товари</a></li>
-                <li><a href="#/delivery">Доставка</a></li>
-                <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts">Контакти</a></li>
-                <li><a href="#/settings">Налаштування</a></li>
-                <li><a href="#/usersettings">Користувачі</a></li>
-                <hr class="hrMargin">
-                <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-            </ul>
-        </div>
-</nav>
-
-<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
-    <div class="row">
-        <div class="col-xs-2 col-sm-2 searchBarCentering">
-            <div class="dropdown pull-left">
-                <button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="glyphicon glyphicon-option-vertical"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#/">Замовлення</a></li>
-                    <li><a href="#/products">Товари</a></li>
-                    <li><a href="#/delivery">Доставка</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts">Контакти</a></li>
-                    <li><a href="#/settings">Налаштування</a></li>
-                    <li><a href="#/usersettings">Користувачі</a></li>
-                    <hr class="hrMargin">
-                    <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xs-8 col-sm-8 vcenter text-center">
-            <h4><b>Контакти</b></h4>
-        </div>
-        <div class="col-xs-2 col-sm-2">
-            <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-            <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="updateContacts()" ng-hide="loading"></span>
+            <a class="col-xs-1 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="updateContacts()">
+                </i>
+            </a>
         </div>
     </div>
 </nav>
+<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
+    <div class="logo-wrapper">
+        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+        <div class="rgba-stylish-strong">
+            <p>
+                <a href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</a>
+                admin@gmail.com
+            </p>
+        </div>
+    </div>
 
-<div class="navbar navbar-default navbar-fixed-left">
-    <a href="{{getUrl(activeShop)}}" class="navbar-brand">{{activeShop.shopName}}</a>
-    <ul class="nav navbar-nav">
-        <li><a href="#/">Замовлення</a></li>
-        <li><a href="#/products">Товари</a></li>
-        <li><a href="#/delivery">Доставка</a></li>
-        <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'contacts'}"><a href="#/contacts">Контакти</a></li>
-        <li><a href="#/settings">Налаштування</a></li>
-        <li><a href="#/usersettings">Користувачі</a></li>
-        <hr class="desktopNavProductsDivider">
-        <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
+    <ul class="collapsible collapsible-accordion">
+        <li><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
+        <li><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
+        <li><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
+        <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
+        <li><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
+        <li><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
+        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
     </ul>
-    <button type="button" class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin" aria-haspopup="true" aria-expanded="false" ng-click="updateContacts()">
-        <span class="glyphicon glyphicon-floppy-disk pull-left"></span>
-        Зберегти зміни
-    </button>
-    <div class="col-md-12">
-        <spinner class="col-md-offset-2" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
-    </div>
-</div>
+</ul>
 
-
-<div class="container-fluid settingsDesktopContainer">
-    <div class="well">
-        <form id="productForm" class="form-horizontal">
-            <div class="form-group">
-                <label class="col-xs-12">Номер телефону
-                    <input class="form-control" type="tel" ng-model="contacts.phone" placeholder="380631111111"/>
-                </label>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-12">E-mail
-                    <input class="form-control" type="email" ng-model="contacts.email"/>
-                </label>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-12">Адреса
-                    <input class="form-control" type="text" ng-model="contacts.address"/>
-                </label>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-12">Координати
-                    <input class="form-control" type="text" ng-model="contacts.latLng" placeholder="-34.397:150.644"/>
-                </label>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-12">Опис
-                    <textarea class="form-control" type="text" ng-model="contacts.description"></textarea>
-                </label>
-            </div>
-        </form>
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
+    <form class="col-md-12 noSidePadding" id="contactsForm" name="contactsForm" ng-hide="loading">
+        <div class="input-field col-md-6">
+            <p>Номер телефону</p>
+            <input id="phone_number" type="tel" class="validate" ng-model="contacts.phone">
+        </div>
+        <div class="input-field col-md-6">
+            <p>E-mail</p>
+            <input id="email" type="email" class="validate" ng-model="contacts.email">
+        </div>
+        <div class="input-field col-md-6">
+            <p>Адреса</p>
+            <input id="address" type="text" class="validate" ng-model="contacts.address">
+        </div>
+        <div class="input-field col-md-6">
+            <p>Координати</p>
+            <input id="coords" type="text" class="validate" ng-model="contacts.latLng">
+        </div>
+        <div class="input-field col-md-12">
+            <p>Опис</p>
+            <textarea id="textarea1" class="materialize-textarea" ng-model="contacts.description"></textarea>
+        </div>
+    </form>
 </div>
