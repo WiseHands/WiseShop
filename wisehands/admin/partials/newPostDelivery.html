@@ -1,61 +1,32 @@
-<nav class="navbar navbar-default navbar-fixed-top desktopView" role="navigation">
-    <div class="row">
-        <div class="col-xs-2 col-sm-2">
-            <a href="#/delivery">
-                <span class="glyphicon glyphicon-arrow-left verticalCentering landscapeFloatLeft"></span>
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="#/delivery">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
             </a>
-        </div>
-        <div class=" col-xs-8 col-sm-8 vcenter">
-            <h4 class="text-center"><b>Нова Пошта</b></h4>
-        </div>
-        <div class="col-xs-2 col-sm-2">
-            <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-            <span class="glyphicon glyphicon-floppy-disk verticalCentering landscapeFloatRight" ng-click="setNewPostOptions()" ng-hide="loading"></span>
+
+            <a class="col-xs-8 text-center">
+                <h5 class="white-text">Нова Пошта</h5>
+            </a>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="setDeliveryOptions()">
+                </i>
+            </a>
         </div>
     </div>
 </nav>
-
-<div class="navbar navbar-default navbar-fixed-left">
-    <div class="row col-md-12 verticalCentering">
-        <a href="#/delivery">
-            <button type="button" class="btn btn-default col-md-offset-1 col-md-12">
-                <span class="glyphicon glyphicon-arrow-left pull-left"></span>
-                Назад
-            </button>
-        </a>
+<div class="container-fluid">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <button type="button" class="btn btn-default col-md-offset-1 col-md-10 buttonTopMargin" aria-haspopup="true" aria-expanded="false" ng-click="setNewPostOptions()">
-        <span class="glyphicon glyphicon-floppy-disk pull-left"></span>
-        Зберегти зміни
-    </button>
+    <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="delivery.isNewPostAvailable" />
+    <label for="filled-in-box">Увімкнуто</label>
     <div class="col-md-12">
-        <spinner class="col-md-offset-2" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
-    </div>
-</div>
-
-<div class="container-fluid col-md-offset-3 verticalPaddingDelivery">
-    <div class="col-xs-12 col-sm-12 col-md-11">
-        <div class="[ form-group ]">
-            <input type="checkbox"
-                   name="fancy-checkbox-default1"
-                   id="fancy-checkbox-default1"
-                   autocomplete="off"
-                   ng-model="delivery.isNewPostAvailable"/>
-            <div class="[ btn-group ]">
-                <label for="fancy-checkbox-default1" class="[ btn btn-default ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
-                </label>
-                <label for="fancy-checkbox-default1" class="[ btn btn-default active ]">
-                    <b>Увімкнуто</b>
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-11">
-        <h5><b>Текст повідомлення: </b>
-            <p><i>
-                <textarea class="form-control" name="textarea" ng-model="delivery.newPostText" rows="6"></textarea>
-            </i></p></h5>
+        <label for="textarea1">Текст повідомлення</label>
+        <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.newPostText"></textarea>
     </div>
 </div>

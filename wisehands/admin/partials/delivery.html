@@ -1,100 +1,66 @@
-<nav class="navbar navbar-default navbar-fixed-top smartPhoneView" role="navigation">
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1" role="navigation">
     <div class="container-fluid">
-        <div class="navbar-header text-center">
-            <div class="row">
-                <div class="col-xs-3 col-sm-3">
-                    <button type="button"
-                            class="navbar-toggle collapsed glyphicon glyphicon-menu-hamburger landscapeFloatLeft"
-                            data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1">
-                    </button>
-                </div>
-                <div class="col-xs-7 col-sm-7 vcenter">
-                    <h4><b>Доставка</b></h4>
-                </div>
+        <div class="navbar-header pull-left">
+                <a  data-activates="slide-out" class="button-collapse deliveryViewCentering"><i class="fa fa-bars"></i></a>
+        </div>
+        <div class="row vcentering">
+            <div class="col-xs-offset-1 col-xs-10 text-center white-text">
+                <h5>
+                    Доставка
+                </h5>
             </div>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#/">Замовлення</a></li>
-                <li><a href="#/products">Товари</a></li>
-                <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery">Доставка</a></li>
-                <li><a href="#/contacts">Контакти</a></li>
-                <li><a href="#/settings">Налаштування</a></li>
-                <li><a href="#/usersettings">Користувачі</a></li>
-                <hr class="hrMargin">
-                <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-            </ul>
-        </div>
-</nav>
-
-<nav class="navbar navbar-default navbar-fixed-top tabletView" role="navigation">
-    <div class="row">
-        <div class="col-xs-5 col-sm-5 searchBarCentering">
-            <div class="dropdown pull-left">
-                <button class="btn btn-default dropdown-toggle navButtonBackground" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="glyphicon glyphicon-option-vertical"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#/">Замовлення</a></li>
-                    <li><a href="#/products">Товари</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery">Доставка</a></li>
-                    <li><a href="#/contacts">Контакти</a></li>
-                    <li><a href="#/settings">Налаштування</a></li>
-                    <li><a href="#/usersettings">Користувачі</a></li>
-                    <hr class="hrMargin">
-                    <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-6 vcenter">
-            <h4><b>Доставка</b></h4>
         </div>
     </div>
 </nav>
+<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
+    <div class="logo-wrapper">
+        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+        <div class="rgba-stylish-strong">
+            <p>
+                <a href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</a>
+                admin@gmail.com
+            </p>
+        </div>
+    </div>
 
-<div class="navbar navbar-default navbar-fixed-left">
-    <a href="{{getUrl(activeShop)}}" class="navbar-brand">{{activeShop.shopName}}</a>
-    <ul class="nav navbar-nav">
-        <li><a href="#/">Замовлення</a></li>
-        <li><a href="#/products">Товари</a></li>
-        <li ng-class="{ordersActiveStateDesktop: $route.current.activetab == 'delivery'}"><a href="#/delivery">Доставка</a></li>
-        <li><a href="#/contacts">Контакти</a></li>
-        <li><a href="#/settings">Налаштування</a></li>
-        <li><a href="#/usersettings">Користувачі</a></li>
-        <hr class="desktopNavProductsDivider">
-        <li ng-click="signOut()" target="_self"><a>Вийти</a></li>
+    <ul class="collapsible collapsible-accordion">
+        <li><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
+        <li><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
+        <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
+        <li><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
+        <li><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
+        <li><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
+        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
     </ul>
-</div>
-
-<div class="container-fluid containerSize col-md-offset-3 verticalPaddingDelivery">
+</ul>
+<div class="container-fluid text-left">
     <a href="#/delivery/newPost">
-        <div class="col-xs-12 col-sm-12 col-md-11 vcentering thumbnail">
-            <div class="col-xs-3">
+        <div class="row vcentering card hoverable">
+            <div class="col-xs-3 col-md-2">
                 <img src="wisehands/assets/images/logoimages/nova-poshta-logo.png" class="img-responsive">
             </div>
-            <div class="col-xs-9">
-                <h4>Нова Пошта</h4>
+            <div class="col-xs-9 col-md-10">
+                <h5>Нова Пошта</h5>
             </div>
         </div>
     </a>
     <a href="#/delivery/courier">
-        <div class="col-xs-12 col-sm-12 col-md-11 vcentering thumbnail">
-            <div class="col-xs-3">
+        <div class="row vcentering card hoverable">
+            <div class="col-xs-3 col-md-2">
                 <img src="wisehands/assets/images/logoimages/courier-logo.png" class="img-responsive">
             </div>
-            <div class="col-xs-9">
-                <h4>Доставка Кур'єром</h4>
+            <div class="col-xs-9 col-md-10">
+                <h5>Доставка Кур'єром</h5>
             </div>
         </div>
     </a>
     <a href="#/delivery/selfTake">
-        <div class="col-xs-12 col-sm-12 col-md-11 vcentering thumbnail">
-            <div class="col-xs-3">
+        <div class="row vcentering card hoverable">
+            <div class="col-xs-3 col-md-2">
                 <img src="wisehands/assets/images/logoimages/self-take.png" class="img-responsive">
             </div>
-            <div class="col-xs-9">
-                <h4>Самовивіз</h4>
+            <div class="col-xs-9 col-md-10">
+                <h5>Самовивіз</h5>
             </div>
         </div>
     </a>

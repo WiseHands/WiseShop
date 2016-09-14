@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('DeliverySettingsController', function ($scope, $route, $http, $location, signout) {
+    .controller('DeliverySettingsController', function ($scope, $route, $http, $location, signout, sideNavInit) {
         $scope.$route = $route;
         $scope.loading = true;
 
@@ -26,7 +26,7 @@ angular.module('WiseHands')
                 $scope.loading = false;
                 $scope.status = 'Щось пішло не так...';
             });
-        $scope.setNewPostOptions = function () {
+        $scope.setDeliveryOptions = function () {
             $scope.loading = true;
             $http({
                 method: 'PUT',
@@ -71,5 +71,6 @@ angular.module('WiseHands')
             return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
         };
         $scope.signOut = signout.signOut;
+        sideNavInit.sideNav();
         
     });

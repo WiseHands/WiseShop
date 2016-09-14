@@ -39,6 +39,9 @@
 .cardTopPadding {
     padding-top: 2em;
 }
+.deliveryViewCentering {
+    padding-top: .35em !important;
+}
 .smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView, .productImage {
     display: none;
 }
@@ -57,6 +60,9 @@
     }
     .cardTopPadding {
         padding-top: 0;
+    }
+    .deliveryViewCentering {
+        padding-top: .75em !important;
     }
     .row {
         margin-left: 0px;
@@ -82,6 +88,9 @@
     }
     .cardTopPadding {
         padding-top: 0;
+    }
+    .deliveryViewCentering {
+        padding-top: .8em !important;
     }
     .row {
         margin-left: 0px;
