@@ -209,3 +209,6 @@ label.whiteCheckBox::after {
 .noTopPadding {
     padding-top: 0 !important;
 }
+.cardMinHeight {
+    min-height: ;
+}

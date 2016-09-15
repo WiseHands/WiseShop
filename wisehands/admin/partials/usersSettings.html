@@ -50,10 +50,10 @@
         <div class="testimonial-card z-depth-1">
             <div class="card-up default-color-dark">
             </div>
-            <div class="avatar"><img src="{{user.profileUrl}}" class="img-circle img-responsive">
+            <div class="avatar"><img ng-src="{{getUserImage(user)}}" class="img-circle img-responsive" >
             </div>
-            <div class="card-content">
-                <h5 class="truncate">{{user.givenName}} {{user.familyName}}</h5>
+            <div class="card-content cardMinHeight">
+                <h5 class="truncate">{{getUserName(user)}}</h5>
                 <h5 class="truncate">{{user.email}}</h5>
                 <a class="btn btn-border-danger waves-effect" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)">Видалити</a>
             </div>

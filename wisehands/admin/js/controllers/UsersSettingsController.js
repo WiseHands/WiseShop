@@ -48,6 +48,21 @@ angular.module('WiseHands')
             $('.modal-backdrop').remove();
         };
 
+        $scope.getUserImage = function (user) {
+          if (user.profileUrl) {
+              return user.profileUrl;
+          } else {
+              return '/wisehands/assets/images/onerror_image/onerror_image.png';
+          }
+        };
+        $scope.getUserName = function (user) {
+            if (user.name) {
+                return user.name;
+            } else {
+                return 'No Name';
+            }
+        };
+
         $scope.createNewUser = function () {
             $scope.loading = true;
             $http({
