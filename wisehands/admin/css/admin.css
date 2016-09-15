@@ -209,9 +209,6 @@ label.whiteCheckBox::after {
 .noTopPadding {
     padding-top: 0 !important;
 }
-.cardMinHeight {
-    min-height: ;
-}
 .primaryColor {
     color: #303F9F;
     background-color: #303F9F !important;

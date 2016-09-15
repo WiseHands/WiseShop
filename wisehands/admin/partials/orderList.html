@@ -82,16 +82,14 @@
     </div>
 </nav>
 <ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
- <div class="logo-wrapper">
-     <img src="{{profile.profileUrl}}" class="img-responsive img-circle">
-     <div class="rgba-stylish-strong">
-         <p class="user white-text">
-             <a href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</a>
-         <div class="col-xs-12"><p class="noTopPadding">{{profile.email}}</p></div>
-
-         </p>
-     </div>
- </div>
+    <div class="row vcentering">
+        <div class="col-xs-4">
+            <img src="{{getProfileImage()}}" class="img-responsive img-circle">
+        </div>
+        <div class="col-xs-8">
+            <h5 href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</h5>
+        </div>
+    </div>
 
  <ul class="collapsible collapsible-accordion">
      <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>

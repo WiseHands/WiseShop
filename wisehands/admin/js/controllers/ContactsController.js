@@ -65,4 +65,11 @@ angular.module('WiseHands')
         $scope.signOut = signout.signOut;
         sideNavInit.sideNav();
         $scope.profile = JSON.parse(localStorage.getItem('profile'));
+        $scope.getProfileImage = function () {
+            if ($scope.profile.profileUrl) {
+                return $scope.profile.profileUrl;
+            } else {
+                return '/wisehands/assets/images/onerror_image/onerror_image_white.png';
+            }
+        };
     });
