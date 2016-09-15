@@ -91,17 +91,17 @@
 
             $scope.orderState = function(item){
                 if (item.state === "NEW"){
-                    return '#0275d8';
+                    return 'rgb(100, 181, 246)';
                 } else if (item.state === "PAYED") {
-                    return '#5cb85c';
+                    return 'rgb(129, 199, 132)';
                 } else if (item.state === "CANCELLED") {
-                    return '#f0ad4e';
+                    return 'rgb(255, 183, 77)';
                 } else if (item.state === "SHIPPED") {
-                    return '#5bc0de';
+                    return 'rgb(207, 216, 220)';
                 } else if (item.state === "MANUALLY_PAYED") {
-                    return '#2BBBAE';
+                    return 'rgb(221, 201, 230)';
                 } else if (item.state === "PAYMENT_ERROR") {
-                    return '#d9534f';
+                    return 'rgb(255, 171, 145)';
                 }
             };
             
