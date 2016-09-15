@@ -83,11 +83,12 @@
 </nav>
 <ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
  <div class="logo-wrapper">
-     <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+     <img src="{{profile.profileUrl}}" class="img-responsive img-circle">
      <div class="rgba-stylish-strong">
          <p class="user white-text">
              <a href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</a>
-             admin@gmail.com
+         <div class="col-xs-12"><p class="noTopPadding">{{profile.email}}</p></div>
+
          </p>
      </div>
  </div>

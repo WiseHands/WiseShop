@@ -206,4 +206,6 @@ label.whiteCheckBox::after {
 .labelBotPadding {
     padding-bottom: 1em;
 }
-
+.noTopPadding {
+    padding-top: 0 !important;
+}

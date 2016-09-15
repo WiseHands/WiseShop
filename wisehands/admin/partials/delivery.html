@@ -14,13 +14,14 @@
 </nav>
 <ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
     <div class="logo-wrapper">
-        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+        <img src="{{profile.profileUrl}}" class="img-responsive img-circle">
         <div class="rgba-stylish-strong">
-            <p>
+            <p class="user white-text">
                 <a href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</a>
-                admin@gmail.com
-            </p>
-        </div>
+                <div class="col-xs-12"><p class="noTopPadding">{{profile.email}}</p></div>
+
+        </p>
+    </div>
     </div>
 
     <ul class="collapsible collapsible-accordion">
@@ -33,35 +34,22 @@
         <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
     </ul>
 </ul>
-<div class="container-fluid text-left">
-    <a href="#/delivery/newPost">
-        <div class="row vcentering card hoverable">
-            <div class="col-xs-3 col-md-2">
-                <img src="wisehands/assets/images/logoimages/nova-poshta-logo.png" class="img-responsive">
-            </div>
-            <div class="col-xs-9 col-md-10">
+<div class="container-fluid">
+    <div class="row text-center">
+        <a href="#/delivery/newPost" class="col-sm-4">
+            <div class="card hoverable black-text">
                 <h5>Нова Пошта</h5>
             </div>
-        </div>
-    </a>
-    <a href="#/delivery/courier">
-        <div class="row vcentering card hoverable">
-            <div class="col-xs-3 col-md-2">
-                <img src="wisehands/assets/images/logoimages/courier-logo.png" class="img-responsive">
-            </div>
-            <div class="col-xs-9 col-md-10">
+        </a>
+        <a href="#/delivery/courier" class="col-sm-4">
+            <div class="card hoverable black-text">
                 <h5>Кур'єр</h5>
             </div>
-        </div>
-    </a>
-    <a href="#/delivery/selfTake">
-        <div class="row vcentering card hoverable">
-            <div class="col-xs-3 col-md-2">
-                <img src="wisehands/assets/images/logoimages/self-take.png" class="img-responsive">
-            </div>
-            <div class="col-xs-9 col-md-10">
+        </a>
+        <a href="#/delivery/selfTake" class="col-sm-4">
+            <div class="card hoverable black-text">
                 <h5>Самовивіз</h5>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>

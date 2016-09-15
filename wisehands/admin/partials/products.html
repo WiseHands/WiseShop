@@ -18,13 +18,14 @@
 </nav>
 <ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
     <div class="logo-wrapper">
-        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
+        <img src="{{profile.profileUrl}}" class="img-responsive img-circle">
         <div class="rgba-stylish-strong">
-            <p>
-            <a href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</a>
-            admin@gmail.com
-            </p>
-        </div>
+            <p class="user white-text">
+                <a href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</a>
+                <div class="col-xs-12"><p class="noTopPadding">{{profile.email}}</p></div>
+
+        </p>
+    </div>
     </div>
 
     <ul class="collapsible collapsible-accordion">
@@ -50,10 +51,10 @@
                 </div>
                 <div class="card-content text-center row">
                     <div class="col-xs-12 fixed-height">
-                        <h5 class="product-title fixed-height">{{product.name}}</h5>
+                        <h5 class="black-text product-title fixed-height">{{product.name}}</h5>
                     </div>
                     <div class="price col-xs-12">
-                        <p class="green-text medium-500">{{product.price}} грн</p>
+                        <p class="black-text medium-500">{{product.price}} грн</p>
                     </div>
                 </div>
             </div>

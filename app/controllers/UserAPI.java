@@ -26,8 +26,12 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import static controllers.ShopAPI.checkAuthentification;
+
 public class UserAPI extends Controller {
     private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
+    private static final String X_AUTH_USER_ID = "x-auth-user-id";
+
 
     @Before
     static void corsHeaders() {
@@ -108,6 +112,14 @@ public class UserAPI extends Controller {
             UserDoesNotExist error = new UserDoesNotExist();
             forbidden(json(error));
         }
+    }
+
+    public static void profile(String email, String password) throws Exception {
+        checkAuthentification();
+        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        UserDTO user = UserDTO.findById(userId);
+        renderJSON(json(user));
+
     }
 
     public static void storeauthcode(String authCode) throws Exception {

@@ -72,5 +72,5 @@ angular.module('WiseHands')
         };
         $scope.signOut = signout.signOut;
         sideNavInit.sideNav();
-        
+        $scope.profile = JSON.parse(localStorage.getItem('profile'));
     });

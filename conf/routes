@@ -12,6 +12,7 @@ GET     {client}/superadmin                             Application.superAdmin
 POST    {client}/signin                                 UserAPI.login
 POST    {client}/storeauthcode                          UserAPI.storeauthcode
 POST    {client}/signup                                 UserAPI.register
+GET     {client}/profile                                UserAPI.profile
 
 GET     {client}/products                               ProductAPI.list
 GET     {client}/product/{uuid}                         ProductAPI.details

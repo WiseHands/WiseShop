@@ -91,5 +91,5 @@ angular.module('WiseHands')
                 }, 120);
             });
         });
-
+        $scope.profile = JSON.parse(localStorage.getItem('profile'));
     });
