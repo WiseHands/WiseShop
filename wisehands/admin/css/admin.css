@@ -201,7 +201,7 @@ label.whiteCheckBox::after {
 }
 .saveProductButtonStyling, .saveProductButtonStyling:active, .saveProductButtonStyling:visited, .saveProductButtonStyling:focus {
     border: none;
-    background-color: #3F729B;
+    background-color: #303F9F;
 }
 .labelBotPadding {
     padding-bottom: 1em;
@@ -211,4 +211,11 @@ label.whiteCheckBox::after {
 }
 .cardMinHeight {
     min-height: ;
+}
+.primaryColor {
+    color: #303F9F;
+    background-color: #303F9F !important;
+}
+.lightPrimaryColor {
+    background-color: #3F51B5;
 }
