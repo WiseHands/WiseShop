@@ -37,7 +37,6 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 $scope.loading = false;
                 $scope.users = response.data;
-                debugger;
             }, function errorCallback(data) {
                 $scope.loading = false;
                 $scope.status = 'Щось пішло не так...';
