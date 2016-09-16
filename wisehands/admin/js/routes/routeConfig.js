@@ -109,20 +109,6 @@
                     console.log(data);
                 });
 
-            $http({
-                method: 'GET',
-                url: '/profile',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
-            })
-                .then(function successCallback(response) {
-                    localStorage.setItem('profile', JSON.stringify(response.data));
 
-                }, function errorCallback(data) {
-                    console.log('error retrieving profile');
-                });
-            
         })
 })();

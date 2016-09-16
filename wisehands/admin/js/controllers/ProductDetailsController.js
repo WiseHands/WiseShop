@@ -1,7 +1,6 @@
 angular.module('WiseHands')
-    .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', '$location', 'signout',
-        function($http, $scope, $routeParams, $location, $route, signout) {
-            $scope.$route = $route;
+    .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', 'signout',
+        function($http, $scope, $routeParams, signout) {
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
             $http({
@@ -49,8 +48,4 @@ angular.module('WiseHands')
                     });
 
             };
-
-
-           
-            
         }]);

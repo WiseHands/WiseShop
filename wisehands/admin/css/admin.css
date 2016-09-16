@@ -45,9 +45,6 @@
 body {
     margin-top: 4.7em;
 }
-.smartPhoneView, .portraitView, .tabletView, .landscapeView, .desktopView, .productImage {
-    display: none;
-}
 
 .hiddenFileInput {
     display: none !important;
@@ -59,7 +56,7 @@ body {
         padding-right: 0;
     }
     .noPaddingLeft {
-        padding-left: 0;
+        padding-left: 0 !important;
     }
     .cardTopPadding {
         padding-top: 0;
@@ -70,13 +67,6 @@ body {
     .row {
         margin-left: 0px;
         margin-right: 0px;
-    }
-
-    .desktopView, .portraitView, .smartPhoneView {
-        display: inherit;
-    }
-    .navbar-fixed-left, .tabletView, .landscapeView, .desktopFilterView, .desktopProductsView {
-        display: none;
     }
 }
 
@@ -99,12 +89,6 @@ body {
         margin-left: 0px;
         margin-right: 0px;
     }
-    .desktopView, .smartPhoneView, .landscapeView {
-        display: inherit;
-    }
-    .navbar-fixed-left, .tabletView, .portraitView, .desktopFilterView, .desktopProductsView {
-        display: none;
-    }
 }
 
 
@@ -119,13 +103,6 @@ body {
     .row {
         margin-left: 0px;
         margin-right: 0px;
-    }
-
-    .landscapeView, .desktopView, .tabletView {
-        display: inherit;
-    }
-    .navbar-fixed-left, .ordersView, .portraitView,  .smartPhoneView, .desktopFilterView, .desktopProductsView {
-        display: none;
     }
 }
 
@@ -158,9 +135,8 @@ body {
     padding-bottom: 0;
 }
 
-.removeUserButton:hover {
+.cursorPointer:hover {
     cursor: pointer;
-    color: red;
 }
 .noUnderline:hover {
     text-decoration: none;

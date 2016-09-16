@@ -1,7 +1,6 @@
     angular.module('WiseHands')
         .controller('SingleOrderController', ['$http', '$scope', '$routeParams', 'signout',
-            function($http, $scope, $routeParams, $route, signout) {
-                $scope.$route = $route;
+            function($http, $scope, $routeParams, signout) {
                 $scope.uuid = $routeParams.uuid;
                 $scope.loading = true;
                 $http({

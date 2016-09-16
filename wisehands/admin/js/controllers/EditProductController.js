@@ -1,7 +1,6 @@
 angular.module('WiseHands')
     .controller('EditProductController', ['$http', '$scope', '$routeParams', '$location', 'signout',
-        function($http, $scope, $routeParams, $location, $route, signout) {
-            $scope.$route = $route;
+        function($http, $scope, $routeParams, $location, signout) {
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
             $http({

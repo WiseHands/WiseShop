@@ -12,26 +12,7 @@
         </div>
     </div>
 </nav>
-<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
-    <div class="row vcentering">
-        <div class="col-xs-4">
-            <img src="{{getProfileImage()}}" class="img-responsive img-circle">
-        </div>
-        <div class="col-xs-8">
-            <h5 href="{{getUrl(activeShop)}}" class="white-text">{{activeShop.shopName}}</h5>
-        </div>
-    </div>
 
-    <ul class="collapsible collapsible-accordion">
-        <li><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
-        <li><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
-        <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
-        <li><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
-        <li><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
-        <li><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
-        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
-    </ul>
-</ul>
 <div class="container-fluid">
     <div class="row text-center">
         <a href="#/delivery/newPost" class="col-sm-4">

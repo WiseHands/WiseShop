@@ -1,6 +1,5 @@
 angular.module('WiseHands')
-    .controller('SettingsController', function ($scope, $route, $http, signout, sideNavInit) {
-        $scope.$route = $route;
+    .controller('SettingsController', function ($scope, $http, sideNavInit, signout) {
         $scope.loading = true;
         $scope.hostName = window.location.hostname;
 
@@ -8,11 +7,6 @@ angular.module('WiseHands')
         var token = localStorage.getItem('X-AUTH-TOKEN');
         var userId = localStorage.getItem('X-AUTH-USER-ID');
 
-
-        $scope.activeShop = {
-            domain: '',
-            shopName: ''
-        };
 
         $http({
             method: 'GET',
@@ -128,19 +122,8 @@ angular.module('WiseHands')
             });
         };
 
-        $scope.getUrl = function (shop) {
-            return  window.location.protocol + '//' + shop.domain + ':' + window.location.port;
-        };
-        $scope.signOut = signout.signOut;
         sideNavInit.sideNav();
-        $scope.profile = JSON.parse(localStorage.getItem('profile'));
-        $scope.getProfileImage = function () {
-            if ($scope.profile.profileUrl) {
-                return $scope.profile.profileUrl;
-            } else {
-                return '/wisehands/assets/images/onerror_image/onerror_image_white.png';
-            }
-        };
+        
     });
 
 function encodeQueryData(data)
