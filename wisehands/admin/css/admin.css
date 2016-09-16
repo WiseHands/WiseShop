@@ -39,9 +39,7 @@
 .cardTopPadding {
     padding-top: 2em;
 }
-.deliveryViewCentering {
-    padding-top: .35em !important;
-}
+
 body {
     margin-top: 4.7em;
 }
@@ -49,7 +47,10 @@ body {
 .hiddenFileInput {
     display: none !important;
 }
-
+.sideNavButtonStyling {
+    position: relative !important;
+    padding-left: 0 !important;
+}
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
     .noRightPadding {
@@ -60,9 +61,6 @@ body {
     }
     .cardTopPadding {
         padding-top: 0;
-    }
-    .deliveryViewCentering {
-        padding-top: .75em !important;
     }
     .row {
         margin-left: 0px;
@@ -81,9 +79,6 @@ body {
     }
     .cardTopPadding {
         padding-top: 0;
-    }
-    .deliveryViewCentering {
-        padding-top: .8em !important;
     }
     .row {
         margin-left: 0px;
@@ -120,8 +115,6 @@ body {
 .errorMessageContainer {
     padding-left: 0;
 }
-
-
 
  .noTopMargin {
      margin-top: 0;
