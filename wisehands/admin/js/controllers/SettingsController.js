@@ -57,8 +57,7 @@ angular.module('WiseHands')
             window.location.href = window.location.protocol + "//"
             						+ $scope.selectedShop.domain + ":" + window.location.port
             						+ "/admin"
-            						+ '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token +
-           						 	+ "#/settings";
+            						+ '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token;
         };
 
         $scope.createNewStore = function () {
