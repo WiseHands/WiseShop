@@ -45,27 +45,26 @@ public class Application extends Controller {
     }
 
     public static void index(String client) {
-        System.out.println("client domain: " + client);
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         if (client.equals("localhost") || client.equals("wisehands.me")){
             renderTemplate("WiseHands/index.html");
         }
 
-        ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
-        if (shopDTO == null) {
+        if (shop == null) {
             notFound("The requested Shop is not available. Contact administrator");
         }
 
-        renderTemplate("Application/shop.html");
+        renderTemplate("Application/shop.html", shop);
     }
 
     public static void shop(String client) {
-        ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
-        if (shopDTO == null) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
             notFound("The requested Shop is not available. Contact administrator    ");
         }
 
-        render();
+        render(shop);
     }
 
     public static void done(String client) {
