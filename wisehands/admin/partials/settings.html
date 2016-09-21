@@ -49,13 +49,27 @@
                 <input id="endTime" type="time" class="validate" ng-model="selectedShop.endTime">
             </div>
         </div>
-        <div class="input-field col-md-6">
-            <p>Публічний LiqPay ключ</p>
-            <input id="publicLiqPay" type="text" class="validate" ng-model="selectedShop.liqpayPrivateKey">
+        <div class="input-field col-md-12">
+            <p>LiqPay</p>
+            <div class="col-sm-6">
+                <p>Публічний ключ</p>
+                <input id="publicLiqPay" type="text" class="validate" ng-model="selectedShop.liqpayPrivateKey">
+            </div>
+            <div class="col-sm-6">
+                <p>Приватний ключ</p>
+                <input id="privateLiqPay" type="password" class="validate" ng-model="selectedShop.liqpayPublicKey">
+            </div>
         </div>
-        <div class="input-field col-md-6">
-            <p>Приватний LiqPay ключ</p>
-            <input id="privateLiqPay" type="password" class="validate" ng-model="selectedShop.liqpayPublicKey">
+        <div class="input-field col-md-12">
+            <p>Google</p>
+            <div class="col-sm-6">
+                <p>Підтвердження сайту</p>
+                <input id="verification" type="text" class="validate" ng-model="selectedShop.googleWebsiteVerificator">
+            </div>
+            <div class="col-sm-6">
+                <p>Analytics</p>
+                <input id="analytics" type="text" class="validate" ng-model="selectedShop.googleAnalyticsCode">
+            </div>
         </div>
         <div class="col-md-12">
             <a class="btn btn-primary waves-effect waves-light pull-right" ng-click="updateStoreSettings()">Зберегти</a>
