@@ -37,7 +37,7 @@ public class ShopDTO extends GenericModel {
     public String liqpayPrivateKey;
 
     @Expose
-    public String googleWebsiteViryficator;
+    public String googleWebsiteVerificator;
 
     @Expose
     public String googleAnalyticsCode;
