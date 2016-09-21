@@ -29,6 +29,8 @@
 
 <script src="wisehands/login/js/controllers/LoginFormController.js"></script>
 <script src="wisehands/login/js/controllers/RegisterFormController.js"></script>
+<script src="wisehands/login/js/controllers/AboutUsController.js"></script>
+
 
 <script src="wisehands/login/js/services/UserService.js"></script>
 
@@ -42,15 +44,33 @@
         });
       });
     }
-
-
 </script>
 
 <script>
 	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
 	});
 </script>
-
+<script>
+	function initMap() {
+		var mapDiv = document.getElementById('map');
+		if(!mapDiv) {
+			return;
+		}
+		var myLatLng = {lat: 49.843232, lng: 24.031540};
+		var map = new google.maps.Map(mapDiv, {
+			center: myLatLng,
+			zoom: 18
+		});
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: 'Wise Hands'
+		});
+	}
+</script>
+<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChjd1ZIoUdxAwO4XCvBVBUQgbQkxRLLL0&callback=initMap">
+</script>
 <script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
 
 </body>

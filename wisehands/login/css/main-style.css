@@ -188,7 +188,19 @@ label > .label-body {
 .pull-left {
     float: left; }
 
+#map {
+    width: 50%;
+    height: 300px;
+}
+.contactsContainer {
+    width: 50%;
+}
+@media (max-width: 767px ) {
+    #map, .contactsContainer {
+        width: 100%;
+    }
 
+}
 @media (min-width: 400px) {
     .container {
         width: 85%;
@@ -295,3 +307,24 @@ canvas {
 .cursorPointer {
     cursor: pointer;
 }
+
+.about {
+    color:#E6E9EA;
+    text-align:center;
+    padding-top: 3rem;
+}
+.about:hover {
+    color: lightseagreen;
+    cursor: pointer;
+}
+.aboutContainer {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0px;
+    padding: 35px 40px;
+}
+.title-hover:hover {
+    color: lightseagreen;
+}
+

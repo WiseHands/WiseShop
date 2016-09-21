@@ -16,14 +16,14 @@
                 </div>
             </div>
             <div class="row">
-                <a href="#" class="forgot">About</a>
-            </div>
-            <div class="row">
-                <a href="#" class="forgot" ng-show="showShopList">Choose proper web-store</a>
+                <a class="forgot" ng-show="showShopList">Choose proper web-store</a>
             </div>
             <div ng-repeat="shop in user.shopList">
                 <button class="button-submit full-width buttonStyling" ng-click="properShop(shop)">{{shop.shopName}}</button>
             </div>
         </form>
+        <div class="row">
+            <a href="#/about" class="about"><h4>About us</h4></a>
+        </div>
     </div>
 </div>

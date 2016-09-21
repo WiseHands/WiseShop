@@ -22,6 +22,10 @@
                     templateUrl:'wisehands/login/partials/login_registerForm.html',
                     controller:'LoginFormController',
                 }).
+                when('/about',{
+                    templateUrl:'wisehands/login/partials/about.html',
+                    controller:'AboutUsController',
+                }).
                 otherwise({
                     redirectTo:'/'
                 });
