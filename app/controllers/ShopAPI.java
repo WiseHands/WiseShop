@@ -84,6 +84,8 @@ public class ShopAPI extends Controller {
         String name = (String) jsonBody.get("shopName");
         String liqpayPublicKey = (String) jsonBody.get("liqpayPublicKey");
         String liqpayPrivateKey = (String) jsonBody.get("liqpayPrivateKey");
+        String googleWebsiteVerificator = (String) jsonBody.get("googleWebsiteVerificator");
+        String googleAnalyticsCode = (String) jsonBody.get("googleAnalyticsCode");
         String startTime = (String) jsonBody.get("startTime");
         String endTime = (String) jsonBody.get("endTime");
         System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
@@ -94,6 +96,9 @@ public class ShopAPI extends Controller {
         shop.startTime = startTime;
         shop.endTime = endTime;
         shop.shopName = name;
+
+        shop.googleWebsiteVerificator = googleWebsiteVerificator;
+        shop.googleAnalyticsCode = googleAnalyticsCode;
 
         shop = shop.save();
         renderJSON(json(shop));
