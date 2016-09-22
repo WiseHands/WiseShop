@@ -42,6 +42,9 @@ public class ShopDTO extends GenericModel {
     @Expose
     public String googleAnalyticsCode;
 
+    @OneToOne
+    public BalanceDTO balance;
+
     @ManyToMany
     public List<UserDTO> userList;
 
