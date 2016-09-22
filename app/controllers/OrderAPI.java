@@ -200,6 +200,10 @@ public class OrderAPI extends AuthController {
             order.state  = OrderState.PAYED;
             order.save();
 
+            // substract from shop.balance.balance -= order.amount * 0.0725
+            // add row to order registery
+
+
             String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
             smsSender.sendSms(order.phone, smsText);
             for (UserDTO user : shop.userList) {

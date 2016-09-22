@@ -14,10 +14,6 @@ import services.LiqPayService;
 import services.MailSender;
 
 import javax.inject.Inject;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BalanceAPI extends Controller {
     private static final String X_AUTH_TOKEN = "x-auth-token";
@@ -91,6 +87,8 @@ public class BalanceAPI extends Controller {
 
         String balanceTransactionId = String.valueOf(jsonObject.get("order_id"));
         BalanceTransactionDTO balanceTransaction = BalanceTransactionDTO.find("byUuid",balanceTransactionId).first();
+
+        // add to shop.balance.balanc += balanceTransaction.amount;
         if(balanceTransaction == null) {
             ok();
         }

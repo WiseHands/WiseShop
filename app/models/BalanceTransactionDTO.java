@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class BalanceTransactionDTO extends GenericModel {
@@ -31,6 +30,4 @@ public class BalanceTransactionDTO extends GenericModel {
         this.amount = amount;
         this.date = System.currentTimeMillis();
     }
-
-
 }
