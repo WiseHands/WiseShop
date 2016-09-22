@@ -38,7 +38,16 @@ angular.module('WiseHands')
                 return 'No Name';
             }
         };
-
+        $scope.isNewUserEmailValid = function () {
+            $scope.users.forEach(function (user, key, array) {
+                $scope.newUserEmailErrorMessage = '';
+                $scope.newUserEmailValid = false;
+                if ($scope.newUser.email === user.email) {
+                    $scope.newUserEmailErrorMessage = 'Користувач з такою поштою вже зареєстрований';
+                    $scope.newUserEmailValid = true;
+                }
+            });
+        };
         $scope.createNewUser = function () {
             $scope.loading = true;
             $http({
@@ -50,6 +59,7 @@ angular.module('WiseHands')
                 }
             })
                 .then(function successCallback(response) {
+                    
                     $scope.loading = false;
                     $scope.users.push(response.data);
                     $scope.hideCreateUserModal();
@@ -68,7 +78,14 @@ angular.module('WiseHands')
             $scope.userIndex = $scope.users[index].email;
             $scope.spliceIndex = index;
         };
-
+        var currentUser = localStorage.getItem('X-AUTH-USER-ID');
+        $scope.noDeleteForActiveUser = function (index) {
+            if (currentUser === $scope.users[index].uuid) {
+                return true;
+            } else {
+                return false;
+            }
+        };
         $scope.deleteMessage = 'Ви дійсно хочете видалити даного користувача?';
         $scope.hideModal = function () {
             $('#deleteUser').modal('hide');

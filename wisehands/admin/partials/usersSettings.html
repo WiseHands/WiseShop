@@ -34,7 +34,7 @@
             <div class="card-content cardMinHeight">
                 <h5 class="truncate">{{getUserName(user)}}</h5>
                 <h5 class="truncate">{{user.email}}</h5>
-                <a class="btn btn-border-danger waves-effect" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)">Видалити</a>
+                <a class="btn btn-border-danger waves-effect" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)" ng-disabled="noDeleteForActiveUser($index)">Видалити</a>
             </div>
         </div>
     </div>
@@ -73,12 +73,12 @@
                 <div class="row">
                     <form class="col-md-12" name="createNewUserForm">
                         <div class="input-field">
-                            <input id="newUserEmail" type="email" class="validate" ng-model="newUser.email" required>
+                            <input id="newUserEmail" type="email" class="validate" ng-change="isNewUserEmailValid()" ng-model="newUser.email" required>
                             <label for="newUserEmail">E-mail</label>
                         </div>
-
+                        <p>{{newUserEmailErrorMessage}}</p>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewUser()" ng-disabled="createNewUserForm.$invalid">Створити</button>
+                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewUser()" ng-disabled="createNewUserForm.$invalid || newUserEmailValid">Створити</button>
                         </div>
                     </form>
                 </div>
