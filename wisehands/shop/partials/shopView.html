@@ -244,40 +244,6 @@
                             <div class="modal-body">
                                 <div class="fillingInfo" ng-hide="successfullResponse">
                                     <form name="orderForm">
-                                        <div class="form-group">
-                                            <h6><b>П.І.П.</b>
-                                                <input class="form-control"
-                                                       id="name"
-                                                       ng-model="name"
-                                                       type="text" name="name"
-                                                       placeholder="Петренко Іван Григорович"
-                                                       required/>
-                                            </h6>
-                                        </div>
-                                        <div class="form-group">
-                                            <h6><b>Номер телефону</b>
-                                                <input class="form-control"
-                                                       type="tel"
-                                                       id="phone"
-                                                       ng-model="phone"
-                                                       name="phone"
-                                                       ng-value="+380"
-                                                       ng-minlength="12"
-                                                       ng-maxlength="12"
-                                                       required/>
-                                            </h6>
-                                            <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 12 чисел</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <h6><b>Адреса</b></h6>
-                                            <input class="form-control"
-                                                   placeholder="Введіть адресу"
-                                                   id="address"
-                                                   ng-model="address"
-                                                   type="text"
-                                                   ng-init="init()"
-                                                   required/>
-                                        </div>
                                         <h6 class="deliveryType"><b>Тип доставки</b></h6>
 
                                         <fieldset class="form-group">
@@ -308,7 +274,6 @@
                                             </fieldset>
                                         </fieldset>
 
-
                                         <fieldset class="form-group">
                                             <input name="deliverance"
                                                    type="radio"
@@ -319,7 +284,40 @@
                                                    value="SELFTAKE">
                                             <label class="pull-left" for="radio3" ng-show="deliverance.isSelfTakeAvailable"><i>{{deliverance.selfTakeText}}</i></label>
                                         </fieldset>
-                                        </label>
+                                        <div class="form-group">
+                                            <h6><b>П.І.П.</b>
+                                                <input class="form-control"
+                                                       id="name"
+                                                       ng-model="name"
+                                                       type="text" name="name"
+                                                       placeholder="Петренко Іван Григорович"
+                                                       required/>
+                                            </h6>
+                                        </div>
+                                        <div class="form-group">
+                                            <h6><b>Номер телефону</b>
+                                                <input class="form-control"
+                                                       type="tel"
+                                                       id="phone"
+                                                       ng-model="phone"
+                                                       name="phone"
+                                                       ng-value="+380"
+                                                       ng-minlength="12"
+                                                       ng-maxlength="12"
+                                                       required/>
+                                            </h6>
+                                            <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 12 чисел</span>
+                                        </div>
+                                        <div class="form-group" ng-hide="delivery.radio === 'SELFTAKE'">
+                                            <h6><b>Адреса</b></h6>
+                                            <input class="form-control"
+                                                   placeholder="Введіть адресу"
+                                                   id="address"
+                                                   ng-model="address"
+                                                   type="text"
+                                                   ng-required="isAddressRequired"/>
+                                        </div>
+
                                     </form>
                                 </div>
                                 <div id="paymentButton" class="row" ng-show="successfullResponse">

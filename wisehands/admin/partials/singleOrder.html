@@ -37,7 +37,7 @@
             <div class="col-xs-12 col-sm-6 noSidePadding">
                 <h5>П.І.П. замовника: <p><i>{{order.name}}</i></p></h5>
                 <h5>Номер телефону: <p><i>{{order.phone}}</i></p></h5>
-                <h5>Адреса: </b><p><i>{{order.address}}</i></p></h5>
+                <h5 ng-hide="order.deliveryType === 'SELFTAKE'">Адреса: </b><p><i>{{order.address}}</i></p></h5>
                 <h5 ng-show="order.deliveryType === 'NOVAPOSHTA'">Номер відділення: <p><i>{{order.departmentNumber}}</i></p></h5>
                 <h5>Сума замовлення: <p><i>{{order.total}} грн</i></p></h5>
                 <h5>Статус замовлення: <p><i>{{orderState(order)}}</i></p></h5>

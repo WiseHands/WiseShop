@@ -83,15 +83,21 @@
             // };
 
             $scope.delivery = function () {
+                if ($scope.delivery.radio === 'NOVAPOSHTA') {
+                    $scope.isAddressRequired = true;
+                }
                  if ($scope.delivery.radio === 'COURIER') {
+                     $scope.isAddressRequired = true;
                     if($scope.total < $scope.minOrderForFreeDelivery){
                         return ' + 40';
                     } else {
                         return '';
                     }
                 } else if ($scope.delivery.radio === 'SELFTAKE'){
+                     $scope.isAddressRequired = false;
                     return '';
                 }
+                
                 return '';
             };
 
