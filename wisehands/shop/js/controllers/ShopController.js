@@ -84,7 +84,7 @@
 
             $scope.delivery = function () {
                 if ($scope.delivery.radio === 'NOVAPOSHTA') {
-                    $scope.isAddressRequired = true;
+                    $scope.isAddressRequired = false;
                 }
                  if ($scope.delivery.radio === 'COURIER') {
                      $scope.isAddressRequired = true;

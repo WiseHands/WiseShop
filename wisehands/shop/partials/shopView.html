@@ -268,8 +268,8 @@
                                             <label for="radio2" ng-show="deliverance.isNewPostAvailable"><i>{{deliverance.newPostText}}</i></label>
                                             <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
                                                 <label for="newPostDepartment" class="center-block">
-                                                    <h6><b>Введіть номер відділення Нової Пошти</b></h6>
-                                                    <input id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="№7, вул.Личаківська,8"/>
+                                                    <h6><b>Введіть адресу і номер відділення Нової Пошти</b></h6>
+                                                    <input id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
                                                 </label>
                                             </fieldset>
                                         </fieldset>
@@ -308,7 +308,7 @@
                                             </h6>
                                             <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 12 чисел</span>
                                         </div>
-                                        <div class="form-group" ng-hide="delivery.radio === 'SELFTAKE'">
+                                        <div class="form-group" ng-show="isAddressRequired">
                                             <h6><b>Адреса</b></h6>
                                             <input class="form-control"
                                                    placeholder="Введіть адресу"
