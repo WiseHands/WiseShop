@@ -194,3 +194,6 @@ label.whiteCheckBox::after {
 .z-index-3 {
     z-index: 98;
 }
+.proceedWithPayment {
+    display: none;
+}

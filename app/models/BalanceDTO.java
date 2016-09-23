@@ -18,10 +18,9 @@ public class BalanceDTO extends GenericModel {
     public String uuid;
 
     @Expose
-    public Double balance;
+    public double balance;
 
     @Expose
-
     @OneToMany
     List<BalanceTransactionDTO> balanceTransactions;
 

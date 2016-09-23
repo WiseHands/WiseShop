@@ -23,6 +23,14 @@ public class BalanceAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
 
+        if(shop.balance == null) {
+            BalanceDTO balance = new BalanceDTO();
+            shop.balance = balance;
+            balance.shop = shop;
+            balance = balance.save();
+            shop = shop.save();
+        }
+
         renderJSON(json(shop.balance));
     }
 
@@ -37,8 +45,8 @@ public class BalanceAPI extends AuthController {
         BalanceDTO balance = shop.balance;
         balance.addTransaction(tx);
 
-        balance.save();
         tx.save();
+        balance.save();
 
         try {
             String payButton = liqPay.payForService(tx, shop);
@@ -65,9 +73,11 @@ public class BalanceAPI extends AuthController {
         }
 
         String status = String.valueOf(jsonObject.get("status"));
-        if (status.equals("failure") || status.equals("wait_accept")){
+        if (status.equals("failure")){
             balanceTransaction.state = OrderState.PAYMENT_ERROR;
-        } else {
+
+            //TODO: replace to success
+        } else if (status.equals("wait_accept")) {
             balanceTransaction.state = OrderState.PAYED;
         }
         balanceTransaction.save();
