@@ -9,19 +9,15 @@ import models.ContactDTO;
 import models.DeliveryDTO;
 import models.ShopDTO;
 import models.UserDTO;
-import play.db.jpa.JPA;
 import play.mvc.Before;
 import play.mvc.Controller;
 import responses.InvalidPassword;
 import responses.UserDoesNotExist;
-import services.MailSender;
 import services.SmsSender;
 
 import javax.inject.Inject;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.persistence.Query;
-import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +111,7 @@ public class UserAPI extends Controller {
     }
 
     public static void profile(String email, String password) throws Exception {
-        checkAuthentification();
+        checkAuthentification(null);
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user));

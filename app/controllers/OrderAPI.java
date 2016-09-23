@@ -111,7 +111,8 @@ public class OrderAPI extends AuthController {
     }
 
     public static void details(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
 
@@ -120,9 +121,9 @@ public class OrderAPI extends AuthController {
 
 
     public static void list(String client) throws Exception {
-        checkAuthentification();
-
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
         List<OrderDTO> orders = OrderDTO.find("byShop", shop).fetch();
 
         renderJSON(json(orders));
@@ -130,7 +131,8 @@ public class OrderAPI extends AuthController {
 
 
     public static void delete(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
         orderDTO.delete();
@@ -138,13 +140,13 @@ public class OrderAPI extends AuthController {
     }
 
     public static void markShipped(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.SHIPPED;
         order.save();
 
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
         Double amount = order.total * WISEHANDS_COMISSION;
         BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order);
 
@@ -159,7 +161,8 @@ public class OrderAPI extends AuthController {
     }
 
     public static void markCancelled(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.CANCELLED;
@@ -169,7 +172,8 @@ public class OrderAPI extends AuthController {
     }
 
     public static void manuallyPayed(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.MANUALLY_PAYED;
