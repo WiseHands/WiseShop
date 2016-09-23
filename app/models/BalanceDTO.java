@@ -22,12 +22,17 @@ public class BalanceDTO extends GenericModel {
 
     @Expose
     @ManyToOne
-    List<BalanceTransactionDTO> balanceTransactions;
+    public List<BalanceTransactionDTO> balanceTransactions;
 
     public BalanceDTO() {
         if(balanceTransactions == null) {
             balanceTransactions = new ArrayList<BalanceTransactionDTO>();
         }
+    }
+
+    public void addTransaction(BalanceTransactionDTO tx) {
+        this.balanceTransactions.add(tx);
+        this.balance += tx.amount;
     }
 
 

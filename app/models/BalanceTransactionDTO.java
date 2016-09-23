@@ -23,11 +23,24 @@ public class BalanceTransactionDTO extends GenericModel {
     public Long date;
 
     @Expose
+    public String orderUuid;
+
+    @Expose
+    public String userUuid;
+
+    @Expose
     @Enumerated(EnumType.STRING)
     public OrderState state;
 
-    public BalanceTransactionDTO(Double amount) {
+    public BalanceTransactionDTO(Double amount, OrderDTO order) {
         this.amount = amount;
+        this.orderUuid = order.uuid;
+        this.date = System.currentTimeMillis();
+    }
+
+    public BalanceTransactionDTO(Double amount, UserDTO user) {
+        this.amount = amount;
+        this.userUuid = user.uuid;
         this.date = System.currentTimeMillis();
     }
 }

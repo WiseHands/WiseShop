@@ -66,10 +66,18 @@ public class BalanceAPI extends Controller {
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
-        BalanceTransactionDTO balanceTransaction = new BalanceTransactionDTO(amount);
+        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        UserDTO user = UserDTO.findById(userId);
+
+        BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, user);
+        BalanceDTO balance = shop.balance;
+        balance.addTransaction(tx);
+
+        balance.save();
+        tx.save();
 
         try {
-            String payButton = liqPay.payForService(balanceTransaction, shop);
+            String payButton = liqPay.payForService(tx, shop);
             renderHtml(payButton);
         } catch (Exception e) {
             renderHtml("");

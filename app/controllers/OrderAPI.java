@@ -17,6 +17,7 @@ public class OrderAPI extends AuthController {
 
     private static final Integer FREESHIPPINGMINCOST = 501;
     private static final Integer SHIPPING_COST = 40;
+    private  static final Double WISEHANDS_COMISSION = -0.0725;
 
     private class DeliveryType {
         private static final String NOVAPOSHTA = "NOVAPOSHTA";
@@ -143,6 +144,17 @@ public class OrderAPI extends AuthController {
         order.state = OrderState.SHIPPED;
         order.save();
 
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        Double amount = order.total * WISEHANDS_COMISSION;
+        BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order);
+
+        BalanceDTO balance = shop.balance;
+        balance.addTransaction(tx);
+        balance.save();
+        tx.save();
+
+        System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became SHIPPED");
+
         renderJSON(json(order));
     }
 
@@ -200,8 +212,15 @@ public class OrderAPI extends AuthController {
             order.state  = OrderState.PAYED;
             order.save();
 
-            // substract from shop.balance.balance -= order.amount * 0.0725
-            // add row to order registery
+            Double amount = order.total * WISEHANDS_COMISSION;
+            BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order);
+
+            BalanceDTO balance = shop.balance;
+            balance.addTransaction(tx);
+            balance.save();
+            tx.save();
+
+            System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became SHIPPED");
 
 
             String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
