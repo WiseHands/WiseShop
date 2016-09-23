@@ -1,6 +1,7 @@
 angular.module('WiseHands')
     .controller('SettingsController', function ($scope, $http, sideNavInit, signout) {
         $scope.loading = true;
+        $scope.requestQueue = 0;
         $scope.hostName = window.location.hostname;
 
 
@@ -8,6 +9,7 @@ angular.module('WiseHands')
         var userId = localStorage.getItem('X-AUTH-USER-ID');
 
 
+        $scope.requestQueue += 1;
         $http({
             method: 'GET',
             url: '/shops',
@@ -17,7 +19,10 @@ angular.module('WiseHands')
             }
         })
             .then(function successCallback(response) {
-                $scope.loading = false;
+                $scope.requestQueue -= 1;
+                if ($scope.requestQueue === 0) {
+                    $scope.loading = false;
+                }
                 $scope.shops = response.data;
 
                 $scope.shops.forEach(function(shop, key, array) {
@@ -32,10 +37,14 @@ angular.module('WiseHands')
                 if (response.data === 'Invalid X-AUTH-TOKEN') {
                     signout.signOut();
                 }
-                $scope.loading = false;
+                $scope.requestQueue -= 1;
+                if ($scope.requestQueue === 0) {
+                    $scope.loading = false;
+                }
                 $scope.status = 'Щось пішло не так...';
             });
 
+        $scope.requestQueue += 1;
         $http({
             method: 'GET',
             url: '/shop/details',
@@ -46,6 +55,32 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
+                $scope.requestQueue -= 1;
+                if ($scope.requestQueue === 0) {
+                    $scope.loading = false;
+                }
+            }, function errorCallback(response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
+                $scope.requestQueue -= 1;
+                if ($scope.requestQueue === 0) {
+                    $scope.loading = false;
+                }
+                $scope.status = 'Щось пішло не так...';
+            });
+
+        $http({
+            method: 'GET',
+            url: '/balance',
+            headers: {
+                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            }
+        })
+            .then(function successCallback(response) {
+                $scope.balance = response.data;
+                debugger;
             }, function errorCallback(response) {
                 if (response.data === 'Invalid X-AUTH-TOKEN') {
                     signout.signOut();

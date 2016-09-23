@@ -27,7 +27,7 @@ angular.module('WiseHands')
         $scope.getUserImage = function (user) {
           if (user.profileUrl) {
               return user.profileUrl;
-          } else {
+          } else if (user.profileUrl) {
               return '/wisehands/assets/images/onerror_image/onerror_image.png';
           }
         };

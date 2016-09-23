@@ -21,8 +21,12 @@ public class BalanceDTO extends GenericModel {
     public Double balance;
 
     @Expose
-    @ManyToOne
-    public List<BalanceTransactionDTO> balanceTransactions;
+
+    @OneToMany
+    List<BalanceTransactionDTO> balanceTransactions;
+
+    @OneToOne
+    public ShopDTO shop;
 
     public BalanceDTO() {
         if(balanceTransactions == null) {
