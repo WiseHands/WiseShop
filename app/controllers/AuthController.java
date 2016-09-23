@@ -8,10 +8,8 @@ import play.mvc.Controller;
 
 public class AuthController extends Controller {
 
-    private static final String X_AUTH_TOKEN = "x-auth-token";
-    private static final String X_AUTH_USER_ID = "x-auth-user-id";
-
-
+    protected static final String X_AUTH_TOKEN = "x-auth-token";
+    protected static final String X_AUTH_USER_ID = "x-auth-user-id";
 
     @Before
     static void corsHeaders() {
@@ -19,7 +17,7 @@ public class AuthController extends Controller {
         response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
     }
 
-    static void checkAuthentification() {
+    static void checkAuthentification(ShopDTO shop) {
         boolean authHeadersPopulated = request.headers.get(X_AUTH_TOKEN) != null && request.headers.get(X_AUTH_USER_ID) != null;
         if (authHeadersPopulated){
             String userId = request.headers.get(X_AUTH_USER_ID).value();
@@ -30,12 +28,17 @@ public class AuthController extends Controller {
                 forbidden("Invalid X-AUTH-USER-ID: " + userId);
             if(!user.token.equals(token))
                 forbidden("Invalid X-AUTH-TOKEN: " + token);
+
+            if(shop != null && !shop.userList.contains(user)) {
+                forbidden("This user do not belong to given shop: " + userId);
+            }
         } else {
-            forbidden("Empty X-AUTH-TOKEN");
+            forbidden("Empty X-AUTH-TOKEN or X-AUTH-USER-ID");
         }
     }
 
     protected static String json(Object object){
+        response.setHeader("Content-Type", "application/json");
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         return gson.toJson(object);
     }

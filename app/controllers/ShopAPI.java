@@ -1,7 +1,5 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import models.ContactDTO;
 import models.DeliveryDTO;
 import models.ShopDTO;
@@ -9,8 +7,6 @@ import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
-import play.mvc.Before;
-import play.mvc.Controller;
 import services.MailSender;
 
 import javax.inject.Inject;
@@ -19,46 +15,25 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopAPI extends Controller {
-    private static final String X_AUTH_TOKEN = "x-auth-token";
-    private static final String X_AUTH_USER_ID = "x-auth-user-id";
+public class ShopAPI extends AuthController {
     public static final String SERVER_IP = "91.224.11.24";
-
-
-    @Before
-    static void corsHeaders() {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Expose-Headers", X_AUTH_TOKEN);
-    }
 
     @Inject
     static MailSender mailSender;
 
-
-    static void checkAuthentification() {
-        boolean authHeadersPopulated = request.headers.get(X_AUTH_TOKEN) != null && request.headers.get(X_AUTH_USER_ID) != null;
-        if (authHeadersPopulated){
-            String userId = request.headers.get(X_AUTH_USER_ID).value();
-            String token = request.headers.get(X_AUTH_TOKEN).value();
-            UserDTO user = UserDTO.findById(userId);
-
-            if(user == null)
-                forbidden("Invalid X-AUTH-TOKEN: " + token);
-        } else {
-            forbidden("Empty X-AUTH-TOKEN");
-        }
-    }
-
     public static void list(String client) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user.shopList));
     }
 
     public static void details(String client) throws Exception { // /shop/details
-        checkAuthentification();
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
         renderJSON(json(shop));
     }
 
@@ -72,9 +47,9 @@ public class ShopAPI extends Controller {
     }
 
     public static void update(String client) throws Exception {
-        checkAuthentification();
-
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
         System.out.println("Keys from db: " + shop.liqpayPublicKey + ", " + shop.liqpayPrivateKey);
 
 
@@ -106,23 +81,24 @@ public class ShopAPI extends Controller {
 
 
     public static void listUsers(String client) throws Exception {
-        checkAuthentification();
-
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         renderJSON(json(shop.userList));
     }
 
 
     public static void addUserToShop(String client, String email) throws Exception {
-        checkAuthentification();
-
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
         UserDTO user = UserDTO.find("byEmail", email).first();
 
         if (user == null) {
             user = new UserDTO();
             user.email = email;
+        } else if (user.shopList.contains(shop)) {
+            forbidden("User already a member of the given Shop");
         }
         user.shopList.add(shop);
         user = user.save();
@@ -135,16 +111,20 @@ public class ShopAPI extends Controller {
     }
 
     public static void removeUserFromShop(String client, String email) throws Exception {
-        checkAuthentification();
-
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         UserDTO user = UserDTO.find("byEmail", email).first();
-        if( user != null) {
+
+        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        UserDTO loggedInUser = UserDTO.findById(userId);
+
+        if (loggedInUser == user) {
+            forbidden("You not allowed to delete yourself from shop");
+        } else if(user != null) {
             shop.userList.remove(user);
             shop = shop.save();
             user.shopList.remove(shop);
-            user = user.save();
         } else {
             forbidden("user with such email not found");
         }
@@ -153,7 +133,7 @@ public class ShopAPI extends Controller {
     }
 
     public static void create(String name, String domain, String publicLiqpayKey, String privateLiqPayKey) throws Exception {
-        checkAuthentification();
+        checkAuthentification(null);
 
         try {
 
@@ -189,13 +169,6 @@ public class ShopAPI extends Controller {
 
 
 
-    }
-
-
-    private static String json(Object object){
-        response.setHeader("Content-Type", "application/json");
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        return gson.toJson(object);
     }
 
     private static ShopDTO createShop(String name, String domain, String publicLiqpayKey, String privateLiqPayKey){
