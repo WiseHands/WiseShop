@@ -65,7 +65,6 @@ public class OrderAPI extends AuthController {
 
 
         OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, shop);
-        System.out.println(order);
         order = order.save();
 
         List<OrderItemDTO> orders = new ArrayList<OrderItemDTO>();
@@ -89,17 +88,15 @@ public class OrderAPI extends AuthController {
         }
         order.items = orders;
         order.total = Double.valueOf(totalCost);
-        order.save();
+        order = order.save();
 
         mailSender.sendEmail(shop, order, "Нове замовлення");
 
-
         String smsText = "Замовлення (" + order.name + ", сума " + order.total + ") прийнято.";
         smsSender.sendSms(order.phone, smsText);
-        for (UserDTO user : shop.userList) {
-            smsText = "Нове замовлення " + order.name + ", сума " + order.total;
-            smsSender.sendSms(shop.contact.phone, smsText);
-        }
+
+        smsText = "Нове замовлення " + order.name + ", сума " + order.total;
+        smsSender.sendSms(shop.contact.phone, smsText);
 
         try {
             String payButton = liqPay.payButton(order, shop);
@@ -197,8 +194,6 @@ public class OrderAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         String liqpayResponse = new String(Base64.decodeBase64(data));
-        System.out.println("LiqPay Response: " + liqpayResponse);
-
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(liqpayResponse);
 
@@ -212,7 +207,7 @@ public class OrderAPI extends AuthController {
         String status = String.valueOf(jsonObject.get("status"));
         if (status.equals("failure") || status.equals("wait_accept")){
             order.state  = OrderState.PAYMENT_ERROR;
-            order.save();
+            order = order.save();
             String smsText = "Помилка при оплаті " + order.name + ", сума " + order.total;
             for (UserDTO user : shop.userList) {
                 smsSender.sendSms(user.phone, smsText);
@@ -227,13 +222,11 @@ public class OrderAPI extends AuthController {
             ok();
         } else {
             order.state  = OrderState.PAYED;
-            order.save();
+            order = order.save();
 
             String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
             smsSender.sendSms(order.phone, smsText);
-            for (UserDTO user : shop.userList) {
-                smsSender.sendSms(user.phone, smsText);
-            }
+            smsSender.sendSms(shop.contact.phone, smsText);
 
             mailSender.sendEmail(shop, order, "Замовлення оплачено");
 
