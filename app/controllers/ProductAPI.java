@@ -2,52 +2,20 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.OrderItemDTO;
 import models.ProductDTO;
 import models.ShopDTO;
-import models.UserDTO;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import play.data.Upload;
-import play.mvc.Before;
-import play.mvc.Controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ProductAPI extends Controller {
+public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
-
-    private static final String X_AUTH_TOKEN = "x-auth-token";
-    private static final String X_AUTH_USER_ID = "x-auth-user-id";
-
-    @Before
-    static void interceptAction(){
-        corsHeaders();
-    }
-
-
-    static void corsHeaders() {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
-    }
-
-    static void checkAuthentification() {
-        boolean authHeadersPopulated = request.headers.get(X_AUTH_TOKEN) != null && request.headers.get(X_AUTH_USER_ID) != null;
-        if (authHeadersPopulated){
-            String userId = request.headers.get(X_AUTH_USER_ID).value();
-            String token = request.headers.get(X_AUTH_TOKEN).value();
-            UserDTO user = UserDTO.findById(userId);
-
-            if(user == null)
-                forbidden("Invalid X-AUTH-TOKEN: " + token);
-        } else {
-            forbidden("Empty X-AUTH-TOKEN");
-        }
-    }
 
     public static void create(String client, String name, String description, Double price, Upload photo) throws Exception {
         checkAuthentification();
@@ -64,6 +32,11 @@ public class ProductAPI extends Controller {
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(productDTO);
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + loggedInUser.name + " created new product " + productDTO.name + " at " + dateFormat.format(date));
+
 
         renderJSON(json);
     }
@@ -123,6 +96,11 @@ public class ProductAPI extends Controller {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(productDTO);
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + loggedInUser.name + " updated product " + productDTO.name + " at " + dateFormat.format(date));
+
+
         renderJSON(json);
     }
 
@@ -137,6 +115,9 @@ public class ProductAPI extends Controller {
             System.out.println("error deleting file: " + USERIMAGESPATH + product.fileName);
         }
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + loggedInUser.name + " deleted product " + product.name + " at " + dateFormat.format(date));
 
         ok();
     }

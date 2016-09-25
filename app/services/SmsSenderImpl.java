@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -69,7 +72,6 @@ public class SmsSenderImpl implements SmsSender {
                     "&phone=" + phone +
                     "&datetime=" + DATETIME +
                     "&sms_lifetime=" + LIFETIME;
-            System.out.println(url);
 
             final String USER_AGENT = "Mozilla/5.0";
 
@@ -84,8 +86,6 @@ public class SmsSenderImpl implements SmsSender {
             con.setRequestProperty("User-Agent", USER_AGENT);
 
             int responseCode = con.getResponseCode();
-            System.out.println("\nSending 'GET' request to URL : " + url);
-            System.out.println("Response Code : " + responseCode);
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
@@ -97,8 +97,10 @@ public class SmsSenderImpl implements SmsSender {
             }
             in.close();
 
-            //print result
-            System.out.println(response.toString());
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            System.out.println("Sent SMS: " + text + ". Phone: " + phone + ". Time: " + dateFormat.format(date));
+
         }
     }
 }

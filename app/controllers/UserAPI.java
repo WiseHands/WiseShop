@@ -9,21 +9,20 @@ import models.ContactDTO;
 import models.DeliveryDTO;
 import models.ShopDTO;
 import models.UserDTO;
-import play.db.jpa.JPA;
 import play.mvc.Before;
 import play.mvc.Controller;
 import responses.InvalidPassword;
 import responses.UserDoesNotExist;
-import services.MailSender;
 import services.SmsSender;
 
 import javax.inject.Inject;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.persistence.Query;
-import java.io.File;
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static controllers.ShopAPI.checkAuthentification;
@@ -49,7 +48,6 @@ public class UserAPI extends Controller {
         if (isValidEmailAddress(email)) {
             //GOOGLE SIGN IN
             UserDTO user = UserDTO.find("byEmail", email).first();
-            System.out.println(user);
             if (user != null) {
                 user.phone = phone;
             } else if (user == null) {
@@ -79,9 +77,12 @@ public class UserAPI extends Controller {
 
             response.setHeader(X_AUTH_TOKEN, user.token);
             String json = json(user);
-            System.out.println("\nUserAPI register: \n" + json);
             String greetingText = "Успішно створено Ваш новий магазин " + shop.shopName;
             smsSender.sendSms(shop.contact.phone, greetingText);
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            System.out.println("User " + user.name + " created new store " + shopName + " at " + dateFormat.format(date));
             renderText(json);
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
@@ -106,7 +107,11 @@ public class UserAPI extends Controller {
 
             response.setHeader(X_AUTH_TOKEN, user.token);
             String json = json(user);
-            System.out.println("\n\n\nRendering json: \n" + json);
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            System.out.println("User " + user.name + " performed sign in at " + dateFormat.format(date));
+
             renderJSON(json);
         } else {
             UserDoesNotExist error = new UserDoesNotExist();
@@ -123,8 +128,6 @@ public class UserAPI extends Controller {
     }
 
     public static void storeauthcode(String authCode) throws Exception {
-        System.out.println(authCode);
-
         String CLIENT_SECRET_FILE = "conf/client_secret.json";
         String REDIRECT_URI = "postmessage";
 
@@ -158,15 +161,6 @@ public class UserAPI extends Controller {
         String familyName = (String) payload.get("family_name");
         String givenName = (String) payload.get("given_name");
 
-        System.out.println(userId);
-        System.out.println(email);
-        System.out.println(emailVerified);
-        System.out.println(name);
-        System.out.println(pictureUrl);
-        System.out.println(locale);
-        System.out.println(familyName);
-        System.out.println(givenName);
-
         if(!emailVerified){
             error("user have not verified email address on google");
         }
@@ -186,7 +180,11 @@ public class UserAPI extends Controller {
         user.save();
 
         String json = json(user);
-        System.out.println(json);
+
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + user.name + " performed google sign in at " + dateFormat.format(date));
 
         response.setHeader(X_AUTH_TOKEN, user.token);
         renderJSON(json);
