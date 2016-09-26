@@ -1,23 +1,12 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.liqpay.LiqPay;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import play.*;
-import play.libs.Mail;
 import play.mvc.*;
-import org.apache.commons.codec.binary.Base64;
-import java.util.UUID;
-
-import java.util.*;
 
 import models.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Application extends Controller {
     private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
@@ -55,6 +44,10 @@ public class Application extends Controller {
             notFound("The requested Shop is not available. Contact administrator");
         }
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User with ip " + request.remoteAddress + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
+
         renderTemplate("Application/shop.html", shop);
     }
 
@@ -64,6 +57,12 @@ public class Application extends Controller {
             notFound("The requested Shop is not available. Contact administrator    ");
         }
 
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User with ip " + request.remoteAddress + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
+
+        
         render(shop);
     }
 
