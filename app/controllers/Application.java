@@ -1,9 +1,12 @@
 package controllers;
 
+import in.ankushs.dbip.api.DbIpClient;
+import in.ankushs.dbip.api.GeoEntity;
 import play.mvc.*;
 
 import models.*;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,9 +50,17 @@ public class Application extends Controller {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
+        File gzip = new File("csv/dbip-city-2016-09.csv");
+        DbIpClient geoClient = new DbIpClient(gzip);
+
+        System.out.println(System.currentTimeMillis());
+        GeoEntity geoEntity = geoClient.lookup("31.45.127.255");
+        System.out.println(System.currentTimeMillis());
+        String city = geoEntity.getCity();
+
         String ip = request.headers.get("x-forwarded-for").value();
         String agent = request.headers.get("user-agent").value();
-        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
+        System.out.println("User with ip " + ip + " [" + city + "] and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
         renderTemplate("Application/shop.html", shop);
     }
