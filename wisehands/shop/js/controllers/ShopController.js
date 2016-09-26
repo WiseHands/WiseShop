@@ -7,8 +7,8 @@
 
 (function(){
     angular.module('WiseShop')
-        .controller('ShopController', function($scope, $http, $location) {
-
+        .controller('ShopController', function($scope, $http) {
+            // $scope.phoneRegEx = /^[0-9]{12,12}$/;
 
             
             $scope.minOrderForFreeDelivery = 501;

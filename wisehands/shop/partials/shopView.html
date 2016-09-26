@@ -295,18 +295,16 @@
                                             </h6>
                                         </div>
                                         <div class="form-group">
-                                            <h6><b>Номер телефону</b>
+                                            <h6><b>Номер телефону</b></h6>
                                                 <input class="form-control"
                                                        type="tel"
                                                        id="phone"
                                                        ng-model="phone"
                                                        name="phone"
-                                                       ng-value="+380"
-                                                       ng-minlength="12"
-                                                       ng-maxlength="12"
-                                                       required/>
-                                            </h6>
-                                            <span class="help-block" ng-show="((orderForm.phone.$error.minlength || orderForm.phone.$error.maxlength) && orderForm.phone.$dirty)">Номер телефону повинен складатися з 12 чисел</span>
+                                                       pattern="^380[0-9]{9,9}$"
+                                                       required />
+
+                                            <span class="help-block" ng-show="orderForm.phone.$invalid && orderForm.phone.$dirty">380xxxxxxxxx - формат номера телефону</span>
                                         </div>
                                         <div class="form-group" ng-show="isAddressRequired">
                                             <h6><b>Адреса</b></h6>
