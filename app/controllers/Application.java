@@ -47,7 +47,7 @@ public class Application extends Controller {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
-        String ip = request.headers.get("x-real-ip").value();
+        String ip = request.headers.get("x-forwarded-for").value();
         System.out.println("User with ip " + ip + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
         renderTemplate("Application/shop.html", shop);
@@ -63,7 +63,7 @@ public class Application extends Controller {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
-        String ip = request.headers.get("x-real-ip").value();
+        String ip = request.headers.get("x-forwarded-for").value();
         System.out.println("User with ip " + ip + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
 
