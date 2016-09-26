@@ -11,6 +11,8 @@ import services.MailSender;
 import services.SmsSender;
 
 import javax.inject.Inject;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OrderAPI extends AuthController {
@@ -38,7 +40,6 @@ public class OrderAPI extends AuthController {
 
         boolean isLiqPayKeysAbsent = shop.liqpayPrivateKey.equals("")  || shop.liqpayPrivateKey == null
                 || shop.liqpayPublicKey.equals("")  || shop.liqpayPublicKey == null;
-        System.out.println("LiqPayKeys: " + isLiqPayKeysAbsent);
         if(isLiqPayKeysAbsent) {
             forbidden("no liqpay keys defined");
             return;
@@ -64,7 +65,6 @@ public class OrderAPI extends AuthController {
 
 
         OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, shop);
-        System.out.println(order);
         order = order.save();
 
         List<OrderItemDTO> orders = new ArrayList<OrderItemDTO>();
@@ -92,16 +92,19 @@ public class OrderAPI extends AuthController {
 
         mailSender.sendEmail(shop, order, "Нове замовлення");
 
-
         String smsText = "Замовлення (" + order.name + ", сума " + order.total + ") прийнято.";
         smsSender.sendSms(order.phone, smsText);
-        for (UserDTO user : shop.userList) {
-            smsText = "Нове замовлення " + order.name + ", сума " + order.total;
-            smsSender.sendSms(shop.contact.phone, smsText);
-        }
+
+        smsText = "Нове замовлення " + order.name + ", сума " + order.total;
+        smsSender.sendSms(shop.contact.phone, smsText);
 
         try {
             String payButton = liqPay.payButton(order, shop);
+            
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(date));
+
             JSONObject json = new JSONObject();
             json.put("uuid", order.uuid);
             json.put("button", payButton);
@@ -134,8 +137,13 @@ public class OrderAPI extends AuthController {
     public static void delete(String client, String uuid) throws Exception {
         checkAuthentification();
 
-        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
-        orderDTO.delete();
+        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        order.delete();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + loggedInUser.name + " deleted order " + order.name + " at " + dateFormat.format(date));
+
         ok();
     }
 
@@ -145,6 +153,11 @@ public class OrderAPI extends AuthController {
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.SHIPPED;
         order.save();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + loggedInUser.name + " marked order " + order.name + " as SHIPPED at " + dateFormat.format(date));
+
 
         renderJSON(json(order));
     }
@@ -156,6 +169,10 @@ public class OrderAPI extends AuthController {
         order.state = OrderState.CANCELLED;
         order.save();
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + loggedInUser.name + " marked order " + order.name + " as CANCELLED at " + dateFormat.format(date));
+
         renderJSON(json(order));
     }
 
@@ -166,6 +183,11 @@ public class OrderAPI extends AuthController {
         order.state = OrderState.MANUALLY_PAYED;
         order.save();
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + loggedInUser.name + " marked order " + order.name + " as MANUALLY_PAYED at " + dateFormat.format(date));
+
+
         renderJSON(json(order));
     }
 
@@ -175,8 +197,6 @@ public class OrderAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         String liqpayResponse = new String(Base64.decodeBase64(data));
-        System.out.println("LiqPay Response: " + liqpayResponse);
-
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(liqpayResponse);
 
@@ -190,7 +210,7 @@ public class OrderAPI extends AuthController {
         String status = String.valueOf(jsonObject.get("status"));
         if (status.equals("failure") || status.equals("wait_accept")){
             order.state  = OrderState.PAYMENT_ERROR;
-            order.save();
+            order = order.save();
             String smsText = "Помилка при оплаті " + order.name + ", сума " + order.total;
             for (UserDTO user : shop.userList) {
                 smsSender.sendSms(user.phone, smsText);
@@ -198,18 +218,25 @@ public class OrderAPI extends AuthController {
             smsSender.sendSms(order.phone, smsText);
             mailSender.sendEmail(shop, order, "Помилка оплати");
 
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
+
             ok();
         } else {
             order.state  = OrderState.PAYED;
-            order.save();
+            order = order.save();
 
             String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
             smsSender.sendSms(order.phone, smsText);
-            for (UserDTO user : shop.userList) {
-                smsSender.sendSms(user.phone, smsText);
-            }
+            smsSender.sendSms(shop.contact.phone, smsText);
 
             mailSender.sendEmail(shop, order, "Замовлення оплачено");
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
+
 
             ok();
         }

@@ -1,43 +1,15 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import models.DeliveryDTO;
 import models.ShopDTO;
-import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import play.mvc.Before;
-import play.mvc.Controller;
 
-public class DeliveryAPI extends Controller {
-    private static final String X_AUTH_TOKEN = "x-auth-token";
-    private static final String X_AUTH_USER_ID = "x-auth-user-id";
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    @Before
-    static void interceptAction(){
-        corsHeaders();
-    }
-
-    static void corsHeaders() {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
-    }
-
-    static void checkAuthentification() {
-        boolean authHeadersPopulated = request.headers.get(X_AUTH_TOKEN) != null && request.headers.get(X_AUTH_USER_ID) != null;
-        if (authHeadersPopulated){
-            String userId = request.headers.get(X_AUTH_USER_ID).value();
-            String token = request.headers.get(X_AUTH_TOKEN).value();
-            UserDTO user = UserDTO.findById(userId);
-
-            if(user == null)
-                forbidden("Invalid X-AUTH-TOKEN: " + token);
-        } else {
-            forbidden("Empty X-AUTH-TOKEN");
-        }
-    }
-
+public class DeliveryAPI extends AuthController {
 
     public static void details(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -45,7 +17,8 @@ public class DeliveryAPI extends Controller {
         renderJSON(json(delivery));
     }
 
-    public static void update() throws Exception {
+    public static void update(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification();
 
         JSONParser parser = new JSONParser();
@@ -68,14 +41,13 @@ public class DeliveryAPI extends Controller {
         delivery.newPostText = newPostText;
 
         delivery.save();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + loggedInUser.name + " updated delivery information for  " + shop.shopName + " at " + dateFormat.format(date));
+
+
         renderJSON(json(delivery));
-    }
-
-
-    private static String json(Object object){
-        response.setHeader("Content-Type", "application/json");
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        return gson.toJson(object);
     }
 
 }
