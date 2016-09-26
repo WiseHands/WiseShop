@@ -185,3 +185,6 @@ label.whiteCheckBox::after {
 .lightPrimaryColor {
     background-color: #3F51B5;
 }
+.productImage {
+    display: none;
+}

@@ -88,7 +88,7 @@ public class OrderAPI extends AuthController {
         }
         order.items = orders;
         order.total = Double.valueOf(totalCost);
-        order.save();
+        order = order.save();
 
         mailSender.sendEmail(shop, order, "Нове замовлення");
 
@@ -102,7 +102,10 @@ public class OrderAPI extends AuthController {
 
         try {
             String payButton = liqPay.payButton(order, shop);
-            renderHtml(payButton);
+            JSONObject json = new JSONObject();
+            json.put("uuid", order.uuid);
+            json.put("button", payButton);
+            renderJSON(json);
         } catch (Exception e) {
             renderHtml("");
         }

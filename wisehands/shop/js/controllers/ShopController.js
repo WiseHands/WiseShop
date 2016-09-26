@@ -7,7 +7,7 @@
 
 (function(){
     angular.module('WiseShop')
-        .controller('ShopController', function($scope, $http, $timeout) {
+        .controller('ShopController', function($scope, $http, $location) {
 
 
             
@@ -104,6 +104,9 @@
             $scope.selectedItems = [];
             $scope.buyStart = function (index, $event) {
 
+                
+
+
                 var today = new Date();
 
                 var startMinutes = $scope.startTime.getHours() * 60 + $scope.startTime.getMinutes();
@@ -138,8 +141,7 @@
 
                 }
 
-
-
+                $('input:radio[name=deliverance]:not(:disabled):first').click();
             };
 
             $scope.removeSelectedItem = function (index){
@@ -193,15 +195,11 @@
                     $scope.loading = false;
                     $scope.successfullResponse = true;
                     var modalContent = document.querySelector(".proceedWithPayment");
-                    modalContent.innerHTML = response.data;
-                    modalContent.firstChild.style.textAlign = 'center';
-
-                    document.querySelector('.toPayment').style.display = 'none';
+                    modalContent.innerHTML = response.data.button;
+                    $scope.currentOrderUuid = response.data.uuid;
                 }, function errorCallback(data) {
                     $scope.loading = false;
-                    $scope.successfullResponse = false;
-
-                    document.querySelector('.toPayment').style.display = 'block';
+                    console.log(data);
                 });
             };
             $scope.showProductTooltip = function () {
@@ -248,6 +246,19 @@
             };
 
             $scope.payLater = function () {
+                $http({
+                    method: 'PUT',
+                    url: '/order/' + $scope.currentOrderUuid + '/manually-payed',
+                    headers: {
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
+                })
+                    .then(function successCallback(response) {
+                        window.location.pathname= '/done';
+                    }, function errorCallback(data) {
+                        console.log(data);
+                    });
                 $scope.selectedItems = [];
                 $('#cart-modal-ex').modal('hide');
                 $('body').removeClass('modal-open');

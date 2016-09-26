@@ -243,47 +243,47 @@
                             </div>
                             <div class="modal-body">
                                 <div class="fillingInfo" ng-hide="successfullResponse">
-                                    <form name="orderForm">
+                                    <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
                                         <h6 class="deliveryType"><b>Тип доставки</b></h6>
-
-                                        <fieldset class="form-group">
-                                            <input name="deliverance"
-                                                   type="radio"
-                                                   class="with-gap"
-                                                   id="radio1"
-                                                   ng-model="delivery.radio"
-                                                   ng-required="!delivery.radio"
-                                                   value="COURIER">
-                                            <label for="radio1" ng-show="deliverance.isCourierAvailable"><i>{{deliverance.courierText}}</i></label>
-                                        </fieldset>
-
-                                        <fieldset class="form-group">
-                                            <input name="deliverance"
-                                                   type="radio"
-                                                   class="with-gap"
-                                                   id="radio2"
-                                                   ng-model="delivery.radio"
-                                                   ng-required="!delivery.radio"
-                                                   value="NOVAPOSHTA">
-                                            <label for="radio2" ng-show="deliverance.isNewPostAvailable"><i>{{deliverance.newPostText}}</i></label>
-                                            <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
-                                                <label for="newPostDepartment" class="center-block">
-                                                    <h6><b>Введіть адресу і номер відділення Нової Пошти</b></h6>
-                                                    <input id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
-                                                </label>
+                                            <fieldset class="form-group">
+                                                <input name="deliverance"
+                                                       type="radio"
+                                                       class="with-gap"
+                                                       id="radio1"
+                                                       ng-model="delivery.radio"
+                                                       ng-required="!delivery.radio"
+                                                       value="COURIER">
+                                                <label for="radio1" ng-show="deliverance.isCourierAvailable"><i>{{deliverance.courierText}}</i></label>
                                             </fieldset>
-                                        </fieldset>
 
-                                        <fieldset class="form-group">
-                                            <input name="deliverance"
-                                                   type="radio"
-                                                   class="with-gap"
-                                                   id="radio3"
-                                                   ng-model="delivery.radio"
-                                                   ng-required="!delivery.radio"
-                                                   value="SELFTAKE">
-                                            <label class="pull-left" for="radio3" ng-show="deliverance.isSelfTakeAvailable"><i>{{deliverance.selfTakeText}}</i></label>
-                                        </fieldset>
+                                            <fieldset class="form-group">
+                                                <input name="deliverance"
+                                                       type="radio"
+                                                       class="with-gap"
+                                                       id="radio2"
+                                                       ng-model="delivery.radio"
+                                                       ng-required="!delivery.radio"
+                                                       value="NOVAPOSHTA">
+                                                <label for="radio2" ng-show="deliverance.isNewPostAvailable"><i>{{deliverance.newPostText}}</i></label>
+                                                <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
+                                                    <label for="newPostDepartment" class="center-block">
+                                                        <h6><b>Введіть адресу і номер відділення Нової Пошти</b></h6>
+                                                        <input id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
+                                                    </label>
+                                                </fieldset>
+                                            </fieldset>
+
+                                            <fieldset class="form-group">
+                                                <input name="deliverance"
+                                                       type="radio"
+                                                       class="with-gap"
+                                                       id="radio3"
+                                                       ng-model="delivery.radio"
+                                                       ng-required="!delivery.radio"
+                                                       value="SELFTAKE">
+                                                <label class="pull-left" for="radio3" ng-show="deliverance.isSelfTakeAvailable"><i>{{deliverance.selfTakeText}}</i></label>
+                                            </fieldset>
+
                                         <div class="form-group">
                                             <h6><b>П.І.П.</b>
                                                 <input class="form-control"
@@ -322,7 +322,7 @@
                                 </div>
                                 <div id="paymentButton" class="row" ng-show="successfullResponse">
                                     <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin">
-                                        <a href="/done"><button type="button" class="btn btn-primary-outline waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
+                                        <a><button type="button" class="btn btn-primary-outline waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-6">
                                         <button type="button" class="btn btn-success-outline waves-effect btn-block" ng-click="payOrder()">Оплатити</button>
@@ -335,8 +335,8 @@
                                     <div class="col-xs-7 priceAlignment">
                                         <h4 class="modal-total pull-left"><strong>{{total + " " + delivery()}} грн</strong></h4>
                                     </div>
-                                    <div class="col-xs-5">
-                                        <button type="button" class="btn btn-success toPayment pull-right" ng-click="makeOrder()" ng-disabled="orderForm.$invalid" ng-hide="loading">До Оплати </button>
+                                    <div class="col-xs-5" ng-hide="successfullResponse">
+                                        <button type="submit" class="btn btn-success pull-right" ng-hide="loading" form="orderForm">До Оплати </button>
                                         <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                                     </div>
                                 </div>

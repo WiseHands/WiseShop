@@ -34,7 +34,11 @@ angular.module('WiseHands')
             };
             reader.readAsDataURL(e.target.files[0]);
         }
-    
+        
+        $scope.loadImage = function () {
+            $('#imageLoader').click();
+        };
+        
         $scope.submitProduct = function () {
             $scope.loading = true;
             fd.append('name', $scope.product.name);
