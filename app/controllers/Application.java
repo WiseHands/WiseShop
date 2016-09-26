@@ -48,7 +48,8 @@ public class Application extends Controller {
         Date date = new Date();
 
         String ip = request.headers.get("x-forwarded-for").value();
-        System.out.println("User with ip " + ip + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
         renderTemplate("Application/shop.html", shop);
     }
@@ -64,7 +65,8 @@ public class Application extends Controller {
         Date date = new Date();
 
         String ip = request.headers.get("x-forwarded-for").value();
-        System.out.println("User with ip " + ip + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
 
 
         render(shop);
@@ -79,6 +81,19 @@ public class Application extends Controller {
     }
 
     public static void admin(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            notFound("The requested Shop is not available. Contact administrator    ");
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+
+        String ip = request.headers.get("x-forwarded-for").value();
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened ADMIN " + shop.shopName + " at " + dateFormat.format(date));
+
+
         render();
     }
 
