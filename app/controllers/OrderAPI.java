@@ -100,7 +100,7 @@ public class OrderAPI extends AuthController {
 
         try {
             String payButton = liqPay.payButton(order, shop);
-            
+
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
             System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(date));
