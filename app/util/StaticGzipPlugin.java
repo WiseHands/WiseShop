@@ -53,6 +53,7 @@ public class StaticGzipPlugin extends PlayPlugin {
             if (contentType.contains("image")) {
                 return false; // You don't want to minify or gzip images
             }
+            System.out.println("FILENAME: " + localFile.getName());
             System.out.println("CONTENTTYPE: " + contentType);
 
 			/*
