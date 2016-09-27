@@ -41,8 +41,8 @@ public class BalanceAPI extends AuthController {
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO user = UserDTO.findById(userId);
 
-        BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, user);
         BalanceDTO balance = shop.balance;
+        BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, user, balance);
         balance.addTransaction(tx);
 
         tx.save();
@@ -78,9 +78,11 @@ public class BalanceAPI extends AuthController {
 
             //TODO: replace to success
         } else if (status.equals("wait_accept")) {
+            balanceTransaction.balance.balance += balanceTransaction.amount;
             balanceTransaction.state = OrderState.PAYED;
         }
         balanceTransaction.save();
+        balanceTransaction.balance.save();
         ok();
     }
 

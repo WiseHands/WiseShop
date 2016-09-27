@@ -35,7 +35,6 @@ public class BalanceDTO extends GenericModel {
 
     public void addTransaction(BalanceTransactionDTO tx) {
         this.balanceTransactions.add(tx);
-        this.balance += tx.amount;
     }
 
 

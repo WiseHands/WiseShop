@@ -32,15 +32,22 @@ public class BalanceTransactionDTO extends GenericModel {
     @Enumerated(EnumType.STRING)
     public OrderState state;
 
-    public BalanceTransactionDTO(Double amount, OrderDTO order) {
+    @ManyToOne
+    public BalanceDTO balance;
+
+    public BalanceTransactionDTO(Double amount, OrderDTO order, BalanceDTO balance) {
         this.amount = amount;
         this.orderUuid = order.uuid;
+        this.state = OrderState.NEW;
+        this.balance = balance;
         this.date = System.currentTimeMillis();
     }
 
-    public BalanceTransactionDTO(Double amount, UserDTO user) {
+    public BalanceTransactionDTO(Double amount, UserDTO user, BalanceDTO balance) {
         this.amount = amount;
         this.userUuid = user.uuid;
+        this.state = OrderState.NEW;
+        this.balance = balance;
         this.date = System.currentTimeMillis();
     }
 }

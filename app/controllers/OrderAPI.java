@@ -147,10 +147,11 @@ public class OrderAPI extends AuthController {
         order.state = OrderState.SHIPPED;
         order.save();
 
-        Double amount = order.total * WISEHANDS_COMISSION;
-        BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order);
-
         BalanceDTO balance = shop.balance;
+        Double amount = order.total * WISEHANDS_COMISSION;
+        BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
+        tx.state = OrderState.SHIPPED;
+        balance.balance += tx.amount;
         balance.addTransaction(tx);
         balance.save();
         tx.save();
@@ -217,10 +218,15 @@ public class OrderAPI extends AuthController {
             order.save();
 
             Double amount = order.total * WISEHANDS_COMISSION;
-            BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order);
-
             BalanceDTO balance = shop.balance;
+
+            BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
+
+            tx.state = OrderState.SHIPPED;
+            balance.balance += tx.amount;
+
             balance.addTransaction(tx);
+
             balance.save();
             tx.save();
 
