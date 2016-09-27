@@ -1,6 +1,6 @@
 (function(){
     angular.module('SuperWiseHands')
-        .controller('SuperWiseHandsController', function($scope, $http, $route, $location) {
+        .controller('SuperWiseHandsController', ['$scope', '$http', '$route', '$location', function($scope, $http, $route, $location) {
             // $http({
             //     method: 'GET',
             //     url: '/shop/details/public'
@@ -31,4 +31,4 @@
         });
 
 
-})();
+}])();

@@ -1,5 +1,5 @@
     angular.module('WiseHandsMain')
-        .controller('RegisterFormController', function($scope, $http, userService) {
+        .controller('RegisterFormController', ['$scope', '$http', 'userService', function($scope, $http, userService) {
             $scope.user = userService.user;
 
             $scope.signIn = function (){
@@ -47,7 +47,7 @@
                     console.log(error);
                 });
             };
-        });
+        }]);
 function encodeQueryData(data)
 {
     var ret = [];

@@ -1,5 +1,5 @@
     angular.module('WiseHandsMain')
-        .controller('LoginFormController', function($scope, $http, userService) {
+        .controller('LoginFormController', ['$scope', '$http', 'userService', function($scope, $http, userService) {
             $scope.logIn = function (){
                 var params = {
                     email: $scope.email,
@@ -80,7 +80,7 @@
 				$scope.accessDeniedMessage = data.status;
 			}
 
-        });
+        }]);
 function encodeQueryData(data)
 {
     var ret = [];

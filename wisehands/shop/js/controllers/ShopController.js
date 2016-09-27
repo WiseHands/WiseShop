@@ -7,7 +7,7 @@
 
 (function(){
     angular.module('WiseShop')
-        .controller('ShopController', function($scope, $http) {
+        .controller('ShopController', ['$scope', '$http',  function($scope, $http) {
             // $scope.phoneRegEx = /^[0-9]{12,12}$/;
 
             
@@ -266,7 +266,7 @@
                 $scope.successfullResponse = false;
             }
            
-        });
+        }]);
     
 
 })();

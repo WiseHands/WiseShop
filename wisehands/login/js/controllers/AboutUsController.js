@@ -1,5 +1,5 @@
 angular.module('WiseHandsMain')
-    .controller('AboutUsController', function($scope, $http, userService) {
+    .controller('AboutUsController', ['$scope', '$http', 'userService', function($scope, $http, userService) {
 
         $scope.initMap = function () {
             var mapDiv = document.getElementById('map');
@@ -20,7 +20,7 @@ angular.module('WiseHandsMain')
             });
         };
         $scope.initMap();
-    });
+    }]);
 
 
 

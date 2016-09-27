@@ -1,5 +1,6 @@
 angular.module('WiseHands')
-    .controller('SideNavController', function ($scope, $http, $route, signout, $window) {
+    .controller('SideNavController', ['$scope', '$http', '$route', 'signout', '$window',
+    			function ($scope, $http, $route, signout, $window) {
         $scope.$route = $route;
         $scope.activeShop = {
             domain: '',
@@ -54,4 +55,4 @@ angular.module('WiseHands')
         $scope.signOut = signout.signOut;
 
 
-    });
+    }]);

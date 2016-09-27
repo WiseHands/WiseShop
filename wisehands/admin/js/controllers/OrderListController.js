@@ -1,5 +1,5 @@
     angular.module('WiseHands')
-        .controller('OrderListController', function ($scope, $http, shared, spinnerService, sideNavInit, signout) {
+        .controller('OrderListController', ['$scope', '$http', 'shared', 'spinnerService', 'sideNavInit', 'signout', function ($scope, $http, shared, spinnerService, sideNavInit, signout) {
             $scope.isSortingActive = shared.isSortingActive;
 
             var req = {
@@ -133,4 +133,4 @@
             };
             sideNavInit.sideNav();
 
-        });
+        }]);

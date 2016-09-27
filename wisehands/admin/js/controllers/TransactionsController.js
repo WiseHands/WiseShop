@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('TransactionsController', function ($scope, $http, signout) {
+    .controller('TransactionsController', ['$scope', '$http', 'signout', function ($scope, $http, signout) {
         $scope.loading = true;
         $http({
             method: 'GET',
@@ -33,4 +33,4 @@ angular.module('WiseHands')
         // $scope.toOrder = function (balanceDetail) {
         //     window.location.path = '#/details/' + balanceDetail.uuid;
         // }
-    });
+    }]);

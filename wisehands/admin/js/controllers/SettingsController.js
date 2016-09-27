@@ -1,5 +1,6 @@
 angular.module('WiseHands')
-    .controller('SettingsController', function ($scope, $http, sideNavInit, signout, $timeout) {
+    .controller('SettingsController', ['$scope', '$http', 'sideNavInit', 'signout', '$timeout',
+    		function ($scope, $http, sideNavInit, signout, $timeout) {
         $scope.loading = true;
         $scope.requestQueue = 0;
         $scope.hostName = window.location.hostname;
@@ -184,7 +185,7 @@ angular.module('WiseHands')
         }
         sideNavInit.sideNav();
         
-    });
+    }]);
 
 function encodeQueryData(data)
 {

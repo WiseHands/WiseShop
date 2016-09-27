@@ -1,6 +1,6 @@
 (function(){
     angular.module('WiseShop')
-        .controller('ContactsController', function($scope, $http, $route, $location) {
+        .controller('ContactsController', ['$scope', '$http', '$route', '$location', function($scope, $http, $route, $location) {
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
@@ -29,7 +29,7 @@
                     $scope.status = 'Щось пішло не так...';
                 });
 
-        });
+        }]);
 
 
 })();

@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('SubmitNewProductController', function ($scope, $location, $http, signout) {
+    .controller('SubmitNewProductController', ['$scope', '$location', '$http', 'signout', function ($scope, $location, $http, signout) {
         var fd = new FormData();
 
         var imageLoader = document.getElementById('imageLoader');
@@ -65,7 +65,7 @@ angular.module('WiseHands')
                     console.log(response);
                 });
         };
-    });
+    }]);
 
 function dataURItoBlob(dataURI) {
     var binary = atob(dataURI.split(',')[1]);

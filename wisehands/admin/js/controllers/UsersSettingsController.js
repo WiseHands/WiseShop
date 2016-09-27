@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('UsersSettingsController', function ($scope, $http, signout, sideNavInit) {
+    .controller('UsersSettingsController', ['$scope', '$http', 'signout', 'sideNavInit', function ($scope, $http, signout, sideNavInit) {
         $scope.loading = true;
 
         $http({
@@ -124,4 +124,4 @@ angular.module('WiseHands')
 
         };
         sideNavInit.sideNav();
-    });
+    }]);

@@ -1,5 +1,6 @@
 angular.module('WiseHands')
-    .controller('ProductListController', function ($scope, $http, spinnerService, sideNavInit, signout) {
+    .controller('ProductListController', ['$scope', '$http', 'spinnerService', 'sideNavInit', 'signout',
+    function ($scope, $http, spinnerService, sideNavInit, signout) {
 
         $scope.getResource = function () {
             spinnerService.show('mySpinner');
@@ -64,4 +65,4 @@ angular.module('WiseHands')
             });
         });
        
-    });
+    }]);
