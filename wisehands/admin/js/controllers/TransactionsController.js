@@ -14,7 +14,7 @@ angular.module('WiseHands')
                 $scope.balanceDetails = response.data.balanceTransactions;
             }, function errorCallback(data) {
                 $scope.loading = false;
-                $scope.status = 'Щось пішло не так...';
+                signout.signOut();
             });
         $scope.dateFormat = function (balanceDetail) {
                 var date = new Date(balanceDetail.date);
