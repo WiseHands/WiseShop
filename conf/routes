@@ -45,6 +45,10 @@ PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
 GET     {client}/contact/details                        ContactAPI.details
 PUT     {client}/contact                                ContactAPI.update
 
+GET     {client}/balance                                BalanceAPI.getBalance
+POST    {client}/pay                                    BalanceAPI.startPayment
+POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification
+
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login

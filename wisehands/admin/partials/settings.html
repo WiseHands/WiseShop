@@ -38,8 +38,20 @@
             <p>Назва магазину</p>
             <input id="shopName" type="text" class="validate" ng-model="selectedShop.shopName">
         </div>
-        <div class="input-field col-md-12">
-            <p>Години роботи</p>
+        <div id="paymentButton" class="input-field col-md-12 z-index">
+            <h5>Рахунок</h5>
+            <div class="col-sm-6">
+                <p>Баланс: {{balance.balance}} грн<a href="#/transactions"> (Виписка)</a></p>
+            </div>
+            <div class="col-sm-3">
+                <input id="balance" type="number" class="validate" ng-model="selectedShop.balance">
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-primary waves-effect waves-light btn-block" ng-click="increaseBalance()" ng-disabled="!selectedShop.balance">Поповнити</button>
+            </div>
+        </div>
+        <div class="input-field col-md-12 z-index-2">
+            <h5>Години роботи</h5>
             <div class="col-sm-6">
                 <p>Від:</p>
                 <input id="startTime" type="time" class="validate" ng-model="selectedShop.startTime">
@@ -49,7 +61,7 @@
                 <input id="endTime" type="time" class="validate" ng-model="selectedShop.endTime">
             </div>
         </div>
-        <div class="input-field col-md-12">
+        <div class="input-field col-md-12 z-index-3">
             <p>LiqPay</p>
             <div class="col-sm-6">
                 <p>Публічний ключ</p>
@@ -113,3 +125,4 @@
         </div>
     </div>
 </div>
+<div class="proceedWithPayment"></div>

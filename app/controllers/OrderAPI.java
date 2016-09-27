@@ -19,6 +19,7 @@ public class OrderAPI extends AuthController {
 
     private static final Integer FREESHIPPINGMINCOST = 501;
     private static final Integer SHIPPING_COST = 40;
+    private  static final Double WISEHANDS_COMISSION = -0.0725;
 
     private class DeliveryType {
         private static final String NOVAPOSHTA = "NOVAPOSHTA";
@@ -116,7 +117,8 @@ public class OrderAPI extends AuthController {
     }
 
     public static void details(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
 
@@ -125,9 +127,9 @@ public class OrderAPI extends AuthController {
 
 
     public static void list(String client) throws Exception {
-        checkAuthentification();
-
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
         List<OrderDTO> orders = OrderDTO.find("byShop", shop).fetch();
 
         renderJSON(json(orders));
@@ -135,7 +137,8 @@ public class OrderAPI extends AuthController {
 
 
     public static void delete(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.delete();
@@ -148,7 +151,8 @@ public class OrderAPI extends AuthController {
     }
 
     public static void markShipped(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.SHIPPED;
@@ -158,12 +162,23 @@ public class OrderAPI extends AuthController {
         Date date = new Date();
         System.out.println("User " + loggedInUser.name + " marked order " + order.name + " as SHIPPED at " + dateFormat.format(date));
 
+        BalanceDTO balance = shop.balance;
+        Double amount = order.total * WISEHANDS_COMISSION;
+        BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
+        tx.state = OrderState.SHIPPED;
+        balance.balance += tx.amount;
+        balance.addTransaction(tx);
+        balance.save();
+        tx.save();
+
+        System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became SHIPPED");
 
         renderJSON(json(order));
     }
 
     public static void markCancelled(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.CANCELLED;
@@ -177,7 +192,8 @@ public class OrderAPI extends AuthController {
     }
 
     public static void manuallyPayed(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.MANUALLY_PAYED;
@@ -226,6 +242,22 @@ public class OrderAPI extends AuthController {
         } else {
             order.state  = OrderState.PAYED;
             order = order.save();
+
+            Double amount = order.total * WISEHANDS_COMISSION;
+            BalanceDTO balance = shop.balance;
+
+            BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
+
+            tx.state = OrderState.SHIPPED;
+            balance.balance += tx.amount;
+
+            balance.addTransaction(tx);
+
+            balance.save();
+            tx.save();
+
+            System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became SHIPPED");
+
 
             String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
             smsSender.sendSms(order.phone, smsText);

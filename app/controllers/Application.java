@@ -1,39 +1,27 @@
 package controllers;
 
-import in.ankushs.dbip.api.DbIpClient;
-import in.ankushs.dbip.api.GeoEntity;
 import play.mvc.*;
 
 import models.*;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Application extends Controller {
-    private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
 
     @Before
-    static void interceptAction(){
-        corsHeaders();
-    }
-
-    static void checkAuthentification() {
-        if (request.headers.get(X_AUTH_TOKEN) != null){
-            String token = request.headers.get(X_AUTH_TOKEN).value();
-            UserDTO user = UserDTO.find("byEmail", token).first();
-
-            if(user == null)
-                forbidden("Invalid X-AUTH-TOKEN: " + token);
-        } else {
-            forbidden("Empty X-AUTH-TOKEN");
-        }
-    }
-
     static void corsHeaders() {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
+    }
+
+    public static void login(String client) {
+        if (client.equals("localhost")){
+            renderTemplate("WiseHands/index.html");
+        } else {
+            redirect("http://wisehands.me");
+        }
     }
 
     public static void index(String client) {
@@ -50,17 +38,15 @@ public class Application extends Controller {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
-        File gzip = new File("csv/dbip-city-2016-09.csv");
-        DbIpClient geoClient = new DbIpClient(gzip);
 
-        System.out.println(System.currentTimeMillis());
-        GeoEntity geoEntity = geoClient.lookup("31.45.127.255");
-        System.out.println(System.currentTimeMillis());
-        String city = geoEntity.getCity();
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+        String ip = "";
+        if (xforwardedHeader != null){
+            ip = xforwardedHeader.value();
+        }
 
-        String ip = request.headers.get("x-forwarded-for").value();
         String agent = request.headers.get("user-agent").value();
-        System.out.println("User with ip " + ip + " [" + city + "] and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
         renderTemplate("Application/shop.html", shop);
     }
@@ -100,10 +86,14 @@ public class Application extends Controller {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
-        String ip = request.headers.get("x-forwarded-for").value();
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+        String ip = "";
+        if (xforwardedHeader != null){
+            ip = xforwardedHeader.value();
+        }
+
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened ADMIN " + shop.shopName + " at " + dateFormat.format(date));
-
 
         render();
     }
@@ -112,16 +102,5 @@ public class Application extends Controller {
         render();
     }
 
-    public static void login(String client) {
-        if (client.equals("localhost")){
-            renderTemplate("WiseHands/index.html");
-        } else {
-            redirect("http://wisehands.me");
-        }
-    }
-
-    public static void register(String client) {
-        renderTemplate("WiseHands/register.html");
-    }
 
 }

@@ -1,6 +1,7 @@
 angular.module('WiseHands')
-    .controller('SettingsController', function ($scope, $http, sideNavInit, signout) {
+    .controller('SettingsController', function ($scope, $http, sideNavInit, signout, $timeout) {
         $scope.loading = true;
+        $scope.requestQueue = 0;
         $scope.hostName = window.location.hostname;
 
 
@@ -8,6 +9,7 @@ angular.module('WiseHands')
         var userId = localStorage.getItem('X-AUTH-USER-ID');
 
 
+        $scope.requestQueue += 1;
         $http({
             method: 'GET',
             url: '/shops',
@@ -17,7 +19,10 @@ angular.module('WiseHands')
             }
         })
             .then(function successCallback(response) {
-                $scope.loading = false;
+                $scope.requestQueue -= 1;
+                if ($scope.requestQueue === 0) {
+                    $scope.loading = false;
+                }
                 $scope.shops = response.data;
 
                 $scope.shops.forEach(function(shop, key, array) {
@@ -32,10 +37,14 @@ angular.module('WiseHands')
                 if (response.data === 'Invalid X-AUTH-TOKEN') {
                     signout.signOut();
                 }
-                $scope.loading = false;
+                $scope.requestQueue -= 1;
+                if ($scope.requestQueue === 0) {
+                    $scope.loading = false;
+                }
                 $scope.status = 'Щось пішло не так...';
             });
 
+        $scope.requestQueue += 1;
         $http({
             method: 'GET',
             url: '/shop/details',
@@ -46,6 +55,31 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
+                $scope.requestQueue -= 1;
+                if ($scope.requestQueue === 0) {
+                    $scope.loading = false;
+                }
+            }, function errorCallback(response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
+                $scope.requestQueue -= 1;
+                if ($scope.requestQueue === 0) {
+                    $scope.loading = false;
+                }
+                $scope.status = 'Щось пішло не так...';
+            });
+
+        $http({
+            method: 'GET',
+            url: '/balance',
+            headers: {
+                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            }
+        })
+            .then(function successCallback(response) {
+                $scope.balance = response.data;
             }, function errorCallback(response) {
                 if (response.data === 'Invalid X-AUTH-TOKEN') {
                     signout.signOut();
@@ -81,7 +115,7 @@ angular.module('WiseHands')
                     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
                 }
             })
-                .success(function (data, status, headers) {
+                .success(function (data) {
                     $scope.loading = false;
                     $scope.shops.push(data);
                     window.location.href = window.location.protocol + "//"
@@ -106,10 +140,10 @@ angular.module('WiseHands')
                 },
                 data: $scope.selectedShop
             })
-                .success(function (data, status, headers) {
+                .success(function (response) {
                     $scope.loading = false;
                     document.title = $scope.selectedShop.shopName;
-                    $scope.activeShop = $scope.selectedShop;
+                    $scope.activeShop = response.data;
                 }).
             error(function (response) {
                 if (response.data === 'Invalid X-AUTH-TOKEN') {
@@ -120,6 +154,34 @@ angular.module('WiseHands')
             });
         };
 
+        $scope.increaseBalance = function () {
+            $scope.loading = true;
+            $http({
+                method: 'POST',
+                url: '/pay?amount=' + $scope.selectedShop.balance,
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                }
+            })
+                .success(function (response) {
+                    $scope.loading = false;
+                    $scope.successfullResponse = true;
+                    var modalContent = document.querySelector(".proceedWithPayment");
+                    console.log(response);
+                    modalContent.innerHTML = response;
+                    modalContent.firstChild.submit();
+
+                }).
+            error(function (response) {
+                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    signout.signOut();
+                }
+                $scope.successfullResponse = false;
+                $scope.loading = false;
+                console.log(response);
+            });
+        }
         sideNavInit.sideNav();
         
     });

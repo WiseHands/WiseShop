@@ -120,7 +120,7 @@ public class UserAPI extends Controller {
     }
 
     public static void profile(String email, String password) throws Exception {
-        checkAuthentification();
+        checkAuthentification(null);
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user));

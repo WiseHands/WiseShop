@@ -188,3 +188,15 @@ label.whiteCheckBox::after {
 .productImage {
     display: none;
 }
+.z-index {
+    z-index: 100;
+}
+.z-index-2 {
+    z-index: 99;
+}
+.z-index-3 {
+    z-index: 98;
+}
+.proceedWithPayment {
+    display: none;
+}

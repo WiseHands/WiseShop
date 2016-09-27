@@ -18,7 +18,8 @@ public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
 
     public static void create(String client, String name, String description, Double price, Upload photo) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
         Files.createDirectories(Paths.get(USERIMAGESPATH + client));
 
@@ -42,7 +43,7 @@ public class ProductAPI extends AuthController {
     }
 
     public static void details(String client, String uuid) throws Exception {
-        ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
+        ProductDTO productDTO = ProductDTO.findById(uuid);
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(productDTO);
 
@@ -60,8 +61,8 @@ public class ProductAPI extends AuthController {
     }
 
     public static void update(String client, String uuid, String name, String description, Double price, Upload photo) throws Exception {
-        checkAuthentification();
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
 
         ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
@@ -105,9 +106,10 @@ public class ProductAPI extends AuthController {
     }
 
     public static void delete(String client, String uuid) throws Exception {
-        checkAuthentification();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
 
-        ProductDTO product = (ProductDTO) ProductDTO.findById(uuid);
+        ProductDTO product = ProductDTO.findById(uuid);
         product.delete();
 
         File file = new File(USERIMAGESPATH + product.fileName);

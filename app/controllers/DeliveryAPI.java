@@ -19,7 +19,7 @@ public class DeliveryAPI extends AuthController {
 
     public static void update(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        checkAuthentification();
+        checkAuthentification(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
