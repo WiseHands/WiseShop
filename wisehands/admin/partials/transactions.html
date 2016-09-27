@@ -19,30 +19,10 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Дата</th>
-            <th>Замовлення</th>
-            <th>Комісія</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-        </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="col-sm-6" ng-repeat="balanceDetail in balanceDetails | orderBy:'date':true" ng-hide="loading">
+        <div class="card-panel vcentering" ng-style="{'background-color': paymentState(balanceDetail)}">
+            <span class="white-text col-xs-8">{{dateFormat(balanceDetail)}}</span>
+            <span class="white-text col-xs-4">{{balanceDetail.amount | number:2}} грн</span>
+        </div>
+    </div>
 </div>

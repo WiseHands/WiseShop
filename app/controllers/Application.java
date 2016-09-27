@@ -61,7 +61,11 @@ public class Application extends Controller {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
-        String ip = request.headers.get("x-forwarded-for").value();
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+        String ip = "";
+        if (xforwardedHeader != null){
+            ip = xforwardedHeader.value();
+        }
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
 
