@@ -41,10 +41,10 @@
         <div id="paymentButton" class="input-field col-md-12 z-index">
             <h5>Рахунок</h5>
             <div class="col-sm-6">
-                <p>Баланс: {{balance.balance}} грн<a href="#/transactions"> (Виписка)</a></p>
+                <p>Баланс: {{balance.balance | number:2}} грн<a href="#/transactions"> (Виписка)</a></p>
             </div>
             <div class="col-sm-3">
-                <input id="balance" type="number" class="validate" ng-model="selectedShop.balance">
+                <input id="balance" type="number" class="validate" ng-model="selectedShop.balance" placeholder="Сума поповнення">
             </div>
             <div class="col-sm-3">
                 <button type="button" class="btn btn-primary waves-effect waves-light btn-block" ng-click="increaseBalance()" ng-disabled="!selectedShop.balance">Поповнити</button>
