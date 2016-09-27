@@ -255,7 +255,7 @@
                     }
                 })
                     .then(function successCallback(response) {
-                        window.location.pathname= '/done';
+                        window.location.pathname = '/done';
                     }, function errorCallback(data) {
                         console.log(data);
                     });
