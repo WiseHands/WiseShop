@@ -13,6 +13,8 @@ POST    {client}/signin                                 UserAPI.login
 POST    {client}/storeauthcode                          UserAPI.storeauthcode
 POST    {client}/signup                                 UserAPI.register
 GET     {client}/profile                                UserAPI.profile
+GET     {client}/user/{uuid}                            UserAPI.details
+
 
 GET     {client}/products                               ProductAPI.list
 GET     {client}/product/{uuid}                         ProductAPI.details

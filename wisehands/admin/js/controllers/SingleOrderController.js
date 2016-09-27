@@ -121,4 +121,7 @@
                             console.log(response);
                         });
                 };
+                $scope.goBack = function () {
+                    window.history.back();
+                }
             }]);

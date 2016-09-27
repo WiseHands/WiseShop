@@ -6,5 +6,6 @@ public enum OrderState {
         PAYMENT_ERROR,
         SHIPPED,
         CANCELLED,
-        MANUALLY_PAYED
+        MANUALLY_PAYED,
+        DELETED
 }

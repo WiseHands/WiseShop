@@ -20,9 +20,11 @@
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <div class="col-sm-6" ng-repeat="balanceDetail in balanceDetails | orderBy:'date':true" ng-hide="loading">
-        <div class="card-panel vcentering" ng-style="{'background-color': paymentState(balanceDetail)}">
-            <span class="white-text col-xs-8">{{dateFormat(balanceDetail)}}</span>
-            <span class="white-text col-xs-4">{{balanceDetail.amount | number:2}} грн</span>
-        </div>
+        <a href="#/details/{{balanceDetail.orderUuid}}">
+            <div class="card-panel vcentering" ng-style="{'background-color': paymentState(balanceDetail)}">
+                <span class="white-text col-xs-8">{{dateFormat(balanceDetail)}}</span>
+                <span class="white-text col-xs-4">{{balanceDetail.amount | number:2}} грн</span>
+            </div>
+        </a>
     </div>
 </div>

@@ -141,7 +141,8 @@ public class OrderAPI extends AuthController {
         checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
-        order.delete();
+        order.state = OrderState.DELETED;
+        order.save();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();

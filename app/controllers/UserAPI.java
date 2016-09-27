@@ -5,10 +5,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.ContactDTO;
-import models.DeliveryDTO;
-import models.ShopDTO;
-import models.UserDTO;
+import models.*;
 import play.mvc.Before;
 import play.mvc.Controller;
 import responses.InvalidPassword;
@@ -199,6 +196,15 @@ public class UserAPI extends Controller {
             result = false;
         }
         return result;
+    }
+
+    public static void details(String client, String uuid) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
+        UserDTO user = UserDTO.find("byUuid",uuid).first();
+
+        renderJSON(json(user));
     }
 
 
