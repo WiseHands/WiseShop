@@ -1,23 +1,15 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.liqpay.LiqPay;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import play.*;
-import play.libs.Mail;
+import in.ankushs.dbip.api.DbIpClient;
+import in.ankushs.dbip.api.GeoEntity;
 import play.mvc.*;
-import org.apache.commons.codec.binary.Base64;
-import java.util.UUID;
-
-import java.util.*;
 
 import models.*;
+
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Application extends Controller {
     private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
@@ -55,6 +47,21 @@ public class Application extends Controller {
             notFound("The requested Shop is not available. Contact administrator");
         }
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+
+        File gzip = new File("csv/dbip-city-2016-09.csv");
+        DbIpClient geoClient = new DbIpClient(gzip);
+
+        System.out.println(System.currentTimeMillis());
+        GeoEntity geoEntity = geoClient.lookup("31.45.127.255");
+        System.out.println(System.currentTimeMillis());
+        String city = geoEntity.getCity();
+
+        String ip = request.headers.get("x-forwarded-for").value();
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " [" + city + "] and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
+
         renderTemplate("Application/shop.html", shop);
     }
 
@@ -63,6 +70,15 @@ public class Application extends Controller {
         if (shop == null) {
             notFound("The requested Shop is not available. Contact administrator    ");
         }
+
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+
+        String ip = request.headers.get("x-forwarded-for").value();
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
+
 
         render(shop);
     }
@@ -76,6 +92,19 @@ public class Application extends Controller {
     }
 
     public static void admin(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            notFound("The requested Shop is not available. Contact administrator    ");
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+
+        String ip = request.headers.get("x-forwarded-for").value();
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened ADMIN " + shop.shopName + " at " + dateFormat.format(date));
+
+
         render();
     }
 
