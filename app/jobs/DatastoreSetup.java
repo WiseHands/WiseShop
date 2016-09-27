@@ -7,6 +7,7 @@ import play.jobs.OnApplicationStart;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 @OnApplicationStart
 public class DatastoreSetup extends Job {
@@ -24,7 +25,7 @@ public class DatastoreSetup extends Job {
 
     public void doJob() throws Exception {
 
-
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 
 
         boolean isDBEmpty = UserDTO.findAll().size() == 0;
