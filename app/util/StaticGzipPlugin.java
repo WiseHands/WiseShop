@@ -53,6 +53,8 @@ public class StaticGzipPlugin extends PlayPlugin {
             if (contentType.contains("image")) {
                 return false; // You don't want to minify or gzip images
             }
+            System.out.println("CONTENTTYPE: " + contentType);
+
 			/*
 			 * google wants this: "Instructs proxy servers to cache two versions
 			 * of the resource: one compressed, and one uncompressed. This helps
