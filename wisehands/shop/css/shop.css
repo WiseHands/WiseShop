@@ -80,3 +80,8 @@ body.modal-open {
 main {
     overflow: hidden;
 }
+.contactsContainer {
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 4.5em;
+}

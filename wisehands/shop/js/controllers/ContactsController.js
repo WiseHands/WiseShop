@@ -7,8 +7,6 @@
             })
                 .then(function successCallback(response) {
                     document.title = response.data.name;
-                    $scope.shopName = response.data.name;
-                    
 
                 }, function errorCallback(error) {
                         console.log(error);
