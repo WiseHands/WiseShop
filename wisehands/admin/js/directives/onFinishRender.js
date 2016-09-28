@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .directive('onFinishRender', [ function ($timeout) {
+    .directive('onFinishRender', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attr) {

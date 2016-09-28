@@ -30,7 +30,10 @@ angular.module('WiseHands')
                 return '#03a9f4';
             }
         };
-        // $scope.toOrder = function (balanceDetail) {
-        //     window.location.path = '#/details/' + balanceDetail.uuid;
-        // }
+        $scope.isTransactionPayed = function (balanceDetail) {
+            if (balanceDetail.state === 'PAYED') {
+                return true;
+            }
+            
+        }
     }]);

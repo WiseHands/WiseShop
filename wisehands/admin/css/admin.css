@@ -200,3 +200,7 @@ label.whiteCheckBox::after {
 .proceedWithPayment {
     display: none;
 }
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}
