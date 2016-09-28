@@ -48,7 +48,8 @@ public class StaticGzipPlugin extends PlayPlugin {
                                Http.Response response) {
         try {
             final File localFile = file.getRealFile();
-            if(localFile.getName().contains(".woff") || localFile.getName().contains(".ttf")) {
+            if(localFile.getName().contains(".woff") || localFile.getName().contains(".ttf")
+                    || localFile.getName().contains("product1")) {
                 return false;
             }
             String contentType = MimeTypes.getContentType(localFile.getName(),
