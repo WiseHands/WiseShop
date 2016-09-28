@@ -24,6 +24,7 @@
                             var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
                             $scope.properDate = ddyymm + ' ' + hour + ':' + minute;
                         }
+
                     }, function errorCallback(response) {
                         if (response.data === 'Invalid X-AUTH-TOKEN') {
                             signout.signOut();
@@ -76,6 +77,8 @@
                         return 'Післяоплата';
                     } else if (order.state === "PAYMENT_ERROR") {
                         return 'Помилка оплати';
+                    } else if (order.state === "DELETED") {
+                        return 'Видалене';
                     }
                 };
                 
