@@ -97,7 +97,7 @@
                         redirectTo:'/'
                 });
             }])
-        .run(function ($http) {
+        .run(['$http', function ($http) {
             $http({
                 method: 'GET',
                 url: '/shop/details',
@@ -115,5 +115,5 @@
                 });
 
 
-        })
+        }])
 })();

@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .service('signout',function() {
+    .service('signout', [function() {
         return {
             signOut: function(){
                 localStorage.clear();
@@ -7,4 +7,4 @@ angular.module('WiseHands')
             }
 
         }
-    });
+    }]);

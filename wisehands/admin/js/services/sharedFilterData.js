@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .service('shared',function() {
+    .service('shared', [ function() {
         var filterOptions = [];
         var isSortingActive = true;
         return {
@@ -16,4 +16,4 @@ angular.module('WiseHands')
                 isSortingActive = sortOption;
             }
         }
-    });
+    }]);

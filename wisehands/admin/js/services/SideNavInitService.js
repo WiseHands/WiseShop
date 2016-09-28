@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .service('sideNavInit',function() {
+    .service('sideNavInit', [function() {
         return {
             sideNav: function(){
                 $(".button-collapse").sideNav();
@@ -7,4 +7,4 @@ angular.module('WiseHands')
                 $('div[id^=sidenav-overlay]').click();
             }
         }
-    });
+    }]);

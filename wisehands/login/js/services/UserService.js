@@ -1,5 +1,5 @@
 angular.module('WiseHandsMain')
-    .service('userService',function() {
+    .service('userService',[ function() {
         var user = {};
         return user;
-    });
+    }]);

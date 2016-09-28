@@ -1,6 +1,5 @@
 package controllers;
 
-import controllers.minifymod.MinifyAndGzipResponse;
 import play.mvc.*;
 
 import models.*;
@@ -9,7 +8,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@With(MinifyAndGzipResponse.class)
 public class Application extends Controller {
 
     @Before
