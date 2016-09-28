@@ -94,7 +94,7 @@
      <div class="col-sm-6" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
          <div class="card card-primary text-xs-center z-depth-2"
               ng-style="{'background-color': orderState(item)}"
-              ng-if="!item.state === 'DELETED'">
+              ng-if="item.state !== 'DELETED'">
              <a href ="#/details/{{item.uuid}}">
                  <div class="row">
                      <div class="card-block vcentering">
