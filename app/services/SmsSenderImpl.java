@@ -86,6 +86,7 @@ public class SmsSenderImpl implements SmsSender {
             con.setRequestProperty("User-Agent", USER_AGENT);
 
             int responseCode = con.getResponseCode();
+            System.out.println(responseCode);
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
@@ -96,6 +97,8 @@ public class SmsSenderImpl implements SmsSender {
                 response.append(inputLine);
             }
             in.close();
+
+            System.out.println(response);
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
