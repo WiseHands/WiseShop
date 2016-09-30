@@ -214,6 +214,7 @@ public class OrderAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         String liqpayResponse = new String(Base64.decodeBase64(data));
+        System.out.println(liqpayResponse);
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(liqpayResponse);
 
