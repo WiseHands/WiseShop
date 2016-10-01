@@ -268,14 +268,14 @@ public class OrderAPI extends AuthController {
 
                 BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
 
-                tx.state = OrderState.SHIPPED;
+                tx.state = OrderState.PAYED;
                 tx.save();
 
                 balance.balance += tx.amount;
                 balance.addTransaction(tx);
                 balance.save();
 
-                System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became SHIPPED");
+                System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became " + tx.state);
 
 
                 String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
