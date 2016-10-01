@@ -5,6 +5,9 @@ import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,12 +31,17 @@ public class DatastoreSetup extends Job {
         java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 
 
+
         boolean isDBEmpty = UserDTO.findAll().size() == 0;
         if (isDBEmpty){
             if (isDevEnv) {
                 createShop("wisehands", "localhost");
             } else {
                 createShop("HappyBag", "happybag.me");
+                OutputStream output = new FileOutputStream("/home/bogdan/wisehands/logs/system.out");
+                PrintStream printOut = new PrintStream(output);
+
+                System.setErr(printOut);
             }
         }
     }

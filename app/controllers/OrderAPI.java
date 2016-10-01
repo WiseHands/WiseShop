@@ -218,61 +218,69 @@ public class OrderAPI extends AuthController {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(liqpayResponse);
 
-        String orderId = String.valueOf(jsonObject.get("order_id"));
+        try {
 
-        OrderDTO order = OrderDTO.find("byUuid",orderId).first();
-        if(order == null) {
-            ok();
-        }
 
-        String status = String.valueOf(jsonObject.get("status"));
-        if (status.equals("failure") || status.equals("wait_accept")){
-            order.state  = OrderState.PAYMENT_ERROR;
-            order = order.save();
-            String smsText = "Помилка при оплаті " + order.name + ", сума " + order.total;
-            for (UserDTO user : shop.userList) {
-                smsSender.sendSms(user.phone, smsText);
+            String orderId = String.valueOf(jsonObject.get("order_id"));
+
+            OrderDTO order = OrderDTO.find("byUuid",orderId).first();
+            if(order == null) {
+                ok();
             }
-            smsSender.sendSms(order.phone, smsText);
-            mailSender.sendEmail(shop, order, "Помилка оплати");
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
+            String status = String.valueOf(jsonObject.get("status"));
+            if (status.equals("failure") || status.equals("wait_accept")){
+                order.state  = OrderState.PAYMENT_ERROR;
+                order = order.save();
+                String smsText = "Помилка при оплаті " + order.name + ", сума " + order.total;
+                for (UserDTO user : shop.userList) {
+                    smsSender.sendSms(user.phone, smsText);
+                }
+                smsSender.sendSms(order.phone, smsText);
+                mailSender.sendEmail(shop, order, "Помилка оплати");
 
-            ok();
-        } else {
-            order.state  = OrderState.PAYED;
-            order = order.save();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
 
-            Double amount = order.total * WISEHANDS_COMISSION;
-            BalanceDTO balance = shop.balance;
+                ok();
+            } else {
+                order.state  = OrderState.PAYED;
+                order = order.save();
 
-            BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
+                Double amount = order.total * WISEHANDS_COMISSION;
+                BalanceDTO balance = shop.balance;
 
-            tx.state = OrderState.SHIPPED;
-            balance.balance += tx.amount;
+                BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
 
-            balance.addTransaction(tx);
+                tx.state = OrderState.SHIPPED;
+                balance.balance += tx.amount;
 
-            balance.save();
-            tx.save();
+                balance.addTransaction(tx);
 
-            System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became SHIPPED");
+                balance.save();
+                tx.save();
 
-
-            String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
-            smsSender.sendSms(order.phone, smsText);
-            smsSender.sendSms(shop.contact.phone, smsText);
-
-            mailSender.sendEmail(shop, order, "Замовлення оплачено");
-
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
+                System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became SHIPPED");
 
 
-            ok();
+                String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
+                smsSender.sendSms(order.phone, smsText);
+                smsSender.sendSms(shop.contact.phone, smsText);
+
+                mailSender.sendEmail(shop, order, "Замовлення оплачено");
+
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
+
+
+                ok();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getStackTrace());
+            error();
         }
 
 
