@@ -207,6 +207,22 @@ public class UserAPI extends Controller {
         renderJSON(json(user));
     }
 
+    public static void list(String client) {
+        renderJSON(json(UserDTO.findAll()));
+    }
+
+    public static void delete(String client, String uuid) {
+
+        UserDTO user = UserDTO.find("byUuid",uuid).first();
+
+        if(user != null) {
+            user.delete();
+            ok();
+        }
+
+        notFound();
+    }
+
 
     private static String json(Object object){
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

@@ -30,19 +30,18 @@ public class DatastoreSetup extends Job {
     public void doJob() throws Exception {
 
         boolean isDBEmpty = UserDTO.findAll().size() == 0;
+        List<ShopDTO> shops = ShopDTO.findAll();
+        for (ShopDTO shop : shops) {
+            if (shop.balance == null) {
+                shop.balance = new BalanceDTO();
+                shop.balance.save();
+            }
+        }
         if (isDBEmpty){
             if (isDevEnv) {
                 createShop("wisehands", "localhost");
             } else {
                 createShop("HappyBag", "happybag.me");
-
-                List<ShopDTO> shops = ShopDTO.findAll();
-                for (ShopDTO shop : shops) {
-                    if (shop.balance == null) {
-                        shop.balance = new BalanceDTO();
-                        shop.balance.save();
-                    }
-                }
             }
         }
     }
