@@ -21,10 +21,10 @@ public class BalanceDTO extends GenericModel {
     public double balance;
 
     @Expose
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     List<BalanceTransactionDTO> balanceTransactions;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
     public BalanceDTO() {

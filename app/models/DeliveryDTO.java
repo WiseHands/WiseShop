@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 
 @Entity
 public class DeliveryDTO extends GenericModel {
@@ -18,16 +17,19 @@ public class DeliveryDTO extends GenericModel {
 
     @Expose
     public boolean isCourierAvailable;
+
     @Expose
     public String courierText;
 
     @Expose
     public boolean isSelfTakeAvailable;
+
     @Expose
     public String selfTakeText;
 
     @Expose
     public boolean isNewPostAvailable;
+
     @Expose
     public String newPostText;
 

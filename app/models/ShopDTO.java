@@ -45,15 +45,15 @@ public class ShopDTO extends GenericModel {
     @OneToOne
     public BalanceDTO balance;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     public List<UserDTO> userList;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     public DeliveryDTO delivery;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     public ContactDTO contact;
 
     public ShopDTO(List<UserDTO> users,
@@ -73,6 +73,7 @@ public class ShopDTO extends GenericModel {
             }
             user.shopList.add(this);
         }
+        this.balance = new BalanceDTO();
 
         this.delivery = delivery;
         this.contact = contact;

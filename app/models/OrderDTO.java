@@ -46,7 +46,7 @@ public class OrderDTO extends GenericModel {
     @OneToMany(cascade = CascadeType.ALL)
     public List<OrderItemDTO> items;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
     public OrderDTO(String name, String phone, String address, String deliveryType, String departmentNumber, ShopDTO shop) {

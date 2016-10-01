@@ -2,6 +2,7 @@ package jobs;
 
 import models.*;
 import play.Play;
+import play.db.jpa.JPABase;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
@@ -28,20 +29,20 @@ public class DatastoreSetup extends Job {
 
     public void doJob() throws Exception {
 
-        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-
-
-
         boolean isDBEmpty = UserDTO.findAll().size() == 0;
         if (isDBEmpty){
             if (isDevEnv) {
                 createShop("wisehands", "localhost");
             } else {
                 createShop("HappyBag", "happybag.me");
-                OutputStream output = new FileOutputStream("/home/bogdan/wisehands/logs/system.out");
-                PrintStream printOut = new PrintStream(output);
 
-                System.setErr(printOut);
+                List<ShopDTO> shops = ShopDTO.findAll();
+                for (ShopDTO shop : shops) {
+                    if (shop.balance == null) {
+                        shop.balance = new BalanceDTO();
+                        shop.balance.save();
+                    }
+                }
             }
         }
     }

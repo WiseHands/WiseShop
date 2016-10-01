@@ -28,7 +28,7 @@ public class ProductDTO extends GenericModel {
     @Expose
     public String fileName;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
     public ProductDTO(String name, String description, Double price, String filename, ShopDTO shop) {

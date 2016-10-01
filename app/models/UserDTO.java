@@ -46,7 +46,7 @@ public class UserDTO extends GenericModel {
     public String password;
 
     @Expose
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     public List<ShopDTO> shopList;
 
     @Column

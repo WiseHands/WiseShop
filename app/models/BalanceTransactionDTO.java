@@ -32,7 +32,7 @@ public class BalanceTransactionDTO extends GenericModel {
     @Enumerated(EnumType.STRING)
     public OrderState state;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     public BalanceDTO balance;
 
     public BalanceTransactionDTO(Double amount, OrderDTO order, BalanceDTO balance) {
