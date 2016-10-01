@@ -166,10 +166,12 @@ public class OrderAPI extends AuthController {
         BalanceDTO balance = shop.balance;
         Double amount = order.total * WISEHANDS_COMISSION;
         BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
+
         tx.state = OrderState.SHIPPED;
+        tx.save();
+
         balance.balance += tx.amount;
         balance.addTransaction(tx);
-        tx.save();
         balance.save();
 
         System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became SHIPPED");
@@ -254,12 +256,11 @@ public class OrderAPI extends AuthController {
                 BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
 
                 tx.state = OrderState.SHIPPED;
-                balance.balance += tx.amount;
-
-                balance.addTransaction(tx);
-
-                balance.save();
                 tx.save();
+
+                balance.balance += tx.amount;
+                balance.addTransaction(tx);
+                balance.save();
 
                 System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became SHIPPED");
 
