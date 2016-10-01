@@ -151,7 +151,7 @@ public class OrderAPI extends AuthController {
         ok();
     }
 
-    public static void markShipped(String client, String uuid) throws Exception {
+    public static void markShipped(String client, String uuid)  {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
 
@@ -164,6 +164,13 @@ public class OrderAPI extends AuthController {
         System.out.println("User " + loggedInUser.name + " marked order " + order.name + " as SHIPPED at " + dateFormat.format(date));
 
         BalanceDTO balance = shop.balance;
+        if (balance == null) {
+            balance = new BalanceDTO();
+            balance.shop = shop;
+            balance.save();
+            shop.save();
+        }
+
         Double amount = order.total * WISEHANDS_COMISSION;
         BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
 
@@ -252,6 +259,12 @@ public class OrderAPI extends AuthController {
 
                 Double amount = order.total * WISEHANDS_COMISSION;
                 BalanceDTO balance = shop.balance;
+                if (balance == null) {
+                    balance = new BalanceDTO();
+                    balance.shop = shop;
+                    balance.save();
+                    shop.save();
+                }
 
                 BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
 
