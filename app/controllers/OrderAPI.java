@@ -203,7 +203,6 @@ public class OrderAPI extends AuthController {
 
     public static void manuallyPayed(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.MANUALLY_PAYED;

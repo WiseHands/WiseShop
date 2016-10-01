@@ -74,7 +74,7 @@
                     } else if (order.state === "SHIPPED") {
                         return 'Надіслано';
                     } else if (order.state === "MANUALLY_PAYED") {
-                        return 'Післяоплата';
+                        return 'Оплата на місці';
                     } else if (order.state === "PAYMENT_ERROR") {
                         return 'Помилка оплати';
                     } else if (order.state === "DELETED") {
