@@ -279,7 +279,7 @@ public class OrderAPI extends AuthController {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(e);
             error();
         }
 
