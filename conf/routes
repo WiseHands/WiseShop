@@ -15,7 +15,7 @@ POST    {client}/signup                                 UserAPI.register
 GET     {client}/profile                                UserAPI.profile
 GET     {client}/user/{uuid}                            UserAPI.details
 GET     {client}/users                            		UserAPI.list
-GET     {client}/user/{uuid}                           	UserAPI.delete
+DELETE  {client}/user/{uuid}                           	UserAPI.delete
 
 
 GET     {client}/products                               ProductAPI.list

@@ -3,11 +3,7 @@ package controllers;
 import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import models.*;
-import play.mvc.Before;
-import play.mvc.Controller;
 import responses.InvalidPassword;
 import responses.UserDoesNotExist;
 import services.SmsSender;
@@ -22,18 +18,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static controllers.ShopAPI.checkAuthentification;
 
-public class UserAPI extends Controller {
+public class UserAPI extends AuthController {
     private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
     private static final String X_AUTH_USER_ID = "x-auth-user-id";
-
-
-    @Before
-    static void corsHeaders() {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
-    }
 
     @Inject
     static SmsSender smsSender;
@@ -212,7 +200,6 @@ public class UserAPI extends Controller {
     }
 
     public static void delete(String client, String uuid) {
-
         UserDTO user = UserDTO.find("byUuid",uuid).first();
 
         if(user != null) {
@@ -221,12 +208,6 @@ public class UserAPI extends Controller {
         }
 
         notFound();
-    }
-
-
-    private static String json(Object object){
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        return gson.toJson(object);
     }
 
 }
