@@ -64,4 +64,10 @@ public class UserDTO extends GenericModel {
         this.token = UUID.randomUUID().toString();
         this.shopList = new ArrayList<ShopDTO>();
     }
+
+    @PreRemove
+    private void removeGroupsFromUsers() {
+        shopList.clear();
+        this.save();
+    }
 }
