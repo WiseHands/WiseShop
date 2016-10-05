@@ -24,6 +24,10 @@ POST    {client}/product                                ProductAPI.create
 PUT     {client}/product                                ProductAPI.update
 DELETE  {client}/product/{uuid}                         ProductAPI.delete
 
+GET     {client}/sudo/shops                             ShopAPI.all
+GET     {client}/sudo/shop/{uuid}                       ShopAPI.one
+
+
 GET     {client}/shops                               	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo

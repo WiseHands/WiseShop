@@ -203,6 +203,14 @@ public class UserAPI extends AuthController {
         UserDTO user = UserDTO.find("byUuid",uuid).first();
 
         if(user != null) {
+            for(ShopDTO shop : user.shopList) {
+                if (shop.userList.contains(user)){
+                    shop.userList.remove(user);
+                    shop = shop.save();
+                }
+            }
+            user.shopList.clear();
+            user = user.save();
             user.delete();
             ok();
         }

@@ -47,31 +47,26 @@ public class DatastoreSetup extends Job {
     }
 
     private void createShop(String shopName, String domain) {
-        DeliveryDTO delivery = new DeliveryDTO(
-                true, "Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
-                true, "Самовивіз",
-                true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)"
-                );
-        delivery.save();
 
-        ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Львів, вул. Академіка Люльки, 4", "49.848596:24.0229203", "МИ СТВОРИЛИ ТОРБУ ЩАСТЯ ДЛЯ ТОГО, ЩОБ МІЛЬЙОНИ ЛЮДЕЙ МАЛИ МОЖЛИВІСТЬ КОЖНОГО ДНЯ ВЧАСНО ОТРИМУВАТИ ЦІКАВІ ВІДПОВІДІ ТА СВОЄ НАТХНЕННЯ НА ЧУДОВИЙ ДЕНЬ");
-        contact.save();
+
 
         List<UserDTO> users = new ArrayList<UserDTO>();
         UserDTO user = new UserDTO(BOGDAN, PASSWORD, "380630386173");
-        user.save();
         users.add(user);
 
         if(!isDevEnv) {
             user = new UserDTO(SVYAT, PASSWORD, "380932092108");
-            user.save();
             users.add(user);
 
             user = new UserDTO(VOVA, PASSWORD, "380631206871");
-            user.save();
             users.add(user);
         }
-
+        DeliveryDTO delivery = new DeliveryDTO(
+                true, "Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
+                true, "Самовивіз",
+                true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)"
+        );
+        ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Львів, вул. Академіка Люльки, 4", "49.848596:24.0229203", "МИ СТВОРИЛИ ТОРБУ ЩАСТЯ ДЛЯ ТОГО, ЩОБ МІЛЬЙОНИ ЛЮДЕЙ МАЛИ МОЖЛИВІСТЬ КОЖНОГО ДНЯ ВЧАСНО ОТРИМУВАТИ ЦІКАВІ ВІДПОВІДІ ТА СВОЄ НАТХНЕННЯ НА ЧУДОВИЙ ДЕНЬ");
         ShopDTO shop = new ShopDTO(users, delivery, contact, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
         shop.save();
 

@@ -21,6 +21,15 @@ public class ShopAPI extends AuthController {
     @Inject
     static MailSender mailSender;
 
+    public static void all(String client) throws Exception {
+        List<ShopDTO> shops = ShopDTO.findAll();
+        renderJSON(json(shops));
+    }
+    public static void one(String client, String uuid) throws Exception { // /shop/details
+        ShopDTO shop = ShopDTO.findById(uuid);
+        renderJSON(json(shop));
+    }
+
     public static void list(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);

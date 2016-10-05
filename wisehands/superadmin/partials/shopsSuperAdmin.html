@@ -1,0 +1,27 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    Магазини
+                </h5>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <div class="col-sm-6" ng-repeat="shop in shops">
+        <a href="#/sudo/shop/{{shop.uuid}}">
+            <div class="card-panel vcentering teal text-center">
+                <h5 class="white-text col-xs-12">{{shop.shopName}}</h5>
+            </div>
+        </a>
+    </div>
+</div>

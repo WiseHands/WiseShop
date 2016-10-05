@@ -42,7 +42,7 @@ public class ShopDTO extends GenericModel {
     @Expose
     public String googleAnalyticsCode;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     public BalanceDTO balance;
 
     @ManyToMany(cascade=CascadeType.ALL)
@@ -74,6 +74,7 @@ public class ShopDTO extends GenericModel {
             user.shopList.add(this);
         }
         this.balance = new BalanceDTO();
+        this.balance.save();
 
         this.delivery = delivery;
         this.contact = contact;

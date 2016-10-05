@@ -7,8 +7,14 @@
 
                 $routeProvider.
                 when('/',{
-                    templateUrl:'wisehands/superadmin/partials/superWiseHands.html',
-                    controller:'SuperWiseHandsController'
+                    templateUrl:'wisehands/superadmin/partials/shopsSuperAdmin.html',
+                    controller:'ShopListController',
+                    activetab: 'shops'
+                }).
+                when('/sudo/shop/:uuid',{
+                    templateUrl:'wisehands/superadmin/partials/shopDetailsSuperAdmin.html',
+                    controller:'ShopDetailsController',
+                    activetab: 'shops'
                 }).
                 otherwise({
                     redirectTo:'/'

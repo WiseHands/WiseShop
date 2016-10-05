@@ -1,0 +1,128 @@
+body {
+    margin-top: 4.7em;
+}
+
+.sideNavButtonStyling {
+    position: relative !important;
+    padding-left: 0 !important;
+}
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-device-width : 480px) {
+    .noRightPadding {
+        padding-right: 0;
+    }
+    .noPaddingLeft {
+        padding-left: 0 !important;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-device-width: 568px) and (max-device-width: 767px){
+    .noRightPadding {
+        padding-right: 0;
+    }
+    .noPaddingLeft {
+        padding-left: 0;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+
+/* Tablet ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    .noRightPadding {
+        padding-right: 0;
+    }
+    .noPaddingLeft {
+        padding-left: 0;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+
+.vcentering {
+    display: flex;
+    align-items: center;
+}
+
+.noTopMargin {
+    margin-top: 0;
+    color: darkgray !important;
+}
+
+.noMarginBot {
+    margin-bottom: 0;
+}
+.noPaddingBot {
+    padding-bottom: 0;
+}
+
+.cursorPointer:hover {
+    cursor: pointer;
+}
+.noUnderline:hover {
+    text-decoration: none;
+}
+
+textarea {
+    max-width: 100%;
+}
+/*New Styles For New Design*/
+
+
+.noSidePadding {
+    padding-right: 0;
+    padding-left: 0;
+}
+.noSideMargin {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.noMarginForSearchInput {
+    border-bottom: 1px solid white !important;
+    color: white;
+    display: block;
+}
+
+.noMarginForSearchInput::-webkit-input-placeholder {
+    color: white;
+}
+.whiteColor {
+    color: white;
+}
+label.whiteCheckBox::after {
+    border: 2px solid white !important;
+}
+.deleteOrderTopMargin {
+    margin-top: .8em;
+}
+.saveProductButtonStyling, .saveProductButtonStyling:active, .saveProductButtonStyling:visited, .saveProductButtonStyling:focus {
+    border: none;
+    background-color: #303F9F;
+}
+.labelBotPadding {
+    padding-bottom: 1em;
+}
+.noTopPadding {
+    padding-top: 0 !important;
+}
+.primaryColor {
+    color: #303F9F;
+    background-color: #303F9F !important;
+}
+.lightPrimaryColor {
+    background-color: #3F51B5;
+}
+

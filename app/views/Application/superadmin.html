@@ -7,72 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Super Wise Hands</title>
 
-    <!-- Material Design Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-    <!-- Bootstrap core CSS -->
     <link href="wisehands/assets/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Material Design Bootstrap -->
     <link href="wisehands/assets/mdb_superAdmin/css/mdb.min.css" rel="stylesheet">
+
+    <link href="wisehands/superadmin/css/superadmin.css" rel="stylesheet">
 
 </head>
 
 <body>
-<!-- SideNav slide-out button -->
-<a href="#" data-activates="slide-out" class="navbar-brand button-collapse"><i class="material-icons">menu</i></a>
-<!--/. SideNav slide-out button -->
-
-<!-- Sidebar navigation -->
-<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav">
-    <!-- Logo -->
-    <div class="logo-wrapper">
-        <img src="http://0.gravatar.com/avatar/60efa32c26a19f3ed2e42798afb705ba?s=100&d=mm&r=g" class="img-responsive img-circle">
-        <div class="rgba-stylish-strong">
-            <p class="user white-text">Admin
-                <br> admin@gmail.com
-            </p>
+<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav" ng-controller="SideNavController">
+    <div class="row vcentering">
+        <div class="col-xs-4">
+            <img ng-src="{{getProfileImage()}}" class="img-responsive img-circle">
+        </div>
+        <div class="col-xs-8">
+            <h5 class="white-text cursorPointer" ng-click="getUrl()">{{activeShop.shopName}}</h5>
         </div>
     </div>
-    <!--/. Logo -->
-
-    <!-- Side navigation links -->
     <ul class="collapsible collapsible-accordion">
-        <li><a class="waves-effect waves-light"><i class="fa fa-home"></i> Home</a></li>
-        <li><a class="waves-effect waves-light"><i class="fa fa-money"></i> Sales</a></li>
-        <li><a class="waves-effect waves-light"><i class="fa fa-line-chart"></i> Conversion</a></li>
-        <li><a class="waves-effect waves-light"><i class="fa fa-users"></i> Website Traffic</a></li>
-        <li><a class="waves-effect waves-light"><i class="fa fa-search"></i> SEO</a></li>
-        <li><a class="waves-effect waves-light"><i class="fa fa-share-alt"></i> Social</a></li>
+        <li ng-class="{active: $route.current.activetab == 'shops'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Магазини</a></li>
+        <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
+        <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
+        <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
+        <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
+        <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
+        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
     </ul>
-    <!--/. Side navigation links -->
-
 </ul>
-<!--/. Sidebar navigation -->
-
-<!--Navbar-->
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header pull-left">
-            <!-- SideNav slide-out button -->
-            <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
-            <!--/. SideNav slide-out button -->
-
-        </div>
-
-        <!-- Navbar Icons -->
-        <ul class="list-inline pull-right text-center">
-            <li><a class="waves-effect waves-light" data-toggle="modal" data-target="#contact-form"><i class="fa fa-question"></i><br><span>Help</span></a></li>
-            <li><a class="waves-effect waves-light" data-toggle="modal" data-target="#contact-form"><i class="fa fa-cogs"></i><br><span>Settings</span></a></li>
-            <li><a class="waves-effect waves-light" data-toggle="modal" data-target="#contact-form"><i class="fa fa-sign-out"></i><br><span>Logout</span></a></li>
-
-        </ul>
-        <!--/. Navbar Icons -->
-    </div>
-</nav>
 
 <div ng-view></div>
 
@@ -83,23 +49,19 @@
 
 <script src="wisehands/superadmin/js/routes/routeConfig.js"></script>
 
-<script src="wisehands/superadmin/js/controllers/SuperWiseHandsController.js"></script>
+<script src="wisehands/superadmin/js/controllers/ShopListController.js"></script>
+<script src="wisehands/superadmin/js/controllers/SideNavController.js"></script>
+<script src="wisehands/superadmin/js/controllers/ShopDetailsController.js"></script>
 
-<!-- JQuery -->
+<script src="wisehands/superadmin/js/services/sideNavInitService.js"></script>
+
+
 <script type="text/javascript" src="wisehands/assets/js/jquery.min.js"></script>
 
-<!-- Bootstrap core JavaScript -->
 <script type="text/javascript" src="wisehands/assets/bootstrap3/js/bootstrap.min.js"></script>
 
-<!-- Material Design Bootstrap -->
 <script type="text/javascript" src="wisehands/assets/mdb_superAdmin/js/mdb.min.js"></script>
 
-<script>
-    // Initialize collapse button
-    $(".button-collapse").sideNav();
-    // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-    $('.collapsible').collapsible();
-</script>
 
 </body>
 
