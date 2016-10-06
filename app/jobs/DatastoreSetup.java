@@ -74,6 +74,7 @@ public class DatastoreSetup extends Job {
     }
 
     private void createProducts(ShopDTO shop, String domain) {
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
         ProductDTO productDTO = new ProductDTO(
                 "Шоколадки з передбаченнями «ТОРБА ЩАСТЯ»",
                 "Це чарівний мішечок. Всередині нього сім з любов’ю упакованих чудо-шоколадок з передбаченням. Кожна шоколадка вагою 12,5. Дуже смачний чорний шоколад з вмістом какао 73% та ніжною трюфельною начинкою. Люди кажуть, що дуже смачно. Кожна шоколадка з унікальним креативним та добрим побажанням, яке дублюється двома мовами українською та англійською. Різновид-понад 1500 штук, тому ймовірність повторів мізерно мала. І кожна Торба Щастя з своїм унікальним набором. Натуральна полотняна тканина дуже приємна на дотик та підкреслює цінність подарунку. І таке приємне відчуття розв’язати торбинку і витягнути шоколадку з побажанням-передбаченням, яке адресується саме Тобі. Ми самі не знаємо як таке трапляється, але магія, безперечно, присутня. Всі, хто куштує шоколад і читає побажання, відзначають, що воно призначалось саме йому. Тому, можемо дозволити собі стверджувати, що Торба Щастя, мабуть, найкращий солодкий подарунок, який не тільки чудово смакує, але й дарує позитивні емоції.",
@@ -82,6 +83,7 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
 
         productDTO = new ProductDTO(
                 "Шоколадка з передбаченням",
@@ -91,6 +93,8 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
+
 
         productDTO = new ProductDTO(
                 "Набір шоколадок «7 сторін моєї любові»",
@@ -100,6 +104,8 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
+
 
         productDTO = new ProductDTO(
                 "Набір шоколадок «7 сторін Любові»",
@@ -109,6 +115,8 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
+
 
         productDTO = new ProductDTO(
                 "Набір шоколадок «БУДДА»",
@@ -118,6 +126,8 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
+
 
         productDTO = new ProductDTO(
                 "Набір шоколадок «DRUZI»",
@@ -127,6 +137,8 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
+
 
         productDTO = new ProductDTO(
                 "Набір шоколадок «Маленький принц»",
@@ -136,6 +148,8 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
+
 
         productDTO = new ProductDTO(
                 "Набір шоколадок «Мафія»",
@@ -145,6 +159,8 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
+
 
         productDTO = new ProductDTO(
                 "Печиво з передбаченням",
@@ -154,6 +170,8 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
+
 
         productDTO = new ProductDTO(
                 "Печиво з передбаченнями «ІМБИРКИ ЗІ ЛЬВОВА»",
@@ -163,6 +181,11 @@ public class DatastoreSetup extends Job {
                 shop
         );
         productDTO.save();
+        productList.add(productDTO);
+
+        shop.productList = productList;
+        shop.save();
+
     }
 
 }

@@ -27,17 +27,20 @@ public class ProductAPI extends AuthController {
         out.write(photo.asBytes());
         out.close();
 
-        ShopDTO shopDTO = ShopDTO.find("byDomain", client).first();
-        ProductDTO productDTO = new ProductDTO(name, description, price, client + "/" + photo.getFileName(), shopDTO);
-        productDTO.save();
+        ProductDTO product = new ProductDTO(name, description, price, client + "/" + photo.getFileName(), shop);
+        product.save();
+        if (shop.productList == null) {
+            shop.productList = new ArrayList<ProductDTO>();
+        }
+        shop.productList.add(product);
+        shop.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(productDTO);
+        String json = gson.toJson(product);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        System.out.println("User " + loggedInUser.name + " created new product " + productDTO.name + " at " + dateFormat.format(date));
-
+        System.out.println("User " + loggedInUser.name + " created new product " + product.name + " at " + dateFormat.format(date));
 
         renderJSON(json);
     }

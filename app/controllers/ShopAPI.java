@@ -32,10 +32,8 @@ public class ShopAPI extends AuthController {
             user.shopList.remove(shop);
             user.save();
         }
-        List<ProductDTO> products = ProductDTO.find("byShop", shop).fetch();
-        for (ProductDTO product : products) {
-            product.delete();
-        }
+        shop.userList.clear();
+        shop.productList.clear();
         shop.delete();
         ok();
     }
