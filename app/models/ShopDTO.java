@@ -74,7 +74,6 @@ public class ShopDTO extends GenericModel {
             user.shopList.add(this);
         }
         this.balance = new BalanceDTO();
-        this.balance.save();
 
         this.delivery = delivery;
         this.contact = contact;

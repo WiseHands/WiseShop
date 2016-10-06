@@ -52,10 +52,10 @@ public class ProductAPI extends AuthController {
 
     public static void list(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        List<ProductDTO> orders = ProductDTO.find("byShop", shop).fetch();
+        List<ProductDTO> products = ProductDTO.find("byShop", shop).fetch();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(orders);
+        String json = gson.toJson(products);
 
         renderJSON(json);
     }

@@ -1,9 +1,6 @@
 package controllers;
 
-import models.ContactDTO;
-import models.DeliveryDTO;
-import models.ShopDTO;
-import models.UserDTO;
+import models.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
@@ -28,6 +25,19 @@ public class ShopAPI extends AuthController {
     public static void one(String client, String uuid) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.findById(uuid);
         renderJSON(json(shop));
+    }
+    public static void deleteOne(String client, String uuid) throws Exception { // /shop/details
+        ShopDTO shop = ShopDTO.findById(uuid);
+        for(UserDTO user : shop.userList) {
+            user.shopList.remove(shop);
+            user.save();
+        }
+        List<ProductDTO> products = ProductDTO.find("byShop", shop).fetch();
+        for (ProductDTO product : products) {
+            product.delete();
+        }
+        shop.delete();
+        ok();
     }
 
     public static void list(String client) throws Exception {

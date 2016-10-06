@@ -65,9 +65,4 @@ public class UserDTO extends GenericModel {
         this.shopList = new ArrayList<ShopDTO>();
     }
 
-    @PreRemove
-    private void removeGroupsFromUsers() {
-        shopList.clear();
-        this.save();
-    }
 }
