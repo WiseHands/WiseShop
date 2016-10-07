@@ -39,12 +39,12 @@ public class OrderAPI extends AuthController {
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
-        boolean isLiqPayKeysAbsent = shop.liqpayPrivateKey.equals("")  || shop.liqpayPrivateKey == null
-                || shop.liqpayPublicKey.equals("")  || shop.liqpayPublicKey == null;
-        if(isLiqPayKeysAbsent) {
-            forbidden("no liqpay keys defined");
-            return;
-        }
+//        boolean isLiqPayKeysAbsent = shop.liqpayPrivateKey.equals("")  || shop.liqpayPrivateKey == null
+//                || shop.liqpayPublicKey.equals("")  || shop.liqpayPublicKey == null;
+//        if(isLiqPayKeysAbsent) {
+//            forbidden("no liqpay keys defined");
+//            return;
+//        }
 
         //TODO: add validation
         JSONParser parser = new JSONParser();
@@ -66,7 +66,12 @@ public class OrderAPI extends AuthController {
 
 
         OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, shop);
+        if(shop.orders == null){
+            shop.orders = new ArrayList<OrderDTO>();
+        }
+        shop.orders.add(order);
         order = order.save();
+        shop = shop.save();
 
         List<OrderItemDTO> orders = new ArrayList<OrderItemDTO>();
 
