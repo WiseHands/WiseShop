@@ -41,13 +41,13 @@ public class ShopAPI extends AuthController {
         }
 
         for (OrderDTO order : shop.orders) {
-            for (OrderItemDTO orderItem : order.items) {
-                orderItem.delete();
-            }
+            List<OrderItemDTO> orderItemsToDelete = new ArrayList<OrderItemDTO>(order.items);
             order.items.clear();
             order = order.save();
+            for (OrderItemDTO orderItem : orderItemsToDelete) {
+                orderItem.delete();
+            }
         }
-//        shop.orders.clear();
         shop = shop.save();
         shop.delete();
         ok();
