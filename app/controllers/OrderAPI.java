@@ -169,12 +169,6 @@ public class OrderAPI extends AuthController {
         System.out.println("User " + loggedInUser.name + " marked order " + order.name + " as SHIPPED at " + dateFormat.format(date));
 
         BalanceDTO balance = shop.balance;
-        if (balance == null) {
-            balance = new BalanceDTO();
-            balance.shop = shop;
-            balance.save();
-            shop.save();
-        }
 
         Double amount = order.total * WISEHANDS_COMISSION;
         BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);

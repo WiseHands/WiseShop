@@ -27,7 +27,7 @@ public class ProductAPI extends AuthController {
         out.write(photo.asBytes());
         out.close();
 
-        ProductDTO product = new ProductDTO(name, description, price, client + "/" + photo.getFileName(), shop);
+        ProductDTO product = new ProductDTO(name, description, price, client + "/" + photo.getFileName(), shop, null);
         product.save();
         if (shop.productList == null) {
             shop.productList = new ArrayList<ProductDTO>();

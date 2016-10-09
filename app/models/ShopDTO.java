@@ -59,6 +59,9 @@ public class ShopDTO extends GenericModel {
     @OneToMany(orphanRemoval=true)
     public List<ProductDTO> productList;
 
+    @OneToMany(orphanRemoval=true)
+    public List<CategoryDTO> categoryList;
+
     @OneToMany(cascade = CascadeType.ALL)
     public List<OrderDTO> orders;
 

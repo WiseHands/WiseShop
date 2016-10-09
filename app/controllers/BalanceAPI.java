@@ -23,14 +23,6 @@ public class BalanceAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
 
-        if(shop.balance == null) {
-            BalanceDTO balance = new BalanceDTO();
-            shop.balance = balance;
-            balance.shop = shop;
-            balance = balance.save();
-            shop = shop.save();
-        }
-
         renderJSON(json(shop.balance));
     }
 

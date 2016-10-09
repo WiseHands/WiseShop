@@ -59,6 +59,12 @@ GET     {client}/balance                                BalanceAPI.getBalance
 POST    {client}/pay                                    BalanceAPI.startPayment
 POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification
 
+GET		{client}/category								CategoryAPI.all
+GET		{client}/category/{uuid}						CategoryAPI.details
+POST	{client}/category/{name}						CategoryAPI.create
+PUT 	{client}/category/{uuid}/name/{name}			CategoryAPI.update
+DELETE 	{client}/category/{uuid}						CategoryAPI.delete
+
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
