@@ -3,7 +3,7 @@
         <div class="row vcentering">
             <a class="col-xs-2 noPaddingLeft"
                type="button"
-               ng-click="goBack()">
+               href="#/users">
                 <i class="fa fa-arrow-circle-left whiteColor pull-left">
                 </i>
             </a>
@@ -16,14 +16,11 @@
                type="button"
                data-toggle="dropdown"
                aria-haspopup="true"
-               aria-expanded="false"
-               ng-hide="order.state === 'DELETED'">
+               aria-expanded="false">
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="shippedOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED'"><p>Надіслано</p></a>
-                    <a class="col-xs-12 text-left" ng-click="cancelledOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED'"><p>Скасовано</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteOrder"><p>Видалити</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteUser"><p>Видалити</p></a>
                 </div>
             </a>
         </div>
@@ -35,30 +32,15 @@
     </div>
     <div class="card" ng-hide="loading">
         <div class="row text-center card-block">
-            <div class="col-xs-12 col-sm-6 noSidePadding">
-                <h5>П.І.П. замовника: <p><i>{{order.name}}</i></p></h5>
-                <h5>Номер телефону: <p><i>{{order.phone}}</i></p></h5>
-                <h5 ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">Адреса: </b><p><i>{{order.address}}</i></p></h5>
-                <h5 ng-show="order.deliveryType === 'NOVAPOSHTA'">Адреса: <p><i>{{order.departmentNumber}}</i></p></h5>
-                <h5>Сума замовлення: <p><i>{{order.total}} грн</i></p></h5>
-                <h5>Статус замовлення: <p><i>{{orderState(order)}}</i></p></h5>
-                <h5>Дата замовлення: <p><i>{{properDate}}</i></p></h5>
-            </div>
-            <div class="col-xs-12 col-sm-6 noSidePadding">
-                <h5>Замовлення: </h5>
-                <div class="row vcentering" ng-repeat="item in order.items">
-                    <div class="col-xs-8 col-sm-8">
-                        <p><i>{{item.name}}</i></p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4">
-                        <p><i>{{item.quantity}} шт.</i></p>
-                    </div>
-                </div>
+            <div class="col-xs-12 noSidePadding">
+                <h5>E-mail користувача: <p><i>{{userDetails.email}}</i></p></h5>
+                <h5>Телефон користувача: <p><i>{{userDetails.phone}}</i></p></h5>
+                <h5>Магазини: <p ng-repeat="shop in userDetails.shopList"><i>{{shop.shopName}}</i></p></h5>
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="deleteOrder" tabindex="-1" role="dialog">
+<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -72,9 +54,9 @@
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
                 <div class="col-xs-offset-3 col-xs-6">
-                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteOrder()" ng-show="deleteButton">Видалити</button>
+                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteUser()" ng-show="deleteButton">Видалити</button>
                 </div>
-                <a href="#/" class="col-xs-offset-4 col-xs-4 noUnderline">
+                <a href="#/users" class="col-xs-offset-4 col-xs-4 noUnderline">
                     <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
                 </a>
             </div>

@@ -1,5 +1,5 @@
 angular.module('SuperWiseHands')
-    .controller('ShopDetailsController', ['$scope', '$http', 'sideNavInit', '$routeParams',
+    .controller('UserDetailsController', ['$scope', '$http', 'sideNavInit', '$routeParams',
         function($scope, $http, sideNavInit, $routeParams) {
             sideNavInit.sideNav();
             $scope.uuid = $routeParams.uuid;
@@ -7,7 +7,7 @@ angular.module('SuperWiseHands')
 
             $http({
                 method: 'GET',
-                url: '/sudo/shop/' + $routeParams.uuid,
+                url: '/sudo/user/' + $routeParams.uuid,
                 headers: {
                     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
                     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
@@ -15,8 +15,7 @@ angular.module('SuperWiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.loading = false;
-                    $scope.shopDetails = response.data;
-
+                    $scope.userDetails = response.data;
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();
@@ -25,27 +24,27 @@ angular.module('SuperWiseHands')
                     $scope.status = 'Щось пішло не так...';
                 });
 
-            $scope.deleteMessage = 'Ви дійсно хочете видалити даний магазин?';
+            $scope.deleteMessage = 'Ей, бро, ти рілі хочеш видалити цього Мішу?';
             $scope.hideModal = function () {
-                $('#deleteShop').modal('hide');
+                $('#deleteUser').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
             };
             $scope.deleteButton = true;
 
-            $scope.deleteShop = function () {
+            $scope.deleteUser = function () {
                 $scope.deleteButton = false;
                 $scope.modalSpinner = true;
                 $http({
                     method: 'DELETE',
-                    url: '/sudo/shop/' + $routeParams.uuid,
+                    url: '/sudo/user/' + $routeParams.uuid,
                     headers: {
                         'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
                         'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
                     }
                 })
                     .then(function successCallback(response) {
-                        $scope.deleteMessage = 'Магазин видалений.';
+                        $scope.deleteMessage = 'Міша видалений.';
                         $scope.modalSpinner = false;
                         $scope.succesfullDelete = true;
                     }, function errorCallback(response) {

@@ -1,7 +1,11 @@
 body {
     margin-top: 4.7em;
 }
-
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .sideNavButtonStyling {
     position: relative !important;
     padding-left: 0 !important;
@@ -124,5 +128,10 @@ label.whiteCheckBox::after {
 }
 .lightPrimaryColor {
     background-color: #3F51B5;
+}
+.paragraphPadding {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin: 0;
 }
 

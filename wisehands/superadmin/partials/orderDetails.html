@@ -3,7 +3,7 @@
         <div class="row vcentering">
             <a class="col-xs-2 noPaddingLeft"
                type="button"
-               ng-click="goBack()">
+               href="#/orders">
                 <i class="fa fa-arrow-circle-left whiteColor pull-left">
                 </i>
             </a>
@@ -16,19 +16,17 @@
                type="button"
                data-toggle="dropdown"
                aria-haspopup="true"
-               aria-expanded="false"
-               ng-hide="order.state === 'DELETED'">
+               aria-expanded="false">
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="shippedOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED'"><p>Надіслано</p></a>
-                    <a class="col-xs-12 text-left" ng-click="cancelledOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED'"><p>Скасовано</p></a>
                     <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteOrder"><p>Видалити</p></a>
                 </div>
             </a>
         </div>
     </div>
 </nav>
+
 <div class="container-fluid">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
@@ -36,7 +34,7 @@
     <div class="card" ng-hide="loading">
         <div class="row text-center card-block">
             <div class="col-xs-12 col-sm-6 noSidePadding">
-                <h5>П.І.П. замовника: <p><i>{{order.name}}</i></p></h5>
+                <h5>П.І.П. замовника: <p class="truncate"><i>{{order.name}}</i></p></h5>
                 <h5>Номер телефону: <p><i>{{order.phone}}</i></p></h5>
                 <h5 ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">Адреса: </b><p><i>{{order.address}}</i></p></h5>
                 <h5 ng-show="order.deliveryType === 'NOVAPOSHTA'">Адреса: <p><i>{{order.departmentNumber}}</i></p></h5>
@@ -74,7 +72,7 @@
                 <div class="col-xs-offset-3 col-xs-6">
                     <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteOrder()" ng-show="deleteButton">Видалити</button>
                 </div>
-                <a href="#/" class="col-xs-offset-4 col-xs-4 noUnderline">
+                <a href="#/orders" class="col-xs-offset-4 col-xs-4 noUnderline">
                     <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
                 </a>
             </div>

@@ -15,8 +15,13 @@ POST    {client}/signup                                 UserAPI.register
 GET     {client}/profile                                UserAPI.profile
 GET     {client}/user/{uuid}                            UserAPI.details
 
-GET     {client}/sudo/users                            		UserAPI.list
-DELETE  {client}/sudo/user/{uuid}                           	UserAPI.delete
+GET     {client}/sudo/users                            	UserAPI.list
+GET     {client}/sudo/user/{uuid}                       UserAPI.one
+DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
+
+GET     {client}/sudo/orders                            OrderAPI.all
+GET     {client}/sudo/order/{uuid}                      OrderAPI.one
+DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
 
 
 GET     {client}/products                               ProductAPI.list

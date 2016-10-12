@@ -199,6 +199,11 @@ public class UserAPI extends AuthController {
         renderJSON(json(UserDTO.findAll()));
     }
 
+    public static void one(String client, String uuid) throws Exception {
+        UserDTO user = UserDTO.find("byUuid",uuid).first();
+        renderJSON(json(user));
+    }
+
     public static void delete(String client, String uuid) {
         UserDTO user = UserDTO.find("byUuid",uuid).first();
 

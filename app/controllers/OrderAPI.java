@@ -140,6 +140,20 @@ public class OrderAPI extends AuthController {
         renderJSON(json(orders));
     }
 
+    public static void all(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        List<OrderDTO> orders = OrderDTO.find("byShop", shop).fetch();
+
+        renderJSON(json(orders));
+    }
+
+    public static void one(String client, String uuid) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
+
+        renderJSON(json(orderDTO));
+    }
+
 
     public static void delete(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -152,6 +166,14 @@ public class OrderAPI extends AuthController {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         System.out.println("User " + loggedInUser.name + " deleted order " + order.name + " at " + dateFormat.format(date));
+
+        ok();
+    }
+
+    public static void sudoDelete(String client, String uuid) throws Exception {
+        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        order.state = OrderState.DELETED;
+        order.save();
 
         ok();
     }
