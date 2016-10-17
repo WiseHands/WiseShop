@@ -27,7 +27,7 @@ angular.module('WiseHands')
                 img.setAttribute("src", '/public/product_images/' + $scope.product.fileName);
             };
 
-
+            var productImages = [];
             var fd = new FormData();
 
             var imageLoader = document.getElementById('imageLoader');
@@ -58,6 +58,7 @@ angular.module('WiseHands')
 
 
                         var blob = dataURItoBlob(dataURL);
+                        productImages.push(blob);
                         fd.append('photo', blob, "product" + Date.now());
                     };
                     img.src = event.target.result;

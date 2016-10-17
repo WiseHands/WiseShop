@@ -34,10 +34,46 @@
     <div class="col-md-12 noSidePadding" ng-hide="loading">
         <div class="card card-min hoverable">
             <div class="card-image waves-effect waves-block waves-light view overlay hm-white-slight col-sm-6">
-                <h5 class="card-label"><span class="label rgba-purple-strong">{{product.price}} грн</span></h5>
-                <a href=""><img ng-src="/public/product_images/{{product.fileName}}">
-                    <div class="mask"> </div>
-                </a>
+                <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
+                    <!--Main image-->
+                    <div class="col-xs-8">
+                        <h5 class="card-label"><span class="label rgba-purple-strong">{{product.price}} грн</span></h5>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner z-depth-1 hoverable" role="listbox">
+                            <!-- First slide -->
+                            <div class="item active">
+                                <img ng-src="/public/product_images/{{product.fileName}}" alt="slide1">
+                            </div>
+                            <!-- /.item -->
+
+                            <!-- Second slide -->
+                            <div class="item">
+                                <img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-2.jpg" alt="slide2">
+                            </div>
+                            <!-- /.item -->
+
+                            <!-- Third slide -->
+                            <div class="item">
+                                <img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-3.jpg" alt="slide3">
+                            </div>
+                            <!-- /.item -->
+                        </div>
+                        <!-- /.carousel-inner -->
+                    </div>
+                    <!--/.Main image-->
+
+                    <!-- Indicators -->
+                    <div class="col-xs-4">
+                        <ul class="carousel-indicators">
+                            <li data-target="#car-gall" data-slide-to="0" class="active"><img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-1.jpg" class="img-responsive z-depth-1 hoverable">
+                            </li>
+                            <li data-target="#car-gall" data-slide-to="1"><img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-2.jpg" class="img-responsive z-depth-1 hoverable"></li>
+                            <li data-target="#car-gall" data-slide-to="2"><img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-3.jpg" class="img-responsive z-depth-1 hoverable"></li>
+                        </ul>
+                    </div>
+                    <!-- Indicators -->
+
+                </div>
             </div>
             <div class="card-content col-sm-6">
                 <h5 class="product-title">{{product.name}}</h5>

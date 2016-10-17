@@ -5,8 +5,7 @@ angular.module('WiseHands')
         var imageLoader = document.getElementById('imageLoader');
         imageLoader.addEventListener('change', handleImage, false);
         var canvas = document.getElementById('imageCanvas');
-        var ctx = canvas.getContext('2d');
-
+        $scope.productImages = [];
         function handleImage(e){
             var reader = new FileReader();
             reader.onload = function(event){
@@ -14,8 +13,6 @@ angular.module('WiseHands')
                 img.onload = function(){
                     var MAX_WIDTH = 576;
                     var MAX_HEIGHT = 432;
-                    var width = img.width;
-                    var height = img.height;
                     height = MAX_HEIGHT;
                     width = MAX_WIDTH;
 
@@ -25,20 +22,25 @@ angular.module('WiseHands')
                     ctx.drawImage(img, 0, 0, width, height);
                     var dataURL = canvas.toDataURL('image/jpeg', 0.5);
 
-
-
                     var blob = dataURItoBlob(dataURL);
-                    fd.append('photo', blob, "product" + Date.now());
+
+                    fd.append('photo', blob);
+                    $scope.$apply(function() {
+                        $scope.productImages.push(dataURL);
+                    });
+
                 };
                 img.src = event.target.result;
+
             };
             reader.readAsDataURL(e.target.files[0]);
+
         }
-        
+
         $scope.loadImage = function () {
             $('#imageLoader').click();
         };
-        
+
         $scope.submitProduct = function () {
             $scope.loading = true;
             fd.append('name', $scope.product.name);
