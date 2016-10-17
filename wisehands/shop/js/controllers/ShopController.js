@@ -7,9 +7,7 @@
 
 (function(){
     angular.module('WiseShop')
-        .controller('ShopController', ['$scope', '$http',  function($scope, $http) {
-            // $scope.phoneRegEx = /^[0-9]{12,12}$/;
-
+        .controller('ShopController', ['$scope', '$http','shared',  function($scope, $http, shared) {
             
             $scope.minOrderForFreeDelivery = 501;
             $http({
@@ -18,7 +16,6 @@
             })
                 .then(function successCallback(response) {
                     $scope.products = response.data;
-
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -101,20 +98,22 @@
                 return '';
             };
 
-            $scope.selectedItems = [];
+            function loadOptions() {
+                $scope.selectedItems = shared.getSelectedItems();
+                $scope.totalItems = shared.getTotalItems();
+            }
+
+            loadOptions();
+
             $scope.buyStart = function (index, $event) {
-
-                
-
 
                 var today = new Date();
 
                 var startMinutes = $scope.startTime.getHours() * 60 + $scope.startTime.getMinutes();
-                var endMinuts = $scope.endTime.getHours() * 60 + $scope.endTime.getMinutes();
+                var endMinutes = $scope.endTime.getHours() * 60 + $scope.endTime.getMinutes();
                 var nowMinutes = today.getHours() * 60 + today.getMinutes();
 
-                var isNotWorkingTime = nowMinutes < startMinutes || nowMinutes >= endMinuts;
-
+                var isNotWorkingTime = nowMinutes < startMinutes || nowMinutes >= endMinutes;
 
                 if(isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
@@ -122,10 +121,12 @@
                     if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
                         $scope.products[index].quantity = 1;
                         $scope.selectedItems.push($scope.products[index]);
+                        shared.setSelectedItems($scope.selectedItems);
                         $scope.calculateTotal();
 
                     } else {
                         $scope.products[index].quantity ++;
+                        shared.setSelectedItems($scope.selectedItems);
                         $scope.calculateTotal();
                     }
                     if ($event.stopPropagation) $event.stopPropagation();
@@ -147,26 +148,27 @@
             $scope.removeSelectedItem = function (index){
                 $scope.selectedItems.splice(index, 1);
                 $scope.calculateTotal();
+                shared.setSelectedItems($scope.selectedItems);
                 
             };
 
             $scope.removeAll = function () {
                 $scope.selectedItems.length = 0;
                 $scope.calculateTotal();
+                shared.setSelectedItems($scope.selectedItems);
 
             };
 
             $scope.calculateTotal = function(){
                 $scope.total = 0;
+                $scope.totalItems = 0;
                 for(var i =0; i < $scope.selectedItems.length; i++){
                     var item = $scope.selectedItems[i];
                     $scope.total += (item.quantity * item.price);
-                }
-                $scope.totalItems = 0;
-                $scope.selectedItems.forEach(function(selectedItem, key, array) {
-                    $scope.totalItems += selectedItem.quantity;
+                    $scope.totalItems += item.quantity;
 
-                });
+                }
+                shared.setTotalItems($scope.totalItems);
 
             };
 
@@ -201,11 +203,6 @@
                     $scope.loading = false;
                     console.log(data);
                 });
-            };
-            $scope.showProductTooltip = function () {
-                    $('.productTooltip').on('click',function(){
-                        $(this).tooltip('show');
-                    });
             };
 
             function equalizeHeights(selector) {

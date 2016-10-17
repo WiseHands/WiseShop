@@ -14,6 +14,10 @@
                     templateUrl:'wisehands/shop/partials/contacts.html',
                     controller:'ContactsController'
                 }).
+                when('/product/:uuid',{
+                    templateUrl:'wisehands/shop/partials/productDetails.html',
+                    controller:'ProductDetailsController'
+                }).
                 otherwise({
                     redirectTo:'/'
                 });

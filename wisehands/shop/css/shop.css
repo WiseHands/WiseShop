@@ -85,3 +85,45 @@ main {
     margin-left: 0;
     margin-top: 4.5em;
 }
+.buyButtonDetails {
+    margin: 0;
+    margin-bottom: 1.5em;
+}
+.noBorder {
+    border: none;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-device-width : 480px) {
+    .productTitle {
+        margin: 7.5px 0;
+    }
+    .buyButtonDetails {
+        margin: 0;
+    }
+
+}
+
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-device-width: 568px) and (max-device-width: 767px){
+    .productTitle {
+        margin: 7.5px 0;
+    }
+}
+@media (min-width: 994px) and (max-width: 1101px) {
+    .carousel-indicators {
+        bottom: -45px;
+    }
+}
+
+
+/* Tablet ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+}
+.noBoxShadow img {
+    box-shadow: none !important;
+}
+.pullRight {
+    float: right !important;
+}

@@ -163,12 +163,10 @@
                 </div>
 
                 <div class="card-block text-xs-center">
-                    <h4 class="card-title fixed-height"><strong><a href="">{{productDTO.name}}</a></strong></h4>
-
+                    <h4 class="card-title fixed-height"><strong><a href="#/product/{{productDTO.uuid}}">{{productDTO.name}}</a></strong></h4>
                     <div class="fixed-height">
-                        <a class="productTooltip fixed-height" data-toggle="tooltip" data-placement="top" title="{{productDTO.description}}" ng-click="showProductTooltip()"><p class="card-text productDescriptionTruncate">{{productDTO.description}}</p></a>
+                        <p class="card-text productDescriptionTruncate">{{productDTO.description}}</p>
                     </div>
-
                     <div class="card-footer">
                         <span class="left">{{productDTO.price}} грн</span>
                         <span class="right" ng-click="buyStart($index, $event)"><a data-toggle="tooltip" data-placement="top" title="Додати в Корзину"><i class="fa fa-shopping-cart"></i></a></span>
@@ -178,6 +176,7 @@
 
             </div>
 
+        </div>
 
             <div class="modal fade cart-modal row" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog col-xs-12 modalPosition" role="document">
@@ -208,7 +207,6 @@
                                             <input  class="inputTextCentering"
                                                     type="number"
                                                     ng-model="item.quantity"
-                                                    ng-init="item.quantity=1"
                                                     ng-change="calculateTotal()"
                                                     min="1"> шт.
                                             </input>
