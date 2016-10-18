@@ -6,11 +6,16 @@ angular.module('WiseHands')
         imageLoader.addEventListener('change', handleImage, false);
         var canvas = document.getElementById('imageCanvas');
         $scope.productImages = [];
+        $scope.productImagesDTO = [];
         function handleImage(e){
             var reader = new FileReader();
+            $scope.$apply(function() {
+                $scope.loading = true;
+            });
             reader.onload = function(event){
                 var img = new Image();
                 img.onload = function(){
+
                     var MAX_WIDTH = 576;
                     var MAX_HEIGHT = 432;
                     height = MAX_HEIGHT;
@@ -24,16 +29,20 @@ angular.module('WiseHands')
 
                     var blob = dataURItoBlob(dataURL);
 
-                    fd.append('photo', blob);
+                    // fd.append('photo', blob);
+
                     $scope.$apply(function() {
                         $scope.productImages.push(dataURL);
-                    });
+                        $scope.productImagesDTO.push(blob);
 
+                    });
                 };
                 img.src = event.target.result;
+                $scope.loading = false;
 
             };
             reader.readAsDataURL(e.target.files[0]);
+
 
         }
 
@@ -43,6 +52,13 @@ angular.module('WiseHands')
 
         $scope.submitProduct = function () {
             $scope.loading = true;
+            // debugger;
+            for (var i = 0; i < $scope.productImagesDTO.length; i++) {
+                var blob = $scope.productImagesDTO[i]
+                console.log(blob);
+                fd.append("photos[" + i + "]", blob);
+            }
+            // fd.append('photos[]', $scope.productImagesDTO);
             fd.append('name', $scope.product.name);
             fd.append('description', $scope.product.description);
             fd.append('price', $scope.product.price);

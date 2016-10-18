@@ -204,3 +204,6 @@ label.whiteCheckBox::after {
     pointer-events: none;
     cursor: default;
 }
+#imageLoader {
+    display: none;
+}

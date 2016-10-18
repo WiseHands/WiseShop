@@ -17,17 +17,19 @@ import java.util.*;
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
 
-    public static void create(String client, String name, String description, Double price, Upload photo) throws Exception {
+    public static void create(String client, String name, String description, Double price, File fake) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
+        Files.createDirectories(Paths.get(USERIMAGESPATH + shop.uuid));
 
-        Files.createDirectories(Paths.get(USERIMAGESPATH + client));
+        List<Upload> photos = (List<Upload>) request.args.get("__UPLOADS");
+        for(Upload photo: photos) {
+            FileOutputStream out = new FileOutputStream(USERIMAGESPATH + shop.uuid + "/" + UUID.randomUUID()+".jpg");
+            out.write(photo.asBytes());
+            out.close();
+        }
 
-        FileOutputStream out = new FileOutputStream(USERIMAGESPATH + client + "/" + photo.getFileName());
-        out.write(photo.asBytes());
-        out.close();
-
-        ProductDTO product = new ProductDTO(name, description, price, client + "/" + photo.getFileName(), shop, null);
+        ProductDTO product = new ProductDTO(name, description, price, client + "/" + photos.get(0).getFileName(), shop, null);
         product.save();
         if (shop.productList == null) {
             shop.productList = new ArrayList<ProductDTO>();
