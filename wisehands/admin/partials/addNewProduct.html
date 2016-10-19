@@ -69,20 +69,37 @@
         <div class="col-xs-4">
             <ul class="carousel-indicators">
                 <li data-target="#car-gall" data-slide-to="0" class="active">
-                    <div class="label label-success photoLabelStyle" ng-show="productImages.length >= 1" data-toggle="tooltip" data-placement="top" title="Зробити головною">
+                    <div class="label label-success photoLabelStyle"
+                         ng-hide="product.mainPhoto === 0 || productImages.length === 0"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                         title="Зробити головною"
+                         ng-click="setMainPhotoIndexToZero(); $event.stopPropagation();">
                         <span class="glyphicon glyphicon-exclamation-sign"></span>
                     </div>
                     <img ng-src="{{productImages[0]}}" class="img-responsive z-depth-1 hoverable">
-                    <div class="label label-danger photoLabelStyle" ng-show="productImages.length >= 1" data-toggle="tooltip" data-placement="top" title="Видалити">
+                    <div class="label label-danger photoLabelStyle"
+                         ng-show="productImages.length >= 1"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                         title="Видалити">
                         <span class="glyphicon glyphicon-remove-sign"></span>
                     </div>
                 </li>
                 <li data-target="#car-gall" data-slide-to="{{$index+1}}"  ng-repeat="image in productImages.slice(1,productImages.length)">
-                    <div class="label label-success photoLabelStyle" data-toggle="tooltip" data-placement="top" title="Видалити">
+                    <div class="label label-success photoLabelStyle"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                         title="Зробити головною"
+                         ng-hide="product.mainPhoto === $index + 1"
+                         ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
                         <span class="glyphicon glyphicon-exclamation-sign"></span>
                     </div>
                     <img ng-src="{{image}}" class="img-responsive z-depth-1 hoverable">
-                    <div class="label label-danger photoLabelStyle">
+                    <div class="label label-danger photoLabelStyle"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                         title="Видалити">
                         <span class="glyphicon glyphicon-remove-sign"></span>
                     </div>
                 </li>

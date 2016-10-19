@@ -36,7 +36,11 @@ public class ProductDTO extends GenericModel {
     public CategoryDTO category;
 
     @Expose
-    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL)
+    @OneToOne
+    public ProductImage mainImage;
+
+    @Expose
+    @OneToMany(orphanRemoval = true)
     public List<ProductImage> images;
 
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop) {
@@ -48,6 +52,10 @@ public class ProductDTO extends GenericModel {
         this.description = description;
         this.price = price;
         this.images = images;
+        if(this.images != null){
+            this.mainImage = images.get(0);
+            this.mainImage.save();
+        }
         this.shop = shop;
         this.category = category;
     }

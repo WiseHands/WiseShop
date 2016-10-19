@@ -38,6 +38,10 @@ angular.module('WiseHands')
                     // fd.append('photo', blob);
 
                     $scope.$apply(function() {
+                        if(!$scope.product){
+                            $scope.product = {};
+                            $scope.product.mainPhoto = 0;
+                        } 
                         $scope.productImages.push(dataURL);
                         $scope.productImagesDTO.push(blob);
 
@@ -56,18 +60,31 @@ angular.module('WiseHands')
             $('#imageLoader').click();
         };
 
+        $scope.setMainPhotoIndexToZero = function () {
+            if(!$scope.product){
+                $scope.product = {};
+                $scope.product.mainPhoto = 0;
+            } else if($scope.product.mainPhoto) {
+                $scope.product.mainPhoto = 0;
+            }
+        };
+        
+        $scope.setMainPhotoIndex = function (index) {
+            if ($scope.product){
+                $scope.product.mainPhoto = index + 1;
+            }
+        };
+        
         $scope.submitProduct = function () {
             $scope.loading = true;
-            // debugger;
             for (var i = 0; i < $scope.productImagesDTO.length; i++) {
-                var blob = $scope.productImagesDTO[i]
-                console.log(blob);
+                var blob = $scope.productImagesDTO[i];
                 fd.append("photos[" + i + "]", blob);
             }
-            // fd.append('photos[]', $scope.productImagesDTO);
             fd.append('name', $scope.product.name);
             fd.append('description', $scope.product.description);
             fd.append('price', $scope.product.price);
+            fd.append('mainPhotoIndex', $scope.product.mainPhoto);
 
             $http.post('/product', fd, {
                     transformRequest: angular.identity,

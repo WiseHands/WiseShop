@@ -30,7 +30,9 @@ public class ProductAPI extends AuthController {
             FileOutputStream out = new FileOutputStream(USERIMAGESPATH + shop.uuid + "/" + filename);
             out.write(photo.asBytes());
             out.close();
-            images.add(new ProductImage(filename));
+            ProductImage productImage = new ProductImage(filename);
+            productImage = productImage.save();
+            images.add(productImage);
         }
 
         ProductDTO product = new ProductDTO(name, description, price, images, shop, null);
