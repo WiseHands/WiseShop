@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -34,15 +35,19 @@ public class ProductDTO extends GenericModel {
     @ManyToOne
     public CategoryDTO category;
 
-    public ProductDTO(String name, String description, Double price, String filename, ShopDTO shop) {
-        this(name, description, price, filename, shop, null);
+    @Expose
+    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL)
+    public List<ProductImage> images;
+
+    public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop) {
+        this(name, description, price, images, shop, null);
     }
 
-    public ProductDTO(String name, String description, Double price, String filename, ShopDTO shop, CategoryDTO category) {
+    public ProductDTO(String name, String description, Double price,  List<ProductImage> images, ShopDTO shop, CategoryDTO category) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.fileName = filename;
+        this.images = images;
         this.shop = shop;
         this.category = category;
     }

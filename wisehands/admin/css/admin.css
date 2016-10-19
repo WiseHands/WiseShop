@@ -207,3 +207,7 @@ label.whiteCheckBox::after {
 #imageLoader {
     display: none;
 }
+.photoLabelStyle {
+    text-indent: 0;
+    display: block;
+}

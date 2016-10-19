@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.ProductDTO;
+import models.ProductImage;
 import models.ShopDTO;
 import play.data.Upload;
 
@@ -23,13 +24,16 @@ public class ProductAPI extends AuthController {
         Files.createDirectories(Paths.get(USERIMAGESPATH + shop.uuid));
 
         List<Upload> photos = (List<Upload>) request.args.get("__UPLOADS");
+        List<ProductImage> images = new ArrayList<ProductImage>();
         for(Upload photo: photos) {
-            FileOutputStream out = new FileOutputStream(USERIMAGESPATH + shop.uuid + "/" + UUID.randomUUID()+".jpg");
+            String filename = UUID.randomUUID()+".jpg";
+            FileOutputStream out = new FileOutputStream(USERIMAGESPATH + shop.uuid + "/" + filename);
             out.write(photo.asBytes());
             out.close();
+            images.add(new ProductImage(filename));
         }
 
-        ProductDTO product = new ProductDTO(name, description, price, client + "/" + photos.get(0).getFileName(), shop, null);
+        ProductDTO product = new ProductDTO(name, description, price, images, shop, null);
         product.save();
         if (shop.productList == null) {
             shop.productList = new ArrayList<ProductDTO>();

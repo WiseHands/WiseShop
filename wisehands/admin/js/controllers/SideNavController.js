@@ -41,7 +41,7 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
-
+                localStorage.setItem('activeShop', $scope.activeShop.uuid);
             }, function errorCallback(response) {
                 if (response.data === 'Invalid X-AUTH-TOKEN') {
                     signout.signOut();

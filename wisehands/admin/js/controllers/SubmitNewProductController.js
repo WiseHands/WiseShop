@@ -1,5 +1,11 @@
 angular.module('WiseHands')
     .controller('SubmitNewProductController', ['$scope', '$location', '$http', 'signout', function ($scope, $location, $http, signout) {
+
+
+        // $(document).ready(function(){
+        //     $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 300, hide: 300}});
+        // });
+
         var fd = new FormData();
 
         var imageLoader = document.getElementById('imageLoader');

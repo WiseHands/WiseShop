@@ -15,6 +15,8 @@ angular.module('WiseHands')
                     $scope.status = 'Товари відсутні';
                 } else {
                     $scope.products = response.data;
+                    $scope.activeShop = localStorage.getItem('activeShop');
+                    debugger;
                 }
             }, function errorCallback(data) {
                 spinnerService.hide('mySpinner');
