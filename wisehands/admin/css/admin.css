@@ -211,3 +211,6 @@ label.whiteCheckBox::after {
     text-indent: 0;
     display: block;
 }
+.imageFlex {
+    width: auto !important;
+}

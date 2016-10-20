@@ -74,7 +74,14 @@ angular.module('WiseHands')
                 $scope.product.mainPhoto = index + 1;
             }
         };
-        
+
+        $scope.removeMainImage = function (){
+            
+            $scope.productImages.splice(0, 1);
+            $scope.productImagesDTO.splice(0, 1);
+            console.log($scope.productImages, $scope.productImagesDTO);
+        };
+
         $scope.submitProduct = function () {
             $scope.loading = true;
             for (var i = 0; i < $scope.productImagesDTO.length; i++) {

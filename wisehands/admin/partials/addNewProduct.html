@@ -68,7 +68,7 @@
         <!-- Indicators -->
         <div class="col-xs-4">
             <ul class="carousel-indicators">
-                <li data-target="#car-gall" data-slide-to="0" class="active">
+                <li data-target="#car-gall" data-slide-to="0" class="active imageFlex">
                     <div class="label label-success photoLabelStyle"
                          ng-hide="product.mainPhoto === 0 || productImages.length === 0"
                          data-toggle="tooltip"
@@ -82,11 +82,12 @@
                          ng-show="productImages.length >= 1"
                          data-toggle="tooltip"
                          data-placement="top"
-                         title="Видалити">
+                         title="Видалити"
+                         ng-click="removeMainImage()">
                         <span class="glyphicon glyphicon-remove-sign"></span>
                     </div>
                 </li>
-                <li data-target="#car-gall" data-slide-to="{{$index+1}}"  ng-repeat="image in productImages.slice(1,productImages.length)">
+                <li class="imageFlex" data-target="#car-gall" data-slide-to="{{$index+1}}"  ng-repeat="image in productImages.slice(1,productImages.length)">
                     <div class="label label-success photoLabelStyle"
                          data-toggle="tooltip"
                          data-placement="top"
