@@ -15,10 +15,11 @@ angular.module('WiseHands')
         $scope.productImagesDTO = [];
         function handleImage(e){
             var reader = new FileReader();
-            $scope.$apply(function() {
-                $scope.loading = true;
-            });
+
             reader.onload = function(event){
+                $scope.$apply(function() {
+                    $scope.loading = true;
+                });
                 var img = new Image();
                 img.onload = function(){
 
@@ -38,10 +39,11 @@ angular.module('WiseHands')
                     // fd.append('photo', blob);
 
                     $scope.$apply(function() {
-                        if(!$scope.product){
+                        if(!$scope.product || $scope.product.mainPhoto){
                             $scope.product = {};
                             $scope.product.mainPhoto = 0;
-                        } 
+                        }
+                        $scope.product.mainPhoto = 0;
                         $scope.productImages.push(dataURL);
                         $scope.productImagesDTO.push(blob);
 
@@ -60,26 +62,27 @@ angular.module('WiseHands')
             $('#imageLoader').click();
         };
 
-        $scope.setMainPhotoIndexToZero = function () {
-            if(!$scope.product){
-                $scope.product = {};
-                $scope.product.mainPhoto = 0;
-            } else if($scope.product.mainPhoto) {
-                $scope.product.mainPhoto = 0;
-            }
-        };
+        // $scope.setMainPhotoIndexToZero = function () {
+        //     if(!$scope.product){
+        //         $scope.product = {};
+        //         $scope.product.mainPhoto = 0;
+        //     } else if($scope.product.mainPhoto) {
+        //         $scope.product.mainPhoto = 0;
+        //     }
+        // };
         
         $scope.setMainPhotoIndex = function (index) {
             if ($scope.product){
-                $scope.product.mainPhoto = index + 1;
+                $scope.product.mainPhoto = index;
             }
         };
 
-        $scope.removeMainImage = function (){
-            
-            $scope.productImages.splice(0, 1);
-            $scope.productImagesDTO.splice(0, 1);
-            console.log($scope.productImages, $scope.productImagesDTO);
+        $scope.removeImage = function (index){
+            $scope.productImages.splice(index, 1);
+            $scope.productImagesDTO.splice(index, 1);
+            if (index === $scope.product.mainPhoto){
+                $scope.product.mainPhoto = 0;
+            }
         };
 
         $scope.submitProduct = function () {

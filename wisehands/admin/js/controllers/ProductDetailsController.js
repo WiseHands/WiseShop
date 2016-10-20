@@ -9,6 +9,8 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
                     $scope.loading = false;
                     $scope.product = response.data;
+                    $scope.activeShop = localStorage.getItem('activeShop');
+                    debugger;
                 }, function errorCallback(error) {
                     $scope.loading = false;
                     console.log(error);

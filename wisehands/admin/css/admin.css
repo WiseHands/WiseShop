@@ -204,9 +204,9 @@ label.whiteCheckBox::after {
     pointer-events: none;
     cursor: default;
 }
-#imageLoader {
-    display: none;
-}
+/*#imageLoader {*/
+    /*display: none;*/
+/*}*/
 .photoLabelStyle {
     text-indent: 0;
     display: block;

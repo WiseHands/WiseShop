@@ -38,7 +38,7 @@
             <label for="textarea1">Опис товару</label>
         </div>
         <div class="file-field input-field col-xs-12">
-            <button type="button" class="btn btn-default waves-effect waves-light pull-right accentColor" ng-click="loadImage()">
+            <button type="button" class="btn btn-default waves-effect waves-light pull-right accentColor btn-block" ng-click="loadImage()">
                 <span>Додати фото товару</span>
             </button>
             <input name="imageLoader" type="file" id="imageLoader" required/>
@@ -52,12 +52,12 @@
             <div class="carousel-inner z-depth-1 hoverable" role="listbox">
                 <!-- First slide -->
                 <div class="item active" ng-show="productImages.length >= 1">
-                    <img ng-src="{{productImages[0]}}" alt="slide1">
+                    <img ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
                 </div>
                 <!-- /.item -->
 
                 <!-- Second slide -->
-                <div class="item" ng-repeat="image in productImages.slice(1,productImages.length)">
+                <div class="item" ng-repeat="image in productImages">
                     <img ng-src="{{image}}" alt="slide2">
                 </div>
             </div>
@@ -68,39 +68,18 @@
         <!-- Indicators -->
         <div class="col-xs-4">
             <ul class="carousel-indicators">
-                <li data-target="#car-gall" data-slide-to="0" class="active imageFlex">
-                    <div class="label label-success photoLabelStyle"
-                         ng-hide="product.mainPhoto === 0 || productImages.length === 0"
+                <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
+                    <img ng-src="{{image}}"
+                         class="img-responsive z-depth-1 hoverable"
                          data-toggle="tooltip"
                          data-placement="top"
                          title="Зробити головною"
-                         ng-click="setMainPhotoIndexToZero(); $event.stopPropagation();">
-                        <span class="glyphicon glyphicon-exclamation-sign"></span>
-                    </div>
-                    <img ng-src="{{productImages[0]}}" class="img-responsive z-depth-1 hoverable">
-                    <div class="label label-danger photoLabelStyle"
-                         ng-show="productImages.length >= 1"
+                         ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
+                    <div class="label label-danger photoLabelStyle hoverable"
                          data-toggle="tooltip"
                          data-placement="top"
                          title="Видалити"
-                         ng-click="removeMainImage()">
-                        <span class="glyphicon glyphicon-remove-sign"></span>
-                    </div>
-                </li>
-                <li class="imageFlex" data-target="#car-gall" data-slide-to="{{$index+1}}"  ng-repeat="image in productImages.slice(1,productImages.length)">
-                    <div class="label label-success photoLabelStyle"
-                         data-toggle="tooltip"
-                         data-placement="top"
-                         title="Зробити головною"
-                         ng-hide="product.mainPhoto === $index + 1"
-                         ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
-                        <span class="glyphicon glyphicon-exclamation-sign"></span>
-                    </div>
-                    <img ng-src="{{image}}" class="img-responsive z-depth-1 hoverable">
-                    <div class="label label-danger photoLabelStyle"
-                         data-toggle="tooltip"
-                         data-placement="top"
-                         title="Видалити">
+                         ng-click="removeImage($index); $event.stopPropagation();">
                         <span class="glyphicon glyphicon-remove-sign"></span>
                     </div>
                 </li>

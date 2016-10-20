@@ -16,7 +16,6 @@ angular.module('WiseHands')
                 } else {
                     $scope.products = response.data;
                     $scope.activeShop = localStorage.getItem('activeShop');
-                    debugger;
                 }
             }, function errorCallback(data) {
                 spinnerService.hide('mySpinner');
