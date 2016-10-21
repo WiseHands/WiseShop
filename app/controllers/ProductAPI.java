@@ -122,16 +122,30 @@ public class ProductAPI extends AuthController {
         checkAuthentification(shop);
 
         ProductDTO product = ProductDTO.findById(uuid);
+        product.mainImage = null;
+        product = product.save();
+        List<ProductImage> images = new ArrayList<ProductImage>(product.images);
+        //delete files on fs
+        for (ProductImage image: images) {
+            File file = new File(USERIMAGESPATH + shop.uuid + "/" + image.filename);
+            if(!file.delete()){
+                System.out.println("error deleting file: " + USERIMAGESPATH + product.fileName);
+            }
+        }
+        //delete ProductImages
+        product.images.clear();
+        product = product.save();
+        for (ProductImage image: images) {
+            image.delete();
+        }
+        shop.productList.remove(product);
+        shop = shop.save();
         product.delete();
 
-        File file = new File(USERIMAGESPATH + product.fileName);
-        if(!file.delete()){
-            System.out.println("error deleting file: " + USERIMAGESPATH + product.fileName);
-        }
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        System.out.println("User " + loggedInUser.name + " deleted product " + product.name + " at " + dateFormat.format(date));
+        System.out.println("Deleted product " + product.name + " at " + dateFormat.format(date));
 
         ok();
     }
