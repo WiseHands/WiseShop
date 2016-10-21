@@ -42,19 +42,13 @@
                         <div class="carousel-inner z-depth-1 hoverable" role="listbox">
                             <!-- First slide -->
                             <div class="item active">
-                                <img ng-src="/public/product_images/{{activeShop}}/{{product.mainImage.filename}}" alt="slide1">
+                                <img ng-src="/public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="slide1">
                             </div>
                             <!-- /.item -->
 
                             <!-- Second slide -->
-                            <div class="item">
-                                <img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-2.jpg" alt="slide2">
-                            </div>
-                            <!-- /.item -->
-
-                            <!-- Third slide -->
-                            <div class="item">
-                                <img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-3.jpg" alt="slide3">
+                            <div class="item" ng-repeat="image in product.images">
+                                <img src="/public/product_images/{{activeShop}}/{{image.filename}}" alt="slide2">
                             </div>
                             <!-- /.item -->
                         </div>
@@ -64,11 +58,13 @@
 
                     <!-- Indicators -->
                     <div class="col-xs-4">
-                        <ul class="carousel-indicators">
-                            <li data-target="#car-gall" data-slide-to="0" class="active"><img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-1.jpg" class="img-responsive z-depth-1 hoverable">
+                        <ul class="carousel-indicators correctImageDisplay" ng-show="product.images.length >= 2">
+                            <li data-target="#car-gall"
+                                ng-repeat="image in product.images"
+                                ng-click="select($index)"
+                                ng-class="{active: $index === selected}">
+                                <img src="/public/product_images/{{activeShop}}/{{image.filename}}" class="img-responsive z-depth-1 hoverable">
                             </li>
-                            <li data-target="#car-gall" data-slide-to="1"><img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-2.jpg" class="img-responsive z-depth-1 hoverable"></li>
-                            <li data-target="#car-gall" data-slide-to="2"><img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-3.jpg" class="img-responsive z-depth-1 hoverable"></li>
                         </ul>
                     </div>
                     <!-- Indicators -->

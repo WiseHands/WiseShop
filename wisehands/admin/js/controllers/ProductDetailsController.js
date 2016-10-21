@@ -10,13 +10,21 @@ angular.module('WiseHands')
                     $scope.loading = false;
                     $scope.product = response.data;
                     $scope.activeShop = localStorage.getItem('activeShop');
-                    debugger;
+                    $scope.product.images.forEach(function(image, index){
+                        if(image.uuid === $scope.product.mainImage.uuid){
+                            $scope.selected = index;
+                        }
+                    })
+
                 }, function errorCallback(error) {
                     $scope.loading = false;
                     console.log(error);
                 });
 
 
+            $scope.select= function(index) {
+            $scope.selected = index;
+            };
             $scope.deleteMessage = 'Ви дійсно хочете видалити даний товар?';
             $scope.hideModal = function () {
                 $('#deleteProduct').modal('hide');

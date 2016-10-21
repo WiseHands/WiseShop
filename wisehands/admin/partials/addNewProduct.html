@@ -47,7 +47,7 @@
     <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
 
         <!--Main image-->
-        <div class="col-xs-8">
+        <div class="col-sm-8">
             <!-- Wrapper for slides -->
             <div class="carousel-inner z-depth-1 hoverable" role="listbox">
                 <!-- First slide -->
@@ -58,7 +58,7 @@
 
                 <!-- Second slide -->
                 <div class="item" ng-repeat="image in productImages">
-                    <img ng-src="{{image}}" alt="slide2">
+                    <img ng-src="{{image}}">
                 </div>
             </div>
             <!-- /.carousel-inner -->
@@ -66,8 +66,8 @@
         <!--/.Main image-->
 
         <!-- Indicators -->
-        <div class="col-xs-4">
-            <ul class="carousel-indicators">
+        <div class="col-sm-4">
+            <ul class="carousel-indicators" ng-show="productImages.length >= 2">
                 <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
                     <img ng-src="{{image}}"
                          class="img-responsive z-depth-1 hoverable"

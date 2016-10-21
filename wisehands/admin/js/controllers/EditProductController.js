@@ -9,6 +9,7 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
                     $scope.loading = false;
                     $scope.product = response.data;
+                    debugger;
                     $scope.loadImgOntoCanvas();
                 }, function errorCallback(error) {
                     $scope.loading = false;
@@ -16,15 +17,19 @@ angular.module('WiseHands')
                 });
 
             $scope.loadImgOntoCanvas = function () {
-                var img = new window.Image();
-                img.addEventListener("load", function () {
-                    var canvas = document.getElementById("editCanvas");
-                    canvas.width = img.width;
-                    canvas.height = img.height;
+                $scope.product.images.forEach(function(image, index){
+                    var img = new window.Image();
+                    img.addEventListener("load", function () {
+                        var canvas = document.getElementById("editCanvas" + index);
+                        debugger;
+                        canvas.width = img.width;
+                        canvas.height = img.height;
 
-                    canvas.getContext("2d").drawImage(img, 0,0, canvas.width, canvas.height);
-                });
-                img.setAttribute("src", '/public/product_images/' + $scope.product.fileName);
+                        canvas.getContext("2d").drawImage(img, 0,0, canvas.width, canvas.height);
+                    });
+                    img.setAttribute("src", '/public/product_images/' + image.fileName);
+                })
+
             };
 
             var productImages = [];

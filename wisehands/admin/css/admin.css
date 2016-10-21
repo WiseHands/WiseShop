@@ -214,3 +214,6 @@ label.whiteCheckBox::after {
 .imageFlex {
     width: auto !important;
 }
+.correctImageDisplay {
+    margin-bottom: 0 !important;
+}
