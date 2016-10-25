@@ -1,56 +1,75 @@
 angular.module('WiseHands')
     .controller('EditProductController', ['$http', '$scope', '$routeParams', '$location', 'signout', function($http, $scope, $routeParams, $location, signout) {
-            $scope.uuid = $routeParams.uuid;
+
+        $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
             $http({
                 method: 'GET',
                 url: '/product/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {
-                    $scope.loading = false;
+
                     $scope.product = response.data;
-                    debugger;
+                    $scope.activeShop = localStorage.getItem('activeShop');
+                    $scope.product.images.forEach(function(image, index){
+                        if(image.uuid === $scope.product.mainImage.uuid){
+                            $scope.product.mainPhoto = index;
+                        }
+                    });
                     $scope.loadImgOntoCanvas();
+                    $scope.loading = false;
                 }, function errorCallback(error) {
                     $scope.loading = false;
                     console.log(error);
                 });
 
+
             $scope.loadImgOntoCanvas = function () {
-                $scope.product.images.forEach(function(image, index){
+                $scope.productImages = [];
+                $scope.product.images.forEach(function(image, index) {
                     var img = new window.Image();
+
                     img.addEventListener("load", function () {
-                        var canvas = document.getElementById("editCanvas" + index);
-                        debugger;
+                        var canvas = document.getElementById("editCanvas");
                         canvas.width = img.width;
                         canvas.height = img.height;
-
                         canvas.getContext("2d").drawImage(img, 0,0, canvas.width, canvas.height);
+                        var dataURL = canvas.toDataURL('image/jpeg', 0.5);
+                        var productImage = {};
+                        $scope.$apply(function() {
+                            productImage.uuid = $scope.product.images[index].uuid;
+                            productImage.dataURL = dataURL;
+                            $scope.productImages.push(productImage);
+                        });
                     });
-                    img.setAttribute("src", '/public/product_images/' + image.fileName);
-                })
+                    img.src = '/public/product_images/' + $scope.activeShop + '/' + image.filename;
+
+                    });
 
             };
 
-            var productImages = [];
+
+
             var fd = new FormData();
+
 
             var imageLoader = document.getElementById('imageLoader');
             imageLoader.addEventListener('change', handleImage, false);
             var canvas = document.getElementById('editCanvas');
-            var ctx = canvas.getContext('2d');
-
-
 
             function handleImage(e){
+                $scope.$apply(function() {
+                    $scope.loading = true;
+                });
                 var reader = new FileReader();
+
                 reader.onload = function(event){
+
                     var img = new Image();
                     img.onload = function(){
+
                         var MAX_WIDTH = 576;
                         var MAX_HEIGHT = 432;
-                        var width = img.width;
-                        var height = img.height;
                         height = MAX_HEIGHT;
                         width = MAX_WIDTH;
 
@@ -59,18 +78,112 @@ angular.module('WiseHands')
                         var ctx = canvas.getContext("2d");
                         ctx.drawImage(img, 0, 0, width, height);
                         var dataURL = canvas.toDataURL('image/jpeg', 0.5);
-
-
-
                         var blob = dataURItoBlob(dataURL);
-                        productImages.push(blob);
-                        fd.append('photo', blob, "product" + Date.now());
+                        $scope.myBlob = [blob];
+                        $scope.addNewPhoto();
                     };
+
                     img.src = event.target.result;
+
                 };
                 reader.readAsDataURL(e.target.files[0]);
-            }
 
+
+            }
+        $scope.addNewPhoto = function () {
+            var imageFd = new FormData();
+            for (var i = 0; i < $scope.myBlob.length; i++) {
+                var blob = $scope.myBlob[i];
+                imageFd.append("photos[" + i + "]", blob);
+            }
+            $http.put('/product/' + $routeParams.uuid + '/image', imageFd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
+                })
+                .success(function(response){
+                    $scope.product = response;
+                    $scope.product.images.forEach(function(image, index){
+                        if(image.uuid === $scope.product.mainImage.uuid){
+                            $scope.product.mainPhoto = index;
+                        }
+                    });
+                    $scope.loadImgOntoCanvas();
+                    $scope.loading = false;
+                })
+                .error(function(response){
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.loading = false;
+                    console.log(response);
+                });
+        };
+
+
+            $scope.setMainPhotoIndex = function (index, uuid) {
+                $scope.loading = true;
+                if ($scope.product){
+                    $scope.product.mainPhoto = index;
+                }
+                $http({
+                    method: 'PUT',
+                    url: '/product/' + $routeParams.uuid + '/image/' + uuid,
+                    headers: {
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
+                })
+                    .then(function successCallback(response) {
+                        $scope.product = response.data;
+                        $scope.product.images.forEach(function(image, index){
+                            if(image.uuid === $scope.product.mainImage.uuid){
+                                $scope.product.mainPhoto = index;
+                            }
+                        });
+                        $scope.loadImgOntoCanvas();
+                        $scope.loading = false;
+
+                    }, function errorCallback(response) {
+                        if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            signout.signOut();
+                        }
+                        $scope.loading = false;
+                        console.log(response);
+                    });
+            };
+
+            $scope.removeImage = function (uuid){
+                $scope.loading = true;
+                $http({
+                    method: 'DELETE',
+                    url: '/product/' + $routeParams.uuid + '/image/' + uuid,
+                    headers: {
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
+                })
+                    .then(function successCallback(response) {
+                        $scope.product = response.data;
+                        $scope.product.images.forEach(function(image, index){
+                            if(image.uuid === $scope.product.mainImage.uuid){
+                                $scope.product.mainPhoto = index;
+                            }
+                        });
+                        $scope.loadImgOntoCanvas();
+                        $scope.loading = false;
+
+                    }, function errorCallback(response) {
+                        if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            signout.signOut();
+                        }
+                        $scope.loading = false;
+                        console.log(response);
+                    });
+            };
             $scope.updateProduct = function () {
                 $scope.loading = true;
                 fd.append('uuid', $scope.product.uuid);
@@ -108,3 +221,11 @@ angular.module('WiseHands')
             }
 
         }]);
+function dataURItoBlob(dataURI) {
+    var binary = atob(dataURI.split(',')[1]);
+    var array = [];
+    for(var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+}

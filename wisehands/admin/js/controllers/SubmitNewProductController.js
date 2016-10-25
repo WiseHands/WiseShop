@@ -1,11 +1,6 @@
 angular.module('WiseHands')
     .controller('SubmitNewProductController', ['$scope', '$location', '$http', 'signout', function ($scope, $location, $http, signout) {
 
-
-        // $(document).ready(function(){
-        //     $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 300, hide: 300}});
-        // });
-
         var fd = new FormData();
 
         var imageLoader = document.getElementById('imageLoader');
@@ -14,12 +9,13 @@ angular.module('WiseHands')
         $scope.productImages = [];
         $scope.productImagesDTO = [];
         function handleImage(e){
+            $scope.$apply(function() {
+                $scope.loading = true;
+            });
             var reader = new FileReader();
 
             reader.onload = function(event){
-                $scope.$apply(function() {
-                    $scope.loading = true;
-                });
+
                 var img = new Image();
                 img.onload = function(){
 
@@ -36,8 +32,6 @@ angular.module('WiseHands')
 
                     var blob = dataURItoBlob(dataURL);
 
-                    // fd.append('photo', blob);
-
                     $scope.$apply(function() {
                         if(!$scope.product || $scope.product.mainPhoto){
                             $scope.product = {};
@@ -46,11 +40,14 @@ angular.module('WiseHands')
                         $scope.product.mainPhoto = 0;
                         $scope.productImages.push(dataURL);
                         $scope.productImagesDTO.push(blob);
+                        $scope.loading = false;
 
                     });
+
+
                 };
                 img.src = event.target.result;
-                $scope.loading = false;
+
 
             };
             reader.readAsDataURL(e.target.files[0]);
@@ -62,15 +59,6 @@ angular.module('WiseHands')
             $('#imageLoader').click();
         };
 
-        // $scope.setMainPhotoIndexToZero = function () {
-        //     if(!$scope.product){
-        //         $scope.product = {};
-        //         $scope.product.mainPhoto = 0;
-        //     } else if($scope.product.mainPhoto) {
-        //         $scope.product.mainPhoto = 0;
-        //     }
-        // };
-        
         $scope.setMainPhotoIndex = function (index) {
             if ($scope.product){
                 $scope.product.mainPhoto = index;

@@ -32,22 +32,19 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner z-depth-1 hoverable" role="listbox">
                             <!-- First slide -->
-                            <canvas class="img-responsive center-block landscapeImageScale" id="editCanvas" ng-click="uploadNewProductImage()"></canvas>
+                            <div class="item active">
+                                <img src="{{productImages[product.mainPhoto].dataURL}}" alt="slide1" ng-click="uploadNewProductImage()">
+                            </div>
+                            <canvas class="img-responsive center-block landscapeImageScale" id="editCanvas" ng-click="uploadNewProductImage()" style="display: none"></canvas>
                             <input id="imageLoader"
                                    class="input-file hiddenFileInput"
                                    type="file"/>
                             <!-- /.item -->
 
                             <!-- Second slide -->
-                            <div class="item">
-                                <img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-2.jpg" alt="slide2">
-                            </div>
-                            <!-- /.item -->
-
-                            <!-- Third slide -->
-                            <div class="item">
-                                <img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-3.jpg" alt="slide3">
-                            </div>
+                            <!--<div class="item" ng-repeat="image in productImages">-->
+                                <!--<img src="{{image}}" alt="slide2">-->
+                            <!--</div>-->
                             <!-- /.item -->
                         </div>
                         <!-- /.carousel-inner -->
@@ -56,11 +53,22 @@
 
                     <!-- Indicators -->
                     <div class="col-xs-4">
-                        <ul class="carousel-indicators">
-                            <li data-target="#car-gall" data-slide-to="0" class="active"><img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-1.jpg" class="img-responsive z-depth-1 hoverable">
+                        <ul class="carousel-indicators correctImageDisplay" ng-show="productImages.length >= 2">
+                            <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
+                                <img src="{{image.dataURL}}"
+                                     class="img-responsive z-depth-1 hoverable"
+                                     data-toggle="tooltip"
+                                     data-placement="top"
+                                     title="Зробити головною"
+                                     ng-click="setMainPhotoIndex($index, image.uuid); $event.stopPropagation();">
+                                <div class="label label-danger photoLabelStyle hoverable"
+                                     data-toggle="tooltip"
+                                     data-placement="top"
+                                     title="Видалити"
+                                     ng-click="removeImage(image.uuid); $event.stopPropagation();">
+                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                </div>
                             </li>
-                            <li data-target="#car-gall" data-slide-to="1"><img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-2.jpg" class="img-responsive z-depth-1 hoverable"></li>
-                            <li data-target="#car-gall" data-slide-to="2"><img src="http://mdbootstrap.com/wp-content/uploads/2015/11/product-3.jpg" class="img-responsive z-depth-1 hoverable"></li>
                         </ul>
                     </div>
                     <!-- Indicators -->
@@ -69,9 +77,19 @@
 
             </div>
             <div class="card-content col-sm-6">
-                <h5><textarea id="textarea1" class="materialize-textarea" ng-model="product.name"></textarea></h5>
-                <h5><textarea id="textarea2" class="materialize-textarea" ng-model="product.price"></textarea> грн</h5>
-                <textarea id="textarea3" class="materialize-textarea" ng-model="product.description"></textarea>
+                <div class="input-field col-md-12">
+                    <input id="name" type="text" class="validate" ng-model="product.name">
+                    <label class="active" for="name">Назва продукту</label>
+                </div>
+                <div class="input-field col-md-12">
+                    <input id="price" type="text" class="validate" ng-model="product.price">грн
+                    <label class="active" for="price">Ціна продукту</label>
+                </div>
+                <div class="input-field col-md-12">
+                    <textarea id="description" class="materialize-textarea" ng-model="product.description"></textarea>
+                    <label class="active" for="description">Опис продукту</label>
+                </div>
+                <!--<textarea id="textarea3" class="materialize-textarea" ng-model="product.description"></textarea>-->
             </div>
         </div>
     </div>

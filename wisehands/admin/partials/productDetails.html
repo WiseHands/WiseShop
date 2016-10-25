@@ -42,14 +42,14 @@
                         <div class="carousel-inner z-depth-1 hoverable" role="listbox">
                             <!-- First slide -->
                             <div class="item active">
-                                <img ng-src="/public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="slide1">
+                                <img src="/public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="slide1">
                             </div>
                             <!-- /.item -->
 
                             <!-- Second slide -->
-                            <div class="item" ng-repeat="image in product.images">
-                                <img src="/public/product_images/{{activeShop}}/{{image.filename}}" alt="slide2">
-                            </div>
+                            <!--<div class="item" ng-repeat="image in product.images">-->
+                                <!--<img src="/public/product_images/{{activeShop}}/{{image.filename}}">-->
+                            <!--</div>-->
                             <!-- /.item -->
                         </div>
                         <!-- /.carousel-inner -->
