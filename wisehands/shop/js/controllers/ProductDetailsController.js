@@ -25,14 +25,18 @@
                 }, function errorCallback(error) {
                     console.log(error);
                 });
-            
+
             $http({
                 method: 'GET',
                 url: '/product/' + $scope.uuid
             })
                 .then(function successCallback(response) {
-                    $scope.loading = false;
                     $scope.product = response.data;
+                    $scope.product.images.forEach(function(image, index){
+                        if(image.uuid === $scope.product.mainImage.uuid){
+                            $scope.selected = index;
+                        }
+                    });
                     $scope.found = false;
                     for(var i = 0; i < $scope.selectedItems.length; i++) {
                         if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
@@ -40,10 +44,15 @@
                             break;
                         }
                     }
+                    $scope.loading = false;
                 }, function errorCallback(error) {
                     $scope.loading = false;
                     console.log(error);
                 });
+
+            $scope.select= function(index) {
+                $scope.selected = index;
+            };
             $scope.getDeliveryTypes = function() {
                 $http({
                     method: 'GET',
@@ -64,6 +73,7 @@
                 .then(function successCallback(response) {
                     document.title = response.data.name;
                     $scope.shopName = response.data.name;
+                    $scope.shopId = response.data.uuid;
                     $scope.startTime = new Date(response.data.startTime);
                     $scope.startHour = ($scope.startTime.getHours()<10?'0':'') + $scope.startTime.getHours();
                     $scope.startMinute = ($scope.startTime.getMinutes()<10?'0':'') + $scope.startTime.getMinutes();

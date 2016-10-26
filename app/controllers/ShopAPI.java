@@ -73,6 +73,7 @@ public class ShopAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         JSONObject json = new JSONObject();
         json.put("name", shop.shopName);
+        json.put("uuid", shop.uuid);
         json.put("startTime", shop.startTime);
         json.put("endTime", shop.endTime);
         renderJSON(json);

@@ -88,12 +88,12 @@
                         controller:'UsersSettingsController',
                         activetab: 'usersettings'
                     }).
-                when('/transactions',{
-                    templateUrl:'wisehands/admin/partials/transactions.html',
-                    controller:'TransactionsController',
-                    activetab: 'transactions'
-                }).
-                        otherwise({
+                    when('/transactions',{
+                        templateUrl:'wisehands/admin/partials/transactions.html',
+                        controller:'TransactionsController',
+                        activetab: 'transactions'
+                    }).
+                    otherwise({
                         redirectTo:'/'
                 });
             }])

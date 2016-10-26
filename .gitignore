@@ -20,6 +20,7 @@ framework/tests/test-application/db
 framework/play-*.jar
 framework/docs
 samples-and-tests/*/test-result/
+lib
 
 # IDE and editors
 /bin
