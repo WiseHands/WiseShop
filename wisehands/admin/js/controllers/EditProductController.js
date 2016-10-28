@@ -1,7 +1,7 @@
 angular.module('WiseHands')
     .controller('EditProductController', ['$http', '$scope', '$routeParams', '$location', 'signout', function($http, $scope, $routeParams, $location, signout) {
 
-        $scope.uuid = $routeParams.uuid;
+            $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
             $http({
                 method: 'GET',
@@ -17,6 +17,24 @@ angular.module('WiseHands')
                         }
                     });
                     $scope.loadImgOntoCanvas();
+                    $scope.loading = false;
+                }, function errorCallback(error) {
+                    $scope.loading = false;
+                    console.log(error);
+                });
+
+            $http({
+                method: 'GET',
+                url: '/category'
+            })
+                .then(function successCallback(response) {
+                    $scope.categories = response.data;
+                    // $scope.categories.forEach(function(category, index){
+                    //     if(category.uuid === $scope.product.category.uuid){
+                    //         $scope.product.category = $scope.categories[index];
+                    //     }
+                    // });
+
                     $scope.loading = false;
                 }, function errorCallback(error) {
                     $scope.loading = false;
@@ -214,10 +232,64 @@ angular.module('WiseHands')
 
             };
 
-
-
             $scope.uploadNewProductImage = function () {
                 $('#imageLoader').click();
+            };
+
+            $scope.createCategory = function () {
+                $scope.loading = true;
+                $http({
+                    method: 'POST',
+                    url: '/category',
+                    headers: {
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    },
+                    data: $scope.newCategory
+                })
+                    .then(function successCallback(response) {
+                        $scope.createdCategory = response.data;
+                        $scope.categories.push($scope.createdCategory);
+                        $scope.product.category = $scope.createdCategory;
+                        $scope.changeCategory();
+                        $scope.loading = false;
+                        $scope.hideModal();
+
+                    }, function errorCallback(response) {
+                        if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            signout.signOut();
+                        }
+                        $scope.loading = false;
+                        console.log(response);
+                    });
+            };
+            $scope.hideModal = function () {
+                $('#categoryModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+            };
+            $scope.changeCategory = function () {
+                $scope.loading = true;
+                $http({
+                    method: 'PUT',
+                    url: '/category/' + $scope.product.category.uuid + '/product/' + $routeParams.uuid,
+                    headers: {
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
+                })
+                    .then(function successCallback(response) {
+                        $scope.category = response.data.category;
+                        $scope.product.category = $scope.category;
+                        $scope.loading = false;
+
+                    }, function errorCallback(response) {
+                        if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            signout.signOut();
+                        }
+                        $scope.loading = false;
+                        console.log(response);
+                    });
             }
 
         }]);
@@ -229,3 +301,4 @@ function dataURItoBlob(dataURI) {
     }
     return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
 }
+

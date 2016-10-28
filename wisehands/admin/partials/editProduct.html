@@ -77,6 +77,17 @@
 
             </div>
             <div class="card-content col-sm-6">
+                <div class="col-md-12" ng-show="categories.length >= 1">
+                    <label for="categories">Категорія</label>
+                </div>
+                <div class="input-field col-md-12" ng-show="categories.length >= 1">
+                    <select id="categories"
+                            class="form-control"
+                            ng-model="product.category"
+                            ng-change="changeCategory()"
+                            ng-options="category as category.name for category in categories track by category.uuid">
+                    </select>
+                </div>
                 <div class="input-field col-md-12">
                     <input id="name" type="text" class="validate" ng-model="product.name">
                     <label class="active" for="name">Назва продукту</label>
@@ -89,7 +100,31 @@
                     <textarea id="description" class="materialize-textarea" ng-model="product.description"></textarea>
                     <label class="active" for="description">Опис продукту</label>
                 </div>
-                <!--<textarea id="textarea3" class="materialize-textarea" ng-model="product.description"></textarea>-->
+                <div class="input-field col-md-12">
+                    <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#categoryModal">Створити категорію</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="categoryModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form name="categoryForm" ng-submit="createCategory()">
+                    <div class="row">
+                        <div class="input-field col-md-12">
+                            <input id="password" type="text" class="validate" ng-model="newCategory.name" required>
+                            <label for="password">Назва категорії</label>
+                        </div>
+                        <div class="input-field col-md-12">
+                            <textarea id="textarea1" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
+                            <label for="textarea1">Опис категорії</label>
+                        </div>
+                        <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
+                        <button type="submit" class="btn btn-default pull-right" ng-hide="loading">Створити</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

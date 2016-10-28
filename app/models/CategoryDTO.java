@@ -21,18 +21,21 @@ public class CategoryDTO extends GenericModel {
     public String name;
 
     @Expose
+    public String description;
+
     @OneToMany(cascade=CascadeType.ALL)
     public List<ProductDTO> products;
 
     @OneToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-    public CategoryDTO(ShopDTO shop, String name) {
+    public CategoryDTO(ShopDTO shop, String name, String description) {
         if(products == null) {
             products = new ArrayList<ProductDTO>();
         }
         this.name = name;
         this.shop = shop;
+        this.description = description;
     }
 
 

@@ -1,6 +1,19 @@
 angular.module('WiseHands')
     .controller('SubmitNewProductController', ['$scope', '$location', '$http', 'signout', function ($scope, $location, $http, signout) {
 
+
+        $http({
+            method: 'GET',
+            url: '/category'
+        })
+            .then(function successCallback(response) {
+                $scope.categories = response.data;
+                $scope.loading = false;
+            }, function errorCallback(error) {
+                $scope.loading = false;
+                console.log(error);
+            });
+
         var fd = new FormData();
 
         var imageLoader = document.getElementById('imageLoader');
@@ -73,6 +86,64 @@ angular.module('WiseHands')
             }
         };
 
+        $scope.createCategory = function () {
+            $scope.loading = true;
+            $http({
+                method: 'POST',
+                url: '/category',
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                },
+                data: $scope.category
+            })
+                .then(function successCallback(response) {
+
+                    $scope.loading = false;
+                    $scope.hideModal();
+
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.loading = false;
+                    console.log(response);
+                });
+        };
+        $scope.createCategory = function () {
+            $scope.loading = true;
+            $http({
+                method: 'POST',
+                url: '/category',
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                },
+                data: $scope.newCategory
+            })
+                .then(function successCallback(response) {
+                    $scope.createdCategory = response.data;
+                    $scope.categories.push($scope.createdCategory);
+                    if(!$scope.product){
+                        $scope.product= {};
+                    }
+                    $scope.product.category = $scope.createdCategory;
+                    $scope.loading = false;
+                    $scope.hideModal();
+
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.loading = false;
+                    console.log(response);
+                });
+        };
+        $scope.hideModal = function () {
+            $('#categoryModal').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        };
         $scope.submitProduct = function () {
             $scope.loading = true;
             for (var i = 0; i < $scope.productImagesDTO.length; i++) {
@@ -83,6 +154,7 @@ angular.module('WiseHands')
             fd.append('description', $scope.product.description);
             fd.append('price', $scope.product.price);
             fd.append('mainPhotoIndex', $scope.product.mainPhoto);
+            fd.append('category', $scope.product.category.uuid);
 
             $http.post('/product', fd, {
                     transformRequest: angular.identity,

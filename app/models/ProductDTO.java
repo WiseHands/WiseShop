@@ -32,6 +32,7 @@ public class ProductDTO extends GenericModel {
     @ManyToOne
     public ShopDTO shop;
 
+    @Expose
     @ManyToOne
     public CategoryDTO category;
 

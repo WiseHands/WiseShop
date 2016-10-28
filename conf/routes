@@ -71,9 +71,10 @@ POST    {client}/payment-verification                   BalanceAPI.balancePaymen
 
 GET		{client}/category								CategoryAPI.all
 GET		{client}/category/{uuid}						CategoryAPI.details
-POST	{client}/category/{name}						CategoryAPI.create
+POST	{client}/category        						CategoryAPI.create
 PUT 	{client}/category/{uuid}/name/{name}			CategoryAPI.update
 DELETE 	{client}/category/{uuid}						CategoryAPI.delete
+PUT 	{client}/category/{uuid}/product/{productUuid}	CategoryAPI.assignProduct
 
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail

@@ -1,6 +1,10 @@
 package controllers;
 
 import models.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +23,15 @@ public class CategoryAPI extends AuthController {
     }
 
 
-    public static void create(String client, String name) throws Exception {
+    public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        CategoryDTO category = new CategoryDTO(shop, name);
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        String description = (String) jsonBody.get("description");
+        String name = (String) jsonBody.get("name");
+
+        CategoryDTO category = new CategoryDTO(shop, name, description);
         if (shop.categoryList == null) {
             shop.categoryList = new ArrayList<CategoryDTO>();
         }
@@ -38,12 +48,24 @@ public class CategoryAPI extends AuthController {
         if(category.products == null) {
             category.products = new ArrayList<ProductDTO>();
         }
+        if (category.products.contains(product)) {
+            renderJSON(json(product));
+        }
+        if (product.category != null && product.category.products != null && product.category.products.contains(product)) {
+            product.category.products.remove(product);
+            product.category.save();
+        }
         category.products.add(product);
         product.category = category;
+        product.category.save();
 
-        product.save();
-        category.save();
-        ok();
+
+        product = product.save();
+        category = category.save();
+
+
+        renderJSON(json(product));
+
     }
 
 

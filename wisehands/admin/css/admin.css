@@ -204,9 +204,7 @@ label.whiteCheckBox::after {
     pointer-events: none;
     cursor: default;
 }
-/*#imageLoader {*/
-    /*display: none;*/
-/*}*/
+
 .photoLabelStyle {
     text-indent: 0;
     display: block;
@@ -216,4 +214,7 @@ label.whiteCheckBox::after {
 }
 .correctImageDisplay {
     margin-bottom: 0 !important;
+}
+.noOverflowY {
+    overflow-y: scroll;
 }

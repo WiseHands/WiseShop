@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import models.CategoryDTO;
 import models.ProductDTO;
 import models.ProductImage;
 import models.ShopDTO;
@@ -18,7 +19,7 @@ import java.util.*;
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
 
-    public static void create(String client, String name, String description, Double price, File fake, Integer mainPhotoIndex) throws Exception {
+    public static void create(String client, String name, String description, Double price, File fake, Integer mainPhotoIndex, String category) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
         Files.createDirectories(Paths.get(USERIMAGESPATH + shop.uuid));
@@ -38,6 +39,11 @@ public class ProductAPI extends AuthController {
         ProductDTO product = new ProductDTO(name, description, price, images, shop, null);
         product.mainImage = images.get(mainPhotoIndex);
         product.save();
+
+        CategoryDTO cat = CategoryDTO.findById(category);
+        product.category = cat;
+        product = product.save();
+
         if (shop.productList == null) {
             shop.productList = new ArrayList<ProductDTO>();
         }
