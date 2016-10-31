@@ -72,6 +72,10 @@ public class CategoryAPI extends AuthController {
     public static void update(String client, String uuid, String name) throws Exception {
         CategoryDTO category = CategoryDTO.findById(uuid);
         category.name = name;
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        String description = (String) jsonBody.get("description");
+        category.description = description;
         category = category.save();
         renderJSON(json(category));
     }

@@ -1,0 +1,97 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <form class="col-xs-9 waves-effect waves-light">
+                <input class="form-control noMarginForSearchInput" type="text" placeholder="Пошук" ng-model="query">
+            </form>
+            <a class="col-xs-1 noRightPadding"
+               type="button"
+               data-toggle="modal"
+               data-target="#newCategoryModal">
+                <i class="fa fa-plus-circle pull-right whiteColor">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid cardTopPadding noSidePadding">
+    <h4 class="text-center"><i>{{status}}</i></h4>
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <div class="btn-group btn-group-justified col-xs-12" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <a href="#/products" type="button" class="btn btn-primary">Продукти</a>
+        </div>
+        <div class="btn-group" role="group">
+            <a type="button" class="btn btn-primary active disabled">Категорії</a>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default" ng-repeat="category in categories">
+                <div class="panel-heading cursorPointer" data-toggle="collapse"  data-target="#collapse{{$index}}">
+                    <h4 class="panel-title">
+                        <b>{{category.name}}</b>
+                    </h4>
+                </div>
+                <div id="collapse{{$index}}" class="panel-collapse collapse">
+                    <div class="row vcentering">
+                        <div class="col-xs-10">
+                            <div class="panel-body">{{category.description}}</div>
+                        </div>
+                        <div class="col-xs-2">
+                            <a class="btn-floating btn-xsmall waves-effect waves-light blue pull-right" data-toggle="modal" data-target="#categoryModal" ng-click="getCategory(category)"><i class="material-icons">mode_edit</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="categoryModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="input-field col-md-12">
+                        <input id="categoryName" type="text" class="validate" ng-model="thisCategory.name" required>
+                        <label class="active" for="categoryName">Назва категорії</label>
+                    </div>
+                    <div class="input-field col-md-12">
+                        <textarea id="textarea1" class="materialize-textarea"  ng-model="thisCategory.description"></textarea>
+                        <label class="active" for="textarea1">Опис категорії</label>
+                    </div>
+                    <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
+                    <button class="btn btn-default pull-right" ng-hide="loading" ng-click="updateCategory()">Зберегти</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="newCategoryModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form name="categoryForm" ng-submit="createCategory()">
+                    <div class="row">
+                        <div class="input-field col-md-12">
+                            <input id="password" type="text" class="validate" ng-model="newCategory.name" required>
+                            <label for="password">Назва категорії</label>
+                        </div>
+                        <div class="input-field col-md-12">
+                            <textarea id="textarea1" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
+                            <label for="textarea1">Опис категорії</label>
+                        </div>
+                        <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
+                        <button type="submit" class="btn btn-default pull-right" ng-hide="loading">Створити</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

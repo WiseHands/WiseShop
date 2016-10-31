@@ -72,10 +72,12 @@
                 </div>
             </div>
             <div class="card-content col-sm-6">
-                <label></label>
-                <h5 class="product-title">{{product.name}}</h5>
-                <p>{{product.description}}</p>
-                <p>{{product.category.name}}</p>
+                <label for="price">Категорія</label>
+                <p id="price">{{product.category.name}}</p>
+                <label for="name">Назва продукту</label>
+                <h5 id="name" class="product-title">{{product.name}}</h5>
+                <label for="description">Опис продукту</label>
+                <p id="description">{{product.description}}</p>
             </div>
         </div>
     </div>

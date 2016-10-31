@@ -29,12 +29,6 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.categories = response.data;
-                    // $scope.categories.forEach(function(category, index){
-                    //     if(category.uuid === $scope.product.category.uuid){
-                    //         $scope.product.category = $scope.categories[index];
-                    //     }
-                    // });
-
                     $scope.loading = false;
                 }, function errorCallback(error) {
                     $scope.loading = false;

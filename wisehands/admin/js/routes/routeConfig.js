@@ -93,6 +93,11 @@
                         controller:'TransactionsController',
                         activetab: 'transactions'
                     }).
+                    when('/categories',{
+                        templateUrl:'wisehands/admin/partials/categories.html',
+                        controller:'CategoriesController',
+                        activetab: 'categories'
+                    }).
                     otherwise({
                         redirectTo:'/'
                 });
