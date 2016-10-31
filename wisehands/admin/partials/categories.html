@@ -36,7 +36,7 @@
             <div class="panel panel-default" ng-repeat="category in categories">
                 <div class="panel-heading cursorPointer" data-toggle="collapse"  data-target="#collapse{{$index}}">
                     <h4 class="panel-title">
-                        <b>{{category.name}}</b>
+                        <b>{{category.name}}&nbsp;</b> <span class="label label-info">5</span>
                     </h4>
                 </div>
                 <div id="collapse{{$index}}" class="panel-collapse collapse">
@@ -84,8 +84,8 @@
                             <label for="password">Назва категорії</label>
                         </div>
                         <div class="input-field col-md-12">
-                            <textarea id="textarea1" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
-                            <label for="textarea1">Опис категорії</label>
+                            <textarea id="textarea2" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
+                            <label for="textarea2">Опис категорії</label>
                         </div>
                         <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                         <button type="submit" class="btn btn-default pull-right" ng-hide="loading">Створити</button>

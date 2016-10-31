@@ -14,6 +14,10 @@ public class CategoryAPI extends AuthController {
     public static void all(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         List<CategoryDTO> categoryList = CategoryDTO.find("byShop", shop).fetch();
+        for (CategoryDTO category : categoryList) {
+            List<ProductDTO> products = ProductDTO.find("byCategory", category).fetch();
+            category.products = products;
+        }
         renderJSON(json(categoryList));
     }
 

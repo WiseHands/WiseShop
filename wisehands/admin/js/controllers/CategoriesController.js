@@ -8,6 +8,7 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.categories = response.data;
+                debugger;
                 $scope.loading = false;
             }, function errorCallback(error) {
                 $scope.loading = false;
