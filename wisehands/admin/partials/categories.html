@@ -36,7 +36,7 @@
             <div class="panel panel-default" ng-repeat="category in categories">
                 <div class="panel-heading cursorPointer" data-toggle="collapse"  data-target="#collapse{{$index}}">
                     <h4 class="panel-title">
-                        <b>{{category.name}}&nbsp;</b> <span class="label label-info">5</span>
+                        <b>{{category.name}}&nbsp;</b> <span class="label label-info">{{category.products.length}}</span>
                     </h4>
                 </div>
                 <div id="collapse{{$index}}" class="panel-collapse collapse">
@@ -45,6 +45,7 @@
                             <div class="panel-body">{{category.description}}</div>
                         </div>
                         <div class="col-xs-2">
+                            <a class="btn-floating btn-xsmall waves-effect waves-light red pull-right" data-toggle="modal" data-target="#deleteCategory" ng-click="getCategory(category)"><i class="material-icons"><i class="material-icons">delete_forever</i></i></a>
                             <a class="btn-floating btn-xsmall waves-effect waves-light blue pull-right" data-toggle="modal" data-target="#categoryModal" ng-click="getCategory(category)"><i class="material-icons">mode_edit</i></a>
                         </div>
                     </div>
@@ -91,6 +92,30 @@
                         <button type="submit" class="btn btn-default pull-right" ng-hide="loading">Створити</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteCategory" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center">
+                    <p><i>{{deleteMessage}}</i></p>
+                    <p ng-hide="succesfullDelete"><b>{{deleteCategoryWarning}}</b></p>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <div class="col-xs-offset-2 col-xs-8">
+                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteCategory()" ng-show="deleteButton">Видалити</button>
+                </div>
+                <a href="#/products" class="col-xs-offset-4 col-xs-4 noUnderline">
+                    <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal3()">Ok</button>
+                </a>
             </div>
         </div>
     </div>

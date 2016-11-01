@@ -84,7 +84,7 @@
                     <select id="categories"
                             class="form-control"
                             ng-model="product.category"
-                            ng-change="changeCategory()"
+                            ng-change="changeCategory(product.category)"
                             ng-options="category as category.name for category in categories track by category.uuid">
                     </select>
                 </div>

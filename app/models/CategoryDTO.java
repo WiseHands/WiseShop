@@ -23,10 +23,11 @@ public class CategoryDTO extends GenericModel {
     @Expose
     public String description;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @Expose
+    @OneToMany
     public List<ProductDTO> products;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     public ShopDTO shop;
 
     public CategoryDTO(ShopDTO shop, String name, String description) {

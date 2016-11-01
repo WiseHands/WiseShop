@@ -25,12 +25,12 @@ angular.module('WiseHands')
             $scope.select= function(index) {
             $scope.selected = index;
             };
-            $scope.deleteMessage = 'Ви дійсно хочете видалити даний товар?';
             $scope.hideModal = function () {
                 $('#deleteProduct').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
             };
+            $scope.deleteMessage = 'Ви дійсно хочете видалити даний товар?';
             $scope.deleteButton = true;
             $scope.deleteProduct = function () {
                 $scope.deleteButton = false;

@@ -36,12 +36,11 @@ public class ProductAPI extends AuthController {
             images.add(productImage);
         }
 
-        ProductDTO product = new ProductDTO(name, description, price, images, shop, null);
+        CategoryDTO cat = CategoryDTO.findById(category);
+        ProductDTO product = new ProductDTO(name, description, price, images, shop, cat);
         product.mainImage = images.get(mainPhotoIndex);
         product.save();
 
-        CategoryDTO cat = CategoryDTO.findById(category);
-        product.category = cat;
         product = product.save();
 
         if (shop.productList == null) {

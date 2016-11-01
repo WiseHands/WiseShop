@@ -92,6 +92,9 @@ main {
 .noBorder {
     border: none;
 }
+.autoHeight {
+    height: auto !important;
+}
 
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {

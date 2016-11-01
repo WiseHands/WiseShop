@@ -5,11 +5,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class CategoryAPI extends AuthController {
+    public static final String USERIMAGESPATH = "public/product_images/";
 
     public static void all(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -61,6 +63,8 @@ public class CategoryAPI extends AuthController {
         }
         category.products.add(product);
         product.category = category;
+        product.categoryName = category.name;
+        product.categoryUuid = category.uuid;
         product.category.save();
 
 
@@ -85,11 +89,54 @@ public class CategoryAPI extends AuthController {
     }
 
     public static void delete(String client, String uuid) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
         CategoryDTO category = CategoryDTO.findById(uuid);
-        category.products.clear();
+        List<ProductDTO> copiedProducts = new ArrayList<ProductDTO>(category.products);
+
+        for (ProductDTO product : category.products){
+            deleteProductImages(product);
+            deleteProductFromShopProducts(product);
+            deleteProductFromCategory(product);
+            product.save();
+        }
+
+        shop.categoryList.remove(category);
+        shop = shop.save();
         category.delete();
         ok();
     }
 
+    private static void deleteProductImages(ProductDTO product){
+        product.mainImage = null;
+        product = product.save();
+
+        List<ProductImage> images = new ArrayList<ProductImage>(product.images);
+        //delete files on fs
+        for (ProductImage image: images) {
+            File file = new File(USERIMAGESPATH + product.shop.uuid + "/" + image.filename);
+            if(!file.delete()){
+                System.out.println("error deleting file: " + USERIMAGESPATH + product.fileName);
+            }
+        }
+        //delete ProductImages
+        product.images.clear();
+        product.save();
+        for (ProductImage image: images) {
+            image.delete();
+        }
+    }
+
+    private static void deleteProductFromShopProducts(ProductDTO product){
+        product.shop.productList.remove(product);
+        product.shop = product.shop.save();
+        product.save();
+    }
+    private static void deleteProductFromCategory(ProductDTO product){
+        product.category.products.remove(product);
+        product.category.save();
+        product.category = null;
+        product.save();
+    }
 
 }

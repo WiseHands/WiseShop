@@ -32,9 +32,14 @@ public class ProductDTO extends GenericModel {
     @ManyToOne
     public ShopDTO shop;
 
-    @Expose
     @ManyToOne
     public CategoryDTO category;
+
+    @Expose
+    public String categoryName;
+
+    @Expose
+    public String categoryUuid;
 
     @Expose
     @OneToOne
@@ -59,5 +64,9 @@ public class ProductDTO extends GenericModel {
         }
         this.shop = shop;
         this.category = category;
+        if(category != null) {
+            this.categoryName = category.name;
+            this.categoryUuid = category.uuid;
+        }
     }
 }

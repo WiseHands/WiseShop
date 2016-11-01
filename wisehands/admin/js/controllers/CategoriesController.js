@@ -7,8 +7,11 @@ angular.module('WiseHands')
             url: '/category'
         })
             .then(function successCallback(response) {
+                var data = response.data;
+                if(data.length === 0){
+                    $scope.status = 'Категорії відсутні';
+                }
                 $scope.categories = response.data;
-                debugger;
                 $scope.loading = false;
             }, function errorCallback(error) {
                 $scope.loading = false;
@@ -25,6 +28,11 @@ angular.module('WiseHands')
         };
         $scope.hideModal2 = function () {
             $('#newCategoryModal').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        };
+        $scope.hideModal3 = function () {
+            $('#deleteCategory').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
         };
@@ -69,6 +77,34 @@ angular.module('WiseHands')
                     $scope.loading = false;
                     console.log(response);
                 });
+        };
+        $scope.deleteMessage = 'Ви дійсно хочете видалити дану категорію?';
+        $scope.deleteCategoryWarning = '(Видалення категорії призведе до видалення всіх продуктів, які містяться в ній!)';
+        $scope.deleteButton = true;
+        $scope.deleteCategory = function () {
+            $scope.deleteButton = false;
+            $scope.modalSpinner = true;
+            $http({
+                method: 'DELETE',
+                url: '/category/' + $scope.thisCategory.uuid,
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                }
+            })
+                .then(function successCallback(response) {
+                    $scope.modalSpinner = false;
+                    $scope.succesfullDelete = true;
+                    $scope.deleteMessage = 'Категорія видалена.';
+
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.modalSpinner = false;
+                    console.log(response);
+                });
+
         };
         
         sideNavInit.sideNav();

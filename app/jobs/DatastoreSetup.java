@@ -70,7 +70,7 @@ public class DatastoreSetup extends Job {
         ShopDTO shop = new ShopDTO(users, delivery, contact, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
         shop.save();
 
-        createProducts(shop, domain);
+        //createProducts(shop, domain);
     }
 
     private void createProducts(ShopDTO shop, String domain) {

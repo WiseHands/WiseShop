@@ -29,6 +29,12 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.categories = response.data;
+                    for (var i = 0; i < $scope.categories.length; i++){
+                        if ($scope.product.categoryUuid === $scope.categories[i].uuid){
+                            $scope.product.category = $scope.categories[i];
+                            break;
+                        }
+                    }
                     $scope.loading = false;
                 }, function errorCallback(error) {
                     $scope.loading = false;
@@ -103,6 +109,7 @@ angular.module('WiseHands')
 
             }
         $scope.addNewPhoto = function () {
+            $scope.loading = true;
             var imageFd = new FormData();
             for (var i = 0; i < $scope.myBlob.length; i++) {
                 var blob = $scope.myBlob[i];
@@ -118,6 +125,12 @@ angular.module('WiseHands')
                 })
                 .success(function(response){
                     $scope.product = response;
+                    for (var i = 0; i < $scope.categories.length; i++){
+                        if ($scope.product.categoryUuid === $scope.categories[i].uuid){
+                            $scope.product.category = $scope.categories[i];
+                            break;
+                        }
+                    }
                     $scope.product.images.forEach(function(image, index){
                         if(image.uuid === $scope.product.mainImage.uuid){
                             $scope.product.mainPhoto = index;
@@ -151,6 +164,12 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         $scope.product = response.data;
+                        for (var i = 0; i < $scope.categories.length; i++){
+                            if ($scope.product.categoryUuid === $scope.categories[i].uuid){
+                                $scope.product.category = $scope.categories[i];
+                                break;
+                            }
+                        }
                         $scope.product.images.forEach(function(image, index){
                             if(image.uuid === $scope.product.mainImage.uuid){
                                 $scope.product.mainPhoto = index;
@@ -180,6 +199,12 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         $scope.product = response.data;
+                        for (var i = 0; i < $scope.categories.length; i++){
+                            if ($scope.product.categoryUuid === $scope.categories[i].uuid){
+                                $scope.product.category = $scope.categories[i];
+                                break;
+                            }
+                        }
                         $scope.product.images.forEach(function(image, index){
                             if(image.uuid === $scope.product.mainImage.uuid){
                                 $scope.product.mainPhoto = index;
@@ -242,10 +267,11 @@ angular.module('WiseHands')
                     data: $scope.newCategory
                 })
                     .then(function successCallback(response) {
+                        debugger;
                         $scope.createdCategory = response.data;
                         $scope.categories.push($scope.createdCategory);
                         $scope.product.category = $scope.createdCategory;
-                        $scope.changeCategory();
+                        $scope.changeCategory($scope.product.category);
                         $scope.loading = false;
                         $scope.hideModal();
 
@@ -262,8 +288,9 @@ angular.module('WiseHands')
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
             };
-            $scope.changeCategory = function () {
+            $scope.changeCategory = function (category) {
                 $scope.loading = true;
+                $scope.product.category = category;
                 $http({
                     method: 'PUT',
                     url: '/category/' + $scope.product.category.uuid + '/product/' + $routeParams.uuid,
@@ -273,8 +300,18 @@ angular.module('WiseHands')
                     }
                 })
                     .then(function successCallback(response) {
-                        $scope.category = response.data.category;
-                        $scope.product.category = $scope.category;
+                        $scope.product = response.data;
+                        $scope.product.images.forEach(function(image, index){
+                            if(image.uuid === $scope.product.mainImage.uuid){
+                                $scope.product.mainPhoto = index;
+                            }
+                        });
+                        for (var i = 0; i < $scope.categories.length; i++){
+                            if ($scope.product.categoryUuid === $scope.categories[i].uuid){
+                                $scope.product.category = $scope.categories[i];
+                                break;
+                            }
+                        }
                         $scope.loading = false;
 
                     }, function errorCallback(response) {
