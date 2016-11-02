@@ -8,7 +8,13 @@
 (function(){
     angular.module('WiseShop')
         .controller('ShopController', ['$scope', '$http','shared',  function($scope, $http, shared) {
-            
+            $('.button-collapse').sideNav({
+                edge: 'left',
+                closeOnClick: true
+            });
+            $('.collapsible').collapsible();
+            var el = document.querySelector('.custom-scrollbar');
+            Ps.initialize(el);
             $scope.minOrderForFreeDelivery = 501;
             $http({
                 method: 'GET',
@@ -32,7 +38,28 @@
                     });
 
             };
+            $http({
+                method: 'GET',
+                url: '/category'
+            })
+                .then(function successCallback(response) {
+                    $scope.categories = response.data;
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
 
+            $scope.getDeliveryTypes = function() {
+                $http({
+                    method: 'GET',
+                    url: '/delivery'
+                })
+                    .then(function successCallback(response) {
+                        $scope.deliverance = response.data;
+                    }, function errorCallback(error) {
+                        console.log(error);
+                    });
+
+            };
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
@@ -262,8 +289,8 @@
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 $scope.successfullResponse = false;
-            }
-           
+            };
+
         }]);
     
 

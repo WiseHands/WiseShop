@@ -218,3 +218,6 @@ label.whiteCheckBox::after {
 .noOverflowY {
     overflow-y: scroll;
 }
+.categoryLabelFontSize {
+    font-size: inherit !important;
+}

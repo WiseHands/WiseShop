@@ -1,119 +1,53 @@
 <header>
-    <!--&lt;!&ndash; Sidebar navigation &ndash;&gt;-->
-    <!--<ul id="slide-out" class="side-nav fixed custom-scrollbar">-->
+    <!-- Sidebar navigation -->
+    <ul id="slide-out" class="side-nav fixed custom-scrollbar">
 
-    <!--&lt;!&ndash; Logo &ndash;&gt;-->
-    <!--<li>-->
-    <!--<div class="logo-wrapper waves-light">-->
-    <!--<a href="#"><img src="http://mdbootstrap.com/wp-content/uploads/2015/12/mdb-white2.png" class="img-fluid flex-center"></a>-->
-    <!--</div>-->
-    <!--</li>-->
-    <!--&lt;!&ndash;/. Logo &ndash;&gt;-->
+        <!-- Logo -->
+        <!--<li>-->
+            <!--<div class="logo-wrapper waves-light sn-avatar-wrapper">-->
+                <!--<a href="#">-->
+                    <!--<img src="http://mdbootstrap.com/images/avatars/img%20(8)" class="rounded-circle">-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</li>-->
+        <!--/. Logo -->
 
-    <!--&lt;!&ndash;Social&ndash;&gt;-->
-    <!--<li>-->
-    <!--<ul class="social">-->
-    <!--<li><a href="https://www.facebook.com/mdbootstrap" target="_blank" class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>-->
-    <!--<li><a class="icons-sm git-ic"><i class="fa fa-github"> </i></a></li>-->
-    <!--<li><a href="https://www.linkedin.com/in/dawid-adach-97435534/pl" target="_blank" class="icons-sm li-ic"><i class="fa fa-linkedin"> </i></a></li>-->
-    <!--<li><a class="icons-sm yt-ic"><i class="fa fa-youtube"> </i></a></li>-->
-    <!--<li><a href="https://plus.google.com/u/0/+Mdbootstrap" target="_blank" class="icons-sm gplus-ic"><i class="fa fa-google-plus"> </i></a></li>-->
-    <!--</ul>-->
-    <!--</li>-->
-    <!--&lt;!&ndash;/Social&ndash;&gt;-->
+        <!--About-->
+        <li>
+            <div class="about">
+                <p>{{shopName}}</p>
+            </div>
+        </li>
+        <!--/.About-->
 
-    <!--&lt;!&ndash;Search Form&ndash;&gt;-->
-    <!--<li>-->
-    <!--<form class="search-form" role="search">-->
-    <!--<div class="form-group waves-light">-->
-    <!--<input type="text" class="form-control" placeholder="Search">-->
-    <!--</div>-->
-    <!--</form>-->
-    <!--</li>-->
-    <!--&lt;!&ndash;/.Search Form&ndash;&gt;-->
+        <!--Social-->
+        <!--<li>-->
+            <!--<ul class="social">-->
+                <!--<li><a class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>-->
+                <!--<li><a class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>-->
+                <!--<li><a class="icons-sm drib-ic"><i class="fa fa-dribbble"> </i></a></li>-->
+                <!--<li><a class="icons-sm li-ic"><i class="fa fa-linkedin"> </i></a></li>-->
+                <!--<li><a class="icons-sm ins-ic"><i class="fa fa-instagram"> </i></a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--/Social-->
 
-    <!--&lt;!&ndash; Side navigation links &ndash;&gt;-->
-    <!--<li>-->
-    <!--<ul class="collapsible collapsible-accordion">-->
-    <!--<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-heart"></i> New Arrivals<i class="fa fa-angle-down rotate-icon"></i></a>-->
-    <!--<div class="collapsible-body">-->
-    <!--<ul>-->
-    <!--<li><a href="#" class="waves-effect">Handbags</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Shoes</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Dresses</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Skirts</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Jeans</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Outerwear</a>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</li>-->
-    <!--<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-diamond"></i> Accessories<i class="fa fa-angle-down rotate-icon"></i></a>-->
-    <!--<div class="collapsible-body">-->
-    <!--<ul>-->
-    <!--<li><a href="#" class="waves-effect">Jewelry</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Wallets & Purses</a>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</li>-->
-    <!--<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-gitlab"></i> For kids<i class="fa fa-angle-down rotate-icon"></i></a>-->
-    <!--<div class="collapsible-body">-->
-    <!--<ul>-->
-    <!--<li><a href="#" class="waves-effect">Girls</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Boys</a>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</li>-->
-    <!--<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-sun-o"></i> Summer<i class="fa fa-angle-down rotate-icon"></i></a>-->
-    <!--<div class="collapsible-body">-->
-    <!--<ul>-->
-    <!--<li><a href="#" class="waves-effect">Swimsuits</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Sandals</a>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</li>-->
-    <!--<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-briefcase"></i> Fall / Winter<i class="fa fa-angle-down rotate-icon"></i></a>-->
-    <!--<div class="collapsible-body">-->
-    <!--<ul>-->
-    <!--<li><a href="#" class="waves-effect">Coats</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Boots</a>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</li>-->
-    <!--<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-coffee "></i> Spring<i class="fa fa-angle-down rotate-icon"></i></a>-->
-    <!--<div class="collapsible-body">-->
-    <!--<ul>-->
-    <!--<li><a href="#" class="waves-effect">Denim jackets</a>-->
-    <!--</li>-->
-    <!--<li><a href="#" class="waves-effect">Sneakers</a>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</li>-->
-    <!--&lt;!&ndash;/. Side navigation links &ndash;&gt;-->
+        <!-- Side navigation links -->
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li ng-repeat="category in categories"><a class="collapsible-header waves-effect arrow-r">{{category.name}}</a>
+                </li>
+            </ul>
+        </li>
+        <!--/. Side navigation links -->
 
-    <!--</ul>-->
+    </ul>
+    <!--/. Sidebar navigation -->
     <nav class="navbar navbar-fixed-top scrolling-navbar double-nav green">
 
-        <!-- SideNav slide-out button -->
-        <!--<div class="pull-left">-->
-        <!--<a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>-->
-        <!--</div>-->
+        <div class="pull-left">
+        <a data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+        </div>
 
         <!-- Breadcrumb-->
         <div class="breadcrumb-dn">
@@ -124,10 +58,10 @@
         <ul class="nav navbar-nav pull-right">
 
             <li class="nav-item ">
-                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0"> <span class="label red z-depth-1">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
+                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0"> <span class="tag red z-depth-1">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="#/contacts"><i class="fa fa-envelope"></i> <span class="hidden-sm-down">Контакти</span></a>
+                <a class="nav-link" href="#/contacts"><i class="fa fa-envelope"></i> <span class="hidden-sm-down"> Контакти</span></a>
             </li>
             <!--<li class="nav-item ">-->
             <!--<a class="nav-link"><i class="fa fa-comments-o"></i> <span class="hidden-sm-down">Support</span></a>-->
@@ -150,12 +84,12 @@
 </header>
 <!--/Navigation-->
 <main class="p-t-6">
-    <div class="container row cardPadding center-block">
-        <div class="col-lg-4 col-md-6" ng-repeat="productDTO in products" on-finish-render="ngRepeatFinished">
+    <div class="container-fluid row center-block">
+        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="productDTO in products" on-finish-render="ngRepeatFinished">
 
             <div class="card inline">
                 <div class="view overlay hm-white-slight z-depth-1">
-                    <img ng-src="public/product_images/{{shopId}}/{{productDTO.mainImage.filename}}" class="img-fluid" alt="">
+                    <img ng-src="public/product_images/{{shopId}}/{{productDTO.mainImage.filename}}" class="img-fluid center-block" alt="">
                     <a href="#/product/{{productDTO.uuid}}">
                         <div class="mask"></div>
                     </a>
@@ -219,7 +153,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary"
+                    <button class="btn btn-success"
                             ng-show="selectedItems.length !== 0"
                             ng-click="getDeliveryTypes(); modalHide = !modalHide">
                         Замовити
@@ -261,10 +195,8 @@
                                        value="NOVAPOSHTA">
                                 <label for="radio2" ng-show="deliverance.isNewPostAvailable"><i>{{deliverance.newPostText}}</i></label>
                                 <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
-                                    <label for="newPostDepartment" class="center-block">
-                                        <h6><b>Введіть адресу і номер відділення Нової Пошти</b></h6>
-                                        <input id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
-                                    </label>
+                                    <label for="newPostDepartment" class="labelFont"><b>Введіть адресу і номер відділення Нової Пошти</b></label>
+                                        <input class="validate" id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
                                 </fieldset>
                             </fieldset>
 
@@ -280,7 +212,7 @@
                             </fieldset>
                             <div class="form-group">
                                 <b>П.І.П.</b>
-                                <input class="form-control"
+                                <input class="form-control validate"
                                        id="name"
                                        ng-model="name"
                                        type="text" name="name"
@@ -288,7 +220,7 @@
                                        required>
                             </div>
                             <div class="form-group">
-                                <h6><b>Номер телефону (380xxxxxxxxx - формат номера телефону)</b></h6>
+                                <b>Номер телефону (380xxxxxxxxx - формат номера телефону)</b>
                                 <input class="form-control validate"
                                        type="tel"
                                        id="phone"
@@ -299,8 +231,8 @@
                                        required />
                             </div>
                             <div class="form-group" ng-show="isAddressRequired">
-                                <h6><b>Адреса</b></h6>
-                                <input class="form-control"
+                                <b>Адреса</b>
+                                <input class="form-control validate"
                                        placeholder="Введіть адресу"
                                        id="address"
                                        ng-model="address"
@@ -311,10 +243,10 @@
                     </div>
                     <div id="paymentButton" class="row" ng-show="successfullResponse">
                         <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin">
-                            <a><button type="button" class="btn btn-primary-outline waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
+                            <a><button type="button" class="btn btn-outline-secondary waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                            <button type="button" class="btn btn-success-outline waves-effect btn-block" ng-click="payOrder()">Оплатити</button>
+                            <button type="button" class="btn btn-outline-success waves-effect btn-block" ng-click="payOrder()">Оплатити</button>
                         </div>
                         <div class="proceedWithPayment"></div>
                     </div>
@@ -334,3 +266,4 @@
         </div>
     </div>
 </div>
+

@@ -130,3 +130,10 @@ main {
 .pullRight {
     float: right !important;
 }
+
+.product .img-responsive {
+    margin: 0 auto;
+}
+.labelFont {
+    font-size: inherit !important;
+}

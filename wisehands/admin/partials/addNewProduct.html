@@ -37,20 +37,22 @@
             <textarea id="textarea1" class="materialize-textarea" ng-model="product.description" required></textarea>
             <label for="textarea1">Опис товару</label>
         </div>
-        <div class="input-field col-xs-12">
-            <button type="button" class="btn btn-default waves-effect waves-light pull-right accentColor btn-block" data-toggle="modal" data-target="#categoryModal"">
-                <span>Створити категорію</span>
-            </button>
-        </div>
         <div class="input-field col-xs-12" ng-show="categories.length === 0">
             <p class="text-center">У вас не створено жодної категорії. Будь ласка, створіть категорію</p>
         </div>
         <div class="input-field col-xs-12 z-index" ng-show="categories.length >= 1">
+            <label for="category" class="active categoryLabelFontSize">Категорія</label>
             <select class="form-control"
+                    id="category"
                     ng-model="product.category"
                     ng-options="category as category.name for category in categories track by category.uuid" required>
                 <option></option>
             </select>
+        </div>
+        <div class="input-field col-xs-12">
+            <button type="button" class="btn btn-default waves-effect waves-light pull-right accentColor btn-block" data-toggle="modal" data-target="#categoryModal"">
+            <span>Створити категорію</span>
+            </button>
         </div>
         <div class="file-field input-field col-xs-12">
             <button type="button" class="btn btn-default waves-effect waves-light pull-right accentColor btn-block" ng-click="loadImage()">
