@@ -18,6 +18,10 @@
                     templateUrl:'wisehands/shop/partials/productDetails.html',
                     controller:'ProductDetailsController'
                 }).
+                when('/category/:uuid',{
+                    templateUrl:'wisehands/shop/partials/categoryDetails.html',
+                    controller:'CategoryDetailsController'
+                }).
                 otherwise({
                     redirectTo:'/'
                 });

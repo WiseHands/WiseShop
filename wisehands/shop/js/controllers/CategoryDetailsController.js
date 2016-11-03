@@ -1,26 +1,30 @@
+angular.module('WiseShop')
+    .controller('CategoryDetailsController', ['$scope', '$http','shared','sideNavInit', '$routeParams',
+        function($scope, $http, shared, sideNavInit, $routeParams) {
 
+            $scope.uuid = $routeParams.uuid;
+            function loadOptions() {
+                $scope.selectedItems = shared.getSelectedItems();
+                $scope.totalItems = shared.getTotalItems();
+            }
+            loadOptions();
 
-
-// function initAutocomplete() {
-//     autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode']});
-// }
-
-(function(){
-    angular.module('WiseShop')
-        .controller('ShopController', ['$scope', '$http','shared','sideNavInit',  function($scope, $http, shared, sideNavInit) {
-           
-            $scope.minOrderForFreeDelivery = 501;
             $http({
                 method: 'GET',
-                url: '/products'
+                url: '/category/' + $scope.uuid
+
             })
                 .then(function successCallback(response) {
                     $scope.products = response.data;
-                    $('input:radio[name=deliverance]:not(:disabled):first').click();
-                }, function errorCallback(error) {
-                    console.log(error);
+                }, function errorCallback(data) {
+                    console.log(data);
                 });
+            $scope.minOrderForFreeDelivery = 501;
 
+
+            $scope.select= function(index) {
+                $scope.selected = index;
+            };
             $scope.getDeliveryTypes = function() {
                 $http({
                     method: 'GET',
@@ -34,18 +38,6 @@
 
             };
 
-            $scope.getDeliveryTypes = function() {
-                $http({
-                    method: 'GET',
-                    url: '/delivery'
-                })
-                    .then(function successCallback(response) {
-                        $scope.deliverance = response.data;
-                    }, function errorCallback(error) {
-                        console.log(error);
-                    });
-
-            };
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
@@ -65,61 +57,23 @@
                     console.log(error);
                 });
 
-            // $scope.init = function() {
-            //     var placeSearch, autocomplete;
-            //     var componentForm = {
-            //         street_number: 'short_name',
-            //         route: 'long_name',
-            //         locality: 'long_name',
-            //         administrative_area_level_1: 'short_name',
-            //         country: 'long_name',
-            //         postal_code: 'short_name'
-            //     };
-            //
-            //     function geolocate() {
-            //         if (navigator.geolocation) {
-            //             navigator.geolocation.getCurrentPosition(function(position) {
-            //                 var geolocation = {
-            //                     lat: position.coords.latitude,
-            //                     lng: position.coords.longitude
-            //                 };
-            //                 var circle = new google.maps.Circle({
-            //                     center: geolocation,
-            //                     radius: position.coords.accuracy
-            //                 });
-            //                 autocomplete.setBounds(circle.getBounds());
-            //             });
-            //         }
-            //     }
-            // };
-
             $scope.delivery = function () {
                 if ($scope.delivery.radio === 'NOVAPOSHTA') {
-                    $scope.isAddressRequired = false;
                 }
-                 if ($scope.delivery.radio === 'COURIER') {
-                     $scope.isAddressRequired = true;
+                if ($scope.delivery.radio === 'COURIER') {
                     if($scope.total < $scope.minOrderForFreeDelivery){
                         return ' + 40';
                     } else {
                         return '';
                     }
                 } else if ($scope.delivery.radio === 'SELFTAKE'){
-                     $scope.isAddressRequired = false;
                     return '';
                 }
-                
+
                 return '';
             };
 
-            function loadOptions() {
-                $scope.selectedItems = shared.getSelectedItems();
-                $scope.totalItems = shared.getTotalItems();
-            }
-
-            loadOptions();
-
-            $scope.buyStart = function (index, $event) {
+            $scope.buyStart = function ($event) {
 
                 var today = new Date();
 
@@ -129,47 +83,48 @@
 
                 var isNotWorkingTime = nowMinutes < startMinutes || nowMinutes >= endMinutes;
 
+
                 if(isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                 } else {
-                    if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
-                        $scope.products[index].quantity = 1;
-                        $scope.selectedItems.push($scope.products[index]);
-                        shared.setSelectedItems($scope.selectedItems);
+                    if (!$scope.found) {
+                        $scope.product.quantity = 1;
+                        $scope.selectedItems.push($scope.product);
                         $scope.calculateTotal();
+                        shared.setSelectedItems($scope.selectedItems);
+
+                        for(var i = 0; i < $scope.selectedItems.length; i++) {
+                            if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
+                                $scope.found = true;
+                                var productFromBin = $scope.selectedItems[i];
+                                break;
+                            }
+                        }
 
                     } else {
-                        $scope.products[index].quantity ++;
-                        shared.setSelectedItems($scope.selectedItems);
-                        $scope.calculateTotal();
+                        for(var i = 0; i < $scope.selectedItems.length; i++) {
+                            if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
+                                $scope.found = true;
+                                var productFromBin = $scope.selectedItems[i];
+                                productFromBin.quantity ++;
+                                $scope.calculateTotal();
+                                shared.setSelectedItems($scope.selectedItems);
+
+                                break;
+                            }
+                        }
+
                     }
                     if ($event.stopPropagation) $event.stopPropagation();
                     if ($event.preventDefault) $event.preventDefault();
                     $event.cancelBubble = true;
                     $event.returnValue = false;
 
-                    $scope.totalItems = 0;
-                    $scope.selectedItems.forEach(function(selectedItem, key, array) {
-                        $scope.totalItems += selectedItem.quantity;
 
-                    });
 
                 }
 
-            };
-
-            $scope.removeSelectedItem = function (index){
-                $scope.selectedItems.splice(index, 1);
-                $scope.calculateTotal();
-                shared.setSelectedItems($scope.selectedItems);
-                
-            };
-
-            $scope.removeAll = function () {
-                $scope.selectedItems.length = 0;
-                $scope.calculateTotal();
-                shared.setSelectedItems($scope.selectedItems);
-
+                $('input:radio[name=deliverance]:not(:disabled):first').click();
             };
 
             $scope.calculateTotal = function(){
@@ -183,6 +138,22 @@
                 }
                 shared.setTotalItems($scope.totalItems);
 
+            };
+
+            $scope.removeSelectedItem = function (index){
+                if ($scope.selectedItems[index].uuid === $scope.product.uuid) {
+                    $scope.found = false;
+                }
+                $scope.selectedItems.splice(index, 1);
+                $scope.calculateTotal();
+                shared.setSelectedItems($scope.selectedItems);
+            };
+
+            $scope.removeAll = function () {
+                $scope.selectedItems = [];
+                $scope.calculateTotal();
+                shared.setSelectedItems($scope.selectedItems);
+                $scope.found = false;
             };
 
             $scope.makeOrder = function (){
@@ -201,23 +172,27 @@
 
                 var encodedParams = encodeQueryData(params);
 
+
+
                 $http({
                     method: 'POST',
                     url: '/order',
                     data: params
                 })
-                .then(function successCallback(response) {
-                    $scope.loading = false;
-                    $scope.successfullResponse = true;
-                    var modalContent = document.querySelector(".proceedWithPayment");
-                    modalContent.innerHTML = response.data.button;
-                    $scope.currentOrderUuid = response.data.uuid;
-                }, function errorCallback(data) {
-                    $scope.loading = false;
-                    console.log(data);
-                });
-            };
+                    .then(function successCallback(response) {
+                        $scope.loading = false;
+                        $scope.successfullResponse = true;
+                        var modalContent = document.querySelector(".proceedWithPayment");
+                        modalContent.innerHTML = response.data.button;
+                        $scope.currentOrderUuid = response.data.uuid;
+                    }, function errorCallback(data) {
+                        $scope.loading = false;
+                        console.log(data);
+                    });
 
+
+            };
+            
             function equalizeHeights(selector) {
                 var heights = new Array();
 
@@ -238,47 +213,19 @@
             }
 
             $scope.$on('ngRepeatFinished', function(ngRepeatFinished) {
+                debugger;
                 equalizeHeights(".fixed-height");
+
+
                 $(window).resize(function() {
+
                     setTimeout(function() {
                         equalizeHeights(".fixed-height");
-
                     }, 120);
                 });
             });
-
-            $scope.payOrder = function () {
-                $("#paymentButton").click(function(e) {
-                    var rootDiv = document.querySelector('.proceedWithPayment');
-                    rootDiv.firstChild.submit();
-                });
-            };
-
-            $scope.payLater = function () {
-                $http({
-                    method: 'PUT',
-                    url: '/order/' + $scope.currentOrderUuid + '/manually-payed'
-                })
-                    .then(function successCallback(response) {
-                        window.location.pathname = '/done';
-                    }, function errorCallback(data) {
-                        console.log(data);
-                    });
-                $scope.selectedItems = [];
-                $('#cart-modal-ex').modal('hide');
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
-                $scope.successfullResponse = false;
-            };
             sideNavInit.sideNav();
-
         }]);
-    
-
-})();
-
-
-
 function encodeQueryData(data)
 {
     var ret = [];
@@ -286,6 +233,3 @@ function encodeQueryData(data)
         ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
     return ret.join("&");
 }
-
-
-

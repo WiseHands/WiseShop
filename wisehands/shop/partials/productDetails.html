@@ -7,7 +7,7 @@
             </li>
 
             <li class="nav-item pullRight">
-                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0"> <span class="tag red z-depth-1">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
+                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0" ng-click="calculateTotal()"> <span class="tag red z-depth-1">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
             </li>
             <!--<li class="nav-item ">-->
             <!--<a class="nav-link"><i class="fa fa-comments-o"></i> <span class="hidden-sm-down">Support</span></a>-->
@@ -29,7 +29,7 @@
 
 </header>
 <!--/Navigation-->
-<!--<main>-->
+<main>
     <section class="section m-b-4">
         <!-- Modal -->
         <div class="ql-modal contactsContainer" id="quick-look-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -95,8 +95,8 @@
         </div>
 
     </section>
-<!--</main>-->
-<div class="modal fade cart-modal row" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</main>
+<div class="modal fade cart-modal" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog col-xs-12 modalPosition" role="document">
         <div class="modal-content">
             <div ng-hide="modalHide" ng-init="modalHide=false">
@@ -140,7 +140,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary"
+                    <button class="btn btn-success"
                             ng-show="selectedItems.length !== 0"
                             ng-click="getDeliveryTypes(); modalHide = !modalHide">
                         Замовити
@@ -182,10 +182,8 @@
                                        value="NOVAPOSHTA">
                                 <label for="radio2" ng-show="deliverance.isNewPostAvailable"><i>{{deliverance.newPostText}}</i></label>
                                 <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
-                                    <label for="newPostDepartment" class="center-block">
-                                        <h6><b>Введіть адресу і номер відділення Нової Пошти</b></h6>
-                                        <input id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
-                                    </label>
+                                    <label for="newPostDepartment" class="labelFont"><b>Введіть адресу і номер відділення Нової Пошти</b></label>
+                                        <input class="validate" id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
                                 </fieldset>
                             </fieldset>
 
@@ -197,21 +195,19 @@
                                        ng-model="delivery.radio"
                                        ng-required="!delivery.radio"
                                        value="SELFTAKE">
-                                <label class="pull-left autoHeight" for="radio3" ng-show="deliverance.isSelfTakeAvailable"><i>{{deliverance.selfTakeText}}</i></label>
+                                <label class="pull-left autoHeight" for="radio3" ng-show="deliverance.isSelfTakeAvailable">{{deliverance.selfTakeText}}</label>
                             </fieldset>
-
                             <div class="form-group">
-                                <h6><b>П.І.П.</b>
-                                    <input class="form-control"
-                                           id="name"
-                                           ng-model="name"
-                                           type="text" name="name"
-                                           placeholder="Петренко Іван Григорович"
-                                           required/>
-                                </h6>
+                                <b>П.І.П.</b>
+                                <input class="form-control validate"
+                                       id="name"
+                                       ng-model="name"
+                                       type="text" name="name"
+                                       placeholder="Петренко Іван Григорович"
+                                       required>
                             </div>
                             <div class="form-group">
-                                <h6><b>Номер телефону (380xxxxxxxxx - формат номера телефону)</b></h6>
+                                <b>Номер телефону (380xxxxxxxxx - формат номера телефону)</b>
                                 <input class="form-control validate"
                                        type="tel"
                                        id="phone"
@@ -221,24 +217,23 @@
                                        pattern="^380[0-9]{9,9}$"
                                        required />
                             </div>
-                            <div class="form-group" ng-show="isAddressRequired">
-                                <h6><b>Адреса</b></h6>
-                                <input class="form-control"
+                            <div class="form-group" ng-show="delivery.radio === 'COURIER'">
+                                <b>Адреса</b>
+                                <input class="form-control validate"
                                        placeholder="Введіть адресу"
                                        id="address"
                                        ng-model="address"
                                        type="text"
                                        ng-required="isAddressRequired"/>
                             </div>
-
                         </form>
                     </div>
                     <div id="paymentButton" class="row" ng-show="successfullResponse">
                         <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin">
-                            <a><button type="button" class="btn btn-primary-outline waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
+                            <a><button type="button" class="btn btn-outline-secondary waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                            <button type="button" class="btn btn-success-outline waves-effect btn-block" ng-click="payOrder()">Оплатити</button>
+                            <button type="button" class="btn btn-outline-success waves-effect btn-block" ng-click="payOrder()">Оплатити</button>
                         </div>
                         <div class="proceedWithPayment"></div>
                     </div>
@@ -258,3 +253,5 @@
         </div>
     </div>
 </div>
+
+

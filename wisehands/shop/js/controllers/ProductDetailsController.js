@@ -1,21 +1,10 @@
 (function(){
     angular.module('WiseShop')
-        .controller('ProductDetailsController', ['$scope', '$http', '$route', '$location', '$routeParams','shared',
-            function($scope, $http, $route, $location, $routeParams, shared) {
+        .controller('ProductDetailsController', ['$scope', '$http', '$location', '$routeParams','shared',
+            function($scope, $http, $location, $routeParams, shared) {
             $scope.uuid = $routeParams.uuid;
-            $scope.loading = true;
 
-            function loadOptions() {
-                $scope.selectedItems = shared.getSelectedItems();
-                $scope.totalItems = shared.getTotalItems();
-            }
-
-            loadOptions();
-            // $scope.totalItems = 0;
-            // $scope.selectedItems.forEach(function(selectedItem, key, array) {
-            //     $scope.totalItems += selectedItem.quantity;
-            //
-            // });
+            
             $http({
                 method: 'GET',
                 url: '/products'
@@ -37,6 +26,8 @@
                             $scope.selected = index;
                         }
                     });
+                    $('input:radio[name=deliverance]:not(:disabled):first').click();
+
                     $scope.found = false;
                     for(var i = 0; i < $scope.selectedItems.length; i++) {
                         if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
@@ -84,25 +75,28 @@
                 }, function errorCallback(error) {
                     console.log(error);
                 });
+                $scope.delivery = function () {
+                    if ($scope.delivery.radio === 'NOVAPOSHTA') {
 
-            $scope.delivery = function () {
-                if ($scope.delivery.radio === 'NOVAPOSHTA') {
-                    $scope.isAddressRequired = false;
-                }
-                if ($scope.delivery.radio === 'COURIER') {
-                    $scope.isAddressRequired = true;
-                    if($scope.total < $scope.minOrderForFreeDelivery){
-                        return ' + 40';
-                    } else {
+                    } else if ($scope.delivery.radio === 'COURIER') {
+                        if($scope.total < $scope.minOrderForFreeDelivery){
+                            return ' + 40';
+                        } else {
+                            return '';
+                        }
+                    } else if ($scope.delivery.radio === 'SELFTAKE'){
                         return '';
                     }
-                } else if ($scope.delivery.radio === 'SELFTAKE'){
-                    $scope.isAddressRequired = false;
+
                     return '';
+                };
+
+                function loadOptions() {
+                    $scope.selectedItems = shared.getSelectedItems();
+                    $scope.totalItems = shared.getTotalItems();
                 }
 
-                return '';
-            };
+                loadOptions();
 
                 $scope.buyStart = function ($event) {
 
@@ -155,7 +149,6 @@
 
                     }
 
-                    $('input:radio[name=deliverance]:not(:disabled):first').click();
                 };
 
                 $scope.calculateTotal = function(){
@@ -219,6 +212,30 @@
                             console.log(data);
                         });
                 };
+                $scope.payOrder = function () {
+                    $("#paymentButton").click(function(e) {
+                        var rootDiv = document.querySelector('.proceedWithPayment');
+                        rootDiv.firstChild.submit();
+                    });
+                };
+
+                $scope.payLater = function () {
+                    $http({
+                        method: 'PUT',
+                        url: '/order/' + $scope.currentOrderUuid + '/manually-payed'
+                    })
+                        .then(function successCallback(response) {
+                            window.location.pathname = '/done';
+                        }, function errorCallback(data) {
+                            console.log(data);
+                        });
+                    $scope.selectedItems = [];
+                    $('#cart-modal-ex').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    $scope.successfullResponse = false;
+                };
+
 
 
             }]);

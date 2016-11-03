@@ -3,7 +3,7 @@
     <nav class="navbar navbar-fixed-top scrolling-navbar double-nav green">
 
         <div class="pull-left">
-        <a data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+            <a data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
         </div>
 
         <!-- Breadcrumb-->
@@ -15,7 +15,7 @@
         <ul class="nav navbar-nav pull-right">
 
             <li class="nav-item ">
-                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0" ng-click="calculateTotal()"> <span class="tag red z-depth-1">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
+                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0"> <span class="tag red z-depth-1">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="#/contacts"><i class="fa fa-envelope"></i> <span class="hidden-sm-down"> Контакти</span></a>
@@ -37,9 +37,7 @@
 
     </nav>
     <!--/.Navbar-->
-
 </header>
-<!--/Navigation-->
 <main class="p-t-6">
     <div class="container-fluid row center-block">
         <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="productDTO in products" on-finish-render="ngRepeatFinished">
@@ -64,7 +62,7 @@
             </div>
         </div>
 
-        </div>
+    </div>
 </main>
 <div class="modal fade cart-modal" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog col-xs-12 modalPosition" role="document">
@@ -153,7 +151,7 @@
                                 <label for="radio2" ng-show="deliverance.isNewPostAvailable"><i>{{deliverance.newPostText}}</i></label>
                                 <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
                                     <label for="newPostDepartment" class="labelFont"><b>Введіть адресу і номер відділення Нової Пошти</b></label>
-                                        <input class="validate" id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
+                                    <input class="validate" id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
                                 </fieldset>
                             </fieldset>
 
@@ -223,4 +221,5 @@
         </div>
     </div>
 </div>
+
 

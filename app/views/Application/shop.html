@@ -19,14 +19,59 @@
 
 </head>
 <body class="fixed-sn green-skin" ng-app="WiseShop" ng-cloak>
+    <!-- Sidebar navigation -->
+    <ul id="slide-out" class="side-nav custom-scrollbar" ng-controller="SideNavController">
 
+        <!-- Logo -->
+        <!--<li>-->
+        <!--<div class="logo-wrapper waves-light sn-avatar-wrapper">-->
+        <!--<a href="#">-->
+        <!--<img src="http://mdbootstrap.com/images/avatars/img%20(8)" class="rounded-circle">-->
+        <!--</a>-->
+        <!--</div>-->
+        <!--</li>-->
+        <!--/. Logo -->
+
+        <!--About-->
+        <li>
+            <div class="about">
+                <p>{{shopName}}</p>
+            </div>
+        </li>
+        <!--/.About-->
+
+        <!--Social-->
+        <!--<li>-->
+        <!--<ul class="social">-->
+        <!--<li><a class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>-->
+        <!--<li><a class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>-->
+        <!--<li><a class="icons-sm drib-ic"><i class="fa fa-dribbble"> </i></a></li>-->
+        <!--<li><a class="icons-sm li-ic"><i class="fa fa-linkedin"> </i></a></li>-->
+        <!--<li><a class="icons-sm ins-ic"><i class="fa fa-instagram"> </i></a></li>-->
+        <!--</ul>-->
+        <!--</li>-->
+        <!--/Social-->
+
+        <!-- Side navigation links -->
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li><a href="#/" class="collapsible-header waves-effect arrow-r">Головна</a>
+                </li>
+                <li ng-repeat="category in categories"><a href="#/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r">{{category.name}}</a>
+                </li>
+            </ul>
+        </li>
+        <!--/. Side navigation links -->
+
+    </ul>
+    <!--/. Sidebar navigation -->
     <div ng-view>
         ${shop.contact.description}
     </div>
 
     <script defer src="wisehands/assets/js/angular.min.js"></script>
     <script defer src="wisehands/assets/js/angular-route.min.js"></script>
-    <script defer src="wisehands/assets/js/jquery-3.1.1.min.js"></script>
+    <script defer src="wisehands/assets/js/jquery-2.2.3.min.js"></script>
     <script defer src="wisehands/assets/js/tether.min.js"></script>
     <script defer src="wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
     <script defer src="wisehands/assets/mdb_shop/js/mdb.min.js"></script>
@@ -36,19 +81,17 @@
     <script defer src="wisehands/shop/js/controllers/ShopController.js"></script>
     <script defer src="wisehands/shop/js/controllers/ContactsController.js"></script>
     <script defer src="wisehands/shop/js/controllers/ProductDetailsController.js"></script>
+    <script defer src="wisehands/shop/js/controllers/SideNavController.js"></script>
+    <script defer src="wisehands/shop/js/controllers/CategoryDetailsController.js"></script>
+
+    <script defer src="wisehands/shop/js/services/SharedDataService.js"></script>
+    <script defer src="wisehands/shop/js/services/SideNavInitService.js"></script>
 
     <script defer src="wisehands/shop/js/directives/onFinishRender.js"></script>
 
-    <script defer src="wisehands/shop/js/services/SharedDataService.js"></script>
 
     <script defer src="wisehands/assets/js/angular-spinners.min.js"></script>
 
-<script>
-//    // SideNav init
-//    $(".button-collapse").sideNav();
-//    var el = document.querySelector('.custom-scrollbar');
-//    Ps.initialize(el);
-</script>
 
     <script>
         function init_map(latLng) {

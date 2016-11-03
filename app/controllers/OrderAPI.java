@@ -231,7 +231,7 @@ public class OrderAPI extends AuthController {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        System.out.println("User " + loggedInUser.name + " marked order " + order.name + " as MANUALLY_PAYED at " + dateFormat.format(date));
+        System.out.println("User  marked order " + order.name + " as MANUALLY_PAYED at " + dateFormat.format(date));
 
 
         renderJSON(json(order));
