@@ -120,6 +120,12 @@
             loadOptions();
 
             $scope.buyStart = function (index, $event) {
+                $scope.selectedItems.forEach(function (selectedItem) {
+                   if(selectedItem.uuid === $scope.products[index].uuid){
+                       $scope.found = true;
+                       $scope.productFromBin = selectedItem;
+                   }
+                });
 
                 var today = new Date();
 
@@ -131,7 +137,8 @@
 
                 if(isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
-                } else {
+                } else if (!$scope.found) {
+
                     if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
                         $scope.products[index].quantity = 1;
                         $scope.selectedItems.push($scope.products[index]);
@@ -142,18 +149,22 @@
                         $scope.products[index].quantity ++;
                         shared.setSelectedItems($scope.selectedItems);
                         $scope.calculateTotal();
-                    }
+                    } 
                     if ($event.stopPropagation) $event.stopPropagation();
                     if ($event.preventDefault) $event.preventDefault();
                     $event.cancelBubble = true;
                     $event.returnValue = false;
 
                     $scope.totalItems = 0;
-                    $scope.selectedItems.forEach(function(selectedItem, key, array) {
+                    $scope.selectedItems.forEach(function(selectedItem) {
                         $scope.totalItems += selectedItem.quantity;
 
                     });
 
+                } else {
+                    $scope.productFromBin.quantity ++;
+                    $scope.calculateTotal();
+                    shared.setSelectedItems($scope.selectedItems);
                 }
 
             };
