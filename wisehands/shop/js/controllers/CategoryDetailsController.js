@@ -2,6 +2,7 @@ angular.module('WiseShop')
     .controller('CategoryDetailsController', ['$scope', '$http','shared','sideNavInit', '$routeParams',
         function($scope, $http, shared, sideNavInit, $routeParams) {
             $scope.uuid = $routeParams.uuid;
+                        
             $http({
                 method: 'GET',
                 url: '/category/' + $scope.uuid
@@ -29,18 +30,7 @@ angular.module('WiseShop')
 
             };
 
-            $scope.getDeliveryTypes = function() {
-                $http({
-                    method: 'GET',
-                    url: '/delivery'
-                })
-                    .then(function successCallback(response) {
-                        $scope.deliverance = response.data;
-                    }, function errorCallback(error) {
-                        console.log(error);
-                    });
 
-            };
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
@@ -116,6 +106,13 @@ angular.module('WiseShop')
 
             $scope.buyStart = function (index, $event) {
 
+                $scope.selectedItems.forEach(function (selectedItem) {
+                    if(selectedItem.uuid === $scope.products[index].uuid){
+                        $scope.found = true;
+                        $scope.productFromBin = selectedItem;
+                    }
+                });
+                
                 var today = new Date();
 
                 var startMinutes = $scope.startTime.getHours() * 60 + $scope.startTime.getMinutes();
@@ -126,7 +123,7 @@ angular.module('WiseShop')
 
                 if(isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
-                } else {
+                } else if (!$scope.found){
                     if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
                         $scope.products[index].quantity = 1;
                         $scope.selectedItems.push($scope.products[index]);
@@ -144,11 +141,15 @@ angular.module('WiseShop')
                     $event.returnValue = false;
 
                     $scope.totalItems = 0;
-                    $scope.selectedItems.forEach(function(selectedItem, key, array) {
+                    $scope.selectedItems.forEach(function(selectedItem) {
                         $scope.totalItems += selectedItem.quantity;
 
                     });
 
+                } else {
+                    $scope.productFromBin.quantity ++;
+                    $scope.calculateTotal();
+                    shared.setSelectedItems($scope.selectedItems);
                 }
 
             };

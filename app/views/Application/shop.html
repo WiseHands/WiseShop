@@ -55,9 +55,10 @@
         <!-- Side navigation links -->
         <li>
             <ul class="collapsible collapsible-accordion">
-                <li><a href="#/" class="collapsible-header waves-effect arrow-r">Головна</a>
+                <li><a href="#/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">Головна</a>
                 </li>
-                <li ng-repeat="category in categories"><a href="#/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r">{{category.name}}</a>
+                <li ng-repeat="category in categories">
+                    <a href="#/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r" ng-class="{ 'active': categoryUuid == category.uuid}">{{category.name}}</a>
                 </li>
             </ul>
         </li>

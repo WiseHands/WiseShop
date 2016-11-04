@@ -1,7 +1,8 @@
 angular.module('WiseShop')
-    .controller('SideNavController', ['$scope', '$http', '$route', '$window',
-        function ($scope, $http, $route, $window) {
+    .controller('SideNavController', ['$scope', '$http', '$route',
+        function ($scope, $http, $route) {
             $scope.$route = $route;
+            $scope.categoryUuid = location.hash.split('#/category/')[1];
             $http({
                 method: 'GET',
                 url: '/category'
@@ -9,8 +10,9 @@ angular.module('WiseShop')
             })
                 .then(function successCallback(response) {
                    $scope.categories = response.data;
+
                 }, function errorCallback(data) {
-                    console.log('error retrieving profile');
+                    console.log(data);
                 });
 
 

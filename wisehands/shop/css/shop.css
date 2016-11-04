@@ -123,7 +123,15 @@ main {
 
 /* Tablet ----------- */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+
 }
+
+@media only screen and (min-width: 568px) and (max-width: 993px) {
+    .double-nav .breadcrumb-dn {
+        display: inherit;
+    }
+}
+
 .noBoxShadow img {
     box-shadow: none !important;
 }

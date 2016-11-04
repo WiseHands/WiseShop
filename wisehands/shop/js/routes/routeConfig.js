@@ -8,7 +8,8 @@
                 $routeProvider.
                 when('/',{
                     templateUrl:'wisehands/shop/partials/shopView.html',
-                    controller:'ShopController'
+                    controller:'ShopController',
+                    activetab: 'main'
                 }).
                 when('/contacts',{
                     templateUrl:'wisehands/shop/partials/contacts.html',
@@ -20,7 +21,8 @@
                 }).
                 when('/category/:uuid',{
                     templateUrl:'wisehands/shop/partials/categoryDetails.html',
-                    controller:'CategoryDetailsController'
+                    controller:'CategoryDetailsController',
+                    activetab: 'uuid'
                 }).
                 otherwise({
                     redirectTo:'/'

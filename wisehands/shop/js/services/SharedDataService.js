@@ -2,6 +2,7 @@ angular.module('WiseShop')
     .service('shared', [ function() {
         var selectedItems = [];
         var totalItems = 0;
+        
         return {
             getSelectedItems: function () {
                 return selectedItems;
