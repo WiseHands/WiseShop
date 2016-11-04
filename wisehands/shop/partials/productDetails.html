@@ -3,7 +3,7 @@
         <ul class="nav navbar-nav">
 
             <li class="nav-item pull-left">
-                <a class="nav-link" href="#/" ng-click="reloadPage()"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
+                <a class="nav-link" href="javascript:history.back()"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
             </li>
 
             <li class="nav-item pullRight">
@@ -224,7 +224,14 @@
                                        id="address"
                                        ng-model="address"
                                        type="text"
-                                       ng-required="isAddressRequired"/>
+                                       ng-required="delivery.radio === 'COURIER'"/>
+                            </div>
+                            <div class="form-group">
+                                <b>Коментар</b>
+                                <textarea class="md-textarea"
+                                          id="comment"
+                                          placeholder="Будь-які зауваження та пропозиції залишайте тут"
+                                          ng-model="comment"></textarea>
                             </div>
                         </form>
                     </div>

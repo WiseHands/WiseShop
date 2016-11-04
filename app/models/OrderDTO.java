@@ -39,6 +39,9 @@ public class OrderDTO extends GenericModel {
     public Double total;
 
     @Expose
+    public String comment;
+
+    @Expose
     @Enumerated(EnumType.STRING)
     public OrderState state;
 
@@ -49,7 +52,7 @@ public class OrderDTO extends GenericModel {
     @ManyToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-    public OrderDTO(String name, String phone, String address, String deliveryType, String departmentNumber, ShopDTO shop) {
+    public OrderDTO(String name, String phone, String address, String deliveryType, String departmentNumber, String comment, ShopDTO shop) {
         this.name = name;
         this.phone = phone;
         this.address = address;
@@ -57,6 +60,7 @@ public class OrderDTO extends GenericModel {
         this.departmentNumber = departmentNumber;
         this.time = System.currentTimeMillis();
         this.state = OrderState.NEW;
+        this.comment = comment;
         this.shop = shop;
     }
 

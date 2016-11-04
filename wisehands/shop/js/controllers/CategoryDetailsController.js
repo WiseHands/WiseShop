@@ -192,7 +192,8 @@ angular.module('WiseShop')
                     name: document.getElementById('name').value,
                     address: document.getElementById('address').value,
                     newPostDepartment: $scope.delivery.newPost,
-                    selectedItems: $scope.selectedItems
+                    selectedItems: $scope.selectedItems,
+                    comment: document.getElementById('comment').value
                 };
 
                 var encodedParams = encodeQueryData(params);

@@ -53,6 +53,7 @@ public class OrderAPI extends AuthController {
         String name = (String) jsonBody.get("name");
         String phone = (String) jsonBody.get("phone");
         String address = (String) jsonBody.get("address");
+        String comment = (String) jsonBody.get("comment");
         String newPostDepartment = (String) jsonBody.get("newPostDepartment");
         JSONArray jsonArray = (JSONArray) jsonBody.get("selectedItems");
 
@@ -65,7 +66,7 @@ public class OrderAPI extends AuthController {
         }
 
 
-        OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, shop);
+        OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, comment, shop);
         if(shop.orders == null){
             shop.orders = new ArrayList<OrderDTO>();
         }
