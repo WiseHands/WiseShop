@@ -19,7 +19,10 @@ import java.util.*;
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
 
-    public static void create(String client, String name, String description, Double price, File fake, Integer mainPhotoIndex, String category) throws Exception {
+    public static void create(String client, String name, String description,
+                              Double price, File fake, Integer mainPhotoIndex,
+                              String category,
+                              Integer sortOrder, Boolean isActive, Double oldPrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
         Files.createDirectories(Paths.get(USERIMAGESPATH + shop.uuid));
@@ -39,6 +42,9 @@ public class ProductAPI extends AuthController {
         CategoryDTO cat = CategoryDTO.findById(category);
         ProductDTO product = new ProductDTO(name, description, price, images, shop, cat);
         product.mainImage = images.get(mainPhotoIndex);
+        product.isActive = isActive;
+        product.sortOrder = sortOrder;
+        product.oldPrice = oldPrice;
         product.save();
 
         product = product.save();
@@ -77,15 +83,16 @@ public class ProductAPI extends AuthController {
         renderJSON(json);
     }
 
-    public static void update(String client, String uuid, String name, String description, Double price, Upload photo) throws Exception {
+    public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
+                              Integer sortOrder, Boolean isActive, Double oldPrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
 
 
-        ProductDTO productDTO = (ProductDTO) ProductDTO.findById(uuid);
+        ProductDTO product = (ProductDTO) ProductDTO.findById(uuid);
 
         if(photo != null) {
-            File file = new File(USERIMAGESPATH + productDTO.fileName);
+            File file = new File(USERIMAGESPATH + product.fileName);
             String path = USERIMAGESPATH + shop.domain + "/" + photo.getFileName();
             if(!file.delete()){
                 System.out.println("error deleting file: " + path);
@@ -95,28 +102,32 @@ public class ProductAPI extends AuthController {
             out.write(photo.asBytes());
             out.close();
 
-            productDTO.fileName = shop.domain + "/" + photo.getFileName();
+            product.fileName = shop.domain + "/" + photo.getFileName();
         }
 
 
         if (name != null){
-            productDTO.name = name;
+            product.name = name;
         }
         if (description != null){
-            productDTO.description = description;
+            product.description = description;
         }
         if (price != null){
-            productDTO.price = price;
+            product.price = price;
         }
 
-        productDTO.save();
+        product.isActive = isActive;
+        product.sortOrder = sortOrder;
+        product.oldPrice = oldPrice;
+
+        product.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(productDTO);
+        String json = gson.toJson(product);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        System.out.println("User " + loggedInUser.name + " updated product " + productDTO.name + " at " + dateFormat.format(date));
+        System.out.println("User " + loggedInUser.name + " updated product " + product.name + " at " + dateFormat.format(date));
 
 
         renderJSON(json);

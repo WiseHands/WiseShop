@@ -33,16 +33,21 @@
     <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="product in products | filter:search" on-finish-render="ngRepeatFinished">
         <a href="#/product/details/{{product.uuid}}">
             <div class="card card-product hoverable">
-                <div class="card-image waves-effect waves-block waves-light view overlay hm-white-slight">
+                <div class="card-image waves-effect waves-block waves-light view cardImageBlock">
                     <img ng-src="/public/product_images/{{activeShop}}/{{product.mainImage.filename}}">
-                    <div class="mask"> </div>
-                </div>
-                <div class="card-content text-center row">
-                    <div class="col-xs-12 fixed-height">
-                        <h5 class="black-text product-title fixed-height">{{product.name}}</h5>
+                    <div class="mask pattern-9">
+                        <div class="verticalcenter" ng-hide="product.isActive">
+                            <p class="white-text text-center">Не активний</p>
+                        </div>
                     </div>
-                    <div class="price col-xs-12">
-                        <p class="black-text medium-500">{{product.price}} грн</p>
+                </div>
+                <div class="card-content">
+                    <div class="fixed-height">
+                        <h5 class="black-text product-title fixed-height text-center">{{product.name}}</h5>
+                    </div>
+                    <div class="price vcentering">
+                        <strike ng-hide="product.oldPrice == null" class="black-text medium-500">{{product.oldPrice}} грн</strike>
+                        <p class="black-text medium-500 flexAlign">{{product.price}} грн</p>
                     </div>
                 </div>
             </div>

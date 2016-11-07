@@ -33,15 +33,18 @@
     </div>
     <div class="col-md-12 noSidePadding" ng-hide="loading">
         <div class="card card-min hoverable">
-            <div class="card-image waves-effect waves-block waves-light view overlay hm-white-slight col-sm-6">
+            <div class="card-image waves-effect waves-block waves-light view overlay hm-white-slight col-sm-6 noSidePadding">
                 <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
                     <!--Main image-->
                     <div class="col-xs-8">
-                        <h5 class="card-label"><span class="label rgba-purple-strong">{{product.price}} грн</span></h5>
+                        <div class="flexContainerForPriceLabels card-label">
+                            <h5><span class="label rgba-purple-strong">{{product.price}} грн</span></h5>
+                            <h5><span ng-hide="product.oldPrice == null" class="label rgba-purple-strong crossedPriceFont"><strike>{{product.oldPrice}} грн</strike></span></h5>
+                        </div>
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner z-depth-1 hoverable" role="listbox">
                             <!-- First slide -->
-                            <div class="item active">
+                            <div class="item active view hm-black-strong">
                                 <img src="/public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="slide1">
                             </div>
                             <!-- /.item -->
@@ -71,13 +74,15 @@
 
                 </div>
             </div>
-            <div class="card-content col-sm-6">
-                <label for="price">Категорія</label>
-                <p id="price">{{product.categoryName}}</p>
-                <label for="name">Назва продукту</label>
-                <h5 id="name" class="product-title">{{product.name}}</h5>
-                <label for="description">Опис продукту</label>
-                <p id="description">{{product.description}}</p>
+            <div class="card-content col-sm-6 row">
+                <div class="col-xs-12">
+                    <label for="price">Категорія</label>
+                    <p id="price">{{product.categoryName}}</p>
+                    <label for="name">Назва продукту</label>
+                    <h5 id="name" class="product-title">{{product.name}}</h5>
+                    <label for="description">Опис продукту</label>
+                    <p id="description">{{product.description}}</p>
+                </div>
             </div>
         </div>
     </div>

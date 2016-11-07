@@ -62,6 +62,9 @@ body {
     .cardTopPadding {
         padding-top: 0;
     }
+    .card .card-content{
+        padding: 0;
+    }
     .row {
         margin-left: 0px;
         margin-right: 0px;
@@ -220,4 +223,20 @@ label.whiteCheckBox::after {
 }
 .categoryLabelFontSize {
     font-size: inherit !important;
+}
+.cardImageBlock {
+    display: block;
+}
+.price {
+    justify-content: space-between;
+}
+.flexAlign {
+    margin-left: auto !important;
+}
+.crossedPriceFont {
+    font-size: .5em !important;
+}
+.flexContainerForPriceLabels {
+    display: flex;
+    flex-direction: column;
 }

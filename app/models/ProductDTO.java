@@ -42,6 +42,15 @@ public class ProductDTO extends GenericModel {
     public String categoryUuid;
 
     @Expose
+    public Integer sortOrder;
+
+    @Expose
+    public Double oldPrice;
+
+    @Expose
+    public Boolean isActive;
+
+    @Expose
     @OneToOne
     public ProductImage mainImage;
 
@@ -53,7 +62,7 @@ public class ProductDTO extends GenericModel {
         this(name, description, price, images, shop, null);
     }
 
-    public ProductDTO(String name, String description, Double price,  List<ProductImage> images, ShopDTO shop, CategoryDTO category) {
+    public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, CategoryDTO category) {
         this.name = name;
         this.description = description;
         this.price = price;

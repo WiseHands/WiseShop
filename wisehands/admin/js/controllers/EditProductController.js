@@ -227,6 +227,9 @@ angular.module('WiseHands')
                 fd.append('name', $scope.product.name);
                 fd.append('description', $scope.product.description);
                 fd.append('price', $scope.product.price);
+                fd.append('isActive', $scope.product.isActive);
+                fd.append('oldPrice', $scope.product.oldPrice);
+                fd.append('sortOrder', $scope.product.sortOrder);
 
 
                 $http.put('/product', fd, {

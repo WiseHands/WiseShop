@@ -25,6 +25,7 @@
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
+
         <div class="input-field col-md-6">
             <input id="product_name" type="text" class="validate" ng-model="product.name" required>
             <label for="product_name">Назва товару</label>
@@ -36,6 +37,37 @@
         <div class="input-field col-md-12">
             <textarea id="textarea1" class="materialize-textarea" ng-model="product.description" required></textarea>
             <label for="textarea1">Опис товару</label>
+        </div>
+        <div class="input-field col-md-12">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading cursorPointer" data-toggle="collapse"  data-target="#collapse3">
+                        <h4 class="panel-title text-center">
+                            Додатково
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="input-field">
+                                <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="product.isActive" ng-init="product.isActive=true" />
+                                <label for="filled-in-box">Показувати в магазині</label>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="input-field col-md-6">
+                                <input id="oldPrice" type="number" class="validate" ng-model="product.oldPrice">
+                                <label for="oldPrice">Стара ціна</label>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="input-field col-md-6">
+                                <input id="productOrder" type="number" class="validate" ng-model="product.sortOrder">
+                                <label for="productOrder">Порядок відображення</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="input-field col-xs-12" ng-show="categories.length === 0">
             <p class="text-center">У вас не створено жодної категорії. Будь ласка, створіть категорію</p>
@@ -65,7 +97,7 @@
 
         <!--Main image-->
         <div class="col-sm-7">
-            <div class="carousel-inner z-depth-1 hoverable" role="listbox">
+            <div class="carousel-inner hoverable" role="listbox">
                 <!-- First slide -->
                 <div class="item active" ng-show="productImages.length >= 1">
                     <img class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
