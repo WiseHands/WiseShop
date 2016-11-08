@@ -30,7 +30,7 @@
             <a href="#/categories" type="button" class="btn btn-primary">Категорії</a>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="product in products | filter:search" on-finish-render="ngRepeatFinished">
+    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="product in products | filter:search | orderBy:'sortOrder'" on-finish-render="ngRepeatFinished">
         <a href="#/product/details/{{product.uuid}}">
             <div class="card card-product hoverable">
                 <div class="card-image waves-effect waves-block waves-light view cardImageBlock">

@@ -29,7 +29,7 @@
 
 </header>
 <!--/Navigation-->
-<main>
+<main class="mainNoPaddingTop">
     <section class="section m-b-4">
         <!-- Modal -->
         <div class="ql-modal contactsContainer" id="quick-look-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -77,7 +77,7 @@
                                 <!--Price-->
                                 <div class="price">
                                     <p><span class="price-after">{{product.price}} грн</span>
-                                    <!--<span class="price-before">$700</span></p>-->
+                                    <span class="price-before" ng-show="product.oldPrice">{{product.oldPrice}} грн</span></p>
                                     <!--<span class="label">-20%</span>-->
                                 </div>
                                 <!--Call to action-->

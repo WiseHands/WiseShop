@@ -145,3 +145,6 @@ main {
 .labelFont {
     font-size: inherit !important;
 }
+.fixed-sn .mainNoPaddingTop {
+    padding-top: 0;
+}

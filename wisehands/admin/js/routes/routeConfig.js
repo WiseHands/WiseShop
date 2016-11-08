@@ -98,6 +98,11 @@
                         controller:'CategoriesController',
                         activetab: 'categories'
                     }).
+                    when('/payment',{
+                        templateUrl:'wisehands/admin/partials/payment.html',
+                        controller:'PaymentController',
+                        activetab: 'payment'
+                    }).
                     otherwise({
                         redirectTo:'/'
                 });

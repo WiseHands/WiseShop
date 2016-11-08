@@ -18,7 +18,7 @@ angular.module('WiseHands')
                 console.log(error);
             });
         
-        $scope.getCategory = function (category) {
+        $scope.getCategory = function (category, $event) {
             $scope.thisCategory = category;
         };
         $scope.hideModal = function () {
