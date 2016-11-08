@@ -34,8 +34,12 @@
         <a href="#/product/details/{{product.uuid}}">
             <div class="card card-product hoverable">
                 <div class="card-image waves-effect waves-block waves-light view cardImageBlock">
+                    <div class="flexContainerForPriceLabels2 card-label">
+                        <h5><span class="label rgba-purple-strong">{{product.price}} грн</span></h5>
+                        <h5><span ng-hide="product.oldPrice == null" class="label rgba-purple-strong crossedPriceFont"><strike>{{product.oldPrice}} грн</strike></span></h5>
+                    </div>
                     <img ng-src="/public/product_images/{{activeShop}}/{{product.mainImage.filename}}">
-                    <div class="mask pattern-9">
+                    <div class="mask">
                         <div class="verticalcenter" ng-hide="product.isActive">
                             <p class="white-text text-center">Не активний</p>
                         </div>
@@ -44,10 +48,6 @@
                 <div class="card-content">
                     <div class="fixed-height">
                         <h5 class="black-text product-title fixed-height text-center">{{product.name}}</h5>
-                    </div>
-                    <div class="price vcentering">
-                        <strike ng-hide="product.oldPrice == null" class="black-text medium-500">{{product.oldPrice}} грн</strike>
-                        <p class="black-text medium-500 flexAlign">{{product.price}} грн</p>
                     </div>
                 </div>
             </div>

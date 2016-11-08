@@ -240,3 +240,11 @@ label.whiteCheckBox::after {
     display: flex;
     flex-direction: column;
 }
+.flexContainerForPriceLabels2 {
+    display: flex;
+    justify-content: space-between;
+}
+.panel-collapse .collection {
+    margin: 0;
+    border: 0;
+}

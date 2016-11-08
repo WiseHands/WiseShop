@@ -31,23 +31,21 @@
             <a type="button" class="btn btn-primary active disabled">Категорії</a>
         </div>
     </div>
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="panel-group" id="accordion">
             <div class="panel panel-default" ng-repeat="category in categories">
-                <div class="panel-heading cursorPointer" data-toggle="collapse"  data-target="#collapse{{$index}}">
-                    <h4 class="panel-title">
-                        <b>{{category.name}}&nbsp;</b> <span class="label label-info">{{category.products.length}}</span>
-                    </h4>
+                <div class="cursorPointer" data-toggle="collapse"  data-target="#collapse{{$index}}">
+                    <a class="collection-item blue vcentering">
+                        <h4 class="white-text col-xs-10">{{category.name}}</h4>
+                        <div class="col-xs-2">
+                            <button class="btn-floating btn-xsmall waves-effect waves-light blue pull-right" data-toggle="modal" data-target="#categoryModal" ng-click="getCategory(category)"><i class="material-icons">mode_edit</i></button>
+                            <button class="btn-floating btn-xsmall waves-effect waves-light red pull-right" data-toggle="modal" data-target="#deleteCategory" ng-click="getCategory(category)"><i class="material-icons"><i class="material-icons">delete_forever</i></i></button>
+                        </div>
+                    </a>
                 </div>
                 <div id="collapse{{$index}}" class="panel-collapse collapse">
-                    <div class="row vcentering">
-                        <div class="col-xs-10">
-                            <div class="panel-body">{{category.description}}</div>
-                        </div>
-                        <div class="col-xs-2">
-                            <a class="btn-floating btn-xsmall waves-effect waves-light red pull-right" data-toggle="modal" data-target="#deleteCategory" ng-click="getCategory(category)"><i class="material-icons"><i class="material-icons">delete_forever</i></i></a>
-                            <a class="btn-floating btn-xsmall waves-effect waves-light blue pull-right" data-toggle="modal" data-target="#categoryModal" ng-click="getCategory(category)"><i class="material-icons">mode_edit</i></a>
-                        </div>
+                    <div class="collection">
+                        <a href="#/product/details/{{product.uuid}}" class="collection-item" ng-repeat="product in category.products">{{product.name}}</a>
                     </div>
                 </div>
             </div>
