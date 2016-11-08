@@ -96,7 +96,7 @@
                     when('/categories',{
                         templateUrl:'wisehands/admin/partials/categories.html',
                         controller:'CategoriesController',
-                        activetab: 'categories'
+                        activetab: 'productlist'
                     }).
                     when('/payment',{
                         templateUrl:'wisehands/admin/partials/payment.html',

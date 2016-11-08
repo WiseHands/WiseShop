@@ -45,7 +45,7 @@
                 </div>
                 <div id="collapse{{$index}}" class="panel-collapse collapse">
                     <div class="collection">
-                        <a href="#/product/details/{{product.uuid}}" class="collection-item" ng-repeat="product in category.products">{{product.name}}</a>
+                        <a href="#/product/details/{{product.uuid}}" class="collection-item" ng-repeat="product in category.products | orderBy:'sortOrder'">{{product.name}}</a>
                     </div>
                 </div>
             </div>
