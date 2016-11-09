@@ -9,7 +9,7 @@
     angular.module('WiseShop')
         .controller('ShopController', ['$scope', '$http','shared','sideNavInit',  function($scope, $http, shared, sideNavInit) {
            
-            $scope.minOrderForFreeDelivery = 501;
+
             $http({
                 method: 'GET',
                 url: '/products'
@@ -54,6 +54,8 @@
                     document.title = response.data.name;
                     $scope.shopName = response.data.name;
                     $scope.shopId = response.data.uuid;
+                    $scope.minOrderForFreeDelivery = response.data.freeDeliveryLimit;
+                    $scope.payLateButton = response.data.manualPaymentEnabled;
                     $scope.startTime = new Date(response.data.startTime);
                     $scope.startHour = ($scope.startTime.getHours()<10?'0':'') + $scope.startTime.getHours();
                     $scope.startMinute = ($scope.startTime.getMinutes()<10?'0':'') + $scope.startTime.getMinutes();

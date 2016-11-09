@@ -76,6 +76,8 @@ public class ShopAPI extends AuthController {
         json.put("uuid", shop.uuid);
         json.put("startTime", shop.startTime);
         json.put("endTime", shop.endTime);
+        json.put("manualPaymentEnabled", shop.paymentSettings.manualPaymentEnabled);
+        json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
         renderJSON(json);
     }
 
@@ -215,13 +217,16 @@ public class ShopAPI extends AuthController {
         );
         delivery.save();
 
+        PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, (double) 500);
+        paymentSettings.save();
+
         ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Львів, вул. Академіка Люльки, 4", "49.848596:24.0229203", "МИ СТВОРИЛИ ТОРБУ ЩАСТЯ ДЛЯ ТОГО, ЩОБ МІЛЬЙОНИ ЛЮДЕЙ МАЛИ МОЖЛИВІСТЬ КОЖНОГО ДНЯ ВЧАСНО ОТРИМУВАТИ ЦІКАВІ ВІДПОВІДІ ТА СВОЄ НАТХНЕННЯ НА ЧУДОВИЙ ДЕНЬ");
         contact.save();
 
         List<UserDTO> users = new ArrayList<UserDTO>();
         users.add(user);
 
-        ShopDTO shop = new ShopDTO(users, delivery, contact, name, publicLiqpayKey, privateLiqPayKey, domain);
+        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, name, publicLiqpayKey, privateLiqPayKey, domain);
         return shop = shop.save();
     }
 

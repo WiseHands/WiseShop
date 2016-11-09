@@ -67,7 +67,9 @@ public class DatastoreSetup extends Job {
                 true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)"
         );
         ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Львів, вул. Академіка Люльки, 4", "49.848596:24.0229203", "МИ СТВОРИЛИ ТОРБУ ЩАСТЯ ДЛЯ ТОГО, ЩОБ МІЛЬЙОНИ ЛЮДЕЙ МАЛИ МОЖЛИВІСТЬ КОЖНОГО ДНЯ ВЧАСНО ОТРИМУВАТИ ЦІКАВІ ВІДПОВІДІ ТА СВОЄ НАТХНЕННЯ НА ЧУДОВИЙ ДЕНЬ");
-        ShopDTO shop = new ShopDTO(users, delivery, contact, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
+        PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, (double) 500);
+
+        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
         shop.save();
 
         //createProducts(shop, domain);

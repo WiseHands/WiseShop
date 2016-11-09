@@ -57,7 +57,10 @@ public class UserAPI extends AuthController {
 
             List<UserDTO> users = new ArrayList<UserDTO>();
             users.add(user);
-            ShopDTO shop = new ShopDTO(users, delivery, contact, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
+
+            PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, (double) 500);
+
+            ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
             shop.save();
 
             response.setHeader(X_AUTH_TOKEN, user.token);

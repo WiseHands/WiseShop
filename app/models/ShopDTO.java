@@ -54,6 +54,10 @@ public class ShopDTO extends GenericModel {
 
     @Expose
     @OneToOne(cascade=CascadeType.ALL)
+    public PaymentSettingsDTO paymentSettings;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
     public ContactDTO contact;
 
     @OneToMany(orphanRemoval=true)
@@ -66,6 +70,7 @@ public class ShopDTO extends GenericModel {
     public List<OrderDTO> orders;
 
     public ShopDTO(List<UserDTO> users,
+                   PaymentSettingsDTO paymentSettings,
                    DeliveryDTO delivery,
                    ContactDTO contact,
                    String shopName,
@@ -85,6 +90,7 @@ public class ShopDTO extends GenericModel {
         this.balance = new BalanceDTO();
 
         this.delivery = delivery;
+        this.paymentSettings = paymentSettings;
         this.contact = contact;
         this.shopName = shopName;
         this.liqpayPublicKey = liqpayPublicKey;

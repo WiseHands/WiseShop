@@ -23,6 +23,10 @@ GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
 DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
 
+GET     {client}/payment/detail                         PaymentSettingsAPI.details
+PUT     {client}/payment/update                         PaymentSettingsAPI.update
+
+
 
 GET     {client}/products                               ProductAPI.list
 GET     {client}/product/{uuid}                         ProductAPI.details

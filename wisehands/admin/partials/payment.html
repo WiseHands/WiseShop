@@ -10,11 +10,8 @@
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-plus-circle whiteColor pull-right"
-                   aria-haspopup="true"
-                   aria-expanded="false"
-                   data-toggle="modal"
-                   data-target="#createNewStoreModal">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="setPaymentOptions()">
                 </i>
             </a>
         </div>
@@ -22,15 +19,18 @@
 </nav>
 
 <div class="container-fluid">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
     <form>
         <div class="row">
             <div class="input-field col-sm-3">
-                <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" ng-model="payment.isActiveCash" />
+                <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" ng-model="payment.manualPaymentEnabled" />
                 <label for="filled-in-box">Оплата готівкою</label>
             </div>
             <div class="input-field col-sm-4">
-                <input id="freeDelivery" type="text" class="validate" ng-model="payment.freeDelivery">
-                <label for="freeDelivery">Сума безкоштовної доставки</label>
+                <input id="freeDelivery" type="number" class="validate" ng-model="payment.freeDeliveryLimit">
+                <label class="active" for="freeDelivery">Сума безкоштовної доставки</label>
             </div>
         </div>
     </form>

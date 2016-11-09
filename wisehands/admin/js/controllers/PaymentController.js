@@ -1,41 +1,47 @@
 angular.module('WiseHands')
     .controller('PaymentController', ['$scope', '$http', 'signout', 'sideNavInit', function ($scope, $http, signout, sideNavInit) {
         $scope.loading = true;
-        // $http({
-        //     method: 'GET',
-        //     url: '/balance',
-        //     headers: {
-        //         'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-        //         'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-        //     }
-        // })
-        //     .then(function successCallback(response) {
-        //         $scope.loading = false;
-        //         $scope.balanceDetails = response.data.balanceTransactions;
-        //     }, function errorCallback(data) {
-        //         $scope.loading = false;
-        //         signout.signOut();
-        //     });
-        // $scope.dateFormat = function (balanceDetail) {
-        //     var date = new Date(balanceDetail.date);
-        //     var ddyymm = new Date(balanceDetail.date).toISOString().slice(0,10);
-        //     var hour = (date.getHours()<10?'0':'') + date.getHours();
-        //     var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
-        //     return ddyymm + ' ' + hour + ':' + minute;
-        // };
-        // $scope.paymentState = function(balanceDetail){
-        //     if (balanceDetail.amount > 0){
-        //         return 'teal';
-        //     } else {
-        //         return '#03a9f4';
-        //     }
-        // };
-        // $scope.isTransactionPayed = function (balanceDetail) {
-        //     if (balanceDetail.state === 'PAYED') {
-        //         return true;
-        //     }
-        //
-        // }
+
+        $http({
+            method: 'GET',
+            url: '/payment/detail',
+            headers: {
+                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            }
+        })
+            .then(function successCallback(response) {
+                $scope.payment = response.data;
+                $scope.loading = false;
+            }, function errorCallback(data) {
+                console.log(data);
+                $scope.loading = false;
+                signout.signOut();
+            });
+
+        $scope.setPaymentOptions = function () {
+            $scope.loading = true;
+            $http({
+                method: 'PUT',
+                url: '/payment/update',
+                data: $scope.payment,
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                }
+            })
+                .then(function successCallback(response) {
+                    $scope.payment = response.data;
+                    $scope.loading = false;
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.loading = false;
+                    console.log(response);
+                });
+
+        };
         sideNavInit.sideNav();
     }]);
 
