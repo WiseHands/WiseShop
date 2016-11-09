@@ -79,10 +79,12 @@ public class CategoryAPI extends AuthController {
 
     public static void update(String client, String uuid, String name) throws Exception {
         CategoryDTO category = CategoryDTO.findById(uuid);
+        List<ProductDTO> products = ProductDTO.find("byCategory", category).fetch();
         if(!category.name.equals(name)){
             category.name = name;
-            for (ProductDTO productDTO : category.products) {
+            for (ProductDTO productDTO : products) {
                 productDTO.categoryName = name;
+                System.out.println("\n\n " + name + " " + productDTO.name);
                 productDTO.save();
             }
         }

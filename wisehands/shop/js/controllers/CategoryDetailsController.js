@@ -16,18 +16,16 @@ angular.module('WiseShop')
                 });
 
 
-            $scope.getDeliveryTypes = function() {
-                $http({
-                    method: 'GET',
-                    url: '/delivery'
-                })
-                    .then(function successCallback(response) {
-                        $scope.deliverance = response.data;
-                    }, function errorCallback(error) {
-                        console.log(error);
-                    });
+            $http({
+                method: 'GET',
+                url: '/delivery'
+            })
+                .then(function successCallback(response) {
+                    $scope.deliverance = response.data;
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
 
-            };
 
 
             $http({
@@ -81,17 +79,14 @@ angular.module('WiseShop')
 
             $scope.delivery = function () {
                 if ($scope.delivery.radio === 'NOVAPOSHTA') {
-                    $scope.isAddressRequired = false;
                 }
                 if ($scope.delivery.radio === 'COURIER') {
-                    $scope.isAddressRequired = true;
                     if($scope.total < $scope.minOrderForFreeDelivery){
-                        return ' + 40';
+                        return ' + ' + $scope.deliverance.courierPrice;
                     } else {
                         return '';
                     }
                 } else if ($scope.delivery.radio === 'SELFTAKE'){
-                    $scope.isAddressRequired = false;
                     return '';
                 }
 
@@ -270,6 +265,8 @@ angular.module('WiseShop')
             };
             sideNavInit.sideNav();
         }]);
+
+
 function encodeQueryData(data)
 {
     var ret = [];

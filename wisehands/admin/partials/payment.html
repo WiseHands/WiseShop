@@ -24,13 +24,13 @@
     </div>
     <form>
         <div class="row">
-            <div class="input-field col-sm-3">
+            <div class="input-field col-md-12">
                 <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" ng-model="payment.manualPaymentEnabled" />
                 <label for="filled-in-box">Оплата готівкою</label>
             </div>
             <div class="input-field col-sm-4">
+                <p>Сума безкоштовної доставки</p>
                 <input id="freeDelivery" type="number" class="validate" ng-model="payment.freeDeliveryLimit">
-                <label class="active" for="freeDelivery">Сума безкоштовної доставки</label>
             </div>
         </div>
     </form>

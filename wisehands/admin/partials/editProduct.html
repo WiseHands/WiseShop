@@ -77,11 +77,8 @@
 
             </div>
             <div class="card-content col-sm-6 noSidePadding">
-
-                <div class="col-md-12" ng-show="categories.length >= 1">
-                    <label for="categories">Категорія</label>
-                </div>
                 <div class="input-field col-md-12" ng-show="categories.length >= 1">
+                    <label class="active" for="categories">Категорія</label>
                     <select id="categories"
                             class="form-control"
                             ng-model="product.category"

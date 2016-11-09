@@ -28,6 +28,8 @@ public class DeliveryAPI extends AuthController {
         String selfTakeText = (String) jsonBody.get("selfTakeText");
         String newPostText = (String) jsonBody.get("newPostText");
 
+        Double courierPrice = Double.parseDouble(String.valueOf(jsonBody.get("courierPrice")));
+
         Boolean isCourierAvailable = (Boolean) jsonBody.get("isCourierAvailable");
         Boolean isSelfTakeAvailable = (Boolean) jsonBody.get("isSelfTakeAvailable");
         Boolean isNewPostAvailable = (Boolean) jsonBody.get("isNewPostAvailable");
@@ -39,6 +41,7 @@ public class DeliveryAPI extends AuthController {
         delivery.selfTakeText = selfTakeText;
         delivery.isNewPostAvailable = isNewPostAvailable;
         delivery.newPostText = newPostText;
+        delivery.courierPrice = courierPrice;
 
         delivery.save();
 

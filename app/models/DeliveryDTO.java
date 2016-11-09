@@ -22,6 +22,9 @@ public class DeliveryDTO extends GenericModel {
     public String courierText;
 
     @Expose
+    public Double courierPrice;
+
+    @Expose
     public boolean isSelfTakeAvailable;
 
     @Expose
@@ -36,7 +39,8 @@ public class DeliveryDTO extends GenericModel {
 
     public DeliveryDTO(boolean isCourierAvailable, String courierText,
                        boolean isSelfTakeAvailable, String selfTakeText,
-                       boolean isNewPostAvailable, String newPostText) {
+                       boolean isNewPostAvailable, String newPostText,
+                       Double courierPrice) {
         this.isCourierAvailable = isCourierAvailable;
         this.courierText = courierText;
 
@@ -45,5 +49,7 @@ public class DeliveryDTO extends GenericModel {
 
         this.isNewPostAvailable = isNewPostAvailable;
         this.newPostText = newPostText;
+
+        this.courierPrice = courierPrice;
     }
 }

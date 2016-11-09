@@ -39,11 +39,11 @@
                 <h5>П.І.П. замовника: <p><i>{{order.name}}</i></p></h5>
                 <h5>Номер телефону: <p><i>{{order.phone}}</i></p></h5>
                 <h5 ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">Адреса: </b><p><i>{{order.address}}</i></p></h5>
-                <h5 ng-show="order.deliveryType === 'NOVAPOSHTA'">Адреса: <p><i>{{order.departmentNumber}}</i></p></h5>
+                <h5 ng-show="order.deliveryType === 'NOVAPOSHTA'">Адреса (Нова Пошта): <p><i>{{order.departmentNumber}}</i></p></h5>
                 <h5>Сума замовлення: <p><i>{{order.total}} грн</i></p></h5>
                 <h5>Статус замовлення: <p><i>{{orderState(order)}}</i></p></h5>
                 <h5>Дата замовлення: <p><i>{{properDate}}</i></p></h5>
-                <h5>Коментар: <p><i>{{order.comment}}</i></p></h5>
+                <h5 ng-show="order.comment">Коментар: <p><i>{{order.comment}}</i></p></h5>
             </div>
             <div class="col-xs-12 col-sm-6 noSidePadding">
                 <h5>Замовлення: </h5>

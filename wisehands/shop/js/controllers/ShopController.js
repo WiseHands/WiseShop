@@ -21,31 +21,17 @@
                     console.log(error);
                 });
 
-            $scope.getDeliveryTypes = function() {
-                $http({
-                    method: 'GET',
-                    url: '/delivery'
-                })
-                    .then(function successCallback(response) {
-                        $scope.deliverance = response.data;
-                    }, function errorCallback(error) {
-                        console.log(error);
-                    });
+            $http({
+                method: 'GET',
+                url: '/delivery'
+            })
+                .then(function successCallback(response) {
+                    $scope.deliverance = response.data;
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
 
-            };
 
-            $scope.getDeliveryTypes = function() {
-                $http({
-                    method: 'GET',
-                    url: '/delivery'
-                })
-                    .then(function successCallback(response) {
-                        $scope.deliverance = response.data;
-                    }, function errorCallback(error) {
-                        console.log(error);
-                    });
-
-            };
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
@@ -102,7 +88,7 @@
                  if ($scope.delivery.radio === 'COURIER') {
                      $scope.isAddressRequired = true;
                     if($scope.total < $scope.minOrderForFreeDelivery){
-                        return ' + 40';
+                        return ' + ' + $scope.deliverance.courierPrice;
                     } else {
                         return '';
                     }

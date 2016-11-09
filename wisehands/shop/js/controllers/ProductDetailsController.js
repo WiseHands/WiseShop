@@ -44,18 +44,17 @@
             $scope.select= function(index) {
                 $scope.selected = index;
             };
-            $scope.getDeliveryTypes = function() {
-                $http({
-                    method: 'GET',
-                    url: '/delivery'
-                })
-                    .then(function successCallback(response) {
-                        $scope.deliverance = response.data;
-                    }, function errorCallback(error) {
-                        console.log(error);
-                    });
+                
+            $http({
+                method: 'GET',
+                url: '/delivery'
+            })
+                .then(function successCallback(response) {
+                    $scope.deliverance = response.data;
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
 
-            };
 
             $http({
                 method: 'GET',
@@ -79,10 +78,10 @@
                 });
                 $scope.delivery = function () {
                     if ($scope.delivery.radio === 'NOVAPOSHTA') {
-
-                    } else if ($scope.delivery.radio === 'COURIER') {
+                    }
+                    if ($scope.delivery.radio === 'COURIER') {
                         if($scope.total < $scope.minOrderForFreeDelivery){
-                            return ' + 40';
+                            return ' + ' + $scope.deliverance.courierPrice;
                         } else {
                             return '';
                         }
@@ -245,3 +244,12 @@
 
 
 })();
+
+
+function encodeQueryData(data)
+{
+    var ret = [];
+    for (var d in data)
+        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return ret.join("&");
+}

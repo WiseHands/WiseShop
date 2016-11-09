@@ -248,3 +248,6 @@ label.whiteCheckBox::after {
     margin: 0;
     border: 0;
 }
+/*.input-field label {*/
+    /*left: 0;*/
+/*}*/

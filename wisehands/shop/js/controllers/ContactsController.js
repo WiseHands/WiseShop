@@ -12,10 +12,6 @@
                         console.log(error);
                 });
 
-            // $scope.reloadPage = function(){
-            //     $location.path("/");
-            // };
-
             $http({
                 method: 'GET',
                 url: '/contact/details'
@@ -26,9 +22,6 @@
                 }, function errorCallback(data) {
                     $scope.status = 'Щось пішло не так...';
                 });
-            // $scope.doTheBack = function() {
-            //     window.history.back();
-            // };
 
         }]);
 
