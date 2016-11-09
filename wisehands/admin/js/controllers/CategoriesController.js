@@ -18,7 +18,7 @@ angular.module('WiseHands')
                 console.log(error);
             });
         
-        $scope.getCategory = function (category, $event) {
+        $scope.getCategory = function (category) {
             $scope.thisCategory = category;
         };
         $scope.hideModal = function () {
@@ -106,6 +106,5 @@ angular.module('WiseHands')
                 });
 
         };
-        
         sideNavInit.sideNav();
     }]);
