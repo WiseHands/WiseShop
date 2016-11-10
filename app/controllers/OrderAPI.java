@@ -142,14 +142,14 @@ public class OrderAPI extends AuthController {
     }
 
     public static void all(String client) throws Exception {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        List<OrderDTO> orders = OrderDTO.find("byShop", shop).fetch();
+        checkSudoAuthentification();
 
+        List<OrderDTO> orders = OrderDTO.findAll();
         renderJSON(json(orders));
     }
 
     public static void one(String client, String uuid) throws Exception {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkSudoAuthentification();
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
 
         renderJSON(json(orderDTO));
@@ -172,6 +172,8 @@ public class OrderAPI extends AuthController {
     }
 
     public static void sudoDelete(String client, String uuid) throws Exception {
+        checkSudoAuthentification();
+
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.DELETED;
         order.save();
@@ -280,12 +282,6 @@ public class OrderAPI extends AuthController {
 
                 Double amount = order.total * WISEHANDS_COMISSION;
                 BalanceDTO balance = shop.balance;
-                if (balance == null) {
-                    balance = new BalanceDTO();
-                    balance.shop = shop;
-                    balance.save();
-                    shop.save();
-                }
 
                 BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
 

@@ -19,14 +19,20 @@ public class ShopAPI extends AuthController {
     static MailSender mailSender;
 
     public static void all(String client) throws Exception {
+        checkSudoAuthentification();
+
         List<ShopDTO> shops = ShopDTO.findAll();
         renderJSON(json(shops));
     }
     public static void one(String client, String uuid) throws Exception { // /shop/details
+        checkSudoAuthentification();
+
         ShopDTO shop = ShopDTO.findById(uuid);
         renderJSON(json(shop));
     }
     public static void deleteOne(String client, String uuid) throws Exception { // /shop/details
+        checkSudoAuthentification();
+
         ShopDTO shop = ShopDTO.findById(uuid);
         for(UserDTO user : shop.userList) {
             user.shopList.remove(shop);
@@ -228,7 +234,9 @@ public class ShopAPI extends AuthController {
         List<UserDTO> users = new ArrayList<UserDTO>();
         users.add(user);
 
-        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, name, publicLiqpayKey, privateLiqPayKey, domain);
+        BalanceDTO balance = new BalanceDTO();
+
+        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, name, publicLiqpayKey, privateLiqPayKey, domain);
         return shop = shop.save();
     }
 

@@ -41,6 +41,27 @@ public class AuthController extends Controller {
         }
     }
 
+    static void checkSudoAuthentification() {
+        boolean authHeadersPopulated = request.headers.get(X_AUTH_TOKEN) != null && request.headers.get(X_AUTH_USER_ID) != null;
+        if (authHeadersPopulated){
+            String userId = request.headers.get(X_AUTH_USER_ID).value();
+            String token = request.headers.get(X_AUTH_TOKEN).value();
+            UserDTO user = UserDTO.findById(userId);
+
+            if(user == null)
+                forbidden("Invalid X-AUTH-USER-ID: " + userId);
+            if(!user.token.equals(token))
+                forbidden("Invalid X-AUTH-TOKEN: " + token);
+
+            loggedInUser = user;
+            if(!user.email.equals("bohdaq@gmail.com") || !user.email.equals("patlavovach@gmail.com")) {
+                forbidden("This user is not superadmin: " + userId);
+            }
+        } else {
+            forbidden("Empty X-AUTH-TOKEN or X-AUTH-USER-ID");
+        }
+    }
+
     protected static String json(Object object){
         response.setHeader("Content-Type", "application/json");
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

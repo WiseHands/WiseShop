@@ -73,6 +73,7 @@ public class ShopDTO extends GenericModel {
                    PaymentSettingsDTO paymentSettings,
                    DeliveryDTO delivery,
                    ContactDTO contact,
+                   BalanceDTO balance,
                    String shopName,
                    String liqpayPublicKey,
                    String liqpayPrivateKey,
@@ -87,7 +88,7 @@ public class ShopDTO extends GenericModel {
             }
             user.shopList.add(this);
         }
-        this.balance = new BalanceDTO();
+        this.balance = balance;
 
         this.delivery = delivery;
         this.paymentSettings = paymentSettings;

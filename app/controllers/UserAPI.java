@@ -61,8 +61,9 @@ public class UserAPI extends AuthController {
             users.add(user);
 
             PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, (double) 500);
+            BalanceDTO balance = new BalanceDTO();
 
-            ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
+            ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
             shop.save();
 
             response.setHeader(X_AUTH_TOKEN, user.token);
@@ -201,15 +202,21 @@ public class UserAPI extends AuthController {
     }
 
     public static void list(String client) {
+        checkSudoAuthentification();
+
         renderJSON(json(UserDTO.findAll()));
     }
 
     public static void one(String client, String uuid) throws Exception {
+        checkSudoAuthentification();
+
         UserDTO user = UserDTO.find("byUuid",uuid).first();
         renderJSON(json(user));
     }
 
     public static void delete(String client, String uuid) {
+        checkSudoAuthentification();
+
         UserDTO user = UserDTO.find("byUuid",uuid).first();
 
         if(user != null) {
