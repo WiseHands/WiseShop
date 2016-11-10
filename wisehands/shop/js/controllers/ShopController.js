@@ -212,6 +212,18 @@
                     var modalContent = document.querySelector(".proceedWithPayment");
                     modalContent.innerHTML = response.data.button;
                     $scope.currentOrderUuid = response.data.uuid;
+
+                    $("#toPayment").click(function(e) {
+                        var rootDiv = document.querySelector('.proceedWithPayment');
+                        rootDiv.firstChild.submit();
+                    });
+
+                    if ($scope.payLateButton === false){
+                        setInterval(function(){
+                            $("#toPayment").click();
+                        }, 600);
+
+                    }
                 }, function errorCallback(data) {
                     $scope.loading = false;
                     console.log(data);

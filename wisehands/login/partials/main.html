@@ -20,6 +20,7 @@
             </div>
             <div ng-repeat="shop in user.shopList">
                 <button class="button-submit full-width buttonStyling" ng-click="properShop(shop)">{{shop.shopName}}</button>
+                <button ng-show="showSuperWiseHands" class="button-submit full-width buttonStyling" ng-click="goToSuperWiseHands()">Super Wise Hands</button>
             </div>
         </form>
         <div class="row" ng-hide="showShopList">

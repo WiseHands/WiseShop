@@ -16,7 +16,7 @@ angular.module('SuperWiseHands')
                     $scope.loading = false;
                     $scope.orders = response.data;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    if (response.data.indexOf('Invalid X-AUTH-') !== -1) {
                         signout.signOut();
                     }
                     $scope.loading = false;

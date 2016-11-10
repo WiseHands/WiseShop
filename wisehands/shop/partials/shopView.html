@@ -206,7 +206,7 @@
                         </form>
                     </div>
                     <div id="paymentButton" class="row" ng-show="successfullResponse">
-                        <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin" ng-show="payLateButton">
+                        <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin">
                             <a><button type="button" class="btn btn-outline-secondary waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -221,7 +221,7 @@
                             <h4 class="modal-total pull-left"><strong>{{total + " " + delivery()}} грн</strong></h4>
                         </div>
                         <div class="col-xs-5" ng-hide="successfullResponse">
-                            <button type="submit" class="btn btn-success pull-right" ng-hide="loading" form="orderForm">До Оплати </button>
+                            <button id="toPayment" type="submit" class="btn btn-success pull-right" ng-hide="loading" form="orderForm">До Оплати </button>
                             <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                         </div>
                     </div>

@@ -22,7 +22,7 @@ angular.module('SuperWiseHands')
                     var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
                     $scope.properDate = ddyymm + ' ' + hour + ':' + minute;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    if (response.data.indexOf('Invalid X-AUTH-') !== -1) {
                         signout.signOut();
                     }
                     $scope.loading = false;

@@ -45,7 +45,6 @@
             function successLoginHandler(data, status, headers) {
 				var token = headers("X-AUTH-TOKEN");
 				var userId = data.uuid;
-
 				if(!token || !userId){
 					$scope.deniedMsg = false;
 					console.error('Token or userID not returned in server response');
@@ -54,6 +53,21 @@
 
 				localStorage.setItem('X-AUTH-USER-ID', userId) ;
 				localStorage.setItem('X-AUTH-TOKEN', token) ;
+
+                if(data.email === 'patlavovach@gmail.com' || data.email === 'bohdaq@gmail.com'){
+                    if (data.shopList && data.shopList.length === 0){
+                        window.location.href = window.location.protocol + '//' + window.location.host + '/superadmin';
+                        return;
+                    } else	if (data.shopList && data.shopList.length >= 1) {
+                        $scope.goToSuperWiseHands = function () {
+                            window.location.href = window.location.protocol + '//' + window.location.host + '/superadmin';
+                        };
+                        $scope.showShopList = true;
+                        $scope.showSuperWiseHands = true;
+                        $scope.user = data;
+                        return;
+                    }
+                }
 
 				if (data.shopList && data.shopList.length === 1){
 					var shop = data.shopList[0];

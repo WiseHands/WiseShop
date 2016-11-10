@@ -54,8 +54,8 @@ public class AuthController extends Controller {
                 forbidden("Invalid X-AUTH-TOKEN: " + token);
 
             loggedInUser = user;
-            if(!user.email.equals("bohdaq@gmail.com") || !user.email.equals("patlavovach@gmail.com")) {
-                forbidden("This user is not superadmin: " + userId);
+            if(!(user.email.equals("bohdaq@gmail.com") || user.email.equals("patlavovach@gmail.com"))) {
+                forbidden("This user is not superadmin: " + userId + user.email);
             }
         } else {
             forbidden("Empty X-AUTH-TOKEN or X-AUTH-USER-ID");

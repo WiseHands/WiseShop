@@ -47,6 +47,9 @@ public class HappyBagSetup extends Job {
         UserDTO user = new UserDTO(BOGDAN, PASSWORD, "380630386173");
         users.add(user);
 
+        user = new UserDTO(VOVA, PASSWORD, "380631206871");
+        users.add(user);
+
         if(!isDevEnv) {
             user = new UserDTO(SVYAT, PASSWORD, "380932092108");
             users.add(user);
