@@ -27,6 +27,7 @@
             })
                 .then(function successCallback(response) {
                     $scope.deliverance = response.data;
+                    $scope.minOrderForFreeDelivery = $scope.deliverance.courierFreeDeliveryLimit;
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -40,7 +41,6 @@
                     document.title = response.data.name;
                     $scope.shopName = response.data.name;
                     $scope.shopId = response.data.uuid;
-                    $scope.minOrderForFreeDelivery = response.data.freeDeliveryLimit;
                     $scope.payLateButton = response.data.manualPaymentEnabled;
                     $scope.startTime = new Date(response.data.startTime);
                     $scope.startHour = ($scope.startTime.getHours()<10?'0':'') + $scope.startTime.getHours();
@@ -212,18 +212,6 @@
                     var modalContent = document.querySelector(".proceedWithPayment");
                     modalContent.innerHTML = response.data.button;
                     $scope.currentOrderUuid = response.data.uuid;
-
-                    $("#toPayment").click(function(e) {
-                        var rootDiv = document.querySelector('.proceedWithPayment');
-                        rootDiv.firstChild.submit();
-                    });
-
-                    if ($scope.payLateButton === false){
-                        setInterval(function(){
-                            $("#toPayment").click();
-                        }, 600);
-
-                    }
                 }, function errorCallback(data) {
                     $scope.loading = false;
                     console.log(data);

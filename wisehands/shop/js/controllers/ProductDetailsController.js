@@ -51,6 +51,7 @@
             })
                 .then(function successCallback(response) {
                     $scope.deliverance = response.data;
+                    $scope.minOrderForFreeDelivery = $scope.deliverance.courierFreeDeliveryLimit;
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -64,7 +65,6 @@
                     document.title = response.data.name;
                     $scope.shopName = response.data.name;
                     $scope.shopId = response.data.uuid;
-                    $scope.minOrderForFreeDelivery = response.data.freeDeliveryLimit;
                     $scope.payLateButton = response.data.manualPaymentEnabled;
                     $scope.startTime = new Date(response.data.startTime);
                     $scope.startHour = ($scope.startTime.getHours()<10?'0':'') + $scope.startTime.getHours();

@@ -206,13 +206,13 @@
                         </form>
                     </div>
                     <div id="paymentButton" class="row" ng-show="successfullResponse">
-                        <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin">
+                        <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin" ng-show="payLateButton">
                             <a><button type="button" class="btn btn-outline-secondary waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <button type="button" class="btn btn-outline-success waves-effect btn-block" ng-click="payOrder()">Оплатити</button>
                         </div>
-                        <div class="proceedWithPayment"></div>
+                        <div id="payButton" class="proceedWithPayment"></div>
                     </div>
                 </div>
                 <div class="modal-footer">

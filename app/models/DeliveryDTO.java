@@ -25,6 +25,9 @@ public class DeliveryDTO extends GenericModel {
     public Double courierPrice;
 
     @Expose
+    public Double courierFreeDeliveryLimit;
+
+    @Expose
     public boolean isSelfTakeAvailable;
 
     @Expose

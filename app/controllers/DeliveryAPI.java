@@ -29,6 +29,7 @@ public class DeliveryAPI extends AuthController {
         String newPostText = (String) jsonBody.get("newPostText");
 
         Double courierPrice = Double.parseDouble(String.valueOf(jsonBody.get("courierPrice")));
+        Double courierFreeDeliveryLimit = Double.parseDouble(String.valueOf(jsonBody.get("courierFreeDeliveryLimit")));
 
         Boolean isCourierAvailable = (Boolean) jsonBody.get("isCourierAvailable");
         Boolean isSelfTakeAvailable = (Boolean) jsonBody.get("isSelfTakeAvailable");
@@ -42,6 +43,7 @@ public class DeliveryAPI extends AuthController {
         delivery.isNewPostAvailable = isNewPostAvailable;
         delivery.newPostText = newPostText;
         delivery.courierPrice = courierPrice;
+        delivery.courierFreeDeliveryLimit = courierFreeDeliveryLimit;
 
         delivery.save();
 
