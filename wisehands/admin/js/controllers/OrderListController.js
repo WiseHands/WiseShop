@@ -39,6 +39,27 @@
                     });
             };
 
+            $http({
+                method: 'GET',
+                url: '/balance',
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                }
+            })
+                .then(function successCallback(response) {
+                    $scope.balanceWarning = false;
+                    $scope.balance = response.data;
+                    if ($scope.balance.balance < 0) {
+                        $scope.balanceWarning = true;
+                    }
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.status = 'Щось пішло не так...';
+                });
+
             $scope.refreshOrders = function() {
                 return new Promise( function( resolve, reject ) {
 
