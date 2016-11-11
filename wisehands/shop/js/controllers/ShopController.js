@@ -83,17 +83,14 @@
 
             $scope.delivery = function () {
                 if ($scope.delivery.radio === 'NOVAPOSHTA') {
-                    $scope.isAddressRequired = false;
                 }
                  if ($scope.delivery.radio === 'COURIER') {
-                     $scope.isAddressRequired = true;
                     if($scope.total < $scope.minOrderForFreeDelivery){
                         return ' + ' + $scope.deliverance.courierPrice;
                     } else {
                         return '';
                     }
                 } else if ($scope.delivery.radio === 'SELFTAKE'){
-                     $scope.isAddressRequired = false;
                     return '';
                 }
                 

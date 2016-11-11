@@ -187,14 +187,14 @@
                                        pattern="^380[0-9]{9,9}$"
                                        required />
                             </div>
-                            <div class="form-group" ng-show="isAddressRequired">
+                            <div class="form-group" ng-show="delivery.radio === 'COURIER'">
                                 <b>Адреса</b>
                                 <input class="form-control validate"
                                        placeholder="Введіть адресу"
                                        id="address"
                                        ng-model="address"
                                        type="text"
-                                       ng-required="isAddressRequired"/>
+                                       ng-required="delivery.radio === 'COURIER'"/>
                             </div>
                             <div class="form-group">
                                 <b>Коментар</b>

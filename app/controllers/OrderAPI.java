@@ -59,13 +59,6 @@ public class OrderAPI extends AuthController {
 
         int totalCost = 0;
 
-        if (deliveryType.equals(DeliveryType.COURIER)){
-            if (totalCost < FREESHIPPINGMINCOST){
-                totalCost += SHIPPING_COST;
-            }
-        }
-
-
         OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, comment, shop);
         if(shop.orders == null){
             shop.orders = new ArrayList<OrderDTO>();
@@ -94,6 +87,14 @@ public class OrderAPI extends AuthController {
             totalCost += product.price * orderItem.quantity;
         }
         order.items = orders;
+
+        DeliveryDTO delivery = shop.delivery;
+        if (deliveryType.equals(DeliveryType.COURIER)){
+            if (totalCost < delivery.courierFreeDeliveryLimit){
+                totalCost += delivery.courierPrice;
+            }
+        }
+        
         order.total = Double.valueOf(totalCost);
         order = order.save();
 
