@@ -94,7 +94,7 @@ public class OrderAPI extends AuthController {
                 totalCost += delivery.courierPrice;
             }
         }
-        
+
         order.total = Double.valueOf(totalCost);
         order = order.save();
 
