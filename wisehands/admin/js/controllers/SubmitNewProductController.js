@@ -32,8 +32,8 @@ angular.module('WiseHands')
                 var img = new Image();
                 img.onload = function(){
 
-                    var MAX_WIDTH = 900;
-                    var MAX_HEIGHT = 675;
+                    var MAX_WIDTH = 700;
+                    var MAX_HEIGHT = 525;
                     height = MAX_HEIGHT;
                     width = MAX_WIDTH;
 
@@ -41,7 +41,7 @@ angular.module('WiseHands')
                     canvas.height = height;
                     var ctx = canvas.getContext("2d");
                     ctx.drawImage(img, 0, 0, width, height);
-                    var dataURL = canvas.toDataURL('image/jpeg', 1.0);
+                    var dataURL = canvas.toDataURL('image/jpeg', 0.9);
 
                     var blob = dataURItoBlob(dataURL);
 
