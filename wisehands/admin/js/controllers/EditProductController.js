@@ -270,7 +270,6 @@ angular.module('WiseHands')
                     data: $scope.newCategory
                 })
                     .then(function successCallback(response) {
-                        debugger;
                         $scope.createdCategory = response.data;
                         $scope.categories.push($scope.createdCategory);
                         $scope.product.category = $scope.createdCategory;

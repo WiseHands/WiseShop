@@ -13,7 +13,6 @@ angular.module('SuperWiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.profile = response.data;
-                    debugger;
                     $scope.getProfileImage = function () {
                         if ($scope.profile.profileUrl) {
                             return $scope.profile.profileUrl;
