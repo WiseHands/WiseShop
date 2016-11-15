@@ -1,9 +1,11 @@
 angular.module('WiseShop')
-    .controller('SideNavController', ['$scope', '$http', '$route',
-        function ($scope, $http, $route) {
+    .controller('SideNavController', ['$scope', '$http', '$route', '$routeParams', 'shared',
+        function ($scope, $http, $route, $routeParams, shared) {
             $scope.$route = $route;
-            $scope.categoryUuid = location.hash.split('#/category/')[1];
-            $scope.productUuid = location.hash.split('#/product/')[1];
+            $scope.$watch(function() {
+                $scope.categoryUuid = shared.getCategoryUuid();
+            });
+            
             $http({
                 method: 'GET',
                 url: '/category'
@@ -11,14 +13,8 @@ angular.module('WiseShop')
             })
                 .then(function successCallback(response) {
                    $scope.categories = response.data;
-                   $scope.categories.forEach(function (category) {
-                       category.products.forEach(function (product) {
-                           if ($scope.productUuid === product.uuid){
-                               $scope.categoryUuid = product.categoryUuid;
-                           }
-                       })
-
-                    })
+                   
+                    $scope.categoryUuid = shared.getCategoryUuid();
                 }, function errorCallback(data) {
                     console.log(data);
                 });

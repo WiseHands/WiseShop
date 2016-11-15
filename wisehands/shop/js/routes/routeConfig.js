@@ -21,8 +21,7 @@
                 }).
                 when('/category/:uuid',{
                     templateUrl:'wisehands/shop/partials/categoryDetails.html',
-                    controller:'CategoryDetailsController',
-                    activetab: 'uuid'
+                    controller:'CategoryDetailsController'
                 }).
                 otherwise({
                     redirectTo:'/'

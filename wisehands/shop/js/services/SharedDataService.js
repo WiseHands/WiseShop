@@ -2,7 +2,7 @@ angular.module('WiseShop')
     .service('shared', [ function() {
         var selectedItems = [];
         var totalItems = 0;
-        
+        var categoryUuid = '';
         return {
             getSelectedItems: function () {
                 return selectedItems;
@@ -15,6 +15,12 @@ angular.module('WiseShop')
             },
             setTotalItems: function (value) {
                 totalItems = value;
+            },
+            getCategoryUuid: function () {
+                return categoryUuid;
+            },
+            setCategoryUuid: function (value) {
+                categoryUuid = value;
             }
         }
     }]);

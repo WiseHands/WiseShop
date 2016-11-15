@@ -2,7 +2,7 @@ angular.module('WiseShop')
     .controller('CategoryDetailsController', ['$scope', '$http','shared','sideNavInit', '$routeParams',
         function($scope, $http, shared, sideNavInit, $routeParams) {
             $scope.uuid = $routeParams.uuid;
-                        
+            shared.setCategoryUuid($scope.uuid);
             $http({
                 method: 'GET',
                 url: '/category/' + $scope.uuid
@@ -230,7 +230,7 @@ angular.module('WiseShop')
                 });
             }
 
-            $scope.$on('ngRepeatFinished', function(ngRepeatFinished) {
+            $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
                 equalizeHeights(".fixed-height");
                 $(window).resize(function() {
                     setTimeout(function() {

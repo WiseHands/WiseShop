@@ -56,7 +56,7 @@
                 <li><a href="#/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">Головна</a>
                 </li>
                 <li ng-repeat="category in categories" ng-hide="category.products.length === 0">
-                    <a href="#/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r" ng-class="{ 'active': categoryUuid == category.uuid && $route.current.activetab !== 'main'}">{{category.name}}</a>
+                    <a href="#/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
                 </li>
             </ul>
         </li>

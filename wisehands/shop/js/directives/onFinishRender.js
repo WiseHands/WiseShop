@@ -1,11 +1,14 @@
 angular.module('WiseShop')
-    .directive('onFinishRender', ['$timeout', function ($timeout) {
+    .directive('onFinishRender',['$timeout', '$parse', function ($timeout, $parse) {
         return {
             restrict: 'A',
             link: function (scope, element, attr) {
                 if (scope.$last === true) {
                     $timeout(function () {
-                        scope.$emit(attr.onFinishRender);
+                        scope.$emit('ngRepeatFinished');
+                        if(!!attr.onFinishRender){
+                            $parse(attr.onFinishRender)(scope);
+                        }
                     });
                 }
             }
