@@ -233,16 +233,24 @@
                     $(this).css('height', max + 'px');
                 });
             }
-
-            $scope.$on('ngRepeatFinished', function(ngRepeatFinished) {
+            $scope.loadHeights = function () {
                 equalizeHeights(".fixed-height");
-                $(window).resize(function() {
-                    setTimeout(function() {
-                        equalizeHeights(".fixed-height");
+                    $(window).resize(function() {
+                        setTimeout(function() {
+                            equalizeHeights(".fixed-height");
 
-                    }, 120);
-                });
-            });
+                        }, 120);
+                    });
+            };
+            // $scope.$on('ngRepeatFinished', function(ngRepeatFinished) {
+            //     equalizeHeights(".fixed-height");
+            //     $(window).resize(function() {
+            //         setTimeout(function() {
+            //             equalizeHeights(".fixed-height");
+            //
+            //         }, 120);
+            //     });
+            // });
 
             $scope.payOrder = function () {
                 $("#paymentButton").click(function(e) {
