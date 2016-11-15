@@ -19,7 +19,7 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <div class="col-sm-6" ng-repeat="balanceDetail in balanceDetails | orderBy:'date':true" ng-hide="loading || balanceDetail.state === 'NEW'" ng-class="{disabled: isTransactionPayed(balanceDetail)}">
+    <div class="col-sm-6" ng-repeat="balanceDetail in balanceDetails | orderBy:'date':true" ng-hide="loading || balanceDetail.state === 'NEW'" ng-class="{disabled: isTransactionPayed(balanceDetail) && balanceDetail.amount > 0}">
         <a href="#/details/{{balanceDetail.orderUuid}}" ng-disabled="balanceDetail.state === 'PAYED'">
             <div class="card-panel vcentering" ng-style="{'background-color': paymentState(balanceDetail)}">
                 <span class="white-text col-xs-8">{{dateFormat(balanceDetail)}}</span>
