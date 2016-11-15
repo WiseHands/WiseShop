@@ -85,7 +85,7 @@
     <div class="container-fluid topMarginBalanceWarning" ng-show="balanceWarning">
         <a href="#/settings"><div class="panel panel-danger hoverable">
             <div class="panel-heading">У Вас від'ємний рахунок! Поповніть його, будь ласка!</div>
-            <div class="panel-body noAnchorStyle">На даний момент Ваш рахунок рівний: {{balance.balance}} грн!</div>
+            <div class="panel-body noAnchorStyle">На даний момент Ваш рахунок рівний: {{balance.balance | number:2}} грн!</div>
         </div></a>
     </div>
     <h4 class="text-center"><i>{{status}}</i></h4>
