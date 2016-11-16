@@ -29,13 +29,18 @@ public class DeliveryAPI extends AuthController {
         String newPostText = (String) jsonBody.get("newPostText");
 
         Double courierPrice = Double.parseDouble(String.valueOf(jsonBody.get("courierPrice")));
-        Double courierFreeDeliveryLimit = Double.parseDouble(String.valueOf(jsonBody.get("courierFreeDeliveryLimit")));
+        
+        Object courierFreeDeliveryLimitObject = jsonBody.get("courierFreeDeliveryLimit");
+        DeliveryDTO delivery = DeliveryDTO.findById(uuid);
+        if(courierFreeDeliveryLimitObject != null) {
+            Double courierFreeDeliveryLimit = Double.parseDouble(String.valueOf(courierFreeDeliveryLimitObject));
+            delivery.courierFreeDeliveryLimit = courierFreeDeliveryLimit;
+        }
 
         Boolean isCourierAvailable = (Boolean) jsonBody.get("isCourierAvailable");
         Boolean isSelfTakeAvailable = (Boolean) jsonBody.get("isSelfTakeAvailable");
         Boolean isNewPostAvailable = (Boolean) jsonBody.get("isNewPostAvailable");
 
-        DeliveryDTO delivery = DeliveryDTO.findById(uuid);
         delivery.isCourierAvailable = isCourierAvailable;
         delivery.courierText = courierText;
         delivery.isSelfTakeAvailable = isSelfTakeAvailable;
@@ -43,7 +48,6 @@ public class DeliveryAPI extends AuthController {
         delivery.isNewPostAvailable = isNewPostAvailable;
         delivery.newPostText = newPostText;
         delivery.courierPrice = courierPrice;
-        delivery.courierFreeDeliveryLimit = courierFreeDeliveryLimit;
 
         delivery.save();
 

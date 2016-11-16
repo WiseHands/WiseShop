@@ -101,9 +101,7 @@ angular.module('WiseHands')
 
             var params = {
                 name: $scope.newStore.name,
-                domain: angular.lowercase($scope.newStore.domain),
-                publicLiqpay: $scope.newStore.publicLiqpay,
-                privateLiqpay: $scope.newStore.privateLiqpay
+                domain: angular.lowercase($scope.newStore.domain)
             };
 
             var encodedParams = encodeQueryData(params);

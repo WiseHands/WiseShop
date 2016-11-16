@@ -106,14 +106,6 @@
                             <input id="domain" type="text" class="validate" ng-model="newStore.domain" required>
                             <label for="domain">Домен</label>
                         </div>
-                        <div class="input-field">
-                            <input id="publicLiqpayKey" type="text" class="validate" ng-model="newStore.publicLiqpay" required>
-                            <label for="publicLiqpayKey">Публічний LiqPay ключ</label>
-                        </div>
-                        <div class="input-field">
-                            <input id="privateLiqpayKey" type="text" class="validate" ng-model="newStore.privateLiqpay" required>
-                            <label for="privateLiqpayKey">Приватний LiqPay ключ</label>
-                        </div>
                         <div class="text-center">
                             <p class="errorTextStyling text-center">{{errorMessage}}</p>
                             <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">Створити</button>
