@@ -29,7 +29,7 @@ public class DeliveryAPI extends AuthController {
         String newPostText = (String) jsonBody.get("newPostText");
 
         Double courierPrice = Double.parseDouble(String.valueOf(jsonBody.get("courierPrice")));
-        
+
         Object courierFreeDeliveryLimitObject = jsonBody.get("courierFreeDeliveryLimit");
         DeliveryDTO delivery = DeliveryDTO.findById(uuid);
         if(courierFreeDeliveryLimitObject != null) {
