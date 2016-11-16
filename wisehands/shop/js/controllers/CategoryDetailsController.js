@@ -230,7 +230,7 @@ angular.module('WiseShop')
                 });
             }
 
-            $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+            $scope.loadHeights = function () {
                 equalizeHeights(".fixed-height");
                 $(window).resize(function() {
                     setTimeout(function() {
@@ -238,7 +238,7 @@ angular.module('WiseShop')
 
                     }, 120);
                 });
-            });
+            };
 
             $scope.payOrder = function () {
                 $("#paymentButton").click(function(e) {
@@ -264,6 +264,9 @@ angular.module('WiseShop')
                 $scope.successfullResponse = false;
             };
             sideNavInit.sideNav();
+            $scope.$watch(function() {
+                $scope.loadHeights();
+            });
         }]);
 
 

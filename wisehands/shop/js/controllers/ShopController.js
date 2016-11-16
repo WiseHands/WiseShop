@@ -7,8 +7,10 @@
 
 (function(){
     angular.module('WiseShop')
+
+
         .controller('ShopController', ['$scope', '$http','shared','sideNavInit',  function($scope, $http, shared, sideNavInit) {
-           
+
 
             $http({
                 method: 'GET',
@@ -84,7 +86,7 @@
             $scope.delivery = function () {
                 if ($scope.delivery.radio === 'NOVAPOSHTA') {
                 }
-                 if ($scope.delivery.radio === 'COURIER') {
+                if ($scope.delivery.radio === 'COURIER') {
                     if($scope.total < $scope.minOrderForFreeDelivery){
                         return ' + ' + $scope.deliverance.courierPrice;
                     } else {
@@ -93,7 +95,7 @@
                 } else if ($scope.delivery.radio === 'SELFTAKE'){
                     return '';
                 }
-                
+
                 return '';
             };
 
@@ -106,10 +108,10 @@
 
             $scope.buyStart = function (index, $event) {
                 $scope.selectedItems.forEach(function (selectedItem) {
-                   if(selectedItem.uuid === $scope.products[index].uuid){
-                       $scope.found = true;
-                       $scope.productFromBin = selectedItem;
-                   }
+                    if(selectedItem.uuid === $scope.products[index].uuid){
+                        $scope.found = true;
+                        $scope.productFromBin = selectedItem;
+                    }
                 });
 
                 var today = new Date();
@@ -134,7 +136,7 @@
                         $scope.products[index].quantity ++;
                         shared.setSelectedItems($scope.selectedItems);
                         $scope.calculateTotal();
-                    } 
+                    }
                     if ($event.stopPropagation) $event.stopPropagation();
                     if ($event.preventDefault) $event.preventDefault();
                     $event.cancelBubble = true;
@@ -158,7 +160,7 @@
                 $scope.selectedItems.splice(index, 1);
                 $scope.calculateTotal();
                 shared.setSelectedItems($scope.selectedItems);
-                
+
             };
 
             $scope.removeAll = function () {
@@ -203,16 +205,16 @@
                     url: '/order',
                     data: params
                 })
-                .then(function successCallback(response) {
-                    $scope.loading = false;
-                    $scope.successfullResponse = true;
-                    var modalContent = document.querySelector(".proceedWithPayment");
-                    modalContent.innerHTML = response.data.button;
-                    $scope.currentOrderUuid = response.data.uuid;
-                }, function errorCallback(data) {
-                    $scope.loading = false;
-                    console.log(data);
-                });
+                    .then(function successCallback(response) {
+                        $scope.loading = false;
+                        $scope.successfullResponse = true;
+                        var modalContent = document.querySelector(".proceedWithPayment");
+                        modalContent.innerHTML = response.data.button;
+                        $scope.currentOrderUuid = response.data.uuid;
+                    }, function errorCallback(data) {
+                        $scope.loading = false;
+                        console.log(data);
+                    });
             };
 
             function equalizeHeights(selector) {
@@ -233,24 +235,16 @@
                     $(this).css('height', max + 'px');
                 });
             }
+            
             $scope.loadHeights = function () {
                 equalizeHeights(".fixed-height");
-                    $(window).resize(function() {
-                        setTimeout(function() {
-                            equalizeHeights(".fixed-height");
+                $(window).resize(function() {
+                    setTimeout(function() {
+                        equalizeHeights(".fixed-height");
 
-                        }, 120);
-                    });
+                    }, 120);
+                });
             };
-            // $scope.$on('ngRepeatFinished', function(ngRepeatFinished) {
-            //     equalizeHeights(".fixed-height");
-            //     $(window).resize(function() {
-            //         setTimeout(function() {
-            //             equalizeHeights(".fixed-height");
-            //
-            //         }, 120);
-            //     });
-            // });
 
             $scope.payOrder = function () {
                 $("#paymentButton").click(function(e) {
@@ -276,10 +270,11 @@
                 $scope.successfullResponse = false;
             };
             sideNavInit.sideNav();
+            $scope.$watch(function() {
+                $scope.loadHeights();
+            });
 
         }]);
-    
-
 })();
 
 
