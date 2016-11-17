@@ -1,7 +1,16 @@
 ﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
-
+.fixed-height {
+    height: 3.5rem;
+}
+.fixed-height2 {
+    height: 4.5rem;
+}
+/*.fixed-height2 p{*/
+    /*font-weight: 300;*/
+    /*font-size: 1.25rem;*/
+/*}*/
 .productDescriptionTruncate {
     line-height: 1.5em;
     max-height: 3em;
@@ -9,16 +18,26 @@
     text-overflow: ellipsis;
     position: relative;
     text-align: justify;
-    margin-right: -1em;
+    /*margin-right: -1em;*/
     padding-right: 1em;
 }
-.productDescriptionTruncate:before {
+.productNameTruncate {
+    line-height: 1.5em;
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    /*text-align: justify;*/
+    /*margin-right: -1em;*/
+    padding-right: 1em;
+}
+.productDescriptionTruncate:before, .productNameTruncate:before {
     content: '...';
     position: absolute;
     right: 0;
     bottom: 0;
 }
-.productDescriptionTruncate:after {
+.productDescriptionTruncate:after, .productNameTruncate:after {
     content: '';
     position: absolute;
     right: 0;
@@ -35,7 +54,7 @@
     vertical-align: middle;
 }
 
-.removeAllRedIcon {
+.removeAllRedIcon:before {
     color: red;
 }
 .inputTextCentering {
@@ -151,4 +170,11 @@ main {
 .cursorPointer {
     cursor: pointer;
 }
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 

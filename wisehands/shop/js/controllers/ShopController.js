@@ -217,35 +217,6 @@
                     });
             };
 
-            function equalizeHeights(selector) {
-                var heights = new Array();
-
-                $(selector).each(function() {
-
-                    $(this).css('min-height', '0');
-                    $(this).css('max-height', 'none');
-                    $(this).css('height', 'auto');
-
-                    heights.push($(this).height());
-                });
-
-                var max = Math.max.apply( Math, heights );
-
-                $(selector).each(function() {
-                    $(this).css('height', max + 'px');
-                });
-            }
-            
-            $scope.loadHeights = function () {
-                equalizeHeights(".fixed-height");
-                $(window).resize(function() {
-                    setTimeout(function() {
-                        equalizeHeights(".fixed-height");
-
-                    }, 120);
-                });
-            };
-
             $scope.payOrder = function () {
                 $("#paymentButton").click(function(e) {
                     var rootDiv = document.querySelector('.proceedWithPayment');
@@ -270,9 +241,6 @@
                 $scope.successfullResponse = false;
             };
             sideNavInit.sideNav();
-            $scope.$watch(function() {
-                $scope.loadHeights();
-            });
 
         }]);
 })();
@@ -286,6 +254,7 @@ function encodeQueryData(data)
         ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
     return ret.join("&");
 }
+
 
 
 

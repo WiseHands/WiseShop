@@ -11,7 +11,6 @@
                     shopName: $scope.shopName,
                     passwordConfirmation: $scope.password,
                     clientDomain: $scope.domain
-
                 };
 
                 var encodedParams = encodeQueryData(params);

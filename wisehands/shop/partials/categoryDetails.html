@@ -50,9 +50,11 @@
                     </a>
                 </div>
                 <div class="card-block text-xs-center">
-                    <h4 class="card-title fixed-height"><strong><a href="#/product/{{productDTO.uuid}}">{{productDTO.name}}</a></strong></h4>
+                    <div class="fixed-height2">
+                        <h4 class="card-title productNameTruncate"><a href="#/product/{{productDTO.uuid}}"><strong>{{productDTO.name}}</strong></a></h4>
+                    </div>
                     <div class="fixed-height">
-                        <p class="card-text productDescriptionTruncate">{{productDTO.description}}</p>
+                        <p class="card-text productDescriptionTruncate cursorPointer" data-toggle="tooltip" data-placement="top" title="{{productDTO.description}}">{{productDTO.description}}</p>
                     </div>
                     <div class="card-footer">
                         <span class="left">{{productDTO.price}} грн <span class="discount" ng-show="productDTO.oldPrice">{{productDTO.oldPrice}} грн</span></span>
