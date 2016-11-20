@@ -7,11 +7,15 @@ import models.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Application extends Controller {
 
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
     @Before
     static void corsHeaders() {
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
     }
@@ -35,7 +39,6 @@ public class Application extends Controller {
             notFound("The requested Shop is not available. Contact administrator");
         }
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
 
@@ -65,7 +68,6 @@ public class Application extends Controller {
         }
 
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
@@ -94,7 +96,6 @@ public class Application extends Controller {
             notFound("The requested Shop is not available. Contact administrator    ");
         }
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
