@@ -50,7 +50,7 @@ public class Application extends Controller {
 
         boolean isGoogleCrawler = request.params.data.containsKey("_escaped_fragment_");
         if (isGoogleCrawler) {
-            System.out.println("Google Bot just opened " + shop.shopName + ", rendering snapshot...");
+            System.out.println(dateFormat.format(date) + ": Escaped Fragment request with ip " + ip +  " and user-agent " + agent + " just opened " + shop.shopName + ", rendering snapshot...");
             renderTemplate("Prerender/" + shop.uuid + "/index.html");
 
         }
