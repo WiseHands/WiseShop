@@ -50,6 +50,7 @@ public class Application extends Controller {
 
         boolean isGoogleCrawler = request.params.data.containsKey("_escaped_fragment_");
         if (isGoogleCrawler) {
+            System.out.println("Google Bot just opened " + shop.shopName + ", rendering snapshot...");
             renderTemplate("Prerender/" + shop.uuid + "/index.html");
 
         }
@@ -105,7 +106,7 @@ public class Application extends Controller {
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened ADMIN " + shop.shopName + " at " + dateFormat.format(date));
 
-        render();
+        render(shop);
     }
 
     public static void superAdmin(String client) {
