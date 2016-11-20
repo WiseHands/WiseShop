@@ -2,8 +2,10 @@
     angular.module('WiseShop', [
             'ngRoute', 'angularSpinners'
         ])
-        .config(['$routeProvider',
-            function ($routeProvider) {
+        .config(['$routeProvider', '$locationProvider',
+            function ($routeProvider, $locationProvider) {
+
+				$locationProvider.hashPrefix('!');
 
                 $routeProvider.
                 when('/',{

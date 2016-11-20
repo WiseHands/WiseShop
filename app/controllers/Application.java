@@ -27,7 +27,7 @@ public class Application extends Controller {
     public static void index(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
-        if (client.equals("localhost") || client.equals("wisehands.me")){
+        if (client.equals("wisehands.me")){
             renderTemplate("WiseHands/index.html");
         }
 
