@@ -7,3 +7,4 @@ require:
     - com.google.api-client -> google-api-client 1.19.1
     - org.json -> json 20151123
     - com.googlecode.htmlcompressor -> htmlcompressor 1.4
+    - com.google.code -> sitemapgen4j 1.0.1

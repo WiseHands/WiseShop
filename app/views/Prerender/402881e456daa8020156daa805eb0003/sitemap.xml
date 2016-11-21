@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" >
+  <url>
+    <loc>http://localhost/#!/product/402881e4587f144901587f179dcb0002</loc>
+    <lastmod>2016-11-21T22:28:25.389+02:00</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://localhost/#!/category/402881e4587f144901587f178be60000</loc>
+    <lastmod>2016-11-21T22:28:25.390+02:00</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://localhost/#!/contacts</loc>
+    <lastmod>2016-11-21T22:28:25.390+02:00</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://localhost/#!/</loc>
+    <lastmod>2016-11-21T22:28:25.390+02:00</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

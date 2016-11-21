@@ -1,12 +1,20 @@
 package controllers;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
+import com.google.common.io.Files;
+import com.google.common.io.InputSupplier;
 import play.mvc.*;
 
 import models.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 public class Application extends Controller {
@@ -121,6 +129,37 @@ public class Application extends Controller {
 
     public static void superAdmin(String client) {
         render();
+    }
+
+    public static void sitemap(String client) throws IOException {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
+
+        Date date = new Date();
+
+
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+        String ip = "";
+        if (xforwardedHeader != null){
+            ip = xforwardedHeader.value();
+        }
+
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened sitemap " + shop.shopName + " at " + dateFormat.format(date));
+
+
+        File xmlFile = new File("app/views/Prerender/" + shop.uuid, "sitemap.xml");
+        InputSupplier<InputStreamReader> inReader = Files.newReaderSupplier(xmlFile, Charsets.UTF_8);
+        List<String> lines = CharStreams.readLines(inReader);
+
+        String outputXml = "";
+
+        for (String line : lines) {
+            outputXml += line;
+        }
+
+        renderXml(outputXml);
+
     }
 
 
