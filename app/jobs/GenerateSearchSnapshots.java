@@ -28,6 +28,8 @@ public class GenerateSearchSnapshots extends Job {
             for (ShopDTO shop: allShops){
                 generateSnapshotsForShop(shop);
             }
+            System.out.println("\n\n\n" + finalBashScript + "\n\n\n");
+
         }
 
 
@@ -71,7 +73,6 @@ public class GenerateSearchSnapshots extends Job {
         urls.add("http://" + shop.domain + "/#!/contacts");
         System.out.println(urls);
 
-        System.out.println("\n\n\n" + contactsCommand + "\n\n\n");
     }
 
     private void executeCommand(String command) {
