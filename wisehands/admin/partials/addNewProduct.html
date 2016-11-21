@@ -93,6 +93,8 @@
             <input name="imageLoader" type="file" id="imageLoader" required/>
         </div>
     </form>
+
+
     <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
 
         <!--Main image-->
@@ -100,7 +102,7 @@
             <div class="carousel-inner hoverable" role="listbox">
                 <!-- First slide -->
                 <div class="item active" ng-show="productImages.length >= 1">
-                    <img class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
+                    <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
                 </div>
                 <!-- /.item -->
             </div>
@@ -144,8 +146,8 @@
                             <label for="password">Назва категорії</label>
                         </div>
                         <div class="input-field col-md-12">
-                            <textarea id="textarea1" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
-                            <label for="textarea1">Опис категорії</label>
+                            <textarea id="textarea2" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
+                            <label for="textarea2">Опис категорії</label>
                         </div>
                         <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                         <button type="submit" class="btn btn-default pull-right" ng-hide="loading">Створити</button>
