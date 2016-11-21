@@ -24,7 +24,7 @@ public class GenerateSitemaps extends Job {
 
     public void doJob() throws Exception {
 
-        if (isDevEnv) {
+        if (!isDevEnv) {
             List<ShopDTO> allShops = ShopDTO.findAll();
             for (ShopDTO shop: allShops){
                 generateSitemapForShop(shop);
