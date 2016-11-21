@@ -148,17 +148,8 @@ public class Application extends Controller {
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened sitemap " + shop.shopName + " at " + dateFormat.format(date));
 
 
-        File xmlFile = new File("app/views/Prerender/" + shop.uuid, "sitemap.xml");
-        InputSupplier<InputStreamReader> inReader = Files.newReaderSupplier(xmlFile, Charsets.UTF_8);
-        List<String> lines = CharStreams.readLines(inReader);
+        renderTemplate("Prerender/" + shop.uuid + "/" + "sitemap.xml");
 
-        String outputXml = "";
-
-        for (String line : lines) {
-            outputXml += line;
-        }
-
-        renderXml(outputXml);
 
     }
 
