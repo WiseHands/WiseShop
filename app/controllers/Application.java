@@ -56,11 +56,11 @@ public class Application extends Controller {
             String escapedFragment = request.params.data.get("_escaped_fragment_")[0];
             System.out.println("Escaped Fragment: " + escapedFragment);
             if (escapedFragment.contains("product")){
-                renderHtml("Prerender/" + shop.uuid + "/" + escapedFragment);
+                renderTemplate("Prerender/" + shop.uuid + "/" + escapedFragment + ".html");
             } else if (escapedFragment.contains("category")){
-                renderHtml("Prerender/" + shop.uuid + "/" + escapedFragment);
+                renderTemplate("Prerender/" + shop.uuid + "/" + escapedFragment + ".html");
             } else if (escapedFragment.contains("contacts")) {
-                renderHtml("Prerender/" + shop.uuid + "/" + escapedFragment);
+                renderTemplate("Prerender/" + shop.uuid + "/" + escapedFragment + ".html");
             }
             System.out.println(dateFormat.format(date) + ": Escaped Fragment " + escapedFragment + " request with ip " + ip +  " and user-agent " + agent + " just opened " + shop.shopName + ", rendering snapshot...");
             renderTemplate("Prerender/" + shop.uuid + "/index.html");

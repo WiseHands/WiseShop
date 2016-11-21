@@ -53,7 +53,7 @@ public class GenerateSearchSnapshots extends Job {
             String url = "http://" + shop.domain + "/#!/product/" + product.uuid;
             urls.add(url);
 
-            final String command = "phantomjs makesnap.js " + shop.domain + " product/" + product.uuid + " > app/views/Prerender/" + shopUuid + "/product/"  + product.uuid + "\n";
+            final String command = "phantomjs makesnap.js " + shop.domain + " product/" + product.uuid + " > app/views/Prerender/" + shopUuid + "/product/"  + product.uuid + ".html \n";
             finalBashScript.append(command);
 
         }
@@ -62,11 +62,11 @@ public class GenerateSearchSnapshots extends Job {
             String url = "http://" + shop.domain + "/#!/category/" + category.uuid;
             urls.add(url);
 
-            final String command = "phantomjs makesnap.js " + shop.domain + " category/" + category.uuid + " > app/views/Prerender/" + shopUuid + "/category/"  + category.uuid + "\n";
+            final String command = "phantomjs makesnap.js " + shop.domain + " category/" + category.uuid + " > app/views/Prerender/" + shopUuid + "/category/"  + category.uuid + ".html \n";
             finalBashScript.append(command);
         }
 
-        String contactsCommand = "phantomjs makesnap.js " + shop.domain + " contacts" + " > app/views/Prerender/" + shopUuid + "/contacts \n";
+        String contactsCommand = "phantomjs makesnap.js " + shop.domain + " contacts" + " > app/views/Prerender/" + shopUuid + "/contacts.html \n";
         finalBashScript.append(contactsCommand);
 
 
