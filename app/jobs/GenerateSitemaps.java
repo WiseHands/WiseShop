@@ -49,10 +49,12 @@ public class GenerateSitemaps extends Job {
 
         urls.add("http://" + shop.domain + "/#!/contacts");
         urls.add("http://" + shop.domain + "/#!/");
-        System.out.println(urls);
 
 
-        String path = "app/views/Prerender/" + shop.uuid + "/";
+
+
+
+        String path = "app/views/Prerender/" + shop.uuid;
         Files.createDirectories(Paths.get(path));
 
         WebSitemapGenerator sitemapGenerator = WebSitemapGenerator
@@ -66,6 +68,10 @@ public class GenerateSitemaps extends Job {
                     .changeFreq(ChangeFreq.HOURLY).build();
             sitemapGenerator.addUrl(sitemapUrl);
         }
+
+        System.out.println("\n\n\n GENERETING SITEMAP: ");
+        System.out.println(urls);
+        System.out.println(path);
         sitemapGenerator.write();
 
     }
