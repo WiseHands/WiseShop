@@ -17,6 +17,8 @@
         <link href="wisehands/shop/css/shop.css" rel="stylesheet" />
     </noscript>
 
+    <meta name="fragment" content="!" />
+    <base href="/">
 </head>
 <body class="fixed-sn green-skin" ng-app="WiseShop" ng-cloak>
     <!-- Sidebar navigation -->
@@ -53,10 +55,10 @@
         <!-- Side navigation links -->
         <li>
             <ul class="collapsible collapsible-accordion">
-                <li><a href="#/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">Головна</a>
+                <li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">Головна</a>
                 </li>
                 <li ng-repeat="category in categories" ng-hide="category.products.length === 0">
-                    <a href="#/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
+                    <a href="#!/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
                 </li>
             </ul>
         </li>
@@ -65,7 +67,7 @@
     </ul>
     <!--/. Sidebar navigation -->
     <div ng-view>
-        ${shop.contact.description}
+
     </div>
 
     <script defer src="wisehands/assets/js/angular.min.js"></script>
