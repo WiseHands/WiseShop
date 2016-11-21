@@ -9,10 +9,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 @OnApplicationStart
 public class GenerateSearchSnapshots extends Job {
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
+
+    private static final Executor executorMan = Executors.newFixedThreadPool(10);
+
 
     public void doJob() throws Exception {
 
@@ -54,7 +59,7 @@ public class GenerateSearchSnapshots extends Job {
                     executeCommand(command);
                 }
             };
-            executor.execute(task);
+            executorMan.execute(task);
         }
         List<CategoryDTO> categories = CategoryDTO.find("byShop", shop).fetch();
         for (CategoryDTO category : categories) {
@@ -70,7 +75,7 @@ public class GenerateSearchSnapshots extends Job {
                     executeCommand(command);
                 }
             };
-            executor.execute(task);
+            executorMan.execute(task);
         }
 
         urls.add("http://" + shop.domain + "/#!/contacts");
