@@ -66,7 +66,7 @@ public class GenerateSearchSnapshots extends Job {
             finalBashScript.append(command);
         }
 
-        String contactsCommand = "phantomjs makesnap.js " + shop.domain + " contacts" + "\n";
+        String contactsCommand = "phantomjs makesnap.js " + shop.domain + " contacts" + " > app/views/Prerender/" + shopUuid + "/contacts \n";
         finalBashScript.append(contactsCommand);
 
 
