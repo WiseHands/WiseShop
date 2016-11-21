@@ -18,6 +18,8 @@ public class GenerateSearchSnapshots extends Job {
 
 //    private static final Executor executorMan = Executors.newFixedThreadPool(10);
 
+    StringBuilder finalBashScript = new StringBuilder();
+
 
     public void doJob() throws Exception {
 
@@ -35,13 +37,12 @@ public class GenerateSearchSnapshots extends Job {
         String shopUuid = shop.uuid;
 
 
-        String createShopDirectory = "mkdir -p app/views/Prerender/" + shopUuid + "/product" ;
-        System.out.println(createShopDirectory);
-        executeCommand(createShopDirectory);
+        String createShopDirectory = "mkdir -p app/views/Prerender/" + shopUuid + "/product \n" ;
+        finalBashScript.append(createShopDirectory);
 
-        String createCategoriesDirectory = "mkdir -p app/views/Prerender/" + shopUuid + "/category" ;
-        System.out.println(createCategoriesDirectory);
-        executeCommand(createCategoriesDirectory);
+        String createCategoriesDirectory = "mkdir -p app/views/Prerender/" + shopUuid + "/category \n" ;
+        finalBashScript.append(createCategoriesDirectory);
+
 
 
         List<ProductDTO> products = ProductDTO.find("byShop", shop).fetch();
@@ -50,36 +51,27 @@ public class GenerateSearchSnapshots extends Job {
             String url = "http://" + shop.domain + "/#!/product/" + product.uuid;
             urls.add(url);
 
-            final String command = "phantomjs makesnap.js " + shop.domain + " product/" + product.uuid + " > app/views/Prerender/" + shopUuid + "/product/"  + product.uuid;
-            System.out.println("command: " + command);
+            final String command = "phantomjs makesnap.js " + shop.domain + " product/" + product.uuid + " > app/views/Prerender/" + shopUuid + "/product/"  + product.uuid + "\n";
+            finalBashScript.append(command);
 
-//            Runnable task = new Runnable() {
-//                public void run() {
-//                    System.out.println("run command: " + command);
-//                    executeCommand(command);
-//                }
-//            };
-//            executorMan.execute(task);
         }
         List<CategoryDTO> categories = CategoryDTO.find("byShop", shop).fetch();
         for (CategoryDTO category : categories) {
             String url = "http://" + shop.domain + "/#!/category/" + category.uuid;
             urls.add(url);
 
-            final String command = "phantomjs makesnap.js " + shop.domain + " category/" + category.uuid + " > app/views/Prerender/" + shopUuid + "/category/"  + category.uuid;
-            System.out.println("command: " + command);
-
-//            Runnable task = new Runnable() {
-//                public void run() {
-//                    System.out.println("run command: " + command);
-//                    executeCommand(command);
-//                }
-//            };
-//            executorMan.execute(task);
+            final String command = "phantomjs makesnap.js " + shop.domain + " category/" + category.uuid + " > app/views/Prerender/" + shopUuid + "/category/"  + category.uuid + "\n";
+            finalBashScript.append(command);
         }
+
+        String contactsCommand = "phantomjs makesnap.js " + shop.domain + " contacts" + "\n";
+        finalBashScript.append(contactsCommand);
+
 
         urls.add("http://" + shop.domain + "/#!/contacts");
         System.out.println(urls);
+
+        System.out.println("\n\n\n" + contactsCommand + "\n\n\n");
     }
 
     private void executeCommand(String command) {
