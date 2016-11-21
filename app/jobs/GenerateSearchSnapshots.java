@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 public class GenerateSearchSnapshots extends Job {
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
 
-    private static final Executor executorMan = Executors.newFixedThreadPool(10);
+//    private static final Executor executorMan = Executors.newFixedThreadPool(10);
 
 
     public void doJob() throws Exception {
@@ -53,13 +53,13 @@ public class GenerateSearchSnapshots extends Job {
             final String command = "phantomjs makesnap.js " + shop.domain + " product/" + product.uuid + " > app/views/Prerender/" + shopUuid + "/product/"  + product.uuid;
             System.out.println("command: " + command);
 
-            Runnable task = new Runnable() {
-                public void run() {
-                    System.out.println("run command: " + command);
-                    executeCommand(command);
-                }
-            };
-            executorMan.execute(task);
+//            Runnable task = new Runnable() {
+//                public void run() {
+//                    System.out.println("run command: " + command);
+//                    executeCommand(command);
+//                }
+//            };
+//            executorMan.execute(task);
         }
         List<CategoryDTO> categories = CategoryDTO.find("byShop", shop).fetch();
         for (CategoryDTO category : categories) {
@@ -69,13 +69,13 @@ public class GenerateSearchSnapshots extends Job {
             final String command = "phantomjs makesnap.js " + shop.domain + " category/" + category.uuid + " > app/views/Prerender/" + shopUuid + "/category/"  + category.uuid;
             System.out.println("command: " + command);
 
-            Runnable task = new Runnable() {
-                public void run() {
-                    System.out.println("run command: " + command);
-                    executeCommand(command);
-                }
-            };
-            executorMan.execute(task);
+//            Runnable task = new Runnable() {
+//                public void run() {
+//                    System.out.println("run command: " + command);
+//                    executeCommand(command);
+//                }
+//            };
+//            executorMan.execute(task);
         }
 
         urls.add("http://" + shop.domain + "/#!/contacts");
