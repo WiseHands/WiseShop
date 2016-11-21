@@ -8,3 +8,4 @@ require:
     - org.json -> json 20151123
     - com.googlecode.htmlcompressor -> htmlcompressor 1.4
     - com.google.code -> sitemapgen4j 1.0.1
+    - com.google.guava -> guava 20.0
