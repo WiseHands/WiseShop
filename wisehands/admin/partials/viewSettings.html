@@ -35,7 +35,7 @@
     </div>
     <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
         <div class="input-field col-md-12">
-            <p>Колір навігаційної панелі</p>
+            <p>Колір навігаційної панелі <a href="https://www.materialpalette.com/" target="_blank" ><i class="fa fa-question-circle"></i></a></p>
                 <input colorpicker ng-model="shopStyling.navbarColor" type="text">
         </div>
         <div class="input-field col-md-12">
@@ -47,13 +47,13 @@
             <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text">
         </div>
     </form>
-    <nav class="navbar col-xs-12 input-field" style="background-color: {{shopStyling.navbarColor}}">
-            <div class="row vcentering">
-                <div class="navbar-header col-xs-12">
-                    <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-bars"></i></a>
-                    <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}">Brand</a>
-                    <a class="navbar-brand waves-effect waves-light pull-right" style="color: {{shopStyling.navbarTextColor}}"><span class="badge z-depth-1"  style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">4</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down"> Кошик</span></a>
-                </div>
+    <nav class="navbar col-xs-12 boxShadow" style="background-color: {{shopStyling.navbarColor}}">
+        <div class="row vcentering">
+            <div class="navbar-header col-xs-12">
+                <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-bars"></i></a>
+                <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}">Brand</a>
+                <a class="navbar-brand waves-effect waves-light pull-right" style="color: {{shopStyling.navbarTextColor}}"><span class="badge z-depth-1"  style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">4</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down"> Кошик</span></a>
             </div>
+        </div>
     </nav>
 </div>

@@ -106,7 +106,7 @@
                 when('/viewsettings',{
                     templateUrl:'wisehands/admin/partials/viewSettings.html',
                     controller:'ViewSettingsController',
-                    activetab: 'view'
+                    activetab: 'settings'
                 }).
                     otherwise({
                         redirectTo:'/'

@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('ViewSettingsController', ['$scope', '$http', 'signout', function ($scope, $http, signout) {
+    .controller('ViewSettingsController', ['$scope', '$http', 'signout', 'sideNavInit', function ($scope, $http, signout, sideNavInit) {
         $scope.loading = true;
         $http({
             method: 'GET',
@@ -36,4 +36,5 @@ angular.module('WiseHands')
         //     }
         //
         // }
+        sideNavInit.sideNav();
     }]);
