@@ -1,0 +1,59 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    Налаштування
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-plus-circle whiteColor pull-right"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   data-toggle="modal"
+                   data-target="#createNewStoreModal">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <div class="btn-group btn-group-justified col-xs-12" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <a href="#/settings" type="button" class="btn btn-primary">Загальні</a>
+        </div>
+        <div class="btn-group" role="group">
+            <a type="button" class="btn btn-primary active disabled">Вигляд</a>
+        </div>
+    </div>
+    <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
+        <div class="input-field col-md-12">
+            <p>Колір навігаційної панелі</p>
+                <input colorpicker ng-model="shopStyling.navbarColor" type="text">
+        </div>
+        <div class="input-field col-md-12">
+            <p>Колір тексту навігаційної панелі</p>
+            <input colorpicker ng-model="shopStyling.navbarTextColor" type="text">
+        </div>
+        <div class="input-field col-md-12">
+            <p>Колір кількості товарів</p>
+            <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text">
+        </div>
+    </form>
+    <nav class="navbar col-xs-12 input-field" style="background-color: {{shopStyling.navbarColor}}">
+            <div class="row vcentering">
+                <div class="navbar-header col-xs-12">
+                    <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-bars"></i></a>
+                    <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}">Brand</a>
+                    <a class="navbar-brand waves-effect waves-light pull-right" style="color: {{shopStyling.navbarTextColor}}"><span class="badge z-depth-1"  style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">4</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down"> Кошик</span></a>
+                </div>
+            </div>
+    </nav>
+</div>

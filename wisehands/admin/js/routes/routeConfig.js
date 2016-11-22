@@ -1,6 +1,6 @@
 (function () {
     angular.module('WiseHands', [
-        'ngRoute', 'angularSpinners'
+        'ngRoute', 'angularSpinners', 'colorpicker.module'
     ])
         .config(['$routeProvider',
             function ($routeProvider) {
@@ -103,6 +103,11 @@
                         controller:'PaymentController',
                         activetab: 'payment'
                     }).
+                when('/viewsettings',{
+                    templateUrl:'wisehands/admin/partials/viewSettings.html',
+                    controller:'ViewSettingsController',
+                    activetab: 'view'
+                }).
                     otherwise({
                         redirectTo:'/'
                 });
