@@ -21,6 +21,8 @@
             })
                 .then(function successCallback(response) {
                     $scope.product = response.data;
+                    $("meta[name='description']").attr('content', $scope.product.description);
+                    document.title = $scope.product.name + " | " + $scope.product.categoryName;
                     $scope.product.images.forEach(function(image, index){
                         if(image.uuid === $scope.product.mainImage.uuid){
                             $scope.selected = index;
@@ -62,7 +64,6 @@
                 url: '/shop/details/public'
             })
                 .then(function successCallback(response) {
-                    document.title = response.data.name;
                     $scope.shopName = response.data.name;
                     $scope.shopId = response.data.uuid;
                     $scope.payLateButton = response.data.manualPaymentEnabled;
