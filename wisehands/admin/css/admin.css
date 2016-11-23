@@ -103,6 +103,11 @@ body {
         margin-right: 0px;
     }
 }
+@media (max-width: 767px) {
+    .navbar-fixed-top {
+        padding: 10px 0;
+    }
+}
 
 
 .vcentering {

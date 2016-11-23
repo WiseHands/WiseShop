@@ -9,11 +9,12 @@
                     Налаштування
                 </h5>
             </div>
-            <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-save whiteColor pull-right"
-                   ng-click="updateShopStyling()">
-                </i>
-            </a>
+            <div class="col-xs-2 noRightPadding">
+                <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
+                        type="submit"
+                        form="shopStyling">
+                </button>
+            </div>
         </div>
     </div>
 </nav>
@@ -22,7 +23,7 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <div class="btn-group btn-group-justified col-xs-12" role="group" aria-label="..." ng-hide="loading">
+    <div class="btn-group btn-group-justified col-xs-12 z-index" role="group" aria-label="..." ng-hide="loading">
         <div class="btn-group" role="group">
             <a href="#/settings" type="button" class="btn btn-primary">Загальні</a>
         </div>
@@ -30,18 +31,18 @@
             <a type="button" class="btn btn-primary active disabled">Вигляд</a>
         </div>
     </div>
-    <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
+    <form class="col-md-12 noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading" ng-submit="updateShopStyling()">
         <div class="input-field col-md-12">
             <p>Колір навігаційної панелі <a href="https://www.materialpalette.com/" target="_blank" ><i class="fa fa-question-circle"></i></a></p>
-                <input colorpicker ng-model="shopStyling.navbarColor" type="text">
+                <input colorpicker ng-model="shopStyling.navbarColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
         <div class="input-field col-md-12">
             <p>Колір тексту навігаційної панелі</p>
-            <input colorpicker ng-model="shopStyling.navbarTextColor" type="text">
+            <input colorpicker ng-model="shopStyling.navbarTextColor" type="text" required>
         </div>
         <div class="input-field col-md-12">
             <p>Колір кількості товарів</p>
-            <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text">
+            <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text" required>
         </div>
     </form>
     <nav class="navbar col-xs-12 boxShadow" style="background-color: {{shopStyling.navbarColor}}" ng-hide="loading">
