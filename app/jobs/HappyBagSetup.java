@@ -69,7 +69,12 @@ public class HappyBagSetup extends Job {
         PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, (double) 500);
         BalanceDTO balance = new BalanceDTO();
 
-        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
+        VisualSettingsDTO visualSettings = new VisualSettingsDTO();
+        visualSettings.navbarTextColor = "#fff";
+        visualSettings.navbarColor = "#4CAF50";
+        visualSettings.navbarShopItemsColor = "#F44336";
+
+        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain);
         shop.save();
 
         //createProducts(shop, domain);

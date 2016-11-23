@@ -236,7 +236,12 @@ public class ShopAPI extends AuthController {
 
         BalanceDTO balance = new BalanceDTO();
 
-        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, name, publicLiqpayKey, privateLiqPayKey, domain);
+        VisualSettingsDTO visualSettings = new VisualSettingsDTO();
+        visualSettings.navbarTextColor = "#fff";
+        visualSettings.navbarColor = "#4CAF50";
+        visualSettings.navbarShopItemsColor = "#F44336";
+
+        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, name, publicLiqpayKey, privateLiqPayKey, domain);
         return shop = shop.save();
     }
 

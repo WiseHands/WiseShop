@@ -7,10 +7,7 @@
 
 (function(){
     angular.module('WiseShop')
-
-
         .controller('ShopController', ['$scope', '$http','shared','sideNavInit',  function($scope, $http, shared, sideNavInit) {
-
 
             $http({
                 method: 'GET',
