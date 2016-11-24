@@ -38,20 +38,41 @@
         </div>
         <div class="input-field col-md-12">
             <p>Колір тексту навігаційної панелі</p>
-            <input colorpicker ng-model="shopStyling.navbarTextColor" type="text" required>
+            <input colorpicker ng-model="shopStyling.navbarTextColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
         <div class="input-field col-md-12">
             <p>Колір кількості товарів</p>
-            <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text" required>
+            <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
+        </div>
+        <div class="file-field input-field col-xs-12 hidden-xs">
+            <button type="button" class="btn btn-default waves-effect waves-light pull-right accentColor btn-block" ng-click="loadImage()">
+                <span>Додати логотип</span>
+            </button>
+            <input name="imageLoader" type="file" id="imageLoader"
+            onchange="angular.element(this).scope().imageUpload(this)" />
         </div>
     </form>
-    <nav class="navbar col-xs-12 boxShadow" style="background-color: {{shopStyling.navbarColor}}" ng-hide="loading">
+</div>
+<nav class="navbar boxShadow" style="background-color: {{shopStyling.navbarColor}}" ng-hide="loading">
+    <div class="container-fluid">
         <div class="row vcentering">
-            <div class="navbar-header col-xs-12">
+            <div class="col-xs-6 col-sm-1">
                 <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="hidden-xs col-sm-4">
                 <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}">Brand</a>
-                <a class="navbar-brand waves-effect waves-light pull-right" style="color: {{shopStyling.navbarTextColor}}"><span class="badge z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">4</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down"> Кошик</span></a>
+            </div>
+            <div class="col-sm-2 hidden-xs">
+                <a>
+                    <img class="img-responsive center-block" style="max-width:50px;"
+                         ng-src="{{logo}}">
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-5">
+                <a class="navbar-brand waves-effect waves-light pull-right" style="color: {{shopStyling.navbarTextColor}}">
+                    <span class="badge" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">4</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-xs"> Кошик</span>
+                </a>
             </div>
         </div>
-    </nav>
-</div>
+    </div>
+</nav>

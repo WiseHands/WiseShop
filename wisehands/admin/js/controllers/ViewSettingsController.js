@@ -41,5 +41,26 @@ angular.module('WiseHands')
                 console.log(response);
             });
         };
+        $scope.loadImage = function () {
+            $('#imageLoader').click();
+        };
+
+
+        $scope.imageUpload = function(element){
+            $scope.$apply(function() {
+                $scope.loading = true;
+            });
+            var reader = new FileReader();
+            reader.onload = $scope.imageIsLoaded;
+            reader.readAsDataURL(element.files[0]);
+        };
+
+        $scope.imageIsLoaded = function(e){
+            $scope.$apply(function() {
+                $scope.logo = e.target.result;
+                $scope.loading = false;
+            });
+        };
+
         sideNavInit.sideNav();
     }]);
