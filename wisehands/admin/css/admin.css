@@ -275,3 +275,6 @@ label.whiteCheckBox::after {
 .flexItems {
     flex: 1 1 auto;
 }
+.file-field .buttonInputFile {
+    line-height: 31px;
+}

@@ -44,7 +44,7 @@ angular.module('WiseHands')
         $scope.loadImage = function () {
             $('#imageLoader').click();
         };
-
+        
 
         $scope.imageUpload = function(element){
             $scope.$apply(function() {
@@ -60,6 +60,11 @@ angular.module('WiseHands')
                 $scope.logo = e.target.result;
                 $scope.loading = false;
             });
+        };
+
+        $scope.deleteLogo = function(){
+                $scope.logo = '';
+
         };
 
         sideNavInit.sideNav();
