@@ -1,6 +1,7 @@
 package controllers;
 
 import models.ShopDTO;
+import models.SidebarColorScheme;
 import models.VisualSettingsDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,7 +24,10 @@ public class VisualSettingsAPI extends AuthController {
         visualSettings.navbarColor = (String) jsonBody.get("navbarColor");
         visualSettings.navbarTextColor = (String) jsonBody.get("navbarTextColor");
         visualSettings.navbarShopItemsColor = (String) jsonBody.get("navbarShopItemsColor");
-
+        JSONObject sidebarColorSchemeJson = (JSONObject) jsonBody.get("sidebarColorScheme");
+        String code = (String)sidebarColorSchemeJson.get("code");
+        SidebarColorScheme sidebarColorScheme = SidebarColorScheme.find("byCode", code).first();
+        visualSettings.sidebarColorScheme = sidebarColorScheme;
         visualSettings.save();
         shop.save();
 

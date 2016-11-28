@@ -3,10 +3,7 @@ package jobs;
 import com.redfin.sitemapgenerator.ChangeFreq;
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import com.redfin.sitemapgenerator.WebSitemapUrl;
-import models.CategoryDTO;
-import models.ProductDTO;
-import models.ShopDTO;
-import models.VisualSettingsDTO;
+import models.*;
 import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
@@ -30,13 +27,18 @@ public class GenerateVisualSettings extends Job {
                 if(shop.visualSettingsDTO == null){
                     VisualSettingsDTO visualSettings = new VisualSettingsDTO();
                     visualSettings.navbarTextColor = "#fff";
-                    visualSettings.navbarColor = "#4CAF50";
+                    visualSettings.navbarColor = "#003830";
                     visualSettings.navbarShopItemsColor = "#F44336";
 
                     shop.visualSettingsDTO = visualSettings;
                     shop.visualSettingsDTO.save();
                     shop.save();
                 }
+
+
+                shop.visualSettingsDTO.save();
+                shop.save();
+
             }
 
 

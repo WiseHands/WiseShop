@@ -32,8 +32,15 @@
         </div>
     </div>
     <form class="col-md-12 noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading" ng-submit="updateShopStyling()">
-
         <div class="input-field col-md-12">
+            <p>Стиль бокової навігаційної панелі</p>
+            <select class="form-control"
+                    ng-model="selectedSkin"
+                    ng-change="navbarStyling(selectedSkin)"
+                    ng-options="skin as skin.name for skin in shopStyling.sidebarColorSchemes">
+            </select>
+        </div>
+        <div class="col-md-12">
             <p>Колір навігаційної панелі <a href="https://www.materialpalette.com/" target="_blank" ><i class="fa fa-question-circle"></i></a></p>
                 <input colorpicker ng-model="shopStyling.navbarColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
@@ -65,10 +72,10 @@
             <div class="col-xs-6 col-sm-1">
                 <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-bars"></i></a>
             </div>
-            <div class="hidden-xs col-sm-4">
+            <div class="hidden-xs col-sm-4" ng-show="!logo">
                 <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}">Brand</a>
             </div>
-            <div class="col-sm-2 hidden-xs">
+            <div class="col-sm-2 hidden-xs" ng-class="{'col-sm-offset-4': logo}">
                 <a>
                     <img ng-show="logo" class="img-responsive center-block" style="max-width:50px;"
                          ng-src="{{logo}}">
@@ -82,22 +89,4 @@
         </div>
     </div>
 </nav>
-<hr>
-<div class="container-fluid">
-    <div class="col-md-12">
-        <p>Стиль бокової навігаційної панелі</p>
-        <select class="form-control">
-            <option value="blue">Синій</option>
-            <option value="red">Червоний</option>
-            <option value="green">Зелений</option>
-            <option value="purple">Фіолетовий</option>
-            <option value="dark">Темний</option>
-            <option value="grey">Сірий</option>
-            <option value="mdb">Блакитний</option>
-            <option value="deep-orange">Оранжевий</option>
-            <option value="graphite">Графіт</option>
-            <option value="pink">Рожевий</option>
-            <option value=light-grey">Світлосірий</option>
-        </select>
-    </div>
-</div>
+
