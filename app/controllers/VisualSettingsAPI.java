@@ -28,7 +28,7 @@ public class VisualSettingsAPI extends AuthController {
         String code = (String)sidebarColorSchemeJson.get("code");
         SidebarColorScheme sidebarColorScheme = SidebarColorScheme.find("byCode", code).first();
         visualSettings.sidebarColorScheme = sidebarColorScheme;
-        visualSettings.save();
+        visualSettings = visualSettings.save();
         shop.save();
 
         renderJSON(json(visualSettings));

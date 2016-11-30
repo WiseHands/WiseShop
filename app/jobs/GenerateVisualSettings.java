@@ -41,7 +41,28 @@ public class GenerateVisualSettings extends Job {
 
             }
 
-
+        SidebarColorScheme color = new SidebarColorScheme("blue", "Синій");
+        color = color.save();
+        color = new SidebarColorScheme("red", "Червоний");
+        color = color.save();
+        color = new SidebarColorScheme("green", "Зелений");
+        color = color.save();
+        color = new SidebarColorScheme("purple", "Фіолетовий");
+        color = color.save();
+        color = new SidebarColorScheme("dark", "Темний");
+        color = color.save();
+        color = new SidebarColorScheme("grey", "Сірий");
+        color = color.save();
+        color = new SidebarColorScheme("mdb", "Блакитний");
+        color = color.save();
+        color = new SidebarColorScheme("deep-orange", "Оранжевий");
+        color = color.save();
+        color = new SidebarColorScheme("graphite", "Графіт");
+        color = color.save();
+        color = new SidebarColorScheme("pink", "Рожевий");
+        color = color.save();
+        color = new SidebarColorScheme("light-grey", "Світлосірий");
+        color = color.save();
     }
 
 
