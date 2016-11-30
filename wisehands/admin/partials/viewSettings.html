@@ -53,6 +53,10 @@
             <p>Колір кількості товарів</p>
             <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
+        <div class="input-field col-md-12">
+            <p>Посилання логотипу</p>
+            <input ng-model="shopStyling.logoHref" type="text" placeholder="http://www.myshoplandingpage.com">
+        </div>
         <div class="file-field input-field col-sm-6" ng-show="!logo">
             <button type="button" class="btn btn-default waves-effect waves-light btn-block buttonInputFile" ng-click="loadImage()">
                 <span>Додати логотип</span>

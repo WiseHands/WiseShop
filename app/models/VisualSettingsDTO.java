@@ -32,6 +32,9 @@ public class VisualSettingsDTO extends GenericModel {
     public String shopLogo;
 
     @Expose
+    public String logoHref;
+
+    @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public SidebarColorScheme sidebarColorScheme;
 
