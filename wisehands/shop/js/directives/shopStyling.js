@@ -9,6 +9,12 @@ angular.module('WiseShop')
                 })
                     .then(function successCallback(response) {
                         scope.shopStyling = response.data;
+                        scope.activeShop = localStorage.getItem('activeShop');
+                        if (scope.shopStyling.shopLogo === '' || !scope.shopStyling.shopLogo){
+                            scope.logo = '';
+                        } else {
+                            scope.logo = 'public/shop_logo/' + scope.activeShop + '/' + scope.shopStyling.shopLogo;
+                        }
                     }, function errorCallback(error) {
                         console.log(error);
                     });

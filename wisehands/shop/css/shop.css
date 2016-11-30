@@ -7,10 +7,7 @@
 .fixed-height2 {
     height: 4.5rem;
 }
-/*.fixed-height2 p{*/
-    /*font-weight: 300;*/
-    /*font-size: 1.25rem;*/
-/*}*/
+
 .productDescriptionTruncate {
     line-height: 1.5em;
     max-height: 3em;
@@ -158,8 +155,9 @@ main {
     float: right !important;
 }
 
-.product .img-responsive {
+.product .img-responsive, .marginAuto {
     margin: 0 auto;
+    display: block;
 }
 .labelFont {
     font-size: inherit !important;
@@ -176,5 +174,11 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+.vcentering {
+    display: flex;
+    align-items: center;
+}
+.noPointerCursor {
+    cursor: inherit;
+}
 

@@ -26,7 +26,9 @@ angular.module('WiseShop')
 
             })
                 .then(function successCallback(response) {
-                    $scope.shopName = response.data.name;
+                    $scope.activeShop = response.data;
+                    $scope.shopName = $scope.activeShop.name;
+                    localStorage.setItem('activeShop', $scope.activeShop.uuid);
                 }, function errorCallback(response) {
                     console.log(response);
                     $scope.status = 'Щось пішло не так...';
