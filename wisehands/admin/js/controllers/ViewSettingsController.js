@@ -12,69 +12,89 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 $scope.loading = false;
                 $scope.shopStyling = response.data.visualSettingsDTO;
-                $scope.shopStyling.sidebarColorSchemes.forEach(function(skin) {
-                    if (skin.code === $scope.shopStyling.sidebarColorScheme.code){
-                        $scope.selectedSkin = skin;
+                $scope.activeShop = localStorage.getItem('activeShop');
+                if ($scope.shopStyling.shopLogo === '' || !$scope.shopStyling.shopLogo){
+                    $scope.logo = '';
+                } else {
+                    $scope.logo = 'public/shop_logo/' + $scope.activeShop + '/' + $scope.shopStyling.shopLogo;
+
+                }
+                $scope.navbarStyles.forEach(function(style){
+                    if(style.code === $scope.shopStyling.sidebarColorScheme.code){
+                        $scope.selectedSkin = style;
                     }
-                });
+                })
+
             }, function errorCallback(data) {
                 $scope.loading = false;
                 console.log(data);
                 signout.signOut();
             });
 
+
         $scope.navbarStyles = [
             {
+                name: 'Синій',
                 code: 'blue',
                 navbarColor: '#072e6e',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Червоний',
                 code: 'red',
                 navbarColor: '#900',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Зелений',
                 code: 'green',
                 navbarColor: '#003830',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Фіолетовий',
                 code: 'purple',
                 navbarColor: '#54057d',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Темний',
                 code: 'dark',
                 navbarColor: '#3b3b3b',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Сірий',
                 code: 'grey',
                 navbarColor: '#565d6b',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Блакитний',
                 code: 'mdb',
                 navbarColor: '#3f729b',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Оранжевий',
                 code: 'deep-orange',
                 navbarColor: '#8a1a00',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Графіт',
                 code: 'graphite',
                 navbarColor: '#37474f',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Рожевий',
                 code: 'pink',
                 navbarColor: '#ab1550',
                 navbarTextColor: '#fff'
             },
             {
+                name: 'Світло-сірий',
                 code: 'light-grey',
                 navbarColor: '#686868',
                 navbarTextColor: '#fff'
@@ -83,6 +103,9 @@ angular.module('WiseHands')
 
         $scope.navbarStyling = function (selectedSkin) {
             $scope.navbarStyles.forEach(function(style) {
+                if(!selectedSkin){
+                    return;
+                }
                 if (style.code === selectedSkin.code){
                     $scope.shopStyling.navbarColor = style.navbarColor;
                     $scope.shopStyling.navbarTextColor = style.navbarTextColor;
@@ -107,7 +130,7 @@ angular.module('WiseHands')
                 .success(function (response) {
                     $scope.loading = false;
                     $scope.shopStyling = response;
-                    $scope.shopStyling.sidebarColorSchemes.forEach(function(skin) {
+                    $scope.navbarStyles.forEach(function(skin) {
                         if (skin.code === $scope.shopStyling.sidebarColorScheme.code){
                             $scope.selectedSkin = skin;
                         }
@@ -135,17 +158,70 @@ angular.module('WiseHands')
             reader.readAsDataURL(element.files[0]);
         };
 
+        $scope.addLogo = function () {
+            var logoFd = new FormData();
+                logoFd.append('logo', $scope.logoBlob);
+            $http.put('/visualsettings/logo', logoFd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
+                })
+                .success(function(response){
+
+                    $scope.loading = false;
+                })
+                .error(function(response){
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.loading = false;
+                    console.log(response);
+                });
+        };
+
         $scope.imageIsLoaded = function(e){
             $scope.$apply(function() {
                 $scope.logo = e.target.result;
+                $scope.logoBlob = dataURItoBlob($scope.logo);
+                $scope.addLogo();
                 $scope.loading = false;
             });
         };
 
         $scope.deleteLogo = function(){
-                $scope.logo = '';
+            $scope.loading = true;
+            $http({
+                method: 'DELETE',
+                url: '/visualsettings/logo',
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                }
+            })
+                .then(function successCallback(response) {
+                    $scope.logo = '';
+                    $scope.loading = false;
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.loading = false;
+                    console.log(response);
+                });
 
         };
 
         sideNavInit.sideNav();
     }]);
+
+function dataURItoBlob(dataURI) {
+    var binary = atob(dataURI.split(',')[1]);
+    var array = [];
+    for(var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+}

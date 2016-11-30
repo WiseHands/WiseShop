@@ -37,7 +37,8 @@
             <select class="form-control"
                     ng-model="selectedSkin"
                     ng-change="navbarStyling(selectedSkin)"
-                    ng-options="skin as skin.name for skin in shopStyling.sidebarColorSchemes">
+                    ng-options="skin as skin.name for skin in navbarStyles" required>
+                <option></option>
             </select>
         </div>
         <div class="col-md-12">

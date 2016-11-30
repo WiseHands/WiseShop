@@ -28,6 +28,9 @@ PUT     {client}/payment/update                         PaymentSettingsAPI.updat
 
 GET     {client}/visualsettings                         VisualSettingsAPI.details
 PUT     {client}/visualsettings                         VisualSettingsAPI.update
+DELETE  {client}/visualsettings/logo                    VisualSettingsAPI.deleteLogo
+PUT     {client}/visualsettings/logo                    VisualSettingsAPI.uploadLogo
+GET     {client}/visualsettings/schemes                 VisualSettingsAPI.getSidebarSchemes
 
 GET     {client}/products                               ProductAPI.list
 GET     {client}/product/{uuid}                         ProductAPI.details
@@ -38,6 +41,8 @@ DELETE  {client}/product/{uuid}                         ProductAPI.delete
 DELETE  {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.delete
 PUT     {client}/product/{productUuid}/image            ProductImageAPI.add
 PUT     {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.makeMain
+
+
 
 
 GET     {client}/sudo/shops                             ShopAPI.all

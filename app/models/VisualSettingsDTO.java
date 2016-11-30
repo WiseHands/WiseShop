@@ -29,20 +29,17 @@ public class VisualSettingsDTO extends GenericModel {
     public String navbarShopItemsColor;
 
     @Expose
-    @OneToOne(cascade=CascadeType.ALL)
-    public SidebarColorScheme sidebarColorScheme;
+    public String shopLogo;
 
     @Expose
-    @Transient
-    public  List<SidebarColorScheme> sidebarColorSchemes;
+    @OneToOne(cascade=CascadeType.ALL)
+    public SidebarColorScheme sidebarColorScheme;
 
     @OneToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
 
     public VisualSettingsDTO() {
-        this.sidebarColorSchemes = SidebarColorScheme.findAll();
-        this.sidebarColorScheme = SidebarColorScheme.find("byCode", "green").first();
     }
 
 }

@@ -21,6 +21,32 @@ public class GenerateVisualSettings extends Job {
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
 
     public void doJob() throws Exception {
+        SidebarColorScheme color = null;
+        List<SidebarColorScheme> colors = SidebarColorScheme.findAll();
+        if(colors == null || colors.size() == 0) {
+            color = new SidebarColorScheme("blue", "Синій");
+            color = color.save();
+            color = new SidebarColorScheme("red", "Червоний");
+            color = color.save();
+            color = new SidebarColorScheme("purple", "Фіолетовий");
+            color = color.save();
+            color = new SidebarColorScheme("dark", "Темний");
+            color = color.save();
+            color = new SidebarColorScheme("grey", "Сірий");
+            color = color.save();
+            color = new SidebarColorScheme("mdb", "Блакитний");
+            color = color.save();
+            color = new SidebarColorScheme("deep-orange", "Оранжевий");
+            color = color.save();
+            color = new SidebarColorScheme("graphite", "Графіт");
+            color = color.save();
+            color = new SidebarColorScheme("pink", "Рожевий");
+            color = color.save();
+            color = new SidebarColorScheme("light-grey", "Світлосірий");
+            color = color.save();
+            color = new SidebarColorScheme("green", "Зелений");
+            color = color.save();
+        }
 
             List<ShopDTO> allShops = ShopDTO.findAll();
             for (ShopDTO shop: allShops){
@@ -31,38 +57,13 @@ public class GenerateVisualSettings extends Job {
                     visualSettings.navbarShopItemsColor = "#F44336";
 
                     shop.visualSettingsDTO = visualSettings;
+                    shop.visualSettingsDTO.sidebarColorScheme = color;
                     shop.visualSettingsDTO.save();
                     shop.save();
                 }
-
-
-                shop.visualSettingsDTO.save();
-                shop.save();
-
             }
 
-        SidebarColorScheme color = new SidebarColorScheme("blue", "Синій");
-        color = color.save();
-        color = new SidebarColorScheme("red", "Червоний");
-        color = color.save();
-        color = new SidebarColorScheme("green", "Зелений");
-        color = color.save();
-        color = new SidebarColorScheme("purple", "Фіолетовий");
-        color = color.save();
-        color = new SidebarColorScheme("dark", "Темний");
-        color = color.save();
-        color = new SidebarColorScheme("grey", "Сірий");
-        color = color.save();
-        color = new SidebarColorScheme("mdb", "Блакитний");
-        color = color.save();
-        color = new SidebarColorScheme("deep-orange", "Оранжевий");
-        color = color.save();
-        color = new SidebarColorScheme("graphite", "Графіт");
-        color = color.save();
-        color = new SidebarColorScheme("pink", "Рожевий");
-        color = color.save();
-        color = new SidebarColorScheme("light-grey", "Світлосірий");
-        color = color.save();
+
     }
 
 
