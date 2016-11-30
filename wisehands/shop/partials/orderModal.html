@@ -42,7 +42,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success"
+                    <button class="btn btn-primary"
                             ng-show="selectedItems.length !== 0"
                             ng-click="getDeliveryTypes(); modalHide = !modalHide">
                         Замовити
@@ -139,10 +139,10 @@
                     </div>
                     <div id="paymentButton" class="row" ng-show="successfullResponse">
                         <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin" ng-show="payLateButton">
-                            <a><button type="button" class="btn btn-outline-secondary waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
+                            <a><button type="button" class="btn btn-secondary waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6" ng-class="{'offset-sm-2': !payLateButton}">
-                            <button type="button" class="btn btn-outline-success waves-effect btn-block" ng-click="payOrder()">Оплатити</button>
+                            <button type="button" class="btn btn-primary waves-effect btn-block" ng-click="payOrder()">Оплатити</button>
                         </div>
                         <div id="payButton" class="proceedWithPayment"></div>
                     </div>
@@ -153,7 +153,7 @@
                             <h4 class="modal-total pull-left"><strong>{{total + " " + delivery()}} грн</strong></h4>
                         </div>
                         <div class="col-xs-5" ng-hide="successfullResponse">
-                            <button id="toPayment" type="submit" class="btn btn-success pull-right" ng-hide="loading" form="orderForm">До Оплати </button>
+                            <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-hide="loading" form="orderForm">До Оплати </button>
                             <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                         </div>
                     </div>

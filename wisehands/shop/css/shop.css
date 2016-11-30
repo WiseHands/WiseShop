@@ -155,9 +155,8 @@ main {
     float: right !important;
 }
 
-.product .img-responsive, .marginAuto {
+.product .img-responsive {
     margin: 0 auto;
-    display: block;
 }
 .labelFont {
     font-size: inherit !important;
