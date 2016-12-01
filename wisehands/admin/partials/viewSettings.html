@@ -53,7 +53,7 @@
             <p>Колір кількості товарів</p>
             <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
-        <div class="input-field col-md-12">
+        <div class="input-field col-md-12" ng-show="logo">
             <p>Посилання логотипу</p>
             <input ng-model="shopStyling.logoHref" type="text" placeholder="http://www.myshoplandingpage.com">
         </div>
