@@ -25,9 +25,10 @@ angular.module('WiseHands')
             $scope.$apply(function() {
                 $scope.loading = true;
             });
+            var file  = e.target.files[0];
             var reader = new FileReader();
 
-            reader.onload = function(event){
+            reader.onloadend = function(event){
 
                 var img = new Image();
                 img.onload = function(){
@@ -63,7 +64,14 @@ angular.module('WiseHands')
 
 
             };
-            reader.readAsDataURL(e.target.files[0]);
+            if (file && file.type.match('image.*')) {
+                reader.readAsDataURL(e.target.files[0]);
+            } else {
+                $scope.$apply(function() {
+                    $scope.loading = false;
+                });
+            }
+
 
 
         }

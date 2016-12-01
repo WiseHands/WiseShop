@@ -56,7 +56,6 @@ public class ProductImageAPI extends AuthController {
         for(Upload photo: photos) {
             String filename = UUID.randomUUID()+".jpg";
             File logo = new File(USERIMAGESPATH + shop.uuid + "/" + filename);
-            logo.mkdirs();
             FileOutputStream out = new FileOutputStream(logo);
             out.write(photo.asBytes());
             out.close();

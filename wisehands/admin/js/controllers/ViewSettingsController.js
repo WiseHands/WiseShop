@@ -19,11 +19,17 @@ angular.module('WiseHands')
                     $scope.logo = 'public/shop_logo/' + $scope.activeShop + '/' + $scope.shopStyling.shopLogo;
 
                 }
-                $scope.navbarStyles.forEach(function(style){
-                    if(style.code === $scope.shopStyling.sidebarColorScheme.code){
-                        $scope.selectedSkin = style;
-                    }
-                })
+                if(!$scope.shopStyling.sidebarColorScheme){
+                    $scope.selectedSkin = $scope.navbarStyles[0];
+                } else {
+                    $scope.navbarStyles.forEach(function(style){
+                        if(style.code === $scope.shopStyling.sidebarColorScheme.code){
+
+                            $scope.selectedSkin = style;
+                        }
+                    })
+
+                }
 
             }, function errorCallback(data) {
                 $scope.loading = false;
