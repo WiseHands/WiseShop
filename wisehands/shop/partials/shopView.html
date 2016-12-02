@@ -4,48 +4,31 @@
             <div class="col-xs-6 col-sm-1">
                 <a data-activates="slide-out" class="button-collapse" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-bars"></i></a>
             </div>
-            <!-- Breadcrumb-->
             <div class="breadcrumb-dn hidden-xs-down col-sm-4" ng-show="!logo">
                 <a class="noPointerCursor" style="color: {{shopStyling.navbarTextColor}}">{{shopName}}</a>
             </div>
-            <div class="col-sm-2"  ng-class="{'offset-sm-4': logo}">
+            <div class="col-sm-2" ng-class="{'offset-sm-4': logo}">
                 <a href="{{shopStyling.logoHref}}">
                     <img ng-show="logo" class="mx-auto d-block hidden-sm-down" style="max-width:32px;"
                          ng-src="{{logo}}">
                 </a>
             </div>
-            <ul class="nav navbar-nav pull-right col-xs-6 col-sm-5">
-
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0" ng-click="calculateTotal()" style="color: {{shopStyling.navbarTextColor}}"> <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
-                </li>
-                <li class="pull-right">
-                    <a class="" href="#!/contacts" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-envelope"></i> <span class="hidden-sm-down"> Контакти</span></a>
-                </li>
-                <!--<li class="nav-item ">-->
-                <!--<a class="nav-link"><i class="fa fa-comments-o"></i> <span class="hidden-sm-down">Support</span></a>-->
-                <!--</li>-->
-                <!--<li class="nav-item ">-->
-                <!--<a class="nav-link"><i class="fa fa-sign-in"></i> <span class="hidden-sm-down">Register</span></a>-->
-                <!--</li>-->
-                <!--<li class="nav-item dropdown">-->
-                <!--<a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <span class="hidden-sm-down">Profile</span></a>-->
-                <!--<div class="dropdown-menu dropdown-primary dd-right" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">-->
-                <!--<a class="dropdown-item" href="#">Logout</a>-->
-                <!--<a class="dropdown-item" href="#">My account</a>-->
-                <!--</div>-->
-                <!--</li>-->
-            </ul>
+            <div class="col-xs-6 col-sm-5">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0" ng-click="calculateTotal()" style="color: {{shopStyling.navbarTextColor}}"> <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/contacts" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-envelope"></i> <span class="hidden-sm-down"> Контакти</span></a>
+                    </li>
+                </ul>
+            </div>
         </div>
-
     </nav>
-    <!--/.Navbar-->
 </header>
-<!--/Navigation-->
 <main class="p-t-6">
     <div class="container-fluid row center-block">
         <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="productDTO in products | orderBy:'sortOrder'" ng-show="productDTO.isActive">
-
             <div class="card inline">
                 <div class="view overlay hm-white-slight z-depth-1">
                     <a href="#!/product/{{productDTO.uuid}}">
