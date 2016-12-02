@@ -80,13 +80,13 @@
             <div class="hidden-xs col-sm-4" ng-show="!logo">
                 <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}">Brand</a>
             </div>
-            <div class="col-sm-2" ng-class="{'col-sm-offset-4': logo}">
+            <div class="col-sm-2">
                 <a>
-                    <img ng-show="logo" class="img-responsive center-block hidden-sm hidden-xs" style="max-width:32px;"
+                    <img ng-show="logo" class="img-responsive hidden-sm hidden-xs" style="max-width:32px;"
                          ng-src="{{logo}}">
                 </a>
             </div>
-            <div class="col-xs-6 col-sm-5">
+            <div class="col-xs-6 col-sm-5" ng-class="{'col-sm-offset-5': logo}">
                 <a class="navbar-brand waves-effect waves-light pull-right" style="color: {{shopStyling.navbarTextColor}}">
                     <span class="badge" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">4</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-xs"> Кошик</span>
                 </a>
