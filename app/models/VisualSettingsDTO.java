@@ -1,14 +1,10 @@
 package models;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class VisualSettingsDTO extends GenericModel {
@@ -30,6 +26,9 @@ public class VisualSettingsDTO extends GenericModel {
 
     @Expose
     public String shopLogo;
+
+    @Expose
+    public String shopFavicon;
 
     @Expose
     public String logoHref;

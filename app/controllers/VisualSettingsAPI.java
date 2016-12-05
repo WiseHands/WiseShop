@@ -68,6 +68,27 @@ public class VisualSettingsAPI extends AuthController {
         json(visualSettings);
     }
 
+    public static void uploadFavicon(String client, File fake) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
+        VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
+
+
+        List<Upload> photos = (List<Upload>) request.args.get("__UPLOADS");
+        for(Upload photo: photos) {
+            String filename = UUID.randomUUID()+".jpg";
+            Path path = Paths.get(USERIMAGESPATH + shop.uuid);
+            Files.createDirectories(path);
+            FileOutputStream out = new FileOutputStream(USERIMAGESPATH + shop.uuid + "/" + filename);
+            out.write(photo.asBytes());
+            out.close();
+            visualSettings.shopFavicon = filename;
+        }
+        visualSettings = visualSettings.save();
+        renderJSON(json(visualSettings));
+    }
+
     public static void deleteLogo(String client, File fake) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
@@ -81,6 +102,23 @@ public class VisualSettingsAPI extends AuthController {
         }
 
         visualSettings.shopLogo = "";
+        visualSettings = visualSettings.save();
+        renderJSON(json(visualSettings));
+    }
+
+    public static void deleteFavicon(String client, File fake) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
+        VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
+
+        File file = new File(USERIMAGESPATH + shop.uuid + "/" + visualSettings.shopFavicon);
+        if(!file.delete()){
+            System.out.println("error deleting file: " + USERIMAGESPATH + shop.uuid + "/" + visualSettings.shopFavicon);
+            error("error deleting file: " + USERIMAGESPATH + shop.uuid + "/" + visualSettings.shopFavicon);
+        }
+
+        visualSettings.shopFavicon = "";
         visualSettings = visualSettings.save();
         renderJSON(json(visualSettings));
     }

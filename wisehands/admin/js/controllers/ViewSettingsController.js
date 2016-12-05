@@ -153,6 +153,9 @@ angular.module('WiseHands')
         $scope.loadImage = function () {
             $('#imageLoader').click();
         };
+        $scope.loadFavicon = function () {
+            $('#favIconLoader').click();
+        };
         
 
         $scope.imageUpload = function(element){
@@ -161,6 +164,15 @@ angular.module('WiseHands')
             });
             var reader = new FileReader();
             reader.onload = $scope.imageIsLoaded;
+            reader.readAsDataURL(element.files[0]);
+        };
+
+        $scope.favIconUpload = function(element){
+            $scope.$apply(function() {
+                $scope.loading = true;
+            });
+            var reader = new FileReader();
+            reader.onload = $scope.faviconIsLoaded;
             reader.readAsDataURL(element.files[0]);
         };
 
@@ -176,7 +188,35 @@ angular.module('WiseHands')
                     }
                 })
                 .success(function(response){
+                    $scope.loading = false;
+                })
+                .error(function(response){
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.loading = false;
+                    console.log(response);
+                });
+        };
 
+        $scope.addFavicon = function () {
+            var faviconFd = new FormData();
+            faviconFd.append('favicon', $scope.faviconBlob);
+            $http.put('/visualsettings/favicon', faviconFd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    }
+                })
+                .success(function(response){
+                    $scope.shopStyling = response;
+                    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                    link.type = 'image/x-icon';
+                    link.rel = 'shortcut icon';
+                    link.href = 'public/shop_logo/' + $scope.activeShop + '/' + response.shopFavicon;
+                    document.getElementsByTagName('head')[0].appendChild(link);
                     $scope.loading = false;
                 })
                 .error(function(response){
@@ -196,6 +236,14 @@ angular.module('WiseHands')
                 $scope.loading = false;
             });
         };
+        $scope.faviconIsLoaded = function(e){
+            $scope.$apply(function() {
+                $scope.favicon = e.target.result;
+                $scope.faviconBlob = dataURItoBlob($scope.favicon);
+                $scope.addFavicon();
+                $scope.loading = false;
+            });
+        };
 
         $scope.deleteLogo = function(){
             $scope.loading = true;
@@ -209,6 +257,31 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.logo = '';
+                    $scope.loading = false;
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                    $scope.loading = false;
+                    console.log(response);
+                });
+
+        };
+        $scope.deleteFavicon = function(){
+            $scope.loading = true;
+            $http({
+                method: 'DELETE',
+                url: '/visualsettings/favicon',
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                }
+            })
+                .then(function successCallback(response) {
+                    $scope.shopStyling = response.data;
+                    var head = document.getElementsByTagName('head')[0];
+                    var linkIcon = document.querySelector("link[rel*='icon']");
+                    head.removeChild(linkIcon);
                     $scope.loading = false;
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {

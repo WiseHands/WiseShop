@@ -41,9 +41,21 @@
                 <option></option>
             </select>
         </div>
-        <div class="col-md-12">
+        <div class="file-field input-field col-md-6" ng-show="!shopStyling.shopFavicon">
+            <button type="button" class="btn btn-default waves-effect waves-light buttonInputFile btn-block" ng-click="loadFavicon()">
+                <span>Додати favicon</span>
+            </button>
+            <input name="favIconLoader" type="file" id="favIconLoader"
+                   onchange="angular.element(this).scope().favIconUpload(this)" />
+        </div>
+        <div class="input-field col-md-6" ng-show="shopStyling.shopFavicon">
+            <button type="button" class="btn btn-danger waves-effect waves-light" ng-click="deleteFavicon()">
+                <span>Видалити favicon</span>
+            </button>
+        </div>
+        <div class="input-field col-md-12">
             <p>Колір навігаційної панелі <a href="https://www.materialpalette.com/" target="_blank" ><i class="fa fa-question-circle"></i></a></p>
-                <input colorpicker ng-model="shopStyling.navbarColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
+            <input colorpicker ng-model="shopStyling.navbarColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
         <div class="input-field col-md-12">
             <p>Колір тексту навігаційної панелі</p>
@@ -58,14 +70,14 @@
             <input ng-model="shopStyling.logoHref" type="text" placeholder="http://www.myshoplandingpage.com">
         </div>
         <div class="file-field input-field col-sm-6" ng-show="!logo">
-            <button type="button" class="btn btn-default waves-effect waves-light btn-block buttonInputFile" ng-click="loadImage()">
+            <button type="button" class="btn btn-default waves-effect waves-light buttonInputFile" ng-click="loadImage()">
                 <span>Додати логотип</span>
             </button>
             <input name="imageLoader" type="file" id="imageLoader"
             onchange="angular.element(this).scope().imageUpload(this)" />
         </div>
         <div class="input-field col-sm-6" ng-hide="!logo">
-            <button type="button" class="btn btn-danger waves-effect waves-light btn-block" ng-click="deleteLogo()">
+            <button type="button" class="btn btn-danger waves-effect waves-light" ng-click="deleteLogo()">
                 <span>Видалити логотип</span>
             </button>
         </div>

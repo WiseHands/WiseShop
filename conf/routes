@@ -30,6 +30,8 @@ GET     {client}/visualsettings                         VisualSettingsAPI.detail
 PUT     {client}/visualsettings                         VisualSettingsAPI.update
 DELETE  {client}/visualsettings/logo                    VisualSettingsAPI.deleteLogo
 PUT     {client}/visualsettings/logo                    VisualSettingsAPI.uploadLogo
+PUT     {client}/visualsettings/favicon                 VisualSettingsAPI.uploadFavicon
+DELETE  {client}/visualsettings/favicon                 VisualSettingsAPI.deleteFavicon
 GET     {client}/visualsettings/schemes                 VisualSettingsAPI.getSidebarSchemes
 
 GET     {client}/products                               ProductAPI.list
