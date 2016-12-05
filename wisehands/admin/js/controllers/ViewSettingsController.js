@@ -158,22 +158,36 @@ angular.module('WiseHands')
         };
         
 
-        $scope.imageUpload = function(element){
+        $scope.imageUpload = function(e){
             $scope.$apply(function() {
                 $scope.loading = true;
             });
+            var file  = e.files[0];
             var reader = new FileReader();
-            reader.onload = $scope.imageIsLoaded;
-            reader.readAsDataURL(element.files[0]);
+            reader.onloadend = $scope.imageIsLoaded;
+            if (file && file.type.match('image.*')) {
+                reader.readAsDataURL(e.files[0]);
+            } else {
+                $scope.$apply(function() {
+                    $scope.loading = false;
+                });
+            }
         };
 
-        $scope.favIconUpload = function(element){
+        $scope.favIconUpload = function(e){
             $scope.$apply(function() {
                 $scope.loading = true;
             });
+            var file  = e.files[0];
             var reader = new FileReader();
-            reader.onload = $scope.faviconIsLoaded;
-            reader.readAsDataURL(element.files[0]);
+            reader.onloadend = $scope.faviconIsLoaded;
+            if (file && file.type.match('image.*')) {
+                reader.readAsDataURL(e.files[0]);
+            } else {
+                $scope.$apply(function() {
+                    $scope.loading = false;
+                });
+            }
         };
 
         $scope.addLogo = function () {
