@@ -28,6 +28,18 @@
                 <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" ng-model="payment.manualPaymentEnabled" />
                 <label for="filled-in-box">Оплата готівкою</label>
             </div>
+        </div><br>
+        <hr>
+        <div class="input-field col-sm-7">
+            <p>Відсоток знижки</p>
+            <input id="discountPercents" type="number" class="validate" ng-model="discount.percents">
+        </div>
+        <div class="col-sm-7 input-field">
+            <p>Купони (кожен з нового рядка)</p>
+            <textarea id="textarea1" class="materialize-textarea" ng-model="discount.IDs" rows="1"></textarea>
+        </div>
+        <div class="col-sm-7">
+            <a class="btn btn-primary waves-effect waves-light pull-right" ng-click="updateStoreSettings()">Створити</a>
         </div>
     </form>
 </div>
