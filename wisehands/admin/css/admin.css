@@ -278,3 +278,6 @@ label.whiteCheckBox::after {
 .file-field .buttonInputFile {
     line-height: 31px;
 }
+.inlineBlock {
+    display: inline-block;
+}

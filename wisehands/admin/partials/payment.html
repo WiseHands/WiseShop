@@ -22,24 +22,27 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <form>
-        <div class="row">
-            <div class="input-field col-md-12">
-                <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" ng-model="payment.manualPaymentEnabled" />
-                <label for="filled-in-box">Оплата готівкою</label>
-            </div>
-        </div><br>
-        <hr>
-        <div class="input-field col-sm-7">
+    <div class="row">
+        <div class="input-field col-md-12">
+            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" ng-model="payment.manualPaymentEnabled" />
+            <label for="filled-in-box">Оплата готівкою</label>
+        </div>
+    </div><br>
+    <hr>
+    <div ng-repeat="coupon in result" class="inlineBlock">
+        <a class="btn-sm fb-bg rectangle waves-effect waves-light"><h6>{{coupon[0].percentDiscount}}%</h6></a><span class="badge green social-counter">{{coupon.length}}</span>
+    </div>
+    <form ng-submit="createCoupons()">
+        <div class="input-field col-xs-12">
             <p>Відсоток знижки</p>
-            <input id="discountPercents" type="number" class="validate" ng-model="discount.percents">
+            <input id="percents" type="number" class="validate" ng-model="discount.percentDiscount" required>
         </div>
-        <div class="col-sm-7 input-field">
+        <div class="col-sm-12 input-field">
             <p>Купони (кожен з нового рядка)</p>
-            <textarea id="textarea1" class="materialize-textarea" ng-model="discount.IDs" rows="1"></textarea>
+            <textarea id="textarea1" class="materialize-textarea" ng-model="discount.coupons" rows="1" required></textarea>
         </div>
-        <div class="col-sm-7">
-            <a class="btn btn-primary waves-effect waves-light pull-right" ng-click="updateStoreSettings()">Створити</a>
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary waves-effect waves-light pull-right">Створити</button>
         </div>
     </form>
 </div>

@@ -34,6 +34,12 @@ PUT     {client}/visualsettings/favicon                 VisualSettingsAPI.upload
 DELETE  {client}/visualsettings/favicon                 VisualSettingsAPI.deleteFavicon
 GET     {client}/visualsettings/schemes                 VisualSettingsAPI.getSidebarSchemes
 
+GET     {client}/coupons                                CouponAPI.list
+POST    {client}/coupons                                CouponAPI.create
+DELETE  {client}/coupons/{uuid}                         CouponAPI.delete
+DELETE  {client}/coupons                                CouponAPI.deleteAll
+
+
 GET     {client}/products                               ProductAPI.list
 GET     {client}/product/{uuid}                         ProductAPI.details
 POST    {client}/product                                ProductAPI.create
