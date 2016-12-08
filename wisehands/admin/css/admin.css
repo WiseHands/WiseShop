@@ -281,3 +281,6 @@ label.whiteCheckBox::after {
 .inlineBlock {
     display: inline-block;
 }
+.discountLeftMargin {
+    margin-left: 1rem;
+}

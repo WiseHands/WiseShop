@@ -29,9 +29,10 @@
         </div>
     </div><br>
     <hr>
-    <div ng-repeat="coupon in result" class="inlineBlock">
-        <a class="btn-sm fb-bg rectangle waves-effect waves-light"><h6>{{coupon[0].percentDiscount}}%</h6></a><span class="badge green social-counter">{{coupon.length}}</span>
+    <div ng-repeat="coupon in result" class="inlineBlock vcentering">
+        <a href="#/discount" class="btn-sm fb-bg rectangle waves-effect waves-light" ng-click="setDiscountCard(coupon)"><h6>{{coupon[0].percentDiscount}}%</h6></a><span class="badge green social-counter">{{coupon.length}}</span>
     </div>
+    <button ng-hide="coupons.length === 0" class="btn-floating btn-xsmall waves-effect waves-light red" data-toggle="modal" data-target="#deleteAllCoupons"><i class="material-icons"><i class="material-icons">delete_forever</i></i></button>
     <form ng-submit="createCoupons()">
         <div class="input-field col-xs-12">
             <p>Відсоток знижки</p>
@@ -45,4 +46,27 @@
             <button type="submit" class="btn btn-primary waves-effect waves-light pull-right">Створити</button>
         </div>
     </form>
+</div>
+<div class="modal fade" id="deleteAllCoupons" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center">
+                    <p><i>{{deleteMessage}}</i></p>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <div class="col-xs-offset-2 col-xs-8">
+                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteAllCoupons()" ng-show="deleteButton">Видалити</button>
+                </div>
+                <a class="col-xs-offset-4 col-xs-4 noUnderline">
+                    <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal3()">Ok</button>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

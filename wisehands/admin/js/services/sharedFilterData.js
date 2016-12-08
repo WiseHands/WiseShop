@@ -2,6 +2,7 @@ angular.module('WiseHands')
     .service('shared', [ function() {
         var filterOptions = [];
         var isSortingActive = true;
+        var discountCards = [];
         return {
             getFilterOptions: function () {
                 return filterOptions;
@@ -14,6 +15,12 @@ angular.module('WiseHands')
             },
             setSortOptions: function (sortOption) {
                 isSortingActive = sortOption;
+            },
+            getDiscountCards: function () {
+                return  discountCards;
+            },
+            setDiscountCards: function (discountCard) {
+                discountCards = discountCard;
             }
         }
     }]);

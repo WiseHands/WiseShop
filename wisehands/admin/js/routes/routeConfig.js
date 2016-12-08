@@ -103,10 +103,15 @@
                         controller:'PaymentController',
                         activetab: 'payment'
                     }).
-                when('/viewsettings',{
-                    templateUrl:'wisehands/admin/partials/viewSettings.html',
-                    controller:'ViewSettingsController',
-                    activetab: 'settings'
+                    when('/viewsettings',{
+                        templateUrl:'wisehands/admin/partials/viewSettings.html',
+                        controller:'ViewSettingsController',
+                        activetab: 'settings'
+                    }).
+                when('/discount',{
+                    templateUrl:'wisehands/admin/partials/discount.html',
+                    controller:'DiscountController',
+                    activetab: 'payment'
                 }).
                     otherwise({
                         redirectTo:'/'
