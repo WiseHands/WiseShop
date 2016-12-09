@@ -34,13 +34,34 @@
     </div>
     <button ng-hide="coupons.length === 0" class="btn-floating btn-xsmall waves-effect waves-light red" data-toggle="modal" data-target="#deleteAllCoupons"><i class="material-icons"><i class="material-icons">delete_forever</i></i></button>
     <form ng-submit="createCoupons()">
-        <div class="input-field col-xs-12">
+        <div class="input-field col-xs-12 col-sm-6">
             <p>Відсоток знижки</p>
-            <input id="percents" type="number" class="validate" ng-model="discount.percentDiscount" required>
+            <input type="number" class="validate" ng-model="plans.percentDiscount" required>
         </div>
-        <div class="col-sm-12 input-field">
+        <div class="vcentering col-xs-12 col-sm-6 noSidePadding">
+            <div class="input-field col-xs-9 col-sm-10">
+                <p>Сума мін. замовлення</p>
+                <input type="number" class="validate" ng-model="plans.total" required>
+            </div>
+            <div class="col-xs-3 col-sm-2">
+                <button type="button" class="btn-floating btn-xsmall waves-effect waves-light green pull-left" ng-click="createNewCouponRow()"><i class="material-icons"><i class="material-icons">plus_one</i></i></button>
+            </div>
+        </div>
+        <div ng-repeat="row in couponRows">
+            <div class="input-field col-xs-12 col-sm-6">
+                <p>Відсоток знижки</p>
+                <input type="number" class="validate" ng-model="row.percentDiscount" required>
+            </div>
+            <div class="vcentering col-xs-12 col-sm-6 noSidePadding">
+                <div class="input-field col-xs-12">
+                    <p>Сума мін. замовлення</p>
+                    <input type="number" class="validate" ng-model="row.total" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 input-field">
             <p>Купони (кожен з нового рядка)</p>
-            <textarea id="textarea1" class="materialize-textarea" ng-model="discount.coupons" rows="1" required></textarea>
+            <textarea id="textarea1" class="materialize-textarea" ng-model="plans.coupons" rows="1" required></textarea>
         </div>
         <div class="col-sm-12">
             <button type="submit" class="btn btn-primary waves-effect waves-light pull-right">Створити</button>

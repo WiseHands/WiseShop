@@ -73,10 +73,16 @@ angular.module('WiseHands')
         };
         $scope.createCoupons = function () {
             $scope.loading = true;
+            $scope.couponRows.push($scope.plans);
+            var coupons = {
+                plans: $scope.couponRows,
+                coupons: $scope.plans.coupons
+            };
+            debugger;
             $http({
                 method: 'POST',
                 url: '/coupons',
-                data: $scope.discount,
+                data: coupons,
                 headers: {
                     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
                     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
@@ -93,7 +99,7 @@ angular.module('WiseHands')
                             $scope.result[coupon.percentDiscount].push(coupon);
                         }
                     }
-                    $scope.discount = {};
+                    $scope.plans = {};
                     $scope.loading = false;
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
@@ -141,6 +147,10 @@ angular.module('WiseHands')
                     console.log(response);
                 });
 
+        };
+        $scope.couponRows = [];
+        $scope.createNewCouponRow = function () {
+            $scope.couponRows.push({});
         };
         sideNavInit.sideNav();
     }]);
