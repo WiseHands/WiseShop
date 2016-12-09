@@ -10,12 +10,10 @@
 
     <title>${shop.shopName}</title>
 
-    <noscript id="deferred-styles">
-        <link href="wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet" >
-        <link href="wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
-        <link href="wisehands/shop/css/shop.css" rel="stylesheet" />
-    </noscript>
+    <link href="wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
+    <link href="wisehands/shop/css/shop.css" rel="stylesheet" />
 
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
 
@@ -130,19 +128,6 @@
 
     <script defer src="http://maps.google.com/maps/api/js?key=AIzaSyChjd1ZIoUdxAwO4XCvBVBUQgbQkxRLLL0"></script>
 
-    <script>
-      var loadDeferredStyles = function() {
-        var addStylesNode = document.getElementById("deferred-styles");
-        var replacement = document.createElement("div");
-        replacement.innerHTML = addStylesNode.textContent;
-        document.body.appendChild(replacement)
-        addStylesNode.parentElement.removeChild(addStylesNode);
-      };
-      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-          webkitRequestAnimationFrame || msRequestAnimationFrame;
-      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
-      else window.addEventListener('load', loadDeferredStyles);
-    </script>
 
 </body>
 </html>

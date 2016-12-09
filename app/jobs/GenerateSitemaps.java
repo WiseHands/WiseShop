@@ -35,8 +35,11 @@ public class GenerateSitemaps extends Job {
     }
 
     private void generateSitemapForShop(ShopDTO shop) throws IOException {
+
         List<ProductDTO> products = ProductDTO.find("byShop", shop).fetch();
         List<String> urls = new ArrayList<String>();
+        urls.add("http://" + shop.domain + "/#!/contacts");
+
         for (ProductDTO product : products) {
             String url = "http://" + shop.domain + "/#!/product/" + product.uuid;
             urls.add(url);
@@ -47,13 +50,6 @@ public class GenerateSitemaps extends Job {
             urls.add(url);
         }
 
-        urls.add("http://" + shop.domain + "/#!/contacts");
-        urls.add("http://" + shop.domain + "/#!/");
-
-
-
-
-
         String path = "app/views/Prerender/" + shop.uuid;
         Files.createDirectories(Paths.get(path));
 
@@ -61,11 +57,17 @@ public class GenerateSitemaps extends Job {
                 .builder("http://" +  shop.domain, new File(path))
                 .build();
 
+        WebSitemapUrl homeUrl = new WebSitemapUrl.Options(
+                "http://" + shop.domain + "/")
+                .lastMod(new Date()).priority(1.0)
+                .changeFreq(ChangeFreq.DAILY).build();
+        sitemapGenerator.addUrl(homeUrl);
+
         for(String url : urls) {
             WebSitemapUrl sitemapUrl = new WebSitemapUrl.Options(
                     url)
-                    .lastMod(new Date()).priority(1.0)
-                    .changeFreq(ChangeFreq.HOURLY).build();
+                    .lastMod(new Date()).priority(0.6)
+                    .changeFreq(ChangeFreq.DAILY).build();
             sitemapGenerator.addUrl(sitemapUrl);
         }
 
