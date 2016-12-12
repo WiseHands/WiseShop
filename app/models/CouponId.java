@@ -5,11 +5,10 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class CouponDTO extends GenericModel {
+public class CouponId extends GenericModel {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -17,19 +16,21 @@ public class CouponDTO extends GenericModel {
     @Expose
     public String uuid;
 
-    @Expose
-    @OneToMany
-    List<CouponPlan> plans;
+
+    public String couponUuid; //DTO
 
     @Expose
-    @OneToMany
-    List<CouponId> couponIds;
+    public Boolean used;
 
-    public String shopUuid;
+    @Expose
+    public String orderUuid;
 
-    public CouponDTO(List<CouponPlan> plans, List<CouponId> couponIds, String shopUuid){
-        this.plans = plans;
-        this.couponIds = couponIds;
-        this.shopUuid = shopUuid;
+    @Expose
+    public String couponId;
+
+
+    public CouponId(String couponId, String couponUuid){
+        this.couponId = couponId;
+        this.couponUuid = couponUuid;
     }
 }

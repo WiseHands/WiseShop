@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -15,14 +16,34 @@ public class CouponAPI extends AuthController {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        Double percentDiscount = Double.parseDouble(String.valueOf(jsonBody.get("percentDiscount")));
+
+        JSONArray plans = (JSONArray) jsonBody.get("plans");
         String coupons = (String) jsonBody.get("coupons");
+
+        List<CouponId> couponIds = new ArrayList<CouponId>();
+        List<CouponPlan> couponPlans = new ArrayList<CouponPlan>();
+        CouponDTO couponDTO = new CouponDTO(couponPlans, couponIds, shop.uuid);
+        couponDTO = couponDTO.save();
+
+        for (int i = 0; i < plans.size(); i++) {
+            JSONObject plan = (JSONObject) plans.get(i);
+            Long percentDiscount = (Long) plan.get("percentDiscount");
+            Long total = (Long) plan.get("total");
+            CouponPlan couponPlan = new CouponPlan(percentDiscount, total, couponDTO.uuid);
+            couponPlan = couponPlan.save();
+            couponPlans.add(couponPlan);
+            System.out.println("Coupon: " + couponPlan.percentDiscount + "%, " + "from: " + couponPlan.minimalOrderTotal);
+        }
 
         List<String> couponList = Arrays.asList(coupons.split("\\r?\\n"));
         for (String coupon: couponList) {
-            CouponDTO couponDto = new CouponDTO(percentDiscount, coupon, shop.uuid);
-            couponDto.save();
+            CouponId couponId = new CouponId(coupon, couponDTO.uuid);
+            couponId = couponId.save();
+            couponIds.add(couponId);
+            System.out.println("Coupon ID: " + couponId.couponId);
         }
+
+        couponDTO.save();
         List<CouponDTO> couponsList = CouponDTO.find("byShopUuid", shop.uuid).fetch();
         renderJSON(json(couponsList));
     }
