@@ -29,10 +29,15 @@
         </div>
     </div><br>
     <hr>
-    <div ng-repeat="coupon in result" class="inlineBlock vcentering">
-        <a href="#/discount" class="btn-sm fb-bg rectangle waves-effect waves-light" ng-click="setDiscountCard(coupon)"><h6>{{coupon[0].percentDiscount}}%</h6></a><span class="badge green social-counter">{{coupon.length}}</span>
+    <div class="displayFlex" ng-show="coupons.length > 0">
+        <a ng-repeat="coupon in coupons" href="#/discount/{{coupon.uuid}}" class="btn-sm fb-bg rectangle waves-effect waves-light col-xs-12 col-sm-3 text-center"><h6>Купони: {{coupon.couponIds.length}}
+            <br>
+            <br>
+            <div ng-repeat="plan in coupon.plans">
+                {{plan.minimalOrderTotal}} грн - {{plan.percentDiscount}}%
+            </div>
+            </h6></a>
     </div>
-    <button ng-hide="coupons.length === 0" class="btn-floating btn-xsmall waves-effect waves-light red" data-toggle="modal" data-target="#deleteAllCoupons"><i class="material-icons"><i class="material-icons">delete_forever</i></i></button>
     <form ng-submit="createCoupons()">
         <div class="input-field col-xs-12 col-sm-6">
             <p>Відсоток знижки</p>
@@ -61,7 +66,7 @@
         </div>
         <div class="col-xs-12 input-field">
             <p>Купони (кожен з нового рядка)</p>
-            <textarea id="textarea1" class="materialize-textarea" ng-model="plans.coupons" rows="1" required></textarea>
+            <textarea id="textarea1" class="materialize-textarea" ng-model="couponsIds" rows="1" required></textarea>
         </div>
         <div class="col-sm-12">
             <button type="submit" class="btn btn-primary waves-effect waves-light pull-right">Створити</button>

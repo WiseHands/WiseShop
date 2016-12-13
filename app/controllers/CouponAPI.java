@@ -48,15 +48,36 @@ public class CouponAPI extends AuthController {
         renderJSON(json(couponsList));
     }
 
-    public static void delete(String client, String uuid) throws Exception {
+    public static void details(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
 
 
         CouponDTO coupon = CouponDTO.findById(uuid);
+        if(coupon == null){
+            notFound();
+        }
+        renderJSON(json(coupon));
+    }
+
+    public static void delete(String client, String uuid) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
+
+        CouponId coupon = CouponId.findById(uuid);
+        CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
+        couponDTO.couponIds.remove(coupon);
+        couponDTO = couponDTO.save();
+
+        if(couponDTO.couponIds.size() == 0) {
+            couponDTO.delete();
+            ok();
+        }
+        //TODO: check if there is left ghost plans....
         if(coupon != null){
             coupon.delete();
-            ok();
+            renderJSON(json(coupon));
         }
         notFound();
     }

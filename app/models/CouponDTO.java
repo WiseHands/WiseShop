@@ -19,11 +19,11 @@ public class CouponDTO extends GenericModel {
 
     @Expose
     @OneToMany
-    List<CouponPlan> plans;
+    public List<CouponPlan> plans;
 
     @Expose
     @OneToMany
-    List<CouponId> couponIds;
+    public List<CouponId> couponIds;
 
     public String shopUuid;
 

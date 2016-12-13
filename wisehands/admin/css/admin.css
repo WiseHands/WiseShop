@@ -51,6 +51,14 @@ body {
     position: relative !important;
     padding-left: 0 !important;
 }
+
+.discountContainer {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
     .noRightPadding {
@@ -68,6 +76,10 @@ body {
     .row {
         margin-left: 0px;
         margin-right: 0px;
+    }
+    .discountContainer {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
@@ -87,6 +99,11 @@ body {
         margin-left: 0px;
         margin-right: 0px;
     }
+    .discountContainer {
+        padding-left: 0;
+        padding-right: 0;
+
+    }
 }
 
 
@@ -101,6 +118,11 @@ body {
     .row {
         margin-left: 0px;
         margin-right: 0px;
+    }
+    .discountContainer {
+        padding-left: 0;
+        padding-right: 0;
+
     }
 }
 @media (max-width: 767px) {
@@ -283,4 +305,12 @@ label.whiteCheckBox::after {
 }
 .discountLeftMargin {
     margin-left: 1rem;
+}
+.displayFlex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.alignCenter {
+    align-self: center;
+    flex-wrap: nowrap;
 }

@@ -108,7 +108,7 @@
                         controller:'ViewSettingsController',
                         activetab: 'settings'
                     }).
-                when('/discount',{
+                when('/discount/:uuid',{
                     templateUrl:'wisehands/admin/partials/discount.html',
                     controller:'DiscountController',
                     activetab: 'payment'

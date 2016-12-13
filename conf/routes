@@ -35,7 +35,9 @@ DELETE  {client}/visualsettings/favicon                 VisualSettingsAPI.delete
 GET     {client}/visualsettings/schemes                 VisualSettingsAPI.getSidebarSchemes
 
 GET     {client}/coupons                                CouponAPI.list
+GET     {client}/coupon/{uuid}                          CouponAPI.details
 POST    {client}/coupons                                CouponAPI.create
+DELETE  {client}/coupon/{uuid}                          CouponAPI.delete
 DELETE  {client}/coupons/{uuid}                         CouponAPI.delete
 DELETE  {client}/coupons                                CouponAPI.deleteAll
 

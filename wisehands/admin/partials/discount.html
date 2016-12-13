@@ -9,29 +9,24 @@
             </a>
 
             <a class="col-xs-8 text-center">
-                <h5 class="white-text">{{discountCard[0].percentDiscount}}%</h5>
-            </a>
-            <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-save whiteColor pull-right"
-                   ng-click="setDeliveryOptions()">
-                </i>
+                <h5 class="white-text">Деталі</h5>
             </a>
         </div>
     </div>
 </nav>
-<div class="container-fluid noSidePadding">
+<div class="container-fluid discountContainer">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <div class="col-sm-6" ng-repeat="item in discountCard">
+    <div class="col-sm-6" ng-repeat="coupon in coupons.couponIds">
         <div class="card card-primary text-xs-center z-depth-2 unique-color">
             <div class="row">
                 <div class="card-block vcentering">
                     <div class=" col-xs-10 col-sm-10">
-                        <h5 class="white-text text-left discountLeftMargin">{{item.couponId}}</h5>
+                        <h5 class="white-text text-left discountLeftMargin">{{coupon.couponId}}</h5>
                     </div>
                     <div class=" col-xs-2 col-sm-2">
-                        <button class="btn-floating btn-xsmall waves-effect waves-light red pull-right" ng-click="deleteCoupon(item.uuid, $index)"><i class="material-icons"><i class="material-icons">delete_forever</i></i></button>
+                        <button class="btn-floating btn-xsmall waves-effect waves-light red pull-right" ng-click="deleteCoupon(coupon.uuid, $index)"><i class="material-icons"><i class="material-icons">delete_forever</i></i></button>
                     </div>
                 </div>
             </div>

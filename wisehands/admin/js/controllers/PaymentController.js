@@ -29,15 +29,6 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.coupons = response.data;
-                    $scope.result = {};
-                    for(var i=0; i<$scope.coupons.length; i++){
-                        var coupon = $scope.coupons[i];
-                        if(!$scope.result[coupon.percentDiscount]){
-                            $scope.result[coupon.percentDiscount] = [coupon];
-                        } else {
-                            $scope.result[coupon.percentDiscount].push(coupon);
-                        }
-                    }
                     $scope.loading = false;
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
@@ -76,9 +67,8 @@ angular.module('WiseHands')
             $scope.couponRows.push($scope.plans);
             var coupons = {
                 plans: $scope.couponRows,
-                coupons: $scope.plans.coupons
+                coupons: $scope.couponsIds
             };
-            debugger;
             $http({
                 method: 'POST',
                 url: '/coupons',
@@ -91,14 +81,8 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
                     $scope.coupons = response.data;
                     $scope.result = {};
-                    for(var i=0; i<$scope.coupons.length; i++){
-                        var coupon = $scope.coupons[i];
-                        if(!$scope.result[coupon.percentDiscount]){
-                            $scope.result[coupon.percentDiscount] = [coupon];
-                        } else {
-                            $scope.result[coupon.percentDiscount].push(coupon);
-                        }
-                    }
+                    $scope.couponRows = [];
+                    $scope.couponsIds = [];
                     $scope.plans = {};
                     $scope.loading = false;
                 }, function errorCallback(response) {
