@@ -37,6 +37,7 @@ GET     {client}/visualsettings/schemes                 VisualSettingsAPI.getSid
 GET     {client}/coupons                                CouponAPI.list
 GET     {client}/coupon/{uuid}                          CouponAPI.details
 POST    {client}/coupons                                CouponAPI.create
+POST    {client}/coupon/{couponId}                      CouponAPI.checkForCoupon
 DELETE  {client}/coupon/{uuid}                          CouponAPI.delete
 DELETE  {client}/coupons/{uuid}                         CouponAPI.delete
 DELETE  {client}/coupons                                CouponAPI.deleteAll

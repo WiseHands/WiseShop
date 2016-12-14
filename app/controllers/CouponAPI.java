@@ -82,6 +82,16 @@ public class CouponAPI extends AuthController {
         notFound();
     }
 
+    public static void checkForCoupon(String client, String couponId) throws Exception {
+        CouponId coupon = CouponId.find("byCouponId", couponId).first();
+        if(coupon == null) {
+            notFound();
+        }
+        CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
+
+        renderJSON(json(couponDTO.plans));
+    }
+
     public static void deleteAll(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
