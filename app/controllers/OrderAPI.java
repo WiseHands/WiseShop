@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class OrderAPI extends AuthController {
 
@@ -39,13 +40,6 @@ public class OrderAPI extends AuthController {
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
-//        boolean isLiqPayKeysAbsent = shop.liqpayPrivateKey.equals("")  || shop.liqpayPrivateKey == null
-//                || shop.liqpayPublicKey.equals("")  || shop.liqpayPublicKey == null;
-//        if(isLiqPayKeysAbsent) {
-//            forbidden("no liqpay keys defined");
-//            return;
-//        }
-
         //TODO: add validation
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -54,10 +48,11 @@ public class OrderAPI extends AuthController {
         String phone = (String) jsonBody.get("phone");
         String address = (String) jsonBody.get("address");
         String comment = (String) jsonBody.get("comment");
+        String couponId = (String) jsonBody.get("coupon");
         String newPostDepartment = (String) jsonBody.get("newPostDepartment");
         JSONArray jsonArray = (JSONArray) jsonBody.get("selectedItems");
 
-        int totalCost = 0;
+        double totalCost = 0;
 
         OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, comment, shop);
         if(shop.orders == null){
@@ -95,7 +90,37 @@ public class OrderAPI extends AuthController {
             }
         }
 
-        order.total = Double.valueOf(totalCost);
+
+        if(couponId != null) {
+            CouponId coupon = CouponId.find("byCouponId", couponId).first();
+            boolean isUsed = coupon.used != null && coupon.used == true;
+            if(coupon == null || isUsed) {
+                System.out.println("coupon is null or used");
+            } else {
+                CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
+                List<CouponPlan> plans = new ArrayList<CouponPlan>();
+                for (CouponPlan plan: couponDTO.plans) {
+                    if(plan.minimalOrderTotal <= totalCost) {
+                        plans.add(plan);
+                    }
+                }
+
+                CouponPlan correctDiscount = null;
+                for (CouponPlan plan : plans) {
+                    if (correctDiscount == null) {
+                        correctDiscount = plan;
+                        continue;
+                    }
+                    if(plan.minimalOrderTotal > correctDiscount.minimalOrderTotal) {
+                        correctDiscount = plan;
+                    }
+                }
+                totalCost = totalCost - totalCost * correctDiscount.percentDiscount/100;
+                order.couponUuid = coupon.uuid;
+            }
+        }
+
+        order.total = totalCost;
         order = order.save();
 
         mailSender.sendEmail(shop, order, "Нове замовлення");

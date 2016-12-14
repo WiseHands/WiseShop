@@ -42,6 +42,9 @@ public class OrderDTO extends GenericModel {
     public String comment;
 
     @Expose
+    public String couponUuid;
+
+    @Expose
     @Enumerated(EnumType.STRING)
     public OrderState state;
 

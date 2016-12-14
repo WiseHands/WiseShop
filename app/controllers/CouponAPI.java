@@ -84,7 +84,7 @@ public class CouponAPI extends AuthController {
 
     public static void checkForCoupon(String client, String couponId) throws Exception {
         CouponId coupon = CouponId.find("byCouponId", couponId).first();
-        if(coupon == null) {
+        if(coupon == null || (coupon.used != null && coupon.used == true)) {
             notFound();
         }
         CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
