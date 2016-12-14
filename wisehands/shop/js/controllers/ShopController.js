@@ -192,7 +192,8 @@
                     address: document.getElementById('address').value,
                     newPostDepartment: $scope.delivery.newPost,
                     selectedItems: $scope.selectedItems,
-                    comment: document.getElementById('comment').value
+                    comment: document.getElementById('comment').value,
+                    coupon: document.getElementById('couponId').value
                 };
                 var encodedParams = encodeQueryData(params);
 
