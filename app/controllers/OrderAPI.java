@@ -123,6 +123,12 @@ public class OrderAPI extends AuthController {
         order.total = totalCost;
         order = order.save();
 
+        if(couponId != null) {
+            CouponId coupon = CouponId.find("byCouponId", couponId).first();
+            coupon.used = true;
+            coupon = coupon.save();
+        }
+
         mailSender.sendEmail(shop, order, "Нове замовлення");
 
         String smsText = "Замовлення (" + order.name + ", сума " + order.total + ") прийнято.";
