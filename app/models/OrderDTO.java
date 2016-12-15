@@ -42,7 +42,7 @@ public class OrderDTO extends GenericModel {
     public String comment;
 
     @Expose
-    public String couponUuid;
+    public String couponId;
 
     @Expose
     @Enumerated(EnumType.STRING)

@@ -116,7 +116,7 @@ public class OrderAPI extends AuthController {
                     }
                 }
                 totalCost = totalCost - totalCost * correctDiscount.percentDiscount/100;
-                order.couponUuid = coupon.uuid;
+                order.couponId = coupon.couponId;
             }
         }
 
@@ -127,6 +127,10 @@ public class OrderAPI extends AuthController {
             CouponId coupon = CouponId.find("byCouponId", couponId).first();
             coupon.used = true;
             coupon = coupon.save();
+            CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
+            couponDTO.couponIds.remove(coupon);
+            couponDTO.save();
+            coupon.delete();
         }
 
         mailSender.sendEmail(shop, order, "Нове замовлення");

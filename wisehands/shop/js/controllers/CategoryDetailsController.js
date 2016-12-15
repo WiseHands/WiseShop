@@ -189,7 +189,8 @@ angular.module('WiseShop')
                     address: document.getElementById('address').value,
                     newPostDepartment: $scope.delivery.newPost,
                     selectedItems: $scope.selectedItems,
-                    comment: document.getElementById('comment').value
+                    comment: document.getElementById('comment').value,
+                    coupon: document.getElementById('couponId').value
                 };
 
                 var encodedParams = encodeQueryData(params);
@@ -232,6 +233,37 @@ angular.module('WiseShop')
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 $scope.successfullResponse = false;
+            };
+
+
+            $scope.applyCoupon = function (couponId) {
+                $scope.loading = true;
+                $http({
+                    method: 'POST',
+                    url: '/coupon/' + couponId
+                })
+                    .then(function successCallback(response) {
+                        $scope.couponPlans = response.data;
+                        var discountTotalMatch = [];
+                        $scope.couponPlans.forEach(function (couponPlan) {
+                            if (couponPlan.minimalOrderTotal <= $scope.total){
+                                discountTotalMatch.push(couponPlan.minimalOrderTotal);
+                            }
+                        });
+                        var largest = Math.max.apply(0, discountTotalMatch);
+                        $scope.couponPlans.forEach(function (couponPlan) {
+                            if (couponPlan.minimalOrderTotal === largest){
+                                $scope.currentPlan = couponPlan.minimalOrderTotal;
+                                $scope.total = $scope.total - ($scope.total * couponPlan.percentDiscount)/100;
+                            }
+                        });
+                        $scope.discountError = '';
+                        $scope.loading = false;
+                    }, function errorCallback(data) {
+                        $scope.discountError = 'Такий купон вже використаний або його не існує';
+                        $scope.loading = false;
+                        console.log(data);
+                    });
             };
             sideNavInit.sideNav();
             
