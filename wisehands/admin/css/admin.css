@@ -93,6 +93,16 @@ body {
     .hidden-scrollbar {
         overflow:auto;
     }
+    .card .card-content .card-title {
+        font-size: 16px;
+    }
+    .card .card-content p {
+        font-size: 14px;
+    }
+    .analyticsContainer {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 
@@ -119,6 +129,17 @@ body {
     .hidden-scrollbar {
         overflow:auto;
     }
+    .alignFlexStart {
+        align-self: flex-start;
+    }
+    .alignFlexEnd {
+        align-self: flex-end;
+    }
+    .analyticsContainer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
 }
 
 
@@ -142,6 +163,11 @@ body {
     .hidden-scrollbar {
         overflow:auto;
     }
+    .analyticsContainer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
 }
 @media (max-width: 767px) {
     .navbar-fixed-top {

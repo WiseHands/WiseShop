@@ -113,6 +113,11 @@
                     controller:'DiscountController',
                     activetab: 'payment'
                 }).
+                when('/analytics',{
+                    templateUrl:'wisehands/admin/partials/analytics.html',
+                    controller:'AnalyticsController',
+                    activetab: 'analytics'
+                }).
                     otherwise({
                         redirectTo:'/'
                 });
