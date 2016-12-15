@@ -64,6 +64,7 @@
                 url: '/shop/details/public'
             })
                 .then(function successCallback(response) {
+                    $scope.couponsEnabled = response.data.couponsEnabled;
                     $scope.shopName = response.data.name;
                     $scope.shopId = response.data.uuid;
                     $scope.payLateButton = response.data.manualPaymentEnabled;

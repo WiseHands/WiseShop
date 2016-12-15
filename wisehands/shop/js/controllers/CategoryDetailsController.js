@@ -34,6 +34,7 @@ angular.module('WiseShop')
                 url: '/shop/details/public'
             })
                 .then(function successCallback(response) {
+                    $scope.couponsEnabled = response.data.couponsEnabled;
                     document.title = response.data.name;
                     $scope.shopName = response.data.name;
                     $scope.shopId = response.data.uuid;
