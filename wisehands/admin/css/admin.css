@@ -58,7 +58,16 @@ body {
     padding-left: 0;
     padding-right: 0;
 }
+.hidden-scrollbar {
+    overflow:hidden;
+}
 
+.hidden-scrollbar .inner {
+    height:85%;
+    overflow:auto;
+    margin-right: -300px ;
+    padding-right:280px;
+}
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-device-width : 480px) {
     .noRightPadding {
@@ -80,6 +89,9 @@ body {
     .discountContainer {
         padding-left: 0;
         padding-right: 0;
+    }
+    .hidden-scrollbar {
+        overflow:auto;
     }
 }
 
@@ -104,6 +116,9 @@ body {
         padding-right: 0;
 
     }
+    .hidden-scrollbar {
+        overflow:auto;
+    }
 }
 
 
@@ -123,6 +138,9 @@ body {
         padding-left: 0;
         padding-right: 0;
 
+    }
+    .hidden-scrollbar {
+        overflow:auto;
     }
 }
 @media (max-width: 767px) {
@@ -281,6 +299,7 @@ label.whiteCheckBox::after {
 .topMarginBalanceWarning {
     margin-top: 2em;
 }
+
 
 .boxShadow {
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);

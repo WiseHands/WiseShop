@@ -24,8 +24,8 @@
 
 
 </head>
-<body>
-<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav" ng-controller="SideNavController">
+<body class="parentScroll">
+<ul id="slide-out" class="side-nav admin-side-nav dark-side-nav hidden-scrollbar" ng-controller="SideNavController">
     <div class="row vcentering">
         <div class="col-xs-4">
             <img ng-src="{{getProfileImage()}}" class="img-responsive img-circle">
@@ -34,8 +34,9 @@
             <h5 class="white-text cursorPointer" ng-click="getUrl()">{{activeShop.shopName}}</h5>
         </div>
     </div>
-    <ul class="collapsible collapsible-accordion">
+    <ul class="collapsible collapsible-accordion inner">
         <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
+        <li ng-class="{active: $route.current.activetab == 'analytics'}"><a href="#/analytics" class="waves-effect waves-light"><i class="fa fa-line-chart"></i> Аналітика</a></li>
         <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
         <li ng-class="{active: $route.current.activetab == 'payment'}"><a href="#/payment" class="waves-effect waves-light"><i class="fa fa-money"></i> Оплата</a></li>
         <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
@@ -43,6 +44,7 @@
         <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
         <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
         <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
+
     </ul>
 </ul>
 <div ng-view></div>
