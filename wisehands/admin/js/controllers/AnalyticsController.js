@@ -58,8 +58,8 @@ angular.module('WiseHands')
                     }
                 ]
             };
-            var ctx = document.getElementById("myChart").getContext('2d');
-            var myLineChart = new Chart(ctx).Line(data, option);
+            // var ctx = document.getElementById("myChart").getContext('2d');
+            // var myLineChart = new Chart(ctx).Line(data, option);
 
         }]);
 
