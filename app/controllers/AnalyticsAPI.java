@@ -24,14 +24,14 @@ public class AnalyticsAPI extends AuthController {
         Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
 
         String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "'";
-        Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
+        long count = (long) JPA.em().createQuery(countQuery).getSingleResult();
 
         Long today = beginOfDay(new Date());
         String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and time > " + today;
         Double totalToday = (Double) JPA.em().createQuery(totalTodayQuery).getSingleResult();
 
         String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and time > " + today;
-        Long countToday = (Long) JPA.em().createQuery(countTodayQuery).getSingleResult();
+        long countToday = (long) JPA.em().createQuery(countTodayQuery).getSingleResult();
 
         JSONObject json = new JSONObject();
         json.put("total", total);
