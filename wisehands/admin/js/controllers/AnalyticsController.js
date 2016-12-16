@@ -1,7 +1,7 @@
 angular.module('WiseHands')
     .controller('AnalyticsController', ['$scope', '$http', 'sideNavInit', 'signout', '$timeout',
         function ($scope, $http, sideNavInit, signout, $timeout) {
-            // $scope.loading = true;
+            $scope.loading = true;
 
             var token = localStorage.getItem('X-AUTH-TOKEN');
             var userId = localStorage.getItem('X-AUTH-USER-ID');
@@ -9,34 +9,19 @@ angular.module('WiseHands')
 
             $http({
                 method: 'GET',
-                url: '/shops',
+                url: '/analytics',
                 headers: {
                     'X-AUTH-TOKEN': token,
                     'X-AUTH-USER-ID': userId
                 }
             })
                 .then(function successCallback(response) {
-                    $scope.requestQueue -= 1;
-                    if ($scope.requestQueue === 0) {
-                        $scope.loading = false;
-                    }
-                    $scope.shops = response.data;
-
-                    $scope.shops.forEach(function(shop, key, array) {
-                        if (shop.domain === $scope.hostName){
-                            shop.startTime = new Date(shop.startTime);
-                            shop.endTime = new Date(shop.endTime);
-                            $scope.selectedShop = shop;
-                        }
-                    });
+                    $scope.analytics = response.data;
+                    $scope.loading = false;
 
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();
-                    }
-                    $scope.requestQueue -= 1;
-                    if ($scope.requestQueue === 0) {
-                        $scope.loading = false;
                     }
                     $scope.status = 'Щось пішло не так...';
                 });

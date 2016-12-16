@@ -93,8 +93,7 @@ public class OrderAPI extends AuthController {
 
         if(couponId != null) {
             CouponId coupon = CouponId.find("byCouponId", couponId).first();
-            boolean isUsed = coupon.used != null && coupon.used == true;
-            if(coupon == null || isUsed) {
+            if(coupon == null || (coupon.used != null && coupon.used == true)) {
                 System.out.println("coupon is null or used");
             } else {
                 CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
@@ -125,12 +124,14 @@ public class OrderAPI extends AuthController {
 
         if(couponId != null) {
             CouponId coupon = CouponId.find("byCouponId", couponId).first();
-            coupon.used = true;
-            coupon = coupon.save();
-            CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
-            couponDTO.couponIds.remove(coupon);
-            couponDTO.save();
-            coupon.delete();
+            if(coupon != null) {
+                coupon.used = true;
+                coupon = coupon.save();
+                CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
+                couponDTO.couponIds.remove(coupon);
+                couponDTO.save();
+                coupon.delete();
+            }
         }
 
         mailSender.sendEmail(shop, order, "Нове замовлення");
