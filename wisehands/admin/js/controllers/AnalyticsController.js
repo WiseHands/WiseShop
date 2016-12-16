@@ -1,6 +1,6 @@
 angular.module('WiseHands')
-    .controller('AnalyticsController', ['$scope', '$http', 'sideNavInit', 'signout', '$timeout',
-        function ($scope, $http, sideNavInit, signout, $timeout) {
+    .controller('AnalyticsController', ['$scope', '$http', 'sideNavInit', 'signout',
+        function ($scope, $http, sideNavInit, signout) {
             $scope.loading = true;
 
             var token = localStorage.getItem('X-AUTH-TOKEN');
@@ -21,7 +21,6 @@ angular.module('WiseHands')
                         $scope.analytics.totalToday = 0;
                     }
                     $scope.loading = false;
-
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();
@@ -32,7 +31,7 @@ angular.module('WiseHands')
 
             sideNavInit.sideNav();
             var option = {
-                responsive: true,
+                responsive: true
             };
             var data = {
                 labels: ["January", "February", "March", "April", "May", "June", "July"],
