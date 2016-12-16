@@ -17,6 +17,9 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.analytics = response.data;
+                    if(!$scope.analytics.totalToday){
+                        $scope.analytics.totalToday = 0;
+                    }
                     $scope.loading = false;
 
                 }, function errorCallback(response) {
