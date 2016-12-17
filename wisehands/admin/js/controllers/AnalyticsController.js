@@ -20,7 +20,28 @@ angular.module('WiseHands')
                     if(!$scope.analytics.totalToday){
                         $scope.analytics.totalToday = 0;
                     }
+                    $scope.labels = $scope.analytics.namesOfWeek;
+                    $scope.data = $scope.analytics.totalsOfEachDay;
                     $scope.loading = false;
+
+                    var data = {
+                        labels: ["January", "February", "March", "April", "May", "June", "July"],
+                        datasets: [
+                            {
+                                label: "My Second dataset",
+                                fillColor: "rgba(151,187,205,0.2)",
+                                strokeColor: "rgba(151,187,205,1)",
+                                pointColor: "rgba(151,187,205,1)",
+                                pointStrokeColor: "#fff",
+                                pointHighlightFill: "#fff",
+                                pointHighlightStroke: "rgba(151,187,205,1)",
+                                data: [28, 48, 40, 19, 86, 27, 90]
+                            }
+                        ]
+                    };
+                    var ctx = document.getElementById("myChart").getContext('2d');
+                    var myLineChart = new Chart(ctx).Line(data, option);
+
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();
@@ -30,6 +51,7 @@ angular.module('WiseHands')
 
 
             sideNavInit.sideNav();
+
             var option = {
                 responsive: true
             };
@@ -37,15 +59,16 @@ angular.module('WiseHands')
                 labels: ["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [
                     {
-                        label: "My First dataset",
-                        fillColor: "rgba(220,220,220,0.2)",
-                        strokeColor: "rgba(220,220,220,1)",
-                        pointColor: "rgba(220,220,220,1)",
+                        label: "My Second dataset",
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
+                        pointHighlightStroke: "rgba(151,187,205,1)",
+                        data: [28, 48, 40, 19, 86, 27, 90]
+                    }
+                    ,
                     {
                         label: "My Second dataset",
                         fillColor: "rgba(151,187,205,0.2)",
@@ -58,8 +81,8 @@ angular.module('WiseHands')
                     }
                 ]
             };
-            // var ctx = document.getElementById("myChart").getContext('2d');
-            // var myLineChart = new Chart(ctx).Line(data, option);
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myLineChart = new Chart(ctx).Line(data, option);
 
         }]);
 

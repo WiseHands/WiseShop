@@ -10,10 +10,8 @@ import services.MailSender;
 import javax.inject.Inject;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class AnalyticsAPI extends AuthController {
 
@@ -39,6 +37,31 @@ public class AnalyticsAPI extends AuthController {
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE", Locale.US);
+
+
+
+        final int NUM_OF_DAYS_IN_WEEK = 6; // from 0
+        List<String> namesOfWeek = new ArrayList<String>();
+        List<Double> totalsOfEachDay = new ArrayList<Double>();
+        for (int i=0; i<7; i++) {
+            Long dayStart = beginOfDay(subtractDay(new Date(today),-i));
+            Long dayEnd = endOfDay(subtractDay(new Date(today),-i));
+
+            String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
+                    + "' and time > " + dayStart  + " and time < " + dayEnd;
+
+            Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
+            if(dayTotal == null) {
+                dayTotal = 0.0;
+            }
+            String dayName = dateFormat.format(new Date(dayStart));
+            namesOfWeek.add(dayName);
+            totalsOfEachDay.add(dayTotal);
+        }
+
+        json.put("namesOfWeek", namesOfWeek);
+        json.put("totalsOfEachDay", totalsOfEachDay);
         renderJSON(json);
     }
 
@@ -62,6 +85,13 @@ public class AnalyticsAPI extends AuthController {
         cal.set(Calendar.MILLISECOND, 999);
 
         return cal.getTimeInMillis();
+    }
+
+    private static Date subtractDay(Date date, int numOfDays) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_MONTH, numOfDays);
+        return cal.getTime();
     }
 
 }

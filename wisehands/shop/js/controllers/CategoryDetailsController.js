@@ -101,10 +101,10 @@ angular.module('WiseShop')
 
             loadOptions();
 
-            $scope.buyStart = function (index, $event) {
+            $scope.buyStart = function (productDTO, $event) {
 
                 $scope.selectedItems.forEach(function (selectedItem) {
-                    if(selectedItem.uuid === $scope.products[index].uuid){
+                    if(selectedItem.uuid === productDTO.uuid){
                         $scope.found = true;
                         $scope.productFromBin = selectedItem;
                     }
@@ -121,14 +121,14 @@ angular.module('WiseShop')
                 if(isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                 } else if (!$scope.found){
-                    if ($scope.selectedItems.indexOf($scope.products[index]) == -1) {
-                        $scope.products[index].quantity = 1;
-                        $scope.selectedItems.push($scope.products[index]);
+                    if ($scope.selectedItems.indexOf(productDTO) == -1) {
+                        productDTO.quantity = 1;
+                        $scope.selectedItems.push(productDTO);
                         shared.setSelectedItems($scope.selectedItems);
                         $scope.calculateTotal();
 
                     } else {
-                        $scope.products[index].quantity ++;
+                        productDTO.quantity ++;
                         shared.setSelectedItems($scope.selectedItems);
                         $scope.calculateTotal();
                     }
