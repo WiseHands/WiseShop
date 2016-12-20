@@ -60,7 +60,7 @@ public class UserAPI extends AuthController {
             List<UserDTO> users = new ArrayList<UserDTO>();
             users.add(user);
 
-            PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, (double) 500);
+            PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, (double) 500);
             BalanceDTO balance = new BalanceDTO();
 
             VisualSettingsDTO visualSettings = new VisualSettingsDTO();

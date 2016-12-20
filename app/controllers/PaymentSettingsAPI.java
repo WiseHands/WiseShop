@@ -24,11 +24,13 @@ public class PaymentSettingsAPI extends AuthController {
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         Boolean manualPaymentEnabled = (Boolean) jsonBody.get("manualPaymentEnabled");
+        Boolean onlinePaymentEnabled = (Boolean) jsonBody.get("onlinePaymentEnabled");
         Double freeDeliveryLimit = Double.parseDouble(String.valueOf(jsonBody.get("freeDeliveryLimit")));
 
         PaymentSettingsDTO paymentSettings = shop.paymentSettings;
         paymentSettings.freeDeliveryLimit = freeDeliveryLimit;
         paymentSettings.manualPaymentEnabled = manualPaymentEnabled;
+        paymentSettings.onlinePaymentEnabled = onlinePaymentEnabled;
 
         paymentSettings = paymentSettings.save();
 

@@ -66,7 +66,7 @@ public class HappyBagSetup extends Job {
                 courierDeliveryPrice
         );
         ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Львів, вул. Академіка Люльки, 4", "49.848596:24.0229203", "МИ СТВОРИЛИ ТОРБУ ЩАСТЯ ДЛЯ ТОГО, ЩОБ МІЛЬЙОНИ ЛЮДЕЙ МАЛИ МОЖЛИВІСТЬ КОЖНОГО ДНЯ ВЧАСНО ОТРИМУВАТИ ЦІКАВІ ВІДПОВІДІ ТА СВОЄ НАТХНЕННЯ НА ЧУДОВИЙ ДЕНЬ");
-        PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, (double) 500);
+        PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, (double) 500);
         BalanceDTO balance = new BalanceDTO();
 
         VisualSettingsDTO visualSettings = new VisualSettingsDTO();
