@@ -23,6 +23,13 @@ angular.module('WiseShop')
                 .then(function successCallback(response) {
                     $scope.deliverance = response.data;
                     $scope.minOrderForFreeDelivery = $scope.deliverance.courierFreeDeliveryLimit;
+                    if ($scope.deliverance.isCourierAvailable){
+                        $("#radio1").click();
+                    } else if ($scope.deliverance.isNewPostAvailable){
+                        $("#radio2").click();
+                    } else if ($scope.deliverance.isSelfTakeAvailable){
+                        $("#radio3").click();
+                    }
                 }, function errorCallback(error) {
                     console.log(error);
                 });

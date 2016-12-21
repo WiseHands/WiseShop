@@ -63,7 +63,10 @@
                     <div class="fillingInfo" ng-hide="successfullResponse">
                         <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
                             <h6 class="deliveryType"><b>Тип доставки</b></h6>
-                            <fieldset class="form-group">
+
+
+
+                            <fieldset class="form-group" ng-show="deliverance.isCourierAvailable">
                                 <input name="deliverance"
                                        type="radio"
                                        class="with-gap"
@@ -71,10 +74,10 @@
                                        ng-model="delivery.radio"
                                        ng-required="!delivery.radio"
                                        value="COURIER">
-                                <label for="radio1" ng-show="deliverance.isCourierAvailable"><i>{{deliverance.courierText}}</i></label>
+                                <label for="radio1"><i>{{deliverance.courierText}}</i></label>
                             </fieldset>
 
-                            <fieldset class="form-group">
+                            <fieldset class="form-group" ng-show="deliverance.isNewPostAvailable">
                                 <input name="deliverance"
                                        type="radio"
                                        class="with-gap"
@@ -82,14 +85,14 @@
                                        ng-model="delivery.radio"
                                        ng-required="!delivery.radio"
                                        value="NOVAPOSHTA">
-                                <label for="radio2" ng-show="deliverance.isNewPostAvailable"><i>{{deliverance.newPostText}}</i></label>
+                                <label for="radio2"><i>{{deliverance.newPostText}}</i></label>
                                 <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
                                     <label for="newPostDepartment" class="labelFont"><b>Введіть адресу і номер відділення Нової Пошти</b></label>
                                     <input class="validate" id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
                                 </fieldset>
                             </fieldset>
 
-                            <fieldset class="form-group">
+                            <fieldset class="form-group" ng-show="deliverance.isSelfTakeAvailable">
                                 <input name="deliverance"
                                        type="radio"
                                        class="with-gap"
@@ -97,7 +100,7 @@
                                        ng-model="delivery.radio"
                                        ng-required="!delivery.radio"
                                        value="SELFTAKE">
-                                <label class="pull-left autoHeight" for="radio3" ng-show="deliverance.isSelfTakeAvailable">{{deliverance.selfTakeText}}</label>
+                                <label class="pull-left autoHeight" for="radio3">{{deliverance.selfTakeText}}</label>
                             </fieldset>
                             <div class="form-group">
                                 <b>П.І.П.</b>
