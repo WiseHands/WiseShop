@@ -1,7 +1,7 @@
 (function(){
     angular.module('WiseShop')
-        .controller('ProductDetailsController', ['$scope', '$http', '$location', '$routeParams','shared',
-            function($scope, $http, $location, $routeParams, shared) {
+        .controller('ProductDetailsController', ['$scope', '$http', '$location', '$routeParams','shared', 'PublicShopInfo',
+            function($scope, $http, $location, $routeParams, shared, PublicShopInfo) {
             $scope.uuid = $routeParams.uuid;
 
             
@@ -28,8 +28,6 @@
                             $scope.selected = index;
                         }
                     });
-                    $('input:radio[name=deliverance]:not(:disabled):first').click();
-
                     $scope.found = false;
                     for(var i = 0; i < $scope.selectedItems.length; i++) {
                         if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
@@ -52,15 +50,7 @@
                 url: '/delivery'
             })
                 .then(function successCallback(response) {
-                    $scope.deliverance = response.data;
-                    $scope.minOrderForFreeDelivery = $scope.deliverance.courierFreeDeliveryLimit;
-                    if ($scope.deliverance.isCourierAvailable){
-                        $("#radio1").click();
-                    } else if ($scope.deliverance.isNewPostAvailable){
-                        $("#radio2").click();
-                    } else if ($scope.deliverance.isSelfTakeAvailable){
-                        $("#radio3").click();
-                    }
+                    PublicShopInfo.handleDeliveranceInfo($scope, response);
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -71,36 +61,11 @@
                 url: '/shop/details/public'
             })
                 .then(function successCallback(response) {
-                    $scope.couponsEnabled = response.data.couponsEnabled;
-                    $scope.shopName = response.data.name;
-                    $scope.shopId = response.data.uuid;
-                    $scope.payLateButton = response.data.manualPaymentEnabled;
-                    $scope.onlinePaymentEbabled = response.data.onlinePaymentEnabled;
-                    $scope.startTime = new Date(response.data.startTime);
-                    $scope.startHour = ($scope.startTime.getHours()<10?'0':'') + $scope.startTime.getHours();
-                    $scope.startMinute = ($scope.startTime.getMinutes()<10?'0':'') + $scope.startTime.getMinutes();
-                    $scope.endTime = new Date(response.data.endTime);
-                    $scope.endHour = ($scope.endTime.getHours()<10?'0':'') + $scope.endTime.getHours();
-                    $scope.endMinute = ($scope.endTime.getMinutes()<10?'0':'') + $scope.endTime.getMinutes();
-
+                    PublicShopInfo.handlePublicShopInfo($scope, response);
                 }, function errorCallback(error) {
                     console.log(error);
                 });
-                $scope.delivery = function () {
-                    if ($scope.delivery.radio === 'NOVAPOSHTA') {
-                    }
-                    if ($scope.delivery.radio === 'COURIER') {
-                        if($scope.total < $scope.minOrderForFreeDelivery){
-                            return ' + ' + $scope.deliverance.courierPrice;
-                        } else {
-                            return '';
-                        }
-                    } else if ($scope.delivery.radio === 'SELFTAKE'){
-                        return '';
-                    }
-
-                    return '';
-                };
+                $scope.delivery = PublicShopInfo.handleDeliveryCost($scope);
 
                 function loadOptions() {
                     $scope.selectedItems = shared.getSelectedItems();

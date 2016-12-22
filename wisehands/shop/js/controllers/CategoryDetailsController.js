@@ -1,6 +1,6 @@
 angular.module('WiseShop')
-    .controller('CategoryDetailsController', ['$scope', '$http','shared','sideNavInit', '$routeParams',
-        function($scope, $http, shared, sideNavInit, $routeParams) {
+    .controller('CategoryDetailsController', ['$scope', '$http','shared','sideNavInit', '$routeParams', 'PublicShopInfo',
+        function($scope, $http, shared, sideNavInit, $routeParams, PublicShopInfo) {
             $scope.uuid = $routeParams.uuid;
             shared.setCategoryUuid($scope.uuid);
             $http({
@@ -10,7 +10,6 @@ angular.module('WiseShop')
             })
                 .then(function successCallback(response) {
                     $scope.products = response.data;
-                    $('input:radio[name=deliverance]:not(:disabled):first').click();
                 }, function errorCallback(data) {
                     console.log(data);
                 });
@@ -21,15 +20,7 @@ angular.module('WiseShop')
                 url: '/delivery'
             })
                 .then(function successCallback(response) {
-                    $scope.deliverance = response.data;
-                    $scope.minOrderForFreeDelivery = $scope.deliverance.courierFreeDeliveryLimit;
-                    if ($scope.deliverance.isCourierAvailable){
-                        $("#radio1").click();
-                    } else if ($scope.deliverance.isNewPostAvailable){
-                        $("#radio2").click();
-                    } else if ($scope.deliverance.isSelfTakeAvailable){
-                        $("#radio3").click();
-                    }
+                    PublicShopInfo.handleDeliveranceInfo($scope, response);
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -41,19 +32,7 @@ angular.module('WiseShop')
                 url: '/shop/details/public'
             })
                 .then(function successCallback(response) {
-                    $scope.couponsEnabled = response.data.couponsEnabled;
-                    document.title = response.data.name;
-                    $scope.shopName = response.data.name;
-                    $scope.shopId = response.data.uuid;
-                    $scope.payLateButton = response.data.manualPaymentEnabled;
-                    $scope.onlinePaymentEbabled = response.data.onlinePaymentEnabled;
-                    $scope.startTime = new Date(response.data.startTime);
-                    $scope.startHour = ($scope.startTime.getHours()<10?'0':'') + $scope.startTime.getHours();
-                    $scope.startMinute = ($scope.startTime.getMinutes()<10?'0':'') + $scope.startTime.getMinutes();
-                    $scope.endTime = new Date(response.data.endTime);
-                    $scope.endHour = ($scope.endTime.getHours()<10?'0':'') + $scope.endTime.getHours();
-                    $scope.endMinute = ($scope.endTime.getMinutes()<10?'0':'') + $scope.endTime.getMinutes();
-
+                    PublicShopInfo.handlePublicShopInfo($scope, response);
                 }, function errorCallback(error) {
                     console.log(error);
                 });
