@@ -19,7 +19,6 @@
                     console.log(error);
                 });
 
-
             $http({
                 method: 'GET',
                 url: '/delivery'
@@ -29,9 +28,6 @@
                 }, function errorCallback(error) {
                     console.log(error);
                 });
-
-
-
 
             $http({
                 method: 'GET',
@@ -71,31 +67,17 @@
             //     }
             // };
 
-            $scope.delivery = function () {
-                if ($scope.delivery.radio === 'NOVAPOSHTA') {
-                    return '';
-                }
-                if ($scope.delivery.radio === 'COURIER') {
-                    if($scope.total < $scope.minOrderForFreeDelivery){
-                        return ' + ' + $scope.deliverance.courierPrice;
-                    } else {
-                        return '';
-                    }
-                } else if ($scope.delivery.radio === 'SELFTAKE'){
-                    return '';
-                }
-
-
-            };
-
             function loadOptions() {
                 $scope.selectedItems = shared.getSelectedItems();
                 $scope.totalItems = shared.getTotalItems();
             }
 
             loadOptions();
-
-            $scope.buyStart = function (productDTO, $event) {
+            $scope.calculateTotal = PublicShopInfo.calculateTotal;
+            $scope.reCalculateTotal = function (){
+                $scope.calculateTotal($scope);
+            };
+            $scope.buyStart = function (productDTO) {
                 $scope.selectedItems.forEach(function (selectedItem) {
                     if(selectedItem.uuid === productDTO.uuid){
                         $scope.found = true;
@@ -103,15 +85,9 @@
                     }
                 });
 
-                var today = new Date();
+                PublicShopInfo.handleWorkingHours($scope);
 
-                var startMinutes = $scope.startTime.getHours() * 60 + $scope.startTime.getMinutes();
-                var endMinutes = $scope.endTime.getHours() * 60 + $scope.endTime.getMinutes();
-                var nowMinutes = today.getHours() * 60 + today.getMinutes();
-
-                var isNotWorkingTime = nowMinutes < startMinutes || nowMinutes >= endMinutes;
-
-                if(isNotWorkingTime) {
+                if($scope.isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                 } else if (!$scope.found) {
 
@@ -119,17 +95,13 @@
                         productDTO.quantity = 1;
                         $scope.selectedItems.push(productDTO);
                         shared.setSelectedItems($scope.selectedItems);
-                        $scope.calculateTotal();
+                        $scope.calculateTotal($scope);
 
                     } else {
                         productDTO.quantity ++;
                         shared.setSelectedItems($scope.selectedItems);
-                        $scope.calculateTotal();
+                        $scope.calculateTotal($scope);
                     }
-                    if ($event.stopPropagation) $event.stopPropagation();
-                    if ($event.preventDefault) $event.preventDefault();
-                    $event.cancelBubble = true;
-                    $event.returnValue = false;
 
                     $scope.totalItems = 0;
                     $scope.selectedItems.forEach(function(selectedItem) {
@@ -139,7 +111,7 @@
 
                 } else {
                     $scope.productFromBin.quantity ++;
-                    $scope.calculateTotal();
+                    $scope.calculateTotal($scope);
                     shared.setSelectedItems($scope.selectedItems);
                 }
 
@@ -147,42 +119,34 @@
 
             $scope.removeSelectedItem = function (index){
                 $scope.selectedItems.splice(index, 1);
-                $scope.calculateTotal();
+                $scope.calculateTotal($scope);
                 shared.setSelectedItems($scope.selectedItems);
 
             };
 
             $scope.removeAll = function () {
                 $scope.selectedItems.length = 0;
-                $scope.calculateTotal();
+                $scope.calculateTotal($scope);
                 shared.setSelectedItems($scope.selectedItems);
 
             };
 
-            $scope.calculateTotal = function(){
-                $scope.total = 0;
-                $scope.totalItems = 0;
-                for(var i =0; i < $scope.selectedItems.length; i++){
-                    var item = $scope.selectedItems[i];
-                    $scope.total += (item.quantity * item.price);
-                    $scope.totalItems += item.quantity;
-
-                }
-                shared.setTotalItems($scope.totalItems);
-
-            };
-
             $scope.makeOrder = function (){
-
-
                 $scope.loading = true;
-
+                var deliveryType;
+                if (document.getElementById('radio1').checked) {
+                    deliveryType = document.getElementById('radio1').value;
+                } else if (document.getElementById('radio2').checked) {
+                    deliveryType = document.getElementById('radio2').value;
+                } else if(document.getElementById('radio3').checked) {
+                    deliveryType = document.getElementById('radio3').value;
+                }
                 var params = {
-                    deliveryType: $scope.delivery.radio,
+                    deliveryType: deliveryType,
                     phone: new String(document.getElementById('phone').value),
                     name: document.getElementById('name').value,
                     address: document.getElementById('address').value,
-                    newPostDepartment: $scope.delivery.newPost,
+                    newPostDepartment: document.getElementById('newPostDepartment').value,
                     selectedItems: $scope.selectedItems,
                     comment: document.getElementById('comment').value,
                     coupon: document.getElementById('couponId').value
@@ -264,8 +228,6 @@
 
         }]);
 })();
-
-
 
 function encodeQueryData(data)
 {

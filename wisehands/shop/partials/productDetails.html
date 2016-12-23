@@ -7,7 +7,7 @@
             </li>
 
             <li class="nav-item pullRight">
-                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0" ng-click="calculateTotal()" style="color: {{shopStyling.navbarTextColor}}"> <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
+                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0" ng-click="reCalculateTotal()" style="color: {{shopStyling.navbarTextColor}}"> <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
             </li>
             <!--<li class="nav-item ">-->
             <!--<a class="nav-link"><i class="fa fa-comments-o"></i> <span class="hidden-sm-down">Support</span></a>-->
@@ -81,7 +81,7 @@
                                     <!--<span class="label">-20%</span>-->
                                 </div>
                                 <!--Call to action-->
-                                <button class="btn btn-default buyButtonDetails" ng-click="buyStart($event)">Замовити</button>
+                                <button class="btn btn-default buyButtonDetails" ng-click="buyStart()">Замовити</button>
                                 <hr>
                                 <h4>Опис</h4>
                                 <hr>

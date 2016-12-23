@@ -3,7 +3,6 @@
         .controller('ProductDetailsController', ['$scope', '$http', '$location', '$routeParams','shared', 'PublicShopInfo',
             function($scope, $http, $location, $routeParams, shared, PublicShopInfo) {
             $scope.uuid = $routeParams.uuid;
-
             
             $http({
                 method: 'GET',
@@ -55,7 +54,6 @@
                     console.log(error);
                 });
 
-
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
@@ -65,7 +63,6 @@
                 }, function errorCallback(error) {
                     console.log(error);
                 });
-                $scope.delivery = PublicShopInfo.handleDeliveryCost($scope);
 
                 function loadOptions() {
                     $scope.selectedItems = shared.getSelectedItems();
@@ -73,25 +70,21 @@
                 }
 
                 loadOptions();
+                $scope.calculateTotal = PublicShopInfo.calculateTotal;
+                $scope.reCalculateTotal = function (){
+                    $scope.calculateTotal($scope);
+                };
+                $scope.buyStart = function () {
 
-                $scope.buyStart = function ($event) {
+                    PublicShopInfo.handleWorkingHours($scope);
 
-                    var today = new Date();
-
-                    var startMinutes = $scope.startTime.getHours() * 60 + $scope.startTime.getMinutes();
-                    var endMinutes = $scope.endTime.getHours() * 60 + $scope.endTime.getMinutes();
-                    var nowMinutes = today.getHours() * 60 + today.getMinutes();
-
-                    var isNotWorkingTime = nowMinutes < startMinutes || nowMinutes >= endMinutes;
-
-
-                    if(isNotWorkingTime) {
+                    if($scope.isNotWorkingTime) {
                         toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                     } else {
                         if (!$scope.found) {
                             $scope.product.quantity = 1;
                             $scope.selectedItems.push($scope.product);
-                            $scope.calculateTotal();
+                            $scope.calculateTotal($scope);
                             shared.setSelectedItems($scope.selectedItems);
 
                             for(var i = 0; i < $scope.selectedItems.length; i++) {
@@ -101,43 +94,20 @@
                                     break;
                                 }
                             }
-
                         } else {
                             for(var i = 0; i < $scope.selectedItems.length; i++) {
                                 if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
                                     $scope.found = true;
                                     var productFromBin = $scope.selectedItems[i];
                                     productFromBin.quantity ++;
-                                    $scope.calculateTotal();
+                                    $scope.calculateTotal($scope);
                                     shared.setSelectedItems($scope.selectedItems);
 
                                     break;
                                 }
                             }
-
                         }
-                        if ($event.stopPropagation) $event.stopPropagation();
-                        if ($event.preventDefault) $event.preventDefault();
-                        $event.cancelBubble = true;
-                        $event.returnValue = false;
-
-
-
                     }
-
-                };
-
-                $scope.calculateTotal = function(){
-                    $scope.total = 0;
-                    $scope.totalItems = 0;
-                    for(var i =0; i < $scope.selectedItems.length; i++){
-                        var item = $scope.selectedItems[i];
-                        $scope.total += (item.quantity * item.price);
-                        $scope.totalItems += item.quantity;
-
-                    }
-                    shared.setTotalItems($scope.totalItems);
-
                 };
 
                 $scope.removeSelectedItem = function (index){
@@ -145,28 +115,34 @@
                         $scope.found = false;
                     }
                     $scope.selectedItems.splice(index, 1);
-                    $scope.calculateTotal();
+                    $scope.calculateTotal($scope);
                     shared.setSelectedItems($scope.selectedItems);
                 };
 
                 $scope.removeAll = function () {
                     $scope.selectedItems = [];
-                    $scope.calculateTotal();
+                    $scope.calculateTotal($scope);
                     shared.setSelectedItems($scope.selectedItems);
                     $scope.found = false;
                 };
 
                 $scope.makeOrder = function (){
 
-
                     $scope.loading = true;
-
+                    var deliveryType;
+                    if (document.getElementById('radio1').checked) {
+                        deliveryType = document.getElementById('radio1').value;
+                    } else if (document.getElementById('radio2').checked) {
+                        deliveryType = document.getElementById('radio2').value;
+                    } else if(document.getElementById('radio3').checked) {
+                        deliveryType = document.getElementById('radio3').value;
+                    }
                     var params = {
-                        deliveryType: $scope.delivery.radio,
+                        deliveryType: deliveryType,
                         phone: new String(document.getElementById('phone').value),
                         name: document.getElementById('name').value,
                         address: document.getElementById('address').value,
-                        newPostDepartment: $scope.delivery.newPost,
+                        newPostDepartment: document.getElementById('newPostDepartment').value,
                         selectedItems: $scope.selectedItems,
                         comment: document.getElementById('comment').value,
                         coupon: document.getElementById('couponId').value
@@ -243,14 +219,10 @@
                             console.log(data);
                         });
                 };
-
-
-
             }]);
 
 
 })();
-
 
 function encodeQueryData(data)
 {

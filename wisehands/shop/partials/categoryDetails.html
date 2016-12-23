@@ -15,7 +15,7 @@
         <ul class="nav navbar-nav pull-right">
 
             <li class="nav-item ">
-                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0" style="color: {{shopStyling.navbarTextColor}}"> <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
+                <a class="nav-link" data-toggle="modal" data-target="#cart-modal-ex" ng-show="selectedItems.length !== 0"  ng-click="reCalculateTotal()" style="color: {{shopStyling.navbarTextColor}}"> <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">Кошик</span></a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="#!/contacts" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-envelope"></i> <span class="hidden-sm-down"> Контакти</span></a>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="card-footer">
                         <span class="left">{{productDTO.price}} грн <span class="discount" ng-show="productDTO.oldPrice">{{productDTO.oldPrice}} грн</span></span>
-                        <span class="right" ng-click="buyStart(productDTO, $event)"><a data-toggle="tooltip" data-placement="top" title="Додати в Корзину"><i class="fa fa-shopping-cart"></i></a></span>
+                        <span class="right" ng-click="buyStart(productDTO)"><a data-toggle="tooltip" data-placement="top" title="Додати в Корзину"><i class="fa fa-shopping-cart"></i></a></span>
                     </div>
                 </div>
             </div>

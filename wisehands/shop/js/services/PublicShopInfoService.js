@@ -1,5 +1,5 @@
 angular.module('WiseShop')
-    .service('PublicShopInfo', [ function() {
+    .service('PublicShopInfo', ['shared', function(shared) {
         return {
             handleDeliveranceInfo: function (scope, response) {
                 scope.deliverance = response.data;
@@ -26,19 +26,24 @@ angular.module('WiseShop')
                 scope.endHour = (scope.endTime.getHours()<10?'0':'') + scope.endTime.getHours();
                 scope.endMinute = (scope.endTime.getMinutes()<10?'0':'') + scope.endTime.getMinutes();
             },
-            handleDeliveryCost: function (scope) {
-                if (scope.delivery.radio === 'NOVAPOSHTA') {
-                    return '';
+            handleWorkingHours: function (scope) {
+                scope.today = new Date();
+
+                scope.startMinutes = scope.startTime.getHours() * 60 + scope.startTime.getMinutes();
+                scope.endMinutes = scope.endTime.getHours() * 60 + scope.endTime.getMinutes();
+                scope.nowMinutes = scope.today.getHours() * 60 + scope.today.getMinutes();
+
+                scope.isNotWorkingTime = scope.nowMinutes < scope.startMinutes || scope.nowMinutes >= scope.endMinutes;
+            },
+            calculateTotal: function (scope) {
+                scope.total = 0;
+                scope.totalItems = 0;
+                for(var i =0; i < scope.selectedItems.length; i++){
+                    var item = scope.selectedItems[i];
+                    scope.total += (item.quantity * item.price);
+                    scope.totalItems += item.quantity;
                 }
-                if (scope.delivery.radio === 'COURIER') {
-                    if(scope.total < scope.minOrderForFreeDelivery){
-                        return ' + ' + scope.deliverance.courierPrice;
-                    } else {
-                        return '';
-                    }
-                } else if (scope.delivery.radio === 'SELFTAKE'){
-                    return '';
-                }
+                shared.setTotalItems(scope.totalItems);
             }
         }
     }]);

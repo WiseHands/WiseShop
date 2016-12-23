@@ -27,7 +27,7 @@
                                 <input  class="inputTextCentering"
                                         type="number"
                                         ng-model="item.quantity"
-                                        ng-change="calculateTotal()"
+                                        ng-change="reCalculateTotal()"
                                         min="1"> шт.
                                 </input>
                             </td>
@@ -64,15 +64,13 @@
                         <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
                             <h6 class="deliveryType"><b>Тип доставки</b></h6>
 
-
-
                             <fieldset class="form-group" ng-show="deliverance.isCourierAvailable">
                                 <input name="deliverance"
                                        type="radio"
                                        class="with-gap"
                                        id="radio1"
-                                       ng-model="delivery.radio"
-                                       ng-required="!delivery.radio"
+                                       ng-model="deliveryType"
+                                       ng-required="!deliveryType"
                                        value="COURIER">
                                 <label for="radio1"><i>{{deliverance.courierText}}</i></label>
                             </fieldset>
@@ -82,13 +80,13 @@
                                        type="radio"
                                        class="with-gap"
                                        id="radio2"
-                                       ng-model="delivery.radio"
-                                       ng-required="!delivery.radio"
+                                       ng-model="deliveryType"
+                                       ng-required="!deliveryType"
                                        value="NOVAPOSHTA">
                                 <label for="radio2"><i>{{deliverance.newPostText}}</i></label>
-                                <fieldset class="form-group" ng-show="delivery.radio === 'NOVAPOSHTA'">
+                                <fieldset class="form-group" ng-show="deliveryType === 'NOVAPOSHTA'">
                                     <label for="newPostDepartment" class="labelFont"><b>Введіть адресу і номер відділення Нової Пошти</b></label>
-                                    <input class="validate" id="newPostDepartment" type="text" ng-model="delivery.newPost" ng-required="delivery.radio === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
+                                    <input class="validate" id="newPostDepartment" type="text" ng-model="newPostDelivery" ng-required="deliveryType === 'NOVAPOSHTA'" placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
                                 </fieldset>
                             </fieldset>
 
@@ -97,8 +95,8 @@
                                        type="radio"
                                        class="with-gap"
                                        id="radio3"
-                                       ng-model="delivery.radio"
-                                       ng-required="!delivery.radio"
+                                       ng-model="deliveryType"
+                                       ng-required="!deliveryType"
                                        value="SELFTAKE">
                                 <label class="pull-left autoHeight" for="radio3">{{deliverance.selfTakeText}}</label>
                             </fieldset>
@@ -122,14 +120,14 @@
                                        pattern="^380[0-9]{9,9}$"
                                        required />
                             </div>
-                            <div class="form-group" ng-show="delivery.radio === 'COURIER'">
+                            <div class="form-group" ng-show="deliveryType === 'COURIER'">
                                 <b>Адреса</b>
                                 <input class="form-control validate"
                                        placeholder="Введіть адресу"
                                        id="address"
                                        ng-model="address"
                                        type="text"
-                                       ng-required="delivery.radio === 'COURIER'"/>
+                                       ng-required="deliveryType === 'COURIER'"/>
                             </div>
                             <div class="form-group">
                                 <b>Коментар</b>
@@ -165,7 +163,7 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-xs-7 priceAlignment">
-                            <h4 class="modal-total pull-left"><strong>{{total + " " + delivery()}} грн</strong></h4>
+                            <h4 class="modal-total pull-left"><strong>{{total + delivery()}} грн</strong></h4>
                         </div>
                         <div class="col-xs-5" ng-hide="successfullResponse">
                             <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-hide="loading" form="orderForm">До Оплати </button>
