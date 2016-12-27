@@ -7,7 +7,7 @@
 
 (function(){
     angular.module('WiseShop')
-        .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo',  function($scope, $http, shared, sideNavInit, PublicShopInfo) {
+        .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo', 'OrderHandling',  function($scope, $http, shared, sideNavInit, PublicShopInfo, OrderHandling) {
 
             $http({
                 method: 'GET',
@@ -132,38 +132,15 @@
             };
 
             $scope.makeOrder = function (){
-                $scope.loading = true;
-                var deliveryType;
-                if (document.getElementById('radio1').checked) {
-                    deliveryType = document.getElementById('radio1').value;
-                } else if (document.getElementById('radio2').checked) {
-                    deliveryType = document.getElementById('radio2').value;
-                } else if(document.getElementById('radio3').checked) {
-                    deliveryType = document.getElementById('radio3').value;
-                }
-                var params = {
-                    deliveryType: deliveryType,
-                    phone: new String(document.getElementById('phone').value),
-                    name: document.getElementById('name').value,
-                    address: document.getElementById('address').value,
-                    newPostDepartment: document.getElementById('newPostDepartment').value,
-                    selectedItems: $scope.selectedItems,
-                    comment: document.getElementById('comment').value,
-                    coupon: document.getElementById('couponId').value
-                };
-                var encodedParams = encodeQueryData(params);
+                OrderHandling.prepareOrderInfo($scope);
 
                 $http({
                     method: 'POST',
                     url: '/order',
-                    data: params
+                    data: $scope.params
                 })
                     .then(function successCallback(response) {
-                        $scope.loading = false;
-                        $scope.successfullResponse = true;
-                        var modalContent = document.querySelector(".proceedWithPayment");
-                        modalContent.innerHTML = response.data.button;
-                        $scope.currentOrderUuid = response.data.uuid;
+                        OrderHandling.handleOrderData($scope, response);
                     }, function errorCallback(data) {
                         $scope.loading = false;
                         console.log(data);
@@ -171,10 +148,7 @@
             };
 
             $scope.payOrder = function () {
-                $("#paymentButton").click(function(e) {
-                    var rootDiv = document.querySelector('.proceedWithPayment');
-                    rootDiv.firstChild.submit();
-                });
+                OrderHandling.payOrder();
             };
 
             $scope.payLater = function () {
@@ -187,11 +161,6 @@
                     }, function errorCallback(data) {
                         console.log(data);
                     });
-                $scope.selectedItems = [];
-                $('#cart-modal-ex').modal('hide');
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
-                $scope.successfullResponse = false;
             };
 
             $scope.applyCoupon = function (couponId) {
@@ -201,22 +170,7 @@
                     url: '/coupon/' + couponId
                 })
                     .then(function successCallback(response) {
-                        $scope.couponPlans = response.data;
-                        var discountTotalMatch = [];
-                        $scope.couponPlans.forEach(function (couponPlan) {
-                           if (couponPlan.minimalOrderTotal <= $scope.total){
-                               discountTotalMatch.push(couponPlan.minimalOrderTotal);
-                           }
-                        });
-                        var largest = Math.max.apply(0, discountTotalMatch);
-                        $scope.couponPlans.forEach(function (couponPlan) {
-                            if (couponPlan.minimalOrderTotal === largest){
-                                $scope.currentPlan = couponPlan.minimalOrderTotal;
-                                $scope.total = $scope.total - ($scope.total * couponPlan.percentDiscount)/100;
-                            }
-                        });
-                        $scope.discountError = '';
-                        $scope.loading = false;
+                        OrderHandling.couponSuccess($scope, response);
                     }, function errorCallback(data) {
                         $scope.discountError = 'Такий купон вже використаний або його не існує';
                         $scope.loading = false;
@@ -229,13 +183,7 @@
         }]);
 })();
 
-function encodeQueryData(data)
-{
-    var ret = [];
-    for (var d in data)
-        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-    return ret.join("&");
-}
+
 
 
 

@@ -48,7 +48,7 @@
             <ul class="collapsible collapsible-accordion">
                 <li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">Головна</a>
                 </li>
-                <li ng-repeat="category in categories" ng-hide="category.products.length === 0">
+                <li ng-repeat="category in categories" ng-hide="turnedOffProducts(category)">
                     <a href="#!/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
                 </li>
             </ul>
@@ -79,6 +79,7 @@
     <script defer src="wisehands/shop/js/services/SharedDataService.js"></script>
     <script defer src="wisehands/shop/js/services/SideNavInitService.js"></script>
     <script defer src="wisehands/shop/js/services/PublicShopInfoService.js"></script>
+    <script defer src="wisehands/shop/js/services/OrderHandlingService.js"></script>
 
     <script defer src="wisehands/shop/js/directives/orderModal.js"></script>
     <script defer src="wisehands/shop/js/directives/shopStyling.js"></script>

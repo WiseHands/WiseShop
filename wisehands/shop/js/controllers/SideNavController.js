@@ -13,7 +13,6 @@ angular.module('WiseShop')
             })
                 .then(function successCallback(response) {
                    $scope.categories = response.data;
-                   
                     $scope.categoryUuid = shared.getCategoryUuid();
                 }, function errorCallback(data) {
                     console.log(data);
@@ -33,6 +32,21 @@ angular.module('WiseShop')
                     console.log(response);
                     $scope.status = 'Щось пішло не так...';
                 });
+
+            $scope.turnedOffProducts = function (category) {
+                $scope.turnedOffProductsQuantity = 0;
+                category.products.forEach(function(product){
+                    if(product.isActive === false) {
+                        $scope.turnedOffProductsQuantity ++;
+                    }
+                });
+                if ($scope.turnedOffProductsQuantity === category.products.length || category.products.length === 0){
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
 
 
         }]);
