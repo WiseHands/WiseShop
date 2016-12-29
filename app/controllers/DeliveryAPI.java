@@ -27,6 +27,7 @@ public class DeliveryAPI extends AuthController {
         String courierText = (String) jsonBody.get("courierText");
         String selfTakeText = (String) jsonBody.get("selfTakeText");
         String newPostText = (String) jsonBody.get("newPostText");
+        String orderMessage = (String) jsonBody.get("orderMessage");
 
         Double courierPrice = Double.parseDouble(String.valueOf(jsonBody.get("courierPrice")));
 
@@ -48,6 +49,7 @@ public class DeliveryAPI extends AuthController {
         delivery.isNewPostAvailable = isNewPostAvailable;
         delivery.newPostText = newPostText;
         delivery.courierPrice = courierPrice;
+        delivery.orderMessage = orderMessage;
 
         delivery.save();
 

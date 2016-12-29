@@ -100,7 +100,13 @@ public class Application extends Controller {
     }
 
     public static void done(String client) {
-        render();
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
+        DeliveryDTO delivery = shop.delivery;
+        if(delivery.orderMessage.equals("") || delivery.orderMessage == null) {
+            delivery.orderMessage = "Замовлення успішно завершено. Очікуйте, з вами зв'яжуться.";
+        }
+        render(delivery);
     }
 
     public static void fail(String client) {

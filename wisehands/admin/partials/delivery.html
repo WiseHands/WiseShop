@@ -9,12 +9,20 @@
                     Доставка
                 </h5>
             </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="setDeliveryOptions()">
+                </i>
+            </a>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
     <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <div class="row text-center" ng-hide="loading">
         <a href="#/delivery/newPost">
             <div class="col-sm-4 text-center">
                 <div class="card-panel teal hoverable">
@@ -36,5 +44,9 @@
                 </div>
             </div>
         </a>
+    </div>
+    <div class="col-md-12 input-field" ng-hide="loading">
+        <p>Повідомлення після замовлення</p>
+        <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.orderMessage"></textarea>
     </div>
 </div>

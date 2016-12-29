@@ -39,6 +39,9 @@ public class DeliveryDTO extends GenericModel {
     @Expose
     public String newPostText;
 
+    @Expose
+    public String orderMessage;
+
 
     public DeliveryDTO(boolean isCourierAvailable, String courierText,
                        boolean isSelfTakeAvailable, String selfTakeText,
