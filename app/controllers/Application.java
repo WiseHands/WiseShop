@@ -103,8 +103,9 @@ public class Application extends Controller {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         DeliveryDTO delivery = shop.delivery;
-        if(delivery.orderMessage.equals("") || delivery.orderMessage == null) {
+        if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
             delivery.orderMessage = "Замовлення успішно завершено. Очікуйте, з вами зв'яжуться.";
+            delivery = delivery.save();
         }
         render(delivery);
     }
