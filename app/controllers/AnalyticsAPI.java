@@ -37,13 +37,12 @@ public class AnalyticsAPI extends AuthController {
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE", Locale.US);
+        String pattern = "MM/dd/yyyy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
 
 
 
-        final int NUM_OF_DAYS_IN_WEEK = 6; // from 0
-        List<String> namesOfWeek = new ArrayList<String>();
-        List<Double> totalsOfEachDay = new ArrayList<Double>();
+        List<JSONObject> list = new ArrayList<JSONObject>();
         for (int i=0; i<7; i++) {
             Long dayStart = beginOfDay(subtractDay(new Date(today),-i));
             Long dayEnd = endOfDay(subtractDay(new Date(today),-i));
@@ -56,12 +55,13 @@ public class AnalyticsAPI extends AuthController {
                 dayTotal = 0.0;
             }
             String dayName = dateFormat.format(new Date(dayStart));
-            namesOfWeek.add(dayName);
-            totalsOfEachDay.add(dayTotal);
+            JSONObject item = new JSONObject();
+            item.put("day", dayName);
+            item.put("total", dayTotal);
+            list.add(item);
         }
 
-        json.put("namesOfWeek", namesOfWeek);
-        json.put("totalsOfEachDay", totalsOfEachDay);
+        json.put("chartData", list);
         renderJSON(json);
     }
 

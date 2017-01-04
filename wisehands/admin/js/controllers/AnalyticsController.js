@@ -17,12 +17,46 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.analytics = response.data;
+
                     if(!$scope.analytics.totalToday){
                         $scope.analytics.totalToday = 0;
                     }
-                    $scope.labels = $scope.analytics.namesOfWeek;
-                    $scope.data = $scope.analytics.totalsOfEachDay;
 
+                    var labels = [];
+                    var data = [];
+                    for(var i=0; i<$scope.analytics.chartData.length; i++) {
+                        var item = $scope.analytics.chartData[i];
+                        labels.push(item.day);
+                        data.push(item.total);
+                    }
+
+                    $scope.labels = labels;
+                    $scope.series = ['Total'];
+                    $scope.data = [
+                        data
+                    ];
+                    // $scope.onClick = function (points, evt) {
+                    //     console.log(points, evt);
+                    // };
+                    $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+                    $scope.options = {
+                        scales: {
+                            yAxes: [
+                                {
+                                    id: 'y-axis-1',
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'left'
+                                },
+                                {
+                                    id: 'y-axis-2',
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'right'
+                                }
+                            ]
+                        }
+                    };
                     $scope.loading = false;
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
@@ -33,25 +67,6 @@ angular.module('WiseHands')
 
 
             sideNavInit.sideNav();
-
-// chart data example
-            var now = moment().endOf('day').toDate();
-            var yearAgo = moment().startOf('day').subtract(1, 'year').toDate();
-            var chartData = d3.time.days(yearAgo, now).map(function (dateElement) {
-                return {
-                    date: dateElement,
-                    count: (dateElement.getDay() !== 0 && dateElement.getDay() !== 6) ? Math.floor(Math.random() * 60) : Math.floor(Math.random() * 10)
-                };
-            });
-            var heatmap = calendarHeatmap()
-                .data(chartData)
-                .selector('.container')
-                .tooltipEnabled(true)
-                .colorRange(['#f4f7f7', '#79a8a9'])
-                .onClick(function (data) {
-                    console.log('data', data);
-                });
-            heatmap();  // render the chart
 
         }]);
 

@@ -17,9 +17,15 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-
-    <div class="row text-center" ng-hide="loading">
-        <div class="col-md-3 col-sm-6 col-xs-12">
+    <div ng-hide="loading">
+        <div class="col-sm-6 topAnalMargin">
+            <canvas id="line" class="chart chart-line" chart-data="data"
+                    chart-labels="labels" chart-series="series" chart-options="options"
+                    chart-dataset-override="datasetOverride" chart-click="onClick">
+            </canvas>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-12 text-center">
             <div class="card teal darken-1">
                 <div class="card-content white-text">
                     <p class="card-title">Покупок:</p>
@@ -27,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-sm-3 col-xs-12 text-center">
             <div class="card teal darken-1">
                 <div class="card-content white-text">
                     <p class="card-title">Всього:</p>
@@ -35,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-sm-3 col-xs-12 text-center">
             <div class="card teal darken-1">
                 <div class="card-content white-text">
                     <p class="card-title">Замовлено:</p>
@@ -43,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-sm-3 col-xs-12 text-center">
             <div class="card teal darken-1">
                 <div class="card-content white-text">
                     <p class="card-title">Всього:</p>
@@ -51,7 +57,6 @@
                 </div>
             </div>
         </div>
-        <div class="container"></div>
     </div>
     <!--<div class="row" ng-hide="loading">-->
         <!--<div class="col-md-6 col-sm-6 col-xs-12">-->

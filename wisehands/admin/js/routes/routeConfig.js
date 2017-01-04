@@ -1,6 +1,6 @@
 (function () {
     angular.module('WiseHands', [
-        'ngRoute', 'angularSpinners', 'colorpicker.module'
+        'ngRoute', 'angularSpinners', 'colorpicker.module', 'chart.js'
     ])
         .config(['$routeProvider',
             function ($routeProvider) {

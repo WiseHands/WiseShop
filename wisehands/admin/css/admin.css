@@ -356,4 +356,9 @@ label.whiteCheckBox::after {
     align-self: center;
     flex-wrap: nowrap;
 }
-
+#graph {
+    margin-left: 25%;
+}
+.topAnalMargin {
+    margin-top: 1em;
+}

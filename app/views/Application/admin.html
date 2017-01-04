@@ -19,7 +19,6 @@
     <link href="wisehands/assets/mdb_superAdmin/css/mdb.min.css" rel="stylesheet">
     <link href="wisehands/admin/css/admin.css" rel="stylesheet" />
     <link href="wisehands/assets/angular-bootstrap-colorpicker/css/colorpicker.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="wisehands/assets/heatmap/calendar-heatmap.css">
 
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
 
@@ -37,7 +36,7 @@
     </div>
     <ul class="collapsible collapsible-accordion inner">
         <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
-        <!--<li ng-class="{active: $route.current.activetab == 'analytics'}"><a href="#/analytics" class="waves-effect waves-light"><i class="fa fa-line-chart"></i> Аналітика</a></li>-->
+        <li ng-class="{active: $route.current.activetab == 'analytics'}"><a href="#/analytics" class="waves-effect waves-light"><i class="fa fa-line-chart"></i> Аналітика</a></li>
         <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
         <li ng-class="{active: $route.current.activetab == 'payment'}"><a href="#/payment" class="waves-effect waves-light"><i class="fa fa-money"></i> Оплата</a></li>
         <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
@@ -90,9 +89,8 @@
 
 <script src="wisehands/assets/js/angular-spinners.min.js"></script>
 <script src="wisehands/assets/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
-<script src="wisehands/assets/js/d3.min.js"></script>
-<script src="wisehands/assets/heatmap/calendar-heatmap.js"></script>
+<script src="wisehands/assets/js/Chart.min.js"></script>
+<script src="wisehands/assets/js/angular-chart.min.js"></script>
 
 </body>
 </html>
