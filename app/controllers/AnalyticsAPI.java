@@ -15,8 +15,12 @@ import java.util.*;
 
 public class AnalyticsAPI extends AuthController {
 
-    public static void info(String client) throws Exception { // /shop/details
+    public static void info(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
+        if(numberOfDays == 0) {
+            numberOfDays=7;
+        }
 
         String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "'";
         Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
