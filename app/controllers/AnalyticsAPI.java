@@ -22,17 +22,17 @@ public class AnalyticsAPI extends AuthController {
             numberOfDays=7;
         }
 
-        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!=\"DELETED\" and state!=\"CANCELLED\"";
+        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
         Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
 
-        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!=\"DELETED\" and state!=\"CANCELLED\"";
+        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
         Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
 
         Long today = beginOfDay(new Date());
-        String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid=' " + shop.uuid + "' and state!=\"DELETED\" and state!=\"CANCELLED\" and time > " + today;
+        String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid=' " + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
         Double totalToday = (Double) JPA.em().createQuery(totalTodayQuery).getSingleResult();
 
-        String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!=\"DELETED\" and state!=\"CANCELLED\" and time > " + today;
+        String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
         Long countToday = (Long) JPA.em().createQuery(countTodayQuery).getSingleResult();
 
         JSONObject json = new JSONObject();
@@ -52,7 +52,7 @@ public class AnalyticsAPI extends AuthController {
             Long dayEnd = endOfDay(subtractDay(new Date(today),-i));
 
             String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
-                    + "' and state!=\"DELETED\" and state!=\"CANCELLED\" and time > " + dayStart  + " and time < " + dayEnd;
+                    + "' and state!='DELETED' and state!='CANCELLED' and time > " + dayStart  + " and time < " + dayEnd;
 
             Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
             if(dayTotal == null) {
