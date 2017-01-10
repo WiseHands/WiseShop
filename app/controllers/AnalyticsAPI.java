@@ -71,7 +71,7 @@ public class AnalyticsAPI extends AuthController {
     }
 
 
-    public static void info(String client, int numberOfDays) throws Exception { // /shop/details
+    public static void infoMonth(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         if(numberOfDays == 0) {
@@ -126,6 +126,62 @@ public class AnalyticsAPI extends AuthController {
         renderJSON(json);
     }
 
+    public static void info(String client, int numberOfDays) throws Exception { // /shop/details
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
+        if(numberOfDays == 0) {
+            numberOfDays=90;
+        }
+
+        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
+        Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
+
+        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
+        Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
+
+        Long thirtyDaysBefore = nintyDaysBefore(new Date());
+        String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + thirtyDaysBefore;
+        System.out.println(total30Query);
+        Double totalToday = (Double) JPA.em().createQuery(total30Query).getSingleResult();
+
+        String count30Query = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + thirtyDaysBefore;
+        Long countToday = (Long) JPA.em().createQuery(count30Query).getSingleResult();
+
+        JSONObject json = new JSONObject();
+        json.put("total", total);
+        json.put("count", count);
+        json.put("totalToday", totalToday);
+        json.put("countToday", countToday);
+
+        String pattern = "MM/dd/yyyy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
+
+
+        Long today = beginOfDay(new Date());
+        List<JSONObject> list = new ArrayList<JSONObject>();
+        for (int i=0; i<numberOfDays; i++) {
+            Long dayStart = beginOfDay(subtractDay(new Date(today),-i));
+            Long dayEnd = endOfDay(subtractDay(new Date(today),-i));
+
+            String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
+                    + "' and state!='DELETED' and state!='CANCELLED' and time > " + dayStart  + " and time < " + dayEnd;
+
+            Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
+            if(dayTotal == null) {
+                dayTotal = 0.0;
+            }
+            String dayName = dateFormat.format(new Date(dayStart));
+            JSONObject item = new JSONObject();
+            item.put("day", dayName);
+            item.put("total", dayTotal);
+            list.add(item);
+        }
+
+        json.put("chartData", list);
+        renderJSON(json);
+    }
+
+
 
     private static Long beginOfDay(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -151,6 +207,27 @@ public class AnalyticsAPI extends AuthController {
 
     private static Long thirtyDaysBefore(Date date) {
         int x = -30;
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.add( Calendar.DAY_OF_YEAR, x);
+        return cal.getTimeInMillis();
+    }
+
+    private static Long nintyDaysBefore(Date date) {
+        int x = -90;
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.add( Calendar.DAY_OF_YEAR, x);
+        return cal.getTimeInMillis();
+    }
+
+    private static Long onehundredeightyDaysBefore(Date date) {
+        int x = -180;
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.add( Calendar.DAY_OF_YEAR, x);
+        return cal.getTimeInMillis();
+    }
+
+    private static Long threeHundredSixtyDaysBefore(Date date) {
+        int x = -360;
         Calendar cal = GregorianCalendar.getInstance();
         cal.add( Calendar.DAY_OF_YEAR, x);
         return cal.getTimeInMillis();
