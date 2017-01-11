@@ -18,11 +18,11 @@
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="shippedOrder()"><p>7 днів</p></a>
-                    <a class="col-xs-12 text-left" ng-click="shippedOrder()"><p>30 днів</p></a>
-                    <a class="col-xs-12 text-left" ng-click="shippedOrder()"><p>90 днів</p></a>
-                    <a class="col-xs-12 text-left" ng-click="shippedOrder()"><p>180 днів</p></a>
-                    <a class="col-xs-12 text-left" ng-click="shippedOrder()"><p>365 днів</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('')" ng-class="{activeAnal: days === ''}"><p>7 днів</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/30')" ng-class="{activeAnal: days === '/30'}"><p>30 днів</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/90')" ng-class="{activeAnal: days === '/90'}"><p>90 днів</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/180')" ng-class="{activeAnal: days === '/180'}"><p>180 днів</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/360')" ng-class="{activeAnal: days === '/360'}"><p>365 днів</p></a>
                 </div>
             </a>
         </div>
@@ -34,7 +34,7 @@
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <div ng-hide="loading">
-        <div class="col-sm-6 topAnalMargin">
+        <div class="col-sm-offset-1 col-sm-10 topAnalMargin">
             <canvas id="line" class="chart chart-line" chart-data="data"
                     chart-labels="labels" chart-series="series" chart-options="options"
                     chart-dataset-override="datasetOverride" chart-click="onClick">

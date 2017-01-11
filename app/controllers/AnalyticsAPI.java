@@ -237,7 +237,7 @@ public class AnalyticsAPI extends AuthController {
     }
 
 
-    public static void info(String client, int numberOfDays) throws Exception { // /shop/details
+    public static void infoYear(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
         if(numberOfDays == 0) {
