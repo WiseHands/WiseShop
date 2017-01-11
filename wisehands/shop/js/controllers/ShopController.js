@@ -8,7 +8,7 @@
 (function(){
     angular.module('WiseShop')
         .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo', 'OrderHandling',  function($scope, $http, shared, sideNavInit, PublicShopInfo, OrderHandling) {
-
+            OrderHandling.setCustomerData($scope);
             $http({
                 method: 'GET',
                 url: '/products'
@@ -141,6 +141,7 @@
                 })
                     .then(function successCallback(response) {
                         OrderHandling.handleOrderData($scope, response);
+
                     }, function errorCallback(data) {
                         $scope.loading = false;
                         console.log(data);

@@ -2,6 +2,7 @@ angular.module('WiseShop')
     .controller('CategoryDetailsController', ['$scope', '$http','shared','sideNavInit', '$routeParams', 'PublicShopInfo', 'OrderHandling',
         function($scope, $http, shared, sideNavInit, $routeParams, PublicShopInfo, OrderHandling) {
             $scope.uuid = $routeParams.uuid;
+            OrderHandling.setCustomerData($scope);
             shared.setCategoryUuid($scope.uuid);
             $http({
                 method: 'GET',

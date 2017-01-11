@@ -53,6 +53,12 @@ angular.module('WiseShop')
                 });
                 scope.discountError = '';
                 scope.loading = false;
+            },
+            setCustomerData: function(scope) {
+                scope.phone = localStorage.getItem('phone');
+                scope.name = localStorage.getItem('name');
+                scope.address = localStorage.getItem('address');
+                scope.newPostDelivery = localStorage.getItem('newPostDelivery');
             }
         }
     }]);

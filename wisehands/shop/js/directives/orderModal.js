@@ -6,6 +6,17 @@ angular.module('WiseShop')
             replace: 'true',
             templateUrl: 'wisehands/shop/partials/orderModal.html',
             link: function (scope) {
+                scope.customerData = function () {
+                    localStorage.setItem('name', scope.name);
+                    localStorage.setItem('phone', scope.phone);
+                    debugger;
+                    if (scope.address){
+                        localStorage.setItem('address', scope.address);
+                    }
+                    if (scope.newPostDelivery) {
+                        localStorage.setItem('newPostDelivery', scope.newPostDelivery);
+                    }
+                };
                 scope.delivery = function(){
                     if (scope.deliveryType === 'NOVAPOSHTA') {
                         return '';

@@ -3,7 +3,7 @@
         .controller('ProductDetailsController', ['$scope', '$http', '$location', '$routeParams','shared', 'PublicShopInfo', 'OrderHandling',
             function($scope, $http, $location, $routeParams, shared, PublicShopInfo, OrderHandling) {
             $scope.uuid = $routeParams.uuid;
-            
+            OrderHandling.setCustomerData($scope);
             $http({
                 method: 'GET',
                 url: '/products'

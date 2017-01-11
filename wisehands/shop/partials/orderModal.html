@@ -61,7 +61,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="fillingInfo" ng-hide="successfullResponse">
-                        <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
+                        <form id="orderForm" name="orderForm" ng-submit="makeOrder(); customerData()">
                             <h6 class="deliveryType"><b>Тип доставки</b></h6>
 
                             <fieldset class="form-group" ng-show="deliverance.isCourierAvailable">
