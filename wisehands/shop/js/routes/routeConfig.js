@@ -1,6 +1,6 @@
 (function () {
     angular.module('WiseShop', [
-            'ngRoute', 'angularSpinners'
+            'ngRoute', 'angularSpinners', 'google.places'
         ])
         .config(['$routeProvider', '$locationProvider',
             function ($routeProvider, $locationProvider) {
@@ -28,6 +28,18 @@
                 when('/category/:uuid',{
                     templateUrl:'wisehands/shop/partials/categoryDetails.html',
                     controller:'CategoryDetailsController'
+                }).
+                when('/shoppingcart',{
+                    templateUrl:'wisehands/shop/partials/shoppingcart.html',
+                    controller:'ShoppingCartController'
+                }).
+                when('/orderprocessing',{
+                    templateUrl:'wisehands/shop/partials/orderform.html',
+                    controller:'OrderFormController'
+                }).
+                when('/paymentstage',{
+                    templateUrl:'wisehands/shop/partials/paymentStage.html',
+                    controller:'PaymentStageController'
                 }).
                 otherwise({
                     redirectTo:'/'

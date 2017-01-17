@@ -1,30 +1,12 @@
-
-
-
-// function initAutocomplete() {
-//     autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode']});
-// }
-
 (function(){
     angular.module('WiseShop')
-        .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo', 'OrderHandling',  function($scope, $http, shared, sideNavInit, PublicShopInfo, OrderHandling) {
-            OrderHandling.setCustomerData($scope);
+        .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo',  function($scope, $http, shared, sideNavInit, PublicShopInfo) {
             $http({
                 method: 'GET',
                 url: '/products'
             })
                 .then(function successCallback(response) {
                     $scope.products = response.data;
-                }, function errorCallback(error) {
-                    console.log(error);
-                });
-
-            $http({
-                method: 'GET',
-                url: '/delivery'
-            })
-                .then(function successCallback(response) {
-                    PublicShopInfo.handleDeliveranceInfo($scope, response);
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -39,34 +21,6 @@
                     console.log(error);
                 });
 
-            // $scope.init = function() {
-            //     var placeSearch, autocomplete;
-            //     var componentForm = {
-            //         street_number: 'short_name',
-            //         route: 'long_name',
-            //         locality: 'long_name',
-            //         administrative_area_level_1: 'short_name',
-            //         country: 'long_name',
-            //         postal_code: 'short_name'
-            //     };
-            //
-            //     function geolocate() {
-            //         if (navigator.geolocation) {
-            //             navigator.geolocation.getCurrentPosition(function(position) {
-            //                 var geolocation = {
-            //                     lat: position.coords.latitude,
-            //                     lng: position.coords.longitude
-            //                 };
-            //                 var circle = new google.maps.Circle({
-            //                     center: geolocation,
-            //                     radius: position.coords.accuracy
-            //                 });
-            //                 autocomplete.setBounds(circle.getBounds());
-            //             });
-            //         }
-            //     }
-            // };
-
             function loadOptions() {
                 $scope.selectedItems = shared.getSelectedItems();
                 $scope.totalItems = shared.getTotalItems();
@@ -74,10 +28,11 @@
 
             loadOptions();
             $scope.calculateTotal = PublicShopInfo.calculateTotal;
-            $scope.reCalculateTotal = function (){
+            $scope.reCalculateTotal = function () {
                 $scope.calculateTotal($scope);
             };
             $scope.buyStart = function (productDTO) {
+                $scope.found = false;
                 $scope.selectedItems.forEach(function (selectedItem) {
                     if(selectedItem.uuid === productDTO.uuid){
                         $scope.found = true;
@@ -111,75 +66,11 @@
 
                 } else {
                     $scope.productFromBin.quantity ++;
-                    $scope.calculateTotal($scope);
                     shared.setSelectedItems($scope.selectedItems);
+                    $scope.calculateTotal($scope);
                 }
-
-            };
-
-            $scope.removeSelectedItem = function (index){
-                $scope.selectedItems.splice(index, 1);
-                $scope.calculateTotal($scope);
-                shared.setSelectedItems($scope.selectedItems);
-
-            };
-
-            $scope.removeAll = function () {
-                $scope.selectedItems.length = 0;
-                $scope.calculateTotal($scope);
-                shared.setSelectedItems($scope.selectedItems);
-
-            };
-
-            $scope.makeOrder = function (){
-                OrderHandling.prepareOrderInfo($scope);
-
-                $http({
-                    method: 'POST',
-                    url: '/order',
-                    data: $scope.params
-                })
-                    .then(function successCallback(response) {
-                        OrderHandling.handleOrderData($scope, response);
-
-                    }, function errorCallback(data) {
-                        $scope.loading = false;
-                        console.log(data);
-                    });
-            };
-
-            $scope.payOrder = function () {
-                OrderHandling.payOrder();
-            };
-
-            $scope.payLater = function () {
-                $http({
-                    method: 'PUT',
-                    url: '/order/' + $scope.currentOrderUuid + '/manually-payed'
-                })
-                    .then(function successCallback(response) {
-                        window.location.pathname = '/done';
-                    }, function errorCallback(data) {
-                        console.log(data);
-                    });
-            };
-
-            $scope.applyCoupon = function (couponId) {
-                $scope.loading = true;
-                $http({
-                    method: 'POST',
-                    url: '/coupon/' + couponId
-                })
-                    .then(function successCallback(response) {
-                        OrderHandling.couponSuccess($scope, response);
-                    }, function errorCallback(data) {
-                        $scope.discountError = 'Такий купон вже використаний або його не існує';
-                        $scope.loading = false;
-                        console.log(data);
-                    });
             };
 
             sideNavInit.sideNav();
-
         }]);
 })();

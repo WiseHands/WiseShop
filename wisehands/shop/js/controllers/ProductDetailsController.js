@@ -1,9 +1,8 @@
 (function(){
     angular.module('WiseShop')
-        .controller('ProductDetailsController', ['$scope', '$http', '$location', '$routeParams','shared', 'PublicShopInfo', 'OrderHandling',
-            function($scope, $http, $location, $routeParams, shared, PublicShopInfo, OrderHandling) {
+        .controller('ProductDetailsController', ['$scope', '$http', '$location', '$routeParams','shared', 'PublicShopInfo',
+            function($scope, $http, $location, $routeParams, shared, PublicShopInfo) {
             $scope.uuid = $routeParams.uuid;
-            OrderHandling.setCustomerData($scope);
             $http({
                 method: 'GET',
                 url: '/products'
@@ -40,20 +39,10 @@
                     console.log(error);
                 });
 
-            $scope.select= function(index) {
+            $scope.select = function(index) {
                 $scope.selected = index;
             };
                 
-            $http({
-                method: 'GET',
-                url: '/delivery'
-            })
-                .then(function successCallback(response) {
-                    PublicShopInfo.handleDeliveranceInfo($scope, response);
-                }, function errorCallback(error) {
-                    console.log(error);
-                });
-
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
@@ -108,68 +97,6 @@
                             }
                         }
                     }
-                };
-
-                $scope.removeSelectedItem = function (index){
-                    if ($scope.selectedItems[index].uuid === $scope.product.uuid) {
-                        $scope.found = false;
-                    }
-                    $scope.selectedItems.splice(index, 1);
-                    $scope.calculateTotal($scope);
-                    shared.setSelectedItems($scope.selectedItems);
-                };
-
-                $scope.removeAll = function () {
-                    $scope.selectedItems = [];
-                    $scope.calculateTotal($scope);
-                    shared.setSelectedItems($scope.selectedItems);
-                    $scope.found = false;
-                };
-
-                $scope.makeOrder = function (){
-                    OrderHandling.prepareOrderInfo($scope);
-                    
-                    $http({
-                        method: 'POST',
-                        url: '/order',
-                        data: $scope.params
-                    })
-                        .then(function successCallback(response) {
-                            OrderHandling.handleOrderData($scope, response);
-                        }, function errorCallback(data) {
-                            $scope.loading = false;
-                            console.log(data);
-                        });
-                };
-                $scope.payOrder = function () {
-                    OrderHandling.payOrder();
-                };
-
-                $scope.payLater = function () {
-                    $http({
-                        method: 'PUT',
-                        url: '/order/' + $scope.currentOrderUuid + '/manually-payed'
-                    })
-                        .then(function successCallback(response) {
-                            window.location.pathname = '/done';
-                        }, function errorCallback(data) {
-                            console.log(data);
-                        });
-                };
-
-                $scope.applyCoupon = function (couponId) {
-                    $scope.loading = true;
-                    $http({
-                        method: 'POST',
-                        url: '/coupon/' + couponId
-                    })
-                        .then(function successCallback(response) {
-                            OrderHandling.couponSuccess($scope, response);
-                        }, function errorCallback(data) {
-                            $scope.discountError = 'Такий купон вже використаний або його не існує';
-                            $scope.loading = false;
-                            console.log(data);
-                        });
                 };
             }]);
 

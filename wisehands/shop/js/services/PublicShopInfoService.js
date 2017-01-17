@@ -1,24 +1,9 @@
 angular.module('WiseShop')
     .service('PublicShopInfo', ['shared', function(shared) {
         return {
-            handleDeliveranceInfo: function (scope, response) {
-                scope.deliverance = response.data;
-                scope.minOrderForFreeDelivery = scope.deliverance.courierFreeDeliveryLimit;
-                if (scope.deliverance.isCourierAvailable){
-                    $("#radio1").click();
-                } else if (scope.deliverance.isNewPostAvailable){
-                    $("#radio2").click();
-                } else if (scope.deliverance.isSelfTakeAvailable){
-                    $("#radio3").click();
-                }
-            },
             handlePublicShopInfo: function (scope, response) {
-                scope.couponsEnabled = response.data.couponsEnabled;
-                document.title = response.data.name;
                 scope.shopName = response.data.name;
                 scope.shopId = response.data.uuid;
-                scope.payLateButton = response.data.manualPaymentEnabled;
-                scope.onlinePaymentEbabled = response.data.onlinePaymentEnabled;
                 scope.startTime = new Date(response.data.startTime);
                 scope.startHour = (scope.startTime.getHours()<10?'0':'') + scope.startTime.getHours();
                 scope.startMinute = (scope.startTime.getMinutes()<10?'0':'') + scope.startTime.getMinutes();
@@ -44,6 +29,7 @@ angular.module('WiseShop')
                     scope.totalItems += item.quantity;
                 }
                 shared.setTotalItems(scope.totalItems);
+                shared.setTotal(scope.total);
             }
         }
     }]);

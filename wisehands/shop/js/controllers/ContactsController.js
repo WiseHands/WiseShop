@@ -3,17 +3,6 @@
         .controller('ContactsController', ['$scope', '$http', '$route', '$location', function($scope, $http, $route, $location) {
             $http({
                 method: 'GET',
-                url: '/shop/details/public'
-            })
-                .then(function successCallback(response) {
-                    document.title = response.data.name;
-
-                }, function errorCallback(error) {
-                        console.log(error);
-                });
-
-            $http({
-                method: 'GET',
                 url: '/contact/details'
             })
                 .then(function successCallback(response) {

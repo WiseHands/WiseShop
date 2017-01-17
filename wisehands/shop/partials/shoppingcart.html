@@ -1,0 +1,50 @@
+<header>
+    <nav class="navbar navbar-fixed-top scrolling-navbar double-nav" shop-styling style="background-color: {{shopStyling.navbarColor}}">
+        <ul class="nav navbar-nav pull-left">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="p-t-6">
+    <div class="container">
+        <table class="table table-bordered table-hover">
+            <h4 class="text-xs-center"><b>Ваша корзина</b></h4>
+            <thead>
+            <tr>
+                <th class="headerCentering">Назва товару</th>
+                <th class="headerCentering">Ціна</th>
+                <th ng-click="removeAll()"><a><i class="fa fa-remove center-block removeAllRedIcon"></i></a></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in selectedItems">
+                <td>
+                    {{item.name}}
+                </td>
+                <td class="text-xs-center"><strong>{{item.price}}</strong> ₴ x
+                    <input  class="inputTextCentering"
+                            type="number"
+                            ng-model="item.quantity"
+                            ng-change="reCalculateTotal()"
+                            min="1"> шт.
+                    </input>
+                </td>
+                <td ng-click="removeSelectedItem($index)"><a><i class="fa fa-remove center-block"></i></a></td>
+            </tr>
+            <tr class="total">
+                <td><i>Разом</i></td>
+                <td><i>{{total}}</i> ₴</td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="#!/orderprocessing"
+           type="button" class="btn btn-primary pull-right"
+           ng-show="selectedItems.length !== 0"
+           ng-click="reCalculateTotal()"
+                >
+            Замовити
+        </a>
+    </div>
+</main>

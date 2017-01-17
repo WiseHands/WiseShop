@@ -180,4 +180,7 @@ main {
 .noPointerCursor {
     cursor: inherit;
 }
+.pac-container {
+    z-index: 99999999 !important;
+}
 

@@ -14,6 +14,7 @@
     <link href="wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
     <link href="wisehands/shop/css/shop.css" rel="stylesheet" />
+    <link rel="stylesheet" href="wisehands/shop/css/autocomplete.css">
 
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
 
@@ -60,6 +61,7 @@
     <div ng-view>
 
     </div>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChjd1ZIoUdxAwO4XCvBVBUQgbQkxRLLL0&libraries=places"></script>
 
     <script defer src="wisehands/assets/js/angular.min.js"></script>
     <script defer src="wisehands/assets/js/angular-route.min.js"></script>
@@ -68,6 +70,8 @@
     <script defer src="wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
     <script defer src="wisehands/assets/mdb_shop/js/mdb.min.js"></script>
 
+
+
     <script defer src="wisehands/shop/js/routes/routeConfig.js"></script>
 
     <script defer src="wisehands/shop/js/controllers/ShopController.js"></script>
@@ -75,14 +79,17 @@
     <script defer src="wisehands/shop/js/controllers/ProductDetailsController.js"></script>
     <script defer src="wisehands/shop/js/controllers/SideNavController.js"></script>
     <script defer src="wisehands/shop/js/controllers/CategoryDetailsController.js"></script>
+    <script defer src="wisehands/shop/js/controllers/ShoppingCartController.js"></script>
+    <script defer src="wisehands/shop/js/controllers/OrderFormController.js"></script>
+    <script defer src="wisehands/shop/js/controllers/PaymentStageController.js"></script>
 
     <script defer src="wisehands/shop/js/services/SharedDataService.js"></script>
     <script defer src="wisehands/shop/js/services/SideNavInitService.js"></script>
     <script defer src="wisehands/shop/js/services/PublicShopInfoService.js"></script>
-    <script defer src="wisehands/shop/js/services/OrderHandlingService.js"></script>
 
-    <script defer src="wisehands/shop/js/directives/orderModal.js"></script>
     <script defer src="wisehands/shop/js/directives/shopStyling.js"></script>
+    <script defer src="wisehands/shop/js/directives/deliveryCost.js"></script>
+    <script defer src="wisehands/shop/js/directives/autocomplete.js"></script>
 
     <script defer src="wisehands/assets/js/angular-spinners.min.js"></script>
 
@@ -128,7 +135,6 @@
       ga('send', 'pageview');
     </script>
 
-    <script defer src="http://maps.google.com/maps/api/js?key=AIzaSyChjd1ZIoUdxAwO4XCvBVBUQgbQkxRLLL0"></script>
 
 
 </body>

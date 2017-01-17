@@ -9,37 +9,6 @@
                     <h4 class="modal-title" id="myModalLabel">Ваша корзина</h4>
                 </div>
                 <div class="modal-body">
-
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th class="headerCentering">Назва товару</th>
-                            <th class="headerCentering">Ціна</th>
-                            <th ng-click="removeAll()"><a><i class="fa fa-remove center-block removeAllRedIcon"></i></a></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="item in selectedItems">
-                            <td>
-                                {{item.name}}
-                            </td>
-                            <td><strong>{{item.price}}</strong> ₴ x
-                                <input  class="inputTextCentering"
-                                        type="number"
-                                        ng-model="item.quantity"
-                                        ng-change="reCalculateTotal()"
-                                        min="1"> шт.
-                                </input>
-                            </td>
-                            <td ng-click="removeSelectedItem($index)"><a><i class="fa fa-remove center-block"></i></a></td>
-                        </tr>
-                        <tr class="total">
-                            <td><i>Разом</i></td>
-                            <td><i>{{total}}</i> ₴</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary"
@@ -63,7 +32,6 @@
                     <div class="fillingInfo" ng-hide="successfullResponse">
                         <form id="orderForm" name="orderForm" ng-submit="makeOrder(); customerData()">
                             <h6 class="deliveryType"><b>Тип доставки</b></h6>
-
                             <fieldset class="form-group" ng-show="deliverance.isCourierAvailable">
                                 <input name="deliverance"
                                        type="radio"
@@ -110,6 +78,7 @@
                                        pattern="^(?=.*\S).+$"
                                        required>
                             </div>
+
                             <div class="form-group">
                                 <b>Номер телефону (380xxxxxxxxx - формат номера телефону)</b>
                                 <input class="form-control validate"
@@ -124,9 +93,10 @@
                             <div class="form-group" ng-show="deliveryType === 'COURIER'">
                                 <b>Адреса</b>
                                 <input class="form-control validate"
+                                       g-places-autocomplete
                                        placeholder="Введіть адресу"
                                        id="address"
-                                       ng-model="address"
+                                       ng-model="place"
                                        type="text"
                                        ng-required="deliveryType === 'COURIER'"/>
                             </div>
