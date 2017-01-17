@@ -6,9 +6,6 @@
                 $scope.name = localStorage.getItem('name');
                 $scope.place = localStorage.getItem('address');
                 $scope.newPostDelivery = localStorage.getItem('newPostDelivery');
-                $scope.setAddress = function () {
-
-                };
 
                 function loadOptions() {
                     $scope.selectedItems = shared.getSelectedItems();
@@ -122,7 +119,6 @@
                     localStorage.setItem('phone', $scope.phone);
                     if ($scope.place){
                         localStorage.setItem('address', $scope.place.formatted_address);
-                        debugger;
                     }
                     if ($scope.newPostDelivery) {
                         localStorage.setItem('newPostDelivery', $scope.newPostDelivery);

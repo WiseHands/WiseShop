@@ -1,15 +1,10 @@
 <header>
     <nav class="navbar navbar-fixed-top scrolling-navbar double-nav" shop-styling style="background-color: {{shopStyling.navbarColor}}">
-        <ul class="nav navbar-nav pull-left">
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
-            </li>
-        </ul>
+        <h4 class="text-xs-center"><b>Оплата</b></h4>
     </nav>
 </header>
 <main class="p-t-6">
     <div class="container">
-        <h4 class="text-xs-center"><b>Оплата</b></h4>
         <div id="paymentButton" class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin"  ng-class="{'offset-sm-3': !onlinePaymentEbabled}" ng-show="payLateButton">
                 <a><button type="button" class="btn btn-secondary waves-effect btn-block" ng-click="payLater()">Оплатити при отриманні</button></a>
