@@ -6,6 +6,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.mvc.Http;
 import services.LiqPayService;
 import services.MailSender;
 import services.SmsSender;
@@ -14,7 +15,6 @@ import javax.inject.Inject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class OrderAPI extends AuthController {
 
@@ -49,12 +49,20 @@ public class OrderAPI extends AuthController {
         String address = (String) jsonBody.get("address");
         String comment = (String) jsonBody.get("comment");
         String couponId = (String) jsonBody.get("coupon");
+        String addressLat = (String) jsonBody.get("addressLat");
+        String addressLng = (String) jsonBody.get("addressLng");
+        String agent = request.headers.get("user-agent").value();
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+        String ip = "";
+        if (xforwardedHeader != null){
+            ip = xforwardedHeader.value();
+        }
         String newPostDepartment = (String) jsonBody.get("newPostDepartment");
         JSONArray jsonArray = (JSONArray) jsonBody.get("selectedItems");
 
         double totalCost = 0;
 
-        OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, comment, shop);
+        OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, comment, shop, addressLat, addressLng, agent, ip);
         if(shop.orders == null){
             shop.orders = new ArrayList<OrderDTO>();
         }
