@@ -61,7 +61,9 @@
                         newPostDepartment: document.getElementById('newPostDepartment').value,
                         selectedItems: $scope.selectedItems,
                         comment: document.getElementById('comment').value,
-                        coupon: document.getElementById('couponId').value
+                        coupon: document.getElementById('couponId').value,
+                        addressLat: localStorage.getItem('addressLat'),
+                        addressLng: localStorage.getItem('addressLng'),
                     };
                     var encodedParams = encodeQueryData($scope.params);
 
@@ -117,8 +119,10 @@
                 $scope.customerData = function () {
                     localStorage.setItem('name', $scope.name);
                     localStorage.setItem('phone', $scope.phone);
-                    if ($scope.place){
+                    if ($scope.place && $scope.place.formatted_address){
                         localStorage.setItem('address', $scope.place.formatted_address);
+                        localStorage.setItem('addressLat', $scope.place.geometry.location.lat());
+                        localStorage.setItem('addressLng', $scope.place.geometry.location.lng());
                     }
                     if ($scope.newPostDelivery) {
                         localStorage.setItem('newPostDelivery', $scope.newPostDelivery);

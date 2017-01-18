@@ -183,4 +183,11 @@ main {
 .pac-container {
     z-index: 99999999 !important;
 }
+.navbar {
+    padding-right: 0;
+}
+.noSidePadding {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
 

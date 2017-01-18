@@ -1,9 +1,9 @@
 <header>
     <nav class="navbar navbar-fixed-top scrolling-navbar double-nav" shop-styling style="background-color: {{shopStyling.navbarColor}}">
-        <h4 class="text-xs-center" style="color: {{shopStyling.navbarTextColor}}"><b>Оплата</b></h4>
+        <h5 class="text-xs-center col-xs-12" style="color: {{shopStyling.navbarTextColor}}"><b>Оплата</b></h5>
     </nav>
 </header>
-<main class="p-t-6">
+<main class="p-t-6 noSidePadding">
     <div class="container">
         <div id="paymentButton" class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 buyButtonBotMargin"  ng-class="{'offset-sm-3': !onlinePaymentEbabled}" ng-show="payLateButton">
