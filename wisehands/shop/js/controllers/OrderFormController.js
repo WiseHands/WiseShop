@@ -62,8 +62,8 @@
                         selectedItems: $scope.selectedItems,
                         comment: document.getElementById('comment').value,
                         coupon: document.getElementById('couponId').value,
-                        addressLat: localStorage.getItem('addressLat'),
-                        addressLng: localStorage.getItem('addressLng'),
+                        addressLat: $scope.place.geometry.location.lat(),
+                        addressLng: $scope.place.geometry.location.lng()
                     };
                     var encodedParams = encodeQueryData($scope.params);
 
