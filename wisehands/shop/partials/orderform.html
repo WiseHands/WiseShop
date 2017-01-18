@@ -10,7 +10,7 @@
 </header>
 <main class="p-t-6 noSidePadding">
     <div class="container">
-        <form id="orderForm" name="orderForm" ng-submit="makeOrder(); customerData()">
+        <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
             <h5 class="deliveryType"><b>Тип доставки</b></h5>
             <fieldset class="form-group" ng-show="deliverance.isCourierAvailable">
                 <input name="deliverance"
@@ -74,6 +74,7 @@
                 <b>Адреса</b>
                 <input class="form-control validate"
                        g-places-autocomplete
+                       ng-change="customerData()"
                        placeholder="Введіть адресу"
                        id="address"
                        ng-model="place"
@@ -113,15 +114,3 @@
         </div>
     </div>
 </main>
-<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-    <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<h4 class="modal-title text-xs-center" id="myModalLabel">Оплата</h4>-->
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-                <!---->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
