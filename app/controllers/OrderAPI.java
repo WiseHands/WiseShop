@@ -194,7 +194,7 @@ public class OrderAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
 
-        List<OrderDTO> orders = OrderDTO.find("byShop", shop).fetch();
+        List<OrderDTO> orders = OrderDTO.find("byShopAndStateNotEqual", shop, "DELETED").fetch();
 
         renderJSON(json(orders));
     }
