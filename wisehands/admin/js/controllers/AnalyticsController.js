@@ -85,8 +85,10 @@ angular.module('WiseHands')
                                 var lat = parseFloat(order.destinationLat);
                                 var lng = parseFloat(order.destinationLng);
                                 var latLng = [];
+                                latLng.push(order.address);
                                 latLng.push(lat);
                                 latLng.push(lng);
+                                latLng.push(order.uuid);
                                 $scope.ordersAdresses.push(latLng);
                             }
                         });
@@ -120,17 +122,22 @@ function initialize(latLng) {
     var infoWindow = new google.maps.InfoWindow(), marker, i;
 
     for( i = 0; i < markers.length; i++ ) {
-        var position = new google.maps.LatLng(markers[i][0], markers[i][1]);
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
         bounds.extend(position);
         marker = new google.maps.Marker({
             position: position,
-            map: map
+            map: map,
+            title: markers[i][0],
+            uuid: markers[i][3]
         });
 
         map.fitBounds(bounds);
         map.panToBounds(bounds);
-    }
 
+        marker.addListener('click', function() {
+            window.location.href = 'admin#/details/' + this.uuid;
+        });
+    }
 }
 
 

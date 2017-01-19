@@ -5,7 +5,7 @@
                 function loadOptions() {
                     $scope.paymentButton = shared.getPaymentButton();
                     $scope.currentOrderUuid = shared.getCurrentOrderUuid();
-                }
+                }   
                 loadOptions();
                 var paymentButton = document.querySelector(".proceedWithPayment");
                 paymentButton.innerHTML = $scope.paymentButton;
