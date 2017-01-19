@@ -79,6 +79,7 @@ public class OrderAPI extends AuthController {
             int quantity = Integer.parseInt(element.get("quantity").toString());
 
             OrderItemDTO orderItem = new OrderItemDTO();
+            orderItem.orderUuid = order.uuid;
             orderItem.name = product.name;
             orderItem.description = product.description;
             orderItem.price = product.price;
@@ -142,13 +143,25 @@ public class OrderAPI extends AuthController {
             }
         }
 
-        mailSender.sendEmail(shop, order, "Нове замовлення");
+        final ShopDTO shopLink = shop;
+        final OrderDTO orderLink = order;
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    mailSender.sendEmail(shopLink, orderLink, "Нове замовлення");
 
-        String smsText = "Замовлення (" + order.name + ", сума " + order.total + ") прийнято.";
-        smsSender.sendSms(order.phone, smsText);
+                    String smsText = "Замовлення (" + orderLink.name + ", сума " + orderLink.total + ") прийнято.";
+                    smsSender.sendSms(orderLink.phone, smsText);
 
-        smsText = "Нове замовлення " + order.name + ", сума " + order.total;
-        smsSender.sendSms(shop.contact.phone, smsText);
+                    smsText = "Нове замовлення " + orderLink.name + ", сума " + orderLink.total;
+                    smsSender.sendSms(shopLink.contact.phone, smsText);
+                } catch (Exception e){
+                    System.out.println("OrderAPI async place exception: " + e);
+                }
+            }
+        }).start();
+
+
 
         try {
             String payButton = liqPay.payButton(order, shop);
