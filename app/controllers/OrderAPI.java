@@ -6,6 +6,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.mvc.Http;
 import services.LiqPayService;
 import services.MailSender;
 import services.SmsSender;
@@ -14,7 +15,6 @@ import javax.inject.Inject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class OrderAPI extends AuthController {
 
@@ -49,12 +49,20 @@ public class OrderAPI extends AuthController {
         String address = (String) jsonBody.get("address");
         String comment = (String) jsonBody.get("comment");
         String couponId = (String) jsonBody.get("coupon");
+        String addressLat = (String) jsonBody.get("addressLat");
+        String addressLng = (String) jsonBody.get("addressLng");
+        String agent = request.headers.get("user-agent").value();
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+        String ip = "";
+        if (xforwardedHeader != null){
+            ip = xforwardedHeader.value();
+        }
         String newPostDepartment = (String) jsonBody.get("newPostDepartment");
         JSONArray jsonArray = (JSONArray) jsonBody.get("selectedItems");
 
         double totalCost = 0;
 
-        OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, comment, shop);
+        OrderDTO order = new OrderDTO(name, phone, address, deliveryType, newPostDepartment, comment, shop, addressLat, addressLng, agent, ip);
         if(shop.orders == null){
             shop.orders = new ArrayList<OrderDTO>();
         }
@@ -71,6 +79,7 @@ public class OrderAPI extends AuthController {
             int quantity = Integer.parseInt(element.get("quantity").toString());
 
             OrderItemDTO orderItem = new OrderItemDTO();
+            orderItem.orderUuid = order.uuid;
             orderItem.name = product.name;
             orderItem.description = product.description;
             orderItem.price = product.price;
@@ -134,13 +143,25 @@ public class OrderAPI extends AuthController {
             }
         }
 
-        mailSender.sendEmail(shop, order, "Нове замовлення");
+        final ShopDTO shopLink = shop;
+        final OrderDTO orderLink = order;
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    mailSender.sendEmail(shopLink, orderLink, "Нове замовлення");
 
-        String smsText = "Замовлення (" + order.name + ", сума " + order.total + ") прийнято.";
-        smsSender.sendSms(order.phone, smsText);
+                    String smsText = "Замовлення (" + orderLink.name + ", сума " + orderLink.total + ") прийнято.";
+                    smsSender.sendSms(orderLink.phone, smsText);
 
-        smsText = "Нове замовлення " + order.name + ", сума " + order.total;
-        smsSender.sendSms(shop.contact.phone, smsText);
+                    smsText = "Нове замовлення " + orderLink.name + ", сума " + orderLink.total;
+                    smsSender.sendSms(shopLink.contact.phone, smsText);
+                } catch (Exception e){
+                    System.out.println("OrderAPI async place exception: " + e);
+                }
+            }
+        }).start();
+
+
 
         try {
             String payButton = liqPay.payButton(order, shop);

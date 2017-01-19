@@ -45,6 +45,18 @@ public class OrderDTO extends GenericModel {
     public String couponId;
 
     @Expose
+    public String destinationLat;
+
+    @Expose
+    public String destinationLng;
+
+    @Expose
+    public String userAgent;
+
+    @Expose
+    public String ip;
+
+    @Expose
     @Enumerated(EnumType.STRING)
     public OrderState state;
 
@@ -55,7 +67,7 @@ public class OrderDTO extends GenericModel {
     @ManyToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-    public OrderDTO(String name, String phone, String address, String deliveryType, String departmentNumber, String comment, ShopDTO shop) {
+    public OrderDTO(String name, String phone, String address, String deliveryType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
         this.name = name;
         this.phone = phone;
         this.address = address;
@@ -65,6 +77,10 @@ public class OrderDTO extends GenericModel {
         this.state = OrderState.NEW;
         this.comment = comment;
         this.shop = shop;
+        this.destinationLng = destinationLng;
+        this.destinationLat = destinationLat;
+        this.userAgent = userAgent;
+        this.ip = ip;
     }
 
     private String returnIfNotNull(String target){
