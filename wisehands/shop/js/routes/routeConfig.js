@@ -41,6 +41,10 @@
                     templateUrl:'wisehands/shop/partials/paymentStage.html',
                     controller:'PaymentStageController'
                 }).
+                when('/newpost',{
+                    templateUrl:'wisehands/shop/partials/newpost.html',
+                    controller:'NewPostController'
+                }).
                 otherwise({
                     redirectTo:'/'
                 });

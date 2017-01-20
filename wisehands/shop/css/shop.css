@@ -190,4 +190,9 @@ main {
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
+.newPostFlexContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
