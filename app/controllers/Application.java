@@ -68,7 +68,8 @@ public class Application extends Controller {
                 String filePathString = "Prerender/" + shop.uuid + "/" + escapedFragment + ".html";
                 try {
                     renderTemplate(filePathString);
-                } catch (TemplateNotFoundException){
+                } catch (TemplateNotFoundException ex){
+                    System.out.println("not found template at path: " + escapedFragment);
                     notFound();
                 }
             } else if (escapedFragment.contains("category")){
