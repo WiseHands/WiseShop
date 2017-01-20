@@ -64,7 +64,12 @@ public class Application extends Controller {
             String escapedFragment = request.params.data.get("_escaped_fragment_")[0];
             System.out.println("Escaped Fragment: " + escapedFragment);
             if (escapedFragment.contains("product")){
-                renderTemplate("Prerender/" + shop.uuid + "/" + escapedFragment + ".html");
+                String filePathString = "Prerender/" + shop.uuid + "/" + escapedFragment + ".html";
+                File f = new File(filePathString);
+                if(f.exists() && !f.isDirectory()) {
+                    // do something
+                }
+                renderTemplate(filePathString);
             } else if (escapedFragment.contains("category")){
                 renderTemplate("Prerender/" + shop.uuid + "/" + escapedFragment + ".html");
             } else if (escapedFragment.contains("contacts")) {
