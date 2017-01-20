@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
+import play.exceptions.TemplateNotFoundException;
 import play.mvc.*;
 
 import models.*;
@@ -65,11 +66,11 @@ public class Application extends Controller {
             System.out.println("Escaped Fragment: " + escapedFragment);
             if (escapedFragment.contains("product")){
                 String filePathString = "Prerender/" + shop.uuid + "/" + escapedFragment + ".html";
-                File f = new File(filePathString);
-                if(f.exists() && !f.isDirectory()) {
-                    // do something
+                try {
+                    renderTemplate(filePathString);
+                } catch (TemplateNotFoundException){
+                    notFound();
                 }
-                renderTemplate(filePathString);
             } else if (escapedFragment.contains("category")){
                 renderTemplate("Prerender/" + shop.uuid + "/" + escapedFragment + ".html");
             } else if (escapedFragment.contains("contacts")) {
