@@ -8,11 +8,27 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 public class ProxyAPI extends AuthController {
-    public static final String NEWPOSTNEARESTWAREHOUSE = "https://novaposhta.ua/shop/office/getnearestwarenhouse";
+    public static final String NEWPOSTNEARESTWAREHOUSE = "\"https://novaposhta.ua/shop/office/getnearestwarenhouse\"";
     private final static String USER_AGENT = "Mozilla/5.0";
 
     public static void nearestNewPost(String client, Double lat, Double lon) throws Exception {
-        renderJSON(sendPost(NEWPOSTNEARESTWAREHOUSE, lat, lon));
+        String cmd = "curl " + NEWPOSTNEARESTWAREHOUSE + " --data \"x=" + lat + "&y=" + lon + "\"";
+        System.out.println(cmd);
+        renderJSON(execCmd(cmd));
+    }
+
+    public static String execCmd(String cmd) throws java.io.IOException {
+        Process proc = Runtime.getRuntime().exec(cmd);
+        java.io.InputStream is = proc.getInputStream();
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        String val = "";
+        if (s.hasNext()) {
+            val = s.next();
+        }
+        else {
+            val = "";
+        }
+        return val;
     }
 
     // HTTP POST request
