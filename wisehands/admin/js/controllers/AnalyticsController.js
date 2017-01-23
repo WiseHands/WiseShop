@@ -119,8 +119,6 @@ function initialize(latLng) {
     map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
     map.setTilt(45);
 
-    var infoWindow = new google.maps.InfoWindow(), marker, i;
-
     for( i = 0; i < markers.length; i++ ) {
         var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
         bounds.extend(position);
