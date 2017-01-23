@@ -195,4 +195,8 @@ main {
     align-items: center;
     flex-wrap: wrap;
 }
+.newPostFlexContainer > div.col-xs-12.col-sm-4 > div > img {
+    display: block;
+    margin: auto;
+}
 

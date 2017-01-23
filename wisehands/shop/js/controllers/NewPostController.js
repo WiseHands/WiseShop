@@ -17,9 +17,8 @@
             $scope.getClosestDepartments = function () {
                 $scope.loading = true;
                 $http({
-                    method: 'POST',
-                    url: 'https://novaposhta.ua/shop/office/getnearestwarenhouse',
-                    data: 'x=' + $scope.lat + '&y=' + $scope.lng
+                    method: 'GET',
+                    url: '/novaposhta?lat=' + $scope.lat + '&lon=' + $scope.lng
                 })
                     .then(function successCallback(response) {
                         $scope.loading = false;
