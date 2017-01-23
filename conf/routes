@@ -103,6 +103,9 @@ PUT 	{client}/category/{uuid}/name/{name}			CategoryAPI.update
 DELETE 	{client}/category/{uuid}						CategoryAPI.delete
 PUT 	{client}/category/{uuid}/product/{productUuid}	CategoryAPI.assignProduct
 
+GET     {client}/novaposhta                             ProxyAPI.nearestNewPost
+
+
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
