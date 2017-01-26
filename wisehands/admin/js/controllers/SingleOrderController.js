@@ -33,7 +33,6 @@
                         $scope.status = 'Щось пішло не так...';
                     });
                 
-                $scope.deleteMessage = 'Ви дійсно хочете видалити дане замовлення?';
                 $scope.hideModal = function () {
                     $('#deleteOrder').modal('hide');
                     $('body').removeClass('modal-open');
@@ -52,7 +51,6 @@
                         }
                     })
                         .then(function successCallback(response) {
-                            $scope.deleteMessage = 'Замовлення видалене.';
                             $scope.modalSpinner = false;
                             $scope.succesfullDelete = true;
                         }, function errorCallback(response) {

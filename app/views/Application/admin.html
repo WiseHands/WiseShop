@@ -35,15 +35,15 @@
         </div>
     </div>
     <ul class="collapsible collapsible-accordion inner">
-        <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> Замовлення</a></li>
-        <li ng-class="{active: $route.current.activetab == 'analytics'}"><a href="#/analytics" class="waves-effect waves-light"><i class="fa fa-line-chart"></i> Аналітика</a></li>
-        <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> Товари</a></li>
-        <li ng-class="{active: $route.current.activetab == 'payment'}"><a href="#/payment" class="waves-effect waves-light"><i class="fa fa-money"></i> Оплата</a></li>
-        <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> Доставка</a></li>
-        <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> Контакти</a></li>
-        <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> Налаштування</a></li>
-        <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> Користувачі</a></li>
-        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> Вийти</a></li>
+        <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> {{'sideNav.Orders' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'analytics'}"><a href="#/analytics" class="waves-effect waves-light"><i class="fa fa-line-chart"></i> {{'sideNav.Analytics' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> {{'sideNav.Products' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'payment'}"><a href="#/payment" class="waves-effect waves-light"><i class="fa fa-money"></i> {{'sideNav.Payment' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> {{'sideNav.Delivery' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> {{'sideNav.Contacts' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> {{'sideNav.Settings' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> {{'sideNav.Users' | translate}}</a></li>
+        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> {{'sideNav.SignOut' | translate}}</a></li>
 
     </ul>
 </ul>
@@ -62,6 +62,15 @@
 
 <script src="wisehands/assets/web-pull-to-refresh-master/hammer.2.0.4.js"></script>
 <script src="wisehands/assets/web-pull-to-refresh-master/wptr.1.1.js"></script>
+
+<script src="wisehands/assets/angular-cookies/angular-cookies.js"></script>
+<script src="wisehands/assets/angular-sanitize/angular-sanitize.js"></script>
+<script src="wisehands/assets/angular-translate/angular-translate.js"></script>
+<script src="wisehands/assets/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="wisehands/assets/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+<script src="wisehands/assets/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+<script src="wisehands/assets/angular-translate-handler-log/angular-translate-handler-log.js"></script>
+<script src="wisehands/assets/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
 
 <script src="wisehands/admin/js/routes/routeConfig.js"></script>
 
@@ -86,13 +95,18 @@
 <script src="wisehands/admin/js/services/sharedFilterData.js"></script>
 <script src="wisehands/admin/js/services/SideNavInitService.js"></script>
 <script src="wisehands/admin/js/services/SignOutService.js"></script>
+<script src="wisehands/admin/js/services/LocaleService.js"></script>
 
 <script src="wisehands/admin/js/directives/onFinishRender.js"></script>
+<script src="wisehands/admin/js/directives/LanguageSelectDirective.js"></script>
 
 <script src="wisehands/assets/js/angular-spinners.min.js"></script>
 <script src="wisehands/assets/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js"></script>
 <script src="wisehands/assets/js/Chart.min.js"></script>
 <script src="wisehands/assets/js/angular-chart.min.js"></script>
+
+
+
 
 </body>
 </html>

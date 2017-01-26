@@ -7,9 +7,8 @@
                 <i class="fa fa-arrow-circle-left whiteColor pull-left">
                 </i>
             </a>
-
             <a class="col-xs-8 text-center">
-                <h5 class="white-text">Деталі</h5>
+                <h5 class="white-text">{{'singleOrder.Details' | translate}}</h5>
             </a>
             <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
                id="dropdownMenu1"
@@ -21,9 +20,9 @@
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="shippedOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED'"><p>Надіслано</p></a>
-                    <a class="col-xs-12 text-left" ng-click="cancelledOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED' || order.state === 'PAYED'"><p>Скасовано</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteOrder"><p>Видалити</p></a>
+                    <a class="col-xs-12 text-left" ng-click="shippedOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED'"><p>{{'singleOrder.Shipped' | translate}}</p></a>
+                    <a class="col-xs-12 text-left" ng-click="cancelledOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED' || order.state === 'PAYED'"><p>{{'singleOrder.Canceled' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteOrder"><p>{{'singleOrder.Delete' | translate}}</p></a>
                 </div>
             </a>
         </div>
@@ -36,23 +35,23 @@
     <div class="card" ng-hide="loading">
         <div class="row text-center card-block">
             <div class="col-xs-12 col-sm-6 noSidePadding">
-                <h5>П.І.П. замовника: <p><i>{{order.name}}</i></p></h5>
-                <h5>Номер телефону: <p><i>{{order.phone}}</i></p></h5>
-                <h5 ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">Адреса: </b><p><i>{{order.address}}</i></p></h5>
+                <h5>{{'singleOrder.FullName' | translate}}: <p><i>{{order.name}}</i></p></h5>
+                <h5>{{'singleOrder.Phone' | translate}}: <p><i>{{order.phone}}</i></p></h5>
+                <h5 ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">{{'singleOrder.Address' | translate}}: </b><p><i>{{order.address}}</i></p></h5>
                 <h5 ng-show="order.deliveryType === 'NOVAPOSHTA'">Адреса (Нова Пошта): <p><i>{{order.departmentNumber}}</i></p></h5>
-                <h5>Сума замовлення: <p><i>{{order.total}} грн</i></p></h5>
-                <h5>Статус замовлення: <p><i>{{orderState(order)}}</i></p></h5>
-                <h5>Дата замовлення: <p><i>{{properDate}}</i></p></h5>
-                <h5 ng-show="order.comment">Коментар: <p><i>{{order.comment}}</i></p></h5>
+                <h5>{{'singleOrder.OrderAmount' | translate}}: <p><i>{{order.total}} {{'orderList.Currency' | translate}}</i></p></h5>
+                <h5>{{'singleOrder.OrderState' | translate}}: <p><i>{{orderState(order)}}</i></p></h5>
+                <h5>{{'singleOrder.Date' | translate}}: <p><i>{{properDate}}</i></p></h5>
+                <h5 ng-show="order.comment">{{'singleOrder.Comments' | translate}}: <p><i>{{order.comment}}</i></p></h5>
             </div>
             <div class="col-xs-12 col-sm-6 noSidePadding">
-                <h5>Замовлення: </h5>
+                <h5>{{'singleOrder.Order' | translate}}: </h5>
                 <div class="row vcentering" ng-repeat="item in order.items">
                     <div class="col-xs-8 col-sm-8">
                         <p><i>{{item.name}}</i></p>
                     </div>
                     <div class="col-xs-4 col-sm-4">
-                        <p><i>{{item.quantity}} шт.</i></p>
+                        <p><i>{{item.quantity}} {{'singleOrder.Pieces' | translate}}.</i></p>
                     </div>
                 </div>
             </div>
@@ -67,13 +66,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="col-xs-12 text-center">
-                    <p><i>{{deleteMessage}}</i></p>
+                    <p ng-show="deleteButton"><i>{{'singleOrder.DeleteMessage1' | translate}}</i></p>
+                    <p ng-show="succesfullDelete"><i>{{'singleOrder.DeleteMessage2' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
                 <div class="col-xs-offset-3 col-xs-6">
-                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteOrder()" ng-show="deleteButton">Видалити</button>
+                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteOrder()" ng-show="deleteButton">{{'singleOrder.Delete' | translate}}</button>
                 </div>
                 <a href="#/" class="col-xs-offset-4 col-xs-4 noUnderline">
                     <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>

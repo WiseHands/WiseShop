@@ -1,8 +1,18 @@
 (function () {
     angular.module('WiseHands', [
-        'ngRoute', 'angularSpinners', 'colorpicker.module', 'chart.js'
+        'ngRoute', 'angularSpinners', 'colorpicker.module', 'chart.js', 'pascalprecht.translate', 'tmh.dynamicLocale',
+        'ngCookies', 'ngSanitize'
     ])
-        .config(['$routeProvider',
+        .constant('LOCALES', {
+            'locales': {
+                'uk_UA': 'Українська',
+                'en_US': 'English'
+            },
+            'preferredLocale': 'en_US'
+        })
+
+        .config(
+            ['$routeProvider',
             function ($routeProvider) {
                 var urlParam = function(name, w){
                     w = w || window;
@@ -122,6 +132,22 @@
                         redirectTo:'/'
                 });
             }])
+        .config(
+            ['$translateProvider', 'LOCALES', function ($translateProvider, LOCALES) {
+            $translateProvider.useMissingTranslationHandlerLog();
+            $translateProvider.useStaticFilesLoader({
+                prefix: 'wisehands/admin/resources/locale-',
+                suffix: '.json'
+            });
+
+            $translateProvider.preferredLanguage(LOCALES.preferredLocale);
+            $translateProvider.useSanitizeValueStrategy('escape');
+            $translateProvider.useLocalStorage();
+        }])
+        .config(
+            ['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
+            tmhDynamicLocaleProvider.localeLocationPattern('wisehands/assets/angular-i18n/angular-locale_{{locale}}.js');
+        }])
         .run(['$http', function ($http) {
             $http({
                 method: 'GET',

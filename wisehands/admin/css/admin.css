@@ -365,3 +365,6 @@ label.whiteCheckBox::after {
 .activeAnal {
     background-color: #EAF1F5;
 }
+.noMatchesMargin {
+    margin-top: 2.5em;
+}
