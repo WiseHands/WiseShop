@@ -4,7 +4,7 @@
             <div class="col-xs-2 noPaddingLeft">
                 <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
             </div>
-            <a class=" col-xs-offset-9   col-xs-1 noRightPadding"
+            <a class=" col-xs-offset-9 col-xs-1 noRightPadding"
                type="button"
                data-toggle="modal"
                data-target="#newCategoryModal">
@@ -15,17 +15,17 @@
     </div>
 </nav>
 
-<div class="container-fluid cardTopPadding noSidePadding">
+<div class="container-fluid noSidePadding">
     <h4 class="text-center"><i>{{status}}</i></h4>
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <div class="btn-group btn-group-justified col-xs-12" role="group" aria-label="..." ng-hide="loading">
         <div class="btn-group" role="group">
-            <a href="#/products" type="button" class="btn btn-primary">Продукти</a>
+            <a href="#/products" type="button" class="btn btn-primary">{{'products.products' | translate}}</a>
         </div>
         <div class="btn-group" role="group">
-            <a type="button" class="btn btn-primary active disabled">Категорії</a>
+            <a type="button" class="btn btn-primary active disabled">{{'products.categories' | translate}}</a>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12" ng-hide="loading">
@@ -54,14 +54,14 @@
                 <div class="row">
                     <div class="input-field col-md-12">
                         <input id="categoryName" type="text" class="validate" ng-model="thisCategory.name" required>
-                        <label class="active" for="categoryName">Назва категорії</label>
+                        <label class="active" for="categoryName">{{'categories.categoryName' | translate}}</label>
                     </div>
                     <div class="input-field col-md-12">
                         <textarea id="textarea1" class="materialize-textarea"  ng-model="thisCategory.description"></textarea>
-                        <label class="active" for="textarea1">Опис категорії</label>
+                        <label class="active" for="textarea1">{{'categories.categoryDescription' | translate}}</label>
                     </div>
                     <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                    <button class="btn btn-default pull-right" ng-hide="loading" ng-click="updateCategory()">Зберегти</button>
+                    <button class="btn btn-default pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>
                 </div>
             </div>
         </div>
@@ -75,14 +75,14 @@
                     <div class="row">
                         <div class="input-field col-md-12">
                             <input id="password" type="text" class="validate" ng-model="newCategory.name" required>
-                            <label for="password">Назва категорії</label>
+                            <label for="password">{{'categories.categoryName' | translate}}</label>
                         </div>
                         <div class="input-field col-md-12">
                             <textarea id="textarea2" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
-                            <label for="textarea2">Опис категорії</label>
+                            <label for="textarea2">{{'categories.categoryDescription' | translate}}</label>
                         </div>
                         <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                        <button type="submit" class="btn btn-default pull-right" ng-hide="loading">Створити</button>
+                        <button type="submit" class="btn btn-default pull-right" ng-hide="loading">{{'categories.create' | translate}}</button>
                     </div>
                 </form>
             </div>
@@ -97,16 +97,17 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="col-xs-12 text-center">
-                    <p><i>{{deleteMessage}}</i></p>
-                    <p ng-hide="succesfullDelete"><b>{{deleteCategoryWarning}}</b></p>
+                    <p ng-hide="succesfullDelete"><i>{{'categories.deleteMessage1' | translate}}</i></p>
+                    <p ng-show="succesfullDelete"><i>{{'categories.deleteMessage2' | translate}}</i></p>
+                    <p ng-hide="succesfullDelete"><b>{{'categories.deleteMessage1Warning' | translate}}</b></p>
                 </div>
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
                 <div class="col-xs-offset-2 col-xs-8">
-                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteCategory()" ng-show="deleteButton">Видалити</button>
+                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteCategory()" ng-show="deleteButton">{{'singleOrder.Delete' | translate}}</button>
                 </div>
-                <a href="#/products" class="col-xs-offset-4 col-xs-4 noUnderline">
+                <a class="col-xs-offset-4 col-xs-4 noUnderline">
                     <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal3()">Ok</button>
                 </a>
             </div>

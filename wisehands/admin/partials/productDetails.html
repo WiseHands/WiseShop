@@ -9,7 +9,7 @@
             </a>
 
             <a class="col-xs-8 text-center">
-                <h5 class="white-text">Деталі</h5>
+                <h5 class="white-text">{{'productDetails.details' | translate}}</h5>
             </a>
             <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
                id="dropdownMenu1"
@@ -20,8 +20,8 @@
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>Редагувати</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteProduct"><p>Видалити</p></a>
+                    <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>{{'productDetails.edit' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
                 </div>
             </a>
         </div>
@@ -38,8 +38,8 @@
                     <!--Main image-->
                     <div class="col-xs-8">
                         <div class="flexContainerForPriceLabels card-label">
-                            <h5><span class="label rgba-purple-strong">{{product.price}} грн</span></h5>
-                            <h5><span ng-hide="product.oldPrice == null" class="label rgba-purple-strong crossedPriceFont"><strike>{{product.oldPrice}} грн</strike></span></h5>
+                            <h5><span class="label rgba-purple-strong">{{product.price}} {{'products.currency' | translate}}</span></h5>
+                            <h5><span ng-hide="product.oldPrice == null" class="label rgba-purple-strong crossedPriceFont"><strike>{{product.oldPrice}} {{'products.currency' | translate}}</strike></span></h5>
                         </div>
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner z-depth-1 hoverable" role="listbox">
@@ -76,11 +76,11 @@
             </div>
             <div class="card-content col-sm-6 row">
                 <div class="col-xs-12">
-                    <label for="price">Категорія</label>
+                    <label for="price">{{'addNewProduct.category' | translate}}</label>
                     <p id="price">{{product.categoryName}}</p>
-                    <label for="name">Назва продукту</label>
+                    <label for="name">{{'addNewProduct.productName' | translate}}</label>
                     <h5 id="name" class="product-title">{{product.name}}</h5>
-                    <label for="description">Опис продукту</label>
+                    <label for="description">{{'addNewProduct.productDescription' | translate}}</label>
                     <p id="description">{{product.description}}</p>
                 </div>
             </div>

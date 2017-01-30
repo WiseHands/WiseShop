@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    Аналітика
+                    {{'analytics.analytics' | translate}}
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
@@ -18,17 +18,16 @@
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('')" ng-class="{activeAnal: days === ''}"><p>7 днів</p></a>
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/30')" ng-class="{activeAnal: days === '/30'}"><p>30 днів</p></a>
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/90')" ng-class="{activeAnal: days === '/90'}"><p>90 днів</p></a>
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/180')" ng-class="{activeAnal: days === '/180'}"><p>180 днів</p></a>
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/360')" ng-class="{activeAnal: days === '/360'}"><p>365 днів</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('')" ng-class="{activeAnal: days === ''}"><p>7 {{'analytics.days' | translate}}</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/30')" ng-class="{activeAnal: days === '/30'}"><p>30 {{'analytics.days' | translate}}</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/90')" ng-class="{activeAnal: days === '/90'}"><p>90 {{'analytics.days' | translate}}</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/180')" ng-class="{activeAnal: days === '/180'}"><p>180 {{'analytics.days' | translate}}</p></a>
+                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/360')" ng-class="{activeAnal: days === '/360'}"><p>365 {{'analytics.days' | translate}}</p></a>
                 </div>
             </a>
         </div>
     </div>
 </nav>
-
 <div class="container-fluid analyticsContainer">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
@@ -44,7 +43,7 @@
         <div class="col-sm-3 col-xs-12 text-center">
             <div class="card primary-color darken-1">
                 <div class="card-content white-text">
-                    <p class="card-title">Покупок:</p>
+                    <p class="card-title">{{'analytics.purchases' | translate}}:</p>
                     <p>{{analytics.countToday}}</p>
                 </div>
             </div>
@@ -52,7 +51,7 @@
         <div class="col-sm-3 col-xs-12 text-center">
             <div class="card primary-color darken-1">
                 <div class="card-content white-text">
-                    <p class="card-title">Всього:</p>
+                    <p class="card-title">{{'analytics.total' | translate}}:</p>
                     <p>{{analytics.count}}</p>
                 </div>
             </div>
@@ -61,15 +60,15 @@
             <div class="card primary-color darken-1">
                 <div class="card-content white-text">
                     <p class="card-title">Замовлено:</p>
-                    <p>{{analytics.totalToday}} грн</p>
+                    <p>{{analytics.totalToday}} {{'analytics.currency' | translate}}</p>
                 </div>
             </div>
         </div>
         <div class="col-sm-3 col-xs-12 text-center">
             <div class="card primary-color darken-1">
                 <div class="card-content white-text">
-                    <p class="card-title">Всього:</p>
-                    <p>{{analytics.total}} грн</p>
+                    <p class="card-title">{{'analytics.total' | translate}}:</p>
+                    <p>{{analytics.total}} {{'analytics.currency' | translate}}</p>
                 </div>
             </div>
         </div>

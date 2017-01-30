@@ -20,6 +20,9 @@ angular.module('WiseHands')
         
         $scope.getCategory = function (category) {
             $scope.thisCategory = category;
+            $scope.succesfullDelete = false;
+            $scope.deleteButton = true;
+
         };
         $scope.hideModal = function () {
             $('#categoryModal').modal('hide');
@@ -69,7 +72,7 @@ angular.module('WiseHands')
                     $scope.categories.push($scope.createdCategory);
                     $scope.loading = false;
                     $scope.hideModal2();
-
+                    $scope.newCategory = '';
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();
@@ -78,9 +81,7 @@ angular.module('WiseHands')
                     console.log(response);
                 });
         };
-        $scope.deleteMessage = 'Ви дійсно хочете видалити дану категорію?';
-        $scope.deleteCategoryWarning = '(Видалення категорії призведе до видалення всіх продуктів, які містяться в ній!)';
-        $scope.deleteButton = true;
+
         $scope.deleteCategory = function () {
             $scope.deleteButton = false;
             $scope.modalSpinner = true;
@@ -93,9 +94,13 @@ angular.module('WiseHands')
                 }
             })
                 .then(function successCallback(response) {
+                    $scope.categories.forEach(function(category, index){
+                        if(category.uuid === $scope.thisCategory.uuid) {
+                            $scope.categories.splice(index, 1);
+                        }
+                    });
                     $scope.modalSpinner = false;
                     $scope.succesfullDelete = true;
-                    $scope.deleteMessage = 'Категорія видалена.';
 
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
