@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    Налаштування
+                    {{'settings.settings' | translate}}
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding">
@@ -26,14 +26,15 @@
     </div>
     <div class="btn-group btn-group-justified col-xs-12 z-index" role="group" aria-label="..." ng-hide="loading">
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-primary active disabled">Загальні</button>
+            <button type="button" class="btn btn-primary active disabled">{{'settings.general' | translate}}</button>
         </div>
         <div class="btn-group" role="group">
-            <a href="#/viewsettings" type="button" class="btn btn-primary">Вигляд</a>
+            <a href="#/viewsettings" type="button" class="btn btn-primary">{{'settings.view' | translate}}</a>
         </div>
     </div>
     <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
         <div class="input-field col-md-12">
+            <p>{{'settings.shop' | translate}}</p>
             <select class="form-control"
                     ng-model="selectedShop"
                     ng-change="shopSelected(shop)"
@@ -41,7 +42,7 @@
             </select>
         </div>
         <div class="input-field col-md-12">
-            <p>Назва магазину</p>
+            <p>{{'settings.shopName' | translate}}</p>
             <input id="shopName" type="text" class="validate" ng-model="selectedShop.shopName">
         </div>
         <div class="input-field col-md-12">
@@ -62,31 +63,31 @@
             <!--</div>-->
         <!--</div>-->
         <div class="input-field col-md-12 z-index-2">
-            <h5>Години роботи</h5>
+            <h5>{{'settings.workingHours' | translate}}</h5>
             <div class="col-sm-6">
-                <p>Від:</p>
+                <p>{{'settings.from' | translate}}:</p>
                 <input id="startTime" type="time" class="validate" ng-model="selectedShop.startTime">
             </div>
             <div class="col-sm-6">
-                <p>До:</p>
+                <p>{{'settings.to' | translate}}:</p>
                 <input id="endTime" type="time" class="validate" ng-model="selectedShop.endTime">
             </div>
         </div>
         <div class="input-field col-md-12 z-index-3">
             <p>LiqPay</p>
             <div class="col-sm-6">
-                <p>Публічний ключ</p>
+                <p>{{'settings.publicKey' | translate}}</p>
                 <input id="publicLiqPay" type="text" class="validate" ng-model="selectedShop.liqpayPublicKey">
             </div>
             <div class="col-sm-6">
-                <p>Приватний ключ</p>
+                <p>{{'settings.privateKey' | translate}}</p>
                 <input id="privateLiqPay" type="password" class="validate" ng-model="selectedShop.liqpayPrivateKey">
             </div>
         </div>
         <div class="input-field col-md-12">
             <p>Google</p>
             <div class="col-sm-6">
-                <p>Підтвердження сайту</p>
+                <p>{{'settings.siteVerification' | translate}}</p>
                 <input id="verification" type="text" class="validate" ng-model="selectedShop.googleWebsiteVerificator">
             </div>
             <div class="col-sm-6">
@@ -95,7 +96,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <a class="btn btn-primary waves-effect waves-light pull-right" ng-click="updateStoreSettings()">Зберегти</a>
+            <a class="btn btn-primary waves-effect waves-light pull-right" ng-click="updateStoreSettings()">{{'categories.save' | translate}}</a>
         </div>
     </form>
 </div>
@@ -105,22 +106,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title h4,responsive">Новий магазин</h4>
+                <h4 class="modal-title">{{'settings.newShop' | translate}}</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <form class="col-md-12" name="createNewStoreForm">
                         <div class="input-field">
                             <input id="newShopName" type="text" class="validate" ng-model="newStore.name" required>
-                            <label for="newShopName">Назва магазину</label>
+                            <label for="newShopName">{{'settings.shopName' | translate}}</label>
                         </div>
                         <div class="input-field">
                             <input id="domain" type="text" class="validate" ng-model="newStore.domain" required>
-                            <label for="domain">Домен</label>
+                            <label for="domain">{{'settings.domen' | translate}}</label>
                         </div>
                         <div class="text-center">
                             <p class="errorTextStyling text-center">{{errorMessage}}</p>
-                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">Створити</button>
+                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">{{'categories.create' | translate}}</button>
                         </div>
                     </form>
                 </div>

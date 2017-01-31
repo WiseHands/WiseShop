@@ -39,11 +39,10 @@ angular.module('WiseHands')
             }
         };
         $scope.isNewUserEmailValid = function () {
+            $scope.newUserEmailValid = false;
             $scope.users.forEach(function (user, key, array) {
                 $scope.newUserEmailErrorMessage = '';
-                $scope.newUserEmailValid = false;
                 if ($scope.newUser.email === user.email) {
-                    $scope.newUserEmailErrorMessage = 'Користувач з такою поштою вже зареєстрований';
                     $scope.newUserEmailValid = true;
                 }
             });
@@ -59,7 +58,7 @@ angular.module('WiseHands')
                 }
             })
                 .then(function successCallback(response) {
-                    
+                    $scope.newUser.email = '';
                     $scope.loading = false;
                     $scope.users.push(response.data);
                     $scope.hideCreateUserModal();
@@ -86,15 +85,12 @@ angular.module('WiseHands')
                 return false;
             }
         };
-        $scope.deleteMessage = 'Ви дійсно хочете видалити даного користувача?';
         $scope.hideModal = function () {
             $('#deleteUser').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
             $scope.succesfullDelete = false;
-            $scope.deleteMessage = 'Ви дійсно хочете видалити даного користувача?';
             $scope.deleteButton = true;
-
         };
         $scope.deleteButton = true;
         $scope.deleteUser = function () {
@@ -112,8 +108,6 @@ angular.module('WiseHands')
                     $scope.users.splice($scope.spliceIndex, 1);
                     $scope.modalSpinner = false;
                     $scope.succesfullDelete = true;
-                    $scope.deleteMessage = 'Користувач видалений.';
-
                 }, function errorCallback(response) {
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();

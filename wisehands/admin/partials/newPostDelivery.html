@@ -8,9 +8,9 @@
                 </i>
             </a>
 
-            <a class="col-xs-8 text-center">
-                <h5 class="white-text">Нова Пошта</h5>
-            </a>
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'delivery.newPost' | translate}}</h5>
+            </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
                    ng-click="setDeliveryOptions()">
@@ -26,10 +26,10 @@
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
         <div class="input-field col-md-6">
             <input type="checkbox" class="filled-in pull-left" id="filled-in-box" ng-model="delivery.isNewPostAvailable" />
-            <label for="filled-in-box">Увімкнуто</label>
+            <label for="filled-in-box">{{'delivery.enabled' | translate}}</label>
         </div>
         <div class="col-md-12 input-field">
-            <p>Текст повідомлення</p>
+            <p>{{'delivery.messageText' | translate}}</p>
             <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.newPostText" rows="1"></textarea>
         </div>
     </form>

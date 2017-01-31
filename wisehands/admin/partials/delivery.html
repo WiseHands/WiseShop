@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    Доставка
+                    {{'delivery.delivery' | translate}}
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding">
@@ -26,27 +26,27 @@
         <a href="#/delivery/newPost">
             <div class="col-sm-4 text-center">
                 <div class="card-panel primary-color darken-3 hoverable">
-                    <h5 class="white-text">Нова Пошта</h5>
+                    <h5 class="white-text">{{'delivery.newPost' | translate}}</h5>
                 </div>
             </div>
         </a>
         <a href="#/delivery/courier">
             <div class="col-sm-4 text-center">
                 <div class="card-panel primary-color hoverable">
-                    <h5 class="white-text">Кур'єр</h5>
+                    <h5 class="white-text">{{'delivery.courier' | translate}}</h5>
                 </div>
             </div>
         </a>
         <a href="#/delivery/selfTake">
             <div class="col-sm-4 text-center">
                 <div class="card-panel primary-color hoverable">
-                    <h5 class="white-text">Самовивіз</h5>
+                    <h5 class="white-text">{{'delivery.selftake' | translate}}</h5>
                 </div>
             </div>
         </a>
     </div>
     <div class="col-md-12 input-field" ng-hide="loading">
-        <p>Повідомлення після замовлення</p>
+        <p>{{'delivery.orderMessage' | translate}}</p>
         <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.orderMessage"></textarea>
     </div>
 </div>

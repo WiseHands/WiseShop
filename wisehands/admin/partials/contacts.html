@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    Контакти
+                    {{'contacts.contacts' | translate}}
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding">
@@ -24,7 +24,7 @@
     </div>
     <form class="col-md-12 noSidePadding" id="contactsForm" name="contactsForm" ng-hide="loading">
         <div class="input-field col-md-6">
-            <p>Номер телефону</p>
+            <p>{{'contacts.phone' | translate}}</p>
             <input id="phone_number" type="tel" class="validate" ng-model="contacts.phone">
         </div>
         <div class="input-field col-md-6">
@@ -32,15 +32,15 @@
             <input id="email" type="email" class="validate" ng-model="contacts.email">
         </div>
         <div class="input-field col-md-6">
-            <p>Адреса</p>
+            <p>{{'contacts.address' | translate}}</p>
             <input id="address" type="text" class="validate" ng-model="contacts.address">
         </div>
         <div class="input-field col-md-6">
-            <p>Координати</p>
+            <p>{{'contacts.coords' | translate}}</p>
             <input id="coords" type="text" class="validate" ng-model="contacts.latLng">
         </div>
         <div class="input-field col-md-12">
-            <p>Опис</p>
+            <p>{{'contacts.description' | translate}}</p>
             <textarea id="textarea1" class="materialize-textarea" ng-model="contacts.description"></textarea>
         </div>
     </form>

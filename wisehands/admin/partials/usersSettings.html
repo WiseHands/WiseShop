@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    Користувачі
+                    {{'users.users' | translate}}
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding">
@@ -34,7 +34,7 @@
             <div class="card-content cardMinHeight">
                 <h5 class="truncate">{{getUserName(user)}}</h5>
                 <h5 class="truncate">{{user.email}}</h5>
-                <a class="btn btn-border-danger waves-effect" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)" ng-disabled="noDeleteForActiveUser($index)">Видалити</a>
+                <a class="btn btn-border-danger waves-effect" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)" ng-disabled="noDeleteForActiveUser($index)">{{'productDetails.delete' | translate}}</a>
             </div>
         </div>
     </div>
@@ -47,7 +47,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="col-xs-12 text-center">
-                    <p><i>{{deleteMessage}}</i></p>
+                    <p ng-show="deleteButton"><i>{{'users.deleteMessage1' | translate}}</i></p>
+                    <p ng-show="succesfullDelete"><i>{{'users.deleteMessage2' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
@@ -67,7 +68,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title h4,responsive">Новий користувач</h4>
+                <h4 class="modal-title">{{'users.newUser' | translate}}</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -76,9 +77,9 @@
                             <input id="newUserEmail" type="email" class="validate" ng-change="isNewUserEmailValid()" ng-model="newUser.email" required>
                             <label for="newUserEmail">E-mail</label>
                         </div>
-                        <p>{{newUserEmailErrorMessage}}</p>
+                        <p ng-hide="!newUserEmailValid">{{'users.newUserExist' | translate}}</p>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewUser()" ng-disabled="createNewUserForm.$invalid || newUserEmailValid">Створити</button>
+                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewUser()" ng-disabled="createNewUserForm.$invalid || newUserEmailValid">{{'categories.create' | translate}}</button>
                         </div>
                     </form>
                 </div>
