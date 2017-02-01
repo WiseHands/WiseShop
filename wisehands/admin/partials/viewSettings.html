@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    Налаштування
+                    {{'settings.settings' | translate}}
                 </h5>
             </div>
             <div class="col-xs-2 noRightPadding">
@@ -25,15 +25,15 @@
     </div>
     <div class="btn-group btn-group-justified col-xs-12 z-index" role="group" aria-label="..." ng-hide="loading">
         <div class="btn-group" role="group">
-            <a href="#/settings" type="button" class="btn btn-primary">Загальні</a>
+            <a href="#/settings" type="button" class="btn btn-primary">{{'settings.general' | translate}}</a>
         </div>
         <div class="btn-group" role="group">
-            <a type="button" class="btn btn-primary active disabled">Вигляд</a>
+            <a type="button" class="btn btn-primary active disabled">{{'settings.view' | translate}}</a>
         </div>
     </div>
     <form class="col-md-12 noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading" ng-submit="updateShopStyling()">
         <div class="input-field col-md-12">
-            <p>Стиль бокової навігаційної панелі</p>
+            <p>{{'settings.navbarStyle' | translate}}</p>
             <select class="form-control"
                     ng-model="selectedSkin"
                     ng-change="navbarStyling(selectedSkin)"
@@ -41,44 +41,44 @@
                 <option></option>
             </select>
         </div>
-        <div class="file-field input-field col-md-6" ng-show="!shopStyling.shopFavicon">
+        <div class="file-field input-field col-md-offset-6 col-md-6" ng-show="!shopStyling.shopFavicon">
             <button type="button" class="btn btn-default waves-effect waves-light buttonInputFile btn-block" ng-click="loadFavicon()">
-                <span>Додати favicon</span>
+                <span>{{'addNewProduct.add' | translate}} favicon</span>
             </button>
             <input name="favIconLoader" type="file" id="favIconLoader"
                    onchange="angular.element(this).scope().favIconUpload(this)" />
         </div>
-        <div class="input-field col-md-6" ng-show="shopStyling.shopFavicon">
-            <button type="button" class="btn btn-danger waves-effect waves-light" ng-click="deleteFavicon()">
-                <span>Видалити favicon</span>
+        <div class="input-field col-md-offset-6 col-md-6" ng-show="shopStyling.shopFavicon">
+            <button type="button" class="btn btn-danger waves-effect waves-light btn-block" ng-click="deleteFavicon()">
+                <span>{{'productDetails.delete' | translate}} favicon</span>
             </button>
         </div>
         <div class="input-field col-md-12">
-            <p>Колір навігаційної панелі <a href="https://www.materialpalette.com/" target="_blank" ><i class="fa fa-question-circle"></i></a></p>
+            <p>{{'settings.navbarColor' | translate}} <a href="https://www.materialpalette.com/" target="_blank" ><i class="fa fa-question-circle"></i></a></p>
             <input colorpicker ng-model="shopStyling.navbarColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
         <div class="input-field col-md-12">
-            <p>Колір тексту навігаційної панелі</p>
+            <p>{{'settings.navbarTextColor' | translate}}</p>
             <input colorpicker ng-model="shopStyling.navbarTextColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
         <div class="input-field col-md-12">
-            <p>Колір кількості товарів</p>
+            <p>{{'settings.navbarQuantity' | translate}}</p>
             <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
         <div class="input-field col-md-12" ng-show="logo">
-            <p>Посилання логотипу</p>
+            <p>{{'settings.logoHref' | translate}}</p>
             <input ng-model="shopStyling.logoHref" type="text" placeholder="http://www.myshoplandingpage.com">
         </div>
-        <div class="file-field input-field col-md-6" ng-show="!logo">
+        <div class="file-field input-field col-md-offset-6 col-md-6" ng-show="!logo">
             <button type="button" class="btn btn-default waves-effect waves-light buttonInputFile btn-block" ng-click="loadImage()">
-                <span>Додати логотип</span>
+                <span>{{'settings.addLogo' | translate}}</span>
             </button>
             <input name="imageLoader" type="file" id="imageLoader"
             onchange="angular.element(this).scope().imageUpload(this)" />
         </div>
-        <div class="input-field col-sm-6" ng-hide="!logo">
-            <button type="button" class="btn btn-danger waves-effect waves-light" ng-click="deleteLogo()">
-                <span>Видалити логотип</span>
+        <div class="input-field col-md-offset-6 col-md-6" ng-hide="!logo">
+            <button type="button" class="btn btn-danger waves-effect waves-light btn-block" ng-click="deleteLogo()">
+                <span>{{'settings.removeLogo' | translate}}</span>
             </button>
         </div>
     </form>
@@ -100,7 +100,7 @@
             </div>
             <div class="col-xs-6 col-sm-5" ng-class="{'col-sm-offset-5': logo}">
                 <a class="navbar-brand waves-effect waves-light pull-right" style="color: {{shopStyling.navbarTextColor}}">
-                    <span class="badge" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">4</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-xs"> Кошик</span>
+                    <span class="badge" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">4</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-xs"> {{'settings.cart' | translate}}</span>
                 </a>
             </div>
         </div>

@@ -105,5 +105,13 @@
   "settings.siteVerification": "Site verification",
   "settings.newShop": "New shop",
   "settings.domen": "Domen",
+  "settings.navbarStyle": "Navigation bar style",
+  "settings.navbarColor": "Navigation bar color",
+  "settings.navbarTextColor": "Navigation bar text color",
+  "settings.navbarQuantity": "Items quantity color",
+  "settings.logoHref": "Logo link",
+  "settings.addLogo": "Add logo",
+  "settings.removeLogo": "Remove logo",
+  "settings.cart": "Shopping cart",
   "directives.language-select.Language": "Language"
 }

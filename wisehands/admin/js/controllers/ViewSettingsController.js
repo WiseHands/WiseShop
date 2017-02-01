@@ -40,67 +40,67 @@ angular.module('WiseHands')
 
         $scope.navbarStyles = [
             {
-                name: 'Синій',
+                name: 'Blue',
                 code: 'blue',
                 navbarColor: '#072e6e',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Червоний',
+                name: 'Red',
                 code: 'red',
                 navbarColor: '#900',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Зелений',
+                name: 'Green',
                 code: 'green',
                 navbarColor: '#003830',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Фіолетовий',
+                name: 'Purple',
                 code: 'purple',
                 navbarColor: '#54057d',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Темний',
+                name: 'Dark',
                 code: 'dark',
                 navbarColor: '#3b3b3b',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Сірий',
+                name: 'Grey',
                 code: 'grey',
                 navbarColor: '#565d6b',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Блакитний',
+                name: 'Sky-Blue',
                 code: 'mdb',
                 navbarColor: '#3f729b',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Оранжевий',
+                name: 'Deep-Orange',
                 code: 'deep-orange',
                 navbarColor: '#8a1a00',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Графіт',
+                name: 'Graphite',
                 code: 'graphite',
                 navbarColor: '#37474f',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Рожевий',
+                name: 'Pink',
                 code: 'pink',
                 navbarColor: '#ab1550',
                 navbarTextColor: '#fff'
             },
             {
-                name: 'Світло-сірий',
+                name: 'Light-Grey',
                 code: 'light-grey',
                 navbarColor: '#686868',
                 navbarTextColor: '#fff'

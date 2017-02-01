@@ -53,6 +53,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="input-field col-md-12">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <input id="categoryName" type="text" class="validate" ng-model="thisCategory.name" required>
                         <label class="active" for="categoryName">{{'categories.categoryName' | translate}}</label>
                     </div>
@@ -74,6 +77,9 @@
                 <form name="categoryForm" ng-submit="createCategory()">
                     <div class="row">
                         <div class="input-field col-md-12">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                             <input id="password" type="text" class="validate" ng-model="newCategory.name" required>
                             <label for="password">{{'categories.categoryName' | translate}}</label>
                         </div>

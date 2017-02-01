@@ -105,5 +105,13 @@
   "settings.siteVerification": "Пітвердження сайту",
   "settings.newShop": "Новий магазин",
   "settings.domen": "Домен",
+  "settings.navbarStyle": "Стиль бокової навігаційної панелі",
+  "settings.navbarColor": "Колір навігаційної панелі",
+  "settings.navbarTextColor": "Колір тексту навігаційної панелі",
+  "settings.navbarQuantity": "Колір кількості товарів",
+  "settings.logoHref": "Посилання логотипу",
+  "settings.addLogo": "Додати логотип",
+  "settings.removeLogo": "Видалити логотип",
+  "settings.cart": "Кошик",
   "directives.language-select.Language": "Мова"
 }
