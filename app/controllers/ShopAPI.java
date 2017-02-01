@@ -82,6 +82,7 @@ public class ShopAPI extends AuthController {
         json.put("uuid", shop.uuid);
         json.put("startTime", shop.startTime);
         json.put("endTime", shop.endTime);
+        json.put("locale", shop.locale);
         json.put("manualPaymentEnabled", shop.paymentSettings.manualPaymentEnabled);
         json.put("onlinePaymentEnabled", shop.paymentSettings.onlinePaymentEnabled);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
@@ -93,6 +94,16 @@ public class ShopAPI extends AuthController {
         json.put("couponsEnabled", couponsEnabled);
 
         renderJSON(json);
+    }
+
+    public static void changeLocal(String client, String locale) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        checkAuthentification(shop);
+
+        shop.locale = locale;
+
+        shop = shop.save();
+        renderJSON(json(shop));
     }
 
     public static void update(String client) throws Exception {
@@ -112,6 +123,7 @@ public class ShopAPI extends AuthController {
         String googleAnalyticsCode = (String) jsonBody.get("googleAnalyticsCode");
         String startTime = (String) jsonBody.get("startTime");
         String endTime = (String) jsonBody.get("endTime");
+        String locale = (String) jsonBody.get("locale");
         System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
 
         shop.liqpayPublicKey = liqpayPublicKey;
@@ -123,6 +135,7 @@ public class ShopAPI extends AuthController {
 
         shop.googleWebsiteVerificator = googleWebsiteVerificator;
         shop.googleAnalyticsCode = googleAnalyticsCode;
+        shop.locale = locale;
 
         shop = shop.save();
         renderJSON(json(shop));
@@ -251,7 +264,7 @@ public class ShopAPI extends AuthController {
         SidebarColorScheme color = (SidebarColorScheme) SidebarColorScheme.findAll().get(0);
         visualSettings.sidebarColorScheme = color;
 
-        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, name, publicLiqpayKey, privateLiqPayKey, domain);
+        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, name, publicLiqpayKey, privateLiqPayKey, domain, "en_US");
         return shop = shop.save();
     }
 

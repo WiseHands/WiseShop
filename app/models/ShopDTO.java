@@ -42,6 +42,9 @@ public class ShopDTO extends GenericModel {
     @Expose
     public String googleAnalyticsCode;
 
+    @Expose
+    public String locale;
+
     @OneToOne(cascade=CascadeType.ALL)
     public BalanceDTO balance;
 
@@ -82,7 +85,8 @@ public class ShopDTO extends GenericModel {
                    String shopName,
                    String liqpayPublicKey,
                    String liqpayPrivateKey,
-                   String customDomain) {
+                   String customDomain,
+                   String locale) {
 
 
         this.userList = users;
@@ -103,5 +107,6 @@ public class ShopDTO extends GenericModel {
         this.liqpayPrivateKey = liqpayPrivateKey;
         this.visualSettingsDTO = visualSettingsDTO;
         this.domain = customDomain;
+        this.locale = locale;
     }
 }

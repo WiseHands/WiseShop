@@ -159,6 +159,7 @@
             })
                 .then(function successCallback(response) {
                     document.title = response.data.shopName;
+                    localStorage.setItem('locale', response.data.locale);
 
                 }, function errorCallback(data) {
 	                window.location.pathname = '/login';

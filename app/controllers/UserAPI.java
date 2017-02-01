@@ -68,7 +68,7 @@ public class UserAPI extends AuthController {
             visualSettings.navbarColor = "#003830";
             visualSettings.navbarShopItemsColor = "#F44336";
 
-            ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain);
+            ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain, "en_US");
             shop.save();
 
             response.setHeader(X_AUTH_TOKEN, user.token);

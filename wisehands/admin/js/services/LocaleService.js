@@ -35,7 +35,7 @@ angular.module('WiseHands')
         });
         return {
             getLocaleDisplayName: function () {
-                var currentLocale2 = localStorage.getItem('NG_TRANSLATE_LANG_KEY');
+                var currentLocale2 = localStorage.getItem('locale');
                 return localesObj[currentLocale2];
             },
             setLocaleByDisplayName: function (localeDisplayName) {
