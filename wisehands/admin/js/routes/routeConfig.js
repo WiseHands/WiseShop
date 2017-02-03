@@ -133,38 +133,26 @@
                 });
             }])
         .config(
-            ['$translateProvider', 'LOCALES', function ($translateProvider, LOCALES) {
+            ['$translateProvider', function ($translateProvider) {
             $translateProvider.useMissingTranslationHandlerLog();
             $translateProvider.useStaticFilesLoader({
                 prefix: 'wisehands/admin/resources/locale-',
                 suffix: '.json'
             });
+            var html = document.getElementsByTagName('html')[0];
+            var localization = html.lang;
+            localStorage.setItem('locale', localization);
 
-            $translateProvider.preferredLanguage(LOCALES.preferredLocale);
+            $translateProvider.preferredLanguage(localization);
             $translateProvider.useSanitizeValueStrategy('escape');
-            $translateProvider.useLocalStorage();
+            $translateProvider.use(localization);
         }])
         .config(
             ['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
             tmhDynamicLocaleProvider.localeLocationPattern('wisehands/assets/angular-i18n/angular-locale_{{locale}}.js');
         }])
-        .run(['$http', function ($http) {
-            $http({
-                method: 'GET',
-                url: '/shop/details',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
-            })
-                .then(function successCallback(response) {
-                    document.title = response.data.shopName;
-                    localStorage.setItem('locale', response.data.locale);
+        .run(['$http',  function ($http) {
 
-                }, function errorCallback(data) {
-	                window.location.pathname = '/login';
-                    console.log(data);
-                });
 
 
         }])
