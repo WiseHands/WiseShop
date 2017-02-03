@@ -5,6 +5,8 @@ import com.google.common.io.CharStreams;
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 import play.exceptions.TemplateNotFoundException;
+import play.i18n.Lang;
+import play.i18n.Messages;
 import play.mvc.*;
 
 import models.*;
@@ -40,12 +42,18 @@ public class Application extends Controller {
     public static void index(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
 
+        String locale = "en_US";
+        if(shop != null && shop.locale != null) {
+            locale = shop.locale;
+        }
+        Lang.change(locale);
+
         if (client.equals("wisehands.me")){
             renderTemplate("WiseHands/index.html");
         }
 
         if (shop == null) {
-            notFound("The requested Shop is not available. Contact administrator");
+            notFound(Messages.get("shop.not.found"));
         }
 
         Date date = new Date();

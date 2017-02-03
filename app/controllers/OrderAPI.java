@@ -6,6 +6,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.i18n.Lang;
+import play.i18n.Messages;
 import play.mvc.Http;
 import services.LiqPayService;
 import services.MailSender;
@@ -18,13 +20,9 @@ import java.util.*;
 
 public class OrderAPI extends AuthController {
 
-    private static final Integer FREESHIPPINGMINCOST = 501;
-    private static final Integer SHIPPING_COST = 40;
     private  static final Double WISEHANDS_COMISSION = -0.0725;
 
     private class DeliveryType {
-        private static final String NOVAPOSHTA = "NOVAPOSHTA";
-        private static final String SELFTAKE = "SELFTAKE";
         private static final String COURIER = "COURIER";
     }
 
@@ -39,6 +37,12 @@ public class OrderAPI extends AuthController {
 
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+
+        String locale = "en_US";
+        if(shop != null && shop.locale != null) {
+            locale = shop.locale;
+        }
+        Lang.change(locale);
 
         //TODO: add validation
         JSONParser parser = new JSONParser();
@@ -148,12 +152,12 @@ public class OrderAPI extends AuthController {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    mailSender.sendEmail(shopLink, orderLink, "Нове замовлення");
+                    mailSender.sendEmail(shopLink, orderLink, Messages.get("new.order"));
 
-                    String smsText = "Замовлення (" + orderLink.name + ", сума " + orderLink.total + ") прийнято.";
+                    String smsText = Messages.get("order.is.processing", orderLink.name, orderLink.total);
                     smsSender.sendSms(orderLink.phone, smsText);
 
-                    smsText = "Нове замовлення " + orderLink.name + ", сума " + orderLink.total;
+                    smsText =  Messages.get("new.order.total", orderLink.name, orderLink.total);
                     smsSender.sendSms(shopLink.contact.phone, smsText);
                 } catch (Exception e){
                     System.out.println("OrderAPI async place exception: " + e);
@@ -322,12 +326,12 @@ public class OrderAPI extends AuthController {
             if (status.equals("failure") || status.equals("wait_accept")){
                 order.state  = OrderState.PAYMENT_ERROR;
                 order = order.save();
-                String smsText = "Помилка при оплаті " + order.name + ", сума " + order.total;
+                String smsText = Messages.get("payment.error.total", order.name, order.total);
                 for (UserDTO user : shop.userList) {
                     smsSender.sendSms(user.phone, smsText);
                 }
                 smsSender.sendSms(order.phone, smsText);
-                mailSender.sendEmail(shop, order, "Помилка оплати");
+                mailSender.sendEmail(shop, order, Messages.get("payment.error"));
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -353,11 +357,11 @@ public class OrderAPI extends AuthController {
                 System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became " + tx.state);
 
 
-                String smsText = "Замовлення " + order.name + " сума " + order.total + " було оплачено";
+                String smsText = Messages.get("payment.done.total", order.name, order.total);
                 smsSender.sendSms(order.phone, smsText);
                 smsSender.sendSms(shop.contact.phone, smsText);
 
-                mailSender.sendEmail(shop, order, "Замовлення оплачено");
+                mailSender.sendEmail(shop, order, Messages.get("payment.done"));
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();

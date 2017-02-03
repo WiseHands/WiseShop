@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.*;
+import play.i18n.Lang;
 import play.mvc.Before;
 import play.mvc.Controller;
 
@@ -39,6 +40,7 @@ public class AuthController extends Controller {
         } else {
             forbidden("Empty X-AUTH-TOKEN or X-AUTH-USER-ID");
         }
+        Lang.change(shop.locale);
     }
 
     static void checkSudoAuthentification() {
