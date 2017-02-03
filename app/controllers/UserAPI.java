@@ -4,6 +4,7 @@ import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import models.*;
+import play.i18n.Messages;
 import responses.InvalidPassword;
 import responses.UserDoesNotExist;
 import services.SmsSender;
@@ -73,7 +74,7 @@ public class UserAPI extends AuthController {
 
             response.setHeader(X_AUTH_TOKEN, user.token);
             String json = json(user);
-            String greetingText = "Успішно створено Ваш новий магазин " + shop.shopName;
+            String greetingText = Messages.get("new.shop.created", shop.shopName);
             smsSender.sendSms(shop.contact.phone, greetingText);
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

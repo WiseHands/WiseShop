@@ -11,3 +11,4 @@ payment.done = Оплата Прийнята
 payment.done.total = Оплата Прийнята %s Сума %s
 gotomain = Перейти на головну
 order.fail = Помилка оплати
+new.shop.created = Створено новий магазин: %s

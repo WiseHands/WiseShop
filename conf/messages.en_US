@@ -11,3 +11,4 @@ payment.done = Payment Done
 payment.done.total = Payment Done %s Total %s
 gotomain = Go to Main Page
 order.fail = Payment has failed
+new.shop.created = New shop created: %s
