@@ -1,3 +1,13 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+shop.not.found = The requested Shop is not available. Contact administrator
+new.order = New Order
+order.is.processing = Order (%s, %s) is being processed
+new.order.total = New order %s Total %s
+payment.error = Payment Error
+payment.error.total = Payment Error %s Total %s
+payment.done = Payment Done
+payment.done.total = Payment Done %s Total %s
+gotomain = Go to Main Page
+order.fail = Payment has failed
