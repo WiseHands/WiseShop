@@ -142,18 +142,13 @@
             var html = document.getElementsByTagName('html')[0];
             var localization = html.lang;
             localStorage.setItem('locale', localization);
-
             $translateProvider.preferredLanguage(localization);
             $translateProvider.useSanitizeValueStrategy('escape');
             $translateProvider.use(localization);
+            // $translateProvider.useLocalStorage();
         }])
         .config(
             ['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
             tmhDynamicLocaleProvider.localeLocationPattern('wisehands/assets/angular-i18n/angular-locale_{{locale}}.js');
-        }])
-        .run(['$http',  function ($http) {
-
-
-
         }])
 })();

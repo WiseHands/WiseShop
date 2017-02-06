@@ -41,6 +41,7 @@ angular.module('WiseHands')
                         }
                     })
                         .success(function (response) {
+                            localStorage.setItem('locale', currentLocale);
                         }).
                     error(function (response) {
                         if (response.data === 'Invalid X-AUTH-TOKEN') {
