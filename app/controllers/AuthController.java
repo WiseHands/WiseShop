@@ -40,7 +40,9 @@ public class AuthController extends Controller {
         } else {
             forbidden("Empty X-AUTH-TOKEN or X-AUTH-USER-ID");
         }
-        Lang.change(shop.locale);
+        if(shop != null) {
+            Lang.change(shop.locale);
+        }
     }
 
     static void checkSudoAuthentification() {
