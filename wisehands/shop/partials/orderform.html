@@ -5,13 +5,13 @@
                 <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
             </li>
         </ul>
-        <h4 class="text-xs-center col-xs-8" style="color: {{shopStyling.navbarTextColor}}"><b>Оформлення замовлення</b></h4>
+        <h4 class="text-xs-center col-xs-8" style="color: {{shopStyling.navbarTextColor}}"><b>{{'shopView.orderForm' | translate}}</b></h4>
     </nav>
 </header>
 <main class="p-t-6 noSidePadding">
     <div class="container">
         <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
-            <h5 class="deliveryType"><b>Тип доставки</b></h5>
+            <h5 class="deliveryType"><b>{{'shopView.deliveryType' | translate}}</b></h5>
             <fieldset class="form-group" ng-show="deliverance.isCourierAvailable">
                 <input name="deliverance"
                        type="radio"
@@ -44,18 +44,18 @@
                 <label class="pull-left autoHeight" for="radio3">{{deliverance.selfTakeText}}</label>
             </fieldset>
             <div class="form-group">
-                <b>П.І.П.</b>
+                <b>{{'shopView.fullName' | translate}}</b>
                 <input class="form-control validate"
                        id="name"
                        ng-model="name"
                        ng-change="customerData()"
                        type="text" name="name"
-                       placeholder="Петренко Іван Григорович"
+                       placeholder="{{'shopView.fullNamePlaceholder' | translate}}"
                        pattern="^(?=.*\S).+$"
                        required>
             </div>
             <div class="form-group">
-                <b>Номер телефону (380xxxxxxxxx - формат номера телефону)</b>
+                <b>{{'shopView.phone' | translate}}</b>
                 <input class="form-control validate"
                        type="tel"
                        id="phone"
@@ -67,11 +67,11 @@
                        required />
             </div>
             <div class="form-group" ng-show="deliveryType === 'COURIER'">
-                <b>Адреса</b>
+                <b>{{'shopView.address' | translate}}</b>
                 <input class="form-control validate"
                        g-places-autocomplete
                        ng-change="customerData()"
-                       placeholder="Введіть адресу"
+                       placeholder="{{'shopView.addressPlaceholder' | translate}}"
                        id="address"
                        ng-model="place"
                        type="text"
@@ -95,33 +95,33 @@
                 </div>
             </div>
             <div class="form-group">
-                <b>Коментар</b>
+                <b>{{'shopView.comment' | translate}}</b>
                     <textarea class="md-textarea"
                               id="comment"
-                              placeholder="Будь-які зауваження та пропозиції залишайте тут"
+                              placeholder="{{'shopView.commentPlaceholder' | translate}}"
                               ng-model="comment">
                     </textarea>
             </div>
             <div class="form-group" ng-show="couponsEnabled">
-                <b>Купон</b>
+                <b>{{'shopView.coupon' | translate}}</b>
                 <input class="form-control validate"
                        ng-model="couponId"
                        id="couponId"
-                       placeholder="Введіть купон на знижку"
+                       placeholder="{{'shopView.couponPlaceholder' | translate}}"
                        type="text"
                 />
-                <p ng-class="{ 'font-weight-bold' : couponPlan.minimalOrderTotal === currentPlan }" class="text-xs-center" ng-repeat="couponPlan in couponPlans">{{couponPlan.minimalOrderTotal}} грн - {{couponPlan.percentDiscount}}%<br></p>
-                <p>{{discountError}}</p>
-                <button type="button" class="btn btn-secondary waves-effect btn-block" ng-click="applyCoupon(couponId)">Застосувати купон</button>
+                <p ng-class="{ 'font-weight-bold' : couponPlan.minimalOrderTotal === currentPlan }" class="text-xs-center" ng-repeat="couponPlan in couponPlans">{{couponPlan.minimalOrderTotal}} {{'shopView.currency' | translate}} - {{couponPlan.percentDiscount}}%<br></p>
+                <p ng-hide="isCouponValid">{{'shopView.couponError' | translate}}</p>
+                <button type="button" class="btn btn-secondary waves-effect btn-block" ng-click="applyCoupon(couponId)">{{'shopView.couponApply' | translate}}</button>
             </div>
         </form>
         <div class="row vcentering" delivery-cost>
             <div class="col-xs-7">
-                <h4 class="modal-total pull-left"><strong>{{total + delivery()}} грн</strong></h4>
+                <h4 class="modal-total pull-left"><strong>{{total + delivery()}} {{'shopView.currency' | translate}}</strong></h4>
             </div>
             <div id="payButton" class="proceedWithPayment"></div>
             <div class="col-xs-5" ng-hide="successfullResponse">
-                <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-hide="loading" form="orderForm">До Оплати </button>
+                <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-hide="loading" form="orderForm">{{'shopView.proceedWithPayment' | translate}} </button>
                 <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
             </div>
         </div>

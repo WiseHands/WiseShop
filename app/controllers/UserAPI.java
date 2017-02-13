@@ -34,6 +34,8 @@ public class UserAPI extends AuthController {
         if (isValidEmailAddress(email)) {
             //GOOGLE SIGN IN
             UserDTO user = UserDTO.find("byEmail", email).first();
+            UserDTO userByPhone = UserDTO.find("byPhone", phone).first();
+
             if (user != null) {
                 user.phone = phone;
             } else if (user == null) {

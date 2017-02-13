@@ -1,7 +1,15 @@
 (function () {
     angular.module('WiseShop', [
-            'ngRoute', 'angularSpinners', 'google.places'
+            'ngRoute', 'angularSpinners', 'google.places', 'pascalprecht.translate', 'tmh.dynamicLocale',
+            'ngCookies', 'ngSanitize'
         ])
+            .constant('LOCALES', {
+                'locales': {
+                    'uk_UA': 'Українська',
+                    'en_US': 'English'
+                },
+                'preferredLocale': 'en_US'
+            })
         .config(['$routeProvider', '$locationProvider',
             function ($routeProvider, $locationProvider) {
 
@@ -62,5 +70,23 @@
                   }
                   return null;
                 }
+            }])
+        .config(
+            ['$translateProvider', function ($translateProvider) {
+                $translateProvider.useMissingTranslationHandlerLog();
+                $translateProvider.useStaticFilesLoader({
+                    prefix: 'wisehands/shop/resources/locale-',
+                    suffix: '.json'
+                });
+                var html = document.getElementsByTagName('html')[0];
+                var localization = html.lang;
+                localStorage.setItem('locale', localization);
+                $translateProvider.preferredLanguage(localization);
+                $translateProvider.useSanitizeValueStrategy('escape');
+                $translateProvider.use(localization);
+            }])
+        .config(
+            ['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
+                tmhDynamicLocaleProvider.localeLocationPattern('wisehands/assets/angular-i18n/angular-locale_{{locale}}.js');
             }])
 })();

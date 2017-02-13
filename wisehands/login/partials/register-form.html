@@ -11,7 +11,14 @@
             <div class="row">
                 <div class="column">
                     <label>PHONE NUMBER </label>
-                    <input id="phonenumber" class="full-width" type="tel" placeholder="Phone number" ng-model="phone" required>
+                    <input id="phonenumber"
+                           class="full-width"
+                           type="tel"
+                           placeholder="Phone number"
+                           ng-model="phone"
+                           pattern="^380[0-9]{9,9}$"
+                           ng-value="+380"
+                           required>
                 </div>
             </div>
             <div class="row">
@@ -45,7 +52,7 @@
                 </div>
             </div>
             <br/>
-            <button class="button-submit full-width buttonStyling" type="submit">SIGN IN</button>
+            <button class="button-submit full-width buttonStyling" type="submit">SIGN UP</button>
         </form>
     </div>
 </div>

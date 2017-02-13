@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -47,7 +47,7 @@
         <!-- Side navigation links -->
         <li>
             <ul class="collapsible collapsible-accordion">
-                <li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">Головна</a>
+                <li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">{{'sideNav.Main' | translate}}</a>
                 </li>
                 <li ng-repeat="category in categories" ng-hide="turnedOffProducts(category)">
                     <a href="#!/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
@@ -70,7 +70,14 @@
     <script defer src="wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
     <script defer src="wisehands/assets/mdb_shop/js/mdb.min.js"></script>
 
-
+    <script defer src="wisehands/assets/angular-cookies/angular-cookies.js"></script>
+    <script defer src="wisehands/assets/angular-sanitize/angular-sanitize.js"></script>
+    <script defer src="wisehands/assets/angular-translate/angular-translate.js"></script>
+    <script defer src="wisehands/assets/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script defer src="wisehands/assets/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+    <script defer src="wisehands/assets/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+    <script defer src="wisehands/assets/angular-translate-handler-log/angular-translate-handler-log.js"></script>
+    <script defer src="wisehands/assets/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
 
     <script defer src="wisehands/shop/js/routes/routeConfig.js"></script>
 
@@ -87,6 +94,7 @@
     <script defer src="wisehands/shop/js/services/SharedDataService.js"></script>
     <script defer src="wisehands/shop/js/services/SideNavInitService.js"></script>
     <script defer src="wisehands/shop/js/services/PublicShopInfoService.js"></script>
+    <script defer src="wisehands/shop/js/services/LocaleService.js"></script>
 
     <script defer src="wisehands/shop/js/directives/shopStyling.js"></script>
     <script defer src="wisehands/shop/js/directives/deliveryCost.js"></script>

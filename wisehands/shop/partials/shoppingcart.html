@@ -5,7 +5,7 @@
                 <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
             </li>
         </ul>
-        <h4 class="text-xs-center col-xs-8" style="color: {{shopStyling.navbarTextColor}}"><b>Ваш кошик</b></h4>
+        <h4 class="text-xs-center col-xs-8" style="color: {{shopStyling.navbarTextColor}}"><b>{{'shopView.cart' | translate}}</b></h4>
     </nav>
 </header>
 <main class="p-t-6 noSidePadding">
@@ -13,8 +13,8 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th class="headerCentering">Назва товару</th>
-                <th class="headerCentering">Ціна</th>
+                <th class="headerCentering">{{'shopView.productName' | translate}}</th>
+                <th class="headerCentering">{{'shopView.price' | translate}}</th>
                 <th ng-click="removeAll()"><a><i class="fa fa-remove center-block removeAllRedIcon"></i></a></th>
             </tr>
             </thead>
@@ -28,14 +28,14 @@
                             type="number"
                             ng-model="item.quantity"
                             ng-change="reCalculateTotal()"
-                            min="1"> шт.
+                            min="1"> {{'shopView.pieces' | translate}}.
                     </input>
                 </td>
                 <td ng-click="removeSelectedItem($index)"><a><i class="fa fa-remove center-block"></i></a></td>
             </tr>
             <tr class="total">
-                <td><i>Разом</i></td>
-                <td class="text-xs-center"><b>{{total}}</b> ₴</td>
+                <td><i>{{'shopView.total' | translate}}</i></td>
+                <td class="text-xs-center"><b>{{total}}</b> {{'shopView.currency' | translate}}</td>
             </tr>
             </tbody>
         </table>
@@ -44,7 +44,7 @@
            ng-show="selectedItems.length !== 0"
            ng-click="reCalculateTotal()"
                 >
-            Замовити
+            {{'shopView.order' | translate}}
         </a>
     </div>
 </main>

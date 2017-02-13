@@ -2,10 +2,10 @@
     angular.module('WiseShop')
         .controller('OrderFormController', ['$scope', '$http', 'shared',
             function($scope, $http, shared) {
-                $scope.phone = localStorage.getItem('phone');
-                $scope.name = localStorage.getItem('name');
-                $scope.place = localStorage.getItem('address');
-                $scope.newPostDelivery = localStorage.getItem('newPostDelivery');
+                $scope.phone = localStorage.getItem('phone') || '';
+                $scope.name = localStorage.getItem('name') || '';
+                $scope.place = localStorage.getItem('address') || '';
+                $scope.newPostDelivery = localStorage.getItem('newPostDelivery') || '';
 
                 function loadOptions() {
                     $scope.selectedItems = shared.getSelectedItems();
@@ -86,7 +86,7 @@
                             console.log(data);
                         });
                 };
-
+                $scope.isCouponValid = true;
                 $scope.applyCoupon = function (couponId) {
                     $scope.loading = true;
                     $http({
@@ -94,6 +94,7 @@
                         url: '/coupon/' + couponId
                     })
                         .then(function successCallback(response) {
+                            $scope.isCouponValid = true;
                             $scope.couponPlans = response.data;
                             var discountTotalMatch = [];
                             $scope.couponPlans.forEach(function (couponPlan) {
@@ -111,7 +112,7 @@
                             $scope.discountError = '';
                             $scope.loading = false;
                         }, function errorCallback(data) {
-                            $scope.discountError = 'Такий купон вже використаний або його не існує';
+                            $scope.isCouponValid = false;
                             $scope.loading = false;
                             console.log(data);
                         });
