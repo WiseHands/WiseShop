@@ -1,7 +1,15 @@
 (function () {
     angular.module('WiseHandsMain', [
-            'ngRoute'
+            'ngRoute', 'pascalprecht.translate', 'tmh.dynamicLocale',
+            'ngCookies', 'ngSanitize'
         ])
+        .constant('LOCALES', {
+            'locales': {
+                'uk_UA': 'Українська',
+                'en_US': 'English'
+            },
+            'preferredLocale': 'en_US'
+        })
         .config(['$routeProvider',
             function ($routeProvider) {
 
@@ -30,4 +38,20 @@
                     redirectTo:'/'
                 });
             }])
+        .config([
+            '$translateProvider','LOCALES', function ($translateProvider, LOCALES) {
+                $translateProvider.useMissingTranslationHandlerLog();
+
+            $translateProvider.useStaticFilesLoader({
+                prefix: 'wisehands/login/resources/locale-',
+                suffix: '.json'
+            });
+            $translateProvider.useSanitizeValueStrategy('escape');
+            $translateProvider.preferredLanguage(LOCALES.preferredLocale);
+            $translateProvider.useLocalStorage();
+        }])
+        .config(
+            ['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
+            tmhDynamicLocaleProvider.localeLocationPattern('wisehands/assets/angular-i18n/angular-locale_{{locale}}.js');
+        }]);
 })();

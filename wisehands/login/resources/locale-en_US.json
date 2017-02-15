@@ -1,0 +1,22 @@
+{
+  "main.create": "Create your own web-store in 2 minutes!",
+  "main.googleSignIn": "SIGN IN WITH GOOGLE",
+  "main.clickHere": "Click here to use email/password or register new account",
+  "main.chooseShop": "Choose proper web-store",
+  "main.about": "About Us",
+  "main.description": "Platform for web-store creation and management. Receive your payments online directly to your account. Share access between multiple users.",
+  "main.address": "ADDRESS",
+  "main.address2": "Lviv, Virmens'ka st., 15",
+  "main.phone": "PHONE",
+  "main.register": "REGISTER",
+  "main.login": "LOG IN",
+  "main.password": "PASSWORD",
+  "main.name": "FULL NAME",
+  "main.confirm": "CONFIRM YOUR PASSWORD",
+  "main.shopname": "SHOP NAME",
+  "main.domain": "YOUR DOMAIN",
+  "main.domainTips": "No spaces and lower case",
+  "main.domainTips2": "Your store will be available at the given address",
+  "main.signUp": "SIGN UP",
+  "directives.language-select.Language": "Language"
+}

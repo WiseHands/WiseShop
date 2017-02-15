@@ -11,17 +11,17 @@
                 </div>
                 <div class="row">
                     <div class="column">
-                        <label>PASSWORD </label>
+                        <label>{{'main.password' | translate}} </label>
                         <input id="password" class="full-width" type="password" placeholder="Password" ng-model="password" required>
                     </div>
                 </div>
                 <br/>
-                <button class="button-submit full-width buttonStyling" type="submit">LOG IN</button>
+                <button class="button-submit full-width buttonStyling" type="submit">{{'main.login' | translate}}</button>
                 <p class="deniedMsg" ng-show="deniedMsg" ng-cloak>{{accessDeniedMessage}}</p>
 
             </div>
             <div class="row">
-                <a href="#" class="forgot" ng-show="showShopList">Choose proper web-store</a>
+                <a href="#" class="forgot" ng-show="showShopList">{{'main.chooseShop' | translate}}</a>
             </div>
             <div ng-repeat="shop in user.shopList">
                 <button class="button-submit full-width buttonStyling" ng-click="properShop(shop)">{{shop.shopName}}</button>
