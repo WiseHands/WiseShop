@@ -10,7 +10,7 @@
                     phone: $scope.phone,
                     shopName: $scope.shopName,
                     passwordConfirmation: $scope.password,
-                    clientDomain: $scope.domain
+                    clientDomain: $scope.domain + '.' + document.domain
                 };
 
                 var encodedParams = encodeQueryData(params);

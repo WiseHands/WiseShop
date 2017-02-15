@@ -48,7 +48,10 @@
             <div class="row">
                 <div class="column">
                     <label>YOUR DOMAIN </label>
-                    <input id="domain" class="full-width" type="text" placeholder="Your domain" ng-model="domain" required>
+                    <p>No spaces and lower case</p>
+                    <input id="domain" class="full-width" type="text" placeholder="Your domain" ng-model="domain" pattern="^\S*$" required>
+                    <p>Your store will be available at the given address:</p>
+                    <p ng-show="domain">http://{{domain}}.wisehands.me</p>
                 </div>
             </div>
             <br/>
