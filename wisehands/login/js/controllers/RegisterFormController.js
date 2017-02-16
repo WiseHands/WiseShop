@@ -1,11 +1,12 @@
     angular.module('WiseHandsMain')
         .controller('RegisterFormController', ['$scope', '$http', 'userService', function($scope, $http, userService) {
             $scope.user = userService.user;
-
+            $scope.locale = localStorage.getItem('NG_TRANSLATE_LANG_KEY');
             $scope.signIn = function (){
                 var params = {
                     name: $scope.user.name,
                     email: $scope.user.email,
+                    language: $scope.locale,
                     password: $scope.password,
                     phone: $scope.phone,
                     shopName: $scope.shopName,

@@ -19,13 +19,13 @@
                     .then(function successCallback(response) {
                         spinnerService.hide('mySpinner');
                         var data = response.data;
-                        var isAllOrdersDeleted = true;
+                        $scope.isAllOrdersDeleted = true;
                         data.forEach(function(order){
                             if (order.state !== 'DELETED') {
-                                isAllOrdersDeleted = false;
+                                $scope.isAllOrdersDeleted = false;
                             }
                         });
-                        if(data.length === 0 || isAllOrdersDeleted) {
+                        if(data.length === 0 || $scope.isAllOrdersDeleted) {
                             $scope.status = 'Замовлення відсутні';
                         } else {
                             $scope.orders = response.data;

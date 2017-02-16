@@ -29,8 +29,8 @@ public class UserAPI extends AuthController {
 
 
     public static void register(String email, String password, String passwordConfirmation,
-                                String shopName, String name, String publicLiqPayKey,
-                                String privateLiqPayKey, String clientDomain, String phone) throws Exception {
+                                String shopName, String name, String language,
+                                String clientDomain, String phone) throws Exception {
         if (isValidEmailAddress(email)) {
             //GOOGLE SIGN IN
             UserDTO user = UserDTO.find("byEmail", email).first();
@@ -57,7 +57,7 @@ public class UserAPI extends AuthController {
             );
             delivery.save();
 
-            ContactDTO contact = new ContactDTO(user.phone, user.email, "Lviv", "25,67:48.54", "Best Company Ever");
+            ContactDTO contact = new ContactDTO(user.phone, user.email, "Lviv", "25.67:48.54", "Best Company Ever");
             contact.save();
 
             List<UserDTO> users = new ArrayList<UserDTO>();
@@ -73,7 +73,7 @@ public class UserAPI extends AuthController {
             SidebarColorScheme color = (SidebarColorScheme) SidebarColorScheme.findAll().get(0);
             visualSettings.sidebarColorScheme = color;
 
-            ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, shopName, publicLiqPayKey, privateLiqPayKey, clientDomain, "en_US");
+            ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, shopName, "", "", clientDomain, language);
             shop.save();
 
             response.setHeader(X_AUTH_TOKEN, user.token);

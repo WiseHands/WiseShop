@@ -49,7 +49,7 @@
                 <div class="column">
                     <label>{{'main.domain' | translate}} </label>
                     <p>{{'main.domainTips' | translate}}</p>
-                    <input id="domain" class="full-width" type="text" placeholder="{{'main.domain' | translate}}" ng-model="domain" pattern="^\S*$" required>
+                    <input id="domain" class="full-width" type="text" placeholder="{{'main.domain' | translate}}" ng-model="domain" pattern="^[a-z0-9-]+$" required>
                     <p ng-show="domain">{{'main.domainTips2' | translate}}:</p>
                     <p ng-show="domain">http://{{domain}}.wisehands.me</p>
                 </div>
