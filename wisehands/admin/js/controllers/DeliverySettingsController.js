@@ -18,7 +18,6 @@ angular.module('WiseHands')
                     signout.signOut();
                 }
                 $scope.loading = false;
-                $scope.status = 'Щось пішло не так...';
             });
         $scope.setDeliveryOptions = function () {
             $scope.loading = true;

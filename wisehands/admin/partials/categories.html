@@ -16,7 +16,7 @@
 </nav>
 
 <div class="container-fluid noSidePadding">
-    <h4 class="text-center"><i>{{status}}</i></h4>
+    <h4 ng-show="categories.length === 0" class="text-center"><i>{{'categories.noCategory' | translate}}</i></h4>
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>

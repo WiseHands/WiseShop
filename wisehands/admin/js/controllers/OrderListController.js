@@ -11,31 +11,26 @@
                 },
                 data: {}
             };
-
+            $scope.wrongMessage = false;
             $scope.getResource = function () {
                 spinnerService.show('mySpinner');
 
                 $http(req)
                     .then(function successCallback(response) {
+                        $scope.orders = response.data;
                         spinnerService.hide('mySpinner');
-                        var data = response.data;
                         $scope.isAllOrdersDeleted = true;
-                        data.forEach(function(order){
+                        $scope.orders.forEach(function(order){
                             if (order.state !== 'DELETED') {
                                 $scope.isAllOrdersDeleted = false;
                             }
                         });
-                        if(data.length === 0 || $scope.isAllOrdersDeleted) {
-                            $scope.status = 'Замовлення відсутні';
-                        } else {
-                            $scope.orders = response.data;
-                        }
                     }, function errorCallback(response) {
                         if (response.data === 'Invalid X-AUTH-TOKEN') {
                             signout.signOut();
                         }
                         spinnerService.hide('mySpinner');
-                        $scope.status = 'Щось пішло не так...';
+                        $scope.wrongMessage = true;
                     });
             };
 
@@ -57,7 +52,7 @@
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();
                     }
-                    $scope.status = 'Щось пішло не так...';
+                    $scope.wrongMessage = true;
                 });
 
             $scope.refreshOrders = function() {
@@ -69,19 +64,21 @@
                         .then(function successCallback(response) {
                             spinnerService.hide('mySpinner');
                             resolve();
-                            var data = response.data;
-                            if(data.length === 0) {
-                                $scope.status = 'Замовлення відсутні';
-                            } else {
-                                $scope.orders = response.data;
-                            }
+                            $scope.orders = response.data;
+                            spinnerService.hide('mySpinner');
+                            $scope.isAllOrdersDeleted = true;
+                            $scope.orders.forEach(function(order){
+                                if (order.state !== 'DELETED') {
+                                    $scope.isAllOrdersDeleted = false;
+                                }
+                            });
                         }, function errorCallback(response) {
                             if (response.data === 'Invalid X-AUTH-TOKEN') {
                                 reject();
                                 signout.signOut();
                             }
                             spinnerService.hide('mySpinner');
-                            $scope.status = 'Щось пішло не так...';
+                            $scope.wrongMessage = true;
                         });
                 } );
             };

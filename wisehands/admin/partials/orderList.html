@@ -81,14 +81,15 @@
      </div>
     </div>
 </nav>
-<div class="container-fluid noSidePadding">
+<div class="container-fluid noSidePadding topOrdersPadding">
     <!--<div class="container-fluid topMarginBalanceWarning" ng-show="balanceWarning">-->
         <!--<a href="#/settings"><div class="panel panel-danger hoverable">-->
             <!--<div class="panel-heading">У Вас від'ємний рахунок! Поповніть його, будь ласка!</div>-->
             <!--<div class="panel-body noAnchorStyle">На даний момент Ваш рахунок рівний: {{balance.balance | number:2}} грн!</div>-->
         <!--</div></a>-->
     <!--</div>-->
-    <h4 class="text-center"><i>{{status}}</i></h4>
+    <h4 ng-show="orders.length === 0 || isAllOrdersDeleted" class="text-center"><i>{{'orderList.noOrders' | translate}}</i></h4>
+    <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
     <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0" ng-class="{noMatchesMargin: (orders | filter:orderFilter).length == 0 && orders.length != 0}">
          <i>{{'orderList.NoFilterMatches' | translate}}</i>
      </h4>

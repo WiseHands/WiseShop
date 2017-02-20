@@ -42,7 +42,6 @@ angular.module('WiseHands')
                 if ($scope.requestQueue === 0) {
                     $scope.loading = false;
                 }
-                $scope.status = 'Щось пішло не так...';
             });
 
         $scope.requestQueue += 1;
@@ -68,7 +67,6 @@ angular.module('WiseHands')
                 if ($scope.requestQueue === 0) {
                     $scope.loading = false;
                 }
-                $scope.status = 'Щось пішло не так...';
             });
 
         $http({
@@ -85,7 +83,6 @@ angular.module('WiseHands')
                 if (response.data === 'Invalid X-AUTH-TOKEN') {
                     signout.signOut();
                 }
-                $scope.status = 'Щось пішло не так...';
             });
 
         $scope.shopSelected = function (shop) {

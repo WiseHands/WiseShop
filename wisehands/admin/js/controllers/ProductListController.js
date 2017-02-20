@@ -1,6 +1,7 @@
 angular.module('WiseHands')
     .controller('ProductListController', ['$scope', '$http', 'spinnerService', 'sideNavInit', 'signout', function ($scope, $http, spinnerService, sideNavInit, signout) {
 
+        $scope.wrongMessage = false;
         $scope.getResource = function () {
             spinnerService.show('mySpinner');
         $http({
@@ -8,18 +9,12 @@ angular.module('WiseHands')
             url: '/products'
         })
             .then(function successCallback(response) {
-
                 spinnerService.hide('mySpinner');
-                var data = response.data;
-                if(data.length === 0) {
-                    $scope.status = 'Товари відсутні';
-                } else {
-                    $scope.products = response.data;
-                    $scope.activeShop = localStorage.getItem('activeShop');
-                }
+                $scope.products = response.data;
+                $scope.activeShop = localStorage.getItem('activeShop');
             }, function errorCallback(data) {
                 spinnerService.hide('mySpinner');
-                $scope.status = 'Щось пішло не так...';
+                $scope.wrongMessage = true;
             });
         };
 

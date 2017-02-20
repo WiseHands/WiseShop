@@ -15,7 +15,6 @@ angular.module('WiseHands')
                 $scope.users = response.data;
             }, function errorCallback(data) {
                 $scope.loading = false;
-                $scope.status = 'Щось пішло не так...';
             });
 
         $scope.hideCreateUserModal = function () {

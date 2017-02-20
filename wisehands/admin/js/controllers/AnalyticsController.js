@@ -98,7 +98,6 @@ angular.module('WiseHands')
                         if (response.data === 'Invalid X-AUTH-TOKEN') {
                             signout.signOut();
                         }
-                        $scope.status = 'Щось пішло не так...';
                         $scope.loading = false;
                     });
 

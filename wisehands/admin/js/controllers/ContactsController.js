@@ -11,7 +11,6 @@ angular.module('WiseHands')
                 $scope.contacts = response.data;
             }, function errorCallback(data) {
                 $scope.loading = false;
-                $scope.status = 'Щось пішло не так...';
             });
         $scope.updateContacts = function () {
             $scope.loading = true;

@@ -95,7 +95,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="col-xs-12 text-center">
-                    <p><i>{{deleteMessage}}</i></p>
+                    <p ng-show="deleteButton"><i>{{'productDetails.deleteMessage1' | translate}}</i></p>
+                    <p ng-show="succesfullDelete"><i>{{'productDetails.deleteMessage2' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>

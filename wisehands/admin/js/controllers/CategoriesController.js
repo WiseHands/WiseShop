@@ -7,10 +7,6 @@ angular.module('WiseHands')
             url: '/category'
         })
             .then(function successCallback(response) {
-                var data = response.data;
-                if(data.length === 0){
-                    $scope.status = 'Категорії відсутні';
-                }
                 $scope.categories = response.data;
                 $scope.loading = false;
             }, function errorCallback(error) {
