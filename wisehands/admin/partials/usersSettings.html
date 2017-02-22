@@ -33,7 +33,7 @@
             </div>
             <div class="card-content cardMinHeight">
                 <h5 class="truncate">{{getUserName(user)}}</h5>
-                <h5 class="truncate">{{user.email}}</h5>
+                <h5 class="truncate">{{user.email || user.phone}}</h5>
                 <a class="btn btn-border-danger waves-effect" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteUser" ng-click="activeUser($index)" ng-disabled="noDeleteForActiveUser($index)">{{'productDetails.delete' | translate}}</a>
             </div>
         </div>
@@ -72,14 +72,22 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <form class="col-md-12" name="createNewUserForm">
-                        <div class="input-field">
-                            <input id="newUserEmail" type="email" class="validate" ng-change="isNewUserEmailValid()" ng-model="newUser.email" required>
-                            <label for="newUserEmail">E-mail</label>
+                    <form class="col-md-12" name="createNewUserForm" ng-submit="createNewUser()">
+                        <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="gmail" />
+                            <label for="filled-in-box">{{'user.gmail' | translate}}</label>
+                        </p>
+                        <div ng-show="gmail" class="input-field">
+                            <input name="gmail" id="newUserEmail" type="email" class="validate" ng-model="newUser.email" ng-required="gmail">
+                            <label for="newUserEmail">Gmail</label>
                         </div>
-                        <p ng-hide="!newUserEmailValid">{{'users.newUserExist' | translate}}</p>
+                        <div ng-hide="gmail" class="input-field">
+                            <input name="phone" id="newUserPhone" type="tel" class="validate" ng-model="newUser.phone" pattern="^380[0-9]{9,9}$" ng-required="!gmail">
+                            <label for="newUserPhone">{{'contacts.phone' | translate}}(+380xxxxxxxxx)</label>
+                        </div>
+                        <p class="redError" ng-hide="!userError">{{userError}}</p>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewUser()" ng-disabled="createNewUserForm.$invalid || newUserEmailValid">{{'categories.create' | translate}}</button>
+                            <button type="submit" class="btn btn-success waves-effect waves-light">{{'categories.create' | translate}}</button>
                         </div>
                     </form>
                 </div>

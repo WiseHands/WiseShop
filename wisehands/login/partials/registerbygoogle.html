@@ -1,8 +1,14 @@
 <div class="row">
     <div class="container">
         <a href="#/emailsignin"><h2 class="title title-hover">Wise Hands</h2></a>
-        <form ng-hide="smscodeVerified" class="form-signin" name="verifyPhoneForm" ng-submit="verifyPhone(phone)">
-            <div ng-hide="smsVerified" class="row">
+        <form class="form-signin" name="loginForm" ng-submit="signIn()">
+            <div class="row">
+                <div class="column">
+                    <label>{{'main.name' | translate}} </label>
+                    <input id="name" class="full-width" type="text" placeholder="{{'main.name' | translate}}" ng-model="user.name" required>
+                </div>
+            </div>
+            <div class="row">
                 <div class="column">
                     <label>{{'main.phone' | translate}} </label>
                     <input id="phonenumber"
@@ -13,28 +19,6 @@
                            pattern="^380[0-9]{9,9}$"
                            ng-value="+380"
                            required>
-                </div>
-            </div>
-            <p class="deniedMsg" ng-show="error">{{error}}</p>
-            <button ng-hide="smsVerified" class="button-submit full-width buttonStyling" type="submit">{{'main.verify' | translate}}</button>
-            <div ng-show="smsVerified" class="row">
-                <div class="column">
-                    <label>{{'main.smsСode' | translate}} </label>
-                    <input class="full-width"
-                           type="number"
-                           placeholder="{{'main.smscodePlaceholder' | translate}}"
-                           ng-model="smsCode"
-                           >
-                </div>
-                <p class="deniedMsg" ng-show="codeError">{{codeError}}</p>
-                <button class="button-submit full-width buttonStyling" ng-click="verifySmsCode(smsCode, $event)">{{'main.enterCode' | translate}}</button>
-            </div>
-        </form>
-        <form ng-show="smscodeVerified" class="form-signin" name="loginForm" ng-submit="signIn()">
-            <div class="row">
-                <div class="column">
-                    <label>{{'main.name' | translate}} </label>
-                    <input id="name" class="full-width" type="text" placeholder="{{'main.name' | translate}}" ng-model="user.name" required>
                 </div>
             </div>
             <div class="row">
@@ -71,8 +55,7 @@
                 </div>
             </div>
             <br/>
-            <p class="deniedMsg" ng-show="regError">{{regError}}</p>
-            <p class="deniedMsg" ng-show="passError">{{'main.passError' | translate}}</p>
+            <p class="deniedMsg">{{error}}</p>
             <button class="button-submit full-width buttonStyling" type="submit">{{'main.signUp' | translate}}</button>
         </form>
     </div>

@@ -34,6 +34,10 @@
                     templateUrl:'wisehands/login/partials/about.html',
                     controller:'AboutUsController',
                 }).
+                when('/registerbygoogle',{
+                    templateUrl:'wisehands/login/partials/registerbygoogle.html',
+                    controller:'GoogleRegisterController',
+                }).
                 otherwise({
                     redirectTo:'/'
                 });

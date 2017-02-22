@@ -37,31 +37,37 @@ angular.module('WiseHands')
                 return 'No Name';
             }
         };
-        $scope.isNewUserEmailValid = function () {
-            $scope.newUserEmailValid = false;
-            $scope.users.forEach(function (user, key, array) {
-                $scope.newUserEmailErrorMessage = '';
-                if ($scope.newUser.email === user.email) {
-                    $scope.newUserEmailValid = true;
-                }
-            });
-        };
+        // $scope.isNewUserEmailValid = function () {
+        //     $scope.newUserEmailValid = false;
+        //     $scope.users.forEach(function (user, key, array) {
+        //         $scope.newUserEmailErrorMessage = '';
+        //         if ($scope.newUser.email === user.email) {
+        //             $scope.newUserEmailValid = true;
+        //         }
+        //     });
+        // };
         $scope.createNewUser = function () {
             $scope.loading = true;
+            var email = $scope.newUser.email || '';
+            var phone = $scope.newUser.phone || '';
             $http({
                 method: 'POST',
-                url: '/shop/user?email=' + $scope.newUser.email,
+                url: '/shop/user?email=' + email + '&phone=' + phone,
                 headers: {
                     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
                     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
                 }
             })
                 .then(function successCallback(response) {
+                    $scope.userError = '';
                     $scope.newUser.email = '';
+                    $scope.newUser.phone = '';
                     $scope.loading = false;
                     $scope.users.push(response.data);
                     $scope.hideCreateUserModal();
                 }, function errorCallback(response) {
+                    debugger;
+                    $scope.userError = response.data;
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();
                     }
@@ -73,7 +79,8 @@ angular.module('WiseHands')
 
 
         $scope.activeUser = function (index){
-            $scope.userIndex = $scope.users[index].email;
+            $scope.userEmail = $scope.users[index].email || '';
+            $scope.userPhone = $scope.users[index].phone || '';
             $scope.spliceIndex = index;
         };
         var currentUser = localStorage.getItem('X-AUTH-USER-ID');
@@ -97,7 +104,7 @@ angular.module('WiseHands')
             $scope.modalSpinner = true;
             $http({
                 method: 'DELETE',
-                url: '/shop/user?email=' + $scope.userIndex,
+                url: '/shop/user?email=' + $scope.userEmail + '&phone=' + $scope.userPhone,
                 headers: {
                     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
                     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')

@@ -1,7 +1,7 @@
 {
   "main.create": "Create your own web-store in 2 minutes!",
   "main.googleSignIn": "SIGN IN WITH GOOGLE",
-  "main.clickHere": "Click here to use email/password or register new account",
+  "main.clickHere": "Click here to use phone/password or register new account",
   "main.chooseShop": "Choose proper web-store",
   "main.about": "About Us",
   "main.description": "Platform for web-store creation and management. Receive your payments online directly to your account. Share access between multiple users.",
@@ -18,5 +18,10 @@
   "main.domainTips": "No spaces and lower case",
   "main.domainTips2": "Your store will be available at the given address",
   "main.signUp": "SIGN UP",
+  "main.verify": "VERIFY",
+  "main.smscodePlaceholder": "Your verification code",
+  "main.enterCode": "Enter code",
+  "main.smsСode": "VERIFICATION CODE",
+  "main.passError": "Password Missmatch",
   "directives.language-select.Language": "Language"
 }

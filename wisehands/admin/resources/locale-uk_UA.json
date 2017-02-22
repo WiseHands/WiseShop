@@ -120,5 +120,8 @@
   "settings.addLogo": "Додати логотип",
   "settings.removeLogo": "Видалити логотип",
   "settings.cart": "Кошик",
+  "settings.domainTips": "Без пробілів малими буквами",
+  "settings.domainTips2": "Ваш магазин буде доступним за адресою",
+  "user.gmail": "Я хочу використати Gmail акаунт",
   "directives.language-select.Language": "Мова"
 }

@@ -95,10 +95,15 @@ angular.module('WiseHands')
         $scope.createNewStore = function () {
 
             $scope.loading = true;
-
+            var isDevEnv = document.domain.indexOf('localhost') != -1;
+            if (isDevEnv){
+                var domain = 'localhost';
+            } else {
+                domain = 'wisehands.me';
+            }
             var params = {
                 name: $scope.newStore.name,
-                domain: angular.lowercase($scope.newStore.domain)
+                domain:$scope.newStore.domain + '.' + domain
             };
 
             var encodedParams = encodeQueryData(params);
@@ -114,8 +119,9 @@ angular.module('WiseHands')
                 .success(function (data) {
                     $scope.loading = false;
                     $scope.shops.push(data);
+                    debugger;
                     window.location.href = window.location.protocol + "//"
-                        + $scope.newStore.domain + ":" + window.location.port
+                        + data.domain + ":" + window.location.port
                         + "/admin"
                         + '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token;
                 }).

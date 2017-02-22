@@ -371,3 +371,6 @@ label.whiteCheckBox::after {
 .topOrdersPadding {
     padding-top: 2em;
 }
+.redError {
+    color: red;
+}

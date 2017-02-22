@@ -2,7 +2,7 @@
         .controller('LoginFormController', ['$scope', '$http', 'userService', function($scope, $http, userService) {
             $scope.logIn = function (){
                 var params = {
-                    email: $scope.email,
+                    phone: $scope.phone,
                     password: $scope.password
                 };
 
@@ -78,7 +78,7 @@
 					$scope.showShopList = true;
 					$scope.user = data;
 				} if (!data.shopList || data.shopList.length === 0) {
-                    window.location = '#/register';
+                    window.location = '#/registerbygoogle';
                     data.isGoogleSignIn = true;
                     userService.user = data;
                 }
