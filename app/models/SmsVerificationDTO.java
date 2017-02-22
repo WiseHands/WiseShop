@@ -5,8 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class SmsVerificationDTO extends GenericModel {
@@ -18,24 +16,9 @@ public class SmsVerificationDTO extends GenericModel {
     public String uuid;
 
     @Expose
-    public double balance;
+    public Integer code;
 
     @Expose
-    @OneToMany(cascade=CascadeType.ALL)
-    List<BalanceTransactionDTO> balanceTransactions;
-
-    @OneToOne(cascade=CascadeType.ALL)
-    public ShopDTO shop;
-
-    public SmsVerificationDTO() {
-        if(balanceTransactions == null) {
-            balanceTransactions = new ArrayList<BalanceTransactionDTO>();
-        }
-    }
-
-    public void addTransaction(BalanceTransactionDTO tx) {
-        this.balanceTransactions.add(tx);
-    }
-
+    public String phoneNumber;
 
 }

@@ -49,20 +49,20 @@ public class GenerateVisualSettings extends Job {
         }
 
             List<ShopDTO> allShops = ShopDTO.findAll();
-            for (ShopDTO shop: allShops){
-                if(shop.visualSettingsDTO == null){
-                    VisualSettingsDTO visualSettings = new VisualSettingsDTO();
-                    visualSettings.navbarTextColor = "#fff";
-                    visualSettings.navbarColor = "#003830";
-                    visualSettings.navbarShopItemsColor = "#F44336";
+        for (int i=0; i<allShops.size(); i++) {
+            ShopDTO shop = allShops.get(i);
+            if(shop.visualSettingsDTO == null){
+                VisualSettingsDTO visualSettings = new VisualSettingsDTO();
+                visualSettings.navbarTextColor = "#fff";
+                visualSettings.navbarColor = "#003830";
+                visualSettings.navbarShopItemsColor = "#F44336";
 
-                    shop.visualSettingsDTO = visualSettings;
-                    shop.visualSettingsDTO.sidebarColorScheme = color;
-                    shop.visualSettingsDTO.save();
-                    shop.save();
-                }
+                shop.visualSettingsDTO = visualSettings;
+                shop.visualSettingsDTO.sidebarColorScheme = color;
+                shop.visualSettingsDTO.save();
+                shop.save();
             }
-
+        }
 
     }
 

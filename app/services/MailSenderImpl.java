@@ -5,6 +5,7 @@ import models.ShopDTO;
 import models.UserDTO;
 import org.apache.commons.mail.SimpleEmail;
 import play.Play;
+import play.i18n.Messages;
 import play.libs.Mail;
 
 public class MailSenderImpl implements MailSender {
@@ -36,8 +37,12 @@ public class MailSenderImpl implements MailSender {
             email.setCharset("UTF-16");
             email.setFrom("noreply@" + shop.domain);
             email.addTo(user.email);
-            email.setSubject(shop.shopName + ". Вас було додано в адмін панелі магазину");
-            email.setMsg("Вітаємо, \n" + ". Вас було додано в адмін панелі магазину\n " + loginUrl);
+
+            String title = Messages.get("user.added.to.shop.email.title", shop.shopName);
+            email.setSubject(title);
+            String msg = Messages.get("user.added.to.shop.email", shop.shopName);
+            email.setMsg(msg);
+
             Mail.send(email);
         }
     }

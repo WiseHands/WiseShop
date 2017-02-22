@@ -44,17 +44,17 @@ public class HappyBagSetup extends Job {
 
 
         List<UserDTO> users = new ArrayList<UserDTO>();
-        UserDTO user = new UserDTO(BOGDAN, PASSWORD, "380630386173");
+        UserDTO user = new UserDTO(BOGDAN, PASSWORD, "380630386173", false);
         users.add(user);
 
-        user = new UserDTO(VOVA, PASSWORD, "380631206871");
+        user = new UserDTO(VOVA, PASSWORD, "380631206871", false);
         users.add(user);
 
         if(!isDevEnv) {
-            user = new UserDTO(SVYAT, PASSWORD, "380932092108");
+            user = new UserDTO(SVYAT, PASSWORD, "380932092108", false);
             users.add(user);
 
-            user = new UserDTO(VOVA, PASSWORD, "380631206871");
+            user = new UserDTO(VOVA, PASSWORD, "380631206871", false);
             users.add(user);
         }
 
