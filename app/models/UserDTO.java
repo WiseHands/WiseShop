@@ -43,6 +43,9 @@ public class UserDTO extends GenericModel {
     @Expose
     public String email;
 
+    @Expose
+    public boolean isGoogleSignIn;
+
     public String password;
 
     @Expose
@@ -57,11 +60,12 @@ public class UserDTO extends GenericModel {
         this.shopList = new ArrayList<ShopDTO>();
     }
 
-    public UserDTO(String email, String password, String phone) {
+    public UserDTO(String email, String password, String phone, Boolean isGoogleSignIn) {
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.token = UUID.randomUUID().toString();
+        this.isGoogleSignIn = isGoogleSignIn;
         this.shopList = new ArrayList<ShopDTO>();
     }
 

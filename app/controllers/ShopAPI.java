@@ -4,19 +4,25 @@ import models.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
+import play.i18n.Messages;
 import services.MailSender;
+import services.SmsSender;
 
 import javax.inject.Inject;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ShopAPI extends AuthController {
     public static final String SERVER_IP = "91.224.11.24";
 
     @Inject
     static MailSender mailSender;
+
+    @Inject
+    static SmsSender smsSender;
 
     public static void all(String client) throws Exception {
         checkSudoAuthentification();
@@ -150,17 +156,32 @@ public class ShopAPI extends AuthController {
     }
 
 
-    public static void addUserToShop(String client, String email) throws Exception {
+    public static void addUserToShop(String client, String email, String phone) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
 
-        UserDTO user = UserDTO.find("byEmail", email).first();
+        boolean isEmailProvided = !email.equals("");
+        boolean isPhoneProvided = !phone.equals("");
+        UserDTO user = null;
+
+        if(isEmailProvided){
+            user = UserDTO.find("byEmail", email).first();
+        } else if(!phone.equals("")){
+            user = UserDTO.find("byPhone", phone).first();
+        }
 
         if (user == null) {
             user = new UserDTO();
             user.email = email;
+            user.phone = phone;
+            if(isPhoneProvided) {
+                Random r = new Random();
+                String code = String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10));
+                user.password = code;
+            }
+
         } else if (user.shopList.contains(shop)) {
-            forbidden("User already a member of the given Shop");
+            forbidden(Messages.get("user.already.member.of.shop"));
         }
         user.shopList.add(shop);
         user = user.save();
@@ -168,15 +189,30 @@ public class ShopAPI extends AuthController {
         shop.userList.add(user);
         shop.save();
 
-        mailSender.sendEmailToInvitedUser(shop, user);
+        if(isEmailProvided){
+            mailSender.sendEmailToInvitedUser(shop, user);
+        } else if(isPhoneProvided) {
+            String msg = Messages.get("user.added.to.shop.sms", shop.shopName, user.password);
+            smsSender.sendSms(user.phone, msg);
+        }
         renderJSON(json(user));
     }
 
-    public static void removeUserFromShop(String client, String email) throws Exception {
+    public static void removeUserFromShop(String client, String email, String phone) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
 
-        UserDTO user = UserDTO.find("byEmail", email).first();
+        boolean isEmailProvided = !email.equals("");
+        UserDTO user = null;
+        if(isEmailProvided){
+            user = UserDTO.find("byEmail", email).first();
+        } else if(!phone.equals("")){
+            user = UserDTO.find("byPhone", phone).first();
+        }
+
+        if(user == null) {
+           forbidden(Messages.get("user.not.found"));
+        }
 
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO loggedInUser = UserDTO.findById(userId);
@@ -194,7 +230,7 @@ public class ShopAPI extends AuthController {
         renderJSON(json(shop));
     }
 
-    public static void create(String name, String domain, String publicLiqpayKey, String privateLiqPayKey) throws Exception {
+    public static void create(String name, String domain) throws Exception {
         checkAuthentification(null);
 
         try {
@@ -207,7 +243,7 @@ public class ShopAPI extends AuthController {
                     if (isDomainRegisteredAlready) {
                         forbidden(domain + " is used by another user. Please select other one");
                     }
-                    ShopDTO shop = createShop(name, domain, publicLiqpayKey, privateLiqPayKey);
+                    ShopDTO shop = createShop(name, domain);
                     renderJSON(json(shop));
                 }
                 forbidden("Domain in dev env should follow yourdomain.localhost pattern. You entered " + domain);
@@ -218,7 +254,7 @@ public class ShopAPI extends AuthController {
                     if (isDomainRegisteredAlready) {
                         forbidden(domain + " is used by another user. Please select other one");
                     }
-                    ShopDTO shop = createShop(name, domain, publicLiqpayKey, privateLiqPayKey);
+                    ShopDTO shop = createShop(name, domain);
                     renderJSON(json(shop));
                 }
                 forbidden("domain ip address is not correct: " + domainIp);
@@ -233,9 +269,15 @@ public class ShopAPI extends AuthController {
 
     }
 
-    private static ShopDTO createShop(String name, String domain, String publicLiqpayKey, String privateLiqPayKey){
+    private static ShopDTO createShop(String name, String domain){
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO user = UserDTO.findById(userId);
+
+        ShopDTO shopWithGivenDomain = ShopDTO.find("byDomain", domain).first();
+        if(shopWithGivenDomain != null) {
+            String reason = Messages.get("shop.with.domain.already.exist");
+            forbidden(reason);
+        }
 
         Double courierDeliveryPrice = 40.0;
         DeliveryDTO delivery = new DeliveryDTO(
@@ -264,7 +306,7 @@ public class ShopAPI extends AuthController {
         SidebarColorScheme color = (SidebarColorScheme) SidebarColorScheme.findAll().get(0);
         visualSettings.sidebarColorScheme = color;
 
-        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, name, publicLiqpayKey, privateLiqPayKey, domain, "en_US");
+        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, name, "", "", domain, "en_US");
         return shop = shop.save();
     }
 

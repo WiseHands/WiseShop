@@ -30,20 +30,41 @@ public class UserAPI extends AuthController {
 
     public static void register(String email, String password, String passwordConfirmation,
                                 String shopName, String name, String language,
-                                String clientDomain, String phone) throws Exception {
+                                String clientDomain, String phone, String verificationCode) throws Exception {
         if (isValidEmailAddress(email)) {
             //GOOGLE SIGN IN
             UserDTO user = UserDTO.find("byEmail", email).first();
             UserDTO userByPhone = UserDTO.find("byPhone", phone).first();
 
-            if (user != null) {
+            if (user != null && !user.isGoogleSignIn) {
+                String reason = Messages.get("user.with.email.already.exist");
+                forbidden(reason);
+            }
+
+
+            if (user != null && user.isGoogleSignIn) {
+                UserDTO userWithGivenPhone = UserDTO.find("byPhone", phone).first();
+                if(userWithGivenPhone != null) {
+                    String reason = Messages.get("user.with.phone.number.already.exist");
+                    forbidden(reason);
+                }
+                ShopDTO shopWithGivenDomain = ShopDTO.find("byDomain", clientDomain).first();
+                if(shopWithGivenDomain != null) {
+                    String reason = Messages.get("shop.with.domain.already.exist");
+                    forbidden(reason);
+                }
                 user.phone = phone;
-            } else if (user == null) {
+            } else {
                 //NOT GOOGLE SIGN IN
                 if (!password.equals(passwordConfirmation)) {
-                    error("password mismatch");
+                    error(Messages.get("password.mismatch"));
                 }
-                user = new UserDTO(email, password, phone);
+                ShopDTO shopWithGivenDomain = ShopDTO.find("byDomain", clientDomain).first();
+                if(shopWithGivenDomain != null) {
+                    String reason = Messages.get("shop.with.domain.already.exist");
+                    forbidden(reason);
+                }
+                user = new UserDTO(email, password, phone, false);
                 user.name = name;
             }
             user.save();
@@ -91,14 +112,13 @@ public class UserAPI extends AuthController {
         }
     }
 
-    public static void login(String email, String password) throws Exception {
-        if (isValidEmailAddress(email)) {
-            UserDTO user = UserDTO.find("byEmail", email).first();
+    public static void login(String phone, String password) throws Exception {
+            UserDTO user = UserDTO.find("byPhone", phone).first();
 
             if(user == null)
                 forbidden(json(new UserDoesNotExist()));
 
-            if(user.password == null) // if the user used google sign in and hacker tries to login via empty password
+            if(user.isGoogleSignIn == true) // if the user used google sign in and hacker tries to login via empty password
                 forbidden(json(new UserDoesNotExist()));
 
             if(!user.password.equals(password)) {
@@ -114,10 +134,6 @@ public class UserAPI extends AuthController {
             System.out.println("User " + user.name + " performed sign in at " + dateFormat.format(date));
 
             renderJSON(json);
-        } else {
-            UserDoesNotExist error = new UserDoesNotExist();
-            forbidden(json(error));
-        }
     }
 
     public static void profile(String email, String password) throws Exception {
@@ -178,6 +194,7 @@ public class UserAPI extends AuthController {
         user.locale = locale;
         user.familyName = familyName;
         user.givenName = givenName;
+        user.isGoogleSignIn = true;
         user.save();
 
         String json = json(user);
