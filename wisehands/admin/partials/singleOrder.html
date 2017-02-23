@@ -37,7 +37,9 @@
             <div class="col-xs-12 col-sm-6 noSidePadding">
                 <h5>{{'singleOrder.FullName' | translate}}: <p><i>{{order.name}}</i></p></h5>
                 <h5>{{'singleOrder.Phone' | translate}}: <p><i>{{order.phone}}</i></p></h5>
-                <h5 ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">{{'singleOrder.Address' | translate}}: </b><p><i>{{order.address}}<a ng-show="order.destinationLat" href="https://www.google.com.ua/maps/dir/{{order.address}}/" target="_blank"><i class="material-icons">place</i></a></i></p></h5>
+                <h5 ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">{{'singleOrder.Address' | translate}}: </b><p><i>{{order.address}}
+                    <a ng-show="order.destinationLat" href="https://www.google.com.ua/maps/@{{order.destinationLat}},{{order.destinationLng}},21z?hl=en" target="_blank"><i class="material-icons">place</i>
+                    </a></i></p></h5>
                 <h5 ng-show="order.deliveryType === 'NOVAPOSHTA'">Адреса (Нова Пошта): <p><i>{{order.departmentNumber}}</i></p></h5>
                 <h5>{{'singleOrder.OrderAmount' | translate}}: <p><i>{{order.total}} {{'orderList.Currency' | translate}}</i></p></h5>
                 <h5>{{'singleOrder.OrderState' | translate}}: <p><i>{{orderState(order)}}</i></p></h5>

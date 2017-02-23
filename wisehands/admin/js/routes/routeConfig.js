@@ -128,6 +128,11 @@
                         controller:'AnalyticsController',
                         activetab: 'analytics'
                     }).
+                    when('/userprofile',{
+                        templateUrl:'wisehands/admin/partials/userProfile.html',
+                        controller:'UserProfileController',
+                        activetab: 'userprofile'
+                    }).
                     otherwise({
                         redirectTo:'/'
                 });

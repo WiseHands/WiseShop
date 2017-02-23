@@ -68,9 +68,9 @@
             </div>
         </div>
         <div class="input-field col-xs-12" ng-show="categories.length === 0">
-            <p class="text-center">{{'addNewProduct.noCategory' | translate}}</p>
+            <p class="text-center redError">{{'addNewProduct.noCategory' | translate}}</p>
         </div>
-        <div class="input-field col-xs-12 z-index" ng-show="categories.length >= 1">
+        <div class="input-field col-xs-12 z-index">
             <label for="category" class="active categoryLabelFontSize">{{'addNewProduct.category' | translate}}</label>
             <select class="form-control"
                     id="category"

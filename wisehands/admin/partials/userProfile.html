@@ -1,0 +1,40 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="javascript:history.back()">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'userprofile.myProfile' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="updateUserInfo()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <form class="col-md-12 noSidePadding" id="userInfoForm" name="userInfoForm" ng-hide="loading">
+        <div class="input-field col-md-6">
+            <p>{{'userprofile.fullname' | translate}}</p>
+            <input type="text" class="validate" ng-model="userInfo.name">
+        </div>
+        <div class="input-field col-md-6">
+            <p>{{'singleOrder.Phone' | translate}}</p>
+            <input type="tel" class="validate" ng-model="userInfo.phone" ng-disabled="!userInfo.isGoogleSignIn">
+        </div>
+        <div class="input-field col-md-6">
+            <p>E-mail</p>
+            <input type="email" class="validate" ng-model="userInfo.email" ng-disabled="userInfo.isGoogleSignIn">
+        </div>
+    </form>
+</div>

@@ -123,5 +123,7 @@
   "settings.domainTips": "No spaces and lower case",
   "settings.domainTips2": "Your store will be available at the given address",
   "user.gmail": "I'd like to use Gmail instead",
+  "userprofile.myProfile": "My Profile",
+  "userprofile.fullname": "Full Name",
   "directives.language-select.Language": "Language"
 }

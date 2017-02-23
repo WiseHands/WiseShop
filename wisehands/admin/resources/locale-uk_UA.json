@@ -123,5 +123,7 @@
   "settings.domainTips": "Без пробілів малими буквами",
   "settings.domainTips2": "Ваш магазин буде доступним за адресою",
   "user.gmail": "Я хочу використати Gmail акаунт",
+  "userprofile.myProfile": "Мій Профіль",
+  "userprofile.fullname": "П.І.П.",
   "directives.language-select.Language": "Мова"
 }

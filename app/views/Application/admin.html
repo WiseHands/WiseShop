@@ -27,9 +27,9 @@
 <body class="parentScroll">
 <ul id="slide-out" class="side-nav admin-side-nav dark-side-nav hidden-scrollbar" ng-controller="SideNavController">
     <div class="row vcentering">
-        <div class="col-xs-4">
+        <a href="#/userprofile"><div class="col-xs-4">
             <img ng-src="{{getProfileImage()}}" class="img-responsive img-circle">
-        </div>
+        </div></a>
         <div class="col-xs-8">
             <h5 class="white-text cursorPointer" ng-click="getUrl()">{{activeShop.shopName}}</h5>
         </div>
@@ -91,6 +91,7 @@
 <script src="wisehands/admin/js/controllers/ViewSettingsController.js"></script>
 <script src="wisehands/admin/js/controllers/DiscountController.js"></script>
 <script src="wisehands/admin/js/controllers/AnalyticsController.js"></script>
+<script src="wisehands/admin/js/controllers/UserProfileController.js"></script>
 
 <script src="wisehands/admin/js/services/sharedFilterData.js"></script>
 <script src="wisehands/admin/js/services/SideNavInitService.js"></script>
