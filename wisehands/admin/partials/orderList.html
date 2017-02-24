@@ -96,8 +96,6 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
     </div>
-    <div id="ptr"></div>
-    <div id="content">
      <div ng-if="item.state !== 'DELETED'" class="col-sm-6" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
          <div class="card card-primary text-xs-center z-depth-2"
               ng-style="{'background-color': orderState(item)}"
@@ -116,5 +114,4 @@
              </a>
          </div>
      </div>
-    </div>
 </div>

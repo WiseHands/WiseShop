@@ -55,37 +55,6 @@
                     $scope.wrongMessage = true;
                 });
 
-            $scope.refreshOrders = function() {
-                return new Promise( function( resolve, reject ) {
-
-                    spinnerService.show('mySpinner');
-
-                    $http(req)
-                        .then(function successCallback(response) {
-                            spinnerService.hide('mySpinner');
-                            resolve();
-                            $scope.orders = response.data;
-                            spinnerService.hide('mySpinner');
-                            $scope.isAllOrdersDeleted = true;
-                            $scope.orders.forEach(function(order){
-                                if (order.state !== 'DELETED') {
-                                    $scope.isAllOrdersDeleted = false;
-                                }
-                            });
-                        }, function errorCallback(response) {
-                            if (response.data === 'Invalid X-AUTH-TOKEN') {
-                                reject();
-                                signout.signOut();
-                            }
-                            spinnerService.hide('mySpinner');
-                            $scope.wrongMessage = true;
-                        });
-                } );
-            };
-
-            WebPullToRefresh.init( {
-                loadingFunction: $scope.refreshOrders
-            } );
 
             $scope.orderState = function(item){
                 if (item.state === "NEW"){
