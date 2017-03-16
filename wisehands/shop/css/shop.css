@@ -200,3 +200,13 @@ main {
     margin: auto;
 }
 
+@media (min-width: 1440px) {
+    .navbar .button-collapse {
+        display: block;
+        position: relative;
+        font-size: 1.4rem;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+}
+
