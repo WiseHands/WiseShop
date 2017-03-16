@@ -327,4 +327,11 @@ canvas {
 .title-hover:hover {
     color: lightseagreen;
 }
-
+.mainLogo {
+    width: 6em;
+    heigth: 6em;
+    padding-top: 2.5em;
+}
+.noTitleTopPadding {
+    padding-top: 0;
+}
