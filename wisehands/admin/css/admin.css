@@ -374,3 +374,7 @@ label.whiteCheckBox::after {
 .redError {
     color: red;
 }
+
+#slide-out > div > div.col-xs-4 > a {
+    padding-left: 0;
+}

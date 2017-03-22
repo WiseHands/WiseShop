@@ -27,9 +27,11 @@
 <body class="parentScroll">
 <ul id="slide-out" class="side-nav admin-side-nav dark-side-nav hidden-scrollbar" ng-controller="SideNavController">
     <div class="row vcentering">
-        <a href="#/userprofile"><div class="col-xs-4">
-            <img ng-src="{{getProfileImage()}}" class="img-responsive img-circle">
-        </div></a>
+            <div class="col-xs-4">
+                <a href="#/userprofile">
+                <img ng-src="{{getProfileImage()}}" class="img-responsive img-circle">
+                </a>
+            </div>
         <div class="col-xs-8">
             <h5 class="white-text cursorPointer" ng-click="getUrl()">{{activeShop.shopName}}</h5>
         </div>
