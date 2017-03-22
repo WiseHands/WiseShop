@@ -3,6 +3,8 @@
             function($http, $scope, $routeParams, signout) {
                 $scope.uuid = $routeParams.uuid;
                 $scope.loading = true;
+                var parser = new UAParser();
+
                 $http({
                     method: 'GET',
                     url: '/order/' + $routeParams.uuid,
@@ -14,6 +16,10 @@
                     .then(function successCallback(response) {
                         $scope.loading = false;
                         var data = response.data;
+                        var uastring = data.userAgent;
+                        parser.setUA(uastring);
+                        var result = parser.getResult();
+                        $scope.userAgent = result.browser.name + " " + result.os.name + " " + result.os.version;
                         if(data.length === 0) {
                             $scope.status = 'Замовлення відсутні';
                         } else {

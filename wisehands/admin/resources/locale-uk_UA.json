@@ -16,6 +16,7 @@
   "singleOrder.Delete": "Видалити",
   "singleOrder.FullName": "П.І.П. замовника",
   "singleOrder.Phone": "Номер телефону",
+  "singleOrder.Platform": "Платформа",
   "singleOrder.Address": "Адреса",
   "singleOrder.OrderAmount": "Сума замовлення",
   "singleOrder.OrderState": "Статус замовлення",

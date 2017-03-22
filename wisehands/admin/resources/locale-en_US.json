@@ -16,6 +16,7 @@
   "singleOrder.Delete": "Delete",
   "singleOrder.FullName": "Full Name",
   "singleOrder.Phone": "Phone",
+  "singleOrder.Platform": "Platform",
   "singleOrder.Address": "Address",
   "singleOrder.OrderAmount": "Order amount",
   "singleOrder.OrderState": "Order state",
