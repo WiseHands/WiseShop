@@ -21,6 +21,10 @@
                         spinnerService.hide('mySpinner');
                         $scope.isAllOrdersDeleted = true;
                         $scope.orders.forEach(function(order){
+                            var date = new Date(order.time);
+                            var hour = (date.getHours()<10?'0':'') + date.getHours();
+                            var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
+                            order.properDate = hour + ':' + minute;
                             if (order.state !== 'DELETED') {
                                 $scope.isAllOrdersDeleted = false;
                             }
