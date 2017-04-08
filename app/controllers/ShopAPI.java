@@ -280,11 +280,13 @@ public class ShopAPI extends AuthController {
         }
 
         Double courierDeliveryPrice = 40.0;
+        Double courierFreeDeliveryLimit = 9999.0;
         DeliveryDTO delivery = new DeliveryDTO(
                 true, "Викликати кур’єра по Львову – 40 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
                 true, "Самовивіз",
                 true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)",
-                courierDeliveryPrice
+                courierDeliveryPrice,
+                courierFreeDeliveryLimit
         );
         delivery.save();
 

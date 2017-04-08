@@ -25,12 +25,12 @@ public class SmsSenderImpl implements SmsSender {
         if (!isDevEnv) {
             final String API_VERSION = "3.0";
             final String ACTION = "sendSMS";
-            final String SENDER = "Info";
+            final String SENDER = "wisehands";
 
             final String LIFETIME = "0";
             final String DATETIME = "";
 
-            final String BASE_URL = "http://atompark.com/api/sms/3.0/sendSMS";
+            final String BASE_URL = "http://api.atompark.com/api/sms/3.0/sendSMS";
 
             Map<String, String> params = new HashMap<String, String>();
             params.put("version", API_VERSION);

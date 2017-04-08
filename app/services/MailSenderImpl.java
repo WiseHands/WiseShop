@@ -3,6 +3,7 @@ package services;
 import models.OrderDTO;
 import models.ShopDTO;
 import models.UserDTO;
+import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.SimpleEmail;
 import play.Play;
 import play.i18n.Messages;
@@ -13,13 +14,13 @@ public class MailSenderImpl implements MailSender {
 
     public void sendEmail(ShopDTO shop, OrderDTO order, String status) throws Exception {
         if (!isDevEnv) {
-            SimpleEmail email = new SimpleEmail();
-            email.setCharset("UTF-16");
-            email.setFrom("noreply@" + shop.domain);
+            HtmlEmail email = new HtmlEmail();
+            email.setHostName(shop.domain);
+            email.setFrom("noreply@" + shop.domain, shop.shopName);
             System.out.println("AddTo: " + shop.contact.email);
             email.addTo(shop.contact.email);
             email.setSubject(status);
-            email.setMsg(order.toString());
+            email.setHtmlMsg(order.toString());
             Mail.send(email);
         }
     }
@@ -33,8 +34,8 @@ public class MailSenderImpl implements MailSender {
                 loginUrl += "wisehands.me/";
             }
 
-            SimpleEmail email = new SimpleEmail();
-            email.setCharset("UTF-16");
+            HtmlEmail email = new HtmlEmail();
+            email.setHostName(shop.domain);
             email.setFrom("noreply@" + shop.domain);
             email.addTo(user.email);
 

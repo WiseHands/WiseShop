@@ -46,7 +46,7 @@ public class DeliveryDTO extends GenericModel {
     public DeliveryDTO(boolean isCourierAvailable, String courierText,
                        boolean isSelfTakeAvailable, String selfTakeText,
                        boolean isNewPostAvailable, String newPostText,
-                       Double courierPrice) {
+                       Double courierPrice, Double courierFreeDeliveryLimit) {
         this.isCourierAvailable = isCourierAvailable;
         this.courierText = courierText;
 
@@ -57,5 +57,6 @@ public class DeliveryDTO extends GenericModel {
         this.newPostText = newPostText;
 
         this.courierPrice = courierPrice;
+        this.courierFreeDeliveryLimit = courierFreeDeliveryLimit;
     }
 }
