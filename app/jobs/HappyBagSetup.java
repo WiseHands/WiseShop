@@ -59,11 +59,12 @@ public class HappyBagSetup extends Job {
         }
 
         Double courierDeliveryPrice = 40.0;
+        Double courierFreeDeliveryPrice = 9999.0;
         DeliveryDTO delivery = new DeliveryDTO(
                 true, "Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
                 true, "Самовивіз",
                 true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)",
-                courierDeliveryPrice
+                courierDeliveryPrice, courierFreeDeliveryPrice
         );
         ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Львів, вул. Академіка Люльки, 4", "49.848596:24.0229203", "МИ СТВОРИЛИ ТОРБУ ЩАСТЯ ДЛЯ ТОГО, ЩОБ МІЛЬЙОНИ ЛЮДЕЙ МАЛИ МОЖЛИВІСТЬ КОЖНОГО ДНЯ ВЧАСНО ОТРИМУВАТИ ЦІКАВІ ВІДПОВІДІ ТА СВОЄ НАТХНЕННЯ НА ЧУДОВИЙ ДЕНЬ");
         PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, (double) 500);
