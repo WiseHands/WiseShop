@@ -10,6 +10,7 @@
   "orderList.Currency": "USD",
   "orderList.noOrders": "No orders",
   "orderList.wrongMessage": "Something went wrong...",
+  "orderList.yesterday": "y-day",
   "singleOrder.Details": "Details",
   "singleOrder.Shipped": "Shipped",
   "singleOrder.Canceled": "Canceled",

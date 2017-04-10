@@ -4,6 +4,8 @@ import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import models.*;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import play.i18n.Messages;
 import responses.InvalidPassword;
 import responses.UserDoesNotExist;
@@ -137,12 +139,33 @@ public class UserAPI extends AuthController {
             renderJSON(json);
     }
 
-    public static void profile(String email, String password) throws Exception {
+    public static void profile() throws Exception {
         checkAuthentification(null);
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user));
 
+    }
+
+    public static void updateProfile() throws Exception {
+        checkAuthentification(null);
+        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        UserDTO user = UserDTO.findById(userId);
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        String name = (String) jsonBody.get("name");
+        String email = (String) jsonBody.get("email");
+        String phone = (String) jsonBody.get("phone");
+
+        user.name = name;
+        if(user.isGoogleSignIn) {
+            user.phone = phone;
+        } else {
+            user.email = email;
+        }
+        user = user.save();
+        renderJSON(json(user));
     }
 
     public static void storeauthcode(String authCode) throws Exception {

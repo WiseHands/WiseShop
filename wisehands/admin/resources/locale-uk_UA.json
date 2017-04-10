@@ -10,6 +10,7 @@
   "orderList.Currency": "ГРН",
   "orderList.noOrders": "Замовлення відсутні",
   "orderList.wrongMessage": "Щось пішло не так...",
+  "orderList.yesterday": "вчора",
   "singleOrder.Details": "Деталі",
   "singleOrder.Shipped": "Надіслано",
   "singleOrder.Canceled": "Скасовано",

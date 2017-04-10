@@ -23,8 +23,12 @@
                         var now = new Date();
                         var dateNow = new Date(now.getUTCFullYear(), now.getMonth(), now.getDate());
                         var startOfToday = dateNow.getTime();
+                        var oneDayInMs = 86400000;
                         $scope.orders.forEach(function(order){
-                            if (startOfToday < order.time){
+                            order.yesterdayString = false;
+                            if (startOfToday - oneDayInMs < order.time && startOfToday > order.time){
+                                order.yesterdayString = true;
+                            } else if (startOfToday < order.time) {
                                 var date = new Date(order.time);
                                 var hour = (date.getHours()<10?'0':'') + date.getHours();
                                 var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
@@ -34,7 +38,7 @@
                                 var orderDay = ("0" + orderDate.getDate()).slice(-2);
                                 var orderMonth = ("0" + (orderDate.getMonth() + 1)).slice(-2);
                                 order.properDate = orderDay + '.' + orderMonth;
-                            }
+                                }
 
                             if (order.state !== 'DELETED') {
                                 $scope.isAllOrdersDeleted = false;
