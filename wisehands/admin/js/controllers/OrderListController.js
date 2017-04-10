@@ -20,11 +20,22 @@
                         $scope.orders = response.data;
                         spinnerService.hide('mySpinner');
                         $scope.isAllOrdersDeleted = true;
+                        var now = new Date();
+                        var dateNow = new Date(now.getUTCFullYear(), now.getMonth(), now.getDate());
+                        var startOfToday = dateNow.getTime();
                         $scope.orders.forEach(function(order){
-                            var date = new Date(order.time);
-                            var hour = (date.getHours()<10?'0':'') + date.getHours();
-                            var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
-                            order.properDate = hour + ':' + minute;
+                            if (startOfToday < order.time){
+                                var date = new Date(order.time);
+                                var hour = (date.getHours()<10?'0':'') + date.getHours();
+                                var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
+                                order.properDate = hour + ':' + minute;
+                            } else {
+                                var orderDate = new Date(order.time);
+                                var orderDay = ("0" + orderDate.getDate()).slice(-2);
+                                var orderMonth = ("0" + (orderDate.getMonth() + 1)).slice(-2);
+                                order.properDate = orderDay + '.' + orderMonth;
+                            }
+
                             if (order.state !== 'DELETED') {
                                 $scope.isAllOrdersDeleted = false;
                             }
