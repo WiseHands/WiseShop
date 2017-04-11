@@ -97,20 +97,21 @@
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
     </div>
      <div ng-if="item.state !== 'DELETED'" class="col-sm-6" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
-         <div class="card card-primary text-xs-center z-depth-2"
-              ng-style="{'background-color': orderState(item)}">
+         <div class="card card-primary text-xs-center z-depth-2 primary-color">
              <a href ="#/details/{{item.uuid}}">
                  <div class="row">
                      <div class="card-block vcentering">
-                         <div class=" col-xs-3 col-sm-3">
-                             <p ng-show="!item.yesterdayString" class="text-center white-text paragraphPadding"><i>{{item.properDate}}</i></p>
-                             <p ng-show="item.yesterdayString" class="text-center white-text paragraphPadding"><i>{{'orderList.yesterday' | translate}}</i></p>
+                         <div class="col-xs-4 col-sm-4">
+                             <p ng-show="!item.yesterdayString" class="text-center white-text pTopMargin"><i>{{item.properDate}}</i></p>
+                             <p ng-show="item.yesterdayString" class="text-center white-text pTopMargin"><i>{{'orderList.yesterday' | translate}}</i></p>
+                             <p class="text-center white-text"><b>{{item.total}}</b> {{'orderList.Currency' | translate}}</p>
                          </div>
                          <div class=" col-xs-6 col-sm-6">
-                             <p class="truncate text-center white-text paragraphPadding"><i>{{item.name}}</i></p>
+                             <p class="truncate white-text pTopMargin"><i>{{item.name}}</i></p>
+                             <p class="white-text"><i>{{item.phone}}</i></p>
                          </div>
-                         <div class="col-xs-3 col-sm-3">
-                             <p class="text-center white-text paragraphPadding"><b>{{item.total}}</b> {{'orderList.Currency' | translate}}</p>
+                         <div class="col-xs-1 col-sm-1">
+                             <i class="material-icons white-text">{{orderState(item)}}</i>
                          </div>
                      </div>
                  </div>

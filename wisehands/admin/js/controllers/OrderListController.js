@@ -77,17 +77,17 @@
 
             $scope.orderState = function(item){
                 if (item.state === "NEW"){
-                    return 'rgb(100, 181, 246)';
+                    return 'flash_on';
                 } else if (item.state === "PAYED") {
-                    return 'rgb(129, 199, 132)';
+                    return 'credit_card';
                 } else if (item.state === "CANCELLED") {
-                    return 'rgb(255, 183, 77)';
+                    return 'highlight_off';
                 } else if (item.state === "SHIPPED") {
-                    return 'rgb(207, 216, 220)';
+                    return 'flight_land';
                 } else if (item.state === "MANUALLY_PAYED") {
-                    return 'rgb(221, 201, 230)';
+                    return 'attach_money';
                 } else if (item.state === "PAYMENT_ERROR") {
-                    return 'rgb(255, 171, 145)';
+                    return 'error_outline';
                 }
             };
             

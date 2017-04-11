@@ -378,3 +378,6 @@ label.whiteCheckBox::after {
 #slide-out > div > div.col-xs-4 > a {
     padding-left: 0;
 }
+.pTopMargin {
+    margin-top: 10px;
+}
