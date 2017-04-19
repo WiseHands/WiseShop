@@ -53,6 +53,13 @@
                     } else if(document.getElementById('radio3').checked) {
                         deliveryType = document.getElementById('radio3').value;
                     }
+
+                    if (deliveryType === 'SELFTAKE') {
+                        document.getElementById('address').value = '';
+                        document.getElementById('newPostDepartment').value = '';
+
+                    }
+
                     $scope.params = {
                         deliveryType: deliveryType,
                         phone: new String(document.getElementById('phone').value),
@@ -124,6 +131,10 @@
                         localStorage.setItem('address', $scope.place.formatted_address);
                         localStorage.setItem('addressLat', $scope.place.geometry.location.lat());
                         localStorage.setItem('addressLng', $scope.place.geometry.location.lng());
+                    }
+                    if (!$scope.place.formatted_address) {
+                        localStorage.setItem('addressLat', '');
+                        localStorage.setItem('addressLng', '');
                     }
                     if ($scope.newPostDelivery) {
                         localStorage.setItem('newPostDelivery', $scope.newPostDelivery);

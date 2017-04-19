@@ -38,7 +38,6 @@
                     chart-labels="labels" chart-series="series" chart-options="options"
                     chart-dataset-override="datasetOverride" chart-click="onClick">
             </canvas>
-            </div>
         </div>
         <div class="col-sm-3 col-xs-12 text-center">
             <div class="card primary-color darken-1">
@@ -73,7 +72,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-10 col-xs-offset-1">
+    <div ng-hide="loading" class="col-xs-10 col-xs-offset-1">
         <!--Google map-->
         <div id="map-container" class="z-depth-1-half map-container" style="height: 600px"></div>
     </div>

@@ -76,9 +76,7 @@ body {
     .noPaddingLeft {
         padding-left: 0 !important;
     }
-    .cardTopPadding {
-        padding-top: 0;
-    }
+
     .card .card-content{
         padding: 0;
     }
@@ -380,4 +378,29 @@ label.whiteCheckBox::after {
 }
 .pTopMargin {
     margin-top: 10px;
+}
+.collection {
+    margin-top: 78px;
+}
+.collection .collection-item {
+    padding: 10px 0 0 0;
+}
+.datePriceContainer {
+    padding-right: 0;
+}
+.namePhoneContainer {
+    padding: 0px;
+}
+.secondaryOrderFont {
+    font-size: 1.15rem;
+    color: grey;
+}
+.materialIcon {
+    color: grey;
+}
+.elegant-card .card-content h5 {
+    text-align: inherit;
+    margin-top: 0;
+    padding-bottom: 0;
+    border: 0;
 }

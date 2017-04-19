@@ -1,6 +1,7 @@
 angular.module('WiseHands')
-    .controller('ProductListController', ['$scope', '$http', 'spinnerService', 'sideNavInit', 'signout', function ($scope, $http, spinnerService, sideNavInit, signout) {
-
+    .controller('ProductListController', ['$scope', '$http', 'spinnerService', 'sideNavInit', 'signout',
+        function ($scope, $http, spinnerService, sideNavInit, signout) {
+        $scope.loading = true;
         $scope.wrongMessage = false;
         $scope.getResource = function () {
             spinnerService.show('mySpinner');
@@ -12,9 +13,11 @@ angular.module('WiseHands')
                 spinnerService.hide('mySpinner');
                 $scope.products = response.data;
                 $scope.activeShop = localStorage.getItem('activeShop');
+                $scope.loading = false;
             }, function errorCallback(data) {
                 spinnerService.hide('mySpinner');
                 $scope.wrongMessage = true;
+                $scope.loading = false;
             });
         };
 

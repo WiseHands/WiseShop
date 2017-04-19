@@ -90,6 +90,25 @@
                     return 'error_outline';
                 }
             };
+
+            $scope.orderStateString = function(order){
+                if (!order) return;
+                if (order.state === "NEW"){
+                    return 'Нове';
+                } else if (order.state === "PAYED") {
+                    return 'Оплачено';
+                } else if (order.state === "CANCELLED") {
+                    return 'Скасовано';
+                } else if (order.state === "SHIPPED") {
+                    return 'Надіслано';
+                } else if (order.state === "MANUALLY_PAYED") {
+                    return 'Оплата на місці';
+                } else if (order.state === "PAYMENT_ERROR") {
+                    return 'Помилка оплати';
+                } else if (order.state === "DELETED") {
+                    return 'Видалене';
+                }
+            };
             
             $scope.orderStateFilter = function (orderState) {
                 var i = $.inArray(orderState, $scope.filterOptions);

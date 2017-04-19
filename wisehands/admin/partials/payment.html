@@ -21,58 +21,60 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <div class="row">
-        <div class="input-field col-sm-6">
-            <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
-            <label for="filled-in-box">{{'payment.cash' | translate}}</label>
-        </div>
-        <div class="input-field col-sm-6">
-            <input type="checkbox" class="filled-in" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled" />
-            <label for="filled-in-box2">{{'payment.online' | translate}}</label>
-        </div>
-    </div><br>
-    <hr>
-    <div class="displayFlex" ng-show="coupons.length > 0">
-        <a ng-repeat="coupon in coupons" href="#/discount/{{coupon.uuid}}" class="btn-sm fb-bg rectangle waves-effect waves-light col-xs-12 col-sm-3 text-center"><h6>{{'payment.coupons' | translate}}: {{coupon.couponIds.length}}
-            <br>
-            <br>
-            <div ng-repeat="plan in coupon.plans">
-                {{plan.minimalOrderTotal}} {{'products.currency' | translate}} - {{plan.percentDiscount}}%
+    <div ng-hide="loading">
+        <div class="row">
+            <div class="input-field col-sm-6">
+                <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
+                <label for="filled-in-box">{{'payment.cash' | translate}}</label>
             </div>
-            </h6></a>
-    </div>
-    <form ng-submit="createCoupons()">
-        <div class="input-field col-xs-12 col-sm-6">
-            <p>{{'payment.discount' | translate}}</p>
-            <input type="number" class="validate" ng-model="plans.percentDiscount" required>
-        </div>
-        <div class="vcentering col-xs-12 col-sm-6 noSidePadding">
-            <div class="input-field col-xs-9 col-sm-10">
-                <p>{{'payment.minOrder' | translate}}</p>
-                <input type="number" class="validate" ng-model="plans.total" required>
+            <div class="input-field col-sm-6">
+                <input type="checkbox" class="filled-in" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled" />
+                <label for="filled-in-box2">{{'payment.online' | translate}}</label>
             </div>
-            <div class="col-xs-3 col-sm-2">
-                <button type="button" class="btn-floating btn-xsmall waves-effect waves-light green pull-left" ng-click="createNewCouponRow()"><i class="material-icons"><i class="material-icons">plus_one</i></i></button>
-            </div>
+        </div><br>
+        <hr>
+        <div class="displayFlex" ng-show="coupons.length > 0">
+            <a ng-repeat="coupon in coupons" href="#/discount/{{coupon.uuid}}" class="btn-sm fb-bg rectangle waves-effect waves-light col-xs-12 col-sm-3 text-center"><h6>{{'payment.coupons' | translate}}: {{coupon.couponIds.length}}
+                <br>
+                <br>
+                <div ng-repeat="plan in coupon.plans">
+                    {{plan.minimalOrderTotal}} {{'products.currency' | translate}} - {{plan.percentDiscount}}%
+                </div>
+                </h6></a>
         </div>
-        <div ng-repeat="row in couponRows">
+        <form ng-submit="createCoupons()">
             <div class="input-field col-xs-12 col-sm-6">
                 <p>{{'payment.discount' | translate}}</p>
-                <input type="number" class="validate" ng-model="row.percentDiscount" required>
+                <input type="number" class="validate" ng-model="plans.percentDiscount" required>
             </div>
             <div class="vcentering col-xs-12 col-sm-6 noSidePadding">
-                <div class="input-field col-xs-12">
+                <div class="input-field col-xs-9 col-sm-10">
                     <p>{{'payment.minOrder' | translate}}</p>
-                    <input type="number" class="validate" ng-model="row.total" required>
+                    <input type="number" class="validate" ng-model="plans.total" required>
+                </div>
+                <div class="col-xs-3 col-sm-2">
+                    <button type="button" class="btn-floating btn-xsmall waves-effect waves-light green pull-left" ng-click="createNewCouponRow()"><i class="material-icons"><i class="material-icons">plus_one</i></i></button>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-12 input-field">
-            <p>{{'payment.couponsIds' | translate}}</p>
-            <textarea id="textarea1" class="materialize-textarea" ng-model="couponsIds" rows="1" required></textarea>
-        </div>
-        <div class="col-sm-12">
-            <button type="submit" class="btn btn-primary waves-effect waves-light pull-right">{{'categories.create' | translate}}</button>
-        </div>
-    </form>
+            <div ng-repeat="row in couponRows">
+                <div class="input-field col-xs-12 col-sm-6">
+                    <p>{{'payment.discount' | translate}}</p>
+                    <input type="number" class="validate" ng-model="row.percentDiscount" required>
+                </div>
+                <div class="vcentering col-xs-12 col-sm-6 noSidePadding">
+                    <div class="input-field col-xs-12">
+                        <p>{{'payment.minOrder' | translate}}</p>
+                        <input type="number" class="validate" ng-model="row.total" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 input-field">
+                <p>{{'payment.couponsIds' | translate}}</p>
+                <textarea id="textarea1" class="materialize-textarea" ng-model="couponsIds" rows="1" required></textarea>
+            </div>
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary waves-effect waves-light pull-right">{{'categories.create' | translate}}</button>
+            </div>
+        </form>
+    </div>
 </div>

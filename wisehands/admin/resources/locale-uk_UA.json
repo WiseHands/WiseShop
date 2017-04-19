@@ -11,6 +11,7 @@
   "orderList.noOrders": "Замовлення відсутні",
   "orderList.wrongMessage": "Щось пішло не так...",
   "orderList.yesterday": "вчора",
+  "orderList.selftake": "Самовивіз",
   "singleOrder.Details": "Деталі",
   "singleOrder.Shipped": "Надіслано",
   "singleOrder.Canceled": "Скасовано",

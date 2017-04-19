@@ -81,41 +81,81 @@
      </div>
     </div>
 </nav>
-<div class="container-fluid noSidePadding topOrdersPadding">
+<ul class="collection visible-xs-block">
+    <li class="collection-item" ng-if="item.state !== 'DELETED'" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
+        <a href ="#/details/{{item.uuid}}">
+            <div class="row vcentering">
+                <div class="col-xs-3 datePriceContainer">
+                    <p class="normal-400 black-text">{{'orderList.Currency' | translate}}{{item.total}}</p>
+                    <p class="secondaryOrderFont" ng-show="!item.yesterdayString">{{item.properDate}}</p>
+                    <p class="secondaryOrderFont" ng-show="item.yesterdayString">{{'orderList.yesterday' | translate}}</p>
+                </div>
+                <div class="col-xs-7 namePhoneContainer">
+                    <p class="truncate normal-400 black-text">{{item.name}}</p>
+                    <p class="secondaryOrderFont">{{item.phone}}</p>
+                </div>
+                <div class="col-xs-2">
+                    <b class="material-icons pull-right materialIcon">{{orderState(item)}}</b>
+                </div>
+            </div>
+        </a>
+    </li>
+</ul>
+
+<div class="container-fluid noSidePadding cardTopPadding">
+    <div class="col-sm-6 col-md-4 hidden-xs" ng-if="item.state !== 'DELETED'" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
+        <a href ="#/details/{{item.uuid}}">
+            <div class="card elegant-card hoverable">
+                <div ng-show="item.destinationLng && item.deliveryType === 'COURIER'" class="view overlay hm-white-slight z-depth-1">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?center={{item.address}}&zoom=15&size=666x316&maptype=roadmap&markers=color:blue%7Clabel:N%7C{{item.destinationLat}},{{item.destinationLng}}&key=AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg" class="img-responsive" alt="">
+                    <div class="mask waves-effect activator"></div>
+                </div>
+                <div ng-show="item.deliveryType === 'COURIER' && !item.destinationLng" class="view overlay hm-white-slight z-depth-1">
+                    <img src="wisehands/assets/images/logoimages/no_map.png" class="img-responsive" alt="">
+                    <div class="mask waves-effect activator"></div>
+                </div>
+                <div ng-show="item.deliveryType === 'NOVAPOSHTA'" class="view overlay hm-white-slight z-depth-1">
+                    <img src="wisehands/assets/images/logoimages/nova-poshta-logo2.jpeg" class="img-responsive" alt="">
+                    <div class="mask waves-effect activator"></div>
+                </div>
+                <div class="card-content">
+                    <div class="row vcentering">
+                        <div class="col-sm-8 text-left noSidePadding">
+                            <h5 class="truncate normal-400">{{item.name}}</h5>
+                            <h6 class="grey-text">{{item.phone}}</h6>
+                        </div>
+                        <div class="col-sm-4 text-right noSidePadding">
+                            <h5 class="normal-400">{{'orderList.Currency' | translate}}{{item.total}}</h5>
+                            <h6 class="grey-text" ng-show="!item.yesterdayString">{{item.properDate}}</h6>
+                            <h6 class="grey-text" ng-show="item.yesterdayString">{{'orderList.yesterday' | translate}}</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p ng-show="item.deliveryType === 'COURIER'" class="truncate">{{item.address}}</p>
+                        <p ng-show="item.deliveryType === 'NOVAPOSHTA'" class="truncate">{{item.departmentNumber}}</p>
+                        <p ng-show="item.deliveryType === 'SELFTAKE'">{{'orderList.selftake' | translate}}</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <ul class="list-inline">
+                        <li>{{orderStateString(item)}}</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
+    </div>
     <!--<div class="container-fluid topMarginBalanceWarning" ng-show="balanceWarning">-->
-        <!--<a href="#/settings"><div class="panel panel-danger hoverable">-->
-            <!--<div class="panel-heading">У Вас від'ємний рахунок! Поповніть його, будь ласка!</div>-->
-            <!--<div class="panel-body noAnchorStyle">На даний момент Ваш рахунок рівний: {{balance.balance | number:2}} грн!</div>-->
-        <!--</div></a>-->
+    <!--<a href="#/settings"><div class="panel panel-danger hoverable">-->
+    <!--<div class="panel-heading">У Вас від'ємний рахунок! Поповніть його, будь ласка!</div>-->
+    <!--<div class="panel-body noAnchorStyle">На даний момент Ваш рахунок рівний: {{balance.balance | number:2}} грн!</div>-->
+    <!--</div></a>-->
     <!--</div>-->
     <h4 ng-show="orders.length === 0 || isAllOrdersDeleted" class="text-center"><i>{{'orderList.noOrders' | translate}}</i></h4>
     <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
-    <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0" ng-class="{noMatchesMargin: (orders | filter:orderFilter).length == 0 && orders.length != 0}">
-         <i>{{'orderList.NoFilterMatches' | translate}}</i>
-     </h4>
+    <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
+        <i>{{'orderList.NoFilterMatches' | translate}}</i>
+    </h4>
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
     </div>
-     <div ng-if="item.state !== 'DELETED'" class="col-sm-6" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
-         <div class="card card-primary text-xs-center z-depth-2 primary-color">
-             <a href ="#/details/{{item.uuid}}">
-                 <div class="row">
-                     <div class="card-block vcentering">
-                         <div class="col-xs-4 col-sm-4">
-                             <p ng-show="!item.yesterdayString" class="text-center white-text pTopMargin"><i>{{item.properDate}}</i></p>
-                             <p ng-show="item.yesterdayString" class="text-center white-text pTopMargin"><i>{{'orderList.yesterday' | translate}}</i></p>
-                             <p class="text-center white-text"><b>{{item.total}}</b> {{'orderList.Currency' | translate}}</p>
-                         </div>
-                         <div class=" col-xs-6 col-sm-6">
-                             <p class="truncate white-text pTopMargin"><i>{{item.name}}</i></p>
-                             <p class="white-text"><i>{{item.phone}}</i></p>
-                         </div>
-                         <div class="col-xs-1 col-sm-1">
-                             <i class="material-icons white-text">{{orderState(item)}}</i>
-                         </div>
-                     </div>
-                 </div>
-             </a>
-         </div>
-     </div>
 </div>

@@ -17,13 +17,13 @@
     </div>
 </nav>
 
-<div class="container-fluid cardTopPadding noSidePadding">
+<div class="container-fluid noSidePadding cardTopPadding">
     <h4 ng-show="products.length === 0" class="text-center"><i>{{'products.noProducts' | translate}}</i></h4>
-    <h4 ng-show="wrongMessage" class="text-center"><i>orderList.wrongMessage</i></h4>
+    <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
     </div>
-    <div class="btn-group btn-group-justified col-xs-12" role="group" aria-label="..." ng-hide="loading">
+    <div ng-hide="loading" class="btn-group btn-group-justified col-xs-12" role="group" aria-label="...">
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-primary active disabled">{{'products.products' | translate}}</button>
         </div>
@@ -31,7 +31,7 @@
             <a href="#/categories" type="button" class="btn btn-primary">{{'products.categories' | translate}}</a>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="product in products | filter:search | orderBy:'sortOrder'" on-finish-render="ngRepeatFinished" ng-hide="loading">
+    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="product in products | filter:search | orderBy:'sortOrder'" on-finish-render="ngRepeatFinished">
         <a href="#/product/details/{{product.uuid}}">
             <div class="card card-product hoverable">
                 <div class="card-image waves-effect waves-block waves-light view cardImageBlock">
