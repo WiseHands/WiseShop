@@ -43,6 +43,12 @@ public class ShopDTO extends GenericModel {
     public String googleAnalyticsCode;
 
     @Expose
+    public String googleMapsApiKey;
+
+    @Expose
+    public String googleStaticMapsApiKey;
+
+    @Expose
     public String locale;
 
     @OneToOne(cascade=CascadeType.ALL)

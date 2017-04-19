@@ -94,6 +94,14 @@
                 <p>Analytics</p>
                 <input id="analytics" type="text" class="validate" ng-model="selectedShop.googleAnalyticsCode">
             </div>
+            <div class="col-sm-6">
+                <p>Static Map API Key<a href="https://developers.google.com/maps/documentation/static-maps/get-api-key" target="_blank"><i class="fa fa-question-circle"></i></a></p>
+                <input id="staticMap" type="text" class="validate" ng-model="selectedShop.googleStaticMapsApiKey">
+            </div>
+            <div class="col-sm-6">
+                <p>Map API Key <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"><i class="fa fa-question-circle"></i></a></p>
+                <input id="map" type="text" class="validate" ng-model="selectedShop.googleMapsApiKey">
+            </div>
         </div>
         <div class="col-md-12">
             <a class="btn btn-primary waves-effect waves-light pull-right" ng-click="updateStoreSettings()">{{'categories.save' | translate}}</a>

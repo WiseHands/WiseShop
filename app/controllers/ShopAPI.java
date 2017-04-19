@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Random;
 
 public class ShopAPI extends AuthController {
+    public static final String WISEHANDS_STATIC_MAPS_KEY = "AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg";
+    public static final String WISEHANDS_MAPS_KEY = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
     public static final String SERVER_IP = "91.224.11.24";
 
     @Inject
@@ -127,6 +129,8 @@ public class ShopAPI extends AuthController {
         String liqpayPrivateKey = (String) jsonBody.get("liqpayPrivateKey");
         String googleWebsiteVerificator = (String) jsonBody.get("googleWebsiteVerificator");
         String googleAnalyticsCode = (String) jsonBody.get("googleAnalyticsCode");
+        String googleMapsApiKey = (String) jsonBody.get("googleMapsApiKey");
+        String googleStaticMapsApiKey = (String) jsonBody.get("googleStaticMapsApiKey");
         String startTime = (String) jsonBody.get("startTime");
         String endTime = (String) jsonBody.get("endTime");
         String locale = (String) jsonBody.get("locale");
@@ -141,6 +145,8 @@ public class ShopAPI extends AuthController {
 
         shop.googleWebsiteVerificator = googleWebsiteVerificator;
         shop.googleAnalyticsCode = googleAnalyticsCode;
+        shop.googleMapsApiKey = googleMapsApiKey;
+        shop.googleStaticMapsApiKey = googleStaticMapsApiKey;
         shop.locale = locale;
 
         shop = shop.save();
@@ -309,6 +315,8 @@ public class ShopAPI extends AuthController {
         visualSettings.sidebarColorScheme = color;
 
         ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, name, "", "", domain, "en_US");
+        shop.googleStaticMapsApiKey = WISEHANDS_STATIC_MAPS_KEY;
+        shop.googleMapsApiKey = WISEHANDS_MAPS_KEY;
         return shop = shop.save();
     }
 
