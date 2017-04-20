@@ -1,57 +1,64 @@
     angular.module('WiseHands')
         .controller('OrderListController', ['$scope', '$http', 'shared', 'spinnerService', 'sideNavInit', 'signout', function ($scope, $http, shared, spinnerService, sideNavInit, signout) {
             $scope.isSortingActive = shared.isSortingActive;
-
-            var req = {
-                method: 'GET',
-                url: '/orders',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                },
-                data: {}
-            };
             $scope.wrongMessage = false;
-            $scope.getResource = function () {
-                spinnerService.show('mySpinner');
+            $scope.loading = true;
 
-                $http(req)
-                    .then(function successCallback(response) {
-                        $scope.orders = response.data;
-                        spinnerService.hide('mySpinner');
-                        $scope.isAllOrdersDeleted = true;
-                        var now = new Date();
-                        var dateNow = new Date(now.getUTCFullYear(), now.getMonth(), now.getDate());
-                        var startOfToday = dateNow.getTime();
-                        var oneDayInMs = 86400000;
-                        $scope.orders.forEach(function(order){
-                            order.yesterdayString = false;
-                            if (startOfToday - oneDayInMs < order.time && startOfToday > order.time){
-                                order.yesterdayString = true;
-                            } else if (startOfToday < order.time) {
-                                var date = new Date(order.time);
-                                var hour = (date.getHours()<10?'0':'') + date.getHours();
-                                var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
-                                order.properDate = hour + ':' + minute;
-                            } else {
-                                var orderDate = new Date(order.time);
-                                var orderDay = ("0" + orderDate.getDate()).slice(-2);
-                                var orderMonth = ("0" + (orderDate.getMonth() + 1)).slice(-2);
-                                order.properDate = orderDay + '.' + orderMonth;
+            $http({
+                method: 'GET',
+                url: '/contact/details'
+            })
+                .then(function successCallback(response) {
+                    var req = {
+                        method: 'GET',
+                        url: '/orders',
+                        headers: {
+                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        },
+                        data: {}
+                    };
+                        $http(req)
+                            .then(function successCallback(response) {
+                                $scope.orders = response.data;
+                                $scope.isAllOrdersDeleted = true;
+                                var now = new Date();
+                                var dateNow = new Date(now.getUTCFullYear(), now.getMonth(), now.getDate());
+                                var startOfToday = dateNow.getTime();
+                                var oneDayInMs = 86400000;
+                                $scope.orders.forEach(function(order){
+                                    order.yesterdayString = false;
+                                    if (startOfToday - oneDayInMs < order.time && startOfToday > order.time){
+                                        order.yesterdayString = true;
+                                    } else if (startOfToday < order.time) {
+                                        var date = new Date(order.time);
+                                        var hour = (date.getHours()<10?'0':'') + date.getHours();
+                                        var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
+                                        order.properDate = hour + ':' + minute;
+                                    } else {
+                                        var orderDate = new Date(order.time);
+                                        var orderDay = ("0" + orderDate.getDate()).slice(-2);
+                                        var orderMonth = ("0" + (orderDate.getMonth() + 1)).slice(-2);
+                                        order.properDate = orderDay + '.' + orderMonth;
+                                    }
+                                    if (order.state !== 'DELETED') {
+                                        $scope.isAllOrdersDeleted = false;
+                                    }
+                                    $scope.loading = false;
+                                });
+                            }, function errorCallback(response) {
+                                if (response.data === 'Invalid X-AUTH-TOKEN') {
+                                    signout.signOut();
                                 }
+                                $scope.loading = false;
+                                $scope.wrongMessage = true;
+                            });
+                    var contacts = response.data;
+                    $scope.shopLatLng = contacts.latLng.replace(":", ",");
 
-                            if (order.state !== 'DELETED') {
-                                $scope.isAllOrdersDeleted = false;
-                            }
-                        });
-                    }, function errorCallback(response) {
-                        if (response.data === 'Invalid X-AUTH-TOKEN') {
-                            signout.signOut();
-                        }
-                        spinnerService.hide('mySpinner');
-                        $scope.wrongMessage = true;
-                    });
-            };
+                }, function errorCallback(data) {
+                    $scope.loading = false;
+                });
 
             $http({
                 method: 'GET',
@@ -73,7 +80,6 @@
                     }
                     $scope.wrongMessage = true;
                 });
-
 
             $scope.orderState = function(item){
                 if (item.state === "NEW"){
