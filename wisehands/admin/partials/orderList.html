@@ -107,7 +107,7 @@
         <a href ="#/details/{{item.uuid}}">
             <div class="card elegant-card hoverable">
                 <div ng-show="item.destinationLng && item.deliveryType === 'COURIER'" class="view overlay hm-white-slight z-depth-1">
-                    <img src="https://maps.googleapis.com/maps/api/staticmap?center={{item.address}}&zoom=15&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:N%7C{{item.destinationLat}},{{item.destinationLng}}&key=AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg" class="img-responsive" alt="">
+                    <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{item.address}}&zoom=15&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:N%7C{{item.destinationLat}},{{item.destinationLng}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive" alt="">
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div ng-show="item.deliveryType === 'COURIER' && !item.destinationLng" class="view overlay hm-white-slight z-depth-1">
@@ -119,7 +119,7 @@
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div ng-show="item.deliveryType === 'SELFTAKE'" class="view overlay hm-white-slight z-depth-1">
-                    <img src="https://maps.googleapis.com/maps/api/staticmap?center={{shopLatLng}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{shopLatLng}}&key=AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg" class="img-responsive" alt="">
+                    <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{shopLatLng}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{shopLatLng}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive" alt="">
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div class="card-content">

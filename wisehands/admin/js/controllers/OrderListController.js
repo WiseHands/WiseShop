@@ -44,6 +44,24 @@
                                     if (order.state !== 'DELETED') {
                                         $scope.isAllOrdersDeleted = false;
                                     }
+
+                                    $http({
+                                        method: 'GET',
+                                        url: '/shop/details',
+                                        headers: {
+                                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                                        }
+                                    })
+                                        .then(function successCallback(response) {
+                                            $scope.activeShop = response.data;
+                                            localStorage.setItem('activeShop', $scope.activeShop.uuid);
+                                        }, function errorCallback(response) {
+                                            if (response.data === 'Invalid X-AUTH-TOKEN') {
+                                                signout.signOut();
+                                            }
+                                        });
+
                                     $scope.loading = false;
                                 });
                             }, function errorCallback(response) {
@@ -55,7 +73,6 @@
                             });
                     var contacts = response.data;
                     $scope.shopLatLng = contacts.latLng.replace(":", ",");
-
                 }, function errorCallback(data) {
                     $scope.loading = false;
                 });
