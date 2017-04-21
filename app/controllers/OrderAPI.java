@@ -21,7 +21,7 @@ import java.util.*;
 public class OrderAPI extends AuthController {
 
     private  static final Double WISEHANDS_COMISSION = -0.0725;
-    private  static final int PAGE_SIZE = 2;
+    private  static final int PAGE_SIZE = 12;
 
     private class DeliveryType {
         private static final String COURIER = "COURIER";
@@ -203,7 +203,7 @@ public class OrderAPI extends AuthController {
             orders = OrderDTO.find("byShopAndStateNotEqual", shop, OrderState.DELETED).fetch(PAGE_SIZE);
         } else {
             int offset = PAGE_SIZE * page;
-            orders = OrderDTO.find("byShopAndStateNotEqual", shop, OrderState.DELETED).from(offset).fetch();
+            orders = OrderDTO.find("byShopAndStateNotEqual", shop, OrderState.DELETED).from(offset).fetch(PAGE_SIZE);
         }
 
 
