@@ -200,10 +200,10 @@ public class OrderAPI extends AuthController {
         checkAuthentification(shop);
         List<OrderDTO> orders = null;
         if(page == 0) {
-            orders = OrderDTO.find("byShopAndStateNotEqual", shop, OrderState.DELETED).fetch(PAGE_SIZE);
+            orders = OrderDTO.find("shop is ? and state is not ? order by time desc", shop, OrderState.DELETED).fetch(PAGE_SIZE);
         } else {
             int offset = PAGE_SIZE * page;
-            orders = OrderDTO.find("byShopAndStateNotEqual", shop, OrderState.DELETED).from(offset).fetch(PAGE_SIZE);
+            orders = OrderDTO.find("shop is ? and state is not ? order by time desc", shop, OrderState.DELETED).from(offset).fetch(PAGE_SIZE);
         }
 
 
