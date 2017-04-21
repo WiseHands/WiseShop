@@ -12,6 +12,7 @@
   "orderList.wrongMessage": "Щось пішло не так...",
   "orderList.yesterday": "вчора",
   "orderList.selftake": "Самовивіз",
+  "orderList.more": "Більше",
   "singleOrder.Details": "Деталі",
   "singleOrder.Shipped": "Надіслано",
   "singleOrder.Canceled": "Скасовано",

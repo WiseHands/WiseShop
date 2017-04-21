@@ -21,6 +21,7 @@ import java.util.*;
 public class OrderAPI extends AuthController {
 
     private  static final Double WISEHANDS_COMISSION = -0.0725;
+    private  static final int PAGE_SIZE = 2;
 
     private class DeliveryType {
         private static final String COURIER = "COURIER";
@@ -194,11 +195,17 @@ public class OrderAPI extends AuthController {
     }
 
 
-    public static void list(String client) throws Exception {
+    public static void list(String client, int page) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
+        List<OrderDTO> orders = null;
+        if(page == 0) {
+            orders = OrderDTO.find("byShopAndStateNotEqual", shop, OrderState.DELETED).fetch(PAGE_SIZE);
+        } else {
+            int offset = PAGE_SIZE * page;
+            orders = OrderDTO.find("byShopAndStateNotEqual", shop, OrderState.DELETED).from(offset).fetch();
+        }
 
-        List<OrderDTO> orders = OrderDTO.find("byShopAndStateNotEqual", shop, OrderState.DELETED).fetch();
 
         renderJSON(json(orders));
     }

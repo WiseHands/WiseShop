@@ -12,6 +12,7 @@
   "orderList.wrongMessage": "Something went wrong...",
   "orderList.yesterday": "y-day",
   "orderList.selftake": "Selftake",
+  "orderList.more": "More",
   "singleOrder.Details": "Details",
   "singleOrder.Shipped": "Shipped",
   "singleOrder.Canceled": "Canceled",

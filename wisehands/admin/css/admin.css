@@ -73,6 +73,9 @@ body {
     .noRightPadding {
         padding-right: 0;
     }
+    .cardTopPadding {
+        padding-top: 0;
+    }
     .noPaddingLeft {
         padding-left: 0 !important;
     }
