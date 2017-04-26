@@ -3,6 +3,7 @@ angular.module('WiseHands')
         var filterOptions = [];
         var isSortingActive = true;
         var discountCards = [];
+        var activeShop = {};
         return {
             getFilterOptions: function () {
                 return filterOptions;
@@ -21,6 +22,12 @@ angular.module('WiseHands')
             },
             setDiscountCards: function (discountCard) {
                 discountCards = discountCard;
+            },
+            getActiveShop: function () {
+                return  activeShop;
+            },
+            setActiveShop: function (newActiveShop) {
+                activeShop = newActiveShop;
             }
         }
     }]);

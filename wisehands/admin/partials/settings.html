@@ -10,11 +10,8 @@
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-plus-circle whiteColor pull-right"
-                   aria-haspopup="true"
-                   aria-expanded="false"
-                   data-toggle="modal"
-                   data-target="#createNewStoreModal">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="updateStoreSettings()">
                 </i>
             </a>
         </div>
@@ -33,17 +30,10 @@
         </div>
     </div>
     <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
-        <div class="input-field col-md-12">
-            <p>{{'settings.shop' | translate}}</p>
-            <select class="form-control"
-                    ng-model="selectedShop"
-                    ng-change="shopSelected(shop)"
-                    ng-options="shop as shop.shopName for shop in shops">
-            </select>
-        </div>
+
         <div class="input-field col-md-12">
             <p>{{'settings.shopName' | translate}}</p>
-            <input id="shopName" type="text" class="validate" ng-model="selectedShop.shopName">
+            <input id="shopName" type="text" class="validate" ng-model="activeShop.shopName">
         </div>
         <div class="input-field col-md-12">
             <div ng-translate-language-select></div>
@@ -95,7 +85,7 @@
                 <input id="analytics" type="text" class="validate" ng-model="selectedShop.googleAnalyticsCode">
             </div>
             <div class="col-sm-6">
-                <p>Static Map API Key<a href="https://developers.google.com/maps/documentation/static-maps/get-api-key" target="_blank"><i class="fa fa-question-circle"></i></a></p>
+                <p>Static Map API Key <a href="https://developers.google.com/maps/documentation/static-maps/get-api-key" target="_blank"><i class="fa fa-question-circle"></i></a></p>
                 <input id="staticMap" type="text" class="validate" ng-model="selectedShop.googleStaticMapsApiKey">
             </div>
             <div class="col-sm-6">
@@ -109,34 +99,5 @@
     </form>
 </div>
 
-<div class="modal fade" id="createNewStoreModal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{'settings.newShop' | translate}}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <form class="col-md-12" name="createNewStoreForm">
-                        <div class="input-field">
-                            <input id="newShopName" type="text" class="validate" ng-model="newStore.name" required>
-                            <label for="newShopName">{{'settings.shopName' | translate}}</label>
-                        </div>
-                        <div class="input-field">
-                            <label for="domain">{{'settings.domen' | translate}} ({{'settings.domainTips' | translate}})</label>
-                            <input id="domain" type="text" class="validate" ng-model="newStore.domain" pattern="^[a-z0-9-]+$" required>
-                            <p class="text-center" ng-show="newStore.domain">{{'settings.domainTips2' | translate}}:</p>
-                            <p class="text-center" ng-show="newStore.domain">http://{{newStore.domain}}.wisehands.me</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="errorTextStyling text-center">{{errorMessage}}</p>
-                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">{{'categories.create' | translate}}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="proceedWithPayment"></div>

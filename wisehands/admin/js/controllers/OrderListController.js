@@ -2,7 +2,7 @@
         .controller('OrderListController', ['$scope', '$http', 'shared', 'spinnerService', 'sideNavInit', 'signout', function ($scope, $http, shared, spinnerService, sideNavInit, signout) {
             $scope.isSortingActive = shared.isSortingActive;
             $scope.wrongMessage = false;
-            $scope.loading = true;
+            $scope.loading = false;
 
             $http({
                 method: 'GET',
@@ -18,9 +18,13 @@
                         },
                         data: {}
                     };
+                    $scope.loading = false;
                         $http(req)
                             .then(function successCallback(response) {
                                 $scope.orders = response.data;
+                                if ($scope.orders.length === 0) {
+                                    $scope.hideMoreButton = true;
+                                }
                                 $scope.isAllOrdersDeleted = true;
                                 var now = new Date();
                                 var dateNow = new Date(now.getUTCFullYear(), now.getMonth(), now.getDate());
@@ -44,6 +48,7 @@
                                     if (order.state !== 'DELETED') {
                                         $scope.isAllOrdersDeleted = false;
                                     }
+                                    $scope.loading = false;
 
                                     $http({
                                         method: 'GET',
@@ -56,6 +61,7 @@
                                         .then(function successCallback(response) {
                                             $scope.activeShop = response.data;
                                             localStorage.setItem('activeShop', $scope.activeShop.uuid);
+                                            $scope.loading = false;
                                         }, function errorCallback(response) {
                                             if (response.data === 'Invalid X-AUTH-TOKEN') {
                                                 signout.signOut();

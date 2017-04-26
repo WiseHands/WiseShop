@@ -1,11 +1,9 @@
 angular.module('WiseHands')
-    .controller('SideNavController', ['$scope', '$http', '$route', 'signout', '$window',
-    			function ($scope, $http, $route, signout, $window) {
+    .controller('SideNavController', ['$scope', '$http', '$route', 'signout', '$window', 'shared',
+    			function ($scope, $http, $route, signout, $window, shared) {
         $scope.$route = $route;
-        $scope.activeShop = {
-            domain: '',
-            shopName: ''
-        };
+
+
 
         $http({
             method: 'GET',
@@ -47,6 +45,10 @@ angular.module('WiseHands')
                     signout.signOut();
                 }
             });
+
+        $scope.$watch(function() {
+            $scope.activeShop = shared.getActiveShop();
+        });
 
         $scope.getUrl = function () {
             $window.location.href = window.location.protocol + '//' + $scope.activeShop.domain + ':' + window.location.port;
