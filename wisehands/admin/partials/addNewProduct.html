@@ -29,7 +29,7 @@
             <label for="product_name">{{'addNewProduct.productName' | translate}}</label>
         </div>
         <div class="input-field col-md-6">
-            <input id="product_price" type="number" class="validate" ng-model="product.price" required>
+            <input id="product_price" type="number" step="0.01" class="validate" ng-model="product.price" required>
             <label for="product_price">{{'addNewProduct.productPrice' | translate}}</label>
         </div>
         <div class="input-field col-md-12">
