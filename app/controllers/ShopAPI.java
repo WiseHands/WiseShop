@@ -18,6 +18,8 @@ import java.util.Random;
 public class ShopAPI extends AuthController {
     public static final String WISEHANDS_STATIC_MAPS_KEY = "AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg";
     public static final String WISEHANDS_MAPS_KEY = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
+    public static final String SHOP_OPEN_FROM = "1969-12-31T22:00:00.000Z";
+    public static final String SHOP_OPEN_UNTIL = "1970-01-01T21:59:00.000Z";
     public static final String SERVER_IP = "91.224.11.24";
 
     @Inject
@@ -315,6 +317,8 @@ public class ShopAPI extends AuthController {
         visualSettings.sidebarColorScheme = color;
 
         ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, name, "", "", domain, "en_US");
+        shop.startTime = SHOP_OPEN_FROM;
+        shop.endTime = SHOP_OPEN_UNTIL;
         shop.googleStaticMapsApiKey = WISEHANDS_STATIC_MAPS_KEY;
         shop.googleMapsApiKey = WISEHANDS_MAPS_KEY;
         return shop = shop.save();

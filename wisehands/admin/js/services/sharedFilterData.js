@@ -3,7 +3,7 @@ angular.module('WiseHands')
         var filterOptions = [];
         var isSortingActive = true;
         var discountCards = [];
-        var activeShop = {};
+        var activeShop = '';
         return {
             getFilterOptions: function () {
                 return filterOptions;

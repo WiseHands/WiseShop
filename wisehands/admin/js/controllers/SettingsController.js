@@ -1,6 +1,6 @@
 angular.module('WiseHands')
-    .controller('SettingsController', ['$scope', '$http', 'sideNavInit', 'signout', 'shared',
-    		function ($scope, $http, sideNavInit, signout, shared) {
+    .controller('SettingsController', ['$scope', '$http', 'sideNavInit', 'signout', 'shared', '$rootScope',
+    		function ($scope, $http, sideNavInit, signout, shared, $rootScope) {
         $scope.loading = true;
 
         $http({
@@ -32,7 +32,8 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
-                shared.setActiveShop($scope.activeShop);
+                $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
+                $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
                 $scope.loading = false;
             }, function errorCallback(response) {
                 if (response.data === 'Invalid X-AUTH-TOKEN') {
@@ -55,7 +56,9 @@ angular.module('WiseHands')
             })
                 .success(function (response) {
                     $scope.activeShop = response;
-                    shared.setActiveShop($scope.activeShop);
+                    localStorage.setItem('activeShopName', $scope.activeShop.shopName);
+                    $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
+                    $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
                     document.title = $scope.activeShop.shopName;
                     $scope.loading = false;
                 }).

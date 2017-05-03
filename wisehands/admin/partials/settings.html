@@ -56,45 +56,42 @@
             <h5>{{'settings.workingHours' | translate}}</h5>
             <div class="col-sm-6">
                 <p>{{'settings.from' | translate}}:</p>
-                <input id="startTime" type="time" class="validate" ng-model="selectedShop.startTime">
+                <input id="startTime" type="time" class="validate" ng-model="activeShop.startTime">
             </div>
             <div class="col-sm-6">
                 <p>{{'settings.to' | translate}}:</p>
-                <input id="endTime" type="time" class="validate" ng-model="selectedShop.endTime">
+                <input id="endTime" type="time" class="validate" ng-model="activeShop.endTime">
             </div>
         </div>
         <div class="input-field col-md-12 z-index-3">
             <p>LiqPay</p>
             <div class="col-sm-6">
                 <p>{{'settings.publicKey' | translate}}</p>
-                <input id="publicLiqPay" type="text" class="validate" ng-model="selectedShop.liqpayPublicKey">
+                <input id="publicLiqPay" type="text" class="validate" ng-model="activeShop.liqpayPublicKey">
             </div>
             <div class="col-sm-6">
                 <p>{{'settings.privateKey' | translate}}</p>
-                <input id="privateLiqPay" type="password" class="validate" ng-model="selectedShop.liqpayPrivateKey">
+                <input id="privateLiqPay" type="password" class="validate" ng-model="activeShop.liqpayPrivateKey">
             </div>
         </div>
         <div class="input-field col-md-12">
             <p>Google</p>
             <div class="col-sm-6">
                 <p>{{'settings.siteVerification' | translate}}</p>
-                <input id="verification" type="text" class="validate" ng-model="selectedShop.googleWebsiteVerificator">
+                <input id="verification" type="text" class="validate" ng-model="activeShop.googleWebsiteVerificator">
             </div>
             <div class="col-sm-6">
                 <p>Analytics</p>
-                <input id="analytics" type="text" class="validate" ng-model="selectedShop.googleAnalyticsCode">
+                <input id="analytics" type="text" class="validate" ng-model="activeShop.googleAnalyticsCode">
             </div>
             <div class="col-sm-6">
                 <p>Static Map API Key <a href="https://developers.google.com/maps/documentation/static-maps/get-api-key" target="_blank"><i class="fa fa-question-circle"></i></a></p>
-                <input id="staticMap" type="text" class="validate" ng-model="selectedShop.googleStaticMapsApiKey">
+                <input id="staticMap" type="text" class="validate" ng-model="activeShop.googleStaticMapsApiKey">
             </div>
             <div class="col-sm-6">
                 <p>Map API Key <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"><i class="fa fa-question-circle"></i></a></p>
-                <input id="map" type="text" class="validate" ng-model="selectedShop.googleMapsApiKey">
+                <input id="map" type="text" class="validate" ng-model="activeShop.googleMapsApiKey">
             </div>
-        </div>
-        <div class="col-md-12">
-            <a class="btn btn-primary waves-effect waves-light pull-right" ng-click="updateStoreSettings()">{{'categories.save' | translate}}</a>
         </div>
     </form>
 </div>

@@ -1,9 +1,7 @@
 angular.module('WiseHands')
     .controller('SideNavController', ['$scope', '$http', '$route', 'signout', '$window', 'shared',
-    			function ($scope, $http, $route, signout, $window, shared) {
+    			function ($scope, $http, $route, signout, $window) {
         $scope.$route = $route;
-
-
 
         $http({
             method: 'GET',
@@ -46,8 +44,13 @@ angular.module('WiseHands')
                 }
             });
 
-        $scope.$watch(function() {
-            $scope.activeShop = shared.getActiveShop();
+        $scope.$watch(function () {
+            if (!$scope.activeShop) {
+                return;
+            }
+            $scope.activeShop.shopName = localStorage.getItem('activeShopName');
+
+
         });
 
         $scope.getUrl = function () {
