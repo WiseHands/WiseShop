@@ -17,7 +17,7 @@
                aria-expanded="false">
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
-                <div class="dropdown-menu pull-right col-xs-1" aria-labelledby="dropdownMenu1">
+                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
                     <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('')" ng-class="{activeAnal: days === ''}"><p>7 {{'analytics.days' | translate}}</p></a>
                     <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/30')" ng-class="{activeAnal: days === '/30'}"><p>30 {{'analytics.days' | translate}}</p></a>
                     <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('/90')" ng-class="{activeAnal: days === '/90'}"><p>90 {{'analytics.days' | translate}}</p></a>
@@ -40,7 +40,7 @@
             </canvas>
         </div>
         <div class="col-sm-3 col-xs-12 text-center">
-            <div class="card primary-color darken-1">
+            <div class="card analCardsColor">
                 <div class="card-content white-text">
                     <p class="card-title">{{'analytics.purchases' | translate}}:</p>
                     <p>{{analytics.countToday}}</p>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="col-sm-3 col-xs-12 text-center">
-            <div class="card primary-color darken-1">
+            <div class="card analCardsColor">
                 <div class="card-content white-text">
                     <p class="card-title">{{'analytics.total' | translate}}:</p>
                     <p>{{analytics.count}}</p>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="col-sm-3 col-xs-12 text-center">
-            <div class="card primary-color darken-1">
+            <div class="card analCardsColor">
                 <div class="card-content white-text">
                     <p class="card-title">{{'analytics.today' | translate}}:</p>
                     <p>{{analytics.totalToday}} {{'analytics.currency' | translate}}</p>
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="col-sm-3 col-xs-12 text-center">
-            <div class="card primary-color darken-1">
+            <div class="card analCardsColor">
                 <div class="card-content white-text">
                     <p class="card-title">{{'analytics.total' | translate}}:</p>
                     <p>{{analytics.total}} {{'analytics.currency' | translate}}</p>

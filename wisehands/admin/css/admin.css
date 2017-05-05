@@ -230,6 +230,10 @@ textarea {
     color: white;
     display: block;
 }
+.noMarginForSearchInput:focus {
+    box-shadow: 0 1px 0 0 white !important;
+
+}
 
 .noMarginForSearchInput::-webkit-input-placeholder {
     color: white;
@@ -245,17 +249,13 @@ label.whiteCheckBox::after {
 }
 .saveProductButtonStyling, .saveProductButtonStyling:active, .saveProductButtonStyling:visited, .saveProductButtonStyling:focus {
     border: none;
-    background-color: #303F9F;
+    background-color: #0e2935;
 }
 .labelBotPadding {
     padding-bottom: 1em;
 }
 .noTopPadding {
     padding-top: 0 !important;
-}
-.primaryColor {
-    color: #303F9F;
-    background-color: #303F9F !important;
 }
 .lightPrimaryColor {
     background-color: #3F51B5;
@@ -364,7 +364,8 @@ label.whiteCheckBox::after {
     margin-top: 1em;
 }
 .activeAnal {
-    background-color: #EAF1F5;
+    background-color: lightseagreen;
+    color: white !important;
 }
 .noMatchesMargin {
     margin-top: 2.5em;
@@ -407,3 +408,76 @@ label.whiteCheckBox::after {
     padding-bottom: 0;
     border: 0;
 }
+.primaryColor {
+    color: #0e2935;
+    background-color: #0e2935 !important;
+}
+.secondaryColor {
+    background-color: #126471;
+}
+.secondaryColorHover {
+    background-color: #054d58;
+}
+
+.rightDropdown {
+    border: 0;
+    margin: 0;
+    color: #0e2935;
+    background-color: #0e2935 !important;
+}
+.rightDropdown a {
+    color: white;
+}
+.rightDropdown a:hover {
+    color: lightseagreen;
+}
+
+[type=checkbox].filled-in:checked+label:after {
+    background-color: inherit;
+}
+
+.analCardsColor {
+   background-color: #3E4551;
+}
+.btn.white-text.disabled {
+    opacity: 1;
+    background-color: #054d58;
+}
+.btn.secondaryColor:hover {
+    color: white;
+}
+input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]),
+input[type=email]:focus:not([readonly]), input[type=number]:focus:not([readonly]),
+input[type=password]:focus:not([readonly]), input[type=search-md]:focus:not([readonly]),
+input[type=tel]:focus:not([readonly]), input[type=text]:focus:not([readonly]),
+input[type=time]:focus:not([readonly]), input[type=url]:focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid lightseagreen;
+    box-shadow: 0 1px 0 0 lightseagreen;
+}
+input[type=date]:focus:not([readonly])+label, input[type=datetime-local]:focus:not([readonly])+label,
+input[type=email]:focus:not([readonly])+label, input[type=number]:focus:not([readonly])+label,
+input[type=password]:focus:not([readonly])+label, input[type=search-md]:focus:not([readonly])+label,
+input[type=tel]:focus:not([readonly])+label, input[type=text]:focus:not([readonly])+label,
+input[type=time]:focus:not([readonly])+label, input[type=url]:focus:not([readonly])+label,
+textarea.materialize-textarea:focus:not([readonly])+label {
+    color: lightseagreen;
+}
+.file-field .btn, .btn {
+    line-height: 2em;
+}
+[type=checkbox].filled-in.showInShop:checked+label:after {
+    border: 2px solid #9e9e9e;
+    background-color: #9e9e9e;
+}
+[type=checkbox].filled-in.showInShop:not(:checked)+label:after {
+    border: 2px solid #9e9e9e;
+}
+button:focus {
+    background-color: #126471;
+    color: white !important;
+}
+.close {
+    background-color: white !important;
+}
+

@@ -25,10 +25,10 @@
     </div>
     <div ng-hide="loading" class="btn-group btn-group-justified col-xs-12" role="group" aria-label="...">
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-primary active disabled">{{'products.products' | translate}}</button>
+            <button type="button" class="btn white-text disabled">{{'products.products' | translate}}</button>
         </div>
         <div class="btn-group" role="group">
-            <a href="#/categories" type="button" class="btn btn-primary">{{'products.categories' | translate}}</a>
+            <a href="#/categories" type="button" class="btn secondaryColor white-text">{{'products.categories' | translate}}</a>
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="product in products | filter:search | orderBy:'sortOrder'" on-finish-render="ngRepeatFinished">

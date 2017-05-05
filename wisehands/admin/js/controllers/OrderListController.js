@@ -241,7 +241,7 @@
 
             $scope.isFilterOn = function(){
                 if ($scope.filterOptions.length > 0){
-                    return '#5AD43D';
+                    return 'lightseagreen';
                 } else {
                     return 'white';
                 }
