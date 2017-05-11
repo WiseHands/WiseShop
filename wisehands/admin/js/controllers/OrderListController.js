@@ -22,7 +22,7 @@
                         $http(req)
                             .then(function successCallback(response) {
                                 $scope.orders = response.data;
-                                if ($scope.orders.length === 0) {
+                                if ($scope.orders.length === 0 || $scope.orders.length < 12) {
                                     $scope.hideMoreButton = true;
                                 }
                                 $scope.isAllOrdersDeleted = true;
@@ -106,6 +106,7 @@
 
             var pageNumber = 1;
             $scope.moreOrders = function () {
+                $scope.hideMoreButton = false;
                 var req = {
                     method: 'GET',
                     url: '/orders?page=' + pageNumber,
@@ -120,7 +121,6 @@
                     .then(function successCallback(response) {
                         if(response.data.length !== 0) {
                             $scope.orders = $scope.orders.concat(response.data);
-                            $scope.hideMoreButton = false;
                         } else {
                             $scope.hideMoreButton = true;
                         }

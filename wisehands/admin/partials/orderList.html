@@ -101,7 +101,6 @@
         </a>
     </li>
 </ul>
-
 <div class="container-fluid noSidePadding cardTopPadding">
     <div class="col-sm-6 col-md-4 hidden-xs" ng-if="item.state !== 'DELETED'" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
         <a href ="#/details/{{item.uuid}}">
@@ -163,6 +162,7 @@
         <spinner name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
 </div>
-<div ng-hide="" class="text-center">
-    <button ng-hide="hideMoreButton" ng-click="moreOrders()" class="btn-flat waves-effect waves-teal">{{'orderList.more' | translate}}</button>
+<div ng-hide="hideMoreButton" class="text-center">
+    <button ng-click="moreOrders()" class="btn waves-effect waves-light secondaryColor">{{'orderList.more' | translate}}</button>
 </div>
+
