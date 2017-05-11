@@ -55,4 +55,7 @@ angular.module('WiseHands')
                     });
 
             };
+        $scope.goBack = function () {
+            window.history.back();
+        }
         }]);

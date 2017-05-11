@@ -66,7 +66,6 @@ angular.module('WiseHands')
                     $scope.users.push(response.data);
                     $scope.hideCreateUserModal();
                 }, function errorCallback(response) {
-                    debugger;
                     $scope.userError = response.data;
                     if (response.data === 'Invalid X-AUTH-TOKEN') {
                         signout.signOut();

@@ -26,15 +26,15 @@
     <form class="col-md-12 noSidePadding" id="userInfoForm" name="userInfoForm" ng-hide="loading">
         <div class="input-field col-md-6">
             <p>{{'userprofile.fullname' | translate}}</p>
-            <input type="text" class="validate" ng-model="userInfo.name">
+            <input type="text" ng-model="userInfo.name">
         </div>
         <div class="input-field col-md-6">
             <p>{{'singleOrder.Phone' | translate}}</p>
-            <input type="tel" class="validate" ng-model="userInfo.phone" ng-disabled="!userInfo.isGoogleSignIn">
+            <input type="tel" ng-model="userInfo.phone" ng-disabled="!userInfo.isGoogleSignIn">
         </div>
         <div class="input-field col-md-6">
             <p>E-mail</p>
-            <input type="email" class="validate" ng-model="userInfo.email" ng-disabled="userInfo.isGoogleSignIn">
+            <input type="email" ng-model="userInfo.email" ng-disabled="userInfo.isGoogleSignIn">
         </div>
         <div class="input-field col-xs-12 vcentering noSidePadding">
             <div class="col-xs-6">
@@ -46,7 +46,7 @@
                 </select>
             </div>
             <div class="col-xs-6">
-                <a class="btn-floating btn-medium waves-effect waves-light red pull-right" data-toggle="modal" data-target="#createNewStoreModal">
+                <a class="btn-floating btn-medium waves-effect waves-light secondaryColor pull-right" data-toggle="modal" data-target="#createNewStoreModal">
                     <i class="material-icons">add</i>
                 </a>
             </div>
@@ -65,18 +65,18 @@
                 <div class="row">
                     <form class="col-md-12" name="createNewStoreForm">
                         <div class="input-field">
-                            <input id="newShopName" type="text" class="validate" ng-model="newStore.name" required>
+                            <input id="newShopName" type="text" ng-model="newStore.name" required>
                             <label for="newShopName">{{'settings.shopName' | translate}}</label>
                         </div>
                         <div class="input-field">
                             <label for="domain">{{'settings.domen' | translate}} ({{'settings.domainTips' | translate}})</label>
-                            <input id="domain" type="text" class="validate" ng-model="newStore.domain" pattern="^[a-z0-9-]+$" required>
+                            <input id="domain" type="text" ng-model="newStore.domain" pattern="^[a-z0-9-]+$" required>
                             <p class="text-center" ng-show="newStore.domain">{{'settings.domainTips2' | translate}}:</p>
                             <p class="text-center" ng-show="newStore.domain">http://{{newStore.domain}}.wisehands.me</p>
                         </div>
                         <div class="text-center">
                             <p class="errorTextStyling text-center">{{errorMessage}}</p>
-                            <button type="submit" class="btn btn-success waves-effect waves-light" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">{{'categories.create' | translate}}</button>
+                            <button type="submit" class="btn secondaryColor waves-effect waves-light" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">{{'categories.create' | translate}}</button>
                         </div>
                     </form>
                 </div>

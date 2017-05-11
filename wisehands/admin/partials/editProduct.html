@@ -61,7 +61,7 @@
                                      data-placement="top"
                                      title="{{'addNewProduct.makeMain' | translate}}"
                                      ng-click="setMainPhotoIndex($index, image.uuid); $event.stopPropagation();">
-                                <div class="label label-danger photoLabelStyle hoverable"
+                                <div class="label secondaryColor photoLabelStyle hoverable"
                                      data-toggle="tooltip"
                                      data-placement="top"
                                      title="{{'addNewProduct.deletePhoto' | translate}}"
@@ -87,11 +87,11 @@
                     </select>
                 </div>
                 <div class="input-field col-md-12">
-                    <input id="name" type="text" class="validate" ng-model="product.name">
+                    <input id="name" type="text" ng-model="product.name">
                     <label class="active" for="name">{{'addNewProduct.productName' | translate}}</label>
                 </div>
                 <div class="input-field col-md-12">
-                    <input id="price" type="text" class="validate" ng-model="product.price">{{'products.currency' | translate}}
+                    <input id="price" type="text" ng-model="product.price">{{'products.currency' | translate}}
                     <label class="active" for="price">{{'addNewProduct.productPrice' | translate}}</label>
                 </div>
                 <div class="input-field col-md-12">
@@ -108,18 +108,18 @@
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="product.isActive" />
+                                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" />
                                     <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
                                 </div>
                                 <div class="panel-body">
                                     <div class="input-field col-md-12">
-                                        <input id="oldPrice" type="number" class="validate" ng-model="product.oldPrice">
+                                        <input id="oldPrice" type="number" ng-model="product.oldPrice">
                                         <label for="oldPrice" class="active">{{'addNewProduct.oldPrice' | translate}}</label>
                                     </div>
                                 </div>
                                 <div class="panel-body">
                                     <div class="input-field col-md-12">
-                                        <input id="productOrder" type="number" class="validate" ng-model="product.sortOrder">
+                                        <input id="productOrder" type="number" ng-model="product.sortOrder">
                                         <label for="productOrder" class="active">{{'addNewProduct.displayOrder' | translate}}</label>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="input-field col-md-12">
-                    <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#categoryModal">{{'addNewProduct.createCategory' | translate}}</button>
+                    <button type="button" class="btn secondaryColor pull-right" data-toggle="modal" data-target="#categoryModal">{{'addNewProduct.createCategory' | translate}}</button>
                 </div>
             </div>
         </div>
@@ -144,7 +144,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <input id="password" type="text" class="validate" ng-model="newCategory.name" required>
+                            <input id="password" type="text" ng-model="newCategory.name" required>
                             <label for="password">{{'categories.categoryName' | translate}}</label>
                         </div>
                         <div class="input-field col-md-12">
@@ -152,7 +152,7 @@
                             <label for="textarea1">{{'categories.categoryDescription' | translate}}</label>
                         </div>
                         <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                        <button type="submit" class="btn btn-default pull-right" ng-hide="loading">{{'categories.create' | translate}}</button>
+                        <button type="submit" class="btn secondaryColor pull-right" ng-hide="loading">{{'categories.create' | translate}}</button>
                     </div>
                 </form>
             </div>

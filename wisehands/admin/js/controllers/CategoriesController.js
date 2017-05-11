@@ -107,5 +107,6 @@ angular.module('WiseHands')
                 });
 
         };
+        
         sideNavInit.sideNav();
     }]);

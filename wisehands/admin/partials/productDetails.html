@@ -19,7 +19,7 @@
                aria-expanded="false">
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
-                <div class="dropdown-menu pull-right col-xs-1" aria-labelledby="dropdownMenu1">
+                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
                     <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>{{'productDetails.edit' | translate}}</p></a>
                     <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
                 </div>
@@ -38,8 +38,8 @@
                     <!--Main image-->
                     <div class="col-xs-8">
                         <div class="flexContainerForPriceLabels card-label">
-                            <h5><span class="label rgba-purple-strong">{{product.price}} {{'products.currency' | translate}}</span></h5>
-                            <h5><span ng-hide="product.oldPrice == null" class="label rgba-purple-strong crossedPriceFont"><strike>{{product.oldPrice}} {{'products.currency' | translate}}</strike></span></h5>
+                            <h5><span class="label primaryColor">{{product.price}} {{'products.currency' | translate}}</span></h5>
+                            <h5><span ng-hide="product.oldPrice == null" class="label primaryColor crossedPriceFont"><strike>{{product.oldPrice}} {{'products.currency' | translate}}</strike></span></h5>
                         </div>
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner z-depth-1 hoverable" role="listbox">
@@ -102,10 +102,10 @@
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
                 <div class="col-xs-offset-2 col-xs-8">
-                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteProduct()" ng-show="deleteButton">Видалити</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="deleteProduct()" ng-show="deleteButton">Видалити</button>
                 </div>
                 <a href="#/products" class="col-xs-offset-4 col-xs-4 noUnderline">
-                    <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
                 </a>
             </div>
         </div>

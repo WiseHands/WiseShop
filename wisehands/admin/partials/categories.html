@@ -22,25 +22,25 @@
     </div>
     <div class="btn-group btn-group-justified col-xs-12" role="group" aria-label="..." ng-hide="loading">
         <div class="btn-group" role="group">
-            <a href="#/products" type="button" class="btn btn-primary">{{'products.products' | translate}}</a>
+            <a href="#/products" type="button" class="btn secondaryColor">{{'products.products' | translate}}</a>
         </div>
         <div class="btn-group" role="group">
-            <a type="button" class="btn btn-primary active disabled">{{'products.categories' | translate}}</a>
+            <a type="button" class="btn white-text disabled">{{'products.categories' | translate}}</a>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12" ng-hide="loading">
         <div class="panel-group" id="accordion">
             <div class="panel panel-default" ng-repeat="category in categories">
-                <a class="collection-item blue vcentering">
-                    <h4 class="white-text col-xs-10" data-toggle="collapse"  data-target="#collapse{{$index}}">{{category.name}} <span class="badge green">{{category.products.length}}</span></h4>
+                <a class="collection-item primaryColor vcentering">
+                    <h4 class="white-text col-xs-10" data-toggle="collapse"  data-target="#collapse{{$index}}">{{category.name}} <span class="badge lightseagreen">{{category.products.length}}</span></h4>
                     <div class="col-xs-2">
-                        <button class="btn-floating btn-xsmall waves-effect waves-light primary-color-dark pull-right" data-toggle="modal" data-target="#categoryModal" ng-click="getCategory(category)"><i class="material-icons">mode_edit</i></button>
-                        <button class="btn-floating btn-xsmall waves-effect waves-light red pull-right" data-toggle="modal" data-target="#deleteCategory" ng-click="getCategory(category)"><i class="material-icons"><i class="material-icons">delete_forever</i></i></button>
+                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" data-toggle="modal" data-target="#deleteCategory" ng-click="getCategory(category)"><i class="material-icons">delete_forever</i></button>
+                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" data-toggle="modal" data-target="#categoryModal" ng-click="getCategory(category)"><i class="material-icons">mode_edit</i></button>
                     </div>
                 </a>
                 <div id="collapse{{$index}}" class="panel-collapse collapse">
                     <div class="collection">
-                        <a href="#/product/details/{{product.uuid}}" class="collection-item" ng-repeat="product in category.products | orderBy:'sortOrder'">{{product.name}}</a>
+                        <a href="#/product/details/{{product.uuid}}" class="collection-item black-text" ng-repeat="product in category.products | orderBy:'sortOrder'">{{product.name}}</a>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <input id="categoryName" type="text" class="validate" ng-model="thisCategory.name" required>
+                        <input id="categoryName" type="text" ng-model="thisCategory.name" required>
                         <label class="active" for="categoryName">{{'categories.categoryName' | translate}}</label>
                     </div>
                     <div class="input-field col-md-12">
@@ -64,7 +64,7 @@
                         <label class="active" for="textarea1">{{'categories.categoryDescription' | translate}}</label>
                     </div>
                     <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                    <button class="btn btn-default pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>
+                    <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <input id="password" type="text" class="validate" ng-model="newCategory.name" required>
+                            <input id="password" type="text" ng-model="newCategory.name" required>
                             <label for="password">{{'categories.categoryName' | translate}}</label>
                         </div>
                         <div class="input-field col-md-12">
@@ -88,7 +88,7 @@
                             <label for="textarea2">{{'categories.categoryDescription' | translate}}</label>
                         </div>
                         <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                        <button type="submit" class="btn btn-default pull-right" ng-hide="loading">{{'categories.create' | translate}}</button>
+                        <button type="submit" class="btn secondaryColor pull-right" ng-hide="loading">{{'categories.create' | translate}}</button>
                     </div>
                 </form>
             </div>
@@ -111,10 +111,10 @@
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
                 <div class="col-xs-offset-2 col-xs-8">
-                    <button type="button" class="btn btn-danger btn-sm btn-block " ng-click="deleteCategory()" ng-show="deleteButton">{{'singleOrder.Delete' | translate}}</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="deleteCategory()" ng-show="deleteButton">{{'singleOrder.Delete' | translate}}</button>
                 </div>
                 <a class="col-xs-offset-4 col-xs-4 noUnderline">
-                    <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal3()">Ok</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal3()">Ok</button>
                 </a>
             </div>
         </div>

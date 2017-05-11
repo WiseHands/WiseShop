@@ -26,6 +26,7 @@ angular.module('WiseHands')
                 });
 
             $scope.updateUserInfo = function () {
+                $scope.loading = true;
                 $http({
                     method: 'PUT',
                     url: '/profile',

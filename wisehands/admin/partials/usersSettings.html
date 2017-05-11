@@ -27,7 +27,7 @@
     </div>
     <div class="col-sm-6 col-md-4" ng-repeat="user in users">
         <div class="testimonial-card z-depth-1">
-            <div class="card-up primary-color">
+            <div class="card-up secondaryColor">
             </div>
             <div class="avatar"><img ng-src="{{getUserImage(user)}}" class="img-circle img-responsive" >
             </div>
@@ -54,10 +54,10 @@
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
                 <div class="col-xs-offset-3 col-xs-6">
-                    <button type="button" class="btn btn-danger btn-sm btn-block" ng-click="deleteUser()" ng-show="deleteButton">Видалити</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-click="deleteUser()" ng-show="deleteButton">Видалити</button>
                 </div>
                 <div class="col-xs-offset-4 col-xs-4">
-                    <button type="button" class="btn btn-success btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
                 </div>
             </div>
         </div>
@@ -74,20 +74,20 @@
                 <div class="row">
                     <form class="col-md-12" name="createNewUserForm" ng-submit="createNewUser()">
                         <p>
-                            <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="gmail" />
+                            <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="gmail" />
                             <label for="filled-in-box">{{'user.gmail' | translate}}</label>
                         </p>
                         <div ng-show="gmail" class="input-field">
-                            <input name="gmail" id="newUserEmail" type="email" class="validate" ng-model="newUser.email" ng-required="gmail">
+                            <input name="gmail" id="newUserEmail" type="email" ng-model="newUser.email" ng-required="gmail">
                             <label for="newUserEmail">Gmail</label>
                         </div>
                         <div ng-hide="gmail" class="input-field">
-                            <input name="phone" id="newUserPhone" type="tel" class="validate" ng-model="newUser.phone" pattern="^380[0-9]{9,9}$" ng-required="!gmail">
+                            <input name="phone" id="newUserPhone" type="tel" ng-model="newUser.phone" pattern="^380[0-9]{9,9}$" ng-required="!gmail">
                             <label for="newUserPhone">{{'contacts.phone' | translate}}(+380xxxxxxxxx)</label>
                         </div>
                         <p class="redError" ng-hide="!userError">{{userError}}</p>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success waves-effect waves-light">{{'categories.create' | translate}}</button>
+                            <button type="submit" class="btn secondaryColor waves-effect waves-light">{{'categories.create' | translate}}</button>
                         </div>
                     </form>
                 </div>

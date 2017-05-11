@@ -25,16 +25,16 @@
     </div>
     <form class="col-md-12" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
         <div class="input-field col-md-6">
-            <input type="checkbox" class="filled-in pull-left" id="filled-in-box" ng-model="delivery.isCourierAvailable" />
+            <input type="checkbox" class="filled-in pull-left checkBoxStyling" id="filled-in-box" ng-model="delivery.isCourierAvailable" />
             <label for="filled-in-box">{{'delivery.enabled' | translate}}</label>
         </div>
         <div class="col-md-12 input-field">
             <p>{{'delivery.deliveryPrice' | translate}}</p>
-            <input id="deliveryPrice" type="number" class="validate" ng-model="delivery.courierPrice" />
+            <input id="deliveryPrice" type="number" ng-model="delivery.courierPrice" />
         </div>
         <div class="col-md-12 input-field">
             <p>{{'delivery.freeDeliveryPrice' | translate}}</p>
-            <input id="freeDelivery" type="number" class="validate" ng-model="delivery.courierFreeDeliveryLimit">
+            <input id="freeDelivery" type="number" ng-model="delivery.courierFreeDeliveryLimit">
         </div>
         <div class="col-md-12 input-field">
             <p>{{'delivery.messageText' | translate}}</p>

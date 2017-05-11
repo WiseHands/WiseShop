@@ -10,7 +10,7 @@
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-save whiteColor pull-right"
+                <i class="fa fa-save whiteColor pull-right saveProductButtonStyling"
                    ng-click="updateStoreSettings()">
                 </i>
             </a>
@@ -23,17 +23,16 @@
     </div>
     <div class="btn-group btn-group-justified col-xs-12 z-index" role="group" aria-label="..." ng-hide="loading">
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-primary active disabled">{{'settings.general' | translate}}</button>
+            <button type="button" class="btn white-text disabled">{{'settings.general' | translate}}</button>
         </div>
         <div class="btn-group" role="group">
-            <a href="#/viewsettings" type="button" class="btn btn-primary">{{'settings.view' | translate}}</a>
+            <a href="#/viewsettings" type="button" class="btn secondaryColor">{{'settings.view' | translate}}</a>
         </div>
     </div>
     <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
-
         <div class="input-field col-md-12">
             <p>{{'settings.shopName' | translate}}</p>
-            <input id="shopName" type="text" class="validate" ng-model="activeShop.shopName">
+            <input id="shopName" type="text" ng-model="activeShop.shopName">
         </div>
         <div class="input-field col-md-12">
             <div ng-translate-language-select></div>
@@ -56,41 +55,41 @@
             <h5>{{'settings.workingHours' | translate}}</h5>
             <div class="col-sm-6">
                 <p>{{'settings.from' | translate}}:</p>
-                <input id="startTime" type="time" class="validate" ng-model="activeShop.startTime">
+                <input id="startTime" type="time" ng-model="activeShop.startTime">
             </div>
             <div class="col-sm-6">
                 <p>{{'settings.to' | translate}}:</p>
-                <input id="endTime" type="time" class="validate" ng-model="activeShop.endTime">
+                <input id="endTime" type="time" ng-model="activeShop.endTime">
             </div>
         </div>
         <div class="input-field col-md-12 z-index-3">
             <p>LiqPay</p>
             <div class="col-sm-6">
                 <p>{{'settings.publicKey' | translate}}</p>
-                <input id="publicLiqPay" type="text" class="validate" ng-model="activeShop.liqpayPublicKey">
+                <input id="publicLiqPay" type="text" ng-model="activeShop.liqpayPublicKey">
             </div>
             <div class="col-sm-6">
                 <p>{{'settings.privateKey' | translate}}</p>
-                <input id="privateLiqPay" type="password" class="validate" ng-model="activeShop.liqpayPrivateKey">
+                <input id="privateLiqPay" type="password" ng-model="activeShop.liqpayPrivateKey">
             </div>
         </div>
         <div class="input-field col-md-12">
             <p>Google</p>
             <div class="col-sm-6">
                 <p>{{'settings.siteVerification' | translate}}</p>
-                <input id="verification" type="text" class="validate" ng-model="activeShop.googleWebsiteVerificator">
+                <input id="verification" type="text" ng-model="activeShop.googleWebsiteVerificator">
             </div>
             <div class="col-sm-6">
                 <p>Analytics</p>
-                <input id="analytics" type="text" class="validate" ng-model="activeShop.googleAnalyticsCode">
+                <input id="analytics" type="text" ng-model="activeShop.googleAnalyticsCode">
             </div>
             <div class="col-sm-6">
                 <p>Static Map API Key <a href="https://developers.google.com/maps/documentation/static-maps/get-api-key" target="_blank"><i class="fa fa-question-circle"></i></a></p>
-                <input id="staticMap" type="text" class="validate" ng-model="activeShop.googleStaticMapsApiKey">
+                <input id="staticMap" type="text" ng-model="activeShop.googleStaticMapsApiKey">
             </div>
             <div class="col-sm-6">
                 <p>Map API Key <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"><i class="fa fa-question-circle"></i></a></p>
-                <input id="map" type="text" class="validate" ng-model="activeShop.googleMapsApiKey">
+                <input id="map" type="text" ng-model="activeShop.googleMapsApiKey">
             </div>
         </div>
     </form>

@@ -37,7 +37,7 @@
     margin: 0;
 }
 .cardTopPadding {
-    padding-top: 2em;
+    padding-top: 20px;
 }
 
 body {
@@ -74,7 +74,7 @@ body {
         padding-right: 0;
     }
     .cardTopPadding {
-        padding-top: 0;
+        padding-top: 20px;
     }
     .noPaddingLeft {
         padding-left: 0 !important;
@@ -250,6 +250,8 @@ label.whiteCheckBox::after {
 .saveProductButtonStyling, .saveProductButtonStyling:active, .saveProductButtonStyling:visited, .saveProductButtonStyling:focus {
     border: none;
     background-color: #0e2935;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
 }
 .labelBotPadding {
     padding-bottom: 1em;
@@ -386,9 +388,7 @@ label.whiteCheckBox::after {
 .collection {
     margin-top: 78px;
 }
-.collection .collection-item {
-    padding: 10px 0 0 0;
-}
+
 .datePriceContainer {
     padding-right: 0;
 }
@@ -409,11 +409,11 @@ label.whiteCheckBox::after {
     border: 0;
 }
 .primaryColor {
-    color: #0e2935;
     background-color: #0e2935 !important;
 }
 .secondaryColor {
     background-color: #126471;
+    color: white;
 }
 .secondaryColorHover {
     background-color: #054d58;
@@ -443,7 +443,7 @@ label.whiteCheckBox::after {
     opacity: 1;
     background-color: #054d58;
 }
-.btn.secondaryColor:hover {
+.btn.secondaryColor:hover, .btn.secondaryColor[disabled] {
     color: white;
 }
 input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]),
@@ -466,11 +466,11 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 .file-field .btn, .btn {
     line-height: 2em;
 }
-[type=checkbox].filled-in.showInShop:checked+label:after {
+[type=checkbox].filled-in.checkBoxStyling:checked+label:after {
     border: 2px solid #9e9e9e;
     background-color: #9e9e9e;
 }
-[type=checkbox].filled-in.showInShop:not(:checked)+label:after {
+[type=checkbox].filled-in.checkBoxStyling:not(:checked)+label:after {
     border: 2px solid #9e9e9e;
 }
 button:focus {
@@ -480,4 +480,19 @@ button:focus {
 .close {
     background-color: white !important;
 }
-
+.close:focus {
+    color: black !important;
+}
+.lightseagreen, .lightseagreen:focus {
+    background-color: lightseagreen;
+}
+.fa-question-circle, .pointIconColor {
+    color: #126471;
+}
+.fa-question-circle:hover, .pointIconColor:hover {
+    color: #054d58;
+}
+.btn-border-danger, .btn-border-danger:hover {
+    color: #126471;
+    border-color: #126471;
+}

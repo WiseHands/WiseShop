@@ -22,7 +22,6 @@
                 })
                     .then(function successCallback(response) {
                         $scope.loading = false;
-                        debugger;
                     }, function errorCallback(data) {
                         $scope.loading = false;
                         console.log(data);
