@@ -13,6 +13,7 @@ POST    {client}/signin                                 UserAPI.login
 POST    {client}/storeauthcode                          UserAPI.storeauthcode
 POST    {client}/signup                                 UserAPI.register
 GET     {client}/profile                                UserAPI.profile
+PUT     {client}/profile                                UserAPI.updateProfile
 GET     {client}/user/{uuid}                            UserAPI.details
 
 GET     {client}/sudo/users                            	UserAPI.list
@@ -121,6 +122,7 @@ GET     /wisehands/                             staticDir:wisehands
 GET		/google3d064e8f1e55f5ab.html			staticFile:google3d064e8f1e55f5ab.html
 
 GET     {client}/sitemap                        Application.sitemap(format:'xml')
+GET     {client}/manifest                       Application.manifestAdmin
 
 
 # Catch all

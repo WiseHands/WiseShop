@@ -175,5 +175,10 @@ public class Application extends Controller {
 
     }
 
+    public static void manifestAdmin(String client) throws IOException {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        render(shop);
+    }
+
 
 }
