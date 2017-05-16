@@ -125,6 +125,9 @@
                         });
                 };
                 $scope.customerData = function () {
+                    if (!$scope.place) {
+                        return;
+                    }
                     localStorage.setItem('name', $scope.name);
                     localStorage.setItem('phone', $scope.phone);
                     if ($scope.place && $scope.place.formatted_address){

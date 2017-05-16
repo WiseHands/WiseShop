@@ -1,7 +1,14 @@
 (function(){
     angular.module('WiseShop')
-        .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo',  function($scope, $http, shared, sideNavInit, PublicShopInfo) {
-            $http({
+        .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo', 'isUserAdmin',
+            function($scope, $http, shared, sideNavInit, PublicShopInfo, isUserAdmin) {
+
+                isUserAdmin.get(function(){
+                    $scope.isUserAdmin = true;
+                });
+
+
+                $http({
                 method: 'GET',
                 url: '/products'
             })

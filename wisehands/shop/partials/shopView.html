@@ -27,6 +27,9 @@
                             </span>
                         </a>
                     </li>
+                    <li ng-show="isUserAdmin" class="nav-item">
+                        <a class="nav-link" href="/admin" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-cube"></i> <span class="hidden-sm-down"> {{'shopView.admin' | translate}}</span></a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#!/contacts" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-envelope"></i> <span class="hidden-sm-down"> {{'shopView.contacts' | translate}}</span></a>
                     </li>
