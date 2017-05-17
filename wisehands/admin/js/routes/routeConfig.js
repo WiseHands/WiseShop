@@ -1,7 +1,7 @@
 (function () {
     angular.module('WiseHands', [
         'ngRoute', 'angularSpinners', 'colorpicker.module', 'chart.js', 'pascalprecht.translate', 'tmh.dynamicLocale',
-        'ngCookies', 'ngSanitize'
+        'ngCookies', 'ngSanitize', 'ngTagsInput'
     ])
         .constant('LOCALES', {
             'locales': {
@@ -132,6 +132,11 @@
                         templateUrl:'wisehands/admin/partials/userProfile.html',
                         controller:'UserProfileController',
                         activetab: 'userprofile'
+                    }).
+                    when('/addproperty/:uuid',{
+                        templateUrl:'wisehands/admin/partials/addProperty.html',
+                        controller:'AddPropertyController',
+                        activetab: 'addproperty'
                     }).
                     otherwise({
                         redirectTo:'/'

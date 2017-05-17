@@ -10,6 +10,7 @@ angular.module('WiseShop')
                 scope.endTime = new Date(response.data.endTime);
                 scope.endHour = (scope.endTime.getHours()<10?'0':'') + scope.endTime.getHours();
                 scope.endMinute = (scope.endTime.getMinutes()<10?'0':'') + scope.endTime.getMinutes();
+                scope.alwaysOpen = response.data.alwaysOpen
             },
             handleWorkingHours: function (scope) {
                 scope.today = new Date();
@@ -17,8 +18,11 @@ angular.module('WiseShop')
                 scope.startMinutes = scope.startTime.getHours() * 60 + scope.startTime.getMinutes();
                 scope.endMinutes = scope.endTime.getHours() * 60 + scope.endTime.getMinutes();
                 scope.nowMinutes = scope.today.getHours() * 60 + scope.today.getMinutes();
-
-                scope.isNotWorkingTime = scope.nowMinutes < scope.startMinutes || scope.nowMinutes >= scope.endMinutes;
+                if (scope.alwaysOpen === true) {
+                    scope.isNotWorkingTime = false;
+                } else {
+                    scope.isNotWorkingTime = scope.nowMinutes < scope.startMinutes || scope.nowMinutes >= scope.endMinutes;
+                }
             },
             calculateTotal: function (scope) {
                 scope.total = 0;

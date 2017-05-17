@@ -93,6 +93,7 @@ public class ShopAPI extends AuthController {
         json.put("startTime", shop.startTime);
         json.put("endTime", shop.endTime);
         json.put("locale", shop.locale);
+        json.put("alwaysOpen", shop.alwaysOpen);
         json.put("manualPaymentEnabled", shop.paymentSettings.manualPaymentEnabled);
         json.put("onlinePaymentEnabled", shop.paymentSettings.onlinePaymentEnabled);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
@@ -135,6 +136,7 @@ public class ShopAPI extends AuthController {
         String googleStaticMapsApiKey = (String) jsonBody.get("googleStaticMapsApiKey");
         String startTime = (String) jsonBody.get("startTime");
         String endTime = (String) jsonBody.get("endTime");
+        Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
         System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
 
@@ -143,6 +145,7 @@ public class ShopAPI extends AuthController {
 
         shop.startTime = startTime;
         shop.endTime = endTime;
+        shop.alwaysOpen = alwaysOpen;
         shop.shopName = name;
 
         shop.googleWebsiteVerificator = googleWebsiteVerificator;

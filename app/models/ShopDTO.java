@@ -31,6 +31,9 @@ public class ShopDTO extends GenericModel {
     public String endTime;
 
     @Expose
+    public boolean alwaysOpen;
+
+    @Expose
     public String liqpayPublicKey;
 
     @Expose
@@ -114,5 +117,6 @@ public class ShopDTO extends GenericModel {
         this.visualSettingsDTO = visualSettingsDTO;
         this.domain = customDomain;
         this.locale = locale;
+        this.alwaysOpen = true;
     }
 }

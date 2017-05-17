@@ -497,3 +497,27 @@ button:focus {
     border-color: #126471;
 }
 
+.tags {
+    margin: 10px 0;
+    display: block;
+}
+.tags .tag {
+    border-radius: 6px;
+    background-color: #EFEFEF;
+    border: 1px solid #DDD;
+    padding: 5px;
+    margin-right: 10px;
+}
+.tags .tag:hover {
+    color: red;
+    text-decoration: none;
+}
+.tag a {
+    display: block;
+}
+
+input {
+    margin-bottom: 0px !important;
+}
+
+
