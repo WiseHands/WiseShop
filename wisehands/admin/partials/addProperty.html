@@ -21,11 +21,11 @@
 </nav>
 <div class="container-fluid noSidePadding">
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProperty" name="addNewProperty">
-        <div class="input-field col-md-6">
+        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
             <input id="property_name" type="text" ng-model="property.name" required>
             <label for="property_name">{{'editProduct.propertyName' | translate}}</label>
         </div>
-        <div class="input-field col-md-12">
+        <div class="input-field col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <tags-input ng-model="tags"></tags-input>
         </div>
     </form>

@@ -104,6 +104,12 @@ body {
         padding-left: 0;
         padding-right: 0;
     }
+    .navbar-fixed-top {
+        padding: 12px 0 !important;
+    }
+    .collection {
+        margin-top: 0 !important;
+    }
 }
 
 
@@ -139,6 +145,15 @@ body {
     .analyticsContainer {
         padding-left: 0;
         padding-right: 0;
+    }
+    .navbar-fixed-top {
+        padding: 12px 0 !important;
+    }
+    .collection {
+        margin-top: 0 !important;
+    }
+    .side-nav {
+        height: 100%;
     }
 
 }

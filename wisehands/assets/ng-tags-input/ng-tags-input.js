@@ -214,10 +214,18 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "$q", "tag
         controller: ["$scope", "$attrs", "$element", function($scope, $attrs, $element) {
             $scope.events = tiUtil.simplePubSub();
 
+            var locale = localStorage.getItem('locale');
+            var placeholder;
+            if (locale === 'en_US') {
+                placeholder = 'Add property';
+            } else if (locale === 'uk_UA') {
+                placeholder = 'Додати властивість';
+            }
+
             tagsInputConfig.load('tagsInput', $scope, $attrs, {
                 template: [String, 'ngTagsInput/tag-item.html'],
                 type: [String, 'text', validateType],
-                placeholder: [String, 'Add a tag'],
+                placeholder: [String, placeholder],
                 tabindex: [Number, null],
                 removeTagSymbol: [String, String.fromCharCode(215)],
                 replaceSpacesWithDashes: [Boolean, true],
