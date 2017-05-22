@@ -162,7 +162,7 @@
         <spinner name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
 </div>
-<div ng-hide="hideMoreButton" class="text-center">
+<div ng-show="!hideMoreButton" class="text-center">
     <button ng-click="moreOrders()" class="btn waves-effect waves-light secondaryColor">{{'orderList.more' | translate}}</button>
 </div>
 

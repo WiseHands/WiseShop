@@ -22,9 +22,10 @@
                         $http(req)
                             .then(function successCallback(response) {
                                 $scope.orders = response.data;
-                                if ($scope.orders.length === 0 || $scope.orders.length < 12) {
+                                if ($scope.orders.length === 0 || $scope.orders.length <= 12) {
                                     $scope.hideMoreButton = false;
                                 }
+
                                 $scope.isAllOrdersDeleted = true;
                                 var now = new Date();
                                 var dateNow = new Date(now.getUTCFullYear(), now.getMonth(), now.getDate());
