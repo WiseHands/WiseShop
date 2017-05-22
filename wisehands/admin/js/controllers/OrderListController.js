@@ -2,7 +2,8 @@
         .controller('OrderListController', ['$scope', '$http', 'shared', 'spinnerService', 'sideNavInit', 'signout', function ($scope, $http, shared, spinnerService, sideNavInit, signout) {
             $scope.isSortingActive = shared.isSortingActive;
             $scope.wrongMessage = false;
-            $scope.loading = false;
+            $scope.loading = true;
+            $scope.hideMoreButton = true;
 
             $http({
                 method: 'GET',
@@ -18,12 +19,11 @@
                         },
                         data: {}
                     };
-                    $scope.loading = false;
                         $http(req)
                             .then(function successCallback(response) {
                                 $scope.orders = response.data;
                                 if ($scope.orders.length === 0 || $scope.orders.length < 12) {
-                                    $scope.hideMoreButton = true;
+                                    $scope.hideMoreButton = false;
                                 }
                                 $scope.isAllOrdersDeleted = true;
                                 var now = new Date();
