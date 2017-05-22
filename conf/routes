@@ -60,6 +60,14 @@ DELETE  {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.delete
 PUT     {client}/product/{productUuid}/image            ProductImageAPI.add
 PUT     {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.makeMain
 
+GET     {client}/category/{categoryUuid}/property/{uuid}    ProductPropertyAPI.details
+POST    {client}/category/{categoryUuid}/property           ProductPropertyAPI.create
+PUT     {client}/category/{categoryUuid}/property/{uuid}    ProductPropertyAPI.update
+DELETE  {client}/category/{categoryUuid}/property/{uuid}    ProductPropertyAPI.delete
+GET     {client}/category/{categoryUuid}/property           ProductPropertyAPI.categoryProperties
+DELETE  {client}/category/{categoryUuid}/property           ProductPropertyAPI.deleteCategoryProperties
+
+
 
 
 
