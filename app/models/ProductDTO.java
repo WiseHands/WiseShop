@@ -56,6 +56,10 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     @OneToMany(orphanRemoval = true)
+    public List<ProductPropertyDTO> properties;
+
+    @Expose
+    @OneToMany(orphanRemoval = true)
     public List<ProductImage> images;
 
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop) {

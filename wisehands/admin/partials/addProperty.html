@@ -3,7 +3,7 @@
         <div class="row vcentering">
             <a class="col-xs-2 noPaddingLeft"
                type="button"
-               href="#/products/details/{{uuid}}/edit">
+               href="#/products/details/{{productUuid}}/edit">
                 <i class="fa fa-arrow-circle-left whiteColor pull-left">
                 </i>
             </a>
@@ -13,20 +13,23 @@
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
-                   ng-click="updateProduct()">
+                   ng-click="createProperty()">
                 </i>
             </a>
         </div>
     </div>
 </nav>
 <div class="container-fluid noSidePadding">
-    <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProperty" name="addNewProperty">
+    <form ng-show="!loading" class="col-md-12 noSidePadding" id="addNewProperty" name="addNewProperty">
         <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
             <input id="property_name" type="text" ng-model="property.name" required>
             <label for="property_name">{{'editProduct.propertyName' | translate}}</label>
         </div>
         <div class="input-field col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <tags-input ng-model="tags"></tags-input>
+            <tags-input ng-model="property.tags"></tags-input>
         </div>
     </form>
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
 </div>

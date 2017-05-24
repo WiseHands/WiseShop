@@ -2,14 +2,13 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.CategoryDTO;
-import models.ProductDTO;
-import models.ProductImage;
-import models.ShopDTO;
+import com.google.gson.reflect.TypeToken;
+import models.*;
 import play.data.Upload;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -84,9 +83,24 @@ public class ProductAPI extends AuthController {
     }
 
     public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
-                              Integer sortOrder, Boolean isActive, Double oldPrice) throws Exception {
+                              Integer sortOrder, Boolean isActive, Double oldPrice, String properties) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        Type collectionType = new TypeToken<List<ProductPropertyDTO>>(){}.getType();
+        List<ProductPropertyDTO> propertiesList = gson.fromJson(properties, collectionType);
+        for(ProductPropertyDTO updatedProperty : propertiesList) {
+            ProductPropertyDTO attachedProperty = ProductPropertyDTO.find("byUuid", updatedProperty.uuid).first();
+            List<PropertyTagDTO> tagList = new ArrayList<PropertyTagDTO>();
+            for(PropertyTagDTO tag : updatedProperty.tags) {
+                PropertyTagDTO attachedTag = PropertyTagDTO.find("byUuid", tag.uuid).first();
+                attachedTag.selected = tag.selected;
+                attachedTag.save();
+                tagList.add(attachedTag);
+            }
+        }
+
 
 
         ProductDTO product = (ProductDTO) ProductDTO.findById(uuid);
@@ -122,7 +136,6 @@ public class ProductAPI extends AuthController {
 
         product.save();
 
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(product);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

@@ -3,6 +3,7 @@ angular.module('WiseHands')
 
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
+
             $http({
                 method: 'GET',
                 url: '/product/' + $routeParams.uuid
@@ -237,6 +238,7 @@ angular.module('WiseHands')
                 fd.append('isActive', $scope.product.isActive);
                 fd.append('oldPrice', $scope.product.oldPrice);
                 fd.append('sortOrder', $scope.product.sortOrder);
+                fd.append('properties', JSON.stringify($scope.product.properties));
 
 
                 $http.put('/product', fd, {

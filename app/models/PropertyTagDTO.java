@@ -4,11 +4,14 @@ import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
-import javax.persistence.*;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.List;
 
 @Entity
-public class ProductPropertyDTO extends GenericModel {
+public class PropertyTagDTO extends GenericModel {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -17,17 +20,14 @@ public class ProductPropertyDTO extends GenericModel {
     public String uuid;
 
     @Expose
-    public String name;
+    public String productPropertyUuid;
 
     @Expose
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
-    public List<PropertyTagDTO> tags;
+    public String value;
 
     @Expose
-    public String categoryUuid;
+    public Boolean selected;
 
-    @Expose
-    public String productUuid;
 
 
 }

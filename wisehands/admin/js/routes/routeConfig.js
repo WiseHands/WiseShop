@@ -133,7 +133,7 @@
                         controller:'UserProfileController',
                         activetab: 'userprofile'
                     }).
-                    when('/addproperty/:uuid',{
+                    when('/category/:categoryUuid/addproperty/:productUuid',{
                         templateUrl:'wisehands/admin/partials/addProperty.html',
                         controller:'AddPropertyController',
                         activetab: 'addproperty'
