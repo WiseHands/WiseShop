@@ -110,6 +110,10 @@ body {
     .collection {
         margin-top: 0 !important;
     }
+    .noPaddingMobile {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 
@@ -155,7 +159,6 @@ body {
     .side-nav {
         height: 100%;
     }
-
 }
 
 
@@ -533,6 +536,12 @@ button:focus {
 
 input {
     margin-bottom: 0px !important;
+}
+.noMargin {
+    margin: 0;
+}
+.propertyFlexPanel {
+    justify-content: space-between;
 }
 
 
