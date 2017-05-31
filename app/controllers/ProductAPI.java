@@ -44,8 +44,34 @@ public class ProductAPI extends AuthController {
         product.isActive = isActive;
         product.sortOrder = sortOrder;
         product.oldPrice = oldPrice;
-        product.save();
+        product = product.save();
 
+
+        List<ProductPropertyDTO> properties = ProductPropertyDTO.find("byCategoryUuidAndProductUuidIsNull", product.categoryUuid).fetch();
+        for(ProductPropertyDTO property : properties) {
+            ProductPropertyDTO propertyNew = new ProductPropertyDTO();
+            propertyNew.name = property.name;
+            propertyNew.categoryUuid = product.categoryUuid;
+            propertyNew.productUuid = product.uuid;
+
+
+            List<PropertyTagDTO> tagsListNew = new ArrayList<PropertyTagDTO>();
+            for(PropertyTagDTO tag : property.tags) {
+                PropertyTagDTO tagNew = new PropertyTagDTO();
+                tagNew.value = tag.value;
+                tagNew.selected = tag.selected;
+                tagNew.productPropertyUuid = property.uuid;
+                tagNew = tagNew.save();
+                tagsListNew.add(tagNew);
+            }
+            propertyNew.tags = tagsListNew;
+            propertyNew = propertyNew.save();
+            if(product.properties == null ) {
+                product.properties =  new ArrayList<ProductPropertyDTO>();
+            }
+            propertyNew = propertyNew.save();
+            product.properties.add(propertyNew);
+        }
         product = product.save();
 
         if (shop.productList == null) {
@@ -169,6 +195,13 @@ public class ProductAPI extends AuthController {
         }
         shop.productList.remove(product);
         shop = shop.save();
+
+        List<ProductPropertyDTO> properties = new ArrayList<ProductPropertyDTO>(product.properties);
+        product.properties.clear();
+        product = product.save();
+        for (ProductPropertyDTO property : properties) {
+            property.delete();
+        }
         product.delete();
 
 

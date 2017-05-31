@@ -4,6 +4,26 @@
             $scope.wrongMessage = false;
             $scope.loading = true;
             $scope.hideMoreButton = true;
+            var locale = localStorage.getItem('locale');
+
+            $http({
+                method: 'GET',
+                url: '/shop/details',
+                headers: {
+                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                }
+            })
+                .then(function successCallback(response) {
+                    $scope.activeShop = response.data;
+                    localStorage.setItem('activeShop', $scope.activeShop.uuid);
+                    $scope.loading = false;
+                }, function errorCallback(response) {
+                    if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        signout.signOut();
+                    }
+                });
+
 
             $http({
                 method: 'GET',
@@ -22,8 +42,12 @@
                         $http(req)
                             .then(function successCallback(response) {
                                 $scope.orders = response.data;
-                                if ($scope.orders.length === 0 || $scope.orders.length <= 12) {
+                                var maxNumberOfOrders = $scope.orders.length === 0 || $scope.orders.length < 12;
+                                if (maxNumberOfOrders) {
+                                    $scope.loading = false;
+                                } else {
                                     $scope.hideMoreButton = false;
+
                                 }
 
                                 $scope.isAllOrdersDeleted = true;
@@ -31,7 +55,7 @@
                                 var dateNow = new Date(now.getUTCFullYear(), now.getMonth(), now.getDate());
                                 var startOfToday = dateNow.getTime();
                                 var oneDayInMs = 86400000;
-                                $scope.orders.forEach(function(order){
+                                $scope.orders.forEach(function(order) {
                                     order.yesterdayString = false;
                                     if (startOfToday - oneDayInMs < order.time && startOfToday > order.time){
                                         order.yesterdayString = true;
@@ -50,26 +74,6 @@
                                         $scope.isAllOrdersDeleted = false;
                                     }
                                     $scope.loading = false;
-
-                                    $http({
-                                        method: 'GET',
-                                        url: '/shop/details',
-                                        headers: {
-                                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                                        }
-                                    })
-                                        .then(function successCallback(response) {
-                                            $scope.activeShop = response.data;
-                                            localStorage.setItem('activeShop', $scope.activeShop.uuid);
-                                            $scope.loading = false;
-                                        }, function errorCallback(response) {
-                                            if (response.data === 'Invalid X-AUTH-TOKEN') {
-                                                signout.signOut();
-                                            }
-                                        });
-
-                                    $scope.loading = false;
                                 });
                             }, function errorCallback(response) {
                                 if (response.data === 'Invalid X-AUTH-TOKEN') {
@@ -81,8 +85,12 @@
                     var contacts = response.data;
                     $scope.shopLatLng = contacts.latLng.replace(":", ",");
                 }, function errorCallback(data) {
+                    console.log(data);
                     $scope.loading = false;
                 });
+
+
+
 
             $http({
                 method: 'GET',
@@ -178,20 +186,48 @@
 
             $scope.orderStateString = function(order){
                 if (!order) return;
-                if (order.state === "NEW"){
-                    return 'Нове';
+                if (order.state === "NEW") {
+                    if (locale === 'en_US') {
+                        return 'New';
+                    } else if (locale === 'uk_UA') {
+                        return 'Нове';
+                    }
                 } else if (order.state === "PAYED") {
-                    return 'Оплачено';
+                    if (locale === 'en_US'){
+                        return 'Payed';
+                    } else if (locale === 'uk_UA') {
+                        return 'Оплачено';
+                    }
                 } else if (order.state === "CANCELLED") {
-                    return 'Скасовано';
+                    if (locale === 'en_US'){
+                        return 'Cancelled';
+                    } else if (locale === 'uk_UA') {
+                        return 'Скасовано';
+                    }
                 } else if (order.state === "SHIPPED") {
-                    return 'Надіслано';
+                    if (locale === 'en_US'){
+                        return 'Shipped';
+                    } else if (locale === 'uk_UA') {
+                        return 'Надіслано';
+                    }
                 } else if (order.state === "MANUALLY_PAYED") {
-                    return 'Оплата на місці';
+                    if (locale === 'en_US'){
+                        return 'Pay by cash';
+                    } else if (locale === 'uk_UA') {
+                        return 'Оплата на місці';
+                    }
                 } else if (order.state === "PAYMENT_ERROR") {
-                    return 'Помилка оплати';
+                    if (locale === 'en_US'){
+                        return 'Payment error';
+                    } else if (locale === 'uk_UA') {
+                        return 'Помилка оплати';
+                    }
                 } else if (order.state === "DELETED") {
-                    return 'Видалене';
+                    if (locale === 'en_US'){
+                        return 'Deleted';
+                    } else if (locale === 'uk_UA') {
+                        return 'Видалене';
+                    }
                 }
             };
             

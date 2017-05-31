@@ -138,6 +138,11 @@
                         controller:'AddPropertyController',
                         activetab: 'addproperty'
                     }).
+                    when('/product/:productUuid/editProperty/:propertyUuid',{
+                        templateUrl:'wisehands/admin/partials/editProperty.html',
+                        controller:'EditPropertyController',
+                        activetab: 'addproperty'
+                    }).
                     otherwise({
                         redirectTo:'/'
                 });

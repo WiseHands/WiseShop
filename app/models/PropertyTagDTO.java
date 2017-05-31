@@ -26,6 +26,9 @@ public class PropertyTagDTO extends GenericModel {
     public String value;
 
     @Expose
+    public float additionalPrice;
+
+    @Expose
     public Boolean selected;
 
 

@@ -4,6 +4,7 @@
                 $scope.uuid = $routeParams.uuid;
                 $scope.loading = true;
                 var parser = new UAParser();
+                var locale = localStorage.getItem('locale');
 
                 $http({
                     method: 'GET',
@@ -69,20 +70,48 @@
                 };
                 $scope.orderState = function(order){
                     if (!order) return;
-                    if (order.state === "NEW"){
-                        return 'Нове';
+                    if (order.state === "NEW") {
+                        if (locale === 'en_US') {
+                            return 'New';
+                        } else if (locale === 'uk_UA') {
+                            return 'Нове';
+                        }
                     } else if (order.state === "PAYED") {
-                        return 'Оплачено';
+                        if (locale === 'en_US'){
+                            return 'Payed';
+                        } else if (locale === 'uk_UA') {
+                            return 'Оплачено';
+                        }
                     } else if (order.state === "CANCELLED") {
-                        return 'Скасовано';
+                        if (locale === 'en_US'){
+                            return 'Cancelled';
+                        } else if (locale === 'uk_UA') {
+                            return 'Скасовано';
+                        }
                     } else if (order.state === "SHIPPED") {
-                        return 'Надіслано';
+                        if (locale === 'en_US'){
+                            return 'Shipped';
+                        } else if (locale === 'uk_UA') {
+                            return 'Надіслано';
+                        }
                     } else if (order.state === "MANUALLY_PAYED") {
-                        return 'Оплата на місці';
+                        if (locale === 'en_US'){
+                            return 'Pay by cash';
+                        } else if (locale === 'uk_UA') {
+                            return 'Оплата на місці';
+                        }
                     } else if (order.state === "PAYMENT_ERROR") {
-                        return 'Помилка оплати';
+                        if (locale === 'en_US'){
+                            return 'Payment error';
+                        } else if (locale === 'uk_UA') {
+                            return 'Помилка оплати';
+                        }
                     } else if (order.state === "DELETED") {
-                        return 'Видалене';
+                        if (locale === 'en_US'){
+                            return 'Deleted';
+                        } else if (locale === 'uk_UA') {
+                            return 'Видалене';
+                        }
                     }
                 };
                 

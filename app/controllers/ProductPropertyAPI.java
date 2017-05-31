@@ -72,7 +72,7 @@ public class ProductPropertyAPI extends AuthController {
         renderJSON(json(property));
     }
 
-    public static void update(String client, String categoryUuid, String uuid) throws Exception {
+    public static void update(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         checkAuthentification(shop);
 
@@ -84,8 +84,46 @@ public class ProductPropertyAPI extends AuthController {
 
         ProductPropertyDTO property = ProductPropertyDTO.find("byUuid", uuid).first();
         property.name = name;
-        property.categoryUuid = categoryUuid;
-        property.tags = tags;
+
+
+
+        //UPDATE EXISTING
+        for (PropertyTagDTO tag: property.tags) {
+            Iterator<JSONObject> iterator = tags.iterator();
+            while (iterator.hasNext()) {
+                JSONObject tagJson =  iterator.next();
+                String uuidUpdated = (String) tagJson.get("uuid");
+                if(tag.uuid.equals(uuidUpdated)) {
+                    String value = (String) tagJson.get("value");
+                    Long additionalPrice = (Long) tagJson.get("additionalPrice");
+                    Boolean selected = (Boolean) tagJson.get("selected");
+
+                    tag.value = value;
+                    tag.selected = selected;
+                    tag.additionalPrice = additionalPrice;
+                }
+            }
+        }
+
+
+        //CREATE NEW
+        Iterator<JSONObject> iterator = tags.iterator();
+        while (iterator.hasNext()) {
+            JSONObject tagJson =  iterator.next();
+            String uuidUpdated = (String) tagJson.get("uuid");
+            if(uuidUpdated == null) {
+                String value = (String) tagJson.get("value");
+                Long additionalPrice = (Long) tagJson.get("additionalPrice");
+                Boolean selected = (Boolean) tagJson.get("selected");
+
+                PropertyTagDTO tag = new PropertyTagDTO();
+                tag.value = value;
+                tag.selected = selected;
+                tag.additionalPrice = additionalPrice;
+                tag.productPropertyUuid = property.uuid;
+                property.tags.add(tag);
+            }
+        }
 
         property = property.save();
         renderJSON(json(property));
@@ -97,8 +135,17 @@ public class ProductPropertyAPI extends AuthController {
 
 
         ProductPropertyDTO property = ProductPropertyDTO.find("byUuid", uuid).first();
+        List<ProductPropertyDTO> allProperties = ProductPropertyDTO.find("byName", property.name).fetch();
+        for (ProductPropertyDTO singleProductProperty : allProperties) {
+            ProductDTO product = ProductDTO.find("byUuid", singleProductProperty.productUuid).first();
+            if(product != null) {
+                product.properties.remove(singleProductProperty);
+                product = product.save();
+            }
+            singleProductProperty.delete();
+        }
 
-        property.delete();
+
         ok();
     }
 

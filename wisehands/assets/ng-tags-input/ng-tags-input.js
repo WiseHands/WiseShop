@@ -217,9 +217,9 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "$q", "tag
             var locale = localStorage.getItem('locale');
             var placeholder;
             if (locale === 'en_US') {
-                placeholder = 'Add property';
+                placeholder = 'Option name';
             } else if (locale === 'uk_UA') {
-                placeholder = 'Додати властивість';
+                placeholder = 'Назва опції';
             }
 
             tagsInputConfig.load('tagsInput', $scope, $attrs, {

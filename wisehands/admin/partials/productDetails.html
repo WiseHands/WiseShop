@@ -73,20 +73,42 @@
                     <!-- Indicators -->
 
                 </div>
+
             </div>
+
             <div class="card-content col-sm-6 row">
                 <div class="col-xs-12">
-                    <label for="price">{{'addNewProduct.category' | translate}}</label>
-                    <p id="price">{{product.categoryName}}</p>
                     <label for="name">{{'addNewProduct.productName' | translate}}</label>
                     <h5 id="name" class="product-title">{{product.name}}</h5>
-                    <label for="description">{{'addNewProduct.productDescription' | translate}}</label>
-                    <p id="description">{{product.description}}</p>
+                    <label for="price">{{'addNewProduct.category' | translate}}</label>
+                    <p id="price">{{product.categoryName}}</p>
+                </div>
+            </div>
+        </div>
+        <ul class="nav nav-tabs tabs-4">
+            <li class="active"><a class="productDetailsTabIcons" data-toggle="tab" data-target="#home"><i class="material-icons">description</i></a></li>
+            <li><a class="productDetailsTabIcons" data-toggle="tab" data-target="#menu1"><i class="material-icons">assignment</i></a></li>
+        </ul>
+
+        <div class="tab-content card-panel">
+            <div id="home" class="tab-pane fade in active">
+                <br>
+                <p>{{product.description}}</p>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <div ng-repeat="property in product.properties">
+                    <br>
+                    <h5>{{property.name}}</h5>
+                        <p ng-repeat="propertyOption in property.tags">
+                            <input name="group1" type="checkbox" id="cat-11" ng-model="propertyOption.selected" disabled/>
+                            <label for="cat-11">{{propertyOption.value}} <span>(+{{propertyOption.additionalPrice}})</span></label>
+                        </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">

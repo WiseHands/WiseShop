@@ -543,5 +543,34 @@ input {
 .propertyFlexPanel {
     justify-content: space-between;
 }
-
-
+.propertyOptionsContainer {
+    margin-bottom: 1em;
+}
+.editPropertyOptions {
+    margin-bottom: 3em;
+}
+.nav-tabs a {
+    color: #126471;
+}
+.nav-tabs a:hover {
+    color: lightseagreen;
+}
+.nav-tabs li.active>a {
+    border-bottom:  2px solid lightseagreen;
+    color: #126471;
+}
+.nav-tabs li.active>a:hover {
+    color: lightseagreen;
+}
+.nav-tabs li.active>a:focus {
+    color: #555;
+}
+/*.productDetailsTabIcons {*/
+     /*color: #126471 !important;*/
+ /*}*/
+/*.productDetailsTabIcons:hover {*/
+    /*color: lightseagreen !important;*/
+/*}*/
+/*.productDetailsTabIcons:focus {*/
+    /*color: #555 !important;*/
+/*}*/
