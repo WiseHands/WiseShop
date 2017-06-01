@@ -19,6 +19,7 @@
             })
                 .then(function successCallback(response) {
                     $scope.product = response.data;
+
                     $("meta[name='description']").attr('content', $scope.product.description);
                     document.title = $scope.product.name + " | " + $scope.product.categoryName;
                     $scope.product.images.forEach(function(image, index){
@@ -33,11 +34,24 @@
                             break;
                         }
                     }
+
                     $scope.loading = false;
                 }, function errorCallback(error) {
                     $scope.loading = false;
                     console.log(error);
                 });
+
+            $scope.getAdditionalPriceLabel = function(option) {
+                if(option.additionalPrice === 0) {
+                    return '';
+                }
+                return ' (+' + option.additionalPrice + ')';
+            };
+
+                $scope.selectAction = function(option) {
+                    debugger;
+                    console.log(option);
+                };
 
             $scope.select = function(index) {
                 $scope.selected = index;
@@ -98,6 +112,12 @@
                         }
                     }
                 };
+
+                $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+                        $('.mdb-select').material_select();
+                });
+
+
             }]);
 
 

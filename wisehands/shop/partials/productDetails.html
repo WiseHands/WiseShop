@@ -1,13 +1,14 @@
 <header>
     <nav class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" shop-styling style="background-color: {{shopStyling.navbarColor}}">
-        <ul class="nav navbar-nav">
-
-            <li class="nav-item pull-left">
+        <ul class="nav navbar-nav vcentering productDetailsFlexNavbar">
+            <li class="nav-item">
                 <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
             </li>
-
-            <li class="nav-item pullRight">
-                <a class="nav-link" href="#!/shoppingcart" ng-show="selectedItems.length !== 0" ng-click="reCalculateTotal()" style="color: {{shopStyling.navbarTextColor}}"> <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-sm-down">{{'shopView.cart' | translate}}</span></a>
+            <li class="nav-item text-xs-center">
+                <span>{{'shopView.productDetails' | translate}}</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/shoppingcart" ng-click="reCalculateTotal()" style="color: {{shopStyling.navbarTextColor}}"> <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalItems}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-md-down">{{'shopView.cart' | translate}}</span></a>
             </li>
             <!--<li class="nav-item ">-->
             <!--<a class="nav-link"><i class="fa fa-comments-o"></i> <span class="hidden-sm-down">Support</span></a>-->
@@ -23,7 +24,6 @@
             <!--</div>-->
             <!--</li>-->
         </ul>
-
     </nav>
     <!--/.Navbar-->
 
@@ -42,7 +42,7 @@
                         <div class="row">
 
                             <!--First column-->
-                            <div class="col-lg-6 col-sm-12">
+                            <div class="col-lg-6 col-sm-6">
                                 <!--Carousel Wrapper-->
                                 <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
 
@@ -69,31 +69,51 @@
                                 <!--/.Carousel Wrapper-->
                             </div>
                             <!--/.First column-->
+                            <div class="col-md-6 col-sm-12 text-xs-center">
+                                <h2>{{product.name}}</h2>
+                                <div class="text-xs-center">
+                                    <!--Title-->
+                                    <!--Price-->
+                                    <div class="price">
+                                        <p class="pull-left"><span class="price-after">{{product.price}} {{'shopView.currency' | translate}}</span>
+                                            <span class="price-before" ng-show="product.oldPrice">{{product.oldPrice}} {{'shopView.currency' | translate}}</span></p>
+                                        <button class="btn btn-default buyButtonDetails pull-right" ng-click="buyStart()">{{'shopView.order' | translate}}</button>
 
-                            <!--Second column-->
-                            <div class="col-lg-6 col-sm-12 text-xs-center">
-                                <!--Title-->
-                                <h4 class="productTitle">{{product.name}}</h4>
-                                <!--Price-->
-                                <div class="price">
-                                    <p><span class="price-after">{{product.price}} {{'shopView.currency' | translate}}</span>
-                                    <span class="price-before" ng-show="product.oldPrice">{{product.oldPrice}} {{'shopView.currency' | translate}}</span></p>
-                                    <!--<span class="label">-20%</span>-->
+                                        <!--<span class="label">-20%</span>-->
+                                    </div>
+                                    <!--Call to action-->
+                                    <br>
                                 </div>
-                                <!--Call to action-->
-                                <button class="btn btn-default buyButtonDetails" ng-click="buyStart()">{{'shopView.order' | translate}}</button>
-                                <hr>
-                                <hr>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12" ng-repeat="property in product.properties" on-finish-render="ngRepeatFinished">
+                                <div class="md-form">
+                                    <select class="browser-default"
+                                            ng-options="option as option.value for option in property.tags"
+                                            ng-change="selectAction(option)"
+                                            ng-model="option"
+                                            >
+                                        <option>--</option>
+                                        <!--<option ng-repeat="option in property.tags | filter:{selected:true}"-->
+                                                <!--value="{{option.additionalPrice}}">-->
+                                            <!--{{option.value}} {{getAdditionalPriceLabel(option)}}-->
+                                        <!--</option>-->
+                                    </select>
+                                    <!--<label>{{property.name}}</label>-->
+                                </div>
+                            </div>
+                            <!--Second column-->
+
+                            <div class="col-xs-12 col-sm-12 col-md-6">
                                 <p class="text-justify">{{product.description}}</p>
-                                <br>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        </div>
     </section>
 </main>
+
 
 

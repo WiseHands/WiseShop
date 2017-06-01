@@ -2,7 +2,7 @@
   "sideNav.Main": "Main",
   "shopView.contacts": "Contacts",
   "shopView.currency": "USD",
-  "shopView.cart": "Shopping cart",
+  "shopView.cart": "Cart",
   "shopView.order": "Order",
   "shopView.description": "Description",
   "shopView.productName": "Product",
@@ -28,5 +28,6 @@
   "shopView.cashOnDelivery": "Cash on delivery",
   "shopView.onlinePay": "Pay online",
   "shopView.admin": "Admin",
+  "shopView.productDetails": "Details",
   "directives.language-select.Language": "Language"
 }

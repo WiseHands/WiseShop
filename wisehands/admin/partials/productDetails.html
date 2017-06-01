@@ -87,7 +87,7 @@
         </div>
         <ul class="nav nav-tabs tabs-4">
             <li class="active"><a class="productDetailsTabIcons" data-toggle="tab" data-target="#home"><i class="material-icons">description</i></a></li>
-            <li><a class="productDetailsTabIcons" data-toggle="tab" data-target="#menu1"><i class="material-icons">assignment</i></a></li>
+            <li ng-hide="product.properties.length === 0" ><a class="productDetailsTabIcons" data-toggle="tab" data-target="#menu1"><i class="material-icons">assignment</i></a></li>
         </ul>
 
         <div class="tab-content card-panel">

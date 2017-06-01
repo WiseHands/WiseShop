@@ -28,5 +28,6 @@
   "shopView.cashOnDelivery": "Оплатити при отриманні",
   "shopView.onlinePay": "Оплатити онлайн",
   "shopView.admin": "Адмін",
+  "shopView.productDetails": "Деталі",
   "directives.language-select.Language": "Мова"
 }

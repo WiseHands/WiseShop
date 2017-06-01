@@ -209,4 +209,7 @@ main {
         margin-left: 10px;
     }
 }
+.productDetailsFlexNavbar {
+    justify-content: space-between;
+}
 
