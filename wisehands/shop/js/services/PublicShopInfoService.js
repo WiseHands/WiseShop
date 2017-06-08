@@ -24,16 +24,15 @@ angular.module('WiseShop')
                     scope.isNotWorkingTime = scope.nowMinutes < scope.startMinutes || scope.nowMinutes >= scope.endMinutes;
                 }
             },
-            calculateTotal: function (scope) {
-                scope.total = 0;
-                scope.totalItems = 0;
-                for(var i =0; i < scope.selectedItems.length; i++){
-                    var item = scope.selectedItems[i];
-                    scope.total += (item.quantity * item.price);
-                    scope.totalItems += item.quantity;
+            calculateTotal: function () {
+                var products = shared.getProductsToBuy();
+                var total = 0;
+                for(var i = 0; i < products.length; i++){
+                    total += products[i].price;
                 }
-                shared.setTotalItems(scope.totalItems);
-                shared.setTotal(scope.total);
+                shared.setTotal(total);
+                console.log(total);
+                debugger;
             }
         }
     }]);

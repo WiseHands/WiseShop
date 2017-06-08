@@ -19,6 +19,23 @@
             })
                 .then(function successCallback(response) {
                     $scope.product = response.data;
+                    $scope.defaultProductPrice = $scope.product.price;
+                    $scope.calculatedProductPrice = $scope.product.price;
+                    $scope.product.properties.forEach(function (property) {
+                        property.tags = property.tags.filter(function (tag) {
+                            return tag.selected;
+                        });
+                        var idCounter = 1;
+                        property.tags.forEach(function (tag) {
+                            if (tag.additionalPrice > 0) {
+                                tag.value = tag.value + ' +' + tag.additionalPrice;
+                            }
+                            tag.id = idCounter;
+                            idCounter ++;
+                        });
+                        property.selectedTag = null;
+                    });
+
 
                     $("meta[name='description']").attr('content', $scope.product.description);
                     document.title = $scope.product.name + " | " + $scope.product.categoryName;
@@ -41,17 +58,26 @@
                     console.log(error);
                 });
 
-            $scope.getAdditionalPriceLabel = function(option) {
-                if(option.additionalPrice === 0) {
-                    return '';
-                }
-                return ' (+' + option.additionalPrice + ')';
-            };
+                var properties = [];
 
-                $scope.selectAction = function(option) {
-                    debugger;
-                    console.log(option);
-                };
+            $scope.selectedOption = function (property) {
+                $scope.defaultProductPrice = $scope.product.price;
+
+                for(var i = 0; i < properties.length; i++) {
+                    if (properties[i].productPropertyUuid === property.productPropertyUuid) {
+                        properties.splice(i, 1);
+                    }
+                }
+                properties.push(property);
+
+                var additionalPrices = 0;
+
+                properties.forEach(function (property) {
+                    additionalPrices += property.additionalPrice;
+                });
+
+                $scope.calculatedProductPrice = $scope.defaultProductPrice + additionalPrices;
+            };
 
             $scope.select = function(index) {
                 $scope.selected = index;
@@ -67,50 +93,101 @@
                     console.log(error);
                 });
 
-                function loadOptions() {
-                    $scope.selectedItems = shared.getSelectedItems();
-                    $scope.totalItems = shared.getTotalItems();
-                }
 
-                loadOptions();
                 $scope.calculateTotal = PublicShopInfo.calculateTotal;
                 $scope.reCalculateTotal = function (){
-                    $scope.calculateTotal($scope);
+                    $scope.calculateTotal();
                 };
+
+
+                var productsToBuy = [];
                 $scope.buyStart = function () {
+                    var options = document.querySelectorAll('[property-uuid]');
 
-                    PublicShopInfo.handleWorkingHours($scope);
+                    options.forEach(function (option) {
 
-                    if($scope.isNotWorkingTime) {
-                        toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
-                    } else {
-                        if (!$scope.found) {
-                            $scope.product.quantity = 1;
-                            $scope.selectedItems.push($scope.product);
-                            $scope.calculateTotal($scope);
-                            shared.setSelectedItems($scope.selectedItems);
+                        var foundMatch = properties.filter(function(property){
+                            var propertyUuid = option.getAttribute('property-uuid');
+                            var currentPropertyUuid = property.currentPropertyUuid;
 
-                            for(var i = 0; i < $scope.selectedItems.length; i++) {
-                                if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
-                                    $scope.found = true;
-                                    var productFromBin = $scope.selectedItems[i];
-                                    break;
-                                }
-                            }
+                            return currentPropertyUuid === propertyUuid;
+                        });
+                        if(foundMatch.length === 0) {
+                            option.querySelector('a').style.border = '1px solid red';
                         } else {
-                            for(var i = 0; i < $scope.selectedItems.length; i++) {
-                                if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
-                                    $scope.found = true;
-                                    var productFromBin = $scope.selectedItems[i];
-                                    productFromBin.quantity ++;
-                                    $scope.calculateTotal($scope);
-                                    shared.setSelectedItems($scope.selectedItems);
+                            option.querySelector('a').style.border = '1px solid #ddd';
+                        }
 
-                                    break;
+                    });
+
+                    var activeProperties = $scope.product.properties.filter(function (property) {
+                            return property.tags.length > 1;
+                    });
+
+
+                    if(properties.length === activeProperties.length) {
+
+                        PublicShopInfo.handleWorkingHours($scope);
+
+                        if($scope.isNotWorkingTime) {
+                            toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
+                        } else {
+                            $scope.product.chosenProperties = properties;
+
+
+
+                            if ($scope.product.chosenProperties.length > 0) {
+
+                                    var chosenProperties = [];
+                                    $scope.product.chosenProperties.forEach(function(chosenProperty){
+                                        chosenProperties.push({
+                                            optionUuid: chosenProperty.uuid,
+                                            additionalPrice: chosenProperty.additionalPrice,
+                                            name: chosenProperty.value
+                                        });
+                                    });
+
+                                    var productToBuy = {
+                                        productUuid: $scope.product.uuid,
+                                        chosenPropertiesUuid: chosenProperties,
+                                        price: $scope.calculatedProductPrice,
+                                        name: $scope.product.name
+                                    };
+                                    productsToBuy.push(productToBuy);
+                                shared.getProductsToBuy().push(productToBuy);
+                                $scope.calculateTotal();
+
+
+                            } else {
+                                if (!$scope.found) {
+                                    $scope.calculateTotal();
+
+                                    for(var i = 0; i < $scope.selectedItems.length; i++) {
+                                        if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
+                                            $scope.found = true;
+                                            var productFromBin = $scope.selectedItems[i];
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    for(var i = 0; i < $scope.selectedItems.length; i++) {
+                                        if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
+                                            $scope.found = true;
+                                            var productFromBin = $scope.selectedItems[i];
+                                            productFromBin.quantity ++;
+                                            $scope.calculateTotal();
+
+                                            break;
+                                        }
+                                    }
                                 }
+
                             }
+
+
                         }
                     }
+
                 };
 
                 $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {

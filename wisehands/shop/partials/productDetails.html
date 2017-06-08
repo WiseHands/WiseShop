@@ -75,7 +75,7 @@
                                     <!--Title-->
                                     <!--Price-->
                                     <div class="price">
-                                        <p class="pull-left"><span class="price-after">{{product.price}} {{'shopView.currency' | translate}}</span>
+                                        <p class="pull-left"><span class="price-after">{{calculatedProductPrice}} {{'shopView.currency' | translate}}</span>
                                             <span class="price-before" ng-show="product.oldPrice">{{product.oldPrice}} {{'shopView.currency' | translate}}</span></p>
                                         <button class="btn btn-default buyButtonDetails pull-right" ng-click="buyStart()">{{'shopView.order' | translate}}</button>
 
@@ -86,19 +86,9 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12" ng-repeat="property in product.properties" on-finish-render="ngRepeatFinished">
-                                <div class="md-form">
-                                    <select class="browser-default"
-                                            ng-options="option as option.value for option in property.tags"
-                                            ng-change="selectAction(option)"
-                                            ng-model="option"
-                                            >
-                                        <option>--</option>
-                                        <!--<option ng-repeat="option in property.tags | filter:{selected:true}"-->
-                                                <!--value="{{option.additionalPrice}}">-->
-                                            <!--{{option.value}} {{getAdditionalPriceLabel(option)}}-->
-                                        <!--</option>-->
-                                    </select>
-                                    <!--<label>{{property.name}}</label>-->
+                                <div property-uuid="{{property.uuid}}" ng-show="property.tags.length > 1" class="md-form">
+                                    <h5>{{property.name}}</h5>
+                                    <selectbox id="selectbox" options="property.tags" title="{{'shopView.select' | translate}}" value="property.selectedTag" label-key="value" id-key="id" on-change="selectedOption(property.tags[value-1])"></selectbox>
                                 </div>
                             </div>
                             <!--Second column-->

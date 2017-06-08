@@ -1,7 +1,7 @@
 (function(){
     angular.module('WiseShop')
-        .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo', 'isUserAdmin',
-            function($scope, $http, shared, sideNavInit, PublicShopInfo, isUserAdmin) {
+        .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo', 'isUserAdmin', '$location',
+            function($scope, $http, shared, sideNavInit, PublicShopInfo, isUserAdmin, $location) {
 
                 isUserAdmin.get(function(){
                     $scope.isUserAdmin = true;
@@ -30,13 +30,12 @@
 
             function loadOptions() {
                 $scope.selectedItems = shared.getSelectedItems();
-                $scope.totalItems = shared.getTotalItems();
             }
 
             loadOptions();
             $scope.calculateTotal = PublicShopInfo.calculateTotal;
             $scope.reCalculateTotal = function () {
-                $scope.calculateTotal($scope);
+                $scope.calculateTotal();
             };
             $scope.buyStart = function (productDTO) {
                 $scope.found = false;
@@ -47,11 +46,28 @@
                     }
                 });
 
+                var isActivePropertyTagsMoreThanTwo = 0;
+
+                productDTO.properties.forEach(function (property) {
+                    property.tags = property.tags.filter(function (tag) {
+                        return tag.selected;
+                    });
+                    isActivePropertyTagsMoreThanTwo += property.tags.length;
+                });
+
                 PublicShopInfo.handleWorkingHours($scope);
 
                 if($scope.isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
-                } else if (!$scope.found) {
+                }
+
+
+                else if (isActivePropertyTagsMoreThanTwo > 0) {
+                    $location.path('/product/' + productDTO.uuid);
+                }
+
+                else if (!$scope.found) {
+
 
                     if ($scope.selectedItems.indexOf(productDTO) == -1) {
                         productDTO.quantity = 1;

@@ -38,7 +38,7 @@ public class ProductPropertyAPI extends AuthController {
             String val = (String) tagJson.get("text");
             PropertyTagDTO tag = new PropertyTagDTO();
             tag.value = val;
-            tag.selected = false;
+            tag.selected = true;
             tag = tag.save();
             tagsList.add(tag);
         }
@@ -52,6 +52,7 @@ public class ProductPropertyAPI extends AuthController {
             propertyNew.name = name;
             propertyNew.categoryUuid = categoryUuid;
             propertyNew.productUuid = product.uuid;
+            propertyNew = propertyNew.save();
 
 
             List<PropertyTagDTO> tagsListNew = new ArrayList<PropertyTagDTO>();
@@ -60,6 +61,7 @@ public class ProductPropertyAPI extends AuthController {
                 tagNew.value = tag.value;
                 tagNew.selected = tag.selected;
                 tagNew.productPropertyUuid = property.uuid;
+                tagNew.currentPropertyUuid = propertyNew.uuid;
                 tagNew = tagNew.save();
                 tagsListNew.add(tagNew);
             }

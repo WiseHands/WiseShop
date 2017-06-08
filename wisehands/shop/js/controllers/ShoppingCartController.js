@@ -3,12 +3,12 @@
         .controller('ShoppingCartController', ['$scope', '$http', 'shared', 'PublicShopInfo',
         function($scope, $http, shared, PublicShopInfo) {
             function loadOptions() {
-                $scope.selectedItems = shared.getSelectedItems();
-                $scope.totalItems = shared.getTotalItems();
                 $scope.total =  shared.getTotal();
+                $scope.productsToBuy = shared.getProductsToBuy();
+                console.log('load options', $scope.total);
+                debugger;
             }
             loadOptions();
-
             $http({
                 method: 'GET',
                 url: '/shop/details/public'

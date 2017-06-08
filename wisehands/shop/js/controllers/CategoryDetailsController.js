@@ -1,6 +1,6 @@
 angular.module('WiseShop')
-    .controller('CategoryDetailsController', ['$scope', '$http','shared','sideNavInit', '$routeParams', 'PublicShopInfo',
-        function($scope, $http, shared, sideNavInit, $routeParams, PublicShopInfo) {
+    .controller('CategoryDetailsController', ['$scope', '$http','shared','sideNavInit', '$routeParams', 'PublicShopInfo', '$location',
+        function($scope, $http, shared, sideNavInit, $routeParams, PublicShopInfo, $location) {
             $scope.uuid = $routeParams.uuid;
             shared.setCategoryUuid($scope.uuid);
             $http({
@@ -26,13 +26,12 @@ angular.module('WiseShop')
 
             function loadOptions() {
                 $scope.selectedItems = shared.getSelectedItems();
-                $scope.totalItems = shared.getTotalItems();
             }
 
             loadOptions();
             $scope.calculateTotal = PublicShopInfo.calculateTotal;
             $scope.reCalculateTotal = function (){
-                $scope.calculateTotal($scope);
+                $scope.calculateTotal();
             };
             $scope.buyStart = function (productDTO) {
                 $scope.found = false;
@@ -45,19 +44,31 @@ angular.module('WiseShop')
                 });
                 PublicShopInfo.handleWorkingHours($scope);
 
+                var isActivePropertyTagsMoreThanTwo = 0;
+
+                productDTO.properties.forEach(function (property) {
+                    property.tags = property.tags.filter(function (tag) {
+                        return tag.selected;
+                    });
+                    isActivePropertyTagsMoreThanTwo += property.tags.length;
+                });
+
                 if($scope.isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
-                } else if (!$scope.found){
+                } else if (isActivePropertyTagsMoreThanTwo > 1) {
+
+                    $location.path('/product/' + productDTO.uuid);
+
+                } else if (!$scope.found) {
+
                     if ($scope.selectedItems.indexOf(productDTO) == -1) {
                         productDTO.quantity = 1;
                         $scope.selectedItems.push(productDTO);
-                        shared.setSelectedItems($scope.selectedItems);
-                        $scope.calculateTotal($scope);
+                        $scope.calculateTotal();
 
                     } else {
                         productDTO.quantity ++;
-                        shared.setSelectedItems($scope.selectedItems);
-                        $scope.calculateTotal($scope);
+                        $scope.calculateTotal();
                     }
 
                     $scope.totalItems = 0;
@@ -68,8 +79,7 @@ angular.module('WiseShop')
 
                 } else {
                     $scope.productFromBin.quantity ++;
-                    $scope.calculateTotal($scope);
-                    shared.setSelectedItems($scope.selectedItems);
+                    $scope.calculateTotal();
                 }
 
             };

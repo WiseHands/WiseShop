@@ -1,7 +1,7 @@
 (function () {
     angular.module('WiseShop', [
             'ngRoute', 'angularSpinners', 'google.places', 'pascalprecht.translate', 'tmh.dynamicLocale',
-            'ngCookies', 'ngSanitize'
+            'ngCookies', 'ngSanitize', 'angularSelectbox'
         ])
             .constant('LOCALES', {
                 'locales': {

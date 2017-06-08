@@ -23,6 +23,9 @@ public class PropertyTagDTO extends GenericModel {
     public String productPropertyUuid;
 
     @Expose
+    public String currentPropertyUuid;
+
+    @Expose
     public String value;
 
     @Expose

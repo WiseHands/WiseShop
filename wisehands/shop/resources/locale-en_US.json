@@ -29,5 +29,6 @@
   "shopView.onlinePay": "Pay online",
   "shopView.admin": "Admin",
   "shopView.productDetails": "Details",
+  "shopView.select": "Select",
   "directives.language-select.Language": "Language"
 }

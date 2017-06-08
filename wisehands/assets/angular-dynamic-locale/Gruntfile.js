@@ -53,7 +53,7 @@
         },
         dist: {
           src: ['src/tmhDynamicLocale.js'],
-          dest: 'dist/tmhDynamicLocale.js',
+          dest: 'angularSelect/tmhDynamicLocale.js',
         },
       },
       uglify: {

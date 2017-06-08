@@ -1,24 +1,18 @@
 angular.module('WiseShop')
     .service('shared', [ function() {
-        var selectedItems = [];
-        var totalItems = 0;
+        var productsToBuy = [];
         var total = 0;
         var categoryUuid = '';
         var paymentButton = '';
         var currentOrderUuid = '';
         return {
-            getSelectedItems: function () {
-                return selectedItems;
+            getProductsToBuy: function () {
+                return productsToBuy;
             },
-            setSelectedItems: function (value) {
-                selectedItems = value;
+            setProductsToBuy: function (value) {
+                productsToBuy = value;
             },
-            getTotalItems: function () {
-                return totalItems;
-            },
-            setTotalItems: function (value) {
-                totalItems = value;
-            },
+
             getCategoryUuid: function () {
                 return categoryUuid;
             },

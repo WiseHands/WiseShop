@@ -29,5 +29,6 @@
   "shopView.onlinePay": "Оплатити онлайн",
   "shopView.admin": "Адмін",
   "shopView.productDetails": "Деталі",
+  "shopView.select": "Виберіть",
   "directives.language-select.Language": "Мова"
 }

@@ -30,7 +30,7 @@ module.exports = function (grunt) {
         cssmin: {
             dist: {
                 expand: true,
-                cwd: 'dist/',
+                cwd: 'angularSelect/',
                 files: {
                     'dist/autocomplete.min.css': 'src/autocomplete.css'
                 }
