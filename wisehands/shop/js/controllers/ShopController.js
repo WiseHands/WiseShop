@@ -29,7 +29,7 @@
                 });
 
             function loadOptions() {
-                $scope.selectedItems = shared.getSelectedItems();
+                $scope.selectedItems = shared.getProductsToBuy();
             }
 
             loadOptions();
@@ -38,13 +38,6 @@
                 $scope.calculateTotal();
             };
             $scope.buyStart = function (productDTO) {
-                $scope.found = false;
-                $scope.selectedItems.forEach(function (selectedItem) {
-                    if(selectedItem.uuid === productDTO.uuid){
-                        $scope.found = true;
-                        $scope.productFromBin = selectedItem;
-                    }
-                });
 
                 var isActivePropertyTagsMoreThanTwo = 0;
 
@@ -66,31 +59,11 @@
                     $location.path('/product/' + productDTO.uuid);
                 }
 
-                else if (!$scope.found) {
-
-
-                    if ($scope.selectedItems.indexOf(productDTO) == -1) {
+                else {
                         productDTO.quantity = 1;
                         $scope.selectedItems.push(productDTO);
-                        shared.setSelectedItems($scope.selectedItems);
+                        shared.setProductsToBuy($scope.selectedItems);
                         $scope.calculateTotal($scope);
-
-                    } else {
-                        productDTO.quantity ++;
-                        shared.setSelectedItems($scope.selectedItems);
-                        $scope.calculateTotal($scope);
-                    }
-
-                    $scope.totalItems = 0;
-                    $scope.selectedItems.forEach(function(selectedItem) {
-                        $scope.totalItems += selectedItem.quantity;
-
-                    });
-
-                } else {
-                    $scope.productFromBin.quantity ++;
-                    shared.setSelectedItems($scope.selectedItems);
-                    $scope.calculateTotal($scope);
                 }
             };
 

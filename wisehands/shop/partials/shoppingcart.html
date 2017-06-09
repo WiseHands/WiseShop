@@ -21,7 +21,7 @@
             <tbody>
             <tr ng-repeat="item in productsToBuy track by $index">
                 <td>
-                    {{item.name}} (<span ng-repeat="property in item.chosenPropertiesUuid">{{property.name}} </span>)
+                    {{item.name}} <div ng-show="item.chosenPropertiesUuid.length > 0">(<span ng-repeat="property in item.chosenPropertiesUuid">{{property.name}} </span>)</div>
                 </td>
                 <td class="text-xs-center"><strong>{{item.price}}</strong> ₴
                 </td>

@@ -25,7 +25,7 @@ angular.module('WiseShop')
                 });
 
             function loadOptions() {
-                $scope.selectedItems = shared.getSelectedItems();
+                $scope.selectedItems = shared.getProductsToBuy();
             }
 
             loadOptions();
@@ -34,14 +34,7 @@ angular.module('WiseShop')
                 $scope.calculateTotal();
             };
             $scope.buyStart = function (productDTO) {
-                $scope.found = false;
-                $scope.selectedItems.forEach(function (selectedItem) {
-                    if(selectedItem.uuid === productDTO.uuid){
-                        $scope.found = true;
-                        $scope.productFromBin = selectedItem;
 
-                    }
-                });
                 PublicShopInfo.handleWorkingHours($scope);
 
                 var isActivePropertyTagsMoreThanTwo = 0;
@@ -59,27 +52,10 @@ angular.module('WiseShop')
 
                     $location.path('/product/' + productDTO.uuid);
 
-                } else if (!$scope.found) {
-
-                    if ($scope.selectedItems.indexOf(productDTO) == -1) {
+                } else {
                         productDTO.quantity = 1;
                         $scope.selectedItems.push(productDTO);
                         $scope.calculateTotal();
-
-                    } else {
-                        productDTO.quantity ++;
-                        $scope.calculateTotal();
-                    }
-
-                    $scope.totalItems = 0;
-                    $scope.selectedItems.forEach(function(selectedItem) {
-                        $scope.totalItems += selectedItem.quantity;
-
-                    });
-
-                } else {
-                    $scope.productFromBin.quantity ++;
-                    $scope.calculateTotal();
                 }
 
             };

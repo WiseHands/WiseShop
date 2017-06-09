@@ -5,10 +5,12 @@
             function loadOptions() {
                 $scope.total =  shared.getTotal();
                 $scope.productsToBuy = shared.getProductsToBuy();
-                console.log('load options', $scope.total);
-                debugger;
             }
             loadOptions();
+
+            $scope.calculateTotal = PublicShopInfo.calculateTotal;
+
+
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
@@ -20,23 +22,24 @@
                     console.log(error);
                 });
 
+
+
             $scope.calculateTotal = PublicShopInfo.calculateTotal;
             $scope.reCalculateTotal = function () {
-                $scope.calculateTotal($scope);
+                $scope.calculateTotal();
             };
             $scope.removeSelectedItem = function (index){
-                $scope.selectedItems.splice(index, 1);
-                $scope.calculateTotal($scope);
-                shared.setSelectedItems($scope.selectedItems);
+                shared.getProductsToBuy().splice(index, 1);
+                $scope.calculateTotal();
+                loadOptions();
 
             };
             $scope.removeAll = function () {
-                $scope.selectedItems.length = 0;
-                $scope.calculateTotal($scope);
-                shared.setSelectedItems($scope.selectedItems);
+                $scope.productsToBuy.length = 0;
+                $scope.calculateTotal();
+                shared.setProductsToBuy($scope.productsToBuy);
+                loadOptions();
             };
-            $scope.reCalculateTotal = function () {
-                $scope.calculateTotal($scope);
-            };
+
         }]);
 })();

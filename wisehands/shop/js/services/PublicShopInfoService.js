@@ -31,8 +31,6 @@ angular.module('WiseShop')
                     total += products[i].price;
                 }
                 shared.setTotal(total);
-                console.log(total);
-                debugger;
             }
         }
     }]);

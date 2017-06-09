@@ -13,6 +13,13 @@
                     console.log(error);
                 });
 
+
+                function loadOptions() {
+                    $scope.selectedItems = shared.getProductsToBuy();
+                }
+
+                loadOptions();
+
             $http({
                 method: 'GET',
                 url: '/product/' + $scope.uuid
@@ -102,11 +109,13 @@
 
                 var productsToBuy = [];
                 $scope.buyStart = function () {
-                    var options = document.querySelectorAll('[property-uuid]');
+                    var options = [].slice.call(document.querySelectorAll('[property-uuid]'));
+                    var visibleOptions = options.filter(function (option) {
+                        return option.classList.value.indexOf('ng-hide') === -1;
+                    });
+                    visibleOptions.forEach(function (option) {
 
-                    options.forEach(function (option) {
-
-                        var foundMatch = properties.filter(function(property){
+                        var foundMatch = properties.filter(function(property) {
                             var propertyUuid = option.getAttribute('property-uuid');
                             var currentPropertyUuid = property.currentPropertyUuid;
 

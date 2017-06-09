@@ -21,7 +21,7 @@
                            ng-show="selectedItems.length !== 0"
                            ng-click="reCalculateTotal()"
                            style="color: {{shopStyling.navbarTextColor}}">
-                            <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalItems}}</span>
+                            <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{selectedItems.length}}</span>
                             <i class="fa fa-shopping-cart"></i>
                             <span class="hidden-sm-down">{{'shopView.cart' | translate}}
                             </span>
