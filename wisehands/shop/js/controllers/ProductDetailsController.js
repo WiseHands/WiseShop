@@ -162,34 +162,11 @@
                                         price: $scope.calculatedProductPrice,
                                         name: $scope.product.name
                                     };
-                                    productsToBuy.push(productToBuy);
-                                shared.getProductsToBuy().push(productToBuy);
-                                $scope.calculateTotal();
 
-
-                            } else {
-                                if (!$scope.found) {
+                                    var copyOfProduct = JSON.parse(JSON.stringify(productToBuy));
+                                    shared.addProductToBuy(copyOfProduct);
                                     $scope.calculateTotal();
 
-                                    for(var i = 0; i < $scope.selectedItems.length; i++) {
-                                        if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
-                                            $scope.found = true;
-                                            var productFromBin = $scope.selectedItems[i];
-                                            break;
-                                        }
-                                    }
-                                } else {
-                                    for(var i = 0; i < $scope.selectedItems.length; i++) {
-                                        if ($scope.selectedItems[i].uuid === $scope.product.uuid) {
-                                            $scope.found = true;
-                                            var productFromBin = $scope.selectedItems[i];
-                                            productFromBin.quantity ++;
-                                            $scope.calculateTotal();
-
-                                            break;
-                                        }
-                                    }
-                                }
 
                             }
 

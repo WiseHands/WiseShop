@@ -57,13 +57,9 @@
 
                 else if (isActivePropertyTagsMoreThanTwo > 0) {
                     $location.path('/product/' + productDTO.uuid);
-                }
-
-                else {
-                        productDTO.quantity = 1;
-                        $scope.selectedItems.push(productDTO);
-                        shared.setProductsToBuy($scope.selectedItems);
-                        $scope.calculateTotal($scope);
+                } else {
+                    shared.addProductToBuy(productDTO);
+                    $scope.calculateTotal();
                 }
             };
 

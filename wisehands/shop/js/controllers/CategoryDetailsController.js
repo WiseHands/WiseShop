@@ -54,7 +54,7 @@ angular.module('WiseShop')
 
                 } else {
                         productDTO.quantity = 1;
-                        $scope.selectedItems.push(productDTO);
+                        shared.addProductToBuy(productDTO);
                         $scope.calculateTotal();
                 }
 

@@ -4,7 +4,7 @@
         function($scope, $http, shared, PublicShopInfo) {
             function loadOptions() {
                 $scope.total =  shared.getTotal();
-                $scope.productsToBuy = shared.getProductsToBuy();
+                $scope.productQuantityList = shared.getProductsToBuy();
             }
             loadOptions();
 
@@ -22,7 +22,9 @@
                     console.log(error);
                 });
 
+            $scope.changeQuantity = function (index, quantity) {
 
+            };
 
             $scope.calculateTotal = PublicShopInfo.calculateTotal;
             $scope.reCalculateTotal = function () {
@@ -35,9 +37,8 @@
 
             };
             $scope.removeAll = function () {
-                $scope.productsToBuy.length = 0;
+                shared.clearProducts();
                 $scope.calculateTotal();
-                shared.setProductsToBuy($scope.productsToBuy);
                 loadOptions();
             };
 
