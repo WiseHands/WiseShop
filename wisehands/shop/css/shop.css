@@ -212,4 +212,7 @@ main {
 .productDetailsFlexNavbar {
     justify-content: space-between;
 }
+a .noColor {
+    color: transparent;
+}
 

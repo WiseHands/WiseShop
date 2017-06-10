@@ -39,7 +39,8 @@
             $scope.reCalculateTotal = function () {
                 $scope.calculateTotal();
             };
-            $scope.buyStart = function (productDTO) {
+            $scope.buyStart = function (productDTO, $event) {
+                $event.stopPropagation();
 
                 var isActivePropertyTagsMoreThanTwo = 0;
 
@@ -65,6 +66,10 @@
                 }
                 $scope.totalQuantity = shared.getTotalQuantity();
 
+            };
+
+            $scope.navigateToProductDetails = function (uuid) {
+                window.location.hash = '#!/product/' + uuid;
             };
 
             sideNavInit.sideNav();
