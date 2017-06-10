@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class OrderItemDTO extends GenericModel{
@@ -33,5 +34,9 @@ public class OrderItemDTO extends GenericModel{
 
     @Expose
     public Integer quantity;
+
+    @Expose
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+    public List<PropertyTagDTO> tags;
 
 }

@@ -16,6 +16,8 @@
 
                 function loadOptions() {
                     $scope.selectedItems = shared.getProductsToBuy();
+                    $scope.totalQuantity = shared.getTotalQuantity();
+
                 }
 
                 loadOptions();
@@ -141,38 +143,33 @@
                         if($scope.isNotWorkingTime) {
                             toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                         } else {
-                            $scope.product.chosenProperties = properties;
-
-
-
-                            if ($scope.product.chosenProperties.length > 0) {
-
-                                    var chosenProperties = [];
-                                    $scope.product.chosenProperties.forEach(function(chosenProperty){
+                            var chosenProperties = [];
+                            if (properties.length > 0) {
+                                    properties.forEach(function(chosenProperty){
                                         chosenProperties.push({
-                                            optionUuid: chosenProperty.uuid,
+                                            uuid: chosenProperty.uuid,
                                             additionalPrice: chosenProperty.additionalPrice,
                                             name: chosenProperty.value
                                         });
                                     });
-
-                                    var productToBuy = {
-                                        productUuid: $scope.product.uuid,
-                                        chosenPropertiesUuid: chosenProperties,
-                                        price: $scope.calculatedProductPrice,
-                                        name: $scope.product.name
-                                    };
-
-                                    var copyOfProduct = JSON.parse(JSON.stringify(productToBuy));
-                                    shared.addProductToBuy(copyOfProduct);
-                                    $scope.calculateTotal();
-
-
                             }
+                            var productToBuy = {
+                                uuid: $scope.product.uuid,
+                                chosenProperties: chosenProperties,
+                                price: $scope.calculatedProductPrice,
+                                name: $scope.product.name
+                            };
+                            $scope.product.chosenProperties = chosenProperties;
+                            var copyOfProduct = JSON.parse(JSON.stringify(productToBuy));
+                            shared.addProductToBuy(copyOfProduct);
+                            $scope.calculateTotal();
+
 
 
                         }
                     }
+                    $scope.totalQuantity = shared.getTotalQuantity();
+
 
                 };
 

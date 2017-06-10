@@ -8,7 +8,7 @@
                 $scope.newPostDelivery = localStorage.getItem('newPostDelivery') || '';
 
                 function loadOptions() {
-                    $scope.selectedItems = shared.getSelectedItems();
+                    $scope.selectedItems = shared.getProductsToBuy();
                     $scope.total =  shared.getTotal();
                 }
                 loadOptions();

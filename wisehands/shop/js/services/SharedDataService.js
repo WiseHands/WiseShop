@@ -5,6 +5,7 @@ angular.module('WiseShop')
         var categoryUuid = '';
         var paymentButton = '';
         var currentOrderUuid = '';
+        var totalQuantity = 0;
         Object.compare = function (obj1, obj2) {
             //Loop through properties in object 1
             for (var p in obj1) {
@@ -34,35 +35,65 @@ angular.module('WiseShop')
         };
         return {
             getProductsToBuy: function () {
-                console.log('getProductsToBuy ', productsToBuy);
                 return productsToBuy;
             },
             setProductsToBuy: function (value) {
-                console.log('setProductsToBuy ', value);
                 productsToBuy = value;
             },
 
             addProductToBuy: function (product) {
-                console.log('addProductToBuy ', product, productsToBuy);
-                var quantity = 0;
                 var isFound = false;
                 for(var i=0; i<productsToBuy.length; i++) {
                     var currentProduct = productsToBuy[i];
                     var copyOfProductWithoutQuantity = JSON.parse(JSON.stringify(currentProduct));
-                    quantity = currentProduct.quantity;
                     delete copyOfProductWithoutQuantity.quantity;
                     delete product.quantity;
-                    console.log('compare(product, copyOfProductWithoutQuantity)', product, copyOfProductWithoutQuantity, Object.compare(product, copyOfProductWithoutQuantity));
                     if(Object.compare(product, copyOfProductWithoutQuantity)) {
                         isFound = true;
-                        currentProduct.quantity = quantity + 1;
+                        currentProduct.quantity += 1;
                         break;
                     }
                 }
                 if(!isFound) {
-                    product.quantity = 1;
-                    productsToBuy.push(product);
+                    var copyOfProduct = JSON.parse(JSON.stringify(product));
+                    copyOfProduct.quantity = 1;
+                    productsToBuy.push(copyOfProduct);
                 }
+
+                this.reCalculateQuantity();
+                this.reCalculateTotal();
+
+
+            },
+
+            reCalculateQuantity: function () {
+                totalQuantity = 0;
+
+                productsToBuy.forEach(function(product) {
+                    totalQuantity += product.quantity;
+                });
+
+                return totalQuantity;
+
+            },
+
+            reCalculateTotal: function () {
+                total = 0;
+                productsToBuy.forEach(function (product) {
+                    total += product.quantity * product.price;
+                });
+                return total;
+
+            },
+
+            setProductQuantity: function (index, quantity) {
+                productsToBuy[index].quantity = quantity;
+                this.reCalculateQuantity();
+
+            },
+
+            getTotalQuantity: function () {
+                return totalQuantity;
             },
 
             clearProducts: function () {

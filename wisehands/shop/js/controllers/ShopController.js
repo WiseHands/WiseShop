@@ -30,6 +30,8 @@
 
             function loadOptions() {
                 $scope.selectedItems = shared.getProductsToBuy();
+                $scope.totalQuantity = shared.getTotalQuantity();
+
             }
 
             loadOptions();
@@ -61,6 +63,8 @@
                     shared.addProductToBuy(productDTO);
                     $scope.calculateTotal();
                 }
+                $scope.totalQuantity = shared.getTotalQuantity();
+
             };
 
             sideNavInit.sideNav();

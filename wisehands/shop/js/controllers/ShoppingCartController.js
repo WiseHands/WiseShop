@@ -3,12 +3,11 @@
         .controller('ShoppingCartController', ['$scope', '$http', 'shared', 'PublicShopInfo',
         function($scope, $http, shared, PublicShopInfo) {
             function loadOptions() {
-                $scope.total =  shared.getTotal();
+                $scope.total =  shared.reCalculateTotal();
                 $scope.productQuantityList = shared.getProductsToBuy();
             }
             loadOptions();
 
-            $scope.calculateTotal = PublicShopInfo.calculateTotal;
 
 
             $http({
@@ -23,22 +22,21 @@
                 });
 
             $scope.changeQuantity = function (index, quantity) {
-
+                shared.setProductQuantity(index, quantity);
+                $scope.total = shared.reCalculateTotal();
             };
 
-            $scope.calculateTotal = PublicShopInfo.calculateTotal;
-            $scope.reCalculateTotal = function () {
-                $scope.calculateTotal();
-            };
             $scope.removeSelectedItem = function (index){
                 shared.getProductsToBuy().splice(index, 1);
-                $scope.calculateTotal();
+                shared.reCalculateTotal();
+                shared.reCalculateQuantity();
                 loadOptions();
 
             };
             $scope.removeAll = function () {
                 shared.clearProducts();
-                $scope.calculateTotal();
+                shared.reCalculateTotal();
+                shared.reCalculateQuantity();
                 loadOptions();
             };
 

@@ -80,16 +80,35 @@ public class OrderAPI extends AuthController {
         for (ListIterator iter = jsonArray.listIterator(); iter.hasNext(); ) {
             JSONObject element = (JSONObject) iter.next();
 
-            ProductDTO product = ProductDTO.findById(element.get("uuid"));
             int quantity = Integer.parseInt(element.get("quantity").toString());
-
             OrderItemDTO orderItem = new OrderItemDTO();
+            ProductDTO product = ProductDTO.find("byUuid", element.get("uuid")).first();
             orderItem.orderUuid = order.uuid;
             orderItem.name = product.name;
             orderItem.description = product.description;
             orderItem.price = product.price;
             orderItem.fileName = product.fileName;
             orderItem.quantity = quantity;
+
+
+            List<PropertyTagDTO> chosenProperties = new ArrayList<PropertyTagDTO>();
+            JSONArray properties = (JSONArray) element.get("chosenProperties");
+            System.out.println("CHOSEN PROPERTIES" + properties);
+
+            if(properties != null) {
+                for (ListIterator iterator = properties.listIterator(); iterator.hasNext(); ) {
+                    JSONObject property = (JSONObject) iterator.next();
+                    PropertyTagDTO foundProperty = PropertyTagDTO.find("byUuid", property.get("uuid")).first();
+                    PropertyTagDTO newProperty = new PropertyTagDTO();
+                    newProperty.value = foundProperty.value;
+                    newProperty.additionalPrice = foundProperty.additionalPrice;
+                    newProperty = newProperty.save();
+                    chosenProperties.add(newProperty);
+                    totalCost += newProperty.additionalPrice;
+                }
+                orderItem.tags = chosenProperties;
+            }
+
             orderItem.save();
             orders.add(orderItem);
 

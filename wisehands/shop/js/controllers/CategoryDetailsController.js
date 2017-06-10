@@ -26,6 +26,8 @@ angular.module('WiseShop')
 
             function loadOptions() {
                 $scope.selectedItems = shared.getProductsToBuy();
+                $scope.totalQuantity = shared.getTotalQuantity();
+
             }
 
             loadOptions();
@@ -57,6 +59,8 @@ angular.module('WiseShop')
                         shared.addProductToBuy(productDTO);
                         $scope.calculateTotal();
                 }
+                $scope.totalQuantity = shared.getTotalQuantity();
+
 
             };
             sideNavInit.sideNav();
