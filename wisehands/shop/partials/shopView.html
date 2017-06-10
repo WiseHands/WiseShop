@@ -42,7 +42,7 @@
     <div class="container-fluid row center-block">
         <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="productDTO in products | orderBy:'sortOrder'" ng-show="productDTO.isActive">
                 <div class="card inline" ng-click="navigateToProductDetails(productDTO.uuid)">
-                <div class="view overlay hm-white-slight z-depth-1">
+                <div class="noselect view overlay hm-white-slight z-depth-1">
                         <img ng-src="public/product_images/{{shopId}}/{{productDTO.mainImage.filename}}" class="img-fluid center-block" alt="">
                          <div class="mask"></div>
                 </div>
