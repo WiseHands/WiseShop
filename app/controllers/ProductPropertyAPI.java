@@ -29,6 +29,7 @@ public class ProductPropertyAPI extends AuthController {
         ProductPropertyDTO property = new ProductPropertyDTO();
         property.name = name;
         property.categoryUuid = categoryUuid;
+        property.shopUuid = shop.uuid;
 
 
         Iterator<JSONObject> iterator = tags.iterator();
@@ -52,6 +53,7 @@ public class ProductPropertyAPI extends AuthController {
             propertyNew.name = name;
             propertyNew.categoryUuid = categoryUuid;
             propertyNew.productUuid = product.uuid;
+            propertyNew.shopUuid = shop.uuid;
             propertyNew = propertyNew.save();
 
 
@@ -137,7 +139,7 @@ public class ProductPropertyAPI extends AuthController {
 
 
         ProductPropertyDTO property = ProductPropertyDTO.find("byUuid", uuid).first();
-        List<ProductPropertyDTO> allProperties = ProductPropertyDTO.find("byName", property.name).fetch();
+        List<ProductPropertyDTO> allProperties = ProductPropertyDTO.find("byNameAndShopUuid", property.name, shop.uuid).fetch();
         for (ProductPropertyDTO singleProductProperty : allProperties) {
             ProductDTO product = ProductDTO.find("byUuid", singleProductProperty.productUuid).first();
             if(product != null) {

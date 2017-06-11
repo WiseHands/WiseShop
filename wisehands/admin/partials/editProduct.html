@@ -77,15 +77,15 @@
 
             </div>
             <div class="card-content col-sm-6 noSidePadding">
-                <div class="input-field col-md-12" ng-show="categories.length >= 1">
-                    <label class="active" for="categories">{{'addNewProduct.category' | translate}}</label>
-                    <select id="categories"
-                            class="form-control"
-                            ng-model="product.category"
-                            ng-change="changeCategory(product.category)"
-                            ng-options="category as category.name for category in categories track by category.uuid">
-                    </select>
-                </div>
+                <!--<div class="input-field col-md-12" ng-show="categories.length >= 1">-->
+                    <!--<label class="active" for="categories">{{'addNewProduct.category' | translate}}</label>-->
+                    <!--<select id="categories"-->
+                            <!--class="form-control"-->
+                            <!--ng-model="product.category"-->
+                            <!--ng-change="changeCategory(product.category)"-->
+                            <!--ng-options="category as category.name for category in categories track by category.uuid">-->
+                    <!--</select>-->
+                <!--</div>-->
                 <div class="input-field col-md-12">
                     <input id="name" type="text" ng-model="product.name">
                     <label class="active" for="name">{{'addNewProduct.productName' | translate}}</label>

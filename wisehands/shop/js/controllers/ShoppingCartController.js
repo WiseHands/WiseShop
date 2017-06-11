@@ -5,6 +5,7 @@
             function loadOptions() {
                 $scope.total =  shared.reCalculateTotal();
                 $scope.productQuantityList = shared.getProductsToBuy();
+                console.log('loaded', shared.getProductsToBuy());
             }
             loadOptions();
 

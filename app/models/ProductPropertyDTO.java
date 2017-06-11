@@ -29,5 +29,8 @@ public class ProductPropertyDTO extends GenericModel {
     @Expose
     public String productUuid;
 
+    @Expose
+    public String shopUuid;
+
 
 }

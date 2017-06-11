@@ -5,7 +5,7 @@
                 <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
             </li>
             <li class="nav-item text-xs-center">
-                <span>{{'shopView.productDetails' | translate}}</span>
+                <h4 style="color: {{shopStyling.navbarTextColor}}">{{'shopView.productDetails' | translate}}</h4>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#!/shoppingcart" ng-click="reCalculateTotal()" style="color: {{shopStyling.navbarTextColor}}"> <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalQuantity}}</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-md-down">{{'shopView.cart' | translate}}</span></a>

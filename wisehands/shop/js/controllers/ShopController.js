@@ -61,7 +61,13 @@
                 else if (isActivePropertyTagsMoreThanTwo > 0) {
                     $location.path('/product/' + productDTO.uuid);
                 } else {
-                    shared.addProductToBuy(productDTO);
+                    var productToBuy = {
+                        uuid: productDTO.uuid,
+                        chosenProperties: [],
+                        price: productDTO.price,
+                        name: productDTO.name
+                    };
+                    shared.addProductToBuy(productToBuy);
                     $scope.calculateTotal();
                 }
                 $scope.totalQuantity = shared.getTotalQuantity();

@@ -53,6 +53,7 @@ public class ProductAPI extends AuthController {
             propertyNew.name = property.name;
             propertyNew.categoryUuid = product.categoryUuid;
             propertyNew.productUuid = product.uuid;
+            propertyNew.shopUuid = shop.uuid;
 
 
             List<PropertyTagDTO> tagsListNew = new ArrayList<PropertyTagDTO>();
@@ -202,6 +203,11 @@ public class ProductAPI extends AuthController {
         for (ProductPropertyDTO property : properties) {
             property.delete();
         }
+        CategoryDTO category  = product.category;
+        category.products.remove(product);
+        category.save();
+
+
         product.delete();
 
 
