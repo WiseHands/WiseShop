@@ -3,7 +3,7 @@
 #
 shop.not.found = Магазин не знайдено...
 new.order = Нове замовлення
-order.is.processing = Замовлення (%s, %s) обробляться
+order.is.processing = Замовлення (%s, %s) обробляється
 new.order.total = Нове замовлення %s Сума %s
 payment.error = Помилка Оплати
 payment.error.total = Помилка Оплати %s Сума %s
