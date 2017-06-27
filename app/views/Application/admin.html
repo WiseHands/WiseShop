@@ -115,6 +115,89 @@
 <script src="wisehands/assets/ua-parser-js/ua-parser.min.js"></script>
 
 
+<script>
+	function urlBase64ToUint8Array(base64String) {
+	  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+	  const base64 = (base64String + padding)
+		.replace(/\-/g, '+')
+		.replace(/_/g, '/')
+	  ;
+	  const rawData = window.atob(base64);
+	  return Uint8Array.from([...rawData].map((char) => char.charCodeAt(0)));
+	}
+
+	function registerServiceWorker() {
+	  return navigator.serviceWorker.register('wisehands/assets/service-worker.js')
+	  .then(function(registration) {
+		console.log('Service worker successfully registered.', registration);
+		window.registrationSW = registration;
+		return registration;
+	  })
+	  .catch(function(err) {
+		console.error('Unable to register service worker.', err);
+	  });
+	}
+
+	function askPermission() {
+	  return new Promise(function(resolve, reject) {
+		const permissionResult = Notification.requestPermission(function(result) {
+		  resolve(result);
+		});
+
+		if (permissionResult) {
+		  permissionResult.then(resolve, reject);
+		}
+	  })
+	  .then(function(permissionResult) {
+		if (permissionResult !== 'granted') {
+		  throw new Error('We weren\'t granted permission.');
+		}
+		console.log(permissionResult);
+	  });
+	}
+
+
+
+	var promise = registerServiceWorker();
+	promise.then(function(registration) {
+		askPermission();
+
+		const subscribeOptions = {
+		  userVisibleOnly: true,
+		  applicationServerKey: urlBase64ToUint8Array(
+			'BEvH8oMZ98JQ6oOHaJfhrr9SfLufhi9VJFjG5qCiD8coU0OdMhVdvOjaQNO9Y8sJjNUz8iE9ZB9t0bNnQ2f7Zlw'
+		  )
+		};
+
+		return registration.pushManager.subscribe(subscribeOptions);
+	}).then(function(subscription) {
+		console.log('Received PushSubscription: ', JSON.stringify(subscription));
+
+		fetch('/subscription', {
+			method: 'POST',
+			headers: {
+			  'Content-Type': 'application/json',
+			  'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+			},
+			body: JSON.stringify(subscription)
+		})
+		.then(function(response) {
+			if (!response.ok) {
+			  throw new Error('Bad status code from server.');
+			}
+
+			return response.json();
+		})
+		.then(function(responseData) {
+			if (!(responseData)) {
+			  throw new Error('Bad response from server.');
+			}
+		});
+
+		return subscription;
+	});
+
+</script>
 
 
 

@@ -1,0 +1,167 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
+        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.8.0'
+    }
+}
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '2.0.0'
+}
+
+group 'nl.martijndwars'
+version '3.0.0'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'io.codearte.nexus-staging'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.0'
+}
+
+compileJava {
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+}
+
+compileTestJava {
+    sourceCompatibility = 1.8
+}
+
+jar {
+    baseName = 'web-push'
+    version = '3.0.0'
+}
+
+shadowJar {
+    // BouncyCastle JAR is signed; it cannot be extracted and merged into the fat JAR.
+    dependencies {
+        exclude(
+            dependency(group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.54')
+        )
+    }
+    manifest {
+        attributes 'Main-Class': 'nl.martijndwars.webpush.cli.Cli',
+                   'Class-Path': '../../lib/bcprov-jdk15on-154.jar'
+    }
+}
+
+junitPlatform {
+    selectors {
+        aClass 'nl.martijndwars.webpush.selenium.SeleniumTests'
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(
+          userName: hasProperty('ossrhPassword') ? ossrhUsername : '',
+          password: hasProperty('ossrhPassword') ? ossrhPassword : ''
+        )
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(
+          userName: hasProperty('ossrhPassword') ? ossrhUsername : '',
+          password: hasProperty('ossrhPassword') ? ossrhPassword : ''
+        )
+      }
+
+      pom.project {
+        name 'web-push'
+        packaging 'jar'
+        description 'A Web Push library for Java.'
+        url 'https://github.com/MartijnDwars/web-push'
+
+        scm {
+          connection 'scm:git:git@github.com:MartijnDwars/web-push.git'
+          developerConnection 'scm:git:git@github.com:MartijnDwars/web-push.git'
+          url 'git@github.com:MartijnDwars/web-push.git'
+        }
+
+        licenses {
+          license {
+            name 'MIT License'
+            url 'https://opensource.org/licenses/MIT'
+          }
+        }
+
+        developers {
+          developer {
+            id 'martijndwars'
+            name 'Martijn Dwars'
+            email 'ikben@martijndwars.nl'
+          }
+        }
+      }
+    }
+  }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    // For CLI
+    compile group: 'com.beust', name: 'jcommander', version: '1.69'
+
+    // For parsing JSON
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
+
+    // For making async HTTP requests
+    compile group: 'org.apache.httpcomponents', name: 'httpasyncclient', version: '4.1.3'
+
+    // Not sure what for..
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+
+    // For cryptographic operations
+    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.54'
+
+    // For creating and signing JWT
+    compile group: 'org.bitbucket.b_c', name: 'jose4j', version: '0.5.2'
+
+    // For making HTTP requests
+    testCompile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.2'
+
+    // For testing, obviously
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.0-M4'
+
+    // For running JUnit tests
+    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.0-M4'
+
+    // For turning InputStream to String
+    testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
+
+    // For reading the demo vapid keypair from a pem file
+    testCompile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.55'
+}

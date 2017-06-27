@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OrderAPI extends AuthController {
+    public static final String VAPID_PUBLIC_KEY = "BEvH8oMZ98JQ6oOHaJfhrr9SfLufhi9VJFjG5qCiD8coU0OdMhVdvOjaQNO9Y8sJjNUz8iE9ZB9t0bNnQ2f7Zlw";
+    public static final String VAPID_PRIVATE_KEY = "bB4C_PGUJgaFwVmdHOi8S3jpOMj_UO0GfRTvnWbHzRk";
 
     private  static final Double WISEHANDS_COMISSION = -0.0725;
     private  static final int PAGE_SIZE = 12;
@@ -186,6 +188,25 @@ public class OrderAPI extends AuthController {
         }).start();
 
 
+        final List<PushSubscription> subscriptions = PushSubscription.findAll();
+        new Thread(new Runnable() {
+            public void run() {
+                for(PushSubscription subscription: subscriptions) {
+                    String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
+
+
+                    String target = "sh webpush.sh " + subscription.endpoint + " " + subscription.p256dhKey + " " + subscription.authKey + " " + VAPID_PUBLIC_KEY + " " + VAPID_PRIVATE_KEY + " " + shopLink.shopName + " " + msg.replaceAll(" ", "SPACE") + " " + shopLink.uuid + " " + shopLink.visualSettingsDTO.shopFavicon + " " + orderLink.uuid ;
+                    System.out.println(target);
+                    Runtime rt = Runtime.getRuntime();
+                    try {
+                        Process proc = rt.exec(target);
+
+                    } catch (Throwable t) {
+                        t.printStackTrace();
+                    }
+                }
+            }
+        }).start();
 
         try {
             String payButton = liqPay.payButton(order, shop);
