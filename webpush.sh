@@ -1,1 +1,0 @@
-java -jar webpush-java/build/libs/web-push-3.0.0-all.jar send-notification --subscription="{'endpoint':'$1','keys':{'p256dh':'$2','auth':'$3'}}" --publicKey="$4" --privateKey="$5" --payload="{\"title\": \"$6\", \"message\": \"$7\", \"icon\": \"/public/shop_logo/$8/$9\", \"orderId\": \"$10\"}"

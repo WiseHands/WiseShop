@@ -3,6 +3,10 @@ package controllers;
 import enums.OrderState;
 import models.*;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -188,25 +192,25 @@ public class OrderAPI extends AuthController {
         }).start();
 
 
-        final List<PushSubscription> subscriptions = PushSubscription.findAll();
-        new Thread(new Runnable() {
-            public void run() {
-                for(PushSubscription subscription: subscriptions) {
-                    String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
+        List<PushSubscription> subscriptions = PushSubscription.findAll();
+        for(PushSubscription subscription: subscriptions) {
+            String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
 
+            String url = "http://0.0.0.0:4567/notify";
+            JSONObject body = new JSONObject();
+            body.put("title", shopLink.shopName);
+            body.put("message", msg);
+            body.put("icon", "/public/shop_logo/" + shopLink.uuid + "/" + shopLink.visualSettingsDTO.shopFavicon);
+            body.put("endpoint", subscription.endpoint);
+            body.put("publicKey", subscription.p256dhKey);
+            body.put("auth", subscription.authKey);
 
-                    String target = "sh webpush.sh " + subscription.endpoint + " " + subscription.p256dhKey + " " + subscription.authKey + " " + VAPID_PUBLIC_KEY + " " + VAPID_PRIVATE_KEY + " " + shopLink.shopName + " " + msg.replaceAll(" ", "SPACE") + " " + shopLink.uuid + " " + shopLink.visualSettingsDTO.shopFavicon + " " + orderLink.uuid ;
-                    System.out.println(target);
-                    Runtime rt = Runtime.getRuntime();
-                    try {
-                        Process proc = rt.exec(target);
+            System.out.println(url);
+            System.out.println(body.toJSONString());
 
-                    } catch (Throwable t) {
-                        t.printStackTrace();
-                    }
-                }
-            }
-        }).start();
+            post(url, body.toJSONString());
+
+        }
 
         try {
             String payButton = liqPay.payButton(order, shop);
@@ -424,6 +428,21 @@ public class OrderAPI extends AuthController {
         }
 
 
+    }
+
+    public static void post(String completeUrl, String body) {
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(completeUrl);
+        httpPost.setHeader("Content-type", "application/json");
+        try {
+            StringEntity stringEntity = new StringEntity(body, "UTF-8");
+            httpPost.getRequestLine();
+            httpPost.setEntity(stringEntity);
+
+            httpClient.execute(httpPost);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
