@@ -179,7 +179,7 @@ public class OrderAPI extends AuthController {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    mailSender.sendEmail(shopLink, orderLink, Messages.get("new.order"));
+//                    mailSender.sendEmail(shopLink, orderLink, Messages.get("new.order"));
 
                     String smsText = Messages.get("order.is.processing", orderLink.name, orderLink.total);
                     smsSender.sendSms(orderLink.phone, smsText);
@@ -209,7 +209,12 @@ public class OrderAPI extends AuthController {
             System.out.println(url);
             System.out.println(body.toJSONString());
 
-            post(url, body.toJSONString());
+            try {
+
+            } catch (Exception e) {
+                post(url, body.toJSONString());
+                System.out.println(e.toString());
+            }
 
         }
 
