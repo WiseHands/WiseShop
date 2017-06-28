@@ -3,10 +3,9 @@ self.addEventListener('push', function(event) {
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
   //hack
-  var resp = JSON.parse(event.data.text().replace(/SPACE/g, ' '));
+  var resp = event.data.json();
 
   const title = resp.title;
-  self.orderId = resp.orderId;
   const options = {
     body: resp.message,
     icon: resp.icon
