@@ -3,6 +3,7 @@ package controllers;
 import enums.OrderState;
 import models.*;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -432,8 +433,10 @@ public class OrderAPI extends AuthController {
 
     public static void post(String completeUrl, String body) {
         HttpClient httpClient = new DefaultHttpClient();
+        httpClient.getParams().setParameter("http.protocol.version", HttpVersion.HTTP_1_1);
+        httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
         HttpPost httpPost = new HttpPost(completeUrl);
-        httpPost.setHeader("Content-type", "application/json");
+        httpPost.setHeader("Content-type", "application/json; charset=utf-8");
         try {
             StringEntity stringEntity = new StringEntity(body, "UTF-8");
             httpPost.getRequestLine();
