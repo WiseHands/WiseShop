@@ -3,11 +3,6 @@ package controllers;
 import enums.OrderState;
 import models.*;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,14 +14,15 @@ import services.MailSender;
 import services.SmsSender;
 
 import javax.inject.Inject;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OrderAPI extends AuthController {
-    public static final String VAPID_PUBLIC_KEY = "BEvH8oMZ98JQ6oOHaJfhrr9SfLufhi9VJFjG5qCiD8coU0OdMhVdvOjaQNO9Y8sJjNUz8iE9ZB9t0bNnQ2f7Zlw";
-    public static final String VAPID_PRIVATE_KEY = "bB4C_PGUJgaFwVmdHOi8S3jpOMj_UO0GfRTvnWbHzRk";
-
     private  static final Double WISEHANDS_COMISSION = -0.0725;
     private  static final int PAGE_SIZE = 12;
 
@@ -437,18 +433,19 @@ public class OrderAPI extends AuthController {
     }
 
     public static void post(String completeUrl, String body) {
-        HttpClient httpClient = new DefaultHttpClient();
-        httpClient.getParams().setParameter("http.protocol.version", HttpVersion.HTTP_1_1);
-        httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
-        HttpPost httpPost = new HttpPost(completeUrl);
-        httpPost.setHeader("Content-type", "application/json; charset=utf-8");
         try {
-            StringEntity stringEntity = new StringEntity(body, "UTF-8");
-            httpPost.getRequestLine();
-            httpPost.setEntity(stringEntity);
-
-            httpClient.execute(httpPost);
+            String type = "application/json";
+            String encodedData = URLEncoder.encode(body);
+            URL u = new URL(completeUrl);
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty( "Content-Type", type );
+            conn.setRequestProperty( "Content-Length", String.valueOf(encodedData.length()));
+            OutputStream os = conn.getOutputStream();
+            os.write(encodedData.getBytes());
         } catch (Exception e) {
+            System.out.println("EXCEPTION DURING post to PUSH MICROSERVICE");
             throw new RuntimeException(e);
         }
     }
