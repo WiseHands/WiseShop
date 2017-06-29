@@ -1,19 +1,32 @@
 package services;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class WebPushService {
-    public static void post(String completeUrl, String body) throws Exception {
-        String type = "application/json";
-        URL u = new URL(completeUrl);
-        HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+    public static void post(String query, String json) throws Exception {
+        URL url = new URL(query);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setConnectTimeout(5000);
+        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         conn.setDoOutput(true);
+        conn.setDoInput(true);
         conn.setRequestMethod("POST");
-        conn.setRequestProperty( "Content-Type", type );
-        conn.setRequestProperty( "Content-Length", String.valueOf(body.length()));
+
         OutputStream os = conn.getOutputStream();
-        os.write(body.getBytes());
+        os.write(json.getBytes("UTF-8"));
+        os.close();
+
+        // read the response
+        InputStream in = new BufferedInputStream(conn.getInputStream());
+        String result = org.apache.commons.io.IOUtils.toString(in, "UTF-8");
+        System.out.println("response from microservice: " + result);
+
+
+        in.close();
+        conn.disconnect();
     }
 }
