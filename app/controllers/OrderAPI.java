@@ -193,7 +193,7 @@ public class OrderAPI extends AuthController {
         for(PushSubscription subscription: subscriptions) {
             String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
 
-            String url = "http://91.224.11.24:4567/notify";
+            final String url = "http://91.224.11.24:4567/notify";
             JSONObject body = new JSONObject();
             body.put("title", shopLink.shopName);
             body.put("message", msg);
@@ -202,10 +202,20 @@ public class OrderAPI extends AuthController {
             body.put("publicKey", subscription.p256dhKey);
             body.put("auth", subscription.authKey);
 
+            final String json = body.toJSONString();
+
             System.out.println(url);
             System.out.println(body.toJSONString());
 
-            WebPushService.post(url, body.toJSONString());
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        WebPushService.post(url, json);
+                    } catch (Exception ex) {
+                        System.out.println(ex.toString());
+                    }
+                }
+            }).start();
         }
 
         try {
