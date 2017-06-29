@@ -189,7 +189,7 @@ public class OrderAPI extends AuthController {
         }).start();
 
 
-        List<PushSubscription> subscriptions = PushSubscription.findAll();
+        List<PushSubscription> subscriptions = PushSubscription.find("byShopUuid", shop.uuid).fetch();
         for(PushSubscription subscription: subscriptions) {
             String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
 
