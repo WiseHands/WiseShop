@@ -6,7 +6,8 @@
             .constant('LOCALES', {
                 'locales': {
                     'uk_UA': 'Українська',
-                    'en_US': 'English'
+                    'en_US': 'English',
+					'pl_PL': 'Polski'
                 },
                 'preferredLocale': 'en_US'
             })

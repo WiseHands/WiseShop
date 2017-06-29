@@ -31,7 +31,9 @@ angular.module('WiseHands')
                         currentLocale = 'uk_UA'
                     } else if (language === 'English') {
                         currentLocale = 'en_US'
-                    }
+                    } else if (language === 'Polski') {
+						currentLocale = 'pl_PL'
+					}
                     $http({
                         method: 'PUT',
                         url: '/shop/' + currentLocale,
