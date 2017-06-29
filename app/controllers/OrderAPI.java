@@ -193,7 +193,7 @@ public class OrderAPI extends AuthController {
         for(PushSubscription subscription: subscriptions) {
             String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
 
-            String url = "http://0.0.0.0:4567/notify";
+            String url = "http://91.224.11.24:4567/notify";
             JSONObject body = new JSONObject();
             body.put("title", shopLink.shopName);
             body.put("message", msg);
@@ -206,9 +206,8 @@ public class OrderAPI extends AuthController {
             System.out.println(body.toJSONString());
 
             try {
-
-            } catch (Exception e) {
                 post(url, body.toJSONString());
+            } catch (Exception e) {
                 System.out.println(e.toString());
             }
 
