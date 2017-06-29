@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -205,12 +204,7 @@ public class OrderAPI extends AuthController {
             System.out.println(url);
             System.out.println(body.toJSONString());
 
-            try {
-                post(url, body.toJSONString());
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-
+            post(url, body.toJSONString());
         }
 
         try {
@@ -431,22 +425,16 @@ public class OrderAPI extends AuthController {
 
     }
 
-    public static void post(String completeUrl, String body) {
-        try {
-            String type = "application/json";
-            String encodedData = URLEncoder.encode(body);
-            URL u = new URL(completeUrl);
-            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-            conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty( "Content-Type", type );
-            conn.setRequestProperty( "Content-Length", String.valueOf(encodedData.length()));
-            OutputStream os = conn.getOutputStream();
-            os.write(encodedData.getBytes());
-        } catch (Exception e) {
-            System.out.println("EXCEPTION DURING post to PUSH MICROSERVICE");
-            throw new RuntimeException(e);
-        }
+    public static void post(String completeUrl, String body) throws Exception {
+        String type = "application/json";
+        URL u = new URL(completeUrl);
+        HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+        conn.setDoOutput(true);
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty( "Content-Type", type );
+        conn.setRequestProperty( "Content-Length", String.valueOf(body.length()));
+        OutputStream os = conn.getOutputStream();
+        os.write(body.getBytes());
     }
 
 }
