@@ -12,6 +12,7 @@ import play.mvc.Http;
 import services.LiqPayService;
 import services.MailSender;
 import services.SmsSender;
+import services.WebPushService;
 
 import javax.inject.Inject;
 import java.io.OutputStream;
@@ -204,7 +205,7 @@ public class OrderAPI extends AuthController {
             System.out.println(url);
             System.out.println(body.toJSONString());
 
-            post(url, body.toJSONString());
+            WebPushService.post(url, body.toJSONString());
         }
 
         try {
@@ -423,18 +424,6 @@ public class OrderAPI extends AuthController {
         }
 
 
-    }
-
-    public static void post(String completeUrl, String body) throws Exception {
-        String type = "application/json";
-        URL u = new URL(completeUrl);
-        HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-        conn.setDoOutput(true);
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty( "Content-Type", type );
-        conn.setRequestProperty( "Content-Length", String.valueOf(body.length()));
-        OutputStream os = conn.getOutputStream();
-        os.write(body.getBytes());
     }
 
 }
