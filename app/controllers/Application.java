@@ -53,7 +53,7 @@ public class Application extends Controller {
         }
 
         if (shop == null) {
-            notFound(Messages.get("shop.not.found"));
+            renderTemplate("WiseHands/index.html");
         }
 
         Date date = new Date();
