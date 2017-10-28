@@ -71,6 +71,9 @@ public class ShopAPI extends AuthController {
 
     public static void list(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         String userId = request.headers.get(X_AUTH_USER_ID).value();
@@ -80,6 +83,9 @@ public class ShopAPI extends AuthController {
 
     public static void details(String client) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         renderJSON(json(shop));
@@ -87,6 +93,9 @@ public class ShopAPI extends AuthController {
 
     public static void publicInfo(String client) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         JSONObject json = new JSONObject();
         json.put("name", shop.shopName);
         json.put("uuid", shop.uuid);
@@ -109,6 +118,9 @@ public class ShopAPI extends AuthController {
 
     public static void changeLocal(String client, String locale) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         shop.locale = locale;
@@ -119,6 +131,9 @@ public class ShopAPI extends AuthController {
 
     public static void update(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         System.out.println("Keys from db: " + shop.liqpayPublicKey + ", " + shop.liqpayPrivateKey);
@@ -161,6 +176,9 @@ public class ShopAPI extends AuthController {
 
     public static void listUsers(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         renderJSON(json(shop.userList));
@@ -169,6 +187,9 @@ public class ShopAPI extends AuthController {
 
     public static void addUserToShop(String client, String email, String phone) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         boolean isEmailProvided = !email.equals("");
@@ -211,6 +232,9 @@ public class ShopAPI extends AuthController {
 
     public static void removeUserFromShop(String client, String email, String phone) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         boolean isEmailProvided = !email.equals("");

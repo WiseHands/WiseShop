@@ -105,12 +105,7 @@ angular.module('WiseHands')
             $scope.createNewStore = function () {
 
                 $scope.loading = true;
-                var isDevEnv = document.domain.indexOf('localhost') != -1;
-                if (isDevEnv){
-                    var domain = 'localhost';
-                } else {
-                    domain = 'wisehands.me';
-                }
+				var domain = document.domain;
                 var params = {
                     name: $scope.newStore.name,
                     domain:$scope.newStore.domain + '.' + domain

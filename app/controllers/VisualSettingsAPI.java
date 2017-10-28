@@ -22,11 +22,17 @@ public class VisualSettingsAPI extends AuthController {
 
     public static void details(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         renderJSON(json(shop.visualSettingsDTO));
     }
 
     public static void update(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
@@ -49,6 +55,9 @@ public class VisualSettingsAPI extends AuthController {
 
     public static void uploadLogo(String client, File fake) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
@@ -70,6 +79,9 @@ public class VisualSettingsAPI extends AuthController {
 
     public static void uploadFavicon(String client, File fake) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
@@ -91,6 +103,9 @@ public class VisualSettingsAPI extends AuthController {
 
     public static void deleteLogo(String client, File fake) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
@@ -108,6 +123,9 @@ public class VisualSettingsAPI extends AuthController {
 
     public static void deleteFavicon(String client, File fake) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;

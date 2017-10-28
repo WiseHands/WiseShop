@@ -18,6 +18,7 @@ public class HappyBagSetup extends Job {
     private static final String SVYAT = "sviatoslav.p5@gmail.com";
     private static final String BOGDAN = "bohdaq@gmail.com";
     private static final String VOVA = "patlavovach@gmail.com";
+    private static final String VOA = "voa@shalb.com";
 
     private static final String HAPPYBAG_PUBLIC_LIQPAY_KEY = "i65251982315";
     private static final String HAPPYBAG_PRIVATE_LIQPAY_KEY = "NLsgd1zKW30EvBkPNeuQodXzmvcA7shcrQ7o0Mbs";
@@ -48,6 +49,9 @@ public class HappyBagSetup extends Job {
         users.add(user);
 
         user = new UserDTO(VOVA, PASSWORD, "380631206871", false);
+        users.add(user);
+
+        user = new UserDTO(VOA, PASSWORD, "380632441621", false);
         users.add(user);
 
         if(!isDevEnv) {

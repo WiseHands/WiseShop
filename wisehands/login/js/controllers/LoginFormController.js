@@ -17,7 +17,10 @@
 
             };
             $scope.properShop = function (shop) {
-                var domain = shop.domain;
+				var domain = shop.domain;
+            	if (shop.domain === 'localhost') {
+            		domain = document.domain;
+            	}
                 var userId = localStorage.getItem('X-AUTH-USER-ID');
                 var token = localStorage.getItem('X-AUTH-TOKEN');
                 window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
