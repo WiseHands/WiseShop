@@ -41,6 +41,9 @@ public class OrderAPI extends AuthController {
 
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         String locale = "en_US";
         if(shop != null && shop.locale != null) {
@@ -237,6 +240,9 @@ public class OrderAPI extends AuthController {
 
     public static void details(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
@@ -247,6 +253,9 @@ public class OrderAPI extends AuthController {
 
     public static void list(String client, int page) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
         List<OrderDTO> orders = null;
         if(page == 0) {
@@ -277,6 +286,9 @@ public class OrderAPI extends AuthController {
 
     public static void delete(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
@@ -302,6 +314,9 @@ public class OrderAPI extends AuthController {
 
     public static void markShipped(String client, String uuid)  {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
@@ -331,6 +346,9 @@ public class OrderAPI extends AuthController {
 
     public static void markCancelled(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
@@ -346,6 +364,9 @@ public class OrderAPI extends AuthController {
 
     public static void manuallyPayed(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.MANUALLY_PAYED;
@@ -363,6 +384,9 @@ public class OrderAPI extends AuthController {
     // add NEW or ABSENT product
     public static void success(String client, String data) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         String liqpayResponse = new String(Base64.decodeBase64(data));
         System.out.println(liqpayResponse);

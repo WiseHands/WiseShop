@@ -23,6 +23,9 @@ public class ProductImageAPI extends AuthController {
 
     public static void delete(String client, String uuid, String productUuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         ProductImage productImage = ProductImage.findById(uuid);
         ProductDTO product = ProductDTO.findById(productUuid);
         if(product.images != null && product.images.contains(productImage)){
@@ -49,6 +52,9 @@ public class ProductImageAPI extends AuthController {
 
     public static void add(String client, String productUuid, File fake) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         ProductDTO product = ProductDTO.findById(productUuid);
 
         List<Upload> photos = (List<Upload>) request.args.get("__UPLOADS");
@@ -73,6 +79,9 @@ public class ProductImageAPI extends AuthController {
 
     public static void makeMain(String client, String uuid, String productUuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         ProductImage productImage = ProductImage.findById(uuid);
         ProductDTO product = ProductDTO.findById(productUuid);
         if(product.images != null && product.images.contains(productImage)){

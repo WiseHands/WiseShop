@@ -14,6 +14,10 @@ public class CategoryAPI extends AuthController {
 
     public static void all(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
         List<CategoryDTO> categoryList = CategoryDTO.find("byShop", shop).fetch();
         for (CategoryDTO category : categoryList) {
             List<ProductDTO> products = ProductDTO.find("byCategory", category).fetch();
@@ -31,6 +35,9 @@ public class CategoryAPI extends AuthController {
 
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -49,6 +56,10 @@ public class CategoryAPI extends AuthController {
 
     public static void assignProduct(String client, String uuid, String productUuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
         ProductDTO product = ProductDTO.findById(productUuid);
         CategoryDTO category = CategoryDTO.findById(uuid);
         if(category.products == null) {
@@ -98,6 +109,9 @@ public class CategoryAPI extends AuthController {
 
     public static void delete(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<ProductDTO> prods = ProductDTO.find("byCategory", category).fetch();

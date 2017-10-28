@@ -17,6 +17,9 @@ public class AnalyticsAPI extends AuthController {
 
     public static void infoDay(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         if(numberOfDays == 0) {
             numberOfDays=7;
@@ -73,6 +76,9 @@ public class AnalyticsAPI extends AuthController {
 
     public static void infoMonth(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         if(numberOfDays == 0) {
             numberOfDays=30;
@@ -128,6 +134,9 @@ public class AnalyticsAPI extends AuthController {
 
     public static void infoNinty(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         if(numberOfDays == 0) {
             numberOfDays=90;
@@ -183,6 +192,9 @@ public class AnalyticsAPI extends AuthController {
 
     public static void info180(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         if(numberOfDays == 0) {
             numberOfDays=180;
@@ -239,6 +251,9 @@ public class AnalyticsAPI extends AuthController {
 
     public static void infoYear(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         if(numberOfDays == 0) {
             numberOfDays=360;

@@ -12,6 +12,9 @@ public class CouponAPI extends AuthController {
 
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         JSONParser parser = new JSONParser();
@@ -50,6 +53,9 @@ public class CouponAPI extends AuthController {
 
     public static void details(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
 
@@ -62,6 +68,9 @@ public class CouponAPI extends AuthController {
 
     public static void delete(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
 
@@ -94,6 +103,9 @@ public class CouponAPI extends AuthController {
 
     public static void deleteAll(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
 
@@ -106,6 +118,9 @@ public class CouponAPI extends AuthController {
 
     public static void list(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
 

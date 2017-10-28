@@ -18,6 +18,9 @@ public class ProductPropertyAPI extends AuthController {
 
     public static void create(String client, String categoryUuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         JSONParser parser = new JSONParser();
@@ -78,6 +81,9 @@ public class ProductPropertyAPI extends AuthController {
 
     public static void update(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         JSONParser parser = new JSONParser();
@@ -135,6 +141,9 @@ public class ProductPropertyAPI extends AuthController {
 
     public static void delete(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
 
@@ -155,6 +164,9 @@ public class ProductPropertyAPI extends AuthController {
 
     public static void details(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         ProductPropertyDTO property = ProductPropertyDTO.find("byUuid", uuid).first();
@@ -165,6 +177,9 @@ public class ProductPropertyAPI extends AuthController {
 
     public static void categoryProperties(String client, String categoryUuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         List<ProductPropertyDTO> properties = ProductPropertyDTO.find("byCategoryUuid", categoryUuid).fetch();
@@ -174,6 +189,9 @@ public class ProductPropertyAPI extends AuthController {
 
     public static void deleteCategoryProperties(String client, String categoryUuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         List<ProductPropertyDTO> properties = ProductPropertyDTO.find("byCategoryUuid", categoryUuid).fetch();

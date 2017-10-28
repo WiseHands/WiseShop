@@ -13,12 +13,18 @@ public class DeliveryAPI extends AuthController {
 
     public static void details(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         DeliveryDTO delivery = shop.delivery;
         renderJSON(json(delivery));
     }
 
     public static void update(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         JSONParser parser = new JSONParser();

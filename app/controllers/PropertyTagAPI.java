@@ -17,6 +17,9 @@ public class PropertyTagAPI extends AuthController {
 
     public static void delete(String client, String propertyUuid, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         PropertyTagDTO tag = PropertyTagDTO.find("byUuid", uuid).first();

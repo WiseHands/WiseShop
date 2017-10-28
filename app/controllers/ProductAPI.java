@@ -23,6 +23,10 @@ public class ProductAPI extends AuthController {
                               String category,
                               Integer sortOrder, Boolean isActive, Double oldPrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
         checkAuthentification(shop);
         Files.createDirectories(Paths.get(USERIMAGESPATH + shop.uuid));
 
@@ -101,6 +105,9 @@ public class ProductAPI extends AuthController {
 
     public static void list(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         List<ProductDTO> products = ProductDTO.find("byShop", shop).fetch();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -112,6 +119,9 @@ public class ProductAPI extends AuthController {
     public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
                               Integer sortOrder, Boolean isActive, Double oldPrice, String properties) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -175,6 +185,9 @@ public class ProductAPI extends AuthController {
 
     public static void delete(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         ProductDTO product = ProductDTO.findById(uuid);

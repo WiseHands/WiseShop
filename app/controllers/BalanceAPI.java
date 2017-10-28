@@ -21,6 +21,9 @@ public class BalanceAPI extends AuthController {
 
     public static void getBalance(String client, String email) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         renderJSON(json(shop.balance));
@@ -28,6 +31,9 @@ public class BalanceAPI extends AuthController {
 
     public static void startPayment(String client, Double amount) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         checkAuthentification(shop);
 
         String userId = request.headers.get(X_AUTH_USER_ID).value();
