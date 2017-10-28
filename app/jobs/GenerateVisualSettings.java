@@ -24,27 +24,27 @@ public class GenerateVisualSettings extends Job {
         SidebarColorScheme color = null;
         List<SidebarColorScheme> colors = SidebarColorScheme.findAll();
         if(colors == null || colors.size() == 0) {
-            color = new SidebarColorScheme("blue", "Синій");
+            color = new SidebarColorScheme("blue", "Blue");
             color = color.save();
-            color = new SidebarColorScheme("red", "Червоний");
+            color = new SidebarColorScheme("red", "Red");
             color = color.save();
-            color = new SidebarColorScheme("purple", "Фіолетовий");
+            color = new SidebarColorScheme("purple", "Purple");
             color = color.save();
-            color = new SidebarColorScheme("dark", "Темний");
+            color = new SidebarColorScheme("dark", "Dark");
             color = color.save();
-            color = new SidebarColorScheme("grey", "Сірий");
+            color = new SidebarColorScheme("grey", "Grey");
             color = color.save();
-            color = new SidebarColorScheme("mdb", "Блакитний");
+            color = new SidebarColorScheme("mdb", "Blue");
             color = color.save();
-            color = new SidebarColorScheme("deep-orange", "Оранжевий");
+            color = new SidebarColorScheme("deep-orange", "Deep Orange");
             color = color.save();
-            color = new SidebarColorScheme("graphite", "Графіт");
+            color = new SidebarColorScheme("graphite", "Graphite");
             color = color.save();
-            color = new SidebarColorScheme("pink", "Рожевий");
+            color = new SidebarColorScheme("pink", "Ping");
             color = color.save();
-            color = new SidebarColorScheme("light-grey", "Світлосірий");
+            color = new SidebarColorScheme("light-grey", "Light Grey");
             color = color.save();
-            color = new SidebarColorScheme("green", "Зелений");
+            color = new SidebarColorScheme("green", "Green");
             color = color.save();
         }
 

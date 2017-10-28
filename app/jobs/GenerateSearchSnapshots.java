@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-@OnApplicationStart
+//@OnApplicationStart
 public class GenerateSearchSnapshots extends Job {
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
 
