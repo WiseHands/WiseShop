@@ -1,23 +1,15 @@
 package controllers;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.CharStreams;
-import com.google.common.io.Files;
-import com.google.common.io.InputSupplier;
 import play.exceptions.TemplateNotFoundException;
 import play.i18n.Lang;
-import play.i18n.Messages;
 import play.mvc.*;
 
 import models.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 
 public class Application extends Controller {
@@ -32,15 +24,14 @@ public class Application extends Controller {
     }
 
     public static void login(String client) {
-        if (client.equals("localhost")){
-            renderTemplate("WiseHands/index.html");
-        } else {
-            redirect("http://wisehands.me");
-        }
+        renderTemplate("WiseHands/index.html");
     }
 
     public static void index(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         String locale = "en_US";
         if(shop != null && shop.locale != null) {
@@ -49,10 +40,6 @@ public class Application extends Controller {
         Lang.change(locale);
 
         if (client.equals("wisehands.me")){
-            renderTemplate("WiseHands/index.html");
-        }
-
-        if (shop == null) {
             renderTemplate("WiseHands/index.html");
         }
 
@@ -96,7 +83,7 @@ public class Application extends Controller {
     public static void shop(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
-            notFound("The requested Shop is not available. Contact administrator    ");
+            shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
 
@@ -116,6 +103,9 @@ public class Application extends Controller {
 
     public static void done(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         DeliveryDTO delivery = shop.delivery;
         if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
@@ -132,7 +122,7 @@ public class Application extends Controller {
     public static void admin(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
-            notFound("The requested Shop is not available. Contact administrator    ");
+            shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
         Date date = new Date();
@@ -155,6 +145,9 @@ public class Application extends Controller {
 
     public static void sitemap(String client) throws IOException {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
 
         Date date = new Date();
@@ -177,6 +170,9 @@ public class Application extends Controller {
 
     public static void manifestAdmin(String client) throws IOException {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         render(shop);
     }
 
