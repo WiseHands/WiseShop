@@ -8,3 +8,11 @@ require:
     - org.json -> json 20151123
     - com.googlecode.htmlcompressor -> htmlcompressor 1.4
     - com.google.code -> sitemapgen4j 1.0.1
+    - com.liqpay -> liqpay-sdk 0.6
+
+repositories:
+    - bintray-stokito-maven:
+        type: iBiblio
+        root: "https://dl.bintray.com/stokito/maven"
+        contains:
+            - com.liqpay -> *
