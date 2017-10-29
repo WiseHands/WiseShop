@@ -6,6 +6,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.Play;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Http;
@@ -196,7 +197,9 @@ public class OrderAPI extends AuthController {
         for(PushSubscription subscription: subscriptions) {
             String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
 
-            final String url = "http://91.224.11.24:4567/notify";
+            String webpushServiceHost = Play.configuration.getProperty("webpush.service.url");
+
+            final String url = webpushServiceHost + "/notify";
             JSONObject body = new JSONObject();
             body.put("title", shopLink.shopName);
             body.put("message", msg);
