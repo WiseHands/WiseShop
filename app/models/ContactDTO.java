@@ -28,6 +28,8 @@ public class ContactDTO extends GenericModel {
     public String latLng;
 
     @Expose
+    @Lob
+    @Column(length = 300000)
     public String description;
 
     public ContactDTO(String phone, String email, String address, String latLng, String description) {
