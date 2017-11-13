@@ -25,7 +25,7 @@
     <form class="col-md-12 noSidePadding" id="contactsForm" name="contactsForm" ng-hide="loading">
         <div class="input-field col-md-6">
             <p>{{'contacts.phone' | translate}}</p>
-            <input id="phone_number" type="tel" ng-model="contacts.phone">
+            <input class="form-control validate" id="phone_number" type="tel" ng-model="contacts.phone" placeholder="380123456789" ng-value="+380" pattern="^380[0-9]{9,9}$" required>
         </div>
         <div class="input-field col-md-6">
             <p>E-mail</p>
