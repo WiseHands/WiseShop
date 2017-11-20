@@ -1,7 +1,7 @@
 (function () {
     angular.module('WiseHands', [
         'ngRoute', 'angularSpinners', 'colorpicker.module', 'chart.js', 'pascalprecht.translate', 'tmh.dynamicLocale',
-        'ngCookies', 'ngSanitize', 'ngTagsInput'
+        'ngCookies', 'ngSanitize', 'ngTagsInput', 'imageCropper'
     ])
         .constant('LOCALES', {
             'locales': {
