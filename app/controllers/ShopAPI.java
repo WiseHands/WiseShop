@@ -9,6 +9,9 @@ import services.MailSender;
 import services.SmsSender;
 
 import javax.inject.Inject;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -27,6 +30,27 @@ public class ShopAPI extends AuthController {
 
     @Inject
     static SmsSender smsSender;
+
+    public static void updateDomain(String client, String domain) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        File myFile = new File("newDomainCert.txt");
+
+        try {
+            FileWriter file = new FileWriter(myFile);
+            file.write(domain);
+
+            file.close(); // закриття потоку
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+        ok();
+    }
 
     public static void all(String client) throws Exception {
         checkSudoAuthentification();
