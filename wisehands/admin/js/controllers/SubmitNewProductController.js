@@ -1,5 +1,6 @@
 angular.module('WiseHands')
-    .controller('SubmitNewProductController', ['$scope', '$location', '$http', 'signout', function ($scope, $location, $http, signout) {
+    .controller('SubmitNewProductController', ['$scope', '$location', '$http', 'signout',
+        function ($scope, $location, $http, signout) {
 
 
         $http({

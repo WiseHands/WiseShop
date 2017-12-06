@@ -21,5 +21,5 @@ password.mismatch = Паролі не співпадають
 user.not.found = Користувач не зареєстрований
 user.already.member.of.shop = Користувач вже є авторизовнаим учасником магазину
 user.added.to.shop.sms = Вас було додано до %s. Ввійдіть використавши цей код: %s http://wisehands.me/#/login
-user.added.to.shop.email = Вас було додано до %s. Ввійдіть використавши Google акаунт: %s http://wisehands.me/
+user.added.to.shop.email = Вас було додано до %s. Ввійдіть використавши Google акаунт: http://wisehands.me/
 user.added.to.shop.email.title = Вас було додано до %s

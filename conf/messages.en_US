@@ -22,4 +22,4 @@ user.not.found = User not found
 user.already.member.of.shop = User already a member of the given Shop
 user.added.to.shop.sms = You've been added to %s. Please login using this code: %s wisehands.me
 user.added.to.shop.email.title = You've been added to %s
-user.added.to.shop.email = You've been added to %s. Please login using Google account. %s wisehands.me
+user.added.to.shop.email = You've been added to %s. Please login using Google account. wisehands.me

@@ -22,4 +22,4 @@ user.not.found = Użytkownik nie znaleziony
 user.already.member.of.shop = Użytkownik jest już członkiem danego Sklepu
 user.added.to.shop.sms = Zostałeś dodany do %s. Proszę się zalogować przy użyciu tego kodu: %s wisehands.me
 user.added.to.shop.email.title = Zostałeś dodany do %s
-user.added.to.shop.email = Zostałeś dodany do %s. Zaloguj się używając konta Google. %s wisehands.me
+user.added.to.shop.email = Zostałeś dodany do %s. Zaloguj się używając konta Google. wisehands.me
