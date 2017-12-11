@@ -223,5 +223,5 @@ main {
 }
 .fulltext {
     height:auto !important;
-    line-height: 23px !important;
+    /*line-height: 23px !important;*/
 }
