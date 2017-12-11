@@ -54,7 +54,7 @@
                 <li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">{{'sideNav.Main' | translate}}</a>
                 </li>
                 <li ng-repeat="category in categories" ng-hide="turnedOffProducts(category)">
-                    <a href="#!/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
+                    <a href="#!/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r fulltext" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
                 </li>
             </ul>
         </li>
