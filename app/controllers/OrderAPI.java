@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
+import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Http;
@@ -16,9 +17,7 @@ import services.SmsSender;
 import services.WebPushService;
 
 import javax.inject.Inject;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import javax.persistence.EntityManager;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -179,16 +178,48 @@ public class OrderAPI extends AuthController {
         new Thread(new Runnable() {
             public void run() {
                 try {
+                    if (JPA.local.get() == null) {
+                        EntityManager em = JPA.newEntityManager();
+                        final JPA jpa = new JPA();
+                        jpa.entityManager = em;
+                        JPA.local.set(jpa);
+                    }
+
+                    JPA.em().getTransaction().begin();
+
+                    OrderDTO order = OrderDTO.findById(orderLink.uuid);
+
 //                    mailSender.sendEmail(shopLink, orderLink, Messages.get("new.order"));
 
-                    String smsText = Messages.get("order.is.processing", orderLink.name, orderLink.total);
-                    smsSender.sendSms(orderLink.phone, smsText);
+                    String smsText = Messages.get("order.is.processing", order.name, order.total);
+                    String response = smsSender.sendSms(order.phone, smsText);
+
+                    JSONParser parser = new JSONParser();
+                    JSONObject jsonObject = (JSONObject) parser.parse(response);
+                    Object error = jsonObject.get("error");
+                    if(error == null) {
+                        order.sentToCustomer = true;
+                    } else {
+                        order.errorReasonSentToCustomer = String.valueOf(error);
+                    }
+                    order.save();
 
                     smsText =  Messages.get("new.order.total", orderLink.name, orderLink.total);
-                    smsSender.sendSms(shopLink.contact.phone, smsText);
+                    response = smsSender.sendSms(shopLink.contact.phone, smsText);
+                    jsonObject = (JSONObject) parser.parse(response);
+                    error = jsonObject.get("error");
+                    if(error == null) {
+                        order.sentToManager = true;
+                    } else {
+                        order.errorReasonSentToManager = String.valueOf(error);
+                    }
+                    order.save();
+
                 } catch (Exception e){
                     System.out.println("OrderAPI async place exception: " + e);
+                    e.printStackTrace();
                 }
+                JPA.em().getTransaction().commit();
             }
         }).start();
 
@@ -219,6 +250,7 @@ public class OrderAPI extends AuthController {
                         WebPushService.post(url, json);
                     } catch (Exception ex) {
                         System.out.println(ex.toString());
+                        ex.printStackTrace();
                     }
                 }
             }).start();

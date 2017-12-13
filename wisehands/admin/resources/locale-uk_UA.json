@@ -1,4 +1,6 @@
 {
+  "yes": "Так",
+  "no": "Ні",
   "orderList.Search": "Пошук",
   "orderList.New": "Нові",
   "orderList.Paid": "Оплачені",
@@ -20,6 +22,10 @@
   "singleOrder.FullName": "П.І.П. замовника",
   "singleOrder.Phone": "Номер телефону",
   "singleOrder.Platform": "Платформа",
+  "singleOrder.SmsSentToCustomer": "SMS надіслано замовнику",
+  "singleOrder.SmsSentToManager": "SMS надіслано менеджеру",
+  "singleOrder.ErrorReasonSentToManager": "Причина помилки SMS до менеджера",
+  "singleOrder.ErrorReasonSentToCustomer": "Причина помилки SMS до замовника",
   "singleOrder.Address": "Адреса",
   "singleOrder.OrderAmount": "Сума замовлення",
   "singleOrder.OrderState": "Статус замовлення",

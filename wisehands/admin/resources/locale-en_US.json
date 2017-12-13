@@ -1,4 +1,6 @@
 {
+  "yes": "Yes",
+  "no": "No",
   "orderList.Search": "Search",
   "orderList.New": "New",
   "orderList.Paid": "Payed",
@@ -20,6 +22,10 @@
   "singleOrder.FullName": "Full Name",
   "singleOrder.Phone": "Phone",
   "singleOrder.Platform": "Platform",
+  "singleOrder.SmsSentToCustomer": "SMS sent to customer",
+  "singleOrder.SmsSentToManager": "SMS sent to manager",
+  "singleOrder.ErrorReasonSentToManager": "SMS error reason to sent to manager",
+  "singleOrder.ErrorReasonSentToCustomer": "SMS error reason to sent to customer",
   "singleOrder.Address": "Address",
   "singleOrder.OrderAmount": "Order amount",
   "singleOrder.OrderState": "Order state",
