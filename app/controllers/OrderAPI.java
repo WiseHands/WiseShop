@@ -187,7 +187,9 @@ public class OrderAPI extends AuthController {
 
                     JPA.em().getTransaction().begin();
 
-                    OrderDTO order = OrderDTO.findById(orderLink.uuid);
+                    System.out.println("OrderDTO.find(byUuid" + orderLink.uuid);
+                    OrderDTO order = OrderDTO.find("byUuid", orderLink.uuid).first();
+                    System.out.println("order" + order.name);
 
 //                    mailSender.sendEmail(shopLink, orderLink, Messages.get("new.order"));
 
@@ -214,12 +216,12 @@ public class OrderAPI extends AuthController {
                         order.errorReasonSentToManager = String.valueOf(error);
                     }
                     order.save();
+                    JPA.em().getTransaction().commit();
 
                 } catch (Exception e){
                     System.out.println("OrderAPI async place exception: " + e);
                     e.printStackTrace();
                 }
-                JPA.em().getTransaction().commit();
             }
         }).start();
 
@@ -494,6 +496,10 @@ public class OrderAPI extends AuthController {
         }
 
 
+    }
+
+    final void updateOrder(String uuid) {
+//        OrderDTO order = OrderDTO.find('byUuid', uuid);
     }
 
 }
