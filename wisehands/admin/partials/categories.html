@@ -30,7 +30,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12" ng-hide="loading">
         <div class="panel-group" id="accordion">
-            <div class="panel panel-default" ng-repeat="category in categories">
+            <div class="panel panel-default" ng-repeat="category in categories | orderBy:'sortOrder'">
                 <a class="collection-item primaryColor vcentering">
                     <h4 class="white-text col-xs-10" data-toggle="collapse"  data-target="#collapse{{$index}}">{{category.name}} <span class="badge lightseagreen">{{category.products.length}}</span></h4>
                     <div class="col-xs-2">
@@ -60,8 +60,8 @@
                         <label class="active" for="categoryName">{{'categories.categoryName' | translate}}</label>
                     </div>
                     <div class="input-field col-md-12">
-                        <textarea id="textarea1" class="materialize-textarea"  ng-model="thisCategory.description"></textarea>
-                        <label class="active" for="textarea1">{{'categories.categoryDescription' | translate}}</label>
+                        <input id="categorySortOrder" type="number"  ng-model="thisCategory.sortOrder" />
+                        <label class="active" for="categorySortOrder">{{'displayOrder' | translate}}</label>
                     </div>
                     <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                     <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>
@@ -84,8 +84,8 @@
                             <label for="password">{{'categories.categoryName' | translate}}</label>
                         </div>
                         <div class="input-field col-md-12">
-                            <textarea id="textarea2" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
-                            <label for="textarea2">{{'categories.categoryDescription' | translate}}</label>
+                            <input id="editCategorySortOrder" type="number"  ng-model="newCategory.sortOrder" />
+                            <label class="active" for="editCategorySortOrder">{{'displayOrder' | translate}}</label>
                         </div>
                         <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                         <button type="submit" class="btn secondaryColor pull-right" ng-hide="loading">{{'categories.create' | translate}}</button>

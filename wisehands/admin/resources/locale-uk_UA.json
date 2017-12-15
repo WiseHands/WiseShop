@@ -70,7 +70,7 @@
   "addNewProduct.additional": "Додатково",
   "addNewProduct.showInShop": "Показувати в магазині",
   "addNewProduct.oldPrice": "Стара ціна",
-  "addNewProduct.displayOrder": "Порядок відображення",
+  "displayOrder": "Порядок відображення",
   "addNewProduct.noCategory": "У вас не створено жодної категорії. Будь ласка, створіть категорію.",
   "addNewProduct.category": "Категорія",
   "addNewProduct.createCategory": "Створити категорію",

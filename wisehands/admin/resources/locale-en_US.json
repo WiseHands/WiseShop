@@ -70,7 +70,7 @@
   "addNewProduct.additional": "Additional",
   "addNewProduct.showInShop": "Show in shop",
   "addNewProduct.oldPrice": "Old price",
-  "addNewProduct.displayOrder": "Display order",
+  "displayOrder": "Display order",
   "addNewProduct.noCategory": "No categories. Please, create one.",
   "addNewProduct.category": "Category",
   "addNewProduct.createCategory": "Create category",
