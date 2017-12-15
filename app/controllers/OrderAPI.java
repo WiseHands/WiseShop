@@ -1,23 +1,20 @@
 package controllers;
 
 import enums.OrderState;
+import jobs.SendSmsJob;
 import models.*;
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import play.Play;
-import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Http;
 import services.LiqPayService;
 import services.MailSender;
 import services.SmsSender;
-import services.WebPushService;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -172,91 +169,39 @@ public class OrderAPI extends AuthController {
                 coupon.delete();
             }
         }
+        new SendSmsJob(order, shop).now();
 
-        final ShopDTO shopLink = shop;
-        final OrderDTO orderLink = order;
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    if (JPA.local.get() == null) {
-                        EntityManager em = JPA.newEntityManager();
-                        final JPA jpa = new JPA();
-                        jpa.entityManager = em;
-                        JPA.local.set(jpa);
-                    }
-
-                    JPA.em().getTransaction().begin();
-
-                    System.out.println("OrderDTO.find(byUuid" + orderLink.uuid);
-                    OrderDTO order = OrderDTO.find("byUuid", orderLink.uuid).first();
-                    System.out.println("order" + order.name);
-
-//                    mailSender.sendEmail(shopLink, orderLink, Messages.get("new.order"));
-
-                    String smsText = Messages.get("order.is.processing", order.name, order.total);
-                    String response = smsSender.sendSms(order.phone, smsText);
-
-                    JSONParser parser = new JSONParser();
-                    JSONObject jsonObject = (JSONObject) parser.parse(response);
-                    Object error = jsonObject.get("error");
-                    if(error == null) {
-                        order.sentToCustomer = true;
-                    } else {
-                        order.errorReasonSentToCustomer = String.valueOf(error);
-                    }
-                    order.save();
-
-                    smsText =  Messages.get("new.order.total", orderLink.name, orderLink.total);
-                    response = smsSender.sendSms(shopLink.contact.phone, smsText);
-                    jsonObject = (JSONObject) parser.parse(response);
-                    error = jsonObject.get("error");
-                    if(error == null) {
-                        order.sentToManager = true;
-                    } else {
-                        order.errorReasonSentToManager = String.valueOf(error);
-                    }
-                    order.save();
-                    JPA.em().getTransaction().commit();
-
-                } catch (Exception e){
-                    System.out.println("OrderAPI async place exception: " + e);
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-
-        List<PushSubscription> subscriptions = PushSubscription.find("byShopUuid", shop.uuid).fetch();
-        for(PushSubscription subscription: subscriptions) {
-            String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
-
-            String webpushServiceHost = Play.configuration.getProperty("webpush.service.url");
-
-            final String url = webpushServiceHost + "/notify";
-            JSONObject body = new JSONObject();
-            body.put("title", shopLink.shopName);
-            body.put("message", msg);
-            body.put("icon", "/public/shop_logo/" + shopLink.uuid + "/" + shopLink.visualSettingsDTO.shopFavicon);
-            body.put("endpoint", subscription.endpoint);
-            body.put("publicKey", subscription.p256dhKey);
-            body.put("auth", subscription.authKey);
-
-            final String json = body.toJSONString();
-
-            System.out.println(url);
-            System.out.println(body.toJSONString());
-
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        WebPushService.post(url, json);
-                    } catch (Exception ex) {
-                        System.out.println(ex.toString());
-                        ex.printStackTrace();
-                    }
-                }
-            }).start();
-        }
+//        List<PushSubscription> subscriptions = PushSubscription.find("byShopUuid", shop.uuid).fetch();
+//        for(PushSubscription subscription: subscriptions) {
+//            String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
+//
+//            String webpushServiceHost = Play.configuration.getProperty("webpush.service.url");
+//
+//            final String url = webpushServiceHost + "/notify";
+//            JSONObject body = new JSONObject();
+//            body.put("title", shopLink.shopName);
+//            body.put("message", msg);
+//            body.put("icon", "/public/shop_logo/" + shopLink.uuid + "/" + shopLink.visualSettingsDTO.shopFavicon);
+//            body.put("endpoint", subscription.endpoint);
+//            body.put("publicKey", subscription.p256dhKey);
+//            body.put("auth", subscription.authKey);
+//
+//            final String json = body.toJSONString();
+//
+//            System.out.println(url);
+//            System.out.println(body.toJSONString());
+//
+//            new Thread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        WebPushService.post(url, json);
+//                    } catch (Exception ex) {
+//                        System.out.println(ex.toString());
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//        }
 
         try {
             String payButton = liqPay.payButton(order, shop);
