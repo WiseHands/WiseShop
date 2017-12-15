@@ -7,6 +7,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Http;
@@ -169,6 +170,10 @@ public class OrderAPI extends AuthController {
                 coupon.delete();
             }
         }
+
+        JPA.em().getTransaction().commit();
+
+
         new SendSmsJob(order, shop).now();
 
 //        List<PushSubscription> subscriptions = PushSubscription.find("byShopUuid", shop.uuid).fetch();
