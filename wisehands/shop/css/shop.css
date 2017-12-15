@@ -225,3 +225,8 @@ main {
     height:auto !important;
     line-height: 23px !important;
 }
+
+.button-offset-for-category {
+	padding-top: 11px;
+	padding-bottom: 11px;
+}
