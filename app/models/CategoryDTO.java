@@ -24,6 +24,9 @@ public class CategoryDTO extends GenericModel {
     public String description;
 
     @Expose
+    public Integer sortOrder;
+
+    @Expose
     @OneToMany
     public List<ProductDTO> products;
 

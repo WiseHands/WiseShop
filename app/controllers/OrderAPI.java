@@ -1,24 +1,21 @@
 package controllers;
 
 import enums.OrderState;
+import jobs.SendSmsJob;
 import models.*;
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import play.Play;
+import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Http;
 import services.LiqPayService;
 import services.MailSender;
 import services.SmsSender;
-import services.WebPushService;
 
 import javax.inject.Inject;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -174,55 +171,42 @@ public class OrderAPI extends AuthController {
             }
         }
 
-        final ShopDTO shopLink = shop;
-        final OrderDTO orderLink = order;
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-//                    mailSender.sendEmail(shopLink, orderLink, Messages.get("new.order"));
-
-                    String smsText = Messages.get("order.is.processing", orderLink.name, orderLink.total);
-                    smsSender.sendSms(orderLink.phone, smsText);
-
-                    smsText =  Messages.get("new.order.total", orderLink.name, orderLink.total);
-                    smsSender.sendSms(shopLink.contact.phone, smsText);
-                } catch (Exception e){
-                    System.out.println("OrderAPI async place exception: " + e);
-                }
-            }
-        }).start();
+        JPA.em().getTransaction().commit();
 
 
-        List<PushSubscription> subscriptions = PushSubscription.find("byShopUuid", shop.uuid).fetch();
-        for(PushSubscription subscription: subscriptions) {
-            String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
+        new SendSmsJob(order, shop).now();
 
-            String webpushServiceHost = Play.configuration.getProperty("webpush.service.url");
-
-            final String url = webpushServiceHost + "/notify";
-            JSONObject body = new JSONObject();
-            body.put("title", shopLink.shopName);
-            body.put("message", msg);
-            body.put("icon", "/public/shop_logo/" + shopLink.uuid + "/" + shopLink.visualSettingsDTO.shopFavicon);
-            body.put("endpoint", subscription.endpoint);
-            body.put("publicKey", subscription.p256dhKey);
-            body.put("auth", subscription.authKey);
-
-            final String json = body.toJSONString();
-
-            System.out.println(url);
-            System.out.println(body.toJSONString());
-
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        WebPushService.post(url, json);
-                    } catch (Exception ex) {
-                        System.out.println(ex.toString());
-                    }
-                }
-            }).start();
-        }
+//        List<PushSubscription> subscriptions = PushSubscription.find("byShopUuid", shop.uuid).fetch();
+//        for(PushSubscription subscription: subscriptions) {
+//            String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
+//
+//            String webpushServiceHost = Play.configuration.getProperty("webpush.service.url");
+//
+//            final String url = webpushServiceHost + "/notify";
+//            JSONObject body = new JSONObject();
+//            body.put("title", shopLink.shopName);
+//            body.put("message", msg);
+//            body.put("icon", "/public/shop_logo/" + shopLink.uuid + "/" + shopLink.visualSettingsDTO.shopFavicon);
+//            body.put("endpoint", subscription.endpoint);
+//            body.put("publicKey", subscription.p256dhKey);
+//            body.put("auth", subscription.authKey);
+//
+//            final String json = body.toJSONString();
+//
+//            System.out.println(url);
+//            System.out.println(body.toJSONString());
+//
+//            new Thread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        WebPushService.post(url, json);
+//                    } catch (Exception ex) {
+//                        System.out.println(ex.toString());
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//        }
 
         try {
             String payButton = liqPay.payButton(order, shop);
@@ -462,6 +446,10 @@ public class OrderAPI extends AuthController {
         }
 
 
+    }
+
+    final void updateOrder(String uuid) {
+//        OrderDTO order = OrderDTO.find('byUuid', uuid);
     }
 
 }

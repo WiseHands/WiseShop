@@ -46,6 +46,10 @@
                 <h5>{{'singleOrder.Date' | translate}}: <p><i>{{properDate}}</i></p></h5>
                 <h5 ng-show="order.comment">{{'singleOrder.Comments' | translate}}: <p><i>{{order.comment}}</i></p></h5>
                 <h5>{{'singleOrder.Platform' | translate}}: <p><i>{{userAgent}}</i></p></h5>
+                <h5 ng-show="order.sentToManager">{{'singleOrder.SmsSentToManager' | translate}}: <p><i>{{'yes' | translate}}</i></p></h5>
+                <h5 ng-show="order.sentToCustomer">{{'singleOrder.SmsSentToCustomer' | translate}}: <p><i>{{'yes' | translate}}</i></p></h5>
+                <h5 ng-show="order.errorReasonSentToManager">{{'singleOrder.ErrorReasonSentToManager' | translate}}: <p><i>{{order.errorReasonSentToManager}}</i></p></h5>
+                <h5 ng-show="order.errorReasonSentToCustomer">{{'singleOrder.ErrorReasonSentToCustomer' | translate}}: <p><i>{{order.errorReasonSentToCustomer}}</i></p></h5>
             </div>
             <div class="col-xs-12 col-sm-6 noSidePadding">
                 <h5>{{'singleOrder.Order' | translate}}: </h5>

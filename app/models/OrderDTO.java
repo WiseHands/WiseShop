@@ -57,6 +57,18 @@ public class OrderDTO extends GenericModel {
     public String ip;
 
     @Expose
+    public Boolean sentToCustomer;
+
+    @Expose
+    public Boolean sentToManager;
+
+    @Expose
+    public String errorReasonSentToCustomer;
+
+    @Expose
+    public String errorReasonSentToManager;
+
+    @Expose
     @Enumerated(EnumType.STRING)
     public OrderState state;
 

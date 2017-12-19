@@ -101,8 +101,8 @@ public class CategoryAPI extends AuthController {
         }
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        String description = (String) jsonBody.get("description");
-        category.description = description;
+        Integer sortOrder = Integer.parseInt(jsonBody.get("sortOrder").toString());
+        category.sortOrder = sortOrder;
         category = category.save();
         renderJSON(json(category));
     }
