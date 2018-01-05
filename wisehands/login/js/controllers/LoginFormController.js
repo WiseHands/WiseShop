@@ -90,11 +90,9 @@
 			}
 
 			function errorLoginHandler (data, status) {
-				console.log(JSON.stringify(data));
-
-				console.log(JSON.stringify(status));
+				console.log('errorLoginHandler', data, status);
+				$scope.errorCode = 'error.' + data.code;
 				$scope.deniedMsg = true;
-				$scope.accessDeniedMessage = data.status;
 			}
 
         }]);

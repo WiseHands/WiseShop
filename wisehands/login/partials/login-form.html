@@ -17,7 +17,9 @@
                 </div>
                 <br/>
                 <button class="button-submit full-width buttonStyling" type="submit">{{'main.login' | translate}}</button>
-                <p class="deniedMsg" ng-show="deniedMsg" ng-cloak>{{accessDeniedMessage}}</p>
+                <p class="deniedMsg" ng-show="deniedMsg" ng-cloak>
+                    {{errorCode | translate}}
+                </p>
 
             </div>
             <div class="row">

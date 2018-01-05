@@ -23,5 +23,7 @@
   "main.enterCode": "Wprowadź kod",
   "main.smsСode": "KOD POTWIERDZENIA",
   "main.passError": "Hasło różni się",
-  "directives.language-select.Language": "Język"
+  "directives.language-select.Language": "Język",
+  "error.10": "Użytkownik z podanym adresem e-mail nie istnieje",
+  "error.20": "Nieprawidłowe hasło"
 }

@@ -13,7 +13,6 @@ public class UserDoesNotExist {
     public UserDoesNotExist(){
         this.code = 10;
         this.status = "User with given email doesn't exist";
-        this.statusUa = "Користувач з даним емейлом не існує";
     }
 
     @Override

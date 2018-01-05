@@ -23,5 +23,7 @@
   "main.enterCode": "Ввести код",
   "main.smsСode": "КОД ПІДТВЕРДЖЕННЯ",
   "main.passError": "Паролі не співпадають",
-  "directives.language-select.Language": "Мова"
+  "directives.language-select.Language": "Мова",
+  "error.10": "Користувач з даним емейлом не існує",
+  "error.20": "Неправильний пароль"
 }
