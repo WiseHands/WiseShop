@@ -185,6 +185,7 @@ main {
 }
 .navbar {
     padding-right: 0;
+    border-radius:0;
 }
 .noSidePadding {
     padding-right: 0 !important;
