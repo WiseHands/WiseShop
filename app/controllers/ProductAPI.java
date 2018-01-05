@@ -108,7 +108,11 @@ public class ProductAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        List<ProductDTO> products = ProductDTO.find("byShop", shop).fetch();
+        List<ProductDTO> products = ProductDTO.find(
+                "select p from ProductDTO p, CategoryDTO c " +
+                        "where p.category = c and p.shop = ? and c.isHidden = ?", shop, false
+        ).fetch();
+
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(products);

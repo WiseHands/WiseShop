@@ -43,8 +43,11 @@ public class CategoryAPI extends AuthController {
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         String description = (String) jsonBody.get("description");
         String name = (String) jsonBody.get("name");
+        Boolean isHidden = Boolean.parseBoolean(jsonBody.get("isHidden").toString());
+
 
         CategoryDTO category = new CategoryDTO(shop, name, description);
+        category.isHidden = isHidden;
         if (shop.categoryList == null) {
             shop.categoryList = new ArrayList<CategoryDTO>();
         }
@@ -102,7 +105,9 @@ public class CategoryAPI extends AuthController {
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         Integer sortOrder = Integer.parseInt(jsonBody.get("sortOrder").toString());
+        Boolean isHidden = Boolean.parseBoolean(jsonBody.get("isHidden").toString());
         category.sortOrder = sortOrder;
+        category.isHidden = isHidden;
         category = category.save();
         renderJSON(json(category));
     }

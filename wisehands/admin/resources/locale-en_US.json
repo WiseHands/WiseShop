@@ -1,6 +1,7 @@
 {
   "yes": "Yes",
   "no": "No",
+  "is.hidden": "Is hidden",
   "orderList.Search": "Search",
   "orderList.New": "New",
   "orderList.Paid": "Payed",

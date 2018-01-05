@@ -27,6 +27,9 @@ public class CategoryDTO extends GenericModel {
     public Integer sortOrder;
 
     @Expose
+    public boolean isHidden;
+
+    @Expose
     @OneToMany
     public List<ProductDTO> products;
 

@@ -63,6 +63,10 @@
                         <input id="categorySortOrder" type="number"  ng-model="thisCategory.sortOrder" />
                         <label class="active" for="categorySortOrder">{{'displayOrder' | translate}}</label>
                     </div>
+                    <div class="input-field col-md-12">
+                        <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="thisCategory.isHidden" />
+                        <label for="filled-in-box">{{'is.hidden' | translate}}</label>
+                    </div>
                     <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                     <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>
                 </div>
@@ -86,6 +90,10 @@
                         <div class="input-field col-md-12">
                             <input id="editCategorySortOrder" type="number"  ng-model="newCategory.sortOrder" />
                             <label class="active" for="editCategorySortOrder">{{'displayOrder' | translate}}</label>
+                        </div>
+                        <div class="input-field col-md-12">
+                            <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="newCategory.isHidden" />
+                            <label for="filled-in-box2">{{'is.hidden' | translate}}</label>
                         </div>
                         <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                         <button type="submit" class="btn secondaryColor pull-right" ng-hide="loading">{{'categories.create' | translate}}</button>
