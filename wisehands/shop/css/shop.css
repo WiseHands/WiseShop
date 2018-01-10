@@ -132,7 +132,7 @@ main {
 }
 @media (min-width: 994px) and (max-width: 1101px) {
     .carousel-indicators {
-        bottom: -45px;
+        /*bottom: -45px;*/
     }
 }
 
@@ -230,4 +230,15 @@ main {
 .button-offset-for-category {
 	padding-top: 11px;
 	padding-bottom: 11px;
+}
+/*Fix image-select previews ratio*/
+.carousel-thumbnails .carousel-indicators img {
+    width:auto;
+    border-radius: 0;
+}
+@media only screen and (max-width: 600px) {
+    .carousel-thumbnails .carousel-indicators img {
+        width:auto;
+        border-radius: 0;
+    }
 }
