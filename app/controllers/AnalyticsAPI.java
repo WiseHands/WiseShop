@@ -20,6 +20,7 @@ public class AnalyticsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        checkAuthentification(shop);
 
         if(numberOfDays == 0) {
             numberOfDays=7;
@@ -79,6 +80,7 @@ public class AnalyticsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        checkAuthentification(shop);
 
         if(numberOfDays == 0) {
             numberOfDays=30;
@@ -137,6 +139,7 @@ public class AnalyticsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        checkAuthentification(shop);
 
         if(numberOfDays == 0) {
             numberOfDays=90;
@@ -195,6 +198,7 @@ public class AnalyticsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        checkAuthentification(shop);
 
         if(numberOfDays == 0) {
             numberOfDays=180;
@@ -254,6 +258,7 @@ public class AnalyticsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        checkAuthentification(shop);
 
         if(numberOfDays == 0) {
             numberOfDays=360;
