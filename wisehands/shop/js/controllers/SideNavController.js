@@ -34,6 +34,9 @@ angular.module('WiseShop')
                 });
 
             $scope.turnedOffProducts = function (category) {
+            	if(category.isHidden) {
+            		return true
+            	}
                 $scope.turnedOffProductsQuantity = 0;
                 category.products.forEach(function(product){
                     if(product.isActive === false) {
