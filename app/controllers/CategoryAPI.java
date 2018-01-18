@@ -43,7 +43,10 @@ public class CategoryAPI extends AuthController {
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         String description = (String) jsonBody.get("description");
         String name = (String) jsonBody.get("name");
-        Boolean isHidden = Boolean.parseBoolean(jsonBody.get("isHidden").toString());
+        Boolean isHidden = false;
+        if(jsonBody.get("isHidden") != null){
+            isHidden = Boolean.parseBoolean(jsonBody.get("isHidden").toString());
+        }
 
 
         CategoryDTO category = new CategoryDTO(shop, name, description);
