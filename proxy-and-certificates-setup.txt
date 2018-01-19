@@ -1,0 +1,517 @@
+## Lighttpd Server SSL Certificate
+
+This README is a quick introduction to install SSL Certificate.
+More documentation, FAQ, HOWTOs are available in https://certbot.eff.org and https://redmine.lighttpd.net/projects/lighttpd/wiki
+
+Installation:
+-------------
+
+First we need to install certbot from our system repository:
+#emerge -av app-crypt/certbot
+
+Required:
+
+- [Python 2.6, 2.7, or 3.3+] 
+By default, it requires root access in order to write to /etc/letsencrypt, /var/log/letsencrypt, /var/lib/letsencrypt;
+
+Configuration:
+--------------
+
+You can configure Certbot using the files in `/etc/letsencrypt/renewal` for every domain.
+
+To configure lihttpd web server go to `/etc/lighttpd/lighttpd.conf` file.
+We need to enable next server modules:
+ "mod_rewrite"
+ "mod_redirect"
+ "mod_alias"
+ "mod_access"
+ "mod_proxy"
+ "mod_accesslog"
+
+For config domains separately, just simply add domain_name.conf file to `/etc/lighttpd/conf.d` than enable it in lighttpd.conf after `# {{{ includes`:
+ include "mime-types.conf"
+ include_shell "cat /etc/lighttpd/conf.d/*.conf"
+
+And this:
+
+server.document-root = "/tmp/certbot/public_html/" #var.basedir + "/htdocs"
+
+Than generate root SSL certificate with certbot webroot plugin:
+#certbot certonly --agree-tos --keep-until-expiring --email bohdaq@gmail.com --webroot -w /tmp/certbot/public_html -d domain_name.com
+For test, use --dry-run option.
+
+Lightpd needs ssl.pem file so you need to concatenate the key file and the certificate file into a single pem file by running the following command:
+
+cat privkey.pem cert.pem > ssl.pem
+located in domain folder like this `/etc/letsencrypt/live/domain_name.com`
+
+To enable HTTPS, add this in `/etc/lighttpd/lighttpd.conf`:
+
+$SERVER["socket"] == ":443" {
+   ssl.engine = "enable"
+   ssl.pemfile = "/etc/letsencrypt/live/wisehands.me/ssl.pem"
+   ssl.ca-file =  "/etc/letsencrypt/live/wisehands.me/fullchain.pem"
+   ssl.dh-file = "/etc/ssl/certs/dhparam.pem"
+   ssl.cipher-list = "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH"
+}
+
+After generating certificate don't forget to restart lighttpd:
+#service lighttpd restart
+
+Renewal script:
+---------------
+
+`~/letsencrypt_renew_cert.sh`
+
+#!/usr/bin/env bash
+set -e
+
+# start config
+
+sourcefile="/home/bogdan/domains.txt"
+domains=$(cat "$sourcefile")
+email=bohdaq@gmail.com
+w_root=/tmp/certbot/public_html
+user=bogdan
+group=bogdan
+
+# end config
+
+if [ "$EUID" -ne 0 ]; then
+    echo  "Please run as root"
+    exit 1
+fi
+
+
+for domain in "${domains[@]}"; do
+    /usr/bin/certbot certonly --agree-tos --keep-until-expiring --email $email --webroot -w $w_root -d $domain #--post-hook="service lighttpd reload"
+    cat /etc/letsencrypt/live/$domain/privkey.pem  /etc/letsencrypt/live/$domain/cert.pem > ssl.pem
+    #Use &&service lighttpd restart in crontab
+done
+
+Config samples:
+---------------
+
+lighttpd config sample: `/etc/ligttpd/lighttpd.conf`
+
+###############################################################################
+# Default lighttpd.conf for Gentoo.
+# $Header: /var/cvsroot/gentoo-x86/www-servers/lighttpd/files/conf/lighttpd.conf,v 1.5 2010/11/18 15:13:47 hwoarang Exp $
+###############################################################################
+
+# {{{ variables
+var.basedir  = "/var/www/localhost"
+var.logdir   = "/var/log/lighttpd"
+var.statedir = "/var/lib/lighttpd"
+# }}}
+
+# {{{ modules
+# At the very least, mod_access and mod_accesslog should be enabled.
+# All other modules should only be loaded if necessary.
+# NOTE: the order of modules is important.
+server.modules = (
+    "mod_rewrite",
+    "mod_redirect",
+    "mod_alias",
+    "mod_access",
+#    "mod_cml",
+#    "mod_trigger_b4_dl",
+#    "mod_auth",
+#    "mod_status",
+#    "mod_setenv",
+    "mod_proxy",
+#    "mod_simple_vhost",
+#    "mod_evhost",
+#    "mod_userdir",
+#    "mod_compress",
+#    "mod_ssi",
+#    "mod_usertrack",
+#    "mod_expire",
+#    "mod_secdownload",
+#    "mod_rrdtool",
+#    "mod_webdav",
+    "mod_accesslog"
+)
+#alias.url += (
+# "/.well-known/acme-challenge/" => "/tmp/certbot/public_html/",
+#)
+# }}}
+
+# {{{ includes
+include "mime-types.conf"
+include_shell "cat /etc/lighttpd/conf.d/*.conf"
+# fcgi and cgi are included below 
+# }}}
+
+# {{{ server settings
+server.username      = "lighttpd"
+server.groupname     = "lighttpd"
+
+server.document-root = "/tmp/certbot/public_html/" #var.basedir + "/htdocs"
+server.pid-file      = "/var/run/lighttpd.pid"
+
+server.errorlog      = var.logdir  + "/error.log"
+# log errors to syslog instead
+#   server.errorlog-use-syslog = "enable"
+
+server.indexfiles    = ("index.php", "index.html",
+						"index.htm", "default.htm")
+
+# server.tag           = "lighttpd"
+
+server.follow-symlink = "enable"
+
+# event handler (defaults to "poll")
+# see performance.txt
+# 
+# for >= linux-2.4
+#   server.event-handler = "linux-rtsig"
+# for >= linux-2.6
+#   server.event-handler = "linux-sysepoll"
+# for FreeBSD
+#   server.event-handler = "freebsd-kqueue"
+
+# chroot to directory (defaults to no chroot)
+# server.chroot      = "/"
+
+# bind to port (defaults to 80)
+# server.port          = 81
+
+# bind to name (defaults to all interfaces)
+# server.bind          = "grisu.home.kneschke.de"
+
+# error-handler for status 404
+# server.error-handler-404 = "/error-handler.html"
+# server.error-handler-404 = "/error-handler.php"
+
+# Format: <errorfile-prefix><status-code>.html
+# -> ..../status-404.html for 'File not found'
+# server.errorfile-prefix    = var.basedir + "/error/status-"
+
+# FAM support for caching stat() calls
+# requires that lighttpd be built with USE=fam
+#   server.stat-cache-engine = "fam"
+
+# If lighttpd was build with IPv6 support, and you would like to listen on IPv6,
+# uncomment the following:
+# server.use-ipv6 = "enable"
+
+# }}}
+
+# {{{ mod_staticfile
+
+# which extensions should not be handled via static-file transfer
+# (extensions that are usually handled by mod_cgi, mod_fastcgi, etc).
+static-file.exclude-extensions = (".php", ".pl", ".cgi", ".fcgi")
+# }}}
+
+# {{{ mod_accesslog
+accesslog.filename   = var.logdir + "/access.log"
+# }}}
+
+# {{{ mod_dirlisting
+# enable directory listings
+#   dir-listing.activate      = "enable"
+#
+# don't list hidden files/directories
+#   dir-listing.hide-dotfiles = "enable"
+#
+# use a different css for directory listings
+#   dir-listing.external-css  = "/path/to/dir-listing.css"
+#
+# list of regular expressions.  files that match any of the
+# specified regular expressions will be excluded from directory
+# listings.
+#   dir-listing.exclude = ("^\.", "~$")
+# }}}
+
+# {{{ mod_access
+# see access.txt
+
+url.access-deny = ("~", ".inc")
+# }}}
+
+# {{{ mod_userdir
+# see userdir.txt
+#
+# userdir.path = "public_html"
+# userdir.exclude-user = ("root")
+# }}}
+
+# {{{ mod_ssi
+# see ssi.txt
+#
+# ssi.extension = (".shtml")
+# }}}
+
+# {{{ mod_ssl
+# see ssl.txt
+#
+# ssl.engine    = "enable"
+# ssl.pemfile   = "server.pem"
+# }}}
+
+# {{{ mod_status
+# see status.txt
+#
+# status.status-url  = "/server-status"
+# status.config-url  = "/server-config"
+# }}}
+
+# {{{ mod_simple_vhost
+# see simple-vhost.txt
+#
+#  If you want name-based virtual hosting add the next three settings and load
+#  mod_simple_vhost
+#
+# document-root =
+#   virtual-server-root + virtual-server-default-host + virtual-server-docroot
+# or
+#   virtual-server-root + http-host + virtual-server-docroot
+#
+# simple-vhost.server-root   = "/home/weigon/wwwroot/servers/"
+# simple-vhost.default-host  = "grisu.home.kneschke.de"
+# simple-vhost.document-root = "/pages/"
+# }}}
+
+# {{{ mod_compress
+# see compress.txt
+#
+# compress.cache-dir   = var.statedir + "/cache/compress"
+# compress.filetype    = ("text/plain", "text/html")
+# }}}
+
+# {{{ mod_proxy
+# see proxy.txt
+#
+# proxy.server               = ( ".php" =>
+#                               ( "localhost" =>
+#                                 (
+#                                   "host" => "192.168.0.101",
+#                                   "port" => 80
+#                                 )
+#                               )
+#                             )
+# }}}
+
+# {{{ mod_auth
+# see authentication.txt
+#
+# auth.backend               = "plain"
+# auth.backend.plain.userfile = "lighttpd.user"
+# auth.backend.plain.groupfile = "lighttpd.group"
+
+# auth.backend.ldap.hostname = "localhost"
+# auth.backend.ldap.base-dn  = "dc=my-domain,dc=com"
+# auth.backend.ldap.filter   = "(uid=$)"
+
+# auth.require               = ( "/server-status" =>
+#                               (
+#                                 "method"  => "digest",
+#                                 "realm"   => "download archiv",
+#                                 "require" => "user=jan"
+#                               ),
+#                               "/server-info" =>
+#                               (
+#                                 "method"  => "digest",
+#                                 "realm"   => "download archiv",
+#                                 "require" => "valid-user"
+#                               )
+#                             )
+# }}}
+
+# {{{ mod_rewrite
+# see rewrite.txt
+#
+# url.rewrite = (
+#	"^/$"		=>		"/server-status"
+# )
+# }}}
+
+# {{{ mod_redirect
+# see redirect.txt
+#
+# url.redirect = (
+#	"^/wishlist/(.+)"		=>		"http://www.123.org/$1"
+# )
+# }}}
+
+# {{{ mod_evhost
+# define a pattern for the host url finding
+# %% => % sign
+# %0 => domain name + tld
+# %1 => tld
+# %2 => domain name without tld
+# %3 => subdomain 1 name
+# %4 => subdomain 2 name
+#
+# evhost.path-pattern        = "/home/storage/dev/www/%3/htdocs/"
+# }}}
+
+# {{{ mod_expire
+# expire.url = (
+#	"/buggy/"		=>		"access 2 hours",
+#	"/asdhas/"		=>		"access plus 1 seconds 2 minutes"
+# )
+# }}}
+
+# {{{ mod_rrdtool
+# see rrdtool.txt
+#
+# rrdtool.binary  = "/usr/bin/rrdtool"
+# rrdtool.db-name = var.statedir + "/lighttpd.rrd"
+# }}}
+
+# {{{ mod_setenv
+# see setenv.txt
+#
+# setenv.add-request-header  = ( "TRAV_ENV" => "mysql://user@host/db" )
+# setenv.add-response-header = ( "X-Secret-Message" => "42" )
+# }}}
+
+# {{{ mod_trigger_b4_dl
+# see trigger_b4_dl.txt
+#
+# trigger-before-download.gdbm-filename = "/home/weigon/testbase/trigger.db"
+# trigger-before-download.memcache-hosts = ( "127.0.0.1:11211" )
+# trigger-before-download.trigger-url = "^/trigger/"
+# trigger-before-download.download-url = "^/download/"
+# trigger-before-download.deny-url = "http://127.0.0.1/index.html"
+# trigger-before-download.trigger-timeout = 10
+# }}}
+
+# {{{ mod_cml
+# see cml.txt
+#
+# don't forget to add index.cml to server.indexfiles
+# cml.extension               = ".cml"
+# cml.memcache-hosts          = ( "127.0.0.1:11211" )
+# }}} 
+
+# {{{ mod_webdav
+# see webdav.txt
+#
+# $HTTP["url"] =~ "^/dav($|/)" {
+#     webdav.activate = "enable"
+#     webdav.is-readonly = "enable"
+# }
+# }}}
+
+# {{{ extra rules
+#
+# set Content-Encoding and reset Content-Type for browsers that
+# support decompressing on-thy-fly (requires mod_setenv)
+# $HTTP["url"] =~ "\.gz$" {
+#     setenv.add-response-header = ("Content-Encoding" => "x-gzip")
+#     mimetype.assign = (".gz" => "text/plain")
+# }
+
+# $HTTP["url"] =~ "\.bz2$" {
+#     setenv.add-response-header = ("Content-Encoding" => "x-bzip2")
+#     mimetype.assign = (".bz2" => "text/plain")
+# }
+#
+# }}}
+
+# {{{ debug
+# debug.log-request-header   = "enable"
+# debug.log-response-header  = "enable"
+# debug.log-request-handling = "enable"
+# debug.log-file-not-found   = "enable"
+# }}}
+
+# {{{ cgi includes
+# uncomment for cgi support
+#   include "mod_cgi.conf"
+# uncomment for php/fastcgi support
+#   include "mod_fastcgi.conf"
+# }}}
+
+$SERVER["socket"] == ":443" {
+        ssl.engine = "enable"
+        ssl.pemfile = "/etc/letsencrypt/live/wisehands.me/ssl.pem"
+        ssl.ca-file =  "/etc/letsencrypt/live/wisehands.me/fullchain.pem"
+        ssl.dh-file = "/etc/ssl/certs/dhparam.pem"
+        ssl.ec-curve = "secp384r1"
+        ssl.honor-cipher-order = "enable"
+        ssl.disable-client-renegotiation = "enable"
+        ssl.cipher-list = "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH"
+        ssl.use-sslv2 = "disable"
+        ssl.use-sslv3 = "disable"
+
+                $HTTP["host"] =~ "^www\.(.*)" {
+                        url.redirect = ( "^/(.*)" => "http://%1/$1" )
+                }
+
+                $HTTP["host"] =~ ".*" {
+                        url.redirect = ("^/.well-known/.*" => "http://%0$0")
+                }
+
+		$HTTP["host"] == "wisehands.me" {
+			ssl.pemfile = "/etc/letsencrypt/live/wisehands.me/ssl.pem"
+			ssl.ca-file =  "/etc/letsencrypt/live/wisehands.me/fullchain.pem"
+        		proxy.server = (
+                		"" => (
+                        		( "host" => "127.0.0.1", "port" => 3334 )
+                		)
+      			)                
+		}
+                else $HTTP["host"] =~ "(.*)\.wisehands\.me" {
+                    url.redirect = (  ".*" => "http://%0$0" )
+                }
+                
+
+}
+$SERVER["socket"] == ":80" {
+
+# For certbot
+#     $HTTP["url"] !~ "/.well-known/" {
+#
+#     }
+
+$HTTP["url"] =~ "^/.well-known/" {
+     alias.url += ( "/.well-known/" => "/tmp/certbot/public_html/.well-known/" )
+     url.access-deny = ( "disable" )
+}
+
+# http for subdomains on "wisehands.me" without ssl cert
+     $HTTP["host"] =~ "(.*)\.wisehands\.me" {         
+             proxy.server = (
+                     "" => (
+                             ( "host" => "127.0.0.1", "port" => 3334 )
+                     )
+             )
+     }
+
+#!Redirect everything to https!      
+#    $HTTP["host"] =~ ".*" {
+#        url.redirect = ( ".*" => "https://%0$0" )
+#    }
+#
+
+     $HTTP["host"] == "wisehands.me" {
+         url.redirect = ( ".*" => "https://wisehands.me" )
+     }
+}     
+extforward.headers = ("X-Real-IP")
+extforward.forwarder = ( "PROXY_IP" => "trust")
+# vim: set ft=conf foldmethod=marker et :
+
+Domain config sample: `/etc/lighttpd/conf.d/domain_name.conf`
+
+$SERVER["socket"] == ":443" {
+    $HTTP["host"] == "domain_name.com" {
+        ssl.pemfile = "/etc/letsencrypt/live/domain_name.com/ssl.pem"
+            ssl.ca-file =  "/etc/letsencrypt/live/domain_name.com/fullchain.pem"
+                proxy.server = (
+                    "" => (( "host" => "127.0.0.1", "port" => 3334 ))
+                )
+    }
+}
+
+$SERVER["socket"] == ":80" {
+    $HTTP["host"] == "domain_name.com" {
+        url.redirect = ( "/.*" => "https://domain_name.com" )
+    }
+}
+
