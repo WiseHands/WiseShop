@@ -24,7 +24,10 @@ public class Application extends Controller {
     }
 
     public static void login(String client) {
-        renderTemplate("WiseHands/index.html");
+        if(client.equals("wisehands.me")) {
+            renderTemplate("WiseHands/index.html");
+        }
+        redirect("https://wisehands.me/", true);
     }
 
     public static void index(String client) {
