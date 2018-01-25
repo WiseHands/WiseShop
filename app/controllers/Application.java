@@ -17,6 +17,9 @@ public class Application extends Controller {
 
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static final String GOOGLE_OAUTH_CLIENT_ID = Play.configuration.getProperty("google.oauthweb.client.id");
+    private static final String GOOGLE_MAPS_API_KEY = Play.configuration.getProperty("google.maps.api.key");
+    private static final String GOOGLE_ANALYTICS_ID = Play.configuration.getProperty("google.analytics.id");
 
     @Before
     static void corsHeaders() {
@@ -27,10 +30,7 @@ public class Application extends Controller {
 
     public static void login(String client) {
         if(client.equals("wisehands.me") || isDevEnv) {
-            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
-            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
-            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-            renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+            renderTemplate("WiseHands/index.html", GOOGLE_OAUTH_CLIENT_ID, GOOGLE_MAPS_API_KEY, GOOGLE_ANALYTICS_ID);
         }
         redirect("https://wisehands.me/", true);
     }
@@ -48,7 +48,7 @@ public class Application extends Controller {
         Lang.change(locale);
 
         if (client.equals("wisehands.me")){
-            renderTemplate("WiseHands/index.html");
+            renderTemplate("WiseHands/index.html", GOOGLE_OAUTH_CLIENT_ID, GOOGLE_MAPS_API_KEY, GOOGLE_ANALYTICS_ID);
         }
 
         Date date = new Date();
