@@ -1,5 +1,6 @@
 package controllers;
 
+import play.Play;
 import play.exceptions.TemplateNotFoundException;
 import play.i18n.Lang;
 import play.mvc.*;
@@ -14,7 +15,11 @@ import java.util.TimeZone;
 
 public class Application extends Controller {
 
+    private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static final String GOOGLE_OAUTH_CLIENT_ID = Play.configuration.getProperty("google.oauthweb.client.id");
+    private static final String GOOGLE_MAPS_API_KEY = Play.configuration.getProperty("google.maps.api.key");
+    private static final String GOOGLE_ANALYTICS_ID = Play.configuration.getProperty("google.analytics.id");
 
     @Before
     static void corsHeaders() {
@@ -24,8 +29,8 @@ public class Application extends Controller {
     }
 
     public static void login(String client) {
-        if(client.equals("wisehands.me")) {
-            renderTemplate("WiseHands/index.html");
+        if(client.equals("wisehands.me") || isDevEnv) {
+            renderTemplate("WiseHands/index.html", GOOGLE_OAUTH_CLIENT_ID, GOOGLE_MAPS_API_KEY, GOOGLE_ANALYTICS_ID);
         }
         redirect("https://wisehands.me/", true);
     }

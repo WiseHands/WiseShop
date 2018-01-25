@@ -3,10 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-	<meta name="google-signin-client_id" content="226448583548-f0d5694lbcpl72juk3ul53utg6gl92hj.apps.googleusercontent.com">
+	<meta name="google-signin-client_id" content="${GOOGLE_OAUTH_CLIENT_ID}">
 
 	<!--[if IE]>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -56,11 +53,22 @@
 	function start() {
       gapi.load('auth2', function() {
         window.auth2 = gapi.auth2.init({
-          client_id: '24963756587-5i3t4bqk23umk08v6jad8g639bi32geh.apps.googleusercontent.com'
+          client_id: '${GOOGLE_OAUTH_CLIENT_ID}'
         });
       });
     }
 </script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${GOOGLE_ANALYTICS_ID}');
+</script>
+
 
 <script>
 	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
@@ -85,7 +93,7 @@
 	}
 </script>
 <script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChjd1ZIoUdxAwO4XCvBVBUQgbQkxRLLL0&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap">
 </script>
 <script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
 
