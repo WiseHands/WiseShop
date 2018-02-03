@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OrderAPI extends AuthController {
+    private static final String CLASSSNAME = "OrderAPI";
     private  static final Double WISEHANDS_COMISSION = -0.0725;
     private  static final int PAGE_SIZE = 12;
 
@@ -127,13 +128,21 @@ public class OrderAPI extends AuthController {
             }
         }
 
-
+        CouponId unusedCoupon = null;
         if(couponId != null) {
-            CouponId coupon = CouponId.find("byCouponId", couponId).first();
-            if(coupon == null || (coupon.used != null && coupon.used == true)) {
-                System.out.println("coupon is null or used");
+            System.out.println(CLASSSNAME + " Searching coupon by couponId " + couponId + " in CouponId table");
+            List<CouponId> coupons = CouponId.find("byCouponId", couponId).fetch();
+            for (CouponId coupon : coupons) {
+                if (coupon.used == null || coupon.used == false) {
+                    unusedCoupon = coupon;
+                    System.out.println(CLASSSNAME +" found unused coupon id:" + unusedCoupon.couponId + ", uuid:" + unusedCoupon.couponUuid);
+                    break;
+                }
+            }
+            if(unusedCoupon == null) {
+                System.out.println(CLASSSNAME + " coupon not found, is null or used");
             } else {
-                CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
+                CouponDTO couponDTO = CouponDTO.findById(unusedCoupon.couponUuid);
                 List<CouponPlan> plans = new ArrayList<CouponPlan>();
                 for (CouponPlan plan: couponDTO.plans) {
                     if(plan.minimalOrderTotal <= totalCost) {
@@ -152,23 +161,22 @@ public class OrderAPI extends AuthController {
                     }
                 }
                 totalCost = totalCost - totalCost * correctDiscount.percentDiscount/100;
-                order.couponId = coupon.couponId;
+                order.couponId = unusedCoupon.couponId;
             }
         }
 
         order.total = totalCost;
         order = order.save();
+        System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
-        if(couponId != null) {
-            CouponId coupon = CouponId.find("byCouponId", couponId).first();
-            if(coupon != null) {
-                coupon.used = true;
-                coupon = coupon.save();
-                CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
-                couponDTO.couponIds.remove(coupon);
-                couponDTO.save();
-                coupon.delete();
-            }
+        if(unusedCoupon != null) {
+            unusedCoupon.used = true;
+            unusedCoupon = unusedCoupon.save();
+            CouponDTO couponDTO = CouponDTO.findById(unusedCoupon.couponUuid);
+            couponDTO.couponIds.remove(unusedCoupon);
+            couponDTO.save();
+            unusedCoupon.delete();
+            System.out.println(CLASSSNAME + " removed just used CouponId: " + unusedCoupon.couponId + " from CouponDTO " + couponDTO.uuid);
         }
 
         JPA.em().getTransaction().commit();
