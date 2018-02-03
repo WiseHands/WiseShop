@@ -143,6 +143,8 @@ public class OrderAPI extends AuthController {
                 System.out.println(CLASSSNAME + " coupon not found, is null or used");
             } else {
                 CouponPlan couponPlan = CouponPlan.find("byCouponUuid", unusedCoupon.couponUuid).first();
+                System.out.println(CLASSSNAME + " searched for CouponPlan, by coupon uuid" + unusedCoupon.couponUuid + couponPlan);
+                System.out.println(CLASSSNAME + " select * from CouponPlan where couponUuid = '" + unusedCoupon.couponUuid + "';");
                 if(order.total > couponPlan.minimalOrderTotal) {
                     totalCost = totalCost - totalCost * couponPlan.percentDiscount/100;
                     order.couponId = unusedCoupon.couponId;
