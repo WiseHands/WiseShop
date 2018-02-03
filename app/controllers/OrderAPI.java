@@ -142,26 +142,11 @@ public class OrderAPI extends AuthController {
             if(unusedCoupon == null) {
                 System.out.println(CLASSSNAME + " coupon not found, is null or used");
             } else {
-                CouponDTO couponDTO = CouponDTO.findById(unusedCoupon.couponUuid);
-                List<CouponPlan> plans = new ArrayList<CouponPlan>();
-                for (CouponPlan plan: couponDTO.plans) {
-                    if(plan.minimalOrderTotal <= totalCost) {
-                        plans.add(plan);
-                    }
+                CouponPlan couponPlan = CouponPlan.find("byCouponUuid", unusedCoupon.couponUuid).first();
+                if(order.total > couponPlan.minimalOrderTotal) {
+                    totalCost = totalCost - totalCost * couponPlan.percentDiscount/100;
+                    order.couponId = unusedCoupon.couponId;
                 }
-
-                CouponPlan correctDiscount = null;
-                for (CouponPlan plan : plans) {
-                    if (correctDiscount == null) {
-                        correctDiscount = plan;
-                        continue;
-                    }
-                    if(plan.minimalOrderTotal > correctDiscount.minimalOrderTotal) {
-                        correctDiscount = plan;
-                    }
-                }
-                totalCost = totalCost - totalCost * correctDiscount.percentDiscount/100;
-                order.couponId = unusedCoupon.couponId;
             }
         }
 
