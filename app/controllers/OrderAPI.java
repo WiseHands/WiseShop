@@ -159,11 +159,8 @@ public class OrderAPI extends AuthController {
         if(unusedCoupon != null) {
             unusedCoupon.used = true;
             unusedCoupon = unusedCoupon.save();
-            CouponDTO couponDTO = CouponDTO.findById(unusedCoupon.couponUuid);
-            couponDTO.couponIds.remove(unusedCoupon);
-            couponDTO.save();
             unusedCoupon.delete();
-            System.out.println(CLASSSNAME + " removed just used CouponId: " + unusedCoupon.couponId + " from CouponDTO " + couponDTO.uuid);
+            System.out.println(CLASSSNAME + " removed just used CouponId: " + unusedCoupon.couponId);
         }
 
         JPA.em().getTransaction().commit();
