@@ -92,12 +92,18 @@ public class CouponAPI extends AuthController {
     }
 
     public static void checkForCoupon(String client, String couponId) throws Exception {
-        CouponId coupon = CouponId.find("byCouponId", couponId).first();
-        if(coupon == null || (coupon.used != null && coupon.used == true)) {
+        List<CouponId> coupons = CouponId.find("byCouponId", couponId).fetch();
+        CouponId unusedCoupon = null;
+        for (CouponId coupon : coupons) {
+            if (coupon.used == null || coupon.used == false) {
+                unusedCoupon = coupon;
+            }
+        }
+        if(unusedCoupon == null) {
             notFound();
         }
-        CouponDTO couponDTO = CouponDTO.findById(coupon.couponUuid);
 
+        CouponDTO couponDTO = CouponDTO.findById(unusedCoupon.couponUuid);
         renderJSON(json(couponDTO.plans));
     }
 
