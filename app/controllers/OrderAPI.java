@@ -148,10 +148,6 @@ public class OrderAPI extends AuthController {
                 if(totalCost > couponPlan.minimalOrderTotal) {
                     totalCost = totalCost - totalCost * couponPlan.percentDiscount/100;
                     order.couponId = unusedCoupon.couponId;
-
-                    unusedCoupon.used = true;
-                    unusedCoupon = unusedCoupon.save();
-                    System.out.println(CLASSSNAME + "  marked as used CouponId: " + unusedCoupon.couponId);
                 }
             }
         }
@@ -162,6 +158,14 @@ public class OrderAPI extends AuthController {
 
 
         JPA.em().getTransaction().commit();
+
+        if(unusedCoupon != null) {
+            unusedCoupon.used = true;
+            unusedCoupon = unusedCoupon.save();
+            System.out.println(CLASSSNAME + "  marked as used CouponId: " + unusedCoupon.couponId);
+            JPA.em().getTransaction().commit();
+        }
+
 
 
         new SendSmsJob(order, shop).now();
