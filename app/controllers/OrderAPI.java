@@ -157,17 +157,15 @@ public class OrderAPI extends AuthController {
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
 
-        JPA.em().getTransaction().commit();
 
         if(unusedCoupon != null) {
             unusedCoupon.used = true;
             unusedCoupon = unusedCoupon.save();
             System.out.println(CLASSSNAME + "  marked as used CouponId: " + unusedCoupon.couponId);
-            JPA.em().getTransaction().commit();
         }
 
 
-
+        JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
 
 //        List<PushSubscription> subscriptions = PushSubscription.find("byShopUuid", shop.uuid).fetch();
