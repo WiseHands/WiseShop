@@ -49,6 +49,33 @@ public class ProductPropertyAPI extends AuthController {
         property.tags = tagsList;
 
         property = property.save();
+
+        List<ProductDTO> products = ProductDTO.find("byCategoryUuid", categoryUuid).fetch();
+        for(ProductDTO product : products) {
+            ProductPropertyDTO propertyNew = new ProductPropertyDTO();
+            propertyNew.name = name;
+            propertyNew.categoryUuid = categoryUuid;
+            propertyNew.productUuid = product.uuid;
+            propertyNew.shopUuid = shop.uuid;
+            propertyNew = propertyNew.save();
+
+
+            List<PropertyTagDTO> tagsListNew = new ArrayList<PropertyTagDTO>();
+            for(PropertyTagDTO tag : property.tags) {
+                PropertyTagDTO tagNew = new PropertyTagDTO();
+                tagNew.value = tag.value;
+                tagNew.selected = tag.selected;
+                tagNew.productPropertyUuid = property.uuid;
+                tagNew.currentPropertyUuid = propertyNew.uuid;
+                tagNew = tagNew.save();
+                tagsListNew.add(tagNew);
+            }
+            propertyNew.tags = tagsListNew;
+            propertyNew = propertyNew.save();
+            product.properties.add(propertyNew);
+            product = product.save();
+
+        }
         renderJSON(json(property));
     }
 
