@@ -107,10 +107,15 @@ public class CategoryAPI extends AuthController {
         }
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        Integer sortOrder = Integer.parseInt(jsonBody.get("sortOrder").toString());
-        Boolean isHidden = Boolean.parseBoolean(jsonBody.get("isHidden").toString());
-        category.sortOrder = sortOrder;
-        category.isHidden = isHidden;
+        if(jsonBody.get("sortOrder") != null) {
+            String sortOrder = jsonBody.get("sortOrder").toString();
+            category.sortOrder = Integer.parseInt(sortOrder);
+        }
+        if(jsonBody.get("isHidden") != null) {
+            String isHidden = jsonBody.get("isHidden").toString();
+            category.isHidden = Boolean.parseBoolean(isHidden);
+
+        }
         category = category.save();
         renderJSON(json(category));
     }
