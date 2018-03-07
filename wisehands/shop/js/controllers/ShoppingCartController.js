@@ -23,6 +23,9 @@
                 });
 
             $scope.changeQuantity = function (index, quantity) {
+              if(!quantity) {
+                quantity = 1;
+              }
                 shared.setProductQuantity(index, quantity);
                 $scope.total = shared.reCalculateTotal();
             };
