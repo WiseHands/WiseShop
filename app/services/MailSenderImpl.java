@@ -13,6 +13,7 @@ public class MailSenderImpl implements MailSender {
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
 
     public void sendEmail(ShopDTO shop, OrderDTO order, String status) throws Exception {
+        System.out.println("MailSenderImpl " + isDevEnv + status + shop.contact.email);
         if (!isDevEnv) {
             HtmlEmail email = new HtmlEmail();
             email.setHostName(shop.domain);
