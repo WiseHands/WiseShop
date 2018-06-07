@@ -17,7 +17,7 @@ public class MailSenderImpl implements MailSender {
         if (!isDevEnv) {
             HtmlEmail email = new HtmlEmail();
             email.setHostName(shop.domain);
-            email.setFrom("noreply@" + shop.domain, shop.shopName);
+            email.setFrom("wisehandsme@gmail.com");
             System.out.println("AddTo: " + shop.contact.email);
             email.addTo(shop.contact.email);
             email.setSubject(status);
