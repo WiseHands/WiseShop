@@ -167,6 +167,11 @@ public class OrderAPI extends AuthController {
 
         JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
+        try {
+            mailSender.sendEmail(shop, order, Messages.get("new.order"));
+        } catch (Exception e) {
+            System.out.println("OrderAPI create mail error" + e.getCause() + e.getStackTrace());
+        }
 
 //        List<PushSubscription> subscriptions = PushSubscription.find("byShopUuid", shop.uuid).fetch();
 //        for(PushSubscription subscription: subscriptions) {
