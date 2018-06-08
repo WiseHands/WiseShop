@@ -30,42 +30,14 @@ public class MailSenderImpl implements MailSender {
     public void sendEmail(ShopDTO shop, OrderDTO order, String status) throws Exception {
         System.out.println("MailSenderImpl " + isDevEnv + status + shop.contact.email);
         if (!isDevEnv) {
-//            HtmlEmail email = new HtmlEmail();
-//            email.setHostName(shop.domain);
-//            email.setFrom("wisehandsme@gmail.com");
-//            System.out.println("AddTo: " + shop.contact.email);
-//            email.addTo(shop.contact.email);
-//            email.setSubject(status);
-//            email.setHtmlMsg(order.toString());
-//            Mail.send(email);
-
-
-            System.out.println("\n 1st ===> setup Mail Server Properties..");
-            mailServerProperties = System.getProperties();
-            mailServerProperties.put("mail.smtp.port", "587");
-            mailServerProperties.put("mail.smtp.auth", "true");
-            mailServerProperties.put("mail.smtp.starttls.enable", "true");
-            System.out.println("Mail Server Properties have been setup successfully..");
-
-            // Step2
-            System.out.println("\n\n 2nd ===> get Mail Session..");
-            getMailSession = Session.getDefaultInstance(mailServerProperties, null);
-            generateMailMessage = new MimeMessage(getMailSession);
-            generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(shop.contact.email));
-            generateMailMessage.setSubject(status);
-            String emailBody = order.toString();
-            generateMailMessage.setContent(emailBody, "text/html");
-            System.out.println("Mail Session has been created successfully..");
-
-            // Step3
-            System.out.println("\n\n 3rd ===> Get Session and Send mail");
-            Transport transport = getMailSession.getTransport("smtp");
-
-            // Enter your correct gmail UserID and Password
-            // if you have 2FA enabled then provide App Specific Password
-            transport.connect("smtp.gmail.com", gmailUsername, gmailPass);
-            transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
-            transport.close();
+            HtmlEmail email = new HtmlEmail();
+            email.setHostName(shop.domain);
+            email.setFrom("wisehandsme@gmail.com");
+            System.out.println("AddTo: " + shop.contact.email);
+            email.addTo(shop.contact.email);
+            email.setSubject(status);
+            email.setHtmlMsg(order.toString());
+            Mail.send(email);
         }
     }
 
