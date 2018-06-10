@@ -37,6 +37,7 @@ public class MailSenderImpl implements MailSender {
             email.addTo(shop.contact.email);
             email.setSubject(status);
             email.setHtmlMsg(order.toString());
+            email.setCharset("utf-8");
             Mail.send(email);
         }
     }
