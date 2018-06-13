@@ -110,7 +110,7 @@ public class ProductAPI extends AuthController {
         }
         List<ProductDTO> products = ProductDTO.find(
                 "select p from ProductDTO p, CategoryDTO c " +
-                        "where p.category = c and p.shop = ? and c.isHidden = ?", shop, false
+                        "where p.category = c and p.shop = ?1 and c.isHidden = ?2", shop, false
         ).fetch();
 
 

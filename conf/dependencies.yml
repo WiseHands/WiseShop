@@ -8,6 +8,8 @@ require:
     - com.googlecode.htmlcompressor -> htmlcompressor 1.4
     - com.google.code -> sitemapgen4j 1.0.1
     - com.liqpay -> liqpay-sdk 0.6
+    - nl.big-o -> liqp 0.7.3
+    - javax.xml.bind -> jaxb-api 2.1
 
 repositories:
     - bintray-stokito-maven:

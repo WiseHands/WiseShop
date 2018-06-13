@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public class BalanceAPI extends AuthController {
 
     static MailSender mailSender = new MailSenderImpl();
-    static LiqPayService liqPay = new LiqPayServiceImpl();
+    static LiqPayService liqPay = LiqPayServiceImpl.getInstance();
 
 
     public static void getBalance(String client, String email) throws Exception {

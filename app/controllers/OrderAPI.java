@@ -29,7 +29,7 @@ public class OrderAPI extends AuthController {
 
     static SmsSender smsSender = new SmsSenderImpl();
     static MailSender mailSender = new MailSenderImpl();
-    static LiqPayService liqPay = new LiqPayServiceImpl();
+    static LiqPayService liqPay = LiqPayServiceImpl.getInstance();
 
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -237,10 +237,10 @@ public class OrderAPI extends AuthController {
         checkAuthentification(shop);
         List<OrderDTO> orders = null;
         if(page == 0) {
-            orders = OrderDTO.find("shop is ? and state is not ? order by time desc", shop, OrderState.DELETED).fetch(PAGE_SIZE);
+            orders = OrderDTO.find("shop is ? and state is not ? order by time desc", shop, OrderState.DELETED.toString()).fetch(PAGE_SIZE);
         } else {
             int offset = PAGE_SIZE * page;
-            orders = OrderDTO.find("shop is ? and state is not ? order by time desc", shop, OrderState.DELETED).from(offset).fetch(PAGE_SIZE);
+            orders = OrderDTO.find("shop is ? and state is not ? order by time desc", shop, OrderState.DELETED.toString()).from(offset).fetch(PAGE_SIZE);
         }
 
 

@@ -1,21 +1,20 @@
 package services;
 
+import liqp.Template;
 import models.OrderDTO;
 import models.ShopDTO;
 import models.UserDTO;
 import org.apache.commons.mail.HtmlEmail;
-import org.apache.commons.mail.SimpleEmail;
 import play.Play;
-import play.i18n.Messages;
 import play.libs.Mail;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailSenderImpl implements MailSender {
@@ -29,17 +28,38 @@ public class MailSenderImpl implements MailSender {
 
     public void sendEmail(ShopDTO shop, OrderDTO order, String status) throws Exception {
         System.out.println("MailSenderImpl " + isDevEnv + status + shop.contact.email);
-        if (!isDevEnv) {
+//        if (!isDevEnv) {
             HtmlEmail email = new HtmlEmail();
             email.setHostName(shop.domain);
             email.setFrom("wisehandsme@gmail.com");
             System.out.println("AddTo: " + shop.contact.email);
             email.addTo(shop.contact.email);
             email.setSubject(status);
-            email.setHtmlMsg(order.toString());
+
+            String templateString = readAllBytesJava7("app/emails/email_form.html");
+            Template template = Template.parse(templateString);
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("name", order.name);
+            String rendered = template.render(map);
+
+            email.setHtmlMsg(rendered);
             email.setCharset("utf-8");
             Mail.send(email);
+//        }
+    }
+
+    private static String readAllBytesJava7(String filePath)
+    {
+        String content = "";
+        try
+        {
+            content = new String ( Files.readAllBytes( Paths.get(filePath) ) );
         }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return content;
     }
 
     public void sendEmailToInvitedUser(ShopDTO shop, UserDTO user) throws Exception {
