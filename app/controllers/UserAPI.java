@@ -10,6 +10,7 @@ import play.i18n.Messages;
 import responses.InvalidPassword;
 import responses.UserDoesNotExist;
 import services.SmsSender;
+import services.SmsSenderImpl;
 
 import javax.inject.Inject;
 import javax.mail.internet.AddressException;
@@ -26,9 +27,7 @@ public class UserAPI extends AuthController {
     private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
     private static final String X_AUTH_USER_ID = "x-auth-user-id";
 
-    @Inject
-    static SmsSender smsSender;
-
+    static SmsSender smsSender = new SmsSenderImpl();
 
     public static void register(String email, String password, String passwordConfirmation,
                                 String shopName, String name, String language,

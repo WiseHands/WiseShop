@@ -11,9 +11,7 @@ import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Http;
-import services.LiqPayService;
-import services.MailSender;
-import services.SmsSender;
+import services.*;
 
 import javax.inject.Inject;
 import java.text.DateFormat;
@@ -29,14 +27,9 @@ public class OrderAPI extends AuthController {
         private static final String COURIER = "COURIER";
     }
 
-    @Inject
-    static SmsSender smsSender;
-
-    @Inject
-    static MailSender mailSender;
-
-    @Inject
-    static LiqPayService liqPay;
+    static SmsSender smsSender = new SmsSenderImpl();
+    static MailSender mailSender = new MailSenderImpl();
+    static LiqPayService liqPay = new LiqPayServiceImpl();
 
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

@@ -6,17 +6,16 @@ import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import services.LiqPayService;
+import services.LiqPayServiceImpl;
 import services.MailSender;
+import services.MailSenderImpl;
 
 import javax.inject.Inject;
 
 public class BalanceAPI extends AuthController {
 
-    @Inject
-    static MailSender mailSender;
-
-    @Inject
-    static LiqPayService liqPay;
+    static MailSender mailSender = new MailSenderImpl();
+    static LiqPayService liqPay = new LiqPayServiceImpl();
 
 
     public static void getBalance(String client, String email) throws Exception {

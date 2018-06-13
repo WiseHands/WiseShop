@@ -6,7 +6,9 @@ import org.json.simple.parser.JSONParser;
 import play.Play;
 import play.i18n.Messages;
 import services.MailSender;
+import services.MailSenderImpl;
 import services.SmsSender;
+import services.SmsSenderImpl;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -25,11 +27,8 @@ public class ShopAPI extends AuthController {
     public static final String SHOP_OPEN_UNTIL = "1970-01-01T21:59:00.000Z";
     public static final String SERVER_IP = "91.224.11.24";
 
-    @Inject
-    static MailSender mailSender;
-
-    @Inject
-    static SmsSender smsSender;
+    static MailSender mailSender = new MailSenderImpl();
+    static SmsSender smsSender = new SmsSenderImpl();
 
     public static void updateDomain(String client, String domain) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

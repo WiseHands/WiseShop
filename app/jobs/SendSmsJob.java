@@ -7,13 +7,13 @@ import org.json.simple.parser.JSONParser;
 import play.i18n.Messages;
 import play.jobs.Job;
 import services.SmsSender;
+import services.SmsSenderImpl;
 
 import javax.inject.Inject;
 
 
 public class SendSmsJob extends Job {
-    @Inject
-    static SmsSender smsSender;
+    static SmsSender smsSender = new SmsSenderImpl();
     private OrderDTO order;
     private ShopDTO shop;
 

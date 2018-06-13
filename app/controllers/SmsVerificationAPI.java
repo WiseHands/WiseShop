@@ -4,13 +4,13 @@ import models.*;
 import org.json.simple.JSONObject;
 import play.i18n.Messages;
 import services.SmsSender;
+import services.SmsSenderImpl;
 
 import javax.inject.Inject;
 import java.util.Random;
 
 public class SmsVerificationAPI extends AuthController {
-    @Inject
-    static SmsSender smsSender;
+    static SmsSender smsSender = new SmsSenderImpl();
 
     public static void generateSmsVerificationCode(String phoneNumber) throws Exception {
         UserDTO user = UserDTO.find("byPhone", phoneNumber).first();
