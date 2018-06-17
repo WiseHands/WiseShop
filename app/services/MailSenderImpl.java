@@ -40,7 +40,12 @@ public class MailSenderImpl implements MailSender {
             Template template = Template.parse(templateString);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("name", order.name);
-            String rendered = template.render(map);
+            map.put("phone", order.phone);
+            map.put("deliveryType", order.deliveryType);
+            map.put("address", order.address);
+            map.put("total", order.total);
+
+        String rendered = template.render(map);
 
             email.setHtmlMsg(rendered);
             email.setCharset("utf-8");

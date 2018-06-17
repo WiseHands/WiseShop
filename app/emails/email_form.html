@@ -182,39 +182,38 @@
         /* -------------------------------------
             RESPONSIVE AND MOBILE FRIENDLY STYLES
         ------------------------------------- */
-        @media only screen and (max-width: 620px) {
-            table[class=body] h1 {
+@media only screen and (max-width: 620px) {
+            .body h1 {
                 font-size: 28px !important;
                 margin-bottom: 10px !important; }
-            table[class=body] p,
-            table[class=body] ul,
-            table[class=body] ol,
-            table[class=body] td,
-            table[class=body] span,
-            table[class=body] a {
+            .body p,
+            .body ul,
+            .body ol,
+            .body td,
+            .body span,
+            .body a {
                 font-size: 16px; /*!important;*/ }
-            table[class=body] .wrapper,
-            table[class=body] .article {
+            .body .wrapper,
+            .body .article {
                 padding: 10px !important; }
-            table[class=body] .content {
+            .body .content {
                 padding: 0 !important; }
-            table[class=body] .container {
+            .body .container {
                 padding: 0;
                 padding-top: 5px !important;
                 width: 100% !important; }
-            table[class=body] .main {
+            .body .main {
                 border-left-width: 0 !important;
                 border-right-width: 0 !important; }
-            table[class=body] .btn table {
+            .body .btn table {
                 width: 100% !important; }
-            table[class=body] .btn a {
+            .body .btn a {
                 width: 100% !important; }
-            table[class=body] .img-responsive {
+            .body .img-responsive {
                 height: auto !important;
                 max-width: 100% !important;
                 width: auto !important; }
-        }
-        /* -------------------------------------
+        }      /* -------------------------------------
             PRESERVE THESE STYLES IN THE HEAD
         ------------------------------------- */
         @media all {
@@ -250,7 +249,6 @@
 <body class="">
 <table border="0" cellpadding="0" cellspacing="0" class="body">
     <tr>
-        <td>&nbsp;</td>
         <td class="container">
             <div class="content">
 
@@ -264,12 +262,13 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <p class="maintitle">Нове замовлення</p>
-                                        <p>Name: {{name}} </p>
-                                        <p>Phone: 380676906702</p>
-                                        <p>Delivery: COURIER</p>
-                                        <p>Address: Личаківська Перлина, вулиця Личаківська, 33А, Львів, Львівська область, Україна, 79000</p>
-                                        <p>Department:</p>
+                                        <!--<p class="maintitle">Нове замовлення</p>-->
+                                        <p><b>Name:</b> {{name}}</p>
+                                        <p><b>Phone:</b> {{phone}}</p>
+                                        <p><b>Delivery:</b> {{deliveryType}}</p>
+                                        <p><b>Address:</b> {{address}}</p>
+                                        <!--<p>Department:</p>-->
+                                        <p class="total"><b>Total:</b> {{total}}</p>
 
                                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                             <tbody>
@@ -278,7 +277,7 @@
                                                     <table border="0" cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                         <tr>
-                                                            <td> <a href="http://korova.lviv.ua/admin#/details/db608b9863eb218c0163ee8e45a3000f" target="_blank">Details</a> </td>
+                                                            <td> <a href="{{orderLink}}" target="_blank">Details</a> </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -286,7 +285,6 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <p class="total">Total: 195.0</p>
                                     </td>
                                 </tr>
                             </table>
@@ -311,7 +309,6 @@
                 <!-- END CENTERED WHITE CONTAINER -->
             </div>
         </td>
-        <td>&nbsp;</td>
     </tr>
 </table>
 </body>
