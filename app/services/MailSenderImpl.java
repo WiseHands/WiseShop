@@ -6,6 +6,8 @@ import models.ShopDTO;
 import models.UserDTO;
 import org.apache.commons.mail.HtmlEmail;
 import play.Play;
+import play.i18n.Lang;
+import play.i18n.Messages;
 import play.libs.Mail;
 
 import java.io.IOException;
@@ -44,6 +46,28 @@ public class MailSenderImpl implements MailSender {
             map.put("deliveryType", order.deliveryType);
             map.put("address", order.address);
             map.put("total", order.total);
+
+            Lang.change(shop.locale);
+            String labelName = Messages.get("mail.label.name");
+            map.put("labelName", labelName);
+            String labelPhone = Messages.get("mail.label.phone");
+            map.put("labelPhone", labelPhone);
+            String labelDelivery = Messages.get("mail.label.delivery");
+            map.put("labelDelivery", labelDelivery);
+            String labelAddress = Messages.get("mail.label.address");
+            map.put("labelAddress", labelAddress);
+            String labelTotal = Messages.get("mail.label.total");
+            map.put("labelTotal", labelTotal);
+            String labelNewOrder = Messages.get("mail.label.neworder");
+            map.put("labelNewOrder", labelNewOrder);
+            String labelDetails = Messages.get("mail.label.details");
+            map.put("labelDetails", labelDetails);
+            String orderLink = String.format("https://%s/admin#/details/%s", shop.domain, order.uuid);
+            map.put("orderLink", orderLink);
+            String labelComment = Messages.get("mail.label.comment");
+            map.put("labelComment", labelComment);
+            map.put("comment", order.comment);
+
 
         String rendered = template.render(map);
 

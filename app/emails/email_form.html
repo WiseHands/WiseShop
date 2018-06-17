@@ -262,13 +262,14 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <!--<p class="maintitle">Нове замовлення</p>-->
-                                        <p><b>Name:</b> {{name}}</p>
-                                        <p><b>Phone:</b> {{phone}}</p>
-                                        <p><b>Delivery:</b> {{deliveryType}}</p>
-                                        <p><b>Address:</b> {{address}}</p>
+                                        <p class="maintitle">{{labelNewOrder}}</p>
+                                        <p><b>{{labelName}}:</b> {{name}}</p>
+                                        <p><b>{{labelPhone}}:</b> {{phone}}</p>
+                                        <p><b>{{labelDelivery}}:</b> {{deliveryType}}</p>
+                                        <p><b>{{labelAddress}}:</b> {{address}}</p>
                                         <!--<p>Department:</p>-->
-                                        <p class="total"><b>Total:</b> {{total}}</p>
+                                        <p><b>{{labelComment}}:</b> {{comment}}</p>
+                                        <p class="total"><b>{{labelTotal}}:</b> {{total}}</p>
 
                                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                             <tbody>
@@ -277,7 +278,7 @@
                                                     <table border="0" cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                         <tr>
-                                                            <td> <a href="{{orderLink}}" target="_blank">Details</a> </td>
+                                                            <td> <a href="{{orderLink}}" target="_blank">{{labelDetails}}</a> </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
