@@ -13,7 +13,6 @@ import play.i18n.Messages;
 import play.mvc.Http;
 import services.*;
 
-import javax.inject.Inject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -166,37 +165,8 @@ public class OrderAPI extends AuthController {
             System.out.println("OrderAPI create mail error" + e.getCause() + e.getStackTrace());
         }
 
-//        List<PushSubscription> subscriptions = PushSubscription.find("byShopUuid", shop.uuid).fetch();
-//        for(PushSubscription subscription: subscriptions) {
-//            String msg =  Messages.get("new.order.total", orderLink.name, orderLink.total);
-//
-//            String webpushServiceHost = Play.configuration.getProperty("webpush.service.url");
-//
-//            final String url = webpushServiceHost + "/notify";
-//            JSONObject body = new JSONObject();
-//            body.put("title", shopLink.shopName);
-//            body.put("message", msg);
-//            body.put("icon", "/public/shop_logo/" + shopLink.uuid + "/" + shopLink.visualSettingsDTO.shopFavicon);
-//            body.put("endpoint", subscription.endpoint);
-//            body.put("publicKey", subscription.p256dhKey);
-//            body.put("auth", subscription.authKey);
-//
-//            final String json = body.toJSONString();
-//
-//            System.out.println(url);
-//            System.out.println(body.toJSONString());
-//
-//            new Thread(new Runnable() {
-//                public void run() {
-//                    try {
-//                        WebPushService.post(url, json);
-//                    } catch (Exception ex) {
-//                        System.out.println(ex.toString());
-//                        ex.printStackTrace();
-//                    }
-//                }
-//            }).start();
-//        }
+        JSONObject json = new JSONObject();
+        json.put("uuid", order.uuid);
 
         try {
             String payButton = liqPay.payButton(order, shop);
@@ -205,12 +175,10 @@ public class OrderAPI extends AuthController {
             Date date = new Date();
             System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(date));
 
-            JSONObject json = new JSONObject();
-            json.put("uuid", order.uuid);
             json.put("button", payButton);
             renderJSON(json);
         } catch (Exception e) {
-            renderHtml("");
+            renderJSON(json);
         }
 
     }

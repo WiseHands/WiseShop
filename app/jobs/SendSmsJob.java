@@ -9,7 +9,6 @@ import play.jobs.Job;
 import services.SmsSender;
 import services.SmsSenderImpl;
 
-import javax.inject.Inject;
 
 
 public class SendSmsJob extends Job {

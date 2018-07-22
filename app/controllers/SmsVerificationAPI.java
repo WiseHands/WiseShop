@@ -6,7 +6,6 @@ import play.i18n.Messages;
 import services.SmsSender;
 import services.SmsSenderImpl;
 
-import javax.inject.Inject;
 import java.util.Random;
 
 public class SmsVerificationAPI extends AuthController {

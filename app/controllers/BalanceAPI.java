@@ -10,8 +10,6 @@ import services.LiqPayServiceImpl;
 import services.MailSender;
 import services.MailSenderImpl;
 
-import javax.inject.Inject;
-
 public class BalanceAPI extends AuthController {
 
     static MailSender mailSender = new MailSenderImpl();

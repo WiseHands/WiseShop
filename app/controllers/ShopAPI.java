@@ -10,7 +10,6 @@ import services.MailSenderImpl;
 import services.SmsSender;
 import services.SmsSenderImpl;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -12,7 +12,6 @@ import responses.UserDoesNotExist;
 import services.SmsSender;
 import services.SmsSenderImpl;
 
-import javax.inject.Inject;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.FileReader;

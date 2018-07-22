@@ -2,14 +2,8 @@ package controllers;
 
 import models.*;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import play.Play;
 import play.db.jpa.JPA;
-import services.MailSender;
 
-import javax.inject.Inject;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
