@@ -103,12 +103,19 @@ angular.module('WiseHands')
 
 
             $scope.createNewStore = function () {
+                let _domain = $scope.newStore.domain;
+                let _isLocalhostEnv = document.domain.indexOf('localhost') !== -1;
+                if(_isLocalhostEnv) {
+                    _domain += '.localhost';
+                } else {
+                    _domain += '.wisehands.me'
+                }
 
                 $scope.loading = true;
 				var domain = document.domain;
                 var params = {
                     name: $scope.newStore.name,
-                    domain:$scope.newStore.domain + '.' + domain
+                    domain: _domain
                 };
 
                 var encodedParams = encodeQueryData(params);

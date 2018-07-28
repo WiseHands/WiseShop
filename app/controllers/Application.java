@@ -35,6 +35,13 @@ public class Application extends Controller {
         redirect("https://wisehands.me/", true);
     }
 
+    public static void wisehands(String client) {
+        String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+        String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+        String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+        renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+    }
+
     public static void index(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

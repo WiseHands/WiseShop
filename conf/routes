@@ -4,6 +4,7 @@
 
 # Home page
 GET     {client}/                                       Application.index
+GET     {client}/wisehands                              Application.wisehands
 GET     {client}/shop                                   Application.shop
 
 GET     {client}/admin                                  Application.admin

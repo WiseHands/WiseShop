@@ -15,6 +15,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -42,7 +45,7 @@ public class ShopAPI extends AuthController {
             FileWriter file = new FileWriter(myFile);
             file.write(domain);
 
-            file.close(); // закриття потоку
+            file.close();
         }catch (IOException ex){
             ex.printStackTrace();
         }
@@ -300,6 +303,7 @@ public class ShopAPI extends AuthController {
                     if (isDomainRegisteredAlready) {
                         forbidden(domain + " is used by another user. Please select other one");
                     }
+                    System.out.println("Creating shop with domain name " + domain);
                     ShopDTO shop = createShop(name, domain);
                     renderJSON(json(shop));
                 }
@@ -311,6 +315,7 @@ public class ShopAPI extends AuthController {
                     if (isDomainRegisteredAlready) {
                         forbidden(domain + " is used by another user. Please select other one");
                     }
+                    System.out.println("Creating shop with domain name " + domain);
                     ShopDTO shop = createShop(name, domain);
                     renderJSON(json(shop));
                 }
@@ -370,7 +375,20 @@ public class ShopAPI extends AuthController {
         shop.endTime = SHOP_OPEN_UNTIL;
         shop.googleStaticMapsApiKey = WISEHANDS_STATIC_MAPS_KEY;
         shop.googleMapsApiKey = WISEHANDS_MAPS_KEY;
+
+        _appendDomainToList(domain);
         return shop = shop.save();
+    }
+
+    private static void _appendDomainToList(String domainName) {
+        String filename = "domains.txt";
+        String text = "\n" + domainName;
+        System.out.println("Appending domain name" + domainName + " to domains.txt");
+        try {
+            Files.write(Paths.get(filename), text.getBytes(), StandardOpenOption.APPEND);
+        }catch (IOException e) {
+            System.out.println("_appendDomainToList" + e.getStackTrace());
+        }
     }
 
 }
