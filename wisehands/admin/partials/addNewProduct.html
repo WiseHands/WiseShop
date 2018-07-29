@@ -25,19 +25,6 @@
     </div>
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
 
-        <image-cropper image-url="/wisehands/assets/images/onerror_image/onerror_image.png"
-                       width="640"
-                       height="480"
-                       show-controls="true"
-                       fit-on-init="false"
-                       center-on-init="true"
-                       api="getApiFunction"
-                       crop-callback="myCallbackFunction"
-                       check-cross-origin="false"
-                       zoom-step="0.1"
-                       action-labels="myButtonLabelsObject"
-        ></image-cropper>
-
         <div class="input-field col-md-6">
             <input id="product_name" type="text" ng-model="product.name" required>
             <label for="product_name">{{'addNewProduct.productName' | translate}}</label>
