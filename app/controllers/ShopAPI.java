@@ -382,7 +382,7 @@ public class ShopAPI extends AuthController {
 
     private static void _appendDomainToList(String domainName) {
         String filename = "domains.txt";
-        String text = "\n" + domainName;
+        String text = domainName;
         System.out.println("Appending domain name" + domainName + " to domains.txt");
         try {
             Files.write(Paths.get(filename), text.getBytes(), StandardOpenOption.APPEND);
