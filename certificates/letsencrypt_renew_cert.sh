@@ -22,10 +22,10 @@ for row in "${rows[@]}"; do
 row_array=(${row})
 first=${row_array[0]}
 #echo "-d ${first}"
-/usr/bin/certbot certonly --agree-tos --keep-until-expiring --email $email --webroot -w $w_root -d ${first} --post-hook="service lighttpd reload"
+/usr/bin/certbot certonly --agree-tos --keep-until-expiring --email $email --webroot -w $w_root -d ${first} --post-hook="/sbin/service lighttpd reload"
 cat /etc/letsencrypt/live/${first}/privkey.pem  /etc/letsencrypt/live/${first}/cert.pem > ssl.pem
 done
-service lighttpd restart
+/sbin/service lighttpd restart
 ### Test ###
 
 #for domain in ${domains[@]}; do
