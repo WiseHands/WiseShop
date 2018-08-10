@@ -59,3 +59,4 @@ fi
 done
 # restarting web-server to take effect
 /sbin/service lighttpd restart
+echo "script execution time is $SECONDS seconds"
