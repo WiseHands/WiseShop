@@ -388,6 +388,11 @@ public class ShopAPI extends AuthController {
         }catch (IOException e) {
             System.out.println("_appendDomainToList" + e.getStackTrace());
         }
+        try {
+            Thread.sleep(6500);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
     }
 
 }
