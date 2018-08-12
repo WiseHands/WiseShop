@@ -389,7 +389,7 @@ public class ShopAPI extends AuthController {
             System.out.println("_appendDomainToList" + e.getStackTrace());
         }
         try {
-            Thread.sleep(7000);
+            Thread.sleep(6500);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
