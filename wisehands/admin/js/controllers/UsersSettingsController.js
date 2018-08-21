@@ -5,10 +5,10 @@ angular.module('WiseHands')
         $http({
             method: 'GET',
             url: '/shop/user',
-            headers: {
-                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-            }
+            // headers: {
+            //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+            //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            // }
         })
             .then(function successCallback(response) {
                 $scope.loading = false;
@@ -53,10 +53,10 @@ angular.module('WiseHands')
             $http({
                 method: 'POST',
                 url: '/shop/user?email=' + email + '&phone=' + phone,
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.userError = '';
@@ -67,9 +67,9 @@ angular.module('WiseHands')
                     $scope.hideCreateUserModal();
                 }, function errorCallback(response) {
                     $scope.userError = response.data;
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });
@@ -104,19 +104,19 @@ angular.module('WiseHands')
             $http({
                 method: 'DELETE',
                 url: '/shop/user?email=' + $scope.userEmail + '&phone=' + $scope.userPhone,
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.users.splice($scope.spliceIndex, 1);
                     $scope.modalSpinner = false;
                     $scope.succesfullDelete = true;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.modalSpinner = false;
                     console.log(response);
                 });

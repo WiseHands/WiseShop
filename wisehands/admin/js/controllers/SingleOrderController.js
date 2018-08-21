@@ -9,10 +9,10 @@
                 $http({
                     method: 'GET',
                     url: '/order/' + $routeParams.uuid,
-                    headers: {
-                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                    }
+                    // headers: {
+                    //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    // }
                 })
                     .then(function successCallback(response) {
                         $scope.loading = false;
@@ -33,9 +33,9 @@
                         }
 
                     }, function errorCallback(response) {
-                        if (response.data === 'Invalid X-AUTH-TOKEN') {
-                            signout.signOut();
-                        }
+                        // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        //     signout.signOut();
+                        // }
                         $scope.loading = false;
                         $scope.status = 'Щось пішло не так...';
                     });
@@ -52,18 +52,18 @@
                     $http({
                         method: 'DELETE',
                         url: '/order/' + $routeParams.uuid,
-                        headers: {
-                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                        }
+                        // headers: {
+                        //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        // }
                     })
                         .then(function successCallback(response) {
                             $scope.modalSpinner = false;
                             $scope.succesfullDelete = true;
                         }, function errorCallback(response) {
-                            if (response.data === 'Invalid X-AUTH-TOKEN') {
-                                signout.signOut();
-                            }
+                            // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            //     signout.signOut();
+                            // }
                             $scope.modalSpinner = false;
                             console.log(response);
                         });
@@ -120,18 +120,18 @@
                     $http({
                         method: 'PUT',
                         url: '/order/' + $routeParams.uuid + '/cancelled',
-                        headers: {
-                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                        }
+                        // headers: {
+                        //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        // }
                     })
                         .then(function successCallback(response){
                             $scope.loading = false;
                             $scope.order = response.data;
                         }, function errorCallback(response){
-                            if (response.data === 'Invalid X-AUTH-TOKEN') {
-                                signout.signOut();
-                            }
+                            // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            //     signout.signOut();
+                            // }
                             $scope.loading = false;
                             console.log(response);
                         });
@@ -141,18 +141,18 @@
                     $http({
                         method: 'PUT',
                         url: '/order/' + $routeParams.uuid + '/shipped',
-                        headers: {
-                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                        }
+                        // headers: {
+                        //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        // }
                     })
                         .then(function successCallback(response){
                             $scope.loading = false;
                             $scope.order = response.data;
                         }, function errorCallback(response){
-                            if (response.data === 'Invalid X-AUTH-TOKEN') {
-                                signout.signOut();
-                            }
+                            // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                            //     signout.signOut();
+                            // }
                             $scope.loading = false;
                             console.log(response);
                         });

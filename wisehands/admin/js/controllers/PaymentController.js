@@ -6,10 +6,10 @@ angular.module('WiseHands')
         $http({
             method: 'GET',
             url: '/payment/detail',
-            headers: {
-                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-            }
+            // headers: {
+            //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+            //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            // }
         })
             .then(function successCallback(response) {
                 $scope.payment = response.data;
@@ -17,24 +17,24 @@ angular.module('WiseHands')
             }, function errorCallback(data) {
                 console.log(data);
                 $scope.loading = false;
-                signout.signOut();
+                // signout.signOut();
             });
 
             $http({
                 method: 'GET',
                 url: '/coupons',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.coupons = response.data;
                     $scope.loading = false;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });
@@ -46,18 +46,18 @@ angular.module('WiseHands')
                 method: 'PUT',
                 url: '/payment/update',
                 data: $scope.payment,
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.payment = response.data;
                     $scope.loading = false;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });
@@ -74,10 +74,10 @@ angular.module('WiseHands')
                 method: 'POST',
                 url: '/coupons',
                 data: coupons,
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.coupons = response.data;
@@ -87,9 +87,9 @@ angular.module('WiseHands')
                     $scope.plans = {};
                     $scope.loading = false;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });

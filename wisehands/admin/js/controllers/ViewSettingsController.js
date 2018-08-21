@@ -4,10 +4,10 @@ angular.module('WiseHands')
         $http({
             method: 'GET',
             url: '/shop/details',
-            headers: {
-                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-            }
+            // headers: {
+            //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+            //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            // }
         })
             .then(function successCallback(response) {
                 $scope.loading = false;
@@ -34,7 +34,7 @@ angular.module('WiseHands')
             }, function errorCallback(data) {
                 $scope.loading = false;
                 console.log(data);
-                signout.signOut();
+                // signout.signOut();
             });
 
 
@@ -127,10 +127,10 @@ angular.module('WiseHands')
             $http({
                 method: 'PUT',
                 url: '/visualsettings',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                },
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // },
                 data: $scope.shopStyling
             })
                 .success(function (response) {
@@ -143,9 +143,9 @@ angular.module('WiseHands')
                     });
                 }).
             error(function (response) {
-                if (response.data === 'Invalid X-AUTH-TOKEN') {
-                    signout.signOut();
-                }
+                // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                //     signout.signOut();
+                // }
                 $scope.loading = false;
                 console.log(response);
             });
@@ -197,17 +197,17 @@ angular.module('WiseHands')
                     transformRequest: angular.identity,
                     headers: {
                         'Content-Type': undefined,
-                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        // 'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        // 'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
                     }
                 })
                 .success(function(response){
                     $scope.loading = false;
                 })
                 .error(function(response){
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });
@@ -220,8 +220,8 @@ angular.module('WiseHands')
                     transformRequest: angular.identity,
                     headers: {
                         'Content-Type': undefined,
-                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        // 'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        // 'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
                     }
                 })
                 .success(function(response){
@@ -234,9 +234,9 @@ angular.module('WiseHands')
                     $scope.loading = false;
                 })
                 .error(function(response){
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });
@@ -264,18 +264,18 @@ angular.module('WiseHands')
             $http({
                 method: 'DELETE',
                 url: '/visualsettings/logo',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.logo = '';
                     $scope.loading = false;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });
@@ -286,10 +286,10 @@ angular.module('WiseHands')
             $http({
                 method: 'DELETE',
                 url: '/visualsettings/favicon',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.shopStyling = response.data;
@@ -298,9 +298,9 @@ angular.module('WiseHands')
                     head.removeChild(linkIcon);
                     $scope.loading = false;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });

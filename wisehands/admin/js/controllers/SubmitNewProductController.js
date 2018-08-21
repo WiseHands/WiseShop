@@ -100,10 +100,10 @@ angular.module('WiseHands')
             $http({
                 method: 'POST',
                 url: '/category',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                },
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // },
                 data: $scope.category
             })
                 .then(function successCallback(response) {
@@ -112,9 +112,9 @@ angular.module('WiseHands')
                     $scope.hideModal();
 
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });
@@ -124,10 +124,10 @@ angular.module('WiseHands')
             $http({
                 method: 'POST',
                 url: '/category',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                },
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // },
                 data: $scope.newCategory
             })
                 .then(function successCallback(response) {
@@ -141,9 +141,9 @@ angular.module('WiseHands')
                     $scope.hideModal();
 
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });
@@ -172,8 +172,8 @@ angular.module('WiseHands')
                     transformRequest: angular.identity,
                     headers: {
                         'Content-Type': undefined,
-                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        // 'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        // 'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
                     }
                 })
                 .success(function(data){
@@ -181,9 +181,9 @@ angular.module('WiseHands')
                     $location.path('/product/details/' + data.uuid);
                 })
                 .error(function(response){
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });

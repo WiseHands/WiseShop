@@ -4,17 +4,17 @@ angular.module('WiseHands')
         $http({
             method: 'GET',
             url: '/balance',
-            headers: {
-                'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-            }
+            // headers: {
+            //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+            //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+            // }
         })
             .then(function successCallback(response) {
                 $scope.loading = false;
                 $scope.balanceDetails = response.data.balanceTransactions;
             }, function errorCallback(data) {
                 $scope.loading = false;
-                signout.signOut();
+                // signout.signOut();
             });
         $scope.dateFormat = function (balanceDetail) {
                 var date = new Date(balanceDetail.date);

@@ -26,19 +26,19 @@ angular.module('WiseHands')
                 $http({
                     method: 'POST',
                     url: '/category/' + $scope.categoryUuid + '/property',
-                    headers: {
-                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                    },
+                    // headers: {
+                    //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    // },
                     data: $scope.property
                 })
                     .then(function successCallback(response) {
                         $location.path('/products/details/' + $scope.productUuid + '/edit');
                         $scope.loading = false;
                     }, function errorCallback(response) {
-                        if (response.data === 'Invalid X-AUTH-TOKEN') {
-                            signout.signOut();
-                        }
+                        // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        //     signout.signOut();
+                        // }
                         $scope.loading = false;
                         console.log(response);
                     });

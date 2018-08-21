@@ -18,17 +18,17 @@ angular.module('WiseHands')
                 method: 'PUT',
                 url: '/contact',
                 data: $scope.contacts,
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.loading = false;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.loading = false;
                     console.log(response);
                 });

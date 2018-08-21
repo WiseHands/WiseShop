@@ -22,17 +22,17 @@
                     return !val ? '':val[1];
                 };
 
-                if(urlParam("X-AUTH-USER-ID") !== "") {
+                if (urlParam("X-AUTH-USER-ID") !== "") {
                     localStorage.setItem('X-AUTH-USER-ID', urlParam("X-AUTH-USER-ID")) ;
                     localStorage.setItem('X-AUTH-TOKEN',  urlParam("X-AUTH-TOKEN")) ;
                     history.pushState({}, '', 'admin' );
                 }
 
+                // if(!localStorage.getItem('X-AUTH-TOKEN')){
+                //     window.location.hash = '';
+                //     window.location.pathname = '/login';
+                // }
 
-                if(!localStorage.getItem('X-AUTH-TOKEN')){
-                    window.location.hash = '';
-                    window.location.pathname = '/login';
-                }
                 $routeProvider.
                     when('/',{
                         templateUrl:'wisehands/admin/partials/orderList.html',
@@ -166,5 +166,35 @@
         .config(
             ['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
             tmhDynamicLocaleProvider.localeLocationPattern('wisehands/assets/angular-i18n/angular-locale_{{locale}}.js');
+        }])
+
+        // XAuthInterceptor
+        .factory('XAuthInterceptor', ['$q', function($q){
+            return {
+                request: function(config){
+                    config.headers = config.headers || {};
+                    var xAuthToken = localStorage.getItem('X-AUTH-TOKEN');
+                    var xAuthUserID = localStorage.getItem('X-AUTH-USER-ID');
+                    if ( xAuthToken && xAuthUserID ) {
+                        config.headers['X-AUTH-TOKEN'] = xAuthToken;
+                        config.headers['X-AUTH-USER-ID'] = xAuthUserID;
+                    }
+                    return config;
+                },
+                responseError: function(response){
+                    // Status 401 - User is not authorized
+                    // Status 403 - Empty X-AUTH-TOKEN || X-AUTH-USER-ID
+                    console.log('Interceptor error respponse:', response);
+                    if ( response.status === 403 || response.status === 401 ){
+                        localStorage.clear();
+                        window.location.hash = '';
+                        window.location.pathname = '/login';
+                    }
+                    return $q.reject(response);
+                }
+            }
+        }])
+        .config(['$httpProvider', function($httpProvider){
+            $httpProvider.interceptors.push('XAuthInterceptor');
         }])
 })();

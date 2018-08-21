@@ -9,19 +9,19 @@
             $http({
                 method: 'GET',
                 url: '/shop/details',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.activeShop = response.data;
                     localStorage.setItem('activeShop', $scope.activeShop.uuid);
                     $scope.loading = false;
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                 });
 
 
@@ -33,10 +33,10 @@
                     var req = {
                         method: 'GET',
                         url: '/orders',
-                        headers: {
-                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                        },
+                        // headers: {
+                        //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                        //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                        // },
                         data: {}
                     };
                         $http(req)
@@ -76,9 +76,9 @@
                                     $scope.loading = false;
                                 });
                             }, function errorCallback(response) {
-                                if (response.data === 'Invalid X-AUTH-TOKEN') {
-                                    signout.signOut();
-                                }
+                                // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                                //     signout.signOut();
+                                // }
                                 $scope.loading = false;
                                 $scope.wrongMessage = true;
                             });
@@ -95,10 +95,10 @@
             $http({
                 method: 'GET',
                 url: '/balance',
-                headers: {
-                    'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                }
+                // headers: {
+                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                // }
             })
                 .then(function successCallback(response) {
                     $scope.balanceWarning = false;
@@ -107,9 +107,9 @@
                         $scope.balanceWarning = true;
                     }
                 }, function errorCallback(response) {
-                    if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        signout.signOut();
-                    }
+                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                    //     signout.signOut();
+                    // }
                     $scope.wrongMessage = true;
                 });
 
@@ -119,10 +119,10 @@
                 var req = {
                     method: 'GET',
                     url: '/orders?page=' + pageNumber,
-                    headers: {
-                        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                        'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                    },
+                    // headers: {
+                    //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
+                    //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
+                    // },
                     data: {}
                 };
 
@@ -160,9 +160,9 @@
                         pageNumber ++;
                         $scope.loading = false;
                     }, function errorCallback(response) {
-                        if (response.data === 'Invalid X-AUTH-TOKEN') {
-                            signout.signOut();
-                        }
+                        // if (response.data === 'Invalid X-AUTH-TOKEN') {
+                        //     signout.signOut();
+                        // }
                         $scope.loading = false;
                         $scope.wrongMessage = true;
                     });
