@@ -48,3 +48,6 @@ modules/*
 !modules/grizzly
 !modules/secure
 !modules/testrunner
+
+# Application config
+conf/application.conf
