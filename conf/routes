@@ -57,8 +57,8 @@ POST    {client}/product                                ProductAPI.create
 PUT     {client}/product                                ProductAPI.update
 DELETE  {client}/product/{uuid}                         ProductAPI.delete
 
-PUT     {client}/product/{productUuid}/image            ProductImageAPI.add
-PATCH   {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.update
+POST    {client}/product/{productUuid}/image            ProductImageAPI.add
+PUT		{client}/product/{productUuid}/image/{uuid}     ProductImageAPI.update
 DELETE  {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.delete
 PUT     {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.makeMain
 
