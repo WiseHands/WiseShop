@@ -57,8 +57,9 @@ POST    {client}/product                                ProductAPI.create
 PUT     {client}/product                                ProductAPI.update
 DELETE  {client}/product/{uuid}                         ProductAPI.delete
 
-DELETE  {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.delete
 PUT     {client}/product/{productUuid}/image            ProductImageAPI.add
+PATCH   {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.update
+DELETE  {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.delete
 PUT     {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.makeMain
 
 GET     {client}/property/{uuid}                            ProductPropertyAPI.details

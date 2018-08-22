@@ -77,6 +77,39 @@ public class ProductImageAPI extends AuthController {
         renderJSON(json);
     }
 
+    public static void update(String client, String productUuid, String uuid, File fake) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        ProductImage productImage = ProductImage.findById(uuid);
+        ProductDTO product = ProductDTO.findById(productUuid);
+
+        File file = new File(USERIMAGESPATH + shop.uuid + "/" + productImage.filename);
+        if(!file.delete()){
+            System.out.println("error deleting file: " + USERIMAGESPATH + product.fileName);
+            error("error deleting file: " + USERIMAGESPATH + product.fileName);
+        }
+
+
+        List<Upload> photos = (List<Upload>) request.args.get("__UPLOADS");
+
+        List<ProductImage> images = new ArrayList<ProductImage>();
+        for(Upload photo: photos) {
+            String filename = UUID.randomUUID()+".jpg";
+            File logo = new File(USERIMAGESPATH + shop.uuid + "/" + filename);
+            FileOutputStream out = new FileOutputStream(logo);
+            out.write(photo.asBytes());
+            out.close();
+            productImage.filename = filename;
+            productImage = productImage.save();
+        }
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(product);
+        renderJSON(json);
+    }
+
     public static void makeMain(String client, String uuid, String productUuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
