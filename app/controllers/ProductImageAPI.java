@@ -107,7 +107,7 @@ public class ProductImageAPI extends AuthController {
         }
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(product);
+        String json = gson.toJson(productImage);
         renderJSON(json);
     }
 
