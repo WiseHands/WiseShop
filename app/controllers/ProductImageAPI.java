@@ -77,7 +77,8 @@ public class ProductImageAPI extends AuthController {
         renderJSON(json);
     }
 
-    public static void update(String client, String productUuid, String uuid, File fake) throws Exception {
+    public static void update(String client, String productUuid, String uuid) throws Exception {
+        System.out.println("ProductImageApi " + client + " " + productUuid + " " + uuid);
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
