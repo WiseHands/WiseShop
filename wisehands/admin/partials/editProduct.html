@@ -53,7 +53,7 @@
 
                     <!-- Indicators -->
                     <div class="col-xs-4">
-                        <ul class="carousel-indicators correctImageDisplay" ng-show="productImages.length >= 2">
+                        <ul class="carousel-indicators correctImageDisplay" ng-show="productImages.length">
                             <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
                                 <img src="{{image.dataURL}}"
                                      class="img-responsive z-depth-1 hoverable"
