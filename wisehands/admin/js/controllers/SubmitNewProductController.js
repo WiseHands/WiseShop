@@ -1,6 +1,7 @@
 angular.module('WiseHands')
-    .controller('SubmitNewProductController', ['$scope', '$location', '$http', 'signout',
-        function ($scope, $location, $http, signout) {
+    .controller('SubmitNewProductController', [
+        '$scope', '$location', '$http', 'signout', '$uibModal',
+        function ($scope, $location, $http, signout, $uibModal) {
 
 
         $http({
@@ -94,6 +95,39 @@ angular.module('WiseHands')
                 $scope.product.mainPhoto = 0;
             }
         };
+
+        // Edit image
+        $scope.editImage = function(image, index){
+            console.log('Dto', $scope.productImagesDTO);
+            console.log($scope.productImages);
+            if ( image ){
+                var modal = $uibModal.open({
+                    size: 'md',
+                    templateUrl: '/wisehands/admin/partials/ImageCropper.html',
+                    controller: 'ImageCropperController',
+                    controllerAs: 'vm',
+                    resolve: {
+                        currentImage: function(){
+                            return {
+                                dataURL: image
+                            };
+                        }
+                    }
+                });
+                modal.result.then(
+                    function(result){
+                        var idx = $scope.productImages.indexOf(image);
+                        $scope.productImages[idx] = result;
+
+                        var blob = dataURItoBlob(result);
+                        $scope.productImagesDTO[index] = blob;
+                    },
+                    function(err){
+                        console.log(err);
+                    }
+                )
+            }
+        }
 
         $scope.createCategory = function () {
             $scope.loading = true;

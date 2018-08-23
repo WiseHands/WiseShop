@@ -1,7 +1,7 @@
 (function () {
     angular.module('WiseHands', [
         'ngRoute', 'angularSpinners', 'colorpicker.module', 'chart.js', 'pascalprecht.translate', 'tmh.dynamicLocale',
-        'ngCookies', 'ngSanitize', 'ngTagsInput', 'imageCropper'
+        'ngCookies', 'ngSanitize', 'ngTagsInput', 'imageCropper', 'ui.bootstrap'
     ])
         .constant('LOCALES', {
             'locales': {
@@ -146,7 +146,7 @@
                     }).
                     otherwise({
                         redirectTo:'/'
-                });
+                    });
             }])
         .config(
             ['$translateProvider', function ($translateProvider) {

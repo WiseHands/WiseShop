@@ -1,8 +1,63 @@
 angular.module('WiseHands')
-    .controller('EditProductController', ['$http', '$scope', '$routeParams', '$location', 'signout', function($http, $scope, $routeParams, $location, signout) {
+    .controller('EditProductController', [
+        '$http', '$scope', '$routeParams', '$location', 'signout', '$uibModal',
+        function($http, $scope, $routeParams, $location, signout, $uibModal) {
 
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
+
+            // Edit image
+            $scope.editImage = function(image){
+                if ( image && image.uuid ){
+                    var modal = $uibModal.open({
+                        size: 'md',
+                        templateUrl: '/wisehands/admin/partials/ImageCropper.html',
+                        controller: 'ImageCropperController',
+                        controllerAs: 'vm',
+                        resolve: {
+                            currentImage: function(){
+                                return image;
+                            }
+                        }
+                    });
+                    modal.result.then(
+                        function(result){
+                            var formData = new FormData();
+                            formData.append("photos[0]", dataURItoBlob(result));
+                            $http.put('/product/'+ $routeParams.uuid +'/image/'+ image.uuid, formData, {
+                                transformRequest: angular.identity,
+                                headers: {
+                                    'Content-Type': undefined
+                                }
+                            })
+                                .then(function(response){
+                                    $scope.activeShop = localStorage.getItem('activeShop');
+                                    var data = response.data;
+                                    var img = new Image();
+                                    img.onload = function() {
+                                        var canvas = document.getElementById("editCanvas");
+                                        canvas.width = img.width;
+                                        canvas.height = img.height;
+                                        canvas.getContext("2d").drawImage(img, 0,0, canvas.width, canvas.height);
+                                        var dataURL = canvas.toDataURL('image/jpeg', 0.9);
+                                        $scope.$apply(function(){
+                                            var idx = $scope.productImages.indexOf(image);
+                                            $scope.productImages[idx] = $.extend({}, image, {
+                                                dataURL: dataURL
+                                            });
+                                        });
+                                    };
+                                    img.src = '/public/product_images/' + $scope.activeShop + '/' + data.filename;
+                                }).catch(function(err){
+                                    console.error(err);
+                                });
+                        },
+                        function(err){
+                            console.log(err);
+                        }
+                    )
+                }
+            }
 
             $http({
                 method: 'GET',
@@ -63,7 +118,7 @@ angular.module('WiseHands')
                     });
                     img.src = '/public/product_images/' + $scope.activeShop + '/' + image.filename;
 
-                    });
+                });
 
             };
 
@@ -123,7 +178,7 @@ angular.module('WiseHands')
                 var blob = $scope.myBlob[i];
                 imageFd.append("photos[" + i + "]", blob);
             }
-            $http.put('/product/' + $routeParams.uuid + '/image', imageFd, {
+            $http.post('/product/' + $routeParams.uuid + '/image', imageFd, {
                     transformRequest: angular.identity,
                     headers: {
                         'Content-Type': undefined,
@@ -164,7 +219,7 @@ angular.module('WiseHands')
                 }
                 $http({
                     method: 'PUT',
-                    url: '/product/' + $routeParams.uuid + '/image/' + uuid,
+                    url: '/product/' + $routeParams.uuid + '/main-image/' + uuid
                     // headers: {
                     //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
                     //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
@@ -199,7 +254,7 @@ angular.module('WiseHands')
                 $scope.loading = true;
                 $http({
                     method: 'DELETE',
-                    url: '/product/' + $routeParams.uuid + '/image/' + uuid,
+                    url: '/product/' + $routeParams.uuid + '/image/' + uuid
                     // headers: {
                     //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
                     //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
@@ -240,6 +295,9 @@ angular.module('WiseHands')
                 fd.append('sortOrder', $scope.product.sortOrder);
                 fd.append('properties', JSON.stringify($scope.product.properties));
 
+                // for ( var i = 0; i < $scope.productImages.length; i++ ){
+                //     fd.append("photos["+ i +"]", $scope.productImages[i]);
+                // }
 
                 $http.put('/product', fd, {
                         transformRequest: angular.identity,
