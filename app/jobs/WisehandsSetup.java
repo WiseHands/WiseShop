@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 @OnApplicationStart
-public class HappyBagSetup extends Job {
+public class WisehandsSetup extends Job {
     private static final String SVYAT = "sviatoslav.p5@gmail.com";
     private static final String BOGDAN = "bohdaq@gmail.com";
     private static final String VOVA = "patlavovach@gmail.com";
@@ -48,7 +48,7 @@ public class HappyBagSetup extends Job {
 
         List<UserDTO> users = new ArrayList<UserDTO>();
         UserDTO user = new UserDTO(BOGDAN, PASSWORD, "380630386173", false);
-        users.add(user);
+        //users.add(user);
 
         user = new UserDTO(VOVA, PASSWORD, "380631206871", false);
         users.add(user);
@@ -57,7 +57,7 @@ public class HappyBagSetup extends Job {
         users.add(user);
 
         user = new UserDTO(TARAS, PASSWORD, "380938864304", false);
-        users.add(user);
+        //users.add(user);
 
         user = new UserDTO(SERHIY, PASSWORD, "380630211035", false);
         users.add(user);

@@ -293,6 +293,9 @@ public class ShopAPI extends AuthController {
     public static void create(String name, String domain) throws Exception {
         checkAuthentification(null);
 
+        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        UserDTO user = UserDTO.findById(userId);
+
         try {
 
             boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
@@ -304,7 +307,7 @@ public class ShopAPI extends AuthController {
                         forbidden(domain + " is used by another user. Please select other one");
                     }
                     System.out.println("Creating shop with domain name " + domain);
-                    ShopDTO shop = createShop(name, domain);
+                    ShopDTO shop = createShop(name, domain, user);
                     renderJSON(json(shop));
                 }
                 forbidden("Domain in dev env should follow yourdomain.localhost pattern. You entered " + domain);
@@ -316,7 +319,7 @@ public class ShopAPI extends AuthController {
                         forbidden(domain + " is used by another user. Please select other one");
                     }
                     System.out.println("Creating shop with domain name " + domain);
-                    ShopDTO shop = createShop(name, domain);
+                    ShopDTO shop = createShop(name, domain, user);
                     renderJSON(json(shop));
                 }
                 forbidden("domain ip address is not correct: " + domainIp);
@@ -331,9 +334,7 @@ public class ShopAPI extends AuthController {
 
     }
 
-    private static ShopDTO createShop(String name, String domain){
-        String userId = request.headers.get(X_AUTH_USER_ID).value();
-        UserDTO user = UserDTO.findById(userId);
+    private static ShopDTO createShop(String name, String domain, UserDTO user){
 
         ShopDTO shopWithGivenDomain = ShopDTO.find("byDomain", domain).first();
         if(shopWithGivenDomain != null) {
