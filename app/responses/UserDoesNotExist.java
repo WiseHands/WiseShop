@@ -12,7 +12,7 @@ public class UserDoesNotExist {
 
     public UserDoesNotExist(){
         this.code = 10;
-        this.status = "User with given email doesn't exist";
+        this.status = "User with given phone number doesn't exist";
     }
 
     @Override

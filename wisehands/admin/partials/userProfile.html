@@ -74,12 +74,12 @@
                             <p class="text-center" ng-show="newStore.domain">{{'settings.domainTips2' | translate}}:</p>
                             <p class="text-center" ng-show="newStore.domain">http://{{newStore.domain}}.wisehands.me</p>
                         </div>
-                        <div class="row text-center">
-                            <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
-                        </div>
                         <div class="text-center">
                             <p class="errorTextStyling text-center">{{errorMessage}}</p>
-                            <button type="submit" ng-hide="loading" class="btn secondaryColor waves-effect waves-light" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid">{{'categories.create' | translate}}</button>
+                            <button type="submit" class="btn secondaryColor waves-effect waves-light" ng-click="createNewStore()" ng-disabled="createNewStoreForm.$invalid" ng-hide="loading">{{'categories.create' | translate}}</button>
+                            <div class="row text-center">
+                                <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+                            </div>
                         </div>
                     </form>
                 </div>

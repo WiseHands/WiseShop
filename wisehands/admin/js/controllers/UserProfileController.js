@@ -129,37 +129,20 @@ angular.module('WiseHands')
                     // }
                 })
                     .success(function (data) {
-                        $scope.loading = false;
-                        $scope.shops.push(data);
-                        window.location.href = window.location.protocol + "//"
-                            + data.domain + ":" + window.location.port
-                            + "/admin"
-                            + '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token;
+                        setTimeout(function() {
+                           $scope.loading = false;
+                           $scope.shops.push(data);
+                           window.location.href = window.location.protocol + "//"
+                                + data.domain + ":" + window.location.port
+                                + "/admin"
+                                + '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token;
+                        }, 10000);
                     }).
                 error(function (error) {
                     $scope.loading = false;
                     $scope.errorMessage = error;
                 });
             };
-            // $scope.dateFormat = function (balanceDetail) {
-            //     var date = new Date(balanceDetail.date);
-            //     var ddyymm = new Date(balanceDetail.date).toISOString().slice(0,10);
-            //     var hour = (date.getHours()<10?'0':'') + date.getHours();
-            //     var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
-            //     return ddyymm + ' ' + hour + ':' + minute;
-            // };
-            // $scope.paymentState = function(balanceDetail){
-            //     if (balanceDetail.amount > 0){
-            //         return 'teal';
-            //     } else {
-            //         return '#03a9f4';
-            //     }
-            // };
-            // $scope.isTransactionPayed = function (balanceDetail) {
-            //     if (balanceDetail.state === 'PAYED') {
-            //         return true;
-            //     }
-            //
-            // }
+
             sideNavInit.sideNav();
         }]);

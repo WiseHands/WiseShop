@@ -24,6 +24,6 @@
   "main.smsСode": "VERIFICATION CODE",
   "main.passError": "Password Missmatch",
   "directives.language-select.Language": "Language",
-  "error.10": "User with given email doesn't exist",
+  "error.10": "User with given phone number doesn't exist",
   "error.20": "Invalid Password"
 }
