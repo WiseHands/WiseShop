@@ -290,48 +290,56 @@ public class ShopAPI extends AuthController {
         renderJSON(json(shop));
     }
 
-    public static void create(String name, String domain) throws Exception {
+    public static void create(String name, String domain) {
         checkAuthentification(null);
 
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO user = UserDTO.findById(userId);
 
-        try {
-
-            boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
-
-            if(isDevEnv){
-                if (domain.contains(".localhost")) {
-                    boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
-                    if (isDomainRegisteredAlready) {
-                        forbidden(domain + " is used by another user. Please select other one");
-                    }
-                    System.out.println("Creating shop with domain name " + domain);
-                    ShopDTO shop = createShop(name, domain, user);
-                    renderJSON(json(shop));
-                }
-                forbidden("Domain in dev env should follow yourdomain.localhost pattern. You entered " + domain);
-            } else {
-                String domainIp = InetAddress.getByName(domain).getHostAddress();
-                if (domainIp.equals(SERVER_IP)) {
-                    boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
-                    if (isDomainRegisteredAlready) {
-                        forbidden(domain + " is used by another user. Please select other one");
-                    }
-                    System.out.println("Creating shop with domain name " + domain);
-                    ShopDTO shop = createShop(name, domain, user);
-                    renderJSON(json(shop));
-                }
-                forbidden("domain ip address is not correct: " + domainIp);
-            }
-
-        } catch (UnknownHostException e) {
-            System.out.println(e.getStackTrace());
-            forbidden("Unknown Host for domain enetered for shop: " + domain);
+        DomainValidation domainValidation = validateShopDetails(domain);
+        if (domainValidation.isValid) {
+            System.out.println("Creating shop with domain name " + domain);
+            ShopDTO shop = createShop(name, domain, user);
+            renderJSON(json(shop));
+        } else {
+            forbidden(domainValidation.errorReason);
         }
 
+    }
 
+    static class DomainValidation {
+        boolean isValid;
+        String errorReason;
+    }
 
+    private static DomainValidation validateShopDetails(String domain) {
+        boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
+        DomainValidation domainValidation = new DomainValidation();
+        if(isDevEnv){
+            domainValidation.isValid = domain.contains(".localhost");
+            domainValidation.errorReason = "Domain in dev env should follow yourdomain.localhost pattern. You entered " + domain;
+        } else {
+            String domainIp = null;
+            try {
+                domainIp = InetAddress.getByName(domain).getHostAddress();
+                if (!domainIp.equals(SERVER_IP)) {
+                    domainValidation.isValid = false;
+                    domainValidation.errorReason = "domain ip address is not correct: " + domainIp;
+                }
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+                domainValidation.isValid = false;
+                domainValidation.errorReason = "Unknown Host for domain enetered for shop: " + domain;
+            }
+
+        }
+
+        boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
+        if (isDomainRegisteredAlready) {
+            domainValidation.isValid = false;
+            domainValidation.errorReason = domain + " is used by another user. Please select other one";
+        }
+        return domainValidation;
     }
 
     private static ShopDTO createShop(String name, String domain, UserDTO user){
