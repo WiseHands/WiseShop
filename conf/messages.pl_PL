@@ -31,3 +31,6 @@ mail.label.total = Całkowity
 mail.label.neworder = Nowe zamówienie
 mail.label.details = Detale
 mail.label.comment = Komentarz
+create.shop.courier.delivery.text = Zadzwoń do kuriera - %s lub bezpłatnie (jeśli wielkość zamówienia przekracza %s PLN).
+create.shop.selfpickup.delivery.text = Odbiór własny
+create.shop.postservice.delivery.text = Zamów dostawę do najbliższego nowego urzędu pocztowego w Twoim mieście.

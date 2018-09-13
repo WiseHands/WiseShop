@@ -9,8 +9,11 @@ import org.json.simple.parser.JSONParser;
 import play.i18n.Messages;
 import responses.InvalidPassword;
 import responses.UserDoesNotExist;
+import services.ShopService;
+import services.ShopServiceImpl;
 import services.SmsSender;
 import services.SmsSenderImpl;
+import util.DomainValidation;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -25,8 +28,8 @@ import java.util.List;
 public class UserAPI extends AuthController {
     private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
     private static final String X_AUTH_USER_ID = "x-auth-user-id";
-
-    static SmsSender smsSender = new SmsSenderImpl();
+    private static ShopService shopService = ShopServiceImpl.getInstance();
+    private static SmsSender smsSender = new SmsSenderImpl();
 
     public static void register(String email, String password, String passwordConfirmation,
                                 String shopName, String name, String language,
@@ -48,56 +51,25 @@ public class UserAPI extends AuthController {
                     String reason = Messages.get("user.with.phone.number.already.exist");
                     forbidden(reason);
                 }
-                ShopDTO shopWithGivenDomain = ShopDTO.find("byDomain", clientDomain).first();
-                if(shopWithGivenDomain != null) {
-                    String reason = Messages.get("shop.with.domain.already.exist");
-                    forbidden(reason);
-                }
                 user.phone = phone;
             } else {
                 //NOT GOOGLE SIGN IN
                 if (!password.equals(passwordConfirmation)) {
                     error(Messages.get("password.mismatch"));
                 }
-                ShopDTO shopWithGivenDomain = ShopDTO.find("byDomain", clientDomain).first();
-                if(shopWithGivenDomain != null) {
-                    String reason = Messages.get("shop.with.domain.already.exist");
-                    forbidden(reason);
-                }
                 user = new UserDTO(email, password, phone, false);
                 user.name = name;
             }
-            user.save();
-
-            Double courierDeliveryPrice = 40.0;
-            Double courierFreeDeliveryPrice = 9999.0;
-            DeliveryDTO delivery = new DeliveryDTO(
-                    true, "Викликати кур’єра по Львову – 35 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
-                    true, "Самовивіз",
-                    true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)",
-                    courierDeliveryPrice, courierFreeDeliveryPrice
-            );
-            delivery.save();
-
-            ContactDTO contact = new ContactDTO(user.phone, user.email, "Lviv", "25.67:48.54", "Best Company Ever");
-            contact.save();
-
-            List<UserDTO> users = new ArrayList<UserDTO>();
-            users.add(user);
-
-            PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, (double) 500);
-            BalanceDTO balance = new BalanceDTO();
-
-            VisualSettingsDTO visualSettings = new VisualSettingsDTO();
-            visualSettings.navbarTextColor = "#fff";
-            visualSettings.navbarColor = "#072e6e";
-            visualSettings.navbarShopItemsColor = "#F44336";
-            SidebarColorScheme color = (SidebarColorScheme) SidebarColorScheme.findAll().get(0);
-            visualSettings.sidebarColorScheme = color;
-
-            ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, shopName, "", "", clientDomain, language);
-            shop.save();
-
+            ShopDTO shop = null;
+            DomainValidation domainValidation = shopService.validateShopDetails(clientDomain);
+            if (domainValidation.isValid) {
+                System.out.println("Creating user with e-mail " + user.email + " and phone " + user.phone);
+                user.save();
+                System.out.println("Creating shop with domain name " + clientDomain);
+                shop = shopService.createShop(name, clientDomain, user);
+            } else {
+                forbidden(domainValidation.errorReason);
+            }
             response.setHeader(X_AUTH_TOKEN, user.token);
             String json = json(user);
             String greetingText = Messages.get("new.shop.created", shop.shopName);

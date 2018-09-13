@@ -5,10 +5,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
 import play.i18n.Messages;
-import services.MailSender;
-import services.MailSenderImpl;
-import services.SmsSender;
-import services.SmsSenderImpl;
+import services.*;
+import util.DomainValidation;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -23,14 +21,10 @@ import java.util.List;
 import java.util.Random;
 
 public class ShopAPI extends AuthController {
-    public static final String WISEHANDS_STATIC_MAPS_KEY = "AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg";
-    public static final String WISEHANDS_MAPS_KEY = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
-    public static final String SHOP_OPEN_FROM = "1969-12-31T22:00:00.000Z";
-    public static final String SHOP_OPEN_UNTIL = "1970-01-01T21:59:00.000Z";
-    public static final String SERVER_IP = "91.224.11.24";
 
     static MailSender mailSender = new MailSenderImpl();
     static SmsSender smsSender = new SmsSenderImpl();
+    static ShopService shopService = ShopServiceImpl.getInstance();
 
     public static void updateDomain(String client, String domain) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -296,112 +290,15 @@ public class ShopAPI extends AuthController {
         String userId = request.headers.get(X_AUTH_USER_ID).value();
         UserDTO user = UserDTO.findById(userId);
 
-        DomainValidation domainValidation = validateShopDetails(domain);
+        DomainValidation domainValidation = shopService.validateShopDetails(domain);
         if (domainValidation.isValid) {
             System.out.println("Creating shop with domain name " + domain);
-            ShopDTO shop = createShop(name, domain, user);
+            ShopDTO shop = shopService.createShop(name, domain, user);
             renderJSON(json(shop));
         } else {
             forbidden(domainValidation.errorReason);
         }
 
-    }
-
-    static class DomainValidation {
-        boolean isValid;
-        String errorReason;
-    }
-
-    private static DomainValidation validateShopDetails(String domain) {
-        boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
-        DomainValidation domainValidation = new DomainValidation();
-        if(isDevEnv){
-            domainValidation.isValid = domain.contains(".localhost");
-            domainValidation.errorReason = "Domain in dev env should follow yourdomain.localhost pattern. You entered " + domain;
-        } else {
-            String domainIp = null;
-            try {
-                domainIp = InetAddress.getByName(domain).getHostAddress();
-                if (!domainIp.equals(SERVER_IP)) {
-                    domainValidation.isValid = false;
-                    domainValidation.errorReason = "domain ip address is not correct: " + domainIp;
-                }
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-                domainValidation.isValid = false;
-                domainValidation.errorReason = "Unknown Host for domain enetered for shop: " + domain;
-            }
-
-        }
-
-        boolean isDomainRegisteredAlready = !ShopDTO.find("byDomain", domain).fetch().isEmpty();
-        if (isDomainRegisteredAlready) {
-            domainValidation.isValid = false;
-            domainValidation.errorReason = domain + " is used by another user. Please select other one";
-        }
-        return domainValidation;
-    }
-
-    private static ShopDTO createShop(String name, String domain, UserDTO user){
-
-        ShopDTO shopWithGivenDomain = ShopDTO.find("byDomain", domain).first();
-        if(shopWithGivenDomain != null) {
-            String reason = Messages.get("shop.with.domain.already.exist");
-            forbidden(reason);
-        }
-
-        Double courierDeliveryPrice = 40.0;
-        Double courierFreeDeliveryLimit = 9999.0;
-        DeliveryDTO delivery = new DeliveryDTO(
-                true, "Викликати кур’єра по Львову – 40 грн або безкоштовно (якщо розмір замовлення перевищує 500 грн.)",
-                true, "Самовивіз",
-                true, "Замовити доставку до найближчого відділення Нової Пошти у Вашому місті (від 35 грн.)",
-                courierDeliveryPrice,
-                courierFreeDeliveryLimit
-        );
-        delivery.save();
-
-        PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, (double) 500);
-        paymentSettings.save();
-
-        ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Львів, вул. Академіка Люльки, 4", "49.848596:24.0229203", "МИ СТВОРИЛИ ТОРБУ ЩАСТЯ ДЛЯ ТОГО, ЩОБ МІЛЬЙОНИ ЛЮДЕЙ МАЛИ МОЖЛИВІСТЬ КОЖНОГО ДНЯ ВЧАСНО ОТРИМУВАТИ ЦІКАВІ ВІДПОВІДІ ТА СВОЄ НАТХНЕННЯ НА ЧУДОВИЙ ДЕНЬ");
-        contact.save();
-
-        List<UserDTO> users = new ArrayList<UserDTO>();
-        users.add(user);
-
-        BalanceDTO balance = new BalanceDTO();
-
-        VisualSettingsDTO visualSettings = new VisualSettingsDTO();
-        visualSettings.navbarTextColor = "#fff";
-        visualSettings.navbarColor = "#072e6e";
-        visualSettings.navbarShopItemsColor = "#F44336";
-        SidebarColorScheme color = (SidebarColorScheme) SidebarColorScheme.findAll().get(0);
-        visualSettings.sidebarColorScheme = color;
-
-        ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, name, "", "", domain, "en_US");
-        shop.startTime = SHOP_OPEN_FROM;
-        shop.endTime = SHOP_OPEN_UNTIL;
-        shop.googleStaticMapsApiKey = WISEHANDS_STATIC_MAPS_KEY;
-        shop.googleMapsApiKey = WISEHANDS_MAPS_KEY;
-
-        _appendDomainToList(domain);
-        return shop = shop.save();
-    }
-
-    private static void _appendDomainToList(String domainName) {
-        String filename = "domains.txt";
-        System.out.println("Appending domain name" + domainName + " to domains.txt");
-        try {
-            Files.write(Paths.get(filename), (domainName + System.lineSeparator()).getBytes(),StandardOpenOption.CREATE,StandardOpenOption.APPEND);
-        }catch (IOException e) {
-            System.out.println("_appendDomainToList" + e.getStackTrace());
-        }
-        try {
-            Thread.sleep(6500);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
     }
 
 }

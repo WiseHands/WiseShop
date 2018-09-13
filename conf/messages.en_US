@@ -31,3 +31,6 @@ mail.label.total = Total
 mail.label.neworder = New Order
 mail.label.details = Details
 mail.label.comment = Comment
+create.shop.courier.delivery.text = Call a courier - %s or free of charge (if the order size exceeds %s USD).
+create.shop.selfpickup.delivery.text = Self pickup
+create.shop.postservice.delivery.text = Order delivery to the nearest new post office in your city.
