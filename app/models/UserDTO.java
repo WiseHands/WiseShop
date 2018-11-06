@@ -46,6 +46,8 @@ public class UserDTO extends GenericModel {
     @Expose
     public boolean isGoogleSignIn;
 
+    public boolean isSuperUser;
+
     public String password;
 
     @Expose

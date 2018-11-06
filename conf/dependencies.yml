@@ -3,6 +3,7 @@
 
 require:
     - play
+    - com.fasterxml.jackson.core -> jackson-databind 2.8.4
     - com.google.api-client -> google-api-client 1.19.1
     - org.json -> json 20151123
     - com.googlecode.htmlcompressor -> htmlcompressor 1.4
@@ -10,6 +11,7 @@ require:
     - com.liqpay -> liqpay-sdk 0.6
     - nl.big-o -> liqp 0.7.3
     - javax.xml.bind -> jaxb-api 2.1
+    - com.auth0 -> java-jwt 3.4.1
 
 repositories:
     - bintray-stokito-maven:

@@ -1,11 +1,15 @@
 package controllers;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import models.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.Play;
 import play.i18n.Messages;
 import responses.InvalidPassword;
 import responses.UserDoesNotExist;
@@ -20,13 +24,12 @@ import javax.mail.internet.InternetAddress;
 import java.io.FileReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class UserAPI extends AuthController {
     private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
+    private static final String JWT_TOKEN = "JWT_TOKEN";
     private static final String X_AUTH_USER_ID = "x-auth-user-id";
     private static ShopService shopService = ShopServiceImpl.getInstance();
     private static SmsSender smsSender = new SmsSenderImpl();
@@ -99,6 +102,9 @@ public class UserAPI extends AuthController {
                 forbidden(json(error));
             }
 
+
+            String jwtToken = generateToken(user);
+            response.setHeader(JWT_TOKEN, jwtToken);
             response.setHeader(X_AUTH_TOKEN, user.token);
             String json = json(user);
 
@@ -254,6 +260,32 @@ public class UserAPI extends AuthController {
         }
 
         notFound();
+    }
+
+    private static String generateToken(UserDTO user) {
+        String token = "";
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+
+            long nowMillis = System.currentTimeMillis();
+            Date now = new Date(nowMillis);
+
+            token = JWT.create()
+                    .withIssuedAt(now)
+                    .withSubject(user.name)
+                    .withClaim("name", user.name)
+                    .withClaim("uuid", user.uuid)
+                    .withClaim("email", user.email)
+                    .withClaim("phone", user.phone)
+                    .withClaim("locale", user.locale)
+                    .withClaim("isSuperAdmin", user.isSuperUser)
+                    .withIssuer("wisehands")
+                    .sign(algorithm);
+        } catch (JWTCreationException exception){
+            //Invalid Signing configuration / Couldn't convert Claims.
+        }
+        return token;
     }
 
 }

@@ -2,16 +2,11 @@ package jobs;
 
 import models.*;
 import play.Play;
-import play.db.jpa.JPABase;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 @OnApplicationStart
 public class WisehandsSetup extends Job {
@@ -48,25 +43,32 @@ public class WisehandsSetup extends Job {
 
         List<UserDTO> users = new ArrayList<UserDTO>();
         UserDTO user = new UserDTO(BOGDAN, PASSWORD, "380630386173", false);
-        //users.add(user);
+        user.isSuperUser = true;
+        users.add(user);
 
         user = new UserDTO(VOVA, PASSWORD, "380631206871", false);
+        user.isSuperUser = true;
         users.add(user);
 
         user = new UserDTO(VOA, PASSWORD, "380632441621", false);
+        user.isSuperUser = true;
         users.add(user);
 
         user = new UserDTO(TARAS, PASSWORD, "380938864304", false);
-        //users.add(user);
+        user.isSuperUser = true;
+        users.add(user);
 
         user = new UserDTO(SERHIY, PASSWORD, "380630211035", false);
+        user.isSuperUser = true;
         users.add(user);
 
         if(!isDevEnv) {
             user = new UserDTO(SVYAT, PASSWORD, "380932092108", false);
+            user.isSuperUser = true;
             users.add(user);
 
             user = new UserDTO(VOVA, PASSWORD, "380631206871", false);
+            user.isSuperUser = true;
             users.add(user);
         }
 

@@ -37,18 +37,11 @@ angular.module('WiseHands')
                     $http({
                         method: 'PUT',
                         url: '/shop/' + currentLocale
-                        // headers: {
-                        //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                        //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                        // }
                     })
                         .success(function (response) {
                             localStorage.setItem('locale', currentLocale);
                         }).
                     error(function (response) {
-                        // if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        //     signout.signOut();
-                        // }
                         $scope.loading = false;
                         console.log(response);
                     });

@@ -28,10 +28,6 @@
                     history.pushState({}, '', 'admin' );
                 }
 
-                // if(!localStorage.getItem('X-AUTH-TOKEN')){
-                //     window.location.hash = '';
-                //     window.location.pathname = '/login';
-                // }
 
                 $routeProvider.
                     when('/',{
@@ -175,9 +171,11 @@
                     config.headers = config.headers || {};
                     var xAuthToken = localStorage.getItem('X-AUTH-TOKEN');
                     var xAuthUserID = localStorage.getItem('X-AUTH-USER-ID');
+                    var jwtToken = 'Bearer ' + localStorage.getItem('JWT_TOKEN');
                     if ( xAuthToken && xAuthUserID ) {
                         config.headers['X-AUTH-TOKEN'] = xAuthToken;
                         config.headers['X-AUTH-USER-ID'] = xAuthUserID;
+                        config.headers['Authorization'] = jwtToken;
                     }
                     return config;
                 },

@@ -5,9 +5,9 @@ angular.module('WiseShop')
                 $http.get('/shop/details',
                     {
                         headers: {
-                            'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                            'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')}
-                                    })
+                                    'X-Authorization': 'Bearer ' + localStorage.getItem('JWT_TOKEN')
+                                }
+                    })
                     .success(function(data) {
                     callback(data);
                 });

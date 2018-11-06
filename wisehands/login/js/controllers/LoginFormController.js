@@ -47,6 +47,7 @@
 
             function successLoginHandler(data, status, headers) {
 				var token = headers("X-AUTH-TOKEN");
+				var jwtToken = headers("JWT_TOKEN");
 				var userId = data.uuid;
 				if(!token || !userId){
 					$scope.deniedMsg = false;
@@ -54,8 +55,9 @@
 					return;
 				}
 
-				localStorage.setItem('X-AUTH-USER-ID', userId) ;
-				localStorage.setItem('X-AUTH-TOKEN', token) ;
+				localStorage.setItem('X-AUTH-USER-ID', userId);
+				localStorage.setItem('X-AUTH-TOKEN', token);
+				localStorage.setItem('JWT_TOKEN', jwtToken);
 
                 if(data.email === 'patlavovach@gmail.com' || data.email === 'bohdaq@gmail.com'){
                     if (data.shopList && data.shopList.length === 0){
