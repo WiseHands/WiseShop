@@ -95,7 +95,7 @@ public class ShopAPI extends AuthController {
         }
         checkAuthentification(shop);
 
-        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user.shopList));
     }
@@ -268,7 +268,7 @@ public class ShopAPI extends AuthController {
            forbidden(Messages.get("user.not.found"));
         }
 
-        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        String userId = loggedInUser.uuid;
         UserDTO loggedInUser = UserDTO.findById(userId);
 
         if (loggedInUser == user) {
@@ -287,7 +287,7 @@ public class ShopAPI extends AuthController {
     public static void create(String name, String domain) {
         checkAuthentification(null);
 
-        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
 
         DomainValidation domainValidation = shopService.validateShopDetails(domain);

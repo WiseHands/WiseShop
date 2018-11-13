@@ -3,19 +3,12 @@ angular.module('WiseHands')
         function ($scope, $http, sideNavInit, signout) {
             $scope.loading = true;
 
-            var token = localStorage.getItem('X-AUTH-TOKEN');
-            var userId = localStorage.getItem('X-AUTH-USER-ID');
-
             $scope.getMainAnalyticsData = function (days) {
                 $scope.loading = true;
                 $scope.days = days;
                 $http({
                     method: 'GET',
                     url: '/analytics' + days,
-                    // headers: {
-                    //     'X-AUTH-TOKEN': token,
-                    //     'X-AUTH-USER-ID': userId
-                    // }
                 })
                     .then(function successCallback(response) {
                         $scope.analytics = response.data;
@@ -61,9 +54,6 @@ angular.module('WiseHands')
                         };
                         $scope.loading = false;
                     }, function errorCallback(response) {
-                        // if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        //     signout.signOut();
-                        // }
                         $scope.status = 'Щось пішло не так...';
                     });
 
@@ -72,10 +62,6 @@ angular.module('WiseHands')
                 $http({
                     method: 'GET',
                     url: '/orders',
-                    // headers: {
-                    //     'X-AUTH-TOKEN': token,
-                    //     'X-AUTH-USER-ID': userId
-                    // }
                 })
                     .then(function successCallback(response) {
                         $scope.orders = response.data;
@@ -95,9 +81,6 @@ angular.module('WiseHands')
                         initialize($scope.ordersAdresses);
                         $scope.loading = false;
                     }, function errorCallback(response) {
-                        // if (response.data === 'Invalid X-AUTH-TOKEN') {
-                        //     signout.signOut();
-                        // }
                         $scope.loading = false;
                     });
 

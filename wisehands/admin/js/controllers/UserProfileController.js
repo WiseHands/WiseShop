@@ -4,8 +4,7 @@ angular.module('WiseHands')
             $scope.loading = true;
 
 
-            var token = localStorage.getItem('X-AUTH-TOKEN');
-            var userId = localStorage.getItem('X-AUTH-USER-ID');
+            var token = localStorage.getItem('JWT_TOKEN');
             $scope.hostName = window.location.hostname;
 
 
@@ -76,7 +75,7 @@ angular.module('WiseHands')
                 window.location.href = window.location.protocol + "//"
                     + $scope.selectedShop.domain + ":" + window.location.port
                     + "/admin"
-                    + '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token;
+                    + '?JWT_TOKEN=' + token;
             };
 
 
@@ -109,7 +108,7 @@ angular.module('WiseHands')
                            window.location.href = window.location.protocol + "//"
                                 + data.domain + ":" + window.location.port
                                 + "/admin"
-                                + '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token;
+                                + '?JWT_TOKEN=' + token;
                         }, 10000);
                     }).
                 error(function (error) {

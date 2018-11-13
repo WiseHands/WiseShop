@@ -5,7 +5,7 @@ angular.module('WiseShop')
                 $http.get('/shop/details',
                     {
                         headers: {
-                                    'X-Authorization': 'Bearer ' + localStorage.getItem('JWT_TOKEN')
+                                    'authorization': 'Bearer ' + localStorage.getItem('JWT_TOKEN')
                                 }
                     })
                     .success(function(data) {

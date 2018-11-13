@@ -33,7 +33,7 @@ public class BalanceAPI extends AuthController {
         }
         checkAuthentification(shop);
 
-        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
 
         BalanceDTO balance = shop.balance;

@@ -21,10 +21,9 @@
             	if (shop.domain === 'localhost') {
             		domain = document.domain;
             	}
-                var userId = localStorage.getItem('X-AUTH-USER-ID');
-                var token = localStorage.getItem('X-AUTH-TOKEN');
+                var token = localStorage.getItem('JWT_TOKEN');
                 window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
-                    '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
+                    '?JWT_TOKEN=' + token;
             };
 
             
@@ -46,17 +45,8 @@
             }
 
             function successLoginHandler(data, status, headers) {
-				var token = headers("X-AUTH-TOKEN");
 				var jwtToken = headers("JWT_TOKEN");
-				var userId = data.uuid;
-				if(!token || !userId){
-					$scope.deniedMsg = false;
-					console.error('Token or userID not returned in server response');
-					return;
-				}
 
-				localStorage.setItem('X-AUTH-USER-ID', userId);
-				localStorage.setItem('X-AUTH-TOKEN', token);
 				localStorage.setItem('JWT_TOKEN', jwtToken);
 
                 if(data.email === 'patlavovach@gmail.com' || data.email === 'bohdaq@gmail.com'){
@@ -78,7 +68,7 @@
 					var shop = data.shopList[0];
 					var domain = shop.domain;
 					window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
-					'?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN="+token;
+					'?JWT_TOKEN=' + token;
 				} else	if (data.shopList && data.shopList.length > 1) {
 					$scope.showShopList = true;
 					$scope.user = data;

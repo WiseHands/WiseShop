@@ -6,10 +6,7 @@ angular.module('WiseHands')
         $http({
             method: 'GET',
             url: '/profile',
-            // headers: {
-            //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-            //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-            // }
+
         })
             .then(function successCallback(response) {
                 var profile = response.data;
@@ -30,19 +27,12 @@ angular.module('WiseHands')
         $http({
             method: 'GET',
             url: '/shop/details',
-            // headers: {
-            //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-            //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-            // }
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
                 localStorage.setItem('activeShop', $scope.activeShop.uuid);
                 localStorage.setItem('activeShopName', $scope.activeShop.shopName);
             }, function errorCallback(response) {
-                // if (response.data === 'Invalid X-AUTH-TOKEN') {
-                //     signout.signOut();
-                // }
             });
 
         $scope.$watch(function () {

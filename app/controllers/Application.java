@@ -22,7 +22,6 @@ public class Application extends Controller {
     static void corsHeaders() {
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
     }
 
     public static void login(String client) {

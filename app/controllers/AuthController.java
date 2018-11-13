@@ -22,7 +22,6 @@ public class AuthController extends Controller {
     @Before
     static void corsHeaders() {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Expose-Headers", "X-AUTH-TOKEN");
     }
 
     static void checkAuthentification(ShopDTO shop) {

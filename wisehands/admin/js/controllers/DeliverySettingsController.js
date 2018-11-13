@@ -5,18 +5,12 @@ angular.module('WiseHands')
         $http({
             method: 'GET',
             url: '/delivery',
-            // headers: {
-            //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-            //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-            // }
+
         })
             .then(function successCallback(response) {
                 $scope.loading = false;
                 $scope.delivery = response.data;
             }, function errorCallback(response) {
-                // if (response.data === 'Invalid X-AUTH-TOKEN') {
-                //     signout.signOut();
-                // }
                 $scope.loading = false;
             });
         $scope.setDeliveryOptions = function () {
@@ -25,18 +19,12 @@ angular.module('WiseHands')
                 method: 'PUT',
                 url: '/delivery',
                 data: $scope.delivery,
-                // headers: {
-                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                // }
+
             })
                 .then(function successCallback(response) {
                     $scope.loading = false;
                     $location.path('/delivery');
                 }, function errorCallback(response) {
-                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
-                    //     signout.signOut();
-                    // }
                     $scope.loading = false;
                     console.log(response);
                 });

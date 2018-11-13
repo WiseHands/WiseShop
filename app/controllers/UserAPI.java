@@ -28,9 +28,7 @@ import java.util.Date;
 
 
 public class UserAPI extends AuthController {
-    private static final String X_AUTH_TOKEN = "X-AUTH-TOKEN";
     private static final String JWT_TOKEN = "JWT_TOKEN";
-    private static final String X_AUTH_USER_ID = "x-auth-user-id";
     private static ShopService shopService = ShopServiceImpl.getInstance();
     private static SmsSender smsSender = new SmsSenderImpl();
 
@@ -73,7 +71,7 @@ public class UserAPI extends AuthController {
             } else {
                 forbidden(domainValidation.errorReason);
             }
-            response.setHeader(X_AUTH_TOKEN, user.token);
+            response.setHeader(JWT_TOKEN, user.token);
             String json = json(user);
             String greetingText = Messages.get("new.shop.created", shop.shopName);
             smsSender.sendSms(shop.contact.phone, greetingText);
@@ -105,7 +103,6 @@ public class UserAPI extends AuthController {
 
             String jwtToken = generateToken(user);
             response.setHeader(JWT_TOKEN, jwtToken);
-            response.setHeader(X_AUTH_TOKEN, user.token);
             String json = json(user);
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -117,7 +114,7 @@ public class UserAPI extends AuthController {
 
     public static void profile() throws Exception {
         checkAuthentification(null);
-        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user));
 
@@ -125,7 +122,7 @@ public class UserAPI extends AuthController {
 
     public static void updateProfile() throws Exception {
         checkAuthentification(null);
-        String userId = request.headers.get(X_AUTH_USER_ID).value();
+        String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
 
         JSONParser parser = new JSONParser();
@@ -204,7 +201,7 @@ public class UserAPI extends AuthController {
         Date date = new Date();
         System.out.println("User " + user.name + " performed google sign in at " + dateFormat.format(date));
 
-        response.setHeader(X_AUTH_TOKEN, user.token);
+        response.setHeader(JWT_TOKEN, user.token);
         renderJSON(json);
     }
 
