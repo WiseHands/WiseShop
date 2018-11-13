@@ -22,16 +22,11 @@
                     return !val ? '':val[1];
                 };
 
-                if (urlParam("X-AUTH-USER-ID") !== "") {
-                    localStorage.setItem('X-AUTH-USER-ID', urlParam("X-AUTH-USER-ID")) ;
-                    localStorage.setItem('X-AUTH-TOKEN',  urlParam("X-AUTH-TOKEN")) ;
+                if (urlParam("JWT_TOKEN") !== "") {
+                    localStorage.setItem('JWT_TOKEN', urlParam("JWT_TOKEN")) ;
                     history.pushState({}, '', 'admin' );
                 }
 
-                // if(!localStorage.getItem('X-AUTH-TOKEN')){
-                //     window.location.hash = '';
-                //     window.location.pathname = '/login';
-                // }
 
                 $routeProvider.
                     when('/',{
@@ -173,17 +168,11 @@
             return {
                 request: function(config){
                     config.headers = config.headers || {};
-                    var xAuthToken = localStorage.getItem('X-AUTH-TOKEN');
-                    var xAuthUserID = localStorage.getItem('X-AUTH-USER-ID');
-                    if ( xAuthToken && xAuthUserID ) {
-                        config.headers['X-AUTH-TOKEN'] = xAuthToken;
-                        config.headers['X-AUTH-USER-ID'] = xAuthUserID;
-                    }
+                    var jwtToken = 'Bearer ' + localStorage.getItem('JWT_TOKEN');
+                    config.headers['Authorization'] = jwtToken;
                     return config;
                 },
                 responseError: function(response){
-                    // Status 401 - User is not authorized
-                    // Status 403 - Empty X-AUTH-TOKEN || X-AUTH-USER-ID
                     console.log('Interceptor error respponse:', response);
                     if ( response.status === 403 || response.status === 401 ){
                         localStorage.clear();

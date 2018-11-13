@@ -50,4 +50,3 @@ modules/*
 !modules/testrunner
 
 # Application config
-conf/application.conf

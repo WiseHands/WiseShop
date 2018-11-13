@@ -41,7 +41,7 @@ public class PushSubscriptionAPI extends AuthController {
             subscription.p256dhKey = p256dh;
             subscription.authKey = auth;
             subscription.shopUuid = shop.uuid;
-            String userId = request.headers.get(X_AUTH_USER_ID).value();
+            String userId = loggedInUser.uuid;
             subscription.userUuid = userId;
 
             subscription.save();

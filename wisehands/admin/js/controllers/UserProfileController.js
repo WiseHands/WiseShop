@@ -4,18 +4,13 @@ angular.module('WiseHands')
             $scope.loading = true;
 
 
-            var token = localStorage.getItem('X-AUTH-TOKEN');
-            var userId = localStorage.getItem('X-AUTH-USER-ID');
+            var token = localStorage.getItem('JWT_TOKEN');
             $scope.hostName = window.location.hostname;
 
 
             $http({
                 method: 'GET',
                 url: '/profile',
-                // headers: {
-                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                // }
             })
                 .then(function successCallback(response) {
                     $scope.loading = false;
@@ -31,10 +26,6 @@ angular.module('WiseHands')
                     method: 'PUT',
                     url: '/profile',
                     data: $scope.userInfo,
-                    // headers: {
-                    //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                    // }
                 })
                     .then(function successCallback(response) {
                         $scope.loading = false;
@@ -48,10 +39,6 @@ angular.module('WiseHands')
             $http({
                 method: 'GET',
                 url: '/shops',
-                // headers: {
-                //     'X-AUTH-TOKEN': token,
-                //     'X-AUTH-USER-ID': userId
-                // }
             })
                 .then(function successCallback(response) {
                     $scope.shops = response.data;
@@ -64,19 +51,12 @@ angular.module('WiseHands')
                     });
                     $scope.loading = false;
                 }, function errorCallback(response) {
-                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
-                    //     signout.signOut();
-                    // }
                     $scope.loading = false;
                 });
 
             $http({
                 method: 'GET',
                 url: '/shop/details',
-                // headers: {
-                //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                // }
             })
                 .then(function successCallback(response) {
                     $scope.activeShop = response.data;
@@ -85,9 +65,6 @@ angular.module('WiseHands')
                         $scope.loading = false;
                     }
                 }, function errorCallback(response) {
-                    // if (response.data === 'Invalid X-AUTH-TOKEN') {
-                    //     signout.signOut();
-                    // }
                     $scope.requestQueue -= 1;
                     if ($scope.requestQueue === 0) {
                         $scope.loading = false;
@@ -98,7 +75,7 @@ angular.module('WiseHands')
                 window.location.href = window.location.protocol + "//"
                     + $scope.selectedShop.domain + ":" + window.location.port
                     + "/admin"
-                    + '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token;
+                    + '?JWT_TOKEN=' + token;
             };
 
 
@@ -123,10 +100,6 @@ angular.module('WiseHands')
                 $http({
                     method: 'POST',
                     url: '/shop?' + encodedParams,
-                    // headers: {
-                    //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-                    //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-                    // }
                 })
                     .success(function (data) {
                         setTimeout(function() {
@@ -135,7 +108,7 @@ angular.module('WiseHands')
                            window.location.href = window.location.protocol + "//"
                                 + data.domain + ":" + window.location.port
                                 + "/admin"
-                                + '?X-AUTH-USER-ID=' + userId + "&X-AUTH-TOKEN=" + token;
+                                + '?JWT_TOKEN=' + token;
                         }, 10000);
                     }).
                 error(function (error) {

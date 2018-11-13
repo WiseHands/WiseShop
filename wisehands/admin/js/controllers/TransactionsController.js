@@ -4,10 +4,6 @@ angular.module('WiseHands')
         $http({
             method: 'GET',
             url: '/balance',
-            // headers: {
-            //     'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN'),
-            //     'X-AUTH-USER-ID': localStorage.getItem('X-AUTH-USER-ID')
-            // }
         })
             .then(function successCallback(response) {
                 $scope.loading = false;
