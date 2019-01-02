@@ -68,7 +68,7 @@
 					var shop = data.shopList[0];
 					var domain = shop.domain;
 					window.location.href = window.location.protocol + '//' + domain + ':' + window.location.port + '/admin' +
-					'?JWT_TOKEN=' + token;
+					'?JWT_TOKEN=' + jwtToken;
 				} else	if (data.shopList && data.shopList.length > 1) {
 					$scope.showShopList = true;
 					$scope.user = data;
