@@ -3,6 +3,7 @@
 
 require:
     - play
+    - com.owlike -> genson 1.4
     - com.fasterxml.jackson.core -> jackson-databind 2.8.4
     - com.google.api-client -> google-api-client 1.19.1
     - org.json -> json 20151123

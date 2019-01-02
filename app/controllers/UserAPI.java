@@ -71,7 +71,9 @@ public class UserAPI extends AuthController {
             } else {
                 forbidden(domainValidation.errorReason);
             }
-            response.setHeader(JWT_TOKEN, user.token);
+
+            String jwtToken = generateToken(user);
+            response.setHeader(JWT_TOKEN, jwtToken);
             String json = json(user);
             String greetingText = Messages.get("new.shop.created", shop.shopName);
             smsSender.sendSms(shop.contact.phone, greetingText);
@@ -201,7 +203,8 @@ public class UserAPI extends AuthController {
         Date date = new Date();
         System.out.println("User " + user.name + " performed google sign in at " + dateFormat.format(date));
 
-        response.setHeader(JWT_TOKEN, user.token);
+        String jwtToken = generateToken(user);
+        response.setHeader(JWT_TOKEN, jwtToken);
         renderJSON(json);
     }
 
