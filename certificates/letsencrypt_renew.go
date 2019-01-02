@@ -20,6 +20,10 @@ type Block struct {
 
 type Exception interface{}
 
+func Throw(up Exception) {
+	panic(up)
+}
+
 func (tcf Block) Do() {
 	if tcf.Finally != nil {
 
@@ -81,7 +85,8 @@ func main() {
 				cmd.Stderr = &stderr
 				err := cmd.Run()
 				if err != nil {
-					fmt.Println(fmt.Sprint(err) + ": " + stderr.String())
+					fmt.Println("Renewal error " + fmt.Sprint(err) + ": " + stderr.String())
+					Throw("Oh,...sh...")
 					return
 				}
 				privkey := "/etc/letsencrypt/live/"+_domain+"/privkey.pem"
