@@ -66,7 +66,7 @@ func renew_certificate_for_domain(_domain string, retry_count int) {
 					renew_certificate_for_domain(_domain, retry_count)
 				} else {
 					fmt.Println("Notable to renew certificate after 5 tries for domain " + _domain)
-					sendEmail(err.Error())
+					sendEmail(_domain)
 					Throw("Oh,...sh...")
 				}
 			}
@@ -127,7 +127,7 @@ func main() {
 }
 func sendEmail(body string) {
 	from := "wisehandsme@gmail.com"
-	pass := "!!=2e=gVrX9-\8Y&"
+	pass := "!!=2e=gVrX9-\\8Y&"
 	to := "research.010@gmail.com"
 
 	msg := "From: " + from + "\n" +
