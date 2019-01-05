@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+	"net/smtp"
 )
 
 type Block struct {
@@ -65,6 +66,7 @@ func renew_certificate_for_domain(_domain string, retry_count int) {
 					renew_certificate_for_domain(_domain, retry_count)
 				} else {
 					fmt.Println("Notable to renew certificate after 5 tries for domain " + _domain)
+					sendEmail(err.Error())
 					Throw("Oh,...sh...")
 				}
 			}
@@ -122,4 +124,25 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Printf("%s\n", stdoutStderr)
+}
+func sendEmail(body string) {
+	from := "wisehandsme@gmail.com"
+	pass := "!!=2e=gVrX9-\8Y&"
+	to := "research.010@gmail.com"
+
+	msg := "From: " + from + "\n" +
+		"To: " + to + "\n" +
+		"Subject: Certificate renewal error\n\n" +
+		body
+
+	err := smtp.SendMail("smtp.gmail.com:587",
+		smtp.PlainAuth("", from, pass, "smtp.gmail.com"),
+		from, []string{to}, []byte(msg))
+
+	if err != nil {
+		log.Printf("smtp error: %s", err)
+		return
+	}
+
+	log.Print("sent, visit http://foobarbazz.mailinator.com")
 }
