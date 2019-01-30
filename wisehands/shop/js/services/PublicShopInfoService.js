@@ -4,6 +4,7 @@ angular.module('WiseShop')
             handlePublicShopInfo: function (scope, response) {
                 scope.shopName = response.data.name;
                 scope.shopId = response.data.uuid;
+                scope.isShopOpenNow = response.data.isShopOpenNow;
                 scope.startTime = new Date(response.data.startTime);
                 scope.startHour = (scope.startTime.getHours()<10?'0':'') + scope.startTime.getHours();
                 scope.startMinute = (scope.startTime.getMinutes()<10?'0':'') + scope.startTime.getMinutes();
@@ -13,15 +14,10 @@ angular.module('WiseShop')
                 scope.alwaysOpen = response.data.alwaysOpen
             },
             handleWorkingHours: function (scope) {
-                scope.today = new Date();
-
-                scope.startMinutes = scope.startTime.getHours() * 60 + scope.startTime.getMinutes();
-                scope.endMinutes = scope.endTime.getHours() * 60 + scope.endTime.getMinutes();
-                scope.nowMinutes = scope.today.getHours() * 60 + scope.today.getMinutes();
                 if (scope.alwaysOpen === true) {
                     scope.isNotWorkingTime = false;
                 } else {
-                    scope.isNotWorkingTime = scope.nowMinutes < scope.startMinutes || scope.nowMinutes >= scope.endMinutes;
+                    scope.isNotWorkingTime = !scope.isShopOpenNow;
                 }
             },
             calculateTotal: function () {

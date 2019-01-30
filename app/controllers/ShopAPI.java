@@ -1,6 +1,8 @@
 package controllers;
 
 import models.*;
+import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
@@ -16,7 +18,10 @@ import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -115,11 +120,23 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+
+        DateTime dt = new DateTime(shop.startTime);
+        Date startTime = dt.toDate();
+
+        dt = new DateTime(shop.endTime);
+        Date endTime = dt.toDate();
+
+        Date date = new Date();
+        boolean isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, date);
+
+
         JSONObject json = new JSONObject();
         json.put("name", shop.shopName);
         json.put("uuid", shop.uuid);
         json.put("startTime", shop.startTime);
         json.put("endTime", shop.endTime);
+        json.put("isShopOpenNow", isWorkingHours);
         json.put("locale", shop.locale);
         json.put("alwaysOpen", shop.alwaysOpen);
         json.put("manualPaymentEnabled", shop.paymentSettings.manualPaymentEnabled);

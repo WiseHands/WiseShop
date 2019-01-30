@@ -43,7 +43,6 @@ public class OrderAPI extends AuthController {
 
         String stringStartTime = shop.startTime;
         String stringEndTime = shop.endTime;
-        System.out.println("startTime " + shop.startTime + "endrTime" + shop.endTime);
         Date date = new Date();
         Date startTime = simpleDateFormat.parse(stringStartTime);
         Date endTime = simpleDateFormat.parse(stringEndTime);
