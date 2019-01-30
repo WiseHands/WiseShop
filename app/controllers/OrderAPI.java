@@ -36,6 +36,23 @@ public class OrderAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
+
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
+
+        String stringStartTime = shop.startTime;
+        String stringEndTime = shop.endTime;
+        System.out.println("startTime " + shop.startTime + "endrTime" + shop.endTime);
+        Date date = new Date();
+        Date startTime = simpleDateFormat.parse(stringStartTime);
+        Date endTime = simpleDateFormat.parse(stringEndTime);
+
+        boolean isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, date);
+        if(!isWorkingHours) {
+            forbidden("Shop is closed now.");
+        }
+
         String locale = "en_US";
         if(shop != null && shop.locale != null) {
             locale = shop.locale;
@@ -172,8 +189,8 @@ public class OrderAPI extends AuthController {
             String payButton = liqPay.payButton(order, shop);
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(date));
+            Date newDate = new Date();
+            System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(newDate));
 
             json.put("button", payButton);
             renderJSON(json);
