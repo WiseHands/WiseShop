@@ -4,6 +4,7 @@ import enums.OrderState;
 import jobs.SendSmsJob;
 import models.*;
 import org.apache.commons.codec.binary.Base64;
+import org.joda.time.DateTime;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -41,13 +42,20 @@ public class OrderAPI extends AuthController {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
 
-        String stringStartTime = shop.startTime;
-        String stringEndTime = shop.endTime;
-        Date date = new Date();
-        Date startTime = simpleDateFormat.parse(stringStartTime);
-        Date endTime = simpleDateFormat.parse(stringEndTime);
+        DateTime dt = new DateTime(shop.startTime);
+        Date startTime = dt.toDate();
 
-        boolean isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, date);
+        dt = new DateTime(shop.endTime);
+        Date endTime = dt.toDate();
+
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+        boolean isWorkingHours;
+        if(shop.alwaysOpen) {
+            isWorkingHours = true;
+        } else {
+            isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, new Date());
+        }
         if(!isWorkingHours) {
             forbidden("Shop is closed now.");
         }
@@ -187,7 +195,7 @@ public class OrderAPI extends AuthController {
         try {
             String payButton = liqPay.payButton(order, shop);
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss Z");
             Date newDate = new Date();
             System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(newDate));
 

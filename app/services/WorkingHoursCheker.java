@@ -1,6 +1,7 @@
 
 package services;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,7 +25,6 @@ public class WorkingHoursCheker {
 
 
     public static boolean isWorkingTime(Date startTime, Date endTime, Date date){
-
         SimpleDateFormat formatK = new SimpleDateFormat("k");
         SimpleDateFormat formatM = new SimpleDateFormat("m");
 
@@ -39,7 +39,6 @@ public class WorkingHoursCheker {
         int currentHour = (Integer.parseInt(formatK.format(date)));
         int currentMinute = (Integer.parseInt(formatM.format(date)));
         int currentTime = currentHour * 60 + currentMinute;
-
 
         if (currentTime >= firstTime && currentTime < lastTime){
             return true;

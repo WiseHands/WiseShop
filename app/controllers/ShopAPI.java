@@ -2,10 +2,8 @@ package controllers;
 
 import models.*;
 import org.joda.time.DateTime;
-import org.joda.time.format.ISODateTimeFormat;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import play.Play;
 import play.i18n.Messages;
 import services.*;
 import util.DomainValidation;
@@ -13,17 +11,7 @@ import util.DomainValidation;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class ShopAPI extends AuthController {
 
@@ -127,8 +115,14 @@ public class ShopAPI extends AuthController {
         dt = new DateTime(shop.endTime);
         Date endTime = dt.toDate();
 
-        Date date = new Date();
-        boolean isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, date);
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+        boolean isWorkingHours;
+        if(shop.alwaysOpen) {
+            isWorkingHours = true;
+        } else {
+            isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, new Date());
+        }
 
 
         JSONObject json = new JSONObject();
