@@ -15,7 +15,7 @@
             <tr>
                 <th class="headerCentering">{{'shopView.productName' | translate}}</th>
                 <th class="headerCentering">{{'shopView.price' | translate}}</th>
-                <th ng-click="removeAll()"><a><i class="fa fa-remove center-block removeAllRedIcon"></i></a></th>
+                <th ng-click="removeAll()" ng-show="productQuantityList.length !== 0"><a><i class="fa fa-remove center-block removeAllRedIcon"></i></a></th>
             </tr>
             </thead>
             <tbody>
@@ -34,12 +34,10 @@
             </tr>
             </tbody>
         </table>
-        <a href="#!/orderprocessing"
-           type="button" class="btn btn-primary pull-right"
-           ng-show="selectedItems.length !== 0"
-           ng-click="reCalculateTotal()"
-                >
+        <a href="#!/orderprocessing">
+        <button type="button" class="btn btn-primary pull-right" ng-disabled="productQuantityList.length === 0" ng-click="reCalculateTotal()">
             {{'shopView.order' | translate}}
+        </button>
         </a>
     </div>
 </main>
