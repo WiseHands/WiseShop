@@ -20,6 +20,7 @@ public class ShopAPI extends AuthController {
     static ShopService shopService = ShopServiceImpl.getInstance();
 
     public static void updateDomain(String client, String domain) throws Exception {
+        System.out.println("Some problem here 1");
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -35,12 +36,16 @@ public class ShopAPI extends AuthController {
             file.close();
         }catch (IOException ex){
             ex.printStackTrace();
+            System.out.println("Some problem here 2");
+
         }
 
         ok();
     }
 
     public static void all(String client) throws Exception {
+        System.out.println("Some problem here 3");
+
         checkSudoAuthentification();
 
         List<ShopDTO> shops = ShopDTO.findAll();
@@ -51,6 +56,7 @@ public class ShopAPI extends AuthController {
 
         ShopDTO shop = ShopDTO.findById(uuid);
         renderJSON(json(shop));
+        System.out.println("Some problem here 4");
     }
     public static void deleteOne(String client, String uuid) throws Exception { // /shop/details
         checkSudoAuthentification();
@@ -79,6 +85,8 @@ public class ShopAPI extends AuthController {
         shop = shop.save();
         shop.delete();
         ok();
+        System.out.println("Some problem here 5");
+
     }
 
     public static void list(String client) throws Exception {
@@ -91,6 +99,8 @@ public class ShopAPI extends AuthController {
         String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user.shopList));
+        System.out.println("Some problem here 6");
+
     }
 
     public static void details(String client) throws Exception { // /shop/details
@@ -101,6 +111,8 @@ public class ShopAPI extends AuthController {
         checkAuthentification(shop);
 
         renderJSON(json(shop));
+        System.out.println("Some problem here 7");
+
     }
 
     public static void publicInfo(String client) throws Exception { // /shop/details
@@ -124,7 +136,6 @@ public class ShopAPI extends AuthController {
             isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, new Date());
         }
 
-
         JSONObject json = new JSONObject();
         json.put("name", shop.shopName);
         json.put("uuid", shop.uuid);
@@ -144,6 +155,8 @@ public class ShopAPI extends AuthController {
         json.put("couponsEnabled", couponsEnabled);
 
         renderJSON(json);
+        System.out.println("Some problem here 8");
+
     }
 
     public static void changeLocal(String client, String locale) throws Exception {
@@ -157,6 +170,8 @@ public class ShopAPI extends AuthController {
 
         shop = shop.save();
         renderJSON(json(shop));
+        System.out.println("Some problem here 9");
+
     }
 
     public static void update(String client) throws Exception {
@@ -201,6 +216,8 @@ public class ShopAPI extends AuthController {
 
         shop = shop.save();
         renderJSON(json(shop));
+        System.out.println("Some problem here 10");
+
     }
 
 
@@ -212,6 +229,8 @@ public class ShopAPI extends AuthController {
         checkAuthentification(shop);
 
         renderJSON(json(shop.userList));
+        System.out.println("Some problem here 11");
+
     }
 
 
@@ -258,6 +277,8 @@ public class ShopAPI extends AuthController {
             smsSender.sendSms(user.phone, msg);
         }
         renderJSON(json(user));
+        System.out.println("Some problem here 12");
+
     }
 
     public static void removeUserFromShop(String client, String email, String phone) throws Exception {
@@ -293,15 +314,22 @@ public class ShopAPI extends AuthController {
         }
 
         renderJSON(json(shop));
+        System.out.println("Some problem here 13");
+
     }
 
     public static void create(String name, String domain) {
+        System.out.println("Some problem here 14" + name + " " + domain);
+
         checkAuthentification(null);
 
         String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
+        System.out.println("Some problem here 14" + userId + " " + user);
 
         DomainValidation domainValidation = shopService.validateShopDetails(domain);
+        System.out.println("Some problem here 14" + domainValidation);
+
         if (domainValidation.isValid) {
             System.out.println("Creating shop with domain name " + domain);
             ShopDTO shop = shopService.createShop(name, domain, user);
@@ -309,6 +337,7 @@ public class ShopAPI extends AuthController {
         } else {
             forbidden(domainValidation.errorReason);
         }
+        System.out.println("Some problem here 14");
 
     }
 
