@@ -335,6 +335,7 @@ public class ShopAPI extends AuthController {
             ShopDTO shop = shopService.createShop(name, domain, user);
             renderJSON(json(shop));
         } else {
+            System.out.println("domainValidation not valid reason " + domainValidation.errorReason);
             forbidden(domainValidation.errorReason);
         }
         System.out.println("Some problem here 14");
