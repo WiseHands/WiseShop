@@ -107,6 +107,7 @@
   "delivery.messageText": "Tekst wiadomośći",
   "delivery.deliveryPrice": "Cena dostawy",
   "delivery.freeDeliveryPrice": "Cena darmowej dostawy",
+  "courierDelivery.deliveryBoundaries":"Granice dostawy",
   "contacts.contacts": "Kontakt",
   "contacts.phone": "Telefon",
   "contacts.address": "Adres",

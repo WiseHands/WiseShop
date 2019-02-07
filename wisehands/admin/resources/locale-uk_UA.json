@@ -107,6 +107,7 @@
   "delivery.messageText": "Текст повідомлення",
   "delivery.deliveryPrice": "Ціна доставки",
   "delivery.freeDeliveryPrice": "Ціна безплатної доставки",
+  "courierDelivery.deliveryBoundaries":"Межі доставки",
   "contacts.contacts": "Контакти",
   "contacts.phone": "Номер телефону",
   "contacts.address": "Адреса",

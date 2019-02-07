@@ -107,6 +107,7 @@
   "delivery.messageText": "Message text",
   "delivery.deliveryPrice": "Delivery price",
   "delivery.freeDeliveryPrice": "Free delivery price",
+  "courierDelivery.deliveryBoundaries":"Delivery boundaries",
   "contacts.contacts": "Contacts",
   "contacts.phone": "Phone",
   "contacts.address": "Address",
