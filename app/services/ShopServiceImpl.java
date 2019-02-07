@@ -81,10 +81,15 @@ public class ShopServiceImpl implements ShopService{
     public DomainValidation validateShopDetails(String domain) {
         boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
         DomainValidation domainValidation = new DomainValidation();
+        System.out.println("validateShopDetails " + isDevEnv);
         if(isDevEnv){
             domainValidation.isValid = domain.contains(".localhost");
             domainValidation.errorReason = "Domain in dev env should follow yourdomain.localhost pattern. You entered " + domain;
         } else {
+            if(domain.contains("wisehands.me")) {
+                domainValidation.isValid = true;
+                return domainValidation;
+            }
             String domainIp = null;
             try {
                 domainIp = InetAddress.getByName(domain).getHostAddress();
