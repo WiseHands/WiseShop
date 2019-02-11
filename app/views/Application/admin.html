@@ -57,7 +57,8 @@
 </ul>
 <div ng-view></div>
 
-<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM"></script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&libraries=places"></script>
+
 
 <script src="wisehands/assets/js/angular.min.js"></script>
 <script src="wisehands/assets/js/angular-route.min.js"></script>
@@ -103,6 +104,8 @@
 <script src="wisehands/admin/js/controllers/UserProfileController.js"></script>
 <script src="wisehands/admin/js/controllers/AddPropertyController.js"></script>
 <script src="wisehands/admin/js/controllers/EditPropertyController.js"></script>
+<script src="wisehands/admin/js/controllers/DeliveryBounderController.js"></script>
+
 <!-- Image Cropper -->
 <script src="wisehands/admin/js/controllers/ImageCropperController.js"></script>
 
@@ -120,6 +123,37 @@
 <script src="wisehands/assets/js/Chart.min.js"></script>
 <script src="wisehands/assets/js/angular-chart.min.js"></script>
 <script src="wisehands/assets/ua-parser-js/ua-parser.min.js"></script>
+
+<script>
+        function init_map(latLng) {
+            if (!latLng) return;
+            var cords = latLng.split(':')
+
+            var lat = cords[0];
+            var lng = cords[1];
+            var var_location = new google.maps.LatLng(lat, lng);
+
+            var var_mapoptions = {
+                center: var_location,
+
+                zoom: 14
+            };
+
+            var var_marker = new google.maps.Marker({
+                position: var_location,
+                map: var_map
+            });
+
+            var var_map = new google.maps.Map(document.getElementById("googleMap"),
+                    var_mapoptions);
+
+            var_marker.setMap(var_map);
+            new WOW().init();
+
+        }
+        window.init_map = init_map;
+    </script>
+
 
 </body>
 </html>

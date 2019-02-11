@@ -40,8 +40,12 @@
             <p>{{'delivery.messageText' | translate}}</p>
             <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.courierText"></textarea>
         </div>
+        <a href="#/deliveryboundaries">
+            <button type="button" class="btn btn-primary pull-right">
+                {{'courierDelivery.deliveryBoundaries' | translate}}
+            </button>
+        </a>
+
     </form>
-    <button type="button" class="btn btn-primary pull-right" ng-click="">
-        {{'courierDelivery.deliveryBoundaries' | translate}}
-    </button>
+
 </div>

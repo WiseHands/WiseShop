@@ -1,0 +1,47 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="#/delivery/courier">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'courierDelivery.deliveryBoundaries' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="setDeliveryOptions()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <form class="col-md-12" >
+        <br>
+        <div class="col-md-8">
+
+            Google maps here
+
+            <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 300px"></div>
+            <script>
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng(51.508742,-0.120850),
+  zoom:5,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+</script>
+
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&callback=myMap"></script>
+        </div>
+    </form>
+
+</div>
