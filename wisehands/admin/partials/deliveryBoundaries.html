@@ -23,25 +23,31 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <form class="col-md-12" >
         <br>
         <div class="col-md-8">
-
-            Google maps here
-
-            <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 300px"></div>
-            <script>
-function myMap() {
-var mapProp= {
-  center:new google.maps.LatLng(51.508742,-0.120850),
-  zoom:5,
-};
-var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
-</script>
-
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&callback=myMap"></script>
+          <style type="text/css">
+                #color-palette {
+                clear: both;
+            }
+            .color-button {
+                width: 14px;
+                height: 14px;
+                font-size: 0;
+                margin: 2px;
+                float: left;
+                cursor: pointer;
+            }
+            #delete-button {
+                margin-top: 5px;
+            }
+         </style>
+        <div id="panel">
+          <div id="color-palette"></div>
+            <div>
+              <button id="delete-button">Delete Selected Shape</button>
+            </div>
         </div>
-    </form>
+            <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 600px"></div>
+        </div>
 
 </div>

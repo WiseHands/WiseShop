@@ -20,6 +20,35 @@ public class DeliveryAPI extends AuthController {
         renderJSON(json(delivery));
     }
 
+    public static void updateCourierPolygonData(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        String polygonData = params.get("body");
+        System.out.println(polygonData);
+        shop.delivery.courierPolygonData = polygonData;
+        shop.delivery.save();
+        ok();
+    }
+
+    public static void deleteCourierPolygonData(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        String polygonData = params.get("body");
+        System.out.println("Delete polygonData" + polygonData);
+        shop.delivery.courierPolygonData = polygonData;
+        shop.delivery.save();
+        ok();
+    }
+
+
     public static void update(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
