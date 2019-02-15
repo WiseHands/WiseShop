@@ -121,9 +121,9 @@
                             data: objjson,
                         })
                             .then(function successCallback(response) {
-                              console.log("successCallback to save polugone");
+                              console.log("successCallback to save empty polugone");
                             }, function errorCallback(response) {
-                              console.log("errorCallback to save polygone");
+                              console.log("errorCallback to save empty polygone");
                             });
 
                 }
