@@ -1,6 +1,11 @@
 <header>
     <nav class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" shop-styling style="background-color: {{shopStyling.navbarColor}}">
-        <h5 class="text-xs-center col-xs-12" style="color: {{shopStyling.navbarTextColor}}"><b>{{'shopView.payment' | translate}}</b></h5>
+        <ul class="nav navbar-nav pull-left col-xs-2">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
+            </li>
+        </ul>
+        <h5 class="text-xs-center col-xs-8" style="color: {{shopStyling.navbarTextColor}}"><b>{{'shopView.payment' | translate}}</b></h5>
     </nav>
 </header>
 <main class="p-t-6 noSidePadding">
