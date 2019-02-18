@@ -11,7 +11,7 @@
 <main class="p-t-6 noSidePadding">
     <div class="container">
         <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
-            
+
             <div class="form-group">
                 <b>{{'shopView.fullName' | translate}}</b>
                 <input class="form-control validate"
@@ -59,21 +59,13 @@
                               ng-model="comment">
                     </textarea>
             </div>
-            <div class="form-group" ng-show="couponsEnabled">
-                <b>{{'shopView.coupon' | translate}}</b>
-                <input class="form-control validate"
-                       ng-model="couponId"
-                       id="couponId"
-                       placeholder="{{'shopView.couponPlaceholder' | translate}}"
-                       type="text"
-                />
-                <p ng-class="{ 'font-weight-bold' : couponPlan.minimalOrderTotal === currentPlan }" class="text-xs-center" ng-repeat="couponPlan in couponPlans">{{couponPlan.minimalOrderTotal}} {{'shopView.currency' | translate}} - {{couponPlan.percentDiscount}}%<br></p>
-                <p ng-hide="isCouponValid">{{'shopView.couponError' | translate}}</p>
-                <button type="button" class="btn btn-secondary waves-effect btn-block" ng-click="applyCoupon(couponId)">{{'shopView.couponApply' | translate}}</button>
-            </div>
+
         </form>
         <div class="row vcentering" delivery-cost>
-
+            <div class="col-xs-7">
+                <h4 class="modal-total pull-left"><strong>{{total + delivery()}} {{'shopView.currency' | translate}}</strong></h4>
+            </div>
+            <div id="payButton" class="proceedWithPayment"></div>
             <div class="col-xs-5" ng-hide="successfullResponse">
                 <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-hide="loading" form="orderForm">{{'shopView.proceedWithPayment' | translate}} </button>
                 <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>

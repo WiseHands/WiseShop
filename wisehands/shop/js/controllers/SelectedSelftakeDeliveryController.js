@@ -5,7 +5,6 @@
                 $scope.phone = localStorage.getItem('phone') || '';
                 $scope.name = localStorage.getItem('name') || '';
                 $scope.place = localStorage.getItem('address') || '';
-                $scope.newPostDelivery = localStorage.getItem('newPostDelivery') || '';
 
                 function loadOptions() {
                     $scope.selectedItems = shared.getProductsToBuy();
@@ -16,17 +15,10 @@
                 $http({
                     method: 'GET',
                     url: '/delivery'
-                })
-                    .then(function successCallback(response) {
+                }).then(function successCallback(response) {
                         $scope.deliverance = response.data;
                         $scope.minOrderForFreeDelivery = $scope.deliverance.courierFreeDeliveryLimit;
-                        if ($scope.deliverance.isCourierAvailable){
-                            $("#radio1").click();
-                        } else if ($scope.deliverance.isNewPostAvailable){
-                            $("#radio2").click();
-                        } else if ($scope.deliverance.isSelfTakeAvailable){
-                            $("#radio3").click();
-                        }
+
                     }, function errorCallback(error) {
                         console.log(error);
                     });
@@ -34,41 +26,26 @@
                 $http({
                     method: 'GET',
                     url: '/shop/details/public'
-                })
-                    .then(function successCallback(response) {
+                }).then(function successCallback(response) {
                         $scope.shopName = response.data.name;
                         $scope.shopId = response.data.uuid;
-                        $scope.couponsEnabled = response.data.couponsEnabled;
                     }, function errorCallback(error) {
                         console.log(error);
                     });
 
                 $scope.makeOrder = function (){
                     $scope.loading = true;
-                    var deliveryType;
-                    if (document.getElementById('radio1').checked) {
-                        deliveryType = document.getElementById('radio1').value;
-                    } else if (document.getElementById('radio2').checked) {
-                        deliveryType = document.getElementById('radio2').value;
-                    } else if(document.getElementById('radio3').checked) {
-                        deliveryType = document.getElementById('radio3').value;
-                    }
-
-                    if (deliveryType === 'SELFTAKE') {
-                        document.getElementById('address').value = '';
-                        document.getElementById('newPostDepartment').value = '';
-
-                    }
+                    var deliveryType = 'SELFTAKE';
 
                     $scope.params = {
                         deliveryType: deliveryType,
                         phone: new String(document.getElementById('phone').value),
                         name: document.getElementById('name').value,
-                        address: document.getElementById('address').value,
-                        newPostDepartment: document.getElementById('newPostDepartment').value,
+                        address: "",
+                        newPostDepartment: "",
                         selectedItems: $scope.selectedItems,
                         comment: document.getElementById('comment').value,
-                        coupon: document.getElementById('couponId').value,
+                        coupon: "",
                         addressLat: localStorage.getItem('addressLat'),
                         addressLng: localStorage.getItem('addressLng')
                     };
@@ -93,37 +70,7 @@
                             console.log(data);
                         });
                 };
-                $scope.isCouponValid = true;
-                $scope.applyCoupon = function (couponId) {
-                    $scope.loading = true;
-                    $http({
-                        method: 'POST',
-                        url: '/coupon/' + couponId
-                    })
-                        .then(function successCallback(response) {
-                            $scope.isCouponValid = true;
-                            $scope.couponPlans = response.data;
-                            var discountTotalMatch = [];
-                            $scope.couponPlans.forEach(function (couponPlan) {
-                                if (couponPlan.minimalOrderTotal <= $scope.total){
-                                    discountTotalMatch.push(couponPlan.minimalOrderTotal);
-                                }
-                            });
-                            var largest = Math.max.apply(0, discountTotalMatch);
-                            $scope.couponPlans.forEach(function (couponPlan) {
-                                if (couponPlan.minimalOrderTotal === largest){
-                                    $scope.currentPlan = couponPlan.minimalOrderTotal;
-                                    $scope.total = $scope.total - ($scope.total * couponPlan.percentDiscount)/100;
-                                }
-                            });
-                            $scope.discountError = '';
-                            $scope.loading = false;
-                        }, function errorCallback(data) {
-                            $scope.isCouponValid = false;
-                            $scope.loading = false;
-                            console.log(data);
-                        });
-                };
+
                 $scope.customerData = function () {
                     if (!$scope.place) {
                         return;
