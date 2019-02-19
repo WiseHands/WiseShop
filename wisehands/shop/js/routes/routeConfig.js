@@ -50,6 +50,10 @@
                     templateUrl:'wisehands/shop/partials/choosedelivery.html',
                     controller:'ChooseDeliveryController'
                 }).
+                when('/selectedaddressdelivery',{
+                    templateUrl:'wisehands/shop/partials/selectedAddressDelivery.html',
+                    controller:'SelectedAddressDeliveryController'
+                }).
                 when('/selectedcourierdelivery',{
                     templateUrl:'wisehands/shop/partials/selectedcourierdelivery.html',
                     controller:'SelectedCourierDeliveryController'

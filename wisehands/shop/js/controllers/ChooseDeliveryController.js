@@ -16,7 +16,7 @@
 
                   if (deliveryType == 'COURIER') {
                     console.log($scope.deliverance)
-                    location.hash = '#!/selectedcourierdelivery'
+                    location.hash = '#!/selectedaddressdelivery'
                   } else if (deliveryType == 'NOVAPOSHTA') {
                     console.log($scope.deliverance)
                     location.hash = '#!/selectedpostdelivery'
