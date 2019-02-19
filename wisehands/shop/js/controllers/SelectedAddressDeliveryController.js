@@ -4,7 +4,6 @@
         .controller('SelectedAddressDeliveryController', ['$scope', '$http', 'shared', '$location',
             function($scope, $http, shared, $location) {
 
-               $scope.place = localStorage.getItem('address') || '';
 
                $http({
                    method: 'GET',
@@ -60,12 +59,14 @@
                       }, function errorCallback(data) {
                           $scope.status = 'Щось пішло не так...';
                       });
+                      var map;
+                      var marker;
+                      var latlng;
                       var geocoder;
                       function init_map(latLng) {
                           geocoder = new google.maps.Geocoder();
                           if (!latLng) return;
-                          var map;
-                          var marker;
+
                           var cords = latLng.split(':');
                           var lat = cords[0];
                           var lng = cords[1];
@@ -78,7 +79,7 @@
 
                           var var_map_options = {
                               center: var_location,
-                              zoom: 14,
+                              zoom: 16,
                               // disableDoubleClickZoom: true
                               };
                           // set googleMap By Id
@@ -94,6 +95,10 @@
                                   map: map,
                                   title: event.latLng.lat()+', '+event.latLng.lng()
                                 });
+
+                                latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());;
+
+                                geocodeLatLng(latLng);
                             });
 
 
@@ -118,13 +123,40 @@
                             map.data.addGeoJson(data);
                         }
 
+                        function geocodeLatLng(latLng) {
+                          geocoder.geocode({'location': latlng}, function(results, status) {
+                            if (status === 'OK') {
+                              if (results[0]) {
+                                map.setZoom(16);
+                                // $scope.place = results[0].formatted_address;
+                                $scope.$apply(function () {
+                                      $scope.place = results[0].formatted_address;
+                                      localStorage.setItem('address', $scope.place);
+                                  });
+                                console.log('address', results[0].formatted_address, $scope.place);
+                                // var marker = new google.maps.Marker({
+                                //   position: latlng,
+                                //   map: map
+                                // });
+                              } else {
+                                console.log('no address');
+                              }
+                            } else {
+                              console.log('finded address ', status);
+                            }
+                          });
+                        }
+
                           $scope.codeAddress = function() {
                           var address = document.getElementById('address').value;
                           console.log(address);
                           geocoder.geocode( { 'address': address}, function(results, status) {
                             if (status == 'OK') {
                               map.setCenter(results[0].geometry.location);
-                              var marker = new google.maps.Marker({
+                              if (marker && marker.setMap) {
+                                    marker.setMap(null);
+                                }
+                              marker = new google.maps.Marker({
                                   map: map,
                                   position: results[0].geometry.location
                               });
@@ -133,6 +165,8 @@
                             }
                           });
                         }
+
+
 
                         function isEmpty(obj) {
                             for(var key in obj) {
