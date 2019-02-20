@@ -95,6 +95,7 @@ DELETE  {client}/shop/user                              ShopAPI.removeUserFromSh
 
 GET     {client}/delivery                               DeliveryAPI.details
 POST    {client}/courier/polygon                        DeliveryAPI.updateCourierPolygonData
+GET     {client}/courier/polygon                        DeliveryAPI.getCourierPolygonData
 DELETE  {client}/courier/polygon                        DeliveryAPI.deleteCourierPolygonData
 PUT     {client}/delivery                               DeliveryAPI.update
 

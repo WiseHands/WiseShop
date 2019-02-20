@@ -1,8 +1,8 @@
 // selectedcourierdelivery
 (function(){
     angular.module('WiseShop')
-        .controller('SelectedAddressDeliveryController', ['$scope', '$http', 'shared', '$location',
-            function($scope, $http, shared, $location) {
+        .controller('SelectedAddressDeliveryController', ['$scope', '$http', '$route', 'shared', '$route', '$location',
+            function($scope, $http, shared, $route, $location) {
 
 
                $http({
@@ -39,11 +39,13 @@
 
                 $http({
                     method: 'GET',
-                    url: '/shop/details'
+                    url: '/courier/polygon'
                 })
                     .then(function successCallback(response) {
-                        $scope.courierPolygonData = JSON.parse(response.data.delivery.courierPolygonData);
-                        console.log("loadPolygons", $scope.courierPolygonData);
+                        $scope.courierPolygonData = JSON.parse(response.data);
+                        // var data = $scope.courierPolygonData;
+                        arrayCoordinates = $scope.courierPolygonData.features[0].geometry.coordinates[0];
+                        console.log("loadPolygons response", response, typeof arrayCoordinates, arrayCoordinates);
                     }, function errorCallback(data) {
                         $scope.status = 'Щось пішло не так... з координатами ';
                     });
@@ -59,10 +61,13 @@
                       }, function errorCallback(data) {
                           $scope.status = 'Щось пішло не так...';
                       });
+
                       var map;
                       var marker;
                       var latlng;
+                      var polygon;
                       var geocoder;
+                      var arrayCoordinates;
                       function init_map(latLng) {
                           geocoder = new google.maps.Geocoder();
                           if (!latLng) return;
@@ -72,55 +77,75 @@
                           var lng = cords[1];
                           var var_location = new google.maps.LatLng(lat, lng);
 
-                          var var_marker = new google.maps.Marker({
-                              position: var_location,
-                              map: map
-                              });
-
                           var var_map_options = {
                               center: var_location,
                               zoom: 16,
-                              // disableDoubleClickZoom: true
+
                               };
                           // set googleMap By Id
+                          // marker = new google.maps.Marker({
+                          //   position: var_location,
+                          //   map: map,
+                          //   visible: false
+                          // });
                           map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
-                          var_marker.setMap(map);
+                          polygonMap();
 
-                          google.maps.event.addListener(map,'click',function(event) {
-                            if (marker && marker.setMap) {
-                                  marker.setMap(null);
-                              }
-                                marker = new google.maps.Marker({
-                                  position: event.latLng,
-                                  map: map,
-                                  title: event.latLng.lat()+', '+event.latLng.lng()
-                                });
 
-                                latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());;
 
-                                geocodeLatLng(latLng);
+                            google.maps.event.addListener(map, 'click', function(event) {
+                              if( marker ) marker.setMap( null );
+
+                              marker = new google.maps.Marker({
+                                    map: map,
+                                    position: event.latLng,
+                                  });
+                              console.log(google.maps.geometry.poly.containsLocation(event.latLng, polygon));
+                              latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());;
+                              geocodeLatLng(latLng);
                             });
 
 
-                          //load saved data
-                          loadPolygons(map);
-                          new WOW().init();
 
                         // Apply listeners to refresh the GeoJson display on a given data layer.
 
-                        function loadPolygons(map) {
-                            var data = $scope.courierPolygonData;
-                            console.log('data to draw a polygon', data);
+                        google.maps.event.addListener(polygon, 'click', function(event) {
+                          if( marker ) marker.setMap( null );
 
-                            if(isEmpty(data)) {
-                              console.log('no data to draw a polygon', data);
-                              return;
-                            }
+                          marker = new google.maps.Marker({
+                                map: map,
+                                position: event.latLng,
+                              });
+                          console.log(google.maps.geometry.poly.containsLocation(event.latLng, polygon));
+                        });
 
-                            map.data.forEach(function (f) {
-                                map.data.remove(f);
+                      }
+
+                        function polygonMap(){
+                          var objectCoordinates = [];
+                          for (var i = 0; i < arrayCoordinates.length; i++) {
+                            objectCoordinates.push({
+                              lat: arrayCoordinates[i][1],
+                              lng: arrayCoordinates[i][0]
                             });
-                            map.data.addGeoJson(data);
+                          };
+                          console.log('objectArray', objectCoordinates);
+
+
+                            var polygonOptions = {
+                                paths: objectCoordinates,
+                                clickable: true,
+                                visible: true,
+                                draggable: true,
+                                strokeColor: '#FF0000',
+                                strokeOpacity: 0.8,
+                                strokeWeight: 2,
+                                fillColor: '#FF0000',
+                                fillOpacity: 0.35
+                              };
+
+                          polygon = new google.maps.Polygon(polygonOptions);
+                          polygon.setMap(map);
                         }
 
                         function geocodeLatLng(latLng) {
@@ -134,10 +159,10 @@
                                       localStorage.setItem('address', $scope.place);
                                   });
                                 console.log('address', results[0].formatted_address, $scope.place);
-                                // var marker = new google.maps.Marker({
-                                //   position: latlng,
-                                //   map: map
-                                // });
+                                var marker = new google.maps.Marker({
+                                  position: latlng,
+                                  map: map
+                                });
                               } else {
                                 console.log('no address');
                               }
@@ -166,18 +191,6 @@
                           });
                         }
 
-
-
-                        function isEmpty(obj) {
-                            for(var key in obj) {
-                                if(obj.hasOwnProperty(key))
-                                    return false;
-                            }
-                            return true;
-                        }
-
-
-                      }
 
             }]);
 })();

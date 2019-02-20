@@ -48,6 +48,16 @@ public class DeliveryAPI extends AuthController {
         ok();
     }
 
+    public static void getCourierPolygonData(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        String polygonMap = shop.delivery.courierPolygonData;
+        System.out.println(polygonMap);
+        renderJSON(json(polygonMap));
+    }
 
     public static void update(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

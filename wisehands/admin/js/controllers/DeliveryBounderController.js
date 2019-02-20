@@ -8,7 +8,7 @@
           })
               .then(function successCallback(response) {
                   $scope.courierPolygonData = JSON.parse(response.data.delivery.courierPolygonData);
-                  console.log("loadPolygons", $scope.courierPolygonData);
+                  console.log("loadPolygons", $scope.courierPolygonData, typeof response, response);
               }, function errorCallback(data) {
                   $scope.status = 'Щось пішло не так... з координатами ';
               });
@@ -93,9 +93,9 @@
                         var strjson = JSON.stringify(json);
                         var objjson = JSON.parse(strjson);
                         // get the coordinates from GeoJson
-                        var objCoordinates = objjson.features[0].geometry.coordinates;
+                        var objCoordinates = objjson.features[0].geometry.coordinates[0];
                         // var arr = JSON.parse(objjson.features);
-                          console.log("objjson-", objjson, typeof objCoordinates[0], typeof objjson);
+                          console.log("objjson-", objjson, typeof objCoordinates, typeof objjson);
 
                           $http({
                               method: 'POST',
