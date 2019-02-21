@@ -79,45 +79,25 @@
 
                           var var_map_options = {
                               center: var_location,
-                              zoom: 16,
-
+                              zoom: 16
                               };
                           // set googleMap By Id
-                          // marker = new google.maps.Marker({
-                          //   position: var_location,
-                          //   map: map,
-                          //   visible: false
-                          // });
+
                           map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
-                          polygonMap();
-
-
 
                             google.maps.event.addListener(map, 'click', function(event) {
-                              if( marker ) marker.setMap( null );
 
-                              marker = new google.maps.Marker({
-                                    map: map,
-                                    position: event.latLng,
-                                  });
-                              console.log(google.maps.geometry.poly.containsLocation(event.latLng, polygon));
-                              latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());;
-                              geocodeLatLng(latLng);
+                                  var isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
+                                  if (isAddress) {
+                                    console.log('You aren*t in range of delivery');
+                                  }
+                              latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+                              console.log(event.latLng.lat(), event.latLng.lng());
+                              geocodeLatLng(latlng);
                             });
 
 
-
-                        // Apply listeners to refresh the GeoJson display on a given data layer.
-
-                        google.maps.event.addListener(polygon, 'click', function(event) {
-                          if( marker ) marker.setMap( null );
-
-                          marker = new google.maps.Marker({
-                                map: map,
-                                position: event.latLng,
-                              });
-                          console.log(google.maps.geometry.poly.containsLocation(event.latLng, polygon));
-                        });
+                        polygonMap();
 
                       }
 
@@ -136,7 +116,6 @@
                                 paths: objectCoordinates,
                                 clickable: true,
                                 visible: true,
-                                draggable: true,
                                 strokeColor: '#FF0000',
                                 strokeOpacity: 0.8,
                                 strokeWeight: 2,
@@ -146,23 +125,35 @@
 
                           polygon = new google.maps.Polygon(polygonOptions);
                           polygon.setMap(map);
+
+                          google.maps.event.addListener(polygon, 'click', function(event) {
+                            latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());;
+                            geocodeLatLng(latlng);
+                          });
+
                         }
 
-                        function geocodeLatLng(latLng) {
+                        function geocodeLatLng(latlng) {
                           geocoder.geocode({'location': latlng}, function(results, status) {
                             if (status === 'OK') {
                               if (results[0]) {
                                 map.setZoom(16);
-                                // $scope.place = results[0].formatted_address;
                                 $scope.$apply(function () {
                                       $scope.place = results[0].formatted_address;
                                       localStorage.setItem('address', $scope.place);
                                   });
-                                console.log('address', results[0].formatted_address, $scope.place);
-                                var marker = new google.maps.Marker({
+                                console.log('address', results[0].formatted_address);
+                                if( marker ) marker.setMap( null );
+                                  marker = new google.maps.Marker({
                                   position: latlng,
                                   map: map
                                 });
+                                var isAddress = google.maps.geometry.poly.containsLocation(latlng, polygon);
+                                if (isAddress) {
+                                  console.log('You are in range of delivery');
+                                } else {
+                                  console.log('You aren*t in range of delivery');
+                                }
                               } else {
                                 console.log('no address');
                               }
@@ -185,12 +176,25 @@
                                   map: map,
                                   position: results[0].geometry.location
                               });
+                              var isAddress = google.maps.geometry.poly.containsLocation(results[0].geometry.location, polygon);
+                              if (isAddress) {
+                                console.log('You are in range of delivery');
+                              } else {
+                                console.log('You aren*t in range of delivery');
+                              }
                             } else {
                               alert('Geocode was not successful for the following reason: ' + status);
                             }
                           });
                         }
 
+                        function isEmpty(obj) {
+                            for(var key in obj) {
+                                if(obj.hasOwnProperty(key))
+                                    return false;
+                            }
+                            return true;
+                        }
 
             }]);
 })();
