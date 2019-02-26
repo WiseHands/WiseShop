@@ -25,35 +25,34 @@
                     $scope.status = 'Щось пішло не так...';
                 });
 
-                function init_map(latLng) {
-                    if (!latLng) return;
-                    var map;
-                    var cords = latLng.split(':');
-                    var lat = cords[0];
-                    var lng = cords[1];
-                    var var_location = new google.maps.LatLng(lat, lng);
-                    var var_map_options = {
-                        center: var_location,
-                        zoom: 14
-                        };
-                    var var_marker = new google.maps.Marker({
-                        position: var_location,
-                        map: map
-                        });
-                    // set googleMap By Id
-                    map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
-                    var_marker.setMap(map);
-                    var selectPolygone = 'Polygon';
-                    map.data.setControls([selectPolygone]);
-                    map.data.setStyle({
-                        editable: true,
-                        draggable: true
-                    });
-                    bindDataLayerListeners(map.data);
+                  function init_map(latLng) {
+                      if (!latLng) return;
+                      var map;
+                      var cords = latLng.split(':');
+                      var lat = cords[0];
+                      var lng = cords[1];
+                      var var_location = new google.maps.LatLng(lat, lng);
+                      var var_map_options = {
+                          center: var_location,
+                          zoom: 14
+                          };
+                      var var_marker = new google.maps.Marker({
+                          position: var_location,
+                          map: map
+                          });
+                      // set googleMap By Id
+                      map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
+                      var_marker.setMap(map);
+                      var selectPolygone = 'Polygon';
+                      map.data.setControls([selectPolygone]);
+                      map.data.setStyle({
+                          editable: true,
+                          draggable: true
+                      });
+                      bindDataLayerListeners(map.data);
 
-                    //load saved data
-                    loadPolygons(map);
-                    new WOW().init();
+                      //load saved data
+                      loadPolygons(map);
 
                   // Apply listeners to refresh the GeoJson display on a given data layer.
                   function bindDataLayerListeners(dataLayer) {
@@ -64,20 +63,15 @@
 
                   function loadPolygons(map) {
                       var data = $scope.courierPolygonData;
-
-                      console.log('no data to draw a polygon', data);
-
-
+                      console.log('data to draw a polygon', data);
                       if(isEmpty(data)) {
                         console.log('no data to draw a polygon', data);
                         return;
                       }
-
+                      map.data.addGeoJson(data);
                       // map.data.forEach(function (f) {
                       //     map.data.remove(f);
                       // });
-                      map.data.addGeoJson(data);
-
                   }
 
                   function isEmpty(obj) {

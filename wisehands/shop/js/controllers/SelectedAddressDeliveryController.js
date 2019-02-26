@@ -82,7 +82,7 @@
 
                           var var_map_options = {
                               center: var_location,
-                              zoom: 16
+                              zoom: 17
                               };
                           // set googleMap By Id
                           infoWindow = new google.maps.InfoWindow;
@@ -91,25 +91,20 @@
                           google.maps.event.addListener(map, 'click', function(event) {
                             $scope.buttonDisabled = true;
                             var isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
-                                  console.log('You aren*t in range of delivery');
-                              latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-                              geocodeLatLng(latlng, isAddress);
+                            latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+                            geocodeLatLng(latlng, isAddress);
+                            console.log('You aren*t in range of delivery', isAddress);
                             });
 
                         polygonMap();
-                        
+
                         $scope.myLocation = function(){
                           if (navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(function(position) {
-                              var pos = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                              };
-
-                              infoWindow.setPosition(pos);
-                              infoWindow.setContent('Location found.');
-                              infoWindow.open(map);
-                              map.setCenter(pos);
+                              latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                              isAddress = google.maps.geometry.poly.containsLocation(latlng, polygon);
+                              console.log('of delivery', latlng, isAddress);
+                              geocodeLatLng(latlng, isAddress)
                             }, function() {
                               handleLocationError(true, infoWindow, map.getCenter());
                             });
@@ -128,7 +123,7 @@
                               infoWindow.open(map);
                             }
 
-                        function polygonMap(){
+                      function polygonMap(){
                           var objectCoordinates = [];
                           for (var i = 0; i < arrayCoordinates.length; i++) {
                             objectCoordinates.push({
@@ -149,42 +144,56 @@
                                 fillColor: '#99ff66',
                                 fillOpacity: 0.35
                               };
-
                           polygon = new google.maps.Polygon(polygonOptions);
                           polygon.setMap(map);
+                          var bounds = new google.maps.LatLngBounds();
+                              for (var i = 0; i < objectCoordinates.length; i++) {
+                                bounds.extend(objectCoordinates[i]);
+                              }
+                            var centerLocation = new google.maps.LatLng(bounds.getCenter().lat(), bounds.getCenter().lng());
+                                marker = new google.maps.Marker({
+                                      position: centerLocation,
+                                      map: map,
+                                      visible: false
+                                    });
+                                map.setCenter(centerLocation);
+                            console.log(' bounds.getCenter()', bounds.getCenter().lat(), typeof cords);
 
                           google.maps.event.addListener(polygon, 'click', function(event) {
-                            $scope.buttonDisabled = false;
-                            latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());;
-                            console.log('You are in range of delivery');
-                            geocodeLatLng(latlng);
-                          });
+                                $scope.buttonDisabled = false;
+                                latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+                                console.log('You are in range of delivery');
+                                geocodeLatLng(latlng);
+                              });
 
                         }
 
-                        function geocodeLatLng(latlng, isAddress) {
+                      function geocodeLatLng(latlng, isAddress) {
                           geocoder.geocode({'location': latlng}, function(results, status) {
-                            if (status === 'OK') {
-                              if (results[0]) {
-                                map.setZoom(16);
-                                $scope.$apply(function () {
+                                  if (status === 'OK') {
+                                    if (results[0]) {
+                                      map.setZoom(17);
+                                      $scope.$apply(function () {
                                       $scope.place = results[0].formatted_address;
                                       localStorage.setItem('address', $scope.place);
-                                  });
-                                console.log('address', results[0].formatted_address);
-                                if (isAddress == false) {if( marker ) marker.setMap( null );
-                                  marker = new google.maps.Marker({
-                                  position: latlng,
-                                  map: map,
-                                  visible: false
-                                });
-                              } else {
-                                if( marker ) marker.setMap( null );
-                                  marker = new google.maps.Marker({
-                                  position: latlng,
-                                  map: map,
-                                });
-                              }
+                                      });
+                                      console.log('address', results[0].formatted_address);
+                                      if (isAddress == false) {
+                                        if( marker ) marker.setMap( null );
+                                        marker = new google.maps.Marker({
+                                        position: latlng,
+                                        map: map,
+                                        visible: false
+                                      });
+                                      $scope.buttonDisabled = true;
+                                      } else {
+                                      if( marker ) marker.setMap( null );
+                                        marker = new google.maps.Marker({
+                                        position: latlng,
+                                        map: map,
+                                      });
+                                      $scope.buttonDisabled = false;
+                                    }
 
                               } else {
                                 console.log('no address');
@@ -204,7 +213,7 @@
                               if (marker && marker.setMap) {
                                     marker.setMap(null);
                                 }
-                              marker = new google.maps.Marker({
+                                  marker = new google.maps.Marker({
                                   map: map,
                                   position: results[0].geometry.location
                               });
