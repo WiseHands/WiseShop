@@ -1,7 +1,29 @@
 (function(){
     angular.module('WiseShop')
-        .controller('ChooseDeliveryController', ['$scope', '$http', 'shared',
-            function($scope, $http, shared) {
+        .controller('ChooseDeliveryController', ['$scope', '$http', 'shared', '$route',
+            function($scope, $http, shared, $route) {
+
+              $http({
+                  method: 'GET',
+                  url: '/courier/polygon'
+              })
+                  .then(function successCallback(response) {
+                    if(!response.data) {
+                      $scope.courierPolygonData = true;
+                      console.log("loadPolygons response", response);
+                    }
+                      console.log("loadPolygons response", $scope.courierPolygonData);
+                  }, function errorCallback(data) {
+                      $scope.status = 'Щось пішло не так... з координатами ';
+                  });
+
+                  function isEmpty(obj) {
+                      for(var key in obj) {
+                          if(obj.hasOwnProperty(key))
+                              return false;
+                      }
+                      return true;
+                  }
 
                 $scope.goToRoute = function() {
 
@@ -14,15 +36,18 @@
                       deliveryType = document.getElementById('radio3').value;
                   }
 
-                  if (deliveryType == 'COURIER') {
-                    console.log($scope.deliverance)
+                  if (deliveryType == 'COURIER' && $scope.courierPolygonData == true) {
+                    location.hash = '#!/selectedcourierdelivery';
+                    console.log($scope.deliverance);
+                  } else if (deliveryType == 'COURIER') {
+                    console.log($scope.deliverance);
                     location.hash = '#!/selectedaddressdelivery'
-                  } else if (deliveryType == 'NOVAPOSHTA') {
-                    console.log($scope.deliverance)
-                    location.hash = '#!/selectedpostdelivery'
+                  }else if (deliveryType == 'NOVAPOSHTA') {
+                    console.log($scope.deliverance);
+                    location.hash = '#!/selectedpostdelivery';
                   } else {
-                    console.log($scope.deliverance)
-                    location.hash = '#!/selectedselftakedelivery'
+                    console.log($scope.deliverance);
+                    location.hash = '#!/selectedselftakedelivery';
                   }
 
 

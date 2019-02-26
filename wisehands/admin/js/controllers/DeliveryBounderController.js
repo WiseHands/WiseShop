@@ -73,9 +73,9 @@
                         return;
                       }
 
-                      map.data.forEach(function (f) {
-                          map.data.remove(f);
-                      });
+                      // map.data.forEach(function (f) {
+                      //     map.data.remove(f);
+                      // });
                       map.data.addGeoJson(data);
 
                   }
