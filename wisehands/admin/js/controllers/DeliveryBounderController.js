@@ -111,7 +111,7 @@
                   }
 
                   function deletePolygon () {
-                      map.data.setStyle({visible: false});
+                      // map.data.setStyle({visible: false});
                       var strjson = '{}';
                       var objjson = JSON.parse(strjson);
                       console.log("objjson-", objjson, typeof objjson);

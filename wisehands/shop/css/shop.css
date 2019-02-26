@@ -242,3 +242,8 @@ main {
         border-radius: 0;
     }
 }
+.next-button{
+  display:flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}

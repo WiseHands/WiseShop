@@ -67,6 +67,8 @@
                       var latlng;
                       var polygon;
                       var geocoder;
+                      // var isAddress;
+                      $scope.buttonDisabled = true;
                       var arrayCoordinates;
                       function init_map(latLng) {
                           geocoder = new google.maps.Geocoder();
@@ -85,15 +87,12 @@
 
                           map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
 
-                            google.maps.event.addListener(map, 'click', function(event) {
-
-                                  var isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
-                                  if (isAddress) {
-                                    console.log('You aren*t in range of delivery');
-                                  }
+                          google.maps.event.addListener(map, 'click', function(event) {
+                            $scope.buttonDisabled = true;
+                            var isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
+                                  console.log('You aren*t in range of delivery');
                               latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-                              console.log(event.latLng.lat(), event.latLng.lng());
-                              geocodeLatLng(latlng);
+                              geocodeLatLng(latlng, isAddress);
                             });
 
 
@@ -127,13 +126,15 @@
                           polygon.setMap(map);
 
                           google.maps.event.addListener(polygon, 'click', function(event) {
+                            $scope.buttonDisabled = false;
                             latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());;
+                            console.log('You are in range of delivery');
                             geocodeLatLng(latlng);
                           });
 
                         }
 
-                        function geocodeLatLng(latlng) {
+                        function geocodeLatLng(latlng, isAddress) {
                           geocoder.geocode({'location': latlng}, function(results, status) {
                             if (status === 'OK') {
                               if (results[0]) {
@@ -143,17 +144,20 @@
                                       localStorage.setItem('address', $scope.place);
                                   });
                                 console.log('address', results[0].formatted_address);
+                                if (isAddress == false) {if( marker ) marker.setMap( null );
+                                  marker = new google.maps.Marker({
+                                  position: latlng,
+                                  map: map,
+                                  visible: false
+                                });
+                              } else {
                                 if( marker ) marker.setMap( null );
                                   marker = new google.maps.Marker({
                                   position: latlng,
-                                  map: map
+                                  map: map,
                                 });
-                                var isAddress = google.maps.geometry.poly.containsLocation(latlng, polygon);
-                                if (isAddress) {
-                                  console.log('You are in range of delivery');
-                                } else {
-                                  console.log('You aren*t in range of delivery');
-                                }
+                              }
+
                               } else {
                                 console.log('no address');
                               }
