@@ -13,6 +13,7 @@
         <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
             <div class="form-group">
                 <b>{{'shopView.address' | translate}}</b>
+
                 <!-- <input class="form-control validate"
                        g-places-autocomplete
                        ng-change="customerData()"
@@ -26,8 +27,7 @@
         <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 600px"></div>
         <div class="row vcentering" delivery-cost>
           <button ng-click="goToRoute()" type="button" class="btn btn-primary pull-right" ng-disabled="buttonDisabled" form="orderForm">{{'shopView.next' | translate}}</button>
-
-          <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
+          <button ng-click="myLocation()" type="button" class="btn btn-primary pull-right" form="orderForm">{{'shopView.findmylocation' | translate}}</button>
 
         </div>
 

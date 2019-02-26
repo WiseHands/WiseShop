@@ -23,6 +23,7 @@
   "shopView.fullNamePlaceholder": "Enter your Name here",
   "shopView.phone": "Phone",
   "shopView.address": "Please click inside the area where order will be delivered",
+  "shopView.findmylocation": "My location",
   "shopView.addressPlaceholder": "Enter address here or tap inside of the area",
   "shopView.comment": "Comment",
   "shopView.commentPlaceholder": "Any proposals and wishes leave here",
