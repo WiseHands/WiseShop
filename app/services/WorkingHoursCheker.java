@@ -2,8 +2,12 @@
 package services;
 
 
+import org.joda.time.DateTime;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class WorkingHoursCheker {
 
@@ -25,10 +29,10 @@ public class WorkingHoursCheker {
 
 
     public static boolean isWorkingTime(Date startTime, Date endTime, Date date){
-        System.out.println("startTime" + startTime);
-        System.out.println("endTime" + endTime);
-        System.out.println("date" + date);
-        
+//        System.out.println("startTime " + startTime);
+//        System.out.println("endTime " + endTime);
+//        System.out.println("date " + date);
+
         SimpleDateFormat formatK = new SimpleDateFormat("k");
         SimpleDateFormat formatM = new SimpleDateFormat("m");
 

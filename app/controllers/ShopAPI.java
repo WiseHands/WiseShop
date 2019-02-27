@@ -11,6 +11,8 @@ import util.DomainValidation;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ShopAPI extends AuthController {
@@ -121,19 +123,27 @@ public class ShopAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        DateTime dt = new DateTime(shop.startTime);
-        Date startTime = dt.toDate();
+        DateTime dateTime = new DateTime(shop.startTime);
+        Date startTime = dateTime.toDate();
+        System.out.println("shop.startTime " + " " + startTime + " str- " + shop.startTime);
+        dateTime = new DateTime(shop.endTime);
+        Date endTime = dateTime.toDate();
+        System.out.println("shop.endTime " + " " + endTime + " str- " + shop.endTime);
 
-        dt = new DateTime(shop.endTime);
-        Date endTime = dt.toDate();
 
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        dateFormat.setTimeZone(timeZone);
+        String currentTimeISO = dateFormat.format(new Date());
+        dateTime = new DateTime(currentTimeISO);
+        Date currentTime = dateTime.toDate();
+        System.out.println("currentTime " + currentTime);
 
         boolean isWorkingHours;
         if(shop.alwaysOpen) {
             isWorkingHours = true;
         } else {
-            isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, new Date());
+            isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, currentTime);
         }
 
         JSONObject json = new JSONObject();
