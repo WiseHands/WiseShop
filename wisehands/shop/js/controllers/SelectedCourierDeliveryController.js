@@ -17,7 +17,9 @@
                     url: '/delivery'
                 }).then(function successCallback(response) {
                         $scope.deliverance = response.data;
-                        $scope.minOrderForFreeDelivery = $scope.deliverance.courierFreeDeliveryLimit;
+                        if($scope.total < $scope.deliverance.courierFreeDeliveryLimit) {
+                          $scope.deliveryPrice = $scope.deliverance.courierPrice;
+                        }
 
                     }, function errorCallback(error) {
                         console.log(error);
@@ -91,6 +93,7 @@
                     }
                 };
             }]);
+
 })();
 function encodeQueryData(data)
 {

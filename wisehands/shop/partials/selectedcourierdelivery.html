@@ -59,7 +59,7 @@
         </form>
         <div class="row vcentering" delivery-cost>
             <div class="col-xs-7">
-                <h4 class="modal-total pull-left"><strong>{{total + delivery()}} {{'shopView.currency' | translate}}</strong></h4>
+                <h4 class="modal-total pull-left"><strong>{{total + deliveryPrice }} {{'shopView.currency' | translate}}</strong></h4>
             </div>
             <div id="payButton" class="proceedWithPayment"></div>
             <div class="col-xs-5" ng-hide="successfullResponse">
