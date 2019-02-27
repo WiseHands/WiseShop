@@ -37,9 +37,6 @@ public class OrderAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-
-
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
 
         DateTime dt = new DateTime(shop.startTime);

@@ -46,6 +46,26 @@
                     templateUrl:'wisehands/shop/partials/orderform.html',
                     controller:'OrderFormController'
                 }).
+                when('/choosedelivery',{
+                    templateUrl:'wisehands/shop/partials/choosedelivery.html',
+                    controller:'ChooseDeliveryController'
+                }).
+                when('/selectedaddressdelivery',{
+                    templateUrl:'wisehands/shop/partials/selectedAddressDelivery.html',
+                    controller:'SelectedAddressDeliveryController'
+                }).
+                when('/selectedcourierdelivery',{
+                    templateUrl:'wisehands/shop/partials/selectedcourierdelivery.html',
+                    controller:'SelectedCourierDeliveryController'
+                }).
+                when('/selectedpostdelivery',{
+                    templateUrl:'wisehands/shop/partials/selectedpostdelivery.html',
+                    controller:'SelectedPostDeliveryController'
+                }).
+                when('/selectedselftakedelivery',{
+                    templateUrl:'wisehands/shop/partials/selectedselftakedelivery.html',
+                    controller:'SelectedSelfDeliveryController'
+                }).
                 when('/paymentstage',{
                     templateUrl:'wisehands/shop/partials/paymentStage.html',
                     controller:'PaymentStageController'

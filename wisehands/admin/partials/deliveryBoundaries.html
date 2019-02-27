@@ -1,0 +1,48 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="#/delivery/courier">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'courierDelivery.deliveryBoundaries' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="setDeliveryOptions()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+        <br>
+        <div class="col-md-8">
+          <style type="text/css">
+                #color-palette {
+                clear: both;
+            }
+            .color-button {
+                width: 14px;
+                height: 14px;
+                font-size: 0;
+                margin: 2px;
+                float: left;
+                cursor: pointer;
+            }
+            #delete-button {
+                margin-top: 5px;
+            }
+         </style>
+        
+            <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 600px"></div>
+        </div>
+
+</div>

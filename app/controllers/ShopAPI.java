@@ -147,6 +147,7 @@ public class ShopAPI extends AuthController {
         json.put("manualPaymentEnabled", shop.paymentSettings.manualPaymentEnabled);
         json.put("onlinePaymentEnabled", shop.paymentSettings.onlinePaymentEnabled);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
+        json.put("deliveryPolygon", shop.delivery.courierPolygonData);
         boolean couponsEnabled = true;
         List<CouponDTO> coupons = CouponDTO.find("byShopUuid", shop.uuid).fetch();
         if(coupons.size() == 0) {

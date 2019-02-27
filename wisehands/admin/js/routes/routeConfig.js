@@ -74,6 +74,11 @@
                         controller:'DeliverySettingsController',
                         activetab: 'delivery'
                     }).
+                     when('/deliveryboundaries',{
+                        templateUrl:'wisehands/admin/partials/deliveryBoundaries.html',
+                        controller:'DeliveryBounderController',
+                        activetab: 'delivery'
+                    }).
                     when('/delivery/selfTake',{
                         templateUrl:'wisehands/admin/partials/selfTakeDelivery.html',
                         controller:'DeliverySettingsController',
