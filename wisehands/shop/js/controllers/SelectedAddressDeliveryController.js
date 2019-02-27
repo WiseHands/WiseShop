@@ -34,6 +34,15 @@
                };
 
                 $scope.goToRoute = function() {
+                  if($scope.buttonDisabled) {
+                    console.log('address not selected...');
+                    toastr.options = {
+                      "positionClass": "toast-bottom-center",
+                      "preventDuplicates": true,
+                    }
+                    toastr.warning('Address not selected');
+                    return;
+                  }
                   location.hash = '#!/selectedcourierdelivery'
                 }
 
@@ -157,6 +166,8 @@
                                       visible: false
                                     });
                                 map.setCenter(centerLocation);
+                                map.setZoom(17);
+
                             console.log(' bounds.getCenter()', bounds.getCenter().lat(), typeof cords);
 
                           google.maps.event.addListener(polygon, 'click', function(event) {
@@ -174,25 +185,28 @@
                                     if (results[0]) {
                                       map.setZoom(17);
                                       $scope.$apply(function () {
-                                      $scope.place = results[0].formatted_address;
-                                      localStorage.setItem('address', $scope.place);
+                                        $scope.place = results[0].formatted_address;
+                                        localStorage.setItem('address', $scope.place);
+                                        $scope.buttonDisabled = false;
                                       });
                                       console.log('address', results[0].formatted_address);
-                                      if (isAddress == false) {
-                                        if( marker ) marker.setMap( null );
-                                        marker = new google.maps.Marker({
-                                        position: latlng,
-                                        map: map,
-                                        visible: false
-                                      });
-                                      $scope.buttonDisabled = true;
+                                        if (isAddress == false) {
+                                          if( marker ) marker.setMap( null );
+                                            marker = new google.maps.Marker({
+                                              position: latlng,
+                                              map: map,
+                                              visible: false
+                                            });
+                                         map.setCenter(latlng);
+                                         $scope.buttonDisabled = true; // set the disable of button
                                       } else {
-                                      if( marker ) marker.setMap( null );
-                                        marker = new google.maps.Marker({
-                                        position: latlng,
-                                        map: map,
-                                      });
-                                      $scope.buttonDisabled = false;
+                                        if( marker ) marker.setMap( null );
+                                          marker = new google.maps.Marker({
+                                            position: latlng,
+                                            map: map,
+                                          });
+                                        map.setCenter(latlng);
+                                        $scope.buttonDisabled = false; // set the disable of button
                                     }
 
                               } else {

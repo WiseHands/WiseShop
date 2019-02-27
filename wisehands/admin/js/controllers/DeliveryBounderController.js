@@ -34,7 +34,7 @@
                       var var_location = new google.maps.LatLng(lat, lng);
                       var var_map_options = {
                           center: var_location,
-                          zoom: 14
+                          zoom: 10
                           };
                       var var_marker = new google.maps.Marker({
                           position: var_location,
