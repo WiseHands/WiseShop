@@ -93,12 +93,10 @@
                               center: var_location,
                               zoom: 17
                               };
-                          // set googleMap By Id
                           infoWindow = new google.maps.InfoWindow;
                           map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
 
                           google.maps.event.addListener(map, 'click', function(event) {
-                            $scope.buttonDisabled = true;
                             var isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
                             latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
                             geocodeLatLng(latlng, isAddress);
@@ -142,7 +140,6 @@
                           };
                           console.log('objectArray', objectCoordinates);
 
-
                             var polygonOptions = {
                                 paths: objectCoordinates,
                                 clickable: true,
@@ -171,10 +168,10 @@
                             console.log(' bounds.getCenter()', bounds.getCenter().lat(), typeof cords);
 
                           google.maps.event.addListener(polygon, 'click', function(event) {
-                                $scope.buttonDisabled = false;
                                 latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+                                var isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
                                 console.log('You are in range of delivery');
-                                geocodeLatLng(latlng);
+                                geocodeLatLng(latlng, isAddress);
                               });
 
                         }
@@ -187,7 +184,11 @@
                                       $scope.$apply(function () {
                                         $scope.place = results[0].formatted_address;
                                         localStorage.setItem('address', $scope.place);
-                                        $scope.buttonDisabled = false;
+                                        if(isAddress){
+                                          $scope.buttonDisabled = false;
+                                        }else{
+                                          $scope.buttonDisabled = true;
+                                        }
                                       });
                                       console.log('address', results[0].formatted_address);
                                         if (isAddress == false) {
@@ -198,7 +199,12 @@
                                               visible: false
                                             });
                                          map.setCenter(latlng);
-                                         $scope.buttonDisabled = true; // set the disable of button
+                                         toastr.options = {
+                                           "positionClass": "toast-bottom-center",
+                                           "preventDuplicates": true,
+                                         }
+                                         toastr.warning('Address out of delivery range');
+                                         return;
                                       } else {
                                         if( marker ) marker.setMap( null );
                                           marker = new google.maps.Marker({
@@ -206,7 +212,6 @@
                                             map: map,
                                           });
                                         map.setCenter(latlng);
-                                        $scope.buttonDisabled = false; // set the disable of button
                                     }
 
                               } else {
