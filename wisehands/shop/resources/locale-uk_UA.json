@@ -21,7 +21,7 @@
   "shopView.deliveryType": "Тип доставки",
   "shopView.fullName": "Ім'я",
   "shopView.fullNamePlaceholder": "Еней",
-  "shopView.phone": "Номер телефону (380xxxxxxxxx - формат номера телефону)",
+  "shopView.phone": "Номер телефону (380xxxxxxxxx - формат номеру телефону)",
   "shopView.addressLocate": "Клікніть всередині зони доставки, куди повинно бути доставлено замовлення",
   "shopView.address": "Адреса",
   "shopView.noAddress": "Адреса не знайдена",
