@@ -25,6 +25,10 @@ public class WorkingHoursCheker {
 
 
     public static boolean isWorkingTime(Date startTime, Date endTime, Date date){
+        System.out.println("startTime" + startTime);
+        System.out.println("endTime" + endTime);
+        System.out.println("date" + date);
+        
         SimpleDateFormat formatK = new SimpleDateFormat("k");
         SimpleDateFormat formatM = new SimpleDateFormat("m");
 
