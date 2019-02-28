@@ -74,6 +74,7 @@ public class OrderAPI extends AuthController {
         String couponId = (String) jsonBody.get("coupon");
         String addressLat = (String) jsonBody.get("addressLat");
         String addressLng = (String) jsonBody.get("addressLng");
+        System.out.println("\n\n NEW ORDER " +shop.shopName + " \n address lat" + addressLat + "address lng " + addressLng);
         String agent = request.headers.get("user-agent").value();
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";

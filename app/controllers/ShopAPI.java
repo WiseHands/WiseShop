@@ -130,7 +130,6 @@ public class ShopAPI extends AuthController {
         Date endTime = dateTime.toDate();
         System.out.println("shop.endTime " + " " + endTime + " str- " + shop.endTime);
 
-
         TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
         dateFormat.setTimeZone(timeZone);

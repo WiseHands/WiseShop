@@ -25,6 +25,7 @@
                        localStorage.setItem('address', $scope.place.formatted_address);
                        localStorage.setItem('addressLat', $scope.place.geometry.location.lat());
                        localStorage.setItem('addressLng', $scope.place.geometry.location.lng());
+                       console.log($scope.place.geometry.location.lat(), $scope.place.geometry.location.lng());
                    }
                    if (!$scope.place.formatted_address) {
                        localStorage.setItem('addressLat', '');
@@ -32,6 +33,7 @@
                    }
 
                };
+
 
                 $scope.goToRoute = function() {
                   if($scope.buttonDisabled) {
@@ -76,13 +78,9 @@
                           $scope.status = 'Щось пішло не так...';
                       });
 
-                      var map;
-                      var marker;
-                      var latlng;
-                      var polygon;
-                      var geocoder;
-                      var infoWindow;
-                      // var isAddress;
+                      var map, marker, latlng, polygon, geocoder;
+                      var infoWindow, address, isAddress;
+
                       $scope.buttonDisabled = true;
                       function init_map(latLng) {
                           geocoder = new google.maps.Geocoder();
@@ -115,14 +113,15 @@
                               latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                               isAddress = google.maps.geometry.poly.containsLocation(latlng, polygon);
                               console.log('of delivery', latlng, isAddress);
-                              geocodeLatLng(latlng, isAddress)
+
                             }, function() {
-                              handleLocationError(true, infoWindow, map.getCenter());
+                              handleLocationError(true, infoWindow, map.setCenter(latlng));
                             });
                           } else {
                             // Browser doesn't support Geolocation
                             handleLocationError(false, infoWindow, map.getCenter());
                           }
+                          geocodeLatLng(latlng, isAddress)
                         }
 
                         $scope.mapInitialized = true;
@@ -176,7 +175,7 @@
 
                           google.maps.event.addListener(polygon, 'click', function(event) {
                                 latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-                                var isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
+                                isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
                                 console.log('You are in range of delivery');
                                 geocodeLatLng(latlng, isAddress);
                               });
@@ -191,13 +190,15 @@
                                       $scope.$apply(function () {
                                         $scope.place = results[0].formatted_address;
                                         localStorage.setItem('address', $scope.place);
+                                        localStorage.setItem('addressLat', latlng.lat());
+                                        localStorage.setItem('addressLng', latlng.lng());
                                         if(isAddress){
                                           $scope.buttonDisabled = false;
                                         }else{
                                           $scope.buttonDisabled = true;
                                         }
                                       });
-                                      console.log('address', results[0].formatted_address);
+                                      console.log('address geocodeLatLng', $scope.place, latlng.lat(), latlng.lng());
                                         if (isAddress == false) {
                                           if( marker ) marker.setMap( null );
                                             marker = new google.maps.Marker({
@@ -229,6 +230,7 @@
                             }
                           });
                         }
+
 
                           $scope.codeAddress = function() {
                           var address = document.getElementById('address').value;

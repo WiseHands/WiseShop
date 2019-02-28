@@ -28,7 +28,6 @@ public class DeliveryAPI extends AuthController {
         checkAuthentification(shop);
 
         String polygonData = params.get("body");
-        System.out.println(polygonData);
         shop.delivery.courierPolygonData = polygonData;
         shop.delivery.save();
         ok();
@@ -42,7 +41,6 @@ public class DeliveryAPI extends AuthController {
         checkAuthentification(shop);
 
         String polygonData = params.get("body");
-        System.out.println("Delete polygonData" + polygonData);
         shop.delivery.courierPolygonData = polygonData;
         shop.delivery.save();
         ok();
@@ -55,7 +53,6 @@ public class DeliveryAPI extends AuthController {
         }
 
         String polygonMap = shop.delivery.courierPolygonData;
-        System.out.println(polygonMap);
         renderJSON(json(polygonMap));
     }
 
