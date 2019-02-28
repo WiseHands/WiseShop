@@ -125,10 +125,8 @@ public class ShopAPI extends AuthController {
 
         DateTime dateTime = new DateTime(shop.startTime);
         Date startTime = dateTime.toDate();
-        System.out.println("shop.startTime " + " " + startTime + " str- " + shop.startTime);
         dateTime = new DateTime(shop.endTime);
         Date endTime = dateTime.toDate();
-        System.out.println("shop.endTime " + " " + endTime + " str- " + shop.endTime);
 
         TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
@@ -136,7 +134,6 @@ public class ShopAPI extends AuthController {
         String currentTimeISO = dateFormat.format(new Date());
         dateTime = new DateTime(currentTimeISO);
         Date currentTime = dateTime.toDate();
-        System.out.println("currentTime " + currentTime);
 
         boolean isWorkingHours;
         if(shop.alwaysOpen) {
