@@ -3,58 +3,22 @@
     angular.module('WiseShop')
         .controller('SelectedAddressDeliveryController', ['$scope', '$http', '$route', 'shared', '$route', '$location',
             function($scope, $http, shared, $route, $location) {
-
-
                $http({
                    method: 'GET',
                    url: '/delivery'
                }).then(function successCallback(response) {
                        $scope.deliverance = response.data;
                        $scope.minOrderForFreeDelivery = $scope.deliverance.courierFreeDeliveryLimit;
-
                    }, function errorCallback(error) {
                        console.log(error);
-                   });
-
-
-               $scope.customerData = function () {
-                   if (!$scope.place) {
-                       return;
-                   }
-                   if ($scope.place && $scope.place.formatted_address){
-                       localStorage.setItem('address', $scope.place.formatted_address);
-                       localStorage.setItem('addressLat', $scope.place.geometry.location.lat());
-                       localStorage.setItem('addressLng', $scope.place.geometry.location.lng());
-                       console.log($scope.place.geometry.location.lat(), $scope.place.geometry.location.lng());
-                   }
-                   if (!$scope.place.formatted_address) {
-                       localStorage.setItem('addressLat', '');
-                       localStorage.setItem('addressLng', '');
-                   }
-
-               };
-
-
-                $scope.goToRoute = function() {
-                  if($scope.buttonDisabled) {
-                    console.log('address not selected...');
-                    toastr.options = {
-                      "positionClass": "toast-bottom-center",
-                      "preventDuplicates": true,
-                    }
-                    toastr.warning('Address not selected');
-                    return;
-                  }
-                  location.hash = '#!/selectedcourierdelivery'
-                }
+               });
 
                 $http({
                     method: 'GET',
                     url: '/courier/polygon'
-                })
-                    .then(function successCallback(response) {
+                }).then(function successCallback(response) {
                         $scope.courierPolygonData = JSON.parse(response.data);
-						console.log('/courier/polygon', $scope.courierPolygonData);
+		                    console.log('/courier/polygon', $scope.courierPolygonData);
                         $scope._arrayCoordinates = $scope.courierPolygonData.features[0].geometry.coordinates[0];
 
                         if (!$scope.mapInitialized && $scope.contacts) {
@@ -62,47 +26,60 @@
                         }
                     }, function errorCallback(data) {
                         $scope.status = 'Щось пішло не так... з координатами ';
-                    });
+                  });
 
-                  $http({
-                      method: 'GET',
-                      url: '/contact/details'
-                  })
-                      .then(function successCallback(response) {
-                          $scope.contacts = response.data;
-					      console.log('/contact/details', $scope.contacts);
-                          if (!$scope.mapInitialized && $scope._arrayCoordinates) {
-							init_map($scope.contacts.latLng);
-						  }
-                      }, function errorCallback(data) {
-                          $scope.status = 'Щось пішло не так...';
-                      });
+                $http({
+                    method: 'GET',
+                    url: '/contact/details'
+                        })
+                          .then(function successCallback(response) {
+                              $scope.contacts = response.data;
+				                     console.log('/contact/details', $scope.contacts);
+                              if (!$scope.mapInitialized && $scope._arrayCoordinates) {
+						                     init_map($scope.contacts.latLng);
+					                     }
+                           }, function errorCallback(data) {
+                              $scope.status = 'Щось пішло не так...';
+                        });
 
-                      var map, marker, latlng, polygon, geocoder;
-                      var infoWindow, address, isAddress;
+                  $scope.buttonDisabled = true;
+                  $scope.goToRoute = function() {
+                    if($scope.buttonDisabled) {
+                      console.log('address not selected...');
+                      toastr.options = {
+                        "positionClass": "toast-bottom-center",
+                        "preventDuplicates": true,
+                      }
+                      toastr.warning('Address not selected');
+                      return;
+                    }
+                    location.hash = '#!/selectedcourierdelivery'
+                  }
 
-                      $scope.buttonDisabled = true;
-                      function init_map(latLng) {
-                          geocoder = new google.maps.Geocoder();
-                          if (!latLng) return;
+                  var map, marker, latlng, polygon, geocoder;
+                  var infoWindow, address, isAddress;
 
-                          var cords = latLng.split(':');
-                          var lat = cords[0];
-                          var lng = cords[1];
-                          var var_location = new google.maps.LatLng(lat, lng);
+                  function init_map(latLng) {
+                      geocoder = new google.maps.Geocoder();
+                      infoWindow = new google.maps.InfoWindow;
+                      if (!latLng) return;
 
-                          var var_map_options = {
-                              center: var_location,
-                              zoom: 17
-                              };
-                          infoWindow = new google.maps.InfoWindow;
-                          map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
+                      var cords = latLng.split(':');
+                      var lat = cords[0];
+                      var lng = cords[1];
+                      var var_location = new google.maps.LatLng(lat, lng);
 
-                          google.maps.event.addListener(map, 'click', function(event) {
+                      var var_map_options = {
+                          center: var_location,
+                          zoom: 17
+                          };
+                      map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
+
+                      google.maps.event.addListener(map, 'click', function(event) {
                             var isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
                             latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
                             geocodeLatLng(latlng, isAddress);
-                            console.log('You aren*t in range of delivery', isAddress);
+                            console.log('map, click You aren*t in range of delivery', isAddress);
                             });
 
                         polygonMap();
@@ -112,19 +89,18 @@
                             navigator.geolocation.getCurrentPosition(function(position) {
                               latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                               isAddress = google.maps.geometry.poly.containsLocation(latlng, polygon);
-                              console.log('of delivery', latlng, isAddress);
-
+                              console.log('navigator.geolocation of delivery', latlng, isAddress);
+                              geocodeLatLng(latlng, isAddress);
                             }, function() {
                               handleLocationError(true, infoWindow, map.setCenter(latlng));
                             });
                           } else {
-                            // Browser doesn't support Geolocation
-                            handleLocationError(false, infoWindow, map.getCenter());
-                          }
-                          geocodeLatLng(latlng, isAddress)
-                        }
+                                // Browser doesn't support Geolocation
+                                handleLocationError(false, infoWindow, map.getCenter());
+                              }
 
-                        $scope.mapInitialized = true;
+                            }
+                            $scope.mapInitialized = true;
                       }
 
                       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -171,12 +147,10 @@
                                 map.setCenter(centerLocation);
                                 map.setZoom(17);
 
-                            console.log(' bounds.getCenter()', bounds.getCenter().lat(), typeof cords);
-
                           google.maps.event.addListener(polygon, 'click', function(event) {
                                 latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
                                 isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
-                                console.log('You are in range of delivery');
+                                console.log('polygon, click You are in range of delivery');
                                 geocodeLatLng(latlng, isAddress);
                               });
 
@@ -227,32 +201,6 @@
                               }
                             } else {
                               console.log('finded address ', status);
-                            }
-                          });
-                        }
-
-
-                          $scope.codeAddress = function() {
-                          var address = document.getElementById('address').value;
-                          console.log(address);
-                          geocoder.geocode( { 'address': address}, function(results, status) {
-                            if (status == 'OK') {
-                              map.setCenter(results[0].geometry.location);
-                              if (marker && marker.setMap) {
-                                    marker.setMap(null);
-                                }
-                                  marker = new google.maps.Marker({
-                                  map: map,
-                                  position: results[0].geometry.location
-                              });
-                              var isAddress = google.maps.geometry.poly.containsLocation(results[0].geometry.location, polygon);
-                              if (isAddress) {
-                                console.log('You are in range of delivery');
-                              } else {
-                                console.log('You aren*t in range of delivery');
-                              }
-                            } else {
-                              alert('Geocode was not successful for the following reason: ' + status);
                             }
                           });
                         }
