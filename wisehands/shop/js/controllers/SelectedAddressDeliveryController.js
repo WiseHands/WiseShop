@@ -52,9 +52,12 @@
                 })
                     .then(function successCallback(response) {
                         $scope.courierPolygonData = JSON.parse(response.data);
-                        // var data = $scope.courierPolygonData;
-                        arrayCoordinates = $scope.courierPolygonData.features[0].geometry.coordinates[0];
-                        console.log("loadPolygons response", response, typeof arrayCoordinates, arrayCoordinates);
+						console.log('/courier/polygon', $scope.courierPolygonData);
+                        $scope._arrayCoordinates = $scope.courierPolygonData.features[0].geometry.coordinates[0];
+
+                        if (!$scope.mapInitialized && $scope.contacts) {
+                        	init_map($scope.contacts.latLng);
+                        }
                     }, function errorCallback(data) {
                         $scope.status = 'Щось пішло не так... з координатами ';
                     });
@@ -65,8 +68,10 @@
                   })
                       .then(function successCallback(response) {
                           $scope.contacts = response.data;
-                          init_map($scope.contacts.latLng);
-                          console.log($scope.contacts.latLng);
+					      console.log('/contact/details', $scope.contacts);
+                          if (!$scope.mapInitialized && $scope._arrayCoordinates) {
+							init_map($scope.contacts.latLng);
+						  }
                       }, function errorCallback(data) {
                           $scope.status = 'Щось пішло не так...';
                       });
@@ -79,7 +84,6 @@
                       var infoWindow;
                       // var isAddress;
                       $scope.buttonDisabled = true;
-                      var arrayCoordinates;
                       function init_map(latLng) {
                           geocoder = new google.maps.Geocoder();
                           if (!latLng) return;
@@ -120,6 +124,8 @@
                             handleLocationError(false, infoWindow, map.getCenter());
                           }
                         }
+
+                        $scope.mapInitialized = true;
                       }
 
                       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -132,10 +138,11 @@
 
                       function polygonMap(){
                           var objectCoordinates = [];
-                          for (var i = 0; i < arrayCoordinates.length; i++) {
+                          for (var i = 0; i < $scope._arrayCoordinates.length; i++) {
+                          	let _item = $scope._arrayCoordinates[i];
                             objectCoordinates.push({
-                              lat: arrayCoordinates[i][1],
-                              lng: arrayCoordinates[i][0]
+                              lat: _item[1],
+                              lng: _item[0]
                             });
                           };
                           console.log('objectArray', objectCoordinates);
