@@ -51,7 +51,13 @@ public class OrderAPI extends AuthController {
         if(shop.alwaysOpen) {
             isWorkingHours = true;
         } else {
-            isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, new Date());
+            TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+            dateFormat.setTimeZone(timeZone);
+            String currentTimeISO = dateFormat.format(new Date());
+            DateTime dateTime = new DateTime(currentTimeISO);
+            Date currentTime = dateTime.toDate();
+            isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, currentTime);
         }
         if(!isWorkingHours) {
             forbidden("Shop is closed now.");
@@ -193,8 +199,11 @@ public class OrderAPI extends AuthController {
         try {
             String payButton = liqPay.payButton(order, shop);
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss Z");
+            TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+            dateFormat.setTimeZone(timeZone);
             Date newDate = new Date();
+
             System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(newDate));
 
             json.put("button", payButton);
