@@ -28,7 +28,6 @@ public class AnalyticsAPI extends AuthController {
 
         Long today = beginOfDay(new Date());
         String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
-        System.out.println(totalTodayQuery);
         Double totalToday = (Double) JPA.em().createQuery(totalTodayQuery).getSingleResult();
 
         String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
@@ -88,7 +87,6 @@ public class AnalyticsAPI extends AuthController {
 
         Long thirtyDaysBefore = thirtyDaysBefore(new Date());
         String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + thirtyDaysBefore;
-        System.out.println(total30Query);
         Double totalToday = (Double) JPA.em().createQuery(total30Query).getSingleResult();
 
         String count30Query = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + thirtyDaysBefore;
@@ -147,7 +145,6 @@ public class AnalyticsAPI extends AuthController {
 
         Long nintyDaysBefore = nintyDaysBefore(new Date());
         String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + nintyDaysBefore;
-        System.out.println(total30Query);
         Double totalToday = (Double) JPA.em().createQuery(total30Query).getSingleResult();
 
         String count30Query = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + nintyDaysBefore;
@@ -206,7 +203,6 @@ public class AnalyticsAPI extends AuthController {
 
         Long oneHundredEighty = onehundredeightyDaysBefore(new Date());
         String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + oneHundredEighty;
-        System.out.println(total30Query);
         Double totalToday = (Double) JPA.em().createQuery(total30Query).getSingleResult();
 
         String count30Query = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + oneHundredEighty;
@@ -266,7 +262,6 @@ public class AnalyticsAPI extends AuthController {
 
         Long three = threeHundredSixtyDaysBefore(new Date());
         String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + three;
-        System.out.println(total30Query);
         Double totalToday = (Double) JPA.em().createQuery(total30Query).getSingleResult();
 
         String count30Query = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + three;

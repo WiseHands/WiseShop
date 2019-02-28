@@ -27,7 +27,6 @@ public class AuthController extends Controller {
     static void checkAuthentification(ShopDTO shop) {
         String authorizationHeader = request.headers.get(AUTHORIZATION).value();
         String jwtToken = authorizationHeader.replace("Bearer ","");
-        System.out.println(jwtToken);
         loggedInUser = verifyToken(jwtToken);
         if(shop != null && !shop.userList.contains(loggedInUser)) {
             forbidden("This user do not belong to given shop: " + loggedInUser.name);
@@ -56,7 +55,6 @@ public class AuthController extends Controller {
     static void checkSudoAuthentification() {
         String authorizationHeader = request.headers.get(AUTHORIZATION).value();
         String jwtToken = authorizationHeader.replace("Bearer ","");
-        System.out.println(jwtToken);
         loggedInUser = verifyToken(jwtToken);
         if(!loggedInUser.isSuperUser) {
             forbidden("Not a superuser :) " + loggedInUser.name);

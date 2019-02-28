@@ -101,7 +101,6 @@ public class CategoryAPI extends AuthController {
             category.name = name;
             for (ProductDTO productDTO : products) {
                 productDTO.categoryName = name;
-                System.out.println("\n\n " + name + " " + productDTO.name);
                 productDTO.save();
             }
         }
