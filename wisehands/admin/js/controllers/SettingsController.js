@@ -21,8 +21,8 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
-                $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
                 $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
+                $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
                 $scope.loading = false;
             }, function errorCallback(response) {
                 $scope.loading = false;
@@ -72,7 +72,7 @@ angular.module('WiseHands')
             });
         }
         sideNavInit.sideNav();
-        
+
     }]);
 
 function encodeQueryData(data)
