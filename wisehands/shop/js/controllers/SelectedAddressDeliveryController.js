@@ -153,6 +153,7 @@
         $scope.myLocation = function() {
           if (navigator.geolocation) {
 
+            showInfoMsg('Geolocating...');
             navigator.geolocation.getCurrentPosition(function(position) {
               let latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
               let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
@@ -176,11 +177,21 @@
 })();
 
 function showWarningMsg(msg) {
+  toastr.clear();
   toastr.options = {
     "positionClass": "toast-bottom-center",
     "preventDuplicates": true,
   }
   toastr.warning(msg);
+}
+
+function showInfoMsg(msg) {
+  toastr.clear();
+  toastr.options = {
+    "positionClass": "toast-bottom-center",
+    "preventDuplicates": true,
+  }
+  toastr.info(msg);
 }
 
 function isEmpty(obj) {
