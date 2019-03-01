@@ -3,6 +3,8 @@
     angular.module('WiseShop')
         .controller('SelectedAddressDeliveryController', ['$scope', '$http', '$route', 'shared', '$route', '$location',
             function($scope, $http, shared, $route, $location) {
+
+
                $http({
                    method: 'GET',
                    url: '/delivery'
@@ -12,6 +14,9 @@
                    }, function errorCallback(error) {
                        console.log(error);
                });
+
+
+
 
                 $http({
                     method: 'GET',
@@ -28,21 +33,34 @@
                         $scope.status = 'Щось пішло не так... з координатами ';
                   });
 
+
+
+
                 $http({
                     method: 'GET',
                     url: '/contact/details'
-                        })
-                          .then(function successCallback(response) {
-                              $scope.contacts = response.data;
-				                     console.log('/contact/details', $scope.contacts);
-                              if (!$scope.mapInitialized && $scope._arrayCoordinates) {
-						                     init_map($scope.contacts.latLng);
-					                     }
-                           }, function errorCallback(data) {
-                              $scope.status = 'Щось пішло не так...';
-                        });
+                }).then(function successCallback(response) {
+                    $scope.contacts = response.data;
+                    console.log('/contact/details', $scope.contacts);
+                    if (!$scope.mapInitialized && $scope._arrayCoordinates) {
+  	                  init_map($scope.contacts.latLng);
+                    }
+                   }, function errorCallback(data) {
+                      $scope.status = 'Щось пішло не так...';
+                });
+
+
+
+
+
+
 
                   $scope.buttonDisabled = true;
+
+
+                  var map, marker, latlng, polygon, geocoder;
+                  var address;
+
                   $scope.goToRoute = function() {
                     if($scope.buttonDisabled) {
                       console.log('address not selected...');
@@ -56,12 +74,88 @@
                     location.hash = '#!/selectedcourierdelivery'
                   }
 
-                  var map, marker, latlng, polygon, geocoder;
-                  var infoWindow, address, isAddress;
+
+
+                  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                          infoWindow.setPosition(pos);
+                          infoWindow.setContent(browserHasGeolocation ?
+                                                'Error: The Geolocation service failed.' :
+                                                'Error: Your browser doesn\'t support geolocation.');
+                          infoWindow.open(map);
+                    }
+
+                  $scope.myLocation = function(){
+                    if (navigator.geolocation) {
+                      navigator.geolocation.getCurrentPosition(function(position) {
+                        latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                        let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+                        console.log('navigator.geolocation of delivery', latlng, isLocationInsidePolygon);
+                        geocodeLatLng(latlng, isLocationInsidePolygon);
+                      }, function() {
+                        handleLocationError(true, $scope.infoWindow, map.setCenter(latlng));
+                      });
+                    } else {
+                          // Browser doesn't support Geolocation
+                          handleLocationError(false, $scope.infoWindow, map.getCenter());
+                      }
+
+                  }
+
+
+                  function geocodeLatLng(latlng, isLocationInsidePolygon) {
+                      geocoder.geocode({'location': latlng}, function(results, status) {
+                              if (status === 'OK') {
+                                if (results[0]) {
+                                  map.setZoom(17);
+                                  $scope.$apply(function () {
+                                    $scope.place = results[0].formatted_address;
+                                    localStorage.setItem('address', $scope.place);
+                                    localStorage.setItem('addressLat', latlng.lat());
+                                    localStorage.setItem('addressLng', latlng.lng());
+                                    if(isLocationInsidePolygon){
+                                      $scope.buttonDisabled = false;
+                                    }else{
+                                      $scope.buttonDisabled = true;
+                                    }
+                                  });
+                                  console.log('address geocodeLatLng', $scope.place, latlng.lat(), latlng.lng());
+                                    if (isLocationInsidePolygon == false) {
+                                      if( marker ) marker.setMap( null );
+                                        marker = new google.maps.Marker({
+                                          position: latlng,
+                                          map: map,
+                                          visible: false
+                                        });
+                                     map.setCenter(latlng);
+                                     toastr.options = {
+                                       "positionClass": "toast-bottom-center",
+                                       "preventDuplicates": true,
+                                     }
+                                     toastr.warning('Address out of delivery range');
+                                     return;
+                                  } else {
+                                    if( marker ) marker.setMap( null );
+                                      marker = new google.maps.Marker({
+                                        position: latlng,
+                                        map: map,
+                                      });
+                                    map.setCenter(latlng);
+                                }
+
+                          } else {
+                            console.log('no address');
+                          }
+                        } else {
+                          console.log('finded address ', status);
+                        }
+                      });
+                    }
+
+
 
                   function init_map(latLng) {
                       geocoder = new google.maps.Geocoder();
-                      infoWindow = new google.maps.InfoWindow;
+                      $scope.infoWindow = new google.maps.InfoWindow;
                       if (!latLng) return;
 
                       var cords = latLng.split(':');
@@ -76,40 +170,19 @@
                       map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
 
                       google.maps.event.addListener(map, 'click', function(event) {
-                            var isAddress = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
+                            let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(event.latLng, polygon);
                             latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-                            geocodeLatLng(latlng, isAddress);
-                            console.log('map, click You aren*t in range of delivery', isAddress);
+                            geocodeLatLng(latlng, isLocationInsidePolygon);
+                            console.log('map, click You aren*t in range of delivery', isLocationInsidePolygon);
                             });
 
                         polygonMap();
 
-                        $scope.myLocation = function(){
-                          if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(function(position) {
-                              latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                              isAddress = google.maps.geometry.poly.containsLocation(latlng, polygon);
-                              console.log('navigator.geolocation of delivery', latlng, isAddress);
-                              geocodeLatLng(latlng, isAddress);
-                            }, function() {
-                              handleLocationError(true, infoWindow, map.setCenter(latlng));
-                            });
-                          } else {
-                                // Browser doesn't support Geolocation
-                                handleLocationError(false, infoWindow, map.getCenter());
-                              }
 
-                            }
-                            $scope.mapInitialized = true;
+                        $scope.mapInitialized = true;
                       }
 
-                      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-                              infoWindow.setPosition(pos);
-                              infoWindow.setContent(browserHasGeolocation ?
-                                                    'Error: The Geolocation service failed.' :
-                                                    'Error: Your browser doesn\'t support geolocation.');
-                              infoWindow.open(map);
-                            }
+
 
                       function polygonMap(){
                           var objectCoordinates = [];
@@ -156,65 +229,21 @@
 
                         }
 
-                      function geocodeLatLng(latlng, isAddress) {
-                          geocoder.geocode({'location': latlng}, function(results, status) {
-                                  if (status === 'OK') {
-                                    if (results[0]) {
-                                      map.setZoom(17);
-                                      $scope.$apply(function () {
-                                        $scope.place = results[0].formatted_address;
-                                        localStorage.setItem('address', $scope.place);
-                                        localStorage.setItem('addressLat', latlng.lat());
-                                        localStorage.setItem('addressLng', latlng.lng());
-                                        if(isAddress){
-                                          $scope.buttonDisabled = false;
-                                        }else{
-                                          $scope.buttonDisabled = true;
-                                        }
-                                      });
-                                      console.log('address geocodeLatLng', $scope.place, latlng.lat(), latlng.lng());
-                                        if (isAddress == false) {
-                                          if( marker ) marker.setMap( null );
-                                            marker = new google.maps.Marker({
-                                              position: latlng,
-                                              map: map,
-                                              visible: false
-                                            });
-                                         map.setCenter(latlng);
-                                         toastr.options = {
-                                           "positionClass": "toast-bottom-center",
-                                           "preventDuplicates": true,
-                                         }
-                                         toastr.warning('Address out of delivery range');
-                                         return;
-                                      } else {
-                                        if( marker ) marker.setMap( null );
-                                          marker = new google.maps.Marker({
-                                            position: latlng,
-                                            map: map,
-                                          });
-                                        map.setCenter(latlng);
-                                    }
 
-                              } else {
-                                console.log('no address');
-                              }
-                            } else {
-                              console.log('finded address ', status);
-                            }
-                          });
-                        }
 
-                        function isEmpty(obj) {
-                            for(var key in obj) {
-                                if(obj.hasOwnProperty(key))
-                                    return false;
-                            }
-                            return true;
-                        }
+
 
             }]);
 })();
+
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
 function encodeQueryData(data)
 {
     var ret = [];
