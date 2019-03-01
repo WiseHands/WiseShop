@@ -6,20 +6,6 @@
 
         $scope.buttonDisabled = true;
 
-
-        $http({
-          method: 'GET',
-          url: '/delivery'
-        }).then(function successCallback(response) {
-          $scope.deliverance = response.data;
-          $scope.minOrderForFreeDelivery = $scope.deliverance.courierFreeDeliveryLimit;
-        }, function errorCallback(error) {
-          console.log(error);
-        });
-
-
-
-
         $http({
           method: 'GET',
           url: '/courier/polygon'
@@ -52,8 +38,109 @@
 
 
 
-        var map, marker, polygon, geocoder;
-        var address;
+        var map, marker, polygon;
+
+        function init_map(latLng) {
+          if (!latLng) return;
+
+          var cords = latLng.split(':');
+          var lat = cords[0];
+          var lng = cords[1];
+          var var_location = new google.maps.LatLng(lat, lng);
+
+          var var_map_options = {
+            center: var_location,
+            zoom: 17
+          };
+          map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
+
+          google.maps.event.addListener(map, 'click', function(event) {
+            $scope.buttonDisabled = true;
+            showWarningMsg('Please click inside delivery zone');
+          });
+
+          setDeliveryBoundariesPolygonOnMap();
+          $scope.mapInitialized = true;
+        }
+
+
+
+        function setDeliveryBoundariesPolygonOnMap() {
+          let polygonData = [];
+          for (var i = 0; i < $scope._arrayCoordinates.length; i++) {
+            let _item = $scope._arrayCoordinates[i];
+            polygonData.push({
+              lat: _item[1],
+              lng: _item[0]
+            });
+          };
+          console.log('polygonData', polygonData);
+
+          var polygonOptions = {
+            paths: polygonData,
+            clickable: true,
+            visible: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#99ff66',
+            fillOpacity: 0.35
+          };
+          polygon = new google.maps.Polygon(polygonOptions);
+          polygon.setMap(map);
+          let bounds = new google.maps.LatLngBounds();
+          for (var i = 0; i < polygonData.length; i++) {
+            bounds.extend(polygonData[i]);
+          }
+          let centerLocation = new google.maps.LatLng(bounds.getCenter().lat(), bounds.getCenter().lng());
+          map.setCenter(centerLocation);
+          map.setZoom(17);
+
+          google.maps.event.addListener(polygon, 'click', function(event) {
+            let latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+            localStorage.setItem('addressLat', latlng.lat());
+            localStorage.setItem('addressLng', latlng.lng());
+            console.log('polygon, click You are in range of delivery');
+            geocodeLatLng(latlng, true);
+          });
+        }
+
+        function geocodeLatLng(latlng, isLocationInsidePolygon) {
+          let geocoder = new google.maps.Geocoder();
+          geocoder.geocode({
+            'location': latlng
+          }, function(results, status) {
+            if (status === 'OK') {
+              if (results[0]) {
+                map.setZoom(17);
+                let address = results[0].formatted_address;
+                localStorage.setItem('address', address);
+                $scope.$apply(function() {
+                  $scope.buttonDisabled = !isLocationInsidePolygon;
+                });
+                console.log('geocoding result: ', address, latlng.lat(), latlng.lng());
+
+                if (marker) marker.setMap(null);
+                if (!isLocationInsidePolygon) {
+                  map.setCenter(latlng);
+                  showWarningMsg('Address out of delivery range');
+                } else {
+                  marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                  });
+                  map.setCenter(latlng);
+                }
+
+              } else {
+                console.log('no address');
+              }
+            } else {
+              console.log('finded address ', status);
+            }
+          });
+        }
+
 
         $scope.goToRoute = function() {
           if ($scope.buttonDisabled) {
@@ -83,130 +170,6 @@
           }
         }
 
-
-        function geocodeLatLng(latlng, isLocationInsidePolygon) {
-          geocoder.geocode({
-            'location': latlng
-          }, function(results, status) {
-            if (status === 'OK') {
-              if (results[0]) {
-                map.setZoom(17);
-                $scope.$apply(function() {
-                  $scope.place = results[0].formatted_address;
-                  localStorage.setItem('address', $scope.place);
-                  if (isLocationInsidePolygon) {
-                    $scope.buttonDisabled = false;
-                  } else {
-                    $scope.buttonDisabled = true;
-                  }
-                });
-                console.log('address geocodeLatLng', $scope.place, latlng.lat(), latlng.lng());
-                if (isLocationInsidePolygon == false) {
-                  if (marker) marker.setMap(null);
-                  marker = new google.maps.Marker({
-                    position: latlng,
-                    map: map,
-                    visible: false
-                  });
-                  map.setCenter(latlng);
-                  toastr.options = {
-                    "positionClass": "toast-bottom-center",
-                    "preventDuplicates": true,
-                  }
-                  toastr.warning('Address out of delivery range');
-                  return;
-                } else {
-                  if (marker) marker.setMap(null);
-                  marker = new google.maps.Marker({
-                    position: latlng,
-                    map: map,
-                  });
-                  map.setCenter(latlng);
-                }
-
-              } else {
-                console.log('no address');
-              }
-            } else {
-              console.log('finded address ', status);
-            }
-          });
-        }
-
-
-
-        function init_map(latLng) {
-          geocoder = new google.maps.Geocoder();
-          $scope.infoWindow = new google.maps.InfoWindow;
-          if (!latLng) return;
-
-          var cords = latLng.split(':');
-          var lat = cords[0];
-          var lng = cords[1];
-          var var_location = new google.maps.LatLng(lat, lng);
-
-          var var_map_options = {
-            center: var_location,
-            zoom: 17
-          };
-          map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
-
-          google.maps.event.addListener(map, 'click', function(event) {
-            $scope.buttonDisabled = true;
-            showWarningMsg('Please click inside delivery zone');
-          });
-
-          polygonMap();
-          $scope.mapInitialized = true;
-        }
-
-
-
-        function polygonMap() {
-          var objectCoordinates = [];
-          for (var i = 0; i < $scope._arrayCoordinates.length; i++) {
-            let _item = $scope._arrayCoordinates[i];
-            objectCoordinates.push({
-              lat: _item[1],
-              lng: _item[0]
-            });
-          };
-          console.log('objectArray', objectCoordinates);
-
-          var polygonOptions = {
-            paths: objectCoordinates,
-            clickable: true,
-            visible: true,
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#99ff66',
-            fillOpacity: 0.35
-          };
-          polygon = new google.maps.Polygon(polygonOptions);
-          polygon.setMap(map);
-          var bounds = new google.maps.LatLngBounds();
-          for (var i = 0; i < objectCoordinates.length; i++) {
-            bounds.extend(objectCoordinates[i]);
-          }
-          var centerLocation = new google.maps.LatLng(bounds.getCenter().lat(), bounds.getCenter().lng());
-          marker = new google.maps.Marker({
-            position: centerLocation,
-            map: map,
-            visible: false
-          });
-          map.setCenter(centerLocation);
-          map.setZoom(17);
-
-          google.maps.event.addListener(polygon, 'click', function(event) {
-            let latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-            localStorage.setItem('addressLat', latlng.lat());
-            localStorage.setItem('addressLng', latlng.lng());
-            console.log('polygon, click You are in range of delivery');
-            geocodeLatLng(latlng, true);
-          });
-
-        }
 
       }
     ]);
