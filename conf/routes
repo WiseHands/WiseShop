@@ -41,6 +41,7 @@ GET     {client}/analytics/30                           AnalyticsAPI.infoMonth
 GET     {client}/analytics/90                           AnalyticsAPI.infoNinty
 GET     {client}/analytics/180                          AnalyticsAPI.info180
 GET     {client}/analytics/360                          AnalyticsAPI.infoYear
+GET     {client}/analytics/from/{fromDate}/to/{toDate}  AnalyticsAPI.fromDateToDate
 
 GET     {client}/coupons                                CouponAPI.list
 GET     {client}/coupon/{uuid}                          CouponAPI.details

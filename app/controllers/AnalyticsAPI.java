@@ -1,13 +1,78 @@
 package controllers;
 
 import models.*;
+import org.joda.time.DateTime;
 import org.json.simple.JSONObject;
 import play.db.jpa.JPA;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class AnalyticsAPI extends AuthController {
+
+    public static void fromDateToDate(String client, String fromDate, String toDate) throws Exception {
+        System.out.println("date " + fromDate + "\n" + toDate);
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        Long firstDay = (new Date(fromDate)).getTime();
+        Long lastDate = (new Date(toDate)).getTime();
+        System.out.println("date " + firstDay + "\n" + lastDate);
+
+        int oneDay = 24*60*60*1000;
+        int days = Math.round(Math.abs(firstDay - lastDate)/(oneDay));
+        System.out.println(days);
+
+
+
+        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
+        Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
+
+        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
+        Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
+
+        String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + firstDay;
+        Double totalToday = (Double) JPA.em().createQuery(totalTodayQuery).getSingleResult();
+
+        String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + firstDay;
+        Long countToday = (Long) JPA.em().createQuery(countTodayQuery).getSingleResult();
+
+        JSONObject json = new JSONObject();
+        json.put("total", total);
+        json.put("count", count);
+        json.put("totalToday", totalToday);
+        json.put("countToday", countToday);
+
+
+
+        List<JSONObject> list = new ArrayList<JSONObject>();
+        for (int i=1; i<days+2; i++) {
+            Long dayStart = beginOfDay(subtractDay(new Date(fromDate),+i));
+            Long dayEnd = endOfDay(subtractDay(new Date(toDate),+i));
+            String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
+                    + "' and state!='DELETED' and state!='CANCELLED' and time > " + dayStart  + " and time < " + dayEnd;
+
+            Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
+            if(dayTotal == null) {
+                dayTotal = 0.0;
+            }
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            String dayName = dateFormat.format(new Date(dayStart));
+            JSONObject item = new JSONObject();
+            item.put("day", dayName);
+            item.put("total", dayTotal);
+            list.add(item);
+        }
+
+        json.put("chartData", list);
+        renderJSON(json);
+
+    }
 
     public static void infoDay(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -17,7 +82,7 @@ public class AnalyticsAPI extends AuthController {
         checkAuthentification(shop);
 
         if(numberOfDays == 0) {
-            numberOfDays=7;
+            numberOfDays = 7;
         }
 
         String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
@@ -67,8 +132,7 @@ public class AnalyticsAPI extends AuthController {
         renderJSON(json);
     }
 
-
-    public static void infoMonth(String client, int numberOfDays) throws Exception { // /shop/details
+        public static void infoMonth(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
