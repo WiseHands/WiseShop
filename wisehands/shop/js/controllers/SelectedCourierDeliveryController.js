@@ -2,6 +2,20 @@
     angular.module('WiseShop')
         .controller('SelectedCourierDeliveryController', ['$scope', '$http', 'shared',
             function($scope, $http, shared) {
+
+              $http({
+                  method: 'GET',
+                  url: '/courier/polygon'
+              }).then(function successCallback(response) {
+                    let objjson = JSON.parse(response.data);
+                    if(isEmpty(objjson)){
+                      document.getElementById('address').disabled = false;
+                    }
+                    console.log("loadPolygons response:",   isEmpty(objjson), objjson);
+                  }, function errorCallback(data) {
+                      $scope.status = 'Щось пішло не так... з координатами ';
+                  });
+
                 $scope.phone = localStorage.getItem('phone') || '';
                 $scope.name = localStorage.getItem('name') || '';
                 $scope.place = localStorage.getItem('address') || '';
@@ -83,6 +97,8 @@
                         localStorage.setItem('address', $scope.place.formatted_address);
                         localStorage.setItem('addressLat', $scope.place.geometry.location.lat());
                         localStorage.setItem('addressLng', $scope.place.geometry.location.lng());
+                        console.log($scope.place.geometry.location.lat(), $scope.place.geometry.location.lng());
+
                     }
                     if (!$scope.place.formatted_address) {
                         localStorage.setItem('addressLat', '');

@@ -1,3 +1,13 @@
+<style>
+  .calculate-total-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .calculate-total-container input{
+    min-width: 150px;
+    margin-right: 20px;
+  }
+</style>
 <nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
     <div class="container-fluid">
         <div class="row vcentering">
@@ -70,6 +80,13 @@
                     <p>{{analytics.total}} {{'analytics.currency' | translate}}</p>
                 </div>
             </div>
+            <div class="calculate-total-container">
+              <input placeholder="{{'analytics.fromDate' | translate}}" type="text" ng-model="showTotalFromDate">
+              <input placeholder="{{'analytics.toDate' | translate}}" type="text" ng-model="showTotalToDate">
+              <button type="button" ng-click="calculateDayRange()" class="btn btn-primary">
+                  {{'analytics.total' | translate}}
+              </button>
+            </div>
         </div>
     </div>
     <div ng-hide="loading" class="col-xs-10 col-xs-offset-1">
@@ -93,4 +110,3 @@
         <!--</div>-->
     <!--</div>-->
 </div>
-

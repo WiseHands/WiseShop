@@ -1,6 +1,6 @@
 angular.module('WiseHands')
-    .controller('AnalyticsController', ['$scope', '$http', 'sideNavInit', 'signout',
-        function ($scope, $http, sideNavInit, signout) {
+    .controller('AnalyticsController', ['$scope', '$http', '$route', 'sideNavInit', 'signout',
+        function ($scope, $http, $route, sideNavInit, signout) {
             $scope.loading = true;
 
             $scope.getMainAnalyticsData = function (days) {
@@ -12,7 +12,7 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         $scope.analytics = response.data;
-
+                        console.log('$scope.analytics ', $scope.analytics);
                         if(!$scope.analytics.totalToday){
                             $scope.analytics.totalToday = 0;
                         }
@@ -58,6 +58,27 @@ angular.module('WiseHands')
                     });
 
             };
+
+              $scope.calculateDayRange = function(){
+                var fromDate = new Date($scope.showTotalFromDate);
+                var toDate = new Date($scope.showTotalToDate);
+
+                console.log(fromDate);
+                console.log(toDate);
+
+                $http({
+                    method: 'GET',
+                    url: '/analytics/from/' + fromDate + '/to/' + toDate
+                })
+                    .then(function successCallback(response) {
+                      console.log(response.data);
+
+                    }, function errorCallback(response) {
+                        $scope.status = 'Щось пішло не так...';
+                    });
+
+              };
+
                 $scope.loading = true;
                 $http({
                     method: 'GET',
@@ -119,6 +140,3 @@ function initialize(latLng) {
         });
     }
 }
-
-
-

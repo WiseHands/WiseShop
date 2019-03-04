@@ -1,6 +1,9 @@
 {
   "yes": "Так",
   "no": "Ні",
+  "analytics.fromDate": "Від",
+  "analytics.toDate": "До",
+  "analytics.total": "Total",
   "is.hidden": "Приховати",
   "orderList.Search": "Пошук",
   "orderList.New": "Нові",

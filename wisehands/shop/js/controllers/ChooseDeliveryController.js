@@ -1,4 +1,4 @@
-(function(){
+  (function(){
     angular.module('WiseShop')
         .controller('ChooseDeliveryController', ['$scope', '$http', 'shared', '$route',
             function($scope, $http, shared, $route) {
@@ -6,13 +6,12 @@
               $http({
                   method: 'GET',
                   url: '/courier/polygon'
-              })
-                  .then(function successCallback(response) {
-                    if(!response.data) {
+              }).then(function successCallback(response) {
+                    let objjson = JSON.parse(response.data);
+                    if(isEmpty(objjson)){
                       $scope.courierPolygonData = true;
-                      console.log("loadPolygons response", response);
                     }
-                      console.log("loadPolygons response", $scope.courierPolygonData);
+                    console.log("loadPolygons response:",   isEmpty(objjson), objjson);
                   }, function errorCallback(data) {
                       $scope.status = 'Щось пішло не так... з координатами ';
                   });

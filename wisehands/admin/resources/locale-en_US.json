@@ -1,6 +1,9 @@
 {
   "yes": "Yes",
   "no": "No",
+  "analytics.fromDate": "From Date 01/21/2019",
+  "analytics.toDate": "To Date 03/31/2019",
+  "analytics.total": "Total",
   "is.hidden": "Is hidden",
   "orderList.Search": "Search",
   "orderList.New": "New",
