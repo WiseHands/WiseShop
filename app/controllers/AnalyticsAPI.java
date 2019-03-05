@@ -33,7 +33,7 @@ public class AnalyticsAPI extends AuthController {
         String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
         Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
 
-        Long today = beginOfDay(new Date());
+        Long today = beginOfDay(new Date(fromDate));
         String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
         Double totalToday = (Double) JPA.em().createQuery(totalTodayQuery).getSingleResult();
 

@@ -1,9 +1,9 @@
 ﻿{
   "yes": "Tak",
   "no": "Nie",
-  "analytics.fromDate": "Ot",
-  "analytics.toDate": "Do",
-  "analytics.total": "Total",
+  "analytics.fromDate": "Ot 01/31/2018",
+  "analytics.toDate": "Do 01/31/2019",
+  "analytics.analyticstotal": "Policz",
   "is.hidden": "Jest ukryty",
   "orderList.Search": "Szukaj",
   "orderList.New": "Nowe",

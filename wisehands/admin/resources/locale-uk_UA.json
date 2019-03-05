@@ -1,9 +1,9 @@
 {
   "yes": "Так",
   "no": "Ні",
-  "analytics.fromDate": "Від",
-  "analytics.toDate": "До",
-  "analytics.total": "Total",
+  "analytics.fromDate": "Від 01/31/2018",
+  "analytics.toDate": "До 03/31/2019",
+  "analytics.analyticstotal": "Порахувати",
   "is.hidden": "Приховати",
   "orderList.Search": "Пошук",
   "orderList.New": "Нові",
