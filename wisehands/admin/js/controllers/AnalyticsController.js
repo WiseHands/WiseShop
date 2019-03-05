@@ -63,8 +63,8 @@ angular.module('WiseHands')
                 var fromDate = new Date($scope.showTotalFromDate);
                 var toDate = new Date($scope.showTotalToDate);
 
-                console.log(fromDate);
-                console.log(toDate);
+                console.log("time of fromDate ", fromDate);
+                console.log("time of toDate ", toDate);
 
                 $http({
                     method: 'GET',
@@ -72,6 +72,20 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                       console.log(response.data);
+                      $scope.analytics = response.data;
+                      var labels = [];
+                      var data = [];
+                      for(var i=0; i<$scope.analytics.chartData.length; i++) {
+                          var item = $scope.analytics.chartData[i];
+                          labels.push(item.day);
+                          data.push(item.total);
+                      }
+
+                      $scope.labels = labels;
+                      $scope.series = ['Total'];
+                      $scope.data = [
+                          data
+                      ];
 
                     }, function errorCallback(response) {
                         $scope.status = 'Щось пішло не так...';

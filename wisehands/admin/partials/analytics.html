@@ -48,6 +48,13 @@
                     chart-labels="labels" chart-series="series" chart-options="options"
                     chart-dataset-override="datasetOverride" chart-click="onClick">
             </canvas>
+            <div class="calculate-total-container">
+              <input placeholder="{{'analytics.fromDate' | translate}}" type="text" ng-model="showTotalFromDate">
+              <input placeholder="{{'analytics.toDate' | translate}}" type="text" ng-model="showTotalToDate">
+              <button type="button" ng-click="calculateDayRange()" class="btn btn-primary">
+                  {{'analytics.total' | translate}}
+              </button>
+            </div>
         </div>
         <div class="col-sm-3 col-xs-12 text-center">
             <div class="card analCardsColor">
@@ -79,13 +86,6 @@
                     <p class="card-title">{{'analytics.total' | translate}}:</p>
                     <p>{{analytics.total}} {{'analytics.currency' | translate}}</p>
                 </div>
-            </div>
-            <div class="calculate-total-container">
-              <input placeholder="{{'analytics.fromDate' | translate}}" type="text" ng-model="showTotalFromDate">
-              <input placeholder="{{'analytics.toDate' | translate}}" type="text" ng-model="showTotalToDate">
-              <button type="button" ng-click="calculateDayRange()" class="btn btn-primary">
-                  {{'analytics.total' | translate}}
-              </button>
             </div>
         </div>
     </div>
