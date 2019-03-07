@@ -2,6 +2,11 @@
     angular.module('WiseShop')
         .controller('SelectedPostDeliveryController', ['$scope', '$http', 'shared',
             function($scope, $http, shared) {
+
+
+                var paymentButton = document.querySelector(".proceedWithPayment");
+                paymentButton.innerHTML = $scope.paymentButton;
+
                 $scope.phone = localStorage.getItem('phone') || '';
                 $scope.name = localStorage.getItem('name') || '';
                 $scope.place = localStorage.getItem('address') || '';
@@ -9,6 +14,10 @@
                 function loadOptions() {
                     $scope.selectedItems = shared.getProductsToBuy();
                     $scope.total =  shared.getTotal();
+                    $scope.paymentButton = shared.getPaymentButton();
+                    $scope.currentOrderUuid = shared.getCurrentOrderUuid();
+                    $scope.paymentType = shared.getPaymentType();
+                    $scope.deliveryType = shared.getDeliveryType();
                 }
                 loadOptions();
 
@@ -29,6 +38,8 @@
                 }).then(function successCallback(response) {
                         $scope.shopName = response.data.name;
                         $scope.shopId = response.data.uuid;
+                        $scope.payLateButton = response.data.manualPaymentEnabled;
+                        $scope.onlinePaymentEbabled = response.data.onlinePaymentEnabled;
                     }, function errorCallback(error) {
                         console.log(error);
                     });
@@ -55,20 +66,43 @@
                         method: 'POST',
                         url: '/order',
                         data: $scope.params
-                    })
-                        .then(function successCallback(response) {
+                    }).then(function successCallback(response) {
                             $scope.loading = false;
                             $scope.successfullResponse = true;
                             var modalContent = document.querySelector(".proceedWithPayment");
                             modalContent.innerHTML = response.data.button;
-                            shared.setPaymentButton(modalContent.innerHTML);
                             $scope.currentOrderUuid = response.data.uuid;
-                            shared.setCurrentOrderUuid($scope.currentOrderUuid);
-                            window.location.hash ='#!/paymentstage';
+                            if ($scope.paymentType == 'CASHONSPOT'){
+                              console.log('deliveryType', $scope.deliveryType);
+                              console.log('paymentType', $scope.paymentType);
+                              cashToCourier();
+                            } else if ($scope.paymentType == 'PAYONLINE') {
+                              console.log('deliveryType', $scope.deliveryType);
+                              console.log('paymentType', $scope.paymentType);
+                              payOnline();
+                            }
+
                         }, function errorCallback(data) {
                             $scope.loading = false;
                             console.log(data);
                         });
+                };
+
+                function cashToCourier() {
+                    $http({
+                        method: 'PUT',
+                        url: '/order/' + $scope.currentOrderUuid + '/manually-payed'
+                    })
+                        .then(function successCallback(response) {
+                            window.location.pathname = '/done';
+                        }, function errorCallback(data) {
+                            console.log(data);
+                        });
+                };
+
+                function payOnline() {
+                  var rootDiv = document.querySelector('.proceedWithPayment');
+                  rootDiv.firstChild.submit();
                 };
 
                 $scope.customerData = function () {

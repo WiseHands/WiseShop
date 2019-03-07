@@ -70,6 +70,10 @@
                     templateUrl:'wisehands/shop/partials/paymentStage.html',
                     controller:'PaymentStageController'
                 }).
+                when('/paymentnewstage',{
+                    templateUrl:'wisehands/shop/partials/paymentType.html',
+                    controller:'PaymentTypeController'
+                }).
                 when('/newpost',{
                     templateUrl:'wisehands/shop/partials/newpost.html',
                     controller:'NewPostController'

@@ -112,12 +112,16 @@
           }, function(results, status) {
             if (status === 'OK') {
               if (results[0]) {
+                console.log('geocoding result: ', results);
+
                 map.setZoom(17);
                 let address = results[0].formatted_address;
                 localStorage.setItem('address', address);
                 $scope.$apply(function() {
                   $scope.buttonDisabled = !isLocationInsidePolygon;
                 });
+                showInfoMsg(address);
+
                 console.log('geocoding result: ', address, latlng.lat(), latlng.lng());
 
                 if (marker) marker.setMap(null);
@@ -147,7 +151,7 @@
             showWarningMsg('Address not selected');
             return;
           }
-          location.hash = '#!/selectedcourierdelivery'
+          location.hash ='#!/paymentnewstage';
         }
 
         $scope.myLocation = function() {

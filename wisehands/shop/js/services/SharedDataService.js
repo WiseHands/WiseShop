@@ -6,6 +6,8 @@ angular.module('WiseShop')
         var paymentButton = '';
         var currentOrderUuid = '';
         var totalQuantity = 0;
+        var deliveryType = '';
+        var paymentType = '';
         Object.compare = function (obj1, obj2) {
             //Loop through properties in object 1
             for (var p in obj1) {
@@ -89,7 +91,6 @@ angular.module('WiseShop')
             setProductQuantity: function (index, quantity) {
                 productsToBuy[index].quantity = quantity;
                 this.reCalculateQuantity();
-
             },
 
             getTotalQuantity: function () {
@@ -123,6 +124,18 @@ angular.module('WiseShop')
             },
             setCurrentOrderUuid: function (value) {
                 currentOrderUuid = value;
+            },
+            setDeliveryType: function (value) {
+                deliveryType = value;
+            },
+            getDeliveryType: function () {
+                return deliveryType;
+            },
+            setPaymentType: function (value) {
+                paymentType = value;
+            },
+            getPaymentType: function () {
+                return paymentType;
             }
         }
     }]);

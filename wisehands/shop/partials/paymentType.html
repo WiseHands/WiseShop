@@ -1,0 +1,43 @@
+<header>
+    <nav class="navbar navbar-fixed-top scrolling-navbar double-nav vcentering pl-0" shop-styling style="background-color: {{shopStyling.navbarColor}}">
+        <ul class="nav navbar-nav pull-left col-xs-2">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
+            </li>
+        </ul>
+        <h4 class="text-xs-center col-xs-8" style="color: {{shopStyling.navbarTextColor}}"><b>{{'shopView.payment' | translate}}</b></h4>
+    </nav>
+</header>
+<main class="p-t-6 noSidePadding">
+    <div class="container">
+        <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
+            <h5 class="deliveryType"><b>{{'shopView.paymentType' | translate}}</b></h5>
+            <br>
+            <fieldset class="form-group">
+                <input name="deliverance"
+                       type="radio"
+                       class="with-gap"
+                       id="radio1"
+                       ng-model="paymentType"
+                       ng-required="!paymentType"
+                       value="CASHONSPOT">
+                <label for="radio1"><i>{{'shopView.cashOnDelivery' | translate}}</i></label>
+            </fieldset>
+            <fieldset class="form-group">
+                <input name="deliverance"
+                       type="radio"
+                       class="with-gap"
+                       id="radio2"
+                       ng-model="paymentType"
+                       ng-required="!paymentType"
+                       value="PAYONLINE">
+                <label for="radio2"><i>{{'shopView.onlinePay' | translate}}</i></label>
+
+            </fieldset>
+
+        </form>
+            <div class="row vcentering" >
+                <button ng-click="goToRoute()" type="button" class="btn btn-primary pull-right" ng-hide="loading" form="orderForm">{{'shopView.next' | translate}}</button>
+            </div>
+    </div>
+</main>

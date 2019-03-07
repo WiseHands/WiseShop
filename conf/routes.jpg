@@ -1,0 +1,145 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     {client}/                                       Application.index
+GET     {client}/wisehands                              Application.wisehands
+GET     {client}/shop                                   Application.shop
+
+GET     {client}/admin                                  Application.admin
+GET     {client}/superadmin                             Application.superAdmin
+
+POST    {client}/signin                                 UserAPI.login
+POST    {client}/storeauthcode                          UserAPI.storeauthcode
+POST    {client}/signup                                 UserAPI.register
+GET     {client}/profile                                UserAPI.profile
+PUT     {client}/profile                                UserAPI.updateProfile
+GET     {client}/user/{uuid}                            UserAPI.details
+
+GET     {client}/sudo/users                            	UserAPI.list
+GET     {client}/sudo/user/{uuid}                       UserAPI.one
+DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
+
+GET     {client}/sudo/orders                            OrderAPI.all
+GET     {client}/sudo/order/{uuid}                      OrderAPI.one
+DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
+
+GET     {client}/payment/detail                         PaymentSettingsAPI.details
+PUT     {client}/payment/update                         PaymentSettingsAPI.update
+
+GET     {client}/visualsettings                         VisualSettingsAPI.details
+PUT     {client}/visualsettings                         VisualSettingsAPI.update
+DELETE  {client}/visualsettings/logo                    VisualSettingsAPI.deleteLogo
+PUT     {client}/visualsettings/logo                    VisualSettingsAPI.uploadLogo
+PUT     {client}/visualsettings/favicon                 VisualSettingsAPI.uploadFavicon
+DELETE  {client}/visualsettings/favicon                 VisualSettingsAPI.deleteFavicon
+GET     {client}/visualsettings/schemes                 VisualSettingsAPI.getSidebarSchemes
+
+GET     {client}/analytics                              AnalyticsAPI.infoDay
+GET     {client}/analytics/30                           AnalyticsAPI.infoMonth
+GET     {client}/analytics/90                           AnalyticsAPI.infoNinty
+GET     {client}/analytics/180                          AnalyticsAPI.info180
+GET     {client}/analytics/360                          AnalyticsAPI.infoYear
+
+GET     {client}/coupons                                CouponAPI.list
+GET     {client}/coupon/{uuid}                          CouponAPI.details
+POST    {client}/coupons                                CouponAPI.create
+POST    {client}/coupon/{couponId}                      CouponAPI.checkForCoupon
+DELETE  {client}/coupon/{uuid}                          CouponAPI.delete
+DELETE  {client}/coupons/{uuid}                         CouponAPI.delete
+DELETE  {client}/coupons                                CouponAPI.deleteAll
+
+
+GET     {client}/products                               ProductAPI.list
+GET     {client}/product/{uuid}                         ProductAPI.details
+POST    {client}/product                                ProductAPI.create
+PUT     {client}/product                                ProductAPI.update
+DELETE  {client}/product/{uuid}                         ProductAPI.delete
+
+DELETE  {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.delete
+PUT     {client}/product/{productUuid}/image            ProductImageAPI.add
+PUT     {client}/product/{productUuid}/image/{uuid}     ProductImageAPI.makeMain
+
+GET     {client}/property/{uuid}                            ProductPropertyAPI.details
+POST    {client}/category/{categoryUuid}/property           ProductPropertyAPI.create
+PUT     {client}/property/{uuid}                            ProductPropertyAPI.update
+DELETE  {client}/property/{uuid}                            ProductPropertyAPI.delete
+GET     {client}/category/{categoryUuid}/property           ProductPropertyAPI.categoryProperties
+DELETE  {client}/category/{categoryUuid}/property           ProductPropertyAPI.deleteCategoryProperties
+
+DELETE  {client}/property/{propertyUuid}/tag/{uuid}         PropertyTagAPI.delete
+
+
+
+
+
+
+GET     {client}/sudo/shops                             ShopAPI.all
+GET     {client}/sudo/shop/{uuid}                       ShopAPI.one
+DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
+
+
+GET     {client}/shops                               	ShopAPI.list
+GET     {client}/shop/details                           ShopAPI.details
+GET     {client}/shop/details/public                    ShopAPI.publicInfo
+POST    {client}/shop                            	    ShopAPI.create
+PUT     {client}/shop                                   ShopAPI.update
+PUT     {client}/shop/{locale}                          ShopAPI.changeLocal
+PUT     {client}/shop/{domain}                          ShopAPI.updateDomain
+
+GET     {client}/shop/user                              ShopAPI.listUsers
+POST    {client}/shop/user                              ShopAPI.addUserToShop
+DELETE  {client}/shop/user                              ShopAPI.removeUserFromShop
+
+GET     {client}/delivery                               DeliveryAPI.details
+PUT     {client}/delivery                               DeliveryAPI.update
+
+GET     {client}/orders                                 OrderAPI.list
+GET     {client}/order/{uuid}                           OrderAPI.details
+POST    {client}/order                                  OrderAPI.create
+DELETE  {client}/order/{uuid}                           OrderAPI.delete
+PUT     {client}/order/{uuid}/cancelled                 OrderAPI.markCancelled
+PUT     {client}/order/{uuid}/shipped                   OrderAPI.markShipped
+PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
+*       {client}/success                                OrderAPI.success
+
+GET     {client}/contact/details                        ContactAPI.details
+PUT     {client}/contact                                ContactAPI.update
+
+GET     {client}/balance                                BalanceAPI.getBalance
+POST    {client}/pay                                    BalanceAPI.startPayment
+POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification
+
+GET		{client}/category								CategoryAPI.all
+GET		{client}/category/{uuid}						CategoryAPI.details
+POST	{client}/category        						CategoryAPI.create
+PUT 	{client}/category/{uuid}/name/{name}			CategoryAPI.update
+DELETE 	{client}/category/{uuid}						CategoryAPI.delete
+PUT 	{client}/category/{uuid}/product/{productUuid}	CategoryAPI.assignProduct
+
+GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
+GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
+
+POST	{client}/subscription      						PushSubscriptionAPI.subscribe
+
+
+
+*       {client}/done                                   Application.done
+*       {client}/fail                                   Application.fail
+*       {client}/login                                  Application.login
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+GET     /wisehands/                             staticDir:wisehands
+GET		/google3d064e8f1e55f5ab.html			staticFile:google3d064e8f1e55f5ab.html
+
+GET     {client}/sitemap                        Application.sitemap(format:'xml')
+GET     {client}/manifest                       Application.manifestAdmin
+
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}

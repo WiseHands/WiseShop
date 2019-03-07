@@ -36,21 +36,23 @@
                   }
 
                   if (deliveryType == 'COURIER' && $scope.courierPolygonData == true) {
-                    location.hash = '#!/selectedcourierdelivery';
-                    console.log($scope.deliverance);
+                      setDeliveryTypeForPaymentStep('#!/paymentnewstage', deliveryType);
                   } else if (deliveryType == 'COURIER') {
-                    console.log($scope.deliverance);
-                    location.hash = '#!/selectedaddressdelivery'
+                    setDeliveryTypeForPaymentStep('#!/selectedaddressdelivery', deliveryType);
                   }else if (deliveryType == 'NOVAPOSHTA') {
-                    console.log($scope.deliverance);
-                    location.hash = '#!/selectedpostdelivery';
-                  } else {
-                    console.log($scope.deliverance);
-                    location.hash = '#!/selectedselftakedelivery';
+                    setDeliveryTypeForPaymentStep('#!/paymentnewstage', deliveryType);
+                  } else if (deliveryType == 'SELFTAKE'){
+                    setDeliveryTypeForPaymentStep('#!/paymentnewstage', deliveryType);
                   }
 
+                };
 
-                }
+                function setDeliveryTypeForPaymentStep(locationHash, deliveryType){
+                  shared.setDeliveryType(deliveryType);
+                  location.hash = locationHash;
+                  console.log('setDeliveryTypeForPaymentStep: ',deliveryType);
+                };
+
 
                 $scope.newPostDelivery = localStorage.getItem('newPostDelivery') || '';
 
