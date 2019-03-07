@@ -16,6 +16,7 @@
                     $scope.paymentButton = shared.getPaymentButton();
                     $scope.currentOrderUuid = shared.getCurrentOrderUuid();
                     $scope.paymentType = shared.getPaymentType();
+                    $scope.deliveryType = shared.getDeliveryType();
                 };
                 loadOptions();
 
@@ -48,10 +49,10 @@
 
                 $scope.makeOrder = function (){
                     $scope.loading = true;
-                    var deliveryType = 'SELFTAKE';
 
                 $scope.params = {
-                    deliveryType: deliveryType,
+                    deliveryType: $scope.deliveryType,
+                    paymentType: $scope.paymentType,
                     phone: new String(document.getElementById('phone').value),
                     name: document.getElementById('name').value,
                     address: "",

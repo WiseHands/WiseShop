@@ -30,6 +30,9 @@ public class OrderDTO extends GenericModel {
     public String deliveryType;
 
     @Expose
+    public String paymentType;
+
+    @Expose
     public String departmentNumber;
 
     @Expose
@@ -79,11 +82,12 @@ public class OrderDTO extends GenericModel {
     @ManyToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-    public OrderDTO(String name, String phone, String address, String deliveryType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
+    public OrderDTO(String name, String phone, String address, String deliveryType, String paymentType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.deliveryType = deliveryType;
+        this.paymentType = paymentType;
         this.departmentNumber = departmentNumber;
         this.time = System.currentTimeMillis();
         this.state = OrderState.NEW;
@@ -108,6 +112,7 @@ public class OrderDTO extends GenericModel {
         return  "Name: " + this.name + "\n" +
                 "Phone: " + this.phone +  "\n" +
                 "Delivery: " + this.deliveryType + "\n" +
+                "Payment: " + this.paymentType + "\n" +
                 "Address: " + returnIfNotNull(this.address) + "\n" +
                 "Department: " + returnIfNotNull(this.departmentNumber) + "\n" +
                 "Total: " + total + "\n" +

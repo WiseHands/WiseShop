@@ -25,6 +25,8 @@
   "singleOrder.Delete": "Usunąć",
   "singleOrder.FullName": "Pełne imię i nazwisko",
   "singleOrder.Phone": "Numer telefonu",
+  "singleOrder.deliveryType": "Typ dostawy",
+  "singleOrder.paymentType": "Typ płatności",
   "singleOrder.Platform": "Platforma",
   "singleOrder.SmsSentToCustomer": "SMS wysłany do klientaу",
   "singleOrder.SmsSentToManager": "SMS wysłany do menedżera",

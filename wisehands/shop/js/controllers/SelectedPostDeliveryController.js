@@ -46,10 +46,10 @@
 
                 $scope.makeOrder = function (){
                     $scope.loading = true;
-                    var deliveryType = 'NOVAPOSHTA';
 
                     $scope.params = {
-                        deliveryType: deliveryType,
+                        deliveryType: $scope.deliveryType,
+                        paymentType: $scope.paymentType,
                         phone: new String(document.getElementById('phone').value),
                         name: document.getElementById('name').value,
                         address: "",

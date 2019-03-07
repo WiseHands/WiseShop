@@ -25,6 +25,8 @@
   "singleOrder.Delete": "Видалити",
   "singleOrder.FullName": "П.І.П. замовника",
   "singleOrder.Phone": "Номер телефону",
+  "singleOrder.deliveryType": "Тип доставки",
+  "singleOrder.paymentType": "Тип оплати",
   "singleOrder.Platform": "Платформа",
   "singleOrder.SmsSentToCustomer": "SMS надіслано замовнику",
   "singleOrder.SmsSentToManager": "SMS надіслано менеджеру",

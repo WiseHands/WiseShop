@@ -25,6 +25,8 @@
   "singleOrder.Delete": "Delete",
   "singleOrder.FullName": "Full Name",
   "singleOrder.Phone": "Phone",
+  "singleOrder.deliveryType": "Delivery type",
+  "singleOrder.paymentType": "Payment type",
   "singleOrder.Platform": "Platform",
   "singleOrder.SmsSentToCustomer": "SMS sent to customer",
   "singleOrder.SmsSentToManager": "SMS sent to manager",

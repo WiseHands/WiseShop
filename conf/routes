@@ -58,9 +58,9 @@ POST    {client}/product                                ProductAPI.create
 PUT     {client}/product                                ProductAPI.update
 DELETE  {client}/product/{uuid}                         ProductAPI.delete
 
-POST    {client}/product/{productUuid}/image            	ProductImageAPI.add
-PUT		{client}/product/{productUuid}/image/{uuid}     	ProductImageAPI.update
-DELETE  {client}/product/{productUuid}/image/{uuid}     	ProductImageAPI.delete
+POST    {client}/product/{productUuid}/image              	ProductImageAPI.add
+PUT		{client}/product/{productUuid}/image/{uuid}         	ProductImageAPI.update
+DELETE  {client}/product/{productUuid}/image/{uuid}       	ProductImageAPI.delete
 PUT     {client}/product/{productUuid}/main-image/{uuid}    ProductImageAPI.makeMain
 
 GET     {client}/property/{uuid}                            ProductPropertyAPI.details
@@ -82,10 +82,10 @@ GET     {client}/sudo/shop/{uuid}                       ShopAPI.one
 DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
 
 
-GET     {client}/shops                               	ShopAPI.list
+GET     {client}/shops                                	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
-POST    {client}/shop                            	    ShopAPI.create
+POST    {client}/shop                             	    ShopAPI.create
 PUT     {client}/shop                                   ShopAPI.update
 PUT     {client}/shop/{locale}                          ShopAPI.changeLocal
 PUT     {client}/shop/{domain}                          ShopAPI.updateDomain
@@ -116,17 +116,17 @@ GET     {client}/balance                                BalanceAPI.getBalance
 POST    {client}/pay                                    BalanceAPI.startPayment
 POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification
 
-GET		{client}/category								CategoryAPI.all
-GET		{client}/category/{uuid}						CategoryAPI.details
-POST	{client}/category        						CategoryAPI.create
-PUT 	{client}/category/{uuid}/name/{name}			CategoryAPI.update
-DELETE 	{client}/category/{uuid}						CategoryAPI.delete
-PUT 	{client}/category/{uuid}/product/{productUuid}	CategoryAPI.assignProduct
+GET		{client}/category							                  	CategoryAPI.all
+GET		{client}/category/{uuid}					              	CategoryAPI.details
+POST	{client}/category        					               	CategoryAPI.create
+PUT 	{client}/category/{uuid}/name/{name}	        		CategoryAPI.update
+DELETE 	{client}/category/{uuid}					             	CategoryAPI.delete
+PUT 	{client}/category/{uuid}/product/{productUuid}   	CategoryAPI.assignProduct
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
 
-POST	{client}/subscription      						PushSubscriptionAPI.subscribe
+POST	{client}/subscription      					             	PushSubscriptionAPI.subscribe
 
 
 
@@ -140,7 +140,7 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 GET     /wisehands/                             staticDir:wisehands
-GET		/google3d064e8f1e55f5ab.html			staticFile:google3d064e8f1e55f5ab.html
+GET		/google3d064e8f1e55f5ab.html			        staticFile:google3d064e8f1e55f5ab.html
 
 GET     {client}/sitemap                        Application.sitemap(format:'xml')
 GET     {client}/manifest                       Application.manifestAdmin

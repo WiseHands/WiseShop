@@ -13,6 +13,7 @@
                     .then(function successCallback(response) {
                         $scope.loading = false;
                         var data = response.data;
+                        console.log('data', data);
                         var uastring = data.userAgent;
                         parser.setUA(uastring);
                         var result = parser.getResult();
@@ -32,7 +33,7 @@
                         $scope.loading = false;
                         $scope.status = 'Щось пішло не так...';
                     });
-                
+
                 $scope.hideModal = function () {
                     $('#deleteOrder').modal('hide');
                     $('body').removeClass('modal-open');
@@ -100,7 +101,7 @@
                         }
                     }
                 };
-                
+
                 $scope.cancelledOrder = function () {
                     $scope.loading = true;
                     $http({

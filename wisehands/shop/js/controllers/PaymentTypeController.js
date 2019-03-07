@@ -13,7 +13,6 @@
 
               $scope.goToRoute = function() {
 
-
                 var paymentType;
 
                 if (document.getElementById('radio1').checked) {
@@ -34,7 +33,7 @@
                   console.log('paymentType', paymentType);
                 } else if (paymentType == 'PAYONLINE') {
                   shared.setPaymentType(paymentType);
-                    if ($scope.deliveryType == 'NOVAPOSHTA'){
+                      if ($scope.deliveryType == 'NOVAPOSHTA'){
                       location.hash = '#!/selectedpostdelivery';
                     } else if ($scope.deliveryType == 'SELFTAKE') {
                       location.hash = '#!/selectedselftakedelivery';
@@ -43,11 +42,8 @@
                     }
                   console.log('paymentType', paymentType);
                 }
+              };
 
-
-
-
-              }
 
 
               $http({
