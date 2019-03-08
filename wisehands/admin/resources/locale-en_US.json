@@ -147,6 +147,8 @@
   "settings.domainTips": "No spaces and lower case",
   "settings.domainTips2": "Your store will be available at the given address",
   "settings.alwaysOpen": "Always open",
+  "settings.whenClosed": "Close the shop",
+  "settings.shopClosed": "Sorry, the shop closed will be open later)",
   "user.gmail": "I'd like to use Gmail instead",
   "userprofile.myProfile": "My Profile",
   "userprofile.fullname": "Full Name",

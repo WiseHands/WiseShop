@@ -147,6 +147,8 @@
   "settings.domainTips": "Bez spacji małe litery",
   "settings.domainTips2": "Twój sklep będzie dostępny pod danym adresem",
   "settings.alwaysOpen": "Zawsze otwarte",
+  "settings.shopClosed": "Przepraszamy, sklep zamknięty będzie otwarty później",
+  "settings.whenClosed": "Sklep nie działa",
   "user.gmail": "Chcę korzystać z konta Gmail",
   "userprofile.myProfile": "Mój profil",
   "userprofile.fullname": "Pełne imię i nazwisko",
