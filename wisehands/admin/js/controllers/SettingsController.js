@@ -21,6 +21,7 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
+                console.log('activeShop', response.data.whenClosed)
                 $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
                 $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
                 $scope.loading = false;

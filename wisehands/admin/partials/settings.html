@@ -67,6 +67,12 @@
                     <input id="endTime" type="time" ng-model="activeShop.endTime">
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <input id="shopClosedbox" type="checkbox" ng-model="activeShop.whenClosed" class="filled-in checkBoxStyling"/>
+                    <label for="shopClosedbox">{{'settings.whenClosed' | translate}}</label>
+                </div>
+            </div><br>
         </div>
         <div class="input-field col-md-12 z-index-3">
             <p>LiqPay</p>

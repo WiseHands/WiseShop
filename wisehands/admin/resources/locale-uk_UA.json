@@ -147,6 +147,8 @@
   "settings.domainTips": "Без пробілів малими буквами",
   "settings.domainTips2": "Ваш магазин буде доступним за адресою",
   "settings.alwaysOpen": "Цілодобово",
+  "settings.whenClosed": "Зачинити магазин",
+  "settings.shopClosed": "Вибачте що закрито, працюватимемо пізніше :)",
   "user.gmail": "Я хочу використати Gmail акаунт",
   "userprofile.myProfile": "Мій Профіль",
   "userprofile.fullname": "П.І.П.",

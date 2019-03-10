@@ -46,7 +46,6 @@ public class ShopAPI extends AuthController {
     }
 
     public static void all(String client) throws Exception {
-        System.out.println("Some problem here 3");
 
         checkSudoAuthentification();
 
@@ -58,7 +57,6 @@ public class ShopAPI extends AuthController {
 
         ShopDTO shop = ShopDTO.findById(uuid);
         renderJSON(json(shop));
-        System.out.println("Some problem here 4");
     }
     public static void deleteOne(String client, String uuid) throws Exception { // /shop/details
         checkSudoAuthentification();
@@ -113,7 +111,6 @@ public class ShopAPI extends AuthController {
         checkAuthentification(shop);
 
         renderJSON(json(shop));
-        System.out.println("Some problem here 7");
 
     }
 
@@ -150,6 +147,7 @@ public class ShopAPI extends AuthController {
         json.put("isShopOpenNow", isWorkingHours);
         json.put("locale", shop.locale);
         json.put("alwaysOpen", shop.alwaysOpen);
+        json.put("whenClosed", shop.whenClosed);
         json.put("manualPaymentEnabled", shop.paymentSettings.manualPaymentEnabled);
         json.put("onlinePaymentEnabled", shop.paymentSettings.onlinePaymentEnabled);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
