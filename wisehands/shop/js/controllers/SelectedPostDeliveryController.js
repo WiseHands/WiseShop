@@ -73,12 +73,8 @@
                             modalContent.innerHTML = response.data.button;
                             $scope.currentOrderUuid = response.data.uuid;
                             if ($scope.paymentType == 'CASHONSPOT'){
-                              console.log('deliveryType', $scope.deliveryType);
-                              console.log('paymentType', $scope.paymentType);
                               cashToCourier();
                             } else if ($scope.paymentType == 'PAYONLINE') {
-                              console.log('deliveryType', $scope.deliveryType);
-                              console.log('paymentType', $scope.paymentType);
                               payOnline();
                             }
 

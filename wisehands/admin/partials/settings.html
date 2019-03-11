@@ -78,14 +78,16 @@
                   <label for="shopClosedbox">{{'settings.whenClosed' | translate}}</label>
               </div>
 
-              <div class="input-field col-md-12"><br>
-                  <p>{{'settings.temporaryTitle' | translate}}</p>
-                  <input id="temporaryTitle" type="text" ng-model="activeShop.temporaryClosedTitle">
-              </div>
+              <div ng-hide="!activeShop.isTemporaryClosed">
+                <div class="input-field col-md-12"><br>
+                    <p>{{'settings.temporaryTitle' | translate}}</p>
+                    <input id="temporaryTitle" type="text" ng-model="activeShop.temporaryClosedTitle">
+                </div>
 
-              <div class="input-field col-md-12"><br>
-                  <p>{{'settings.temporaryDiscr' | translate}}</p>
-                  <input id="temporaryDiscr" type="text" ng-model="activeShop.temporaryClosedDescription">
+                <div class="input-field col-md-12"><br>
+                    <p>{{'settings.temporaryDiscr' | translate}}</p>
+                    <input id="temporaryDiscr" type="text" ng-model="activeShop.temporaryClosedDescription">
+                </div>
               </div>
           </div><br>
         </div>

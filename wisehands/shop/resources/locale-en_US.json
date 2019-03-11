@@ -20,7 +20,7 @@
   "shopView.next":"Next",
   "shopView.deliveryType": "Delivery type",
   "shopView.fullName": "Full Name",
-  "shopView.fullNamePlaceholder": "Enter your Name here",
+  "shopView.fullNamePlaceholder": "Enter your full name here",
   "shopView.phone": "Phone",
   "shopView.address": "Address",
   "shopView.addressLocate": "Please click inside the area where order will be delivered or",
