@@ -13,7 +13,7 @@
         <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
             <h5 class="deliveryType"><b>{{'shopView.paymentType' | translate}}</b></h5>
             <br>
-            <fieldset ng-show="onlinePaymentEnabled" class="form-group">
+            <fieldset ng-show="manualPaymentEnabled" class="form-group">
                 <input name="deliverance"
                        type="radio"
                        class="with-gap"
