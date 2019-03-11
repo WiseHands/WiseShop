@@ -11,6 +11,18 @@
               }
               loadOptions();
 
+              $http({
+                  method: 'GET',
+                  url: '/shop/details/public'
+              })
+                  .then(function successCallback(response) {
+                    $scope.onlinePaymentEnabled = response.data.onlinePaymentEnabled;
+                    $scope.manualPaymentEnabled = response.data.manualPaymentEnabled;
+
+                  }, function errorCallback(error) {
+                      console.log(error);
+                  });
+
               $scope.goToRoute = function() {
 
                 var paymentType;
