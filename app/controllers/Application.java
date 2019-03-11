@@ -1,7 +1,6 @@
 package controllers;
 
 import play.Play;
-import play.exceptions.TemplateNotFoundException;
 import play.i18n.Lang;
 import play.mvc.*;
 
@@ -72,26 +71,8 @@ public class Application extends Controller {
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
-        boolean isGoogleCrawler = request.params.data.containsKey("_escaped_fragment_");
-        if (isGoogleCrawler) {
-            String escapedFragment = request.params.data.get("_escaped_fragment_")[0];
-            System.out.println("Escaped Fragment: " + escapedFragment);
-            if (escapedFragment.contains("product")){
-                String filePathString = "Prerender/" + shop.uuid + "/" + escapedFragment + ".html";
-                try {
-                    renderTemplate(filePathString);
-                } catch (TemplateNotFoundException ex){
-                    System.out.println("not found template at path: " + escapedFragment);
-                    notFound();
-                }
-            } else if (escapedFragment.contains("category")){
-                renderTemplate("Prerender/" + shop.uuid + "/" + escapedFragment + ".html");
-            } else if (escapedFragment.contains("contacts")) {
-                renderTemplate("Prerender/" + shop.uuid + "/" + escapedFragment + ".html");
-            }
-            System.out.println(dateFormat.format(date) + ": Escaped Fragment " + escapedFragment + " request with ip " + ip +  " and user-agent " + agent + " just opened " + shop.shopName + ", rendering snapshot...");
-            renderTemplate("Prerender/" + shop.uuid + "/index.html");
-
+        if (shop.isTemporaryClosed) {
+            renderTemplate("Application/temporaryClosed.html", shop);
         }
 
         renderTemplate("Application/shop.html", shop);

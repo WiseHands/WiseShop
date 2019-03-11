@@ -147,7 +147,7 @@ public class ShopAPI extends AuthController {
         json.put("isShopOpenNow", isWorkingHours);
         json.put("locale", shop.locale);
         json.put("alwaysOpen", shop.alwaysOpen);
-        json.put("whenClosed", shop.whenClosed);
+        json.put("isTemporaryClosed", shop.isTemporaryClosed);
         json.put("manualPaymentEnabled", shop.paymentSettings.manualPaymentEnabled);
         json.put("onlinePaymentEnabled", shop.paymentSettings.onlinePaymentEnabled);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
@@ -200,10 +200,18 @@ public class ShopAPI extends AuthController {
         String googleMapsApiKey = (String) jsonBody.get("googleMapsApiKey");
         String googleStaticMapsApiKey = (String) jsonBody.get("googleStaticMapsApiKey");
         String startTime = (String) jsonBody.get("startTime");
+        String closedShopTitle = (String) jsonBody.get("temporaryClosedTitle");
+        String closedShopdiscription = (String) jsonBody.get("temporaryClosedDescription");
+        Boolean isTemporaryClosed = (Boolean) jsonBody.get("isTemporaryClosed");
+
         String endTime = (String) jsonBody.get("endTime");
         Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
         System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
+
+        shop.temporaryClosedTitle = closedShopTitle;
+        shop.temporaryClosedDescription = closedShopdiscription;
+        shop.isTemporaryClosed = isTemporaryClosed;
 
         shop.liqpayPublicKey = liqpayPublicKey;
         shop.liqpayPrivateKey = liqpayPrivateKey;

@@ -1,7 +1,6 @@
 package models;
 
 import com.google.gson.annotations.Expose;
-import enums.OrderState;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
@@ -34,7 +33,13 @@ public class ShopDTO extends GenericModel {
     public boolean alwaysOpen;
 
     @Expose
-    public boolean whenClosed;
+    public boolean isTemporaryClosed;
+
+    @Expose
+    public String temporaryClosedTitle;
+
+    @Expose
+    public String temporaryClosedDescription;
 
     @Expose
     public String liqpayPublicKey;
@@ -121,6 +126,6 @@ public class ShopDTO extends GenericModel {
         this.domain = customDomain;
         this.locale = locale;
         this.alwaysOpen = true;
-        this.whenClosed = true;
+        this.isTemporaryClosed = true;
     }
 }

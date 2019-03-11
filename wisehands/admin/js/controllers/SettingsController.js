@@ -1,3 +1,4 @@
+
 angular.module('WiseHands')
     .controller('SettingsController', ['$scope', '$http', 'sideNavInit', 'signout', 'shared', '$rootScope',
     		function ($scope, $http, sideNavInit, signout, shared, $rootScope) {
@@ -21,7 +22,7 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
-                console.log('activeShop', response.data.whenClosed)
+                console.log('details value of checkbox whenClosed:', $scope.activeShop.isTemporaryClosed);
                 $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
                 $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
                 $scope.loading = false;
@@ -29,6 +30,16 @@ angular.module('WiseHands')
                 $scope.loading = false;
             });
 
+        $scope.whenShopClosed = function(){
+              if ($scope.activeShop.isTemporaryClosed){
+                console.log('1', $scope.activeShop.isTemporaryClosed);
+                $scope.activeShop.isTemporaryClosed = true;
+
+              } else {
+                console.log('0', $scope.activeShop.isTemporaryClosed);
+                $scope.activeShop.isTemporaryClosed = false;
+              }
+        }
 
         $scope.updateStoreSettings = function () {
             $scope.loading = true;
@@ -39,6 +50,7 @@ angular.module('WiseHands')
             })
                 .success(function (response) {
                     $scope.activeShop = response;
+                    console.log('after PUT whenClosed', $scope.activeShop.whenClosed);
                     localStorage.setItem('activeShopName', $scope.activeShop.shopName);
                     $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
                     $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);

@@ -67,13 +67,29 @@
                     <input id="endTime" type="time" ng-model="activeShop.endTime">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <input id="shopClosedbox" type="checkbox" ng-model="activeShop.whenClosed" class="filled-in checkBoxStyling"/>
-                    <label for="shopClosedbox">{{'settings.whenClosed' | translate}}</label>
-                </div>
-            </div><br>
+
         </div>
+
+        <div class="input-field col-md-12 z-index-2">
+          <h5>{{'settings.isTemporary' | translate}}</h5>
+          <div class="row">
+              <div class="col-sm-12">
+                  <input id="shopClosedbox" type="checkbox" ng-model="activeShop.isTemporaryClosed" ng-click="whenShopClosed()" class="filled-in checkBoxStyling"/>
+                  <label for="shopClosedbox">{{'settings.whenClosed' | translate}}</label>
+              </div>
+
+              <div class="input-field col-md-12"><br>
+                  <p>{{'settings.temporaryTitle' | translate}}</p>
+                  <input id="temporaryTitle" type="text" ng-model="activeShop.temporaryClosedTitle">
+              </div>
+
+              <div class="input-field col-md-12"><br>
+                  <p>{{'settings.temporaryDiscr' | translate}}</p>
+                  <input id="temporaryDiscr" type="text" ng-model="activeShop.temporaryClosedDescription">
+              </div>
+          </div><br>
+        </div>
+
         <div class="input-field col-md-12 z-index-3">
             <p>LiqPay</p>
             <div class="col-sm-6">
