@@ -124,6 +124,21 @@
             </div>
         </div><br>
 
+        <style>
+          .input-field {
+            /* border: 1px solid black; */
+          }
+        </style>
+        <br />
+        <div class="input-field col-md-12 z-index">
+            <h5>{{'settings.changeDomainName' | translate}}</h5>
+            <div class="col-sm-9">
+                <input id="newDomainName" type="text" class="validate" placeholder="{{'settings.NewDomainName' | translate}}">
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-primary waves-effect waves-light btn-block" ng-click="changeDomainName()">{{'settings.changeDomainNameButton' | translate}}</button>
+            </div>
+        </div>
 
     </form>
 </div>

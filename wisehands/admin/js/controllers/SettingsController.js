@@ -63,6 +63,21 @@ angular.module('WiseHands')
             });
         };
 
+        $scope.changeDomainName = function(){
+          console.log(document.getElementById("newDomainName").value);
+          $http({
+              method: 'PUT',
+              url: '/shop/domain/'  + document.getElementById("newDomainName").value,
+          })
+              .success(function (response) {
+                console.log(response.data.locale);
+                showInfoMsg("Ok");
+              }).
+          error(function (response) {
+              showWarningMsg("fail");
+          });
+        }
+
         $scope.increaseBalance = function () {
             $scope.loading = true;
             $http({
@@ -87,6 +102,24 @@ angular.module('WiseHands')
         sideNavInit.sideNav();
 
     }]);
+
+    function showWarningMsg(msg) {
+      toastr.clear();
+      toastr.options = {
+        "positionClass": "toast-bottom-center",
+        "preventDuplicates": true,
+      }
+      toastr.warning(msg);
+    }
+
+    function showInfoMsg(msg) {
+      toastr.clear();
+      toastr.options = {
+        "positionClass": "toast-bottom-center",
+        "preventDuplicates": true,
+      }
+      toastr.info(msg);
+    }
 
 function encodeQueryData(data)
 {
