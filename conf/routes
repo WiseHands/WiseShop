@@ -88,7 +88,7 @@ GET     {client}/shop/details/public                    ShopAPI.publicInfo
 POST    {client}/shop                             	    ShopAPI.create
 PUT     {client}/shop                                   ShopAPI.update
 PUT     {client}/shop/{locale}                          ShopAPI.changeLocal
-PUT     {client}/shop/{domain}                          ShopAPI.updateDomain
+PUT     {client}/shop/domain/{domain}                   ShopAPI.updateDomain
 
 GET     {client}/shop/user                              ShopAPI.listUsers
 POST    {client}/shop/user                              ShopAPI.addUserToShop
