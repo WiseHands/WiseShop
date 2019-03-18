@@ -1,13 +1,4 @@
-<style>
-  .calculate-total-container {
-    display: flex;
-    flex-direction: row;
-  }
-  .calculate-total-container input{
-    min-width: 150px;
-    margin-right: 20px;
-  }
-</style>
+
 <nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
     <div class="container-fluid">
         <div class="row vcentering">
@@ -48,10 +39,12 @@
                     chart-labels="labels" chart-series="series" chart-options="options"
                     chart-dataset-override="datasetOverride" chart-click="onClick">
             </canvas>
-            <div class="calculate-total-container">
-              <input placeholder="{{'analytics.fromDate' | translate}}" type="text" ng-model="showTotalFromDate">
-              <input placeholder="{{'analytics.toDate' | translate}}" type="text" ng-model="showTotalToDate">
-              <button type="button" ng-click="calculateDayRange()" class="btn btn-primary">
+            <div class="analytics-range-0f-days">
+              <div class="calculate-total-container">
+                <input placeholder="{{'analytics.fromDate' | translate}}" type="text" ng-model="showTotalFromDate">
+                <input placeholder="{{'analytics.toDate' | translate}}" type="text" ng-model="showTotalToDate">
+              </div>
+              <button type="button" ng-click="calculateDayRange()" class="btn btn-primary analytics-use-btn">
                   {{'analytics.analyticstotal' | translate}}
               </button>
             </div>
