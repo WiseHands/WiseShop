@@ -30,17 +30,20 @@
     </div>
 </nav>
 <div class="container-fluid analyticsContainer">
+
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
+
     <div ng-hide="loading">
         <div class="col-sm-offset-1 col-sm-10 topAnalMargin">
             <canvas id="line" class="chart chart-line" chart-data="data"
                     chart-labels="labels" chart-series="series" chart-options="options"
                     chart-dataset-override="datasetOverride" chart-click="onClick">
             </canvas>
+
             <div class="analytics-range-0f-days">
-              <div class="calculate-total-container">
+              <div class="calculate-total-container col-md-12">
                 <input placeholder="{{'analytics.fromDate' | translate}}" type="text" ng-model="showTotalFromDate">
                 <input placeholder="{{'analytics.toDate' | translate}}" type="text" ng-model="showTotalToDate">
               </div>
@@ -49,6 +52,8 @@
               </button>
             </div>
         </div>
+
+
         <div class="col-sm-3 col-xs-12 text-center">
             <div class="card analCardsColor">
                 <div class="card-content white-text">
@@ -57,6 +62,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-sm-3 col-xs-12 text-center">
             <div class="card analCardsColor">
                 <div class="card-content white-text">
@@ -65,6 +71,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-sm-3 col-xs-12 text-center">
             <div class="card analCardsColor">
                 <div class="card-content white-text">
@@ -73,6 +80,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-sm-3 col-xs-12 text-center">
             <div class="card analCardsColor">
                 <div class="card-content white-text">
