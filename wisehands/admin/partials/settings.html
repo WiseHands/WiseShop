@@ -53,10 +53,11 @@
             <h5>{{'settings.workingHours' | translate}}</h5>
             <div class="row">
                 <div class="col-sm-12">
-                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="activeShop.alwaysOpen" />
+                    <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="activeShop.alwaysOpen" />
                     <label for="filled-in-box">{{'settings.alwaysOpen' | translate}}</label>
                 </div>
             </div><br>
+
             <div ng-hide="activeShop.alwaysOpen">
                 <div class="col-sm-6">
                     <p>{{'settings.from' | translate}}:</p>
@@ -72,24 +73,24 @@
 
         <div class="input-field col-md-12 z-index-2">
           <h5>{{'settings.isTemporary' | translate}}</h5>
-          <div class="row">
+            <div class="row">
               <div class="col-sm-12">
-                  <input id="shopClosedbox" type="checkbox" ng-model="activeShop.isTemporaryClosed" ng-click="whenShopClosed()" class="filled-in checkBoxStyling"/>
+                  <input id="shopClosedbox" type="checkbox" class="filled-in checkBoxStyling" ng-model="activeShop.isTemporaryClosed" ng-click="whenShopClosed()" />
                   <label for="shopClosedbox">{{'settings.whenClosed' | translate}}</label>
               </div>
+            </div><br>
 
               <div ng-hide="!activeShop.isTemporaryClosed">
-                <div class="input-field col-md-12"><br>
+                <div class="col-sm-6">
                     <p>{{'settings.temporaryTitle' | translate}}</p>
                     <input id="temporaryTitle" type="text" ng-model="activeShop.temporaryClosedTitle">
                 </div>
 
-                <div class="input-field col-md-12"><br>
+                <div class="col-sm-6">
                     <p>{{'settings.temporaryDiscr' | translate}}</p>
                     <input id="temporaryDiscr" type="text" ng-model="activeShop.temporaryClosedDescription">
                 </div>
               </div>
-          </div><br>
         </div>
 
         <div class="input-field col-md-12 z-index-3">
@@ -121,9 +122,32 @@
                 <p>Map API Key <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"><i class="fa fa-question-circle"></i></a></p>
                 <input id="map" type="text" ng-model="activeShop.googleMapsApiKey">
             </div>
+        </div><br>
+
+        <style>
+          .input-field {
+            /* border: 1px solid black; */
+          }
+        </style>
+        <br />
+        <div class="input-field col-md-12 z-index">
+            <h5>{{'settings.changeDomainName' | translate}}</h5>
+            <div class="col-sm-9">
+                <input id="newDomainName" type="text" class="validate" placeholder="{{'settings.NewDomainName' | translate}}">
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-primary waves-effect waves-light btn-block" ng-click="changeDomainName()">{{'settings.changeDomainNameButton' | translate}}</button>
+            </div>
         </div>
+
     </form>
 </div>
+p b {
 
+}
+
+p, b {
+
+}
 
 <div class="proceedWithPayment"></div>

@@ -1,3 +1,38 @@
+/*calculate analytics the range of sale days*/
+.analytics-range-0f-days{
+  display: flex;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+@media only screen and (max-width: 500px) {
+  .analytics-range-0f-days {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.analytics-use-btn {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 0 0 2px 2px;
+  background-color: #334;
+}
+
+@media only screen and (min-width: 501px) {
+  .analytics-use-btn {
+    margin-right: 0;
+  }
+}
+
+.calculate-total-container {
+  padding-left: 15px;
+  padding-right: 5px;
+  display: flex;
+  flex-direction: row;
+}
+.calculate-total-container input{
+  min-width: 110px;
+  margin-right: 10px;
+}
 /*Text Truncating*/
 .truncate {
     white-space: nowrap;
@@ -565,4 +600,3 @@ input {
 .nav-tabs li.active>a:focus {
     color: #555;
 }
-
