@@ -32,6 +32,21 @@
   min-width: 110px;
   margin-right: 10px;
 }
+/*placeholder for input type=date*/
+input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+    content: "";
+}
+/*input date up/down remove*/
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
 /*Text Truncating*/
 .truncate {
     white-space: nowrap;
