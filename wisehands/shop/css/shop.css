@@ -1,3 +1,39 @@
+.flex-container{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 10px;
+    margin-right: 10px;
+    justify-content: space-between;
+
+}
+
+.flex-btn-collapse{
+    align-items: center;
+}
+
+.logo-button-collapse{
+    display: flex;
+    align-items: flex-start;
+}
+
+.flex-navbar{
+    display: flex;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    align-items: flex-end
+}
+
+.flex-dropdown{
+  font-family: Roboto,sans-serif;
+  font-weight: 300;
+}
+@media only screen and (min-width: 321px) {
+  .flex-button {
+    padding: 5px;
+    margin: 3px;
+  }
+}
+
 ﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
@@ -178,6 +214,8 @@ main {
     align-items: center;
 }
 .noPointerCursor {
+    display: flex;
+    align-items: center;
     cursor: inherit;
 }
 .pac-container {
