@@ -4,20 +4,23 @@
     margin-left: 10px;
     margin-right: 10px;
     justify-content: space-between;
-
 }
 
-.flex-btn-collapse{
+.flex-logo-button{
+    display: flex;
     align-items: center;
 }
 
-.logo-button-collapse{
+.noPointerCursor {
     display: flex;
-    align-items: flex-start;
+    cursor: inherit;
+}
+.flex-logo{
+    justify-content: center;
 }
 
 .flex-navbar{
-    display: flex;
+    /*display: flex;*/
     flex-direction:row;
     flex-wrap: nowrap;
     align-items: flex-end
@@ -213,11 +216,7 @@ main {
     display: flex;
     align-items: center;
 }
-.noPointerCursor {
-    display: flex;
-    align-items: center;
-    cursor: inherit;
-}
+
 .pac-container {
     z-index: 99999999 !important;
 }
