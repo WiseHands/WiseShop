@@ -104,15 +104,15 @@
         <!--Buttons-->
         <div class="col-md-4">
             <ul class="text-xs-center">
-                <li class="wow fadeInUp" data-wow-delay="0.2s"><a class="btn-floating btn-small mdb-color"><i class="fa fa-map-marker"></i></a>
+                <li class="wow fadeInUp" data-wow-delay="0.2s"><a class="btn-floating btn-small mdb-color" href="https://maps.google.com/?q={{contacts.address}}" target="_blank"><i class="fa fa-map-marker"></i></a>
                     <p>{{contacts.address}}</p>
                 </li>
 
-                <li class="wow fadeInUp" data-wow-delay="0.3s"><a class="btn-floating btn-small mdb-color" data-toggle="modal" data-target="#contact-form"><i class="fa fa-phone"></i></a>
+                <li class="wow fadeInUp" data-wow-delay="0.3s"><a class="btn-floating btn-small mdb-color" data-target="#contact-form" href="tel:+{{contacts.phone}}"><i class="fa fa-phone"></i></a>
                     <p>{{contacts.phone}}</p>
                 </li>
 
-                <li class="wow fadeInUp" data-wow-delay="0.4s"><a class="btn-floating btn-small mdb-color" data-toggle="modal" data-target="#contact-form"><i class="fa fa-envelope"></i></a>
+                <li class="wow fadeInUp" data-wow-delay="0.4s"><a class="btn-floating btn-small mdb-color" data-target="#contact-form" href="mailto:{{contacts.email}}"><i class="fa fa-envelope"></i></a>
                     <p>{{contacts.email}}</p>
                 </li>
             </ul>

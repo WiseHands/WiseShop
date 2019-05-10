@@ -44,10 +44,10 @@
 
             <div class="analytics-range-0f-days">
               <div class="calculate-total-container col-md-12">
-                <input placeholder="{{analytics.chartData[6].day}}" type="text" ng-model="showTotalFromDate">
-                <input placeholder="{{analytics.chartData[0].day}}" type="text" ng-model="showTotalToDate">
+                <input class="placeholder" placeholder="{{analytics.chartData[6].day}}" type="date" ng-model="showTotalFromDate">
+                <input class="placeholder" placeholder="{{analytics.chartData[0].day}}" type="date" ng-model="showTotalToDate">
               </div>
-              <button type="button" ng-click="calculateDayRange()" class="btn btn-primary analytics-use-btn">
+              <button type="button" ng-click="calculateDayRange()" class="btn secondaryColor analytics-use-btn waves-effect waves-light pull-right ng-binding">
                   {{'analytics.analyticstotal' | translate}}
               </button>
             </div>
