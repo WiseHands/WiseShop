@@ -7,7 +7,7 @@
                 'locales': {
                     'uk_UA': 'Українська',
                     'en_US': 'English',
-					'pl_PL': 'Polski'
+					           'pl_PL': 'Polski'
                 },
                 'preferredLocale': 'en_US'
             })
@@ -46,6 +46,10 @@
                     templateUrl:'wisehands/shop/partials/orderform.html',
                     controller:'OrderFormController'
                 }).
+                when('/testtemplate',{
+                    templateUrl:'wisehands/shop/partials/testtemplate.html',
+                    controller:'TestTemplateController'
+                }).
                 when('/choosedelivery',{
                     templateUrl:'wisehands/shop/partials/choosedelivery.html',
                     controller:'ChooseDeliveryController'
@@ -77,6 +81,10 @@
                 when('/newpost',{
                     templateUrl:'wisehands/shop/partials/newpost.html',
                     controller:'NewPostController'
+                }).
+                when('/othershops',{
+                    templateUrl:'wisehands/shop/partials/otherShops.html',
+                    controller:'OtherShopsController'
                 }).
                 otherwise({
                     redirectTo:'/'

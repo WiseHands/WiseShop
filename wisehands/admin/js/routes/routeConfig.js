@@ -59,6 +59,26 @@
                         controller:'EditProductController',
                         activetab: 'productlist'
                     }).
+                    when('/shops',{
+                        templateUrl:'wisehands/admin/partials/shops.html',
+                        controller:'ShopsController',
+                        activetab: 'contacts'
+                    }).
+                    when('/shops/new',{
+                          templateUrl:'wisehands/admin/partials/addNewShops.html',
+                          controller:'SubmitNewShopsController',
+                          activetab: 'productlist'
+                    }).
+                    when('/shops/details/:uuid',{
+                          templateUrl:'wisehands/admin/partials/shopsDetails.html',
+                          controller:'ShopsDetailsController',
+                          activetab: 'productlist'
+                    }).
+                    when('/shopss/details/:uuid/edit',{
+                        templateUrl:'wisehands/admin/partials/shopsDetailsEdit.html',
+                        controller:'ShopsDetailsEditController',
+                        activetab: 'productlist'
+                    }).
                     when('/delivery',{
                         templateUrl:'wisehands/admin/partials/delivery.html',
                         controller:'DeliverySettingsController',

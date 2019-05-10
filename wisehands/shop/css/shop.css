@@ -1,3 +1,61 @@
+.flex-container{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 10px;
+    margin-right: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-logo-button{
+    display: flex;
+    align-items: center;
+}
+
+.noPointerCursor {
+    display: flex;
+    cursor: inherit;
+}
+.flex-logo{
+    max-width:32px;
+    align-items: center;
+}
+
+.flex-navbar{
+    display: flex;
+    justify-content: space-around;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    align-content: center;
+}
+.nav-link{
+  padding-left: 5px;
+}
+/**/
+
+.dropdown-menu a{
+  color: black;
+  text-decoration: none;
+  display: block;
+  padding: 0.1rem !important;
+}
+
+.item-dropdown:hover{
+    background-color: #004d99;
+    color: white !important;
+}
+
+
+/**/
+
+
+@media only screen and (min-width: 321px) {
+  .flex-button {
+    padding: 5px;
+    margin: 3px;
+  }
+}
+
 ﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
@@ -177,9 +235,7 @@ main {
     display: flex;
     align-items: center;
 }
-.noPointerCursor {
-    cursor: inherit;
-}
+
 .pac-container {
     z-index: 99999999 !important;
 }
