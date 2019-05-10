@@ -1,0 +1,40 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'sideNav.Shops' | translate}}
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding"
+              type="button"
+              href="#/shops/new">
+               <i class="fa fa-plus-circle pull-right whiteColor">
+               </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<!-- add card with shop info -->
+<div class="container-fluid noSidePadding cardTopPadding">
+
+  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in departments">
+    <a href="#/shops/details/{{item.uuid}}">
+    <div class="card card-product hoverable">
+      <div class="view overlay hm-white-slight z-depth-1">
+        <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{item.destinationLat}},{{item.destinationLng}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{item.destinationLat}},{{item.destinationLng}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
+          <div class="mask waves-effect activator"></div>
+      </div>
+      <div id="shopInfo">
+        <h5 class="truncate normal-400 shopCardInfo">{{item.shopAddress}}</h5>
+        <h6 class="grey-text normal-400">{{item.shopPhone}}</h6>
+        <h6 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400">{{item.shopName}}</h6>
+        <h6 class="grey-text">{{item.shopMail}}</h6>
+      </div>
+    </div>
+  </div>
+
+</div>
