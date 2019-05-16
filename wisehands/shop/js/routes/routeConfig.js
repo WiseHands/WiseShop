@@ -46,10 +46,6 @@
                     templateUrl:'wisehands/shop/partials/orderform.html',
                     controller:'OrderFormController'
                 }).
-                when('/testtemplate',{
-                    templateUrl:'wisehands/shop/partials/testtemplate.html',
-                    controller:'TestTemplateController'
-                }).
                 when('/choosedelivery',{
                     templateUrl:'wisehands/shop/partials/choosedelivery.html',
                     controller:'ChooseDeliveryController'

@@ -1,0 +1,53 @@
+<div class="flex-container column">
+  <div class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" style="background-color: {{shopStyling.navbarColor}}" shop-styling>
+    <div class="flex-container">
+      <div class="nav-link">
+        <a href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}">
+        <i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
+      </div>
+      <div class="text-flex-center">
+        <h4 style="color: {{shopStyling.navbarTextColor}}">{{'shopView.otherShops' | translate}}</h4>
+      </div>
+      <div class="flex-items">
+      </div>
+    </div>
+  </div>
+  <div class="flex-other-stores">
+      <div class="set-card column" ng-repeat="item in departments">
+          <div class="flex-card-part row">
+            <a class="flex-logo" href="#!/shops/details/{{item.uuid}}">
+                <img ng-show="logo" class="flex-logo" ng-src="{{logo}}">
+            </a>
+            <div class="flex-card-part column">
+              <h6 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400">{{item.shopName}}</h6>
+              <h5 class="grey-text normal-400">{{item.shopAddress}}</h5>
+              <h5 class="grey-text normal-400">{{item.shopPhone}}</h5>
+            </div>
+          </div>
+            <div id="map_canvas" class="z-depth-1-half map-container wow fadeInUp" style="height: 340px; width:340px"></div>
+          <button type="button" class="btn btn-primary pull-right" style="width: 150px" ng-click="reCalculateTotal()">
+              {{'shopView.order' | translate}}
+          </button>
+      </div>
+
+
+
+  </div>
+  <!-- <div id="idForMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 340px; width:340px"></div> -->
+
+</div>
+<script type="text/javascript">
+
+function initialize() {
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+        zoom: 8,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+            myOptions);
+}
+google.maps.event.addDomListener(window, "load", initialize);
+
+</script>

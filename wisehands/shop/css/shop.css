@@ -1,3 +1,27 @@
+.set-card{
+  display: flex;
+  flex-direction: column;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 340px;
+  border: 1px solid;
+
+}
+.flex-card-part{
+  display: flex;
+  width: 340px;
+  border: 1px solid;
+  justify-content: space-between;
+  width: inherit !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+.flex-other-stores{
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+
+}
 .flex-container{
     display: flex;
     flex-wrap: nowrap;
@@ -6,7 +30,17 @@
     justify-content: space-between;
     align-items: center;
 }
-
+.column{
+  display: flex;
+  flex-direction: column;
+}
+.row{
+  /* display: flex; */
+  flex-direction: row;
+}
+.text-flex-center{
+  align-items: center;
+}
 .flex-logo-button{
     display: flex;
     align-items: center;
@@ -17,8 +51,9 @@
     cursor: inherit;
 }
 .flex-logo{
-    max-width:32px;
+    max-height: 64px;
     align-items: center;
+    justify-content: center;
 }
 
 .flex-navbar{
@@ -31,23 +66,6 @@
 .nav-link{
   padding-left: 5px;
 }
-/**/
-
-.dropdown-menu a{
-  color: black;
-  text-decoration: none;
-  display: block;
-  padding: 0.1rem !important;
-}
-
-.item-dropdown:hover{
-    background-color: #004d99;
-    color: white !important;
-}
-
-
-/**/
-
 
 @media only screen and (min-width: 321px) {
   .flex-button {

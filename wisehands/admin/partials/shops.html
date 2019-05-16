@@ -22,7 +22,7 @@
 <div class="container-fluid noSidePadding cardTopPadding">
 
   <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in departments">
-    <a href="#/shops/details/{{item.uuid}}">
+    <!-- <a href="#/shops/details/{{item.uuid}}"> -->
     <div class="card card-product hoverable">
       <div class="view overlay hm-white-slight z-depth-1">
         <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{item.destinationLat}},{{item.destinationLng}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{item.destinationLat}},{{item.destinationLng}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">

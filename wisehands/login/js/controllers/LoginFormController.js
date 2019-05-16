@@ -1,5 +1,6 @@
     angular.module('WiseHandsMain')
         .controller('LoginFormController', ['$scope', '$http', 'userService', function($scope, $http, userService) {
+
             $scope.logIn = function (){
                 var params = {
                     phone: $scope.phone,
@@ -26,8 +27,8 @@
                     '?JWT_TOKEN=' + token;
             };
 
-            
-            
+
+
             $scope.googleSignIn = function () {
                 window.auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInCallback);
 
@@ -45,9 +46,9 @@
             }
 
             function successLoginHandler(data, status, headers) {
-				var jwtToken = headers("JWT_TOKEN");
+  				var jwtToken = headers("JWT_TOKEN");
 
-				localStorage.setItem('JWT_TOKEN', jwtToken);
+  				localStorage.setItem('JWT_TOKEN', jwtToken);
 
                 if(data.email === 'patlavovach@gmail.com' || data.email === 'bohdaq@gmail.com'){
                     if (data.shopList && data.shopList.length === 0){
@@ -95,8 +96,3 @@ function encodeQueryData(data)
         ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
     return ret.join("&");
 }
-
-
-
-
-
