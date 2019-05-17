@@ -42,6 +42,7 @@ angular.module('WiseHands')
         }
 
         $scope.updateStoreSettings = function () {
+
             $scope.loading = true;
             $http({
                 method: 'PUT',
@@ -61,6 +62,7 @@ angular.module('WiseHands')
                 $scope.loading = false;
                 console.log(response);
             });
+
         };
 
         $scope.changeDomainName = function(){

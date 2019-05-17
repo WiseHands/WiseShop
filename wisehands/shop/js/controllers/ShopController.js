@@ -2,7 +2,7 @@
     angular.module('WiseShop')
         .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo', 'isUserAdmin', '$location',
             function($scope, $http, shared, sideNavInit, PublicShopInfo, isUserAdmin, $location) {
-
+            
                 isUserAdmin.get(function(){
                     $scope.isUserAdmin = true;
                 });

@@ -1,0 +1,84 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="#/shops">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'addNewShops.details' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
+               id="dropdownMenu1"
+               type="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+                <i class="fa fa-edit whiteColor pull-right">
+                </i>
+                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
+                    <a class="col-xs-12 text-left" href="#/shopss/details/{{shop.uuid}}/edit"><p>{{'productDetails.edit' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <div class="col-md-12 noSidePadding" ng-hide="loading">
+        <div class="card card-min hoverable">
+            <div class="card-image waves-effect waves-block waves-light view overlay hm-white-slight col-sm-6 noSidePadding">
+                <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
+                  <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{shop.destinationLat}},{{shop.destinationLng}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{shop.destinationLat}},{{shop.destinationLng}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
+                </div>
+            </div>
+
+            <div class="card-content col-sm-6 row">
+                <div class="col-xs-12">
+                    <label for="name">{{'addNewShops.shopName' | translate}}</label>
+                    <h5 class="product-title">{{shop.shopName}}</h5>
+                    <label for="price">{{'addNewShops.shopAddress' | translate}}</label>
+                    <h5 class="product-title">{{shop.shopAddress}}</h5>
+                    <label for="name">{{'addNewShops.shopGmail' | translate}}</label>
+                    <h5 class="product-title">{{shop.shopMail}}</h5>
+                    <label for="price">{{'addNewShops.shopPhoneAdmin' | translate}}</label>
+                    <h5 class="product-title">{{shop.shopPhone}}</h5>
+                    <label for="price">{{'addNewShops.coords' | translate}}</label>
+                    <h5 class="product-title">{{coords}}</h5>
+               </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center">
+                    <p ng-show="deleteButton"><i>{{'shopDetails.deleteMessage1' | translate}}</i></p>
+                    <p ng-show="succesfullDelete"><i>{{'shopDetails.deleteMessage2' | translate}}</i></p>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <div class="col-xs-offset-2 col-xs-8">
+                    <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="deleteProduct()" ng-show="deleteButton">Deleted</button>
+                </div>
+                <a href="#/shops" class="col-xs-offset-4 col-xs-4 noUnderline">
+                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

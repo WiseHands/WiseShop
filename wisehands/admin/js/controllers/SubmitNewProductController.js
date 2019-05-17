@@ -197,6 +197,8 @@ angular.module('WiseHands')
                 .success(function(data){
                     $scope.loading = false;
                     $location.path('/product/details/' + data.uuid);
+                    console.log(data);
+
                 })
                 .error(function(response){
                     $scope.loading = false;

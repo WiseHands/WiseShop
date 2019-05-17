@@ -7,7 +7,7 @@
                 'locales': {
                     'uk_UA': 'Українська',
                     'en_US': 'English',
-					'pl_PL': 'Polski'
+					           'pl_PL': 'Polski'
                 },
                 'preferredLocale': 'en_US'
             })
@@ -77,6 +77,10 @@
                 when('/newpost',{
                     templateUrl:'wisehands/shop/partials/newpost.html',
                     controller:'NewPostController'
+                }).
+                when('/othershops',{
+                    templateUrl:'wisehands/shop/partials/otherShops.html',
+                    controller:'OtherShopsController'
                 }).
                 otherwise({
                     redirectTo:'/'

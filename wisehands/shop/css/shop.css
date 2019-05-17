@@ -1,9 +1,59 @@
+.set-card-link{
+    padding: 15px 10px 10px 20px;
+    font-size: 20px;
+}
+.set-card-link:hover{
+    font-weight: bold;
+}
+.set-card{
+  display: flex;
+  flex-direction: column;
+  margin-left: 0px;
+  margin-right: 0px;
+  /*width: 340px;*/
+
+}
+.flex-card-part{
+  display: flex;
+  width: inherit !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+.flex-card-part-title{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: inherit !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+.flex-logo-card{
+    height: 64px !important;
+}
+.flex-other-stores{
+    padding-top: 70px !important;
+    display: flex;
+    flex-direction: column;
+    width: auto !important;
+}
 .flex-container{
     display: flex;
     flex-wrap: nowrap;
     margin-left: 10px;
     margin-right: 10px;
     justify-content: space-between;
+    align-items: center;
+}
+.column{
+  display: flex;
+  flex-direction: column;
+}
+.row{
+  /* display: flex; */
+  flex-direction: row;
+}
+.text-flex-center{
+  align-items: center;
 }
 
 .flex-logo-button{
@@ -16,20 +66,23 @@
     cursor: inherit;
 }
 .flex-logo{
+    max-height: 32px;
+    align-items: center;
     justify-content: center;
 }
 
 .flex-navbar{
-    /*display: flex;*/
+    display: flex;
     flex-direction:row;
     flex-wrap: nowrap;
     align-items: flex-end
 }
 
-.flex-dropdown{
-  font-family: Roboto,sans-serif;
-  font-weight: 300;
+
+.nav-link{
+  padding-left: 5px;
 }
+
 @media only screen and (min-width: 321px) {
   .flex-button {
     padding: 5px;

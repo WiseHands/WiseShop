@@ -1,3 +1,12 @@
+/*set style for shop information on the card view*/
+.shopCardInfo {
+    color: #595959;
+}
+#shopInfo {
+  margin-top: 4px;
+  margin-left: 5px;
+  /* color: #9e9e9e!important; */
+}
 /*calculate analytics the range of sale days*/
 .analytics-range-0f-days{
   display: flex;

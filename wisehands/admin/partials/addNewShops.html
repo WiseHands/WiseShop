@@ -1,0 +1,55 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="#/shops">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+            <a class="col-xs-8 text-center">
+                <h5 class="white-text">{{'addNewShops.add' | translate}}</h5>
+            </a>
+            <div class="col-xs-2 noRightPadding">
+                <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
+                        type="submit"
+                        form="addNewShopsForm">
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <form class="col-md-12 noSidePadding" ng-submit="submitShops()" id="addNewShopsForm" name="addNewShopsForm" ng-hide="loading">
+
+        <div class="input-field col-md-6">
+            <input id="shopName" type="text" ng-model="shop.shopName" required>
+            <label for="shopName">{{'addNewShops.shopName' | translate}}</label>
+        </div>
+
+        <div class="input-field col-md-6">
+            <input id="shopAddress" type="text" ng-model="shop.shopAddress" required>
+            <label for="shopAddress">{{'addNewShops.shopAddress' | translate}}</label>
+        </div>
+
+        <div class="input-field col-md-6">
+            <input id="shopGmail" type="text" ng-model="shop.shopGmail" required>
+            <label for="shopGmail">{{'addNewShops.shopGmail' | translate}}</label>
+        </div>
+
+        <div class="input-field col-md-6">
+            <input id="shopPhoneAdmin" type="text" ng-model="shop.shopPhoneAdmin" required>
+            <label for="shopPhoneAdmin">{{'addNewShops.shopPhoneAdmin' | translate}}</label>
+        </div>
+
+        <div class="input-field col-md-6">
+            <input id="coords" type="text" ng-model="shop.coords" required>
+            <label for="coords">{{'addNewShops.coords' | translate}}</label>
+        </div>
+
+    </form>
+
+</div>

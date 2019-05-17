@@ -1,6 +1,8 @@
 {
   "sideNav.Main": "Головна",
   "shopView.shops": "Магазини",
+  "shopView.use": "Вибрати цей магазин",
+  "shopView.otherShops": "Найближчі магазини",
   "shopView.contacts": "Контакти",
   "shopView.currency": "ГРН",
   "shopView.cart": "Кошик",
