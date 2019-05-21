@@ -1,4 +1,3 @@
-<div class="flex-container column">
   <div class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" style="background-color: {{shopStyling.navbarColor}}" shop-styling>
         <div class="flex-container">
               <div class="nav-link">
@@ -6,30 +5,29 @@
                 <i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
               </div>
               <div class="text-flex-center">
-                <h4 style="color: {{shopStyling.navbarTextColor}}">{{'shopView.otherShops' | translate}}</h4>
+                <h4 style="color: {{shopStyling.navbarTextColor}}; margin-bottom: 0px">{{'shopView.otherShops' | translate}}</h4>
               </div>
               <div class="flex-items">
               </div>
         </div>
   </div>
-  <div class="container-fluid noSidePadding cardTopPadding  flex-other-stores">
-        <div class="set-card" ng-repeat="item in departments">
-            <div class="card card-product hoverable flex-card-part column">
+  <div class="container-fluid noSidePadding flex-other-stores">
+        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="item in departments">
+            <div class="card card-product hoverable set-card">
                 <a href="#/!" >
                 <div class="flex-card-part-title">
-                    <img href="#/!" ng-show="logo" class="flex-logo-card" ng-src="{{logo}}">
+                    <img class="flex-logo-card" ng-src="{{logo}}">
                     <div class="flex-card-part column" style="padding-right: 15px">
                         <h5 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400; margin-bottom: 7px;">{{item.shopName}}</h5>
                         <h6 class="grey-text normal-400" style="margin-bottom: 0px;">{{item.shopAddress}}</h6>
                     </div>
                 </div>
-                <div class="view overlay hm-white-slight z-depth-1">
+                <div class="view overlay hm-white-slight z-depth-1 card-maps">
                     <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{item.destinationLat}},{{item.destinationLng}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{item.destinationLat}},{{item.destinationLng}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
-                    <div class="mask waves-effect activator"></div>
+
                 </div>
             </div>
         </div>
   </div>
 
 
-</div>

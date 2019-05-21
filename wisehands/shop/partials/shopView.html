@@ -1,6 +1,6 @@
 <header ng-cloak>
     <nav class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" style="background-color: {{shopStyling.navbarColor}}" shop-styling>
-        <div class="flex-container">
+        <div class="flex-container nowrap">
 
             <div class="flex-logo-button">
                 <a data-activates="slide-out" class="button-collapse" style="color: {{shopStyling.navbarTextColor}};left: 0px;"><i class="fa fa-bars"></i></a>
@@ -47,7 +47,7 @@
 <main class="p-t-6 pl-0">
     <div class="container-fluid row center-block">
         <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="productDTO in products | orderBy:'sortOrder'" ng-show="productDTO.isActive">
-                <div class="card inline">
+            <div class="card inline">
                 <div class="noselect view overlay hm-white-slight z-depth-1" ng-click="navigateToProductDetails(productDTO.uuid)">
                         <img ng-src="public/product_images/{{shopId}}/{{productDTO.mainImage.filename}}" class="img-fluid center-block" alt="">
                          <div class="mask"></div>
