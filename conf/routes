@@ -115,6 +115,7 @@ POST    {client}/department                             DepartmentAPI.create
 PUT     {client}/department                             DepartmentAPI.update
 DELETE  {client}/department/{uuid}                      DepartmentAPI.delete
 
+GET     {client}/shop-network                           ShopNetworkAPI.get
 PUT     {client}/shop-network                           ShopNetworkAPI.create
 POST    {client}/shop-network                           ShopNetworkAPI.create
 

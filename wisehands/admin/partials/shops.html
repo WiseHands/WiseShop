@@ -25,14 +25,14 @@
      <a href="#/shops/details/{{item.uuid}}">
     <div class="card card-product hoverable">
       <div class="view overlay hm-white-slight z-depth-1">
-        <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{item.destinationLat}},{{item.destinationLng}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{item.destinationLat}},{{item.destinationLng}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
+        <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat(item)}},{{getLng(item)}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat(item)}},{{getLng(item)}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
           <div class="mask waves-effect activator"></div>
       </div>
       <div id="shopInfo">
         <h5 class="truncate normal-400 shopCardInfo">{{item.shopName}}</h5>
-        <h6 class="grey-text normal-400">{{item.shopPhone}}</h6>
-        <h6 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400">{{item.shopAddress}}</h6>
-        <h6 class="grey-text">{{item.shopMail}}</h6>
+        <h6 class="grey-text normal-400">{{item.contact.phone}}</h6>
+        <h6 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400">{{item.contact.address}}</h6>
+        <h6 class="grey-text">{{item.contact.email}}</h6>
       </div>
     </div>
   </div>

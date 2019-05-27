@@ -4,18 +4,19 @@
             function($scope, $http, shared, $route, sideNavInit, PublicShopInfo, isUserAdmin, $location) {
 
               $scope.loading = true;
-              var map, marker;
+
+
 
               $http({
                 method: 'GET',
-                url: '/department'
+                url: '/shop-network'
               })
                 .then(function successCallback(response){
-                  $scope.departments = response.data;
-                  var department = response.data[0];
-                  console.log("in response", $scope.departments, department.destinationLat, department.destinationLng);
+                  $scope.departments = response.data.shopList;
+                  // var department = response.data[0];
+                  console.log("in response", $scope.departments);
                 }, function errorCallback(data){
-              });
+                });
 
               $http({
                 method: 'GET',
@@ -25,7 +26,19 @@
                     $scope.activeShop = response.data;
                   console.log("shop/details/public:googleStaticMapsApiKey", response.data.googleStaticMapsApiKey)
                 }, function errorCallback(data){
-              });
+                });
+
+              $scope.getLat = function (shop) {
+                    var cords = shop.contact.latLng.split(',');
+                    let lat = cords[0];
+                    return lat;
+              };
+
+              $scope.getLng = function (shop) {
+                    var cords = shop.contact.latLng.split(',');
+                    let lng = cords[1];
+                    return lng;
+              };
 
         }]);
 })();

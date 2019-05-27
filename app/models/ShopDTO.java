@@ -93,6 +93,9 @@ public class ShopDTO extends GenericModel {
     @OneToMany(cascade = CascadeType.ALL)
     public List<OrderDTO> orders;
 
+    @ManyToOne
+    public ShopNetworkDTO network;
+
     public ShopDTO(List<UserDTO> users,
                    PaymentSettingsDTO paymentSettings,
                    DeliveryDTO delivery,

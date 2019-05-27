@@ -10,6 +10,18 @@ import java.util.List;
 
 public class ShopNetworkAPI extends AuthController {
 
+    public static void get(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(shop.network);
+        renderJSON(json);
+    }
+
+
     public static void create(String client, String[] shopUuidList, String networkName) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -23,8 +35,11 @@ public class ShopNetworkAPI extends AuthController {
             selectedShops.add(_shop);
         }
 
+
+
         ShopNetworkDTO shopNetwork = new ShopNetworkDTO(networkName, selectedShops);
-        shopNetwork.save();
+        shop.network = shopNetwork.save();
+        shop.save();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(shopNetwork);
