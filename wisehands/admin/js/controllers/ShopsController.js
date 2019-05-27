@@ -23,6 +23,6 @@ angular.module('WiseHands')
               $scope.activeShop = response.data;
                 console.log("in response $scope.activeShop", $scope.activeShop);
             }, function errorCallback(response) {
-            });
+        });
 
     }]);

@@ -115,17 +115,20 @@ POST    {client}/department                             DepartmentAPI.create
 PUT     {client}/department                             DepartmentAPI.update
 DELETE  {client}/department/{uuid}                      DepartmentAPI.delete
 
+PUT     {client}/shop-network                           ShopNetworkAPI.create
+POST    {client}/shop-network                           ShopNetworkAPI.create
+
 
 GET     {client}/balance                                BalanceAPI.getBalance
 POST    {client}/pay                                    BalanceAPI.startPayment
 POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification
 
-GET		{client}/category							                  	CategoryAPI.all
-GET		{client}/category/{uuid}					              	CategoryAPI.details
-POST	{client}/category        					               	CategoryAPI.create
-PUT 	{client}/category/{uuid}/name/{name}	        		CategoryAPI.update
-DELETE 	{client}/category/{uuid}					             	CategoryAPI.delete
-PUT 	{client}/category/{uuid}/product/{productUuid}   	CategoryAPI.assignProduct
+GET		{client}/category							    CategoryAPI.all
+GET		{client}/category/{uuid}					    CategoryAPI.details
+POST	{client}/category        					    CategoryAPI.create
+PUT 	{client}/category/{uuid}/name/{name}	        CategoryAPI.update
+DELETE 	{client}/category/{uuid}					    CategoryAPI.delete
+PUT 	{client}/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
