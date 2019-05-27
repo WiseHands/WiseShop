@@ -46,7 +46,7 @@ angular.module('WiseHands')
                 console.log('submitNetworkShops;', $scope.shopList);
                 let selectedShopList = [];
                 $scope.shopList.forEach(function(shop) {
-                    if(shop._selected) {
+                    if(shop.selected) {
                         selectedShopList.push(shop.uuid);
                     }
                 });
@@ -68,6 +68,16 @@ angular.module('WiseHands')
                           console.log("error response",response);
                     });
             };
+
+            $http({
+                method: 'GET',
+                url: '/all-networks',
+            })
+                .then(function successCallback(response) {
+
+                    console.log("in response list network", response);
+                }, function errorCallback(response) {
+                });
 
 
 

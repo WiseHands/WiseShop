@@ -18,6 +18,19 @@
         </div>
     </div>
 </nav>
+<div class="flex-row">
+     <div class="input-field col-md-6">
+        <div class="col-xs-6">
+            <p>{{'sideNav.Shops' | translate}}</p>
+            <select class="form-control col-md-6"
+                    ng-model="selectedShop"
+                    ng-change="shopSelected(shop)"
+                    ng-options="shop as shop.shopName for shop in shops">
+            </select>
+        </div>
+
+    </div>
+</div>
 <!-- add card with shop info -->
 <div class="container-fluid noSidePadding cardTopPadding">
 

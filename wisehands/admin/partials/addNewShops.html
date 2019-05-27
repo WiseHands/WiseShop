@@ -19,7 +19,18 @@
     </div>
 </nav>
 <div class="flex-row">
-    <div class="input-field col-md-6 stinput">
+    <div class="input-field col-md-6">
+        <div class="col-xs-6">
+            <p style="margin-bottom: 0px">{{'sideNav.Shops' | translate}}</p>
+            <select class="form-control col-md-6"
+                    ng-model="selectedShop"
+                    ng-change="shopSelected(shop)"
+                    ng-options="shop as shop.shopName for shop in shops">
+            </select>
+        </div>
+
+    </div>
+    <div class="input-field col-md-6">
         <input id="shopNetworkName" type="text" ng-model="shopNetworkName" required>
         <label for="shopNetworkName">{{'addShopsNetwork.netName' | translate}}</label>
     </div>
@@ -42,12 +53,13 @@
                         <h6 class="grey-text">{{shop.contact.email}}</h6>
                     </div>
                     <div class="flex-checkbox">
-                        <input id="shopCheckNetbox" type="checkbox" class="filled-in checkBoxStyling" ng-model="shop._selected" />
+                        <input id="shopCheckNetbox" type="checkbox" class="filled-in checkBoxStyling" ng-model="shop.selected" />
                         <label for="shopCheckNetbox">{{'settings.addShopToNet' | translate}}</label>
                     </div>
                 </div>
             </div>
     </div>
+
 </div>
 
     <!--<div class="row text-center">-->

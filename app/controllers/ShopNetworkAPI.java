@@ -5,8 +5,7 @@ import com.google.gson.GsonBuilder;
 import models.ShopDTO;
 import models.ShopNetworkDTO;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ShopNetworkAPI extends AuthController {
 
@@ -18,6 +17,26 @@ public class ShopNetworkAPI extends AuthController {
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(shop.network);
+        renderJSON(json);
+    }
+
+    public static void getAll(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        Set<ShopNetworkDTO> networkList = new HashSet<>();
+
+        for(ShopDTO _shop : loggedInUser.shopList) {
+            if(_shop.network != null) {
+                networkList.add(_shop.network);
+            }
+        }
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(networkList);
         renderJSON(json);
     }
 
@@ -34,8 +53,6 @@ public class ShopNetworkAPI extends AuthController {
             ShopDTO _shop = ShopDTO.findById(uuid);
             selectedShops.add(_shop);
         }
-
-
 
         ShopNetworkDTO shopNetwork = new ShopNetworkDTO(networkName, selectedShops);
         shop.network = shopNetwork.save();
