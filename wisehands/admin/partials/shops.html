@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    {{'sideNav.Shops' | translate}}
+                    {{'networkListPage.title' | translate}}
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding"
@@ -22,14 +22,15 @@
 <!-- add card with shop info -->
 <div class="container-fluid noSidePadding cardTopPadding">
 
-  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in network">
+  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="network in networkList">
         <div class="card card-product hoverable">
           <div class="view overlay hm-white-slight z-depth-1">
-            <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat()}},{{getLng()}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat()}},{{getLng()}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
+            <img ng-src="{{staticMapUrl}}" class="img-responsive">
               <div class="mask waves-effect activator"></div>
           </div>
-          <div class="flex-row">
-            <h5 class="truncate normal-400 shopCardInfo">{{shop.networkName}}</h5>
+          <div class="flex-column" style="align-items: center">
+              <h5 class="truncate normal-400 shopCardInfo" style="margin-bottom: 3px">{{network.networkName}}</h5>
+              <p class="truncate normal-200 shopCardInfo">{{network.shopList.length}}{{'networkListPage.shops' | translate}}</p>
 
           </div>
         </div>

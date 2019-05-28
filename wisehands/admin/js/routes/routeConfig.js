@@ -61,7 +61,7 @@
                     }).
                     when('/shops',{
                         templateUrl:'wisehands/admin/partials/shops.html',
-                        controller:'ShopsController',
+                        controller:'NetworkController',
                         activetab: 'contacts'
                     }).
                     when('/shops/new',{

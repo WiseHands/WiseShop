@@ -1,7 +1,8 @@
 ﻿{
   "yes": "Tak",
   "no": "Nie",
-  "addShopsNetwork.netName": "Utwórz sieć sklepów",
+  "networkListPage.title": "Sieć",
+  "networkListPage.shops": " sclepu",
   "analytics.fromDate": "Ot 01/31/2018",
   "analytics.toDate": "Do 01/31/2019",
   "analytics.analyticstotal": "Policz",

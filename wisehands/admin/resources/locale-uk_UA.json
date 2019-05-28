@@ -1,7 +1,8 @@
 {
   "yes": "Так",
   "no": "Ні",
-  "addShopsNetwork.netName": "Створоити мережу магазинів",
+  "networkListPage.title": "Мережі",
+  "networkListPage.shops": " магазини",
   "analytics.fromDate": "Від 01/31/2018",
   "analytics.toDate": "До 03/31/2019",
   "analytics.analyticstotal": "Порахувати",
