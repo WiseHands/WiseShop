@@ -1,7 +1,7 @@
 angular.module('WiseHands')
-    .controller('SubmitNewShopsController', [
-        '$scope', '$location', '$http', 'signout', '$uibModal',
-        function ($scope, $location, $http, signout, $uibModal) {
+    .controller('CreateNetworkShopsController', [
+        '$scope', '$location', '$http',
+        function ($scope, $location, $http) {
 
             var fd = new FormData();
 
@@ -15,7 +15,6 @@ angular.module('WiseHands')
             }).then(function successCallback(response){
                 $scope.shopList = response.data.shopList;
                 shopUuid = $scope.shopList[0].uuid;
-                console.log("uuid", shopUuid, "response", response);
             }, function errorCallback(data){
             });
 
@@ -26,7 +25,6 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.activeShop = response.data;
-                    console.log("in response $scope.activeShop", $scope.activeShop);
                 }, function errorCallback(response) {
                 });
 
@@ -62,22 +60,14 @@ angular.module('WiseHands')
                     }).success(function(data){
                           $scope.loading = false;
                           // $location.path('/shops');
-                          console.log("success send data ",data);
+                          console.log('shopUuidList', selectedShopList.join(), 'data', data);
                     }).error(function(response){
                           $scope.loading = false;
                           console.log("error response",response);
                     });
             };
 
-            $http({
-                method: 'GET',
-                url: '/all-networks',
-            })
-                .then(function successCallback(response) {
 
-                    console.log("in response list network", response);
-                }, function errorCallback(response) {
-                });
 
 
 

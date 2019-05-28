@@ -66,7 +66,7 @@
                     }).
                     when('/shops/new',{
                           templateUrl:'wisehands/admin/partials/addNewShops.html',
-                          controller:'SubmitNewShopsController',
+                          controller:'CreateNetworkShopsController',
                           activetab: 'productlist'
                     }).
                     when('/shops/details/:uuid',{

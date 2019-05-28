@@ -87,19 +87,6 @@
         </div>
     </div>
 </div>
-<div class="container-fluid noSidePadding flex-other-stores">
-    <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="item in departments">
-        <div class="card card-product hoverable set-card">
-            <a href="#/!" >
-                <div class="flex-card-part-title">
-                    <div class="flex-row">
-                        <h5 style="font-size: medium; font-weight: 400; margin: 7px;">{{networkName}}</h5>
-                    </div>
-                </div>
-                <div class="view overlay hm-white-slight z-depth-1 card-maps">
-                    <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat(item)}},{{getLng(item)}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat(item)}},{{getLng(item)}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
-
-                </div>
-        </div>
-    </div>
+<div class="flex-button">
+    <button type="button" ng-click="createNetworkShops()" class="btn secondaryColor analytics-use-btn waves-effect waves-light ng-binding unique-color z-depth-1 primaryColor" style="justify-content: flex-start">{{'addShopsNetwork.netName' | translate}}</button>
 </div>

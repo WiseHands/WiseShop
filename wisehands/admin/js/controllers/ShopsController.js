@@ -6,13 +6,20 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/shop-network'
+            url: '/all-networks'
         })
             .then(function successCallback(response){
-                $scope.networkName = response.data.networkName;
-                $scope.departments = response.data.shopList;
-                // var department = response.data[0];
-                console.log("in response", response);
+                $scope.network = response.data;
+
+                console.log("in response", $scope.network);
+                console.log("get latLng from shopList", response.data[0].shopList[0].contact.latLng);
+                var cords = [];
+                for (var network = 0; network < $scope.network.length; network++){
+                    for (var shop = 0; shop < $scope.network[network].shopList.length; shop++){
+                        cords.push($scope.network[network].shopList[shop].contact.latLng);
+                    }
+                }
+                console.log(cords);
             }, function errorCallback(data){
             });
 
@@ -23,20 +30,29 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response){
                 $scope.activeShop = response.data;
-                console.log("shop/details/public:googleStaticMapsApiKey", response.data.googleStaticMapsApiKey)
+                // console.log("shop/details/public:googleStaticMapsApiKey", response.data.googleStaticMapsApiKey)
             }, function errorCallback(data){
             });
 
-        $scope.getLat = function (shop) {
-            var cords = shop.contact.latLng.split(',');
-            let lat = cords[0];
-            return lat;
-        };
+        $scope.getLat = function () {
+            for (var network = 0; network < $scope.network.length; network++){
+                for (var shop = 0; shop < $scope.network[network].length; shop++){
+                    var cords = $scope.network[network].shopList[shop].contact.latLng.split(',');
+                    let lat = cords[0];
+                    console.log(lat);
+                    return lat;
 
-        $scope.getLng = function (shop) {
-            var cords = shop.contact.latLng.split(',');
-            let lng = cords[1];
-            return lng;
+                }
+
+            }
+
+
         };
+        //
+        // $scope.getLng = function (shop) {
+        //     var cords = shop.shopList.contact.latLng.split(',');
+        //     let lng = cords[1];
+        //     return lng;
+        // };
 
     }]);
