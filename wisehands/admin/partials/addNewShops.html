@@ -53,8 +53,8 @@
                         <h6 class="grey-text">{{shop.contact.email}}</h6>
                     </div>
                     <div class="flex-checkbox">
-                        <input id="shopCheckNetbox" type="checkbox" class="filled-in checkBoxStyling" ng-model="shop.selected" />
-                        <label for="shopCheckNetbox">{{'settings.addShopToNet' | translate}}</label>
+                        <input id="shopNetworkCheck-{{$index}}" type="checkbox" class="filled-in checkBoxStyling" ng-model="shop.selected" />
+                        <label for="shopNetworkCheck-{{$index}}">{{'settings.addShopToNet' | translate}}</label>
                     </div>
                 </div>
             </div>
