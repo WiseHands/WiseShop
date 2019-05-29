@@ -59,9 +59,14 @@
                         controller:'EditProductController',
                         activetab: 'productlist'
                     }).
-                    when('/shops',{
-                        templateUrl:'wisehands/admin/partials/shops.html',
+                    when('/network',{
+                        templateUrl:'wisehands/admin/partials/network.html',
                         controller:'NetworkController',
+                        activetab: 'contacts'
+                    }).
+                    when('/networkshoplist',{
+                        templateUrl:'wisehands/admin/partials/networkShopList.html',
+                        controller:'NetworkShopListController',
                         activetab: 'contacts'
                     }).
                     when('/shops/new',{

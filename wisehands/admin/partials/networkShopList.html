@@ -1,0 +1,39 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'networkListPage.title' | translate}}Shop list
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding"
+              type="button"
+              href="#/shops/new">
+               <i class="fa fa-plus-circle pull-right whiteColor">
+               </i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- add card with shop info -->
+<div class="container-fluid noSidePadding cardTopPadding">
+
+  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="network in networkList">
+        <div class="card card-product hoverable">
+            <a href="#/networkshoplist" >
+            <div class="view overlay hm-white-slight z-depth-1">
+                <img ng-src="{{staticMapUrl}}" class="img-responsive">
+                <div class="mask waves-effect activator"></div>
+            </div>
+            <div class="flex-column" style="align-items: center">
+                <h5 class="truncate normal-400 shopCardInfo" style="margin-bottom: 3px">{{network.networkName}}</h5>
+                <p class="truncate normal-200 shopCardInfo">{{network.shopList.length}}{{'networkListPage.shops' | translate}}</p>
+            </div>
+        </div>
+  </div>
+
+</div>

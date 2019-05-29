@@ -118,7 +118,7 @@ angular.module('WiseHands')
             };
 
             $scope.createNetworkShops = function () {
-                $location.path('/shops');
+                $location.path('/network');
             }
 
 
