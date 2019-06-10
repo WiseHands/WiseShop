@@ -37,6 +37,7 @@ public class ShopNetworkDTO extends GenericModel {
             this.uuidShopList.add(key);
         }
         this.persistShopList();
+        this.retrieveShopList();
     }
 
     public void removeUuidShopListToNetwork(List<String> uuidList) {
@@ -45,6 +46,7 @@ public class ShopNetworkDTO extends GenericModel {
             this.uuidShopList.remove(key);
         }
         this.persistShopList();
+        this.retrieveShopList();
     }
 
     private void persistShopList() {
@@ -57,10 +59,12 @@ public class ShopNetworkDTO extends GenericModel {
     }
 
     public void retrieveShopList() {
+        this.shopList = new ArrayList<>();
+        this.uuidShopList = new ArrayList<>();
         if(this.rawUuidShopList == null) {
             return;
         }
-        this.shopList = new ArrayList<>();
+
 
         this.uuidShopList = new ArrayList<>(Arrays.asList(this.rawUuidShopList.split(",")));
         for (String _id : uuidShopList) {
