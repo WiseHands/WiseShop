@@ -80,7 +80,7 @@ public class WisehandsSetup extends Job {
                 true, "Post Service",
                 courierDeliveryPrice, courierFreeDeliveryPrice
         );
-        ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Lviv", "49.848596:24.0229203", "Description");
+        ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Lviv", "49.848596,24.0229203", "Description");
         PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, (double) 500);
         BalanceDTO balance = new BalanceDTO();
 
@@ -92,6 +92,8 @@ public class WisehandsSetup extends Job {
         visualSettings.sidebarColorScheme = color;
 
         ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, shopName, HAPPYBAG_PUBLIC_LIQPAY_KEY, HAPPYBAG_PRIVATE_LIQPAY_KEY, domain, "en_US");
+        shop.googleStaticMapsApiKey = "AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg";
+        shop.googleMapsApiKey = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
         shop.save();
 
     }

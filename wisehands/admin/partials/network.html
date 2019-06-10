@@ -11,7 +11,7 @@
             </div>
             <a class="col-xs-2 noRightPadding"
               type="button"
-              href="#/shops/new">
+              href="#/network/new">
                <i class="fa fa-plus-circle pull-right whiteColor">
                </i>
             </a>
@@ -22,9 +22,9 @@
 <!-- add card with shop info -->
 <div class="container-fluid noSidePadding cardTopPadding">
 
-  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="network in networkList">
+  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="network in networkList" style="width: auto !important;">
         <div class="card card-product hoverable">
-            <a href="#/networkshoplist" >
+            <a href="#/networkshoplist/{{network.uuid}}" >
             <div class="view overlay hm-white-slight z-depth-1">
                 <img ng-src="{{staticMapUrl}}" class="img-responsive">
                 <div class="mask waves-effect activator"></div>

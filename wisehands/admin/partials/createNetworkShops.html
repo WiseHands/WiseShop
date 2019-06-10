@@ -26,13 +26,10 @@
 </div>
 <div class="container-fluid noSidePadding cardTopPadding">
 
-    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in shopList">
+    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in shopList" style="width: auto !important;">
             <div class="card card-product hoverable">
                 <div class="view overlay hm-white-slight z-depth-1">
-                    <a href="#/shops/details/{{shop.uuid}}">
                     <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat(shop)}},{{getLng(shop)}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat(shop)}},{{getLng(shop)}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
-                    <!--<div class="mask waves-effect activator"></div>-->
-                    </a>
                 </div>
                 <div class="flex-info">
                     <div class="flex-column">
@@ -43,7 +40,7 @@
                     </div>
                     <div class="flex-checkbox">
                         <input id="shopNetworkCheck-{{$index}}" type="checkbox" class="filled-in checkBoxStyling" ng-model="shop.selected" />
-                        <label for="shopNetworkCheck-{{$index}}">{{'settings.addShopToNet' | translate}}</label>
+                        <label for="shopNetworkCheck-{{$index}}">{{'createNetworkShops.addShopToNet' | translate}}</label>
                     </div>
                 </div>
             </div>

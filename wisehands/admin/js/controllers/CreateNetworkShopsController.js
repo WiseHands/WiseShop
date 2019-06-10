@@ -3,18 +3,12 @@ angular.module('WiseHands')
         '$scope', '$location', '$http',
         function ($scope, $location, $http) {
 
-            var fd = new FormData();
-
-            var token = localStorage.getItem('JWT_TOKEN');
-            var currentUser = JSON.parse(atob(token.split('.')[1]));
-            var userUuid = currentUser.uuid;
-            var shopUuid;
             $http({
                 method: 'GET',
-                url: '/user/' + userUuid,
+                url: '/available-shops',
             }).then(function successCallback(response){
-                $scope.shopList = response.data.shopList;
-                shopUuid = $scope.shopList[0].uuid;
+                $scope.shopList = response.data;
+                console.log("shops for networks", $scope.shopList);
             }, function errorCallback(data){
             });
 
@@ -25,6 +19,7 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.activeShop = response.data;
+                    console.log("$scope.activeShop", $scope.activeShop);
                 }, function errorCallback(response) {
                 });
 
@@ -41,14 +36,16 @@ angular.module('WiseHands')
             };
 
             $scope.submitNetworkShops = function () {
-                console.log('submitNetworkShops;', $scope.shopList);
+
                 let selectedShopList = [];
                 $scope.shopList.forEach(function(shop) {
                     if(shop.selected) {
                         selectedShopList.push(shop.uuid);
                     }
                 });
+                console.log('submitNetworkShops;', selectedShopList);
 
+                let fd = new FormData();
                 fd.append('networkName', $scope.shopNetworkName);
                 fd.append('shopUuidList', selectedShopList.join());
 
@@ -59,12 +56,15 @@ angular.module('WiseHands')
                           }
                     }).success(function(data){
                           $scope.loading = false;
-                          // $location.path('/shops');
-                          console.log('shopUuidList', selectedShopList.join(), 'data', data);
+                          $location.path('/network');
+                          console.log('shopUuidList', data);
                     }).error(function(response){
                           $scope.loading = false;
                           console.log("error response",response);
                     });
+
+
+
             };
 
 

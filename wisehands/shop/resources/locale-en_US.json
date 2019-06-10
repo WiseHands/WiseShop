@@ -1,7 +1,7 @@
 {
   "sideNav.Main": "Main",
   "shopView.shops": "Shops",
-  "shopView.otherShops": "Other stores",
+  "shopView.title": "Choose shop for buying",
   "shopView.use": "Choose shop",
   "shopView.contacts": "Contacts",
   "shopView.currency": "USD",

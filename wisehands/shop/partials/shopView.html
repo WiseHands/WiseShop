@@ -27,7 +27,7 @@
                       <span class="hidden-sm-down"> {{'shopView.admin' | translate}}</span>
                     </a>
                 </div>
-                <div class="nav-item">
+                <div ng-show="isShopInNetwork" class="nav-item">
                   <a class="nav-link" href="#!/othershops" style="color: {{shopStyling.navbarTextColor}}">
                       <i class="fa fa-tasks"></i>
                       <span class="hidden-sm-down" style="font-family: Roboto,sans-serif;">{{'shopView.shops' | translate}}</span>

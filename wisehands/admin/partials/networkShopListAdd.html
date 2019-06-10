@@ -6,21 +6,13 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    {{networkName}}
+                    {{'networkShopListEdit.add' | translate}}{{ networkName}}
                 </h5>
             </div>
-            <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
-               id="dropdownMenu1"
-               type="button"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                <i class="fa fa-edit whiteColor pull-right">
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="addShopToNetwork()">
                 </i>
-                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" href="#/networkshoplist/{{uuid}}/add"><p>{{'networkShopListPage.addShop' | translate}}</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" href="#/networkshoplist/{{uuid}}/delete"><p>{{'networkShopListPage.deleteShop' | translate}}</p></a>
-                </div>
             </a>
         </div>
     </div>
@@ -29,13 +21,17 @@
 <!-- add card with shop info -->
 <div class="container-fluid noSidePadding cardTopPadding">
 
-  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in networkShopList" style="width: auto !important;">
+  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in networkShopsList" style="width: auto !important;">
         <div class="card card-product hoverable">
             <!--<a href="#/networkshoplist" >-->
-            <div class="flex-card-part-title" style="margin: 10px;">
+            <div class="flex-card-part-title flex-row" style="margin: 10px; justify-content: space-between">
                 <div class="flex-card-part column" style="margin: 10px;">
                     <h5 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400; margin: 5px 0px 5px;">{{shop.shopName}}</h5>
                     <h6 class="grey-text normal-400" style="margin-bottom: 0px;">{{shop.contact.address}}</h6>
+                </div>
+                <div class="flex-checkbox">
+                    <input id="shopNetworkCheck-{{$index}}" type="checkbox" class="filled-in checkBoxStyling" ng-model="shop.selected"/>
+                    <label for="shopNetworkCheck-{{$index}}"></label>
                 </div>
             </div>
             <div class="view overlay hm-white-slight z-depth-1 card-maps">

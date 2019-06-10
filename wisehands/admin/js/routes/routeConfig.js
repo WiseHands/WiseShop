@@ -64,15 +64,25 @@
                         controller:'NetworkController',
                         activetab: 'contacts'
                     }).
-                    when('/networkshoplist',{
+                    when('/network/new',{
+                        templateUrl:'wisehands/admin/partials/createNetworkShops.html',
+                        controller:'CreateNetworkShopsController',
+                        activetab: 'productlist'
+                    }).
+                    when('/networkshoplist/:uuid',{
                         templateUrl:'wisehands/admin/partials/networkShopList.html',
                         controller:'NetworkShopListController',
                         activetab: 'contacts'
                     }).
-                    when('/shops/new',{
-                          templateUrl:'wisehands/admin/partials/addNewShops.html',
-                          controller:'CreateNetworkShopsController',
-                          activetab: 'productlist'
+                    when('/networkshoplist/:uuid/add',{
+                        templateUrl:'wisehands/admin/partials/networkShopListAdd.html',
+                        controller:'NetworkShopListAddController',
+                        activetab: 'contacts'
+                    }).
+                    when('/networkshoplist/:uuid/delete',{
+                        templateUrl:'wisehands/admin/partials/networkShopListDelete.html',
+                        controller:'NetworkShopListDeleteController',
+                        activetab: 'contacts'
                     }).
                     when('/shops/details/:uuid',{
                           templateUrl:'wisehands/admin/partials/shopsDetails.html',

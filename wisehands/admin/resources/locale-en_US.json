@@ -1,10 +1,14 @@
 {
+  "networkShopListPage.addShop": "Add shops",
+  "networkShopListPage.deleteShop": "Delete shops",
+  "networkShopListEdit.add": "Add shop to network ",
+  "networkShopListEdit.delete": "Delete shop from network",
+  "createNetworkShops.addShopToNet": "add shop to network",
   "yes": "Yes",
   "no": "No",
   "analytics.fromDate": "From Date 01/21/2019",
   "analytics.toDate": "To Date 03/31/2019",
   "analytics.analyticstotal": "Total",
-  "settings.addShopToNet": "add shop to network",
   "is.hidden": "Is hidden",
   "orderList.Search": "Search",
   "orderList.New": "New",
@@ -178,4 +182,6 @@
   "deleteproperty.deleteMessage1": "Do you really want to delete this property?",
   "deleteproperty.deleteMessage2": "Property deleted.",
   "directives.language-select.Language": "Language"
+
+
 }

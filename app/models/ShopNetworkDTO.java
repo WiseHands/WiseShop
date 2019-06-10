@@ -4,10 +4,9 @@ import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -23,12 +22,45 @@ public class ShopNetworkDTO extends GenericModel {
     public String networkName;
 
     @Expose
-    @OneToMany
-    public List<ShopDTO> shopList;
+    @Transient
+    public List<ShopDTO> shopList = new ArrayList<>();
 
-    public ShopNetworkDTO(String networkName, List<ShopDTO> shopList){
-        this.networkName = networkName;
-        this.shopList = shopList;
+    @Transient
+    public List<String> uuidShopList = new ArrayList<>();
+
+    public String rawUuidShopList;
+
+
+    public void addUuidShopListToNetwork(List<String> uuidList) {
+        this.uuidShopList.addAll(uuidList);
+        this.persistShopList();
+    }
+
+    public void removeUuidShopListToNetwork(List<String> uuidList) {
+        this.uuidShopList.removeAll(uuidList);
+        this.persistShopList();
+    }
+
+    private void persistShopList() {
+        System.out.println("persistShopList" + this.uuidShopList);
+        this.rawUuidShopList = String.join(",", this.uuidShopList);
+        for (String _id : uuidShopList) {
+            ShopDTO _shop = ShopDTO.findById(_id);
+            this.shopList.add(_shop);
+        }
+    }
+
+    public void retrieveShopList() {
+        if(this.rawUuidShopList == null) {
+            return;
+        }
+
+        this.uuidShopList = Arrays.asList(this.rawUuidShopList.split(","));
+        for (String _id : uuidShopList) {
+            ShopDTO _shop = ShopDTO.findById(_id);
+            this.shopList.add(_shop);
+        }
+        System.out.println("retrieveShopList" + this.shopList);
     }
 
 

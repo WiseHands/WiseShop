@@ -116,9 +116,11 @@ PUT     {client}/department                             DepartmentAPI.update
 DELETE  {client}/department/{uuid}                      DepartmentAPI.delete
 
 GET     {client}/all-networks                           ShopNetworkAPI.getAll
-GET     {client}/shop-network                           ShopNetworkAPI.get
-PUT     {client}/shop-network                           ShopNetworkAPI.create
+GET     {client}/shop-network/{uuid}                    ShopNetworkAPI.get
+GET     {client}/available-shops                        ShopNetworkAPI.getShopListNotInNetwork
 POST    {client}/shop-network                           ShopNetworkAPI.create
+DELETE  {client}/network/delete-shop                    ShopNetworkAPI.deleteShopFromNetwork
+PUT     {client}/network/add-shop                       ShopNetworkAPI.addShopToNetwork
 
 
 GET     {client}/balance                                BalanceAPI.getBalance

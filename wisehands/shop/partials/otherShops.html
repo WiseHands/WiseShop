@@ -5,17 +5,17 @@
                 <i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
               </div>
               <div class="text-flex-center">
-                <h4 style="color: {{shopStyling.navbarTextColor}}; margin-bottom: 0px">{{'shopView.otherShops' | translate}}</h4>
+                <h4 style="color: {{shopStyling.navbarTextColor}}; margin-bottom: 0px">{{'shopView.title' | translate}}</h4>
               </div>
               <div class="flex-items">
               </div>
         </div>
   </div>
   <div class="container-fluid noSidePadding flex-other-stores">
-        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="item in departments">
+        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="item in shopList">
             <div class="card card-product hoverable set-card">
-                <a href="#/!" >
-                <div class="flex-card-part-title">
+                <a href="#/?{{item.uuid}}!" >
+                <div class="flex-card-part-title" style="margin-left: 10px !important;">
                     <img class="flex-logo-card" ng-src="{{logo}}">
                     <div class="flex-card-part column" style="padding-right: 15px">
                         <h5 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400; margin-bottom: 7px;">{{item.shopName}}</h5>

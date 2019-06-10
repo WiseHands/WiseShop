@@ -1,7 +1,7 @@
 (function(){
     angular.module('WiseShop')
-        .controller('OtherShopsController', ['$scope', '$http', 'shared', '$route', 'sideNavInit', 'PublicShopInfo', 'isUserAdmin', '$location',
-            function($scope, $http, shared, $route, sideNavInit, PublicShopInfo, isUserAdmin, $location) {
+        .controller('OtherShopsController', ['$scope', '$http',
+            function($scope, $http) {
 
               $scope.loading = true;
 
@@ -12,9 +12,8 @@
                 url: '/shop-network'
               })
                 .then(function successCallback(response){
-                  $scope.departments = response.data.shopList;
-                  // var department = response.data[0];
-                  console.log("in response", $scope.departments);
+                  $scope.shopList = response.data.shopList;
+                  console.log("in response", $scope.shopList);
                 }, function errorCallback(data){
                 });
 
