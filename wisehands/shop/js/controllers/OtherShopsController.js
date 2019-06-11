@@ -5,7 +5,14 @@
 
               $scope.loading = true;
 
-
+              $scope.openShop = function (shop) {
+                  let _url = location.protocol
+                      + '//' + shop.domain
+                      + ':' + location.port
+                      + "/?selectedShop=true";
+                  console.log("openShop", _url, shop);
+                  location = _url;
+              }
 
               $http({
                 method: 'GET',
