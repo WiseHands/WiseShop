@@ -2,6 +2,19 @@
     angular.module('WiseShop')
         .controller('ShopController', ['$scope', '$http', 'shared', 'sideNavInit', 'PublicShopInfo', 'isUserAdmin', '$location',
             function($scope, $http, shared, sideNavInit, PublicShopInfo, isUserAdmin, $location) {
+
+
+                function isShopSelected(){
+                    if(window.isSelected) {
+                        return window.isSelected;
+                    }
+
+                    let isSelected = location.hash.indexOf('#selectedShop=true') !== -1;
+                    window.isSelected = isSelected;
+                    return isSelected;
+                }
+
+
             
                 isUserAdmin.get(function(){
                     $scope.isUserAdmin = true;
@@ -47,21 +60,28 @@
                 url: '/network'
             })
                .then(function successCallback(response){
-                    console.log("response all-networks  ", response);
-                    if (response.data.shopList.length > 0) {
+                    console.log("response network  ", response);
+                    var network = response.data.shopList;
+                   console.log("response network  ", network);
+
+                   if (network.length > 0) {
                         $scope.isShopInNetwork = true;
                     } else {
                         $scope.isShopInNetwork = false;
                     }
                 }, function errorCallback(data){
             });
+            
 
 
             $scope.buyStart = function (productDTO, $event) {
+                $event.stopPropagation();
 
+                if (!isShopSelected()){
+                    $location.path('/othershops');
+                }
 
-                    $event.stopPropagation();
-                    var isActivePropertyTagsMoreThanTwo = 0;
+                let isActivePropertyTagsMoreThanTwo = 0;
 
                     productDTO.properties.forEach(function (property) {
                         property.tags = property.tags.filter(function (tag) {

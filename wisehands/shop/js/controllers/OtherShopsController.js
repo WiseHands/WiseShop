@@ -9,7 +9,7 @@
                   let _url = location.protocol
                       + '//' + shop.domain
                       + ':' + location.port
-                      + "/?selectedShop=true";
+                      + "/#selectedShop=true";
                   console.log("openShop", _url, shop);
                   location = _url;
               }
