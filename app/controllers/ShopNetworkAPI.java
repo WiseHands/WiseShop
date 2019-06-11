@@ -93,6 +93,17 @@ public class ShopNetworkAPI extends AuthController {
         renderJSON(json);
     }
 
+    public static void getShopList(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        shop.network.retrieveShopList();
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(shop.network);
+        renderJSON(json);
+    }
+
     public static void getAll(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -104,6 +115,7 @@ public class ShopNetworkAPI extends AuthController {
 
         for(ShopDTO _shop : loggedInUser.shopList) {
             if(_shop.network != null) {
+                _shop.network.retrieveShopList();
                 networkSet.add(_shop.network);
             }
         }

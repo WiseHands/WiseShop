@@ -59,12 +59,12 @@ public class ShopNetworkDTO extends GenericModel {
     }
 
     public void retrieveShopList() {
+
         this.shopList = new ArrayList<>();
         this.uuidShopList = new ArrayList<>();
         if(this.rawUuidShopList == null) {
             return;
         }
-
 
         this.uuidShopList = new ArrayList<>(Arrays.asList(this.rawUuidShopList.split(",")));
         for (String _id : uuidShopList) {

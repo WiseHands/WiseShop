@@ -117,6 +117,7 @@ DELETE  {client}/department/{uuid}                      DepartmentAPI.delete
 
 GET     {client}/all-networks                           ShopNetworkAPI.getAll
 GET     {client}/shop-network/{uuid}                    ShopNetworkAPI.get
+GET     {client}/network                                ShopNetworkAPI.getShopList
 GET     {client}/available-shops                        ShopNetworkAPI.getShopListNotInNetwork
 POST    {client}/shop-network                           ShopNetworkAPI.create
 DELETE  {client}/network/delete-shop                    ShopNetworkAPI.deleteShopFromNetwork

@@ -23,7 +23,7 @@
                 url: '/shop/details/public'
             })
                 .then(function successCallback(response) {
-                    console.log("detail response", response);
+                    // console.log("detail response", response);
                     PublicShopInfo.handlePublicShopInfo($scope, response);
                 }, function errorCallback(error) {
                     console.log(error);
@@ -44,9 +44,10 @@
 
             $http({
                 method: 'GET',
-                url: '/shop-network'
+                url: '/network'
             })
-                .then(function successCallback(response){
+               .then(function successCallback(response){
+                    console.log("response all-networks  ", response);
                     if (response.data.shopList.length > 0) {
                         $scope.isShopInNetwork = true;
                     } else {

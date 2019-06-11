@@ -9,11 +9,11 @@
 
               $http({
                 method: 'GET',
-                url: '/shop-network'
+                url: '/network'
               })
                 .then(function successCallback(response){
                   $scope.shopList = response.data.shopList;
-                  console.log("in response", $scope.shopList);
+                  console.log("in response all-networks", $scope.shopList);
                 }, function errorCallback(data){
                 });
 
