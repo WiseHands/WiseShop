@@ -41,4 +41,28 @@ angular.module('WiseHands')
         };
 
 
+        $scope.hideModal = function () {
+            $('#deleteProduct').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        };
+        $scope.deleteButton = true;
+        $scope.deleteProduct = function () {
+            $scope.deleteButton = false;
+            $scope.modalSpinner = true;
+            $http({
+                method: 'DELETE',
+                url: '/delete-network/' + $routeParams.uuid,
+            })
+                .then(function successCallback(response) {
+                    $scope.modalSpinner = false;
+                    $scope.succesfullDelete = true;
+
+                }, function errorCallback(response) {
+                    $scope.modalSpinner = false;
+                    console.log(response);
+                });
+
+        };
+
     }]);

@@ -121,6 +121,7 @@ GET     {client}/network                                ShopNetworkAPI.getShopLi
 GET     {client}/available-shops                        ShopNetworkAPI.getShopListNotInNetwork
 POST    {client}/shop-network                           ShopNetworkAPI.create
 DELETE  {client}/network/delete-shop                    ShopNetworkAPI.deleteShopFromNetwork
+DELETE  {client}/delete-network/{uuid}                  ShopNetworkAPI.deleteNetwork
 PUT     {client}/network/add-shop                       ShopNetworkAPI.addShopToNetwork
 
 

@@ -48,7 +48,7 @@ angular.module('WiseHands')
                     });
 
             };
-        $scope.goBack = function () {
-            window.history.back();
-        }
-        }]);
+            $scope.goBack = function () {
+                window.history.back();
+            }
+            }]);

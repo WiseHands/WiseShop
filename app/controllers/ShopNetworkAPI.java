@@ -84,6 +84,23 @@ public class ShopNetworkAPI extends AuthController {
         System.out.println("shopsToBeRemovedFromNetwork " + shopList + networkDTO.networkName);
     }
 
+    public static void deleteNetwork(String client, String uuid) throws Exception {
+
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        checkAuthentification(shop);
+        System.out.println("network for delete " + uuid);
+        ShopNetworkDTO network = ShopNetworkDTO.findById(uuid);
+        network.delete();
+        ok();
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(network);
+        renderJSON(json);
+    }
+
 
     public static void get(String client, String uuid) throws Exception {
         ShopNetworkDTO network = ShopNetworkDTO.findById(uuid);
@@ -98,7 +115,10 @@ public class ShopNetworkAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        shop.network.retrieveShopList();
+        if(shop.network != null) {
+            shop.network.retrieveShopList();
+        }
+
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(shop.network);
         renderJSON(json);

@@ -1,6 +1,7 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
@@ -93,7 +94,7 @@ public class ShopDTO extends GenericModel {
     @OneToMany(cascade = CascadeType.ALL)
     public List<OrderDTO> orders;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     public ShopNetworkDTO network;
 
     public ShopDTO(List<UserDTO> users,

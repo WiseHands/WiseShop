@@ -33,10 +33,9 @@
                 </div>
                 <div class="flex-info">
                     <div class="flex-column">
-                        <h5 class="truncate normal-400 shopCardInfo">{{shop.shopName}}</h5>
-                        <h6 class="grey-text normal-400">{{shop.contact.phone}}</h6>
-                        <h6 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400">{{shop.contact.description}}</h6>
-                        <h6 class="grey-text">{{shop.contact.email}}</h6>
+                        <h5 class="truncate normal-400 networkShopCardName">{{shop.shopName}}</h5>
+                        <h6 class="grey-text normal-400 networkShopCardPhone">{{shop.contact.phone}}</h6>
+                        <h6 class="grey-text networkShopCardEmail">{{shop.contact.email}}</h6>
                     </div>
                     <div class="flex-checkbox">
                         <input id="shopNetworkCheck-{{$index}}" type="checkbox" class="filled-in checkBoxStyling" ng-model="shop.selected" />

@@ -16,8 +16,17 @@
     margin-top: 20px !important;
 }
 /*set style for shop information on the card view*/
-.shopCardInfo {
+.networkShopCardName {
     color: #595959;
+    margin-bottom: 5px !important;
+}
+.networkShopCardPhone{
+    margin-top: 4px !important;
+    margin-bottom: 0px !important;
+}
+.networkShopCardEmail{
+    margin-top: 4px !important;
+
 }
 #shopInfo {
     margin-top: 4px;

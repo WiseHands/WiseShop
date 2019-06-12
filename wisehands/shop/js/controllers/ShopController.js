@@ -5,11 +5,13 @@
 
 
                 function isShopSelected(){
-                    if(window.isSelected) {
-                        return window.isSelected;
-                    }
+                    //
+                    // if(window.isSelected) {
+                    //     return window.isSelected;
+                    // }
 
                     let isSelected = location.hash.indexOf('#selectedShop=true') !== -1;
+                    console.log("isSelected", isSelected);
                     window.isSelected = isSelected;
                     return isSelected;
                 }
@@ -54,34 +56,37 @@
                 $scope.calculateTotal();
             };
 
+                var network = [];
 
-            $http({
+                $http({
                 method: 'GET',
                 url: '/network'
             })
                .then(function successCallback(response){
-                    console.log("response network  ", response);
-                    var network = response.data.shopList;
-                   console.log("response network  ", network);
+                if (response.data == null) {
+                    network = [];
+                } else {
+                    network = response.data.shopList;
+                }
 
-                   if (network.length > 0) {
-                        $scope.isShopInNetwork = true;
-                    } else {
-                        $scope.isShopInNetwork = false;
-                    }
+                if (network.length > 0) {
+                    $scope.isShopInNetwork = true;
+                } else {
+                    $scope.isShopInNetwork = false;
+                }
                 }, function errorCallback(data){
             });
-            
-
 
             $scope.buyStart = function (productDTO, $event) {
                 $event.stopPropagation();
+                console.log("network", (network.length));
+                console.log("isShopSelected()", (isShopSelected())||(network.length));
 
-                if (!isShopSelected()){
+                if ((isShopSelected())||(network.length)){
                     $location.path('/othershops');
-                }
+                } else {
 
-                let isActivePropertyTagsMoreThanTwo = 0;
+                    let isActivePropertyTagsMoreThanTwo = 0;
 
                     productDTO.properties.forEach(function (property) {
                         property.tags = property.tags.filter(function (tag) {
@@ -109,6 +114,10 @@
                         $scope.calculateTotal();
                     }
                     $scope.totalQuantity = shared.getTotalQuantity();
+
+                }
+
+
 
 
 

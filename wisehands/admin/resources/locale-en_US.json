@@ -1,6 +1,9 @@
 {
   "networkShopListPage.addShop": "Add shops",
-  "networkShopListPage.deleteShop": "Delete shops",
+  "networkShopListPage.deleteShop": "Remove shops",
+  "networkShopListPage.deleteNetwork": "Delete network",
+  "networkShopListPage.deleteMessage1": "Do you really want to delete this network?",
+  "networkShopListPage.deleteMessage2": "Network is deleted",
   "networkShopListEdit.add": "Add shop to network ",
   "networkShopListEdit.delete": "Delete shop from network",
   "createNetworkShops.addShopToNet": "add shop to network",
