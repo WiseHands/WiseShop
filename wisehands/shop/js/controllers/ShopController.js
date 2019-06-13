@@ -4,11 +4,10 @@
             function($scope, $http, shared, sideNavInit, PublicShopInfo, isUserAdmin, $location) {
 
 
-                function isShopSelected(){
-                    //
-                    // if(window.isSelected) {
-                    //     return window.isSelected;
-                    // }
+                function isShopSelectedByUser(){
+                    if(window.isSelected) {
+                        return window.isSelected;
+                    }
 
                     let isSelected = location.hash.indexOf('#selectedShop=true') !== -1;
                     console.log("isSelected", isSelected);
@@ -79,10 +78,16 @@
 
             $scope.buyStart = function (productDTO, $event) {
                 $event.stopPropagation();
-                console.log("network", (network.length));
-                console.log("isShopSelected()", (isShopSelected())||(network.length));
+                let isShopSelected;
+                if(network.length > 1) {
+                    isShopSelected = false;
+                }
+                isShopSelected = isShopSelectedByUser();
 
-                if ((isShopSelected())||(network.length)){
+                console.log("network.length > 1", network.length > 1);
+                console.log("isShopSelected()", isShopSelectedByUser());
+
+                if (!isShopSelected){
                     $location.path('/othershops');
                 } else {
 

@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.ShopDTO;
 import models.ShopNetworkDTO;
+import play.db.jpa.JPA;
+
+import javax.persistence.Query;
 import java.util.*;
 
 public class ShopNetworkAPI extends AuthController {
@@ -29,7 +32,7 @@ public class ShopNetworkAPI extends AuthController {
         List<ShopDTO> selectedShops = new ArrayList<>();
         for(String uuid: uuidList){
             ShopDTO _shop = ShopDTO.findById(uuid);
-            _shop.network = shopNetwork;
+            _shop.networkUuid = shopNetwork.uuid;
             _shop.save();
         }
 
@@ -55,7 +58,7 @@ public class ShopNetworkAPI extends AuthController {
 
         for(String uuid : shopList) {
             ShopDTO _shop = ShopDTO.findById(uuid);
-            _shop.network = networkDTO;
+            _shop.networkUuid = networkDTO.uuid;
             _shop.save();
         }
 
@@ -77,7 +80,7 @@ public class ShopNetworkAPI extends AuthController {
 
         for(String _uuid : shopList) {
             ShopDTO _shop = ShopDTO.findById(_uuid);
-            _shop.network = null;
+            _shop.networkUuid = null;
             _shop.save();
         }
 
@@ -93,7 +96,12 @@ public class ShopNetworkAPI extends AuthController {
 
         checkAuthentification(shop);
         System.out.println("network for delete " + uuid);
+
         ShopNetworkDTO network = ShopNetworkDTO.findById(uuid);
+        for (ShopDTO _shop : network.shopList) {
+            _shop.networkUuid = null;
+            _shop.save();
+        }
         network.delete();
         ok();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -115,12 +123,12 @@ public class ShopNetworkAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        if(shop.network != null) {
-            shop.network.retrieveShopList();
+        if(shop.getNetwork() != null) {
+            shop.getNetwork().retrieveShopList();
         }
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(shop.network);
+        String json = gson.toJson(shop.getNetwork());
         renderJSON(json);
     }
 
@@ -134,9 +142,9 @@ public class ShopNetworkAPI extends AuthController {
         Set<ShopNetworkDTO> networkSet = new HashSet<>();
 
         for(ShopDTO _shop : loggedInUser.shopList) {
-            if(_shop.network != null) {
-                _shop.network.retrieveShopList();
-                networkSet.add(_shop.network);
+            if(_shop.getNetwork() != null) {
+                _shop.getNetwork().retrieveShopList();
+                networkSet.add(_shop.getNetwork());
             }
         }
         System.out.println("networkList " + networkSet);
@@ -154,7 +162,7 @@ public class ShopNetworkAPI extends AuthController {
 
         List<ShopDTO> shopListToReturn = new ArrayList<>();
         for (ShopDTO _shop : loggedInUser.shopList){
-             if(_shop.network == null) {
+             if(_shop.getNetwork() == null) {
                  shopListToReturn.add(_shop);
              }
         }
