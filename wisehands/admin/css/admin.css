@@ -1,4 +1,13 @@
+.truncate-shop-info {
+    width: 145px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+}
+.flex-other-stores {
 
+    padding-top: 70px !important;
+}
 /*set the column into addNewShop page*/
 .flex-row{
     display: flex;

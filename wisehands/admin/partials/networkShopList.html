@@ -28,25 +28,19 @@
     </div>
 </nav>
 
-<!-- add card with shop info -->
 <div class="container-fluid noSidePadding cardTopPadding">
-
-  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in networkShopList" style="width: auto !important;">
-        <div class="card card-product hoverable">
-            <!--<a href="#/networkshoplist" >-->
-            <div class="flex-card-part-title" style="margin: 10px;">
-                <div class="flex-card-part column" style="margin: 10px;">
-                    <h5 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400; margin: 5px 0px 5px;">{{shop.shopName}}</h5>
-                    <h6 class="grey-text normal-400" style="margin-bottom: 0px;">{{shop.contact.address}}</h6>
-                </div>
+    <div class="col-lg-4 col-md-6 col-sm-6" style="height: auto !important;" ng-repeat="shop in networkShopList">
+        <div class="card card-product hoverable set-card column" style="justify-content: space-between">
+            <div class="flex-card-part flex-column" style="margin: 10px;">
+                <h5 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400; margin-bottom: 7px; margin-top: 7px;">{{shop.shopName}}</h5>
+                <h6 class="grey-text normal-400" style="margin-bottom: 0px;">{{shop.contact.address}}</h6>
             </div>
-            <div class="view overlay hm-white-slight z-depth-1 card-maps">
-                <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat(shop)}},{{getLng(shop)}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat(shop)}},{{getLng(shop)}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
+            <div class="view overlay hm-white-slight z-depth-1 card-maps" style="width: inherit !important;">
+                <img class="img-responsive"  ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat(shop)}},{{getLng(shop)}}&zoom=15&size=608x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat(shop)}},{{getLng(shop)}}&key={{activeShop.googleStaticMapsApiKey}}">
 
             </div>
         </div>
-  </div>
-
+    </div>
 </div>
 
 <div class="modal fade" id="deleteNetwork" tabindex="-1" role="dialog">

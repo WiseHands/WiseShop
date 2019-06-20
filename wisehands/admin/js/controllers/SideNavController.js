@@ -3,26 +3,6 @@ angular.module('WiseHands')
     			function ($scope, $http, $route, signout, $window) {
         $scope.$route = $route;
 
-        $http({
-            method: 'GET',
-            url: '/profile',
-
-        })
-            .then(function successCallback(response) {
-                var profile = response.data;
-                $scope.getProfileImage = function () {
-                    if (profile.profileUrl) {
-                        return profile.profileUrl;
-                    } else {
-                        return '/wisehands/assets/images/onerror_image/onerror_image_white.png';
-                    }
-                };
-
-
-            }, function errorCallback(data) {
-                console.log('error retrieving profile');
-            });
-
 
         $http({
             method: 'GET',
@@ -32,8 +12,30 @@ angular.module('WiseHands')
                 $scope.activeShop = response.data;
                 localStorage.setItem('activeShop', $scope.activeShop.uuid);
                 localStorage.setItem('activeShopName', $scope.activeShop.shopName);
+                console.log("/shop/details", response);
             }, function errorCallback(response) {
             });
+
+        $http({
+            method: 'GET',
+            url: '/network',
+        })
+            .then(function successCallback(response) {
+                console.log("network", response);
+                $scope.networkUuid = response.data.uuid;
+                if (response.data != null){
+                    $scope.networkName = response.data.networkName;
+                } else {
+                    $scope.networkName = null;
+                }
+                }, function errorCallback(reason) {
+                }
+            );
+
+        $scope.getNetwork = function () {
+            $window.location.href = '/admin#/networkshoplist/' + $scope.networkUuid;
+
+        };
 
         $scope.$watch(function () {
             if (!$scope.activeShop) {
