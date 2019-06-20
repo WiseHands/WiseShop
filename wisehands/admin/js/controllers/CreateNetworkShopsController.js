@@ -1,7 +1,7 @@
 angular.module('WiseHands')
     .controller('CreateNetworkShopsController', [
-        '$scope', '$location', '$http',
-        function ($scope, $location, $http) {
+        '$scope', '$location', '$http', '$uibModal',
+        function ($scope, $location, $http, $uibModal) {
 
             $http({
                 method: 'GET',
@@ -35,6 +35,13 @@ angular.module('WiseHands')
                 return lng;
             };
 
+
+            // $scope.hideModal = function () {
+            //     $('#categoryModal').modal('hide');
+            //     $('body').removeClass('modal-open');
+            //     $('.modal-backdrop').remove();
+            // };
+
             $scope.submitNetworkShops = function () {
 
                 let selectedShopList = [];
@@ -45,30 +52,37 @@ angular.module('WiseHands')
                 });
                 console.log('submitNetworkShops;', selectedShopList);
 
-                let fd = new FormData();
-                fd.append('networkName', $scope.shopNetworkName);
-                fd.append('shopUuidList', selectedShopList.join());
+                if (selectedShopList.length == 1) {
+                    showInfoMsg('Need more shop for network')
+                } else {
 
-                $http.post('/shop-network', fd, {
-                    transformRequest: angular.identity,
-                    headers: {
-                       'Content-Type': undefined,
-                          }
-                    }).success(function(data){
-                          $scope.loading = false;
-                          $location.path('/network');
-                          console.log('shopUuidList', data);
-                    }).error(function(response){
-                          $scope.loading = false;
-                          console.log("error response",response);
+                    let fd = new FormData();
+                    fd.append('networkName', $scope.shopNetworkName);
+                    fd.append('shopUuidList', selectedShopList.join());
+
+                    $http.post('/shop-network', fd, {
+                        transformRequest: angular.identity,
+                        headers: {
+                            'Content-Type': undefined,
+                        }
+                    }).success(function (data) {
+                        $scope.loading = false;
+                        $location.path('/network');
+                        console.log('shopUuidList', data);
+                    }).error(function (response) {
+                        $scope.loading = false;
+                        console.log("error response", response);
                     });
-
-
-
+                };
             };
 
-
-
-
+            function showInfoMsg(msg) {
+                toastr.clear();
+                toastr.options = {
+                    "positionClass": "toast-bottom-center",
+                    "preventDuplicates": true,
+                }
+                toastr.info(msg);
+            }
 
     }]);

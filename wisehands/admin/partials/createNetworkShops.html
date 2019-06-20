@@ -12,21 +12,22 @@
             </a>
             <div class="col-xs-2 noRightPadding">
                 <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
-                        ng-click="submitNetworkShops()">
+                        type="submit"
+                        form="addNewNetworkForm">
                 </button>
             </div>
         </div>
     </div>
 </nav>
-<div class="flex-row">
-        <div class="input-field col-md-6">
-        <input id="shopNetworkName" type="text" ng-model="shopNetworkName" required>
-        <label for="shopNetworkName">{{'addShopsNetwork.netName' | translate}}</label>
+<form ng-submit="submitNetworkShops()" id="addNewNetworkForm" name="addNewNetworkForm" ng-hide="loading">
+    <div class="flex-row">
+            <div class="input-field col-md-6">
+            <input id="shopNetworkName" type="text" ng-model="shopNetworkName" required>
+            <label for="shopNetworkName">{{'addShopsNetwork.netName' | translate}}</label>
+        </div>
     </div>
-</div>
-<div class="container-fluid noSidePadding cardTopPadding">
-
-    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in shopList" style="width: auto !important;">
+    <div class="container-fluid noSidePadding cardTopPadding">
+        <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in shopList" style="width: auto !important;">
             <div class="card card-product hoverable">
                 <div class="view overlay hm-white-slight z-depth-1">
                     <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat(shop)}},{{getLng(shop)}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat(shop)}},{{getLng(shop)}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
@@ -43,39 +44,6 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
-
-</div>
-
-    <!--<div class="row text-center">-->
-        <!--<spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>-->
-    <!--</div>-->
-    <!--<form class="col-md-12 noSidePadding" ng-submit="submitNetworkShops()" id="addNewShopsForm" name="addNewShopsForm" ng-hide="loading">-->
-
-        <!--<div class="input-field col-md-6">-->
-            <!--<input id="shopName" type="text" ng-model="shop.shopName" required>-->
-            <!--<label for="shopName">{{'addNewShops.shopName' | translate}}</label>-->
-        <!--</div>-->
-
-        <!--<div class="input-field col-md-6">-->
-            <!--<input id="shopAddress" type="text" ng-model="shop.shopAddress" required>-->
-            <!--<label for="shopAddress">{{'addNewShops.shopAddress' | translate}}</label>-->
-        <!--</div>-->
-
-        <!--<div class="input-field col-md-6">-->
-            <!--<input id="shopGmail" type="text" ng-model="shop.shopGmail" required>-->
-            <!--<label for="shopGmail">{{'addNewShops.shopGmail' | translate}}</label>-->
-        <!--</div>-->
-
-        <!--<div class="input-field col-md-6">-->
-            <!--<input id="shopPhoneAdmin" type="text" ng-model="shop.shopPhoneAdmin" required>-->
-            <!--<label for="shopPhoneAdmin">{{'addNewShops.shopPhoneAdmin' | translate}}</label>-->
-        <!--</div>-->
-
-        <!--<div class="input-field col-md-6">-->
-            <!--<input id="coords" type="text" ng-model="shop.coords" required>-->
-            <!--<label for="coords">{{'addNewShops.coords' | translate}} {{shopList.shopName}}</label>-->
-        <!--</div>-->
-
-    <!--</form>-->
-
+</form>

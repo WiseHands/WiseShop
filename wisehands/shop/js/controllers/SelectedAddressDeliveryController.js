@@ -20,9 +20,6 @@
           $scope.status = 'Щось пішло не так... з координатами ';
         });
 
-
-
-
         $http({
           method: 'GET',
           url: '/contact/details'
@@ -35,8 +32,6 @@
         }, function errorCallback(data) {
           $scope.status = 'Щось пішло не так...';
         });
-
-
 
         var map, marker, polygon;
 

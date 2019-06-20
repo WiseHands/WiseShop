@@ -15,12 +15,9 @@
                     return isSelected;
                 }
 
-
-            
                 isUserAdmin.get(function(){
                     $scope.isUserAdmin = true;
                 });
-
 
                 $http({
                 method: 'GET',
@@ -77,6 +74,7 @@
             });
 
             $scope.buyStart = function (productDTO, $event) {
+
                 $event.stopPropagation();
                 let isShopSelected;
                 if(network.length > 1) {
