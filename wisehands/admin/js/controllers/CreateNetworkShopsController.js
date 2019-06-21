@@ -35,13 +35,6 @@ angular.module('WiseHands')
                 return lng;
             };
 
-
-            // $scope.hideModal = function () {
-            //     $('#categoryModal').modal('hide');
-            //     $('body').removeClass('modal-open');
-            //     $('.modal-backdrop').remove();
-            // };
-
             $scope.submitNetworkShops = function () {
 
                 let selectedShopList = [];
@@ -52,8 +45,8 @@ angular.module('WiseHands')
                 });
                 console.log('submitNetworkShops;', selectedShopList);
 
-                if (selectedShopList.length == 1) {
-                    showInfoMsg('Need more shop for network')
+                if ((selectedShopList.length == 0)||(selectedShopList.length == 1)) {
+                    showInfoMsg('At least 2 shops required to create a network')
                 } else {
 
                     let fd = new FormData();
@@ -79,7 +72,7 @@ angular.module('WiseHands')
             function showInfoMsg(msg) {
                 toastr.clear();
                 toastr.options = {
-                    "positionClass": "toast-bottom-center",
+                    "positionClass": "toast-top-right",
                     "preventDuplicates": true,
                 }
                 toastr.info(msg);
