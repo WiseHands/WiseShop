@@ -22,11 +22,14 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 console.log("network", response);
-                $scope.networkUuid = response.data.uuid;
                 if (response.data != null){
                     $scope.networkName = response.data.networkName;
+                    $scope.networkUuid = response.data.uuid;
+
                 } else {
                     $scope.networkName = null;
+                    $scope.networkUuid = null;
+
                 }
                 }, function errorCallback(reason) {
                 }
