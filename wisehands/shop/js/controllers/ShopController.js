@@ -16,6 +16,35 @@
 
                 var isShopSelected;
 
+                var network = [];
+
+                $http({
+                    method: 'GET',
+                    url: '/network'
+                })
+                    .then(function successCallback(response){
+                        if (response.data == null) {
+                            network = [];
+                            isShopSelected = isShopSelectedByUser();
+                            console.log("network response when data null", network, isShopSelected);
+                        } else {
+                            network = response.data.shopList;
+                            isShopSelected = isShopSelectedByUser();
+                            if((network.length > 1) && (!isShopSelected)) {
+                                $location.path('/othershops');
+                            };
+                            console.log("network response when data !null", network, isShopSelected);
+                        }
+                        if (network.length > 0) {
+                            $scope.isShopInNetwork = true;
+                            console.log("network_length ", network.length);
+                        } else {
+                            $scope.isShopInNetwork = false;
+                            console.log("network_length ", network.length);
+                        }
+                    }, function errorCallback(data){
+                    });
+
                 isUserAdmin.get(function(){
                     $scope.isUserAdmin = true;
                 });
@@ -53,37 +82,9 @@
                     $scope.calculateTotal();
                 };
 
-                var network = [];
 
-                $http({
-                method: 'GET',
-                url: '/network'
-                })
-                    .then(function successCallback(response){
-                        if (response.data == null) {
-                            network = [];
-                            isShopSelected = isShopSelectedByUser();
-                            console.log("network response when data null", network, isShopSelected);
-                        } else {
-                            network = response.data.shopList;
-                            isShopSelected = isShopSelectedByUser();
-                            console.log("network response when data !null", network, isShopSelected);
-                            }
-                        if (network.length > 0) {
-                            $scope.isShopInNetwork = true;
-                            console.log("network_length ", network.length);
-                        } else {
-                            $scope.isShopInNetwork = false;
-                            console.log("network_length ", network.length);
-                            }
-                    }, function errorCallback(data){
-                        });
 
                 $scope.buyStart = function (productDTO, $event) {
-
-                    if((network.length > 1) && (!isShopSelected)) {
-                        $location.path('/othershops');
-                    };
 
                     buyProduct(productDTO, $event);
 
