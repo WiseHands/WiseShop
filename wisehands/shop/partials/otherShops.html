@@ -12,6 +12,9 @@
         </div>
   </div>
   <div class="container-fluid noSidePadding flex-other-stores">
+        <div class="flex-container">
+           <button ng-click="findNearStore()" type="button" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 15px">{{'shopView.findstores' | translate}}</button>
+        </div>
         <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="item in shopList">
             <div class="card card-product hoverable set-card" ng-click="openShop(item)">
                 <div>

@@ -29,6 +29,7 @@
   "shopView.address": "Адреса",
   "shopView.noAddress": "Адреса не знайдена",
   "shopView.findmylocation": "Використати моє місцезнаходження",
+  "shopView.findstores": "Показати найближчі магазини",
   "shopView.addressPlaceholder": "Введіть адресу тут або клікніть всередині області",
   "shopView.comment": "Коментар",
   "shopView.commentPlaceholder": "Будь-які зауваження та пропозиції залишайте тут",

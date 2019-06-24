@@ -58,8 +58,6 @@
           $scope.mapInitialized = true;
         }
 
-
-
         function setDeliveryBoundariesPolygonOnMap() {
           let polygonData = [];
           for (var i = 0; i < $scope._arrayCoordinates.length; i++) {

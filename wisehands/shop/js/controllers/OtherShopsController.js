@@ -3,48 +3,49 @@
         .controller('OtherShopsController', ['$scope', '$http',
             function($scope, $http) {
 
-              $scope.loading = true;
+                $scope.loading = true;
+                $scope.openShop = function (shop) {
+                    let _url = location.protocol
+                        + '//' + shop.domain
+                        + ':' + location.port
+                        + "/#selectedShop=true";
+                    console.log("openShop", _url, shop);
+                    location = _url;
+                };
 
-              $scope.openShop = function (shop) {
-                  let _url = location.protocol
-                      + '//' + shop.domain
-                      + ':' + location.port
-                      + "/#selectedShop=true";
-                  console.log("openShop", _url, shop);
-                  location = _url;
-              }
-
-              $http({
-                method: 'GET',
-                url: '/network'
-              })
-                .then(function successCallback(response){
-                  $scope.shopList = response.data.shopList;
-                  console.log("in response all-networks", $scope.shopList);
+                $http({
+                    method: 'GET',
+                    url: '/network'
+                })
+                    .then(function successCallback(response){
+                        $scope.shopList = response.data.shopList;
+                        console.log("in response all-networks", $scope.shopList);
                 }, function errorCallback(data){
-                });
+                    });
 
-              $http({
-                method: 'GET',
-                url: '/shop/details/public'
-              })
-                .then(function successCallback(response){
-                    $scope.activeShop = response.data;
-                  console.log("shop/details/public:googleStaticMapsApiKey", response.data.googleStaticMapsApiKey)
+                $http({
+                    method: 'GET',
+                    url: '/shop/details/public'
+                })
+                    .then(function successCallback(response){
+                        $scope.activeShop = response.data;
+                        console.log("shop/details/public:googleStaticMapsApiKey", response.data.googleStaticMapsApiKey)
                 }, function errorCallback(data){
-                });
+                    });
 
-              $scope.getLat = function (shop) {
+                $scope.getLat = function (shop) {
                     var cords = shop.contact.latLng.split(',');
                     let lat = cords[0];
                     return lat;
-              };
+                };
 
-              $scope.getLng = function (shop) {
+                $scope.getLng = function (shop) {
                     var cords = shop.contact.latLng.split(',');
                     let lng = cords[1];
                     return lng;
-              };
-
+                };
+                $scope.findNearStore = function () {
+                    console.log("find shop");
+                }
         }]);
 })();

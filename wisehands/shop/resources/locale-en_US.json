@@ -29,6 +29,7 @@
   "shopView.addressLocate": "Please click inside the area where order will be delivered or",
   "shopView.noAddress": "Address not selected",
   "shopView.findmylocation": "Use Your location",
+  "shopView.findstores": "Show nearest stores",
   "shopView.addressPlaceholder": "Enter address here or tap inside of the area",
   "shopView.comment": "Comment",
   "shopView.commentPlaceholder": "Any proposals and wishes leave here",
