@@ -19,6 +19,7 @@
                 })
                     .then(function successCallback(response){
                         $scope.shopList = response.data.shopList;
+
                         console.log("in response all-networks", $scope.shopList);
                 }, function errorCallback(data){
                     });
@@ -44,8 +45,38 @@
                     let lng = cords[1];
                     return lng;
                 };
+
+                // function getLatitudeFromContact(){
+                //
+                //     return lat;
+                // };
+
                 $scope.findNearStore = function () {
                     console.log("find shop");
+
+                    if (navigator.geolocation) {
+
+                        var shopCoords = [];
+                        for (var i=0; i < $scope.shopList.length; i++){
+                            shopCoords.push($scope.shopList[i].contact.latLng);
+                        }
+                        let testShopCoords = shopCoords[0].split(',');
+                        let shopLat = testShopCoords[0];
+                        let shopLng = testShopCoords[1];
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            let latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            let ltlg = new google.maps.LatLng(shopLat, shopLng);
+                            var distance = google.maps.geometry.spherical.computeDistanceBetween(latlng, ltlg);
+
+                            showInfoMsg('sorting... ' + distance);
+                        }, function() {
+                            showWarningMsg('Geolocation not available')
+                        });
+
+                    } else {
+                        showWarningMsg('Geolocation not available')
+                    }
+
                 }
         }]);
 })();
