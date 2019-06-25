@@ -56,13 +56,12 @@
                         var shopLngCoords = [];
                         for (var i=0; i < $scope.shopList.length; i++){
                             shopCoords.push($scope.shopList[i].contact.latLng);
-                            var testShopCoords = shopCoords[i].split(',');
+                            let testShopCoords = shopCoords[i].split(',');
                             shopLatCoords.push(testShopCoords[0]);
                             shopLngCoords.push(testShopCoords[1]);
                         }
 
                         console.log("shopCoords testShopCoords ", shopCoords)
-                        console.log("testShopCoords ", testShopCoords);
                         console.log("shopLatCoords ", shopLatCoords);
                         console.log("shopLngCoords ", shopLngCoords);
 
@@ -79,6 +78,15 @@
                                 var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
                                 distanceToShops.push(Math.round(distance, 1));
                             }
+
+
+                            for (var i=0; i<distanceToShops.length; i++){
+                                    $scope.shopList.forEach(function (element){
+                                    element.distanceToShop = distanceToShops[i];
+                               });
+                            }
+
+                            console.log(" put distanceToShops in shopList", $scope.shopList);
 
                             showInfoMsg('sorting... ');
                             console.log("distanceToShops ", distanceToShops);

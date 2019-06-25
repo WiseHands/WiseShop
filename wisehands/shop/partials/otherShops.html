@@ -15,7 +15,7 @@
         <div class="flex-container">
            <button ng-click="findNearStore()" type="button" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 15px">{{'shopView.findstores' | translate}}</button>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="shop in shopList | orderBy:'distance'">
+        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="shop in shopList | orderBy:'+distance'">
             <div class="card card-product hoverable set-card" ng-click="openShop(item)">
                 <div>
                     <div class="flex-card-part-title flex-row" style="margin: 10px !important; justify-content: space-between">
