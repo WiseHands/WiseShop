@@ -38,7 +38,7 @@
         function init_map(latLng) {
           if (!latLng) return;
 
-          var cords = latLng.split(':');
+          var cords = latLng.split(',');
           var lat = cords[0];
           var lng = cords[1];
           var var_location = new google.maps.LatLng(lat, lng);

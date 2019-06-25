@@ -46,29 +46,43 @@
                     return lng;
                 };
 
-                // function getLatitudeFromContact(){
-                //
-                //     return lat;
-                // };
-
                 $scope.findNearStore = function () {
                     console.log("find shop");
 
                     if (navigator.geolocation) {
 
                         var shopCoords = [];
+                        var shopLatCoords = [];
+                        var shopLngCoords = [];
                         for (var i=0; i < $scope.shopList.length; i++){
                             shopCoords.push($scope.shopList[i].contact.latLng);
+                            var testShopCoords = shopCoords[i].split(',');
+                            shopLatCoords.push(testShopCoords[0]);
+                            shopLngCoords.push(testShopCoords[1]);
                         }
-                        let testShopCoords = shopCoords[0].split(',');
-                        let shopLat = testShopCoords[0];
-                        let shopLng = testShopCoords[1];
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            let latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                            let ltlg = new google.maps.LatLng(shopLat, shopLng);
-                            var distance = google.maps.geometry.spherical.computeDistanceBetween(latlng, ltlg);
 
-                            showInfoMsg('sorting... ' + distance);
+                        console.log("shopCoords testShopCoords ", shopCoords)
+                        console.log("testShopCoords ", testShopCoords);
+                        console.log("shopLatCoords ", shopLatCoords);
+                        console.log("shopLngCoords ", shopLngCoords);
+
+
+                        navigator.geolocation.getCurrentPosition(function(position) {
+
+                            var distanceToShops = [];
+                            let origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                            for (var i=0; i<shopLatCoords.length; i++){
+                                for(var j=0; j<shopLngCoords.length; j++){
+                                    var destination = new google.maps.LatLng(shopLatCoords[i], shopLngCoords[j]);
+                                }
+                                var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
+                                distanceToShops.push(Math.round(distance, 1));
+                            }
+
+                            showInfoMsg('sorting... ');
+                            console.log("distanceToShops ", distanceToShops);
+
                         }, function() {
                             showWarningMsg('Geolocation not available')
                         });
