@@ -1,13 +1,7 @@
   <div class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" style="background-color: {{shopStyling.navbarColor}}" shop-styling>
-        <div class="flex-container">
-              <div class="nav-link">
-                <a href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}">
-                <i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
-              </div>
+        <div class="flex-container" style="justify-content: center">
               <div class="text-flex-center">
                 <h4 style="color: {{shopStyling.navbarTextColor}}; margin-bottom: 0px">{{'shopView.title' | translate}}</h4>
-              </div>
-              <div class="flex-items">
               </div>
         </div>
   </div>
@@ -15,7 +9,7 @@
         <div class="flex-container">
            <button ng-click="findNearStore()" type="button" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 15px">{{'shopView.findstores' | translate}}</button>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="shop in shopList | orderBy:'+distance'">
+        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="shop in shopList">
             <div class="card card-product hoverable set-card" ng-click="openShop(item)">
                 <div>
                     <div class="flex-card-part-title flex-row" style="margin: 10px !important; justify-content: space-between">
@@ -24,7 +18,7 @@
                             <h6 class="grey-text normal-400" style="margin-bottom: 0px;">{{shop.contact.address}}</h6>
                         </div>
                         <div class="flex-checkbox">
-                            <h5 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400; margin: 5px 0px 5px;">{{shop.distance}} </h5>
+                            <h5 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400; margin: 5px 0px 5px;">{{shop.distanceToShop}}</h5>
                         </div>
                     </div>
                     <div class="view overlay hm-white-slight z-depth-1 card-maps">

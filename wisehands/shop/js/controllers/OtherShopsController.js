@@ -79,12 +79,17 @@
                                 distanceToShops.push(Math.round(distance, 1));
                             }
 
-
                             for (var i=0; i<distanceToShops.length; i++){
-                                    $scope.shopList.forEach(function (element){
-                                    element.distanceToShop = distanceToShops[i];
-                               });
+                                $scope.shopList[i].distanceToShop = distanceToShops[i];
                             }
+
+                            var sortedShopList = $scope.shopList.sort(function(a,b){
+                                return a.distanceToShop - b.distanceToShop;
+                            });
+
+                            $scope.$apply(function(){
+                               $scope.shopList = sortedShopList;
+                            });
 
                             console.log(" put distanceToShops in shopList", $scope.shopList);
 
