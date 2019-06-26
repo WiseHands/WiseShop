@@ -1,7 +1,7 @@
   <div class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" style="background-color: {{shopStyling.navbarColor}}" shop-styling>
         <div class="flex-container" style="justify-content: center">
               <div class="text-flex-center">
-                <h4 style="color: {{shopStyling.navbarTextColor}}; margin-bottom: 0px">{{'shopView.title' | translate}}</h4>
+                  <h4 style="color: {{shopStyling.navbarTextColor}}; margin-bottom: 0px">{{'shopView.title' | translate}}</h4>
               </div>
         </div>
   </div>
@@ -10,7 +10,7 @@
            <button ng-click="findNearStore()" type="button" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 15px">{{'shopView.findstores' | translate}}</button>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="shop in shopList">
-            <div class="card card-product hoverable set-card" ng-click="openShop(item)">
+            <div class="card card-product hoverable set-card" ng-click="openShop(shop)">
                 <div>
                     <div class="flex-card-part-title flex-row" style="margin: 10px !important; justify-content: space-between">
                         <div class="flex-card-part column">
@@ -23,9 +23,7 @@
                     </div>
                     <div class="view overlay hm-white-slight z-depth-1 card-maps">
                         <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat(shop)}},{{getLng(shop)}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat(shop)}},{{getLng(shop)}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
-
                     </div>
-
                 </div>
             </div>
         </div>

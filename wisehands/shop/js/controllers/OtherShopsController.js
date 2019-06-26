@@ -69,7 +69,7 @@
                         navigator.geolocation.getCurrentPosition(function(position) {
 
                             var distanceToShops = [];
-                            let origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
                             for (var i=0; i<shopLatCoords.length; i++){
                                 for(var j=0; j<shopLngCoords.length; j++){
@@ -82,6 +82,9 @@
                             for (var i=0; i<distanceToShops.length; i++){
                                 $scope.shopList[i].distanceToShop = distanceToShops[i];
                             }
+                            console.log("distanceToShops ", distanceToShops);
+                            console.log("distanceToShops ", $scope.shopList);
+
 
                             var sortedShopList = $scope.shopList.sort(function(a,b){
                                 return a.distanceToShop - b.distanceToShop;
@@ -92,10 +95,8 @@
                                 $scope.shopList = sortedShopList;
                             });
 
-                            console.log(" put distanceToShops in shopList", $scope.shopList);
+                            console.log("put sorting distanceToShops in shopList", $scope.shopList);
 
-                            showInfoMsg('sorting... ');
-                            console.log("distanceToShops ", distanceToShops);
 
                         }, function() {
                             showWarningMsg('Geolocation not available')

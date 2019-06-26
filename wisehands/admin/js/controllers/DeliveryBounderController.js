@@ -7,10 +7,10 @@
                   url: '/shop/details'
             })
                 .then(function successCallback(response) {
-                  console.log("prepare loadPolygons", typeof response, response);
+                  console.log("prepare loadPolygons response", typeof response, response);
 
-                  // $scope.courierPolygonData = JSON.parse(response.data.delivery.courierPolygonData);
-                  console.log("loadPolygons", $scope.courierPolygonData, typeof response, response);
+                  $scope.courierPolygonData = JSON.parse(response.data.delivery.courierPolygonData);
+                  console.log("loadPolygons", $scope.courierPolygonData, typeof $scope.courierPolygonData);
                 }, function errorCallback(data) {
                   $scope.status = 'Щось пішло не так... з координатами ';
                 });
@@ -22,7 +22,7 @@
                 .then(function successCallback(response) {
                     $scope.contacts = response.data;
                     init_map($scope.contacts.latLng);
-                    console.log($scope.contacts.latLng);
+                    console.log('shop contacts', $scope.contacts.latLng);
                 }, function errorCallback(data) {
                     $scope.status = 'Щось пішло не так...';
                 });
@@ -30,7 +30,7 @@
             function init_map(latLng) {
                 if (!latLng) return;
                 var map;
-                var cords = latLng.split(':');
+                var cords = latLng.split(',');
                 var lat = cords[0];
                 var lng = cords[1];
                 var var_location = new google.maps.LatLng(lat, lng);
@@ -70,9 +70,7 @@
                         return;
                     }
                     map.data.addGeoJson(data);
-                      // map.data.forEach(function (f) {
-                      //     map.data.remove(f);
-                      // });
+
                 }
 
                 function isEmpty(obj) {
@@ -94,7 +92,7 @@
                           $http({
                               method: 'POST',
                               url: '/courier/polygon',
-                              data: strjson,
+                              data: objjson,
                           })
                               .then(function successCallback(response) {
                                 console.log("successCallback to save polugone");
@@ -122,7 +120,7 @@
 
                 }
 
-                google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deletePolygon);
+                google.maps.event.addDomListener(document.getElementById('deleteBtn'), 'click', deletePolygon);
 
             }
 
