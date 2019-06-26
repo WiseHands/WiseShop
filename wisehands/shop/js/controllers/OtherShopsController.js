@@ -88,7 +88,8 @@
                             });
 
                             $scope.$apply(function(){
-                               $scope.shopList = sortedShopList;
+                                $scope.m = 'm';
+                                $scope.shopList = sortedShopList;
                             });
 
                             console.log(" put distanceToShops in shopList", $scope.shopList);
