@@ -20,8 +20,11 @@
 
 <!-- add card with shop info -->
 <div class="container-fluid noSidePadding cardTopPadding">
+    <div class="flex-row" ng-show="isShopInNetwork">
+        <h4 class="text-center" style="margin: 15px 0 0 10px">{{'networkShopListEdit.isShop' | translate}}{{ networkName}}</h4>
+    </div>
 
-  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in networkShopsList" style="width: auto !important;">
+    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in networkShopsList" style="width: auto !important;">
         <div class="card card-product hoverable">
             <!--<a href="#/networkshoplist" >-->
             <div class="flex-card-part-title flex-row" style="margin: 10px; justify-content: space-between">
@@ -39,6 +42,6 @@
 
             </div>
         </div>
-  </div>
+    </div>
 
 </div>

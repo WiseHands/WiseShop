@@ -82,9 +82,6 @@
                             for (var i=0; i<distanceToShops.length; i++){
                                 $scope.shopList[i].distanceToShop = distanceToShops[i];
                             }
-                            console.log("distanceToShops ", distanceToShops);
-                            console.log("distanceToShops ", $scope.shopList);
-
 
                             var sortedShopList = $scope.shopList.sort(function(a,b){
                                 return a.distanceToShop - b.distanceToShop;

@@ -21,13 +21,13 @@
             })
                 .then(function successCallback(response) {
                     $scope.contacts = response.data;
-                    init_map($scope.contacts.latLng);
+                    initMap($scope.contacts.latLng);
                     console.log('shop contacts', $scope.contacts.latLng);
                 }, function errorCallback(data) {
                     $scope.status = 'Щось пішло не так...';
                 });
 
-            function init_map(latLng) {
+            function initMap(latLng) {
                 if (!latLng) return;
                 var map;
                 var cords = latLng.split(',');
@@ -39,8 +39,8 @@
                     zoom: 10
                     };
                 var var_marker = new google.maps.Marker({
-                    position: var_location
-                    // map: map
+                    position: var_location,
+                    map: map
                     });
                  // set googleMap By Id
                 map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);

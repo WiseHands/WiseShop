@@ -1,10 +1,12 @@
 ﻿{
   "networkShopListPage.addShop": "Dodaj sklep",
+  "addShopsNetwork.netName": "Nazwa sieci",
   "networkShopListPage.deleteShop": "Usuń sklepy",
   "networkListPage.title": "Sieć",
   "networkListPage.shops": " sclepu",
   "networkShopListEdit.delete": "Usuń sklep z sieci",
   "networkShopListEdit.add": "dodaj sklep do sieci ",
+  "networkShopListEdit.isShop": "Brak sklepów do dodania do sieci",
   "networkShopListPage.deleteMessage1": "Czy na pewno chcesz usunąć tę sieć?",
   "networkShopListPage.deleteMessage2": "Sieć usunięta",
   "networkShopListPage.deleteNetwork": "Usuń sieć",

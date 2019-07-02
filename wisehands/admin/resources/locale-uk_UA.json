@@ -1,10 +1,12 @@
 {
   "networkShopListPage.addShop": "Додати магазин",
+  "addShopsNetwork.netName": "Назва мережі",
   "networkShopListPage.deleteShop": "Видалити магазин",
   "networkListPage.title": "Мережі",
   "networkListPage.shops": " магазини",
   "networkShopListDetails.title": "Редагування мережі ",
   "networkShopListEdit.add": "Додати магазини до мережі ",
+  "networkShopListEdit.isShop": "Магазини, які можна додати до мережі - відсутні",
   "networkShopListEdit.delete": "Видалити магазин з мережі ",
   "networkShopListPage.deleteNetwork": "Видалити мережу",
   "networkShopListPage.deleteMessage1": "Ви дійсно бажаєте видалити цю мережу?",

@@ -6,12 +6,16 @@ angular.module('WiseHands')
 
         sideNavInit.sideNav();
 
+        $scope.isShopInNetwork = false;
         $http({
             method: 'GET',
             url: '/available-shops',
         }).then(function successCallback(response){
             $scope.networkShopsList = response.data;
-            console.log("shop isn't in network ", $scope.uuid, $scope.networkShopsList);
+            if ($scope.networkShopsList.length == 0){
+                $scope.isShopInNetwork = true;
+            }
+            console.log("shop isn't in network ", $scope.uuid, $scope.networkShopsList.length);
         }, function errorCallback(data){
         });
 
