@@ -16,6 +16,7 @@
 
 <div id="particles-js"><div id="best" ng-view></div></div>
 
+
 <script src="wisehands/assets/js/angular.min.js"></script>
 <script src="wisehands/assets/js/angular-route.min.js"></script>
 <script src="wisehands/assets/js/jquery-2.2.3.min.js"></script>
@@ -69,24 +70,6 @@
 <script>
 	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
 	});
-</script>
-<script>
-	function initMap() {
-		var mapDiv = document.getElementById('map');
-		if(!mapDiv) {
-			return;
-		}
-		var myLatLng = {lat: 49.843232, lng: 24.031540};
-		var map = new google.maps.Map(mapDiv, {
-			center: myLatLng,
-			zoom: 18
-		});
-		var marker = new google.maps.Marker({
-			position: myLatLng,
-			map: map,
-			title: 'Wise Hands'
-		});
-	}
 </script>
 <script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initMap">
