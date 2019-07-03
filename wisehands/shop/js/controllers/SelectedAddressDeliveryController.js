@@ -11,7 +11,6 @@
           url: '/courier/polygon'
         }).then(function successCallback(response) {
           $scope.courierPolygonData = JSON.parse(response.data);
-          console.log('/courier/polygon', $scope.courierPolygonData);
           $scope._arrayCoordinates = $scope.courierPolygonData.features[0].geometry.coordinates[0];
           if (!$scope.mapInitialized && $scope.contacts) {
             init_map($scope.contacts.latLng);

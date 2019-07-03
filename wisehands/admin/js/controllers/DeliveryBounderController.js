@@ -7,8 +7,6 @@
                   url: '/shop/details'
             })
                 .then(function successCallback(response) {
-                  console.log("prepare loadPolygons response", typeof response, response);
-
                   $scope.courierPolygonData = JSON.parse(response.data.delivery.courierPolygonData);
                   console.log("loadPolygons", $scope.courierPolygonData, typeof $scope.courierPolygonData);
                 }, function errorCallback(data) {
@@ -26,10 +24,10 @@
                 }, function errorCallback(data) {
                     $scope.status = 'Щось пішло не так...';
                 });
-
+            var map;
             function initMap(latLng) {
                 if (!latLng) return;
-                var map;
+
                 var cords = latLng.split(',');
                 var lat = cords[0];
                 var lng = cords[1];
@@ -37,92 +35,94 @@
                 var var_map_options = {
                     center: var_location,
                     zoom: 10
-                    };
+                };
                 var var_marker = new google.maps.Marker({
                     position: var_location,
                     map: map
-                    });
-                 // set googleMap By Id
+                });
+                // set googleMap By Id
                 map = new google.maps.Map(document.getElementById("googleMap"), var_map_options);
                 var_marker.setMap(map);
-                var selectPolygone = 'Polygon';
-                map.data.setControls([selectPolygone]);
+                map.data.setControls(['Polygon']);
                 map.data.setStyle({
-                      editable: true,
-                      draggable: true
+                    editable: true,
+                    draggable: true
                 });
                 bindDataLayerListeners(map.data);
-                  //load saved data
-                loadPolygons(map);
+                //load saved data
+                loadPolygons(map, $scope.courierPolygonData);
 
-                  // Apply listeners to refresh the GeoJson display on a given data layer.
+            }
+                // Apply listeners to refresh the GeoJson display on a given data layer.
                 function bindDataLayerListeners(dataLayer) {
                     dataLayer.addListener('addfeature', savePolygon);
                     dataLayer.addListener('removefeature', savePolygon);
                     dataLayer.addListener('setgeometry', savePolygon);
                 }
 
-                function loadPolygons(map) {
-                    var data = $scope.courierPolygonData;
+                function loadPolygons(map, data) {
+
                     console.log('data to draw a polygon', data);
-                    if(isEmpty(data)) {
+                    if (isEmpty(data)) {
                         console.log('no data to draw a polygon', data);
                         return;
                     }
+                    map.data.forEach(function (f) {
+                        map.data.remove(f);
+                    });
                     map.data.addGeoJson(data);
 
                 }
 
                 function isEmpty(obj) {
-                    for(var key in obj) {
-                         if(obj.hasOwnProperty(key))
-                             return false;
-                      }
+                    for (var key in obj) {
+                        if (obj.hasOwnProperty(key))
+                            return false;
+                    }
                     return true;
                 }
 
                 function savePolygon() {
-                     map.data.toGeoJson(function (json) {
-                         var objjson = JSON.parse(JSON.stringify(json));
-                         // get the coordinates from GeoJson
-                         var objCoordinates = objjson.features[0].geometry.coordinates[0];
-                         // var arr = JSON.parse(objjson.features);
-                         console.log("objjson-", objjson, typeof objCoordinates, typeof objjson);
+                    map.data.toGeoJson(function (json) {
+                        console.log("localStorage.setItem", JSON.stringify(json));
+                        var objjson = JSON.parse(JSON.stringify(json));
+                        // get the coordinates from GeoJson
 
-                          $http({
-                              method: 'POST',
-                              url: '/courier/polygon',
-                              data: objjson,
-                          })
-                              .then(function successCallback(response) {
-                                console.log("successCallback to save polugone");
-                              }, function errorCallback(response) {
-                                console.log("errorCallback to save polygone");
-                              });
-                     });
-                }
-
-                function deletePolygon () {
-                      // map.data.setStyle({visible: false});
-                      var strjson = '{}';
-                      var objjson = JSON.parse(strjson);
-                      console.log("objjson-", objjson, typeof objjson);
                         $http({
-                            method: 'DELETE',
+                            method: 'POST',
                             url: '/courier/polygon',
                             data: objjson,
                         })
                             .then(function successCallback(response) {
-                              console.log("successCallback to save empty polugone");
+                                console.log("successCallback to save polugone");
                             }, function errorCallback(response) {
-                              console.log("errorCallback to save empty polygone");
+                                console.log("errorCallback to save polygone");
                             });
-
+                    });
                 }
 
-                google.maps.event.addDomListener(document.getElementById('deleteBtn'), 'click', deletePolygon);
+                document.getElementById('deleteBtn').onclick = function () {
 
-            }
+                    map.data.forEach(function (f) {
+                        map.data.remove(f);
+                    });
+
+                    var strjson = '{}';
+                    var objjson = JSON.parse(strjson);
+                    console.log("objjson-", objjson, typeof objjson);
+                    $http({
+                        method: 'DELETE',
+                        url: '/courier/polygon',
+                        data: objjson,
+                    })
+                        .then(function successCallback(response) {
+                            console.log("successCallback to save empty polugone");
+                        }, function errorCallback(response) {
+                            console.log("errorCallback to save empty polygone");
+                        });
+
+                };
+
 
         }]);
 
