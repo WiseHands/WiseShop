@@ -29,7 +29,7 @@ public class ShopNetworkAPI extends AuthController {
 
         System.out.println("shopNetwork " + shopNetwork.networkName + " " + shopNetwork.shopList);
 
-        List<ShopDTO> selectedShops = new ArrayList<>();
+        List<ShopDTO> selectedShops = new ArrayList<ShopDTO>();
         for(String uuid: uuidList){
             ShopDTO _shop = ShopDTO.findById(uuid);
             _shop.networkUuid = shopNetwork.uuid;
@@ -139,7 +139,7 @@ public class ShopNetworkAPI extends AuthController {
         }
         checkAuthentification(shop);
 
-        Set<ShopNetworkDTO> networkSet = new HashSet<>();
+        Set<ShopNetworkDTO> networkSet = new HashSet<ShopNetworkDTO>();
 
         for(ShopDTO _shop : loggedInUser.shopList) {
             if(_shop.getNetwork() != null) {
@@ -160,7 +160,7 @@ public class ShopNetworkAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        List<ShopDTO> shopListToReturn = new ArrayList<>();
+        List<ShopDTO> shopListToReturn = new ArrayList<ShopDTO>();
         for (ShopDTO _shop : loggedInUser.shopList){
              if(_shop.getNetwork() == null) {
                  shopListToReturn.add(_shop);
