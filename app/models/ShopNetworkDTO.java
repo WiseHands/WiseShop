@@ -23,10 +23,10 @@ public class ShopNetworkDTO extends GenericModel {
 
     @Expose
     @Transient
-    public List<ShopDTO> shopList = new ArrayList<>();
+    public List<ShopDTO> shopList = new ArrayList<ShopDTO>();
 
     @Transient
-    public List<String> uuidShopList = new ArrayList<>();
+    public List<String> uuidShopList = new ArrayList<String>();
 
     public String rawUuidShopList;
 
