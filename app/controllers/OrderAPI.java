@@ -91,7 +91,7 @@ public class OrderAPI extends AuthController {
         String newPostDepartment = (String) jsonBody.get("newPostDepartment");
         JSONArray jsonArray = (JSONArray) jsonBody.get("selectedItems");
 
-        Double totalCost = 0;
+        Double totalCost = (Double) Double.parseDouble("0");
 
         OrderDTO order = new OrderDTO(name, phone, address, deliveryType, paymentType, newPostDepartment, comment, shop, addressLat, addressLng, agent, ip);
         if(shop.orders == null){
