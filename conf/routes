@@ -58,8 +58,9 @@ POST    {client}/product                                ProductAPI.create
 PUT     {client}/product                                ProductAPI.update
 DELETE  {client}/product/{uuid}                         ProductAPI.delete
 
+
 POST    {client}/product/{productUuid}/image              	ProductImageAPI.add
-PUT		{client}/product/{productUuid}/image/{uuid}         	ProductImageAPI.update
+PUT		{client}/product/{productUuid}/image/{uuid}         ProductImageAPI.update
 DELETE  {client}/product/{productUuid}/image/{uuid}       	ProductImageAPI.delete
 PUT     {client}/product/{productUuid}/main-image/{uuid}    ProductImageAPI.makeMain
 
@@ -71,10 +72,6 @@ GET     {client}/category/{categoryUuid}/property           ProductPropertyAPI.c
 DELETE  {client}/category/{categoryUuid}/property           ProductPropertyAPI.deleteCategoryProperties
 
 DELETE  {client}/property/{propertyUuid}/tag/{uuid}         PropertyTagAPI.delete
-
-
-
-
 
 
 GET     {client}/sudo/shops                             ShopAPI.all
@@ -112,16 +109,32 @@ PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
 GET     {client}/contact/details                        ContactAPI.details
 PUT     {client}/contact                                ContactAPI.update
 
+GET     {client}/department                             DepartmentAPI.list
+GET     {client}/department/{uuid}                      DepartmentAPI.details
+POST    {client}/department                             DepartmentAPI.create
+PUT     {client}/department                             DepartmentAPI.update
+DELETE  {client}/department/{uuid}                      DepartmentAPI.delete
+
+GET     {client}/all-networks                           ShopNetworkAPI.getAll
+GET     {client}/shop-network/{uuid}                    ShopNetworkAPI.get
+GET     {client}/network                                ShopNetworkAPI.getShopList
+GET     {client}/available-shops                        ShopNetworkAPI.getShopListNotInNetwork
+POST    {client}/shop-network                           ShopNetworkAPI.create
+DELETE  {client}/network/delete-shop                    ShopNetworkAPI.deleteShopFromNetwork
+DELETE  {client}/delete-network/{uuid}                  ShopNetworkAPI.deleteNetwork
+PUT     {client}/network/add-shop                       ShopNetworkAPI.addShopToNetwork
+
+
 GET     {client}/balance                                BalanceAPI.getBalance
 POST    {client}/pay                                    BalanceAPI.startPayment
 POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification
 
-GET		{client}/category							                  	CategoryAPI.all
-GET		{client}/category/{uuid}					              	CategoryAPI.details
-POST	{client}/category        					               	CategoryAPI.create
-PUT 	{client}/category/{uuid}/name/{name}	        		CategoryAPI.update
-DELETE 	{client}/category/{uuid}					             	CategoryAPI.delete
-PUT 	{client}/category/{uuid}/product/{productUuid}   	CategoryAPI.assignProduct
+GET		{client}/category							    CategoryAPI.all
+GET		{client}/category/{uuid}					    CategoryAPI.details
+POST	{client}/category        					    CategoryAPI.create
+PUT 	{client}/category/{uuid}/name/{name}	        CategoryAPI.update
+DELETE 	{client}/category/{uuid}					    CategoryAPI.delete
+PUT 	{client}/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode

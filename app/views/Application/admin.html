@@ -34,12 +34,11 @@
 <ul id="slide-out" class="side-nav admin-side-nav dark-side-nav hidden-scrollbar" ng-controller="SideNavController">
     <div class="row vcentering">
             <div class="col-xs-4">
-                <a href="#/userprofile">
-                <img ng-src="{{getProfileImage()}}" class="img-responsive img-circle">
-                </a>
+               <img class="img-responsive" src="wisehands/assets/images/main_logo.png">
             </div>
         <div class="col-xs-8">
-            <h5 class="white-text cursorPointer" ng-click="getUrl()">{{activeShop.shopName}}</h5>
+            <h5 class="white-text cursorPointer truncate-shop-info" ng-click="getUrl()">{{activeShop.shopName}}</h5>
+            <h6 class="white-text cursorPointer truncate-shop-info" ng-click="getNetwork()">{{networkName}}</h6>
         </div>
     </div>
     <ul class="collapsible collapsible-accordion inner">
@@ -51,13 +50,14 @@
         <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> {{'sideNav.Contacts' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> {{'sideNav.Settings' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> {{'sideNav.Users' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/userprofile" class="waves-effect waves-light"><i class="fa fa-user"></i> {{'sideNav.Profile' | translate}}</a></li>
         <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> {{'sideNav.SignOut' | translate}}</a></li>
 
     </ul>
 </ul>
 <div ng-view></div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&libraries=drawing,geometry"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&libraries=initMap,drawing,geometry"></script>
 
 
 <script src="wisehands/assets/js/angular.min.js"></script>
@@ -88,11 +88,18 @@
 <script src="wisehands/admin/js/controllers/SingleOrderController.js"></script>
 <script src="wisehands/admin/js/controllers/ProductListController.js"></script>
 <script src="wisehands/admin/js/controllers/SubmitNewProductController.js"></script>
+<script src="wisehands/admin/js/controllers/CreateNetworkShopsController.js"></script>
 <script src="wisehands/admin/js/controllers/ProductDetailsController.js"></script>
 <script src="wisehands/admin/js/controllers/EditProductController.js"></script>
 <script src="wisehands/admin/js/controllers/DeliverySettingsController.js"></script>
 <script src="wisehands/admin/js/controllers/SettingsController.js"></script>
 <script src="wisehands/admin/js/controllers/ContactsController.js"></script>
+<script src="wisehands/admin/js/controllers/NetworkController.js"></script>
+<script src="wisehands/admin/js/controllers/NetworkShopListController.js"></script>
+<script src="wisehands/admin/js/controllers/NetworkShopListDeleteController.js"></script>
+<script src="wisehands/admin/js/controllers/NetworkShopListAddController.js"></script>
+<script src="wisehands/admin/js/controllers/ShopsDetailsController.js"></script>
+<script src="wisehands/admin/js/controllers/ShopsDetailsEditController.js"></script>
 <script src="wisehands/admin/js/controllers/UsersSettingsController.js"></script>
 <script src="wisehands/admin/js/controllers/SideNavController.js"></script>
 <script src="wisehands/admin/js/controllers/TransactionsController.js"></script>

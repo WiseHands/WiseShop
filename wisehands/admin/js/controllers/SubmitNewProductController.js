@@ -168,6 +168,7 @@ angular.module('WiseHands')
                     console.log(response);
                 });
         };
+
         $scope.hideModal = function () {
             $('#categoryModal').modal('hide');
             $('body').removeClass('modal-open');
@@ -197,6 +198,8 @@ angular.module('WiseHands')
                 .success(function(data){
                     $scope.loading = false;
                     $location.path('/product/details/' + data.uuid);
+                    console.log(data);
+
                 })
                 .error(function(response){
                     $scope.loading = false;

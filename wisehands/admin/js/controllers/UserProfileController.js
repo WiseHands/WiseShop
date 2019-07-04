@@ -1,6 +1,6 @@
 angular.module('WiseHands')
-    .controller('UserProfileController', ['$scope', '$http', 'signout', 'sideNavInit',
-        function ($scope, $http, signout, sideNavInit) {
+    .controller('UserProfileController', ['$scope', '$location', '$http', 'signout', 'sideNavInit',
+        function ($scope, $location, $http, signout, sideNavInit) {
             $scope.loading = true;
 
 
@@ -116,6 +116,11 @@ angular.module('WiseHands')
                     $scope.errorMessage = error;
                 });
             };
+
+            $scope.createNetworkShops = function () {
+                $location.path('/network');
+            }
+
 
             sideNavInit.sideNav();
         }]);

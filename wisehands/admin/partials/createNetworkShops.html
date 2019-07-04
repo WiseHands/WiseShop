@@ -1,0 +1,49 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="#/shops">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+            <a class="col-xs-8 text-center">
+                <h5 class="white-text">{{'addNewShops.createNetworkShops' | translate}}</h5>
+            </a>
+            <div class="col-xs-2 noRightPadding">
+                <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
+                        type="submit"
+                        form="addNewNetworkForm">
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+<form ng-submit="submitNetworkShops()" id="addNewNetworkForm" name="addNewNetworkForm" ng-hide="loading">
+    <div class="flex-row">
+            <div class="input-field col-md-6">
+            <input id="shopNetworkName" type="text" ng-model="shopNetworkName" required>
+            <label for="shopNetworkName">{{'addShopsNetwork.netName' | translate}}</label>
+        </div>
+    </div>
+    <div class="container-fluid noSidePadding cardTopPadding">
+        <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in shopList" style="width: auto !important;">
+            <div class="card card-product hoverable">
+                <div class="view overlay hm-white-slight z-depth-1">
+                    <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat(shop)}},{{getLng(shop)}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat(shop)}},{{getLng(shop)}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
+                </div>
+                <div class="flex-info">
+                    <div class="flex-column">
+                        <h5 class="truncate normal-400 networkShopCardName">{{shop.shopName}}</h5>
+                        <h6 class="grey-text normal-400 networkShopCardPhone">{{shop.contact.phone}}</h6>
+                        <h6 class="grey-text networkShopCardEmail">{{shop.contact.email}}</h6>
+                    </div>
+                    <div class="flex-checkbox">
+                        <input id="shopNetworkCheck-{{$index}}" type="checkbox" class="filled-in checkBoxStyling" ng-model="shop.selected" />
+                        <label for="shopNetworkCheck-{{$index}}">{{'createNetworkShops.addShopToNet' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

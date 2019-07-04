@@ -1,23 +1,32 @@
 angular.module('WiseHands')
-    .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', 'signout', function($http, $scope, $routeParams, signout) {
+    .controller('ShopsDetailsController', ['$http', '$scope', '$routeParams', 'signout', function($http, $scope, $routeParams, signout) {
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
+
             $http({
                 method: 'GET',
-                url: '/product/' + $routeParams.uuid
+                url: '/shop/details',
             })
                 .then(function successCallback(response) {
+                  $scope.activeShop = response.data;
+                }, function errorCallback(response) {
+                });
+
+            $http({
+                method: 'GET',
+                url: '/department/' + $routeParams.uuid
+            })
+                .then(function successCallback(response) {
+                    $scope.shop = response.data;
+                    let lat = $scope.shop.destinationLat;
+                    let lng = $scope.shop.destinationLng;
+                    $scope.coords = lat + "," + lng;
+                    console.log($scope.coords);
                     $scope.loading = false;
-                    $scope.product = response.data;
-                    $scope.activeShop = localStorage.getItem('activeShop');
-                    $scope.product.images.forEach(function(image, index){
-                        if(image.uuid === $scope.product.mainImage.uuid){
-                            $scope.selected = index;
-                        }
-                    })
+
+                    console.log("$scope.shop", $scope.shop);
 
                 }, function errorCallback(error) {
-                    $scope.loading = false;
                     console.log(error);
                 });
 
@@ -36,7 +45,7 @@ angular.module('WiseHands')
                 $scope.modalSpinner = true;
                 $http({
                     method: 'DELETE',
-                    url: '/product/' + $routeParams.uuid,
+                    url: '/department/' + $routeParams.uuid,
                 })
                     .then(function successCallback(response) {
                         $scope.modalSpinner = false;
@@ -48,7 +57,7 @@ angular.module('WiseHands')
                     });
 
             };
-            $scope.goBack = function () {
-                window.history.back();
-            }
-            }]);
+        $scope.goBack = function () {
+            window.history.back();
+        }
+        }]);

@@ -11,7 +11,6 @@
           url: '/courier/polygon'
         }).then(function successCallback(response) {
           $scope.courierPolygonData = JSON.parse(response.data);
-          console.log('/courier/polygon', $scope.courierPolygonData);
           $scope._arrayCoordinates = $scope.courierPolygonData.features[0].geometry.coordinates[0];
           if (!$scope.mapInitialized && $scope.contacts) {
             init_map($scope.contacts.latLng);
@@ -19,9 +18,6 @@
         }, function errorCallback(data) {
           $scope.status = 'Щось пішло не так... з координатами ';
         });
-
-
-
 
         $http({
           method: 'GET',
@@ -36,14 +32,12 @@
           $scope.status = 'Щось пішло не так...';
         });
 
-
-
         var map, marker, polygon;
 
         function init_map(latLng) {
           if (!latLng) return;
 
-          var cords = latLng.split(':');
+          var cords = latLng.split(',');
           var lat = cords[0];
           var lng = cords[1];
           var var_location = new google.maps.LatLng(lat, lng);
@@ -62,8 +56,6 @@
           setDeliveryBoundariesPolygonOnMap();
           $scope.mapInitialized = true;
         }
-
-
 
         function setDeliveryBoundariesPolygonOnMap() {
           let polygonData = [];

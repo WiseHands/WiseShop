@@ -1,5 +1,8 @@
 ﻿{
   "sideNav.Main": "Główna",
+  "shopView.shops": "Sklepu",
+  "shopView.titile": "Wybierz sklep do zakupu",
+  "shopView.use": "Wybierz ten sklep",
   "shopView.contacts": "Kontakt",
   "shopView.currency": "PLN",
   "shopView.cart": "Koszyk",
@@ -26,6 +29,7 @@
   "shopView.addressLocate": "Proszę wybrać adres w obszarze dostawy",
   "shopView.noAddress": "Nie znaleziono adresu",
   "shopView.findmylocation": "Użyj mojej lokalizacji",
+  "shopView.findstores": "Pokaż najbliższe sklepy pierwszy",
   "shopView.addressPlaceholder": "Wpisz adres tutaj lub kliknij w środku sfery",
   "shopView.comment": "Komentarz",
   "shopView.commentPlaceholder": "Wszelkie propozycje i życzenia zostaw tutaj",

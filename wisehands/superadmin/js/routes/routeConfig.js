@@ -7,7 +7,7 @@
 
                 $routeProvider.
                 when('/',{
-                    templateUrl:'wisehands/superadmin/partials/shops.html',
+                    templateUrl:'wisehands/superadmin/partials/network.html',
                     controller:'ShopListController',
                     activetab: 'shops'
                 }).

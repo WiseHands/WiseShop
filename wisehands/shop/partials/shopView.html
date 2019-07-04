@@ -1,39 +1,45 @@
 <header ng-cloak>
     <nav class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" style="background-color: {{shopStyling.navbarColor}}" shop-styling>
-        <div class="row vcentering">
-            <div class="col-xs-6 col-sm-1 col-md-1 col-lg-1">
-                <a data-activates="slide-out" class="button-collapse" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-bars"></i></a>
-            </div>
-            <div class="breadcrumb-dn hidden-xs-down col-sm-4" ng-show="!logo">
-                <a class="noPointerCursor" style="color: {{shopStyling.navbarTextColor}}">{{shopName}}</a>
-            </div>
-            <div class="col-sm-2">
-                <a href="{{shopStyling.logoHref}}">
-                    <img ng-show="logo" class="hidden-sm-down" style="max-width:32px;"
-                         ng-src="{{logo}}">
+        <div class="flex-container nowrap">
+
+            <div class="flex-logo-button">
+                <a data-activates="slide-out" class="button-collapse" style="color: {{shopStyling.navbarTextColor}};left: 0px;"><i class="fa fa-bars"></i></a>
+                <a href="#!/">
+                    <img ng-show="logo" class="hidden-sm-down flex-logo" ng-src="{{logo}}">
                 </a>
+                <a class="noPointerCursor hidden-xs-down" ng-show="!logo" style="color:{{shopStyling.navbarTextColor}};">{{shopName}}</a>
             </div>
-            <div class="col-xs-6 col-sm-5" ng-class="{'offset-sm-4': logo}">
-                <ul class="nav navbar-nav pull-right">
-                    <li class="nav-item">
-                        <a href="#!/shoppingcart"
-                           class="nav-link"
-                           ng-show="selectedItems.length !== 0"
-                           ng-click="reCalculateTotal()"
-                           style="color: {{shopStyling.navbarTextColor}}">
-                            <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalQuantity}}</span>
-                            <i class="fa fa-shopping-cart"></i>
-                            <span class="hidden-sm-down">{{'shopView.cart' | translate}}
-                            </span>
-                        </a>
-                    </li>
-                    <li ng-show="isUserAdmin" class="nav-item">
-                        <a class="nav-link" href="/admin" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-cube"></i> <span class="hidden-sm-down"> {{'shopView.admin' | translate}}</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#!/contacts" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-envelope"></i> <span class="hidden-sm-down"> {{'shopView.contacts' | translate}}</span></a>
-                    </li>
-                </ul>
+            <div class="flex-navbar">
+                <div class="nav-item">
+                    <a href="#!/shoppingcart"
+                       class="nav-link"
+                       ng-show="selectedItems.length !== 0"
+                       ng-click="reCalculateTotal()"
+                       style="color: {{shopStyling.navbarTextColor}}">
+                        <span class="tag z-depth-1" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">{{totalQuantity}}</span>
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="hidden-sm-down">{{'shopView.cart' | translate}}</span>
+                    </a>
+                </div>
+                <div ng-show="isUserAdmin" class="nav-item">
+                    <a class="nav-link" href="/admin" style="color: {{shopStyling.navbarTextColor}}">
+                      <i class="fa fa-cube"></i>
+                      <span class="hidden-sm-down"> {{'shopView.admin' | translate}}</span>
+                    </a>
+                </div>
+                <div ng-show="isShopInNetwork" class="nav-item">
+                  <a class="nav-link" href="#!/othershops" style="color: {{shopStyling.navbarTextColor}}">
+                      <i class="fa fa-tasks"></i>
+                      <span class="hidden-sm-down" style="font-family: Roboto,sans-serif;">{{'shopView.shops' | translate}}</span>
+                  </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="#!/contacts" style="color: {{shopStyling.navbarTextColor}}">
+                      <i class="fa fa-envelope"></i>
+                      <span class="hidden-sm-down"> {{'shopView.contacts' | translate}}</span>
+                    </a>
+                </div>
+
             </div>
         </div>
     </nav>
@@ -41,7 +47,7 @@
 <main class="p-t-6 pl-0">
     <div class="container-fluid row center-block">
         <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="productDTO in products | orderBy:'sortOrder'" ng-show="productDTO.isActive">
-                <div class="card inline">
+            <div class="card inline">
                 <div class="noselect view overlay hm-white-slight z-depth-1" ng-click="navigateToProductDetails(productDTO.uuid)">
                         <img ng-src="public/product_images/{{shopId}}/{{productDTO.mainImage.filename}}" class="img-fluid center-block" alt="">
                          <div class="mask"></div>

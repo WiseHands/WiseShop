@@ -1,6 +1,7 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
@@ -92,6 +93,19 @@ public class ShopDTO extends GenericModel {
 
     @OneToMany(cascade = CascadeType.ALL)
     public List<OrderDTO> orders;
+
+    @Transient
+    private ShopNetworkDTO network;
+
+    public String networkUuid;
+
+    public ShopNetworkDTO getNetwork() {
+        if(this.networkUuid != null) {
+            this.network = ShopNetworkDTO.findById(networkUuid);
+            System.out.println("ShopDTO initializint network" + this.networkUuid + this.network);
+        }
+        return  this.network;
+    }
 
     public ShopDTO(List<UserDTO> users,
                    PaymentSettingsDTO paymentSettings,

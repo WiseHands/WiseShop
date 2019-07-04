@@ -1,3 +1,112 @@
+.set-card-link{
+    padding: 15px 10px 10px 20px;
+    font-size: 20px;
+}
+.set-card-link:hover{
+    font-weight: bold;
+}
+.set-card{
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+  /*width: 340px;*/
+
+}
+.flex-card-part{
+  display: flex;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+
+
+}
+.flex-card-part-title{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: inherit !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+.flex-logo-card{
+    height: 64px !important;
+}
+.flex-other-stores{
+    /*display: inline-flex;*/
+    /*flex-direction: row;*/
+    /*flex-wrap: wrap;*/
+    /*align-content: center;*/
+    /*justify-content: center;*/
+    /*width: auto !important;*/
+    padding-top: 70px !important;
+}
+@media only screen and (max-width: 320px){
+
+    .flex-other-stores{
+        padding-top: 55px !important;
+
+    }
+
+}
+/*@media only screen and (max-width: 865px) {*/
+
+    /*.flex-other-stores{*/
+        /*flex-direction: column;*/
+    /*}*/
+/*}*/
+.flex-container{
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+.nowrap{
+    flex-wrap: nowrap;
+
+}
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+.text-flex-center{
+  align-items: center;
+}
+
+.flex-logo-button{
+    display: flex;
+    align-items: center;
+}
+
+.noPointerCursor {
+    display: flex;
+    cursor: inherit;
+}
+.flex-logo{
+    max-height: 32px;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-navbar{
+    display: flex;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    align-items: flex-end
+}
+
+
+.nav-link{
+  padding-left: 5px;
+}
+
+@media only screen and (min-width: 321px) {
+  .flex-button {
+    padding: 5px;
+    margin: 3px;
+  }
+}
+
 ﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
@@ -177,9 +286,7 @@ main {
     display: flex;
     align-items: center;
 }
-.noPointerCursor {
-    cursor: inherit;
-}
+
 .pac-container {
     z-index: 99999999 !important;
 }
@@ -242,6 +349,7 @@ main {
         width:auto;
         border-radius: 0;
     }
+
 }
 .next-button{
   display:flex;

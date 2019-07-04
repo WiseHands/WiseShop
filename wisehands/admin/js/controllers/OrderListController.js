@@ -202,7 +202,7 @@
                     }
                 }
             };
-            
+
             $scope.orderStateFilter = function (orderState) {
                 var i = $.inArray(orderState, $scope.filterOptions);
                 if (i > -1) {
@@ -224,7 +224,7 @@
             $scope.isOptionChecked = function (type) {
                 return $.inArray(type, $scope.filterOptions) > -1;
             };
-            
+
             $scope.orderFilter = function(item) {
                 if ($scope.filterOptions.length > 0) {
                     if ($.inArray(item.state, $scope.filterOptions) < 0)
@@ -242,7 +242,7 @@
                 var lowerCaseName = item.name.toLowerCase();
                 var total = item.total.toString();
                 return lowerCaseName.indexOf(searcText) != -1 || total.indexOf(searcText) !== -1;
-                
+
             };
             $scope.setSortOption = function () {
                 shared.setSortOptions($scope.isSortingActive);

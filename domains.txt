@@ -8,3 +8,5 @@ wisehands.me
 steampunk.lviv.ua
 chizi.lviv.ua
 diner.lviv.ua
+testsghop.localhost
+testshop.localhost
