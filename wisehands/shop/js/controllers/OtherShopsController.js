@@ -71,6 +71,8 @@
                             var distanceToShops = [];
                             var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
+                            geocodeOriginPosition(origin);
+
                             for (var i=0; i<shopLatCoords.length; i++){
                                 for(var j=0; j<shopLngCoords.length; j++){
                                     var destination = new google.maps.LatLng(shopLatCoords[i], shopLngCoords[j]);
@@ -103,6 +105,36 @@
                         showWarningMsg('Geolocation not available')
                     }
 
+                }
+
+                function geocodeOriginPosition(latlng) {
+                    let geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({
+                        'location': latlng
+                    }, function(results, status) {
+                        if (status === 'OK') {
+                            if (results[0]) {
+                                console.log('geocoding result: ', results);
+
+                                // let address = results[0].formatted_address;
+                                let newAdd = [];
+                                for (var i = 0; i<=3; i++){
+                                    let address = results[0].address_components[i];
+                                    newAdd.push(address.long_name);
+
+                                }
+                                let address = newAdd.reverse(newAdd).join().split(',').join(', ');
+                                showInfoMsg(address);
+
+                                console.log('geocoding result address: ', address);
+
+                            } else {
+                                console.log('no address');
+                            }
+                        } else {
+                            console.log('finded address ', status);
+                        }
+                    });
                 }
         }]);
 })();
