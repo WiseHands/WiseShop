@@ -70,6 +70,10 @@
 <script>
 	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
 	});
+
+	window.initMap = function() {
+		console.log('init map');
+	}
 </script>
 <script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initMap">

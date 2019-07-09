@@ -3,6 +3,7 @@ package controllers;
 import enums.OrderState;
 import jobs.SendSmsJob;
 import models.*;
+import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.codec.binary.Base64;
 import org.joda.time.DateTime;
 import org.json.simple.JSONArray;
@@ -91,7 +92,7 @@ public class OrderAPI extends AuthController {
         String newPostDepartment = (String) jsonBody.get("newPostDepartment");
         JSONArray jsonArray = (JSONArray) jsonBody.get("selectedItems");
 
-        double totalCost = 0;
+        Double totalCost = (Double) Double.parseDouble("0");
 
         OrderDTO order = new OrderDTO(name, phone, address, deliveryType, paymentType, newPostDepartment, comment, shop, addressLat, addressLng, agent, ip);
         if(shop.orders == null){
@@ -130,7 +131,7 @@ public class OrderAPI extends AuthController {
                     newProperty.additionalPrice = foundProperty.additionalPrice;
                     newProperty = newProperty.save();
                     chosenProperties.add(newProperty);
-                    totalCost += newProperty.additionalPrice;
+                    totalCost = totalCost + newProperty.additionalPrice;
                 }
                 orderItem.tags = chosenProperties;
             }
@@ -145,7 +146,7 @@ public class OrderAPI extends AuthController {
         DeliveryDTO delivery = shop.delivery;
         if (deliveryType.equals(DeliveryType.COURIER)){
             if (totalCost < delivery.courierFreeDeliveryLimit){
-                totalCost += delivery.courierPrice;
+                totalCost = totalCost + delivery.courierPrice;
             }
         }
 

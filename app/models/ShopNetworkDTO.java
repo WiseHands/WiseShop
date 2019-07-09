@@ -23,10 +23,10 @@ public class ShopNetworkDTO extends GenericModel {
 
     @Expose
     @Transient
-    public List<ShopDTO> shopList = new ArrayList<>();
+    public List<ShopDTO> shopList = new ArrayList<ShopDTO>();
 
     @Transient
-    public List<String> uuidShopList = new ArrayList<>();
+    public List<String> uuidShopList = new ArrayList<String>();
 
     public String rawUuidShopList;
 
@@ -60,13 +60,13 @@ public class ShopNetworkDTO extends GenericModel {
 
     public void retrieveShopList() {
 
-        this.shopList = new ArrayList<>();
-        this.uuidShopList = new ArrayList<>();
+        this.shopList = new ArrayList<ShopDTO>();
+        this.uuidShopList = new ArrayList<String>();
         if(this.rawUuidShopList == null) {
             return;
         }
 
-        this.uuidShopList = new ArrayList<>(Arrays.asList(this.rawUuidShopList.split(",")));
+        this.uuidShopList = new ArrayList<String>(Arrays.asList(this.rawUuidShopList.split(",")));
         for (String _id : uuidShopList) {
             ShopDTO _shop = ShopDTO.findById(_id);
             this.shopList.add(_shop);
