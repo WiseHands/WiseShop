@@ -105,7 +105,7 @@
                         showWarningMsg('Geolocation not available')
                     }
 
-                }
+                };
 
                 function geocodeOriginPosition(latlng) {
                     let geocoder = new google.maps.Geocoder();
@@ -116,17 +116,15 @@
                             if (results[0]) {
                                 console.log('geocoding result: ', results);
 
-                                // let address = results[0].formatted_address;
                                 let newAdd = [];
                                 for (var i = 0; i<=3; i++){
                                     let address = results[0].address_components[i];
                                     newAdd.push(address.long_name);
 
                                 }
-                                let address = newAdd.reverse(newAdd).join().split(',').join(', ');
+                                let address = newAdd.reverse(newAdd).join(', ');
                                 showInfoMsg(address);
 
-                                console.log('geocoding result address: ', address);
 
                             } else {
                                 console.log('no address');
