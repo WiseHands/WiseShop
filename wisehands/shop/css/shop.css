@@ -1,3 +1,6 @@
+.fluid-width{
+    width: auto !important;
+}
 .set-card-link{
     padding: 15px 10px 10px 20px;
     font-size: 20px;
