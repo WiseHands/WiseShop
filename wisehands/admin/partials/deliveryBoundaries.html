@@ -13,20 +13,15 @@
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
-                   ng-click="setDeliveryOptions()">
+                       ng-click="saveDeliveryBoundaries()">
                 </i>
             </a>
         </div>
     </div>
 </nav>
-<div class="container-fluid noSidePadding">
-    <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
-    </div>
-        <br>
-        <div class="col-md-8">
-            <button id="deleteBtn" ng-click="delete()" type="button" class="btn btn-primary" >Delete polygon</button>
-            <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 600px"></div>
-        </div>
+<main class="container" style="padding-top: 20px">
 
-</div>
+    <h5 class="text-center">Click on <img src="public/shape_for_map.jpg"> and draw delivery boundaries on the map.</h5>
+    <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 500px"></div>
+
+</main>

@@ -24,6 +24,7 @@
                 }, function errorCallback(data) {
                     $scope.status = 'Щось пішло не так...';
                 });
+
             var map;
             function initMap(latLng) {
                 if (!latLng) return;
@@ -33,6 +34,7 @@
                 var lng = cords[1];
                 var var_location = new google.maps.LatLng(lat, lng);
                 var var_map_options = {
+                    streetViewControl: false,
                     center: var_location,
                     zoom: 10
                 };
@@ -52,57 +54,98 @@
                 //load saved data
                 loadPolygons(map, $scope.courierPolygonData);
 
+                var centerControlDiv = document.createElement('div');
+                var centerControl = new deleteDeliveryBoundaries(centerControlDiv, map);
+
+                centerControlDiv.index = 1;
+                map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
+
             }
-                // Apply listeners to refresh the GeoJson display on a given data layer.
-                function bindDataLayerListeners(dataLayer) {
-                    dataLayer.addListener('addfeature', savePolygon);
-                    dataLayer.addListener('removefeature', savePolygon);
-                    dataLayer.addListener('setgeometry', savePolygon);
+            // Apply listeners to refresh the GeoJson display on a given data layer.
+            function bindDataLayerListeners(dataLayer) {
+                dataLayer.addListener('addfeature', savePolygon);
+                dataLayer.addListener('removefeature', savePolygon);
+                dataLayer.addListener('setgeometry', savePolygon);
+            }
+
+            function loadPolygons(map, data) {
+
+                console.log('data to draw a polygon', data);
+                if (isEmpty(data)) {
+                    console.log('no data to draw a polygon', data);
+                    return;
                 }
+                map.data.forEach(function (f) {
+                    map.data.remove(f);
+                });
+                map.data.addGeoJson(data);
 
-                function loadPolygons(map, data) {
+            }
 
-                    console.log('data to draw a polygon', data);
-                    if (isEmpty(data)) {
-                        console.log('no data to draw a polygon', data);
-                        return;
-                    }
-                    map.data.forEach(function (f) {
-                        map.data.remove(f);
-                    });
-                    map.data.addGeoJson(data);
-
+            function isEmpty(obj) {
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key))
+                        return false;
                 }
+                return true;
+            }
 
-                function isEmpty(obj) {
-                    for (var key in obj) {
-                        if (obj.hasOwnProperty(key))
-                            return false;
-                    }
-                    return true;
+            function savePolygon() {
+                map.data.toGeoJson(function (json) {
+                    console.log("localStorage.setItem", JSON.stringify(json));
+                    var objjson = JSON.parse(JSON.stringify(json));
+                    // get the coordinates from GeoJson
+
+                    $http({
+                        method: 'POST',
+                        url: '/courier/polygon',
+                        data: objjson,
+                    })
+                        .then(function successCallback(response) {
+                            console.log("successCallback to save polugone");
+                        }, function errorCallback(response) {
+                            console.log("errorCallback to save polygone");
+                        });
+                });
+            }
+
+            $scope.saveDeliveryBoundaries = function () {
+                toastr.clear();
+                toastr.options = {
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": true,
                 }
+                toastr.info("Saved successfully");
+            }
 
-                function savePolygon() {
-                    map.data.toGeoJson(function (json) {
-                        console.log("localStorage.setItem", JSON.stringify(json));
-                        var objjson = JSON.parse(JSON.stringify(json));
-                        // get the coordinates from GeoJson
 
-                        $http({
-                            method: 'POST',
-                            url: '/courier/polygon',
-                            data: objjson,
-                        })
-                            .then(function successCallback(response) {
-                                console.log("successCallback to save polugone");
-                            }, function errorCallback(response) {
-                                console.log("errorCallback to save polygone");
-                            });
-                    });
-                }
+            function deleteDeliveryBoundaries(controlDiv, map) {
 
-                document.getElementById('deleteBtn').onclick = function () {
+                // Set CSS for the control border.
+                var controlUI = document.createElement('div');
+                controlUI.style.backgroundColor = '#fff';
+                controlUI.style.border = '2px solid #fff';
+                controlUI.style.borderRadius = '6px';
+                controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+                controlUI.style.cursor = 'pointer';
+                controlUI.style.marginBottom = '17px';
+                controlUI.style.textAlign = 'center';
+                controlUI.title = 'Click to delete the area';
+                controlDiv.appendChild(controlUI);
 
+                // Set CSS for the control interior.
+                var controlText = document.createElement('div');
+                controlText.style.color = 'rgb(25,25,25)';
+                controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+                controlText.style.fontSize = '16px';
+                controlText.style.lineHeight = '20px';
+                controlText.style.paddingLeft = '5px';
+                controlText.style.paddingRight = '5px';
+                controlText.innerHTML = 'Delete area';
+                controlUI.appendChild(controlText);
+
+                // Setup the click event listeners: simply set the map to Chicago.
+                controlUI.addEventListener('click', function() {
                     map.data.forEach(function (f) {
                         map.data.remove(f);
                     });
@@ -120,8 +163,9 @@
                         }, function errorCallback(response) {
                             console.log("errorCallback to save empty polygone");
                         });
+                });
 
-                };
+            }
 
 
         }]);
