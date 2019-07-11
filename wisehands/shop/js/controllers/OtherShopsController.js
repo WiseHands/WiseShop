@@ -20,6 +20,15 @@
                 })
                     .then(function successCallback(response){
                         $scope.shopList = response.data.shopList;
+                        console.log($scope.shopList);
+                        if ($scope.shopList == null){
+                            $scope.isCoords = true;
+                            $scope.isMap = false;
+                        } else {
+                            $scope.isCoords = false;
+                            $scope.isMap = true;
+                        }
+
                         $scope.loading = false;
                 }, function errorCallback(data){
                         $scope.loading = false;
@@ -47,6 +56,8 @@
                     let lng = cords[1];
                     return lng;
                 };
+
+
 
                 $scope.findNearStore = function () {
                     $scope.loading = true;
@@ -103,10 +114,12 @@
 
 
                         }, function() {
+                            $scope.loading = false;
                             showWarningMsg('Geolocation not available')
                         });
 
                     } else {
+                        $scope.loading = false;
                         showWarningMsg('Geolocation not available')
                     }
 
@@ -130,7 +143,7 @@
                                 }
                                 let address = newAdd.reverse(newAdd).join(', ');
                                 showInfoMsg(address);
-
+                                $scope.loading = false;
                             } else {
                                 console.log('no address');
                             }
