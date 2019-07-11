@@ -1,9 +1,10 @@
 (function(){
     angular.module('WiseShop')
-        .controller('OtherShopsController', ['$scope', '$http',
-            function($scope, $http) {
+        .controller('OtherShopsController', ['$scope', '$http', 'sideNavInit',
+            function($scope, $http, sideNavInit) {
 
                 $scope.loading = true;
+
                 $scope.openShop = function (shop) {
                     let _url = location.protocol
                         + '//' + shop.domain
@@ -19,9 +20,10 @@
                 })
                     .then(function successCallback(response){
                         $scope.shopList = response.data.shopList;
-
-                        console.log("in response all-networks", $scope.shopList);
+                        $scope.loading = false;
                 }, function errorCallback(data){
+                        $scope.loading = false;
+
                     });
 
                 $http({
@@ -30,7 +32,7 @@
                 })
                     .then(function successCallback(response){
                         $scope.activeShop = response.data;
-                        console.log("shop/details/public:googleStaticMapsApiKey", response.data.googleStaticMapsApiKey)
+
                 }, function errorCallback(data){
                     });
 
@@ -47,6 +49,8 @@
                 };
 
                 $scope.findNearStore = function () {
+                    $scope.loading = true;
+
                     console.log("find shop");
 
                     if (navigator.geolocation) {
@@ -92,6 +96,7 @@
                             $scope.$apply(function(){
                                 $scope.m = 'm';
                                 $scope.shopList = sortedShopList;
+                                $scope.loading = false;
                             });
 
                             console.log("put sorting distanceToShops in shopList", $scope.shopList);
@@ -104,6 +109,7 @@
                     } else {
                         showWarningMsg('Geolocation not available')
                     }
+
 
                 };
 
@@ -125,7 +131,6 @@
                                 let address = newAdd.reverse(newAdd).join(', ');
                                 showInfoMsg(address);
 
-
                             } else {
                                 console.log('no address');
                             }
@@ -133,6 +138,9 @@
                             console.log('finded address ', status);
                         }
                     });
-                }
-        }]);
+                };
+
+                sideNavInit.sideNav();
+
+            }]);
 })();

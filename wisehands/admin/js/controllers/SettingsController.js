@@ -78,13 +78,13 @@ angular.module('WiseHands')
           error(function (response) {
               showWarningMsg("fail");
           });
-        }
+        };
 
         $scope.increaseBalance = function () {
             $scope.loading = true;
             $http({
                 method: 'POST',
-                url: '/pay?amount=' + $scope.selectedShop.balance,
+                url: '/pay?amount=' + $scope.selectedShop.balance
             })
                 .success(function (response) {
                     $scope.loading = false;
@@ -100,7 +100,7 @@ angular.module('WiseHands')
                 $scope.loading = false;
                 console.log(response);
             });
-        }
+        };
         sideNavInit.sideNav();
 
     }]);
