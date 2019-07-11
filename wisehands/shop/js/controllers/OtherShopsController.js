@@ -71,7 +71,7 @@
                         var shopLngCoords = [];
                         for (var i=0; i < $scope.shopList.length; i++){
                             shopCoords.push($scope.shopList[i].contact.latLng);
-                            let testShopCoords = shopCoords[i].split(',');
+                            let testShopCoords = shopCoords[i].split(', ');
                             shopLatCoords.push(testShopCoords[0]);
                             shopLngCoords.push(testShopCoords[1]);
                         }
@@ -82,7 +82,7 @@
 
 
                         navigator.geolocation.getCurrentPosition(function(position) {
-
+                            var distanceTo = [];
                             var distanceToShops = [];
                             var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -91,11 +91,12 @@
                             for (var i=0; i<shopLatCoords.length; i++){
                                 for(var j=0; j<shopLngCoords.length; j++){
                                     var destination = new google.maps.LatLng(shopLatCoords[i], shopLngCoords[j]);
+                                    var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
                                 }
-                                var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
+                                //
                                 distanceToShops.push(Math.round(distance, 1));
                             }
-
+                            //
                             for (var i=0; i<distanceToShops.length; i++){
                                 $scope.shopList[i].distanceToShop = distanceToShops[i];
                             }
@@ -114,12 +115,16 @@
 
 
                         }, function() {
-                            $scope.loading = false;
+                            $scope.$apply(function(){
+                                $scope.loading = false;
+                            });
                             showWarningMsg('Geolocation not available')
                         });
 
                     } else {
-                        $scope.loading = false;
+                        $scope.$apply(function(){
+                            $scope.loading = false;
+                        });
                         showWarningMsg('Geolocation not available')
                     }
 
@@ -127,6 +132,7 @@
                 };
 
                 function geocodeOriginPosition(latlng) {
+                    $scope.loading = false;
                     let geocoder = new google.maps.Geocoder();
                     geocoder.geocode({
                         'location': latlng
@@ -146,9 +152,11 @@
                                 $scope.loading = false;
                             } else {
                                 console.log('no address');
+                                $scope.loading = false;
                             }
                         } else {
                             console.log('finded address ', status);
+                            $scope.loading = false;
                         }
                     });
                 };
