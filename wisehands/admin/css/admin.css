@@ -1,3 +1,6 @@
+.fluid-width{
+    width: auto !important;
+}
 .truncate-shop-info {
     width: 145px !important;
     white-space: nowrap;
