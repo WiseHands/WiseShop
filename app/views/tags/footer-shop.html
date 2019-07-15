@@ -1,0 +1,262 @@
+<style>
+footer {
+	display: flex;
+	max-width: 768px;
+	margin: 0 auto;
+	height: 100%;
+	padding-top: 20px;
+	background-color: #f5f5f5;
+	font-family: 'Roboto', sans-serif;
+}
+
+.footer-first-block,
+.footer-second-block {
+	display: flex;
+	width: 50%;
+}
+
+.footer-contact {
+	background-color: #f5f5f5;
+	width: 50%;
+}
+
+.footer-contact p {
+	font-size: 0.95em;
+}
+
+.schedule {
+	padding: 10px;
+	display: flex;
+}
+
+.schedule img,
+.contact-info-icon-container img {
+	margin-right: 5px;
+}
+
+.contact-info {
+	padding: 10px;
+}
+
+.contact-info-icon-container {
+	display: flex;
+}
+
+.footer-info {
+	width: 50%;
+}
+
+.footer-info h4 {
+	font-size: 1.4em;
+	font-weight: 550;
+	margin-left: 20px;
+	padding-bottom: 10px;
+}
+
+.footer-info ul {
+	list-style-type: none;
+	margin-left: 20px;
+}
+
+.footer-info ul li {
+	line-height: 1.7;
+	font-size: 1.2em;
+	color: #000;
+}
+
+.footer-feedback {
+	width: 50%;
+}
+
+.footer-feedback h4 {
+	font-size: 1.4em;
+	font-weight: 550;
+	padding-bottom: 10px;
+}
+
+.footer-feedback p {
+	font-size: 1.2em;
+	padding: 10px 0;
+	line-height: 1.3;
+}
+
+.footer-icons {
+	margin-top: 15px;
+}
+
+.footer-icons a:first-child {
+	margin-right: 10px;
+	/*width: 90%;*/
+	/*height: 90%;*/
+}
+
+.footer-icons a:nth-child(2) {
+	margin-right: 10px;
+}
+
+.footer-payment {
+	width: 50%;
+}
+
+.footer-payment h4 {
+	font-size: 1.4em;
+	font-weight: 550;
+	padding-bottom: 10px;
+}
+
+.payment-img img {
+	width: 60%;
+	height: 60%;
+	margin-left: 10px;
+}
+
+@media screen and (max-width: 767px) {
+	footer {
+		flex-direction: column;
+	}
+	.footer-first-block,
+	.footer-second-block {
+		width: 100%;
+	}
+	.footer-contact,
+	.footer-info,
+	.footer-feedback,
+	.footer-payment {
+		margin-bottom: 15px;
+	}
+	.offset-left {
+		padding-left: 15px;
+	}
+}
+
+@media screen and (max-width: 667px) {
+	#footer-shop .footer-first-block,
+	.footer-second-block {
+		flex-direction: column;
+		width: 100%;
+	}
+	#footer-shop .footer-contact,
+	.footer-info,
+	.footer-feedback,
+	.footer-payment {
+		width: 100%;
+	}
+	#footer-shop .footer-contact {
+		display: flex;
+	}
+	#footer-shop .schedule,
+	.contact-info {
+		width: 50%;
+	}
+	#footer-shop .footer-info-block {
+		display: flex;
+	}
+	#footer-shop .footer-info-first-block,
+	.footer-info-second-block {
+		width: 50%;
+	}
+	#footer-shop .payment-img {
+		width: 60%;
+	}
+	#footer-shop .offset-left {
+		padding-left: 15px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	#footer-shop .footer-contact,
+	.footer-info-block,
+	.footer-feedback,
+	.footer-payment {
+		flex-direction: column;
+	}
+	#footer-shop .schedule,
+	 .contact-info {
+	width: 100%;
+
+}
+
+</style>
+<footer id="footer-shop" class="footer">
+    <div class="footer-first-block">
+        <div class="footer-contact">
+            <div class="schedule offset-left">
+                <div><img src="wisehands/assets/images/footer-shop/icons8-clock-16.png"></div>
+                <div>
+                    <p>ПН-ПТ 10:00 - 20:00</p>
+                    <p>СБ 11:00 - 20:00</p>
+                    <p>НД 12:00 - 17:00</p>
+                </div>
+            </div>
+            <div class="contact-info offset-left">
+                <div class="contact-info-icon-container">
+                    <div><img src="wisehands/assets/images/footer-shop/icons8-envelope-16.png"></div>
+                    <div><p>inf@iport.com</p></div>
+                </div>
+                <div class="contact-info-icon-container">
+                    <div><img src="wisehands/assets/images/footer-shop/icons8-phone-16.png"></div>
+                    <div><p>+1 234 567 89</p></div>
+                </div>
+                <div class="contact-info-icon-container">
+                    <div><img src="wisehands/assets/images/footer-shop/icons8-map-16.png"></div>
+                    <div><p>79000, Lviv</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-info">
+            <h4>Інформація</h4>
+            <ul>
+                <div class="footer-info-block">
+                    <div class="footer-info-first-block">
+                        <a href="#">
+                            <li>Оплата</li>
+                        </a>
+                        <a href="#">
+                            <li>Доставка</li>
+                        </a>
+                        <a href="#">
+                            <li>Повернення</li>
+                        </a>
+                    </div>
+                    <div class="footer-info-second-block">
+                        <a href="#">
+                            <li>Контакти</li>
+                        </a>
+                        <a href="#">
+                            <li>Про нас</li>
+                        </a>
+                        <a href="#">
+                            <li>Договір</li>
+                        </a>
+                    </div>
+                </div>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="footer-second-block">
+        <div class="footer-feedback">
+            <div class="offset-left">
+                <h4>Будьте в курсі</h4>
+                <p>Дізнавайесь про найцікавіші новини, знижки та акції</p>
+            </div>
+
+
+            <div class="footer-icons offset-left">
+                <div class="footer-icons-block">
+                    <a href="https://www.facebook.com/americano.lviv/" target="_blank"><img
+                            src="wisehands/assets/images/footer-shop/facebook-new.png"></a>
+                    <a href="#"><img src="wisehands/assets/images/footer-shop/instagram-new.png"></a>
+                    <a href="#"><img src="wisehands/assets/images/footer-shop//youtube-play.png"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-payment">
+            <h4 class="offset-left">Приймаємо</h4>
+            <div class="payment-img"><img src="wisehands/assets/images/footer-shop/msvisa1.png"></div>
+        </div>
+
+    </div>
+</footer>
