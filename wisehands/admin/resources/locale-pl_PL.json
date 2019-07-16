@@ -1,4 +1,5 @@
 ﻿{
+  "discountPage.title": "Zniżku",
   "networkShopListPage.addShop": "Dodaj sklep",
   "addShopsNetwork.netName": "Nazwa sieci",
   "networkShopListPage.deleteShop": "Usuń sklepy",
@@ -64,6 +65,7 @@
   "sideNav.Settings": "Ustawienia",
   "sideNav.Users": "Użytkownicy",
   "sideNav.Profile": "Profil",
+  "sideNav.Discount": "Zniżka",
   "sideNav.SignOut": "Wyloguj się",
   "analytics.analytics": "Analityka",
   "analytics.days": "dni",

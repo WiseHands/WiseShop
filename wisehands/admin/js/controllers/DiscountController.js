@@ -1,6 +1,12 @@
 angular.module('WiseHands')
-    .controller('DiscountController', ['$scope', '$http', 'signout', '$routeParams', function ($scope, $http, signout, $routeParams) {
+    .controller('DiscountController', ['$scope', '$http', 'signout', '$routeParams', 'sideNavInit',
+                function ($scope, $http, signout, $routeParams, sideNavInit) {
         $scope.loading = true;
+        sideNavInit.sideNav();
+
+
+
+        // some code for coupons
         $scope.uuid = $routeParams.uuid;
         $http({
             method: 'GET',
@@ -13,7 +19,7 @@ angular.module('WiseHands')
                 $scope.loading = false;
                 console.log(response);
             });
-        
+
         $scope.deleteCoupon = function (uuid, index) {
             $scope.loading = true;
             $http({
@@ -33,7 +39,5 @@ angular.module('WiseHands')
                 });
 
         };
-        
+        // end of some code for coupons
     }]);
-
-

@@ -1,4 +1,5 @@
 {
+  "discountPage.title": "Знижки",
   "networkShopListPage.addShop": "Додати магазин",
   "addShopsNetwork.netName": "Назва мережі",
   "networkShopListPage.deleteShop": "Видалити магазин",
@@ -64,6 +65,7 @@
   "sideNav.Settings": "Налаштування",
   "sideNav.Users": "Користувачі",
   "sideNav.Profile": "Профіль",
+  "sideNav.Discount": "Знижка",
   "sideNav.SignOut": "Вийти",
   "analytics.analytics": "Аналітика",
   "analytics.days": "днів",
