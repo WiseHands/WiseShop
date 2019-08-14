@@ -4,6 +4,7 @@
             function($scope, $http, sideNavInit) {
 
                 $scope.loading = true;
+                $scope.isResponse = false;
 
                 $scope.openShop = function (shop) {
                     let _url = location.protocol
@@ -19,15 +20,21 @@
                     url: '/network'
                 })
                     .then(function successCallback(response){
+                        $scope.isResponse = true;
                         $scope.shopList = response.data.shopList;
+
+                        $scope.shopList = null;
                         console.log($scope.shopList);
                         if ($scope.shopList == null){
+                            $scope.isResponse = false;
                             $scope.isCoords = true;
                             $scope.isMap = false;
                         } else {
                             $scope.isCoords = false;
                             $scope.isMap = true;
                         }
+
+
 
                         $scope.loading = false;
                 }, function errorCallback(data){
@@ -91,9 +98,10 @@
                             for (var i=0; i<shopLatCoords.length; i++){
                                 for(var j=0; j<shopLngCoords.length; j++){
                                     var destination = new google.maps.LatLng(shopLatCoords[i], shopLngCoords[j]);
-                                    var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
+
                                 }
                                 //
+                                var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
                                 distanceToShops.push(Math.round(distance, 1));
                             }
                             //

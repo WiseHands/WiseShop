@@ -126,6 +126,8 @@
   "payment.payment": "Payment",
   "payment.cash": "Cash payment enabled",
   "payment.online": "Online payment enabled",
+  "payment.cashDiscription": "The text that the customer will see when paying in cash.",
+  "payment.onlineDiscription": "The text that the customer will see when paying online.",
   "payment.coupons": "Coupons",
   "payment.discount": "Discount, %",
   "payment.minOrder": "Min. order amount",

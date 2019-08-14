@@ -16,8 +16,18 @@
                   url: '/shop/details/public'
               })
                   .then(function successCallback(response) {
+                    console.log('payment details', response.data);
+
                     $scope.onlinePaymentEnabled = response.data.onlinePaymentEnabled;
                     $scope.manualPaymentEnabled = response.data.manualPaymentEnabled;
+                    $scope.manualPaymentTitle = response.data.manualPaymentTitle;
+                    $scope.onlinePaymentTitle = response.data.onlinePaymentTitle;
+                    if ($scope.manualPaymentTitle === ""){
+                        $scope.manualPaymentTitle = "Оплата на місці";
+                    }
+                    if ($scope.onlinePaymentTitle === ""){
+                        $scope.onlinePaymentTitle = "Оплата онлайн";
+                    }
 
                   }, function errorCallback(error) {
                       console.log(error);

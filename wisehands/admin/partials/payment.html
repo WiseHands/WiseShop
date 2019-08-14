@@ -23,15 +23,29 @@
     </div>
     <div ng-hide="loading">
         <div class="row">
-            <div class="input-field col-sm-6">
-                <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
-                <label for="filled-in-box">{{'payment.cash' | translate}}</label>
-            </div>
+                <div class="input-field col-sm-6">
+                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
+                    <label for="filled-in-box">{{'payment.cash' | translate}}</label>
+                </div>
+
+
             <div class="input-field col-sm-6">
                 <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled" />
                 <label for="filled-in-box2">{{'payment.online' | translate}}</label>
             </div>
-        </div><br>
+
+        </div>
+        <div class="row">
+            <div class="input-field col-sm-6">
+                <input type="text" class="filled-in checkBoxStyling" id="filled-in-text"
+                       ng-model="payment.manualPaymentTitle" placeholder="{{'payment.cashDiscription' | translate}}"/>
+            </div>
+            <div class="input-field col-sm-6">
+                <input type="text" class="filled-in checkBoxStyling" id="filled-in-text2"
+                       ng-model="payment.onlinePaymentTitle" placeholder="{{'payment.onlineDiscription' | translate}}"/>
+            </div>
+        </div>
+        <br>
         <hr>
         <div class="displayFlex" ng-show="coupons.length > 0">
             <a ng-repeat="coupon in coupons" href="#/discount/{{coupon.uuid}}" class="btn-sm secondaryColor rectangle waves-effect waves-light col-xs-12 col-sm-3 text-center"><h6>{{'payment.coupons' | translate}}: {{coupon.couponIds.length}}

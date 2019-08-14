@@ -145,7 +145,9 @@ public class ShopAPI extends AuthController {
         json.put("alwaysOpen", shop.alwaysOpen);
         json.put("isTemporaryClosed", shop.isTemporaryClosed);
         json.put("manualPaymentEnabled", shop.paymentSettings.manualPaymentEnabled);
+        json.put("manualPaymentTitle", shop.paymentSettings.manualPaymentTitle);
         json.put("onlinePaymentEnabled", shop.paymentSettings.onlinePaymentEnabled);
+        json.put("onlinePaymentTitle", shop.paymentSettings.onlinePaymentTitle);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
         json.put("deliveryPolygon", shop.delivery.courierPolygonData);
         json.put("googleStaticMapsApiKey", shop.googleStaticMapsApiKey);

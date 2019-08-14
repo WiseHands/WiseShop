@@ -125,6 +125,8 @@
   "editProduct.optionPrice": "Cena opcji",
   "payment.payment": "Płatność",
   "payment.cash": "Płatność gotówką",
+  "payment.cashDiscription": "Tekst, który zobaczy klient przy płatności gotówką.",
+  "payment.onlineDiscription": "Tekst, który klient zobaczy podczas płatności online.",
   "payment.online": "Płatnośc online",
   "payment.coupons": "Kupony",
   "payment.discount": "Zniżka, %",

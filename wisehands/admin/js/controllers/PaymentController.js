@@ -39,6 +39,8 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
                     $scope.payment = response.data;
                     $scope.loading = false;
+                    console.log("$scope.payment " + JSON.stringify($scope.payment));
+
                 }, function errorCallback(response) {
                     $scope.loading = false;
                     console.log(response);
