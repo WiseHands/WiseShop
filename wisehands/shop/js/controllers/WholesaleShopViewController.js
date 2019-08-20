@@ -77,9 +77,9 @@
                 }
 
                 loadOptions();
-                $scope.calculateTotal = PublicShopInfo.calculateTotal;
+                $scope.calculateTotal = PublicShopInfo.calculateWholesaleTotal;
 
-                $scope.reCalculateTotal = function () {
+                $scope.reCalculateTotalWholesale = function () {
                     $scope.calculateTotal();
                 };
 
@@ -115,10 +115,9 @@
                          var productToBuy = {
                              uuid: productDTO.uuid,
                              chosenProperties: [],
-                             price: productDTO.price,
                              name: productDTO.name,
-                             wholesale: productDTO.wholesaleCount,
                              wholesalePrice: productDTO.wholesalePrice,
+                             wholesaleCount: productDTO.wholesaleCount
                          };
                          shared.addProductToBuy(productToBuy);
                          $scope.calculateTotal();

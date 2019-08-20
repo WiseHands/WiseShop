@@ -61,9 +61,8 @@
                     </div>
                     <div class="card-footer">
                         <span class="left">{{productDTO.wholesalePrice}} {{'shopView.currency' | translate}}
-
-                            <span class="center">{{productDTO.wholesaleCount}}</span>
-                        <span class="discount" ng-show="productDTO.oldPrice">{{productDTO.wholesaleCount}} {{'shopView.currency' | translate}}</span></span>
+                            <span class="center">{{productDTO.wholesaleCount}}</span></span>
+                        <!--<span class="discount" ng-show="productDTO.oldPrice">{{productDTO.wholesaleCount}} {{'shopView.currency' | translate}}</span></span>-->
                         <span class="right" ng-click="buyStart(productDTO, $event)"><a data-toggle="tooltip" data-placement="top" title="{{'shopView.addToCart' | translate}}"><i class="fa fa-shopping-cart"></i></a></span>
                     </div>
                 </div>

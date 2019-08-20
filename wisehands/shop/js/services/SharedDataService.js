@@ -28,7 +28,6 @@ angular.module('WiseShop')
                         if (obj1[p] != obj2[p]) return false;
                 }
             }
-
             //Check object 2 for any extra properties
             for (var p in obj2) {
                 if (typeof (obj1[p]) == 'undefined') return false;
@@ -83,6 +82,15 @@ angular.module('WiseShop')
                 total = 0;
                 productsToBuy.forEach(function (product) {
                     total += product.quantity * product.price;
+                });
+                return total;
+
+            },
+
+            reCalculateTotalWholesale: function () {
+                total = 0;
+                productsToBuy.forEach(function (product) {
+                    total += product.quantity * product.wholesalePrice;
                 });
                 return total;
 
