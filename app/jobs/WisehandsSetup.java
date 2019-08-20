@@ -81,7 +81,7 @@ public class WisehandsSetup extends Job {
                 courierDeliveryPrice, courierFreeDeliveryPrice
         );
         ContactDTO contact = new ContactDTO("380932092108", "me@email.com", "Lviv", "49.848596,24.0229203", "Description");
-        PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, (double) 500);
+        PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, (double) 500, "", "");
         BalanceDTO balance = new BalanceDTO();
 
         VisualSettingsDTO visualSettings = new VisualSettingsDTO();
