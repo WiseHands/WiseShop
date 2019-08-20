@@ -1,0 +1,43 @@
+<header>
+    <nav class="navbar navbar-fixed-top scrolling-navbar double-nav vcentering pl-0" shop-styling style="background-color: {{shopStyling.navbarColor}}">
+        <ul class="nav navbar-nav pull-left col-xs-2">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
+            </li>
+        </ul>
+        <h4 class="text-xs-center col-xs-8" style="color: {{shopStyling.navbarTextColor}}">{{'shopView.cart' | translate}}</h4>
+    </nav>
+</header>
+<main class="p-t-6 noSidePadding">
+    <div class="container">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="headerCentering">{{'shopView.productName' | translate}}</th>
+                <th class="headerCentering">{{'shopView.price' | translate}}</th>
+                <th ng-click="removeAll()" ng-show="productQuantityList.length !== 0"><a><i class="fa fa-remove center-block removeAllRedIcon"></i></a></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in productQuantityList track by $index">
+                <td>
+                    {{item.name}} <div ng-show="item.chosenProperties.length > 0">(<span ng-repeat="property in item.chosenProperties">{{property.name}} </span>)</div>
+                </td>
+                <td class="text-xs-center"><strong>{{item.price}}</strong> ₴ x
+                    <input class="inputTextCentering" type="number" ng-model="item.quantity" ng-change="changeQuantity($index, item.quantity)" min="1">
+                </td>
+                <td ng-click="removeSelectedItem($index)"><a><i class="fa fa-remove center-block"></i></a></td>
+            </tr>
+            <tr class="total">
+                <td><i>{{'shopView.total' | translate}}</i></td>
+                <td class="text-xs-center"><b>{{total}}</b> {{'shopView.currency' | translate}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="#!/choosedelivery">
+        <button type="button" class="btn btn-primary pull-right" ng-disabled="productQuantityList.length === 0" ng-click="reCalculateTotal()">
+            {{'shopView.order' | translate}}
+        </button>
+        </a>
+    </div>
+</main>

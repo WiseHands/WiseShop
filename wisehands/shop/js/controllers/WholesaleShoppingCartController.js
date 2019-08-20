@@ -1,6 +1,6 @@
 (function(){
     angular.module('WiseShop')
-        .controller('ShoppingCartController', ['$scope', '$http', 'shared', 'PublicShopInfo',
+        .controller('WholesaleShoppingCartController', ['$scope', '$http', 'shared', 'PublicShopInfo',
         function($scope, $http, shared, PublicShopInfo) {
             function loadOptions() {
                 $scope.total =  shared.reCalculateTotal();
