@@ -90,7 +90,7 @@ angular.module('WiseShop')
             reCalculateTotalWholesale: function () {
                 total = 0;
                 productsToBuy.forEach(function (product) {
-                    total += product.quantity * product.wholesalePrice;
+                    total += product.quantity * product.wholesalePrice * product.wholesaleCount;
                 });
                 return total;
 

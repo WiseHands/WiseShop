@@ -3,7 +3,7 @@
         .controller('WholesaleShoppingCartController', ['$scope', '$http', 'shared', 'PublicShopInfo',
         function($scope, $http, shared, PublicShopInfo) {
             function loadOptions() {
-                $scope.total =  shared.reCalculateTotal();
+                $scope.total =  shared.reCalculateTotalWholesale();
                 $scope.productQuantityList = shared.getProductsToBuy();
                 console.log('loaded', shared.getProductsToBuy());
             }
@@ -26,19 +26,19 @@
                 quantity = 1;
               }
                 shared.setProductQuantity(index, quantity);
-                $scope.total = shared.reCalculateTotal();
+                $scope.total = shared.reCalculateTotalWholesale();
             };
 
             $scope.removeSelectedItem = function (index){
                 shared.getProductsToBuy().splice(index, 1);
-                shared.reCalculateTotal();
+                shared.reCalculateTotalWholesale();
                 shared.reCalculateQuantity();
                 loadOptions();
 
             };
             $scope.removeAll = function () {
                 shared.clearProducts();
-                shared.reCalculateTotal();
+                shared.reCalculateTotalWholesale();
                 shared.reCalculateQuantity();
                 loadOptions();
             };

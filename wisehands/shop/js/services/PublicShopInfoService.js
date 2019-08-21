@@ -28,6 +28,7 @@ angular.module('WiseShop')
                 }
                 shared.setTotal(total);
             },
+            // calculate for wholesale
             calculateWholesaleTotal: function () {
                 var products = shared.getProductsToBuy();
                 var total = 0;
