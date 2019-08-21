@@ -2,6 +2,7 @@ angular.module('WiseShop')
     .service('shared', [ function() {
         var productsToBuy = [];
         var total = 0;
+        var wholesale = 0;
         var categoryUuid = '';
         var paymentButton = '';
         var currentOrderUuid = '';
@@ -93,6 +94,15 @@ angular.module('WiseShop')
                     total += product.quantity * product.wholesalePrice * product.wholesaleCount;
                 });
                 return total;
+
+            },
+
+            reCalculateWholesaleCount: function () {
+                wholesale = 0;
+                productsToBuy.forEach(function (product) {
+                    wholesale += product.quantity * product.wholesaleCount;
+                });
+                return wholesale;
 
             },
 
