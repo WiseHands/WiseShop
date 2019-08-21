@@ -89,6 +89,8 @@
   "addNewProduct.add": "Dodaj",
   "addNewProduct.productName": "Nazwa produktu",
   "addNewProduct.productPrice": "Cena produktu",
+  "addNewProduct.productWholesaleCount": "Ilość towaru do sprzedaży hurtowej",
+  "addNewProduct.productWholesalePrice": "Cena jednego produktu do sprzedaży hurtowej",
   "addNewProduct.productDescription": "Opis produktu",
   "addNewProduct.additional": "Dodatkowo",
   "addNewProduct.showInShop": "Pokaż w sklepie",

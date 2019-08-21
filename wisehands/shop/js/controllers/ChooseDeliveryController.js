@@ -59,6 +59,8 @@
                 function loadOptions() {
                     $scope.selectedItems = shared.getProductsToBuy();
                     $scope.total =  shared.getTotal();
+                    $scope.wholesaleCount = shared.getWholesaleCount();
+                    $scope.totalWholesalePrice = shared.getWholesalePrice();
                 }
                 loadOptions();
 

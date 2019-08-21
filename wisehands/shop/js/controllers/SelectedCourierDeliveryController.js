@@ -30,6 +30,8 @@
                     $scope.currentOrderUuid = shared.getCurrentOrderUuid();
                     $scope.paymentType = shared.getPaymentType();
                     $scope.deliveryType = shared.getDeliveryType();
+                    $scope.wholesaleCount = shared.getWholesaleCount();
+                    $scope.totalWholesalePrice = shared.getWholesalePrice();
                 }
                 loadOptions();
 
@@ -41,6 +43,10 @@
                         if($scope.total < $scope.deliverance.courierFreeDeliveryLimit) {
                           $scope.deliveryPrice = $scope.deliverance.courierPrice;
                         }
+                    // set delivery price for wholesale order
+                    if($scope.totalWholesalePrice < $scope.deliverance.courierFreeDeliveryLimit) {
+                        $scope.deliveryPrice = $scope.deliverance.courierPrice;
+                    }
 
                     }, function errorCallback(error) {
                         console.log(error);

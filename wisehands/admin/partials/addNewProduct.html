@@ -33,6 +33,16 @@
             <input id="product_price" type="number" step="0.01" ng-model="product.price" required>
             <label for="product_price">{{'addNewProduct.productPrice' | translate}}</label>
         </div>
+
+        <div class="input-field col-md-6">
+            <input id="product_whole_sale_count" type="text" ng-model="product.wholesaleCount" required>
+            <label for="product_name">{{'addNewProduct.productWholesaleCount' | translate}}</label>
+        </div>
+        <div class="input-field col-md-6">
+            <input id="product_whole_sale_price" type="number" step="0.01" ng-model="product.wholesalePrice" required>
+            <label for="product_price">{{'addNewProduct.productWholesalePrice' | translate}}</label>
+        </div>
+
         <div class="input-field col-md-12">
             <textarea id="textarea1" class="materialize-textarea" ng-model="product.description" required></textarea>
             <label for="textarea1">{{'addNewProduct.productDescription' | translate}}</label>

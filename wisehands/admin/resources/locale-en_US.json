@@ -84,6 +84,8 @@
   "addNewProduct.add": "Add",
   "addNewProduct.productName": "Product name",
   "addNewProduct.productPrice": "Product price",
+  "addNewProduct.productWholesaleCount": "Quantity of goods for wholesale",
+  "addNewProduct.productWholesalePrice": "The price of one product for wholesale",
   "addNewProduct.productDescription": "Product description",
   "addNewProduct.additional": "Additional",
   "addNewProduct.showInShop": "Show in shop",

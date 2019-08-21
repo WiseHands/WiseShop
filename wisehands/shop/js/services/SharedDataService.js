@@ -2,7 +2,8 @@ angular.module('WiseShop')
     .service('shared', [ function() {
         var productsToBuy = [];
         var total = 0;
-        var wholesale = 0;
+        var wholesaleCount = 0;
+        var totalWholesalePrice = 0;
         var categoryUuid = '';
         var paymentButton = '';
         var currentOrderUuid = '';
@@ -89,23 +90,30 @@ angular.module('WiseShop')
             },
 
             reCalculateTotalWholesale: function () {
-                total = 0;
+                totalWholesalePrice = 0;
                 productsToBuy.forEach(function (product) {
-                    total += product.quantity * product.wholesalePrice * product.wholesaleCount;
+                    totalWholesalePrice += product.quantity * product.wholesalePrice * product.wholesaleCount;
                 });
-                return total;
+                return totalWholesalePrice;
 
             },
 
             reCalculateWholesaleCount: function () {
-                wholesale = 0;
+                wholesaleCount = 0;
                 productsToBuy.forEach(function (product) {
-                    wholesale += product.quantity * product.wholesaleCount;
+                    wholesaleCount += product.quantity * product.wholesaleCount;
                 });
-                return wholesale;
+                return wholesaleCount;
 
             },
 
+            getWholesaleCount: function () {
+              return wholesaleCount;
+            },
+
+            getWholesalePrice: function () {
+              return totalWholesalePrice;
+            },
             setProductQuantity: function (index, quantity) {
                 productsToBuy[index].quantity = quantity;
                 this.reCalculateQuantity();

@@ -68,10 +68,10 @@ public class ProductDTO extends GenericModel {
     @OneToMany(orphanRemoval = true)
     public List<ProductImage> images;
 
-    public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop) {
-        this(name, description, price, images, shop, null);
+    public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, Integer wholesaleCount, Double wholesalePrice) {
+        this(name, description, price, images, shop, null, wholesaleCount, wholesalePrice);
     }
-    public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, CategoryDTO category) {
+    public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, CategoryDTO category, Integer wholesaleCount, Double wholesalePrice) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -86,5 +86,7 @@ public class ProductDTO extends GenericModel {
             this.categoryName = category.name;
             this.categoryUuid = category.uuid;
         }
+        this.wholesaleCount = wholesaleCount;
+        this.wholesalePrice = wholesalePrice;
     }
 }

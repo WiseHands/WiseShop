@@ -23,14 +23,14 @@
                 <td>
                     {{item.name}} <div ng-show="item.chosenProperties.length > 0">(<span ng-repeat="property in item.chosenProperties">{{property.name}} </span>)</div>
                 </td>
-                <td class="text-xs-center"><strong>{{item.wholesalePrice}} ₴ x {{wholesale}}</strong>
+                <td class="text-xs-center"><strong>{{item.wholesalePrice}} ₴ x {{wholesaleCount}}</strong>
                     <input class="inputTextCentering" type="number" ng-model="item.quantity" ng-change="changeQuantity($index, item.quantity)" min="1">
                 </td>
                 <td ng-click="removeSelectedItem($index)"><a><i class="fa fa-remove center-block"></i></a></td>
             </tr>
             <tr class="total">
                 <td><i>{{'shopView.total' | translate}}</i></td>
-                <td class="text-xs-center"><b>{{total}}</b> {{'shopView.currency' | translate}}</td>
+                <td class="text-xs-center"><b>{{totalWholesalePrice}}</b> {{'shopView.currency' | translate}}</td>
             </tr>
             </tbody>
         </table>
