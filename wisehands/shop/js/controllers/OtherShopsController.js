@@ -23,7 +23,8 @@
                         $scope.isResponse = true;
                         $scope.shopList = response.data.shopList;
 
-                        console.log($scope.shopList);
+
+                        console.log("shopList: ", $scope.shopList);
                         if ($scope.shopList == null){
                             $scope.isResponse = false;
                             $scope.isCoords = true;
@@ -77,32 +78,34 @@
                         var shopLngCoords = [];
                         for (var i=0; i < $scope.shopList.length; i++){
                             shopCoords.push($scope.shopList[i].contact.latLng);
-                            let testShopCoords = shopCoords[i].split(', ');
-                            shopLatCoords.push(testShopCoords[0]);
-                            shopLngCoords.push(testShopCoords[1]);
-                        }
+                            var getShopCoords = shopCoords[i].split(',');
+                            shopLatCoords.push(getShopCoords[0]);
+                            shopLngCoords.push(getShopCoords[1]);
 
-                        console.log("shopCoords testShopCoords ", shopCoords)
-                        console.log("shopLatCoords ", shopLatCoords);
-                        console.log("shopLngCoords ", shopLngCoords);
+                        }
+                        console.log("shopCoords ", shopCoords);
+                        console.log("shop lat: ", shopLatCoords);
+                        console.log("shop lng: ", shopLngCoords);
 
 
                         navigator.geolocation.getCurrentPosition(function(position) {
                             var distanceToShops = [];
                             var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            console.log("origin coords: ", origin);
 
                             geocodeOriginPosition(origin);
 
                             for (var i=0; i<shopLatCoords.length; i++){
-                                for(var j=0; j<shopLngCoords.length; j++){
+                                for (var j=0; j<shopLngCoords.length; j++){
                                     var destination = new google.maps.LatLng(shopLatCoords[i], shopLngCoords[j]);
-                                    var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
-
                                 }
                                 //
+                                var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
+                                console.log("distance to shop: ", distance);
+
                                 distanceToShops.push(Math.round(distance, 1));
+
                             }
-                            //
                             for (var i=0; i<distanceToShops.length; i++){
                                 $scope.shopList[i].distanceToShop = distanceToShops[i];
                             }
