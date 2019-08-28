@@ -31,47 +31,48 @@
     <meta name="fragment" content="!" />
     <base href="/">
 </head>
-<body class="fixed-sn {{shopStyling.sidebarColorScheme.code}}-skin" ng-app="WiseShop" ng-cloak shop-styling>
-    <!-- Sidebar navigation -->
-    <ul id="slide-out" class="side-nav custom-scrollbar" ng-controller="SideNavController">
-        <!--About-->
-        <li>
-            <div class="about">
-                <p>{{shopName}}</p>
-            </div>
-        </li>
-        <!--/.About-->
+<body>
+    <div class="fixed-sn {{shopStyling.sidebarColorScheme.code}}-skin" ng-app="WiseShop" ng-cloak shop-styling>
+        <!-- Sidebar navigation -->
+        <ul id="slide-out" class="side-nav custom-scrollbar" ng-controller="SideNavController">
+            <!--About-->
+            <li>
+                <div class="about">
+                    <p>{{shopName}}</p>
+                </div>
+            </li>
+            <!--/.About-->
 
-        <!--Social-->
-        <!--<li>-->
-        <!--<ul class="social">-->
-        <!--<li><a class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>-->
-        <!--<li><a class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>-->
-        <!--<li><a class="icons-sm drib-ic"><i class="fa fa-dribbble"> </i></a></li>-->
-        <!--<li><a class="icons-sm li-ic"><i class="fa fa-linkedin"> </i></a></li>-->
-        <!--<li><a class="icons-sm ins-ic"><i class="fa fa-instagram"> </i></a></li>-->
-        <!--</ul>-->
-        <!--</li>-->
-        <!--/Social-->
+            <!--Social-->
+            <!--<li>-->
+            <!--<ul class="social">-->
+            <!--<li><a class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>-->
+            <!--<li><a class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>-->
+            <!--<li><a class="icons-sm drib-ic"><i class="fa fa-dribbble"> </i></a></li>-->
+            <!--<li><a class="icons-sm li-ic"><i class="fa fa-linkedin"> </i></a></li>-->
+            <!--<li><a class="icons-sm ins-ic"><i class="fa fa-instagram"> </i></a></li>-->
+            <!--</ul>-->
+            <!--</li>-->
+            <!--/Social-->
 
-        <!-- Side navigation links -->
-        <li>
-            <ul class="collapsible collapsible-accordion">
-                <li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">{{'sideNav.Main' | translate}}</a>
-                </li>
-                <li ng-repeat="category in categories | orderBy:'sortOrder'" ng-hide="turnedOffProducts(category)">
-                    <a href="#!/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r fulltext button-offset-for-category" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
-                </li>
-            </ul>
-        </li>
-        <!--/. Side navigation links -->
+            <!-- Side navigation links -->
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">{{'sideNav.Main' | translate}}</a>
+                    </li>
+                    <li ng-repeat="category in categories | orderBy:'sortOrder'" ng-hide="turnedOffProducts(category)">
+                        <a href="#!/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r fulltext button-offset-for-category" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
+                    </li>
+                </ul>
+            </li>
+            <!--/. Side navigation links -->
 
-    </ul>
-    <!--/. Sidebar navigation -->
-    <div ng-view>
+        </ul>
+        <!--/. Sidebar navigation -->
+        <div ng-view>
 
+        </div>
     </div>
-
     #{footer-shop /}
 
     <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&libraries=initMap,drawing,geometry,places"></script>

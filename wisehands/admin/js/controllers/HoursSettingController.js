@@ -1,7 +1,8 @@
 angular.module('WiseHands')
-    .controller('UserProfileController', ['$scope', '$location', '$http', 'signout', 'sideNavInit',
+    .controller('HoursSettingController', ['$scope', '$location', '$http', 'signout', 'sideNavInit',
         function ($scope, $location, $http, signout, sideNavInit) {
             $scope.loading = true;
+
 
 
             var token = localStorage.getItem('JWT_TOKEN');
@@ -119,7 +120,7 @@ angular.module('WiseHands')
 
             $scope.createNetworkShops = function () {
                 $location.path('/network');
-            };
+            }
 
 
             sideNavInit.sideNav();

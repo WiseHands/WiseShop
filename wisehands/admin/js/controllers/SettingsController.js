@@ -1,8 +1,12 @@
 
 angular.module('WiseHands')
-    .controller('SettingsController', ['$scope', '$http', 'sideNavInit', 'signout', 'shared', '$rootScope',
-    		function ($scope, $http, sideNavInit, signout, shared, $rootScope) {
+    .controller('SettingsController', ['$scope', '$http', '$location', 'sideNavInit', 'signout', 'shared', '$rootScope',
+    		function ($scope, $http, $location, sideNavInit, signout, shared, $rootScope) {
         $scope.loading = true;
+
+                $scope.hoursSetting = function () {
+                    $location.path('/hourssetting');
+                };
 
         $http({
             method: 'GET',

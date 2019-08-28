@@ -71,7 +71,7 @@
                         var shopLngCoords = [];
                         for (var i=0; i < $scope.shopList.length; i++){
                             shopCoords.push($scope.shopList[i].contact.latLng);
-                            let testShopCoords = shopCoords[i].split(', ');
+                            let testShopCoords = shopCoords[i].split(',');
                             shopLatCoords.push(testShopCoords[0]);
                             shopLngCoords.push(testShopCoords[1]);
                         }

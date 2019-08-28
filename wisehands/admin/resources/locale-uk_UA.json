@@ -152,6 +152,7 @@
   "settings.view": "Вигляд",
   "settings.shopName": "Назва магазину",
   "settings.workingHours": "Години роботи",
+  "settings.setWorkingHours": "встановити години",
   "settings.from": "Від",
   "settings.to": "До",
   "settings.publicKey": "Публічний ключ",

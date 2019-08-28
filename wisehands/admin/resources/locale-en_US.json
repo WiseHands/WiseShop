@@ -153,6 +153,7 @@
   "settings.view": "View",
   "settings.shopName": "Shop name",
   "settings.workingHours": "Working hours",
+  "settings.setWorkingHours": "Set hours",
   "settings.from": "From",
   "settings.to": "To",
   "settings.publicKey": "Public key",
