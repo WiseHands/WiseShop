@@ -23,7 +23,6 @@
                         $scope.isResponse = true;
                         $scope.shopList = response.data.shopList;
 
-                        $scope.shopList = null;
                         console.log($scope.shopList);
                         if ($scope.shopList == null){
                             $scope.isResponse = false;
@@ -89,7 +88,6 @@
 
 
                         navigator.geolocation.getCurrentPosition(function(position) {
-                            var distanceTo = [];
                             var distanceToShops = [];
                             var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -98,10 +96,10 @@
                             for (var i=0; i<shopLatCoords.length; i++){
                                 for(var j=0; j<shopLngCoords.length; j++){
                                     var destination = new google.maps.LatLng(shopLatCoords[i], shopLngCoords[j]);
+                                    var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
 
                                 }
                                 //
-                                var distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
                                 distanceToShops.push(Math.round(distance, 1));
                             }
                             //
