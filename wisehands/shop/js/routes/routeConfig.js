@@ -26,11 +26,6 @@
                     controller:'ShopController',
                     activetab: 'main'
                 }).
-                when('/wholesale',{
-                    templateUrl:'wisehands/shop/partials/wholesaleShopView.html',
-                    controller:'WholesaleShopViewController',
-                    activetab: 'main'
-                }).
                 when('/contacts',{
                     templateUrl:'wisehands/shop/partials/contacts.html',
                     controller:'ContactsController'
@@ -46,10 +41,6 @@
                 when('/shoppingcart',{
                     templateUrl:'wisehands/shop/partials/shoppingcart.html',
                     controller:'ShoppingCartController'
-                }).
-                when('/wholesaleshoppingcart',{
-                    templateUrl:'wisehands/shop/partials/wholesaleShoppingCart.html',
-                    controller:'WholesaleShoppingCartController'
                 }).
                 when('/orderprocessing',{
                     templateUrl:'wisehands/shop/partials/orderform.html',
