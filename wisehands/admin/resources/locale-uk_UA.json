@@ -133,6 +133,7 @@
   "payment.online": "Оплата онлайн",
   "payment.coupons": "Купони",
   "payment.discount": "Відсоток знижки",
+  "payment.minPayment": "Мінімальний платіж за замовлення",
   "payment.minOrder": "Сума мін. замовлення",
   "payment.couponsIds": "Купони (кожен з нового рядка)",
   "delivery.delivery": "Доставка",

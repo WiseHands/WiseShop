@@ -33,6 +33,9 @@ public class PaymentSettingsDTO extends GenericModel {
     @Expose
     public String onlinePaymentTitle;
 
+    @Expose
+    public Double minimumPayment;
+
 
     public PaymentSettingsDTO(Boolean manualPaymentEnabled, Boolean onlinePaymentEnabled, Double freeDeliveryLimit, String manualPaymentTitle, String onlinePaymentTitle) {
         this.manualPaymentEnabled = manualPaymentEnabled;
@@ -40,5 +43,6 @@ public class PaymentSettingsDTO extends GenericModel {
         this.freeDeliveryLimit = freeDeliveryLimit;
         this.manualPaymentTitle = manualPaymentTitle;
         this.onlinePaymentTitle = onlinePaymentTitle;
+
     }
 }

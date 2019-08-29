@@ -31,6 +31,7 @@ angular.module('WiseHands')
 
         $scope.setPaymentOptions = function () {
             $scope.loading = true;
+            console.log("$scope.payment before sending" + JSON.stringify($scope.payment));
             $http({
                 method: 'PUT',
                 url: '/payment/update',

@@ -132,6 +132,7 @@
   "payment.onlineDiscription": "The text that the customer will see when paying online.",
   "payment.coupons": "Coupons",
   "payment.discount": "Discount, %",
+  "payment.minPayment": "The minimum payment for an order",
   "payment.minOrder": "Min. order amount",
   "payment.couponsIds": "Coupons IDs (each from new line)",
   "delivery.delivery": "Delivery",

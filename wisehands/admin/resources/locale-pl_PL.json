@@ -133,6 +133,7 @@
   "payment.online": "Płatnośc online",
   "payment.coupons": "Kupony",
   "payment.discount": "Zniżka, %",
+  "payment.minPayment": "Minimalna płatność za zamówienie",
   "payment.minOrder": "Minimalna suma zamówienia",
   "payment.couponsIds": "Kupony na zniżki (każdy w nowej linii)",
   "delivery.delivery": "Dostawa",
