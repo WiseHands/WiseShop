@@ -37,7 +37,7 @@
         <div class="min-order">
             <h4 class="text-xs" ng-show="total < minimumPayment">{{'shopView.minimumPayment' | translate}} {{minimumPayment}} </h4>
             <a href="#!/choosedelivery">
-                <button type="button" class="btn btn-primary pull-right" ng-disabled="productQuantityList.length === 0" ng-click="reCalculateTotal()">
+                <button type="button" class="btn btn-primary pull-right" ng-disabled="productQuantityList.length === 0 || total < minimumPayment" ng-click="reCalculateTotal()">
                     {{'shopView.order' | translate}}
                 </button>
             </a>
