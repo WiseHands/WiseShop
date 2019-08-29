@@ -10,3 +10,4 @@ chizi.lviv.ua
 diner.lviv.ua
 testsghop.localhost
 testshop.localhost
+testsghop420.localhost
