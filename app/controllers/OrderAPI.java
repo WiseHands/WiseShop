@@ -82,7 +82,7 @@ public class OrderAPI extends AuthController {
         String couponId = (String) jsonBody.get("coupon");
         String addressLat = (String) jsonBody.get("addressLat");
         String addressLng = (String) jsonBody.get("addressLng");
-        System.out.println("\n\n NEW ORDER " +shop.shopName + " \n address lat" + addressLat + "address lng " + addressLng);
+        System.out.println("\n\n NEW ORDER " +shop.shopName + " \n address lat" + addressLat + "address lng " + addressLng + "\n" + "minimum payment " + shop.paymentSettings.minimumPayment);
         String agent = request.headers.get("user-agent").value();
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";
@@ -175,6 +175,24 @@ public class OrderAPI extends AuthController {
         }
 
         order.total = totalCost;
+
+
+        boolean isBiggerThanMimimal = true;
+
+        if(shop.paymentSettings.minimumPayment != null) {
+            isBiggerThanMimimal = shop.paymentSettings.minimumPayment < totalCost;
+        }
+
+        if(!isBiggerThanMimimal) {
+            JSONObject json = new JSONObject();
+            json.put("uuid", order.uuid);
+            json.put("ok", false);
+            json.put("reason", "Total amount is less than minimum order amount");
+            System.out.println("isBiggerThanMimimal " + isBiggerThanMimimal + ", !isBiggerThanMimimal is " +!isBiggerThanMimimal);
+
+            error(403, json.toString());
+        }
+
         order = order.save();
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
