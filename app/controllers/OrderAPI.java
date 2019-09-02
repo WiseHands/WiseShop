@@ -180,7 +180,7 @@ public class OrderAPI extends AuthController {
         boolean isBiggerThanMimimal = true;
 
         if(shop.paymentSettings.minimumPayment != null) {
-            isBiggerThanMimimal = shop.paymentSettings.minimumPayment < totalCost;
+            isBiggerThanMimimal = shop.paymentSettings.minimumPayment <= totalCost;
         }
 
         if(!isBiggerThanMimimal) {
