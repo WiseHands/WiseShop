@@ -187,7 +187,7 @@
   "editproperty.deleteMessage2": "Property option deleted.",
   "deleteproperty.deleteMessage1": "Do you really want to delete this property?",
   "deleteproperty.deleteMessage2": "Property deleted.",
-  "directives.language-select.Language": "Language"
-
+  "directives.language-select.Language": "Language",
+  "hourssetting.title": "Hours setting "
 
 }
