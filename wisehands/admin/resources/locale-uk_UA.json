@@ -194,5 +194,9 @@
   "editproperty.deleteMessage2": "Опція властивості видалена.",
   "deleteproperty.deleteMessage1": "Ви дійсно хочете видалити дану властивість?",
   "deleteproperty.deleteMessage2": "Властивість видалена.",
-  "directives.language-select.Language": "Мова"
+  "directives.language-select.Language": "Мова",
+  "payment.buttonDiscription": "Текст, який клієнт побачить на кнопці оплати. За замовчуванням 'До оплати'",
+  "payment.setButton": "Редагувати напис на кнопці оплати"
+
+
 }

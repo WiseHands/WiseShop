@@ -67,7 +67,7 @@
             </div>
             <div id="payButton" class="proceedWithPayment"></div>
             <div class="col-xs-5" ng-hide="successfullResponse">
-                <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-disabled="{{total + deliveryPrice }} === 0" ng-hide="loading" form="orderForm">{{'shopView.proceedWithPayment' | translate}} </button>
+                <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-disabled="{{total + deliveryPrice }} === 0" ng-hide="loading" form="orderForm">{{buttonPaymentTitle}} </button>
                 <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
             </div>
         </div>

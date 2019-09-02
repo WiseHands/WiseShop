@@ -194,5 +194,9 @@
   "editproperty.deleteMessage2": "Opcja właściwości usunięta.",
   "deleteproperty.deleteMessage1": "Czy na pewno chcesz usunąć tę właściwość?",
   "deleteproperty.deleteMessage2": "Usunięto właściwość.",
-  "directives.language-select.Language": "Język"
+  "directives.language-select.Language": "Język",
+  "payment.buttonDiscription": "Tekst, który klient zobaczy na przycisku płatności.",
+  "payment.setButton": "Edytuj napis na przycisku płatności"
+
+
 }

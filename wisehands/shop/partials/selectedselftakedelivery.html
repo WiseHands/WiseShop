@@ -5,7 +5,7 @@
                 <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
             </li>
         </ul>
-        <h4 class="text-xs-center col-xs-8" style="color: {{shopStyling.navbarTextColor}}"><b>{{'shopView.courierdelivery' | translate}}</b></h4>
+        <h4 class="text-xs-center col-xs-8" style="color: {{shopStyling.navbarTextColor}}"><b>{{'shopView.selftakedelivery' | translate}}</b></h4>
     </nav>
 </header>
 <main class="p-t-6 noSidePadding">
@@ -51,7 +51,7 @@
             </div>
             <div id="payButton" class="proceedWithPayment"></div>
             <div class="col-xs-5" ng-hide="successfullResponse">
-                <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-disabled="{{total + deliveryPrice }} === 0" ng-hide="loading" form="orderForm">{{'shopView.proceedWithPayment' | translate}} </button>
+                <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-disabled="{{total + deliveryPrice }} === 0" ng-hide="loading" form="orderForm">{{buttonPaymentTitle}} </button>
                 <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
             </div>
         </div>

@@ -35,6 +35,7 @@ public class PaymentSettingsAPI extends AuthController {
         String manualPaymentTitle = (String) jsonBody.get("manualPaymentTitle");
         String onlinePaymentTitle = (String) jsonBody.get("onlinePaymentTitle");
         Double minimumPayment = Double.parseDouble(String.valueOf(jsonBody.get("minimumPayment")));
+        String buttonPaymentTitle = (String) jsonBody.get("buttonPaymentTitle");
 
         PaymentSettingsDTO paymentSettings = shop.paymentSettings;
         paymentSettings.freeDeliveryLimit = freeDeliveryLimit;
@@ -43,6 +44,7 @@ public class PaymentSettingsAPI extends AuthController {
         paymentSettings.manualPaymentTitle = manualPaymentTitle;
         paymentSettings.onlinePaymentTitle = onlinePaymentTitle;
         paymentSettings.minimumPayment = minimumPayment;
+        paymentSettings.buttonPaymentTitle = buttonPaymentTitle;
 
         paymentSettings = paymentSettings.save();
 

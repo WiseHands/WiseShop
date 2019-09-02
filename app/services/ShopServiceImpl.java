@@ -50,7 +50,7 @@ public class ShopServiceImpl implements ShopService{
         );
         delivery.save();
 
-        PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, freeDeliveryLimit, "", "");
+        PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, freeDeliveryLimit, "", "", "");
         paymentSettings.save();
 
         ContactDTO contact = new ContactDTO(user.phone, user.email, "", "", "");

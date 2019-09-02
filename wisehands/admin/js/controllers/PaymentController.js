@@ -31,7 +31,7 @@ angular.module('WiseHands')
 
         $scope.setPaymentOptions = function () {
             $scope.loading = true;
-            console.log("$scope.payment before sending" + JSON.stringify($scope.payment));
+            console.log("$scope.payment before sending", JSON.stringify($scope.payment));
             $http({
                 method: 'PUT',
                 url: '/payment/update',
@@ -40,7 +40,7 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
                     $scope.payment = response.data;
                     $scope.loading = false;
-                    console.log("$scope.payment " + JSON.stringify($scope.payment));
+                    console.log("$scope.payment response", JSON.stringify($scope.payment));
 
                 }, function errorCallback(response) {
                     $scope.loading = false;

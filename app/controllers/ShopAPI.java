@@ -148,6 +148,7 @@ public class ShopAPI extends AuthController {
         json.put("manualPaymentTitle", shop.paymentSettings.manualPaymentTitle);
         json.put("onlinePaymentEnabled", shop.paymentSettings.onlinePaymentEnabled);
         json.put("onlinePaymentTitle", shop.paymentSettings.onlinePaymentTitle);
+        json.put("buttonPaymentTitle", shop.paymentSettings.buttonPaymentTitle);
         json.put("minimumPayment", shop.paymentSettings.minimumPayment);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
         json.put("deliveryPolygon", shop.delivery.courierPolygonData);
