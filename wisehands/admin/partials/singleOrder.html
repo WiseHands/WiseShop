@@ -37,6 +37,7 @@
             <div class="col-xs-12 col-sm-6 noSidePadding">
                 <h5>{{'singleOrder.FullName' | translate}}: <p><i>{{order.name}}</i></p></h5>
                 <h5>{{'singleOrder.Phone' | translate}}: <p><i>{{order.phone}}</i></p></h5>
+                <h5>{{'singleOrder.Email' | translate}}: <p><i>{{order.email}}</i></p></h5>
                 <h5 ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">{{'singleOrder.Address' | translate}}: </b><p><i>{{order.address}}
                     <a ng-show="order.destinationLat" href="https://www.google.com.ua/maps/@{{order.destinationLat}},{{order.destinationLng}},21z?hl=en" target="_blank"><i class="material-icons pointIconColor">place</i>
                     </a></i></p></h5>

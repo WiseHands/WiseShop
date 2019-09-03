@@ -34,6 +34,7 @@
   "singleOrder.Delete": "Delete",
   "singleOrder.FullName": "Full Name",
   "singleOrder.Phone": "Phone",
+  "singleOrder.Email": "Email",
   "singleOrder.deliveryType": "Delivery type",
   "singleOrder.paymentType": "Payment type",
   "singleOrder.Platform": "Platform",

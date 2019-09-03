@@ -75,16 +75,16 @@
                     }).then(function successCallback(response) {
                         console.log("$scope.params response http", response.data);
 
-                        // $scope.loading = false;
-                        //     $scope.successfullResponse = true;
-                        //     var modalContent = document.querySelector(".proceedWithPayment");
-                        //     modalContent.innerHTML = response.data.button;
-                        //     $scope.currentOrderUuid = response.data.uuid;
-                        //     if ($scope.paymentType == 'CASHONSPOT'){
-                        //       cashToCourier();
-                        //     } else if ($scope.paymentType == 'PAYONLINE') {
-                        //       payOnline();
-                        //     }
+                        $scope.loading = false;
+                            $scope.successfullResponse = true;
+                            var modalContent = document.querySelector(".proceedWithPayment");
+                            modalContent.innerHTML = response.data.button;
+                            $scope.currentOrderUuid = response.data.uuid;
+                            if ($scope.paymentType == 'CASHONSPOT'){
+                              cashToCourier();
+                            } else if ($scope.paymentType == 'PAYONLINE') {
+                              payOnline();
+                            }
 
                         }, function errorCallback(data) {
                             $scope.loading = false;
