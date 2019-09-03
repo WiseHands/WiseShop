@@ -22,7 +22,7 @@
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <div ng-hide="loading">
-        <hr>
+        <hr class="margin-hr">
         <div class="row">
                 <div class="input-field col-sm-6">
                     <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
@@ -46,7 +46,7 @@
                        ng-model="payment.onlinePaymentTitle" placeholder="{{'payment.onlineDiscription' | translate}}"/>
             </div>
         </div>
-        <hr>
+        <hr class="margin-hr">
         <div class="row">
             <div class="input-field col-sm-6">
                 <p>{{'payment.setButton' | translate}}</p>
@@ -54,7 +54,7 @@
                        ng-model="payment.buttonPaymentTitle" placeholder="{{'payment.buttonDiscription' | translate}}"/>
             </div>
         </div>
-        <hr>
+        <hr class="margin-hr">
         <div class="row">
             <div class="input-field col-xs-12 col-sm-6">
                 <p>{{'payment.minPayment' | translate}}</p>
@@ -62,7 +62,7 @@
             </div>
 
         </div>
-        <hr>
+        <hr class="margin-hr">
         <div class="displayFlex" ng-show="coupons.length > 0">
             <a ng-repeat="coupon in coupons" href="#/discount/{{coupon.uuid}}" class="btn-sm secondaryColor rectangle waves-effect waves-light col-xs-12 col-sm-3 text-center"><h6>{{'payment.coupons' | translate}}: {{coupon.couponIds.length}}
                 <br>

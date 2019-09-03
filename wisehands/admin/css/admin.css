@@ -1,3 +1,7 @@
+/*set margin for <hr> on payment page start*/
+.margin-hr{
+    margin-bottom: 5px;
+}
 .fluid-width{
     width: auto !important;
 }

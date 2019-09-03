@@ -35,7 +35,16 @@
                        pattern="^380[0-9]{9,9}$"
                        required />
             </div>
-
+            <div class="form-group">
+                <b>{{'shopView.mail' | translate}}</b>
+                <input class="form-control validate"
+                       type="email"
+                       id="email"
+                       ng-model="email"
+                       ng-change="customerData()"
+                       name="email"
+                       required />
+            </div>
             <div class="form-group">
                     <b>Адреса і номер відділення Нової Пошти</b>
                     <input class="validate"
@@ -45,12 +54,8 @@
                            ng-change="customerData()"
                            ng-required="deliveryType === 'NOVAPOSHTA'"
                            placeholder="м. Львів, вул.Личаківська, 8, відділення №7"/>
-                <!--<div class="col-xs-12 col-sm-4" ng-show="deliveryType === 'NOVAPOSHTA'">-->
-                    <!--<a type="button"-->
-                       <!--href="#!/newpost"-->
-                       <!--class="btn btn-secondary waves-effect btn-block">Найближче відділення</a>-->
-                <!--</div>-->
             </div>
+
             <div class="form-group">
                 <b>{{'shopView.comment' | translate}}</b>
                     <textarea class="md-textarea"

@@ -57,6 +57,7 @@
                         paymentType: $scope.paymentType,
                         phone: new String(document.getElementById('phone').value),
                         name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
                         address: "",
                         newPostDepartment: document.getElementById('newPostDepartment').value,
                         selectedItems: $scope.selectedItems,
@@ -66,22 +67,24 @@
                         addressLng: localStorage.getItem('addressLng')
                     };
                     var encodedParams = encodeQueryData($scope.params);
-
+                    console.log("$scope.params before http", $scope.params);
                     $http({
                         method: 'POST',
                         url: '/order',
                         data: $scope.params
                     }).then(function successCallback(response) {
-                            $scope.loading = false;
-                            $scope.successfullResponse = true;
-                            var modalContent = document.querySelector(".proceedWithPayment");
-                            modalContent.innerHTML = response.data.button;
-                            $scope.currentOrderUuid = response.data.uuid;
-                            if ($scope.paymentType == 'CASHONSPOT'){
-                              cashToCourier();
-                            } else if ($scope.paymentType == 'PAYONLINE') {
-                              payOnline();
-                            }
+                        console.log("$scope.params response http", response.data);
+
+                        // $scope.loading = false;
+                        //     $scope.successfullResponse = true;
+                        //     var modalContent = document.querySelector(".proceedWithPayment");
+                        //     modalContent.innerHTML = response.data.button;
+                        //     $scope.currentOrderUuid = response.data.uuid;
+                        //     if ($scope.paymentType == 'CASHONSPOT'){
+                        //       cashToCourier();
+                        //     } else if ($scope.paymentType == 'PAYONLINE') {
+                        //       payOnline();
+                        //     }
 
                         }, function errorCallback(data) {
                             $scope.loading = false;
