@@ -183,6 +183,8 @@
   "settings.alwaysOpen": "Zawsze otwarte",
   "settings.shopClosed": "Przepraszamy, sklep zamknięty będzie otwarty później",
   "settings.isTemporary": "Sklep tymczasowo zamknięty",
+  "settings.addSetting": "Addition setting for shop",
+
   "settings.temporaryTitle": "Nagłówek",
   "settings.temporaryDiscr": "Krótki opis",
   "settings.NewDomainName": "Nowa nazwa domeny (carrot.com e.g.)",

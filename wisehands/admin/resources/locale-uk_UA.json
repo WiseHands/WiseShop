@@ -197,7 +197,9 @@
   "directives.language-select.Language": "Мова",
   "payment.buttonDiscription": "Текст, який клієнт побачить на кнопці оплати. За замовчуванням 'До оплати'",
   "payment.setButton": "Редагувати напис на кнопці оплати",
-  "singleOrder.Email": "Email"
+  "singleOrder.Email": "Email",
+  "settings.addSetting": "Додаткові налаштування"
+
 
 
 }

@@ -1,7 +1,7 @@
 
 angular.module('WiseHands')
-    .controller('SettingsController', ['$scope', '$http', '$location', 'sideNavInit', 'signout', 'shared', '$rootScope',
-    		function ($scope, $http, $location, sideNavInit, signout, shared, $rootScope) {
+    .controller('AdditionSettingsController', ['$scope', '$http', 'sideNavInit', 'signout', 'shared', '$rootScope',
+    		function ($scope, $http, sideNavInit, signout, shared, $rootScope) {
         $scope.loading = true;
 
         $http({
@@ -30,11 +30,6 @@ angular.module('WiseHands')
                 $scope.loading = false;
             });
 
-        $scope.setAdditionSetting = function(){
-            $location.path('/additionsettings');
-        };
-
-
         $scope.whenShopClosed = function(){
               if ($scope.activeShop.isTemporaryClosed){
                 console.log('1', $scope.activeShop.isTemporaryClosed);
@@ -44,7 +39,7 @@ angular.module('WiseHands')
                 console.log('0', $scope.activeShop.isTemporaryClosed);
                 $scope.activeShop.isTemporaryClosed = false;
               }
-        };
+        }
 
         $scope.updateStoreSettings = function () {
 

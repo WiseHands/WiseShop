@@ -183,6 +183,7 @@
   "settings.alwaysOpen": "Always open",
   "settings.whenClosed": "Close the shop",
   "settings.isTemporary": "Shop temporarily closed",
+  "settings.addSetting": "Addition setting for shop",
   "settings.temporaryTitle": "Title",
   "settings.temporaryDiscr": "Short description",
   "settings.changeDomainName": "Change domain name",
