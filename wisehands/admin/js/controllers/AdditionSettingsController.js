@@ -4,58 +4,31 @@ angular.module('WiseHands')
     		function ($scope, $http, sideNavInit, signout, shared, $rootScope) {
         $scope.loading = true;
 
-        $http({
-            method: 'GET',
-            url: '/balance',
-        })
-            .then(function successCallback(response) {
-                $scope.balance = response.data;
-                $scope.loading = false;
-            }, function errorCallback(response) {
-                $scope.loading = false;
-
-            });
 
         $http({
             method: 'GET',
-            url: '/shop/details',
+            url: 'additional-setting/detail',
         })
             .then(function successCallback(response) {
-                $scope.activeShop = response.data;
-                console.log('details value of checkbox whenClosed:', $scope.activeShop.isTemporaryClosed);
-                $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
-                $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
+                $scope.additionalSetting = response.data;
+                console.log("GET $scope.additionalSetting", $scope.additionalSetting)
                 $scope.loading = false;
             }, function errorCallback(response) {
                 $scope.loading = false;
             });
 
-        $scope.whenShopClosed = function(){
-              if ($scope.activeShop.isTemporaryClosed){
-                console.log('1', $scope.activeShop.isTemporaryClosed);
-                $scope.activeShop.isTemporaryClosed = true;
 
-              } else {
-                console.log('0', $scope.activeShop.isTemporaryClosed);
-                $scope.activeShop.isTemporaryClosed = false;
-              }
-        }
-
-        $scope.updateStoreSettings = function () {
-
+        $scope.updateAdditionalSetting = function () {
+            console.log("$scope.additionalSetting before PUT", $scope.additionalSetting);
             $scope.loading = true;
             $http({
                 method: 'PUT',
-                url: '/shop',
-                data: $scope.activeShop
+                url: '/additional-setting/update',
+                data: $scope.additionalSetting
             })
                 .success(function (response) {
-                    $scope.activeShop = response;
-                    console.log('after PUT whenClosed', $scope.activeShop.whenClosed);
-                    localStorage.setItem('activeShopName', $scope.activeShop.shopName);
-                    $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
-                    $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
-                    document.title = $scope.activeShop.shopName;
+                    $scope.additionalSetting = response;
+                    console.log('after PUT update additionalSetting', $scope.additionalSetting);
                     $scope.loading = false;
                 }).
             error(function (response) {
@@ -65,68 +38,8 @@ angular.module('WiseHands')
 
         };
 
-        $scope.changeDomainName = function(){
-          console.log(document.getElementById("newDomainName").value);
-          $http({
-              method: 'PUT',
-              url: '/shop/domain/'  + document.getElementById("newDomainName").value,
-          })
-              .success(function (response) {
-                console.log(response.data.locale);
-                showInfoMsg("Ok");
-              }).
-          error(function (response) {
-              showWarningMsg("fail");
-          });
-        };
 
-        $scope.increaseBalance = function () {
-            $scope.loading = true;
-            $http({
-                method: 'POST',
-                url: '/pay?amount=' + $scope.selectedShop.balance
-            })
-                .success(function (response) {
-                    $scope.loading = false;
-                    $scope.successfullResponse = true;
-                    var modalContent = document.querySelector(".proceedWithPayment");
-                    console.log(response);
-                    modalContent.innerHTML = response;
-                    modalContent.firstChild.submit();
-
-                }).
-            error(function (response) {
-                $scope.successfullResponse = false;
-                $scope.loading = false;
-                console.log(response);
-            });
-        };
         sideNavInit.sideNav();
 
     }]);
 
-    function showWarningMsg(msg) {
-      toastr.clear();
-      toastr.options = {
-        "positionClass": "toast-bottom-center",
-        "preventDuplicates": true,
-      }
-      toastr.warning(msg);
-    }
-
-    function showInfoMsg(msg) {
-      toastr.clear();
-      toastr.options = {
-        "positionClass": "toast-bottom-center",
-        "preventDuplicates": true,
-      }
-      toastr.info(msg);
-    }
-
-function encodeQueryData(data)
-{
-    var ret = [];
-    for (var d in data)
-        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-    return ret.join("&");
-}

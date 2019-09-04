@@ -79,6 +79,10 @@ public class ShopDTO extends GenericModel {
 
     @Expose
     @OneToOne(cascade=CascadeType.ALL)
+    public AdditionalSettingDTO additionalSetting;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
     public VisualSettingsDTO visualSettingsDTO;
 
     @Expose

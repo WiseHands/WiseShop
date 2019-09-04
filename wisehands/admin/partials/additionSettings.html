@@ -11,7 +11,7 @@
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right saveProductButtonStyling"
-                   ng-click="updateStoreSettings()">
+                   ng-click="updateAdditionalSetting()">
                 </i>
             </a>
         </div>
@@ -20,7 +20,9 @@
 <div class="container-fluid noSidePadding">
     <div class="input-field col-md-12 z-index-2">
         <h5>{{'additionSetting.changeName' | translate}}</h5>
-        <input id="changeName" type="text" placeholder="{{'additionSetting.exampleChangeName' | translate}}">
+        <input id="changeName" type="text"
+               ng-model="additionalSetting.fieldNameCustomer"
+               placeholder="{{'additionSetting.exampleChangeName' | translate}}">
         <hr>
     </div>
 
