@@ -197,7 +197,10 @@
   "deleteproperty.deleteMessage1": "Do you really want to delete this property?",
   "deleteproperty.deleteMessage2": "Property deleted.",
   "directives.language-select.Language": "Language",
-  "payment.setButton": "Edit inscription on payment button"
+  "payment.setButton": "Edit inscription on payment button",
+  "additionSetting.title": "Addition setting",
+  "additionSetting.changeName": "Edit the field \"Name\" on the order page",
+  "additionSetting.exampleChangeName": "By default, the field is named \"Name\""
 
 
 

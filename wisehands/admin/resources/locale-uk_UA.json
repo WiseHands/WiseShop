@@ -198,7 +198,11 @@
   "payment.buttonDiscription": "Текст, який клієнт побачить на кнопці оплати. За замовчуванням 'До оплати'",
   "payment.setButton": "Редагувати напис на кнопці оплати",
   "singleOrder.Email": "Email",
-  "settings.addSetting": "Додаткові налаштування"
+  "settings.addSetting": "Додаткові налаштування",
+  "additionSetting.title": "Додаткові налаштування магазину",
+  "additionSetting.changeName": "Редагування поля \"Ім'я\" на сторінці оформлення замовлення",
+  "additionSetting.exampleChangeName": "За замовчування поле має назву \"Ім'я\""
+
 
 
 

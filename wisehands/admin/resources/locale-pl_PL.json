@@ -199,7 +199,11 @@
   "deleteproperty.deleteMessage2": "Usunięto właściwość.",
   "directives.language-select.Language": "Język",
   "payment.buttonDiscription": "Tekst, który klient zobaczy na przycisku płatności.",
-  "payment.setButton": "Edytuj napis na przycisku płatności"
+  "payment.setButton": "Edytuj napis na przycisku płatności",
+  "additionSetting.title": "Dodatkowe ustawienie",
+  "additionSetting.changeName": "Edycja pola \"Imię\" na stronie zamówienia",
+  "additionSetting.exampleChangeName": "Domyślnie pole nosi nazwę \"Imię\""
+
 
 
 }
