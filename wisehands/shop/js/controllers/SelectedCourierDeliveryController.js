@@ -6,6 +6,16 @@
                 var paymentButton = document.querySelector(".proceedWithPayment");
                 paymentButton.innerHTML = $scope.paymentButton;
 
+                // get name for element
+                $http({
+                    method: 'GET',
+                    url: 'additional-setting/detail'
+                }).then(function successCallback(response) {
+                    console.log("additional-setting/detail response:", response);
+
+                });
+
+
                 $http({
                     method: 'GET',
                     url: '/courier/polygon'
@@ -76,6 +86,7 @@
                         deliveryType: $scope.deliveryType,
                         paymentType: $scope.paymentType,
                         phone: new String(document.getElementById('phone').value),
+                        email: document.getElementById('email').value,
                         name: document.getElementById('name').value,
                         address: document.getElementById('address').value,
                         newPostDepartment: "",
@@ -120,6 +131,7 @@
                         url: '/order/' + $scope.currentOrderUuid + '/manually-payed'
                     })
                         .then(function successCallback(response) {
+                            console.log("order response", response);
                             window.location.pathname = '/done';
                         }, function errorCallback(data) {
                             console.log(data);
@@ -127,6 +139,7 @@
                 };
 
                 function payOnline() {
+                    console.log("payonline");
                   var rootDiv = document.querySelector('.proceedWithPayment');
                   rootDiv.firstChild.submit();
                 };

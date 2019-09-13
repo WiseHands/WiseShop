@@ -9,6 +9,7 @@
     </nav>
 </header>
 <main class="p-t-6 noSidePadding">
+
     <div class="container">
         <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
 
@@ -33,6 +34,16 @@
                        name="phone"
                        ng-value="+380"
                        pattern="^380[0-9]{9,9}$"
+                       required />
+            </div>
+            <div class="form-group">
+                <b>{{'shopView.mail' | translate}}</b>
+                <input class="form-control validate"
+                       type="email"
+                       id="email"
+                       ng-model="email"
+                       ng-change="customerData()"
+                       name="email"
                        required />
             </div>
             <div class="form-group">

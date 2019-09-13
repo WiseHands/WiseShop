@@ -25,7 +25,7 @@
   "shopView.next":"Продовжити",
   "shopView.deliveryType": "Тип доставки",
   "shopView.fullName": "Ім'я",
-  "shopView.mail": "Email",
+  "shopView.mail": "Емейл",
   "shopView.fullNamePlaceholder": "Введіть прізвище, ім'я та по батькові, коли отримуєте замовлення через Нову Пошту",
   "shopView.phone": "Номер телефону (380xxxxxxxxx - формат номеру телефону)",
   "shopView.addressLocate": "Клікніть всередині зони доставки, куди повинно бути доставлено замовлення",
