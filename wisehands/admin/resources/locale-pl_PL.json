@@ -201,8 +201,8 @@
   "payment.buttonDiscription": "Tekst, który klient zobaczy na przycisku płatności.",
   "payment.setButton": "Edytuj napis na przycisku płatności",
   "additionSetting.title": "Dodatkowe ustawienie",
-  "additionSetting.changeName": "Edycja pola \"Imię\" na stronie zamówienia",
-  "additionSetting.exampleChangeName": "Domyślnie pole nosi nazwę \"Imię\""
+  "additionSetting.changeName": "Edycja elementa \"Imię\" na stronie zamówienia",
+  "additionSetting.exampleChangeName": "Domyślnie element nosi nazwę \"Imię\""
 
 
 

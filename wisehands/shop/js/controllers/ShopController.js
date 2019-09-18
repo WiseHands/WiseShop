@@ -109,8 +109,9 @@
                      var firstTime = Number($scope.startHour * 60) + Number($scope.startMinute);
                      var lastTime = Number($scope.endHour * 60) + Number($scope.endMinute);
                      var isNotWorkingTime;
+                     console.log("$scope.alwaysOpen", $scope.alwaysOpen);
                      if ($scope.alwaysOpen === true) {
-                         isNotWorkingTime = false;
+                         isNotWorkingTime = true;
                      } else if (currTime >= firstTime && currTime < lastTime){
                          isNotWorkingTime = true;
                      } else {

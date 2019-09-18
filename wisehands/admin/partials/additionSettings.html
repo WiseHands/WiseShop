@@ -21,8 +21,12 @@
     <div class="input-field col-md-12 z-index-2">
         <h5>{{'additionSetting.changeName' | translate}}</h5>
         <input id="changeName" type="text"
-               ng-model="additionalSetting.fieldNameCustomer"
+               ng-model="paymentSettings.fieldNameCustomer"
                placeholder="{{'additionSetting.exampleChangeName' | translate}}">
+        <h5>{{'additionSetting.changeOrderDone' | translate}}</h5>
+        <input id="changeAddress" type="text"
+               ng-model="additionalSettings.orderMessage"
+               placeholder="{{'additionSetting.exampleChangeOrderDone' | translate}}">
         <hr>
     </div>
 

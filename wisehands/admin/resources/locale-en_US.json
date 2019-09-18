@@ -199,8 +199,8 @@
   "directives.language-select.Language": "Language",
   "payment.setButton": "Edit inscription on payment button",
   "additionSetting.title": "Addition setting",
-  "additionSetting.changeName": "Edit the field \"Name\" on the order page",
-  "additionSetting.exampleChangeName": "By default, the field is named \"Name\""
+  "additionSetting.changeName": "Edit the element \"Name\" on the order page",
+  "additionSetting.exampleChangeName": "By default, the element is named \"Name\""
 
 
 

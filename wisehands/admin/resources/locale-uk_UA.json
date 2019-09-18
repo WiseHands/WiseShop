@@ -200,8 +200,10 @@
   "singleOrder.Email": "Email",
   "settings.addSetting": "Додаткові налаштування",
   "additionSetting.title": "Додаткові налаштування магазину",
-  "additionSetting.changeName": "Редагування поля \"Ім'я\" на сторінці оформлення замовлення",
-  "additionSetting.exampleChangeName": "За замовчування поле має назву \"Ім'я\""
+  "additionSetting.changeName": "Редагування елемента \"Ім'я\" на сторінці оформлення замовлення",
+  "additionSetting.exampleChangeName": "За замовчування елемент має назву \"Ім'я\"",
+  "additionSetting.changeOrderDone": "Редагування напису на сторінці завершення замовлення ",
+  "additionSetting.exampleChangeOrderDone": "Замовлення успішно завершено. Очікуйте, з вами зв'яжуться."
 
 
 

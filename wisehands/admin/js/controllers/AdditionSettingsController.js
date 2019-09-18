@@ -7,11 +7,23 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: 'additional-setting/detail',
+            url: '/payment/detail'
         })
             .then(function successCallback(response) {
-                $scope.additionalSetting = response.data;
-                console.log("GET $scope.additionalSetting", $scope.additionalSetting)
+                $scope.paymentSettings = response.data;
+                console.log("GET $scope.paymentSettings", $scope.paymentSettings);
+                $scope.loading = false;
+            }, function errorCallback(response) {
+                $scope.loading = false;
+            });
+
+        $http({
+            method: 'GET',
+            url: '/delivery'
+        })
+            .then(function successCallback(response) {
+                $scope.additionalSettings = response.data;
+                console.log("GET $scope.Settings", $scope.additionalSettings);
                 $scope.loading = false;
             }, function errorCallback(response) {
                 $scope.loading = false;
@@ -19,22 +31,35 @@ angular.module('WiseHands')
 
 
         $scope.updateAdditionalSetting = function () {
-            console.log("$scope.additionalSetting before PUT", $scope.additionalSetting);
             $scope.loading = true;
+            // $http({
+            //     method: 'PUT',
+            //     url: '/payment/update',
+            //     data: $scope.paymentSettings
+            // })                .success(function (response) {
+            //         $scope.paymentSettings = response;
+            //         console.log('after PUT update additionalSetting', $scope.paymentSettings);
+            //         $scope.loading = false;
+            //     }).
+            // error(function (response) {
+            //     $scope.loading = false;
+            //     console.log(response);
+            // });
+
             $http({
                 method: 'PUT',
-                url: '/additional-setting/update',
-                data: $scope.additionalSetting
-            })
-                .success(function (response) {
-                    $scope.additionalSetting = response;
-                    console.log('after PUT update additionalSetting', $scope.additionalSetting);
-                    $scope.loading = false;
-                }).
+                url: '/delivery',
+                data: $scope.additionalSettings
+            }).success(function (response) {
+                $scope.paymentSettings = response;
+                console.log('after PUT update additionalSetting', $scope.additionalSettings);
+                $scope.loading = false;
+            }).
             error(function (response) {
                 $scope.loading = false;
                 console.log(response);
             });
+
 
         };
 
