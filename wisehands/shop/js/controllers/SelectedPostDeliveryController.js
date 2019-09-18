@@ -42,7 +42,7 @@
                         $scope.onlinePaymentEbabled = response.data.onlinePaymentEnabled;
                         $scope.buttonPaymentTitle = response.data.buttonPaymentTitle;
                         console.log("buttonPaymentTitle", $scope.buttonPaymentTitle);
-                        if ($scope.buttonPaymentTitle === ""){
+                        if (!$scope.buttonPaymentTitle){
                             $scope.buttonPaymentTitle = "До оплати";
                         }
                     }, function errorCallback(error) {
