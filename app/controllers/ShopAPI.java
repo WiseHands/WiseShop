@@ -116,31 +116,12 @@ public class ShopAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        DateTime dateTime = new DateTime(shop.startTime);
-        Date startTime = dateTime.toDate();
-        dateTime = new DateTime(shop.endTime);
-        Date endTime = dateTime.toDate();
-
-        TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
-        dateFormat.setTimeZone(timeZone);
-        String currentTimeISO = dateFormat.format(new Date());
-        dateTime = new DateTime(currentTimeISO);
-        Date currentTime = dateTime.toDate();
-
-        boolean isWorkingHours;
-        if(shop.alwaysOpen) {
-            isWorkingHours = true;
-        } else {
-            isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, currentTime);
-        }
 
         JSONObject json = new JSONObject();
         json.put("name", shop.shopName);
         json.put("uuid", shop.uuid);
         json.put("startTime", shop.startTime);
         json.put("endTime", shop.endTime);
-        json.put("isShopOpenNow", isWorkingHours);
         json.put("locale", shop.locale);
         json.put("alwaysOpen", shop.alwaysOpen);
         json.put("isTemporaryClosed", shop.isTemporaryClosed);
@@ -151,6 +132,7 @@ public class ShopAPI extends AuthController {
         json.put("buttonPaymentTitle", shop.paymentSettings.buttonPaymentTitle);
         json.put("minimumPayment", shop.paymentSettings.minimumPayment);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
+        json.put("fieldNameCustomer", shop.additionalSetting.fieldNameCustomer);
         json.put("deliveryPolygon", shop.delivery.courierPolygonData);
         json.put("googleStaticMapsApiKey", shop.googleStaticMapsApiKey);
         boolean couponsEnabled = true;
@@ -159,9 +141,9 @@ public class ShopAPI extends AuthController {
             couponsEnabled = false;
         }
         json.put("couponsEnabled", couponsEnabled);
+        System.out.println("Some problem here shop.additionalSetting.fieldNameCustomer --- " + shop.additionalSetting.fieldNameCustomer);
 
         renderJSON(json);
-        System.out.println("Some problem here 8");
 
     }
 
@@ -199,14 +181,15 @@ public class ShopAPI extends AuthController {
         String googleAnalyticsCode = (String) jsonBody.get("googleAnalyticsCode");
         String googleMapsApiKey = (String) jsonBody.get("googleMapsApiKey");
         String googleStaticMapsApiKey = (String) jsonBody.get("googleStaticMapsApiKey");
-        String startTime = (String) jsonBody.get("startTime");
         String closedShopTitle = (String) jsonBody.get("temporaryClosedTitle");
         String closedShopdiscription = (String) jsonBody.get("temporaryClosedDescription");
         Boolean isTemporaryClosed = (Boolean) jsonBody.get("isTemporaryClosed");
 
+        String startTime = (String) jsonBody.get("startTime");
         String endTime = (String) jsonBody.get("endTime");
         Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
+
         System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
 
         shop.temporaryClosedTitle = closedShopTitle;
@@ -226,6 +209,8 @@ public class ShopAPI extends AuthController {
         shop.googleMapsApiKey = googleMapsApiKey;
         shop.googleStaticMapsApiKey = googleStaticMapsApiKey;
         shop.locale = locale;
+
+
 
         shop = shop.save();
         renderJSON(json(shop));

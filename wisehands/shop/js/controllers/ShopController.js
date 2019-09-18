@@ -55,6 +55,7 @@
                 })
                     .then(function successCallback(response) {
                         $scope.products = response.data;
+                        console.log("$scope.products", $scope.products);
                     }, function errorCallback(error) {
                         console.log(error);
                     });
@@ -72,7 +73,6 @@
                 function loadOptions() {
                     $scope.selectedItems = shared.getProductsToBuy();
                     $scope.totalQuantity = shared.getTotalQuantity();
-
                 }
 
                 loadOptions();
@@ -102,9 +102,22 @@
                          isActivePropertyTagsMoreThanTwo += property.tags.length;
                      });
 
-                     PublicShopInfo.handleWorkingHours($scope);
+                     // PublicShopInfo.handleWorkingHours($scope);
 
-                     if($scope.isNotWorkingTime) {
+                     let currDate =  new Date();
+                     let currTime = currDate.getHours() * 60 + currDate.getMinutes();
+                     var firstTime = Number($scope.startHour * 60) + Number($scope.startMinute);
+                     var lastTime = Number($scope.endHour * 60) + Number($scope.endMinute);
+                     var isNotWorkingTime;
+                     if ($scope.alwaysOpen === true) {
+                         isNotWorkingTime = false;
+                     } else if (currTime >= firstTime && currTime < lastTime){
+                         isNotWorkingTime = true;
+                     } else {
+                         isNotWorkingTime = false;
+                     }
+
+                     if(!isNotWorkingTime) {
                          toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                      }
 
@@ -129,5 +142,7 @@
                 };
 
                 sideNavInit.sideNav();
+
+
             }]);
 })();

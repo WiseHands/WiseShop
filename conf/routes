@@ -29,7 +29,7 @@ GET     {client}/payment/detail                         PaymentSettingsAPI.detai
 PUT     {client}/payment/update                         PaymentSettingsAPI.update
 
 GET     {client}/additional-setting/detail               AdditionalSettingAPI.details
-PUT     {client}/additional-setting/update               AdditionalSettingAPI.update
+PUT     {client}/additional-setting/update               AdditionalSettingAPI.create
 
 
 GET     {client}/visualsettings                         VisualSettingsAPI.details
