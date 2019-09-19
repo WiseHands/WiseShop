@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 public class DeliveryDTO extends GenericModel {
@@ -43,6 +44,7 @@ public class DeliveryDTO extends GenericModel {
     public String newPostText;
 
     @Expose
+    @Size(max=1024)
     public String orderMessage;
 
 
