@@ -6,15 +6,6 @@
                 var paymentButton = document.querySelector(".proceedWithPayment");
                 paymentButton.innerHTML = $scope.paymentButton;
 
-                // get name for element
-                $http({
-                    method: 'GET',
-                    url: 'additional-setting/detail'
-                }).then(function successCallback(response) {
-                    console.log("additional-setting/detail response:", response);
-
-                });
-
 
                 $http({
                     method: 'GET',
@@ -49,13 +40,17 @@
                     method: 'GET',
                     url: '/delivery'
                 }).then(function successCallback(response) {
+                        console.log('from /delivery', response.data);
                         $scope.deliverance = response.data;
-                        if($scope.total < $scope.deliverance.courierFreeDeliveryLimit) {
+
+                    if($scope.total < $scope.deliverance.courierFreeDeliveryLimit) {
                           $scope.deliveryPrice = $scope.deliverance.courierPrice;
                         }
                     // set delivery price for wholesale order
-                    if($scope.totalWholesalePrice < $scope.deliverance.courierFreeDeliveryLimit) {
-                        $scope.deliveryPrice = $scope.deliverance.courierPrice;
+                    if ($scope.totalWholesalePrice != 0) {
+                        if ($scope.totalWholesalePrice < $scope.deliverance.courierFreeDeliveryLimit) {
+                            $scope.deliveryPrice = $scope.deliverance.courierPrice;
+                        }
                     }
 
                     }, function errorCallback(error) {
