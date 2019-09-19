@@ -79,10 +79,6 @@ public class ShopDTO extends GenericModel {
 
     @Expose
     @OneToOne(cascade=CascadeType.ALL)
-    public AdditionalSettingDTO additionalSetting;
-
-    @Expose
-    @OneToOne(cascade=CascadeType.ALL)
     public VisualSettingsDTO visualSettingsDTO;
 
     @Expose
@@ -112,7 +108,6 @@ public class ShopDTO extends GenericModel {
     }
 
     public ShopDTO(List<UserDTO> users,
-                   AdditionalSettingDTO additionalSetting,
                    PaymentSettingsDTO paymentSettings,
                    DeliveryDTO delivery,
                    ContactDTO contact,
@@ -133,7 +128,6 @@ public class ShopDTO extends GenericModel {
             }
             user.shopList.add(this);
         }
-        this.additionalSetting = additionalSetting;
         this.paymentSettings = paymentSettings;
         this.balance = balance;
         this.delivery = delivery;
