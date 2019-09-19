@@ -47,11 +47,11 @@
                           $scope.deliveryPrice = $scope.deliverance.courierPrice;
                         }
                     // set delivery price for wholesale order
-                    if ($scope.totalWholesalePrice != 0) {
-                        if ($scope.totalWholesalePrice < $scope.deliverance.courierFreeDeliveryLimit) {
-                            $scope.deliveryPrice = $scope.deliverance.courierPrice;
-                        }
-                    }
+                    // if ($scope.totalWholesalePrice != 0) {
+                    //     if ($scope.totalWholesalePrice < $scope.deliverance.courierFreeDeliveryLimit) {
+                    //         $scope.deliveryPrice = $scope.deliverance.courierPrice;
+                    //     }
+                    // }
 
                     }, function errorCallback(error) {
                         console.log(error);
