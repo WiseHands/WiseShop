@@ -188,10 +188,6 @@ public class ShopAPI extends AuthController {
         String endTime = (String) jsonBody.get("endTime");
         Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
-
-//        additional setting
-        String orderDoneTitle = (String) jsonBody.get("orderDoneTitle");
-        shop.orderDoneTitle = orderDoneTitle;
         System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
 
         shop.temporaryClosedTitle = closedShopTitle;
