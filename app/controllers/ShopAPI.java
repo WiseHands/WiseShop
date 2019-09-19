@@ -110,7 +110,7 @@ public class ShopAPI extends AuthController {
 
     }
 
-    public static void publicInfo(String client) throws Exception { // /shop/details
+    public static void publicInfo(String client) throws Exception { // /shop/details/public
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -132,7 +132,7 @@ public class ShopAPI extends AuthController {
         json.put("buttonPaymentTitle", shop.paymentSettings.buttonPaymentTitle);
         json.put("minimumPayment", shop.paymentSettings.minimumPayment);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
-        json.put("fieldNameCustomer", shop.additionalSetting.fieldNameCustomer);
+
         json.put("deliveryPolygon", shop.delivery.courierPolygonData);
         json.put("googleStaticMapsApiKey", shop.googleStaticMapsApiKey);
         boolean couponsEnabled = true;
@@ -141,7 +141,6 @@ public class ShopAPI extends AuthController {
             couponsEnabled = false;
         }
         json.put("couponsEnabled", couponsEnabled);
-        System.out.println("Some problem here shop.additionalSetting.fieldNameCustomer --- " + shop.additionalSetting.fieldNameCustomer);
 
         renderJSON(json);
 
@@ -161,7 +160,7 @@ public class ShopAPI extends AuthController {
 
     }
 
-    public static void update(String client) throws Exception {
+    public static void update(String client) throws Exception { // /shop
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -190,6 +189,9 @@ public class ShopAPI extends AuthController {
         Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
 
+//        additional setting
+        String orderDoneTitle = (String) jsonBody.get("orderDoneTitle");
+        shop.orderDoneTitle = orderDoneTitle;
         System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
 
         shop.temporaryClosedTitle = closedShopTitle;
