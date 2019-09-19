@@ -38,32 +38,6 @@ public class OrderAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
-
-        DateTime dt = new DateTime(shop.startTime);
-        Date startTime = dt.toDate();
-
-        dt = new DateTime(shop.endTime);
-        Date endTime = dt.toDate();
-
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-
-        boolean isWorkingHours;
-        if(shop.alwaysOpen) {
-            isWorkingHours = true;
-        } else {
-            TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
-            dateFormat.setTimeZone(timeZone);
-            String currentTimeISO = dateFormat.format(new Date());
-            DateTime dateTime = new DateTime(currentTimeISO);
-            Date currentTime = dateTime.toDate();
-            isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, currentTime);
-        }
-        if(!isWorkingHours) {
-            forbidden("Shop is closed now.");
-        }
-
         String locale = "en_US";
         if(shop != null && shop.locale != null) {
             locale = shop.locale;
