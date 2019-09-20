@@ -187,6 +187,17 @@
   "deleteproperty.deleteMessage1": "Ви дійсно хочете видалити дану властивість?",
   "deleteproperty.deleteMessage2": "Властивість видалена.",
   "directives.language-select.Language": "Мова",
-  "hourssetting.title": "Налаштування годин"
+  "hourssetting.title": "Налаштування годин",
+  "hourssetting.monday": "Понеділок",
+  "hourssetting.tuesday": "Вівторок",
+  "hourssetting.wednesday": "Середа",
+  "hourssetting.thursday": "Четвер",
+  "hourssetting.friday": "П'ятниця",
+  "hourssetting.saturday": "Субота",
+  "hourssetting.sunday": "Неділя",
+  "hourssetting.day": "Працюємо",
+  "hourssetting.start": "Від",
+  "hourssetting.end": "До",
+  "hourssetting.closed": "Зачинено"
 
 }

@@ -188,6 +188,16 @@
   "deleteproperty.deleteMessage1": "Czy na pewno chcesz usunąć tę właściwość?",
   "deleteproperty.deleteMessage2": "Usunięto właściwość.",
   "directives.language-select.Language": "Język",
-  "hourssetting.title": "Ustawienie godzin"
-
+  "hourssetting.title": "Ustawienie godzin",
+  "hourssetting.monday": "Poniedziałek",
+  "hourssetting.tuesday": "Wtorek",
+  "hourssetting.wednesday": "Środa",
+  "hourssetting.thursday": "Czwartek",
+  "hourssetting.friday": "Piątek",
+  "hourssetting.saturday": "Sobota",
+  "hourssetting.sunday": "Niedziela",
+  "hourssetting.day": "Pracujący",
+  "hourssetting.start": "Od",
+  "hourssetting.end": "Do",
+  "hourssetting.closed": "Zamknięte"
 }

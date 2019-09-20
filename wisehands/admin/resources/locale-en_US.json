@@ -188,6 +188,17 @@
   "deleteproperty.deleteMessage1": "Do you really want to delete this property?",
   "deleteproperty.deleteMessage2": "Property deleted.",
   "directives.language-select.Language": "Language",
-  "hourssetting.title": "Hours setting "
+  "hourssetting.title": "Hours setting",
+  "hourssetting.monday": "Monday",
+  "hourssetting.tuesday": "Tuesday",
+  "hourssetting.wednesday": "Wednesday",
+  "hourssetting.thursday": "Thursday",
+  "hourssetting.friday": "Friday",
+  "hourssetting.saturday": "Saturday",
+  "hourssetting.sunday": "Sunday",
+  "hourssetting.day": "Working",
+  "hourssetting.start": "Start work",
+  "hourssetting.end": "End work",
+  "hourssetting.closed": "Closed"
 
 }

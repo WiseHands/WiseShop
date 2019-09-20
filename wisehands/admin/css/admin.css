@@ -12,6 +12,7 @@ table{
     width: 50%;
 }
 .table-day{
+    padding-left: 15px;
     text-align: left;
 }
 td, th {
