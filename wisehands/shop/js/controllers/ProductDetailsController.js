@@ -138,9 +138,21 @@
 
                     if(properties.length === activeProperties.length) {
 
-                        PublicShopInfo.handleWorkingHours($scope);
+                        let currDate =  new Date();
+                        let currTime = currDate.getHours() * 60 + currDate.getMinutes();
+                        var firstTime = Number($scope.startHour * 60) + Number($scope.startMinute);
+                        var lastTime = Number($scope.endHour * 60) + Number($scope.endMinute);
+                        var isNotWorkingTime;
+                        console.log("$scope.alwaysOpen", $scope.alwaysOpen);
+                        if ($scope.alwaysOpen === true) {
+                            isNotWorkingTime = true;
+                        } else if (currTime >= firstTime && currTime < lastTime){
+                            isNotWorkingTime = true;
+                        } else {
+                            isNotWorkingTime = false;
+                        }
 
-                        if($scope.isNotWorkingTime) {
+                        if(!isNotWorkingTime) {
                             toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                         } else {
                             var chosenProperties = [];
