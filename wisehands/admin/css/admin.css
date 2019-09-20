@@ -1,3 +1,32 @@
+/* create table for workingHour page*/
+.flex-table{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+table{
+    margin-top: 15px;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+}
+.table-day{
+    text-align: left;
+}
+td, th {
+    text-align: center;
+    padding: 5px;
+}
+@media only screen and (max-width: 500px) {
+    table{
+        margin-top: 25px;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 90%;
+    }
+}
+/*end of the table*/
 .fluid-width{
     width: auto !important;
 }
