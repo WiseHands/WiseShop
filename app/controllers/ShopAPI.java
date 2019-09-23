@@ -134,7 +134,6 @@ public class ShopAPI extends AuthController {
         } else {
             isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, currentTime);
         }
-
         JSONObject json = new JSONObject();
         json.put("name", shop.shopName);
         json.put("uuid", shop.uuid);
@@ -149,6 +148,7 @@ public class ShopAPI extends AuthController {
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
         json.put("deliveryPolygon", shop.delivery.courierPolygonData);
         json.put("googleStaticMapsApiKey", shop.googleStaticMapsApiKey);
+
         json.put("monStartTime", shop.monStartTime);
         json.put("monEndTime", shop.monEndTime);
         json.put("monOpen", shop.monOpen);

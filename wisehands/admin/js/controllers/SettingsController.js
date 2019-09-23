@@ -27,8 +27,8 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
                 console.log('details value of checkbox whenClosed:', $scope.activeShop.isTemporaryClosed);
-                $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
-                $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
+                // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
+                // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
                 $scope.loading = false;
             }, function errorCallback(response) {
                 $scope.loading = false;
@@ -57,8 +57,8 @@ angular.module('WiseHands')
                     $scope.activeShop = response;
                     console.log('after PUT whenClosed', $scope.activeShop.whenClosed);
                     localStorage.setItem('activeShopName', $scope.activeShop.shopName);
-                    $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
-                    $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
+                    // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
+                    // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
                     document.title = $scope.activeShop.shopName;
                     $scope.loading = false;
                 }).
