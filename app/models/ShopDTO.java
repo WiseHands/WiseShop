@@ -33,66 +33,53 @@ public class ShopDTO extends GenericModel {
 //    time values for hoursSetting page
     @Expose
     public  String monStartTime;
-
     @Expose
     public  String monEndTime;
-
     @Expose
     public boolean monOpen;
 
     @Expose
     public  String tueStartTime;
-
     @Expose
     public  String tueEndTime;
-
     @Expose
     public boolean tueOpen;
 
     @Expose
     public  String wedStartTime;
-
     @Expose
     public  String wedEndTime;
-
     @Expose
     public boolean wedOpen;
 
     @Expose
     public  String thuStartTime;
-
     @Expose
     public  String thuEndTime;
-
     @Expose
     public boolean thuOpen;
 
     @Expose
     public  String friStartTime;
-
     @Expose
     public  String friEndTime;
-
     @Expose
     public boolean friOpen;
 
     @Expose
     public  String satStartTime;
-
     @Expose
     public  String satEndTime;
-
     @Expose
     public boolean satOpen;
 
     @Expose
     public  String sunStartTime;
-
     @Expose
     public  String sunEndTime;
-
     @Expose
     public boolean sunOpen;
+    
 //  end time values for hoursSetting page
 
     @Expose

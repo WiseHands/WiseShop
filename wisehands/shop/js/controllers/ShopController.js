@@ -103,9 +103,21 @@
                          isActivePropertyTagsMoreThanTwo += property.tags.length;
                      });
 
-                     PublicShopInfo.handleWorkingHours($scope);
+                    let currDate =  new Date();
+                    let currTime = currDate.getHours() * 60 + currDate.getMinutes();
+                    var firstTime = Number($scope.startHour * 60) + Number($scope.startMinute);
+                    var lastTime = Number($scope.endHour * 60) + Number($scope.endMinute);
+                    var isNotWorkingTime;
 
-                     if($scope.isNotWorkingTime) {
+                    if ($scope.alwaysOpen === true) {
+                        isNotWorkingTime = true;
+                    } else if (currTime >= firstTime && currTime < lastTime){
+                        isNotWorkingTime = true;
+                    } else {
+                        isNotWorkingTime = false;
+                    }
+
+                     if(isNotWorkingTime) {
                          toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                      }
 

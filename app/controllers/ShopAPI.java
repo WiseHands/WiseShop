@@ -110,7 +110,7 @@ public class ShopAPI extends AuthController {
 
     }
 
-    public static void publicInfo(String client) throws Exception { // /shop/details
+    public static void publicInfo(String client) throws Exception { // /shop/details/public
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
