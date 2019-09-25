@@ -199,5 +199,6 @@
   "hourssetting.day": "Pracujący",
   "hourssetting.start": "Od",
   "hourssetting.end": "Do",
-  "hourssetting.closed": "Zamknięte"
+  "hourssetting.closed": "Zamknięte",
+  "hourssetting.whenClosed": "Kiedy sklep jest zamknięty:"
 }

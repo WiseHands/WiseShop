@@ -199,6 +199,7 @@
   "hourssetting.day": "Working",
   "hourssetting.start": "Start work",
   "hourssetting.end": "End work",
-  "hourssetting.closed": "Closed"
+  "hourssetting.closed": "Closed",
+  "hourssetting.whenClosed": "When shop closed:"
 
 }

@@ -64,6 +64,7 @@
                     url: '/shop/details/public'
                 })
                     .then(function successCallback(response) {
+                        console.log("response: ", response.data);
                         PublicShopInfo.handlePublicShopInfo($scope, response);
                     }, function errorCallback(error) {
                         console.log(error);

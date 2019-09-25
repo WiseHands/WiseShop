@@ -276,7 +276,7 @@ public class ShopAPI extends AuthController {
         shop.friEndTime = friEndTime;
         shop.friOpen = friOpen;
         shop.satStartTime = satStartTime;
-        shop.satEndTime = satStartTime;
+        shop.satEndTime = satEndTime;
         shop.satOpen = satOpen;
         shop.sunStartTime = sunStartTime;
         shop.sunEndTime = sunEndTime;

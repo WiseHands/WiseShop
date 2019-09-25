@@ -198,6 +198,7 @@
   "hourssetting.day": "Працюємо",
   "hourssetting.start": "Від",
   "hourssetting.end": "До",
-  "hourssetting.closed": "Зачинено"
+  "hourssetting.closed": "Зачинено",
+  "hourssetting.whenClosed": "Коли магазин закритий:"
 
 }

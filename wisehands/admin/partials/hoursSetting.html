@@ -101,5 +101,20 @@
                 </div>
             </td>
         </tr>
-    </table>
+    </table><br>
+    <div style="align-content: center">
+        <h5>{{'hourssetting.whenClosed' | translate}}</h5>
+    </div>
+    <div class="input-field col-md-12 z-index-2">
+            <div class="col-sm-6">
+                <p>{{'settings.temporaryTitle' | translate}}</p>
+                <input id="temporaryTitle" type="text" ng-model="workDay.temporaryClosedTitle">
+            </div>
+
+            <div class="col-sm-6">
+                <p>{{'settings.temporaryDiscr' | translate}}</p>
+                <input id="temporaryDiscr" type="text" ng-model="workDay.temporaryClosedDescription">
+            </div>
+
+    </div>
 </div>
