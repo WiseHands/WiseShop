@@ -10,7 +10,7 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/balance',
+            url: '/balance'
         })
             .then(function successCallback(response) {
                 $scope.balance = response.data;
@@ -22,7 +22,7 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/shop/details',
+            url: '/shop/details'
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
@@ -43,7 +43,7 @@ angular.module('WiseHands')
                 console.log('0', $scope.activeShop.isTemporaryClosed);
                 $scope.activeShop.isTemporaryClosed = false;
               }
-        }
+        };
 
         $scope.updateStoreSettings = function () {
 
@@ -73,7 +73,7 @@ angular.module('WiseHands')
           console.log(document.getElementById("newDomainName").value);
           $http({
               method: 'PUT',
-              url: '/shop/domain/'  + document.getElementById("newDomainName").value,
+              url: '/shop/domain/'  + document.getElementById("newDomainName").value
           })
               .success(function (response) {
                 console.log(response.data.locale);
@@ -113,8 +113,8 @@ angular.module('WiseHands')
       toastr.clear();
       toastr.options = {
         "positionClass": "toast-bottom-center",
-        "preventDuplicates": true,
-      }
+        "preventDuplicates": true
+      };
       toastr.warning(msg);
     }
 
@@ -122,8 +122,8 @@ angular.module('WiseHands')
       toastr.clear();
       toastr.options = {
         "positionClass": "toast-bottom-center",
-        "preventDuplicates": true,
-      }
+        "preventDuplicates": true
+      };
       toastr.info(msg);
     }
 
