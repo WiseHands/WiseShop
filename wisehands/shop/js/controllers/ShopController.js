@@ -117,7 +117,7 @@
                         isNotWorkingTime = false;
                     }
 
-                     if(isNotWorkingTime) {
+                     if(!isNotWorkingTime) {
                          toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                      }
 

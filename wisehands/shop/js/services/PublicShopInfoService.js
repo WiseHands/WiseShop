@@ -1,15 +1,67 @@
 function workStartDay(response) {
     let now = moment(currentTime());
-    let monStartTime = new Date(response.data.monStartTime);
-    if (now.weekday() === 1){
-        return monStartTime;
+    let mon = new Date(response.data.monStartTime);
+    let tue = new Date(response.data.tueStartTime);
+    let wed = new Date(response.data.wedStartTime);
+    let thu = new Date(response.data.thuStartTime);
+    let fri = new Date(response.data.friStartTime);
+    let sat = new Date(response.data.satStartTime);
+    let sun = new Date(response.data.sunStartTime);
+
+    if (now.weekday() === 0){
+        return sun;
     }
+    if (now.weekday() === 1){
+        return mon;
+    }
+    if (now.weekday() === 2){
+        return tue;
+    }
+    if (now.weekday() === 3){
+        return wed;
+    }
+    if (now.weekday() === 4){
+        return thu;
+    }
+    if (now.weekday() === 5){
+        return fri;
+    }
+    if (now.weekday() === 6){
+        return sat;
+    }
+
+
 }
 function workEndDay(response) {
     let now = moment(currentTime());
-    let monEndTime = new Date(response.data.monEndTime);
+    let mon = new Date(response.data.monEndTime);
+    let tue = new Date(response.data.tueEndTime);
+    let wed = new Date(response.data.wedEndTime);
+    let thu = new Date(response.data.thuEndTime);
+    let fri = new Date(response.data.friEndTime);
+    let sat = new Date(response.data.satEndTime);
+    let sun = new Date(response.data.sunEndTime);
+
+    if (now.weekday() === 0){
+        return sun;
+    }
     if (now.weekday() === 1){
-        return monEndTime;
+        return mon;
+    }
+    if (now.weekday() === 2){
+        return tue;
+    }
+    if (now.weekday() === 3){
+        return wed;
+    }
+    if (now.weekday() === 4){
+        return thu;
+    }
+    if (now.weekday() === 5){
+        return fri;
+    }
+    if (now.weekday() === 6){
+        return sat;
     }
 }
 function currentTime(){
@@ -23,7 +75,6 @@ angular.module('WiseShop')
 
                 scope.shopName = response.data.name;
                 scope.shopId = response.data.uuid;
-                // scope.isShopOpenNow = response.data.isShopOpenNow;
                 scope.startTime = workStartDay(response);
                 scope.startHour = (scope.startTime.getHours()<10?'0':'') + scope.startTime.getHours();
                 scope.startMinute = (scope.startTime.getMinutes()<10?'0':'') + scope.startTime.getMinutes();
@@ -31,7 +82,6 @@ angular.module('WiseShop')
                 scope.endHour = (scope.endTime.getHours()<10?'0':'') + scope.endTime.getHours();
                 scope.endMinute = (scope.endTime.getMinutes()<10?'0':'') + scope.endTime.getMinutes();
                 scope.alwaysOpen = response.data.alwaysOpen;
-                debugger;
 
             },
 
