@@ -29,6 +29,7 @@ angular.module('WiseHands')
                     $scope.loading = false;
                 });
 
+
             $scope.setWorkingHour = function () {
 
                 $scope.loading = true;

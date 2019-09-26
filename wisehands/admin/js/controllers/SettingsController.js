@@ -36,11 +36,11 @@ angular.module('WiseHands')
 
         $scope.whenShopClosed = function(){
               if ($scope.activeShop.isTemporaryClosed){
-                console.log('1', $scope.activeShop.isTemporaryClosed);
+                console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
                 $scope.activeShop.isTemporaryClosed = true;
 
               } else {
-                console.log('0', $scope.activeShop.isTemporaryClosed);
+                console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
                 $scope.activeShop.isTemporaryClosed = false;
               }
         };

@@ -13,6 +13,8 @@ angular.module('WiseShop')
                 scope.endMinute = (scope.endTime.getMinutes()<10?'0':'') + scope.endTime.getMinutes();
                 scope.alwaysOpen = response.data.alwaysOpen
             },
+
+
             handleWorkingHours: function (scope) {
                 if (scope.alwaysOpen === true) {
                     scope.isNotWorkingTime = false;

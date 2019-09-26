@@ -71,6 +71,7 @@ public class Application extends Controller {
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
+
         if (shop.isTemporaryClosed) {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
