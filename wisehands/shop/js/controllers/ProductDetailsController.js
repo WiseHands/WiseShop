@@ -98,6 +98,10 @@
             })
                 .then(function successCallback(response) {
                     PublicShopInfo.handlePublicShopInfo($scope, response);
+                    if($scope.isShopOpenNow){
+                        $scope.isNotWorkingTime = true;
+                        toastr.warning('Сьогодні не працюємо');
+                    }
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -139,8 +143,9 @@
                     if(properties.length === activeProperties.length) {
 
                         PublicShopInfo.handleWorkingHours($scope);
-
-                        if($scope.isNotWorkingTime) {
+                        if($scope.isShopOpenNow){
+                            toastr.warning('Сьогодні не працюємо');
+                        } else if (!$scope.isNotWorkingTime) {
                             toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                         } else {
                             var chosenProperties = [];

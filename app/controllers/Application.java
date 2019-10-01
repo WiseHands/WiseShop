@@ -71,18 +71,6 @@ public class Application extends Controller {
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
-//        int day = date.getDay();
-//        if (
-//                (shop.monOpen && day == 1)||
-//                (shop.tueOpen && day == 2)||
-//                (shop.wedOpen && day == 3)||
-//                (shop.thuOpen && day == 4)||
-//                (shop.friOpen && day == 5)||
-//                (shop.satOpen && day == 6)||
-//                (shop.sunOpen && day == 0)
-//        ){
-//            shop.isTemporaryClosed = true;
-//        }
         if (shop.isTemporaryClosed) {
             renderTemplate("Application/temporaryClosed.html", shop);
         }

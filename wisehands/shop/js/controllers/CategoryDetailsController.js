@@ -20,6 +20,10 @@ angular.module('WiseShop')
             })
                 .then(function successCallback(response) {
                     PublicShopInfo.handlePublicShopInfo($scope, response);
+                    if($scope.isShopOpenNow){
+                        $scope.isNotWorkingTime = true;
+                        toastr.warning('Сьогодні не працюємо');
+                    }
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -37,7 +41,6 @@ angular.module('WiseShop')
             };
             $scope.buyStart = function (productDTO) {
 
-                PublicShopInfo.handleWorkingHours($scope);
 
                 var isActivePropertyTagsMoreThanTwo = 0;
 
@@ -47,8 +50,10 @@ angular.module('WiseShop')
                     });
                     isActivePropertyTagsMoreThanTwo += property.tags.length;
                 });
-
-                if($scope.isNotWorkingTime) {
+                PublicShopInfo.handleWorkingHours($scope);
+                if($scope.isShopOpenNow){
+                    toastr.warning('Сьогодні не працюємо');
+                } else if(!$scope.isNotWorkingTime) {
                     toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                 } else if (isActivePropertyTagsMoreThanTwo > 1) {
 

@@ -66,10 +66,8 @@
                     .then(function successCallback(response) {
                         console.log("response: ", response.data);
                         PublicShopInfo.handlePublicShopInfo($scope, response);
-                        console.log('$scope.isShopOpenNow ', $scope.isShopOpenNow);
                         if($scope.isShopOpenNow){
                             $scope.isNotWorkingTime = true;
-                            console.log('$scope.isNotWorkingTime ', $scope.isNotWorkingTime);
                             toastr.warning('Сьогодні не працюємо');
 
                         }
@@ -111,7 +109,6 @@
                      });
 
                     PublicShopInfo.handleWorkingHours($scope);
-                    console.log('$scope.isNotWorkingTime in buyProduct ', $scope.isNotWorkingTime);
                     if($scope.isShopOpenNow){
                         toastr.warning('Сьогодні не працюємо');
                     } else if(!$scope.isNotWorkingTime) {
