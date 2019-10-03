@@ -76,6 +76,7 @@ public class Application extends Controller {
         }
 
         renderTemplate("Application/shop.html", shop);
+
     }
 
     public static void shop(String client) {
