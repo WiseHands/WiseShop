@@ -193,6 +193,106 @@ footer {
     margin-bottom: 0px;
 }
 </style>
+<footer id="footer-shop" class="footer">
+
+    <div class="footer-first-block">
+        <div class="footer-contact">
+                <div><img src="wisehands/assets/images/footer-shop/icons8-clock-16.png"></div>
+                <div class="working-week-time">
+
+                    <div class="work-day">
+                        <p>ПН <h6 class="day" id="mon"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>ВТ <h6 class="day" id="tue"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>СР <h6 class="day" id="wed"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>ЧТ <h6 class="day" id="thu"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>ПТ <h6 class="day" id="fri"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>СБ <h6 class="day" type="time" id="sat"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>НД <h6 class="day" type="time" id="sun"></h6></p>
+                    </div>
+                </div>
+        </div>
+        <div class="footer-info">
+            <h4>Інформація</h4>
+            <ul>
+                <div class="footer-info-block">
+                    <div class="footer-info-first-block">
+                        <a href="#">
+                            <li>Оплата</li>
+                        </a>
+                        <a href="#">
+                            <li>Доставка</li>
+                        </a>
+                        <a href="#">
+                            <li>Повернення</li>
+                        </a>
+                    </div>
+                    <div class="footer-info-second-block">
+                        <a href="#">
+                            <li>Контакти</li>
+                        </a>
+                        <a href="#">
+                            <li>Про нас</li>
+                        </a>
+                        <a href="#">
+                            <li>Договір</li>
+                        </a>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-second-block">
+
+        <div class="footer-feedback">
+            <div class="offset-left">
+                <h4>Будьте в курсі</h4>
+                <p>Дізнавайесь про найцікавіші новини, знижки та акції</p>
+            </div>
+
+            <div class="footer-icons offset-left">
+                <div class="footer-icons-block">
+                    <a href="https://www.facebook.com/americano.lviv/" target="_blank"><img
+                            src="wisehands/assets/images/footer-shop/facebook-new.png"></a>
+                    <a href="#"><img src="wisehands/assets/images/footer-shop/instagram-new.png"></a>
+                    <a href="#"><img src="wisehands/assets/images/footer-shop//youtube-play.png"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-payment">
+            <h4 class="offset-left">Приймаємо</h4>
+            <div class="payment-img"><img src="wisehands/assets/images/footer-shop/msvisa1.png"></div>
+            <div class="contact-info offset-left">
+                <div class="contact-info-icon-container">
+                    <div><img src="wisehands/assets/images/footer-shop/icons8-envelope-16.png"></div>
+                    <div><p>inf@iport.com</p></div>
+                </div>
+                <div class="contact-info-icon-container">
+                    <div><img src="wisehands/assets/images/footer-shop/icons8-phone-16.png"></div>
+                    <div><p>+1 234 567 89</p></div>
+                </div>
+                <div class="contact-info-icon-container">
+                    <div><img src="wisehands/assets/images/footer-shop/icons8-map-16.png"></div>
+                    <div><p>79000, Lviv</p></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
 <script>
     fetch('/shop/details/public', {
         method: 'GET',
@@ -255,107 +355,3 @@ footer {
     });
 
 </script>
-<footer id="footer-shop" class="footer">
-    <div class="footer-first-block">
-        <div class="footer-contact">
-            <div class="schedule offset-left">
-                <div><img src="wisehands/assets/images/footer-shop/icons8-clock-16.png"></div>
-                <div class="working-week-time">
-
-                    <div class="work-day">
-                        <p>ПН <h6 class="day" id="mon"></h6></p>
-                    </div>
-                    <div class="work-day">
-                        <p>ВТ <h6 class="day" id="tue"></h6></p>
-                    </div>
-                    <div class="work-day">
-                        <p>СР <h6 class="day" id="wed"></h6></p>
-                    </div>
-                    <div class="work-day">
-                        <p>ЧТ <h6 class="day" id="thu"></h6></p>
-                    </div>
-                    <div class="work-day">
-                        <p>ПТ <h6 class="day" id="fri"></h6></p>
-                    </div>
-                    <div class="work-day">
-                        <p>СБ <h6 class="day" type="time" id="sat"></h6></p>
-                    </div>
-                    <div class="work-day">
-                        <p>НД <h6 class="day" type="time" id="sun"></h6></p>
-                    </div>
-
-
-                </div>
-            </div>
-            <!--<div class="contact-info offset-left">-->
-                <!--<div class="contact-info-icon-container">-->
-                    <!--<div><img src="wisehands/assets/images/footer-shop/icons8-envelope-16.png"></div>-->
-                    <!--<div><p>inf@iport.com</p></div>-->
-                <!--</div>-->
-                <!--<div class="contact-info-icon-container">-->
-                    <!--<div><img src="wisehands/assets/images/footer-shop/icons8-phone-16.png"></div>-->
-                    <!--<div><p>+1 234 567 89</p></div>-->
-                <!--</div>-->
-                <!--<div class="contact-info-icon-container">-->
-                    <!--<div><img src="wisehands/assets/images/footer-shop/icons8-map-16.png"></div>-->
-                    <!--<div><p>79000, Lviv</p></div>-->
-                <!--</div>-->
-            <!--</div>-->
-        </div>
-        <div class="footer-info">
-            <h4>Інформація</h4>
-            <ul>
-                <div class="footer-info-block">
-                    <div class="footer-info-first-block">
-                        <a href="#">
-                            <li>Оплата</li>
-                        </a>
-                        <a href="#">
-                            <li>Доставка</li>
-                        </a>
-                        <a href="#">
-                            <li>Повернення</li>
-                        </a>
-                    </div>
-                    <div class="footer-info-second-block">
-                        <a href="#">
-                            <li>Контакти</li>
-                        </a>
-                        <a href="#">
-                            <li>Про нас</li>
-                        </a>
-                        <a href="#">
-                            <li>Договір</li>
-                        </a>
-                    </div>
-                </div>
-            </ul>
-
-        </div>
-
-    </div>
-
-    <div class="footer-second-block">
-        <div class="footer-feedback">
-            <div class="offset-left">
-                <h4>Будьте в курсі</h4>
-                <p>Дізнавайесь про найцікавіші новини, знижки та акції</p>
-            </div>
-
-
-            <div class="footer-icons offset-left">
-                <div class="footer-icons-block">
-                    <a href="https://www.facebook.com/americano.lviv/" target="_blank"><img
-                            src="wisehands/assets/images/footer-shop/facebook-new.png"></a>
-                    <a href="#"><img src="wisehands/assets/images/footer-shop/instagram-new.png"></a>
-                    <a href="#"><img src="wisehands/assets/images/footer-shop//youtube-play.png"></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-payment">
-            <h4 class="offset-left">Приймаємо</h4>
-            <div class="payment-img"><img src="wisehands/assets/images/footer-shop/msvisa1.png"></div>
-        </div>
-
-    </div>
-</footer>
