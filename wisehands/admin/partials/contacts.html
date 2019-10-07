@@ -40,10 +40,22 @@
             <input id="coords" type="text" ng-model="contacts.latLng">
         </div>
         <div class="input-field col-md-12">
-            <p>{{'contacts.description' | translate}}</p>
+            <!--<p>{{'contacts.description' | translate}}</p>-->
             <textarea id="textarea1" class="materialize-textarea" ng-model="contacts.description"></textarea>
         </div>
         <br>
         <hr>
+        <div class="input-field col-md-6">
+            <p>{{'contacts.linkfacebook' | translate}}</p>
+            <input id="addres" type="text" ng-model="contacts.address">
+        </div>
+        <div class="input-field col-md-6">
+            <p>{{'contacts.linkinstagram' | translate}}</p>
+            <input id="coord" type="text" ng-model="contacts.latLng">
+        </div>
+        <div class="input-field col-md-6">
+            <p>{{'contacts.linkyoutube' | translate}}</p>
+            <input id="coord" type="text" ng-model="contacts.latLng">
+        </div>
     </form>
 </div>
