@@ -146,6 +146,7 @@ angular.module('WiseHands')
                     console.log(response);
                 });
         };
+
         $scope.createCategory = function () {
             $scope.loading = true;
             $http({
@@ -188,6 +189,8 @@ angular.module('WiseHands')
             fd.append('isActive', $scope.product.isActive);
             fd.append('oldPrice', $scope.product.oldPrice);
             fd.append('sortOrder', $scope.product.sortOrder);
+            fd.append('wholesaleCount', $scope.product.wholesaleCount);
+            fd.append('wholesalePrice', $scope.product.wholesalePrice);
 
             $http.post('/product', fd, {
                     transformRequest: angular.identity,

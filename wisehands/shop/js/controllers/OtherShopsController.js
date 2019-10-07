@@ -57,8 +57,6 @@
                     return lng;
                 };
 
-
-
                 $scope.findNearStore = function () {
                     $scope.loading = true;
 
@@ -82,7 +80,7 @@
 
 
                         navigator.geolocation.getCurrentPosition(function(position) {
-                            var distanceTo = [];
+
                             var distanceToShops = [];
                             var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 

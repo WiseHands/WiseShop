@@ -1,6 +1,7 @@
 ﻿{
   "sideNav.Main": "Główna",
   "shopView.netShops": "Sklepu",
+  "shopView.minimumPayment": "Minimalna kwota zamówienia",
   "shopView.titile": "Wybierz sklep do zakupu",
   "shopView.use": "Wybierz ten sklep",
   "shopView.contacts": "Kontakt",
@@ -25,6 +26,7 @@
   "shopView.fullName": "Imię i nazwisko",
   "shopView.fullNamePlaceholder": "Wpisz swoje imię tutaj",
   "shopView.phone": "Telefon",
+  "shopView.mail": "Email",
   "shopView.address": "Adres",
   "shopView.addressLocate": "Proszę wybrać adres w obszarze dostawy",
   "shopView.noAddress": "Nie znaleziono adresu",

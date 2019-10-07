@@ -41,7 +41,6 @@ angular.module('WiseShop')
             };
             $scope.buyStart = function (productDTO) {
 
-
                 var isActivePropertyTagsMoreThanTwo = 0;
 
                 productDTO.properties.forEach(function (property) {
@@ -50,6 +49,7 @@ angular.module('WiseShop')
                     });
                     isActivePropertyTagsMoreThanTwo += property.tags.length;
                 });
+
                 PublicShopInfo.handleWorkingHours($scope);
                 if($scope.isShopOpenNow){
                     toastr.warning('Сьогодні не працюємо');

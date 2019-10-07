@@ -9,15 +9,17 @@
             }
             loadOptions();
 
-
-
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
             })
                 .then(function successCallback(response) {
+                    console.log("public response", response.data);
                     $scope.shopName = response.data.name;
                     $scope.shopId = response.data.uuid;
+                    $scope.minimumPayment = response.data.minimumPayment;
+                    console.log("public response min payment", $scope.minimumPayment);
+
                 }, function errorCallback(error) {
                     console.log(error);
                 });

@@ -6,6 +6,7 @@
                 var paymentButton = document.querySelector(".proceedWithPayment");
                 paymentButton.innerHTML = $scope.paymentButton;
 
+
                 $http({
                     method: 'GET',
                     url: '/courier/polygon'
@@ -30,6 +31,8 @@
                     $scope.currentOrderUuid = shared.getCurrentOrderUuid();
                     $scope.paymentType = shared.getPaymentType();
                     $scope.deliveryType = shared.getDeliveryType();
+                    $scope.wholesaleCount = shared.getWholesaleCount();
+                    $scope.totalWholesalePrice = shared.getWholesalePrice();
                 }
                 loadOptions();
 
@@ -37,10 +40,18 @@
                     method: 'GET',
                     url: '/delivery'
                 }).then(function successCallback(response) {
+                        console.log('from /delivery', response.data);
                         $scope.deliverance = response.data;
-                        if($scope.total < $scope.deliverance.courierFreeDeliveryLimit) {
+
+                    if($scope.total < $scope.deliverance.courierFreeDeliveryLimit) {
                           $scope.deliveryPrice = $scope.deliverance.courierPrice;
                         }
+                    // set delivery price for wholesale order
+                    // if ($scope.totalWholesalePrice != 0) {
+                    //     if ($scope.totalWholesalePrice < $scope.deliverance.courierFreeDeliveryLimit) {
+                    //         $scope.deliveryPrice = $scope.deliverance.courierPrice;
+                    //     }
+                    // }
 
                     }, function errorCallback(error) {
                         console.log(error);
@@ -54,6 +65,11 @@
                         $scope.shopId = response.data.uuid;
                         $scope.payLateButton = response.data.manualPaymentEnabled;
                         $scope.onlinePaymentEbabled = response.data.onlinePaymentEnabled;
+                        $scope.buttonPaymentTitle = response.data.buttonPaymentTitle;
+                        console.log("buttonPaymentTitle", $scope.buttonPaymentTitle);
+                        if (!$scope.buttonPaymentTitle){
+                            $scope.buttonPaymentTitle = "До оплати";
+                        }
                     }, function errorCallback(error) {
                         console.log(error);
                     });
@@ -65,6 +81,7 @@
                         deliveryType: $scope.deliveryType,
                         paymentType: $scope.paymentType,
                         phone: new String(document.getElementById('phone').value),
+                        email: document.getElementById('email').value,
                         name: document.getElementById('name').value,
                         address: document.getElementById('address').value,
                         newPostDepartment: "",
@@ -109,6 +126,7 @@
                         url: '/order/' + $scope.currentOrderUuid + '/manually-payed'
                     })
                         .then(function successCallback(response) {
+                            console.log("order response", response);
                             window.location.pathname = '/done';
                         }, function errorCallback(data) {
                             console.log(data);
@@ -116,6 +134,7 @@
                 };
 
                 function payOnline() {
+                    console.log("payonline");
                   var rootDiv = document.querySelector('.proceedWithPayment');
                   rootDiv.firstChild.submit();
                 };

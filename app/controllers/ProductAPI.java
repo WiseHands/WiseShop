@@ -21,7 +21,7 @@ public class ProductAPI extends AuthController {
     public static void create(String client, String name, String description,
                               Double price, File fake, Integer mainPhotoIndex,
                               String category,
-                              Integer sortOrder, Boolean isActive, Double oldPrice) throws Exception {
+                              Integer sortOrder, Boolean isActive, Double oldPrice, Integer wholesaleCount, Double wholesalePrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -43,11 +43,13 @@ public class ProductAPI extends AuthController {
         }
 
         CategoryDTO cat = CategoryDTO.findById(category);
-        ProductDTO product = new ProductDTO(name, description, price, images, shop, cat);
+        ProductDTO product = new ProductDTO(name, description, price, images, shop, cat, wholesaleCount, wholesalePrice);
         product.mainImage = images.get(mainPhotoIndex);
         product.isActive = isActive;
         product.sortOrder = sortOrder;
         product.oldPrice = oldPrice;
+        product.wholesaleCount = wholesaleCount;
+        product.wholesalePrice = wholesalePrice;
         product = product.save();
 
 
@@ -121,7 +123,7 @@ public class ProductAPI extends AuthController {
     }
 
     public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
-                              Integer sortOrder, Boolean isActive, Double oldPrice, String properties) throws Exception {
+                              Integer sortOrder, Boolean isActive, Double oldPrice, String properties, Integer wholesaleCount, Double wholesalePrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -174,6 +176,9 @@ public class ProductAPI extends AuthController {
         product.isActive = isActive;
         product.sortOrder = sortOrder;
         product.oldPrice = oldPrice;
+
+        product.wholesaleCount = wholesaleCount;
+        product.wholesalePrice = wholesalePrice;
 
         product.save();
 

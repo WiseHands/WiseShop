@@ -1,5 +1,6 @@
 {
   "sideNav.Main": "Main",
+  "shopView.minimumPayment": "Minimum order amount",
   "shopView.netShops": "Shops",
   "shopView.title": "Choose shop for buying",
   "shopView.use": "Choose shop",
@@ -25,6 +26,7 @@
   "shopView.fullName": "Full Name",
   "shopView.fullNamePlaceholder": "Enter your full name here",
   "shopView.phone": "Phone",
+  "shopView.mail": "Email",
   "shopView.address": "Address",
   "shopView.addressLocate": "Please click inside the area where order will be delivered or",
   "shopView.noAddress": "Address not selected",

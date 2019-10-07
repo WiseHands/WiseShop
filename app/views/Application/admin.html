@@ -51,6 +51,7 @@
         <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> {{'sideNav.Settings' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> {{'sideNav.Users' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'userprofile'}"><a href="#/userprofile" class="waves-effect waves-light"><i class="fa fa-user"></i> {{'sideNav.Profile' | translate}}</a></li>
+        <!--<li ng-class="{active: $route.current.activetab == 'discounts'}"><a href="#/discount" class="waves-effect waves-light"><i class="fa fa-gift"></i> {{'sideNav.Discount' | translate}}</a></li>-->
         <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> {{'sideNav.SignOut' | translate}}</a></li>
 
     </ul>
@@ -94,6 +95,7 @@
 <script src="wisehands/admin/js/controllers/EditProductController.js"></script>
 <script src="wisehands/admin/js/controllers/DeliverySettingsController.js"></script>
 <script src="wisehands/admin/js/controllers/SettingsController.js"></script>
+<script src="wisehands/admin/js/controllers/AdditionSettingsController.js"></script>
 <script src="wisehands/admin/js/controllers/ContactsController.js"></script>
 <script src="wisehands/admin/js/controllers/NetworkController.js"></script>
 <script src="wisehands/admin/js/controllers/NetworkShopListController.js"></script>
@@ -114,6 +116,8 @@
 <script src="wisehands/admin/js/controllers/AddPropertyController.js"></script>
 <script src="wisehands/admin/js/controllers/EditPropertyController.js"></script>
 <script src="wisehands/admin/js/controllers/DeliveryBounderController.js"></script>
+<script src="wisehands/admin/js/controllers/DiscountsController.js"></script>
+
 
 <!-- Image Cropper -->
 <script src="wisehands/admin/js/controllers/ImageCropperController.js"></script>

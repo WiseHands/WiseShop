@@ -14,6 +14,7 @@
     </nav>
 </header>
 <main class="p-t-6 noSidePadding">
+
     <div class="container">
         <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
 
@@ -38,6 +39,16 @@
                        name="phone"
                        ng-value="+380"
                        pattern="^380[0-9]{9,9}$"
+                       required />
+            </div>
+            <div class="form-group">
+                <b>{{'shopView.mail' | translate}}</b>
+                <input class="form-control validate"
+                       type="email"
+                       id="email"
+                       ng-model="email"
+                       ng-change="customerData()"
+                       name="email"
                        required />
             </div>
             <div class="form-group">
@@ -68,7 +79,7 @@
             </div>
             <div id="payButton" class="proceedWithPayment"></div>
             <div class="col-xs-5" ng-hide="successfullResponse">
-                <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-hide="loading" ng-disabled="{{total + deliveryPrice }} === 0" form="orderForm">{{'shopView.proceedWithPayment' | translate}} </button>
+                <button id="toPayment" type="submit" class="btn btn-primary pull-right" ng-hide="loading" ng-disabled="{{total + deliveryPrice }} === 0" form="orderForm">{{buttonPaymentTitle}} </button>
                 <spinner class="center-block spinnerCentering landscapeFloatRight" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
             </div>
         </div>

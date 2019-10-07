@@ -1,4 +1,5 @@
 {
+  "discountPage.title": "Discounts",
   "networkShopListPage.addShop": "Add shops",
   "networkShopListPage.deleteShop": "Remove shops",
   "networkShopListPage.deleteNetwork": "Delete network",
@@ -33,6 +34,7 @@
   "singleOrder.Delete": "Delete",
   "singleOrder.FullName": "Full Name",
   "singleOrder.Phone": "Phone",
+  "singleOrder.Email": "Email",
   "singleOrder.deliveryType": "Delivery type",
   "singleOrder.paymentType": "Payment type",
   "singleOrder.Platform": "Platform",
@@ -59,6 +61,7 @@
   "sideNav.Settings": "Settings",
   "sideNav.Users": "Users",
   "sideNav.Profile": "Profile",
+  "sideNav.Discount": "Discount",
   "sideNav.SignOut": "Sign Out",
   "analytics.analytics": "Analytics",
   "analytics.days": "days",
@@ -82,6 +85,8 @@
   "addNewProduct.add": "Add",
   "addNewProduct.productName": "Product name",
   "addNewProduct.productPrice": "Product price",
+  "addNewProduct.productWholesaleCount": "Quantity of goods for wholesale",
+  "addNewProduct.productWholesalePrice": "The price of one product for wholesale",
   "addNewProduct.productDescription": "Product description",
   "addNewProduct.additional": "Additional",
   "addNewProduct.showInShop": "Show in shop",
@@ -124,8 +129,12 @@
   "payment.payment": "Payment",
   "payment.cash": "Cash payment enabled",
   "payment.online": "Online payment enabled",
+  "payment.cashDiscription": "The text that the customer will see when paying in cash.",
+  "payment.onlineDiscription": "The text that the customer will see when paying online.",
+  "payment.buttonDiscription": "The text that the customer will see on button paying.",
   "payment.coupons": "Coupons",
   "payment.discount": "Discount, %",
+  "payment.minPayment": "The minimum payment for an order",
   "payment.minOrder": "Min. order amount",
   "payment.couponsIds": "Coupons IDs (each from new line)",
   "delivery.delivery": "Delivery",
@@ -178,6 +187,7 @@
   "settings.alwaysOpen": "Always open",
   "settings.whenClosed": "Close the shop",
   "settings.isTemporary": "Shop temporarily closed",
+  "settings.addSetting": "Addition setting for shop",
   "settings.temporaryTitle": "Title",
   "settings.temporaryDiscr": "Short description",
   "settings.changeDomainName": "Change domain name",
@@ -203,6 +213,9 @@
   "hourssetting.start": "Start work",
   "hourssetting.end": "End work",
   "hourssetting.closed": "Closed",
-  "hourssetting.whenClosed": "When shop closed:"
-
+  "hourssetting.whenClosed": "When shop closed:",
+  "payment.setButton": "Edit inscription on payment button",
+  "additionSetting.title": "Addition setting",
+  "additionSetting.changeName": "Edit the element \"Name\" on the order page",
+  "additionSetting.exampleChangeName": "By default, the element is named \"Name\""
 }

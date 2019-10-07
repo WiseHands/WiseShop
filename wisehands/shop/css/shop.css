@@ -1,3 +1,6 @@
+.mar-bot{
+    margin-bottom: 15px;
+}
 .fluid-width{
     width: auto !important;
 }
@@ -363,4 +366,9 @@ main {
   display:flex;
   justify-content: flex-end;
   margin-top: 10px;
+}
+.min-order{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }

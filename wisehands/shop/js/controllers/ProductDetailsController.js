@@ -142,6 +142,7 @@
 
                     if(properties.length === activeProperties.length) {
 
+
                         PublicShopInfo.handleWorkingHours($scope);
                         if($scope.isShopOpenNow){
                             toastr.warning('Сьогодні не працюємо');

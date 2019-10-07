@@ -29,6 +29,7 @@
             <a href="#/viewsettings" type="button" class="btn secondaryColor">{{'settings.view' | translate}}</a>
         </div>
     </div>
+
     <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
         <div class="input-field col-md-12">
             <p>{{'settings.shopName' | translate}}</p>
@@ -37,6 +38,7 @@
         <div class="input-field col-md-12">
             <div ng-translate-language-select></div>
         </div>
+
         <!--<div id="paymentButton" class="input-field col-md-12 z-index">-->
             <!--<h5>Рахунок</h5>-->
             <!--<div class="col-sm-6">-->
@@ -93,6 +95,13 @@
                     <input id="temporaryDiscr" type="text" ng-model="activeShop.temporaryClosedDescription">
                 </div>
               </div>
+        </div>
+
+        <div class="input-field col-md-12 z-index-2">
+            <h5>{{'settings.addSetting' | translate}}</h5>
+            <div class="col-sm-3">
+                <button type="button" class="btn pull-right ng-binding secondaryColor waves-effect waves-light btn-block" ng-click="setAdditionSetting()">{{'settings.changeDomainNameButton' | translate}}</button>
+            </div>
         </div>
 
         <div class="input-field col-md-12 z-index-3">

@@ -39,6 +39,11 @@
                         controller:'SingleOrderController',
                         activetab: 'orderlist'
                     }).
+                    when('/discount',{
+                        templateUrl:'wisehands/admin/partials/discount.html',
+                        controller:'DiscountController',
+                        activetab: 'discounts'
+                    }).
                     when('/products',{
                         templateUrl:'wisehands/admin/partials/products.html',
                         controller:'ProductListController',
@@ -124,6 +129,11 @@
                         controller:'SettingsController',
                         activetab: 'settings'
                     }).
+                when('/additionsettings',{
+                    templateUrl:'wisehands/admin/partials/additionSettings.html',
+                    controller:'AdditionSettingsController',
+                    activetab: 'additionsettings'
+                }).
                     when('/contacts',{
                         templateUrl:'wisehands/admin/partials/contacts.html',
                         controller:'ContactsController',

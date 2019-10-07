@@ -40,6 +40,11 @@
                         $scope.shopId = response.data.uuid;
                         $scope.payLateButton = response.data.manualPaymentEnabled;
                         $scope.onlinePaymentEbabled = response.data.onlinePaymentEnabled;
+                        $scope.buttonPaymentTitle = response.data.buttonPaymentTitle;
+                        console.log("buttonPaymentTitle", $scope.buttonPaymentTitle);
+                        if (!$scope.buttonPaymentTitle){
+                            $scope.buttonPaymentTitle = "До оплати";
+                        }
                     }, function errorCallback(error) {
                         console.log(error);
                     });
@@ -52,6 +57,7 @@
                         paymentType: $scope.paymentType,
                         phone: new String(document.getElementById('phone').value),
                         name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
                         address: "",
                         newPostDepartment: document.getElementById('newPostDepartment').value,
                         selectedItems: $scope.selectedItems,
@@ -61,13 +67,15 @@
                         addressLng: localStorage.getItem('addressLng')
                     };
                     var encodedParams = encodeQueryData($scope.params);
-
+                    console.log("$scope.params before http", $scope.params);
                     $http({
                         method: 'POST',
                         url: '/order',
                         data: $scope.params
                     }).then(function successCallback(response) {
-                            $scope.loading = false;
+                        console.log("$scope.params response http", response.data);
+
+                        $scope.loading = false;
                             $scope.successfullResponse = true;
                             var modalContent = document.querySelector(".proceedWithPayment");
                             modalContent.innerHTML = response.data.button;

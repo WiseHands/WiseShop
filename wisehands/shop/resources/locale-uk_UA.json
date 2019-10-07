@@ -1,6 +1,7 @@
 {
   "sideNav.Main": "Головна",
   "shopView.netShops": "Магазини",
+  "shopView.minimumPayment": "Сума мінімального замовлення ",
   "shopView.title": "Виберіть магазин для покупки",
   "shopView.use": "Вибрати цей магазин",
   "shopView.otherShops": "Найближчі магазини",
@@ -24,6 +25,7 @@
   "shopView.next":"Продовжити",
   "shopView.deliveryType": "Тип доставки",
   "shopView.fullName": "Ім'я",
+  "shopView.mail": "Емейл",
   "shopView.fullNamePlaceholder": "Введіть прізвище, ім'я та по батькові, коли отримуєте замовлення через Нову Пошту",
   "shopView.phone": "Номер телефону (380xxxxxxxxx - формат номеру телефону)",
   "shopView.addressLocate": "Клікніть всередині зони доставки, куди повинно бути доставлено замовлення",

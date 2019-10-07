@@ -2,6 +2,8 @@ angular.module('WiseShop')
     .service('shared', [ function() {
         var productsToBuy = [];
         var total = 0;
+        var wholesaleCount = 0;
+        var totalWholesalePrice = 0;
         var categoryUuid = '';
         var paymentButton = '';
         var currentOrderUuid = '';
@@ -28,7 +30,6 @@ angular.module('WiseShop')
                         if (obj1[p] != obj2[p]) return false;
                 }
             }
-
             //Check object 2 for any extra properties
             for (var p in obj2) {
                 if (typeof (obj1[p]) == 'undefined') return false;
@@ -88,6 +89,31 @@ angular.module('WiseShop')
 
             },
 
+            reCalculateTotalWholesale: function () {
+                totalWholesalePrice = 0;
+                productsToBuy.forEach(function (product) {
+                    totalWholesalePrice += product.quantity * product.wholesalePrice * product.wholesaleCount;
+                });
+                return totalWholesalePrice;
+
+            },
+
+            reCalculateWholesaleCount: function () {
+                wholesaleCount = 0;
+                productsToBuy.forEach(function (product) {
+                    wholesaleCount += product.quantity * product.wholesaleCount;
+                });
+                return wholesaleCount;
+
+            },
+
+            getWholesaleCount: function () {
+              return wholesaleCount;
+            },
+
+            getWholesalePrice: function () {
+              return totalWholesalePrice;
+            },
             setProductQuantity: function (index, quantity) {
                 productsToBuy[index].quantity = quantity;
                 this.reCalculateQuantity();

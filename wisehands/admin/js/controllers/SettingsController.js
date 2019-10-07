@@ -34,6 +34,11 @@ angular.module('WiseHands')
                 $scope.loading = false;
             });
 
+        $scope.setAdditionSetting = function(){
+            $location.path('/additionsettings');
+        };
+
+
         $scope.whenShopClosed = function(){
               if ($scope.activeShop.isTemporaryClosed){
                 console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);

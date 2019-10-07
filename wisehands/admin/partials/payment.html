@@ -22,17 +22,47 @@
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <div ng-hide="loading">
+        <hr class="margin-hr">
         <div class="row">
-            <div class="input-field col-sm-6">
-                <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
-                <label for="filled-in-box">{{'payment.cash' | translate}}</label>
-            </div>
+                <div class="input-field col-sm-6">
+                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
+                    <label for="filled-in-box">{{'payment.cash' | translate}}</label>
+                </div>
+
+
             <div class="input-field col-sm-6">
                 <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled" />
                 <label for="filled-in-box2">{{'payment.online' | translate}}</label>
             </div>
-        </div><br>
-        <hr>
+
+        </div>
+        <div class="row">
+            <div class="input-field col-sm-6">
+                <input type="text" class="filled-in checkBoxStyling" id="filled-in-text"
+                       ng-model="payment.manualPaymentTitle" placeholder="{{'payment.cashDiscription' | translate}}"/>
+            </div>
+            <div class="input-field col-sm-6">
+                <input type="text" class="filled-in checkBoxStyling" id="filled-in-text2"
+                       ng-model="payment.onlinePaymentTitle" placeholder="{{'payment.onlineDiscription' | translate}}"/>
+            </div>
+        </div>
+        <hr class="margin-hr">
+        <div class="row">
+            <div class="input-field col-sm-6">
+                <p>{{'payment.setButton' | translate}}</p>
+                <input type="text" class="filled-in checkBoxStyling" id="filled-in-text3"
+                       ng-model="payment.buttonPaymentTitle" placeholder="{{'payment.buttonDiscription' | translate}}"/>
+            </div>
+        </div>
+        <hr class="margin-hr">
+        <div class="row">
+            <div class="input-field col-xs-12 col-sm-6">
+                <p>{{'payment.minPayment' | translate}}</p>
+                <input type="text" id="filled-in-number" ng-model="payment.minimumPayment"/>
+            </div>
+
+        </div>
+        <hr class="margin-hr">
         <div class="displayFlex" ng-show="coupons.length > 0">
             <a ng-repeat="coupon in coupons" href="#/discount/{{coupon.uuid}}" class="btn-sm secondaryColor rectangle waves-effect waves-light col-xs-12 col-sm-3 text-center"><h6>{{'payment.coupons' | translate}}: {{coupon.couponIds.length}}
                 <br>
@@ -42,6 +72,7 @@
                 </div>
                 </h6></a>
         </div>
+
         <form ng-submit="createCoupons()">
             <div class="input-field col-xs-12 col-sm-6">
                 <p>{{'payment.discount' | translate}}</p>
@@ -76,5 +107,8 @@
                 <button type="submit" class="btn secondaryColor waves-effect waves-light pull-right">{{'categories.create' | translate}}</button>
             </div>
         </form>
+
     </div>
+
+
 </div>

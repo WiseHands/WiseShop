@@ -38,32 +38,6 @@ public class OrderAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
-
-        DateTime dt = new DateTime(shop.startTime);
-        Date startTime = dt.toDate();
-
-        dt = new DateTime(shop.endTime);
-        Date endTime = dt.toDate();
-
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-
-        boolean isWorkingHours;
-        if(shop.alwaysOpen) {
-            isWorkingHours = true;
-        } else {
-            TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
-            dateFormat.setTimeZone(timeZone);
-            String currentTimeISO = dateFormat.format(new Date());
-            DateTime dateTime = new DateTime(currentTimeISO);
-            Date currentTime = dateTime.toDate();
-            isWorkingHours = WorkingHoursCheker.isWorkingTime(startTime, endTime, currentTime);
-        }
-        if(!isWorkingHours) {
-            forbidden("Shop is closed now.");
-        }
-
         String locale = "en_US";
         if(shop != null && shop.locale != null) {
             locale = shop.locale;
@@ -77,12 +51,13 @@ public class OrderAPI extends AuthController {
         String paymentType = (String) jsonBody.get("paymentType");
         String name = (String) jsonBody.get("name");
         String phone = (String) jsonBody.get("phone");
+        String email = (String) jsonBody.get("email");
         String address = (String) jsonBody.get("address");
         String comment = (String) jsonBody.get("comment");
         String couponId = (String) jsonBody.get("coupon");
         String addressLat = (String) jsonBody.get("addressLat");
         String addressLng = (String) jsonBody.get("addressLng");
-        System.out.println("\n\n NEW ORDER " +shop.shopName + " \n address lat" + addressLat + "address lng " + addressLng);
+        System.out.println("\n\n NEW ORDER " +shop.shopName + " \n address lat" + addressLat + "address lng " + addressLng + "\n" + "minimum payment " + shop.paymentSettings.minimumPayment);
         String agent = request.headers.get("user-agent").value();
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";
@@ -94,7 +69,7 @@ public class OrderAPI extends AuthController {
 
         Double totalCost = (Double) Double.parseDouble("0");
 
-        OrderDTO order = new OrderDTO(name, phone, address, deliveryType, paymentType, newPostDepartment, comment, shop, addressLat, addressLng, agent, ip);
+        OrderDTO order = new OrderDTO(name, phone, email, address, deliveryType, paymentType, newPostDepartment, comment, shop, addressLat, addressLng, agent, ip);
         if(shop.orders == null){
             shop.orders = new ArrayList<OrderDTO>();
         }
@@ -175,6 +150,24 @@ public class OrderAPI extends AuthController {
         }
 
         order.total = totalCost;
+
+
+        boolean isBiggerThanMimimal = true;
+
+        if(shop.paymentSettings.minimumPayment != null) {
+            isBiggerThanMimimal = shop.paymentSettings.minimumPayment <= totalCost;
+        }
+
+        if(!isBiggerThanMimimal) {
+            JSONObject json = new JSONObject();
+            json.put("uuid", order.uuid);
+            json.put("ok", false);
+            json.put("reason", "Total amount is less than minimum order amount");
+            System.out.println("isBiggerThanMimimal " + isBiggerThanMimimal + ", !isBiggerThanMimimal is " +!isBiggerThanMimimal);
+
+            error(403, json.toString());
+        }
+
         order = order.save();
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 

@@ -1,3 +1,4 @@
+
 /* create table for workingHour page*/
 .flex-table{
     display: flex;
@@ -28,6 +29,12 @@ td, th {
     }
 }
 /*end of the table*/
+
+/*set margin for <hr> on payment page start*/
+.margin-hr{
+    margin-bottom: 5px;
+}
+
 .fluid-width{
     width: auto !important;
 }

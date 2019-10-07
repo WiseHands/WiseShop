@@ -24,6 +24,9 @@ public class OrderDTO extends GenericModel {
     public String phone;
 
     @Expose
+    public String email;
+
+    @Expose
     public String address;
 
     @Expose
@@ -82,9 +85,10 @@ public class OrderDTO extends GenericModel {
     @ManyToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-    public OrderDTO(String name, String phone, String address, String deliveryType, String paymentType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
+    public OrderDTO(String name, String phone, String email, String address, String deliveryType, String paymentType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
         this.name = name;
         this.phone = phone;
+        this.email = email;
         this.address = address;
         this.deliveryType = deliveryType;
         this.paymentType = paymentType;

@@ -1,0 +1,33 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'additionSetting.title' | translate}}
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right saveProductButtonStyling"
+                   ng-click="updateAdditionalSetting()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid noSidePadding">
+    <div class="input-field col-md-12 z-index-2">
+        <h5>{{'additionSetting.changeName' | translate}}</h5>
+        <input id="changeName" type="text"
+               ng-model="paymentSettings.fieldNameCustomer"
+               placeholder="{{'additionSetting.exampleChangeName' | translate}}">
+        <h5>{{'additionSetting.changeOrderDone' | translate}}</h5>
+        <input id="changeAddress" type="text"
+               ng-model="additionalSettings.orderMessage"
+               placeholder="{{'additionSetting.exampleChangeOrderDone' | translate}}">
+        <hr>
+    </div>
+
+</div>

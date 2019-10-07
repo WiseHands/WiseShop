@@ -55,6 +55,7 @@
                 })
                     .then(function successCallback(response) {
                         $scope.products = response.data;
+                        console.log("$scope.products", $scope.products);
                     }, function errorCallback(error) {
                         console.log(error);
                     });
@@ -78,7 +79,6 @@
                 function loadOptions() {
                     $scope.selectedItems = shared.getProductsToBuy();
                     $scope.totalQuantity = shared.getTotalQuantity();
-
                 }
 
                 loadOptions();
@@ -114,8 +114,9 @@
                     } else if(!$scope.isNotWorkingTime) {
                         toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
                     } else if (isActivePropertyTagsMoreThanTwo > 0) {
-                        $location.path('/product/' + productDTO.uuid);
+                         $location.path('/product/' + productDTO.uuid);
                     } else {
+
                          var productToBuy = {
                              uuid: productDTO.uuid,
                              chosenProperties: [],
@@ -134,5 +135,7 @@
                 };
 
                 sideNavInit.sideNav();
+
+
             }]);
 })();

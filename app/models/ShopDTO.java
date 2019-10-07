@@ -180,10 +180,9 @@ public class ShopDTO extends GenericModel {
             }
             user.shopList.add(this);
         }
-        this.balance = balance;
-
-        this.delivery = delivery;
         this.paymentSettings = paymentSettings;
+        this.balance = balance;
+        this.delivery = delivery;
         this.contact = contact;
         this.shopName = shopName;
         this.liqpayPublicKey = liqpayPublicKey;

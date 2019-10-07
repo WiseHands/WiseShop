@@ -104,7 +104,6 @@ angular.module('WiseShop')
     .service('PublicShopInfo', ['shared', function(shared) {
         return {
             handlePublicShopInfo: function (scope, response) {
-
                 scope.shopName = response.data.name;
                 scope.shopId = response.data.uuid;
                 scope.startTime = workStartDay(response);
@@ -117,8 +116,6 @@ angular.module('WiseShop')
                 scope.isShopOpenNow = isShopOpenToday(response);
 
             },
-
-
             handleWorkingHours: function (scope) {
                 let currDate =  new Date();
                 let currTime = currDate.getHours() * 60 + currDate.getMinutes();
@@ -134,11 +131,8 @@ angular.module('WiseShop')
                 } else {
                     scope.isNotWorkingTime = false;
                     console.log('$scope.isNotWorkingTime in handleWorkingHours', scope.isNotWorkingTime);
-
                 }
             },
-
-
             calculateTotal: function () {
                 var products = shared.getProductsToBuy();
                 var total = 0;
