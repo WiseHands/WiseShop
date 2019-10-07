@@ -1,206 +1,225 @@
-
 <style>
-footer {
-	display: flex;
-	max-width: 768px;
-	margin: 0 auto;
-	height: 100%;
-	padding-top: 20px;
-	background-color: white;
-	font-family: 'Roboto', sans-serif;
-}
-
-.footer-first-block,
-.footer-second-block {
-	display: flex;
-	width: 50%;
-}
-
-.footer-contact {
-    background-color: white;
-	width: 50%;
-}
-
-.footer-contact p {
-	font-size: 0.95em;
-}
-
-.schedule {
-	padding: 10px;
-	display: flex;
-}
-
-.schedule img,
-.contact-info-icon-container img {
-	margin-right: 5px;
-}
-
-.contact-info {
-	padding: 10px;
-}
-
-.contact-info-icon-container {
-	display: flex;
-}
-
-.footer-info {
-	width: 50%;
-}
-
-.footer-info h4 {
-	font-size: 1.4em;
-	font-weight: 550;
-	margin-left: 20px;
-	padding-bottom: 10px;
-}
-
-.footer-info ul {
-	list-style-type: none;
-	margin-left: 20px;
-}
-
-.footer-info ul li {
-	line-height: 1.7;
-	font-size: 1.2em;
-	color: #000;
-}
-
-.footer-feedback {
-	width: 50%;
-}
-
-.footer-feedback h4 {
-	font-size: 1.4em;
-	font-weight: 550;
-	padding-bottom: 10px;
-}
-
-.footer-feedback p {
-	font-size: 1.2em;
-	padding: 10px 0;
-	line-height: 1.3;
-}
-
-.footer-icons {
-	margin-top: 15px;
-}
-
-.footer-icons a:first-child {
-	margin-right: 10px;
-	/*width: 90%;*/
-	/*height: 90%;*/
-}
-
-.footer-icons a:nth-child(2) {
-	margin-right: 10px;
-}
-
-.footer-payment {
-	width: 50%;
-}
-
-.footer-payment h4 {
-	font-size: 1.4em;
-	font-weight: 550;
-	padding-bottom: 10px;
-}
-
-.payment-img img {
-	width: 60%;
-	height: 60%;
-	margin-left: 10px;
-}
-
-@media screen and (max-width: 767px) {
-	footer {
-		flex-direction: column;
-	}
-	.footer-first-block,
-	.footer-second-block {
-		width: 100%;
-	}
-	.footer-contact,
-	.footer-info,
-	.footer-feedback,
-	.footer-payment {
-		margin-bottom: 15px;
-	}
-	.offset-left {
-		padding-left: 15px;
-	}
-}
-
-@media screen and (max-width: 667px) {
-	#footer-shop .footer-first-block,
-	.footer-second-block {
-		flex-direction: column;
-		width: 100%;
-	}
-	#footer-shop .footer-contact,
-	.footer-info,
-	.footer-feedback,
-	.footer-payment {
-		width: 100%;
-	}
-	#footer-shop .footer-contact {
-		display: flex;
-	}
-	#footer-shop .schedule,
-	.contact-info {
-		width: 50%;
-	}
-	#footer-shop .footer-info-block {
-		display: flex;
-	}
-	#footer-shop .footer-info-first-block,
-	.footer-info-second-block {
-		width: 50%;
-	}
-	#footer-shop .payment-img {
-		width: 60%;
-	}
-	#footer-shop .offset-left {
-		padding-left: 15px;
-	}
-}
-
-@media screen and (max-width: 400px) {
-	#footer-shop .footer-contact,
-	.footer-info-block,
-	.footer-feedback,
-	.footer-payment {
-		flex-direction: column;
-	}
-	#footer-shop .schedule,
-	 .contact-info {
-        width: 100%;
+    footer {
+        display: flex;
+        max-width: 768px;
+        margin: 0 auto;
+        height: 100%;
+        padding-top: 20px;
+        background-color: white;
+        font-family: 'Roboto', sans-serif;
     }
-}
-.working-week-time{
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    width: 185px;
 
-}
-.work-day{
-    height: 35px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.day{
-    padding-top: 2px;
-    margin-bottom: 0px;
-}
+    .footer-first-block,
+    .footer-second-block {
+        display: flex;
+        width: 50%;
+    }
+
+    .footer-contact {
+        background-color: white;
+        width: 50%;
+    }
+
+    .footer-contact p {
+        font-size: 0.95em;
+    }
+
+    .schedule {
+        padding: 10px;
+        display: flex;
+    }
+
+    .schedule img,
+    .contact-info-icon-container img {
+        margin-right: 5px;
+    }
+
+    .contact-info {
+        padding: 10px;
+    }
+
+    .contact-info-icon-container {
+        display: flex;
+    }
+
+    .footer-info {
+        width: 50%;
+    }
+
+    .footer-info h4 {
+        font-size: 1.4em;
+        font-weight: 550;
+        margin-left: 20px;
+        padding-bottom: 10px;
+    }
+
+    .footer-info ul {
+        list-style-type: none;
+        margin-left: 20px;
+    }
+
+    .footer-info ul li {
+        line-height: 1.7;
+        font-size: 1.2em;
+        color: #000;
+    }
+
+    .footer-feedback {
+        width: 50%;
+    }
+
+    .footer-feedback h4 {
+        font-size: 1.4em;
+        font-weight: 550;
+        padding-bottom: 10px;
+    }
+
+    .footer-feedback p {
+        font-size: 1.2em;
+        padding: 10px 0;
+        line-height: 1.3;
+    }
+
+    .footer-icons {
+        margin-top: 15px;
+    }
+
+    .footer-icons a:first-child {
+        margin-right: 10px;
+        /*width: 90%;*/
+        /*height: 90%;*/
+    }
+
+    .footer-icons a:nth-child(2) {
+        margin-right: 10px;
+    }
+
+    .footer-payment {
+        width: 50%;
+    }
+
+    .footer-payment h4 {
+        font-size: 1.4em;
+        font-weight: 550;
+        padding-bottom: 10px;
+    }
+
+    .payment-img img {
+        width: 60%;
+        height: 60%;
+        margin-left: 10px;
+    }
+
+    @media screen and (max-width: 767px) {
+        footer {
+            flex-direction: column;
+        }
+
+        .footer-first-block,
+        .footer-second-block {
+            width: 100%;
+        }
+
+        .footer-contact,
+        .footer-info,
+        .footer-feedback,
+        .footer-payment {
+            margin-bottom: 15px;
+        }
+
+        .offset-left {
+            padding-left: 15px;
+        }
+    }
+
+    @media screen and (max-width: 667px) {
+        #footer-shop .footer-first-block,
+        .footer-second-block {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        #footer-shop .footer-contact,
+        .footer-info,
+        .footer-feedback,
+        .footer-payment {
+            width: 100%;
+        }
+
+        #footer-shop .footer-contact {
+            display: flex;
+        }
+
+        #footer-shop .schedule,
+        .contact-info {
+            width: 50%;
+        }
+
+        #footer-shop .footer-info-block {
+            display: flex;
+        }
+
+        .working-week-time {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #footer-shop .footer-info-first-block,
+        .footer-info-second-block, .first-working-time-block, .second-working-time-block {
+            width: 50%;
+        }
+
+        #footer-shop .payment-img {
+            width: 60%;
+        }
+
+        #footer-shop .offset-left {
+            padding-left: 15px;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        #footer-shop .footer-contact,
+        .footer-info-block,
+        .footer-feedback,
+        .footer-payment {
+            flex-direction: column;
+        }
+
+        #footer-shop .schedule,
+        .contact-info {
+            width: 100%;
+        }
+    }
+
+    /*.working-week-time {*/
+        /*background-color: white;*/
+        /*display: flex;*/
+        /*flex-direction: column;*/
+        /*width: 185px;*/
+
+    /*}*/
+
+    .work-day {
+        height: 35px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .day {
+        padding-top: 2px;
+        margin-bottom: 0;
+    }
 </style>
 <footer id="footer-shop" class="footer">
 
     <div class="footer-first-block">
         <div class="footer-contact">
-                <div><img src="wisehands/assets/images/footer-shop/icons8-clock-16.png"></div>
-                <div class="working-week-time">
-
+            <div><img src="wisehands/assets/images/footer-shop/icons8-clock-16.png"></div>
+            <div class="working-week-time">
+                <div class="first-working-time-block">
                     <div class="work-day">
                         <p>ПН <h6 class="day" id="mon"></h6></p>
                     </div>
@@ -213,6 +232,8 @@ footer {
                     <div class="work-day">
                         <p>ЧТ <h6 class="day" id="thu"></h6></p>
                     </div>
+                </div>
+                <div class="second-working-time-block">
                     <div class="work-day">
                         <p>ПТ <h6 class="day" id="fri"></h6></p>
                     </div>
@@ -223,6 +244,7 @@ footer {
                         <p>НД <h6 class="day" type="time" id="sun"></h6></p>
                     </div>
                 </div>
+            </div>
         </div>
         <div class="footer-info">
             <h4>Інформація</h4>
@@ -302,28 +324,28 @@ footer {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(function(response){
-        return  response.json();
-    }).then(function(data) {
-        if (!data.linkfacebook){
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        if (!data.linkfacebook) {
             document.getElementById('linkfacebook').style.display = "none";
         }
-        if (!data.linkinstagram){
+        if (!data.linkinstagram) {
             document.getElementById('linkinstagram').style.display = "none";
         }
-        if (!data.linkyoutube){
+        if (!data.linkyoutube) {
             document.getElementById('linkyoutube').style.display = "none";
         }
         document.getElementById('linkfacebook').href = data.linkfacebook;
         document.getElementById('linkinstagram').href = data.linkinstagram;
         document.getElementById('linkyoutube').href = data.linkyoutube;
-        if (!data.email){
+        if (!data.email) {
             document.getElementById('divemail').style.display = "none";
         }
-        if (!data.phone){
+        if (!data.phone) {
             document.getElementById('divphone').style.display = "none";
         }
-        if (!data.address){
+        if (!data.address) {
             document.getElementById('divaddress').style.display = "none";
         }
         document.getElementById('email').innerHTML = data.email;
@@ -335,53 +357,53 @@ footer {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(function(response){
-        return  response.json();
-    }).then(function(data) {
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
         console.log("response for footer data", data);
-        if (data.monOpen === true){
+        if (data.monOpen === true) {
             document.getElementById('mon').innerHTML = 'Зачинено';
         } else {
             let mon = new Date(data.monStartTime).getHours() + ":" + new Date(data.monStartTime).getMinutes() + "-" +
                 new Date(data.monEndTime).getHours() + ":" + new Date(data.monEndTime).getMinutes();
             document.getElementById('mon').innerHTML = mon;
         }
-        if (data.tueOpen === true){
+        if (data.tueOpen === true) {
             document.getElementById('tue').innerHTML = 'Зачинено';
         } else {
             let tue = new Date(data.tueStartTime).getHours() + ":" + new Date(data.tueStartTime).getMinutes() + "-" +
                 new Date(data.tueEndTime).getHours() + ":" + new Date(data.tueEndTime).getMinutes();
             document.getElementById('tue').innerHTML = tue;
         }
-        if (data.wedOpen === true){
+        if (data.wedOpen === true) {
             document.getElementById('wed').innerHTML = 'Зачинено';
         } else {
             let wed = new Date(data.wedStartTime).getHours() + ":" + new Date(data.wedStartTime).getMinutes() + "-" +
                 new Date(data.wedEndTime).getHours() + ":" + new Date(data.wedEndTime).getMinutes();
             document.getElementById('wed').innerHTML = wed;
         }
-        if (data.thuOpen === true){
+        if (data.thuOpen === true) {
             document.getElementById('thu').innerHTML = 'Зачинено';
         } else {
             let thu = new Date(data.thuStartTime).getHours() + ":" + new Date(data.thuStartTime).getMinutes() + "-" +
                 new Date(data.thuEndTime).getHours() + ":" + new Date(data.thuEndTime).getMinutes();
             document.getElementById('thu').innerHTML = thu;
         }
-        if (data.friOpen === true){
+        if (data.friOpen === true) {
             document.getElementById('fri').innerHTML = 'Зачинено';
         } else {
             let fri = new Date(data.friStartTime).getHours() + ":" + new Date(data.friStartTime).getMinutes() + "-" +
                 new Date(data.friEndTime).getHours() + ":" + new Date(data.friEndTime).getMinutes();
             document.getElementById('fri').innerHTML = fri;
         }
-        if (data.satOpen === true){
+        if (data.satOpen === true) {
             document.getElementById('sat').innerHTML = 'Зачинено';
         } else {
             let sat = new Date(data.satStartTime).getHours() + ":" + new Date(data.satStartTime).getMinutes() + "-" +
                 new Date(data.satEndTime).getHours() + ":" + new Date(data.satEndTime).getMinutes();
             document.getElementById('sat').innerHTML = sat;
         }
-        if (data.sunOpen === true){
+        if (data.sunOpen === true) {
             document.getElementById('sun').innerHTML = 'Зачинено';
         } else {
             let sun = new Date(data.sunStartTime).getHours() + ":" + new Date(data.sunStartTime).getMinutes() + "-" +
