@@ -278,15 +278,15 @@ footer {
             <h4 class="offset-left">Приймаємо</h4>
             <div class="payment-img"><img src="wisehands/assets/images/footer-shop/msvisa1.png"></div>
             <div class="contact-info offset-left">
-                <div class="contact-info-icon-container">
+                <div class="contact-info-icon-container" id="divemail">
                     <div><img src="wisehands/assets/images/footer-shop/icons8-envelope-16.png"></div>
                     <div><p id="email"></p></div>
                 </div>
-                <div class="contact-info-icon-container">
+                <div class="contact-info-icon-container" id="divphone">
                     <div><img src="wisehands/assets/images/footer-shop/icons8-phone-16.png"></div>
                     <div><p id="phone"></p></div>
                 </div>
-                <div class="contact-info-icon-container">
+                <div class="contact-info-icon-container" id="divaddress">
                     <div><img src="wisehands/assets/images/footer-shop/icons8-map-16.png"></div>
                     <div><p id="address"></p></div>
                 </div>
@@ -304,9 +304,27 @@ footer {
     }).then(function(response){
         return  response.json();
     }).then(function(data) {
+        if (!data.linkfacebook){
+            document.getElementById('linkfacebook').style.display = "none";
+        }
+        if (!data.linkinstagram){
+            document.getElementById('linkinstagram').style.display = "none";
+        }
+        if (!data.linkyoutube){
+            document.getElementById('linkyoutube').style.display = "none";
+        }
         document.getElementById('linkfacebook').href = data.linkfacebook;
         document.getElementById('linkinstagram').href = data.linkinstagram;
         document.getElementById('linkyoutube').href = data.linkyoutube;
+        if (!data.email){
+            document.getElementById('divemail').style.display = "none";
+        }
+        if (!data.phone){
+            document.getElementById('divphone').style.display = "none";
+        }
+        if (!data.address){
+            document.getElementById('divaddress').style.display = "none";
+        }
         document.getElementById('email').innerHTML = data.email;
         document.getElementById('phone').innerHTML = data.phone;
         document.getElementById('address').innerHTML = data.address;
