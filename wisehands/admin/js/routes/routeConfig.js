@@ -44,6 +44,11 @@
                         controller:'PageConstructorController',
                         activetab: 'pageconstructors'
                     }).
+                    when('/pageconstructor/new',{
+                        templateUrl:'wisehands/admin/partials/addNewPage.html',
+                        controller:'AddNewPageController',
+                        activetab: 'newpage'
+                    }).
                     when('/products',{
                         templateUrl:'wisehands/admin/partials/products.html',
                         controller:'ProductListController',
