@@ -1,5 +1,8 @@
 ﻿{
   "addNewPage.title": "Tworzenie nowej strony",
+  "addNewPage.setTitle": "Wpisz nazwę strony",
+  "addNewPage.setUrl": "Wpisz nazwę URL",
+  "addNewPage.setBody": "Strona redaktora",
   "pageConstructor.title": "Projektant stron",
   "singleOrder.Email": "Email",
   "networkShopListPage.addShop": "Dodaj sklep",

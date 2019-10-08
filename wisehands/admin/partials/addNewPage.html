@@ -8,32 +8,29 @@
             <div class="col-xs-8 text-center">
                 <h5 class="white-text">{{'addNewPage.title' | translate}}</h5>
             </div>
-            <a class="col-xs-1 noRightPadding"
-               type="button"
-               href="#/products/new">
-                <i class="fa fa-plus-circle pull-right whiteColor">
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="saveThisPage()">
                 </i>
             </a>
-
         </div>
     </div>
 </nav>
-<div class="container-fluid discountContainer">
-    <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+<div class="container-fluid">
+    <div class="input-field col-md-12 z-index-3 mt-30">
+        <div class="col-sm-6">
+            <p>{{'addNewPage.setTitle' | translate}}</p>
+            <input id="setTitle" type="text" ng-model="setting.title">
+        </div>
+        <div class="col-sm-6">
+            <p>{{'addNewPage.setUrl' | translate}}</p>
+            <input id="setUrl" type="text" ng-model="setting.url">
+        </div>
     </div>
-    <div class="col-sm-6" ng-repeat="coupon in coupons.couponIds">
-        <div class="card card-primary text-xs-center z-depth-2 secondaryColorHover">
-            <div class="row">
-                <div class="card-block vcentering">
-                    <div class=" col-xs-10 col-sm-10">
-                        <h5 class="white-text text-left discountLeftMargin">{{coupon.couponId}}</h5>
-                    </div>
-                    <div class=" col-xs-2 col-sm-2">
-                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" ng-click="deleteCoupon(coupon.uuid, $index)"><i class="material-icons"><i class="material-icons">delete_forever</i></i></button>
-                    </div>
-                </div>
-            </div>
+    <div class="container-fluid">
+        <div class="col-xs-12 input-field ">
+            <p>{{'addNewPage.setBody' | translate}}</p>
+            <textarea style="editor-for-page" id="setBody" type="text" ng-model="setting.body"></textarea>
         </div>
     </div>
 </div>

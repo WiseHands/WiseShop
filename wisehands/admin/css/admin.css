@@ -1,5 +1,13 @@
+/*addition setting for margin padding ...*/
+.mt-30{
+    margin-top: 30px;
+}
+/*editor-for-page*/
+.editor-for-page{
+    border: 2px solid black;
+}
 
-/* create table for workingHour page*/
+    /* create table for workingHour page*/
 .flex-table{
     display: flex;
     flex-direction: column;

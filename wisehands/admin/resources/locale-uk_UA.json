@@ -1,5 +1,8 @@
 {
   "addNewPage.title": "Створення нової сторінки",
+  "addNewPage.setTitle": "Введіть назву сторінки",
+  "addNewPage.setUrl": "Введіть адресу сторінки",
+  "addNewPage.setBody": "Редактор сторінки",
   "pageConstructor.title": "Конструктор для сторінок",
   "networkShopListPage.addShop": "Додати магазин",
   "addShopsNetwork.netName": "Назва мережі",

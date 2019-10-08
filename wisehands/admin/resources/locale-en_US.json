@@ -1,5 +1,8 @@
 {
   "addNewPage.title": "Create new page",
+  "addNewPage.setTitle": "Enter page\'s name",
+  "addNewPage.setUrl": "Enter page\'s URL",
+  "addNewPage.setBody": "Editor\'s page",
   "pageConstructor.title": "Constructor for pages",
   "networkShopListPage.addShop": "Add shops",
   "networkShopListPage.deleteShop": "Remove shops",
