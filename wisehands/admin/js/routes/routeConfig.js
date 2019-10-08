@@ -39,10 +39,10 @@
                         controller:'SingleOrderController',
                         activetab: 'orderlist'
                     }).
-                    when('/discount',{
-                        templateUrl:'wisehands/admin/partials/discount.html',
-                        controller:'DiscountController',
-                        activetab: 'discounts'
+                    when('/pageconstructor',{
+                        templateUrl:'wisehands/admin/partials/pageconstructor.html',
+                        controller:'PageConstructorController',
+                        activetab: 'pageconstructors'
                     }).
                     when('/products',{
                         templateUrl:'wisehands/admin/partials/products.html',
@@ -165,7 +165,7 @@
                         activetab: 'settings'
                     }).
                     when('/discount/:uuid',{
-                        templateUrl:'wisehands/admin/partials/discount.html',
+                        templateUrl:'wisehands/admin/partials/pageconstructor.html',
                         controller:'DiscountController',
                         activetab: 'payment'
                     }).
