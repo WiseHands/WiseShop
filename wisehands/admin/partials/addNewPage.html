@@ -19,18 +19,18 @@
 <div class="container-fluid">
     <div class="input-field col-md-12 z-index-3 mt-30">
         <div class="col-sm-6">
-            <p>{{'addNewPage.setTitle' | translate}}</p>
+            <p class="mb-0">{{'addNewPage.setTitle' | translate}}</p>
             <input id="setTitle" type="text" ng-model="setting.title">
         </div>
         <div class="col-sm-6">
-            <p>{{'addNewPage.setUrl' | translate}}</p>
+            <p class="mb-0">{{'addNewPage.setUrl' | translate}}</p>
             <input id="setUrl" type="text" ng-model="setting.url">
         </div>
     </div>
     <div class="container-fluid">
         <div class="col-xs-12 input-field ">
             <p>{{'addNewPage.setBody' | translate}}</p>
-            <textarea style="editor-for-page" id="setBody" type="text" ng-model="setting.body"></textarea>
+            <textarea class="editor-for-page" id="setBody" type="text" ng-model="setting.body"></textarea>
         </div>
     </div>
 </div>

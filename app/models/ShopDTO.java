@@ -137,6 +137,10 @@ public class ShopDTO extends GenericModel {
     @OneToOne(cascade=CascadeType.ALL)
     public ContactDTO contact;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public PageConstructorDTO pageConstructor;
+
     @OneToMany(orphanRemoval=true)
     public List<ProductDTO> productList;
 
