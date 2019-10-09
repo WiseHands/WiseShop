@@ -11,7 +11,7 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.settings = response.data;
-                console.log("GET $scope.settings", response.data);
+                console.log("GET response.data: ", response.data);
                 $scope.loading = false;
             }, function errorCallback(response) {
                 console.log("GET $scope.settings", response);

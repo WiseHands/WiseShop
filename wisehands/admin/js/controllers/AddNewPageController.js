@@ -9,13 +9,18 @@ angular.module('WiseHands')
 
         $scope.saveThisPage = function () {
 
-            var htmlData = CKEDITOR.instances["editor"].getData();
-            $scope.setting = htmlData;
+
+            let htmlData = CKEDITOR.instances["editor"].getData();
+            let requestBody = {
+                title: $scope.title,
+                url: $scope.url,
+                body: htmlData
+            };
 
             $http({
                 method: 'POST',
                 url: '/pageconstructor',
-                data: $scope.settings
+                data: requestBody
             })
                 .then(function successCallback(response) {
                     $scope.settings = response.data;
@@ -23,7 +28,6 @@ angular.module('WiseHands')
                     $scope.loading = false;
                 }, function errorCallback(response) {
                     console.log("POST $scope.settings", response);
-                    console.log("$scope.settings", $scope.settings);
                     $scope.loading = false;
                 });
         }
