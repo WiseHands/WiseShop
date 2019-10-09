@@ -143,9 +143,11 @@ PUT 	{client}/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
 
-POST	{client}/subscription      					             	PushSubscriptionAPI.subscribe
+POST	{client}/subscription      					    PushSubscriptionAPI.subscribe
 
-
+GET     {client}/pageconstructor                        PageConstructorAPI.details
+POST    {client}/pageconstructor                        PageConstructorAPI.create
+PUT     {client}/pageconstructor                        PageConstructorAPI.update
 
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
