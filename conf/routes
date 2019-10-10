@@ -145,6 +145,7 @@ GET     {client}/verifycode                             SmsVerificationAPI.verif
 
 POST	{client}/subscription      					    PushSubscriptionAPI.subscribe
 
+GET     {client}/pageconstructor/{uuid}                 PageConstructorAPI.details
 GET     {client}/pageconstructor                        PageConstructorAPI.all
 POST    {client}/pageconstructor                        PageConstructorAPI.create
 PUT     {client}/pageconstructor                        PageConstructorAPI.update

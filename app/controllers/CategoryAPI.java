@@ -29,6 +29,7 @@ public class CategoryAPI extends AuthController {
     public static void details(String client, String uuid) throws Exception {
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<ProductDTO> products = ProductDTO.find("byCategory", category).fetch();
+
         renderJSON(json(products));
     }
 

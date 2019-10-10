@@ -1,0 +1,36 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'editPage.title' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="saveThisPage()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="input-field col-md-12 z-index-3 mt-30">
+        <div class="col-sm-6">
+            <p class="mb-0">{{'addNewPage.setTitle' | translate}}</p>
+            <input id="setTitle" type="text" ng-model="page.title">
+        </div>
+        <div class="col-sm-6">
+            <p class="mb-0">{{'addNewPage.setUrl' | translate}}</p>
+            <input id="setUrl" type="text" ng-model="page.url">
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="col-xs-12 input-field ">
+            <p>{{'addNewPage.setBody' | translate}}</p>
+            <textarea class="editor-for-page" id="editor" name="editor"></textarea>
+        </div>
+    </div>
+</div>
