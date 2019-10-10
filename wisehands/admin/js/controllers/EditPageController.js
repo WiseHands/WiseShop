@@ -7,16 +7,13 @@ angular.module('WiseHands')
 
         CKEDITOR.replace('editor');
 
-
-
-
-
         $http({
             method: 'GET',
             url: '/pageconstructor/' + $routeParams.uuid
         })
             .then(function successCallback(response) {
-                $scope.page = response.data;
+                $scope.title = response.data.title;
+                $scope.url = response.data.url;
                 CKEDITOR.instances["editor"].setData(response.data.body);
 
                 console.log("POST $scope.settings", response.data);
@@ -24,6 +21,29 @@ angular.module('WiseHands')
             }, function errorCallback(response) {
                 console.log("POST $scope.settings", response);
                 $scope.loading = false;
-            });
+        });
+
+        $scope.saveThisPage = function () {
+
+            let htmlData = CKEDITOR.instances["editor"].getData();
+            let requestBody = {
+                title: $scope.title,
+                url: $scope.url,
+                body: htmlData
+            };
+
+            $http({
+                method: 'PUT',
+                url: '/pageconstructor/' + $routeParams.uuid,
+                data: requestBody
+            })
+                .then(function successCallback(response) {
+                    console.log("PUT $scope.settings", response.data);
+                    $scope.loading = false;
+                }, function errorCallback(response) {
+                    console.log("PUT $scope.settings", response);
+                    $scope.loading = false;
+                });
+        }
 
     }]);

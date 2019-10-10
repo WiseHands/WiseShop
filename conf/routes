@@ -148,7 +148,7 @@ POST	{client}/subscription      					    PushSubscriptionAPI.subscribe
 GET     {client}/pageconstructor/{uuid}                 PageConstructorAPI.details
 GET     {client}/pageconstructor                        PageConstructorAPI.all
 POST    {client}/pageconstructor                        PageConstructorAPI.create
-PUT     {client}/pageconstructor                        PageConstructorAPI.update
+PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
