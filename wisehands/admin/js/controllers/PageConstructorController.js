@@ -10,11 +10,11 @@ angular.module('WiseHands')
             url: '/pageconstructor'
         })
             .then(function successCallback(response) {
-                $scope.settings = response.data;
+                $scope.pagesList = response.data;
                 console.log("GET response.data: ", response.data);
                 $scope.loading = false;
             }, function errorCallback(response) {
-                console.log("GET $scope.settings", response);
+                console.log("GET response.data error: ", response);
 
                 $scope.loading = false;
             });
