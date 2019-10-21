@@ -23,6 +23,13 @@
         justify-content: space-around;
         align-items: center;
     }
+    .header-container a {
+        text-decoration: none;
+        color: #666;
+    }
+    .header-container a:hover {
+        color: #000;
+    }
     .links-container{
         display: flex;
         justify-content: space-between;
@@ -95,29 +102,25 @@
     <div class="flex-container-column">
         #{verbatim}
             <div class="header-container">
-                <div class="image-name-container">
-                    <img id="image-box" src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
-                    <p>${shop.shopName}</p>
-                </div>
+                <a href="/">
+                    <div class="image-name-container">
+
+                            <img id="image-box" src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
+                            <p>${shop.shopName}</p>
+
+                    </div>
+                </a>
+
                 <div class="links-container">
-                    <a class="link" href="">
-                        <p>Оплата</p>
-                    </a>
-                    <a class="link" href="">
-                        <p>Доставка</p>
-                    </a>
-                    <a class="link" href="">
-                        <p>Повернення</p>
-                    </a>
-                    <a class="link" href="">
-                        <pКонтакти</p>
-                    </a>
-                    <a class="link" href="">
-                        <p>Про нас</p>
-                    </a>
-                    <a class="link" href="">
-                        <p>Договір</p>
-                    </a>
+                        %{
+                            for(_page in pageList) {
+                                }%
+                                <a class="link" href="/page/${_page.uuid}">
+                                    <p>${_page.title}</p>
+                                </a>
+                                %{
+                            }
+                        }%
                 </div>
 
             </div>
