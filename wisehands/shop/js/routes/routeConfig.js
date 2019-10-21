@@ -7,7 +7,7 @@
                 'locales': {
                     'uk_UA': 'Українська',
                     'en_US': 'English',
-					           'pl_PL': 'Polski'
+                    'pl_PL': 'Polski'
                 },
                 'preferredLocale': 'en_US'
             })
@@ -29,6 +29,10 @@
                 when('/contacts',{
                     templateUrl:'wisehands/shop/partials/contacts.html',
                     controller:'ContactsController'
+                })
+                .when('/page/:uuid',{
+                    templateUrl:'wisehands/shop/partials/page.html',
+                    controller:'PageController'
                 }).
                 when('/product/:uuid',{
                     templateUrl:'wisehands/shop/partials/productDetails.html',

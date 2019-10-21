@@ -221,28 +221,28 @@
         </div>
         <div class="footer-info">
             <h4>Інформація</h4>
-            <ul>
+            <ul id="pageList">
                 <div class="footer-info-block">
                     <div class="footer-info-first-block">
-                        <a href="#">
-                            <li>Оплата</li>
+                        <a id="link" href="">
+                            <li id="page"></li>
                         </a>
-                        <a href="#">
-                            <li>Доставка</li>
+                        <a id="link1" href="">
+                            <li id="page1"></li>
                         </a>
-                        <a href="#">
-                            <li>Повернення</li>
+                        <a  id="link2" href="">
+                            <li id="page2"></li>
                         </a>
                     </div>
                     <div class="footer-info-second-block">
-                        <a href="#">
-                            <li>Контакти</li>
+                        <a id="link3" href="">
+                            <li id="page3"></li>
                         </a>
-                        <a href="#">
-                            <li>Про нас</li>
+                        <a id="link4" href="">
+                            <li id="page4"></li>
                         </a>
-                        <a href="#">
-                            <li>Договір</li>
+                        <a id="link5" href="">
+                            <li id="page5"></li>
                         </a>
                     </div>
                 </div>
@@ -292,6 +292,31 @@
     </div>
 </footer>
 <script>
+    fetch('/pageconstructor', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log("data for pages list", data);
+        document.getElementById("page").innerHTML = data[0].title;
+        document.getElementById("page1").innerHTML = data[1].title;
+        document.getElementById("page2").innerHTML = data[2].title;
+        document.getElementById("page3").innerHTML = data[3].title;
+        document.getElementById("page4").innerHTML = data[4].title;
+        document.getElementById("page5").innerHTML = data[5].title;
+        document.getElementById("link").href = data[0].url + data[0].uuid;
+        console.log("link for page: ", document.getElementById("link").href = data[0].url + data[0].uuid);
+        document.getElementById("link1").href = data[1].url + data[1].uuid;
+        document.getElementById("link2").href = data[2].url + data[2].uuid;
+        document.getElementById("link3").href = data[3].url + data[3].uuid;
+        document.getElementById("link4").href = data[4].url + data[4].uuid;
+        document.getElementById("link5").href = data[5].url + data[5].uuid;
+    });
+
+
     fetch('/contact/details', {
         method: 'GET',
         headers: {
@@ -325,6 +350,8 @@
         document.getElementById('phone').innerHTML = data.phone;
         document.getElementById('address').innerHTML = data.address;
     });
+
+
     fetch('/shop/details/public', {
         method: 'GET',
         headers: {

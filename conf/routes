@@ -6,6 +6,7 @@
 GET     {client}/                                       Application.index
 GET     {client}/wisehands                              Application.wisehands
 GET     {client}/shop                                   Application.shop
+GET     {client}/page/{uuid}                            Application.page
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
@@ -149,6 +150,7 @@ GET     {client}/pageconstructor/{uuid}                 PageConstructorAPI.detai
 GET     {client}/pageconstructor                        PageConstructorAPI.all
 POST    {client}/pageconstructor                        PageConstructorAPI.create
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
+DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail

@@ -35,6 +35,28 @@ public class WisehandsSetup extends Job {
                 createShop("HappyBag", "happybag.me");
             }
         }
+
+        List<ShopDTO> allShops = ShopDTO.findAll();
+        for (ShopDTO shop: allShops){
+            List<PageConstructorDTO> listsPage = PageConstructorDTO.find("byShop", shop).fetch();
+            boolean hasPages = listsPage.size() == 0;
+
+            if (hasPages){
+                PageConstructorDTO page = new PageConstructorDTO("/page/", "Оплата", "create page Оплата from java", shop);
+                PageConstructorDTO page1 = new PageConstructorDTO("/page/", "Доставка", "create page Доставка from java", shop);
+                PageConstructorDTO page2 = new PageConstructorDTO("/page/", "Повернення", "create page Повернення from java", shop);
+                PageConstructorDTO page3 = new PageConstructorDTO("/page/", "Контакти", "create page Контакти from java", shop);
+                PageConstructorDTO page4 = new PageConstructorDTO("/page/", "Про нас", "create page Про нас from java", shop);
+                PageConstructorDTO page5 = new PageConstructorDTO("/page/", "Договір", "create page Договір from java", shop);
+                page.save();
+                page1.save();
+                page2.save();
+                page3.save();
+                page4.save();
+                page5.save();
+            }
+        }
+
     }
 
     private void createShop(String shopName, String domain) {

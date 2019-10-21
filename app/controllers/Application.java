@@ -100,6 +100,17 @@ public class Application extends Controller {
         render(shop);
     }
 
+    public static void page(String client, String uuid) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        PageConstructorDTO page = PageConstructorDTO.findById(uuid);
+        System.out.println("page for render " + page.getBody());
+        render(shop, page);
+    }
+
     public static void done(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

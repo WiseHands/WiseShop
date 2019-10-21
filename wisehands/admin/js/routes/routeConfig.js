@@ -49,11 +49,11 @@
                         controller:'AddNewPageController',
                         activetab: 'newpage'
                     }).
-                when('/pageconstructor/edit/:uuid',{
-                    templateUrl:'wisehands/admin/partials/editPage.html',
-                    controller:'EditPageController',
-                    activetab: 'newpage'
-                }).
+                    when('/pageconstructor/edit/:uuid',{
+                        templateUrl:'wisehands/admin/partials/editPage.html',
+                        controller:'EditPageController',
+                        activetab: 'newpage'
+                    }).
                     when('/products',{
                         templateUrl:'wisehands/admin/partials/products.html',
                         controller:'ProductListController',
