@@ -56,9 +56,65 @@
                     .then(function successCallback(response) {
                         $scope.products = response.data;
                         console.log("$scope.products", $scope.products);
+
+                        var maxNumberOfOrders = $scope.products.length === 0 || $scope.products.length < 12;
+                        if (maxNumberOfOrders) {
+                            $scope.loading = false;
+                        } else {
+                            $scope.hideMoreButton = false;
+                        }
+
                     }, function errorCallback(error) {
                         console.log(error);
-                    });
+                });
+
+                var pageNumber = 1;
+                $scope.moreOrders = function () {
+                    $scope.hideMoreButton = false;
+                    var req = {
+                        method: 'GET',
+                        url: '/products?page=' + pageNumber,
+                        data: {}
+                    };
+
+                    $http(req)
+                        .then(function successCallback(response) {
+                            if(response.data.length !== 0) {
+                                $scope.products = $scope.products.concat(response.data);
+                            } else {
+                                $scope.hideMoreButton = true;
+                            }
+                            $scope.isAllOrdersDeleted = true;
+                            var now = new Date();
+                            var dateNow = new Date(now.getUTCFullYear(), now.getMonth(), now.getDate());
+                            var startOfToday = dateNow.getTime();
+                            var oneDayInMs = 86400000;
+                            $scope.orders.forEach(function(order){
+                                order.yesterdayString = false;
+                                if (startOfToday - oneDayInMs < order.time && startOfToday > order.time){
+                                    order.yesterdayString = true;
+                                } else if (startOfToday < order.time) {
+                                    var date = new Date(order.time);
+                                    var hour = (date.getHours()<10?'0':'') + date.getHours();
+                                    var minute = (date.getMinutes()<10?'0':'') + date.getMinutes();
+                                    order.properDate = hour + ':' + minute;
+                                } else {
+                                    var orderDate = new Date(order.time);
+                                    var orderDay = ("0" + orderDate.getDate()).slice(-2);
+                                    var orderMonth = ("0" + (orderDate.getMonth() + 1)).slice(-2);
+                                    order.properDate = orderDay + '.' + orderMonth;
+                                }
+                                if (order.state !== 'DELETED') {
+                                    $scope.isAllOrdersDeleted = false;
+                                }
+                            });
+                            pageNumber ++;
+                            $scope.loading = false;
+                        }, function errorCallback(response) {
+                            $scope.loading = false;
+                            $scope.wrongMessage = true;
+                        });
+                };
 
                 $http({
                     method: 'GET',

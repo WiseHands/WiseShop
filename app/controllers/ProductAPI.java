@@ -17,6 +17,8 @@ import java.util.*;
 
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
+    private  static final int PAGE_SIZE = 12;
+
 
     public static void create(String client, String name, String description,
                               Double price, File fake, Integer mainPhotoIndex,
