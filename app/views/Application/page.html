@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <style>
+    body {
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    }
     .margin-all-0{
-        margin: 0px 0px 0px 0px;
+        margin: 0;
     }
     .flex-container-column{
-        display: flex;
         flex-direction: column;
     }
     #title-container{
@@ -12,18 +14,17 @@
         display: flex;
         justify-content: center;
     }
-    #header-container{
-        margin-bottom: 5px;
-        height: 80px;
+    .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 10px 0;
         box-shadow: 0 2px 3px rgba(0,0,0,0.1);
         display: flex;
-        flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        width: auto;
     }
-    #links-container{
-        display: inline-flex;
+    .links-container{
+        display: flex;
         justify-content: space-between;
     }
     #image-box{
@@ -31,22 +32,34 @@
         height: 50px;
         width: 50px;
     }
-    #image-name-container{
+    .image-name-container {
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
         align-items: center;
-        width: 30%;
     }
-    .text-link{
+    .image-name-container p {
+        padding-left: 10px;
+    }
+    .links-container p {
         margin: 10px;
         font-size: 18px;
     }
-    .link{
+    .link {
         text-decoration: none;
+        color: #666
+    }
+    .link:hover {
+        color: #000;
+    }
+    #titleContainer {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    #bodyContainer {
+        max-width: 1200px;
+        margin: 0 auto;
     }
     @media screen and (max-width: 800px) {
-        #links-container{
+        .links-container{
             display: none;
         }
     }
@@ -81,29 +94,29 @@
 <body class="margin-all-0">
     <div class="flex-container-column">
         #{verbatim}
-            <div id="header-container">
-                <div id="image-name-container">
+            <div class="header-container">
+                <div class="image-name-container">
                     <img id="image-box" src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
-                    <p class="text-link">${shop.shopName}</p>
+                    <p>${shop.shopName}</p>
                 </div>
-                <div id="links-container">
+                <div class="links-container">
                     <a class="link" href="">
-                        <p class="text-link">Оплата</p>
+                        <p>Оплата</p>
                     </a>
                     <a class="link" href="">
-                        <p class="text-link">Доставка</p>
+                        <p>Доставка</p>
                     </a>
                     <a class="link" href="">
-                        <p class="text-link">Повернення</p>
+                        <p>Повернення</p>
                     </a>
                     <a class="link" href="">
-                        <p class="text-link">Контакти</p>
+                        <pКонтакти</p>
                     </a>
                     <a class="link" href="">
-                        <p class="text-link">Про нас</p>
+                        <p>Про нас</p>
                     </a>
                     <a class="link" href="">
-                        <p class="text-link">Договір</p>
+                        <p>Договір</p>
                     </a>
                 </div>
 
