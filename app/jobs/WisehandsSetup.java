@@ -20,6 +20,9 @@ public class WisehandsSetup extends Job {
     private static final String HAPPYBAG_PUBLIC_LIQPAY_KEY = "i65251982315";
     private static final String HAPPYBAG_PRIVATE_LIQPAY_KEY = "NLsgd1zKW30EvBkPNeuQodXzmvcA7shcrQ7o0Mbs";
 
+    private static final String OPLATA = "<p>Оплата відбувається одним з наступних способів:</p>↵↵<ul>↵\t<li>готівкою при отриманні</li>↵\t<li>оплата по безготівковому рахунку</li>↵\t<li>онлайн оплата на сайті</li>↵\t<li>переказ на картку</li>↵</ul>↵↵<p>При оформленні замовлення до вас зателефонує менеджер та уточнить усі деталі.</p>";
+    private static final String DOSTAVKA = "<p>Доставка доступна у таких варіантах:</p>↵↵<ul>↵\t<li>самовивіз по адресі</li>↵\t<li>доставка кур&#39;єром у межах міста</li>↵\t<li>відправлення на відділення Нової Пошти</li>↵</ul>↵↵<p>При оформленні замовлення до вас зателефонує менеджер та уточнить усі деталі.</p>";
+    private static final String POVERNENNYA = "<p>Повернення товару здійснюється відповідно до Закону України &laquo;Про захист прав споживачів&raquo;. У період 14 днів, не враховуючи дня покупки, можна оформити повернення товару за умов:</p>↵↵<ul>↵\t<li>товар не був у експлуатації</li>↵\t<li>цілісність комплекту та упаковки не порушена</li>↵\t<li>збережений документ, який підтверджує оплату</li>↵\t<li>виріб не належить до переліку товарів неналежної якості, повернення яких обмежено рішенням Кабінету Міністрів України (постанова від 19 березня 1994 року №172)</li>↵</ul>↵↵<p>&nbsp;</p>";
 
     private static final String PASSWORD = "rjylbnth";
 
@@ -39,12 +42,12 @@ public class WisehandsSetup extends Job {
         List<ShopDTO> allShops = ShopDTO.findAll();
         for (ShopDTO shop: allShops){
             List<PageConstructorDTO> listsPage = PageConstructorDTO.find("byShop", shop).fetch();
-            boolean hasPages = listsPage.size() == 0;
+            boolean hasPages = listsPage.size() != 0;
 
-            if (hasPages){
-                PageConstructorDTO page = new PageConstructorDTO("/page/", "Оплата", "create page Оплата from java", shop);
-                PageConstructorDTO page1 = new PageConstructorDTO("/page/", "Доставка", "create page Доставка from java", shop);
-                PageConstructorDTO page2 = new PageConstructorDTO("/page/", "Повернення", "create page Повернення from java", shop);
+            if (!hasPages){
+                PageConstructorDTO page = new PageConstructorDTO("/page/", "Оплата", OPLATA, shop);
+                PageConstructorDTO page1 = new PageConstructorDTO("/page/", "Доставка", DOSTAVKA, shop);
+                PageConstructorDTO page2 = new PageConstructorDTO("/page/", "Повернення", POVERNENNYA, shop);
                 PageConstructorDTO page3 = new PageConstructorDTO("/page/", "Контакти", "create page Контакти from java", shop);
                 PageConstructorDTO page4 = new PageConstructorDTO("/page/", "Про нас", "create page Про нас from java", shop);
                 PageConstructorDTO page5 = new PageConstructorDTO("/page/", "Договір", "create page Договір from java", shop);
