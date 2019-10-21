@@ -87,24 +87,15 @@
                     <p class="text-link">${shop.shopName}</p>
                 </div>
                 <div id="links-container">
-                    <a class="link" href="">
-                        <p class="text-link">Оплата</p>
-                    </a>
-                    <a class="link" href="">
-                        <p class="text-link">Доставка</p>
-                    </a>
-                    <a class="link" href="">
-                        <p class="text-link">Повернення</p>
-                    </a>
-                    <a class="link" href="">
-                        <p class="text-link">Контакти</p>
-                    </a>
-                    <a class="link" href="">
-                        <p class="text-link">Про нас</p>
-                    </a>
-                    <a class="link" href="">
-                        <p class="text-link">Договір</p>
-                    </a>
+                        %{
+                            for(_page in pageList) {
+                                }%
+                                <a class="link" href="/page/${_page.uuid}">
+                                    <p class="text-link">${_page.title}</p>
+                                </a>
+                                %{
+                            }
+                        }%
                 </div>
 
             </div>

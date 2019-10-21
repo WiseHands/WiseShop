@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 public class Application extends Controller {
@@ -108,7 +109,10 @@ public class Application extends Controller {
 
         PageConstructorDTO page = PageConstructorDTO.findById(uuid);
         System.out.println("page for render " + page.getBody());
-        render(shop, page);
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+
+        render(shop, page, pageList);
     }
 
     public static void done(String client) {
