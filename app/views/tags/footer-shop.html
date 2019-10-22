@@ -98,6 +98,7 @@
         margin-left: 10px;
     }
     .feedback-float-text {
+        display: none;
         font-size: 0.8rem;
     }
     .feedback-input {
@@ -284,13 +285,13 @@
                 <h4>Будьте в курсі</h4>
                 <p>Дізнавайесь про найцікавіші новини, знижки та акції</p>
             </div>
-            <div class="feedback-float-text">
+            <div id="textfeedback" class="feedback-float-text">
                 <p>Вас додано до розсилки</p>
             </div>
-            <div class="feedback-input">
-                <input type="email" placeholder="enter your e-maill">
+            <div id="feedback" class="feedback-input">
+                <input id="subEmail" type="email" placeholder="enter your e-maill">
                 <div>
-                    <img src="wisehands/assets/images/footer-shop/send.png">
+                    <img id="sendSubEmail" src="wisehands/assets/images/footer-shop/send.png">
                 </div>
             </div>
 
@@ -328,7 +329,14 @@
     </div>
 </footer>
 <script>
-    fetch('/pageconstructor', {
+
+    let subEmail = document.getElementById("subEmail").value;
+    document.getElementById("sendSubEmail").onclick = function(){
+        document.getElementById("textfeedback").style.display = "block";
+        document.getElementById("feedback").style.display = "none";
+    };
+
+        fetch('/pageconstructor', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
