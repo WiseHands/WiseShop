@@ -76,7 +76,6 @@
 
     .footer-icons a:first-child {
         margin-right: 10px;
-
     }
 
     .footer-icons a:nth-child(2) {
@@ -98,7 +97,26 @@
         height: 60%;
         margin-left: 10px;
     }
-
+    .feedback-input {
+        display: flex;
+        align-items: center;
+    }
+    .feedback-input img {
+        width: 24px;
+    }
+    .feedback-input img:hover {
+        cursor: pointer;
+    }
+    input[type=email] {
+        width: 150px;
+    }
+    input[type=submit] {
+        background-color: #e0e0e0;
+        margin: 10px 0;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
     @media screen and (max-width: 767px) {
         footer {
             flex-direction: column;
@@ -117,6 +135,12 @@
 
         .offset-left {
             padding-left: 15px;
+        }
+        .feedback-input {
+            padding-left: 15px;
+        }
+        input[type=email] {
+            width: 80%;
         }
     }
 
@@ -256,6 +280,12 @@
             <div class="offset-left">
                 <h4>Будьте в курсі</h4>
                 <p>Дізнавайесь про найцікавіші новини, знижки та акції</p>
+            </div>
+            <div class="feedback-input">
+                <input type="email" placeholder="enter your e-maill">
+                <div>
+                    <img src="wisehands/assets/images/footer-shop/send.png">
+                </div>
             </div>
 
             <div class="footer-icons offset-left">
