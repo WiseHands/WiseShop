@@ -104,8 +104,9 @@
             <div class="header-container">
                 <a href="/">
                     <div class="image-name-container">
-
+                        #{if shop.visualSettingsDTO.shopLogo}
                             <img id="image-box" src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
+                        #{/if}
                             <p>${shop.shopName}</p>
 
                     </div>
