@@ -3,6 +3,7 @@
   "shopView.minimumPayment": "Minimum order amount",
   "shopView.netShops": "Shops",
   "shopView.title": "Choose shop for buying",
+  "shopView.messageProduct": "Sorry, but product not added yet",
   "shopView.use": "Choose shop",
   "shopView.contacts": "Contacts",
   "shopView.currency": "USD",
