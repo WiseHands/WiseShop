@@ -396,3 +396,10 @@ main {
 .noproducts-text img {
     width: 256px;
 }
+/*hidpi screen fix*/
+@media (min-width: 2500px) {
+    .col-lg-4 {
+        float: left;
+        width: 32.222222%;
+    }
+}
