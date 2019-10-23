@@ -1,7 +1,52 @@
+/*addition setting for margin padding ...*/
+.mt-30{
+    margin-top: 30px;
+}
+.mb-0{
+    margin-bottom: 0px;
+}
+/*editor-for-page*/
+.editor-for-page{
+    border: 1px solid black;
+    height: 350px;
+}
+
+    /* create table for workingHour page*/
+.flex-table{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+table{
+    margin-top: 15px;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+}
+.table-day{
+    padding-left: 15px;
+    text-align: left;
+}
+td, th {
+    text-align: center;
+    padding: 5px;
+}
+@media only screen and (max-width: 500px) {
+    table{
+        margin-top: 25px;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 90%;
+    }
+}
+/*end of the table*/
+
 /*set margin for <hr> on payment page start*/
 .margin-hr{
     margin-bottom: 5px;
 }
+
 .fluid-width{
     width: auto !important;
 }
@@ -310,6 +355,7 @@ body {
 .vcentering {
     display: flex;
     align-items: center;
+    justify-content: space-between
 }
 
 .errorTextStyling {

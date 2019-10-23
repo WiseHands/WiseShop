@@ -1,5 +1,10 @@
 ﻿{
-  "discountPage.title": "Zniżku",
+  "editPage.title": "Edycja strony",
+  "addNewPage.title": "Tworzenie nowej strony",
+  "addNewPage.setTitle": "Wpisz nazwę strony",
+  "addNewPage.setUrl": "Wpisz nazwę URL",
+  "addNewPage.setBody": "Strona redaktora",
+  "pageConstructor.title": "Projektant stron",
   "singleOrder.Email": "Email",
   "networkShopListPage.addShop": "Dodaj sklep",
   "addShopsNetwork.netName": "Nazwa sieci",
@@ -66,7 +71,7 @@
   "sideNav.Settings": "Ustawienia",
   "sideNav.Users": "Użytkownicy",
   "sideNav.Profile": "Profil",
-  "sideNav.Discount": "Zniżka",
+  "sideNav.Pages": "Strony",
   "sideNav.SignOut": "Wyloguj się",
   "analytics.analytics": "Analityka",
   "analytics.days": "dni",
@@ -152,6 +157,9 @@
   "contacts.address": "Adres",
   "contacts.coords": "Współrzędne",
   "contacts.description": "Opis",
+  "contacts.linkfacebook": "Link do Facebooka, który będzie wyświetlany w stopce",
+  "contacts.linkinstagram": "Link do Instagram, który będzie wyświetlany w stopce",
+  "contacts.linkyoutube": "Link do Youtube, który będzie wyświetlany w stopce",
   "users.users": "Użytkownicy",
   "users.newUser": "Nowy użytkownik",
   "users.newUserExist": "Użytkownik z takim e-mailem już istnieje",
@@ -162,6 +170,7 @@
   "settings.view": "Wygląd",
   "settings.shopName": "Nazwa sklepu",
   "settings.workingHours": "Godziny pracy",
+  "settings.setWorkingHours": "Ustawić godziny",
   "settings.from": "Od",
   "settings.to": "Do",
   "settings.publicKey": "Klucz publiczny",
@@ -184,6 +193,8 @@
   "settings.shopClosed": "Przepraszamy, sklep zamknięty będzie otwarty później",
   "settings.isTemporary": "Sklep tymczasowo zamknięty",
   "settings.addSetting": "Addition setting for shop",
+  "settings.isFooterOn": "Show footer",
+
 
   "settings.temporaryTitle": "Nagłówek",
   "settings.temporaryDiscr": "Krótki opis",
@@ -198,12 +209,22 @@
   "deleteproperty.deleteMessage1": "Czy na pewno chcesz usunąć tę właściwość?",
   "deleteproperty.deleteMessage2": "Usunięto właściwość.",
   "directives.language-select.Language": "Język",
+  "hourssetting.title": "Ustawienie godzin",
+  "hourssetting.monday": "Poniedziałek",
+  "hourssetting.tuesday": "Wtorek",
+  "hourssetting.wednesday": "Środa",
+  "hourssetting.thursday": "Czwartek",
+  "hourssetting.friday": "Piątek",
+  "hourssetting.saturday": "Sobota",
+  "hourssetting.sunday": "Niedziela",
+  "hourssetting.day": "Pracujący",
+  "hourssetting.start": "Od",
+  "hourssetting.end": "Do",
+  "hourssetting.closed": "Zamknięte",
+  "hourssetting.whenClosed": "Kiedy sklep jest zamknięty:",
   "payment.buttonDiscription": "Tekst, który klient zobaczy na przycisku płatności.",
   "payment.setButton": "Edytuj napis na przycisku płatności",
   "additionSetting.title": "Dodatkowe ustawienie",
   "additionSetting.changeName": "Edycja elementa \"Imię\" na stronie zamówienia",
   "additionSetting.exampleChangeName": "Domyślnie element nosi nazwę \"Imię\""
-
-
-
 }

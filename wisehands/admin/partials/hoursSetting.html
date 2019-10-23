@@ -1,0 +1,105 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'hourssetting.title' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="setWorkingHour()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid noSidePadding flex-table">
+    <table>
+        <tr>
+            <th>{{'hourssetting.day' | translate}}</th>
+            <th>{{'hourssetting.start' | translate}}</th>
+            <th>{{'hourssetting.end' | translate}}</th>
+            <th>{{'hourssetting.closed' | translate}}</th>
+        </tr>
+        <tr>
+            <td class="table-day">{{'hourssetting.monday' | translate}}</td>
+            <td><input type="time" ng-model="workDay.monStartTime"></td>
+            <td><input type="time" ng-model="workDay.monEndTime"></td>
+            <td >
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" ng-model="workDay.monOpen" id="tableDefaultCheck1">
+                    <label class="custom-control-label" for="tableDefaultCheck1"></label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="table-day">{{'hourssetting.tuesday' | translate}}</td>
+            <td><input type="time" ng-model="workDay.tueStartTime"></td>
+            <td><input type="time" ng-model="workDay.tueEndTime"></td>
+            <td >
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" ng-model="workDay.tueOpen" id="tableDefaultCheck2">
+                    <label class="custom-control-label" for="tableDefaultCheck2"></label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="table-day">{{'hourssetting.wednesday' | translate}}</td>
+            <td><input type="time" ng-model="workDay.wedStartTime"></td>
+            <td><input type="time" ng-model="workDay.wedEndTime"></td>
+            <td >
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" ng-model="workDay.wedOpen" id="tableDefaultCheck3">
+                    <label class="custom-control-label" for="tableDefaultCheck3"></label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="table-day">{{'hourssetting.thursday' | translate}}</td>
+            <td><input type="time" ng-model="workDay.thuStartTime"></td>
+            <td><input type="time" ng-model="workDay.thuEndTime"></td>
+            <td >
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" ng-model="workDay.thuOpen" id="tableDefaultCheck4">
+                    <label class="custom-control-label" for="tableDefaultCheck4"></label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="table-day">{{'hourssetting.friday' | translate}}</td>
+            <td><input type="time" ng-model="workDay.friStartTime"></td>
+            <td><input type="time" ng-model="workDay.friEndTime"></td>
+            <td >
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" ng-model="workDay.friOpen" id="tableDefaultCheck5">
+                    <label class="custom-control-label" for="tableDefaultCheck5"></label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="table-day">{{'hourssetting.saturday' | translate}}</td>
+            <td><input type="time" ng-model="workDay.satStartTime"></td>
+            <td><input type="time" ng-model="workDay.satEndTime"></td>
+            <td >
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" ng-model="workDay.satOpen" id="tableDefaultCheck6">
+                    <label class="custom-control-label" for="tableDefaultCheck6"></label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="table-day">{{'hourssetting.sunday' | translate}}</td>
+            <td><input type="time" ng-model="workDay.sunStartTime"></td>
+            <td><input type="time" ng-model="workDay.sunEndTime"></td>
+            <td >
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" ng-model="workDay.sunOpen" id="tableDefaultCheck7">
+                    <label class="custom-control-label" for="tableDefaultCheck7"></label>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -4,9 +4,13 @@ angular.module('WiseHands')
     		function ($scope, $http, $location, sideNavInit, signout, shared, $rootScope) {
         $scope.loading = true;
 
+                $scope.hoursSetting = function () {
+                    $location.path('/hourssetting');
+                };
+
         $http({
             method: 'GET',
-            url: '/balance',
+            url: '/balance'
         })
             .then(function successCallback(response) {
                 $scope.balance = response.data;
@@ -18,13 +22,13 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/shop/details',
+            url: '/shop/details'
         })
             .then(function successCallback(response) {
                 $scope.activeShop = response.data;
                 console.log('details value of checkbox whenClosed:', $scope.activeShop.isTemporaryClosed);
-                $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
-                $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
+                // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
+                // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
                 $scope.loading = false;
             }, function errorCallback(response) {
                 $scope.loading = false;
@@ -37,11 +41,11 @@ angular.module('WiseHands')
 
         $scope.whenShopClosed = function(){
               if ($scope.activeShop.isTemporaryClosed){
-                console.log('1', $scope.activeShop.isTemporaryClosed);
+                console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
                 $scope.activeShop.isTemporaryClosed = true;
 
               } else {
-                console.log('0', $scope.activeShop.isTemporaryClosed);
+                console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
                 $scope.activeShop.isTemporaryClosed = false;
               }
         };
@@ -58,8 +62,8 @@ angular.module('WiseHands')
                     $scope.activeShop = response;
                     console.log('after PUT whenClosed', $scope.activeShop.whenClosed);
                     localStorage.setItem('activeShopName', $scope.activeShop.shopName);
-                    $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
-                    $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
+                    // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
+                    // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
                     document.title = $scope.activeShop.shopName;
                     $scope.loading = false;
                 }).
@@ -74,7 +78,7 @@ angular.module('WiseHands')
           console.log(document.getElementById("newDomainName").value);
           $http({
               method: 'PUT',
-              url: '/shop/domain/'  + document.getElementById("newDomainName").value,
+              url: '/shop/domain/'  + document.getElementById("newDomainName").value
           })
               .success(function (response) {
                 console.log(response.data.locale);
@@ -114,8 +118,8 @@ angular.module('WiseHands')
       toastr.clear();
       toastr.options = {
         "positionClass": "toast-bottom-center",
-        "preventDuplicates": true,
-      }
+        "preventDuplicates": true
+      };
       toastr.warning(msg);
     }
 
@@ -123,8 +127,8 @@ angular.module('WiseHands')
       toastr.clear();
       toastr.options = {
         "positionClass": "toast-bottom-center",
-        "preventDuplicates": true,
-      }
+        "preventDuplicates": true
+      };
       toastr.info(msg);
     }
 

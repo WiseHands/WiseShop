@@ -4,6 +4,8 @@
   "shopView.minimumPayment": "Сума мінімального замовлення ",
   "shopView.title": "Виберіть магазин для покупки",
   "shopView.use": "Вибрати цей магазин",
+  "shopView.showMore": "Показати ще",
+  "shopView.messageProduct": "Вибачте, але продукт ще не додано",
   "shopView.otherShops": "Найближчі магазини",
   "shopView.contacts": "Контакти",
   "shopView.currency": "ГРН",

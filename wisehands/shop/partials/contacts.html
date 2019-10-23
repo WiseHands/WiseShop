@@ -1,124 +1,52 @@
-<!--Navigation-->
+<style>
+    #footer-shop {
+        display: none;
+    }
+</style>
 <header>
 
     <nav class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" shop-styling style="background-color: {{shopStyling.navbarColor}}">
-
-        <!-- SideNav slide-out button -->
-        <!--<div class="pull-left">-->
-        <!--<a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>-->
-        <!--</div>-->
-
-
 
         <ul class="nav navbar-nav pull-left">
 
             <li class="nav-item">
                 <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
             </li>
-            <!--<li class="nav-item ">-->
-            <!--<a class="nav-link"><i class="fa fa-comments-o"></i> <span class="hidden-sm-down">Support</span></a>-->
-            <!--</li>-->
-            <!--<li class="nav-item ">-->
-            <!--<a class="nav-link"><i class="fa fa-sign-in"></i> <span class="hidden-sm-down">Register</span></a>-->
-            <!--</li>-->
-            <!--<li class="nav-item dropdown">-->
-            <!--<a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <span class="hidden-sm-down">Profile</span></a>-->
-            <!--<div class="dropdown-menu dropdown-primary dd-right" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">-->
-            <!--<a class="dropdown-item" href="#">Logout</a>-->
-            <!--<a class="dropdown-item" href="#">My account</a>-->
-            <!--</div>-->
-            <!--</li>-->
         </ul>
 
     </nav>
-    <!--/.Navbar-->
 
 </header>
-<!--/Navigation-->
 
 <main class="pl-0">
-<section class="section m-b-4">
+    <section class="section m-b-4">
 
-    <!--Section sescription-->
 
-    <div class="row contactsContainer">
-    <p class="section-description m-b-5">{{contacts.description}}</p>
+        <div class="row contactsContainer">
+            <p class="section-description m-b-5">{{contacts.description}}</p>
 
-        <!--&lt;!&ndash;First column&ndash;&gt;-->
-        <!--<div class="col-md-5">-->
+            <div class="col-md-8">
+                <!--Google map-->
+                <div id="map-container" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 300px"></div>
+            </div>
+            <!--Buttons-->
+            <div class="col-md-4">
+                <ul class="text-xs-center">
+                    <li class="wow fadeInUp" data-wow-delay="0.2s"><a class="btn-floating btn-small mdb-color" href="https://maps.google.com/?q={{contacts.address}}" target="_blank"><i class="fa fa-map-marker"></i></a>
+                        <p>{{contacts.address}}</p>
+                    </li>
 
-            <!--&lt;!&ndash;Form with header&ndash;&gt;-->
-            <!--<div class="card">-->
+                    <li class="wow fadeInUp" data-wow-delay="0.3s"><a class="btn-floating btn-small mdb-color" data-target="#contact-form" href="tel:+{{contacts.phone}}"><i class="fa fa-phone"></i></a>
+                        <p>{{contacts.phone}}</p>
+                    </li>
 
-                <!--<div class="card-block">-->
-                    <!--&lt;!&ndash;Header&ndash;&gt;-->
-                    <!--<div class="form-header mdb-color">-->
-                        <!--<h3><i class="fa fa-envelope"></i> Write to us:</h3>-->
-                    <!--</div>-->
-
-                    <!--<p>We'll write rarely, but only the best content.</p>-->
-                    <!--<br>-->
-
-                    <!--&lt;!&ndash;Body&ndash;&gt;-->
-                    <!--<div class="md-form">-->
-                        <!--<i class="fa fa-user prefix"></i>-->
-                        <!--<input type="text" id="form3" class="form-control">-->
-                        <!--<label for="form3">Your name</label>-->
-                    <!--</div>-->
-
-                    <!--<div class="md-form">-->
-                        <!--<i class="fa fa-envelope prefix"></i>-->
-                        <!--<input type="text" id="form2" class="form-control">-->
-                        <!--<label for="form2">Your email</label>-->
-                    <!--</div>-->
-
-                    <!--<div class="md-form">-->
-                        <!--<i class="fa fa-tag prefix"></i>-->
-                        <!--<input type="text" id="form32" class="form-control">-->
-                        <!--<label for="form32">Subject</label>-->
-                    <!--</div>-->
-
-                    <!--<div class="md-form">-->
-                        <!--<i class="fa fa-pencil prefix"></i>-->
-                        <!--<textarea type="text" id="form8" class="md-textarea"></textarea>-->
-                        <!--<label for="form8">Icon Prefix</label>-->
-                    <!--</div>-->
-
-                    <!--<div class="text-xs-center">-->
-                        <!--<button class="btn btn-ins">Submit</button>-->
-                    <!--</div>-->
-
-                <!--</div>-->
-
-            <!--</div>-->
-            <!--&lt;!&ndash;/Form with header&ndash;&gt;-->
-
-        <!--</div>-->
-        <!--/First column-->
-
-        <!--Second column-->
-        <div class="col-md-8">
-            <!--Google map-->
-            <div id="map-container" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 300px"></div>
+                    <li class="wow fadeInUp" data-wow-delay="0.4s"><a class="btn-floating btn-small mdb-color" data-target="#contact-form" href="mailto:{{contacts.email}}"><i class="fa fa-envelope"></i></a>
+                        <p>{{contacts.email}}</p>
+                    </li>
+                </ul>
+            </div>
+        <!--/Second column-->
         </div>
-        <!--Buttons-->
-        <div class="col-md-4">
-            <ul class="text-xs-center">
-                <li class="wow fadeInUp" data-wow-delay="0.2s"><a class="btn-floating btn-small mdb-color" href="https://maps.google.com/?q={{contacts.address}}" target="_blank"><i class="fa fa-map-marker"></i></a>
-                    <p>{{contacts.address}}</p>
-                </li>
 
-                <li class="wow fadeInUp" data-wow-delay="0.3s"><a class="btn-floating btn-small mdb-color" data-target="#contact-form" href="tel:+{{contacts.phone}}"><i class="fa fa-phone"></i></a>
-                    <p>{{contacts.phone}}</p>
-                </li>
-
-                <li class="wow fadeInUp" data-wow-delay="0.4s"><a class="btn-floating btn-small mdb-color" data-target="#contact-form" href="mailto:{{contacts.email}}"><i class="fa fa-envelope"></i></a>
-                    <p>{{contacts.email}}</p>
-                </li>
-            </ul>
-        </div>
-    <!--/Second column-->
-    </div>
-
-</section>
+    </section>
 </main>

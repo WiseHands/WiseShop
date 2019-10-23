@@ -21,6 +21,7 @@ public class WisehandsSetup extends Job {
     private static final String HAPPYBAG_PRIVATE_LIQPAY_KEY = "NLsgd1zKW30EvBkPNeuQodXzmvcA7shcrQ7o0Mbs";
 
 
+
     private static final String PASSWORD = "rjylbnth";
 
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
@@ -35,6 +36,20 @@ public class WisehandsSetup extends Job {
                 createShop("HappyBag", "happybag.me");
             }
         }
+
+        List<ShopDTO> allShops = ShopDTO.findAll();
+        for (ShopDTO shop: allShops){
+            List<PageConstructorDTO> listsPage = PageConstructorDTO.find("byShop", shop).fetch();
+            boolean hasPages = listsPage.size() != 0;
+
+            AdditionalSettingForShop additionalSettingForShop = new AdditionalSettingForShop();
+            additionalSettingForShop.setWorkkingTime(shop);
+            shop = shop.save();
+            if (!hasPages){
+              additionalSettingForShop.setPageListForFooter(shop);
+            }
+        }
+
     }
 
     private void createShop(String shopName, String domain) {

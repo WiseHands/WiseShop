@@ -65,9 +65,14 @@
             <p>{{'settings.navbarQuantity' | translate}}</p>
             <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
+
         <div class="input-field col-md-12" ng-show="logo">
             <p>{{'settings.logoHref' | translate}}</p>
             <input ng-model="shopStyling.logoHref" type="text" placeholder="https://www.myshoplandingpage.com">
+        </div>
+        <div class="input-field col-sm-12">
+            <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="shopStyling.isFooterOn"/>
+            <label for="filled-in-box">{{'settings.isFooterOn' | translate}}</label>
         </div>
         <div class="file-field input-field col-md-offset-6 col-md-6" ng-show="!logo">
             <button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block" ng-click="loadImage()">
@@ -76,6 +81,7 @@
             <input name="imageLoader" type="file" id="imageLoader"
             onchange="angular.element(this).scope().imageUpload(this)" />
         </div>
+
         <div class="input-field col-md-offset-6 col-md-6" ng-hide="!logo">
             <button type="button" class="btn secondaryColor waves-effect waves-light btn-block" ng-click="deleteLogo()">
                 <span>{{'settings.removeLogo' | translate}}</span>

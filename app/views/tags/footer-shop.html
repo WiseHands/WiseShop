@@ -1,0 +1,482 @@
+<style>
+    footer {
+        display: flex;
+        max-width: 768px;
+        margin: 0 auto;
+        height: 100%;
+        padding-top: 20px;
+        background-color: white;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .footer-first-block,
+    .footer-second-block {
+        display: flex;
+        width: 50%;
+    }
+
+    .footer-contact p {
+        font-size: 0.95em;
+    }
+
+    .schedule img,
+    .contact-info-icon-container img {
+        margin-right: 5px;
+    }
+
+    .contact-info {
+        padding: 10px;
+    }
+
+    .contact-info-icon-container {
+        display: flex;
+    }
+
+    .footer-info {
+        width: 50%;
+    }
+
+    .footer-info h4 {
+        font-size: 1.4em;
+        font-weight: 550;
+        margin-left: 20px;
+        padding-bottom: 10px;
+    }
+
+    .footer-info ul {
+        list-style-type: none;
+        margin-left: 20px;
+    }
+
+    .footer-info ul li {
+        line-height: 1.7;
+        font-size: 1.2em;
+        color: #000;
+    }
+
+    .footer-feedback {
+        width: 50%;
+    }
+
+    .footer-feedback h4 {
+        font-size: 1.4em;
+        font-weight: 550;
+        padding-bottom: 10px;
+    }
+
+    .footer-feedback p {
+        font-size: 1.2em;
+        padding: 10px 0;
+        line-height: 1.3;
+    }
+
+    .footer-icons {
+        margin-top: 15px;
+    }
+
+    .footer-icons a:first-child {
+        margin-right: 10px;
+    }
+
+    .footer-icons a:nth-child(2) {
+        margin-right: 10px;
+    }
+
+    .footer-payment {
+        width: 50%;
+    }
+
+    .footer-payment h4 {
+        font-size: 1.4em;
+        font-weight: 550;
+        padding-bottom: 10px;
+    }
+
+    .payment-img img {
+        width: 60%;
+        height: 60%;
+        margin-left: 10px;
+    }
+    .feedback-float-text {
+        display: none;
+        font-size: 0.8rem;
+    }
+    .feedback-input {
+        display: flex;
+        align-items: center;
+    }
+    .feedback-input img {
+        width: 24px;
+    }
+    .feedback-input img:hover {
+        cursor: pointer;
+    }
+    input[type=email] {
+        width: 150px;
+    }
+    input[type=submit] {
+        background-color: #e0e0e0;
+        margin: 10px 0;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    @media screen and (max-width: 767px) {
+        footer {
+            flex-direction: column;
+        }
+
+        .footer-first-block,
+        .footer-second-block {
+            width: 100%;
+        }
+
+        .footer-info,
+        .footer-feedback,
+        .footer-payment {
+            margin-bottom: 15px;
+        }
+
+        .offset-left {
+            padding-left: 15px;
+        }
+        .feedback-input, .feedback-float-text {
+            padding-left: 15px;
+        }
+        input[type=email] {
+            width: 80%;
+        }
+    }
+
+    @media screen and (max-width: 667px) {
+        #footer-shop .footer-first-block,
+        .footer-second-block {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        #footer-shop .footer-info,
+        .footer-feedback,
+        .footer-payment {
+            width: 100%;
+        }
+
+
+        #footer-shop .contact-info {
+            width: 50%;
+        }
+
+        #footer-shop .footer-info-block {
+            display: flex;
+        }
+
+        .working-week-time {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #footer-shop .footer-info-first-block,
+        .footer-info-second-block, .first-working-time-block, .second-working-time-block {
+            width: 50%;
+        }
+
+        #footer-shop .payment-img {
+            width: 60%;
+        }
+
+        #footer-shop .offset-left {
+            padding-left: 15px;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        #footer-shop .footer-info-block,
+        .footer-feedback,
+        .footer-payment {
+            flex-direction: column;
+        }
+
+        #footer-shop .contact-info {
+            width: 100%;
+        }
+    }
+
+    .work-day {
+        height: 35px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-left: 20px;
+    }
+
+    .day {
+        padding-top: 2px;
+        margin-bottom: 0;
+    }
+</style>
+<footer id="footer-shop" class="footer">
+    <div class="footer-first-block">
+        <div class="footer-info">
+            <h4>Графік роботи</h4>
+            <div class="working-week-time">
+                <div class="first-working-time-block">
+                    <div class="work-day">
+                        <p>ПН <h6 class="day" id="mon"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>ВТ <h6 class="day" id="tue"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>СР <h6 class="day" id="wed"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>ЧТ <h6 class="day" id="thu"></h6></p>
+                    </div>
+                </div>
+                <div class="second-working-time-block">
+                    <div class="work-day">
+                        <p>ПТ <h6 class="day" id="fri"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>СБ <h6 class="day" type="time" id="sat"></h6></p>
+                    </div>
+                    <div class="work-day">
+                        <p>НД <h6 class="day" type="time" id="sun"></h6></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-info">
+            <h4>Інформація</h4>
+            <ul id="pageList">
+                <div class="footer-info-block">
+                    <div class="footer-info-first-block">
+                        <a id="link" href="">
+                            <li id="page"></li>
+                        </a>
+                        <a id="link1" href="">
+                            <li id="page1"></li>
+                        </a>
+                        <a  id="link2" href="">
+                            <li id="page2"></li>
+                        </a>
+                    </div>
+                    <div class="footer-info-second-block">
+                        <a id="link3" href="">
+                            <li id="page3"></li>
+                        </a>
+                        <a id="link4" href="">
+                            <li id="page4"></li>
+                        </a>
+                        <a id="link5" href="">
+                            <li id="page5"></li>
+                        </a>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-second-block">
+
+        <div class="footer-feedback">
+            <div class="offset-left">
+                <h4>Будьте в курсі</h4>
+                <p>Дізнавайесь про найцікавіші новини, знижки та акції</p>
+            </div>
+            <div id="textfeedback" class="feedback-float-text">
+                <p>Вас додано до розсилки</p>
+            </div>
+            <div id="feedback" class="feedback-input">
+                <input id="subEmail" type="email" placeholder="enter your e-maill" required>
+                <div>
+                    <img id="sendSubEmail" src="wisehands/assets/images/footer-shop/send.png">
+                </div>
+            </div>
+
+            <div class="footer-icons offset-left">
+                <div class="footer-icons-block">
+                    <a href="" id="linkfacebook">
+                        <img src="wisehands/assets/images/footer-shop/facebook-new.png"></a>
+                    <a href="" id="linkinstagram">
+                        <img src="wisehands/assets/images/footer-shop/instagram-new.png"></a>
+                    <a href="" id="linkyoutube">
+                        <img src="wisehands/assets/images/footer-shop//youtube-play.png"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-payment">
+            <h4 class="offset-left">Приймаємо</h4>
+            <div class="payment-img"><img src="wisehands/assets/images/footer-shop/msvisa1.png"></div>
+            <div class="contact-info offset-left">
+                <div class="contact-info-icon-container" id="divemail">
+                    <div><img src="wisehands/assets/images/footer-shop/icons8-envelope-16.png"></div>
+                    <div><p id="email"></p></div>
+                </div>
+                <div class="contact-info-icon-container" id="divphone">
+                    <div><img src="wisehands/assets/images/footer-shop/icons8-phone-16.png"></div>
+                    <div><p id="phone"></p></div>
+                </div>
+                <div class="contact-info-icon-container" id="divaddress">
+                    <div><img src="wisehands/assets/images/footer-shop/icons8-map-16.png"></div>
+                    <div><p id="address"></p></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+<script>
+
+    let subEmail = document.getElementById("subEmail").value;
+    document.getElementById("sendSubEmail").onclick = function(){
+        document.getElementById("textfeedback").style.display = "block";
+        document.getElementById("feedback").style.display = "none";
+    };
+
+        fetch('/pageconstructor', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log("data for pages list", data);
+        document.getElementById("page").innerHTML = data[0].title;
+        document.getElementById("page1").innerHTML = data[1].title;
+        document.getElementById("page2").innerHTML = data[2].title;
+        document.getElementById("page3").innerHTML = data[3].title;
+        document.getElementById("page4").innerHTML = data[4].title;
+        document.getElementById("page5").innerHTML = data[5].title;
+        document.getElementById("link").href = data[0].url + data[0].uuid;
+        console.log("link for page: ", document.getElementById("link").href = data[0].url + data[0].uuid);
+        document.getElementById("link1").href = data[1].url + data[1].uuid;
+        document.getElementById("link2").href = data[2].url + data[2].uuid;
+        document.getElementById("link3").href = data[3].url + data[3].uuid;
+        document.getElementById("link4").href = data[4].url + data[4].uuid;
+        document.getElementById("link5").href = data[5].url + data[5].uuid;
+    });
+
+
+    fetch('/contact/details', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        if (!data.linkfacebook) {
+            document.getElementById('linkfacebook').style.display = "none";
+        }
+        if (!data.linkinstagram) {
+            document.getElementById('linkinstagram').style.display = "none";
+        }
+        if (!data.linkyoutube) {
+            document.getElementById('linkyoutube').style.display = "none";
+        }
+        document.getElementById('linkfacebook').href = data.linkfacebook;
+        document.getElementById('linkinstagram').href = data.linkinstagram;
+        document.getElementById('linkyoutube').href = data.linkyoutube;
+        if (!data.email) {
+            document.getElementById('divemail').style.display = "none";
+        }
+        if (!data.phone) {
+            document.getElementById('divphone').style.display = "none";
+        }
+        if (!data.address) {
+            document.getElementById('divaddress').style.display = "none";
+        }
+        document.getElementById('email').innerHTML = data.email;
+        document.getElementById('phone').innerHTML = data.phone;
+        document.getElementById('address').innerHTML = data.address;
+    });
+
+
+    fetch('/shop/details/public', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+
+        function getRightFormat(number) {
+            let formattedNumber;
+            if(number === 0) {
+                formattedNumber = '00';
+            } else {
+                formattedNumber = number;
+            }
+            return formattedNumber;
+        }
+
+        console.log("response for footer data", data);
+        if (data.monOpen === true) {
+            document.getElementById('mon').innerHTML = 'Зачинено';
+        } else {
+            let _startDate = new Date(data.monStartTime);
+            let _endDate = new Date(data.monEndTime);
+            let mon = getRightFormat(_startDate.getHours()) + ":" + getRightFormat(_startDate.getMinutes()) + "-" +
+                getRightFormat(_endDate.getHours()) + ":" + getRightFormat(_endDate.getMinutes());
+            document.getElementById('mon').innerHTML = mon;
+        }
+        if (data.tueOpen === true) {
+            document.getElementById('tue').innerHTML = 'Зачинено';
+        } else {
+            let tue = getRightFormat(new Date(data.tueStartTime).getHours()) + ":" + getRightFormat(new Date(data.tueStartTime).getMinutes()) + "-" +
+                getRightFormat(new Date(data.tueEndTime).getHours()) + ":" + getRightFormat(new Date(data.tueEndTime).getMinutes());
+            document.getElementById('tue').innerHTML = tue;
+        }
+        if (data.wedOpen === true) {
+            document.getElementById('wed').innerHTML = 'Зачинено';
+        } else {
+            let wed = getRightFormat(new Date(data.wedStartTime).getHours()) + ":" +
+                getRightFormat(new Date(data.wedStartTime).getMinutes()) + "-" +
+                getRightFormat(new Date(data.wedEndTime).getHours()) + ":" +
+                getRightFormat(new Date(data.wedEndTime).getMinutes());
+            document.getElementById('wed').innerHTML = wed;
+        }
+        if (data.thuOpen === true) {
+            document.getElementById('thu').innerHTML = 'Зачинено';
+        } else {
+            let thu = getRightFormat(new Date(data.thuStartTime).getHours()) + ":" +
+                getRightFormat(new Date(data.thuStartTime).getMinutes()) + "-" +
+                getRightFormat(new Date(data.thuEndTime).getHours()) + ":" +
+                getRightFormat(new Date(data.thuEndTime).getMinutes());
+            document.getElementById('thu').innerHTML = thu;
+        }
+        if (data.friOpen === true) {
+            document.getElementById('fri').innerHTML = 'Зачинено';
+        } else {
+            let fri = getRightFormat(new Date(data.friStartTime).getHours()) + ":" +
+                getRightFormat(new Date(data.friStartTime).getMinutes()) + "-" +
+                getRightFormat(new Date(data.friEndTime).getHours()) + ":" +
+                getRightFormat(new Date(data.friEndTime).getMinutes());
+            document.getElementById('fri').innerHTML = fri;
+        }
+        if (data.satOpen === true) {
+            document.getElementById('sat').innerHTML = 'Зачинено';
+        } else {
+            let sat = getRightFormat(new Date(data.satStartTime).getHours()) + ":" +
+                getRightFormat(new Date(data.satStartTime).getMinutes()) + "-" +
+                getRightFormat(new Date(data.satEndTime).getHours()) + ":" +
+                getRightFormat(new Date(data.satEndTime).getMinutes());
+            document.getElementById('sat').innerHTML = sat;
+        }
+        if (data.sunOpen === true) {
+            document.getElementById('sun').innerHTML = 'Зачинено';
+        } else {
+            let sun = getRightFormat(new Date(data.sunStartTime).getHours()) + ":" +
+                getRightFormat(new Date(data.sunStartTime).getMinutes()) + "-" +
+                getRightFormat(new Date(data.sunEndTime).getHours()) + ":" +
+                getRightFormat(new Date(data.sunEndTime).getMinutes());
+            document.getElementById('sun').innerHTML = sun;
+        }
+    });
+
+</script>

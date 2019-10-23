@@ -34,6 +34,10 @@ public class VisualSettingsDTO extends GenericModel {
     public String logoHref;
 
     @Expose
+    @Column(columnDefinition = "boolean default false")
+    public boolean isFooterOn;
+
+    @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public SidebarColorScheme sidebarColorScheme;
 

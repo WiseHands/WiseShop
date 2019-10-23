@@ -119,7 +119,7 @@ angular.module('WiseHands')
 
             $scope.createNetworkShops = function () {
                 $location.path('/network');
-            }
+            };
 
 
             sideNavInit.sideNav();

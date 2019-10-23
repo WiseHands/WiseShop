@@ -116,12 +116,9 @@ public class ShopAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-
         JSONObject json = new JSONObject();
         json.put("name", shop.shopName);
         json.put("uuid", shop.uuid);
-        json.put("startTime", shop.startTime);
-        json.put("endTime", shop.endTime);
         json.put("locale", shop.locale);
         json.put("alwaysOpen", shop.alwaysOpen);
         json.put("isTemporaryClosed", shop.isTemporaryClosed);
@@ -135,6 +132,28 @@ public class ShopAPI extends AuthController {
 
         json.put("deliveryPolygon", shop.delivery.courierPolygonData);
         json.put("googleStaticMapsApiKey", shop.googleStaticMapsApiKey);
+
+        json.put("monStartTime", shop.monStartTime);
+        json.put("monEndTime", shop.monEndTime);
+        json.put("monOpen", shop.monOpen);
+        json.put("tueStartTime", shop.tueStartTime);
+        json.put("tueEndTime", shop.tueEndTime);
+        json.put("tueOpen", shop.tueOpen);
+        json.put("wedStartTime", shop.wedStartTime);
+        json.put("wedEndTime", shop.wedEndTime);
+        json.put("wedOpen", shop.wedOpen);
+        json.put("thuStartTime", shop.thuStartTime);
+        json.put("thuEndTime", shop.thuEndTime);
+        json.put("thuOpen", shop.thuOpen);
+        json.put("friStartTime", shop.friStartTime);
+        json.put("friEndTime", shop.friEndTime);
+        json.put("friOpen", shop.friOpen);
+        json.put("satStartTime", shop.satStartTime);
+        json.put("satEndTime", shop.satEndTime);
+        json.put("satOpen", shop.satOpen);
+        json.put("sunStartTime", shop.sunStartTime);
+        json.put("sunEndTime", shop.sunEndTime);
+        json.put("sunOpen", shop.sunOpen);
         boolean couponsEnabled = true;
         List<CouponDTO> coupons = CouponDTO.find("byShopUuid", shop.uuid).fetch();
         if(coupons.size() == 0) {
@@ -160,7 +179,9 @@ public class ShopAPI extends AuthController {
 
     }
 
-    public static void update(String client) throws Exception { // /shop
+
+    public static void update(String client) throws Exception { // /shop PUT
+
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -184,8 +205,29 @@ public class ShopAPI extends AuthController {
         String closedShopdiscription = (String) jsonBody.get("temporaryClosedDescription");
         Boolean isTemporaryClosed = (Boolean) jsonBody.get("isTemporaryClosed");
 
-        String startTime = (String) jsonBody.get("startTime");
-        String endTime = (String) jsonBody.get("endTime");
+
+        String monStartTime = (String) jsonBody.get("monStartTime");
+        String monEndTime = (String) jsonBody.get("monEndTime");
+        Boolean monOpen = (Boolean) jsonBody.get("monOpen");
+        String tueStartTime = (String) jsonBody.get("tueStartTime");
+        String tueEndTime = (String) jsonBody.get("tueEndTime");
+        Boolean tueOpen = (Boolean) jsonBody.get("tueOpen");
+        String wedStartTime = (String) jsonBody.get("wedStartTime");
+        String wedEndTime = (String) jsonBody.get("wedEndTime");
+        Boolean wedOpen = (Boolean) jsonBody.get("wedOpen");
+        String thuStartTime = (String) jsonBody.get("thuStartTime");
+        String thuEndTime = (String) jsonBody.get("thuEndTime");
+        Boolean thuOpen = (Boolean) jsonBody.get("thuOpen");
+        String friStartTime = (String) jsonBody.get("friStartTime");
+        String friEndTime = (String) jsonBody.get("friEndTime");
+        Boolean friOpen = (Boolean) jsonBody.get("friOpen");
+        String satStartTime = (String) jsonBody.get("satStartTime");
+        String satEndTime = (String) jsonBody.get("satEndTime");
+        Boolean satOpen = (Boolean) jsonBody.get("satOpen");
+        String sunStartTime = (String) jsonBody.get("sunStartTime");
+        String sunEndTime = (String) jsonBody.get("sunEndTime");
+        Boolean sunOpen = (Boolean) jsonBody.get("sunOpen");
+
         Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
         System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
@@ -197,10 +239,31 @@ public class ShopAPI extends AuthController {
         shop.liqpayPublicKey = liqpayPublicKey;
         shop.liqpayPrivateKey = liqpayPrivateKey;
 
-        shop.startTime = startTime;
-        shop.endTime = endTime;
         shop.alwaysOpen = alwaysOpen;
         shop.shopName = name;
+
+        shop.monStartTime = monStartTime;
+        shop.monEndTime = monEndTime;
+        shop.monOpen = monOpen;
+        shop.tueStartTime = tueStartTime;
+        shop.tueEndTime = tueEndTime;
+        shop.tueOpen = tueOpen;
+        shop.wedStartTime = wedStartTime;
+        shop.wedEndTime =wedEndTime;
+        shop.wedOpen = wedOpen;
+        shop.thuStartTime = thuStartTime;
+        shop.thuEndTime = thuEndTime;
+        shop.thuOpen = thuOpen;
+        shop.friStartTime = friStartTime;
+        shop.friEndTime = friEndTime;
+        shop.friOpen = friOpen;
+        shop.satStartTime = satStartTime;
+        shop.satEndTime = satEndTime;
+        shop.satOpen = satOpen;
+        shop.sunStartTime = sunStartTime;
+        shop.sunEndTime = sunEndTime;
+        shop.sunOpen = sunOpen;
+
 
         shop.googleWebsiteVerificator = googleWebsiteVerificator;
         shop.googleAnalyticsCode = googleAnalyticsCode;

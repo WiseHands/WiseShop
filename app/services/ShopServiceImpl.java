@@ -1,5 +1,6 @@
 package services;
 
+import jobs.AdditionalSettingForShop;
 import models.*;
 import play.Play;
 import play.i18n.Messages;
@@ -73,6 +74,11 @@ public class ShopServiceImpl implements ShopService{
         shop.endTime = SHOP_OPEN_UNTIL;
         shop.googleStaticMapsApiKey = WISEHANDS_STATIC_MAPS_KEY;
         shop.googleMapsApiKey = WISEHANDS_MAPS_KEY;
+
+        AdditionalSettingForShop additionalSettingForShop = new AdditionalSettingForShop();
+        additionalSettingForShop.setWorkkingTime(shop);
+        shop = shop.save();
+        additionalSettingForShop.setPageListForFooter(shop);
 
         _appendDomainToList(domain);
         return shop = shop.save();

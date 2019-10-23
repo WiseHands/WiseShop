@@ -39,10 +39,20 @@
                         controller:'SingleOrderController',
                         activetab: 'orderlist'
                     }).
-                    when('/discount',{
-                        templateUrl:'wisehands/admin/partials/discount.html',
-                        controller:'DiscountController',
-                        activetab: 'discounts'
+                    when('/pageconstructor',{
+                        templateUrl:'wisehands/admin/partials/pageconstructor.html',
+                        controller:'PageConstructorController',
+                        activetab: 'pageconstructors'
+                    }).
+                    when('/pageconstructor/new',{
+                        templateUrl:'wisehands/admin/partials/addNewPage.html',
+                        controller:'AddNewPageController',
+                        activetab: 'newpage'
+                    }).
+                    when('/pageconstructor/edit/:uuid',{
+                        templateUrl:'wisehands/admin/partials/editPage.html',
+                        controller:'EditPageController',
+                        activetab: 'newpage'
                     }).
                     when('/products',{
                         templateUrl:'wisehands/admin/partials/products.html',
@@ -165,7 +175,7 @@
                         activetab: 'settings'
                     }).
                     when('/discount/:uuid',{
-                        templateUrl:'wisehands/admin/partials/discount.html',
+                        templateUrl:'wisehands/admin/partials/pageconstructor.html',
                         controller:'DiscountController',
                         activetab: 'payment'
                     }).
@@ -178,6 +188,11 @@
                         templateUrl:'wisehands/admin/partials/userProfile.html',
                         controller:'UserProfileController',
                         activetab: 'userprofile'
+                    }).
+                    when('/hourssetting',{
+                        templateUrl:'wisehands/admin/partials/hoursSetting.html',
+                        controller:'HoursSettingController',
+                        activetab: 'hourssetting'
                     }).
                     when('/category/:categoryUuid/addproperty/:productUuid',{
                         templateUrl:'wisehands/admin/partials/addProperty.html',

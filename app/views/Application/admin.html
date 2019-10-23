@@ -45,13 +45,13 @@
         <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> {{'sideNav.Orders' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'analytics'}"><a href="#/analytics" class="waves-effect waves-light"><i class="fa fa-line-chart"></i> {{'sideNav.Analytics' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> {{'sideNav.Products' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'pageconstructors'}"><a href="#/pageconstructor" class="waves-effect waves-light"><i class="fa fa-files-o"></i> {{'sideNav.Pages' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'payment'}"><a href="#/payment" class="waves-effect waves-light"><i class="fa fa-money"></i> {{'sideNav.Payment' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> {{'sideNav.Delivery' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> {{'sideNav.Contacts' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> {{'sideNav.Settings' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> {{'sideNav.Users' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'userprofile'}"><a href="#/userprofile" class="waves-effect waves-light"><i class="fa fa-user"></i> {{'sideNav.Profile' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'discounts'}"><a href="#/discount" class="waves-effect waves-light"><i class="fa fa-gift"></i> {{'sideNav.Discount' | translate}}</a></li>
         <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> {{'sideNav.SignOut' | translate}}</a></li>
 
     </ul>
@@ -59,11 +59,12 @@
 <div ng-view></div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&libraries=initMap,drawing,geometry"></script>
-
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 
 <script src="wisehands/assets/js/angular.min.js"></script>
 <script src="wisehands/assets/js/angular-route.min.js"></script>
 <script src="wisehands/assets/js/ui-bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script src="wisehands/assets/ng-tags-input/ng-tags-input.js"></script>
 
@@ -108,13 +109,15 @@
 <script src="wisehands/admin/js/controllers/CategoriesController.js"></script>
 <script src="wisehands/admin/js/controllers/PaymentController.js"></script>
 <script src="wisehands/admin/js/controllers/ViewSettingsController.js"></script>
-<script src="wisehands/admin/js/controllers/DiscountController.js"></script>
+<script src="wisehands/admin/js/controllers/PageConstructorController.js"></script>
 <script src="wisehands/admin/js/controllers/AnalyticsController.js"></script>
 <script src="wisehands/admin/js/controllers/UserProfileController.js"></script>
+<script src="wisehands/admin/js/controllers/HoursSettingController.js"></script>
 <script src="wisehands/admin/js/controllers/AddPropertyController.js"></script>
 <script src="wisehands/admin/js/controllers/EditPropertyController.js"></script>
 <script src="wisehands/admin/js/controllers/DeliveryBounderController.js"></script>
-<script src="wisehands/admin/js/controllers/DiscountsController.js"></script>
+<script src="wisehands/admin/js/controllers/AddNewPageController.js"></script>
+<script src="wisehands/admin/js/controllers/EditPageController.js"></script>
 
 
 <!-- Image Cropper -->

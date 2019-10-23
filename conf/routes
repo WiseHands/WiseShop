@@ -6,6 +6,7 @@
 GET     {client}/                                       Application.index
 GET     {client}/wisehands                              Application.wisehands
 GET     {client}/shop                                   Application.shop
+GET     {client}/page/{uuid}                            Application.page
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
@@ -143,9 +144,13 @@ PUT 	{client}/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
 
-POST	{client}/subscription      					             	PushSubscriptionAPI.subscribe
+POST	{client}/subscription      					    PushSubscriptionAPI.subscribe
 
-
+GET     {client}/pageconstructor/{uuid}                 PageConstructorAPI.details
+GET     {client}/pageconstructor                        PageConstructorAPI.all
+POST    {client}/pageconstructor                        PageConstructorAPI.create
+PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
+DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail

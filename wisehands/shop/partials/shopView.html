@@ -45,6 +45,7 @@
     </nav>
 </header>
 <main class="p-t-6 pl-0">
+
     <div class="container-fluid row center-block">
         <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="productDTO in products | orderBy:'sortOrder'" ng-show="productDTO.isActive">
             <div class="card inline">
@@ -69,4 +70,12 @@
         </div>
     </div>
 
+    <div ng-show="isProductsInShop" class="noproducts-text">
+        <div><img src="/wisehands/assets/images/footer-shop/empty-box.png"></div>
+        <p>{{'shopView.messageProduct' | translate}}</p>
+    </div>
+
+    <div ng-show="!hideMoreButton" class="loadmore-button">
+        <input  ng-click="moreOrders()" type="button" value="{{'shopView.showMore' | translate}}">
+    </div>
 </main>

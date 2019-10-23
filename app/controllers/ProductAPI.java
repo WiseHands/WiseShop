@@ -17,6 +17,8 @@ import java.util.*;
 
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
+    private  static final int PAGE_SIZE = 6;
+
 
     public static void create(String client, String name, String description,
                               Double price, File fake, Integer mainPhotoIndex,
@@ -105,15 +107,22 @@ public class ProductAPI extends AuthController {
         renderJSON(json);
     }
 
-    public static void list(String client) throws Exception {
+    public static void list(String client, int page) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        List<ProductDTO> products = ProductDTO.find(
-                "select p from ProductDTO p, CategoryDTO c " +
-                        "where p.category = c and p.shop = ?1 and c.isHidden = ?2", shop, false
-        ).fetch();
+
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2";
+        boolean isHidden = false;
+
+        if(page == 0) {
+            products = ProductDTO.find(query, shop, isHidden).fetch(PAGE_SIZE);
+        } else {
+            int offset = PAGE_SIZE * page;
+            products = ProductDTO.find(query, shop, isHidden).from(offset).fetch(PAGE_SIZE);
+        }
 
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

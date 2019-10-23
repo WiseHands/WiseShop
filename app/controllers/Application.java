@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 public class Application extends Controller {
@@ -76,6 +77,7 @@ public class Application extends Controller {
         }
 
         renderTemplate("Application/shop.html", shop);
+
     }
 
     public static void shop(String client) {
@@ -97,6 +99,20 @@ public class Application extends Controller {
 
 
         render(shop);
+    }
+
+    public static void page(String client, String uuid) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        PageConstructorDTO page = PageConstructorDTO.findById(uuid);
+        System.out.println("page for render " + page.getBody());
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+
+        render(shop, page, pageList);
     }
 
     public static void done(String client) {

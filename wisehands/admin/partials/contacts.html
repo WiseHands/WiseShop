@@ -29,19 +29,33 @@
         </div>
         <div class="input-field col-md-6">
             <p>E-mail</p>
-            <input id="email" type="email" ng-model="contacts.email">
+            <input id="email" type="email" ng-model="contacts.email" placeholder="your email here">
         </div>
         <div class="input-field col-md-6">
             <p>{{'contacts.address' | translate}}</p>
-            <input id="address" type="text" ng-model="contacts.address">
+            <input id="address" type="text" ng-model="contacts.address" placeholder="your email here">
         </div>
         <div class="input-field col-md-6">
             <p>{{'contacts.coords' | translate}}</p>
-            <input id="coords" type="text" ng-model="contacts.latLng">
+            <input id="coords" type="text" ng-model="contacts.latLng" placeholder="49.848596,24.0229203">
         </div>
         <div class="input-field col-md-12">
-            <p>{{'contacts.description' | translate}}</p>
+            <!--<p>{{'contacts.description' | translate}}</p>-->
             <textarea id="textarea1" class="materialize-textarea" ng-model="contacts.description"></textarea>
+        </div>
+        <br>
+        <hr>
+        <div class="input-field col-md-6">
+            <p>{{'contacts.linkfacebook' | translate}}</p>
+            <input id="linkfacebook" type="text" ng-model="contacts.linkfacebook" placeholder="facebook.com">
+        </div>
+        <div class="input-field col-md-6">
+            <p>{{'contacts.linkinstagram' | translate}}</p>
+            <input id="linkinstagram" type="text" ng-model="contacts.linkinstagram" placeholder="instagram.com">
+        </div>
+        <div class="input-field col-md-6">
+            <p>{{'contacts.linkyoutube' | translate}}</p>
+            <input id="linkyoutube" type="text" ng-model="contacts.linkyoutube" placeholder="youtube.com">
         </div>
     </form>
 </div>

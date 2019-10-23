@@ -1,0 +1,45 @@
+<style>
+    #footer-shop {
+        display: none;
+    }
+</style>
+<header>
+
+    <nav class="navbar navbar-fixed-top scrolling-navbar double-nav pl-0" shop-styling style="background-color: {{shopStyling.navbarColor}}">
+
+        <ul class="nav navbar-nav pull-left">
+
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:history.back()" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-reply"></i> <span class="hidden-sm-down"></span></a>
+            </li>
+        </ul>
+        <p>{{page.title}}}</p>>
+    </nav>
+
+</header>
+
+<main class="pl-0">
+    <section class="section m-b-4">
+
+
+        <div class="row contactsContainer">
+
+            <!--Buttons-->
+            <div class="col-md-4">
+                <ul class="text-xs-center">
+                    <li class="wow fadeInUp" data-wow-delay="0.2s"><a class="btn-floating btn-small mdb-color" href="https://maps.google.com/?q={{contacts.address}}" target="_blank"><i class="fa fa-map-marker"></i></a>
+                        <p>{{page.url}}</p>
+                    </li>
+
+                    <li class="wow fadeInUp" data-wow-delay="0.3s"><a class="btn-floating btn-small mdb-color" data-target="#contact-form" href="tel:+{{contacts.phone}}"><i class="fa fa-phone"></i></a>
+                        <p>{{page.body}}</p>
+                    </li>
+
+
+                </ul>
+            </div>
+        <!--/Second column-->
+        </div>
+
+    </section>
+</main>

@@ -10,6 +10,8 @@
   "shopView.order": "Zamówienie",
   "shopView.description": "Opis",
   "shopView.productName": "Nazwa produktu",
+  "shopView.showMore": "Pokaż więcej",
+  "shopView.messageProduct": "Brak produktów",
   "shopView.price": "Cena",
   "shopView.total": "Razem",
   "shopView.pieces": "szt",

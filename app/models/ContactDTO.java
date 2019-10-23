@@ -28,6 +28,15 @@ public class ContactDTO extends GenericModel {
     public String latLng;
 
     @Expose
+    public String linkfacebook;
+
+    @Expose
+    public String linkinstagram;
+
+    @Expose
+    public String linkyoutube;
+
+    @Expose
     @Lob
     @Column(length = 300000)
     public String description;

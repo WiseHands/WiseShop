@@ -35,6 +35,9 @@ public class ContactAPI extends AuthController {
         String description = (String) jsonBody.get("description");
         String address = (String) jsonBody.get("address");
         String latLng = (String) jsonBody.get("latLng");
+        String linkfacebook = (String) jsonBody.get("linkfacebook");
+        String linkinstagram = (String) jsonBody.get("linkinstagram");
+        String linkyoutube = (String) jsonBody.get("linkyoutube");
 
         ContactDTO contact = shop.contact;
         contact.email = email;
@@ -42,6 +45,9 @@ public class ContactAPI extends AuthController {
         contact.address = address;
         contact.description = description;
         contact.latLng = latLng;
+        contact.linkfacebook = linkfacebook;
+        contact.linkinstagram = linkinstagram;
+        contact.linkyoutube = linkyoutube;
 
         contact.save();
 

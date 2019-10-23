@@ -49,6 +49,8 @@
                     $scope.isUserAdmin = true;
                 });
 
+                $scope.hideMoreButton = true;
+                $scope.isProductsInShop = true;
                 $http({
                     method: 'GET',
                     url: '/products'
@@ -56,16 +58,58 @@
                     .then(function successCallback(response) {
                         $scope.products = response.data;
                         console.log("$scope.products", $scope.products);
+
+                        var maxNumberOfOrders = $scope.products.length === 0 || $scope.products.length < 12;
+                        if($scope.products.length > 0){
+                            $scope.isProductsInShop = false;
+                        }
+                        if(maxNumberOfOrders){
+                            $scope.loading = false;
+                        } else {
+                            $scope.hideMoreButton = false;
+                        }
+
                     }, function errorCallback(error) {
                         console.log(error);
-                    });
+                });
+
+                var pageNumber = 1;
+                $scope.moreOrders = function () {
+                    $scope.hideMoreButton = false;
+                    var req = {
+                        method: 'GET',
+                        url: '/products?page=' + pageNumber,
+                        data: {}
+                    };
+
+                    $http(req)
+                        .then(function successCallback(response) {
+                            if(response.data.length !== 0) {
+                                $scope.products = $scope.products.concat(response.data);
+                            } else {
+                                $scope.hideMoreButton = true;
+                            }
+
+                            pageNumber ++;
+                            $scope.loading = false;
+                        }, function errorCallback(response) {
+                            $scope.loading = false;
+                            $scope.wrongMessage = true;
+                        });
+                };
 
                 $http({
                     method: 'GET',
                     url: '/shop/details/public'
                 })
                     .then(function successCallback(response) {
+                        console.log("response: ", response.data);
                         PublicShopInfo.handlePublicShopInfo($scope, response);
+                        if($scope.isShopOpenNow){
+                            $scope.isNotWorkingTime = true;
+                            toastr.warning('Сьогодні не працюємо');
+
+                        }
                     }, function errorCallback(error) {
                         console.log(error);
                     });
@@ -102,29 +146,15 @@
                          isActivePropertyTagsMoreThanTwo += property.tags.length;
                      });
 
-                     // PublicShopInfo.handleWorkingHours($scope);
-
-                     let currDate =  new Date();
-                     let currTime = currDate.getHours() * 60 + currDate.getMinutes();
-                     var firstTime = Number($scope.startHour * 60) + Number($scope.startMinute);
-                     var lastTime = Number($scope.endHour * 60) + Number($scope.endMinute);
-                     var isNotWorkingTime;
-                     console.log("$scope.alwaysOpen", $scope.alwaysOpen);
-                     if ($scope.alwaysOpen === true) {
-                         isNotWorkingTime = true;
-                     } else if (currTime >= firstTime && currTime < lastTime){
-                         isNotWorkingTime = true;
-                     } else {
-                         isNotWorkingTime = false;
-                     }
-
-                     if(!isNotWorkingTime) {
-                         toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
-                     }
-
-                     else if (isActivePropertyTagsMoreThanTwo > 0) {
+                    PublicShopInfo.handleWorkingHours($scope);
+                    if($scope.isShopOpenNow){
+                        toastr.warning('Сьогодні не працюємо');
+                    } else if(!$scope.isNotWorkingTime) {
+                        toastr.warning('Ми працюємо з ' + $scope.startHour + '-' + $scope.startMinute + ' до ' + $scope.endHour + '-' + $scope.endMinute);
+                    } else if (isActivePropertyTagsMoreThanTwo > 0) {
                          $location.path('/product/' + productDTO.uuid);
-                     } else {
+                    } else {
+
                          var productToBuy = {
                              uuid: productDTO.uuid,
                              chosenProperties: [],
@@ -133,8 +163,8 @@
                          };
                          shared.addProductToBuy(productToBuy);
                          $scope.calculateTotal();
-                     }
-                     $scope.totalQuantity = shared.getTotalQuantity();
+                    }
+                    $scope.totalQuantity = shared.getTotalQuantity();
 
                 };
 
