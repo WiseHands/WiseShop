@@ -77,7 +77,7 @@
             onchange="angular.element(this).scope().imageUpload(this)" />
         </div>
         <div class="input-field col-sm-12">
-            <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling"  />
+            <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="shopStyling.isFooterOn"/>
             <label for="filled-in-box">{{'settings.isFooterOn' | translate}}</label>
         </div>
         <div class="input-field col-md-offset-6 col-md-6" ng-hide="!logo">
