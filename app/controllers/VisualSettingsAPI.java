@@ -43,6 +43,7 @@ public class VisualSettingsAPI extends AuthController {
         visualSettings.navbarTextColor = (String) jsonBody.get("navbarTextColor");
         visualSettings.navbarShopItemsColor = (String) jsonBody.get("navbarShopItemsColor");
         visualSettings.logoHref = (String) jsonBody.get("logoHref");
+        visualSettings.isFooterOn = (boolean) jsonBody.get("isFooterOn");
         JSONObject sidebarColorSchemeJson = (JSONObject) jsonBody.get("sidebarColorScheme");
         String code = (String)sidebarColorSchemeJson.get("code");
         SidebarColorScheme sidebarColorScheme = SidebarColorScheme.find("byCode", code).first();
