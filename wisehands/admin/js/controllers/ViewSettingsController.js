@@ -126,6 +126,7 @@ angular.module('WiseHands')
                 data: $scope.shopStyling
             })
                 .success(function (response) {
+                    console.log("response for footer: ", response);
                     $scope.loading = false;
                     $scope.shopStyling = response;
                     $scope.navbarStyles.forEach(function(skin) {
