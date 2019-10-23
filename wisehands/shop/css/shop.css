@@ -374,14 +374,14 @@ main {
 }
 @media (min-width: 2500px) {
     .col-lg-4 {
-        width :auto;
+        width: auto;
     }
+}
 .load-button {
     display: flex;
     justify-content: center;
-
 }
-.loadmore-button input {
+.load-button input {
     background-color: #e0e0e0;
     font-size: 1.8rem;
     margin: 10px 0;
