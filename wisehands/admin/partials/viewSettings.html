@@ -76,6 +76,10 @@
             <input name="imageLoader" type="file" id="imageLoader"
             onchange="angular.element(this).scope().imageUpload(this)" />
         </div>
+        <div class="input-field col-sm-12">
+            <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling"  />
+            <label for="filled-in-box">{{'settings.isFooterOn' | translate}}</label>
+        </div>
         <div class="input-field col-md-offset-6 col-md-6" ng-hide="!logo">
             <button type="button" class="btn secondaryColor waves-effect waves-light btn-block" ng-click="deleteLogo()">
                 <span>{{'settings.removeLogo' | translate}}</span>

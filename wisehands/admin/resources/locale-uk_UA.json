@@ -189,6 +189,7 @@
   "settings.domainTips": "Без пробілів малими буквами",
   "settings.domainTips2": "Ваш магазин буде доступним за адресою",
   "settings.alwaysOpen": "Цілодобово",
+  "settings.isFooterOn": "Показати footer",
   "settings.whenClosed": "Зачинити магазин",
   "settings.isTemporary": "Магазин тимчасово закритий",
   "settings.temporaryTitle": "Заголовок",

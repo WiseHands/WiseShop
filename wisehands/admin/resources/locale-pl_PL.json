@@ -193,6 +193,8 @@
   "settings.shopClosed": "Przepraszamy, sklep zamknięty będzie otwarty później",
   "settings.isTemporary": "Sklep tymczasowo zamknięty",
   "settings.addSetting": "Addition setting for shop",
+  "settings.isFooterOn": "Show footer",
+
 
   "settings.temporaryTitle": "Nagłówek",
   "settings.temporaryDiscr": "Krótki opis",
