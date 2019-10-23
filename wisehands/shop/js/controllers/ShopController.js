@@ -49,7 +49,6 @@
                     $scope.isUserAdmin = true;
                 });
 
-                $scope.hideMoreButton = true;
                 $scope.isProductsInShop = true;
                 $http({
                     method: 'GET',
@@ -62,8 +61,7 @@
                         var maxNumberOfOrders = $scope.products.length === 0 || $scope.products.length < 12;
                         if($scope.products.length > 0){
                             $scope.isProductsInShop = false;
-                        }
-                        if(maxNumberOfOrders){
+                        } else if(maxNumberOfOrders){
                             $scope.loading = false;
                         } else {
                             $scope.hideMoreButton = false;

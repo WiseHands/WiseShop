@@ -376,7 +376,7 @@ main {
     .col-lg-4 {
         width :auto;
     }
-.loadmore-button {
+.load-button {
     display: flex;
     justify-content: center;
 
