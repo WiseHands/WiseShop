@@ -372,11 +372,6 @@ main {
     justify-content: flex-end;
     align-items: center;
 }
-@media (min-width: 2500px) {
-    .col-lg-4 {
-        width: auto;
-    }
-}
 .load-button {
     display: flex;
     justify-content: center;
