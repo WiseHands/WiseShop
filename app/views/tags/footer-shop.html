@@ -54,7 +54,7 @@
         color: #000;
     }
 
-    .footer-feedback {
+    .footer-feedback, .footer-payment {
         width: 50%;
     }
 
@@ -80,10 +80,6 @@
 
     .footer-icons a:nth-child(2) {
         margin-right: 10px;
-    }
-
-    .footer-payment {
-        width: 50%;
     }
 
     .footer-payment h4 {
@@ -121,6 +117,9 @@
         border-radius: 3px;
         cursor: pointer;
     }
+    #address {
+        word-break: break-word;
+    }
     @media screen and (max-width: 767px) {
         footer {
             flex-direction: column;
@@ -156,12 +155,15 @@
         }
 
         #footer-shop .footer-info,
-        .footer-feedback,
-        .footer-payment {
+        .footer-feedback, .footer-payment
+         {
             width: 100%;
         }
 
-
+        .footer-payment {
+            display: flex;
+            justify-content: space-between;
+        }
         #footer-shop .contact-info {
             width: 50%;
         }
@@ -192,13 +194,9 @@
 
     @media screen and (max-width: 400px) {
         #footer-shop .footer-info-block,
-        .footer-feedback,
-        .footer-payment {
+        .footer-feedback
+         {
             flex-direction: column;
-        }
-
-        #footer-shop .contact-info {
-            width: 100%;
         }
     }
 
@@ -308,8 +306,10 @@
         </div>
 
         <div class="footer-payment">
-            <h4 class="offset-left">Приймаємо</h4>
-            <div class="payment-img"><img src="wisehands/assets/images/footer-shop/msvisa1.png"></div>
+            <div class="payment-img">
+                <h4 class="offset-left">Приймаємо</h4>
+                <img src="wisehands/assets/images/footer-shop/msvisa1.png">
+            </div>
             <div class="contact-info offset-left">
                 <div class="contact-info-icon-container" id="divemail">
                     <div><img src="wisehands/assets/images/footer-shop/icons8-envelope-16.png"></div>
