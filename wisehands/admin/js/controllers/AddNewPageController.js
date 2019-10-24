@@ -26,10 +26,29 @@ angular.module('WiseHands')
                     $scope.settings = response.data;
                     console.log("POST $scope.settings", response.data);
                     $scope.loading = false;
+                    showInfoMsg("SAVED");
                 }, function errorCallback(response) {
                     console.log("POST $scope.settings", response);
                     $scope.loading = false;
+                    showWarningMsg("UNKNOWN ERROR");
                 });
         }
 
     }]);
+
+function showWarningMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.warning(msg);
+}
+function showInfoMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.info(msg);
+}

@@ -60,6 +60,7 @@ angular.module('WiseHands')
             })
                 .success(function (response) {
                     $scope.activeShop = response;
+                    showInfoMsg("SAVED");
                     console.log('after PUT whenClosed', $scope.activeShop.whenClosed);
                     localStorage.setItem('activeShopName', $scope.activeShop.shopName);
                     // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
@@ -69,6 +70,7 @@ angular.module('WiseHands')
                 }).
             error(function (response) {
                 $scope.loading = false;
+                showWarningMsg("UNKNOWN ERROR");
                 console.log(response);
             });
 
