@@ -4,14 +4,10 @@ angular.module('WiseHands')
         $scope.loading = true;
         sideNavInit.sideNav();
 
-
-
-
         $http({
             method: 'GET',
             url: '/pageconstructor/' + $routeParams.uuid
-        })
-            .then(function successCallback(response) {
+        }).then(function successCallback(response) {
                 $scope.title = response.data.title;
                 $scope.url = response.data.url;
                 CKEDITOR.replace('editor');
@@ -22,8 +18,71 @@ angular.module('WiseHands')
             }, function errorCallback(response) {
                 console.log("POST $scope.settings", response);
                 $scope.loading = false;
-            });
+        });
 
+        var imageLoader = document.getElementById('imageLoader');
+        imageLoader.addEventListener('change', handleImage, false);
+        var canvas = document.getElementById('imageCanvas');
+        $scope.productImages = [];
+        $scope.productImagesDTO = [];
+        function handleImage(e){
+            $scope.$apply(function() {
+                $scope.loading = true;
+            });
+            var file  = e.target.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function(event){
+
+                var img = new Image();
+                img.onload = function(){
+
+                    var MAX_WIDTH = 700;
+                    var MAX_HEIGHT = 525;
+                    height = MAX_HEIGHT;
+                    width = MAX_WIDTH;
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+                    var dataURL = canvas.toDataURL('image/jpeg', 0.9);
+
+                    var blob = dataURItoBlob(dataURL);
+
+                    $scope.$apply(function() {
+                        if(!$scope.product || $scope.product.mainPhoto){
+                            $scope.product = {};
+                            $scope.product.mainPhoto = 0;
+                        }
+                        $scope.product.mainPhoto = 0;
+                        $scope.productImages.push(dataURL);
+                        $scope.productImagesDTO.push(blob);
+                        $scope.loading = false;
+
+                    });
+
+
+                };
+                img.src = event.target.result;
+
+
+            };
+            if (file && file.type.match('image.*')) {
+                reader.readAsDataURL(e.target.files[0]);
+            } else {
+                $scope.$apply(function() {
+                    $scope.loading = false;
+                });
+            }
+
+
+
+        };
+
+        $scope.loadImage = function () {
+            $('#imageLoader').click();
+        };
 
         $scope.saveThisPage = function () {
             $scope.loading = true;
