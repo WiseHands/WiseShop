@@ -139,11 +139,11 @@
                         controller:'SettingsController',
                         activetab: 'settings'
                     }).
-                when('/additionsettings',{
-                    templateUrl:'wisehands/admin/partials/additionSettings.html',
-                    controller:'AdditionSettingsController',
-                    activetab: 'additionsettings'
-                }).
+                    when('/additionsettings',{
+                        templateUrl:'wisehands/admin/partials/additionSettings.html',
+                        controller:'AdditionSettingsController',
+                        activetab: 'additionsettings'
+                    }).
                     when('/contacts',{
                         templateUrl:'wisehands/admin/partials/contacts.html',
                         controller:'ContactsController',
