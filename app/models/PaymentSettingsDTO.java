@@ -1,13 +1,10 @@
 package models;
 
 import com.google.gson.annotations.Expose;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class PaymentSettingsDTO extends GenericModel {
@@ -39,7 +36,6 @@ public class PaymentSettingsDTO extends GenericModel {
     @Expose
     public Double minimumPayment;
 
-
     public PaymentSettingsDTO(Boolean manualPaymentEnabled, Boolean onlinePaymentEnabled, Double freeDeliveryLimit, String manualPaymentTitle, String onlinePaymentTitle, String buttonPaymentTitle) {
         this.manualPaymentEnabled = manualPaymentEnabled;
         this.onlinePaymentEnabled = onlinePaymentEnabled;
@@ -47,6 +43,5 @@ public class PaymentSettingsDTO extends GenericModel {
         this.manualPaymentTitle = manualPaymentTitle;
         this.onlinePaymentTitle = onlinePaymentTitle;
         this.buttonPaymentTitle = buttonPaymentTitle;
-
     }
 }

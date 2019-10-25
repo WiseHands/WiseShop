@@ -22,6 +22,9 @@ public class PageConstructorDTO  extends GenericModel {
     public String title;
 
     @Expose
+    public String logoUrl;
+
+    @Expose
     @Lob
     @Column(length = 300000)
     public String body;

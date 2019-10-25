@@ -38,6 +38,10 @@ public class VisualSettingsDTO extends GenericModel {
     public boolean isFooterOn;
 
     @Expose
+    @Column(columnDefinition = "boolean default false")
+    public boolean isShowAllProducts;
+
+    @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public SidebarColorScheme sidebarColorScheme;
 
