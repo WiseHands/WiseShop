@@ -9,6 +9,9 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.payment = response.data;
+                if ($scope.payment.minimumPayment === 0){
+                    $scope.payment.minimumPayment = "";
+                }
                 $scope.loading = false;
             }, function errorCallback(data) {
                 console.log(data);
@@ -30,6 +33,12 @@ angular.module('WiseHands')
 
 
         $scope.setPaymentOptions = function () {
+            let minimumPayment = document.getElementById('filled-in-minimumPayment').value;
+            if (minimumPayment === ""){
+                $scope.payment.minimumPayment = 0;
+            }
+            console.log("$scope.payment.minimumPayment", $scope.payment.minimumPayment);
+
             $scope.loading = true;
             console.log("$scope.payment before sending", JSON.stringify($scope.payment));
             $http({
@@ -39,6 +48,10 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     $scope.payment = response.data;
+                    if ($scope.payment.minimumPayment === 0){
+                        $scope.payment.minimumPayment = "";
+                    }
+
                     $scope.loading = false;
                     console.log("$scope.payment response", JSON.stringify($scope.payment));
 
