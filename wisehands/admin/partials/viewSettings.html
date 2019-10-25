@@ -74,6 +74,10 @@
             <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="shopStyling.isFooterOn"/>
             <label for="filled-in-box">{{'settings.isFooterOn' | translate}}</label>
         </div>
+        <div class="input-field col-sm-12">
+            <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="shopStyling.isShowAllProducts"/>
+            <label for="filled-in-box">{{'settings.isShowAllProducts' | translate}}</label>
+        </div>
         <div class="file-field input-field col-md-offset-6 col-md-6" ng-show="!logo">
             <button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block" ng-click="loadImage()">
                 <span>{{'settings.addLogo' | translate}}</span>

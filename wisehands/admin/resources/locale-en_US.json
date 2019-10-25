@@ -193,6 +193,7 @@
   "settings.domainTips2": "Your store will be available at the given address",
   "settings.alwaysOpen": "Always open",
   "settings.isFooterOn": "Show footer",
+  "settings.isShowAllProducts": "Show all products",
   "settings.whenClosed": "Close the shop",
   "settings.isTemporary": "Shop temporarily closed",
   "settings.addSetting": "Addition setting for shop",
