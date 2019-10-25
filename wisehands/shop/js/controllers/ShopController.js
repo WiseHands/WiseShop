@@ -48,12 +48,13 @@
                 isUserAdmin.get(function(){
                     $scope.isUserAdmin = true;
                 });
-
+                var isShowAllProducts;
                 $http({
                     method: 'GET',
                     url: '/visualsettings'
                 }).then(function succesCallback(response){
-                    $scope.hideMoreButton = response.data.isShowAllProducts;
+                    isShowAllProducts = response.data.isShowAllProducts;
+                    $scope.hideMoreButton = isShowAllProducts;
                     console.log("$scope.isShowAllProducts", $scope.hideMoreButton);
                 });
 
@@ -70,10 +71,17 @@
                         if($scope.products.length === 0){
                             $scope.isProductsInShop = true;
                             $scope.hideMoreButton = true;
+                            console.log("$scope.products.length === 0", $scope.products.length === 0);
                         } else if(maxNumberOfOrders){
                             $scope.loading = false;
+                            console.log("$scope.maxNumberOfOrders ", maxNumberOfOrders);
+                        } else if (isShowAllProducts){
+                            $scope.hideMoreButton = true;
+                            console.log("$$scope.hideMoreButton when $scope.isShowAllProducts = true", $scope.hideMoreButton);
                         } else {
                             $scope.hideMoreButton = false;
+                            console.log("$$scope.hideMoreButton = false;", $scope.hideMoreButton);
+
                         }
 
                     }, function errorCallback(error) {
