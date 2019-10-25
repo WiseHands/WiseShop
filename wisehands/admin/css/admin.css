@@ -73,6 +73,9 @@ td, th {
     align-items: start;
     margin-left: 10px !important;
 }
+.flex-column h5 {
+    color: #333;
+}
 .stinput{
     margin-top: 20px !important;
 }

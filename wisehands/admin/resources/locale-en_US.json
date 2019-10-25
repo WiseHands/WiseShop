@@ -5,7 +5,7 @@
   "addNewPage.setTitle": "Enter page name",
   "addNewPage.setUrl": "Enter page URL",
   "addNewPage.setBody": "Editor page",
-  "pageConstructor.title": "Constructor for pages",
+  "pageConstructor.title": "Pages",
   "networkShopListPage.addShop": "Add shops",
   "networkShopListPage.deleteShop": "Remove shops",
   "networkShopListPage.deleteNetwork": "Delete network",
