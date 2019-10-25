@@ -12,7 +12,7 @@
                     let isSelected = location.hash.indexOf('#selectedShop=true') !== -1;
                     window.isSelected = isSelected;
                     return isSelected;
-                };
+                }
 
                 var isShopSelected;
 
@@ -49,12 +49,20 @@
                     $scope.isUserAdmin = true;
                 });
 
+                $http({
+                    method: 'GET',
+                    url: '/visualsettings'
+                }).then(function succesCallback(response){
+                    $scope.hideMoreButton = response.data.isShowAllProducts;
+                    console.log("$scope.isShowAllProducts", $scope.hideMoreButton);
+                });
+
+
                 $scope.isProductsInShop = false;
                 $http({
                     method: 'GET',
                     url: '/products'
-                })
-                    .then(function successCallback(response) {
+                }).then(function successCallback(response) {
                         $scope.products = response.data;
                         console.log("$scope.products", $scope.products);
 
