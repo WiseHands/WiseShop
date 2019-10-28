@@ -120,14 +120,14 @@ angular.module('WiseShop')
                 let currDate =  new Date();
                 let currTime = currDate.getHours() * 60 + currDate.getMinutes();
                 var firstTime = Number(scope.startHour * 60) + Number(scope.startMinute);
-                var lastTime = Number(scope.endHour * 60) + Number(scope.endMinute);
-
+                var lastTime = Number(scope.endHour * 60 === 0 ? 1440 : scope.endHour * 60) + Number(scope.endMinute);
+                console.log("firstTime and lasttime for shop:", firstTime, " ** ", lastTime, "isworking ", currTime >= firstTime && currTime < lastTime);
                 if (scope.alwaysOpen === true) {
                     scope.isNotWorkingTime = true;
-                } else if (currTime >= firstTime && currTime < lastTime){
+                }
+                else if (currTime >= firstTime && currTime < lastTime){
                     scope.isNotWorkingTime = true;
                     console.log('$scope.isNotWorkingTime in handleWorkingHours', scope.isNotWorkingTime);
-
                 } else {
                     scope.isNotWorkingTime = false;
                     console.log('$scope.isNotWorkingTime in handleWorkingHours', scope.isNotWorkingTime);
