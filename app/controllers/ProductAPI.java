@@ -118,10 +118,10 @@ public class ProductAPI extends AuthController {
         if(shop.visualSettingsDTO.isShowAllProducts) {
             products = ProductDTO.find(
                     "select p from ProductDTO p, CategoryDTO c " +
-                            "where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder desc", shop, false
+                            "where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc", shop, false
             ).fetch();
         } else {
-            String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder desc";
+            String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc";
             boolean isHidden = false;
 
             if(page == 0) {
