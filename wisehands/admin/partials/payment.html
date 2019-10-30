@@ -21,7 +21,20 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
+
     <div ng-hide="loading">
+        <div class="row plr-15">
+            <hr class="margin-hr">
+            <p>{{'payment.systemPay' | translate}}</p>
+            <a href="#/liqpaypayment">
+                <div class="col-sm-4 text-center">
+                    <div class="card-panel secondaryColor darken-3 hoverable">
+                        <h5 class="white-text">LiqPay</h5>
+                    </div>
+                </div>
+            </a>
+
+        </div>
         <hr class="margin-hr">
         <div class="row">
                 <div class="input-field col-sm-6">

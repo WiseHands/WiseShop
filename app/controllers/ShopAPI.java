@@ -195,8 +195,7 @@ public class ShopAPI extends AuthController {
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
 
         String name = (String) jsonBody.get("shopName");
-        String liqpayPublicKey = (String) jsonBody.get("liqpayPublicKey");
-        String liqpayPrivateKey = (String) jsonBody.get("liqpayPrivateKey");
+
         String googleWebsiteVerificator = (String) jsonBody.get("googleWebsiteVerificator");
         String googleAnalyticsCode = (String) jsonBody.get("googleAnalyticsCode");
         String googleMapsApiKey = (String) jsonBody.get("googleMapsApiKey");
@@ -230,14 +229,11 @@ public class ShopAPI extends AuthController {
 
         Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
-        System.out.println("Keys from request: " + liqpayPublicKey + ", " + liqpayPrivateKey);
 
         shop.temporaryClosedTitle = closedShopTitle;
         shop.temporaryClosedDescription = closedShopdiscription;
         shop.isTemporaryClosed = isTemporaryClosed;
 
-        shop.liqpayPublicKey = liqpayPublicKey;
-        shop.liqpayPrivateKey = liqpayPrivateKey;
 
         shop.alwaysOpen = alwaysOpen;
         shop.shopName = name;

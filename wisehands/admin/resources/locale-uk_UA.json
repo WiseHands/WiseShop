@@ -143,6 +143,7 @@
   "payment.minPayment": "Мінімальний платіж за замовлення",
   "payment.minOrder": "Сума мін. замовлення",
   "payment.couponsIds": "Купони (кожен з нового рядка)",
+  "payment.systemPay": "Ситеми оплати",
   "delivery.delivery": "Доставка",
   "delivery.newPost": "Нова Пошта",
   "delivery.courier": "Кур'єр",

@@ -102,6 +102,11 @@ GET     {client}/courier/polygon                        DeliveryAPI.getCourierPo
 DELETE  {client}/courier/polygon                        DeliveryAPI.deleteCourierPolygonData
 PUT     {client}/delivery                               DeliveryAPI.update
 
+
+GET     {client}/liqpaypayment/detail                   PaymentSystemsAPI.detailLiqpayPayment
+PUT     {client}/liqpaypayment                          PaymentSystemsAPI.updateLiqpayPayment
+
+
 GET     {client}/orders                                 OrderAPI.list
 GET     {client}/order/{uuid}                           OrderAPI.details
 POST    {client}/order                                  OrderAPI.create

@@ -1,0 +1,34 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    LiqPay
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="setLiqPayPaymentOpts()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <hr class="margin-hr">
+    <div class="input-field col-md-12 z-index-3">
+        <div class="col-sm-6">
+            <p>{{'settings.publicKey' | translate}}</p>
+            <input id="publicLiqPay" type="text" ng-model="liqpay.liqpayPublicKey">
+        </div>
+        <div class="col-sm-6">
+            <p>{{'settings.privateKey' | translate}}</p>
+            <input id="privateLiqPay" type="password" ng-model="liqpay.liqpayPrivateKey">
+        </div>
+    </div>
+
+
+</div>

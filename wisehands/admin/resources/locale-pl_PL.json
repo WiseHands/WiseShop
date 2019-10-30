@@ -144,6 +144,7 @@
   "payment.minPayment": "Minimalna płatność za zamówienie",
   "payment.minOrder": "Minimalna suma zamówienia",
   "payment.couponsIds": "Kupony na zniżki (każdy w nowej linii)",
+  "payment.systemPay": "Systemy płatności",
   "delivery.delivery": "Dostawa",
   "delivery.newPost": "Przesyłka",
   "delivery.courier": "Dostawa kurierska",
