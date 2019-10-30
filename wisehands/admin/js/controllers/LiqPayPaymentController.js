@@ -1,6 +1,6 @@
 angular.module('WiseHands')
-    .controller('LiqPayPaymentController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared',
-        function ($scope, $http, signout, sideNavInit, shared) {
+    .controller('LiqPayPaymentController', ['$scope', '$http', 'signout', 'sideNavInit',
+        function ($scope, $http, signout, sideNavInit) {
         $scope.loading = true;
 
         $http({
@@ -9,16 +9,21 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.liqpay = response.data;
+                $scope.loading = false;
+
                 console.log("$scope.liqpay successCallback: ", response.data);
             }, function errorCallback(data) {
                 console.log("error: ", data);
                 showWarningMsg("SOME ERROR");
+                $scope.loading = false;
+
             });
 
 
-
-
         $scope.setLiqPayPaymentOpts = function () {
+            $scope.loading = true;
+
+            console.log("setLiqPAY");
             $http({
                 method: 'PUT',
                 url: '/liqpaypayment',
@@ -28,29 +33,35 @@ angular.module('WiseHands')
                     $scope.liqpay = response.data;
                     console.log("$scope.liqpay successCallback: ", response.data);
                     showInfoMsg("SAVED");
+                    $scope.loading = false;
+
                 }, function errorCallback(response) {
                     console.log("error: ", response)
                     showWarningMsg("SOME ERROR");
+                    $scope.loading = false;
+
                 });
         };
 
         sideNavInit.sideNav();
-    }]);
-function showWarningMsg(msg) {
-    toastr.clear();
-    toastr.options = {
-        "positionClass": "toast-bottom-center",
-        "preventDuplicates": true
-    };
-    toastr.warning(msg);
-}
 
-function showInfoMsg(msg) {
-    toastr.clear();
-    toastr.options = {
-        "positionClass": "toast-bottom-center",
-        "preventDuplicates": true
-    };
-    toastr.info(msg);
-}
+
+        function showWarningMsg(msg) {
+            toastr.clear();
+            toastr.options = {
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": true
+            };
+            toastr.warning(msg);
+        }
+
+        function showInfoMsg(msg) {
+            toastr.clear();
+            toastr.options = {
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": true
+            };
+            toastr.info(msg);
+        }
+}]);
 

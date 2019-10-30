@@ -175,6 +175,7 @@ angular.module('WiseHands')
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
         };
+
         $scope.submitProduct = function () {
             $scope.loading = true;
             for (var i = 0; i < $scope.productImagesDTO.length; i++) {

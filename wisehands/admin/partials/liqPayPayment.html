@@ -9,26 +9,31 @@
                     LiqPay
                 </h5>
             </div>
-            <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-save whiteColor pull-right"
-                   ng-click="setLiqPayPaymentOpts()">
-                </i>
-            </a>
+            <div class="col-xs-2 noRightPadding">
+                <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
+                   type="submit"
+                   form="liqPayPaymentForm" >
+                </button>
+            </div>
         </div>
     </div>
 </nav>
-<div class="container-fluid">
-    <hr class="margin-hr">
-    <div class="input-field col-md-12 z-index-3">
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+
+    <form class="col-md-12 noSidePadding" ng-submit="setLiqPayPaymentOpts()" id="liqPayPaymentForm" name="liqPayPaymentForm">
+        <hr class="margin-hr">
+
         <div class="col-sm-6">
             <p>{{'settings.publicKey' | translate}}</p>
-            <input id="publicLiqPay" type="text" ng-model="liqpay.liqpayPublicKey">
+            <input id="publicLiqPay" type="text" ng-model="liqpay.liqpayPublicKey" required>
         </div>
         <div class="col-sm-6">
             <p>{{'settings.privateKey' | translate}}</p>
-            <input id="privateLiqPay" type="password" ng-model="liqpay.liqpayPrivateKey">
+            <input id="privateLiqPay" type="password" ng-model="liqpay.liqpayPrivateKey" required>
         </div>
-    </div>
-
+    </form>
 
 </div>
