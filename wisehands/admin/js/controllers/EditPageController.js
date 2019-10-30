@@ -23,8 +23,6 @@ angular.module('WiseHands')
         var imageLoader = document.getElementById('imageLoader');
         imageLoader.addEventListener('change', handleImage, false);
         var canvas = document.getElementById('imageCanvas');
-        $scope.productImages = [];
-        $scope.productImagesDTO = [];
         function handleImage(e){
             $scope.$apply(function() {
                 $scope.loading = true;
@@ -41,7 +39,7 @@ angular.module('WiseHands')
                     var MAX_HEIGHT = 525;
                     height = MAX_HEIGHT;
                     width = MAX_WIDTH;
-
+// have some error
                     canvas.width = width;
                     canvas.height = height;
                     var ctx = canvas.getContext("2d");
@@ -50,16 +48,14 @@ angular.module('WiseHands')
 
                     var blob = dataURItoBlob(dataURL);
 
-                    $scope.$apply(function() {
-                        if(!$scope.product || $scope.product.mainPhoto){
-                            $scope.product = {};
-                            $scope.product.mainPhoto = 0;
-                        }
-                        $scope.product.mainPhoto = 0;
-                        $scope.productImages.push(dataURL);
-                        $scope.productImagesDTO.push(blob);
-                        $scope.loading = false;
-
+                    $http({
+                        method: 'GET',
+                        url: 'https://wisestorage.wisehands.me/uploadFile',
+                        data: blob
+                    }).then(function successCallback(response) {
+                        console.log("successCallback", response);
+                    }, function errorCallback(response) {
+                        console.log("errorCallback", response);
                     });
 
 

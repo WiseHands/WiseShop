@@ -22,7 +22,7 @@ public class PageConstructorDTO  extends GenericModel {
     public String title;
 
     @Expose
-    public String logoUrl;
+    public Byte[] photoPage;
 
     @Expose
     @Lob
@@ -45,5 +45,14 @@ public class PageConstructorDTO  extends GenericModel {
         this.title = title;
         this.body = body;
         this.shop = shopDTO;
+    }
+
+
+    public Byte[] getPhotoPage() {
+        return photoPage;
+    }
+
+    public void setPhotoPage(Byte[] photoPage) {
+        this.photoPage = photoPage;
     }
 }
