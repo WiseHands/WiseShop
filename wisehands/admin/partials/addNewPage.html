@@ -8,19 +8,21 @@
             <div class="col-xs-8 text-center">
                 <h5 class="white-text">{{'addNewPage.title' | translate}}</h5>
             </div>
-            <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-save whiteColor pull-right"
-                   ng-click="saveThisPage()">
-                </i>
-            </a>
+            <div class="col-xs-2 noRightPadding">
+                <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
+                        type="submit"
+                        form="saveThisPageForm" >
+                </button>
+            </div>
+
         </div>
     </div>
 </nav>
-<div class="container-fluid">
+<form class="container-fluid" ng-submit="saveThisPage()" id="saveThisPageForm">
     <div class="input-field col-md-12 z-index-3 mt-30">
         <div class="col-sm-6">
             <p class="mb-0">{{'addNewPage.setTitle' | translate}}</p>
-            <input id="setTitle" type="text" ng-model="title">
+            <input id="setTitle" type="text" ng-model="title" required>
         </div>
         <!--<div class="col-sm-6">-->
             <!--<p class="mb-0">{{'addNewPage.setUrl' | translate}}</p>-->
@@ -30,7 +32,7 @@
     <div class="container-fluid">
         <div class="col-xs-12 input-field ">
             <p>{{'addNewPage.setBody' | translate}}</p>
-            <textarea class="editor-for-page" id="editor" name="editor"></textarea>
+            <textarea class="editor-for-page" id="editor" name="editor" required></textarea>
         </div>
     </div>
-</div>
+</form>

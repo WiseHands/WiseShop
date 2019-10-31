@@ -24,9 +24,11 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
                     $scope.loading = false;
                     $location.path('/delivery');
+                    showInfoMsg("SAVED");
                 }, function errorCallback(response) {
                     $scope.loading = false;
                     console.log(response);
+                    showWarningMsg("ERROR");
                 });
 
         };
@@ -34,3 +36,19 @@ angular.module('WiseHands')
         sideNavInit.sideNav();
        
     }]);
+function showWarningMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.warning(msg);
+}
+function showInfoMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.info(msg);
+}

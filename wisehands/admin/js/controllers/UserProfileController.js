@@ -30,8 +30,10 @@ angular.module('WiseHands')
                     .then(function successCallback(response) {
                         $scope.loading = false;
                         $scope.userInfo = response.data;
+                        showInfoMsg("SAVED");
                     }, function errorCallback(data) {
                         $scope.loading = false;
+                        showWarningMsg("ERROR");
                         // signout.signOut();
                     });
             };
@@ -123,4 +125,21 @@ angular.module('WiseHands')
 
 
             sideNavInit.sideNav();
-        }]);
+    }]);
+
+function showWarningMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.warning(msg);
+}
+function showInfoMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.info(msg);
+}

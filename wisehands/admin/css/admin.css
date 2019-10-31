@@ -9,13 +9,16 @@
 .mb-0{
     margin-bottom: 0px;
 }
+/*image for add logo in edit page*/
+.img-setting{
+
+}
 /*editor-for-page*/
 .editor-for-page{
     border: 1px solid black;
     height: 350px;
 }
-
-    /* create table for workingHour page*/
+/* create table for workingHour page*/
 .flex-table{
     display: flex;
     flex-direction: column;

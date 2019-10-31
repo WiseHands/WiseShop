@@ -134,10 +134,12 @@ angular.module('WiseHands')
                             $scope.selectedSkin = skin;
                         }
                     });
+                    showInfoMsg("SAVED");
                 }).
             error(function (response) {
                 $scope.loading = false;
                 console.log(response);
+                showWarningMsg("ERROR");
             });
         };
         $scope.loadImage = function () {
@@ -283,4 +285,20 @@ function dataURItoBlob(dataURI) {
         array.push(binary.charCodeAt(i));
     }
     return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+}
+function showWarningMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.warning(msg);
+}
+function showInfoMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.info(msg);
 }

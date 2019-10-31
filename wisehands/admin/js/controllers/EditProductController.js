@@ -289,10 +289,12 @@ angular.module('WiseHands')
                     .success(function(data){
                         $scope.loading = false;
                         $location.path('/product/details/' + data.uuid);
+                        showInfoMsg("SAVED");
                     })
                     .error(function(response){
                         $scope.loading = false;
                         console.log(response);
+                        showWarningMsg("ERROR");
                     });
 
             };
@@ -364,3 +366,19 @@ function dataURItoBlob(dataURI) {
     return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
 }
 
+function showWarningMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.warning(msg);
+}
+function showInfoMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true
+    };
+    toastr.info(msg);
+}
