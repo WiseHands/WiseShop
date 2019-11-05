@@ -121,7 +121,9 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         CategoryDTO category = CategoryDTO.findById(uuid);
-        render(shop, category);
+        List<ProductDTO> productList = ProductDTO.find("byCategory", category).fetch();
+        System.out.println("\n\n\nCATEGORY" + uuid + category.name + productList.size());
+        render(shop, category, productList);
     }
 
 
