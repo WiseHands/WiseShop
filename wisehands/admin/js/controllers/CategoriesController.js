@@ -4,7 +4,7 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/category'
+            url: '/api/category'
         })
             .then(function successCallback(response) {
                 $scope.categories = response.data;
@@ -39,7 +39,7 @@ angular.module('WiseHands')
             $scope.loading = true;
             $http({
                 method: 'PUT',
-                url: '/category/' + $scope.thisCategory.uuid + '/name/' + $scope.thisCategory.name,
+                url: '/api/category/' + $scope.thisCategory.uuid + '/name/' + $scope.thisCategory.name,
                 data: $scope.thisCategory
             })
                 .then(function successCallback(response) {
@@ -56,7 +56,7 @@ angular.module('WiseHands')
             $scope.loading = true;
             $http({
                 method: 'POST',
-                url: '/category',
+                url: '/api/category',
                 data: $scope.newCategory
             })
                 .then(function successCallback(response) {
@@ -76,7 +76,7 @@ angular.module('WiseHands')
             $scope.modalSpinner = true;
             $http({
                 method: 'DELETE',
-                url: '/category/' + $scope.thisCategory.uuid,
+                url: '/api/category/' + $scope.thisCategory.uuid,
             })
                 .then(function successCallback(response) {
                     $scope.categories.forEach(function(category, index){

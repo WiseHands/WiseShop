@@ -5,7 +5,7 @@ angular.module('WiseShop')
             shared.setCategoryUuid($scope.uuid);
             $http({
                 method: 'GET',
-                url: '/category/' + $scope.uuid
+                url: '/api/category/' + $scope.uuid
 
             })
                 .then(function successCallback(response) {

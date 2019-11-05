@@ -115,6 +115,16 @@ public class Application extends Controller {
         render(shop, page, pageList);
     }
 
+    public static void category(String client, String uuid){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        CategoryDTO category = CategoryDTO.findById(uuid);
+        render(shop, category);
+    }
+
+
     public static void done(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

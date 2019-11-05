@@ -8,7 +8,7 @@ angular.module('WiseShop')
             
             $http({
                 method: 'GET',
-                url: '/category'
+                url: '/api/category'
 
             })
                 .then(function successCallback(response) {

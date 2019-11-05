@@ -7,6 +7,7 @@ GET     {client}/                                       Application.index
 GET     {client}/wisehands                              Application.wisehands
 GET     {client}/shop                                   Application.shop
 GET     {client}/page/{uuid}                            Application.page
+GET     {client}/category/{uuid}                        Application.category
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
@@ -139,12 +140,12 @@ GET     {client}/balance                                BalanceAPI.getBalance
 POST    {client}/pay                                    BalanceAPI.startPayment
 POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification
 
-GET		{client}/category							    CategoryAPI.all
-GET		{client}/category/{uuid}					    CategoryAPI.details
-POST	{client}/category        					    CategoryAPI.create
-PUT 	{client}/category/{uuid}/name/{name}	        CategoryAPI.update
-DELETE 	{client}/category/{uuid}					    CategoryAPI.delete
-PUT 	{client}/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
+GET		{client}/api/category							    CategoryAPI.all
+GET		{client}/api/category/{uuid}					    CategoryAPI.details
+POST	{client}/api/category        					    CategoryAPI.create
+PUT 	{client}/api/category/{uuid}/name/{name}	        CategoryAPI.update
+DELETE 	{client}/api/category/{uuid}					    CategoryAPI.delete
+PUT 	{client}/api/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode

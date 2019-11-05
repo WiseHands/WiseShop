@@ -25,7 +25,7 @@ angular.module('WiseHands')
                 $scope.loading = true;
                 $http({
                     method: 'POST',
-                    url: '/category/' + $scope.categoryUuid + '/property',
+                    url: '/api/category/' + $scope.categoryUuid + '/property',
                     data: $scope.property
                 })
                     .then(function successCallback(response) {

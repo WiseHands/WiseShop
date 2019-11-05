@@ -6,7 +6,7 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/category'
+            url: '/api/category'
         })
             .then(function successCallback(response) {
                 $scope.categories = response.data;
@@ -133,7 +133,7 @@ angular.module('WiseHands')
             $scope.loading = true;
             $http({
                 method: 'POST',
-                url: '/category',
+                url: '/api/category',
                 data: $scope.category
             })
                 .then(function successCallback(response) {
@@ -151,7 +151,7 @@ angular.module('WiseHands')
             $scope.loading = true;
             $http({
                 method: 'POST',
-                url: '/category',
+                url: '/api/category',
                 data: $scope.newCategory
             })
                 .then(function successCallback(response) {
