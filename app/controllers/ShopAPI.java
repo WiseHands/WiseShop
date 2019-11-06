@@ -133,6 +133,8 @@ public class ShopAPI extends AuthController {
         json.put("deliveryPolygon", shop.delivery.courierPolygonData);
         json.put("googleStaticMapsApiKey", shop.googleStaticMapsApiKey);
 
+        json.put("visualSetting", shop.visualSettingsDTO);
+
         json.put("monStartTime", shop.monStartTime);
         json.put("monEndTime", shop.monEndTime);
         json.put("monOpen", shop.monOpen);

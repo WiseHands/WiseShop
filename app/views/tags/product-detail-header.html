@@ -17,7 +17,7 @@
 <header>
     <div class="header-menu">
         <div class="shop-icon">
-            <img src="/wisehands/assets/images/wiseblack.png">
+            <img id="shop-logo" src="">
         </div>
         <div class="header-cart">
             <i class="fa fa-shopping-cart"> </i>
@@ -27,7 +27,7 @@
 </header>
 <script>
 
-    fetch('/visualsettings', {
+    fetch('/shop/details/public', {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
@@ -35,9 +35,14 @@
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log("data.navbarColor", data.navbarColor);
+        console.log("data /shop/details/public", data);
 
-        // document.getElementById('footer').style.backgroundColor = data.navbarColor;
+        if (data.visualSetting.shopLogo){
+            document.getElementById('shop-logo').src = '/public/shop_logo/' + data.uuid + '/' + data.visualSetting.shopLogo;
+        } else {
+            document.getElementById('shop-logo').src = '/wisehands/assets/images/wiseblack.png';
+        }
+
     });
 
 </script>
