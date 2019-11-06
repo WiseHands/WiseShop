@@ -31,36 +31,36 @@
     <base href="/">
 </head>
 <body>
-    <div class="fixed-sn {{shopStyling.sidebarColorScheme.code}}-skin" ng-app="WiseShop" ng-cloak shop-styling>
-        <!-- Sidebar navigation -->
-        <ul id="slide-out" class="side-nav custom-scrollbar" ng-controller="SideNavController">
-            <!--About-->
-            <li>
-                <div class="about">
-                    <p>{{shopName}}</p>
-                </div>
-            </li>
+    <!--<div class="fixed-sn {{shopStyling.sidebarColorScheme.code}}-skin" ng-app="WiseShop" ng-cloak shop-styling>-->
+        <!--&lt;!&ndash; Sidebar navigation &ndash;&gt;-->
+        <!--<ul id="slide-out" class="side-nav custom-scrollbar" ng-controller="SideNavController">-->
+            <!--&lt;!&ndash;About&ndash;&gt;-->
+            <!--<li>-->
+                <!--<div class="about">-->
+                    <!--<p>{{shopName}}</p>-->
+                <!--</div>-->
+            <!--</li>-->
 
-            <!-- Side navigation links -->
-            <li>
-                <ul class="collapsible collapsible-accordion">
-                    <li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">{{'sideNav.Main' | translate}}</a>
-                    </li>
-                    <li ng-repeat="category in categories | orderBy:'sortOrder'" ng-hide="turnedOffProducts(category)">
-                        <a href="/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r fulltext button-offset-for-category" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
-                    </li>
-                </ul>
-            </li>
-            <!--/. Side navigation links -->
+            <!--&lt;!&ndash; Side navigation links &ndash;&gt;-->
+            <!--<li>-->
+                <!--<ul class="collapsible collapsible-accordion">-->
+                    <!--<li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">{{'sideNav.Main' | translate}}</a>-->
+                    <!--</li>-->
+                    <!--<li ng-repeat="category in categories | orderBy:'sortOrder'" ng-hide="turnedOffProducts(category)">-->
+                        <!--<a href="/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r fulltext button-offset-for-category" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--&lt;!&ndash;/. Side navigation links &ndash;&gt;-->
 
-        </ul>
-        <!--/. Sidebar navigation -->
-        <div ng-view>
+        <!--</ul>-->
+        <!--&lt;!&ndash;/. Sidebar navigation &ndash;&gt;-->
+        <!--<div ng-view>-->
 
-        </div>
-    </div>
-
-    <div class="container-fluid row center-block">
+        <!--</div>-->
+    <!--</div>-->
+    #{product-detail-header /}
+    <div class="container-fluid row center-block" style="margin-top: 10px">
     #{verbatim}
     %{
         for(_product in productList) {
