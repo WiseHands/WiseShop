@@ -1,0 +1,24 @@
+<style>
+    .navbar{
+        height: 56px;
+        width: 100%;
+    }
+</style>
+<header class="navbar">
+
+</header>
+<script>
+
+    fetch('/visualsettings', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        document.getElementById('navbar').style.backgroundColor = data.navbarColor;
+        // document.getElementById('footer').style.backgroundColor = data.navbarColor;
+    });
+
+</script>

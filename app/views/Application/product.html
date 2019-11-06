@@ -31,6 +31,7 @@
 </head>
 <body>
 #{verbatim}
+#{product-detail-header /}
     <main class="mainNoPaddingTop pl-0">
         <section class="section m-b-4">
             <!-- Modal -->
@@ -56,22 +57,21 @@
                                         </div>
                                         <!--/.Slides-->
                                         <div class="col-xs-12">
-                                            #{if product.images.size() >= 2}
-                                            <p>here</p>
-                                            #{/if}
-                                            <ul class="carousel-indicators" >
-                                                %{
+                                            #{if product.images.size() > 1}
+                                                <ul class="carousel-indicators" >
+                                                    %{
                                                     for(_image in product.images) {
                                                     }%
-                                                        <li data-target="#carousel-thumb"
-                                                            ng-click="select($index)"
-                                                            ng-class="{active: $index === selected}">
-                                                            <img src="/public/product_images/${shop.uuid}/${_image.filename}" class="img-fluid">
-                                                        </li>
+                                                    <li data-target="#carousel-thumb"
+                                                        ng-click="select($index)"
+                                                        ng-class="{active: $index === selected}">
+                                                        <img src="/public/product_images/${shop.uuid}/${_image.filename}" class="img-fluid">
+                                                    </li>
                                                     %{
                                                     }
-                                                }%
-                                            </ul>
+                                                    }%
+                                                </ul>
+                                            #{/if}
                                         </div>
 
 
