@@ -8,6 +8,7 @@ GET     {client}/wisehands                              Application.wisehands
 GET     {client}/shop                                   Application.shop
 GET     {client}/page/{uuid}                            Application.page
 GET     {client}/category/{uuid}                        Application.category
+GET     {client}/product/{uuid}                         Application.product
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin

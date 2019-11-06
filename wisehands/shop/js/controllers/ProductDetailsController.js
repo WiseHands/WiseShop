@@ -9,6 +9,7 @@
             })
                 .then(function successCallback(response) {
                     $scope.products = response.data;
+                    console.log("$scope.products", response.data);
                 }, function errorCallback(error) {
                     console.log(error);
                 });

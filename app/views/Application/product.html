@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="${shop.contact.description}" />
+    <meta name="author" content="${shop.shopName}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="google-site-verification" content="${shop.googleWebsiteVerificator}" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${shop.shopName}" />
+    <meta property="og:description" content="${shop.contact.description}" />
+    <meta property="og:url" content="https://${shop.domain}/" />
+    <meta property="og:site_name" content="${shop.shopName}" />
+
+    <title>${product.name} | ${category.name} | ${shop.shopName}</title>
+
+    <link href="/wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/shop.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet" >
+    <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
+
+
+    <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
+
+</head>
+<body>
+#{verbatim}
+    <main class="mainNoPaddingTop pl-0">
+        <section class="section m-b-4">
+            <!-- Modal -->
+            <div class="ql-modal contactsContainer" id="quick-look-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content noBorder">
+                        <!--Body-->
+                        <!--Grid-->
+                        <div class="container-fluid">
+                            <div class="row">
+
+                                <!--First column-->
+                                <div class="col-lg-6 col-sm-6">
+                                    <!--Carousel Wrapper-->
+                                    <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
+
+                                        <!--Slides-->
+                                        <div class="carousel-inner noBoxShadow" role="listbox">
+                                            <div class="carousel-item active product">
+                                                <img class="img-responsive" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide">
+                                            </div>
+                                        </div>
+                                        <!--/.Slides-->
+                                        <div class="col-xs-12">
+                                            #{if product.images.size() >= 2}
+                                            <p>here</p>
+                                            #{/if}
+                                            <ul class="carousel-indicators" >
+                                                %{
+                                                    for(_image in product.images) {
+                                                    }%
+                                                        <li data-target="#carousel-thumb"
+                                                            ng-click="select($index)"
+                                                            ng-class="{active: $index === selected}">
+                                                            <img src="/public/product_images/${shop.uuid}/${_image.filename}" class="img-fluid">
+                                                        </li>
+                                                    %{
+                                                    }
+                                                }%
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                    <!--/.Carousel Wrapper-->
+                                </div>
+                                <!--/.First column-->
+                                <div class="col-md-6 col-sm-12 text-xs-center">
+                                    <h2>${product.name}</h2>
+                                    <div class="text-xs-center">
+                                        <!--Title-->
+                                        <!--Price-->
+                                        <div class="price">
+                                            <p class="pull-left"><span class="price-after">${product.price} UAH</span>
+                                                </p>
+                                            <button class="btn btn-default buyButtonDetails pull-right" ng-click="buyStart()">Buy</button>
+
+                                        </div>
+                                        <!--Call to action-->
+                                        <br>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <p class="text-justify">${product.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>
+    #{/verbatim}
+
+    #{if shop.visualSettingsDTO.isFooterOn}
+        #{footer-shop /}
+    #{/if}
+</body>
+</html>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+<script defer src="wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
+
