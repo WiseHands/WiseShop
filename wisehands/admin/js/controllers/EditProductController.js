@@ -61,7 +61,7 @@ angular.module('WiseHands')
 
             $http({
                 method: 'GET',
-                url: '/product/' + $routeParams.uuid
+                url: '/api/product/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {
 
@@ -280,7 +280,7 @@ angular.module('WiseHands')
                 //     fd.append("photos["+ i +"]", $scope.productImages[i]);
                 // }
 
-                $http.put('/product', fd, {
+                $http.put('/api/product', fd, {
                         transformRequest: angular.identity,
                         headers: {
                             'Content-Type': undefined,

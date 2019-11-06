@@ -5,7 +5,7 @@
             $scope.uuid = $routeParams.uuid;
             $http({
                 method: 'GET',
-                url: '/products'
+                url: '/api/products'
             })
                 .then(function successCallback(response) {
                     $scope.products = response.data;
@@ -24,7 +24,7 @@
 
             $http({
                 method: 'GET',
-                url: '/product/' + $scope.uuid
+                url: '/api/product/' + $scope.uuid
             })
                 .then(function successCallback(response) {
                     $scope.product = response.data;

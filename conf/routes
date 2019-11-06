@@ -58,11 +58,11 @@ DELETE  {client}/coupons/{uuid}                         CouponAPI.delete
 DELETE  {client}/coupons                                CouponAPI.deleteAll
 
 
-GET     {client}/products                               ProductAPI.list
-GET     {client}/product/{uuid}                         ProductAPI.details
-POST    {client}/product                                ProductAPI.create
-PUT     {client}/product                                ProductAPI.update
-DELETE  {client}/product/{uuid}                         ProductAPI.delete
+GET     {client}/api/products                               ProductAPI.list
+GET     {client}/api/product/{uuid}                         ProductAPI.details
+POST    {client}/api/product                                ProductAPI.create
+PUT     {client}/api/product                                ProductAPI.update
+DELETE  {client}/api/product/{uuid}                         ProductAPI.delete
 
 
 POST    {client}/product/{productUuid}/image              	ProductImageAPI.add

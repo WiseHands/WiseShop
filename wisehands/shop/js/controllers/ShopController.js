@@ -62,7 +62,7 @@
                 $scope.isProductsInShop = false;
                 $http({
                     method: 'GET',
-                    url: '/products'
+                    url: '/api/products'
                 }).then(function successCallback(response) {
                         $scope.products = response.data;
                         console.log("$scope.products", $scope.products);
@@ -93,7 +93,7 @@
                     $scope.hideMoreButton = false;
                     var req = {
                         method: 'GET',
-                        url: '/products?page=' + pageNumber,
+                        url: '/api/products?page=' + pageNumber,
                         data: {}
                     };
 

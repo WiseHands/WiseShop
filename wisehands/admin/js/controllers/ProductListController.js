@@ -7,7 +7,7 @@ angular.module('WiseHands')
             spinnerService.show('mySpinner');
         $http({
             method: 'GET',
-            url: '/products'
+            url: '/api/products'
         })
             .then(function successCallback(response) {
                 spinnerService.hide('mySpinner');
@@ -34,7 +34,7 @@ angular.module('WiseHands')
             $scope.hideMoreButton = false;
             var req = {
                 method: 'GET',
-                url: '/products?page=' + pageNumber,
+                url: '/api/products?page=' + pageNumber,
                 data: {}
             };
 

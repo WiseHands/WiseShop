@@ -191,7 +191,7 @@ angular.module('WiseHands')
             fd.append('oldPrice', $scope.product.oldPrice);
             fd.append('sortOrder', $scope.product.sortOrder);
 
-            $http.post('/product', fd, {
+            $http.post('/api/product', fd, {
                     transformRequest: angular.identity,
                     headers: {
                         'Content-Type': undefined,

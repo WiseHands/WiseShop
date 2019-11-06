@@ -68,12 +68,12 @@
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="card inline">
                         <div class="noselect view overlay hm-white-slight z-depth-1" ng-click="navigateToProductDetails(${_product.uuid})">
-                            <img src="public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
+                            <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
                             <div class="mask"></div>
                         </div>
                         <div class="card-block text-xs-center">
                             <div class="fixed-height2">
-                                <h4 class="card-title productNameTruncate h4-responsive"><a href="#!/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                                <h4 class="card-title productNameTruncate h4-responsive"><a href="/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
                             </div>
                             <div class="fixed-height">
                                 <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
