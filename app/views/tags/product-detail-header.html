@@ -1,11 +1,29 @@
 <style>
-    .navbar{
-        height: 56px;
-        width: 100%;
+    header {
+        background-color: #ebebeb;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    }
+    .header-menu {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        padding: 10px 15px;
+    }
+    .shop-icon img, .header-cart img{
+        width: 30px;
+        height: 30px;
     }
 </style>
-<header class="navbar">
+<header>
+    <div class="header-menu">
+        <div class="shop-icon">
+            <img src="/wisehands/assets/images/wiseblack.png">
+        </div>
+        <div class="header-cart">
+            <i class="fa fa-shopping-cart"> </i>
+        </div>
 
+    </div>
 </header>
 <script>
 
@@ -17,7 +35,8 @@
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        document.getElementById('navbar').style.backgroundColor = data.navbarColor;
+        console.log("data.navbarColor", data.navbarColor);
+
         // document.getElementById('footer').style.backgroundColor = data.navbarColor;
     });
 
