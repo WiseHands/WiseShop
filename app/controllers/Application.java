@@ -86,7 +86,6 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-
         Date date = new Date();
 
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
@@ -96,7 +95,6 @@ public class Application extends Controller {
         }
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
-
 
         render(shop);
     }
