@@ -3,11 +3,21 @@
         background-color: #ebebeb;
         box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
     }
-    .header-menu {
+    .header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin: 0 auto;
         padding: 10px 15px;
+    }
+    .header-left-part{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+    .shop-icon{
+        margin-right: 10px;
     }
     .shop-icon img, .header-cart img{
         width: 30px;
@@ -15,11 +25,14 @@
     }
 </style>
 <header>
-    <div class="header-menu">
-        <div class="shop-icon">
-            <a href="/">
-                <img id="shop-logo" src="">
-            </a>
+    <div class="header">
+        <div class="header-left-part">
+            <div class="shop-icon">
+                <a href="/">
+                    <img id="shop-logo" src="">
+                </a>
+            </div>
+            <h3 id="shop-name"></h3>
         </div>
         <div class="header-cart">
             <i class="fa fa-shopping-cart"> </i>
@@ -38,7 +51,7 @@
         return response.json();
     }).then(function (data) {
         console.log("data /shop/details/public", data);
-
+        document.getElementById('shop-name').innerHTML = data.name;
         if (data.visualSetting.shopLogo){
             document.getElementById('shop-logo').src = '/public/shop_logo/' + data.uuid + '/' + data.visualSetting.shopLogo;
         } else {

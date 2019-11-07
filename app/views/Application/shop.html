@@ -27,58 +27,14 @@
     <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
 
     <link rel='shortcut icon' href='/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
-
-    <meta name="fragment" content="!" />
-    <base href="/">
 </head>
 <body>
-    <div class="fixed-sn {{shopStyling.sidebarColorScheme.code}}-skin" ng-app="WiseShop" ng-cloak shop-styling>
-        <!-- Sidebar navigation -->
-        <ul id="slide-out" class="side-nav custom-scrollbar" ng-controller="SideNavController">
-            <!--About-->
-            <li>
-                <div class="about">
-                    <p>{{shopName}}</p>
-                </div>
-            </li>
-            <!--/.About-->
-
-            <!--Social-->
-            <!--<li>-->
-            <!--<ul class="social">-->
-            <!--<li><a class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>-->
-            <!--<li><a class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>-->
-            <!--<li><a class="icons-sm drib-ic"><i class="fa fa-dribbble"> </i></a></li>-->
-            <!--<li><a class="icons-sm li-ic"><i class="fa fa-linkedin"> </i></a></li>-->
-            <!--<li><a class="icons-sm ins-ic"><i class="fa fa-instagram"> </i></a></li>-->
-            <!--</ul>-->
-            <!--</li>-->
-            <!--/Social-->
-
-            <!-- Side navigation links -->
-            <li>
-                <ul class="collapsible collapsible-accordion">
-                    <li><a href="#!/" class="collapsible-header waves-effect arrow-r" ng-class="{active: $route.current.activetab == 'main'}">{{'sideNav.Main' | translate}}</a>
-                    </li>
-                    <li ng-repeat="category in categories | orderBy:'sortOrder'" ng-hide="turnedOffProducts(category)">
-                        <a href="/category/{{category.uuid}}" class="collapsible-header waves-effect arrow-r fulltext button-offset-for-category" ng-class="{ 'active': categoryUuid == category.uuid }">{{category.name}}</a>
-                    </li>
-                </ul>
-            </li>
-            <!--/. Side navigation links -->
-
-        </ul>
-        <!--/. Sidebar navigation -->
-        <div ng-view>
-
-        </div>
-    </div>
-
+    #{product-detail-header /}
     #{verbatim}
         %{
             for(_product in shop.productList) {
         }%
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6 mt-2">
                 <div class="card inline">
                     <div class="noselect view overlay hm-white-slight z-depth-1" ng-click="navigateToProductDetails(${_product.uuid})">
                         <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
