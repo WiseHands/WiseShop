@@ -169,7 +169,8 @@ GET     /public/                                staticDir:public
 GET     /wisehands/                             staticDir:wisehands
 GET		/google3d064e8f1e55f5ab.html			        staticFile:google3d064e8f1e55f5ab.html
 
-GET     {client}/sitemap                        Application.sitemap(format:'xml')
+# GET     {client}/sitemap                        Application.sitemap(format:'xml')
+GET     {client}/sitemap                        SitemapController.sitemap(format:'xml')
 GET     {client}/manifest                       Application.manifestAdmin
 
 
