@@ -76,8 +76,10 @@ public class Application extends Controller {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
 
-        renderTemplate("Application/shop.html", shop);
+        String dataForCookie = "1989";
+        response.setCookie("playcookie", dataForCookie);
 
+        renderTemplate("Application/shop.html", shop);
     }
 
     public static void shop(String client) {
