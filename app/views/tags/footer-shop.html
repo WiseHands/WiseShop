@@ -401,10 +401,10 @@
 
         function getRightFormat(number) {
             let formattedNumber;
-            if(number === 0) {
-                formattedNumber = '00';
+            if(number < 10) {
+                formattedNumber = '0' + number;
             } else {
-                formattedNumber = number;
+                formattedNumber = '' + number;
             }
             return formattedNumber;
         }
