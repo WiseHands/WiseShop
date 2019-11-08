@@ -1,5 +1,8 @@
 package controllers;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 import play.Play;
 import play.i18n.Lang;
 import play.mvc.*;
@@ -12,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.UUID;
 
 public class Application extends Controller {
 
@@ -76,8 +80,12 @@ public class Application extends Controller {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
 
-        String dataForCookie = "1989";
-        response.setCookie("playcookie", dataForCookie);
+        Http.Cookie userTokenCookie = request.cookies.get("userToken");
+        if(userTokenCookie == null) {
+            UUID uuid = UUID.randomUUID();
+            String token = generateTokenForCookie(uuid.toString(), agent);
+            response.setCookie("userToken", token);
+        }
 
         renderTemplate("Application/shop.html", shop);
     }
@@ -213,6 +221,29 @@ public class Application extends Controller {
         }
         render(shop);
     }
+
+
+    private static String generateTokenForCookie(String userId, String userAgent) {
+        String token = "";
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+
+            long nowMillis = System.currentTimeMillis();
+            Date now = new Date(nowMillis);
+
+            token = JWT.create()
+                    .withIssuedAt(now)
+                    .withSubject(userId)
+                    .withClaim("userAgent", userAgent)
+                    .withIssuer("wisehands")
+                    .sign(algorithm);
+        } catch (JWTCreationException exception){
+            //Invalid Signing configuration / Couldn't convert Claims.
+        }
+        return token;
+    }
+
 
 
 }
