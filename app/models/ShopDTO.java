@@ -158,7 +158,7 @@ public class ShopDTO extends GenericModel {
     public ShopNetworkDTO getNetwork() {
         if(this.networkUuid != null) {
             this.network = ShopNetworkDTO.findById(networkUuid);
-            System.out.println("ShopDTO initializint network" + this.networkUuid + this.network);
+            System.out.println("ShopDTO initializing network" + this.networkUuid + this.network);
         }
         return  this.network;
     }

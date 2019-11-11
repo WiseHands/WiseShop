@@ -148,6 +148,7 @@ POST	{client}/api/category        					    CategoryAPI.create
 PUT 	{client}/api/category/{uuid}/name/{name}	        CategoryAPI.update
 DELETE 	{client}/api/category/{uuid}					    CategoryAPI.delete
 PUT 	{client}/api/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
+POST    {client}/api/cart                                   ShoppingCartAPI.addProduct
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
