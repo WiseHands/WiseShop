@@ -146,6 +146,15 @@ public class Application extends Controller {
         render(product, category, shop);
     }
 
+    public static void shoppingCart(String client){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        render(shop);
+    }
+
 
     public static void done(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
