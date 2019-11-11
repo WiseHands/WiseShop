@@ -1,8 +1,9 @@
 #{set shop:shop /}
 <style>
-    .body-container{
-        display: flex;
-        flex-direction: row;
+    .center-container{
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
     }
 </style>
 <!DOCTYPE html>
@@ -38,7 +39,7 @@
 <body>
     #{product-detail-header /}
     #{verbatim}
-        <div  class="container-fluid row center-block">
+        <div  class="center-container">
             %{
                 for(_product in shop.productList) {
             }%
