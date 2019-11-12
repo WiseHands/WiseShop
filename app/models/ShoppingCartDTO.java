@@ -10,13 +10,10 @@ import java.util.List;
 @Entity
 public class ShoppingCartDTO extends GenericModel {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Expose
     public String uuid;
 
     @OneToMany
     public List<LineItemDTO> lineItemList;
 
-    public String userId;
 }

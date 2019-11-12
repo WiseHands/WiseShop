@@ -7,12 +7,11 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import models.*;
 import play.Play;
-import play.db.jpa.JPABase;
-import play.mvc.Http;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingCartAPI extends AuthController {
+
     public void addProduct() throws Exception {
         String productUuid = request.params.get("uuid");
         System.out.println("productId " + productUuid);
@@ -33,7 +32,7 @@ public class ShoppingCartAPI extends AuthController {
             ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
             if (shoppingCart == null) {
                 shoppingCart = new ShoppingCartDTO();
-                shoppingCart.userId = userId;
+                shoppingCart.uuid = userId;
             }
             LineItemDTO lineItem = new LineItemDTO();
             lineItem.product = product;
@@ -48,6 +47,32 @@ public class ShoppingCartAPI extends AuthController {
         } catch (JWTVerificationException exception){
             forbidden("Invalid Authorization header: " + userTokenCookie);
         }
+    }
+
+    public void deleteProduct() throws Exception {
+        String productUuid = request.params.get("uuid");
+        System.out.println("productId " + productUuid);
+
+        String userTokenCookie = request.cookies.get("userToken").value;
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("wisehands")
+                    .build(); //Reusable verifier instance
+            DecodedJWT jwt = verifier.verify(userTokenCookie);
+            String userId = jwt.getSubject();
+            System.out.println("shopping cart uuid" + userId);
+            ShoppingCartDTO shoppingCarts = ShoppingCartDTO.findById(userId);
+            for(LineItemDTO lineItem : shoppingCarts.lineItemList) {
+                if(lineItem.product.uuid == productUuid) {
+                    lineItem.delete();
+                }
+            }
+        } catch (JWTVerificationException exception){
+            forbidden("Invalid Authorization header: " + userTokenCookie);
+        }
+        ok();
     }
 
 }
