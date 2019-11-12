@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,8 @@ public class ShoppingCartDTO extends GenericModel {
     @Expose
     public String uuid;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     public List<LineItemDTO> lineItemList;
 
+    public String userId;
 }

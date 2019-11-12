@@ -19,4 +19,7 @@ public class LineItemDTO extends GenericModel {
     @Expose
     public Integer quantity;
 
+    @ManyToOne
+    public ShoppingCartDTO shoppingCart;
+
 }

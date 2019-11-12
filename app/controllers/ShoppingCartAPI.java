@@ -5,11 +5,12 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import models.OrderItemDTO;
-import models.ProductDTO;
-import models.UserDTO;
+import models.*;
 import play.Play;
+import play.db.jpa.JPABase;
 import play.mvc.Http;
+
+import java.util.ArrayList;
 
 public class ShoppingCartAPI extends AuthController {
     public void addProduct() throws Exception {
@@ -29,6 +30,21 @@ public class ShoppingCartAPI extends AuthController {
                     .build(); //Reusable verifier instance
             DecodedJWT jwt = verifier.verify(userTokenCookie);
             String userId = jwt.getSubject();
+            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+            if (shoppingCart == null) {
+                shoppingCart = new ShoppingCartDTO();
+                shoppingCart.userId = userId;
+            }
+            LineItemDTO lineItem = new LineItemDTO();
+            lineItem.product = product;
+            lineItem.quantity = quantity;
+            lineItem = lineItem.save();
+            lineItem.shoppingCart = shoppingCart;
+            shoppingCart.lineItemList = new ArrayList<>();
+            shoppingCart.lineItemList.add(lineItem);
+            shoppingCart.save();
+
+            ok();
         } catch (JWTVerificationException exception){
             forbidden("Invalid Authorization header: " + userTokenCookie);
         }
