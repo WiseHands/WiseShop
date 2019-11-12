@@ -13,6 +13,8 @@ require:
     - nl.big-o -> liqp 0.7.3
     - javax.xml.bind -> jaxb-api 2.1
     - com.auth0 -> java-jwt 3.4.1
+    - cz.jiripinkas -> jsitemapgenerator 3.14
+    - com.squareup.okhttp3 -> okhttp 3.12.1
 
 repositories:
     - bintray-stokito-maven:
