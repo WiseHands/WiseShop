@@ -14,12 +14,10 @@ public class LineItemDTO extends GenericModel {
     public String uuid;
 
     @OneToOne
+    @Expose
     public ProductDTO product;
 
     @Expose
     public Integer quantity;
-
-    @ManyToOne
-    public ShoppingCartDTO shoppingCart;
 
 }

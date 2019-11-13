@@ -8,11 +8,35 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import models.*;
 import play.Play;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShoppingCartAPI extends AuthController {
+    public void getCart() {
+        String productUuid = request.params.get("uuid");
+        System.out.println("productId " + productUuid);
+        ProductDTO product = ProductDTO.findById(productUuid);
 
-    public void addProduct() throws Exception {
+        int quantity = Integer.parseInt(request.params.get("quantity"));
+        System.out.println(product + Integer.toString(quantity));
+
+        String userTokenCookie = request.cookies.get("userToken").value;
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("wisehands")
+                    .build(); //Reusable verifier instance
+            DecodedJWT jwt = verifier.verify(userTokenCookie);
+            String userId = jwt.getSubject();
+            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+            renderJSON(json(shoppingCart));
+
+        } catch (JWTVerificationException exception){
+            forbidden("Invalid Authorization header: " + userTokenCookie);
+        }
+
+    }
+
+    public void addProduct() {
         String productUuid = request.params.get("uuid");
         System.out.println("productId " + productUuid);
         ProductDTO product = ProductDTO.findById(productUuid);
@@ -38,7 +62,6 @@ public class ShoppingCartAPI extends AuthController {
             lineItem.product = product;
             lineItem.quantity = quantity;
             lineItem = lineItem.save();
-            lineItem.shoppingCart = shoppingCart;
             shoppingCart.lineItemList = new ArrayList<>();
             shoppingCart.lineItemList.add(lineItem);
             shoppingCart.save();
@@ -49,9 +72,8 @@ public class ShoppingCartAPI extends AuthController {
         }
     }
 
-    public void deleteProduct() throws Exception {
-        String productUuid = request.params.get("uuid");
-        System.out.println("productId " + productUuid);
+    public void deleteProduct() {
+        String lineItemUuid = request.params.get("uuid");
 
         String userTokenCookie = request.cookies.get("userToken").value;
         try {
@@ -62,16 +84,26 @@ public class ShoppingCartAPI extends AuthController {
                     .build(); //Reusable verifier instance
             DecodedJWT jwt = verifier.verify(userTokenCookie);
             String userId = jwt.getSubject();
-            System.out.println("shopping cart uuid" + userId);
-            ShoppingCartDTO shoppingCarts = ShoppingCartDTO.findById(userId);
-            for(LineItemDTO lineItem : shoppingCarts.lineItemList) {
-                if(lineItem.product.uuid == productUuid) {
-                    lineItem.delete();
+            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+
+            LineItemDTO lineItemToRemove = null;
+            for (LineItemDTO lineItem : shoppingCart.lineItemList) {
+                System.out.println("lineItem.uuid " + lineItem.uuid);
+                System.out.println("lineItemUuid " + lineItemUuid);
+                if(lineItem.uuid.equals(lineItemUuid)) {
+                    lineItemToRemove = lineItem;
                 }
             }
+            shoppingCart.lineItemList.remove(lineItemToRemove);
+            shoppingCart.save();
+//            JPA.em().getTransaction().commit();
         } catch (JWTVerificationException exception){
             forbidden("Invalid Authorization header: " + userTokenCookie);
         }
+
+        LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
+        lineItem.delete();
+//        JPA.em().getTransaction().commit();
         ok();
     }
 
