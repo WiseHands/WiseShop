@@ -96,14 +96,17 @@ public class ShoppingCartAPI extends AuthController {
             }
             shoppingCart.lineItemList.remove(lineItemToRemove);
             shoppingCart.save();
-//            JPA.em().getTransaction().commit();
+
+            LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
+            lineItem.delete();
+
+            if(shoppingCart.lineItemList.size() == 0){
+                shoppingCart.delete();
+            }
         } catch (JWTVerificationException exception){
             forbidden("Invalid Authorization header: " + userTokenCookie);
         }
 
-        LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
-        lineItem.delete();
-//        JPA.em().getTransaction().commit();
         ok();
     }
 
