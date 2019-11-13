@@ -62,7 +62,9 @@ public class ShoppingCartAPI extends AuthController {
             lineItem.product = product;
             lineItem.quantity = quantity;
             lineItem = lineItem.save();
-            shoppingCart.lineItemList = new ArrayList<>();
+            if(shoppingCart.lineItemList == null) {
+                shoppingCart.lineItemList = new ArrayList<>();
+            }
             shoppingCart.lineItemList.add(lineItem);
             shoppingCart.save();
 
