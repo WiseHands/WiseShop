@@ -58,15 +58,38 @@ public class ShoppingCartAPI extends AuthController {
                 shoppingCart = new ShoppingCartDTO();
                 shoppingCart.uuid = userId;
             }
-            LineItemDTO lineItem = new LineItemDTO();
-            lineItem.product = product;
-            lineItem.quantity = quantity;
-            lineItem = lineItem.save();
             if(shoppingCart.lineItemList == null) {
                 shoppingCart.lineItemList = new ArrayList<>();
             }
-            shoppingCart.lineItemList.add(lineItem);
-            shoppingCart.save();
+            if(shoppingCart.lineItemList.size() == 0){
+                LineItemDTO lineItem = new LineItemDTO();
+                lineItem.product = product;
+                lineItem.quantity = quantity;
+                lineItem = lineItem.save();
+
+                shoppingCart.lineItemList.add(lineItem);
+                System.out.println("shoppingCart.lineItemList 1" + shoppingCart.lineItemList);
+                shoppingCart.save();
+            } /*else if(shoppingCart.lineItemList.size() > 0){
+                LineItemDTO lineItem = new LineItemDTO();
+                    lineItem.product = product;
+                    lineItem.quantity = quantity;
+                    lineItem = lineItem.save();
+
+                    System.out.println("shoppingCart.lineItemList 0" + shoppingCart.lineItemList);
+                    shoppingCart.lineItemList.add(lineItem);
+                    shoppingCart.save();
+                }*/
+                for (LineItemDTO lineItems : shoppingCart.lineItemList) {
+                    if (productUuid.equals(lineItems.product.uuid)) {
+                        lineItems.quantity = lineItems.quantity + quantity;
+                        lineItems = lineItems.save();
+                    }
+                    System.out.println("lineItem.uuid " + lineItems.uuid);
+                    System.out.println("productUuid " + productUuid);
+                    System.out.println("lineItem.product.uuid " + lineItems.product.uuid);
+                    //System.out.println("lineItem " + shoppingCart.lineItemList.get(0).product);
+                }
 
             ok();
         } catch (JWTVerificationException exception){
@@ -90,8 +113,8 @@ public class ShoppingCartAPI extends AuthController {
 
             LineItemDTO lineItemToRemove = null;
             for (LineItemDTO lineItem : shoppingCart.lineItemList) {
-                System.out.println("lineItem.uuid " + lineItem.uuid);
-                System.out.println("lineItemUuid " + lineItemUuid);
+//                System.out.println("lineItem.uuid " + lineItem.uuid);
+//                System.out.println("lineItemUuid " + lineItemUuid);
                 if(lineItem.uuid.equals(lineItemUuid)) {
                     lineItemToRemove = lineItem;
                 }
