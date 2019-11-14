@@ -54,6 +54,7 @@ public class ShoppingCartAPI extends AuthController {
             DecodedJWT jwt = verifier.verify(userTokenCookie);
             String userId = jwt.getSubject();
             ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+            LineItemDTO lineItem = new LineItemDTO();
             if (shoppingCart == null) {
                 shoppingCart = new ShoppingCartDTO();
                 shoppingCart.uuid = userId;
@@ -62,34 +63,29 @@ public class ShoppingCartAPI extends AuthController {
                 shoppingCart.lineItemList = new ArrayList<>();
             }
             if(shoppingCart.lineItemList.size() == 0){
-                LineItemDTO lineItem = new LineItemDTO();
                 lineItem.product = product;
                 lineItem.quantity = quantity;
                 lineItem = lineItem.save();
 
                 shoppingCart.lineItemList.add(lineItem);
-                System.out.println("shoppingCart.lineItemList 1" + shoppingCart.lineItemList);
                 shoppingCart.save();
-            } /*else if(shoppingCart.lineItemList.size() > 0){
-                LineItemDTO lineItem = new LineItemDTO();
-                    lineItem.product = product;
-                    lineItem.quantity = quantity;
-                    lineItem = lineItem.save();
-
-                    System.out.println("shoppingCart.lineItemList 0" + shoppingCart.lineItemList);
-                    shoppingCart.lineItemList.add(lineItem);
-                    shoppingCart.save();
-                }*/
-                for (LineItemDTO lineItems : shoppingCart.lineItemList) {
-                    if (productUuid.equals(lineItems.product.uuid)) {
-                        lineItems.quantity = lineItems.quantity + quantity;
-                        lineItems = lineItems.save();
-                    }
-                    System.out.println("lineItem.uuid " + lineItems.uuid);
-                    System.out.println("productUuid " + productUuid);
-                    System.out.println("lineItem.product.uuid " + lineItems.product.uuid);
-                    //System.out.println("lineItem " + shoppingCart.lineItemList.get(0).product);
+            }
+            boolean isProductUnique = false;
+            for (LineItemDTO lineItems : shoppingCart.lineItemList) {
+                if (productUuid.equals(lineItems.product.uuid)) {
+                    isProductUnique = true;
+                    lineItems.quantity = lineItems.quantity + quantity;
+                    lineItems = lineItems.save();
                 }
+            }
+            if (!isProductUnique) {
+                lineItem.product = product;
+                lineItem.quantity = quantity;
+                lineItem = lineItem.save();
+
+                shoppingCart.lineItemList.add(lineItem);
+                shoppingCart.save();
+            }
 
             ok();
         } catch (JWTVerificationException exception){
