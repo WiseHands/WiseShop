@@ -75,7 +75,7 @@ public class ShoppingCartAPI extends AuthController {
                 if (productUuid.equals(lineItems.product.uuid)) {
                     isProductUnique = true;
                     lineItems.quantity = lineItems.quantity + quantity;
-                    lineItems = lineItems.save();
+                    lineItems.save();
                 }
             }
             if (!isProductUnique) {
