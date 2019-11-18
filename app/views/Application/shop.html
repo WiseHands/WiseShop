@@ -35,6 +35,44 @@
     <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
 
     <link rel='shortcut icon' href='/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
+
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+
+    <script>
+        const store = Redux.createStore(shoppingCart, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+        function shoppingCart(state = {}, action) {
+            switch (action.type) {
+                case 'SHOPPINGCART':
+                    return Object.assign({}, action.payload);
+                default:
+                    return state;
+            }
+
+        }
+
+
+        function buyStart(uuid) {
+
+            fetch('/api/cart?uuid=' + uuid, {
+                method: 'POST'
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                store.dispatch({ type: 'SHOPPINGCART', payload: data});
+            });
+
+        }
+
+        fetch('/api/cart', {
+            method: 'GET'
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            store.dispatch({ type: 'SHOPPINGCART', payload: data});
+        });
+
+    </script>
 </head>
 <body>
     #{shop-header /}
@@ -73,39 +111,7 @@
         #{footer-shop /}
     #{/if}
 </html>
-<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 
-<script>
-    const store = Redux.createStore(shopppingCart, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
-    function shopppingCart(state = {}, action) {
-        switch (action.type) {
-            case 'SHOPPINGCART':
-                return state;
-            default:
-                return state
-        }
-
-    }
-
-
-    function buyStart(uuid) {
-
-        fetch('/api/cart?uuid=' + uuid, {
-            method: 'POST'
-            }).then(function (response) {
-                console.log("here");
-                return response.json();
-            }).then(function (data) {
-                console.log("here too", store.getState().toString());
-                store.dispatch({ type: 'SHOPPINGCART', data});
-                //TODO PUSH INTO REDUX shoppingCart
-
-        });
-
-    }
-
-</script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 

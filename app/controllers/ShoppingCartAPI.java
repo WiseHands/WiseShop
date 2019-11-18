@@ -50,14 +50,20 @@ public class ShoppingCartAPI extends AuthController {
             DecodedJWT jwt = verifier.verify(userTokenCookie);
             String userId = jwt.getSubject();
             ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+
+
             LineItemDTO lineItem = new LineItemDTO();
             if (shoppingCart == null) {
                 shoppingCart = new ShoppingCartDTO();
                 shoppingCart.uuid = userId;
             }
+
+
             if(shoppingCart.lineItemList == null) {
                 shoppingCart.lineItemList = new ArrayList<>();
             }
+
+
             if(shoppingCart.lineItemList.size() == 0){
                 lineItem.product = product;
                 lineItem.quantity = quantity;
@@ -65,23 +71,32 @@ public class ShoppingCartAPI extends AuthController {
 
                 shoppingCart.lineItemList.add(lineItem);
                 shoppingCart.save();
-            }
-            boolean isProductUnique = false;
-            for (LineItemDTO lineItems : shoppingCart.lineItemList) {
-                if (productUuid.equals(lineItems.product.uuid)) {
-                    isProductUnique = true;
-                    lineItems.quantity = lineItems.quantity + quantity;
-                    lineItems.save();
-                }
-            }
-            if (!isProductUnique) {
-                lineItem.product = product;
-                lineItem.quantity = quantity;
-                lineItem = lineItem.save();
+            } else {
 
-                shoppingCart.lineItemList.add(lineItem);
-                shoppingCart.save();
+
+                boolean isProductUnique = false;
+                for (LineItemDTO lineItems : shoppingCart.lineItemList) {
+                    if (productUuid.equals(lineItems.product.uuid)) {
+                        isProductUnique = true;
+                        lineItems.quantity = lineItems.quantity + quantity;
+                        lineItems.save();
+                    }
+                }
+
+
+                if (!isProductUnique) {
+                    lineItem.product = product;
+                    lineItem.quantity = quantity;
+                    lineItem = lineItem.save();
+
+                    shoppingCart.lineItemList.add(lineItem);
+                    shoppingCart.save();
+                }
+
             }
+
+
+
 
             getCart();
         } catch (JWTVerificationException exception){
