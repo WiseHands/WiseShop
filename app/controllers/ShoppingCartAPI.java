@@ -15,7 +15,12 @@ public class ShoppingCartAPI extends AuthController {
         System.out.println("productId " + productUuid);
         ProductDTO product = ProductDTO.findById(productUuid);
 
-        int quantity = Integer.parseInt(request.params.get("quantity"));
+        int quantity = 1;
+        String quantityParam = request.params.get("quantity");
+        if(quantityParam != null) {
+            quantity = Integer.parseInt(quantityParam);
+        }
+
         System.out.println(product + Integer.toString(quantity));
 
         String userTokenCookie = request.cookies.get("userToken").value;
@@ -41,8 +46,11 @@ public class ShoppingCartAPI extends AuthController {
         System.out.println("productId " + productUuid);
         ProductDTO product = ProductDTO.findById(productUuid);
 
-        Integer quantity = Integer.parseInt(request.params.get("quantity"));
-        System.out.println(product + quantity.toString());
+        int quantity = 1;
+        String quantityParam = request.params.get("quantity");
+        if(quantityParam != null) {
+            quantity = Integer.parseInt(quantityParam);
+        }
 
         String userTokenCookie = request.cookies.get("userToken").value;
         try {

@@ -150,7 +150,7 @@ DELETE 	{client}/api/category/{uuid}					    CategoryAPI.delete
 PUT 	{client}/api/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
 POST    {client}/api/cart                                   ShoppingCartAPI.addProduct
 DELETE  {client}/api/cart                                   ShoppingCartAPI.deleteProduct
-GET  {client}/api/cart                                      ShoppingCartAPI.getCart
+GET     {client}/api/cart                                   ShoppingCartAPI.getCart
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
