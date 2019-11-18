@@ -11,18 +11,6 @@ import java.util.ArrayList;
 
 public class ShoppingCartAPI extends AuthController {
     public void getCart() {
-        String productUuid = request.params.get("uuid");
-        System.out.println("productId " + productUuid);
-        ProductDTO product = ProductDTO.findById(productUuid);
-
-        int quantity = 1;
-        String quantityParam = request.params.get("quantity");
-        if(quantityParam != null) {
-            quantity = Integer.parseInt(quantityParam);
-        }
-
-        System.out.println(product + Integer.toString(quantity));
-
         String userTokenCookie = request.cookies.get("userToken").value;
         try {
             String encodingSecret = Play.configuration.getProperty("jwt.secret");
@@ -95,7 +83,7 @@ public class ShoppingCartAPI extends AuthController {
                 shoppingCart.save();
             }
 
-            ok();
+            getCart();
         } catch (JWTVerificationException exception){
             forbidden("Invalid Authorization header: " + userTokenCookie);
         }

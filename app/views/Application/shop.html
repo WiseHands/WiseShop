@@ -73,20 +73,38 @@
         #{footer-shop /}
     #{/if}
 </html>
-<script>
-    function buyStart(uuid) {
-        console.log("here");
-        fetch('/api/cart?uuid=' + uuid, {
-            method: 'POST',
+<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 
-        }).then(function (response) {
-            console.log("here");
-        }).then(function (data) {
-            console.log("here too");
+<script>
+    const store = Redux.createStore(shopppingCart, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+    function shopppingCart(state = {}, action) {
+        switch (action.type) {
+            case 'SHOPPINGCART':
+                return state;
+            default:
+                return state
+        }
+
+    }
+
+
+    function buyStart(uuid) {
+
+        fetch('/api/cart?uuid=' + uuid, {
+            method: 'POST'
+            }).then(function (response) {
+                console.log("here");
+                return response.json();
+            }).then(function (data) {
+                console.log("here too", store.getState().toString());
+                store.dispatch({ type: 'SHOPPINGCART', data});
+                //TODO PUSH INTO REDUX shoppingCart
 
         });
 
     }
+
 </script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
