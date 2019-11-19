@@ -39,19 +39,6 @@
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 
     <script>
-        const store = Redux.createStore(shoppingCart, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
-        function shoppingCart(state = {}, action) {
-            switch (action.type) {
-                case 'SHOPPINGCART':
-                    return Object.assign({}, action.payload);
-                default:
-                    return state;
-            }
-
-        }
-
-
         function buyStart(uuid) {
 
             fetch('/api/cart?uuid=' + uuid, {
@@ -63,16 +50,9 @@
             });
 
         }
-
-        fetch('/api/cart', {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            store.dispatch({ type: 'SHOPPINGCART', payload: data});
-        });
-
     </script>
+    #{setup-redux /}
+    #{get-cart /}
 </head>
 <body>
     #{shop-header /}

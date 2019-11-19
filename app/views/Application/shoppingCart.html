@@ -226,6 +226,7 @@
         <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
 
         <link rel='shortcut icon' href='/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
+
         <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 
 
@@ -293,6 +294,8 @@
             ga('send', 'pageview');
         </script>
     </head>
+        #{setup-redux /}
+        #{get-cart /}
         #{shop-header /}
         #{verbatim}
             <div class="center-container cart-title">
