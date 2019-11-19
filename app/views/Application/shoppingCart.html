@@ -306,31 +306,36 @@
                     <!--<a href="/" class="cart-button">Почати покупку</a>-->
                     <!--<img src="wisehands/assets/images/empty_cart_logo.png">-->
                         <div class="list-of-product">
-                            <div class="about-product">
-                                <div class="products">
-                                    <img class="product-image" src="http://localhost:3334/public/product_images/402881ce6d2a3296016d2a32a2fe000b/5e5eee73-d2ca-4983-acc9-3fa173722f4d.jpg">
-                                    <div class="product-title">
-                                        <h5>Product name</h5>
-                                        <h6>Product description</h6>
-                                    </div>
-                                </div>
-                                <div class="calculate-product">
-                                    <div>
-                                        <h5 >total</h5>
-                                    </div>
-                                    <div class="change-product">
-                                        <div class="plus-minus-product">
-                                            <h3>+</h3>
-                                            <input type="number" min="0">
-                                            <h3>-</h3>
+                            <template id="productrow">
+                                <div class="about-product">
+                                    <div class="products">
+                                        <img class="product-image" src="http://localhost:3334/public/product_images/402881ce6d2a3296016d2a32a2fe000b/5e5eee73-d2ca-4983-acc9-3fa173722f4d.jpg">
+                                        <div class="product-title">
+                                            <h5>Product name</h5>
+                                            <h6>Product description</h6>
                                         </div>
+                                    </div>
+                                    <div class="calculate-product">
                                         <div>
-                                            <a class="remove-product">remove</a>
+                                            <h5 >total</h5>
                                         </div>
-                                    </div>
+                                        <div class="change-product">
+                                            <div class="plus-minus-product">
+                                                <h3>+</h3>
+                                                <input type="number" min="0">
+                                                <h3>-</h3>
+                                            </div>
+                                            <div>
+                                                <a class="remove-product">remove</a>
+                                            </div>
+                                        </div>
 
+                                    </div>
                                 </div>
-                            </div>
+                            </template>
+
+                            <!--HERE WILL BE INSERTED SHOPPING CART-->
+
                         </div>
                         <div class="price-product">
                             <h5>total</h5>
@@ -343,6 +348,28 @@
         #{if shop.visualSettingsDTO.isFooterOn}
             #{footer-shop /}
         #{/if}
+
+    <script>
+
+        store.subscribe(() => {
+            let shoppingCartState = store.getState();
+            console.log("shoppingCartState ", shoppingCartState);
+
+            let listContainer = document.querySelector('.list-of-product');
+
+            for(let i=0; i<shoppingCartState.lineItemList.length; i++) {
+                let _lineItem = shoppingCartState.lineItemList[i];
+
+                let _tpl = document.querySelector('#productrow');
+                _tpl.content.querySelector('h5').innerText = _lineItem.product.name;
+                _tpl.content.querySelector('h6').innerText = _lineItem.product.description;
+
+                let clone = document.importNode(_tpl.content, true);
+                listContainer.prepend(clone);
+            }
+        })
+    </script>
+
 </html>
 
 
