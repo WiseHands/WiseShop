@@ -350,6 +350,11 @@
         #{/if}
 
     <script>
+        class LineItem extends HTMLElement {
+
+        }
+        window.customElements.define('line-item', LineItem);
+
 
         store.subscribe(() => {
             let shoppingCartState = store.getState();
