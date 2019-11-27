@@ -139,7 +139,7 @@ public class ShoppingCartAPI extends AuthController {
             forbidden("Invalid Authorization header: " + userTokenCookie);
         }
 
-        ok();
+        getCart();
     }
 
 }
