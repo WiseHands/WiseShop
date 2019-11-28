@@ -8,7 +8,11 @@
         align-items: center;
 
     }
-
+    .inner-product-cart-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .cart-button {
         padding: 5px;
         margin: 25px;
@@ -34,7 +38,7 @@
     .product-cart {
         height: auto;
         flex-direction: row;
-        align-items: flex-start;
+        align-items: flex-end;
     }
 
     .about-product {
@@ -364,10 +368,12 @@
     <h5>Корзина</h5>
 </div>
 <div class="center-container product-cart">
-    <!--<h5 class="cart-title">Ваша корзина порожня</h5>-->
-    <!--<a href="/" class="cart-button">Почати покупку</a>-->
-    <!--<img src="wisehands/assets/images/empty_cart_logo.png">-->
 
+    <div class="inner-product-cart-container" hidden>
+        <h5 class="cart-title">Ваша корзина порожня</h5>
+        <a href="/" class="cart-button">Почати покупку</a>
+        <img src="wisehands/assets/images/empty_cart_logo.png">
+    </div>
 
     <template id="productrow">
         <div class="about-product">
@@ -410,7 +416,7 @@
     </div>
 
 
-    <div class="price-product">
+    <div class="price-product" hidden>
         <h5>total</h5>
         <h6>type of delivery</h6>
         <h6>type of payment</h6>
@@ -429,12 +435,17 @@
 
     window.customElements.define('line-item', LineItem);
 
-    // product item counter
-
 
     store.subscribe(() => {
         let shoppingCartState = store.getState();
         console.log("shoppingCartState ", shoppingCartState);
+
+        let isAnyItemsPresentInCart = shoppingCartState.lineItemList.length > 0;
+
+        let cartContainer = document.querySelector('.inner-product-cart-container');
+        let cartPriceProduct = document.querySelector('.price-product');
+        cartContainer.hidden = isAnyItemsPresentInCart;
+        cartPriceProduct.hidden = !isAnyItemsPresentInCart;
 
         let listContainer = document.querySelector('.list-of-product');
         listContainer.innerHTML = '';
