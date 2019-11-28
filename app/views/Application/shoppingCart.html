@@ -469,7 +469,7 @@
             let currentTarget = event.path[i];
             if(!currentTarget.classList) return;
             currentTarget.classList.forEach(
-                function(value, key, listObj) {
+                function(value) {
                     if(value === 'plus-btn') {
                         uuid = currentTarget.getAttribute('line-item-uuid');
 
@@ -483,29 +483,34 @@
 
                     }
                 },
-                "arg"
             );
         }
 
     };
 
-
     function minusItem() {
-        // let uuid = event.target.getAttribute('line-item-uuid');
-        // console.log('minusItem', uuid);
+        let uuid = '';
 
         for(let i=0; i<event.path.length; i++) {
             let currentTarget = event.path[i];
-            console.log('currentTarget', currentTarget.tagName, currentTarget.classList)
-        }
+            if(!currentTarget.classList) return;
+            currentTarget.classList.forEach(
+                function(value) {
+                    if(value === 'minus-btn') {
+                        uuid = currentTarget.getAttribute('line-item-uuid');
 
-        fetch('/api/minusfromcart?uuid=' + uuid, {
-            method: 'DELETE'
-        }).then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            store.dispatch({type: 'SHOPPINGCART', payload: data});
-        });
+                        fetch('/api/minusfromcart?uuid=' + uuid, {
+                            method: 'DELETE'
+                        }).then(function (response) {
+                            return response.json();
+                        }).then(function (data) {
+                            store.dispatch({type: 'SHOPPINGCART', payload: data});
+                        });
+
+                    }
+                },
+            );
+        }
 
     };
 

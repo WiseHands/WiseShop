@@ -153,5 +153,17 @@ public class ShoppingCartAPI extends AuthController {
         getCart();
 
     }
+    public void decreaseQuantityProduct(){
+
+        String lineItemUuid = request.params.get("uuid");
+
+        LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
+        lineItem.quantity -= 1;
+        if (lineItem.quantity >= 0){
+            lineItem.save();
+            getCart();
+        }
+
+    }
 
 }
