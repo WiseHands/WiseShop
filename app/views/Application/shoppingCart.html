@@ -125,6 +125,27 @@
         width: 40px;
     }
 
+    .buttons {
+        position: relative;
+        padding-top: 30px;
+        margin-right: 60px;
+    }
+
+    button[class*=btn] {
+        width: 30px;
+        height: 30px;
+        background-color: #E1E8EE;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+    }
+    .minus-btn img {
+        margin-bottom: 3px;
+    }
+    .plus-btn img {
+        margin-top: 2px;
+    }
+
     @media screen and (max-width: 767px) {
         .product-cart {
             flex-direction: column;
@@ -364,9 +385,13 @@
                 </div>
                 <div class="change-product">
                     <div class="plus-minus-product">
-                        <h3>+</h3>
-                        <input type="number" min="0">
-                        <h3>-</h3>
+                        <button onclick="minusItem()" class="minus-btn" type="button" name="button1">
+                            <img src="/public/minus.svg" alt="" />
+                        </button>
+                        <span id="count-prod" type="text">  </span>
+                        <button onclick="addItem()" class="plus-btn" type="button" name="button2">
+                            <img src="/public/plus.svg" alt="" />
+                        </button>
                     </div>
                     <div>
                         <a class="remove-product" onclick="removeLineItem()">remove</a>
@@ -404,6 +429,8 @@
 
     window.customElements.define('line-item', LineItem);
 
+    // product item counter
+
 
     store.subscribe(() => {
         let shoppingCartState = store.getState();
@@ -411,7 +438,6 @@
 
         let listContainer = document.querySelector('.list-of-product');
         listContainer.innerHTML = '';
-
         for (let i = 0; i < shoppingCartState.lineItemList.length; i++) {
             let _lineItem = shoppingCartState.lineItemList[i];
 
@@ -419,14 +445,70 @@
             _tpl.content.querySelector('h5').innerText = _lineItem.product.name;
             _tpl.content.querySelector('h6').innerText = _lineItem.product.description;
             _tpl.content.querySelector('img').src = "/public/product_images/${shop.uuid}/" + _lineItem.product.mainImage.filename;
-            _tpl.content.querySelector('input').value = '' + _lineItem.quantity;
+
+            _tpl.content.querySelector('#count-prod').textContent = '' + _lineItem.quantity;
+
             _tpl.content.querySelector('.remove-product').setAttribute('line-item-uuid', _lineItem.uuid);
-            _tpl.content.querySelector('.total').innerText = _lineItem.quantity * _lineItem.product.price;
+
+            _tpl.content.querySelector('.minus-btn').setAttribute('line-item-uuid', _lineItem.uuid);
+            _tpl.content.querySelector('.plus-btn').setAttribute('line-item-uuid', _lineItem.uuid);
+
+            _tpl.content.querySelector('.total').innerText = String(_lineItem.quantity * _lineItem.product.price) + " UA";
 
             let clone = document.importNode(_tpl.content, true);
             listContainer.prepend(clone);
+            console.log("shoppingCartState ", _lineItem);
+
         }
     });
+
+    function addItem() {
+        let uuid = '';
+
+        for(let i=0; i<event.path.length; i++) {
+            let currentTarget = event.path[i];
+            if(!currentTarget.classList) return;
+            currentTarget.classList.forEach(
+                function(value, key, listObj) {
+                    if(value === 'plus-btn') {
+                        uuid = currentTarget.getAttribute('line-item-uuid');
+
+                        fetch('/api/plustocart?uuid=' + uuid, {
+                            method: 'POST'
+                        }).then(function (response) {
+                            return response.json();
+                        }).then(function (data) {
+                            store.dispatch({type: 'SHOPPINGCART', payload: data});
+                        });
+
+                    }
+                },
+                "arg"
+            );
+        }
+
+    };
+
+
+    function minusItem() {
+        // let uuid = event.target.getAttribute('line-item-uuid');
+        // console.log('minusItem', uuid);
+
+        for(let i=0; i<event.path.length; i++) {
+            let currentTarget = event.path[i];
+            console.log('currentTarget', currentTarget.tagName, currentTarget.classList)
+        }
+
+        fetch('/api/minusfromcart?uuid=' + uuid, {
+            method: 'DELETE'
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            store.dispatch({type: 'SHOPPINGCART', payload: data});
+        });
+
+    };
+
 
     function removeLineItem() {
         let uuid = event.target.getAttribute('line-item-uuid');

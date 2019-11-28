@@ -151,6 +151,8 @@ PUT 	{client}/api/category/{uuid}/product/{productUuid}  CategoryAPI.assignProdu
 POST    {client}/api/cart                                   ShoppingCartAPI.addProduct
 GET     {client}/api/cart                                   ShoppingCartAPI.getCart
 DELETE  {client}/api/cart                                   ShoppingCartAPI.deleteProduct
+POST    {client}/api/plustocart                             ShoppingCartAPI.increaseQuantityProduct
+DELETE  {client}/api/minusfromcart                          ShoppingCartAPI.decreaseQuantityProduct
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
