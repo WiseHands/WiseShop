@@ -101,7 +101,6 @@
 
     .price-product {
         display: flex;
-        flex-grow: 1;
         flex-direction: column;
         align-items: center;
         margin: 10px;
@@ -185,6 +184,38 @@
             width: 99%;
             padding: 0 10 0 5;
         }
+    }
+
+
+    .price-product input[type=button]:hover{
+        background-color: #000;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+
+    .price-product input[type=button] {
+        background-color: #fff;
+        color: #000;
+        border: 2px solid #000;
+    }
+
+    .button-show-all{
+        width: 100px;
+        background-color: #1c1c1c;
+        color: #FFF;
+        font-size: 1.3em;
+        padding: 10px 5px;
+        margin: 20px 0 0 0;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        /*background-color: #ebebeb;*/
+        /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);*/
+    }
+    .button-show-all:hover {
+        background-color: #1c1c1c;
+        color: #fff;
+        border: 2px solid #fff;
     }
 
     /* Customize the radio button */
@@ -367,7 +398,7 @@
 <div class="center-container cart-title">
     <h5>Корзина</h5>
 </div>
-<div class="center-container">
+<div class="center-container product-cart">
 
     <div class="inner-product-cart-container" hidden>
         <h5 class="cart-title">Ваша корзина порожня</h5>
@@ -417,9 +448,12 @@
 
 
     <div class="price-product" hidden>
-        <h5>total</h5>
-        <h6>type of delivery</h6>
-        <h6>type of payment</h6>
+        <h5 id="cartTotalPrice">total</h5>
+        <div class="load-button">
+            <a href="/products/all">
+                <input class="button-show-all" type="button" value="next">
+            </a>
+        </div>
     </div>
 </div>
 #{/verbatim}
@@ -440,6 +474,8 @@
         let shoppingCartState = store.getState();
         console.log("shoppingCartState ", shoppingCartState);
 
+        let cartTotal = 0;
+
         let isAnyItemsPresentInCart = shoppingCartState.lineItemList.length > 0;
 
         let cartContainer = document.querySelector('.inner-product-cart-container');
@@ -451,6 +487,8 @@
         listContainer.innerHTML = '';
         for (let i = 0; i < shoppingCartState.lineItemList.length; i++) {
             let _lineItem = shoppingCartState.lineItemList[i];
+
+            cartTotal += _lineItem.product.price * _lineItem.quantity;
 
             let _tpl = document.querySelector('#productrow');
             _tpl.content.querySelector('h5').innerText = _lineItem.product.name;
@@ -471,6 +509,8 @@
             console.log("shoppingCartState ", _lineItem);
 
         }
+
+        document.getElementById('cartTotalPrice').innerText = cartTotal + " UA";
     });
 
     function addItem() {
