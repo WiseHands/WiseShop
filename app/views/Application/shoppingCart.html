@@ -8,20 +8,16 @@
         align-items: center;
 
     }
-    .inner-product-cart-container{
-        display: flex;
+    .empty-basket-container{
+
+        display: none;
+        flex: 1;
         flex-direction: column;
         align-items: center;
     }
-    .cart-button {
-        padding: 5px;
-        margin: 25px;
-        background-color: #ebebeb;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-    }
 
-    .cart-button:hover {
-        box-shadow: 0 15px 15px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    .empty-basket-container img{
+        padding-top: 10px;
     }
 
     .cart-title {
@@ -57,7 +53,7 @@
 
         /*overflow: scroll;*/
     }
-    .product-container{
+    .product-list-container{
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -105,8 +101,8 @@
         margin-bottom: 3px;
     }
 
-    .price-product {
-        display: flex;
+    .order-details-container {
+        display: none;
         flex-direction: column;
         margin: 10px;
     }
@@ -133,11 +129,7 @@
         width: 40px;
     }
 
-    .buttons {
-        position: relative;
-        padding-top: 30px;
-        margin-right: 60px;
-    }
+
 
     button[class*=btn] {
         width: 30px;
@@ -151,25 +143,24 @@
     .plus-btn img {
         margin-top: 2px;
     }
-
-    .price-product input[type=button]:hover{
+    .order-details-container input[type=button], .empty-basket-container input[type=button] {
+        background-color: #fff;
+        color: #000;
+        border: 2px solid #000;
+    }
+    .order-details-container input[type=button]:hover, .empty-basket-container input[type=button]:hover{
         background-color: #000;
         color: #fff;
         border: 2px solid #fff;
     }
 
-    .price-product input[type=button] {
-        background-color: #fff;
-        color: #000;
-        border: 2px solid #000;
-    }
+
 
     .button-show-all{
-        width: 100px;
+        padding: 10 25px;
         background-color: #1c1c1c;
         color: #FFF;
         font-size: 1.3em;
-        padding: 10px 5px;
         margin: 20px 0 0 0;
         text-transform: uppercase;
         border: none;
@@ -218,12 +209,12 @@
             width: 99%;
         }
 
-        .price-product {
+        .order-details-container {
             margin: 10 5 10 20;
             justify-content: space-between;
             width: 90%;
         }
-        .product-container{
+        .product-list-container{
             flex-direction: column;
         }
 
@@ -247,9 +238,7 @@
             padding: 0 10 0 5;
         }
 
-
     }
-
 
 
 </style>
@@ -369,9 +358,9 @@
 </div>
 <div class="center-container product-cart">
 
-    <div class="inner-product-cart-container" hidden>
+    <div class="empty-basket-container ">
         <h5 class="cart-title">Ваша корзина порожня</h5>
-        <a href="/" class="cart-button">Почати покупку</a>
+        <a href="/" > <input class="button-show-all" type="button" value="Почати покупку"> </a>
         <img src="wisehands/assets/images/empty_cart_logo.png">
     </div>
 
@@ -382,7 +371,7 @@
                      src="http://localhost:3334/public/product_images/402881ce6d2a3296016d2a32a2fe000b/5e5eee73-d2ca-4983-acc9-3fa173722f4d.jpg">
                 <div class="product-title">
                     <h5>Product name</h5>
-                    <h6>Product description</h6>
+
                 </div>
             </div>
             <div class="calculate-product">
@@ -408,12 +397,11 @@
         </div>
     </template>
 
-    <div class="product-container">
+    <div class="product-list-container">
         <div class="list-of-product">
              <!--HERE WILL BE INSERTED SHOPPING CART-->
         </div>
-        <div class="price-product" hidden>
-            <div class="make-order">
+        <div class="order-details-container">
                 <form id="orderForm" name="orderForm">
                     <div class="delivery-types">
                         <h4>Delivery types</h4>
@@ -459,7 +447,6 @@
                         <input class="button-show-all" onclick="goToNextPage()" type="button" value="next">
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
@@ -489,10 +476,18 @@
 
         let isAnyItemsPresentInCart = shoppingCartState.lineItemList.length > 0;
 
-        let cartContainer = document.querySelector('.inner-product-cart-container');
-        let cartPriceProduct = document.querySelector('.price-product');
-        cartContainer.hidden = isAnyItemsPresentInCart;
-        cartPriceProduct.hidden = !isAnyItemsPresentInCart;
+        let emptyBasketContainer = document.querySelector('.empty-basket-container');
+        let orderDetailsContainer = document.querySelector('.order-details-container');
+        let productListContainer = document.querySelector('.product-list-container');
+        if (isAnyItemsPresentInCart) {
+            emptyBasketContainer.style.display = 'none';
+            orderDetailsContainer.style.display = 'flex';
+        } else {
+            emptyBasketContainer.style.display = 'flex';
+            orderDetailsContainer.style.display = 'none';
+            productListContainer.style.display = 'none';
+        }
+
 
         let listContainer = document.querySelector('.list-of-product');
         listContainer.innerHTML = '';
@@ -503,7 +498,6 @@
 
             let _tpl = document.querySelector('#productrow');
             _tpl.content.querySelector('h5').innerText = _lineItem.product.name;
-            _tpl.content.querySelector('h6').innerText = _lineItem.product.description;
             _tpl.content.querySelector('img').src = "/public/product_images/${shop.uuid}/" + _lineItem.product.mainImage.filename;
 
             _tpl.content.querySelector('#count-prod').textContent = '' + _lineItem.quantity;
