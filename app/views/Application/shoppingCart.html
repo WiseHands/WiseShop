@@ -50,12 +50,19 @@
     }
 
     .list-of-product {
+
         display: flex;
         flex-direction: column;
-        flex-grow: 2;
+        flex: 1;
+
         /*overflow: scroll;*/
     }
-
+    .product-container{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
     .products {
         margin: 5px;
         display: flex;
@@ -68,9 +75,8 @@
         /*weight: 600px;*/
     }
 
-    .product-title h5, h6 {
+    .product-title h5, .product-title h6 {
         flex-grow: 2;
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -102,7 +108,6 @@
     .price-product {
         display: flex;
         flex-direction: column;
-        align-items: center;
         margin: 10px;
     }
 
@@ -142,50 +147,10 @@
         border: none;
         cursor: pointer;
     }
-    .minus-btn img {
-        margin-bottom: 3px;
-    }
+
     .plus-btn img {
         margin-top: 2px;
     }
-
-    @media screen and (max-width: 767px) {
-        .product-cart {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .list-of-product {
-            width: 99%;
-        }
-
-        .price-product {
-            margin: 10 5 10 10;
-            flex-direction: row-reverse;
-            justify-content: space-between;
-            width: 90%;
-        }
-    }
-
-    @media screen and (max-width: 420px) {
-        .about-product {
-            flex-direction: column;
-        }
-
-        .change-product, .plus-minus-product {
-            flex-direction: row;
-        }
-
-        .calculate-product {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            width: 99%;
-            padding: 0 10 0 5;
-        }
-    }
-
 
     .price-product input[type=button]:hover{
         background-color: #000;
@@ -218,71 +183,75 @@
         border: 2px solid #fff;
     }
 
-    /* Customize the radio button */
-    .container {
-        display: block;
-        position: relative;
-        padding-left: 35px;
-        margin-bottom: 12px;
-        cursor: pointer;
-        font-size: 22px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+    #count-prod{
+        padding: 0 5px;
     }
 
-    /* Hide the browser's default radio button */
-    .container input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
+    .delivery-types, .payment-types{
+        display: flex;
+        flex-direction: column;
+
     }
 
-    /* Create a custom radio button */
-    .checkmark {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 25px;
-        width: 25px;
-        background-color: #eee;
-        border-radius: 50%;
+    .total-price{
+        flex-direction: column;
     }
 
-    /* On mouse-over, add a grey background color */
-    .container:hover input ~ .checkmark {
-        background-color: #ccc;
+    .delivery-types h4, .payment-types h4{
+        font-size: 1.4rem;
+        font-weight: 600;
     }
 
-    /* When the radio button is checked, add a blue background */
-    .container input:checked ~ .checkmark {
-        background-color: #2196F3;
+    #cartTotalPrice {
+        font-size: 1.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
     }
 
-    /* Create the indicator (the dot/circle - hidden when not checked) */
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
+    @media screen and (max-width: 767px) {
+        .product-cart {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .list-of-product {
+            width: 99%;
+        }
+
+        .price-product {
+            margin: 10 5 10 20;
+            justify-content: space-between;
+            width: 90%;
+        }
+        .product-container{
+            flex-direction: column;
+        }
+
     }
 
-    /* Show the indicator (dot/circle) when checked */
-    .container input:checked ~ .checkmark:after {
-        display: block;
+    @media screen and (max-width: 420px) {
+        .about-product {
+            flex-direction: column;
+        }
+
+        .change-product, .plus-minus-product {
+            flex-direction: row;
+        }
+
+        .calculate-product {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 99%;
+            padding: 0 10 0 5;
+        }
+
+
     }
 
-    /* Style the indicator (dot/circle) */
-    .container .checkmark:after {
-        top: 9px;
-        left: 9px;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: white;
-    }
+
+
 </style>
 <!DOCTYPE html>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
@@ -439,20 +408,58 @@
         </div>
     </template>
 
+    <div class="product-container">
+        <div class="list-of-product">
+             <!--HERE WILL BE INSERTED SHOPPING CART-->
+        </div>
+        <div class="price-product" hidden>
+            <div class="make-order">
+                <form id="orderForm" name="orderForm">
+                    <div class="delivery-types">
+                        <h4>Delivery types</h4>
+                        <input name="deliverance"
+                               type="radio"
+                               class="with-gap"
+                               id="radio1"
+                               value="COURIER">
+                        <label for="radio1"><i>COURIER</i></label>
+                        <input name="deliverance"
+                               type="radio"
+                               class="with-gap"
+                               id="radio2"
+                               value="NOVAPOSHTA">
+                        <label for="radio2"><i>NOVAPOSHTA</i></label>
+                        <input name="deliverance"
+                               type="radio"
+                               class="with-gap"
+                               id="radio3"
+                               value="SELFTAKE">
+                        <label for="radio3"><i>SELFTAKE</i></label>
+                    </div>
 
-    <div class="list-of-product">
-
-        <!--HERE WILL BE INSERTED SHOPPING CART-->
-
-    </div>
-
-
-    <div class="price-product" hidden>
-        <h5 id="cartTotalPrice">total</h5>
-        <div class="load-button">
-            <a href="/products/all">
-                <input class="button-show-all" type="button" value="next">
-            </a>
+                    <div class="payment-types">
+                        <h4>Payment types</h4>
+                        <input name="deliverance"
+                               type="radio"
+                               class="with-gap"
+                               id="payment-radio1"
+                               value="PAYONLINE">
+                        <label for="payment-radio1"><i>PAYONLINE</i></label>
+                        <input name="deliverance"
+                               type="radio"
+                               class="with-gap"
+                               id="payment-radio2"
+                               value="CASHONSPOT">
+                        <label for="payment-radio2"><i>CASHONSPOT</i></label>
+                    </div>
+                </form>
+                <div class="total-price">
+                    <h5 id="cartTotalPrice"></h5>
+                    <div class="load-button">
+                        <input class="button-show-all" onclick="goToNextPage()" type="button" value="next">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -469,6 +476,10 @@
 
     window.customElements.define('line-item', LineItem);
 
+    function goToNextPage() {
+        window.location = '/choosedelivery';
+        console.log("window.location = /choosedelivery");
+    }
 
     store.subscribe(() => {
         let shoppingCartState = store.getState();
@@ -510,7 +521,7 @@
 
         }
 
-        document.getElementById('cartTotalPrice').innerText = cartTotal + " UA";
+        document.getElementById('cartTotalPrice').innerText = "total: " + cartTotal + " UAH";
     });
 
     function addItem() {

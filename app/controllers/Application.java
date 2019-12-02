@@ -136,7 +136,14 @@ public class Application extends Controller {
         render(shop);
     }
 
+    public static void choosedelivery(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
+        render(shop);
+    }
 
     public static void page(String client, String uuid) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
