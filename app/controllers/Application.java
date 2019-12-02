@@ -17,10 +17,12 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
 
+
 public class Application extends Controller {
 
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    public static final int PAGE_SIZE = 6;
 
     @Before
     static void corsHeaders() {
@@ -87,7 +89,13 @@ public class Application extends Controller {
             response.setCookie("userToken", token);
         }
 
-        renderTemplate("Application/shop.html", shop);
+
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false).fetch(PAGE_SIZE);
+        System.out.println("\n\n\nODUUCTTTTSSSS: " + products.size());
+
+        renderTemplate("Application/shop.html", shop, products);
     }
 
     public static void shop(String client) {
@@ -108,6 +116,27 @@ public class Application extends Controller {
 
         render(shop);
     }
+
+    public static void allProductsInShop(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        Date date = new Date();
+
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+        String ip = "";
+        if (xforwardedHeader != null){
+            ip = xforwardedHeader.value();
+        }
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
+
+        render(shop);
+    }
+
+
 
     public static void page(String client, String uuid) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

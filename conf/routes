@@ -10,6 +10,7 @@ GET     {client}/page/{uuid}                            Application.page
 GET     {client}/category/{uuid}                        Application.category
 GET     {client}/product/{uuid}                         Application.product
 GET     {client}/shoppingcart                           Application.shoppingCart
+GET     {client}/products/all                           Application.allProductsInShop
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
