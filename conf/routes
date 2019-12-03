@@ -27,6 +27,14 @@ GET     {client}/sudo/users                            	UserAPI.list
 GET     {client}/sudo/user/{uuid}                       UserAPI.one
 DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
 
+POST    {client}/api/cart                               ShoppingCartAPI.addProduct
+GET     {client}/api/cart                               ShoppingCartAPI.getCart
+DELETE  {client}/api/cart                               ShoppingCartAPI.deleteProduct
+POST    {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
+DELETE  {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
+PUT     {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
+PUT     {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
+
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
 DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
@@ -150,11 +158,6 @@ POST	{client}/api/category        					    CategoryAPI.create
 PUT 	{client}/api/category/{uuid}/name/{name}	        CategoryAPI.update
 DELETE 	{client}/api/category/{uuid}					    CategoryAPI.delete
 PUT 	{client}/api/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
-POST    {client}/api/cart                                   ShoppingCartAPI.addProduct
-GET     {client}/api/cart                                   ShoppingCartAPI.getCart
-DELETE  {client}/api/cart                                   ShoppingCartAPI.deleteProduct
-POST    {client}/api/plustocart                             ShoppingCartAPI.increaseQuantityProduct
-DELETE  {client}/api/minusfromcart                          ShoppingCartAPI.decreaseQuantityProduct
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode

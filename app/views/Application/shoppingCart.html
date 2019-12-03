@@ -63,6 +63,7 @@
         margin: 5px;
         display: flex;
         flex-direction: row;
+        align-items: center;
     }
 
     .product-image {
@@ -371,7 +372,6 @@
                      src="http://localhost:3334/public/product_images/402881ce6d2a3296016d2a32a2fe000b/5e5eee73-d2ca-4983-acc9-3fa173722f4d.jpg">
                 <div class="product-title">
                     <h5>Product name</h5>
-
                 </div>
             </div>
             <div class="calculate-product">
@@ -402,58 +402,71 @@
              <!--HERE WILL BE INSERTED SHOPPING CART-->
         </div>
         <div class="order-details-container">
-                <form id="orderForm" name="orderForm">
-                    <div class="delivery-types">
-                        <h4>Delivery types</h4>
-                        <input name="deliverance"
-                               type="radio"
-                               class="with-gap"
-                               id="radio1"
-                               value="COURIER">
-                        <label for="radio1"><i>COURIER</i></label>
-                        <input name="deliverance"
-                               type="radio"
-                               class="with-gap"
-                               id="radio2"
-                               value="NOVAPOSHTA">
-                        <label for="radio2"><i>NOVAPOSHTA</i></label>
-                        <input name="deliverance"
-                               type="radio"
-                               class="with-gap"
-                               id="radio3"
-                               value="SELFTAKE">
-                        <label for="radio3"><i>SELFTAKE</i></label>
-                    </div>
 
-                    <div class="payment-types">
-                        <h4>Payment types</h4>
-                        <input name="deliverance"
-                               type="radio"
-                               class="with-gap"
-                               id="payment-radio1"
-                               value="PAYONLINE">
-                        <label for="payment-radio1"><i>PAYONLINE</i></label>
-                        <input name="deliverance"
-                               type="radio"
-                               class="with-gap"
-                               id="payment-radio2"
-                               value="CASHONSPOT">
-                        <label for="payment-radio2"><i>CASHONSPOT</i></label>
-                    </div>
-                </form>
-                <div class="total-price">
-                    <h5 id="cartTotalPrice"></h5>
-                    <div class="load-button">
-                        <input class="button-show-all" onclick="goToNextPage()" type="button" value="next">
-                    </div>
+            <form id="deliveryForm" name="deliveryForm">
+                <div class="delivery-types">
+
+                    <h4>Delivery types</h4>
+                    <!--#{if shop.delivery.isCourierAvailable}-->
+                    <!--#{/if}-->
+
+                    <input name="deliverance"
+                           type="radio"
+                           class="with-gap"
+                           id="delivery-courier"
+                           value="COURIER"
+                           onclick="setDeliveryType(this);">
+                    <label for="delivery-courier"><i>COURIER</i></label>
+
+                    <input name="deliverance"
+                           type="radio"
+                           class="with-gap"
+                           id="delivery-novaposhta"
+                           value="NOVAPOSHTA"
+                           onclick="setDeliveryType(this);">
+                    <label for="delivery-novaposhta"><i>NOVAPOSHTA</i></label>
+
+                    <input name="deliverance"
+                           type="radio"
+                           class="with-gap"
+                           id="delivery-selftake"
+                           value="SELFTAKE"
+                           onclick="setDeliveryType(this);">
+                    <label for="delivery-selftake"><i>SELFTAKE</i></label>
                 </div>
+            </form>
+            <form id="paymentForm" name="paymentForm">
+                <div class="payment-types">
+                    <h4>Payment types</h4>
+                    <input name="payment"
+                           type="radio"
+                           class="with-gap"
+                           id="payment-payonline"
+                           value="PAYONLINE"
+                           onclick="setPaymentType(this);">
+                    <label for="payment-payonline"><i>PAYONLINE</i></label>
+                    <input name="payment"
+                           type="radio"
+                           class="with-gap"
+                           id="payment-cashonspot"
+                           value="CASHONSPOT"
+                           onclick="setPaymentType(this);">
+                    <label for="payment-cashonspot"><i>CASHONSPOT</i></label>
+                </div>
+            </form>
+            <div class="total-price">
+                <h5 id="cartTotalPrice"></h5>
+                <div class="load-button">
+                    <input class="button-show-all" onclick="goToNextPage()" type="button" value="next">
+                </div>
+            </div>
         </div>
     </div>
 </div>
 #{/verbatim}
 
 #{if shop.visualSettingsDTO.isFooterOn}
-#{footer-shop /}
+    #{footer-shop /}
 #{/if}
 
 <script>
@@ -463,6 +476,32 @@
 
     window.customElements.define('line-item', LineItem);
 
+    // set delivery and payment type for radio button
+
+    function setDeliveryType(deliverance) {
+        console.log("deliveryType", deliverance.value);
+
+        fetch('/api/cart/delivery?deliverytype=' + deliverance.value, {
+            method: 'PUT'
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            store.dispatch({type: 'SHOPPINGCART', payload: data});
+        });
+    }
+
+    function setPaymentType(payment) {
+        console.log("deliveryType", payment.value);
+
+        fetch('/api/cart/payment?paymenttype=' + payment.value, {
+            method: 'PUT'
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            store.dispatch({type: 'SHOPPINGCART', payload: data});
+        });
+    }
+
     function goToNextPage() {
         window.location = '/choosedelivery';
         console.log("window.location = /choosedelivery");
@@ -470,9 +509,33 @@
 
     store.subscribe(() => {
         let shoppingCartState = store.getState();
-        console.log("shoppingCartState ", shoppingCartState);
+        console.log("shoppingCartState: ", shoppingCartState);
+        console.log("shoppingCartState delivery type: ", shoppingCartState.deliveryType);
+        console.log("shoppingCartState payment type: ", shoppingCartState.paymentType);
 
-        let cartTotal = 0;
+        let delivery = shoppingCartState.deliveryType;
+        switch (delivery){
+            case 'COURIER':
+                document.getElementById('delivery-courier').checked = true;
+                break;
+            case 'POSTSERVICE':
+                document.getElementById('delivery-novaposhta').checked = true;
+                break;
+            case 'SELFTAKE':
+                document.getElementById('delivery-selftake').checked = true;
+                break;
+        }
+
+        let payment = shoppingCartState.paymentType;
+        switch (payment){
+            case 'CREDITCARD':
+                document.getElementById('payment-payonline').checked = true;
+                break;
+            case 'CASHONDELIVERY':
+                document.getElementById('payment-cashonspot').checked = true;
+                break;
+
+        }
 
         let isAnyItemsPresentInCart = shoppingCartState.lineItemList.length > 0;
 
@@ -488,9 +551,9 @@
             productListContainer.style.display = 'none';
         }
 
-
         let listContainer = document.querySelector('.list-of-product');
         listContainer.innerHTML = '';
+        let cartTotal = 0;
         for (let i = 0; i < shoppingCartState.lineItemList.length; i++) {
             let _lineItem = shoppingCartState.lineItemList[i];
 
@@ -529,7 +592,7 @@
                     if(value === 'plus-btn') {
                         uuid = currentTarget.getAttribute('line-item-uuid');
 
-                        fetch('/api/plustocart?uuid=' + uuid, {
+                        fetch('/api/cart/increase-quantity?uuid=' + uuid, {
                             method: 'POST'
                         }).then(function (response) {
                             return response.json();
@@ -555,7 +618,7 @@
                     if(value === 'minus-btn') {
                         uuid = currentTarget.getAttribute('line-item-uuid');
 
-                        fetch('/api/minusfromcart?uuid=' + uuid, {
+                        fetch('/api/cart/decrease-quantity?uuid=' + uuid, {
                             method: 'DELETE'
                         }).then(function (response) {
                             return response.json();
@@ -569,7 +632,6 @@
         }
 
     };
-
 
     function removeLineItem() {
         let uuid = event.target.getAttribute('line-item-uuid');

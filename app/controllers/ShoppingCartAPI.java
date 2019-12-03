@@ -10,6 +10,7 @@ import play.Play;
 import java.util.ArrayList;
 
 public class ShoppingCartAPI extends AuthController {
+
     public void getCart() {
         String userTokenCookie = request.cookies.get("userToken").value;
         try {
@@ -153,6 +154,7 @@ public class ShoppingCartAPI extends AuthController {
         getCart();
 
     }
+
     public void decreaseQuantityProduct(){
 
         String lineItemUuid = request.params.get("uuid");
@@ -167,6 +169,80 @@ public class ShoppingCartAPI extends AuthController {
             getCart();
         }
 
+
+    }
+
+    public void selectDeliveryType() {
+
+        String delivery = request.params.get("deliverytype");
+        System.out.println("deliverytype FROM REQUEST: " + delivery);
+
+        String userTokenCookie = request.cookies.get("userToken").value;
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("wisehands")
+                    .build(); //Reusable verifier instance
+            DecodedJWT jwt = verifier.verify(userTokenCookie);
+            String userId = jwt.getSubject();
+            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+
+            switch (delivery){
+                case "COURIER":
+                    System.out.println("COURIER: " + true);
+                    shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.COURIER;
+                    break;
+                case "NOVAPOSHTA":
+                    System.out.println("NOVAPOSHTA: " + true);
+                    shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.POSTSERVICE;
+                    break;
+                case "SELFTAKE":
+                    System.out.println("SELFTAKE: " + true);
+                    shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.SELFTAKE;
+                    break;
+            }
+            shoppingCart.save();
+        } catch (JWTVerificationException exception){
+            forbidden("Invalid Authorization header: " + userTokenCookie);
+        }
+        getCart();
+
+    }
+
+    public void selectPaymentType(){
+
+        String payment = request.params.get("paymenttype");
+        System.out.println("payment from request: " + payment);
+
+        String userTokenCookie = request.cookies.get("userToken").value;
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("wisehands")
+                    .build(); //Reusable verifier instance
+            DecodedJWT jwt = verifier.verify(userTokenCookie);
+            String userId = jwt.getSubject();
+            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+
+            switch (payment){
+                case "PAYONLINE":
+                    System.out.println("PAYONLINE: " + true);
+                    shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CREDITCARD;
+                    break;
+                case "CASHONSPOT":
+                    System.out.println("CASHONSPOT: " + true);
+                    shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CASHONDELIVERY;
+                    break;
+
+            }
+            shoppingCart.save();
+
+        } catch (JWTVerificationException exception){
+            forbidden("Invalid Authorization header: " + userTokenCookie);
+        }
+        getCart();
 
     }
 
