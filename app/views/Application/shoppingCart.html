@@ -179,7 +179,7 @@
         padding: 0 5px;
     }
 
-    .delivery-types, .payment-types{
+    .delivery-types, .payment-types, .client-info{
         display: flex;
         flex-direction: column;
 
@@ -189,7 +189,7 @@
         flex-direction: column;
     }
 
-    .delivery-types h4, .payment-types h4{
+    .delivery-types h4, .payment-types h4, .client-info h4{
         font-size: 1.4rem;
         font-weight: 600;
     }
@@ -402,7 +402,6 @@
              <!--HERE WILL BE INSERTED SHOPPING CART-->
         </div>
         <div class="order-details-container">
-
             <form id="deliveryForm" name="deliveryForm">
                 <div class="delivery-types">
 
@@ -454,6 +453,25 @@
                     <label for="payment-cashonspot"><i>CASHONSPOT</i></label>
                 </div>
             </form>
+            <form id="clientForm" name="clientForm">
+                <div class="client-info" >
+                    <h4>Info</h4>
+                    <input name="clientName"
+                           type="text"
+                           id="client-name"
+                           placeholder="Name" required>
+                    <input name="clientPhone"
+                           type="text"
+                           id="client-phone"
+                           placeholder="Phone" required>
+                    <input name="clientComments"
+                           type="text"
+                           id="client-comments"
+                           placeholder="Comments" required>
+
+
+                </div>
+            </form>
             <div class="total-price">
                 <h5 id="cartTotalPrice"></h5>
                 <div class="load-button">
@@ -479,7 +497,6 @@
     // set delivery and payment type for radio button
 
     function setDeliveryType(deliverance) {
-        console.log("deliveryType", deliverance.value);
 
         fetch('/api/cart/delivery?deliverytype=' + deliverance.value, {
             method: 'PUT'
@@ -491,7 +508,6 @@
     }
 
     function setPaymentType(payment) {
-        console.log("deliveryType", payment.value);
 
         fetch('/api/cart/payment?paymenttype=' + payment.value, {
             method: 'PUT'
@@ -504,14 +520,11 @@
 
     function goToNextPage() {
         window.location = '/choosedelivery';
-        console.log("window.location = /choosedelivery");
     }
 
     store.subscribe(() => {
         let shoppingCartState = store.getState();
         console.log("shoppingCartState: ", shoppingCartState);
-        console.log("shoppingCartState delivery type: ", shoppingCartState.deliveryType);
-        console.log("shoppingCartState payment type: ", shoppingCartState.paymentType);
 
         let delivery = shoppingCartState.deliveryType;
         switch (delivery){
@@ -605,7 +618,7 @@
             );
         }
 
-    };
+    }
 
     function minusItem() {
         let uuid = '';
@@ -631,11 +644,10 @@
             );
         }
 
-    };
+    }
 
     function removeLineItem() {
         let uuid = event.target.getAttribute('line-item-uuid');
-        console.log('removeLineItem', uuid);
 
         fetch('/api/cart?uuid=' + uuid, {
             method: 'DELETE'
