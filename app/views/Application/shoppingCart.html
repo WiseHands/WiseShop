@@ -41,7 +41,6 @@
         margin: 5px;
         border-bottom: 1px solid lightgrey;
         display: flex;
-        justify-content: space-between;
         flex-direction: row;
     }
 
@@ -68,7 +67,7 @@
 
     .product-image {
         margin-top: 7px;
-        height: 100px;
+        height: 5em;
         /*weight: 600px;*/
     }
 
@@ -82,6 +81,10 @@
         margin: 5px;
         flex-direction: column;
         align-items: center;
+    }
+
+    .product-title {
+        flex: 1;
     }
 
     .remove-product:hover {
@@ -115,18 +118,19 @@
         align-items: center;
     }
 
-    .plus-minus-product {
+    .product-details-container {
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        width: 100%;
     }
 
-    .plus-minus-product h3 {
+    .product-details-container h3 {
         margin: 5px;
     }
 
-    .plus-minus-product input[type=number] {
+    .product-details-container input[type=number] {
         width: 40px;
     }
 
@@ -144,6 +148,12 @@
     .plus-btn img {
         margin-top: 2px;
     }
+
+    button img {
+        width: 18px;
+        height: 18px;
+    }
+
     .order-details-container input[type=button], .empty-basket-container input[type=button] {
         background-color: #fff;
         color: #000;
@@ -189,6 +199,17 @@
         flex-direction: column;
     }
 
+    .total {
+        white-space: nowrap;
+        margin: 0;
+        min-width: 100px;
+        text-align: center;
+    }
+
+    .grow-equally {
+        flex-grow: 1;
+    }
+
     .delivery-types h4, .payment-types h4, .client-info h4{
         font-size: 1.4rem;
         font-weight: 600;
@@ -198,6 +219,7 @@
         font-size: 1.8rem;
         font-weight: 600;
         text-transform: uppercase;
+        min-width: 220px;
     }
 
     @media screen and (max-width: 767px) {
@@ -211,8 +233,7 @@
         }
 
         .order-details-container {
-            margin: 10 5 10 20;
-            justify-content: space-between;
+            margin: 10px 5px 10px 20px;
             width: 90%;
         }
         .product-list-container{
@@ -226,7 +247,7 @@
             flex-direction: column;
         }
 
-        .change-product, .plus-minus-product {
+        .change-product, .product-details-container {
             flex-direction: row;
         }
 
@@ -239,6 +260,30 @@
             padding: 0 10 0 5;
         }
 
+    }
+
+    .remove-button-container {
+        margin-left: 1em;
+    }
+
+    .total {
+        margin-left: 1em;
+    }
+
+    .product-title h5 {
+        margin: 0;
+        max-width: 240px;
+    }
+
+    .text-style {
+        font-weight: 400;
+        font-size: 1.5em;
+    }
+
+    .truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 
@@ -370,30 +415,33 @@
             <div class="products">
                 <img class="product-image"
                      src="http://localhost:3334/public/product_images/402881ce6d2a3296016d2a32a2fe000b/5e5eee73-d2ca-4983-acc9-3fa173722f4d.jpg">
-                <div class="product-title">
-                    <h5>Product name</h5>
-                </div>
             </div>
-            <div class="calculate-product">
-                <div>
-                    <h5 class="total">total</h5>
+            <div class="product-details-container">
+                <div class="product-title grow-equally">
+                    <h5 class="text-style truncate">Product name</h5>
                 </div>
-                <div class="change-product">
-                    <div class="plus-minus-product">
-                        <button onclick="minusItem()" class="minus-btn" type="button" name="button1">
-                            <img src="/public/minus.svg" alt="" />
-                        </button>
-                        <span id="count-prod" type="text">  </span>
-                        <button onclick="addItem()" class="plus-btn" type="button" name="button2">
-                            <img src="/public/plus.svg" alt="" />
-                        </button>
-                    </div>
-                    <div>
-                        <a class="remove-product" onclick="removeLineItem()">remove</a>
-                    </div>
+
+                <div class="">
+                    <button onclick="minusItem()" class="minus-btn" type="button" name="bt1">
+                        <img src="/public/minus.png" alt="" />
+                    </button>
+                    <span id="count-prod"  type="text">  </span>
+                    <button onclick="addItem()" class="plus-btn" type="button" name="bt2">
+                        <img src="/public/plus.png" alt="" />
+                    </button>
+                </div>
+
+
+                <h5 class="total text-style">total</h5>
+
+                <div class="remove-button-container">
+                    <button onclick="removeLineItem()" class="remove-btn" type="button" name="bt3">
+                        <img class="remove-btn-image" src="/public/remove.png" alt="" />
+                    </button>
                 </div>
 
             </div>
+
         </div>
     </template>
 
@@ -575,9 +623,17 @@
         let shoppingCartState = store.getState();
         console.log("shoppingCartState: ", shoppingCartState);
 
-        clientName.value = shoppingCartState.clientName;
-        clientPhone.value = shoppingCartState.clientPhone;
-        clientComments.value = shoppingCartState.clientComments;
+        if(shoppingCartState.clientName !== undefined) {
+            clientName.value = shoppingCartState.clientName;
+        }
+
+        if(shoppingCartState.clientPhone !== undefined) {
+            clientPhone.value = shoppingCartState.clientPhone;
+        }
+
+        if(shoppingCartState.clientComments !== undefined) {
+            clientComments.value = shoppingCartState.clientComments;
+        }
 
         let delivery = shoppingCartState.deliveryType;
         switch (delivery){
@@ -631,7 +687,8 @@
 
             _tpl.content.querySelector('#count-prod').textContent = '' + _lineItem.quantity;
 
-            _tpl.content.querySelector('.remove-product').setAttribute('line-item-uuid', _lineItem.uuid);
+            _tpl.content.querySelector('.remove-btn').setAttribute('line-item-uuid', _lineItem.uuid);
+            _tpl.content.querySelector('.remove-btn-image').setAttribute('line-item-uuid', _lineItem.uuid);
 
             _tpl.content.querySelector('.minus-btn').setAttribute('line-item-uuid', _lineItem.uuid);
             _tpl.content.querySelector('.plus-btn').setAttribute('line-item-uuid', _lineItem.uuid);
