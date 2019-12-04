@@ -286,6 +286,10 @@
         text-overflow: ellipsis;
     }
 
+    .validation-details{
+        color: red;
+    }
+
 
 </style>
 <!DOCTYPE html>
@@ -518,6 +522,7 @@
                            placeholder="Comments" required>
                 </div>
             </form>
+            <p id="validation-client-info" class="validation-details">please enter info above</p>
             <div class="total-price">
                 <h5 id="cartTotalPrice"></h5>
                 <div class="load-button">
@@ -566,9 +571,20 @@
 
     // end set del. and paym. continue with client info
 
+    let courierDelivery = document.getElementById('delivery-courier').checked;
+    let postDelivery = document.getElementById('delivery-novaposhta').checked;
+    let selfTakeDelivery = document.getElementById('delivery-selftake').checked;
+
+    let payOnline = document.getElementById('payment-payonline').checked;
+    let cashOnSpot = document.getElementById('payment-cashonspot').checked;
+
+    console.log('validation variables: ', courierDelivery, postDelivery, payOnline);
+
     let clientName = document.getElementById('client-name');
     let clientPhone = document.getElementById('client-phone');
     let clientComments = document.getElementById('client-comments');
+    let isValidationOrderDetails = document.getElementById('validation-client-info');
+    isValidationOrderDetails.style.visibility = 'hidden';
 
     clientName.onblur = function () {
         let path = '/api/cart/client/info?clientname=' + clientName.value;
@@ -616,7 +632,18 @@
 
 
     function goToNextPage() {
-        window.location = '/choosedelivery';
+
+
+
+        if( (clientName.value.length === 0 || clientPhone.value.length === 0) &&
+            (!courierDelivery || !postDelivery || !selfTakeDelivery) &&
+            (!payOnline || !cashOnSpot) )
+        {
+            isValidationOrderDetails.style.visibility = 'visible';
+        } else {
+            window.location = '/choosedelivery';
+        }
+
     }
 
     store.subscribe(() => {
