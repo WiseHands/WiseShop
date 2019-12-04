@@ -34,6 +34,7 @@ POST    {client}/api/cart/increase-quantity             ShoppingCartAPI.increase
 DELETE  {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
 PUT     {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
 PUT     {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
+PUT     {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one

@@ -246,4 +246,42 @@ public class ShoppingCartAPI extends AuthController {
 
     }
 
+    public void setClientInfo(){
+
+        String clientName = request.params.get("clientname");
+        String clientPhone = request.params.get("clientphone");
+        String clientComments = request.params.get("clientcomments");
+
+        System.out.println("infoAboutClient from request: " + clientName + " " + clientPhone + " " + clientComments);
+
+        String userTokenCookie = request.cookies.get("userToken").value;
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("wisehands")
+                    .build(); //Reusable verifier instance
+            DecodedJWT jwt = verifier.verify(userTokenCookie);
+            String userId = jwt.getSubject();
+            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+            if(clientName != null) {
+                shoppingCart.clientName = clientName;
+            }
+            if (clientPhone != null){
+                shoppingCart.clientPhone = clientPhone;
+            }
+            if (clientComments != null) {
+                shoppingCart.clientComments = clientComments;
+
+            }
+
+            shoppingCart.save();
+
+        } catch (JWTVerificationException exception){
+            forbidden("Invalid Authorization header: " + userTokenCookie);
+        }
+        getCart();
+
+    }
+
 }

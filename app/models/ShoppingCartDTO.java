@@ -37,6 +37,13 @@ public class ShoppingCartDTO extends GenericModel {
     @OneToMany(orphanRemoval=true)
     public List<LineItemDTO> lineItemList;
 
+    @Expose
+    public String clientName;
 
+    @Expose
+    public String clientPhone;
+
+    @Expose
+    public String clientComments;
 
 }

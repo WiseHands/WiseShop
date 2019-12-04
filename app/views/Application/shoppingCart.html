@@ -468,8 +468,6 @@
                            type="text"
                            id="client-comments"
                            placeholder="Comments" required>
-
-
                 </div>
             </form>
             <div class="total-price">
@@ -518,6 +516,57 @@
         });
     }
 
+    // end set del. and paym. continue with client info
+
+    let clientName = document.getElementById('client-name');
+    let clientPhone = document.getElementById('client-phone');
+    let clientComments = document.getElementById('client-comments');
+
+    clientName.onblur = function () {
+        let path = '/api/cart/client/info?clientname=' + clientName.value;
+        console.log("here clientName: ", clientName.value);
+
+        fetch(path, {
+            method: 'PUT'
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            store.dispatch({type: 'SHOPPINGCART', payload: data});
+        });
+
+    };
+
+    clientPhone.onblur = function () {
+
+        let path = '/api/cart/client/info?clientphone=' + clientPhone.value;
+        console.log("here clientPhone: ", clientPhone.value);
+
+        fetch(path, {
+            method: 'PUT'
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            store.dispatch({type: 'SHOPPINGCART', payload: data});
+        });
+
+    };
+
+    clientComments.onblur = function () {
+
+        let path = '/api/cart/client/info?clientcomments=' + clientComments.value;
+        console.log("here clientComments", clientComments.value);
+
+        fetch(path, {
+            method: 'PUT'
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            store.dispatch({type: 'SHOPPINGCART', payload: data});
+        });
+
+    };
+
+
     function goToNextPage() {
         window.location = '/choosedelivery';
     }
@@ -525,6 +574,10 @@
     store.subscribe(() => {
         let shoppingCartState = store.getState();
         console.log("shoppingCartState: ", shoppingCartState);
+
+        clientName.value = shoppingCartState.clientName;
+        clientPhone.value = shoppingCartState.clientPhone;
+        clientComments.value = shoppingCartState.clientComments;
 
         let delivery = shoppingCartState.deliveryType;
         switch (delivery){
