@@ -457,7 +457,7 @@
             <form id="deliveryForm" name="deliveryForm">
                 <div class="delivery-types">
 
-                    <h4>Delivery types</h4>
+                    <h4>Тип доставки:</h4>
                     <!--#{if shop.delivery.isCourierAvailable}-->
                     <!--#{/if}-->
 
@@ -467,7 +467,7 @@
                            id="delivery-courier"
                            value="COURIER"
                            onclick="setDeliveryType(this);">
-                    <label for="delivery-courier"><i>COURIER</i></label>
+                    <label for="delivery-courier"><i>Кур'єр</i></label>
 
                     <input name="deliverance"
                            type="radio"
@@ -475,7 +475,7 @@
                            id="delivery-novaposhta"
                            value="NOVAPOSHTA"
                            onclick="setDeliveryType(this);">
-                    <label for="delivery-novaposhta"><i>NOVAPOSHTA</i></label>
+                    <label for="delivery-novaposhta"><i>Нова Пошта</i></label>
 
                     <input name="deliverance"
                            type="radio"
@@ -483,43 +483,43 @@
                            id="delivery-selftake"
                            value="SELFTAKE"
                            onclick="setDeliveryType(this);">
-                    <label for="delivery-selftake"><i>SELFTAKE</i></label>
+                    <label for="delivery-selftake"><i>Самовівз</i></label>
                 </div>
             </form>
             <form id="paymentForm" name="paymentForm">
                 <div class="payment-types">
-                    <h4>Payment types</h4>
+                    <h4>Тип оплати</h4>
                     <input name="payment"
                            type="radio"
                            class="with-gap"
                            id="payment-payonline"
                            value="PAYONLINE"
                            onclick="setPaymentType(this);">
-                    <label for="payment-payonline"><i>PAYONLINE</i></label>
+                    <label for="payment-payonline"><i>Онлайн</i></label>
                     <input name="payment"
                            type="radio"
                            class="with-gap"
                            id="payment-cashonspot"
                            value="CASHONSPOT"
                            onclick="setPaymentType(this);">
-                    <label for="payment-cashonspot"><i>CASHONSPOT</i></label>
+                    <label for="payment-cashonspot"><i>Готівкою</i></label>
                 </div>
             </form>
             <form id="clientForm" name="clientForm">
                 <div class="client-info" >
-                    <h4>Info</h4>
+                    <h4>Клієнту</h4>
                     <input name="clientName"
                            type="text"
                            id="client-name"
-                           placeholder="Name" required>
+                           placeholder="Ім'я">
                     <input name="clientPhone"
                            type="text"
                            id="client-phone"
-                           placeholder="Phone" required>
+                           placeholder="Телефон">
                     <input name="clientComments"
                            type="text"
                            id="client-comments"
-                           placeholder="Comments" required>
+                           placeholder="Коментар" required>
                 </div>
             </form>
             <p id="validation-client-info" class="validation-details">' '</p>
@@ -741,7 +741,7 @@
             _tpl.content.querySelector('.minus-btn').setAttribute('line-item-uuid', _lineItem.uuid);
             _tpl.content.querySelector('.plus-btn').setAttribute('line-item-uuid', _lineItem.uuid);
 
-            _tpl.content.querySelector('.total').innerText = String(_lineItem.quantity * _lineItem.product.price) + " UA";
+            _tpl.content.querySelector('.total').innerText = String(_lineItem.quantity * _lineItem.product.price) + " грн";
 
             let clone = document.importNode(_tpl.content, true);
             listContainer.prepend(clone);
@@ -749,7 +749,7 @@
 
         }
 
-        document.getElementById('cartTotalPrice').innerText = "total: " + cartTotal + " UAH";
+        document.getElementById('cartTotalPrice').innerText = "Сума: " + cartTotal + " грн";
     });
 
     function addItem() {
