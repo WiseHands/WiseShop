@@ -246,18 +246,10 @@
         .about-product {
             flex-direction: column;
         }
-
-        .change-product, .product-details-container {
+        .product-details-container {
             flex-direction: row;
-        }
-
-        .calculate-product {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+            padding: 10px 15px;
             justify-content: space-between;
-            width: 99%;
-            padding: 0 10 0 5;
         }
 
     }
@@ -419,11 +411,11 @@
             <div class="products">
                 <img class="product-image"
                      src="http://localhost:3334/public/product_images/402881ce6d2a3296016d2a32a2fe000b/5e5eee73-d2ca-4983-acc9-3fa173722f4d.jpg">
-            </div>
-            <div class="product-details-container">
                 <div class="product-title grow-equally">
                     <h5 class="text-style truncate">Product name</h5>
                 </div>
+            </div>
+            <div class="product-details-container">
 
                 <div class="">
                     <button onclick="minusItem()" class="minus-btn" type="button" name="bt1">
@@ -434,7 +426,6 @@
                         <img src="/public/plus.png" alt="" />
                     </button>
                 </div>
-
 
                 <h5 class="total text-style">total</h5>
 
