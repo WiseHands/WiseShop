@@ -522,11 +522,11 @@
                            placeholder="Comments" required>
                 </div>
             </form>
-            <p id="validation-client-info" class="validation-details">please enter info above</p>
+            <p id="validation-client-info" class="validation-details">' '</p>
             <div class="total-price">
                 <h5 id="cartTotalPrice"></h5>
                 <div class="load-button">
-                    <input class="button-show-all" onclick="goToNextPage()" type="button" value="next">
+                    <input class="button-show-all" onclick="goToNextPageAndOrderValidation()" type="button" value="next">
                 </div>
             </div>
         </div>
@@ -571,20 +571,13 @@
 
     // end set del. and paym. continue with client info
 
-    let courierDelivery = document.getElementById('delivery-courier').checked;
-    let postDelivery = document.getElementById('delivery-novaposhta').checked;
-    let selfTakeDelivery = document.getElementById('delivery-selftake').checked;
-
-    let payOnline = document.getElementById('payment-payonline').checked;
-    let cashOnSpot = document.getElementById('payment-cashonspot').checked;
-
-    console.log('validation variables: ', courierDelivery, postDelivery, payOnline);
-
     let clientName = document.getElementById('client-name');
     let clientPhone = document.getElementById('client-phone');
     let clientComments = document.getElementById('client-comments');
-    let isValidationOrderDetails = document.getElementById('validation-client-info');
-    isValidationOrderDetails.style.visibility = 'hidden';
+    let validationClientInfo = document.getElementById('validation-client-info');
+    validationClientInfo.style.visibility = 'hidden';
+    let validationMessage = '- ';
+    validationClientInfo.innerText = validationMessage;
 
     clientName.onblur = function () {
         let path = '/api/cart/client/info?clientname=' + clientName.value;
@@ -631,20 +624,48 @@
     };
 
 
-    function goToNextPage() {
+    function goToNextPageAndOrderValidation() {
 
+        let courierDelivery = document.getElementById('delivery-courier').checked;
+        let postDelivery = document.getElementById('delivery-novaposhta').checked;
+        let selfTakeDelivery = document.getElementById('delivery-selftake').checked;
 
+        let payOnline = document.getElementById('payment-payonline').checked;
+        let cashOnSpot = document.getElementById('payment-cashonspot').checked;
 
-        if( (clientName.value.length === 0 || clientPhone.value.length === 0) &&
-            (!courierDelivery || !postDelivery || !selfTakeDelivery) &&
-            (!payOnline || !cashOnSpot) )
-        {
-            isValidationOrderDetails.style.visibility = 'visible';
+        let isDeliveryTypeSelected = courierDelivery || postDelivery || selfTakeDelivery;
+        let isPaymentTypeSelected = payOnline || cashOnSpot;
+        let isClientNameProvided = clientName.value.length !== 0;
+        let isClientPhoneProvided = clientPhone.value.length !== 0;
+
+        if (!isDeliveryTypeSelected){
+            validationMessage = 'please choose delivery type';
+        } else if (!isPaymentTypeSelected){
+            validationMessage = 'please choose payment type';
+        } else if(!isClientNameProvided) {
+            validationMessage = 'please enter your name';
+        } else if(!isClientPhoneProvided){
+            validationMessage = 'please enter your phone';
+        } else {
+            validationMessage = '';
+        }
+
+        if (validationMessage){
+            validationClientInfo.style.visibility = 'visible';
+            validationClientInfo.innerText = validationMessage;
         } else {
             window.location = '/choosedelivery';
         }
 
+
     }
+
+    // else if ((!courierDelivery || !postDelivery || !selfTakeDelivery) &&
+    //            (!payOnline || !cashOnSpot) &&
+    //            (clientName.value.length === 0 || clientPhone.value.length === 0)) {
+    //     isValidationOrderDetails.style.visibility = 'visible';
+    //     isValidationOrderDetails.innerText = 'please enter info above';
+    // }
 
     store.subscribe(() => {
         let shoppingCartState = store.getState();
