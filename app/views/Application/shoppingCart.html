@@ -58,7 +58,7 @@
         justify-content: space-between;
         flex-direction: row;
     }
-    .products {
+    .products, .count-product {
         margin: 5px;
         display: flex;
         flex-direction: row;
@@ -87,20 +87,6 @@
         flex: 1;
     }
 
-    .remove-product:hover {
-        font-size: 1.1em;
-        font-weight: 400;
-    }
-
-    .calculate-product {
-        width: 100px;
-        text-align: center;
-        margin: 5px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
     .calculate-product h5 {
         margin-bottom: 3px;
     }
@@ -109,13 +95,6 @@
         display: none;
         flex-direction: column;
         margin: 10px;
-    }
-
-    .change-product {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
     }
 
     .product-details-container {
@@ -222,38 +201,6 @@
         min-width: 220px;
     }
 
-    @media screen and (max-width: 767px) {
-        .product-cart {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .list-of-product {
-            width: 99%;
-        }
-
-        .order-details-container {
-            margin: 10px 5px 10px 20px;
-            width: 90%;
-        }
-        .product-list-container{
-            flex-direction: column;
-        }
-
-    }
-
-    @media screen and (max-width: 420px) {
-        .about-product {
-            flex-direction: column;
-        }
-        .product-details-container {
-            flex-direction: row;
-            padding: 10px 15px;
-            justify-content: space-between;
-        }
-
-    }
-
     .remove-button-container {
         margin-left: 1em;
     }
@@ -281,6 +228,49 @@
     .validation-details{
         color: red;
     }
+    @media screen and (max-width: 767px) {
+        .product-cart {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .list-of-product {
+            width: 99%;
+        }
+
+        .order-details-container {
+            margin: 10px 5px 10px 20px;
+            width: 90%;
+        }
+        .product-list-container{
+            flex-direction: column;
+        }
+        .about-product {
+            flex-direction: column;
+        }
+        .product-details-container {
+            flex-direction: row;
+            padding: 10px 15px;
+            justify-content: space-between;
+        }
+        .product-title h5{
+            max-width: 600px;
+        }
+
+    }
+
+    @media screen and (max-width: 420px) {
+        .about-product {
+            flex-direction: column;
+        }
+        .product-details-container {
+            flex-direction: row;
+            padding: 10px 15px;
+            justify-content: space-between;
+        }
+
+    }
+
 
 
 </style>
@@ -417,7 +407,7 @@
             </div>
             <div class="product-details-container">
 
-                <div class="">
+                <div class="count-product">
                     <button onclick="minusItem()" class="minus-btn" type="button" name="bt1">
                         <img src="/public/minus.png" alt="" />
                     </button>
