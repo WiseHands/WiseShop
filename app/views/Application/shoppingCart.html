@@ -148,8 +148,6 @@
         border: 2px solid #fff;
     }
 
-
-
     .button-show-all{
         padding: 10 25px;
         background-color: #1c1c1c;
@@ -231,6 +229,12 @@
 
     .validation-details{
         color: red;
+    }
+
+    #product-link{
+        display: flex;
+        align-items: center;
+        color: black;
     }
     @media screen and (max-width: 767px) {
         .product-cart {
@@ -403,11 +407,13 @@
     <template id="productrow">
         <div class="about-product cart-design">
             <div class="products">
-                <img class="product-image"
-                     src="http://localhost:3334/public/product_images/402881ce6d2a3296016d2a32a2fe000b/5e5eee73-d2ca-4983-acc9-3fa173722f4d.jpg">
-                <div class="product-title grow-equally">
-                    <h5 class="text-style truncate">Product name</h5>
-                </div>
+                <a id="product-link" href="">
+                    <img class="product-image"
+                         src="http://localhost:3334/public/product_images/402881ce6d2a3296016d2a32a2fe000b/5e5eee73-d2ca-4983-acc9-3fa173722f4d.jpg">
+                    <div class="product-title grow-equally">
+                        <h5 class="text-style truncate">Product name</h5>
+                    </div>
+                </a>
             </div>
             <div class="product-details-container">
 
@@ -720,6 +726,7 @@
             cartTotal += _lineItem.product.price * _lineItem.quantity;
 
             let _tpl = document.querySelector('#productrow');
+            _tpl.content.querySelector('#product-link').href = "/product/" + _lineItem.product.uuid;
             _tpl.content.querySelector('h5').innerText = _lineItem.product.name;
             _tpl.content.querySelector('img').src = "/public/product_images/${shop.uuid}/" + _lineItem.product.mainImage.filename;
 
