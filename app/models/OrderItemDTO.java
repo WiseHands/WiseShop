@@ -20,6 +20,9 @@ public class OrderItemDTO extends GenericModel{
     public String orderUuid;
 
     @Expose
+    public String productUuid;
+
+    @Expose
     public String name;
 
     @Column( length = 100000 )
