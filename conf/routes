@@ -9,6 +9,9 @@ GET     {client}/shop                                   Application.shop
 GET     {client}/page/{uuid}                            Application.page
 GET     {client}/category/{uuid}                        Application.category
 GET     {client}/product/{uuid}                         Application.product
+GET     {client}/shoppingcart                           Application.shoppingCart
+GET     {client}/products/all                           Application.allProductsInShop
+GET     {client}/choosedelivery                         Application.choosedelivery
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
@@ -23,6 +26,15 @@ GET     {client}/user/{uuid}                            UserAPI.details
 GET     {client}/sudo/users                            	UserAPI.list
 GET     {client}/sudo/user/{uuid}                       UserAPI.one
 DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
+
+POST    {client}/api/cart                               ShoppingCartAPI.addProduct
+GET     {client}/api/cart                               ShoppingCartAPI.getCart
+DELETE  {client}/api/cart                               ShoppingCartAPI.deleteProduct
+POST    {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
+DELETE  {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
+PUT     {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
+PUT     {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
+PUT     {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one

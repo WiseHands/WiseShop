@@ -1,4 +1,12 @@
+#{set shop:shop /}
 <!DOCTYPE html>
+<style>
+    .center-container{
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+</style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -31,8 +39,8 @@
 </head>
 <body>
 #{verbatim}
-#{product-detail-header /}
-    <main class="container-fluid">
+#{shop-header /}
+    <main class="center-container">
         <section class="section m-b-4">
             <!-- Modal -->
             <div class="ql-modal mt-2" id="quick-look-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -87,7 +95,7 @@
                                         <div class="price">
                                             <p class="pull-left"><span class="price-after">${product.price} UAH</span>
                                                 </p>
-                                            <button class="btn btn-default buyButtonDetails pull-right" ng-click="buyStart()">Buy</button>
+                                            <a href="/shoppingcart" class="btn btn-default buyButtonDetails pull-right">Buy</a>
 
                                         </div>
                                         <!--Call to action-->

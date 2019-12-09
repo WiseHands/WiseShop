@@ -4,7 +4,6 @@
         max-width: 768px;
         width: 100%;
         margin: 0 auto;
-        height: 100%;
         padding-top: 20px;
         background-color: white;
         font-family: 'Roboto', sans-serif;
@@ -91,7 +90,6 @@
 
     .payment-img img {
         width: 60%;
-        height: 60%;
         margin-left: 10px;
     }
     .feedback-float-text {
@@ -330,11 +328,11 @@
         document.getElementById("feedback").style.display = "none";
     };
 
-        fetch('/pageconstructor', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+    fetch('/pageconstructor', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
     }).then(function (response) {
         return response.json();
     }).then(function (data) {

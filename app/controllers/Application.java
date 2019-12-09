@@ -1,5 +1,8 @@
 package controllers;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 import play.Play;
 import play.i18n.Lang;
 import play.mvc.*;
@@ -12,11 +15,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.UUID;
+
 
 public class Application extends Controller {
 
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    public static final int PAGE_SIZE = 6;
 
     @Before
     static void corsHeaders() {
@@ -76,8 +82,20 @@ public class Application extends Controller {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
 
-        renderTemplate("Application/shop.html", shop);
+        Http.Cookie userTokenCookie = request.cookies.get("userToken");
+        if(userTokenCookie == null) {
+            UUID uuid = UUID.randomUUID();
+            String token = generateTokenForCookie(uuid.toString(), agent);
+            response.setCookie("userToken", token);
+        }
 
+
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false).fetch(PAGE_SIZE);
+        System.out.println("\n\n\nODUUCTTTTSSSS: " + products.size());
+
+        renderTemplate("Application/shop.html", shop, products);
     }
 
     public static void shop(String client) {
@@ -95,6 +113,34 @@ public class Application extends Controller {
         }
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
+
+        render(shop);
+    }
+
+    public static void allProductsInShop(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        Date date = new Date();
+
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+        String ip = "";
+        if (xforwardedHeader != null){
+            ip = xforwardedHeader.value();
+        }
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
+
+        render(shop);
+    }
+
+    public static void choosedelivery(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         render(shop);
     }
@@ -134,6 +180,16 @@ public class Application extends Controller {
         CategoryDTO category = product.category;
 
         render(product, category, shop);
+    }
+
+    public static void shoppingCart(String client, String uuid){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+//        ProductDTO product = ProductDTO.findById(uuid);
+
+        render(shop);
     }
 
 
@@ -211,6 +267,29 @@ public class Application extends Controller {
         }
         render(shop);
     }
+
+
+    private static String generateTokenForCookie(String userId, String userAgent) {
+        String token = "";
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+
+            long nowMillis = System.currentTimeMillis();
+            Date now = new Date(nowMillis);
+
+            token = JWT.create()
+                    .withIssuedAt(now)
+                    .withSubject(userId)
+                    .withClaim("userAgent", userAgent)
+                    .withIssuer("wisehands")
+                    .sign(algorithm);
+        } catch (JWTCreationException exception){
+            //Invalid Signing configuration / Couldn't convert Claims.
+        }
+        return token;
+    }
+
 
 
 }

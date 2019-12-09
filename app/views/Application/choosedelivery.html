@@ -78,59 +78,53 @@
 
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 
-    <script>
-        function buyStart(uuid) {
-
-            fetch('/api/cart?uuid=' + uuid, {
-                method: 'POST'
-            }).then(function (response) {
-                return response.json();
-            }).then(function (data) {
-                store.dispatch({ type: 'SHOPPINGCART', payload: data});
-            });
-
-        }
-    </script>
     #{setup-redux /}
     #{get-cart /}
 </head>
 <body class="flex-column-container">
     #{shop-header /}
-    #{verbatim}
-        <div class="center-container">
-            %{
-                for(_product in products) {
-            }%
-                <div class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                    <div class="card inline">
-                        <div class="noselect view overlay hm-white-slight z-depth-1" ng-click="navigateToProductDetails(${_product.uuid})">
-                            <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
-                            <div class="mask"></div>
-                        </div>
-                        <div class="card-block text-xs-center">
-                            <div class="fixed-height2">
-                                <h4 class="card-title productNameTruncate h4-responsive"><a href="/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
-                            </div>
-                            <div class="fixed-height">
-                                <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
-                            </div>
-                            <div class="card-footer">
-                                <span class="left">${_product.price} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.oldPrice}</span></span>
-                                <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top" title="{{'shopView.addToCart' | translate}}"><i class="fa fa-shopping-cart"></i></a></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            %{
-                }
-            }%
-        </div>
-        <div class="load-button">
-            <a href="/products/all">
-                <input class="button-show-all" type="button" value="show all">
-            </a>
-        </div>
-    #{/verbatim}
+    <div class="center-container">
+        <form id="orderForm" name="orderForm" ng-submit="makeOrder()">
+            <h5 class="deliveryType"><b>{{'shopView.deliveryType' | translate}}</b></h5>
+            <fieldset class="form-group" ng-show="deliverance.isCourierAvailable">
+                <input name="deliverance"
+                       type="radio"
+                       class="with-gap"
+                       id="radio1"
+                       ng-model="deliveryType"
+                       ng-required="!deliveryType"
+                       value="COURIER">
+                <label for="radio1"><i>{{deliverance.courierText}}</i></label>
+            </fieldset>
+            <fieldset class="form-group" ng-show="deliverance.isNewPostAvailable">
+                <input name="deliverance"
+                       type="radio"
+                       class="with-gap"
+                       id="radio2"
+                       ng-model="deliveryType"
+                       ng-required="!deliveryType"
+                       value="NOVAPOSHTA">
+                <label for="radio2"><i>{{deliverance.newPostText}}</i></label>
+
+            </fieldset>
+            <fieldset class="form-group" ng-show="deliverance.isSelfTakeAvailable" >
+                <input name="deliverance"
+                       type="radio"
+                       class="with-gap"
+                       id="radio3"
+                       ng-model="deliveryType"
+                       ng-required="!deliveryType"
+                       value="SELFTAKE">
+                <label class="pull-left autoHeight" for="radio3">{{deliverance.selfTakeText}}</label>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="load-button">
+        <a href="/products/all">
+            <input class="button-show-all" type="button" value="next">
+        </a>
+    </div>
 </body>
     #{if shop.visualSettingsDTO.isFooterOn}
         #{footer-shop /}
