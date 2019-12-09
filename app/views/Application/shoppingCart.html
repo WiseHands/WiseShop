@@ -38,25 +38,32 @@
     }
 
     .about-product {
-        margin: 5px;
+        margin-right: 20px;
         border-bottom: 1px solid lightgrey;
         display: flex;
         flex-direction: row;
     }
 
-    .list-of-product {
+    .cart-design {
+        margin: 2.5px;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: .25rem;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    }
 
+    .list-of-product {
         display: flex;
         flex-direction: column;
         flex: 1;
-
-        /*overflow: scroll;*/
+        margin-right: 20px;
     }
     .product-list-container{
         width: 100%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
+
     }
     .products, .count-product {
         margin: 5px;
@@ -66,9 +73,7 @@
     }
 
     .product-image {
-        margin-top: 7px;
         height: 5em;
-        /*weight: 600px;*/
     }
 
     .product-title h5, .product-title h6 {
@@ -94,7 +99,6 @@
     .order-details-container {
         display: none;
         flex-direction: column;
-        margin: 10px;
     }
 
     .product-details-container {
@@ -386,18 +390,18 @@
 #{shop-header /}
 #{verbatim}
 <div class="center-container cart-title">
-    <h5>Корзина</h5>
+    <h5>Кошик</h5>
 </div>
 <div class="center-container product-cart">
 
     <div class="empty-basket-container ">
-        <h5 class="cart-title">Ваша корзина порожня</h5>
+        <h5 class="cart-title">Ваш кошик порожній</h5>
         <a href="/" > <input class="button-show-all" type="button" value="Почати покупку"> </a>
         <img src="wisehands/assets/images/empty_cart_logo.png">
     </div>
 
     <template id="productrow">
-        <div class="about-product">
+        <div class="about-product cart-design">
             <div class="products">
                 <img class="product-image"
                      src="http://localhost:3334/public/product_images/402881ce6d2a3296016d2a32a2fe000b/5e5eee73-d2ca-4983-acc9-3fa173722f4d.jpg">
@@ -436,59 +440,64 @@
         </div>
         <div class="order-details-container">
             <form id="deliveryForm" name="deliveryForm">
-                <div class="delivery-types">
+                <div class="delivery-types cart-design">
 
                     <h4>Тип доставки:</h4>
-                    <!--#{if shop.delivery.isCourierAvailable}-->
-                    <!--#{/if}-->
-
-                    <input name="deliverance"
-                           type="radio"
-                           class="with-gap"
-                           id="delivery-courier"
-                           value="COURIER"
-                           onclick="setDeliveryType(this);">
-                    <label for="delivery-courier"><i>Кур'єр</i></label>
-
-                    <input name="deliverance"
-                           type="radio"
-                           class="with-gap"
-                           id="delivery-novaposhta"
-                           value="NOVAPOSHTA"
-                           onclick="setDeliveryType(this);">
-                    <label for="delivery-novaposhta"><i>Нова Пошта</i></label>
-
-                    <input name="deliverance"
-                           type="radio"
-                           class="with-gap"
-                           id="delivery-selftake"
-                           value="SELFTAKE"
-                           onclick="setDeliveryType(this);">
-                    <label for="delivery-selftake"><i>Самовівз</i></label>
+                    #{if shop.delivery.isCourierAvailable}
+                        <input name="deliverance"
+                               type="radio"
+                               class="with-gap"
+                               id="delivery-courier"
+                               value="COURIER"
+                               onclick="setDeliveryType(this);">
+                        <label for="delivery-courier"><i>Кур'єр</i></label>
+                    #{/if}
+                    #{if shop.delivery.isNewPostAvailable}
+                        <input name="deliverance"
+                               type="radio"
+                               class="with-gap"
+                               id="delivery-novaposhta"
+                               value="NOVAPOSHTA"
+                               onclick="setDeliveryType(this);">
+                        <label for="delivery-novaposhta"><i>Нова Пошта</i></label>
+                    #{/if}
+                    #{if shop.delivery.isSelfTakeAvailable}
+                        <input name="deliverance"
+                               type="radio"
+                               class="with-gap"
+                               id="delivery-selftake"
+                               value="SELFTAKE"
+                               onclick="setDeliveryType(this);">
+                        <label for="delivery-selftake"><i>Самовівз</i></label>
+                    #{/if}
                 </div>
             </form>
             <form id="paymentForm" name="paymentForm">
-                <div class="payment-types">
+                <div class="payment-types cart-design">
                     <h4>Тип оплати</h4>
-                    <input name="payment"
-                           type="radio"
-                           class="with-gap"
-                           id="payment-payonline"
-                           value="PAYONLINE"
-                           onclick="setPaymentType(this);">
-                    <label for="payment-payonline"><i>Онлайн</i></label>
-                    <input name="payment"
-                           type="radio"
-                           class="with-gap"
-                           id="payment-cashonspot"
-                           value="CASHONSPOT"
-                           onclick="setPaymentType(this);">
-                    <label for="payment-cashonspot"><i>Готівкою</i></label>
+                    #{if shop.paymentSettings.onlinePaymentEnabled}
+                        <input name="payment"
+                               type="radio"
+                               class="with-gap"
+                               id="payment-payonline"
+                               value="PAYONLINE"
+                               onclick="setPaymentType(this);">
+                        <label for="payment-payonline"><i>Онлайн</i></label>
+                    #{/if}
+                    #{if shop.paymentSettings.manualPaymentEnabled}
+                        <input name="payment"
+                               type="radio"
+                               class="with-gap"
+                               id="payment-cashonspot"
+                               value="CASHONSPOT"
+                               onclick="setPaymentType(this);">
+                        <label for="payment-cashonspot"><i>Готівкою</i></label>
+                    #{/if}
                 </div>
             </form>
             <form id="clientForm" name="clientForm">
-                <div class="client-info" >
-                    <h4>Клієнту</h4>
+                <div class="client-info cart-design" >
+                    <h4>Замовник</h4>
                     <input name="clientName"
                            type="text"
                            id="client-name"
