@@ -224,11 +224,19 @@
         }, function(results, status) {
             if (status === 'OK') {
                 if (results[0]) {
-                    console.log('geocoding result: ', results);
 
                     map.setZoom(17);
-                    let address = results[0].formatted_address;
+                    let address = results[0].formatted_address.split(',');
+                    let street = address[0].split(' ');
+                    street.shift().toString().replace(",", " ");
+
+                    let house = address[1];
+                    document.getElementById('house-number').value = house;
+                    document.getElementById('street').value = street.toString().replace(",", " ");
+
+                    console.log("address for courier", street.toString().replace(",", " "), house);
                     localStorage.setItem('address', address);
+
                     // $scope.$apply(function() {
                     //     $scope.buttonDisabled = !isLocationInsidePolygon;
                     // });
