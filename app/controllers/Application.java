@@ -136,7 +136,7 @@ public class Application extends Controller {
         render(shop);
     }
 
-    public static void choosedelivery(String client) {
+    public static void selectAddress(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();

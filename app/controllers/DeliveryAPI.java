@@ -28,6 +28,7 @@ public class DeliveryAPI extends AuthController {
         checkAuthentification(shop);
 
         String polygonData = params.get("body");
+        System.out.println("polygonData " + polygonData);
         shop.delivery.courierPolygonData = polygonData;
         shop.delivery.save();
         ok();

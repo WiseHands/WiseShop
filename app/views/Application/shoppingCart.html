@@ -15,35 +15,29 @@
         flex-direction: column;
         align-items: center;
     }
-
     .empty-basket-container img{
         padding-top: 10px;
     }
-
     .cart-title {
         margin-top: 20px;
     }
-
     .cart-title h5 {
         font-size: 1.4em;
         font-weight: 550;
         padding-left: 11px;
 
     }
-
     .product-cart {
         height: auto;
         flex-direction: row;
         align-items: flex-end;
     }
-
     .about-product {
         margin-right: 20px;
         border-bottom: 1px solid lightgrey;
         display: flex;
         flex-direction: row;
     }
-
     .cart-design {
         margin: 2.5px;
         padding: 10px;
@@ -51,7 +45,6 @@
         border-radius: .25rem;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     }
-
     .list-of-product {
         display: flex;
         flex-direction: column;
@@ -71,36 +64,29 @@
         flex-direction: row;
         align-items: center;
     }
-
     .product-image {
         height: 5em;
     }
-
     .product-title h5, .product-title h6 {
         flex-grow: 2;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
     .product-title, calculate-product {
         margin: 5px;
         flex-direction: column;
         align-items: center;
     }
-
     .product-title {
         flex: 1;
     }
-
     .calculate-product h5 {
         margin-bottom: 3px;
     }
-
     .order-details-container {
         display: none;
         flex-direction: column;
     }
-
     .product-details-container {
         display: flex;
         flex-direction: row;
@@ -108,16 +94,12 @@
         align-items: center;
         width: 100%;
     }
-
     .product-details-container h3 {
         margin: 5px;
     }
-
     .product-details-container input[type=number] {
         width: 40px;
     }
-
-
 
     button[class*=btn] {
         width: 30px;
@@ -128,28 +110,8 @@
         cursor: pointer;
     }
 
-    .plus-btn img {
-        margin-top: 2px;
-    }
-
-    button img {
-        width: 18px;
-        height: 18px;
-    }
-
-    .order-details-container input[type=button], .empty-basket-container input[type=button] {
-        background-color: #fff;
-        color: #000;
-        border: 2px solid #000;
-    }
-    .order-details-container input[type=button]:hover, .empty-basket-container input[type=button]:hover{
-        background-color: #000;
-        color: #fff;
-        border: 2px solid #fff;
-    }
-
     .button-show-all{
-        padding: 10 25px;
+        padding: 10px 25px;
         background-color: #1c1c1c;
         color: #FFF;
         font-size: 1.3em;
@@ -166,6 +128,27 @@
         border: 2px solid #fff;
     }
 
+    .plus-btn img {
+        margin-top: 2px;
+    }
+
+    button img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .order-details-container input[type=button], .empty-basket-container input[type=button]{
+        background-color: #fff;
+        color: #000;
+        border: 2px solid #000;
+    }
+    .order-details-container input[type=button]:hover, .empty-basket-container input[type=button]:hover{
+        background-color: #000;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+
+
     #count-prod{
         padding: 0 5px;
     }
@@ -175,62 +158,50 @@
         flex-direction: column;
 
     }
-
     .total-price{
         flex-direction: column;
     }
-
     .total {
         white-space: nowrap;
         margin: 0;
         min-width: 100px;
         text-align: center;
     }
-
     .grow-equally {
         flex-grow: 1;
     }
-
     .delivery-types h4, .payment-types h4, .client-info h4{
         font-size: 1.4rem;
         font-weight: 600;
     }
-
     #cartTotalPrice {
         font-size: 1.8rem;
         font-weight: 600;
         text-transform: uppercase;
         min-width: 220px;
     }
-
     .remove-button-container {
         margin-left: 1em;
     }
-
     .total {
         margin-left: 1em;
     }
-
     .product-title h5 {
         margin: 0;
         max-width: 240px;
     }
-
     .text-style {
         font-weight: 400;
         font-size: 1.5em;
     }
-
     .truncate {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
     .validation-details{
         color: red;
     }
-
     #product-link{
         display: flex;
         align-items: center;
@@ -266,7 +237,6 @@
         }
 
     }
-
     @media screen and (max-width: 420px) {
         .about-product {
             flex-direction: column;
@@ -278,7 +248,6 @@
         }
 
     }
-
 
 
 </style>
@@ -418,11 +387,11 @@
             <div class="product-details-container">
 
                 <div class="count-product">
-                    <button onclick="minusItem()" class="minus-btn" type="button" name="bt1">
+                    <button onclick="minusItem()" class="minus-btn" type="button">
                         <img src="/public/minus.png" alt="" />
                     </button>
                     <span id="count-prod"  type="text">  </span>
-                    <button onclick="addItem()" class="plus-btn" type="button" name="bt2">
+                    <button onclick="addItem()" class="plus-btn" type="button">
                         <img src="/public/plus.png" alt="" />
                     </button>
                 </div>
@@ -650,7 +619,7 @@
             validationClientInfo.style.visibility = 'visible';
             validationClientInfo.innerText = validationMessage;
         } else {
-            window.location = '/choosedelivery';
+            window.location = '/selectaddress';
         }
 
 

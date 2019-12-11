@@ -103,8 +103,10 @@
             }%
                 <div class="col-lg-4 col-md-6 col-sm-6 mt-2">
                     <div class="card inline">
-                        <div class="noselect view overlay hm-white-slight z-depth-1" ng-click="navigateToProductDetails(${_product.uuid})">
-                            <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
+                        <div class="noselect view overlay hm-white-slight z-depth-1" >
+                            <a href="/product/${_product.uuid}">
+                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
+                            </a>
                             <div class="mask"></div>
                         </div>
                         <div class="card-block text-xs-center">
@@ -132,9 +134,9 @@
         </div>
     #{/verbatim}
 </body>
-    #{if shop.visualSettingsDTO.isFooterOn}
-        #{footer-shop /}
-    #{/if}
+        #{if shop.visualSettingsDTO.isFooterOn}
+            #{footer-shop /}
+        #{/if}
 </html>
 
 
