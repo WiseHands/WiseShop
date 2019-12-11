@@ -81,8 +81,9 @@
     <link rel='shortcut icon' href='/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
 
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
-    <!--<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&libraries=drawing,geometry,places"></script>-->
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&&callback=initMap" async defer></script>-->
+    <script defer src="/wisehands/assets/js/jquery-2.2.3.min.js"></script>
+    <script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
+    <script defer src="/wisehands/assets/mdb_shop/js/mdb.min.js"></script>
     #{setup-redux /}
     #{get-cart /}
 </head>
@@ -106,7 +107,7 @@
     </div>
     <div class="find-address-container">
         <div class="load-button">
-            <input id="find-address-button" type="button" value="Визначити">
+            <input id="find-address-button" type="button" onclick="findOwnlocation()" value="Визначити">
         </div>
         <div class="load-button">
             <input id="next-page-button" type="button" value="Далі">
@@ -119,8 +120,6 @@
 <script>
 
     let  map, marker, polygon, arrayCoordinates;
-
-    // initMap("49.843297,24.031514");
 
 
     function initMap() {
@@ -218,45 +217,45 @@
     }
 
 
-    // function geocodeLatLng(latlng, isLocationInsidePolygon) {
-    //     let geocoder = new google.maps.Geocoder();
-    //     geocoder.geocode({
-    //         'location': latlng
-    //     }, function(results, status) {
-    //         if (status === 'OK') {
-    //             if (results[0]) {
-    //                 console.log('geocoding result: ', results);
-    //
-    //                 map.setZoom(17);
-    //                 let address = results[0].formatted_address;
-    //                 localStorage.setItem('address', address);
-    //                 $scope.$apply(function() {
-    //                     $scope.buttonDisabled = !isLocationInsidePolygon;
-    //                 });
-    //                 showInfoMsg(address);
-    //
-    //                 console.log('geocoding result: ', address, latlng.lat(), latlng.lng());
-    //
-    //                 if (marker) marker.setMap(null);
-    //                 if (!isLocationInsidePolygon) {
-    //                     map.setCenter(latlng);
-    //                     showWarningMsg('Address out of delivery range');
-    //                 } else {
-    //                     marker = new google.maps.Marker({
-    //                         position: latlng,
-    //                         map: map,
-    //                     });
-    //                     map.setCenter(latlng);
-    //                 }
-    //
-    //             } else {
-    //                 console.log('no address');
-    //             }
-    //         } else {
-    //             console.log('finded address ', status);
-    //         }
-    //     });
-    // }
+    function geocodeLatLng(latlng, isLocationInsidePolygon) {
+        let geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            'location': latlng
+        }, function(results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    console.log('geocoding result: ', results);
+
+                    map.setZoom(17);
+                    let address = results[0].formatted_address;
+                    localStorage.setItem('address', address);
+                    // $scope.$apply(function() {
+                    //     $scope.buttonDisabled = !isLocationInsidePolygon;
+                    // });
+                    showInfoMsg(address);
+
+                    console.log('geocoding result: ', address, latlng.lat(), latlng.lng());
+
+                    if (marker) marker.setMap(null);
+                    if (!isLocationInsidePolygon) {
+                        map.setCenter(latlng);
+                        showWarningMsg('Address out of delivery range');
+                    } else {
+                        marker = new google.maps.Marker({
+                            position: latlng,
+                            map: map,
+                        });
+                        map.setCenter(latlng);
+                    }
+
+                } else {
+                    console.log('no address');
+                }
+            } else {
+                console.log('finded address ', status);
+            }
+        });
+    }
 
     // $scope.goToRoute = function() {
     //     if ($scope.buttonDisabled) {
@@ -266,30 +265,44 @@
     //     location.hash ='#!/paymentnewstage';
     // }
 
-    // $scope.myLocation = function() {
-    //     if (navigator.geolocation) {
-    //
-    //         showInfoMsg('Geolocating...');
-    //         navigator.geolocation.getCurrentPosition(function(position) {
-    //             let latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    //             let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
-    //             console.log('navigator.geolocation latLng:', latlng, ' isLocationInsidePolygon: ', isLocationInsidePolygon);
-    //
-    //             localStorage.setItem('addressLat', latlng.lat());
-    //             localStorage.setItem('addressLng', latlng.lng());
-    //             geocodeLatLng(latlng, isLocationInsidePolygon);
-    //         }, function() {
-    //             showWarningMsg('Geolocation not available')
-    //         });
-    //
-    //     } else {
-    //         showWarningMsg('Geolocation not available')
-    //     }
-    // }
+    function findOwnlocation() {
+        if (navigator.geolocation) {
+
+            showInfoMsg('Geolocating...');
+            navigator.geolocation.getCurrentPosition(function(position) {
+                let latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+                console.log('navigator.geolocation latLng:', latlng, ' isLocationInsidePolygon: ', isLocationInsidePolygon);
+
+                localStorage.setItem('addressLat', latlng.lat());
+                localStorage.setItem('addressLng', latlng.lng());
+                geocodeLatLng(latlng, isLocationInsidePolygon);
+            }, function() {
+                showWarningMsg('Geolocation not available')
+            });
+
+        } else {
+            showWarningMsg('Geolocation not available')
+        }
+    }
 
 
-
-
+    function showWarningMsg(msg) {
+        toastr.clear();
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": true
+        };
+        toastr.warning(msg);
+    }
+    function showInfoMsg(msg) {
+        toastr.clear();
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": true
+        };
+        toastr.info(msg);
+    }
 
 </script>
 <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&callback=initMap&libraries=drawing,geometry,places"></script>
