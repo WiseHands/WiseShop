@@ -382,12 +382,12 @@
         if (!data.phone) {
             document.getElementById('divphone').style.display = "none";
         }
-        if (!data.address) {
+        if (!data.addressCity) {
             document.getElementById('divaddress').style.display = "none";
         }
         document.getElementById('email').innerHTML = data.email;
         document.getElementById('phone').innerHTML = data.phone;
-        document.getElementById('address').innerHTML = data.address;
+        document.getElementById('address').innerHTML = data.addressCity + ', ' + data.addressStreet + ', ' + data.addressNumberHouse;
     });
 
 
