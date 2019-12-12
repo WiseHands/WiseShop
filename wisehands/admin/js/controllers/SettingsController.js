@@ -119,7 +119,7 @@ angular.module('WiseHands')
     function showWarningMsg(msg) {
       toastr.clear();
       toastr.options = {
-        "positionClass": "toast-bottom-center",
+        "positionClass": "toast-bottom-right",
         "preventDuplicates": true
       };
       toastr.warning(msg);
@@ -128,7 +128,7 @@ angular.module('WiseHands')
     function showInfoMsg(msg) {
       toastr.clear();
       toastr.options = {
-        "positionClass": "toast-bottom-center",
+        "positionClass": "toast-bottom-right",
         "preventDuplicates": true
       };
       toastr.info(msg);

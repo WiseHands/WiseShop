@@ -25,11 +25,12 @@ angular.module('WiseHands')
                 url: '/shop',
                 data: $scope.additionSetting
             }).success(function (response) {
-                console.log('after PUT update additionalSetting', $scope.additionSetting, response);
+                showInfoMsg("SAVED");
                 $scope.loading = false;
             }).
             error(function (response) {
                 $scope.loading = false;
+                showWarningMsg("Error");
                 console.log(response);
             });
 
@@ -38,6 +39,25 @@ angular.module('WiseHands')
 
 
         sideNavInit.sideNav();
+
+        function showWarningMsg(msg) {
+            toastr.clear();
+            toastr.options = {
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": true
+            };
+            toastr.warning(msg);
+        }
+
+        function showInfoMsg(msg) {
+            toastr.clear();
+            toastr.options = {
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": true
+            };
+            toastr.info(msg);
+        }
+
 
     }]);
 
