@@ -370,10 +370,11 @@
     <div class="empty-basket-container ">
         <h5 class="cart-title">Ваш кошик порожній</h5>
         <a href="/" > <input class="button-show-all" type="button" value="Почати покупку"> </a>
+
         <img src="wisehands/assets/images/empty_cart_logo.png">
     </div>
-
     <template id="productrow">
+
         <div class="about-product cart-design">
             <div class="products">
                 <a id="product-link" href="">
@@ -410,6 +411,8 @@
     </template>
 
     <div class="product-list-container">
+        <button id="testButton" onClick="testFireEvent()"> Press Me!!!</button>
+
         <div class="list-of-product">
              <!--HERE WILL BE INSERTED SHOPPING CART-->
         </div>
@@ -504,11 +507,6 @@
 #{/if}
 
 <script>
-    class LineItem extends HTMLElement {
-
-    }
-
-    window.customElements.define('line-item', LineItem);
 
     // set delivery and payment type for radio button
 
@@ -625,13 +623,6 @@
 
     }
 
-    // else if ((!courierDelivery || !postDelivery || !selfTakeDelivery) &&
-    //            (!payOnline || !cashOnSpot) &&
-    //            (clientName.value.length === 0 || clientPhone.value.length === 0)) {
-    //     isValidationOrderDetails.style.visibility = 'visible';
-    //     isValidationOrderDetails.innerText = 'please enter info above';
-    // }
-
     store.subscribe(() => {
         let shoppingCartState = store.getState();
         console.log("shoppingCartState: ", shoppingCartState);
@@ -738,35 +729,20 @@
                         });
 
                     }
-                },
+                }
             );
         }
 
     }
 
-    function minusItem() {
-        let uuid = '';
-
-        for(let i=0; i<event.path.length; i++) {
-            let currentTarget = event.path[i];
-            if(!currentTarget.classList) return;
-            currentTarget.classList.forEach(
-                function(value) {
-                    if(value === 'minus-btn') {
-                        uuid = currentTarget.getAttribute('line-item-uuid');
-
-                        fetch('/api/cart/decrease-quantity?uuid=' + uuid, {
-                            method: 'DELETE'
-                        }).then(function (response) {
-                            return response.json();
-                        }).then(function (data) {
-                            store.dispatch({type: 'SHOPPINGCART', payload: data});
-                        });
-
-                    }
-                },
-            );
-        }
+    function minusItem(uuid) {
+      fetch('/api/cart/decrease-quantity?uuid=' + uuid, {
+        method: 'DELETE'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        store.dispatch({type: 'SHOPPINGCART', payload: data});
+      });
 
     }
 
@@ -781,6 +757,23 @@
             store.dispatch({type: 'SHOPPINGCART', payload: data});
         });
 
+    }
+
+//    Event listeners for Polymer Shopping Cart
+    document.addEventListener('decrease-item-quantity', event => minusItem(event.detail.uuid));
+
+    function eventHandler (data) {
+      console.log(data.uuid);
+    }
+
+    function testFireEvent () {
+      let shoppingCartState = store.getState();
+      document.querySelector('#testButton').dispatchEvent(new CustomEvent("decrease-item-quantity", {
+        bubbles: true,
+        detail: {
+          uuid: shoppingCartState.lineItemList[0].uuid
+        }
+      }));
     }
 
 </script>
