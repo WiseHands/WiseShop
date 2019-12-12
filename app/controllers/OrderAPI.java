@@ -53,6 +53,7 @@ public class OrderAPI extends AuthController {
         String phone = (String) jsonBody.get("phone");
         String email = (String) jsonBody.get("email");
         String address = (String) jsonBody.get("address");
+        String amountTools = (String) jsonBody.get("amountTools");
         String comment = (String) jsonBody.get("comment");
         String couponId = (String) jsonBody.get("coupon");
         String addressLat = (String) jsonBody.get("addressLat");
@@ -69,7 +70,7 @@ public class OrderAPI extends AuthController {
 
         Double totalCost = (Double) Double.parseDouble("0");
 
-        OrderDTO order = new OrderDTO(name, phone, email, address, deliveryType, paymentType, newPostDepartment, comment, shop, addressLat, addressLng, agent, ip);
+        OrderDTO order = new OrderDTO(name, phone, email, address, amountTools, deliveryType, paymentType, newPostDepartment, comment, shop, addressLat, addressLng, agent, ip);
         if(shop.orders == null){
             shop.orders = new ArrayList<OrderDTO>();
         }

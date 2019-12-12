@@ -75,6 +75,9 @@ public class OrderDTO extends GenericModel {
     public String errorReasonSentToManager;
 
     @Expose
+    public String amountTools;
+
+    @Expose
     @Enumerated(EnumType.STRING)
     public OrderState state;
 
@@ -85,11 +88,12 @@ public class OrderDTO extends GenericModel {
     @ManyToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-    public OrderDTO(String name, String phone, String email, String address, String deliveryType, String paymentType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
+    public OrderDTO(String name, String phone, String email, String address, String amountTools, String deliveryType, String paymentType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.amountTools = amountTools;
         this.deliveryType = deliveryType;
         this.paymentType = paymentType;
         this.departmentNumber = departmentNumber;

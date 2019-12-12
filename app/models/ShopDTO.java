@@ -81,6 +81,8 @@ public class ShopDTO extends GenericModel {
     public boolean sunOpen;
     
 //  end time values for hoursSetting page
+    @Expose
+    public boolean isShowAmountTools;
 
     @Expose
     public boolean alwaysOpen;

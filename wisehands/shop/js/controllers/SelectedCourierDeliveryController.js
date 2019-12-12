@@ -61,6 +61,7 @@
                     method: 'GET',
                     url: '/shop/details/public'
                 }).then(function successCallback(response) {
+                        $scope.isShowAmountTools = response.data.isShowAmountTools;
                         $scope.shopName = response.data.name;
                         $scope.shopId = response.data.uuid;
                         $scope.payLateButton = response.data.manualPaymentEnabled;
@@ -84,6 +85,7 @@
                         email: document.getElementById('email').value,
                         name: document.getElementById('name').value,
                         address: document.getElementById('address').value,
+                        amountTools: document.getElementById('amountTools').value,
                         newPostDepartment: "",
                         selectedItems: $scope.selectedItems,
                         comment: document.getElementById('comment').value,

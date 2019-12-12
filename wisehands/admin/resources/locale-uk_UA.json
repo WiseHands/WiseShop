@@ -230,5 +230,7 @@
   "additionSetting.changeName": "Редагування елемента \"Ім'я\" на сторінці оформлення замовлення",
   "additionSetting.exampleChangeName": "За замовчування елемент має назву \"Ім'я\"",
   "additionSetting.changeOrderDone": "Редагування напису на сторінці завершення замовлення ",
-  "additionSetting.exampleChangeOrderDone": "Замовлення успішно завершено. Очікуйте, з вами зв'яжуться."
+  "additionSetting.exampleChangeOrderDone": "Замовлення успішно завершено. Очікуйте, з вами зв'яжуться.",
+  "additionalSetting.showAmountTools": "Показувати кількість приборів для товарів"
+
 }
