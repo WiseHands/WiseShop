@@ -61,6 +61,7 @@
   "singleOrder.Pieces": "шт",
   "singleOrder.DeleteMessage1": "Ви дійсно хочете видалити дане замовлення?",
   "singleOrder.DeleteMessage2": "Замовлення видалене",
+  "singleOrder.AmountTools" : "Кількість приборів: ",
   "sideNav.Orders": "Замовлення",
   "sideNav.Analytics": "Аналітика",
   "sideNav.Products": "Товари",

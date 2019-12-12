@@ -34,6 +34,7 @@
   "orderList.yesterday": "y-day",
   "orderList.selftake": "Selftake",
   "orderList.more": "More",
+  "singleOrder.AmountTools" : "Amount tools: ",
   "singleOrder.Details": "Details",
   "singleOrder.Shipped": "Shipped",
   "singleOrder.Canceled": "Canceled",
