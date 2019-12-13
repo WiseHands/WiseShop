@@ -1,0 +1,98 @@
+body, p, h1 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+canvas {
+    display: block;
+    vertical-align: bottom;
+}
+header {
+    background-color: rgb(14, 41, 53);
+}
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 0.8rem;
+}
+.header-block{
+    position: relative;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0.5rem;
+    color: #fff;
+}
+.header-logo, .header-links {
+    display: flex;
+    align-items: center;
+}
+.header-logo img {
+    width: 70px;
+    padding-right: 1rem;
+}
+.header-logo p {
+    font-size: 2.5rem;
+}
+.header-links p {
+    font-size: 1.3rem;
+    padding-right: 1rem;
+}
+.main-page {
+    background-color: rgb(14, 41, 53);
+    height: calc(100vh - 94.125px);
+}
+.slogan {
+    color: #fff;
+    text-align: center;
+    padding-top: 30vh ;
+    position: relative;
+}
+.slogan h1 {
+    font-size: 2.4rem;
+    text-transform: uppercase;
+}
+.slogan p {
+    font-size: 2rem;
+    padding: 1rem 0;
+}
+.slogan input[type=button] {
+    padding: 0.5rem;
+    border: 2px solid #fff;
+    background: none;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 1rem auto;
+    z-index: 555;
+    font-size: 1.7rem;
+}
+.slogan input[type=button]:hover {
+    border: 2px solid #fff;
+    background-color: #fff;
+    color: #0e2935;
+    cursor: pointer;
+}
+.services {
+    height: 35vh;
+}
+.services-block {
+    display: flex;
+}
+.services-text {
+    flex-basis: 40%;
+}
+.services-img {
+    flex-basis: 60%;
+}
+.services-img img {
+    width: 100%;
+}

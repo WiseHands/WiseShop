@@ -6,44 +6,46 @@
 	<meta name="google-signin-client_id" content="${googleOauthClientId}">
 
 	<title>Wise Hands</title>
-	<link href="wisehands/login/css/main-style.css" rel="stylesheet" />
+	<link href="wisehands/mainpage/css/main-page.css" rel="stylesheet" />
 	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 	<link rel="icon"
 		  type="image/png"
 		  href="wisehands/assets/images/favicon.png">
 </head>
 <body>
+<div id="particles-js"></div>
 
-<div id="particles-js"><div id="best" ng-view></div></div>
-
-
-<script src="wisehands/assets/js/angular.min.js"></script>
-<script src="wisehands/assets/js/angular-route.min.js"></script>
-<script src="wisehands/assets/js/jquery-2.2.3.min.js"></script>
-
-<script src="wisehands/assets/angular-cookies/angular-cookies.js"></script>
-<script src="wisehands/assets/angular-sanitize/angular-sanitize.js"></script>
-<script src="wisehands/assets/angular-translate/angular-translate.js"></script>
-<script src="wisehands/assets/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
-<script src="wisehands/assets/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
-<script src="wisehands/assets/angular-translate-storage-local/angular-translate-storage-local.js"></script>
-<script src="wisehands/assets/angular-translate-handler-log/angular-translate-handler-log.js"></script>
-<script src="wisehands/assets/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
-
-<script src="wisehands/login/js/routes/routesConfig.js"></script>
-
-<script src="wisehands/login/js/controllers/LoginFormController.js"></script>
-<script src="wisehands/login/js/controllers/RegisterFormController.js"></script>
-<script src="wisehands/login/js/controllers/AboutUsController.js"></script>
-<script src="wisehands/login/js/controllers/GoogleRegisterController.js"></script>
-
-
-
-<script src="wisehands/login/js/services/UserService.js"></script>
-<script src="wisehands/login/js/services/LocaleService.js"></script>
-
-<script src="wisehands/login/js/directives/LanguageSelectDirective.js"></script>
-
+<header>
+	<div class="header-block">
+		<div class="header-logo">
+			<img src="wisehands/assets/images/main_logo.png">
+			<p>WiseHands</p>
+		</div>
+		<div class="header-links">
+			<p>Services</p>
+			<p>Projects</p>
+			<p>Team</p>
+			<p>Sign in</p>
+		</div>
+	</div>
+</header>
+<section class="main-page">
+	<div class="slogan">
+		<h1>Open source software development</h1>
+		<p>making great user experiences</p>
+		<input type="button" value="list of services">
+	</div>
+</section>
+<section class="services main-container">
+	<div class="services-block">
+		<div class="services-text">
+			<h2>Web Application Development</h2>
+		</div>
+		<div class="services-img">
+			<img src="wisehands/mainpage/images/look1.jpg">
+		</div>
+	</div>
+</section>
 <script src="wisehands/assets/js/particles.min.js"></script>
 
 <script>
@@ -66,19 +68,10 @@
   gtag('config', '${googleAnalyticsId}');
 </script>
 
-
 <script>
 	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
 	});
-
-	window.initMap = function() {
-		console.log('init map');
-	}
 </script>
-<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initMap">
-</script>
-<script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
 
 </body>
 </html>

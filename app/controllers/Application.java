@@ -30,14 +30,27 @@ public class Application extends Controller {
         response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
+        public static void main(String client) {
+            if(client.equals("wisehands.me") || isDevEnv) {
+                String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+                String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+                String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+                renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+            }
+            redirect("https://wisehands.me/login", true);
+
+        }
+
+
     public static void login(String client) {
         if(client.equals("wisehands.me") || isDevEnv) {
             String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
             String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
             String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-            renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+            renderTemplate("WiseHands/login.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
         }
-        redirect("https://wisehands.me/", true);
+        redirect("https://wisehands.me/login", true);
+
     }
 
     public static void wisehands(String client) {
