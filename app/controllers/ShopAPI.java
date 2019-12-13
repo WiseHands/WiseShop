@@ -117,7 +117,7 @@ public class ShopAPI extends AuthController {
         }
 
         JSONObject json = new JSONObject();
-        json.put("name", shop.shopName);
+        json.put("shopName", shop.shopName);
         json.put("uuid", shop.uuid);
         json.put("locale", shop.locale);
         json.put("alwaysOpen", shop.alwaysOpen);

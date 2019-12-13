@@ -47,11 +47,11 @@ public class DeliveryDTO extends GenericModel {
     @Size(max=1024)
     public String orderMessage;
 
-
     public DeliveryDTO(boolean isCourierAvailable, String courierText,
                        boolean isSelfTakeAvailable, String selfTakeText,
                        boolean isNewPostAvailable, String newPostText,
                        Double courierPrice, Double courierFreeDeliveryLimit) {
+
         this.isCourierAvailable = isCourierAvailable;
         this.courierText = courierText;
 

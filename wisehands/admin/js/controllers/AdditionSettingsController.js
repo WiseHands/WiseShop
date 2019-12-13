@@ -10,7 +10,7 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 $scope.additionSetting = response.data;
-                console.log("GET $scope.Settings", $scope.additionalSettings);
+                console.log("GET $scope.Settings", $scope.additionSetting);
                 $scope.loading = false;
             }, function errorCallback(response) {
                 $scope.loading = false;

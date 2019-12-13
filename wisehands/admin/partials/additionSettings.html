@@ -19,6 +19,10 @@
 </nav>
 <div class="container-fluid noSidePadding">
     <div class="input-field col-md-12 z-index-2">
+        <p>{{'settings.shopName' | translate}}</p>
+        <input id="shopName" type="text" ng-model="additionSetting.shopName">
+    </div>
+    <div class="input-field col-md-12 z-index-2">
         <h5>{{'additionSetting.changeName' | translate}}</h5>
         <input id="changeName" type="text"
                placeholder="{{'additionSetting.exampleChangeName' | translate}}">
