@@ -63,6 +63,18 @@
                        ng-required="deliveryType === 'COURIER'"/>
             </div>
 
+            <div class="form-group" ng-hide="!isShowAmountTools">
+                <b>{{'shopView.amountTools' | translate}}</b>
+                <input class="form-control validate"
+                       id="amountTools"
+                       ng-model="amountTools"
+                       type="text" name="amountTools"
+                       placeholder="0"
+                       pattern="^(?=.*\S).+$"
+                       required>
+
+            </div>
+
             <div class="form-group">
                 <b>{{'shopView.comment' | translate}}</b>
                     <textarea class="md-textarea"

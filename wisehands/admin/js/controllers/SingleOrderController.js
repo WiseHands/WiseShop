@@ -13,7 +13,7 @@
                     .then(function successCallback(response) {
                         $scope.loading = false;
                         var data = response.data;
-                        console.log('data', data);
+                        console.log('data for GET order', data);
                         var uastring = data.userAgent;
                         parser.setUA(uastring);
                         var result = parser.getResult();

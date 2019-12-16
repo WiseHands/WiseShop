@@ -3,6 +3,18 @@ angular.module('WiseHands')
         function ($scope, $http, $route, sideNavInit, signout) {
             $scope.loading = true;
 
+            $http({
+                method: 'GET',
+                url: '/analytics/popularproducts'
+            }).then(
+                function successCallback(response){
+                    $scope.popularProducts = response.data
+                    console.log("popularproducts",response);
+                }, function errorCallback(data) {
+                    console.log("popularproducts",data);
+                }
+            );
+
             $scope.getMainAnalyticsData = function (days) {
                 $scope.loading = true;
                 $scope.days = days;
@@ -111,6 +123,7 @@ angular.module('WiseHands')
                             }
                         });
                         initialize($scope.ordersAdresses);
+                        console.log("$scope.ordersAdresses = []", $scope.ordersAdresses = []);
                         $scope.loading = false;
                     }, function errorCallback(response) {
                         $scope.loading = false;

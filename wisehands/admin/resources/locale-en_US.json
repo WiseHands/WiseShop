@@ -34,6 +34,7 @@
   "orderList.yesterday": "y-day",
   "orderList.selftake": "Selftake",
   "orderList.more": "More",
+  "singleOrder.AmountTools" : "Amount tools: ",
   "singleOrder.Details": "Details",
   "singleOrder.Shipped": "Shipped",
   "singleOrder.Canceled": "Canceled",
@@ -75,6 +76,9 @@
   "analytics.total": "Total",
   "analytics.currency": "USD",
   "analytics.today": "Earned",
+  "analytics.popularProductTitle": "Quantity of popular products",
+  "analytics.tableProductName": "Product name",
+  "analytics.tableProductQuantity": "Product quantity",
   "products.search": "Search",
   "products.products": "Products",
   "products.categories": "Categories",
@@ -227,5 +231,8 @@
   "payment.setButton": "Edit inscription on payment button",
   "additionSetting.title": "Addition setting",
   "additionSetting.changeName": "Edit the element \"Name\" on the order page",
-  "additionSetting.exampleChangeName": "By default, the element is named \"Name\""
+  "additionSetting.changeOrderDone": "Edit caption on order completion page ",
+  "additionSetting.exampleChangeName": "By default, the element is named \"Name\"",
+  "additionalSetting.showAmountTools": "Display the number of appliances for goods"
+
 }

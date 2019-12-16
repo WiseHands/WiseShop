@@ -24,6 +24,9 @@
   "analytics.fromDate": "Від 01/31/2018",
   "analytics.toDate": "До 03/31/2019",
   "analytics.analyticstotal": "Порахувати",
+  "analytics.popularProductTitle": "Найпопулярніші товари за останіх 30 днів",
+  "analytics.tableProductName": "Продукт",
+  "analytics.tableProductQuantity": "Кількість",
   "is.hidden": "Приховати",
   "orderList.Search": "Пошук",
   "orderList.New": "Нові",
@@ -61,6 +64,7 @@
   "singleOrder.Pieces": "шт",
   "singleOrder.DeleteMessage1": "Ви дійсно хочете видалити дане замовлення?",
   "singleOrder.DeleteMessage2": "Замовлення видалене",
+  "singleOrder.AmountTools" : "Кількість приборів: ",
   "sideNav.Orders": "Замовлення",
   "sideNav.Analytics": "Аналітика",
   "sideNav.Products": "Товари",
@@ -226,9 +230,11 @@
   "payment.setButton": "Редагувати напис на кнопці оплати",
   "singleOrder.Email": "Email",
   "settings.addSetting": "Додаткові налаштування",
-  "additionSetting.title": "Додаткові налаштування магазину",
+  "additionSetting.title": "Додатково",
   "additionSetting.changeName": "Редагування елемента \"Ім'я\" на сторінці оформлення замовлення",
   "additionSetting.exampleChangeName": "За замовчування елемент має назву \"Ім'я\"",
   "additionSetting.changeOrderDone": "Редагування напису на сторінці завершення замовлення ",
-  "additionSetting.exampleChangeOrderDone": "Замовлення успішно завершено. Очікуйте, з вами зв'яжуться."
+  "additionSetting.exampleChangeOrderDone": "Замовлення успішно завершено. Очікуйте, з вами зв'яжуться.",
+  "additionalSetting.showAmountTools": "Показувати кількість приборів для товарів"
+
 }

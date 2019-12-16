@@ -19,15 +19,25 @@
 </nav>
 <div class="container-fluid noSidePadding">
     <div class="input-field col-md-12 z-index-2">
+        <p>{{'settings.shopName' | translate}}</p>
+        <input id="shopName" type="text" ng-model="additionSetting.shopName">
+    </div>
+    <div class="input-field col-md-12 z-index-2">
         <h5>{{'additionSetting.changeName' | translate}}</h5>
         <input id="changeName" type="text"
-               ng-model="paymentSettings.fieldNameCustomer"
                placeholder="{{'additionSetting.exampleChangeName' | translate}}">
         <h5>{{'additionSetting.changeOrderDone' | translate}}</h5>
         <input id="changeAddress" type="text"
-               ng-model="additionalSettings.orderMessage"
                placeholder="{{'additionSetting.exampleChangeOrderDone' | translate}}">
         <hr>
+    </div>
+    <div class="input-field col-md-12 z-index-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="additionSetting.isShowAmountTools"/>
+                <label for="filled-in-box">{{'additionalSetting.showAmountTools' | translate}}</label>
+            </div>
+        </div><br>
     </div>
 
 </div>

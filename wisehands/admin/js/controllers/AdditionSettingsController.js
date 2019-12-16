@@ -4,26 +4,13 @@ angular.module('WiseHands')
     		function ($scope, $http, sideNavInit, signout, shared, $rootScope) {
         $scope.loading = true;
 
-
         $http({
             method: 'GET',
-            url: '/payment/detail'
+            url: '/shop/details/public'
         })
             .then(function successCallback(response) {
-                $scope.paymentSettings = response.data;
-                console.log("GET $scope.paymentSettings", $scope.paymentSettings);
-                $scope.loading = false;
-            }, function errorCallback(response) {
-                $scope.loading = false;
-            });
-
-        $http({
-            method: 'GET',
-            url: '/delivery'
-        })
-            .then(function successCallback(response) {
-                $scope.additionalSettings = response.data;
-                console.log("GET $scope.Settings", $scope.additionalSettings);
+                $scope.additionSetting = response.data;
+                console.log("GET $scope.Settings", $scope.additionSetting);
                 $scope.loading = false;
             }, function errorCallback(response) {
                 $scope.loading = false;
@@ -32,39 +19,43 @@ angular.module('WiseHands')
 
         $scope.updateAdditionalSetting = function () {
             $scope.loading = true;
-            // $http({
-            //     method: 'PUT',
-            //     url: '/payment/update',
-            //     data: $scope.paymentSettings
-            // })                .success(function (response) {
-            //         $scope.paymentSettings = response;
-            //         console.log('after PUT update additionalSetting', $scope.paymentSettings);
-            //         $scope.loading = false;
-            //     }).
-            // error(function (response) {
-            //     $scope.loading = false;
-            //     console.log(response);
-            // });
 
             $http({
                 method: 'PUT',
-                url: '/delivery',
-                data: $scope.additionalSettings
+                url: '/shop',
+                data: $scope.additionSetting
             }).success(function (response) {
-                $scope.paymentSettings = response;
-                console.log('after PUT update additionalSetting', $scope.additionalSettings);
+                showInfoMsg("SAVED");
                 $scope.loading = false;
             }).
             error(function (response) {
                 $scope.loading = false;
+                showWarningMsg("Error");
                 console.log(response);
             });
 
 
         };
 
-
         sideNavInit.sideNav();
+
+        function showWarningMsg(msg) {
+            toastr.clear();
+            toastr.options = {
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": true
+            };
+            toastr.warning(msg);
+        }
+
+        function showInfoMsg(msg) {
+            toastr.clear();
+            toastr.options = {
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": true
+            };
+            toastr.info(msg);
+        }
 
     }]);
 

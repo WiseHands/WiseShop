@@ -18,6 +18,7 @@
 
                 var network = [];
 
+
                 $http({
                     method: 'GET',
                     url: '/network'

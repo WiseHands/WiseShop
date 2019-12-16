@@ -55,15 +55,27 @@
                 <h5 ng-show="order.errorReasonSentToCustomer">{{'singleOrder.ErrorReasonSentToCustomer' | translate}}: <p><i>{{order.errorReasonSentToCustomer}}</i></p></h5>
             </div>
             <div class="col-xs-12 col-sm-6 noSidePadding">
-                <h5>{{'singleOrder.Order' | translate}}: </h5>
-                <div class="row vcentering" ng-repeat="item in order.items">
-                    <div class="col-xs-8 col-sm-8">
-                        <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+
+                    <h5>{{'singleOrder.AmountTools' | translate}} {{order.amountTools}}</h5>
+
+
+                    <h5>{{'singleOrder.Order' | translate}}: </h5>
+
+
+                    <div class="row vcentering" ng-repeat="item in order.items">
+                        <div class="col-xs-8 col-sm-8">
+                            <a ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">
+                                <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                            </a>
+                            <div ng-if="!item.productUuid">
+                                <p ><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4">
+                            <p><i>{{item.quantity}} {{'singleOrder.Pieces' | translate}}.</i></p>
+                        </div>
                     </div>
-                    <div class="col-xs-4 col-sm-4">
-                        <p><i>{{item.quantity}} {{'singleOrder.Pieces' | translate}}.</i></p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
