@@ -18,16 +18,6 @@
 
                 var network = [];
 
-                $http({
-                    method: 'GET',
-                    url: '/analytics/popularproducts'
-                }).then(
-                    function successCallback(response){
-                        console.log("response" + response);
-                }, function errorCallback(data) {
-                        console.log("response" + data);
-                    }
-                );
 
                 $http({
                     method: 'GET',

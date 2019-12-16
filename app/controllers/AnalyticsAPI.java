@@ -2,6 +2,7 @@ package controllers;
 
 import models.*;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import play.db.jpa.JPA;
 
@@ -20,23 +21,29 @@ public class AnalyticsAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
+        checkAuthentification(shop);
+
+        Integer days = 10;
 
         String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
                 "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
-                "' and DATE_SUB(CURDATE(),INTERVAL 10 DAY) <= from_unixtime( time/1000 ))\n" +
+                "' and DATE_SUB(CURDATE(),INTERVAL " + days + " DAY) <= from_unixtime( time/1000 ))\n" +
                 "GROUP BY productUuid ORDER BY SUM(quantity) DESC";
 
         System.out.println("QUERY\n" + stringQuery);
 
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
-          for (int i = 0; i < result.size(); i++){
-              Object[] item = result.get(i);
-
-              System.out.println("Item" + i + ":     " + item[0] + " " + item[1] + " " + item[2] );
-            }
-        System.out.println("result from sql query: TEST" + "QUERY" +  stringQuery + "\n" +"SIZE" + result.size());
-
-
+        List<JSONObject> list = new ArrayList<JSONObject>();
+        for (int i = 0; i < result.size(); i++){
+          Object[] item = result.get(i);
+          JSONObject jsonObject = new JSONObject();
+          jsonObject.put("uuid", item[0]);
+          jsonObject.put("name", item[1]);
+          jsonObject.put("quantity", item[2]);
+            list.add(jsonObject);
+            System.out.println("Item" + i + ":     " + item[0] + " " + item[1] + " " + item[2] );
+        }
+        renderJSON(list);
     }
 
     public static void fromDateToDate(String client, String fromDate, String toDate) throws Exception {

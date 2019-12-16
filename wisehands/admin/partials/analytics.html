@@ -92,7 +92,47 @@
     </div>
     <div ng-hide="loading" class="col-xs-10 col-xs-offset-1">
         <!--Google map-->
-        <div id="map-container" class="z-depth-1-half map-container" style="height: 600px"></div>
+        <!--<div id="map-container" class="z-depth-1-half map-container" style="height: 600px"></div>-->
+    </div>
+    <div class="input-field col-md-12 z-index-2 text-center">
+        <h5>
+            {{'analytics.popularProductTitle' | translate}}
+        </h5>
+        <div class="table">
+            <div class="tr th">
+                <div class="td"
+                     style="flex-grow: 2;">
+                    {{'analytics.tableProductName' | translate}}
+                </div>
+                <div class="td">
+                    {{'analytics.tableProductQuantity' | translate}}
+                </div>
+            </div>
+            <div class="tr" ng-repeat="item in popularProducts">
+                <div class="td"
+                     style="flex-grow: 2;">
+                    <span><a href="#/product/details/{{item.uuid}}">{{item.name}}</a></span>
+                </div>
+                <div class="td"
+                     style="justify-content: center;">
+                    <span>{{item.quantity}}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!--<div class="Rtable Rtable&#45;&#45;2cols Rtable&#45;&#45;collapse">-->
+
+            <!--<div style="order:0;" class="Rtable-cell Rtable-cell&#45;&#45;head"><h3>{{'analytics.tableProductName' | translate}}</h3></div>-->
+            <!--<div style="order:1;" class="Rtable-cell">Has a sword named Ice</div>-->
+
+            <!--<div style="order:0;" class="Rtable-cell Rtable-cell&#45;&#45;head"><h3>{{'analytics.tableProductQuantity' | translate}}</h3></div>-->
+            <!--<div style="order:1;" class="Rtable-cell">Has a sword named Longclaw</div>-->
+
+
+        <!--</div>-->
+
+
     </div>
     <!--<div class="col-sm-offset-1 col-sm-10">-->
         <!--&lt;!&ndash;Google map&ndash;&gt;-->
