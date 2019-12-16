@@ -37,7 +37,6 @@ angular.module('WiseHands')
 
         };
 
-
         sideNavInit.sideNav();
 
         function showWarningMsg(msg) {
@@ -57,7 +56,6 @@ angular.module('WiseHands')
             };
             toastr.info(msg);
         }
-
 
     }]);
 

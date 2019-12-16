@@ -11,6 +11,34 @@ import java.util.*;
 
 public class AnalyticsAPI extends AuthController {
 
+    public static void showPopularProducts(String client){
+
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+
+        String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
+                "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
+                "' and DATE_SUB(CURDATE(),INTERVAL 10 DAY) <= from_unixtime( time/1000 ))\n" +
+                "GROUP BY productUuid ORDER BY SUM(quantity) DESC";
+
+        System.out.println("QUERY\n" + stringQuery);
+
+        List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
+          for (int i = 0; i < result.size(); i++){
+              Object[] item = result.get(i);
+
+              System.out.println("Item" + i + ":     " + item[0] + " " + item[1] + " " + item[2] );
+            }
+        System.out.println("result from sql query: TEST" + "QUERY" +  stringQuery + "\n" +"SIZE" + result.size());
+
+
+    }
+
     public static void fromDateToDate(String client, String fromDate, String toDate) throws Exception {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
