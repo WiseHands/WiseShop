@@ -1,7 +1,7 @@
 .table {
     display: flex;
     flex-flow: column nowrap;
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin: 0.5rem;
     line-height: 1.5;
     border-bottom: 1px solid #d0d0d0;
