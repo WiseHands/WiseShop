@@ -22,14 +22,16 @@ public class ShoppingCartAPI extends AuthController {
     static void corsHeaders() {
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+        response.setHeader("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
     }
 
     private String _getCartUuid() {
-        String uuid = null;
+        String cartId = null;
 
 
-        if (request.params.get("uuid") != null) {
-            uuid = request.params.get("uuid");
+        if (request.params.get("cartId") != null) {
+            cartId = request.params.get("cartId");
         } else {
             String userTokenCookie = request.cookies.get("userToken").value;
             try {
@@ -39,18 +41,18 @@ public class ShoppingCartAPI extends AuthController {
                         .withIssuer("wisehands")
                         .build(); //Reusable verifier instance
                 DecodedJWT jwt = verifier.verify(userTokenCookie);
-                uuid = jwt.getSubject();
+                cartId = jwt.getSubject();
 
             } catch (JWTVerificationException exception) {
                 forbidden("Invalid Authorization header: " + userTokenCookie);
             }
         }
-        return uuid;
+        return cartId;
     }
 
     public void getCart() {
-        String uuid = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
+        String cartId = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
         renderJSON(json(shoppingCart));
     }
 
@@ -65,14 +67,14 @@ public class ShoppingCartAPI extends AuthController {
             quantity = Integer.parseInt(quantityParam);
         }
 
-        String uuid = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
+        String cartId = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
 
 
         LineItemDTO lineItem = new LineItemDTO();
         if (shoppingCart == null) {
             shoppingCart = new ShoppingCartDTO();
-            shoppingCart.uuid = uuid;
+            shoppingCart.uuid = cartId;
         }
 
 
@@ -115,8 +117,8 @@ public class ShoppingCartAPI extends AuthController {
     public void deleteProduct() {
         String lineItemUuid = request.params.get("uuid");
 
-        String uuid = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
+        String cartId = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
 
         LineItemDTO lineItemToRemove = null;
         for (LineItemDTO lineItem : shoppingCart.lineItemList) {
@@ -171,8 +173,8 @@ public class ShoppingCartAPI extends AuthController {
         String delivery = request.params.get("deliverytype");
         System.out.println("deliverytype FROM REQUEST: " + delivery);
 
-        String uuid = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
+        String cartId = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
 
         switch (delivery) {
             case "COURIER":
@@ -197,8 +199,8 @@ public class ShoppingCartAPI extends AuthController {
         String payment = request.params.get("paymenttype");
         System.out.println("payment from request: " + payment);
 
-        String uuid = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
+        String cartId = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
 
         switch (payment) {
             case "PAYONLINE":
@@ -224,8 +226,8 @@ public class ShoppingCartAPI extends AuthController {
 
         System.out.println("infoAboutClient from request: " + clientName + " " + clientPhone + " " + clientComments);
 
-        String uuid = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
+        String cartId = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
         if (clientName != null) {
             shoppingCart.clientName = clientName;
         }
