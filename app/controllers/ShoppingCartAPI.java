@@ -26,6 +26,10 @@ public class ShoppingCartAPI extends AuthController {
         response.setHeader("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
     }
 
+    public static void allowCors(){
+        ok();
+    }
+
     private String _getCartUuid() {
         String cartId = null;
 
