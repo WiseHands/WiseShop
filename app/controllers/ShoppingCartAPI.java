@@ -7,27 +7,51 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import models.*;
 import play.Play;
+import play.mvc.Before;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.TimeZone;
 
 public class ShoppingCartAPI extends AuthController {
 
-    public void getCart() {
-        String userTokenCookie = request.cookies.get("userToken").value;
-        try {
-            String encodingSecret = Play.configuration.getProperty("jwt.secret");
-            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("wisehands")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(userTokenCookie);
-            String userId = jwt.getSubject();
-            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
-            renderJSON(json(shoppingCart));
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-        } catch (JWTVerificationException exception){
-            forbidden("Invalid Authorization header: " + userTokenCookie);
+    @Before
+    static void corsHeaders() {
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        response.setHeader("Access-Control-Allow-Origin", "*");
+    }
+
+    private String _getCartUuid() {
+        String uuid = null;
+
+
+        if (request.params.get("uuid") != null) {
+            uuid = request.params.get("uuid");
+        } else {
+            String userTokenCookie = request.cookies.get("userToken").value;
+            try {
+                String encodingSecret = Play.configuration.getProperty("jwt.secret");
+                Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+                JWTVerifier verifier = JWT.require(algorithm)
+                        .withIssuer("wisehands")
+                        .build(); //Reusable verifier instance
+                DecodedJWT jwt = verifier.verify(userTokenCookie);
+                String userId = jwt.getSubject();
+
+            } catch (JWTVerificationException exception) {
+                forbidden("Invalid Authorization header: " + userTokenCookie);
+            }
         }
+        return uuid;
+    }
 
+    public void getCart() {
+        String uuid = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
+        renderJSON(json(shoppingCart));
     }
 
     public void addProduct() {
@@ -37,113 +61,83 @@ public class ShoppingCartAPI extends AuthController {
 
         int quantity = 1;
         String quantityParam = request.params.get("quantity");
-        if(quantityParam != null) {
+        if (quantityParam != null) {
             quantity = Integer.parseInt(quantityParam);
         }
 
-        String userTokenCookie = request.cookies.get("userToken").value;
-        try {
-            String encodingSecret = Play.configuration.getProperty("jwt.secret");
-            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("wisehands")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(userTokenCookie);
-            String userId = jwt.getSubject();
-            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+        String uuid = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
 
 
-            LineItemDTO lineItem = new LineItemDTO();
-            if (shoppingCart == null) {
-                shoppingCart = new ShoppingCartDTO();
-                shoppingCart.uuid = userId;
+        LineItemDTO lineItem = new LineItemDTO();
+        if (shoppingCart == null) {
+            shoppingCart = new ShoppingCartDTO();
+            shoppingCart.uuid = uuid;
+        }
+
+
+        if (shoppingCart.lineItemList == null) {
+            shoppingCart.lineItemList = new ArrayList<>();
+        }
+
+
+        if (shoppingCart.lineItemList.size() == 0) {
+            lineItem.product = product;
+            lineItem.quantity = quantity;
+            lineItem = lineItem.save();
+
+            shoppingCart.lineItemList.add(lineItem);
+            shoppingCart.save();
+        } else {
+            boolean isProductUnique = false;
+            for (LineItemDTO lineItems : shoppingCart.lineItemList) {
+                if (productUuid.equals(lineItems.product.uuid)) {
+                    isProductUnique = true;
+                    lineItems.quantity = lineItems.quantity + quantity;
+                    lineItems.save();
+                }
             }
 
-
-            if(shoppingCart.lineItemList == null) {
-                shoppingCart.lineItemList = new ArrayList<>();
-            }
-
-
-            if(shoppingCart.lineItemList.size() == 0){
+            if (!isProductUnique) {
                 lineItem.product = product;
                 lineItem.quantity = quantity;
                 lineItem = lineItem.save();
 
                 shoppingCart.lineItemList.add(lineItem);
                 shoppingCart.save();
-            } else {
-
-
-                boolean isProductUnique = false;
-                for (LineItemDTO lineItems : shoppingCart.lineItemList) {
-                    if (productUuid.equals(lineItems.product.uuid)) {
-                        isProductUnique = true;
-                        lineItems.quantity = lineItems.quantity + quantity;
-                        lineItems.save();
-                    }
-                }
-
-
-                if (!isProductUnique) {
-                    lineItem.product = product;
-                    lineItem.quantity = quantity;
-                    lineItem = lineItem.save();
-
-                    shoppingCart.lineItemList.add(lineItem);
-                    shoppingCart.save();
-                }
-
             }
-
-
-
-
-            getCart();
-        } catch (JWTVerificationException exception){
-            forbidden("Invalid Authorization header: " + userTokenCookie);
         }
+
+
+        getCart();
     }
 
     public void deleteProduct() {
         String lineItemUuid = request.params.get("uuid");
 
-        String userTokenCookie = request.cookies.get("userToken").value;
-        try {
-            String encodingSecret = Play.configuration.getProperty("jwt.secret");
-            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("wisehands")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(userTokenCookie);
-            String userId = jwt.getSubject();
-            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+        String uuid = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
 
-            LineItemDTO lineItemToRemove = null;
-            for (LineItemDTO lineItem : shoppingCart.lineItemList) {
-//                System.out.println("lineItem.uuid " + lineItem.uuid);
-//                System.out.println("lineItemUuid " + lineItemUuid);
-                if(lineItem.uuid.equals(lineItemUuid)) {
-                    lineItemToRemove = lineItem;
-                }
+        LineItemDTO lineItemToRemove = null;
+        for (LineItemDTO lineItem : shoppingCart.lineItemList) {
+            if (lineItem.uuid.equals(lineItemUuid)) {
+                lineItemToRemove = lineItem;
             }
-            shoppingCart.lineItemList.remove(lineItemToRemove);
-            shoppingCart.save();
+        }
+        shoppingCart.lineItemList.remove(lineItemToRemove);
+        shoppingCart.save();
 
-            LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
-            lineItem.delete();
+        LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
+        lineItem.delete();
 
-            if(shoppingCart.lineItemList.size() == 0){
-                shoppingCart.delete();
-            }
-        } catch (JWTVerificationException exception){
-            forbidden("Invalid Authorization header: " + userTokenCookie);
+        if (shoppingCart.lineItemList.size() == 0) {
+            shoppingCart.delete();
         }
 
         getCart();
     }
 
-    public void increaseQuantityProduct(){
+    public void increaseQuantityProduct() {
 
         String lineItemUuid = request.params.get("uuid");
 
@@ -155,16 +149,16 @@ public class ShoppingCartAPI extends AuthController {
 
     }
 
-    public void decreaseQuantityProduct(){
+    public void decreaseQuantityProduct() {
 
         String lineItemUuid = request.params.get("uuid");
 
         LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
         lineItem.quantity -= 1;
-        if (lineItem.quantity == 0){
+        if (lineItem.quantity == 0) {
             deleteProduct();
         }
-        if (lineItem.quantity >= 0){
+        if (lineItem.quantity >= 0) {
             lineItem.save();
             getCart();
         }
@@ -177,76 +171,52 @@ public class ShoppingCartAPI extends AuthController {
         String delivery = request.params.get("deliverytype");
         System.out.println("deliverytype FROM REQUEST: " + delivery);
 
-        String userTokenCookie = request.cookies.get("userToken").value;
-        try {
-            String encodingSecret = Play.configuration.getProperty("jwt.secret");
-            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("wisehands")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(userTokenCookie);
-            String userId = jwt.getSubject();
-            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+        String uuid = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
 
-            switch (delivery){
-                case "COURIER":
-                    System.out.println("COURIER: " + true);
-                    shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.COURIER;
-                    break;
-                case "NOVAPOSHTA":
-                    System.out.println("NOVAPOSHTA: " + true);
-                    shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.POSTSERVICE;
-                    break;
-                case "SELFTAKE":
-                    System.out.println("SELFTAKE: " + true);
-                    shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.SELFTAKE;
-                    break;
-            }
-            shoppingCart.save();
-        } catch (JWTVerificationException exception){
-            forbidden("Invalid Authorization header: " + userTokenCookie);
+        switch (delivery) {
+            case "COURIER":
+                System.out.println("COURIER: " + true);
+                shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.COURIER;
+                break;
+            case "NOVAPOSHTA":
+                System.out.println("NOVAPOSHTA: " + true);
+                shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.POSTSERVICE;
+                break;
+            case "SELFTAKE":
+                System.out.println("SELFTAKE: " + true);
+                shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.SELFTAKE;
+                break;
         }
+        shoppingCart.save();
         getCart();
-
     }
 
-    public void selectPaymentType(){
+    public void selectPaymentType() {
 
         String payment = request.params.get("paymenttype");
         System.out.println("payment from request: " + payment);
 
-        String userTokenCookie = request.cookies.get("userToken").value;
-        try {
-            String encodingSecret = Play.configuration.getProperty("jwt.secret");
-            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("wisehands")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(userTokenCookie);
-            String userId = jwt.getSubject();
-            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
+        String uuid = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
 
-            switch (payment){
-                case "PAYONLINE":
-                    System.out.println("PAYONLINE: " + true);
-                    shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CREDITCARD;
-                    break;
-                case "CASHONSPOT":
-                    System.out.println("CASHONSPOT: " + true);
-                    shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CASHONDELIVERY;
-                    break;
+        switch (payment) {
+            case "PAYONLINE":
+                System.out.println("PAYONLINE: " + true);
+                shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CREDITCARD;
+                break;
+            case "CASHONSPOT":
+                System.out.println("CASHONSPOT: " + true);
+                shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CASHONDELIVERY;
+                break;
 
-            }
-            shoppingCart.save();
-
-        } catch (JWTVerificationException exception){
-            forbidden("Invalid Authorization header: " + userTokenCookie);
         }
-        getCart();
+        shoppingCart.save();
 
+        getCart();
     }
 
-    public void setClientInfo(){
+    public void setClientInfo() {
 
         String clientName = request.params.get("clientname");
         String clientPhone = request.params.get("clientphone");
@@ -254,32 +224,20 @@ public class ShoppingCartAPI extends AuthController {
 
         System.out.println("infoAboutClient from request: " + clientName + " " + clientPhone + " " + clientComments);
 
-        String userTokenCookie = request.cookies.get("userToken").value;
-        try {
-            String encodingSecret = Play.configuration.getProperty("jwt.secret");
-            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("wisehands")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(userTokenCookie);
-            String userId = jwt.getSubject();
-            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(userId);
-            if(clientName != null) {
-                shoppingCart.clientName = clientName;
-            }
-            if (clientPhone != null){
-                shoppingCart.clientPhone = clientPhone;
-            }
-            if (clientComments != null) {
-                shoppingCart.clientComments = clientComments;
-
-            }
-
-            shoppingCart.save();
-
-        } catch (JWTVerificationException exception){
-            forbidden("Invalid Authorization header: " + userTokenCookie);
+        String uuid = _getCartUuid();
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(uuid);
+        if (clientName != null) {
+            shoppingCart.clientName = clientName;
         }
+        if (clientPhone != null) {
+            shoppingCart.clientPhone = clientPhone;
+        }
+        if (clientComments != null) {
+            shoppingCart.clientComments = clientComments;
+
+        }
+
+        shoppingCart.save();
         getCart();
 
     }
