@@ -57,6 +57,9 @@ public class ShoppingCartAPI extends AuthController {
     public void getCart() {
         String cartId = _getCartUuid();
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+        if(shoppingCart == null) {
+            notFound();
+        }
         renderJSON(json(shoppingCart));
     }
 
