@@ -98,7 +98,7 @@
         <h5>
             {{'analytics.popularProductTitle' | translate}}
         </h5>
-        <div class="table">
+        <div class="table" ng-show="popularProducts.length > 0">
             <div class="tr th">
                 <div class="td"
                      style="flex-grow: 2;">
@@ -119,6 +119,9 @@
                 </div>
 
             </div>
+        </div>
+        <div ng-show="popularProducts.length === 0">
+            <p>Наразі не має замовлень</p>
         </div>
     </div>
     <!--<div class="col-sm-offset-1 col-sm-10">-->

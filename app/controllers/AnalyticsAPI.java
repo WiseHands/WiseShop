@@ -27,10 +27,8 @@ public class AnalyticsAPI extends AuthController {
 
         String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
                 "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
-                "' and DATE_SUB(CURDATE(),INTERVAL " + days + " DAY) <= from_unixtime( time/1000 ))\n" +
+                "' and DATE_SUB(CURDATE(),INTERVAL " + days + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
                 "GROUP BY productUuid ORDER BY SUM(quantity) DESC";
-
-        System.out.println("QUERY\n" + stringQuery);
 
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
         List<JSONObject> list = new ArrayList<JSONObject>();
@@ -40,8 +38,8 @@ public class AnalyticsAPI extends AuthController {
           jsonObject.put("uuid", item[0]);
           jsonObject.put("name", item[1]);
           jsonObject.put("quantity", item[2]);
-            list.add(jsonObject);
-            System.out.println("Item" + i + ":     " + item[0] + " " + item[1] + " " + item[2] );
+          list.add(jsonObject);
+
         }
         renderJSON(list);
     }
