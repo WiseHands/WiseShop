@@ -3,6 +3,7 @@
 *.ser
 *.pyc
 public/bower_components
+public/
 
 
 # Files related to Play build or usage
@@ -50,3 +51,5 @@ modules/*
 !modules/testrunner
 
 # Application config
+conf/application.conf
+certificates/domain_status.json
