@@ -39,7 +39,7 @@ public class ShoppingCartAPI extends AuthController {
                         .withIssuer("wisehands")
                         .build(); //Reusable verifier instance
                 DecodedJWT jwt = verifier.verify(userTokenCookie);
-                String userId = jwt.getSubject();
+                uuid = jwt.getSubject();
 
             } catch (JWTVerificationException exception) {
                 forbidden("Invalid Authorization header: " + userTokenCookie);
