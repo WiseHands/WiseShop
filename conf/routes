@@ -27,14 +27,21 @@ GET     {client}/sudo/users                            	UserAPI.list
 GET     {client}/sudo/user/{uuid}                       UserAPI.one
 DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
 
-POST    {client}/api/cart                               ShoppingCartAPI.addProduct
-GET     {client}/api/cart                               ShoppingCartAPI.getCart
-DELETE  {client}/api/cart                               ShoppingCartAPI.deleteProduct
-POST    {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
-DELETE  {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
-PUT     {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
-PUT     {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
-PUT     {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
+POST        {client}/api/cart                               ShoppingCartAPI.addProduct
+OPTIONS     {client}/api/cart                               ShoppingCartAPI.addProduct
+GET         {client}/api/cart                               ShoppingCartAPI.getCart
+DELETE      {client}/api/cart                               ShoppingCartAPI.deleteProduct
+OPTIONS     {client}/api/cart                               ShoppingCartAPI.deleteProduct
+POST        {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
+OPTIONS     {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
+DELETE      {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
+OPTIONS     {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
+PUT         {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
+OPTIONS     {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
+PUT         {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
+OPTIONS     {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
+PUT         {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
+OPTIONS     {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
