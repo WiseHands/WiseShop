@@ -31,9 +31,11 @@
             <p>E-mail</p>
             <input id="email" type="email" ng-model="contacts.email" placeholder="your email here">
         </div>
-        <div class="input-field col-md-6">
+        <div class="input-field col-md-6 set-address-container">
             <p>{{'contacts.address' | translate}}</p>
-            <input id="address" type="text" ng-model="contacts.address" placeholder="your email here">
+            <input id="addressCity" type="text" ng-model="contacts.addressCity" placeholder="City">
+            <input id="addressStreet" type="text" ng-model="contacts.addressStreet" placeholder="Street">
+            <input id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse" placeholder="Number house">
         </div>
         <div class="input-field col-md-6">
             <p>{{'contacts.coords' | translate}}</p>

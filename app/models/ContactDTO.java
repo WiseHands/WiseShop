@@ -22,7 +22,13 @@ public class ContactDTO extends GenericModel {
     public String email;
 
     @Expose
-    public String address;
+    public String addressCity;
+
+    @Expose
+    public String addressStreet;
+
+    @Expose
+    public String addressNumberHouse;
 
     @Expose
     public String latLng;
@@ -41,9 +47,9 @@ public class ContactDTO extends GenericModel {
     @Column(length = 300000)
     public String description;
 
-    public ContactDTO(String phone, String email, String address, String latLng, String description) {
+    public ContactDTO(String phone, String email, String addressCity, String latLng, String description) {
         this.phone = phone;
-        this.address = address;
+        this.addressCity = addressCity;
         this.email = email;
         this.latLng = latLng;
         this.description = description;

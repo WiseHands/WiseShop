@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="WiseHandsMain">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="google-signin-client_id" content="${googleOauthClientId}">
+
+	<title>Wise Hands</title>
+	<link href="wisehands/login/css/main-style.css" rel="stylesheet" />
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+	<link rel="icon"
+		  type="image/png"
+		  href="wisehands/assets/images/favicon.png">
+</head>
+<body>
+
+<div id="particles-js"><div id="best" ng-view></div></div>
+
+
+<script src="wisehands/assets/js/angular.min.js"></script>
+<script src="wisehands/assets/js/angular-route.min.js"></script>
+<script src="wisehands/assets/js/jquery-2.2.3.min.js"></script>
+
+<script src="wisehands/assets/angular-cookies/angular-cookies.js"></script>
+<script src="wisehands/assets/angular-sanitize/angular-sanitize.js"></script>
+<script src="wisehands/assets/angular-translate/angular-translate.js"></script>
+<script src="wisehands/assets/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="wisehands/assets/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+<script src="wisehands/assets/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+<script src="wisehands/assets/angular-translate-handler-log/angular-translate-handler-log.js"></script>
+<script src="wisehands/assets/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+
+<script src="wisehands/login/js/routes/routesConfig.js"></script>
+
+<script src="wisehands/login/js/controllers/LoginFormController.js"></script>
+<script src="wisehands/login/js/controllers/RegisterFormController.js"></script>
+<script src="wisehands/login/js/controllers/AboutUsController.js"></script>
+<script src="wisehands/login/js/controllers/GoogleRegisterController.js"></script>
+
+
+
+<script src="wisehands/login/js/services/UserService.js"></script>
+<script src="wisehands/login/js/services/LocaleService.js"></script>
+
+<script src="wisehands/login/js/directives/LanguageSelectDirective.js"></script>
+
+<script src="wisehands/assets/js/particles.min.js"></script>
+
+<script>
+	function start() {
+      gapi.load('auth2', function() {
+        window.auth2 = gapi.auth2.init({
+          client_id: '${googleOauthClientId}'
+        });
+      });
+    }
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${googleAnalyticsId}');
+</script>
+
+
+<script>
+	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
+	});
+
+	window.initMap = function() {
+		console.log('init map');
+	}
+</script>
+<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initMap">
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
+
+</body>
+</html>

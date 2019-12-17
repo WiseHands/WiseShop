@@ -1,0 +1,15 @@
+<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+
+<script>
+        const store = Redux.createStore(shoppingCart, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+        function shoppingCart(state = {}, action) {
+            switch (action.type) {
+                case 'SHOPPINGCART':
+                    return Object.assign({lineItemList: []}, action.payload);
+                default:
+                    return state;
+            }
+
+        }
+</script>

@@ -29,6 +29,7 @@ public class DeliveryDTO extends GenericModel {
     public Double courierFreeDeliveryLimit;
 
     @Expose
+    @Column(length=10240)
     public String courierPolygonData;
 
     @Expose
@@ -44,7 +45,7 @@ public class DeliveryDTO extends GenericModel {
     public String newPostText;
 
     @Expose
-    @Size(max=1024)
+    @Column(length=1024)
     public String orderMessage;
 
     public DeliveryDTO(boolean isCourierAvailable, String courierText,

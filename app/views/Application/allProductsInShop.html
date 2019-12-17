@@ -1,49 +1,9 @@
 #{set shop:shop /}
 <style>
-    .flex-column-container{
-        display: flex;
-        flex-direction: column;
-    }
     .center-container{
         max-width: 900px;
         margin: 0 auto;
         overflow: hidden;
-
-    }
-    .load-button {
-        display: flex;
-        justify-content: center;
-
-    }
-    .load-button input[type=button]:hover{
-        background-color: #000;
-        color: #fff;
-        border: 2px solid #fff;
-    }
-
-    .load-button input[type=button] {
-        background-color: #fff;
-        color: #000;
-        border: 2px solid #000;
-    }
-
-    .button-show-all{
-        width: 270px;
-        background-color: #1c1c1c;
-        color: #FFF;
-        font-size: 1.3em;
-        padding: 10px 5px;
-        margin: 20px 0 0 0;
-        text-transform: uppercase;
-        border: none;
-        cursor: pointer;
-        /*background-color: #ebebeb;*/
-        /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);*/
-    }
-    .button-show-all:hover {
-        background-color: #1c1c1c;
-        color: #fff;
-        border: 2px solid #fff;
     }
 </style>
 <!DOCTYPE html>
@@ -94,19 +54,17 @@
     #{setup-redux /}
     #{get-cart /}
 </head>
-<body class="flex-column-container">
+<body>
     #{shop-header /}
     #{verbatim}
-        <div class="center-container">
+        <div  class="center-container">
             %{
-                for(_product in products) {
+                for(_product in shop.productList) {
             }%
                 <div class="col-lg-4 col-md-6 col-sm-6 mt-2">
                     <div class="card inline">
-                        <div class="noselect view overlay hm-white-slight z-depth-1" >
-                            <a href="/product/${_product.uuid}">
-                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
-                            </a>
+                        <div class="noselect view overlay hm-white-slight z-depth-1" ng-click="navigateToProductDetails(${_product.uuid})">
+                            <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
                             <div class="mask"></div>
                         </div>
                         <div class="card-block text-xs-center">
@@ -127,16 +85,11 @@
                 }
             }%
         </div>
-        <div class="load-button">
-            <a href="/products/all">
-                <input class="button-show-all" type="button" value="show all">
-            </a>
-        </div>
     #{/verbatim}
 </body>
-        #{if shop.visualSettingsDTO.isFooterOn}
-            #{footer-shop /}
-        #{/if}
+    #{if shop.visualSettingsDTO.isFooterOn}
+        #{footer-shop /}
+    #{/if}
 </html>
 
 

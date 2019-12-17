@@ -10,6 +10,8 @@ GET     {client}/page/{uuid}                            Application.page
 GET     {client}/category/{uuid}                        Application.category
 GET     {client}/product/{uuid}                         Application.product
 GET     {client}/shoppingcart                           Application.shoppingCart
+GET     {client}/products/all                           Application.allProductsInShop
+GET     {client}/selectaddress                          Application.selectAddress
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
@@ -24,6 +26,15 @@ GET     {client}/user/{uuid}                            UserAPI.details
 GET     {client}/sudo/users                            	UserAPI.list
 GET     {client}/sudo/user/{uuid}                       UserAPI.one
 DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
+
+POST    {client}/api/cart                               ShoppingCartAPI.addProduct
+GET     {client}/api/cart                               ShoppingCartAPI.getCart
+DELETE  {client}/api/cart                               ShoppingCartAPI.deleteProduct
+POST    {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
+DELETE  {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
+PUT     {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
+PUT     {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
+PUT     {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
@@ -149,9 +160,6 @@ POST	{client}/api/category        					    CategoryAPI.create
 PUT 	{client}/api/category/{uuid}/name/{name}	        CategoryAPI.update
 DELETE 	{client}/api/category/{uuid}					    CategoryAPI.delete
 PUT 	{client}/api/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
-POST    {client}/api/cart                                   ShoppingCartAPI.addProduct
-DELETE  {client}/api/cart                                   ShoppingCartAPI.deleteProduct
-GET     {client}/api/cart                                   ShoppingCartAPI.getCart
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
@@ -167,6 +175,7 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
+*       {client}/main                                   Application.main
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
