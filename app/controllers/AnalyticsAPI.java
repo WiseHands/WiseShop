@@ -22,10 +22,10 @@ public class AnalyticsAPI extends AuthController {
 
         checkAuthentification(shop);
 
-        String stringQueryForByCash = "SELECT uuid, paymentType FROM orderdto WHERE shop_uuid='" + shop.uuid +
+        String stringQueryForByCash = "SELECT uuid, paymentType FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
                 "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
                 " AND (paymentType = 'CASHONSPOT' and state <> 'DELETED');";
-        String stringQueryForByOnline = "SELECT uuid, paymentType FROM orderdto WHERE shop_uuid='" + shop.uuid +
+        String stringQueryForByOnline = "SELECT uuid, paymentType FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
                 "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
                 " AND (paymentType = 'PAYONLINE' and state <> 'DELETED');";
 
@@ -176,13 +176,13 @@ public class AnalyticsAPI extends AuthController {
 
 
         //TODO: make 2 queries
-        String stringQueryForByCash = "SELECT count(*) FROM orderdto WHERE shop_uuid='" + shop.uuid +
+        String stringQueryForByCash = "SELECT count(*) FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
                 "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
                 " AND (paymentType = 'CASHONSPOT' and state <> 'DELETED' and state <> 'PAYMENT_ERROR' and state <> 'CANCELLED');";
         BigInteger paidByCard = (BigInteger) JPA.em().createNativeQuery(stringQueryForByCash).getSingleResult();
         System.out.println(paidByCard);
 
-        String stringQueryForByOnline = "SELECT count(*) FROM orderdto WHERE shop_uuid='" + shop.uuid +
+        String stringQueryForByOnline = "SELECT count(*) FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
                 "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
                 " AND (paymentType = 'PAYONLINE' and state <> 'DELETED' and state <> 'PAYMENT_ERROR' and state <> 'CANCELLED');";
         BigInteger paidByCash = (BigInteger) JPA.em().createNativeQuery(stringQueryForByOnline).getSingleResult();
