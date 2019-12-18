@@ -113,6 +113,8 @@ DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
 GET     {client}/shops                                	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
+OPTIONS {client}/shop/details/public                    ShoppingCartAPI.allowCors
+
 POST    {client}/shop                             	ShopAPI.create
 PUT     {client}/shop                                   ShopAPI.update
 PUT     {client}/shop/{locale}                          ShopAPI.changeLocal
@@ -123,6 +125,8 @@ POST    {client}/shop/user                              ShopAPI.addUserToShop
 DELETE  {client}/shop/user                              ShopAPI.removeUserFromShop
 
 GET     {client}/delivery                               DeliveryAPI.details
+OPTIONS {client}/delivery                               ShoppingCartAPI.allowCors
+
 POST    {client}/courier/polygon                        DeliveryAPI.updateCourierPolygonData
 GET     {client}/courier/polygon                        DeliveryAPI.getCourierPolygonData
 DELETE  {client}/courier/polygon                        DeliveryAPI.deleteCourierPolygonData
