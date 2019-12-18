@@ -64,7 +64,7 @@ public class AnalyticsAPI extends AuthController {
 
         String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
                 "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
-                "' and DATE_SUB(CURDATE(),INTERVAL " + days + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
+                "' and productUuid IS NOT NULL and DATE_SUB(CURDATE(),INTERVAL " + days + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
                 "GROUP BY productUuid ORDER BY SUM(quantity) DESC";
 
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
