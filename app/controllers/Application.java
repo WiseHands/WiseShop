@@ -44,6 +44,10 @@ public class Application extends Controller {
         }
 
 
+    public static void allowCors(){
+        ok();
+    }
+
     public static void login(String client) {
         if(client.equals("wisehands.me") || isDevEnv) {
             String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
