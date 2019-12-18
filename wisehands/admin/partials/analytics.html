@@ -108,7 +108,7 @@
                     {{'analytics.tableProductQuantity' | translate}}
                 </div>
             </div>
-            <div class="tr" ng-repeat="item in popularProducts">
+            <div class="tr" ng-repeat="item in popularProducts|limitTo:10">
                 <div class="td"
                      style="flex-grow: 2;">
                     <span><a href="#/product/details/{{item.uuid}}">{{item.name}}</a></span>

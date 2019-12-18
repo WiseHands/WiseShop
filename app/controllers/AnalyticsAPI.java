@@ -23,7 +23,7 @@ public class AnalyticsAPI extends AuthController {
 
         checkAuthentification(shop);
 
-        Integer days = 10;
+        Integer days = 30;
 
         String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
                 "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
