@@ -188,8 +188,8 @@ public class ShoppingCartAPI extends AuthController {
                 System.out.println("COURIER: " + true);
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.COURIER;
                 break;
-            case "NOVAPOSHTA":
-                System.out.println("NOVAPOSHTA: " + true);
+            case "POSTSERVICE":
+                System.out.println("POSTSERVICE: " + true);
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.POSTSERVICE;
                 break;
             case "SELFTAKE":
@@ -210,12 +210,12 @@ public class ShoppingCartAPI extends AuthController {
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
 
         switch (payment) {
-            case "PAYONLINE":
-                System.out.println("PAYONLINE: " + true);
+            case "CREDITCARD":
+                System.out.println("CREDITCARD: " + true);
                 shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CREDITCARD;
                 break;
-            case "CASHONSPOT":
-                System.out.println("CASHONSPOT: " + true);
+            case "CASHONDELIVERY":
+                System.out.println("CASHONDELIVERY: " + true);
                 shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CASHONDELIVERY;
                 break;
 
