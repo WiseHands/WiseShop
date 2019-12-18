@@ -46,4 +46,20 @@ public class ShoppingCartDTO extends GenericModel {
     @Expose
     public String clientComments;
 
+
+    @Expose
+    public String clientAddressStreetName;
+
+    @Expose
+    public String clientAddressBuildingNumber;
+
+    @Expose
+    public String clientAddressAppartmentNumber;
+
+
+    @Expose
+    public String clientCity;
+
+    @Expose
+    public String clientPostDepartmentNumber;
 }
