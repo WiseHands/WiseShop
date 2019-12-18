@@ -19,6 +19,11 @@
     justify-content: center;
 }
 
+.analytics-text {
+    font-size: 1.1em;
+    font-weight: 300;
+}
+
 .tr {
     width: 100%;
     display: flex;
@@ -45,6 +50,7 @@
     min-width: 0px;
     white-space: nowrap;
     border-bottom: 1px solid #d0d0d0;
+    font-weight: 300;
 }
 /*addition setting for margin padding ...*/
 .mt-30{

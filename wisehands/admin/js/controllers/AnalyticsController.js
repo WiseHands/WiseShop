@@ -16,6 +16,7 @@ angular.module('WiseHands')
                 }
             );
 
+
             $scope.getMainAnalyticsData = function (days) {
                 $scope.loading = true;
                 $scope.days = days;
@@ -25,7 +26,7 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         $scope.analytics = response.data;
-                        console.log('$scope.analytics ', $scope.analytics);
+                        console.log('$scope.analytics:____ ', $scope.analytics);
                         if(!$scope.analytics.totalToday){
                             $scope.analytics.totalToday = 0;
                         }

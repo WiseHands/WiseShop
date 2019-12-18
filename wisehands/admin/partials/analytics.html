@@ -96,15 +96,25 @@
     </div>
     <div class="input-field col-md-12 z-index-2 text-center">
         <h5>
+            Спосіб оплати
+        </h5>
+
+        <div class="analytics-text">
+            З {{analytics.paymentCountByType.paidByCard + analytics.paymentCountByType.paidByCash}} замовлень за останні 30 днів, {{analytics.paymentCountByType.paidByCard}} було оплачено онлайн, а {{analytics.paymentCountByType.paidByCash}} - готівкою
+            <hr>
+        </div>
+
+        <h5>
             {{'analytics.popularProductTitle' | translate}}
         </h5>
+
         <div class="table" ng-show="popularProducts.length > 0">
             <div class="tr th">
-                <div class="td"
+                <div class="td column-name"
                      style="flex-grow: 2;">
                     {{'analytics.tableProductName' | translate}}
                 </div>
-                <div class="td">
+                <div class="td column-name">
                     {{'analytics.tableProductQuantity' | translate}}
                 </div>
             </div>
@@ -121,7 +131,7 @@
             </div>
         </div>
         <div ng-show="popularProducts.length === 0">
-            <p>Наразі не має замовлень</p>
+            <p>Наразі немає замовлень</p>
         </div>
     </div>
     <!--<div class="col-sm-offset-1 col-sm-10">-->
