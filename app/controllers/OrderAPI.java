@@ -87,6 +87,7 @@ public class OrderAPI extends AuthController {
             OrderItemDTO orderItem = new OrderItemDTO();
             ProductDTO product = ProductDTO.find("byUuid", element.get("uuid")).first();
             orderItem.orderUuid = order.uuid;
+            System.out.println("DEBUG productUuid for OrderItemDTO " + product.uuid + " NAME: " + product.name);
             orderItem.productUuid = product.uuid;
             orderItem.name = product.name;
             orderItem.description = product.description;
