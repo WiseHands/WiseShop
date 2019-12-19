@@ -54,7 +54,14 @@
         </div>
 
 
-        <div class="col-sm-3 col-xs-12 text-center">
+
+        <div class="col-sm-12 col-xs-12 text-center">
+            <h5 class="text-center">
+                За вибраний період
+            </h5>
+        </div>
+
+        <div class="col-sm-6 col-xs-12 text-center">
             <div class="card analCardsColor">
                 <div class="card-content white-text">
                     <p class="card-title">{{'analytics.purchases' | translate}}:</p>
@@ -63,16 +70,7 @@
             </div>
         </div>
 
-        <div class="col-sm-3 col-xs-12 text-center">
-            <div class="card analCardsColor">
-                <div class="card-content white-text">
-                    <p class="card-title">{{'analytics.total' | translate}}:</p>
-                    <p>{{analytics.count}}</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-3 col-xs-12 text-center">
+        <div class="col-sm-6 col-xs-12 text-center">
             <div class="card analCardsColor">
                 <div class="card-content white-text">
                     <p class="card-title">{{'analytics.today' | translate}}:</p>
@@ -81,7 +79,25 @@
             </div>
         </div>
 
-        <div class="col-sm-3 col-xs-12 text-center">
+
+        <div class="col-sm-12 col-xs-12 text-center">
+            <h5 class="text-center">
+                За весь час
+            </h5>
+        </div>
+
+        <div class="col-sm-6 col-xs-12 text-center">
+            <div class="card analCardsColor">
+                <div class="card-content white-text">
+                    <p class="card-title">{{'analytics.total' | translate}}:</p>
+                    <p>{{analytics.count}}</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-6 col-xs-12 text-center">
             <div class="card analCardsColor">
                 <div class="card-content white-text">
                     <p class="card-title">{{'analytics.total' | translate}}:</p>
@@ -96,19 +112,29 @@
     </div>
     <div class="input-field col-md-12 z-index-2 text-center">
         <h5>
+            Спосіб оплати
+        </h5>
+
+        <div class="analytics-text">
+            З {{analytics.paymentCountByType.paidByCard + analytics.paymentCountByType.paidByCash}} замовлень за останні 30 днів, {{analytics.paymentCountByType.paidByCard}} було оплачено онлайн, а {{analytics.paymentCountByType.paidByCash}} - готівкою
+            <hr>
+        </div>
+
+        <h5>
             {{'analytics.popularProductTitle' | translate}}
         </h5>
-        <div class="table">
+
+        <div class="table" ng-show="popularProducts.length > 0">
             <div class="tr th">
-                <div class="td"
+                <div class="td column-name"
                      style="flex-grow: 2;">
                     {{'analytics.tableProductName' | translate}}
                 </div>
-                <div class="td">
+                <div class="td column-name">
                     {{'analytics.tableProductQuantity' | translate}}
                 </div>
             </div>
-            <div class="tr" ng-repeat="item in popularProducts">
+            <div class="tr" ng-repeat="item in popularProducts|limitTo:10">
                 <div class="td"
                      style="flex-grow: 2;">
                     <span><a href="#/product/details/{{item.uuid}}">{{item.name}}</a></span>
@@ -119,6 +145,9 @@
                 </div>
 
             </div>
+        </div>
+        <div ng-show="popularProducts.length === 0">
+            <p>Наразі немає замовлень</p>
         </div>
     </div>
     <!--<div class="col-sm-offset-1 col-sm-10">-->
