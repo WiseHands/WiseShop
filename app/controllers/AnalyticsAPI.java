@@ -196,7 +196,7 @@ public class AnalyticsAPI extends AuthController {
 
 
 
-        String stringQuery = "SELECT DISTINCT COUNT(phone) AS count, name, phone, total FROM orderDTO where shop_uuid='" + shop.uuid + "' GROUP BY phone";
+        String stringQuery = "SELECT DISTINCT COUNT(phone) AS count, name, phone, total FROM OrderDTO where shop_uuid='" + shop.uuid + "' GROUP BY phone";
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
         List<JSONObject> queryResultList = new ArrayList<JSONObject>();
         for (int i = 0; i < result.size(); i++){
@@ -211,12 +211,8 @@ public class AnalyticsAPI extends AuthController {
 
         json.put("frequentBuyers", queryResultList);
 
-
-
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
-
-
 
         List<JSONObject> list = new ArrayList<JSONObject>();
         for (int i=0; i<7; i++) {
