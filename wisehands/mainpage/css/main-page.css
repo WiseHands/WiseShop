@@ -18,7 +18,7 @@ header {
     background-color: rgb(14, 41, 53);
 }
 .main-container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 0.8rem;
 }
@@ -47,16 +47,16 @@ header {
     width: 400px;
 }
 .header-links a {
-    cursor: pointer;
     text-decoration: none;
     color: #fff;
 }
-.header-links a:hover {
-    font-weight: 700;
+.header-links p:hover {
+    color: lightseagreen;
 }
 .header-links p {
     font-size: 1.3rem;
     padding: 0.6rem;
+    cursor: pointer;
 }
 .main-page {
     background-color: rgb(14, 41, 53);
@@ -109,4 +109,13 @@ header {
     background: url("../images/87-original.png");
     background-position: center;
     background-size: cover;
+}
+.services-text h2 {
+    font-family: 'Righteous', sans-serif;
+    font-size: 3rem;
+    color: #fff;
+}
+.fe-text {
+    text-align: right;
+    padding-top: 20vh;
 }

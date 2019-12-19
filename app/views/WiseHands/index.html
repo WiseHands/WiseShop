@@ -7,6 +7,7 @@
 
 	<title>Wise Hands</title>
 	<link href="wisehands/mainpage/css/main-page.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 	<link rel="icon"
 		  type="image/png"
@@ -22,7 +23,7 @@
 			<p>WiseHands</p>
 		</div>
 		<div class="header-links">
-			<a href="#"><p>Services</p></a>
+			<p id="headListServices">Services</p>
 			<a href="#"><p>Projects</p></a>
 			<a href="#"><p>Team</p></a>
 			<a href="#"><p>Sign in</p></a>
@@ -36,24 +37,24 @@
 		<input type="button" value="list of our services" id="listServices">
 	</div>
 </section>
-<section class="fe-services" id="fe-services">
-	<div class="services-block">
-		<div class="services-text">
-			<h2>Web Application Development</h2>
+<section class="fe-services " id="fe-services">
+	<div class="fe-services-block main-container">
+		<div class="services-text fe-text">
+			<h2>Front End Development</h2>
 		</div>
 	</div>
 </section>
 <section class="be-services">
 	<div class="services-block">
 		<div class="services-text">
-			<h2>Web Application Development</h2>
+			<h2>Back End Development</h2>
 		</div>
 	</div>
 </section>
 <section class="mob-services">
 	<div class="services-block">
 		<div class="services-text">
-			<h2>Web Application Development</h2>
+			<h2>Mobile Application Development</h2>
 		</div>
 	</div>
 </section>
@@ -85,6 +86,7 @@
 </script>
 <script>
 	document.getElementById("listServices").addEventListener("click", showList);
+	document.getElementById("headListServices").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("fe-services").scrollIntoView({
 			behavior: 'smooth'
