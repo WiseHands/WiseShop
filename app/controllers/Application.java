@@ -28,6 +28,8 @@ public class Application extends Controller {
     static void corsHeaders() {
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+        response.setHeader("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
     }
 
         public static void main(String client) {
@@ -41,6 +43,10 @@ public class Application extends Controller {
 
         }
 
+
+    public static void allowCors(){
+        ok();
+    }
 
     public static void login(String client) {
         if(client.equals("wisehands.me") || isDevEnv) {

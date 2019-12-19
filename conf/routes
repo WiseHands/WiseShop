@@ -27,14 +27,27 @@ GET     {client}/sudo/users                            	UserAPI.list
 GET     {client}/sudo/user/{uuid}                       UserAPI.one
 DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
 
-POST    {client}/api/cart                               ShoppingCartAPI.addProduct
-GET     {client}/api/cart                               ShoppingCartAPI.getCart
-DELETE  {client}/api/cart                               ShoppingCartAPI.deleteProduct
-POST    {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
-DELETE  {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
-PUT     {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
-PUT     {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
-PUT     {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
+POST        {client}/api/cart                               ShoppingCartAPI.addProduct
+OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
+GET         {client}/api/cart                               ShoppingCartAPI.getCart
+DELETE      {client}/api/cart                               ShoppingCartAPI.deleteProduct
+OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
+POST        {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
+OPTIONS     {client}/api/cart/increase-quantity             ShoppingCartAPI.allowCors
+DELETE      {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
+OPTIONS     {client}/api/cart/decrease-quantity             ShoppingCartAPI.allowCors
+PUT         {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
+OPTIONS     {client}/api/cart/delivery                      ShoppingCartAPI.allowCors
+PUT         {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
+OPTIONS     {client}/api/cart/payment                       ShoppingCartAPI.allowCors
+PUT         {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
+OPTIONS     {client}/api/cart/client/info                   ShoppingCartAPI.allowCors
+PUT         {client}/api/cart/address/info                  ShoppingCartAPI.setAddressInfo
+OPTIONS     {client}/api/cart/address/info                  ShoppingCartAPI.allowCors
+PUT         {client}/api/cart/post/info                     ShoppingCartAPI.setPostDepartmentInfo
+OPTIONS     {client}/api/cart/post/info                     ShoppingCartAPI.allowCors
+
+
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
@@ -103,6 +116,8 @@ DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
 GET     {client}/shops                                	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
+OPTIONS {client}/shop/details/public                    ShoppingCartAPI.allowCors
+
 POST    {client}/shop                             	ShopAPI.create
 PUT     {client}/shop                                   ShopAPI.update
 PUT     {client}/shop/{locale}                          ShopAPI.changeLocal
@@ -113,6 +128,8 @@ POST    {client}/shop/user                              ShopAPI.addUserToShop
 DELETE  {client}/shop/user                              ShopAPI.removeUserFromShop
 
 GET     {client}/delivery                               DeliveryAPI.details
+OPTIONS {client}/delivery                               ShoppingCartAPI.allowCors
+
 POST    {client}/courier/polygon                        DeliveryAPI.updateCourierPolygonData
 GET     {client}/courier/polygon                        DeliveryAPI.getCourierPolygonData
 DELETE  {client}/courier/polygon                        DeliveryAPI.deleteCourierPolygonData
