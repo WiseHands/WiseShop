@@ -134,7 +134,7 @@
                     {{'analytics.tableProductQuantity' | translate}}
                 </div>
             </div>
-            <div class="tr" ng-repeat="item in popularProducts|limitTo:10">
+            <div class="tr" ng-repeat="item in popularProducts|limitTo:10|orderBy">
                 <div class="td"
                      style="flex-grow: 2;">
                     <span><a href="#/product/details/{{item.uuid}}">{{item.name}}</a></span>
@@ -168,7 +168,7 @@
                     <!--{{'analytics.tableFrequentBuyersCount' | translate}}-->К-ть
                 </div>
             </div>
-            <div class="tr" ng-repeat="item in frequentBuyers|limitTo:10">
+            <div class="tr" ng-repeat="item in frequentBuyers|limitTo:10|orderBy:'-buyersCount'">
                 <div class="td"
                      style="flex-grow: 2;">
                     <span>{{item.name}}</a></span>
