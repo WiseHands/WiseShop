@@ -226,6 +226,31 @@ public class ShoppingCartAPI extends AuthController {
     }
 
 
+    public void setClientInfo() {
+
+           String clientName = request.params.get("clientName");
+           String clientPhone = request.params.get("clientPhone");
+           String clientComments = request.params.get("clientComments");
+
+           System.out.println("infoAboutClientAddress from request: " + clientComments + " " + clientPhone + " " + clientName);
+
+           String cartId = _getCartUuid();
+           ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+           if (clientName != null) {
+               shoppingCart.clientName = clientName;
+           }
+           if (clientPhone != null) {
+               shoppingCart.clientPhone = clientPhone;
+           }
+           if (clientComments != null) {
+               shoppingCart.clientComments = clientComments;
+           }
+
+           shoppingCart.save();
+           getCart();
+
+    }
+
     public void setAddressInfo() {
 
            String clientAddressStreetName = request.params.get("clientAddressStreetName");
