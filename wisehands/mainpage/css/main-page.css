@@ -1,4 +1,4 @@
-body, p, h1 {
+body, p, h1, h2 {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', 'Helvetica', sans-serif;
@@ -60,7 +60,7 @@ header {
 }
 .main-page {
     background-color: rgb(14, 41, 53);
-    height: calc(100vh - 94.125px);
+    height: calc(100vh - 82.963px);
 }
 .slogan {
     color: #fff;
@@ -92,18 +92,21 @@ header {
     color: #0e2935;
     cursor: pointer;
 }
-.services {
-    height: 35vh;
+.fe-services {
+    height: 100vh;
+    background: url("../images/85-original.png");
+    background-position: center;
+    background-size: cover;
 }
-.services-block {
-    display: flex;
+.be-services {
+    height: 100vh;
+    background: url("../images/88-original.png");
+    background-position: center;
+    background-size: cover;
 }
-.services-text {
-    flex-basis: 40%;
-}
-.services-img {
-    flex-basis: 60%;
-}
-.services-img img {
-    width: 100%;
+.mob-services {
+    height: 100vh;
+    background: url("../images/87-original.png");
+    background-position: center;
+    background-size: cover;
 }

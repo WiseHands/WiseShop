@@ -33,40 +33,27 @@
 	<div class="slogan">
 		<h1>Open source software development</h1>
 		<p>making great user experiences</p>
-		<input type="button" value="list of services">
+		<input type="button" value="list of our services" id="listServices">
 	</div>
 </section>
-<section class="services main-container">
+<section class="fe-services" id="fe-services">
 	<div class="services-block">
 		<div class="services-text">
 			<h2>Web Application Development</h2>
 		</div>
-		<div class="services-img">
-			<img src="wisehands/mainpage/images/look1.jpg">
-		</div>
 	</div>
+</section>
+<section class="be-services">
 	<div class="services-block">
 		<div class="services-text">
-			<h2>IOS Development</h2>
-		</div>
-		<div class="services-img">
-			<img src="wisehands/mainpage/images/look1.jpg">
+			<h2>Web Application Development</h2>
 		</div>
 	</div>
+</section>
+<section class="mob-services">
 	<div class="services-block">
 		<div class="services-text">
-			<h2>Android Development</h2>
-		</div>
-		<div class="services-img">
-			<img src="wisehands/mainpage/images/look1.jpg">
-		</div>
-	</div>
-	<div class="services-block">
-		<div class="services-text">
-			<h2>Machine Learning</h2>
-		</div>
-		<div class="services-img">
-			<img src="wisehands/mainpage/images/look1.jpg">
+			<h2>Web Application Development</h2>
 		</div>
 	</div>
 </section>
@@ -95,6 +82,14 @@
 <script>
 	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
 	});
+</script>
+<script>
+	document.getElementById("listServices").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("fe-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
 </script>
 
 </body>
