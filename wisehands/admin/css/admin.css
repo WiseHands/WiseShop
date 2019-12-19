@@ -4,8 +4,8 @@
     font-size: 1.2rem;
     margin: 0.5rem;
     line-height: 1.5;
-    border-bottom: 1px solid #d0d0d0;
     flex: 1 1 auto;
+    padding-bottom: 30px ;
 }
 
 .th {
@@ -23,7 +23,9 @@
     font-size: 1.25em;
     font-weight: 300;
 }
-
+.analytics-title {
+    font-weight: 500;
+}
 .tr {
     width: 100%;
     display: flex;
