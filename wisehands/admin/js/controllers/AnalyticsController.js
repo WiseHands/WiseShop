@@ -8,12 +8,14 @@ angular.module('WiseHands')
                 url: '/analytics/popularproducts'
             }).then(
                 function successCallback(response){
-                    $scope.popularProducts = response.data
-                    console.log("popularproducts",response);
+                    $scope.popularProducts = response.data;
+                    console.log("popularproducts", $scope.popularProducts.length > 3, response.data);
+
                 }, function errorCallback(data) {
                     console.log("popularproducts",data);
                 }
             );
+
 
             $scope.getMainAnalyticsData = function (days) {
                 $scope.loading = true;
@@ -24,7 +26,7 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         $scope.analytics = response.data;
-                        console.log('$scope.analytics ', $scope.analytics);
+                        console.log('$scope.analytics:____ ', $scope.analytics);
                         if(!$scope.analytics.totalToday){
                             $scope.analytics.totalToday = 0;
                         }
