@@ -7,6 +7,7 @@
 
 	<title>Wise Hands</title>
 	<link href="wisehands/mainpage/css/main-page.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 	<link rel="icon"
 		  type="image/png"
@@ -22,10 +23,10 @@
 			<p>WiseHands</p>
 		</div>
 		<div class="header-links">
-			<p>Services</p>
-			<p>Projects</p>
-			<p>Team</p>
-			<p>Sign in</p>
+			<p id="headListServices">Services</p>
+			<a href="#"><p>Projects</p></a>
+			<a href="#"><p>Team</p></a>
+			<a href="#"><p>Sign in</p></a>
 		</div>
 	</div>
 </header>
@@ -33,16 +34,27 @@
 	<div class="slogan">
 		<h1>Open source software development</h1>
 		<p>making great user experiences</p>
-		<input type="button" value="list of services">
+		<input type="button" value="list of our services" id="listServices">
 	</div>
 </section>
-<section class="services main-container">
+<section class="fe-services " id="fe-services">
+	<div class="fe-services-block main-container">
+		<div class="services-text fe-text">
+			<h2>Front End Development</h2>
+		</div>
+	</div>
+</section>
+<section class="be-services">
 	<div class="services-block">
 		<div class="services-text">
-			<h2>Web Application Development</h2>
+			<h2>Back End Development</h2>
 		</div>
-		<div class="services-img">
-			<img src="wisehands/mainpage/images/look1.jpg">
+	</div>
+</section>
+<section class="mob-services">
+	<div class="services-block">
+		<div class="services-text">
+			<h2>Mobile Application Development</h2>
 		</div>
 	</div>
 </section>
@@ -71,6 +83,15 @@
 <script>
 	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
 	});
+</script>
+<script>
+	document.getElementById("listServices").addEventListener("click", showList);
+	document.getElementById("headListServices").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("fe-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
 </script>
 
 </body>
