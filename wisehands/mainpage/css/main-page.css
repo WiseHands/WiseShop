@@ -22,7 +22,7 @@ header {
     margin: 0 auto;
     padding: 0 0.8rem;
 }
-.header-block{
+.header-block {
     position: relative;
     max-width: 900px;
     display: flex;
@@ -37,15 +37,26 @@ header {
     align-items: center;
 }
 .header-logo img {
-    width: 70px;
+    width: 60px;
     padding-right: 1rem;
 }
 .header-logo p {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
+}
+.header-links {
+    width: 400px;
+}
+.header-links a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+}
+.header-links a:hover {
+    font-weight: 700;
 }
 .header-links p {
     font-size: 1.3rem;
-    padding-right: 1rem;
+    padding: 0.6rem;
 }
 .main-page {
     background-color: rgb(14, 41, 53);

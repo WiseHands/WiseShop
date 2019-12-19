@@ -236,6 +236,7 @@ public class AnalyticsAPI extends AuthController {
         }
 
         String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
+        System.out.println(totalQuery);
         Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
 
         String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
