@@ -42,8 +42,10 @@ PUT         {client}/api/cart/payment                       ShoppingCartAPI.sele
 OPTIONS     {client}/api/cart/payment                       ShoppingCartAPI.allowCors
 PUT         {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
 OPTIONS     {client}/api/cart/client/info                   ShoppingCartAPI.allowCors
-PUT         {client}/api/cart/address/info                  ShoppingCartAPI.setClientInfo
+PUT         {client}/api/cart/address/info                  ShoppingCartAPI.setAddressInfo
 OPTIONS     {client}/api/cart/address/info                  ShoppingCartAPI.allowCors
+PUT         {client}/api/cart/post/info                     ShoppingCartAPI.setPostDepartmentInfo
+OPTIONS     {client}/api/cart/post/info                     ShoppingCartAPI.allowCors
 
 
 

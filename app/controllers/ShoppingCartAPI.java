@@ -225,30 +225,54 @@ public class ShoppingCartAPI extends AuthController {
         getCart();
     }
 
-    public void setClientInfo() {
 
-        String clientName = request.params.get("clientname");
-        String clientPhone = request.params.get("clientphone");
-        String clientComments = request.params.get("clientcomments");
+    public void setAddressInfo() {
 
-        System.out.println("infoAboutClient from request: " + clientName + " " + clientPhone + " " + clientComments);
+           String clientAddressStreetName = request.params.get("clientAddressStreetName");
+           String clientAddressBuildingNumber = request.params.get("clientAddressBuildingNumber");
+           String clientAddressAppartmentNumber = request.params.get("clientAddressAppartmentNumber");
 
-        String cartId = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
-        if (clientName != null) {
-            shoppingCart.clientName = clientName;
-        }
-        if (clientPhone != null) {
-            shoppingCart.clientPhone = clientPhone;
-        }
-        if (clientComments != null) {
-            shoppingCart.clientComments = clientComments;
+           System.out.println("infoAboutClientAddress from request: " + clientAddressStreetName + " " + clientAddressBuildingNumber + " " + clientAddressAppartmentNumber);
 
-        }
+           String cartId = _getCartUuid();
+           ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+           if (clientAddressStreetName != null) {
+               shoppingCart.clientAddressStreetName = clientAddressStreetName;
+           }
+           if (clientAddressBuildingNumber != null) {
+               shoppingCart.clientAddressBuildingNumber = clientAddressBuildingNumber;
+           }
+           if (clientAddressAppartmentNumber != null) {
+               shoppingCart.clientAddressAppartmentNumber = clientAddressAppartmentNumber;
 
-        shoppingCart.save();
-        getCart();
+           }
+
+           shoppingCart.save();
+           getCart();
 
     }
+
+
+     public void setPostDepartmentInfo() {
+
+           String clientCity = request.params.get("clientCity");
+           String clientPostDepartmentNumber = request.params.get("clientPostDepartmentNumber");
+
+           String cartId = _getCartUuid();
+           ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+           if (clientCity != null) {
+               shoppingCart.clientCity = clientCity;
+           }
+           if (clientPostDepartmentNumber != null) {
+               shoppingCart.clientPostDepartmentNumber = clientPostDepartmentNumber;
+           }
+
+
+           shoppingCart.save();
+           getCart();
+
+     }
+
+
 
 }
