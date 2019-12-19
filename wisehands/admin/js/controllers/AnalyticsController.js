@@ -26,7 +26,9 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         $scope.analytics = response.data;
+                        $scope.frequentBuyers = response.data.frequentBuyers;
                         console.log('$scope.analytics:____ ', $scope.analytics);
+                        console.log('$scope.frequentBuyers:____ ', $scope.frequentBuyers);
                         if(!$scope.analytics.totalToday){
                             $scope.analytics.totalToday = 0;
                         }
