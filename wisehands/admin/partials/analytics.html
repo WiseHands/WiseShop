@@ -149,6 +149,47 @@
         <div ng-show="popularProducts.length === 0">
             <p>Наразі немає замовлень</p>
         </div>
+<<<<<<< Updated upstream
+=======
+        <h5 class="analytics-title">
+            {{'analytics.frequentBuyersTitle' | translate}}
+        </h5>
+        <div class="table">
+            <div class="tr th">
+                <div class="td column-name"
+                     style="flex-grow: 2;">
+                    <!--{{'analytics.tableFrequentBuyersName' | translate}}-->Ім'я
+                </div>
+                <div class="td column-name">
+                    <!--{{'analytics.tableFrequentBuyersPhone' | translate}}-->Телефон
+                </div>
+                <div class="td column-name">
+                    <!--{{'analytics.tableFrequentBuyersTotal' | translate}}-->Сума
+                </div>
+                <div class="td column-name">
+                    <!--{{'analytics.tableFrequentBuyersCount' | translate}}-->К-ть
+                </div>
+            </div>
+            <div class="tr" ng-repeat="item in frequentBuyers | orderBy: 'buyersCount' | limitTo:10">
+                <div class="td"
+                     style="flex-grow: 2;">
+                    <span>{{item.name}}</a></span>
+                </div>
+                <div class="td"
+                     style="justify-content: center;">
+                    <span>{{item.phone}}</span>
+                </div>
+                <div class="td"
+                     style="justify-content: center;">
+                    <span>{{item.total}}</span>
+                </div>
+                <div class="td"
+                     style="justify-content: center;">
+                    <span>{{item.buyersCount}}</span>
+                </div>
+            </div>
+        </div>
+>>>>>>> Stashed changes
     </div>
     <!--<div class="col-sm-offset-1 col-sm-10">-->
         <!--&lt;!&ndash;Google map&ndash;&gt;-->
