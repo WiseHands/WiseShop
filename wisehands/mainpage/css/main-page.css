@@ -22,7 +22,7 @@ header {
     margin: 0 auto;
     padding: 0 0.8rem;
 }
-.header-block{
+.header-block {
     position: relative;
     max-width: 900px;
     display: flex;
