@@ -106,7 +106,6 @@ public class Application extends Controller {
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false).fetch(PAGE_SIZE);
-        System.out.println("\n\n\nODUUCTTTTSSSS: " + products.size());
 
         renderTemplate("Application/shop.html", shop, products);
     }
