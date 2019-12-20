@@ -8,20 +8,20 @@ public class DeliveryConfiguration {
 
     @Expose
     @Transient
-    public DeliveryCourierConfiguration deliveryCourierConf;
+    public DeliveryCourierConfiguration courier;
 
     @Expose
     @Transient
-    public DeliveryPostDepartmentConfiguration deliveryPostDepartmentConf;
+    public DeliveryPostDepartmentConfiguration postDepartment;
 
     @Expose
     @Transient
-    public DeliverySelfTakeConfiguration deliverySelfTakeConf;
+    public DeliverySelfTakeConfiguration selfTake;
 
-    public DeliveryConfiguration(DeliveryCourierConfiguration deliveryCourierConf, DeliveryPostDepartmentConfiguration deliveryPostDepartmentConf, DeliverySelfTakeConfiguration deliverySelfTakeConf){
-        this.deliveryCourierConf = deliveryCourierConf;
-        this.deliveryPostDepartmentConf = deliveryPostDepartmentConf;
-        this.deliverySelfTakeConf = deliverySelfTakeConf;
+    public DeliveryConfiguration(DeliveryCourierConfiguration courier, DeliveryPostDepartmentConfiguration postDepartment, DeliverySelfTakeConfiguration selfTake){
+        this.courier = courier;
+        this.postDepartment = postDepartment;
+        this.selfTake = selfTake;
 
     }
 

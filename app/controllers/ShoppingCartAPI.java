@@ -56,7 +56,7 @@ public class ShoppingCartAPI extends AuthController {
 
     public void getCart() {
         String cartId = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
         if(shoppingCart == null) {
             notFound();
         }
@@ -81,7 +81,7 @@ public class ShoppingCartAPI extends AuthController {
         }
 
         String cartId = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
 
         LineItemDTO lineItem = new LineItemDTO();
@@ -132,7 +132,7 @@ public class ShoppingCartAPI extends AuthController {
         String lineItemUuid = request.params.get("uuid");
 
         String cartId = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
         LineItemDTO lineItemToRemove = null;
         for (LineItemDTO lineItem : shoppingCart.lineItemList) {
@@ -188,7 +188,7 @@ public class ShoppingCartAPI extends AuthController {
         System.out.println("deliverytype FROM REQUEST: " + delivery);
 
         String cartId = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
         switch (delivery) {
             case "COURIER":
@@ -214,7 +214,7 @@ public class ShoppingCartAPI extends AuthController {
         System.out.println("payment from request: " + payment);
 
         String cartId = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
         switch (payment) {
             case "CREDITCARD":
@@ -242,7 +242,7 @@ public class ShoppingCartAPI extends AuthController {
            System.out.println("setClientInfo from request: " + clientComments + " " + clientPhone + " " + clientName);
 
            String cartId = _getCartUuid();
-           ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+            ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
            if (clientName != null) {
                shoppingCart.clientName = clientName;
            }
@@ -267,7 +267,7 @@ public class ShoppingCartAPI extends AuthController {
            System.out.println("infoAboutClientAddress from request: " + clientAddressStreetName + " " + clientAddressBuildingNumber + " " + clientAddressAppartmentNumber);
 
            String cartId = _getCartUuid();
-           ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+            ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
            if (clientAddressStreetName != null) {
                shoppingCart.clientAddressStreetName = clientAddressStreetName;
            }
@@ -291,7 +291,7 @@ public class ShoppingCartAPI extends AuthController {
            String clientPostDepartmentNumber = request.params.get("clientPostDepartmentNumber");
 
            String cartId = _getCartUuid();
-           ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
+         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
            if (clientCity != null) {
                shoppingCart.clientCity = clientCity;
            }

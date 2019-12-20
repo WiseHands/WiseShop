@@ -11,12 +11,12 @@ public class DeliveryCourierConfiguration {
     Boolean isCourierActive;
 
     @Expose
-    Integer minimumPaymentForFreedelivery;
+    Double minimumPaymentForFreeDelivery;
 
-    public DeliveryCourierConfiguration(String label, Boolean isCourierActive, Integer minimumPaymentForFreedelivery){
+    public DeliveryCourierConfiguration(String label, Boolean isCourierActive, Double minimumPaymentForFreeDelivery){
         this.label = label;
         this.isCourierActive = isCourierActive;
-        this.minimumPaymentForFreedelivery = minimumPaymentForFreedelivery;
+        this.minimumPaymentForFreeDelivery = minimumPaymentForFreeDelivery;
     }
 
 }

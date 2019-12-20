@@ -9,11 +9,11 @@ public class PaymentCashConfiguration {
     String label;
 
     @Expose
-    Boolean isActivePayByCash;
+    Boolean isActive;
 
-    public PaymentCashConfiguration(String label, Boolean isActivePayByCash){
+    public PaymentCashConfiguration(String label, Boolean isActive){
         this.label = label;
-        this.isActivePayByCash = isActivePayByCash;
+        this.isActive = isActive;
     }
 
 }

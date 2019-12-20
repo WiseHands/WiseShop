@@ -15,10 +15,12 @@ public class PaymentConfiguration {
     public PaymentCreditCardConfiguration creditCard;
 
     @Expose
-    Integer minimalPaymentForOrder;
+    Double minimumPaymentForOrder;
 
-    public PaymentConfiguration(){
-
+    public PaymentConfiguration(PaymentCashConfiguration cash, PaymentCreditCardConfiguration creditCard, Double minimumPaymentForOrder){
+        this.cash = cash;
+        this.creditCard = creditCard;
+        this.minimumPaymentForOrder = minimumPaymentForOrder;
     }
 
 }

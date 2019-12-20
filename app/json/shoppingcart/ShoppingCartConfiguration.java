@@ -8,15 +8,15 @@ public class ShoppingCartConfiguration {
 
     @Expose
     @Transient
-    public DeliveryConfiguration deliveryConfiguration;
+    public DeliveryConfiguration delivery;
 
     @Expose
     @Transient
-    public PaymentConfiguration paymentConfiguration;
+    public PaymentConfiguration payment;
 
-    public ShoppingCartConfiguration(DeliveryConfiguration deliveryConfiguration, PaymentConfiguration paymentConfiguration) {
-        this.deliveryConfiguration = deliveryConfiguration;
-        this.paymentConfiguration = paymentConfiguration;
+    public ShoppingCartConfiguration(DeliveryConfiguration delivery, PaymentConfiguration payment) {
+        this.delivery = delivery;
+        this.payment = payment;
     }
 
 
