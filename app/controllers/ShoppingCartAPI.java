@@ -232,7 +232,7 @@ public class ShoppingCartAPI extends AuthController {
            String clientPhone = request.params.get("clientPhone");
            String clientComments = request.params.get("clientComments");
 
-           System.out.println("infoAboutClientAddress from request: " + clientComments + " " + clientPhone + " " + clientName);
+           System.out.println("setClientInfo from request: " + clientComments + " " + clientPhone + " " + clientName);
 
            String cartId = _getCartUuid();
            ShoppingCartDTO shoppingCart = ShoppingCartDTO.findById(cartId);
@@ -268,7 +268,7 @@ public class ShoppingCartAPI extends AuthController {
                shoppingCart.clientAddressBuildingNumber = clientAddressBuildingNumber;
            }
            if (clientAddressAppartmentNumber != null) {
-               shoppingCart.clientAddressAppartmentNumber = clientAddressAppartmentNumber;
+               shoppingCart.clientAddressAppartamentNumber = clientAddressAppartmentNumber;
 
            }
 

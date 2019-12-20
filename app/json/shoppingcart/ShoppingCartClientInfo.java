@@ -1,7 +1,6 @@
 package json.shoppingcart;
 
 import com.google.gson.annotations.Expose;
-import models.ShoppingCartDTO;
 
 import javax.persistence.Transient;
 
@@ -19,10 +18,15 @@ public class ShoppingCartClientInfo {
     @Transient
     public ShoppingCartClientAddressInfo address;
 
-    public ShoppingCartClientInfo(String clientName, String clientPhone, String clientComments, ShoppingCartClientAddressInfo address) {
+    @Expose
+    @Transient
+    public ShoppingCartClientPostDepartamentInfo postDepartamentInfo;
+
+    public ShoppingCartClientInfo(String clientName, String clientPhone, String clientComments, ShoppingCartClientAddressInfo address, ShoppingCartClientPostDepartamentInfo postInfo) {
         this.name = clientName;
         this.phone = clientPhone;
         this.comments = clientComments;
         this.address = address;
+        this.postDepartamentInfo = postInfo;
     }
 }

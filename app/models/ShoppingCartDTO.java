@@ -3,6 +3,7 @@ package models;
 import com.google.gson.annotations.Expose;
 import json.shoppingcart.ShoppingCartClientAddressInfo;
 import json.shoppingcart.ShoppingCartClientInfo;
+import json.shoppingcart.ShoppingCartClientPostDepartamentInfo;
 import play.db.jpa.GenericModel;
 import javax.persistence.*;
 import java.util.List;
@@ -57,8 +58,11 @@ public class ShoppingCartDTO extends GenericModel {
         ShoppingCartClientAddressInfo addressInfo =
                 new ShoppingCartClientAddressInfo(this.clientCity, this.clientAddressStreetName, this.clientAddressBuildingNumber, this.clientAddressAppartamentNumber);
 
+        ShoppingCartClientPostDepartamentInfo postInfo =
+                new ShoppingCartClientPostDepartamentInfo(this.clientCity, this.clientPostDepartmentNumber);
+
         ShoppingCartClientInfo client =
-                new ShoppingCartClientInfo(this.clientName, this.clientPhone, this.clientComments, addressInfo);
+                new ShoppingCartClientInfo(this.clientName, this.clientPhone, this.clientComments, addressInfo, postInfo);
 
         this.client = client;
     }
