@@ -65,7 +65,7 @@ public class AnalyticsAPI extends AuthController {
         String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
                 "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
                 "' and productUuid IS NOT NULL and DATE_SUB(CURDATE(),INTERVAL " + days + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
-                "GROUP BY productUuid ORDER BY SUM(quantity) DESC";
+                "GROUP BY productUuid ORDER BY SUM(quantity) DESC LIMIT 10";
 
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
         List<JSONObject> list = new ArrayList<JSONObject>();
@@ -196,7 +196,7 @@ public class AnalyticsAPI extends AuthController {
 
 
 
-        String stringQuery = "SELECT DISTINCT COUNT(phone) AS count, name, phone, sum(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' GROUP BY phone ORDER BY sum(total)";
+        String stringQuery = "SELECT DISTINCT COUNT(phone) AS count, name, phone, sum(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' GROUP BY phone ORDER BY count desc LIMIT 10";
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
         List<JSONObject> queryResultList = new ArrayList<JSONObject>();
         for (int i = 0; i < result.size(); i++){
