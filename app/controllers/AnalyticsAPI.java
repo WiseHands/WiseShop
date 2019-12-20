@@ -196,7 +196,7 @@ public class AnalyticsAPI extends AuthController {
 
 
 
-        String stringQuery = "SELECT DISTINCT COUNT(phone) AS count, name, phone, sum(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' GROUP BY phone";
+        String stringQuery = "SELECT DISTINCT COUNT(phone) AS count, name, phone, sum(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' GROUP BY phone ORDER BY sum(total)";
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
         List<JSONObject> queryResultList = new ArrayList<JSONObject>();
         for (int i = 0; i < result.size(); i++){
