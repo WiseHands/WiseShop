@@ -121,7 +121,7 @@ public class OrderDTO extends GenericModel {
                 "Phone: " + this.phone +  "\n" +
                 "Delivery: " + this.deliveryType + "\n" +
                 "Payment: " + this.paymentType + "\n" +
-                "Address: " + returnIfNotNull(this.address) + "\n" +
+                "ShoppingCartClientAddressInfo: " + returnIfNotNull(this.address) + "\n" +
                 "Department: " + returnIfNotNull(this.departmentNumber) + "\n" +
                 "Total: " + total + "\n" +
                 "Details: " + "http://" + this.shop.domain + "/admin#/details/" + this.uuid;

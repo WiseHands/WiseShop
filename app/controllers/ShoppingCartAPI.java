@@ -63,7 +63,13 @@ public class ShoppingCartAPI extends AuthController {
         renderJSON(json(shoppingCart));
     }
 
-    public void addProduct() {
+    public void addProduct(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+
         String productUuid = request.params.get("uuid");
         System.out.println("productId " + productUuid);
         ProductDTO product = ProductDTO.findById(productUuid);
@@ -82,6 +88,7 @@ public class ShoppingCartAPI extends AuthController {
         if (shoppingCart == null) {
             shoppingCart = new ShoppingCartDTO();
             shoppingCart.uuid = cartId;
+            shoppingCart.shopUuid = shop.uuid;
         }
 
 

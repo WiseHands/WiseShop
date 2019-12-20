@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import json.shoppingcart.ShoppingCartClientAddressInfo;
 import json.shoppingcart.ShoppingCartClientInfo;
 import json.shoppingcart.ShoppingCartClientPostDepartamentInfo;
+import json.shoppingcart.ShoppingCartConfiguration;
 import play.db.jpa.GenericModel;
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +15,10 @@ public class ShoppingCartDTO extends GenericModel {
     @Id
     @Expose
     public String uuid;
+
+    @Id
+    @Expose
+    public String shopUuid;
 
     public enum DeliveryType {
         SELFTAKE,
@@ -43,6 +48,10 @@ public class ShoppingCartDTO extends GenericModel {
     @Expose
     @Transient
     public ShoppingCartClientInfo client;
+
+    @Expose
+    @Transient
+    public ShoppingCartConfiguration configuration;
 
     public String clientName;
     public String clientPhone;
