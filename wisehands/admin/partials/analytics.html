@@ -158,14 +158,11 @@
                      style="flex-grow: 2;">
                     <!--{{'analytics.tableFrequentBuyersName' | translate}}-->Ім'я
                 </div>
-                <div class="td column-name">
+                <div class="td column-name hidden-on-mobile">
                     <!--{{'analytics.tableFrequentBuyersPhone' | translate}}-->Телефон
                 </div>
                 <div class="td column-name">
-                    <!--{{'analytics.tableFrequentBuyersTotal' | translate}}-->Сума
-                </div>
-                <div class="td ">
-                    <!--{{'analytics.tableFrequentBuyersCount' | translate}}-->К-ть
+                    <!--{{'analytics.tableFrequentBuyersTotal' | translate}}-->Замовлень
                 </div>
             </div>
             <div class="tr" ng-repeat="item in frequentBuyers|limitTo:10|orderBy:'-buyersCount'">
@@ -173,17 +170,13 @@
                      style="flex-grow: 2;">
                     <span>{{item.name}}</a></span>
                 </div>
-                <div class="td"
+                <div class="td hidden-on-mobile"
                      style="justify-content: center;">
                     <span>{{item.phone}}</span>
                 </div>
                 <div class="td"
                      style="justify-content: center;">
-                    <span>{{item.total}}</span>
-                </div>
-                <div class="td"
-                     style="justify-content: center;">
-                    <span>{{item.buyersCount}}</span>
+                    <span>{{item.buyersCount}} ({{item.total}} {{'analytics.currency' | translate}})</span>
                 </div>
             </div>
         </div>

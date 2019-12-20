@@ -69,6 +69,16 @@
 .img-setting{
 
 }
+
+.hidden-on-mobile {
+    display: none;
+}
+@media all and (min-width: 768px) {
+    .hidden-on-mobile {
+        display: block;
+    }
+}
+
 /*editor-for-page*/
 .editor-for-page{
     border: 1px solid black;

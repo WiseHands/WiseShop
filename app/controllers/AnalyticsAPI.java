@@ -13,6 +13,8 @@ import java.util.*;
 
 public class AnalyticsAPI extends AuthController {
 
+    private static final int DEFAULT_NUMBER_OF_DAYS = 30;
+
     public static void countProductsBuyingByCashOrCard(String client){
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -60,11 +62,10 @@ public class AnalyticsAPI extends AuthController {
 
         checkAuthentification(shop);
 
-        Integer days = 30;
 
         String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
                 "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
-                "' and productUuid IS NOT NULL and DATE_SUB(CURDATE(),INTERVAL " + days + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
+                "' and productUuid IS NOT NULL and DATE_SUB(CURDATE(),INTERVAL " + DEFAULT_NUMBER_OF_DAYS + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
                 "GROUP BY productUuid ORDER BY SUM(quantity) DESC LIMIT 10";
 
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
@@ -196,7 +197,18 @@ public class AnalyticsAPI extends AuthController {
 
 
 
-        String stringQuery = "SELECT DISTINCT COUNT(phone) AS count, name, phone, sum(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' GROUP BY phone ORDER BY count desc LIMIT 10";
+        String stringQuery =
+                "SELECT " +
+                    "DISTINCT COUNT(phone) AS count, name, phone, sum(total) " +
+                "FROM OrderDTO " +
+                "WHERE " +
+                    "shop_uuid='" + shop.uuid + "' " +
+                "AND " +
+                    "DATE_SUB(CURDATE(),INTERVAL " + DEFAULT_NUMBER_OF_DAYS + " DAY) <= from_unixtime( time/1000 ) " +
+                "GROUP BY phone " +
+                "ORDER BY count desc " +
+                "LIMIT 10";
+        System.out.println(stringQuery);
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
         List<JSONObject> queryResultList = new ArrayList<JSONObject>();
         for (int i = 0; i < result.size(); i++){
