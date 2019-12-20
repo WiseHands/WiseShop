@@ -1,6 +1,8 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import json.shoppingcart.ShoppingCartClientAddressInfo;
+import json.shoppingcart.ShoppingCartClientInfo;
 import play.db.jpa.GenericModel;
 import javax.persistence.*;
 import java.util.List;
@@ -38,28 +40,26 @@ public class ShoppingCartDTO extends GenericModel {
     public List<LineItemDTO> lineItemList;
 
     @Expose
+    @Transient
+    public ShoppingCartClientInfo client;
+
     public String clientName;
-
-    @Expose
     public String clientPhone;
-
-    @Expose
     public String clientComments;
-
-
-    @Expose
     public String clientAddressStreetName;
-
-    @Expose
     public String clientAddressBuildingNumber;
-
-    @Expose
-    public String clientAddressAppartmentNumber;
-
-
-    @Expose
+    public String clientAddressAppartamentNumber;
     public String clientCity;
-
-    @Expose
     public String clientPostDepartmentNumber;
+
+    @PostLoad
+    public void formatObject() {
+        ShoppingCartClientAddressInfo addressInfo =
+                new ShoppingCartClientAddressInfo(this.clientCity, this.clientAddressStreetName, this.clientAddressBuildingNumber, this.clientAddressAppartamentNumber);
+
+        ShoppingCartClientInfo client =
+                new ShoppingCartClientInfo(this.clientName, this.clientPhone, this.clientComments, addressInfo);
+
+        this.client = client;
+    }
 }
