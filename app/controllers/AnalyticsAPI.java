@@ -146,10 +146,7 @@ public class AnalyticsAPI extends AuthController {
         BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCash(shop, daysFromToday);
         System.out.println(paidByCard);
 
-        String stringQueryForByOnline = "SELECT count(*) FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= from_unixtime( time/1000 )" +
-                " AND (paymentType = 'PAYONLINE' and state <> 'DELETED' and state <> 'PAYMENT_ERROR' and state <> 'CANCELLED');";
-        BigInteger paidByCash = (BigInteger) JPA.em().createNativeQuery(stringQueryForByOnline).getSingleResult();
+        BigInteger paidByCash = PaymentTypeService.getNumberOfPaymentsByCard(shop, daysFromToday);
         System.out.println(paidByCash);
 
 
