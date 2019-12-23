@@ -16,6 +16,8 @@ angular.module('WiseHands')
                 }
             );
 
+            let fromDate = document.getElementById("seventhDayForAnalytics");
+            let toDate = document.getElementById("firstDayForAnalytics");
 
             $scope.getMainAnalyticsData = function (days) {
                 $scope.loading = true;
@@ -27,11 +29,12 @@ angular.module('WiseHands')
                     .then(function successCallback(response) {
                         $scope.analytics = response.data;
                         $scope.frequentBuyers = response.data.frequentBuyers;
+                        let arrayTime = $scope.analytics.chartData;
 
-                        let fromDate = document.getElementById("seventhDayForAnalytics");
-                        let toDate = document.getElementById("firstDayForAnalytics");
-                        fromDate.value = $scope.analytics.chartData[6].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
-                        toDate.value = $scope.analytics.chartData[0].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+                        fromDate.value = arrayTime[arrayTime.length - 1].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+                        toDate.value = arrayTime[0].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+
+                        console.log('fromDate.value ', fromDate.value);
                         console.log('toDate.value ', toDate.value);
 
                         // setDataTypeForAnalytics(response.data.chartData);
@@ -89,6 +92,7 @@ angular.module('WiseHands')
             $scope.calculateDayRange = function(){
                 let fromDate = new Date(document.getElementById("seventhDayForAnalytics").value);
                 let toDate = new Date(document.getElementById("firstDayForAnalytics").value);
+                console.log('fromDate.value for calculateDayRange: ', toDate);
                 console.log('toDate.value for calculateDayRange: ', toDate);
 
                 $http({

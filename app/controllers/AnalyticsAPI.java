@@ -25,10 +25,10 @@ public class AnalyticsAPI extends AuthController {
         checkAuthentification(shop);
 
         String stringQueryForByCash = "SELECT uuid, paymentType FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
+                "' AND DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= from_unixtime( time/1000 )" +
                 " AND (paymentType = 'CASHONSPOT' and state <> 'DELETED');";
         String stringQueryForByOnline = "SELECT uuid, paymentType FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
+                "' AND DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= from_unixtime( time/1000 )" +
                 " AND (paymentType = 'PAYONLINE' and state <> 'DELETED');";
 
         List<JSONObject> list = new ArrayList<JSONObject>();
@@ -145,7 +145,7 @@ public class AnalyticsAPI extends AuthController {
 
     }
 
-    public static void infoDay(String client, int numberOfDays) throws Exception { // /shop/details
+    public static void infoDay(String client, int numberOfDays) throws Exception { // /analytics
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -179,13 +179,13 @@ public class AnalyticsAPI extends AuthController {
 
         //TODO: make 2 queries
         String stringQueryForByCash = "SELECT count(*) FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
+                "' AND DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= from_unixtime( time/1000 )" +
                 " AND (paymentType = 'CASHONSPOT' and state <> 'DELETED' and state <> 'PAYMENT_ERROR' and state <> 'CANCELLED');";
         BigInteger paidByCard = (BigInteger) JPA.em().createNativeQuery(stringQueryForByCash).getSingleResult();
         System.out.println(paidByCard);
 
         String stringQueryForByOnline = "SELECT count(*) FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
+                "' AND DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= from_unixtime( time/1000 )" +
                 " AND (paymentType = 'PAYONLINE' and state <> 'DELETED' and state <> 'PAYMENT_ERROR' and state <> 'CANCELLED');";
         BigInteger paidByCash = (BigInteger) JPA.em().createNativeQuery(stringQueryForByOnline).getSingleResult();
         System.out.println(paidByCash);
@@ -250,7 +250,7 @@ public class AnalyticsAPI extends AuthController {
         renderJSON(json);
     }
 
-        public static void infoMonth(String client, int numberOfDays) throws Exception { // /shop/details
+    public static void infoMonth(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -424,7 +424,6 @@ public class AnalyticsAPI extends AuthController {
         renderJSON(json);
     }
 
-
     public static void infoYear(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -482,7 +481,6 @@ public class AnalyticsAPI extends AuthController {
         json.put("chartData", list);
         renderJSON(json);
     }
-
 
 
     private static Long beginOfDay(Date date) {
