@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import play.db.jpa.JPA;
+import services.analytics.PaymentTypeService;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -15,42 +16,6 @@ public class AnalyticsAPI extends AuthController {
 
     private static final int DEFAULT_NUMBER_OF_DAYS = 7;
 
-    public static void countProductsBuyingByCashOrCard(String client){
-
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null){
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-
-        checkAuthentification(shop);
-
-        String stringQueryForByCash = "SELECT uuid, paymentType FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= from_unixtime( time/1000 )" +
-                " AND (paymentType = 'CASHONSPOT' and state <> 'DELETED');";
-        String stringQueryForByOnline = "SELECT uuid, paymentType FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= from_unixtime( time/1000 )" +
-                " AND (paymentType = 'PAYONLINE' and state <> 'DELETED');";
-
-        List<JSONObject> list = new ArrayList<JSONObject>();
-        List<Object[]> resultForCashQuery = JPA.em().createNativeQuery(stringQueryForByCash).getResultList();
-        for (int i = 0; i < resultForCashQuery.size(); i++){
-            Object[] item = resultForCashQuery.get(i);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("orderUuid", item[0]);
-            jsonObject.put("paymentType", item[1]);
-            list.add(jsonObject);
-        }
-        List<Object[]> resultForCardQuery = JPA.em().createNativeQuery(stringQueryForByOnline).getResultList();
-        for (int i = 0; i < resultForCardQuery.size(); i++){
-            Object[] item = resultForCardQuery.get(i);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("orderUuid", item[0]);
-            jsonObject.put("paymentType", item[1]);
-            list.add(jsonObject);
-        }
-        renderJSON(list);
-
-    }
     public static void showPopularProducts(String client){
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
@@ -176,12 +141,9 @@ public class AnalyticsAPI extends AuthController {
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
+        int daysFromToday = 7;
 
-        //TODO: make 2 queries
-        String stringQueryForByCash = "SELECT count(*) FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= from_unixtime( time/1000 )" +
-                " AND (paymentType = 'CASHONSPOT' and state <> 'DELETED' and state <> 'PAYMENT_ERROR' and state <> 'CANCELLED');";
-        BigInteger paidByCard = (BigInteger) JPA.em().createNativeQuery(stringQueryForByCash).getSingleResult();
+        BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCash(shop, daysFromToday);
         System.out.println(paidByCard);
 
         String stringQueryForByOnline = "SELECT count(*) FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
