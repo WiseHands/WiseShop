@@ -27,8 +27,17 @@ angular.module('WiseHands')
                     .then(function successCallback(response) {
                         $scope.analytics = response.data;
                         $scope.frequentBuyers = response.data.frequentBuyers;
+
+                        let fromDate = document.getElementById("seventhDayForAnalytics");
+                        let toDate = document.getElementById("firstDayForAnalytics");
+                        fromDate.value = $scope.analytics.chartData[6].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+                        toDate.value = $scope.analytics.chartData[0].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+                        console.log('toDate.value ', toDate.value);
+
+                        // setDataTypeForAnalytics(response.data.chartData);
                         console.log('$scope.analytics:____ ', $scope.analytics);
                         console.log('$scope.frequentBuyers:____ ', $scope.frequentBuyers);
+
                         if(!$scope.analytics.totalToday){
                             $scope.analytics.totalToday = 0;
                         }
@@ -75,9 +84,12 @@ angular.module('WiseHands')
 
             };
 
+
+
             $scope.calculateDayRange = function(){
-                let fromDate = new Date($scope.showTotalFromDate);
-                let toDate = new Date($scope.showTotalToDate);
+                let fromDate = new Date(document.getElementById("seventhDayForAnalytics").value);
+                let toDate = new Date(document.getElementById("firstDayForAnalytics").value);
+                console.log('toDate.value for calculateDayRange: ', toDate);
 
                 $http({
                     method: 'GET',
