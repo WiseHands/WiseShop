@@ -19,26 +19,22 @@ public class PaymentTypeService {
             "AND state <> '%s');";
 
     public static BigInteger getNumberOfPaymentsByCash(ShopDTO shop, int daysFromToday) {
-        String stringQueryForByCash = String.format(PAYMENTS_BY_TYPE_QUERY,
-                shop.uuid,
-                daysFromToday,
-                PaymentTypeEnum.CASHONSPOT,
-                OrderState.DELETED,
-                OrderState.PAYMENT_ERROR,
-                OrderState.CANCELLED);
-        BigInteger numberOfOrdersPaidByCash = (BigInteger) JPA.em().createNativeQuery(stringQueryForByCash).getSingleResult();
-        return numberOfOrdersPaidByCash;
+        return getOrdersCount(shop, PaymentTypeEnum.CASHONSPOT, daysFromToday);
     }
 
     public static BigInteger getNumberOfPaymentsByCard(ShopDTO shop, int daysFromToday) {
+        return getOrdersCount(shop, PaymentTypeEnum.PAYONLINE, daysFromToday);
+    }
+
+    private static BigInteger getOrdersCount(ShopDTO shop, PaymentTypeEnum paymentType, int daysFromToday) {
         String stringQueryForByCash = String.format(PAYMENTS_BY_TYPE_QUERY,
                 shop.uuid,
                 daysFromToday,
-                PaymentTypeEnum.PAYONLINE,
+                paymentType,
                 OrderState.DELETED,
                 OrderState.PAYMENT_ERROR,
                 OrderState.CANCELLED);
-        BigInteger numberOfOrdersPaidByCash = (BigInteger) JPA.em().createNativeQuery(stringQueryForByCash).getSingleResult();
-        return numberOfOrdersPaidByCash;
+        BigInteger numberOfOrders = (BigInteger) JPA.em().createNativeQuery(stringQueryForByCash).getSingleResult();
+        return numberOfOrders;
     }
 }
