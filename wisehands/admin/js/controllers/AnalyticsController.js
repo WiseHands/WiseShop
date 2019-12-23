@@ -75,9 +75,9 @@ angular.module('WiseHands')
 
             };
 
-              $scope.calculateDayRange = function(){
-                var fromDate = new Date($scope.showTotalFromDate);
-                var toDate = new Date($scope.showTotalToDate);
+            $scope.calculateDayRange = function(){
+                let fromDate = new Date($scope.showTotalFromDate);
+                let toDate = new Date($scope.showTotalToDate);
 
                 $http({
                     method: 'GET',
@@ -104,34 +104,33 @@ angular.module('WiseHands')
                         $scope.status = 'Щось пішло не так...';
                     });
 
-              };
+            };
 
-                $scope.loading = true;
-                $http({
-                    method: 'GET',
-                    url: '/orders',
-                })
-                    .then(function successCallback(response) {
-                        $scope.orders = response.data;
-                        $scope.ordersAdresses = [];
-                        $scope.orders.forEach (function(order){
-                            if (order.destinationLat) {
-                                var lat = parseFloat(order.destinationLat);
-                                var lng = parseFloat(order.destinationLng);
-                                var latLng = [];
-                                latLng.push(order.address);
-                                latLng.push(lat);
-                                latLng.push(lng);
-                                latLng.push(order.uuid);
-                                $scope.ordersAdresses.push(latLng);
+            $scope.loading = true;
+              $http({
+                 method: 'GET',
+                 url: '/orders',
+              }).then(function successCallback(response) {
+                    $scope.orders = response.data;
+                    $scope.ordersAdresses = [];
+                    $scope.orders.forEach (function(order){
+                        if (order.destinationLat) {
+                              var lat = parseFloat(order.destinationLat);
+                              var lng = parseFloat(order.destinationLng);
+                              var latLng = [];
+                              latLng.push(order.address);
+                              latLng.push(lat);
+                              latLng.push(lng);
+                              latLng.push(order.uuid);
+                              $scope.ordersAdresses.push(latLng);
                             }
                         });
                         initialize($scope.ordersAdresses);
                         console.log("$scope.ordersAdresses = []", $scope.ordersAdresses = []);
                         $scope.loading = false;
-                    }, function errorCallback(response) {
+                 }, function errorCallback(response) {
                         $scope.loading = false;
-                    });
+              });
 
             $scope.getMainAnalyticsData('');
 

@@ -13,7 +13,7 @@ import java.util.*;
 
 public class AnalyticsAPI extends AuthController {
 
-    private static final int DEFAULT_NUMBER_OF_DAYS = 30;
+    private static final int DEFAULT_NUMBER_OF_DAYS = 7;
 
     public static void countProductsBuyingByCashOrCard(String client){
 
@@ -163,10 +163,11 @@ public class AnalyticsAPI extends AuthController {
         Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
 
         Long today = beginOfDay(new Date());
-        String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
+        Long sevenDaysBefore = sevenDaysBefore(new Date());
+        String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + sevenDaysBefore;
         Double totalToday = (Double) JPA.em().createQuery(totalTodayQuery).getSingleResult();
 
-        String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
+        String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + sevenDaysBefore;
         Long countToday = (Long) JPA.em().createQuery(countTodayQuery).getSingleResult();
 
         JSONObject json = new JSONObject();
@@ -508,6 +509,13 @@ public class AnalyticsAPI extends AuthController {
 
     private static Long thirtyDaysBefore(Date date) {
         int x = -30;
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.add( Calendar.DAY_OF_YEAR, x);
+        return cal.getTimeInMillis();
+    }
+
+    private static Long sevenDaysBefore(Date date) {
+        int x = -7;
         Calendar cal = GregorianCalendar.getInstance();
         cal.add( Calendar.DAY_OF_YEAR, x);
         return cal.getTimeInMillis();
