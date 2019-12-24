@@ -87,8 +87,6 @@ angular.module('WiseHands')
 
             };
 
-
-
             $scope.calculateDayRange = function(){
                 let fromDate = new Date(document.getElementById("seventhDayForAnalytics").value);
                 let toDate = new Date(document.getElementById("firstDayForAnalytics").value);

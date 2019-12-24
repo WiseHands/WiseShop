@@ -64,11 +64,7 @@ public class AnalyticsAPI extends AuthController {
         int days = (Math.round(Math.abs(firstDay - lastDate)/(oneDay)))+2;
         System.out.println("days " + days);
 
-        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
-
-        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long today = beginOfDay(new Date(fromDate));
         String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
@@ -78,8 +74,7 @@ public class AnalyticsAPI extends AuthController {
         Long countToday = (Long) JPA.em().createQuery(countTodayQuery).getSingleResult();
 
         JSONObject json = new JSONObject();
-        json.put("total", total);
-        json.put("count", count);
+        json.put("allTime", countAndTotalSumOfOrders);
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
@@ -192,11 +187,7 @@ public class AnalyticsAPI extends AuthController {
             numberOfDays=30;
         }
 
-        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
-
-        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long thirtyDaysBefore = thirtyDaysBefore(new Date());
         String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + thirtyDaysBefore;
@@ -206,8 +197,7 @@ public class AnalyticsAPI extends AuthController {
         Long countToday = (Long) JPA.em().createQuery(count30Query).getSingleResult();
 
         JSONObject json = new JSONObject();
-        json.put("total", total);
-        json.put("count", count);
+        json.put("allTime", countAndTotalSumOfOrders);
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
@@ -250,11 +240,7 @@ public class AnalyticsAPI extends AuthController {
             numberOfDays=90;
         }
 
-        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
-
-        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long nintyDaysBefore = nintyDaysBefore(new Date());
         String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + nintyDaysBefore;
@@ -264,8 +250,7 @@ public class AnalyticsAPI extends AuthController {
         Long countToday = (Long) JPA.em().createQuery(count30Query).getSingleResult();
 
         JSONObject json = new JSONObject();
-        json.put("total", total);
-        json.put("count", count);
+        json.put("allTime", countAndTotalSumOfOrders);
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
@@ -308,11 +293,7 @@ public class AnalyticsAPI extends AuthController {
             numberOfDays=180;
         }
 
-        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
-
-        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long oneHundredEighty = onehundredeightyDaysBefore(new Date());
         String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + oneHundredEighty;
@@ -322,8 +303,7 @@ public class AnalyticsAPI extends AuthController {
         Long countToday = (Long) JPA.em().createQuery(count30Query).getSingleResult();
 
         JSONObject json = new JSONObject();
-        json.put("total", total);
-        json.put("count", count);
+        json.put("allTime", countAndTotalSumOfOrders);
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
@@ -366,11 +346,7 @@ public class AnalyticsAPI extends AuthController {
             numberOfDays=360;
         }
 
-        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
-
-        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long three = threeHundredSixtyDaysBefore(new Date());
         String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + three;
@@ -380,8 +356,7 @@ public class AnalyticsAPI extends AuthController {
         Long countToday = (Long) JPA.em().createQuery(count30Query).getSingleResult();
 
         JSONObject json = new JSONObject();
-        json.put("total", total);
-        json.put("count", count);
+        json.put("allTime", countAndTotalSumOfOrders);
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
