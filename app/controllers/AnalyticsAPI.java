@@ -2,12 +2,11 @@ package controllers;
 
 import json.FrequentBuyer;
 import models.*;
-import org.joda.time.DateTime;
-import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import play.db.jpa.JPA;
 import services.analytics.FrequentBuyersService;
 import services.analytics.PaymentTypeService;
+import services.analytics.TotalsDataService;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -123,11 +122,7 @@ public class AnalyticsAPI extends AuthController {
             numberOfDays = 7;
         }
 
-        String totalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Double total = (Double) JPA.em().createQuery(totalQuery).getSingleResult();
-
-        String countQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED'";
-        Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long today = beginOfDay(new Date());
         Long sevenDaysBefore = sevenDaysBefore(new Date());
@@ -138,8 +133,7 @@ public class AnalyticsAPI extends AuthController {
         Long countToday = (Long) JPA.em().createQuery(countTodayQuery).getSingleResult();
 
         JSONObject json = new JSONObject();
-        json.put("total", total);
-        json.put("count", count);
+        json.put("allTime", countAndTotalSumOfOrders);
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
