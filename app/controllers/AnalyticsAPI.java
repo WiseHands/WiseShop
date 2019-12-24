@@ -1,11 +1,13 @@
 package controllers;
 
 import json.FrequentBuyer;
+import json.PopularProucts;
 import models.*;
 import org.json.simple.JSONObject;
 import play.db.jpa.JPA;
 import services.analytics.FrequentBuyersService;
 import services.analytics.PaymentTypeService;
+import services.analytics.PopularProductsService;
 import services.analytics.TotalsDataService;
 
 import java.math.BigInteger;
@@ -28,24 +30,10 @@ public class AnalyticsAPI extends AuthController {
 
         checkAuthentification(shop);
 
-
-        String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
-                "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
-                "' and productUuid IS NOT NULL and DATE_SUB(CURDATE(),INTERVAL " + DEFAULT_NUMBER_OF_DAYS + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
-                "GROUP BY productUuid ORDER BY SUM(quantity) DESC LIMIT 10";
-
-        List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
-        List<JSONObject> list = new ArrayList<JSONObject>();
-        for (int i = 0; i < result.size(); i++){
-          Object[] item = result.get(i);
-          JSONObject jsonObject = new JSONObject();
-          jsonObject.put("uuid", item[0]);
-          jsonObject.put("name", item[1]);
-          jsonObject.put("quantity", item[2]);
-          list.add(jsonObject);
-
-        }
-        renderJSON(list);
+        JSONObject json = new JSONObject();
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, DEFAULT_NUMBER_OF_DAYS);
+        json.put("popularProducts", popularProductsList);
+        renderJSON(json);
     }
 
     public static void fromDateToDate(String client, String fromDate, String toDate) throws Exception {
@@ -328,7 +316,6 @@ public class AnalyticsAPI extends AuthController {
         json.put("chartData", list);
         renderJSON(json);
     }
-
 
     private static Long beginOfDay(Date date) {
         Calendar cal = Calendar.getInstance();

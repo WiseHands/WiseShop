@@ -8,8 +8,8 @@ angular.module('WiseHands')
                 url: '/analytics/popularproducts'
             }).then(
                 function successCallback(response){
-                    $scope.popularProducts = response.data;
-                    console.log("popularproducts", $scope.popularProducts.length > 3, response.data);
+                    $scope.popularProducts = response.data.popularProducts;
+                    console.log("popularproducts: ", response.data);
 
                 }, function errorCallback(data) {
                     console.log("popularproducts",data);
