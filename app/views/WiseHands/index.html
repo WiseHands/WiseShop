@@ -7,6 +7,7 @@
 
 	<title>Wise Hands</title>
 	<link href="wisehands/mainpage/css/main-page.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 	<link rel="icon"
@@ -37,47 +38,74 @@
 		<input type="button" value="list of our services" id="listServices">
 	</div>
 </section>
-<section class="fe-services " id="fe-services">
+<!--/SERVICES-->
+<section class="fe-services" id="fe-services">
 	<div class="fe-services-block main-container">
-		<div class="services-text fe-text">
-			<h2>Front End Development</h2>
+		<div class="fe-text services-p">
+			<h2 class="services-h2 ">Front End Development</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+			<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
+			<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+		</div>
+		<div class="arrow-icon">
+			<i class="fa fa-arrow-down" id="feArrow" style="font-size:3rem; color: #fff"></i>
 		</div>
 	</div>
 </section>
-<section class="be-services">
-	<div class="services-block">
-		<div class="services-text">
-			<h2>Back End Development</h2>
+<section class="be-services" id="be-services">
+	<div class="be-services-block main-container">
+		<div class="be-text services-p">
+			<h2 class="services-h2 ">Back End Development</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+			<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
+			<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+		</div>
+		<div class="arrow-icon double-arrow">
+			<i class="fa fa-arrow-down" id="beArrowDown" style="font-size:3rem; color: #fff"></i>
+			<i class="fa fa-arrow-up" id="beArrowUp" style="font-size:3rem; color: #fff"></i>
 		</div>
 	</div>
 </section>
-<section class="mob-services">
-	<div class="services-block">
-		<div class="services-text">
-			<h2>Mobile Application Development</h2>
+<section class="mob-services" id="mob-services">
+	<div class="mob-services-block main-container">
+		<div class="mob-text services-p">
+			<h2 class="services-h2 ">Mobile Application Development</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+			<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
+			<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+		</div>
+		<div class="arrow-icon double-arrow">
+			<i class="fa fa-arrow-down" id="mobArrowDown" style="font-size:3rem; color: #fff"></i>
+			<i class="fa fa-arrow-up" id="mobArrowUp" style="font-size:3rem; color: #fff"></i>
 		</div>
 	</div>
 </section>
+<!--/SERVICES-->
+
+
 <script src="wisehands/assets/js/particles.min.js"></script>
 
 <script>
 	function start() {
-      gapi.load('auth2', function() {
-        window.auth2 = gapi.auth2.init({
-          client_id: '${googleOauthClientId}'
-        });
-      });
-    }
+		gapi.load('auth2', function() {
+			window.auth2 = gapi.auth2.init({
+				client_id: '${googleOauthClientId}'
+			});
+		});
+	}
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
 
-  gtag('config', '${googleAnalyticsId}');
+	gtag('config', '${googleAnalyticsId}');
 </script>
 
 <script>
@@ -89,6 +117,38 @@
 	document.getElementById("headListServices").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("fe-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("feArrow").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("be-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("beArrowDown").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("mob-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("beArrowUp").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("fe-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("mobArrowUp").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("be-services").scrollIntoView({
 			behavior: 'smooth'
 		})
 	}
