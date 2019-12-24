@@ -17,7 +17,7 @@
 <body>
 <div id="particles-js"></div>
 
-<header>
+<header id="header">
 	<div class="header-block">
 		<div class="header-logo">
 			<img src="wisehands/assets/images/main_logo.png">
@@ -48,8 +48,9 @@
 			<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
 			<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
 		</div>
-		<div class="arrow-icon">
-			<i class="fa fa-arrow-down" id="feArrow" style="font-size:3rem; color: #fff"></i>
+		<div class="double-arrow">
+			<i class="fa fa-arrow-down" id="feArrowDown" style="font-size:3rem; color: #fff"></i>
+			<i class="fa fa-arrow-up" id="feArrowUp" style="font-size:3rem; color: #fff"></i>
 		</div>
 	</div>
 </section>
@@ -62,7 +63,7 @@
 			<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
 			<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
 		</div>
-		<div class="arrow-icon double-arrow">
+		<div class="double-arrow">
 			<i class="fa fa-arrow-down" id="beArrowDown" style="font-size:3rem; color: #fff"></i>
 			<i class="fa fa-arrow-up" id="beArrowUp" style="font-size:3rem; color: #fff"></i>
 		</div>
@@ -77,7 +78,7 @@
 			<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
 			<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
 		</div>
-		<div class="arrow-icon double-arrow">
+		<div class="double-arrow">
 			<i class="fa fa-arrow-down" id="mobArrowDown" style="font-size:3rem; color: #fff"></i>
 			<i class="fa fa-arrow-up" id="mobArrowUp" style="font-size:3rem; color: #fff"></i>
 		</div>
@@ -122,9 +123,17 @@
 	}
 </script>
 <script>
-	document.getElementById("feArrow").addEventListener("click", showList);
+	document.getElementById("feArrowDown").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("be-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("feArrowUp").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("header").scrollIntoView({
 			behavior: 'smooth'
 		})
 	}

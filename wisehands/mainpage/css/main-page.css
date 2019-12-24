@@ -95,30 +95,21 @@ header {
 
 .fe-services {
     height: 100vh;
-    background: url("../images/85-original.png");
+    background: url("../images/85-original.jpg");
     background-position: center;
     background-size: cover;
     position: relative;
 }
-.fe-services i {
-    position: absolute;
-    top: 90vh;
-    left: 47.5%;
-}
-.arrow-icon i:hover {
-    cursor: pointer;
-    text-shadow: 0 0 5px #fff ;
-}
 .be-services {
     height: 100vh;
-    background: url("../images/87-original.png");
+    background: url("../images/87-original.jpg");
     background-position: center;
     background-size: cover;
     position: relative;
 }
 .mob-services {
     height: 100vh;
-    background: url("../images/88-original.png");
+    background: url("../images/88-original.jpg");
     background-position: center;
     background-size: cover;
     position: relative;
@@ -152,6 +143,10 @@ header {
     position: absolute;
     top: 90vh;
     left: 46.5%;
+}
+.double-arrow i:hover {
+    cursor: pointer;
+    text-shadow: 0 0 5px #fff ;
 }
 .double-arrow i:first-child {
     padding-right: 1rem;
