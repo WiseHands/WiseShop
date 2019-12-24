@@ -1,10 +1,12 @@
 package controllers;
 
+import json.FrequentBuyer;
 import models.*;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import play.db.jpa.JPA;
+import services.analytics.FrequentBuyersService;
 import services.analytics.PaymentTypeService;
 
 import java.math.BigInteger;
@@ -141,7 +143,7 @@ public class AnalyticsAPI extends AuthController {
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
-        int daysFromToday = 7;
+        int daysFromToday = 30;
 
         BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCash(shop, daysFromToday);
         System.out.println(paidByCard);
@@ -156,32 +158,8 @@ public class AnalyticsAPI extends AuthController {
         json.put("paymentCountByType", paymentCountByType);
 
 
-
-        String stringQuery =
-                "SELECT " +
-                    "DISTINCT COUNT(phone) AS count, name, phone, sum(total) " +
-                "FROM OrderDTO " +
-                "WHERE " +
-                    "shop_uuid='" + shop.uuid + "' " +
-                "AND " +
-                    "DATE_SUB(CURDATE(),INTERVAL " + DEFAULT_NUMBER_OF_DAYS + " DAY) <= from_unixtime( time/1000 ) " +
-                "GROUP BY phone " +
-                "ORDER BY count desc " +
-                "LIMIT 10";
-        System.out.println(stringQuery);
-        List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
-        List<JSONObject> queryResultList = new ArrayList<JSONObject>();
-        for (int i = 0; i < result.size(); i++){
-            Object[] item = result.get(i);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("buyersCount", item[0]);
-            jsonObject.put("name", item[1]);
-            jsonObject.put("phone", item[2]);
-            jsonObject.put("total", item[3]);
-            queryResultList.add(jsonObject);
-        }
-
-        json.put("frequentBuyers", queryResultList);
+        List<FrequentBuyer> frequentBuyerList = FrequentBuyersService.getFrequentBuyerList(shop, daysFromToday);
+        json.put("frequentBuyers", frequentBuyerList);
 
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
