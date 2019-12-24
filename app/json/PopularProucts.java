@@ -3,7 +3,6 @@ package json;
 import com.google.gson.annotations.Expose;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class PopularProucts {
 
