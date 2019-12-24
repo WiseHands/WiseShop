@@ -63,7 +63,7 @@
             <div class="card analCardsColor">
                 <div class="card-content white-text">
                     <p class="card-title">{{'analytics.purchases' | translate}}:</p>
-                    <p>{{analytics.countToday}}</p>
+                    <p>{{analytics.dayBefore.totalCount}}</p>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
             <div class="card analCardsColor">
                 <div class="card-content white-text">
                     <p class="card-title">{{'analytics.today' | translate}}:</p>
-                    <p>{{analytics.totalToday}} {{'analytics.currency' | translate}}</p>
+                    <p>{{analytics.dayBefore.totalSum}} {{'analytics.currency' | translate}}</p>
                 </div>
             </div>
         </div>

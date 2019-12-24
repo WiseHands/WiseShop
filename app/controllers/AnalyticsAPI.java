@@ -121,16 +121,12 @@ public class AnalyticsAPI extends AuthController {
 
         Long today = beginOfDay(new Date());
         Long sevenDaysBefore = sevenDaysBefore(new Date());
-        String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + sevenDaysBefore;
-        Double totalToday = (Double) JPA.em().createQuery(totalTodayQuery).getSingleResult();
 
-        String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + sevenDaysBefore;
-        Long countToday = (Long) JPA.em().createQuery(countTodayQuery).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, sevenDaysBefore);
 
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
-        json.put("totalToday", totalToday);
-        json.put("countToday", countToday);
+        json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
         int daysFromToday = 30;
 
@@ -190,16 +186,12 @@ public class AnalyticsAPI extends AuthController {
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long thirtyDaysBefore = thirtyDaysBefore(new Date());
-        String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + thirtyDaysBefore;
-        Double totalToday = (Double) JPA.em().createQuery(total30Query).getSingleResult();
-
-        String count30Query = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + thirtyDaysBefore;
-        Long countToday = (Long) JPA.em().createQuery(count30Query).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, thirtyDaysBefore);
 
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
-        json.put("totalToday", totalToday);
-        json.put("countToday", countToday);
+        json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
+
 
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
@@ -243,16 +235,11 @@ public class AnalyticsAPI extends AuthController {
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long nintyDaysBefore = nintyDaysBefore(new Date());
-        String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + nintyDaysBefore;
-        Double totalToday = (Double) JPA.em().createQuery(total30Query).getSingleResult();
-
-        String count30Query = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + nintyDaysBefore;
-        Long countToday = (Long) JPA.em().createQuery(count30Query).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, nintyDaysBefore);
 
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
-        json.put("totalToday", totalToday);
-        json.put("countToday", countToday);
+        json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
@@ -296,16 +283,11 @@ public class AnalyticsAPI extends AuthController {
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long oneHundredEighty = onehundredeightyDaysBefore(new Date());
-        String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + oneHundredEighty;
-        Double totalToday = (Double) JPA.em().createQuery(total30Query).getSingleResult();
-
-        String count30Query = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + oneHundredEighty;
-        Long countToday = (Long) JPA.em().createQuery(count30Query).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, oneHundredEighty);
 
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
-        json.put("totalToday", totalToday);
-        json.put("countToday", countToday);
+        json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
@@ -349,16 +331,11 @@ public class AnalyticsAPI extends AuthController {
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long three = threeHundredSixtyDaysBefore(new Date());
-        String total30Query = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + three;
-        Double totalToday = (Double) JPA.em().createQuery(total30Query).getSingleResult();
-
-        String count30Query = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + three;
-        Long countToday = (Long) JPA.em().createQuery(count30Query).getSingleResult();
+        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, three);
 
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
-        json.put("totalToday", totalToday);
-        json.put("countToday", countToday);
+        json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
