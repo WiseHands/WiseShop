@@ -68,8 +68,8 @@ public class AnalyticsAPI extends AuthController {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         List<JSONObject> list = new ArrayList<>();
 
-        long currentDate = fromDateInMillis;
-        while (currentDate <= toDateInMillis) {
+        long currentDate = fromDateInMillis - oneDayInMillis;
+        while (currentDate <= toDateInMillis - oneDayInMillis) {
             TotalsDataService.TotalsData totalsForDay = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, currentDate, currentDate + oneDayInMillis);
             currentDate = currentDate + oneDayInMillis;
 
