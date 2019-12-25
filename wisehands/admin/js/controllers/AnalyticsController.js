@@ -3,8 +3,8 @@ angular.module('WiseHands')
         function ($scope, $http, $route, sideNavInit, signout) {
             $scope.loading = true;
 
-            let fromDate = document.getElementById("seventhDayForAnalytics");
-            let toDate = document.getElementById("firstDayForAnalytics");
+            let fromDateInput = document.getElementById("fromDateForAnalytics");
+            let toDateInput = document.getElementById("toDateForAnalytics");
 
             $scope.getMainAnalyticsData = function (days) {
                 $scope.loading = true;
@@ -89,6 +89,16 @@ angular.module('WiseHands')
                 return withoutOffset;
             }
 
+            $scope.performRequestInGivenRange = function () {
+                let fromDateInput = document.getElementById("fromDateForAnalytics");
+                let toDateInput = document.getElementById("toDateForAnalytics");
+
+                let fromDate = convertDateToMilissecondsWithoutTimezoneOffset(fromDateInput.value);
+                let toDate = convertDateToMilissecondsWithoutTimezoneOffset(toDateInput.value);
+
+                $scope.calculateDayRange(fromDate, toDate);
+            };
+
             $scope.calculateDayRange = function(today, pastWeekDate){
                 let fromDate = pastWeekDate;
                 let toDate = today;
@@ -109,6 +119,11 @@ angular.module('WiseHands')
 
                       $scope.popularProducts = response.data.popularProducts;
                       $scope.frequentBuyers = response.data.frequentBuyers;
+
+                        let arrayTime = $scope.analytics.chartData;
+
+                        fromDateInput.value = arrayTime[arrayTime.length - 1].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+                        toDateInput.value = arrayTime[0].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
 
                       $scope.loading = false;
 
