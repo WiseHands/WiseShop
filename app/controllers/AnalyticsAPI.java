@@ -1,11 +1,12 @@
 package controllers;
 
 import json.FrequentBuyer;
+import json.PopularProucts;
 import models.*;
 import org.json.simple.JSONObject;
-import play.db.jpa.JPA;
 import services.analytics.FrequentBuyersService;
 import services.analytics.PaymentTypeService;
+import services.analytics.PopularProductsService;
 import services.analytics.TotalsDataService;
 
 import java.math.BigInteger;
@@ -17,38 +18,7 @@ public class AnalyticsAPI extends AuthController {
 
     private static final int DEFAULT_NUMBER_OF_DAYS = 7;
 
-    public static void showPopularProducts(String client){
-
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null){
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-
-        checkAuthentification(shop);
-
-
-        String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
-                "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
-                "' and productUuid IS NOT NULL and DATE_SUB(CURDATE(),INTERVAL " + DEFAULT_NUMBER_OF_DAYS + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
-                "GROUP BY productUuid ORDER BY SUM(quantity) DESC LIMIT 10";
-
-        List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
-        List<JSONObject> list = new ArrayList<JSONObject>();
-        for (int i = 0; i < result.size(); i++){
-          Object[] item = result.get(i);
-          JSONObject jsonObject = new JSONObject();
-          jsonObject.put("uuid", item[0]);
-          jsonObject.put("name", item[1]);
-          jsonObject.put("quantity", item[2]);
-          list.add(jsonObject);
-
-        }
-        renderJSON(list);
-    }
-
-    public static void fromDateToDate(String client, String fromDate, String toDate) throws Exception {
+    public static void fromDateToDate(String client, Long fromDateInMillis, Long toDateInMillis) throws Exception {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -58,46 +28,57 @@ public class AnalyticsAPI extends AuthController {
         checkAuthentification(shop);
 
         // calculate amount of days
-        Long firstDay = (new Date(fromDate)).getTime();
-        Long lastDate = (new Date(toDate)).getTime();
-        int oneDay = 24*60*60*1000;
-        int days = (Math.round(Math.abs(firstDay - lastDate)/(oneDay)))+2;
-        System.out.println("days " + days);
+        int oneDayInMillis = 24*60*60*1000;
+        long diffInMillis = toDateInMillis - fromDateInMillis;
+        System.out.println("diffInMillis: " + diffInMillis);
+
+        long diffInDays = diffInMillis / oneDayInMillis;
+        System.out.println("diffInDays: " + diffInDays);
+
+
+        int oneDay = 1;
+        int days = Math.round(diffInDays);
+        System.out.println("fromDateToDate Days spent: " + days);
 
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
-        Long today = beginOfDay(new Date(fromDate));
-        String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
-        Double totalToday = (Double) JPA.em().createQuery(totalTodayQuery).getSingleResult();
-
-        String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
-        Long countToday = (Long) JPA.em().createQuery(countTodayQuery).getSingleResult();
+        Long today = beginOfDay(new Date(fromDateInMillis));
+        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, today);
 
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
-        json.put("totalToday", totalToday);
-        json.put("countToday", countToday);
+        json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
+
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, days);
+        json.put("popularProducts", popularProductsList);
+
+        BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCash(shop, days);
+
+        BigInteger paidByCash = PaymentTypeService.getNumberOfPaymentsByCard(shop, days);
+
+        JSONObject paymentCountByType = new JSONObject();
+        paymentCountByType.put("paidByCard", paidByCard);
+        paymentCountByType.put("paidByCash", paidByCash);
+        json.put("paymentCountByType", paymentCountByType);
+
+        List<FrequentBuyer> frequentBuyerList = FrequentBuyersService.getFrequentBuyerList(shop, days);
+        json.put("frequentBuyers", frequentBuyerList);
 
 
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        List<JSONObject> list = new ArrayList<>();
 
-        List<JSONObject> list = new ArrayList<JSONObject>();
-        for (int i=1; i<days; i++) {
+        long currentDate = fromDateInMillis - oneDayInMillis;
+        while (currentDate <= toDateInMillis - oneDayInMillis) {
+            TotalsDataService.TotalsData totalsForDay = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, currentDate, currentDate + oneDayInMillis);
+            currentDate = currentDate + oneDayInMillis;
 
-            Long dayStart = beginOfDay(subtractDay(new Date(fromDate),+i));
-            Long dayEnd = endOfDay(subtractDay(new Date(fromDate),+i));
-
-            String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
-                    + "' and state!='DELETED' and state!='CANCELLED' and time > " + dayStart  + " and time < " + dayEnd;
-            Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
-            if(dayTotal == null) {
-                dayTotal = 0.0;
-            }
-            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-            String dayName = dateFormat.format(new Date(dayStart));
             JSONObject item = new JSONObject();
+            item.put("total", totalsForDay);
+
+            String dayName = dateFormat.format(new Date(currentDate));
             item.put("day", dayName);
-            item.put("total", dayTotal);
-            System.out.println("total per day " + item.put("total", dayTotal));
+
             list.add(item);
         }
 
@@ -107,11 +88,16 @@ public class AnalyticsAPI extends AuthController {
     }
 
     public static void infoDay(String client, int numberOfDays) throws Exception { // /analytics
+        Long today = beginOfDay(new Date());
+        Long sevenDaysBefore = sevenDaysBefore(new Date());
+
+
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         checkAuthentification(shop);
+        System.out.println("AnalyticsAPI number of days" + numberOfDays);
 
         if(numberOfDays == 0) {
             numberOfDays = 7;
@@ -119,29 +105,30 @@ public class AnalyticsAPI extends AuthController {
 
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
-        Long today = beginOfDay(new Date());
-        Long sevenDaysBefore = sevenDaysBefore(new Date());
 
         TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, sevenDaysBefore);
 
         JSONObject json = new JSONObject();
+
+        System.out.println("AnalyticsAPI countAndTotalSumOfOrders" + countAndTotalSumOfOrders.toString());
         json.put("allTime", countAndTotalSumOfOrders);
+
+        System.out.println("AnalyticsAPI countAndTotalSumOfOrdersDayBefore" + countAndTotalSumOfOrdersDayBefore.toString());
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
+
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
 
         int daysFromToday = 30;
 
         BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCash(shop, daysFromToday);
-        System.out.println(paidByCard);
 
         BigInteger paidByCash = PaymentTypeService.getNumberOfPaymentsByCard(shop, daysFromToday);
-        System.out.println(paidByCash);
-
 
         JSONObject paymentCountByType = new JSONObject();
         paymentCountByType.put("paidByCard", paidByCard);
         paymentCountByType.put("paidByCash", paidByCash);
         json.put("paymentCountByType", paymentCountByType);
-
 
         List<FrequentBuyer> frequentBuyerList = FrequentBuyersService.getFrequentBuyerList(shop, daysFromToday);
         json.put("frequentBuyers", frequentBuyerList);
@@ -154,10 +141,7 @@ public class AnalyticsAPI extends AuthController {
             Long dayStart = beginOfDay(subtractDay(new Date(today),-i));
             Long dayEnd = endOfDay(subtractDay(new Date(today),-i));
 
-            String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
-                    + "' and state!='DELETED' and state!='CANCELLED' and time > " + dayStart  + " and time < " + dayEnd;
-
-            Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
+            Double dayTotal = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, dayStart, dayEnd).getTotalSum();
             if(dayTotal == null) {
                 dayTotal = 0.0;
             }
@@ -192,10 +176,11 @@ public class AnalyticsAPI extends AuthController {
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
 
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
-
 
         Long today = beginOfDay(new Date());
         List<JSONObject> list = new ArrayList<JSONObject>();
@@ -203,10 +188,7 @@ public class AnalyticsAPI extends AuthController {
             Long dayStart = beginOfDay(subtractDay(new Date(today),-i));
             Long dayEnd = endOfDay(subtractDay(new Date(today),-i));
 
-            String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
-                    + "' and state!='DELETED' and state!='CANCELLED' and time > " + dayStart  + " and time < " + dayEnd;
-
-            Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
+            Double dayTotal = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, dayStart, dayEnd).getTotalSum();
             if(dayTotal == null) {
                 dayTotal = 0.0;
             }
@@ -216,7 +198,6 @@ public class AnalyticsAPI extends AuthController {
             item.put("total", dayTotal);
             list.add(item);
         }
-
         json.put("chartData", list);
         renderJSON(json);
     }
@@ -241,9 +222,11 @@ public class AnalyticsAPI extends AuthController {
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
+
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
-
 
         Long today = beginOfDay(new Date());
         List<JSONObject> list = new ArrayList<JSONObject>();
@@ -251,10 +234,7 @@ public class AnalyticsAPI extends AuthController {
             Long dayStart = beginOfDay(subtractDay(new Date(today),-i));
             Long dayEnd = endOfDay(subtractDay(new Date(today),-i));
 
-            String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
-                    + "' and state!='DELETED' and state!='CANCELLED' and time > " + dayStart  + " and time < " + dayEnd;
-
-            Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
+            Double dayTotal = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, dayStart, dayEnd).getTotalSum();
             if(dayTotal == null) {
                 dayTotal = 0.0;
             }
@@ -289,9 +269,11 @@ public class AnalyticsAPI extends AuthController {
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
+
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
-
 
         Long today = beginOfDay(new Date());
         List<JSONObject> list = new ArrayList<JSONObject>();
@@ -299,10 +281,7 @@ public class AnalyticsAPI extends AuthController {
             Long dayStart = beginOfDay(subtractDay(new Date(today),-i));
             Long dayEnd = endOfDay(subtractDay(new Date(today),-i));
 
-            String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
-                    + "' and state!='DELETED' and state!='CANCELLED' and time > " + dayStart  + " and time < " + dayEnd;
-
-            Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
+            Double dayTotal = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, dayStart, dayEnd).getTotalSum();
             if(dayTotal == null) {
                 dayTotal = 0.0;
             }
@@ -337,9 +316,11 @@ public class AnalyticsAPI extends AuthController {
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
+
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
-
 
         Long today = beginOfDay(new Date());
         List<JSONObject> list = new ArrayList<JSONObject>();
@@ -347,10 +328,7 @@ public class AnalyticsAPI extends AuthController {
             Long dayStart = beginOfDay(subtractDay(new Date(today),-i));
             Long dayEnd = endOfDay(subtractDay(new Date(today),-i));
 
-            String dayTotalQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid
-                    + "' and state!='DELETED' and state!='CANCELLED' and time > " + dayStart  + " and time < " + dayEnd;
-
-            Double dayTotal = (Double) JPA.em().createQuery(dayTotalQuery).getSingleResult();
+            Double dayTotal = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, dayStart, dayEnd).getTotalSum();
             if(dayTotal == null) {
                 dayTotal = 0.0;
             }
@@ -364,7 +342,6 @@ public class AnalyticsAPI extends AuthController {
         json.put("chartData", list);
         renderJSON(json);
     }
-
 
     private static Long beginOfDay(Date date) {
         Calendar cal = Calendar.getInstance();

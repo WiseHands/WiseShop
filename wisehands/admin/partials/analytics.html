@@ -44,10 +44,11 @@
 
             <div class="analytics-range-0f-days">
               <div class="calculate-total-container col-md-12">
-                <input id="seventhDayForAnalytics" class="placeholder" value="" type="date">
-                <input id="firstDayForAnalytics" class="placeholder" value="" type="date">
+                  <input id="toDateForAnalytics" class="placeholder" value="" type="date">
+                  <input id="fromDateForAnalytics" class="placeholder" value="" type="date">
+
               </div>
-              <button type="button" ng-click="calculateDayRange()" class="btn secondaryColor analytics-use-btn waves-effect waves-light pull-right ng-binding">
+              <button type="button" ng-click="performRequestInGivenRange()" class="btn secondaryColor analytics-use-btn waves-effect waves-light pull-right ng-binding">
                   {{'analytics.analyticstotal' | translate}}
               </button>
             </div>
