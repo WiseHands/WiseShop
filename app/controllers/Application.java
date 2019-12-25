@@ -157,6 +157,10 @@ public class Application extends Controller {
         render();
     }
 
+    public static void marketing(String client) {
+        render();
+    }
+
     public static void sitemap(String client) throws IOException {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

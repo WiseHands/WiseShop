@@ -11,6 +11,8 @@ GET     {client}/page/{uuid}                            Application.page
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
 
+GET     {client}/marketing                              Application.marketing
+
 POST    {client}/signin                                 UserAPI.login
 POST    {client}/storeauthcode                          UserAPI.storeauthcode
 POST    {client}/signup                                 UserAPI.register
