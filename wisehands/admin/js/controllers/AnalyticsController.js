@@ -7,75 +7,21 @@ angular.module('WiseHands')
             let toDateInput = document.getElementById("toDateForAnalytics");
 
             $scope.getMainAnalyticsData = function (days) {
-                $scope.loading = true;
-                $scope.days = days;
-                $http({
-                    method: 'GET',
-                    url: '/analytics' + days,
-                })
-                    .then(function successCallback(response) {
-                        $scope.analytics = response.data;
-                        $scope.popularProducts = response.data.popularProducts;
-                        $scope.frequentBuyers = response.data.frequentBuyers;
-                        let arrayTime = $scope.analytics.chartData;
+                let format = "YYYY-MM-DD";
 
-                        fromDate.value = arrayTime[arrayTime.length - 1].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
-                        toDate.value = arrayTime[0].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+                const currentDate = new Date();
+                const to = convertDateToMilissecondsWithoutTimezoneOffset(currentDate);
 
-                        console.log('fromDate.value ', fromDate.value);
-                        console.log('toDate.value ', toDate.value);
+                fromDateInput.value = moment(to).format(format);
 
-                        // setDataTypeForAnalytics(response.data.chartData);
-                        console.log('$scope.analytics:____ ', $scope.analytics);
-                        console.log('$scope.frequentBuyers:____ ', $scope.frequentBuyers);
 
-                        if(!$scope.analytics.totalToday){
-                            $scope.analytics.totalToday = 0;
-                        }
+                let oneDayInMillis = 24*60*60*1000;
+                let from = to - parseInt(days) * oneDayInMillis;
 
-                        var labels = [];
-                        var data = [];
-                        for(var i=0; i<$scope.analytics.chartData.length; i++) {
-                            var item = $scope.analytics.chartData[i];
-                            labels.push(item.day);
-                            if(!item.total.totalSum) {
-                                item.total.totalSum = 0;
-                            }
-                            data.push(item.total.totalSum);
-                        }
+                toDateInput.value = moment(from).format(format);
 
-                        $scope.labels = labels;
-                        $scope.series = ['Total'];
-                        $scope.data = [
-                            data
-                        ];
-                        // $scope.onClick = function (points, evt) {
-                        //     console.log(points, evt);
-                        // };
-                        // $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-                        // $scope.options = {
-                        //     scales: {
-                        //         yAxes: [
-                        //             {
-                        //                 id: 'y-axis-1',
-                        //                 type: 'linear',
-                        //                 display: true,
-                        //                 position: 'left'
-                        //             },
-                        //             {
-                        //                 id: 'y-axis-2',
-                        //                 type: 'linear',
-                        //                 display: true,
-                        //                 position: 'right'
-                        //             }
-                        //         ]
-                        //     }
-                        // };
-                        $scope.loading = false;
-                    }, function errorCallback(response) {
-                        $scope.status = 'Щось пішло не так...';
-                    });
 
+                $scope.calculateDayRange(to, from);
             };
 
             function convertDateToMilissecondsWithoutTimezoneOffset(date) {
@@ -175,10 +121,11 @@ angular.module('WiseHands')
                  }, function errorCallback(response) {
                         $scope.loading = false;
               });
+            let week = 7;
 
             const currentDate = new Date();
             const formattedCurrentDate = convertDateToMilissecondsWithoutTimezoneOffset(currentDate);
-            const pastWeekDate = currentDate.setDate(currentDate.getDate()-5);
+            const pastWeekDate = currentDate.setDate(currentDate.getDate()- week);
             const formattedPassWeekDate = convertDateToMilissecondsWithoutTimezoneOffset(pastWeekDate);
             $scope.calculateDayRange(formattedCurrentDate, formattedPassWeekDate);
 

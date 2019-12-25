@@ -16,7 +16,6 @@ import java.util.*;
 
 public class AnalyticsAPI extends AuthController {
 
-    private static final int DEFAULT_NUMBER_OF_DAYS = 7;
 
     public static void fromDateToDate(String client, Long fromDateInMillis, Long toDateInMillis) throws Exception {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
