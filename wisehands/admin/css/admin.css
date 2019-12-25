@@ -187,17 +187,20 @@ td, th {
   display: flex;
   padding-right: 10px;
   padding-left: 10px;
+  justify-content: center;
 }
 @media only screen and (max-width: 500px) {
   .analytics-range-0f-days {
     display: flex;
     flex-direction: column;
+    justify-content: center;
   }
 }
 .analytics-use-btn {
   margin-bottom: 10px;
   margin-top: 10px;
   border-radius: 0 0 2px 2px;
+  width: 11em;
 }
 
 @media only screen and (min-width: 501px) {
