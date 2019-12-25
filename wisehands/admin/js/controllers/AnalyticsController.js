@@ -38,7 +38,10 @@ angular.module('WiseHands')
                         for(var i=0; i<$scope.analytics.chartData.length; i++) {
                             var item = $scope.analytics.chartData[i];
                             labels.push(item.day);
-                            data.push(item.total);
+                            if(!item.total.totalSum) {
+                                item.total.totalSum = 0;
+                            }
+                            data.push(item.total.totalSum);
                         }
 
                         $scope.labels = labels;
@@ -75,15 +78,30 @@ angular.module('WiseHands')
 
             };
 
+            function convertDateToMilissecondsWithoutTimezoneOffset(date) {
+                let myDate = new Date(date);
+                let offset = myDate.getTimezoneOffset() * 60 * 1000;
+
+                let withOffset = myDate.getTime();
+                let withoutOffset = withOffset - offset;
+                console.log(withOffset);
+                console.log(withoutOffset);
+                return withoutOffset;
+            }
+
             $scope.calculateDayRange = function(){
                 let fromDate = new Date(document.getElementById("seventhDayForAnalytics").value);
                 let toDate = new Date(document.getElementById("firstDayForAnalytics").value);
-                console.log('fromDate.value for calculateDayRange: ', toDate);
+                console.log('fromDate.value for calculateDayRange: ', fromDate);
                 console.log('toDate.value for calculateDayRange: ', toDate);
 
                 $http({
                     method: 'GET',
-                    url: '/analytics/from/' + fromDate + '/to/' + toDate
+                    url:
+                    '/analytics/from/' +
+                    convertDateToMilissecondsWithoutTimezoneOffset(fromDate) +
+                    '/to/' +
+                    convertDateToMilissecondsWithoutTimezoneOffset(toDate)
                 })
                     .then(function successCallback(response) {
                       console.log(response.data);
@@ -93,7 +111,10 @@ angular.module('WiseHands')
                       for(var i=0; i<$scope.analytics.chartData.length; i++) {
                           var item = $scope.analytics.chartData[i];
                           labels.push(item.day);
-                          data.push(item.total);
+                          if(!item.total.totalSum) {
+                              item.total.totalSum = 0;
+                          }
+                          data.push(item.total.totalSum);
                       }
 
                       $scope.labels = labels;

@@ -4,7 +4,6 @@ import json.FrequentBuyer;
 import json.PopularProucts;
 import models.*;
 import org.json.simple.JSONObject;
-import play.db.jpa.JPA;
 import services.analytics.FrequentBuyersService;
 import services.analytics.PaymentTypeService;
 import services.analytics.PopularProductsService;
@@ -19,24 +18,7 @@ public class AnalyticsAPI extends AuthController {
 
     private static final int DEFAULT_NUMBER_OF_DAYS = 7;
 
-    public static void showPopularProducts(String client){
-
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null){
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-
-        checkAuthentification(shop);
-
-        JSONObject json = new JSONObject();
-        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, DEFAULT_NUMBER_OF_DAYS);
-        json.put("popularProducts", popularProductsList);
-        renderJSON(json);
-    }
-
-    public static void fromDateToDate(String client, String fromDate, String toDate) throws Exception {
+    public static void fromDateToDate(String client, Long fromDateInMillis, Long toDateInMillis) throws Exception {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -46,35 +28,57 @@ public class AnalyticsAPI extends AuthController {
         checkAuthentification(shop);
 
         // calculate amount of days
-        Long firstDay = (new Date(fromDate)).getTime();
-        Long lastDate = (new Date(toDate)).getTime();
-        int oneDay = 24*60*60*1000;
-        int days = (Math.round(Math.abs(firstDay - lastDate)/(oneDay)))+2;
+        int oneDayInMillis = 24*60*60*1000;
+        long diffInMillis = toDateInMillis - fromDateInMillis;
+        System.out.println("diffInMillis: " + diffInMillis);
+
+        long diffInDays = diffInMillis / oneDayInMillis;
+        System.out.println("diffInDays: " + diffInDays);
+
+
+        int oneDay = 1;
+        int days = Math.round(diffInDays);
+        System.out.println("fromDateToDate Days spent: " + days);
 
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
-        Long today = beginOfDay(new Date(fromDate));
+        Long today = beginOfDay(new Date(fromDateInMillis));
         TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, today);
 
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
-        List<JSONObject> list = new ArrayList<JSONObject>();
-        for (int i=1; i<days; i++) {
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, days);
+        json.put("popularProducts", popularProductsList);
 
-            Long dayStart = beginOfDay(subtractDay(new Date(fromDate),+i));
-            Long dayEnd = endOfDay(subtractDay(new Date(fromDate),+i));
+        BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCash(shop, days);
 
-            Double dayTotal = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, dayStart, dayEnd).getTotalSum();
-            if(dayTotal == null) {
-                dayTotal = 0.0;
-            }
-            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-            String dayName = dateFormat.format(new Date(dayStart));
+        BigInteger paidByCash = PaymentTypeService.getNumberOfPaymentsByCard(shop, days);
+
+        JSONObject paymentCountByType = new JSONObject();
+        paymentCountByType.put("paidByCard", paidByCard);
+        paymentCountByType.put("paidByCash", paidByCash);
+        json.put("paymentCountByType", paymentCountByType);
+
+        List<FrequentBuyer> frequentBuyerList = FrequentBuyersService.getFrequentBuyerList(shop, days);
+        json.put("frequentBuyers", frequentBuyerList);
+
+
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        List<JSONObject> list = new ArrayList<>();
+
+        long currentDate = fromDateInMillis;
+        while (currentDate <= toDateInMillis) {
+            TotalsDataService.TotalsData totalsForDay = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, currentDate, currentDate + oneDayInMillis);
+            currentDate = currentDate + oneDayInMillis;
+
             JSONObject item = new JSONObject();
+            item.put("total", totalsForDay);
+
+            String dayName = dateFormat.format(new Date(currentDate));
             item.put("day", dayName);
-            item.put("total", dayTotal);
+
             list.add(item);
         }
 
@@ -84,6 +88,10 @@ public class AnalyticsAPI extends AuthController {
     }
 
     public static void infoDay(String client, int numberOfDays) throws Exception { // /analytics
+        Long today = beginOfDay(new Date());
+        Long sevenDaysBefore = sevenDaysBefore(new Date());
+
+
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -97,8 +105,6 @@ public class AnalyticsAPI extends AuthController {
 
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
-        Long today = beginOfDay(new Date());
-        Long sevenDaysBefore = sevenDaysBefore(new Date());
 
         TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, sevenDaysBefore);
 

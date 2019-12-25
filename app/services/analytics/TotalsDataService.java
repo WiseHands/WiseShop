@@ -1,5 +1,6 @@
 package services.analytics;
 
+import com.google.gson.annotations.Expose;
 import enums.OrderState;
 import models.ShopDTO;
 import play.db.jpa.JPA;
@@ -9,8 +10,11 @@ import java.util.Calendar;
 public class TotalsDataService {
 
     public static class TotalsData {
-        Double totalSum;
-        Long totalCount;
+        @Expose
+        Double totalSum = 0.0;
+
+        @Expose
+        Long totalCount = 0l;
 
         public TotalsData(Double totalSum, Long totalCount){
             this.totalSum = totalSum;
