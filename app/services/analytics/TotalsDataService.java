@@ -25,6 +25,10 @@ public class TotalsDataService {
             return totalCount;
         }
 
+        @Override
+        public String toString() {
+            return String.format("TotalsData: " + "SUM == %.2f, COUNT == %d", this.totalSum, this.totalCount);
+        }
     }
 
     private static final String TOTAL_QUERY =

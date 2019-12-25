@@ -89,6 +89,7 @@ public class AnalyticsAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         checkAuthentification(shop);
+        System.out.println("AnalyticsAPI number of days" + numberOfDays);
 
         if(numberOfDays == 0) {
             numberOfDays = 7;
@@ -102,7 +103,11 @@ public class AnalyticsAPI extends AuthController {
         TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, sevenDaysBefore);
 
         JSONObject json = new JSONObject();
+
+        System.out.println("AnalyticsAPI countAndTotalSumOfOrders" + countAndTotalSumOfOrders.toString());
         json.put("allTime", countAndTotalSumOfOrders);
+
+        System.out.println("AnalyticsAPI countAndTotalSumOfOrdersDayBefore" + countAndTotalSumOfOrdersDayBefore.toString());
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
         int daysFromToday = 30;
@@ -157,7 +162,7 @@ public class AnalyticsAPI extends AuthController {
 
         Long thirtyDaysBefore = thirtyDaysBefore(new Date());
         TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, thirtyDaysBefore);
-        
+
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
