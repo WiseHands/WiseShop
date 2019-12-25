@@ -157,7 +157,7 @@ public class AnalyticsAPI extends AuthController {
 
         Long thirtyDaysBefore = thirtyDaysBefore(new Date());
         TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, thirtyDaysBefore);
-
+        
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
