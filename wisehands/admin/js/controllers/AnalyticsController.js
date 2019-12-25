@@ -89,9 +89,9 @@ angular.module('WiseHands')
                 return withoutOffset;
             }
 
-            $scope.calculateDayRange = function(){
-                let fromDate = new Date(document.getElementById("seventhDayForAnalytics").value);
-                let toDate = new Date(document.getElementById("firstDayForAnalytics").value);
+            $scope.calculateDayRange = function(today, pastWeekDate){
+                let fromDate = pastWeekDate;
+                let toDate = today;
                 console.log('fromDate.value for calculateDayRange: ', fromDate);
                 console.log('toDate.value for calculateDayRange: ', toDate);
 
@@ -99,13 +99,19 @@ angular.module('WiseHands')
                     method: 'GET',
                     url:
                     '/analytics/from/' +
-                    convertDateToMilissecondsWithoutTimezoneOffset(fromDate) +
+                    fromDate +
                     '/to/' +
-                    convertDateToMilissecondsWithoutTimezoneOffset(toDate)
+                    toDate
                 })
                     .then(function successCallback(response) {
                       console.log(response.data);
                       $scope.analytics = response.data;
+
+                      $scope.popularProducts = response.data.popularProducts;
+                      $scope.frequentBuyers = response.data.frequentBuyers;
+
+                      $scope.loading = false;
+
                       var labels = [];
                       var data = [];
                       for(var i=0; i<$scope.analytics.chartData.length; i++) {
@@ -155,7 +161,11 @@ angular.module('WiseHands')
                         $scope.loading = false;
               });
 
-            $scope.getMainAnalyticsData('');
+            const currentDate = new Date();
+            const formattedCurrentDate = convertDateToMilissecondsWithoutTimezoneOffset(currentDate);
+            const pastWeekDate = currentDate.setDate(currentDate.getDate()-5);
+            const formattedPassWeekDate = convertDateToMilissecondsWithoutTimezoneOffset(pastWeekDate);
+            $scope.calculateDayRange(formattedCurrentDate, formattedPassWeekDate);
 
             sideNavInit.sideNav();
 
