@@ -110,6 +110,9 @@ public class AnalyticsAPI extends AuthController {
         System.out.println("AnalyticsAPI countAndTotalSumOfOrdersDayBefore" + countAndTotalSumOfOrdersDayBefore.toString());
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
+
         int daysFromToday = 30;
 
         BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCash(shop, daysFromToday);
@@ -167,6 +170,9 @@ public class AnalyticsAPI extends AuthController {
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
+
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
 
@@ -209,6 +215,9 @@ public class AnalyticsAPI extends AuthController {
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
+
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
 
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
@@ -254,6 +263,9 @@ public class AnalyticsAPI extends AuthController {
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
+
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
 
@@ -297,6 +309,9 @@ public class AnalyticsAPI extends AuthController {
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
+
+        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, numberOfDays);
+        json.put("popularProducts", popularProductsList);
 
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);

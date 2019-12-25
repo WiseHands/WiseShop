@@ -3,19 +3,6 @@ angular.module('WiseHands')
         function ($scope, $http, $route, sideNavInit, signout) {
             $scope.loading = true;
 
-            $http({
-                method: 'GET',
-                url: '/analytics/popularproducts'
-            }).then(
-                function successCallback(response){
-                    $scope.popularProducts = response.data.popularProducts;
-                    console.log("popularproducts: ", response.data);
-
-                }, function errorCallback(data) {
-                    console.log("popularproducts",data);
-                }
-            );
-
             let fromDate = document.getElementById("seventhDayForAnalytics");
             let toDate = document.getElementById("firstDayForAnalytics");
 
@@ -28,6 +15,7 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         $scope.analytics = response.data;
+                        $scope.popularProducts = response.data.popularProducts;
                         $scope.frequentBuyers = response.data.frequentBuyers;
                         let arrayTime = $scope.analytics.chartData;
 
