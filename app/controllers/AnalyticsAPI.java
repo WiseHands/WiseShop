@@ -65,7 +65,7 @@ public class AnalyticsAPI extends AuthController {
 
 
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        List<JSONObject> list = new ArrayList<>();
+        List<JSONObject> list = new ArrayList<JSONObject>();
 
         long currentDate = fromDateInMillis - oneDayInMillis;
         while (currentDate <= toDateInMillis - oneDayInMillis) {
