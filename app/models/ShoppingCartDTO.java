@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import json.shoppingcart.*;
 import play.db.jpa.GenericModel;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,7 +41,7 @@ public class ShoppingCartDTO extends GenericModel {
 
     @Expose
     @OneToMany(orphanRemoval=true)
-    public List<LineItemDTO> lineItemList;
+    public List<LineItem> items;
 
     @Expose
     @Transient
@@ -91,7 +92,6 @@ public class ShoppingCartDTO extends GenericModel {
 
         ShoppingCartConfiguration configuration = new ShoppingCartConfiguration(delivery, payment);
         this.configuration = configuration;
-
 
     }
 }

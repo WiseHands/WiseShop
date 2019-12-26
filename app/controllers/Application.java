@@ -101,12 +101,7 @@ public class Application extends Controller {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
 
-        Http.Cookie userTokenCookie = request.cookies.get("userToken");
-        if(userTokenCookie == null) {
-            UUID uuid = UUID.randomUUID();
-            String token = generateTokenForCookie(uuid.toString(), agent);
-            response.setCookie("userToken", token);
-        }
+        generateCookieIfNotPresent(shop);
 
 
         List<ProductDTO> products;
@@ -115,6 +110,21 @@ public class Application extends Controller {
         System.out.println("\n\n\nODUUCTTTTSSSS: " + products.size());
 
         renderTemplate("Application/shop.html", shop, products);
+    }
+
+    private static void generateCookieIfNotPresent(ShopDTO shop) {
+        String agent = request.headers.get("user-agent").value();
+
+        Http.Cookie userTokenCookie = request.cookies.get("userToken");
+        if(userTokenCookie == null) {
+            UUID uuid = UUID.randomUUID();
+            String token = generateTokenForCookie(uuid.toString(), agent);
+            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
+            shoppingCart.uuid = uuid.toString();
+            shoppingCart.shopUuid = shop.uuid;
+            shoppingCart.save();
+            response.setCookie("userToken", token);
+        }
     }
 
     public static void shop(String client) {

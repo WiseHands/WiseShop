@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import json.shoppingcart.LineItem;
 import models.*;
 import play.Play;
 import play.mvc.Before;
@@ -37,6 +38,9 @@ public class ShoppingCartAPI extends AuthController {
         if (request.params.get("cartId") != null) {
             cartId = request.params.get("cartId");
         } else {
+            if(request.cookies.get("userToken") == null) {
+                return null;
+            }
             String userTokenCookie = request.cookies.get("userToken").value;
             try {
                 String encodingSecret = Play.configuration.getProperty("jwt.secret");
@@ -56,12 +60,18 @@ public class ShoppingCartAPI extends AuthController {
 
     public void getCart(ShopDTO shop) {
         String cartId = _getCartUuid();
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
-        if(shoppingCart == null) {
+        ShoppingCartDTO shoppingCart = null;
+
+        if(cartId == null) {
             shoppingCart = new ShoppingCartDTO();
             shoppingCart.uuid = cartId;
             shoppingCart.shopUuid = shop.uuid;
+            shoppingCart = shoppingCart.save();
+        } else {
+            shoppingCart = (ShoppingCartDTO) ShoppingCartDTO.find("byUuid", cartId).fetch().get(0);
         }
+
+
         renderJSON(json(shoppingCart));
     }
 
@@ -70,7 +80,6 @@ public class ShoppingCartAPI extends AuthController {
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-
 
         String productUuid = request.params.get("uuid");
         System.out.println("productId " + productUuid);
@@ -83,33 +92,28 @@ public class ShoppingCartAPI extends AuthController {
         }
 
         String cartId = _getCartUuid();
+
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
-
-        LineItemDTO lineItem = new LineItemDTO();
+        LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price);
+        lineItem = lineItem.save();
         if (shoppingCart == null) {
             shoppingCart = new ShoppingCartDTO();
             shoppingCart.uuid = cartId;
             shoppingCart.shopUuid = shop.uuid;
         }
 
-
-        if (shoppingCart.lineItemList == null) {
-            shoppingCart.lineItemList = new ArrayList<>();
+        if (shoppingCart.items == null) {
+            shoppingCart.items = new ArrayList<>();
         }
 
-
-        if (shoppingCart.lineItemList.size() == 0) {
-            lineItem.product = product;
-            lineItem.quantity = quantity;
-            lineItem = lineItem.save();
-
-            shoppingCart.lineItemList.add(lineItem);
+        if (shoppingCart.items.size() == 0) {
+            shoppingCart.items.add(lineItem);
             shoppingCart.save();
         } else {
             boolean isProductUnique = false;
-            for (LineItemDTO lineItems : shoppingCart.lineItemList) {
-                if (productUuid.equals(lineItems.product.uuid)) {
+            for (LineItem lineItems : shoppingCart.items) {
+                if (productUuid.equals(lineItems.id)) {
                     isProductUnique = true;
                     lineItems.quantity = lineItems.quantity + quantity;
                     lineItems.save();
@@ -117,11 +121,7 @@ public class ShoppingCartAPI extends AuthController {
             }
 
             if (!isProductUnique) {
-                lineItem.product = product;
-                lineItem.quantity = quantity;
-                lineItem = lineItem.save();
-
-                shoppingCart.lineItemList.add(lineItem);
+                shoppingCart.items.add(lineItem);
                 shoppingCart.save();
             }
         }
@@ -141,19 +141,19 @@ public class ShoppingCartAPI extends AuthController {
         String cartId = _getCartUuid();
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
-        LineItemDTO lineItemToRemove = null;
-        for (LineItemDTO lineItem : shoppingCart.lineItemList) {
-            if (lineItem.uuid.equals(lineItemUuid)) {
+        LineItem lineItemToRemove = null;
+        for (LineItem lineItem : shoppingCart.items) {
+            if (lineItem.id.equals(lineItemUuid)) {
                 lineItemToRemove = lineItem;
             }
         }
-        shoppingCart.lineItemList.remove(lineItemToRemove);
+        shoppingCart.items.remove(lineItemToRemove);
         shoppingCart.save();
 
-        LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
+        LineItem lineItem = LineItem.findById(lineItemUuid);
         lineItem.delete();
 
-        if (shoppingCart.lineItemList.size() == 0) {
+        if (shoppingCart.items.size() == 0) {
             shoppingCart.delete();
         }
 
@@ -167,7 +167,7 @@ public class ShoppingCartAPI extends AuthController {
         }
         String lineItemUuid = request.params.get("uuid");
 
-        LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
+        LineItem lineItem = LineItem.findById(lineItemUuid);
         lineItem.quantity += 1;
         lineItem.save();
 
@@ -183,7 +183,7 @@ public class ShoppingCartAPI extends AuthController {
 
         String lineItemUuid = request.params.get("uuid");
 
-        LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
+        LineItem lineItem = LineItem.findById(lineItemUuid);
         lineItem.quantity -= 1;
         if (lineItem.quantity == 0) {
             deleteProduct(client);
