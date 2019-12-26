@@ -32,7 +32,7 @@ public class Application extends Controller {
         response.setHeader("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
     }
 
-        public static void main(String client) {
+    public static void main(String client) {
             if(client.equals("wisehands.me") || isDevEnv) {
                 String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
                 String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
