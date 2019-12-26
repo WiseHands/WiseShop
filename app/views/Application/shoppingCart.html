@@ -574,7 +574,7 @@
 
         }
 
-        let isAnyItemsPresentInCart = shoppingCartState.lineItemList.length > 0;
+        let isAnyItemsPresentInCart = shoppingCartState.items.length > 0;
 
         let emptyBasketContainer = document.querySelector('.empty-basket-container');
         let orderDetailsContainer = document.querySelector('.order-details-container');
@@ -591,8 +591,8 @@
         let listContainer = document.querySelector('.list-of-product');
         listContainer.innerHTML = '';
         let cartTotal = 0;
-        for (let i = 0; i < shoppingCartState.lineItemList.length; i++) {
-            let _lineItem = shoppingCartState.lineItemList[i];
+        for (let i = 0; i < shoppingCartState.items.length; i++) {
+            let _lineItem = shoppingCartState.items[i];
 
             cartTotal += _lineItem.product.price * _lineItem.quantity;
 

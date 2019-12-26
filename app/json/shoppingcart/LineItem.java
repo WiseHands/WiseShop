@@ -1,7 +1,9 @@
 package json.shoppingcart;
 
 import com.google.gson.annotations.Expose;
+import models.ShopDTO;
 import org.hibernate.annotations.GenericGenerator;
+import play.Play;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.Entity;
@@ -32,10 +34,17 @@ public class LineItem extends GenericModel {
     @Expose
     public Double price;
 
-    public LineItem(String uuid, String name, String imagePath, Integer quantity, Double price) {
+    private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
+
+
+    public LineItem(String uuid, String name, String imagePath, Integer quantity, Double price, ShopDTO shop) {
         this.id = uuid;
         this.name = name;
-        this.imagePath = imagePath;
+        String path = shop.domain;
+        if(isDevEnv) {
+            path = path + ":3334";
+        }
+        this.imagePath = String.format("http://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);;
         this.quantity = quantity;
         this.price = price;
     }

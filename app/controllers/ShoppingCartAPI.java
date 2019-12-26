@@ -95,7 +95,8 @@ public class ShoppingCartAPI extends AuthController {
 
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
-        LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price);
+
+        LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop);
         lineItem = lineItem.save();
         if (shoppingCart == null) {
             shoppingCart = new ShoppingCartDTO();
