@@ -54,11 +54,13 @@ public class ShoppingCartAPI extends AuthController {
         return cartId;
     }
 
-    public void getCart() {
+    public void getCart(ShopDTO shop) {
         String cartId = _getCartUuid();
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
         if(shoppingCart == null) {
-            notFound();
+            shoppingCart = new ShoppingCartDTO();
+            shoppingCart.uuid = cartId;
+            shoppingCart.shopUuid = shop.uuid;
         }
         renderJSON(json(shoppingCart));
     }
@@ -125,10 +127,15 @@ public class ShoppingCartAPI extends AuthController {
         }
 
 
-        getCart();
+        getCart(shop);
     }
 
-    public void deleteProduct() {
+    public void deleteProduct(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
         String lineItemUuid = request.params.get("uuid");
 
         String cartId = _getCartUuid();
@@ -150,39 +157,50 @@ public class ShoppingCartAPI extends AuthController {
             shoppingCart.delete();
         }
 
-        getCart();
+        getCart(shop);
     }
 
-    public void increaseQuantityProduct() {
-
+    public void increaseQuantityProduct(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         String lineItemUuid = request.params.get("uuid");
 
         LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
         lineItem.quantity += 1;
         lineItem.save();
 
-        getCart();
+        getCart(shop);
 
     }
 
-    public void decreaseQuantityProduct() {
+    public void decreaseQuantityProduct(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         String lineItemUuid = request.params.get("uuid");
 
         LineItemDTO lineItem = LineItemDTO.findById(lineItemUuid);
         lineItem.quantity -= 1;
         if (lineItem.quantity == 0) {
-            deleteProduct();
+            deleteProduct(client);
         }
         if (lineItem.quantity >= 0) {
             lineItem.save();
-            getCart();
+            getCart(shop);
         }
 
 
     }
 
-    public void selectDeliveryType() {
+    public void selectDeliveryType(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         String delivery = request.params.get("deliverytype");
         System.out.println("deliverytype FROM REQUEST: " + delivery);
@@ -205,10 +223,14 @@ public class ShoppingCartAPI extends AuthController {
                 break;
         }
         shoppingCart.save();
-        getCart();
+        getCart(shop);
     }
 
-    public void selectPaymentType() {
+    public void selectPaymentType(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         String payment = request.params.get("paymenttype");
         System.out.println("payment from request: " + payment);
@@ -229,12 +251,15 @@ public class ShoppingCartAPI extends AuthController {
         }
         shoppingCart.save();
 
-        getCart();
+        getCart(shop);
     }
 
 
-    public void setClientInfo() {
-
+    public void setClientInfo(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
            String clientName = request.params.get("clientName");
            String clientPhone = request.params.get("clientPhone");
            String clientComments = request.params.get("clientComments");
@@ -254,12 +279,15 @@ public class ShoppingCartAPI extends AuthController {
            }
 
            shoppingCart.save();
-           getCart();
+           getCart(shop);
 
     }
 
-    public void setAddressInfo() {
-
+    public void setAddressInfo(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
            String clientAddressStreetName = request.params.get("clientAddressStreetName");
            String clientAddressBuildingNumber = request.params.get("clientAddressBuildingNumber");
            String clientAddressAppartmentNumber = request.params.get("clientAddressAppartmentNumber");
@@ -280,13 +308,16 @@ public class ShoppingCartAPI extends AuthController {
            }
 
            shoppingCart.save();
-           getCart();
+           getCart(shop);
 
     }
 
 
-     public void setPostDepartmentInfo() {
-
+     public void setPostDepartmentInfo(String client) {
+         ShopDTO shop = ShopDTO.find("byDomain", client).first();
+         if (shop == null){
+             shop = ShopDTO.find("byDomain", "localhost").first();
+         }
            String clientCity = request.params.get("clientCity");
            String clientPostDepartmentNumber = request.params.get("clientPostDepartmentNumber");
 
@@ -301,7 +332,7 @@ public class ShoppingCartAPI extends AuthController {
 
 
            shoppingCart.save();
-           getCart();
+           getCart(shop);
 
      }
 
