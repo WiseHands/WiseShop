@@ -211,7 +211,6 @@ public class Application extends Controller {
         render(shop);
     }
 
-
     public static void done(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -286,7 +285,6 @@ public class Application extends Controller {
         }
         render(shop);
     }
-
 
     private static String generateTokenForCookie(String userId, String userAgent) {
         String token = "";

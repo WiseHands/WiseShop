@@ -99,7 +99,7 @@
     #{verbatim}
         <div class="center-container">
             %{
-                for(_product in products) {
+                for(_product in shop.productList) {
             }%
                 <div class="col-lg-4 col-md-6 col-sm-6 mt-2">
                     <div class="card inline">
@@ -126,11 +126,11 @@
                 }
             }%
         </div>
-        <div class="load-button">
-            <a href="/products/all">
-                <input class="button-show-all" type="button" value="show all">
-            </a>
-        </div>
+        <!--<div class="load-button">-->
+            <!--<a href="/products/all">-->
+                <!--<input class="button-show-all" type="button" value="show all">-->
+            <!--</a>-->
+        <!--</div>-->
     #{/verbatim}
 </body>
         #{if shop.visualSettingsDTO.isFooterOn}
