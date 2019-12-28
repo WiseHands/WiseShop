@@ -224,6 +224,8 @@ public class ShoppingCartAPI extends AuthController {
                 break;
         }
         shoppingCart.save();
+        shoppingCart.formatObject();
+
         getCart(shop);
     }
 
@@ -251,6 +253,7 @@ public class ShoppingCartAPI extends AuthController {
 
         }
         shoppingCart.save();
+        shoppingCart.formatObject();
 
         getCart(shop);
     }
@@ -268,7 +271,7 @@ public class ShoppingCartAPI extends AuthController {
            System.out.println("setClientInfo from request: " + clientComments + " " + clientPhone + " " + clientName);
 
            String cartId = _getCartUuid();
-            ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
+           ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
            if (clientName != null) {
                shoppingCart.clientName = clientName;
            }
@@ -280,8 +283,9 @@ public class ShoppingCartAPI extends AuthController {
            }
 
            shoppingCart.save();
-           getCart(shop);
+           shoppingCart.formatObject();
 
+           getCart(shop);
     }
 
     public void setAddressInfo(String client) {
@@ -289,9 +293,9 @@ public class ShoppingCartAPI extends AuthController {
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-           String clientAddressStreetName = request.params.get("clientAddressStreetName");
-           String clientAddressBuildingNumber = request.params.get("clientAddressBuildingNumber");
-           String clientAddressAppartmentNumber = request.params.get("clientAddressAppartmentNumber");
+           String clientAddressStreetName = request.params.get("street");
+           String clientAddressBuildingNumber = request.params.get("building");
+           String clientAddressAppartmentNumber = request.params.get("appartment");
 
            System.out.println("infoAboutClientAddress from request: " + clientAddressStreetName + " " + clientAddressBuildingNumber + " " + clientAddressAppartmentNumber);
 
@@ -309,8 +313,9 @@ public class ShoppingCartAPI extends AuthController {
            }
 
            shoppingCart.save();
-           getCart(shop);
+           shoppingCart.formatObject();
 
+           getCart(shop);
     }
 
 
@@ -333,6 +338,8 @@ public class ShoppingCartAPI extends AuthController {
 
 
            shoppingCart.save();
+           shoppingCart.formatObject();
+
            getCart(shop);
 
      }
