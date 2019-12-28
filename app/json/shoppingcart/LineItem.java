@@ -14,13 +14,14 @@ import javax.persistence.Id;
 @Entity
 public class LineItem extends GenericModel {
 
+    @Expose
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     public String uuid;
 
     @Expose
-    public String id;
+    public String productId;
 
     @Expose
     public String name;
@@ -38,7 +39,7 @@ public class LineItem extends GenericModel {
 
 
     public LineItem(String uuid, String name, String imagePath, Integer quantity, Double price, ShopDTO shop) {
-        this.id = uuid;
+        this.productId = uuid;
         this.name = name;
         String path = shop.domain;
         if(isDevEnv) {

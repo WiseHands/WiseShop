@@ -114,7 +114,7 @@ public class ShoppingCartAPI extends AuthController {
         } else {
             boolean isProductUnique = false;
             for (LineItem lineItems : shoppingCart.items) {
-                if (productUuid.equals(lineItems.id)) {
+                if (productUuid.equals(lineItems.productId)) {
                     isProductUnique = true;
                     lineItems.quantity = lineItems.quantity + quantity;
                     lineItems.save();
@@ -144,7 +144,7 @@ public class ShoppingCartAPI extends AuthController {
 
         LineItem lineItemToRemove = null;
         for (LineItem lineItem : shoppingCart.items) {
-            if (lineItem.id.equals(lineItemUuid)) {
+            if (lineItem.productId.equals(lineItemUuid)) {
                 lineItemToRemove = lineItem;
             }
         }
