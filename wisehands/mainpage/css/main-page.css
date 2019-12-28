@@ -1,4 +1,4 @@
-body, p, h1 {
+body, p, h1, h2, i {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', 'Helvetica', sans-serif;
@@ -18,7 +18,7 @@ header {
     background-color: rgb(14, 41, 53);
 }
 .main-container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 0.8rem;
 }
@@ -47,20 +47,20 @@ header {
     width: 400px;
 }
 .header-links a {
-    cursor: pointer;
     text-decoration: none;
     color: #fff;
 }
-.header-links a:hover {
-    font-weight: 700;
+.header-links p:hover {
+    color: lightseagreen;
 }
 .header-links p {
     font-size: 1.3rem;
     padding: 0.6rem;
+    cursor: pointer;
 }
 .main-page {
     background-color: rgb(14, 41, 53);
-    height: calc(100vh - 94.125px);
+    height: calc(100vh - 82.963px);
 }
 .slogan {
     color: #fff;
@@ -92,18 +92,62 @@ header {
     color: #0e2935;
     cursor: pointer;
 }
-.services {
-    height: 35vh;
+
+.fe-services {
+    height: 100vh;
+    background: url("../images/85-original.jpg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
 }
-.services-block {
-    display: flex;
+.be-services {
+    height: 100vh;
+    background: url("../images/87-original.jpg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
 }
-.services-text {
-    flex-basis: 40%;
+.mob-services {
+    height: 100vh;
+    background: url("../images/88-original.jpg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
 }
-.services-img {
-    flex-basis: 60%;
+.services-h2 {
+    font-family: 'Righteous', sans-serif;
+    font-size: 4rem;
 }
-.services-img img {
-    width: 100%;
+.services-p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+.fe-text, .mob-text {
+    text-align: right;
+    padding-top: 22vh;
+}
+.be-text {
+    text-align: left;
+    padding-top: 22vh;
+}
+.fe-text h2, .fe-text p {
+    color: #fff;
+}
+.be-text h2, .be-text p {
+    color: #63533a;
+}
+.mob-text h2, .mob-text p {
+    color: #75558d;
+}
+.double-arrow {
+    position: absolute;
+    top: 90vh;
+    left: 46.5%;
+}
+.double-arrow i:hover {
+    cursor: pointer;
+    text-shadow: 0 0 5px #fff ;
+}
+.double-arrow i:first-child {
+    padding-right: 1rem;
 }

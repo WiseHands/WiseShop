@@ -32,7 +32,7 @@ public class Application extends Controller {
         response.setHeader("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
     }
 
-        public static void main(String client) {
+    public static void main(String client) {
             if(client.equals("wisehands.me") || isDevEnv) {
                 String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
                 String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
@@ -101,12 +101,7 @@ public class Application extends Controller {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
 
-        Http.Cookie userTokenCookie = request.cookies.get("userToken");
-        if(userTokenCookie == null) {
-            UUID uuid = UUID.randomUUID();
-            String token = generateTokenForCookie(uuid.toString(), agent);
-            response.setCookie("userToken", token);
-        }
+        generateCookieIfNotPresent(shop);
 
 
         List<ProductDTO> products;
@@ -115,6 +110,21 @@ public class Application extends Controller {
         System.out.println("\n\n\nODUUCTTTTSSSS: " + products.size());
 
         renderTemplate("Application/shop.html", shop, products);
+    }
+
+    private static void generateCookieIfNotPresent(ShopDTO shop) {
+        String agent = request.headers.get("user-agent").value();
+
+        Http.Cookie userTokenCookie = request.cookies.get("userToken");
+        if(userTokenCookie == null) {
+            UUID uuid = UUID.randomUUID();
+            String token = generateTokenForCookie(uuid.toString(), agent);
+            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
+            shoppingCart.uuid = uuid.toString();
+            shoppingCart.shopUuid = shop.uuid;
+            shoppingCart.save();
+            response.setCookie("userToken", token);
+        }
     }
 
     public static void shop(String client) {
@@ -211,7 +221,6 @@ public class Application extends Controller {
         render(shop);
     }
 
-
     public static void done(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -286,7 +295,6 @@ public class Application extends Controller {
         }
         render(shop);
     }
-
 
     private static String generateTokenForCookie(String userId, String userAgent) {
         String token = "";
