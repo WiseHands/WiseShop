@@ -76,7 +76,7 @@ public class ShoppingCartDTO extends GenericModel {
         ShopDTO shop = ShopDTO.find("byUuid", this.shopUuid).first();
 
         DeliveryCourierConfiguration courier =
-                new DeliveryCourierConfiguration(shop.delivery.courierText, shop.delivery.isCourierAvailable, shop.delivery.courierFreeDeliveryLimit);
+                new DeliveryCourierConfiguration(shop.delivery.courierText, shop.delivery.isCourierAvailable, shop.delivery.courierFreeDeliveryLimit, shop.delivery.courierPrice);
         DeliverySelfTakeConfiguration selfTake =
                 new DeliverySelfTakeConfiguration(shop.delivery.selfTakeText, shop.delivery.isSelfTakeAvailable);
         DeliveryPostDepartmentConfiguration postDepartment =
