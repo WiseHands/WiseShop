@@ -7,6 +7,11 @@
 
 	<title>Wise Hands</title>
 	<link href="wisehands/mainpage/css/main-page.css" rel="stylesheet" />
+	<link href="wisehands/mainpage/css/animate.css" rel="stylesheet" />
+	<script src="wisehands/mainpage/js/wow.min.js"></script>
+	<script>
+		new WOW().init();
+	</script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
@@ -32,7 +37,7 @@
 	</div>
 </header>
 <section class="main-page">
-	<div class="slogan">
+	<div class="slogan wow zoomIn">
 		<h1>Open source software development</h1>
 		<p>making great user experiences</p>
 		<input type="button" value="list of our services" id="listServices">
@@ -41,12 +46,19 @@
 <!--/SERVICES-->
 <section class="fe-services" id="fe-services">
 	<div class="fe-services-block main-container">
-		<div class="fe-text services-p">
-			<h2 class="services-h2 ">Front End Development</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
-			<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
-			<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+		<div class="fe-text services-p services-img wow bounceInLeft" data-wow-duration="1s" data-wow-offset="150"  >
+			<h2 class="services-h2">Front End Development</h2>
+			<div  class="wow bounceInLeft" data-wow-delay="0.3s">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+				<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
+				<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+			</div>
+			<div  class="wow bounceInLeft" data-wow-delay="0.5s">
+				<img src="../../../wisehands/mainpage/images/React.png" title="React">
+				<img src="../../../wisehands/mainpage/images/Vue.png" title="Vue">
+				<img src="../../../wisehands/mainpage/images/Angular.png" title="Angular">
+			</div>
 		</div>
 		<div class="double-arrow">
 			<i class="fa fa-arrow-down" id="feArrowDown" style="font-size:3rem; color: #fff"></i>
@@ -56,12 +68,19 @@
 </section>
 <section class="be-services" id="be-services">
 	<div class="be-services-block main-container">
-		<div class="be-text services-p">
+		<div class="be-text services-p services-img wow bounceInRight" data-wow-duration="1s" data-wow-offset="150">
 			<h2 class="services-h2 ">Back End Development</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
-			<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
-			<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+			<div  class="wow bounceInRight" data-wow-delay="0.3s">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+				<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
+				<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+			</div>
+			<div  class="wow bounceInRight" data-wow-delay="0.5s">
+				<img src="../../../wisehands/mainpage/images/Go.png" title="Go">
+				<img src="../../../wisehands/mainpage/images/Java.png" title="Java">
+				<img src="../../../wisehands/mainpage/images/NodeJs.png" title="NodeJS">
+			</div>
 		</div>
 		<div class="double-arrow">
 			<i class="fa fa-arrow-down" id="beArrowDown" style="font-size:3rem; color: #fff"></i>
@@ -71,12 +90,18 @@
 </section>
 <section class="mob-services" id="mob-services">
 	<div class="mob-services-block main-container">
-		<div class="mob-text services-p">
+		<div class="mob-text services-p services-img wow bounceInLeft" data-wow-duration="1s" data-wow-offset="150">
 			<h2 class="services-h2 ">Mobile Application Development</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
-			<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
-			<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+			<div  class="wow bounceInLeft" data-wow-delay="0.3s">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+				<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
+				<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+			</div>
+			<div  class="wow bounceInLeft" data-wow-delay="0.5s">
+				<img src="../../../wisehands/mainpage/images/Android.png" title="Android">
+				<img src="../../../wisehands/mainpage/images/Ios.png" title="Ios">
+			</div>
 		</div>
 		<div class="double-arrow">
 			<i class="fa fa-arrow-down" id="mobArrowDown" style="font-size:3rem; color: #fff"></i>
@@ -85,7 +110,58 @@
 	</div>
 </section>
 <!--/SERVICES-->
+<section class="projects" id="projects">
+	<div class="projects-container">
+		<h2 class="services-h2 wow flipInX">Projects</h2>
+		<div class="all-projects wow zoomInUp">
+			<div class="project-card">
+				<div class="project-screen project-footgo">
+					<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
+				</div>
+				<div class="project-review">
+					<div class="project-review-author">
+						<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
+						<h3>Name, Surname</h3>
+					</div>
+					<h4>project name</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+				</div>
+			</div>
+			<div class="project-card">
+					<div class="project-screen">
+						<img src="../../../wisehands/mainpage/images/cover1.jpg">
+					</div>
+					<div class="project-review">
+						<div class="project-review-author">
+							<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
+							<h3>Name, Surname</h3>
+						</div>						<h4>project name</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+					</div>
+			</div>
+			<div class="project-card">
+					<div class="project-screen">
+						<img src="../../../wisehands/mainpage/images/americano.png">
+					</div>
+					<div class="project-review">
+						<div class="project-review-author">
+							<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
+							<h3>Name, Surname</h3>
+						</div>						<h4>project name</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+					</div>
+			</div>
+		</div>
+	</div>
 
+	<div class="double-arrow">
+		<i class="fa fa-arrow-down" id="projectsArrowDown" style="font-size:3rem; color: #fff"></i>
+		<i class="fa fa-arrow-up" id="projectsArrowUp" style="font-size:3rem; color: #fff"></i>
+	</div>
+</section>
 
 <script src="wisehands/assets/js/particles.min.js"></script>
 
@@ -155,9 +231,25 @@
 	}
 </script>
 <script>
+	document.getElementById("mobArrowDown").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("projects").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
 	document.getElementById("mobArrowUp").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("be-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("projectsArrowUp").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("mob-services").scrollIntoView({
 			behavior: 'smooth'
 		})
 	}
