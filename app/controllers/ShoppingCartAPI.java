@@ -144,7 +144,7 @@ public class ShoppingCartAPI extends AuthController {
 
         LineItem lineItemToRemove = null;
         for (LineItem lineItem : shoppingCart.items) {
-            if (lineItem.productId.equals(lineItemUuid)) {
+            if (lineItem.uuid.equals(lineItemUuid)) {
                 lineItemToRemove = lineItem;
             }
         }
