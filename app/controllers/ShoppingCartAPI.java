@@ -154,10 +154,6 @@ public class ShoppingCartAPI extends AuthController {
         LineItem lineItem = LineItem.findById(lineItemUuid);
         lineItem.delete();
 
-        if (shoppingCart.items.size() == 0) {
-            shoppingCart.delete();
-        }
-
         getCart(shop);
     }
 
