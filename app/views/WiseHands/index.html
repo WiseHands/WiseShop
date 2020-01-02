@@ -31,7 +31,7 @@
 		<div class="header-links">
 			<p id="headListServices">Services</p>
 			<p id="headProjects">Projects</p></a>
-			<p id="teamProjects">Team</p></a>
+			<p id="headTeam">Team</p></a>
 			<a href="#"><p>Sign in</p></a>
 		</div>
 	</div>
@@ -123,7 +123,8 @@
 						<div class="project-author-about">
 							<h3>Ігор Пірожик</h3>
 							<p>засновик турніру FootGo</p>
-						</div>					</div>
+						</div>
+					</div>
 					<div class="project-author-text">
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
@@ -181,19 +182,19 @@
 				</div>
 			</div>
 		</div>
+		<div class="double-arrow">
+			<i class="fa fa-arrow-down" id="projectsArrowDown" style="font-size:3rem; color: #fff"></i>
+			<i class="fa fa-arrow-up" id="projectsArrowUp" style="font-size:3rem; color: #fff"></i>
+		</div>
 	</div>
 
-	<div class="double-arrow">
-		<i class="fa fa-arrow-down" id="teamArrowDown" style="font-size:3rem; color: #fff"></i>
-		<i class="fa fa-arrow-up" id="teamArrowUp" style="font-size:3rem; color: #fff"></i>
-	</div>
 </section>
 
 <section class="team" id="team">
 
 	<div class="double-arrow">
-		<i class="fa fa-arrow-down" id="projectsArrowDown" style="font-size:3rem; color: #fff"></i>
-		<i class="fa fa-arrow-up" id="projectsArrowUp" style="font-size:3rem; color: #fff"></i>
+		<i class="fa fa-arrow-down" id="teamArrowDown" style="font-size:3rem; color: #fff"></i>
+		<i class="fa fa-arrow-up" id="teamArrowUp" style="font-size:3rem; color: #fff"></i>
 	</div>
 </section>
 
@@ -226,23 +227,6 @@
 </script>
 
 <script>
-	document.getElementById("listServices").addEventListener("click", showList);
-	document.getElementById("headListServices").addEventListener("click", showList);
-	function showList() {
-		document.getElementById("fe-services").scrollIntoView({
-			behavior: 'smooth'
-		})
-	}
-</script>
-<script>
-	document.getElementById("feArrowDown").addEventListener("click", showList);
-	function showList() {
-		document.getElementById("be-services").scrollIntoView({
-			behavior: 'smooth'
-		})
-	}
-</script>
-<script>
 	document.getElementById("feArrowUp").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("header").scrollIntoView({
@@ -251,6 +235,28 @@
 	}
 </script>
 <script>
+	document.getElementById("listServices").addEventListener("click", showList);
+	document.getElementById("headListServices").addEventListener("click", showList);
+	document.getElementById("beArrowUp").addEventListener("click", showList);
+
+	function showList() {
+		document.getElementById("fe-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("feArrowDown").addEventListener("click", showList);
+	document.getElementById("mobArrowUp").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("be-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+
+<script>
+	document.getElementById("projectsArrowUp").addEventListener("click", showList);
 	document.getElementById("beArrowDown").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("mob-services").scrollIntoView({
@@ -259,16 +265,9 @@
 	}
 </script>
 <script>
-	document.getElementById("beArrowUp").addEventListener("click", showList);
-	function showList() {
-		document.getElementById("fe-services").scrollIntoView({
-			behavior: 'smooth'
-		})
-	}
-</script>
-<script>
 	document.getElementById("headProjects").addEventListener("click", showList);
 	document.getElementById("mobArrowDown").addEventListener("click", showList);
+	document.getElementById("teamArrowUp").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("projects").scrollIntoView({
 			behavior: 'smooth'
@@ -276,17 +275,10 @@
 	}
 </script>
 <script>
-	document.getElementById("mobArrowUp").addEventListener("click", showList);
+	document.getElementById("headTeam").addEventListener("click", showList);
+	document.getElementById("projectsArrowDown").addEventListener("click", showList);
 	function showList() {
-		document.getElementById("be-services").scrollIntoView({
-			behavior: 'smooth'
-		})
-	}
-</script>
-<script>
-	document.getElementById("projectsArrowUp").addEventListener("click", showList);
-	function showList() {
-		document.getElementById("mob-services").scrollIntoView({
+		document.getElementById("team").scrollIntoView({
 			behavior: 'smooth'
 		})
 	}
