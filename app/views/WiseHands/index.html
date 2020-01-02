@@ -30,8 +30,8 @@
 		</div>
 		<div class="header-links">
 			<p id="headListServices">Services</p>
-			<a href="#"><p>Projects</p></a>
-			<a href="#"><p>Team</p></a>
+			<p id="headProjects">Projects</p></a>
+			<p id="teamProjects">Team</p></a>
 			<a href="#"><p>Sign in</p></a>
 		</div>
 	</div>
@@ -49,10 +49,9 @@
 		<div class="fe-text services-p services-img wow bounceInLeft" data-wow-duration="1s" data-wow-offset="150"  >
 			<h2 class="services-h2">Front End Development</h2>
 			<div  class="wow bounceInLeft" data-wow-delay="0.3s">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-				<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
-				<p>Quisque in auctor diam. In hac habitasse platea dictumst.</p>
-				<p>Fusce rhoncus, augue at convallis mollis, neque arcu dapibus lectus, vel tempus augue elit non sem. </p>
+				<p>We use best availlable tools like Redux, Webpack
+					and frameworks <br>such as React, Vue, Angular, Polymer, LitElement<br> in order to deliver great product
+				</p>
 			</div>
 			<div  class="wow bounceInLeft" data-wow-delay="0.5s">
 				<img src="../../../wisehands/mainpage/images/React.png" title="React">
@@ -121,47 +120,83 @@
 				<div class="project-review">
 					<div class="project-review-author">
 						<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
-						<h3>Name, Surname</h3>
+						<div class="project-author-about">
+							<h3>Ігор Пірожик</h3>
+							<p>засновик турніру FootGo</p>
+						</div>					</div>
+					<div class="project-author-text">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
 					</div>
-					<h4>project name</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-					<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+				</div>
+				<div class="project-link">
+					<img src="../../../wisehands/mainpage/images/github.png" title="View Sourcecode">
+					<button type="button">website</button>
+					<img src="../../../wisehands/mainpage/images/donate.png" title="Become Patron">
 				</div>
 			</div>
 			<div class="project-card">
-					<div class="project-screen project-book">
-						<img src="../../../wisehands/mainpage/images/booklogo-color1.png">
+				<div class="project-screen project-book">
+					<img src="../../../wisehands/mainpage/images/booklogo-color1.png">
+				</div>
+				<div class="project-review">
+					<div class="project-review-author">
+						<img src="../../../wisehands/mainpage/images/review1.jpg">
+							<div class="project-author-about">
+								<h3>Святослав Беш</h3>
+								<p>автор книги "Три сторони щастя"</p>
+							</div>
 					</div>
-					<div class="project-review">
-						<div class="project-review-author">
-							<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
-							<h3>Name, Surname</h3>
-						</div>						<h4>project name</h4>
+					<div class="project-author-text">
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
 					</div>
+				</div>
+				<div class="project-link">
+					<img src="../../../wisehands/mainpage/images/github.png" title="View Sourcecode">
+					<button type="button">website</button>
+					<img src="../../../wisehands/mainpage/images/donate.png" title="Become Patron">
+				</div>
 			</div>
 			<div class="project-card">
-					<div class="project-screen">
-						<img src="../../../wisehands/mainpage/images/americano.png">
-					</div>
-					<div class="project-review">
-						<div class="project-review-author">
-							<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
-							<h3>Name, Surname</h3>
-						</div>						<h4>project name</h4>
+				<div class="project-screen">
+					<img src="../../../wisehands/mainpage/images/americano.png">
+				</div>
+				<div class="project-review">
+					<div class="project-review-author">
+						<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
+						<div class="project-author-about">
+							<h3>Святослав Беш</h3>
+							<p>співвласник ресторану "Americano"</p>
+						</div>						</div>
+					<div class="project-author-text">
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
 					</div>
+				</div>
+				<div class="project-link">
+					<img src="../../../wisehands/mainpage/images/github.png" title="View Sourcecode">
+					<button type="button">website</button>
+					<img src="../../../wisehands/mainpage/images/donate.png" title="Become Patron">
+				</div>
 			</div>
 		</div>
 	</div>
+
+	<div class="double-arrow">
+		<i class="fa fa-arrow-down" id="teamArrowDown" style="font-size:3rem; color: #fff"></i>
+		<i class="fa fa-arrow-up" id="teamArrowUp" style="font-size:3rem; color: #fff"></i>
+	</div>
+</section>
+
+<section class="team" id="team">
 
 	<div class="double-arrow">
 		<i class="fa fa-arrow-down" id="projectsArrowDown" style="font-size:3rem; color: #fff"></i>
 		<i class="fa fa-arrow-up" id="projectsArrowUp" style="font-size:3rem; color: #fff"></i>
 	</div>
 </section>
+
 
 <script src="wisehands/assets/js/particles.min.js"></script>
 
@@ -189,6 +224,7 @@
 	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
 	});
 </script>
+
 <script>
 	document.getElementById("listServices").addEventListener("click", showList);
 	document.getElementById("headListServices").addEventListener("click", showList);
@@ -231,6 +267,7 @@
 	}
 </script>
 <script>
+	document.getElementById("headProjects").addEventListener("click", showList);
 	document.getElementById("mobArrowDown").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("projects").scrollIntoView({
@@ -254,6 +291,7 @@
 		})
 	}
 </script>
+
 
 </body>
 </html>
