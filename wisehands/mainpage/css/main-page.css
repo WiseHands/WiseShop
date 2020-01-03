@@ -131,11 +131,11 @@ header {
 }
 .fe-text, .mob-text {
     text-align: left;
-    padding-top: 22vh;
+    padding-top: 25vh;
 }
 .be-text {
     text-align: right;
-    padding-top: 22vh;
+    padding-top: 25vh;
 }
 .fe-text h2, .fe-text p {
     color: #fff;
@@ -178,7 +178,7 @@ header {
     position: relative;
 }
 .projects-container {
-    padding-top: 15vh;
+    padding-top: 13vh;
 }
 .projects-container h2 {
     color: #aa6d63;
@@ -199,7 +199,7 @@ header {
     flex-direction: column;
     flex-basis: 31%;
     background-color: #fff;
-    height: 50vh;
+    height: 500px;
     margin: 1rem 0;
     box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
     border-radius: 15px;
@@ -250,6 +250,7 @@ header {
     justify-content: space-around;
     width: 95%;
     margin: 1rem auto 0 auto;
+    padding-top: 2rem;
 }
 .project-link img {
     width: 36px;
@@ -279,18 +280,25 @@ header {
     .header-links {
         display: none;
     }
+    .slogan {
+        padding-top: 10vh;
+    }
     .services-h2 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+    .services-p {
+        font-size: 1.4rem;
+        line-height: 1.5;
     }
     .fe-text, .mob-text {
-        text-align: right;
-        padding-top: 5vh;
-    }
-    .be-text {
         text-align: left;
         padding-top: 5vh;
     }
+    .be-text {
+        text-align: right;
+        padding-top: 5vh;
+    }
     .services-img img {
-        width: 72px;
+        width: 64px;
     }
 }
