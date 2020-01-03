@@ -129,11 +129,11 @@ header {
     line-height: 1.5;
 }
 .fe-text, .mob-text {
-    text-align: right;
+    text-align: left;
     padding-top: 22vh;
 }
 .be-text {
-    text-align: left;
+    text-align: right;
     padding-top: 22vh;
 }
 .fe-text h2, .fe-text p {
