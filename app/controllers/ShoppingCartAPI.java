@@ -100,7 +100,9 @@ public class ShoppingCartAPI extends AuthController {
         lineItem = lineItem.save();
         if (shoppingCart == null) {
             shoppingCart = new ShoppingCartDTO();
-            shoppingCart.uuid = cartId;
+            if(cartId != null) {
+                shoppingCart.uuid = cartId;
+            }
             shoppingCart.shopUuid = shop.uuid;
         }
 
