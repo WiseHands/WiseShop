@@ -16,6 +16,8 @@ angular.module('WiseHands')
                 }
             );
 
+            let fromDate = document.getElementById("seventhDayForAnalytics");
+            let toDate = document.getElementById("firstDayForAnalytics");
 
             $scope.getMainAnalyticsData = function (days) {
                 $scope.loading = true;
@@ -26,7 +28,19 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         $scope.analytics = response.data;
+                        $scope.frequentBuyers = response.data.frequentBuyers;
+                        let arrayTime = $scope.analytics.chartData;
+
+                        fromDate.value = arrayTime[arrayTime.length - 1].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+                        toDate.value = arrayTime[0].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+
+                        console.log('fromDate.value ', fromDate.value);
+                        console.log('toDate.value ', toDate.value);
+
+                        // setDataTypeForAnalytics(response.data.chartData);
                         console.log('$scope.analytics:____ ', $scope.analytics);
+                        console.log('$scope.frequentBuyers:____ ', $scope.frequentBuyers);
+
                         if(!$scope.analytics.totalToday){
                             $scope.analytics.totalToday = 0;
                         }
@@ -73,9 +87,13 @@ angular.module('WiseHands')
 
             };
 
-              $scope.calculateDayRange = function(){
-                var fromDate = new Date($scope.showTotalFromDate);
-                var toDate = new Date($scope.showTotalToDate);
+
+
+            $scope.calculateDayRange = function(){
+                let fromDate = new Date(document.getElementById("seventhDayForAnalytics").value);
+                let toDate = new Date(document.getElementById("firstDayForAnalytics").value);
+                console.log('fromDate.value for calculateDayRange: ', toDate);
+                console.log('toDate.value for calculateDayRange: ', toDate);
 
                 $http({
                     method: 'GET',
@@ -102,34 +120,33 @@ angular.module('WiseHands')
                         $scope.status = 'Щось пішло не так...';
                     });
 
-              };
+            };
 
-                $scope.loading = true;
-                $http({
-                    method: 'GET',
-                    url: '/orders',
-                })
-                    .then(function successCallback(response) {
-                        $scope.orders = response.data;
-                        $scope.ordersAdresses = [];
-                        $scope.orders.forEach (function(order){
-                            if (order.destinationLat) {
-                                var lat = parseFloat(order.destinationLat);
-                                var lng = parseFloat(order.destinationLng);
-                                var latLng = [];
-                                latLng.push(order.address);
-                                latLng.push(lat);
-                                latLng.push(lng);
-                                latLng.push(order.uuid);
-                                $scope.ordersAdresses.push(latLng);
+            $scope.loading = true;
+              $http({
+                 method: 'GET',
+                 url: '/orders',
+              }).then(function successCallback(response) {
+                    $scope.orders = response.data;
+                    $scope.ordersAdresses = [];
+                    $scope.orders.forEach (function(order){
+                        if (order.destinationLat) {
+                              var lat = parseFloat(order.destinationLat);
+                              var lng = parseFloat(order.destinationLng);
+                              var latLng = [];
+                              latLng.push(order.address);
+                              latLng.push(lat);
+                              latLng.push(lng);
+                              latLng.push(order.uuid);
+                              $scope.ordersAdresses.push(latLng);
                             }
                         });
                         initialize($scope.ordersAdresses);
                         console.log("$scope.ordersAdresses = []", $scope.ordersAdresses = []);
                         $scope.loading = false;
-                    }, function errorCallback(response) {
+                 }, function errorCallback(response) {
                         $scope.loading = false;
-                    });
+              });
 
             $scope.getMainAnalyticsData('');
 

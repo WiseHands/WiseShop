@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import play.db.jpa.JPA;
+import services.analytics.PaymentTypeService;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -13,42 +14,8 @@ import java.util.*;
 
 public class AnalyticsAPI extends AuthController {
 
-    public static void countProductsBuyingByCashOrCard(String client){
+    private static final int DEFAULT_NUMBER_OF_DAYS = 7;
 
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null){
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-
-        checkAuthentification(shop);
-
-        String stringQueryForByCash = "SELECT uuid, paymentType FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
-                " AND (paymentType = 'CASHONSPOT' and state <> 'DELETED');";
-        String stringQueryForByOnline = "SELECT uuid, paymentType FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
-                " AND (paymentType = 'PAYONLINE' and state <> 'DELETED');";
-
-        List<JSONObject> list = new ArrayList<JSONObject>();
-        List<Object[]> resultForCashQuery = JPA.em().createNativeQuery(stringQueryForByCash).getResultList();
-        for (int i = 0; i < resultForCashQuery.size(); i++){
-            Object[] item = resultForCashQuery.get(i);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("orderUuid", item[0]);
-            jsonObject.put("paymentType", item[1]);
-            list.add(jsonObject);
-        }
-        List<Object[]> resultForCardQuery = JPA.em().createNativeQuery(stringQueryForByOnline).getResultList();
-        for (int i = 0; i < resultForCardQuery.size(); i++){
-            Object[] item = resultForCardQuery.get(i);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("orderUuid", item[0]);
-            jsonObject.put("paymentType", item[1]);
-            list.add(jsonObject);
-        }
-        renderJSON(list);
-
-    }
     public static void showPopularProducts(String client){
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
@@ -60,12 +27,11 @@ public class AnalyticsAPI extends AuthController {
 
         checkAuthentification(shop);
 
-        Integer days = 30;
 
         String stringQuery = "SELECT productUuid, name, SUM(quantity) FROM OrderItemDTO \n" +
                 "WHERE orderUuid IN (SELECT uuid FROM OrderDTO where shop_uuid='" + shop.uuid +
-                "' and productUuid IS NOT NULL and DATE_SUB(CURDATE(),INTERVAL " + days + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
-                "GROUP BY productUuid ORDER BY SUM(quantity) DESC";
+                "' and productUuid IS NOT NULL and DATE_SUB(CURDATE(),INTERVAL " + DEFAULT_NUMBER_OF_DAYS + " DAY) <= from_unixtime( time/1000 ) AND state <> 'DELETED')\n" +
+                "GROUP BY productUuid ORDER BY SUM(quantity) DESC LIMIT 10";
 
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
         List<JSONObject> list = new ArrayList<JSONObject>();
@@ -144,7 +110,7 @@ public class AnalyticsAPI extends AuthController {
 
     }
 
-    public static void infoDay(String client, int numberOfDays) throws Exception { // /shop/details
+    public static void infoDay(String client, int numberOfDays) throws Exception { // /analytics
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -162,10 +128,11 @@ public class AnalyticsAPI extends AuthController {
         Long count = (Long) JPA.em().createQuery(countQuery).getSingleResult();
 
         Long today = beginOfDay(new Date());
-        String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
+        Long sevenDaysBefore = sevenDaysBefore(new Date());
+        String totalTodayQuery = "SELECT SUM(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + sevenDaysBefore;
         Double totalToday = (Double) JPA.em().createQuery(totalTodayQuery).getSingleResult();
 
-        String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + today;
+        String countTodayQuery = "SELECT COUNT(total) FROM OrderDTO where shop_uuid='" + shop.uuid + "' and state!='DELETED' and state!='CANCELLED' and time > " + sevenDaysBefore;
         Long countToday = (Long) JPA.em().createQuery(countTodayQuery).getSingleResult();
 
         JSONObject json = new JSONObject();
@@ -174,18 +141,12 @@ public class AnalyticsAPI extends AuthController {
         json.put("totalToday", totalToday);
         json.put("countToday", countToday);
 
+        int daysFromToday = 7;
 
-        //TODO: make 2 queries
-        String stringQueryForByCash = "SELECT count(*) FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
-                " AND (paymentType = 'CASHONSPOT' and state <> 'DELETED' and state <> 'PAYMENT_ERROR' and state <> 'CANCELLED');";
-        BigInteger paidByCard = (BigInteger) JPA.em().createNativeQuery(stringQueryForByCash).getSingleResult();
+        BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCash(shop, daysFromToday);
         System.out.println(paidByCard);
 
-        String stringQueryForByOnline = "SELECT count(*) FROM OrderDTO WHERE shop_uuid='" + shop.uuid +
-                "' AND DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= from_unixtime( time/1000 )" +
-                " AND (paymentType = 'PAYONLINE' and state <> 'DELETED' and state <> 'PAYMENT_ERROR' and state <> 'CANCELLED');";
-        BigInteger paidByCash = (BigInteger) JPA.em().createNativeQuery(stringQueryForByOnline).getSingleResult();
+        BigInteger paidByCash = PaymentTypeService.getNumberOfPaymentsByCard(shop, daysFromToday);
         System.out.println(paidByCash);
 
 
@@ -196,10 +157,34 @@ public class AnalyticsAPI extends AuthController {
 
 
 
+        String stringQuery =
+                "SELECT " +
+                    "DISTINCT COUNT(phone) AS count, name, phone, sum(total) " +
+                "FROM OrderDTO " +
+                "WHERE " +
+                    "shop_uuid='" + shop.uuid + "' " +
+                "AND " +
+                    "DATE_SUB(CURDATE(),INTERVAL " + DEFAULT_NUMBER_OF_DAYS + " DAY) <= from_unixtime( time/1000 ) " +
+                "GROUP BY phone " +
+                "ORDER BY count desc " +
+                "LIMIT 10";
+        System.out.println(stringQuery);
+        List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
+        List<JSONObject> queryResultList = new ArrayList<JSONObject>();
+        for (int i = 0; i < result.size(); i++){
+            Object[] item = result.get(i);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("buyersCount", item[0]);
+            jsonObject.put("name", item[1]);
+            jsonObject.put("phone", item[2]);
+            jsonObject.put("total", item[3]);
+            queryResultList.add(jsonObject);
+        }
+
+        json.put("frequentBuyers", queryResultList);
+
         String pattern = "MM/dd/yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
-
-
 
         List<JSONObject> list = new ArrayList<JSONObject>();
         for (int i=0; i<7; i++) {
@@ -224,7 +209,7 @@ public class AnalyticsAPI extends AuthController {
         renderJSON(json);
     }
 
-        public static void infoMonth(String client, int numberOfDays) throws Exception { // /shop/details
+    public static void infoMonth(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -399,7 +384,6 @@ public class AnalyticsAPI extends AuthController {
         renderJSON(json);
     }
 
-
     public static void infoYear(String client, int numberOfDays) throws Exception { // /shop/details
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -459,7 +443,6 @@ public class AnalyticsAPI extends AuthController {
     }
 
 
-
     private static Long beginOfDay(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -484,6 +467,13 @@ public class AnalyticsAPI extends AuthController {
 
     private static Long thirtyDaysBefore(Date date) {
         int x = -30;
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.add( Calendar.DAY_OF_YEAR, x);
+        return cal.getTimeInMillis();
+    }
+
+    private static Long sevenDaysBefore(Date date) {
+        int x = -7;
         Calendar cal = GregorianCalendar.getInstance();
         cal.add( Calendar.DAY_OF_YEAR, x);
         return cal.getTimeInMillis();

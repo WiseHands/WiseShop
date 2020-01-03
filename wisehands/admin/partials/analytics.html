@@ -56,7 +56,7 @@
 
 
         <div class="col-sm-12 col-xs-12 text-center">
-            <h5 class="text-center">
+            <h5 class="text-center analytics-title">
                 За вибраний період
             </h5>
         </div>
@@ -81,7 +81,7 @@
 
 
         <div class="col-sm-12 col-xs-12 text-center">
-            <h5 class="text-center">
+            <h5 class="text-center analytics-title">
                 За весь час
             </h5>
         </div>
@@ -89,7 +89,7 @@
         <div class="col-sm-6 col-xs-12 text-center">
             <div class="card analCardsColor">
                 <div class="card-content white-text">
-                    <p class="card-title">{{'analytics.total' | translate}}:</p>
+                    <p class="card-title">{{'analytics.total' | translate}} {{'analytics.purchases' | translate}}:</p>
                     <p>{{analytics.count}}</p>
                 </div>
             </div>
@@ -100,7 +100,7 @@
         <div class="col-sm-6 col-xs-12 text-center">
             <div class="card analCardsColor">
                 <div class="card-content white-text">
-                    <p class="card-title">{{'analytics.total' | translate}}:</p>
+                    <p class="card-title">{{'analytics.total' | translate}} {{'analytics.purchases' | translate}}:</p>
                     <p>{{analytics.total}} {{'analytics.currency' | translate}}</p>
                 </div>
             </div>
@@ -111,7 +111,7 @@
         <!--<div id="map-container" class="z-depth-1-half map-container" style="height: 600px"></div>-->
     </div>
     <div class="input-field col-md-12 z-index-2 text-center">
-        <h5>
+        <h5 class="analytics-title">
             Спосіб оплати
         </h5>
 
@@ -120,7 +120,7 @@
             <hr>
         </div>
 
-        <h5>
+        <h5 class="analytics-title">
             {{'analytics.popularProductTitle' | translate}}
         </h5>
 
@@ -149,21 +149,44 @@
         <div ng-show="popularProducts.length === 0">
             <p>Наразі немає замовлень</p>
         </div>
+        <h5 class="analytics-title">
+            {{'analytics.frequentBuyersTitle' | translate}}
+        </h5>
+        <div class="table">
+            <div class="tr th">
+                <div class="td column-name"
+                     style="flex-grow: 2;">
+                    <!--{{'analytics.tableFrequentBuyersName' | translate}}-->Ім'я
+                </div>
+                <div class="td column-name">
+                    <!--{{'analytics.tableFrequentBuyersPhone' | translate}}-->Телефон
+                </div>
+                <div class="td column-name">
+                    <!--{{'analytics.tableFrequentBuyersTotal' | translate}}-->Сума
+                </div>
+                <div class="td column-name">
+                    <!--{{'analytics.tableFrequentBuyersCount' | translate}}-->К-ть
+                </div>
+            </div>
+            <div class="tr" ng-repeat="item in frequentBuyers | orderBy: 'buyersCount' | limitTo:10">
+                <div class="td"
+                     style="flex-grow: 2;">
+                    <span>{{item.name}}</a></span>
+                </div>
+                <div class="td"
+                     style="justify-content: center;">
+                    <span>{{item.phone}}</span>
+                </div>
+                <div class="td"
+                     style="justify-content: center;">
+                    <span>{{item.total}}</span>
+                </div>
+                <div class="td"
+                     style="justify-content: center;">
+                    <span>{{item.buyersCount}}</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <!--<div class="col-sm-offset-1 col-sm-10">-->
-        <!--&lt;!&ndash;Google map&ndash;&gt;-->
-        <!--<div id="map-container" class="z-depth-1-half map-container" style="height: 100%"></div>-->
-    <!--</div>-->
-    <!--<div class="row" ng-hide="loading">-->
-        <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
-            <!--<div class="panel panel-default">-->
-                <!--<div class="panel-body">A Basic Panel</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
-            <!--<div class="panel panel-default">-->
-                <!--<div class="panel-body">A Basic Panel</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+
 </div>

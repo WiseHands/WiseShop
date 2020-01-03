@@ -68,7 +68,9 @@
                     #{/if}
                 </a>
             </div>
+            <a href="/">
             <h3 id="shop-name">${shop.shopName}</h3>
+            </a>
         </div>
         <span id="shoppingCartCounter" class="fa-stack header-cart">
             <a href="/shoppingcart">
@@ -84,8 +86,8 @@
         let shoppingCartState = store.getState();
         let cartCounter = document.querySelector('#shoppingCartCounter');
         let totalProductsQuantity = 0;
-        if (shoppingCartState && shoppingCartState.lineItemList) {
-            shoppingCartState.lineItemList.forEach(function (item) {
+        if (shoppingCartState && shoppingCartState.items) {
+            shoppingCartState.items.forEach(function (item) {
                     totalProductsQuantity += item.quantity;
                 }
             );

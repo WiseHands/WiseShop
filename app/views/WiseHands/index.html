@@ -7,6 +7,13 @@
 
 	<title>Wise Hands</title>
 	<link href="wisehands/mainpage/css/main-page.css" rel="stylesheet" />
+	<link href="wisehands/mainpage/css/animate.css" rel="stylesheet" />
+	<script src="wisehands/mainpage/js/wow.min.js"></script>
+	<script>
+		new WOW().init();
+	</script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 	<link rel="icon"
 		  type="image/png"
@@ -15,63 +22,266 @@
 <body>
 <div id="particles-js"></div>
 
-<header>
+<header id="header">
 	<div class="header-block">
 		<div class="header-logo">
 			<img src="wisehands/assets/images/main_logo.png">
 			<p>WiseHands</p>
 		</div>
 		<div class="header-links">
-			<p>Services</p>
-			<p>Projects</p>
-			<p>Team</p>
-			<p>Sign in</p>
+			<p id="headListServices">Services</p>
+			<p id="headProjects">Projects</p></a>
+			<p id="headTeam">Team</p></a>
+			<a href="#"><p>Sign in</p></a>
 		</div>
 	</div>
 </header>
 <section class="main-page">
-	<div class="slogan">
+	<div class="slogan wow zoomIn">
 		<h1>Open source software development</h1>
 		<p>making great user experiences</p>
-		<input type="button" value="list of services">
+		<input type="button" value="list of our services" id="listServices">
 	</div>
 </section>
-<section class="services main-container">
-	<div class="services-block">
-		<div class="services-text">
-			<h2>Web Application Development</h2>
+<!--/SERVICES-->
+<section class="fe-services" id="fe-services">
+	<div class="fe-services-block main-container">
+		<div class="fe-text services-p services-img wow bounceInLeft" data-wow-duration="1s" data-wow-offset="150"  >
+			<h2 class="services-h2">Front End Development</h2>
+			<div  class="wow bounceInLeft" data-wow-delay="0.3s">
+				<p>User-centered design and product development contribute to the  best experience and retention.<p>
+				<p>We produce effective, highly reusable, and maintainable software applications.</p>
+				<p>Intuitive,  beautiful user experience  across multiple screen sizes.</p>
+			</div>
+			<div  class="wow bounceInLeft" data-wow-delay="0.5s">
+				<img src="../../../wisehands/mainpage/images/React.png" title="React">
+				<img src="../../../wisehands/mainpage/images/Vue.png" title="Vue">
+				<img src="../../../wisehands/mainpage/images/Angular.png" title="Angular">
+			</div>
 		</div>
-		<div class="services-img">
-			<img src="wisehands/mainpage/images/look1.jpg">
+		<div class="double-arrow">
+			<i class="fa fa-arrow-down" id="feArrowDown" style="font-size:3rem; color: #fff"></i>
+			<i class="fa fa-arrow-up" id="feArrowUp" style="font-size:3rem; color: #fff"></i>
 		</div>
 	</div>
 </section>
+<section class="be-services" id="be-services">
+	<div class="be-services-block main-container">
+		<div class="be-text services-p services-img wow bounceInRight" data-wow-duration="1s" data-wow-offset="150">
+			<h2 class="services-h2 ">Back End Development</h2>
+			<div  class="wow bounceInRight" data-wow-delay="0.3s">
+				<p>Delivering world-class customer experience while executing understandable, maintainable, well tested code.</p>
+				<p>Backend engineers who can move incredibly fast while delivering a quality product.</p>
+				<p>We combine the vision of product with the art of programming. </p>
+			</div>
+			<div  class="wow bounceInRight" data-wow-delay="0.5s">
+				<img src="../../../wisehands/mainpage/images/Go.png" title="Go">
+				<img src="../../../wisehands/mainpage/images/Java.png" title="Java">
+				<img src="../../../wisehands/mainpage/images/NodeJs.png" title="NodeJS">
+			</div>
+		</div>
+		<div class="double-arrow">
+			<i class="fa fa-arrow-down" id="beArrowDown" style="font-size:3rem; color: #fff"></i>
+			<i class="fa fa-arrow-up" id="beArrowUp" style="font-size:3rem; color: #fff"></i>
+		</div>
+	</div>
+</section>
+<section class="mob-services" id="mob-services">
+	<div class="mob-services-block main-container">
+		<div class="mob-text services-p services-img wow bounceInLeft" data-wow-duration="1s" data-wow-offset="150">
+			<h2 class="services-h2 ">Mobile Application Development</h2>
+			<div  class="wow bounceInLeft" data-wow-delay="0.3s">
+				<p>Performance optimization for mobile applications, as well as cross platform mobile applications development.</p>
+				<p>Converting digital initiatives into mobile applications, including maintenance of existing mobile apps.</p>
+				<p>Strong product and design sensibility, we enjoy perfecting the details that matter.</p>
+			</div>
+			<div  class="wow bounceInLeft" data-wow-delay="0.5s">
+				<img src="../../../wisehands/mainpage/images/Android.png" title="Android">
+				<img src="../../../wisehands/mainpage/images/Ios.png" title="Ios">
+			</div>
+		</div>
+		<div class="double-arrow">
+			<i class="fa fa-arrow-down" id="mobArrowDown" style="font-size:3rem; color: #fff"></i>
+			<i class="fa fa-arrow-up" id="mobArrowUp" style="font-size:3rem; color: #fff"></i>
+		</div>
+	</div>
+</section>
+<!--/SERVICES-->
+<section class="projects" id="projects">
+	<div class="projects-container">
+		<h2 class="services-h2 wow flipInX">Projects</h2>
+		<div class="all-projects wow zoomInUp">
+			<div class="project-card">
+				<div class="project-screen project-footgo">
+					<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
+				</div>
+				<div class="project-review">
+					<div class="project-review-author">
+						<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
+						<div class="project-author-about">
+							<h3>Ігор Пірожик</h3>
+							<p>засновик турніру FootGo</p>
+						</div>
+					</div>
+					<div class="project-author-text">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+					</div>
+				</div>
+				<div class="project-link">
+					<img src="../../../wisehands/mainpage/images/github.png" title="View Sourcecode">
+					<button type="button"><a href="https://footgo-league.com/" target="_blank">website</a></button>
+					<img src="../../../wisehands/mainpage/images/donate.png" title="Become Patron">
+				</div>
+			</div>
+			<div class="project-card">
+				<div class="project-screen project-book">
+					<img src="../../../wisehands/mainpage/images/booklogo-color1.png">
+				</div>
+				<div class="project-review">
+					<div class="project-review-author">
+						<img src="../../../wisehands/mainpage/images/review1.jpg">
+							<div class="project-author-about">
+								<h3>Святослав Беш</h3>
+								<p>автор книги "Три сторони щастя"</p>
+							</div>
+					</div>
+					<div class="project-author-text">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+					</div>
+				</div>
+				<div class="project-link">
+					<img src="../../../wisehands/mainpage/images/github.png" title="View Sourcecode">
+					<button type="button"><a href="https://three-sides.com/" target="_blank">website</a></button>
+					<img src="../../../wisehands/mainpage/images/donate.png" title="Become Patron">
+				</div>
+			</div>
+			<div class="project-card">
+				<div class="project-screen">
+					<img src="../../../wisehands/mainpage/images/americano.png">
+				</div>
+				<div class="project-review">
+					<div class="project-review-author">
+						<img src="../../../wisehands/mainpage/images/footgo-dark-icon.png">
+						<div class="project-author-about">
+							<h3>Святослав Беш</h3>
+							<p>співвласник ресторану "Americano"</p>
+						</div>						</div>
+					<div class="project-author-text">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+					</div>
+				</div>
+				<div class="project-link">
+					<img src="../../../wisehands/mainpage/images/github.png" title="View Sourcecode">
+					<button type="button"><a href="https://americano.lviv.ua/#!/" target="_blank">website</a></button>
+					<img src="../../../wisehands/mainpage/images/donate.png" title="Become Patron">
+				</div>
+			</div>
+		</div>
+		<div class="double-arrow">
+			<i class="fa fa-arrow-down" id="projectsArrowDown" style="font-size:3rem; color: #fff"></i>
+			<i class="fa fa-arrow-up" id="projectsArrowUp" style="font-size:3rem; color: #fff"></i>
+		</div>
+	</div>
+
+</section>
+
+<section class="team" id="team">
+
+	<div class="double-arrow">
+		<i class="fa fa-arrow-down" id="teamArrowDown" style="font-size:3rem; color: #fff"></i>
+		<i class="fa fa-arrow-up" id="teamArrowUp" style="font-size:3rem; color: #fff"></i>
+	</div>
+</section>
+
+
 <script src="wisehands/assets/js/particles.min.js"></script>
 
 <script>
 	function start() {
-      gapi.load('auth2', function() {
-        window.auth2 = gapi.auth2.init({
-          client_id: '${googleOauthClientId}'
-        });
-      });
-    }
+		gapi.load('auth2', function() {
+			window.auth2 = gapi.auth2.init({
+				client_id: '${googleOauthClientId}'
+			});
+		});
+	}
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
 
-  gtag('config', '${googleAnalyticsId}');
+	gtag('config', '${googleAnalyticsId}');
 </script>
 
 <script>
 	particlesJS.load('particles-js', 'wisehands/assets/js/particles.json', function() {
 	});
 </script>
+
+<script>
+	document.getElementById("feArrowUp").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("header").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("listServices").addEventListener("click", showList);
+	document.getElementById("headListServices").addEventListener("click", showList);
+	document.getElementById("beArrowUp").addEventListener("click", showList);
+
+	function showList() {
+		document.getElementById("fe-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("feArrowDown").addEventListener("click", showList);
+	document.getElementById("mobArrowUp").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("be-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+
+<script>
+	document.getElementById("projectsArrowUp").addEventListener("click", showList);
+	document.getElementById("beArrowDown").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("mob-services").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("headProjects").addEventListener("click", showList);
+	document.getElementById("mobArrowDown").addEventListener("click", showList);
+	document.getElementById("teamArrowUp").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("projects").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("headTeam").addEventListener("click", showList);
+	document.getElementById("projectsArrowDown").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("team").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+
 
 </body>
 </html>
