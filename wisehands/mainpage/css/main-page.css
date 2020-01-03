@@ -46,10 +46,11 @@ header {
     padding-right: 1rem;
 }
 .header-logo p {
-    font-size: 2.3rem;
+    font-size: 2rem;
 }
 .header-links {
     width: 400px;
+    justify-content: space-between;
 }
 .header-links a {
     text-decoration: none;
