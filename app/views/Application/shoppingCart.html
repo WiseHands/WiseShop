@@ -45,7 +45,10 @@
     document.addEventListener('shopping-cart-api-response', function (e) {
         store.dispatch({ type: 'SHOPPINGCART', payload: e.detail});
     });
-
+    document.addEventListener('proceed-with-shopping-cart', function (e) {
+        store.dispatch({ type: 'SHOPPINGCART', payload: e.detail});
+        console.log("SHOPPINGCART", e.detail);
+    });
 </script>
 
 </html>
