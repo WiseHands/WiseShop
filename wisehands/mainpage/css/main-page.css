@@ -4,6 +4,10 @@ body, p, h1, h2, h3, h4, h5, h6, i {
     font-family: 'Roboto', 'Helvetica', sans-serif;
     overflow-x: hidden;
 }
+body a {
+    text-decoration: none;
+    color: inherit;
+}
 #particles-js {
     position: absolute;
     width: 100%;
