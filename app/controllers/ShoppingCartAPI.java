@@ -264,9 +264,10 @@ public class ShoppingCartAPI extends AuthController {
         }
            String clientName = request.params.get("clientName");
            String clientPhone = request.params.get("clientPhone");
+           String clientEmail = request.params.get("clientEmail");
            String clientComments = request.params.get("clientComments");
 
-           System.out.println("setClientInfo from request: " + clientComments + " " + clientPhone + " " + clientName);
+           System.out.println("setClientInfo from request: " + clientComments + " " + clientPhone + " " + clientEmail + " " + clientName);
 
            String cartId = _getCartUuid();
            ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
@@ -276,6 +277,9 @@ public class ShoppingCartAPI extends AuthController {
            if (clientPhone != null) {
                shoppingCart.clientPhone = clientPhone;
            }
+           if (clientEmail != null) {
+               shoppingCart.clientEmail = clientEmail;
+           }
            if (clientComments != null) {
                shoppingCart.clientComments = clientComments;
            }
@@ -283,7 +287,9 @@ public class ShoppingCartAPI extends AuthController {
            shoppingCart.save();
            shoppingCart.formatObject();
 
-           getCart(shop);
+           renderJSON(
+                   shoppingCart
+           );
     }
 
     public void setAddressInfo(String client) {
@@ -293,9 +299,12 @@ public class ShoppingCartAPI extends AuthController {
         }
            String clientAddressStreetName = request.params.get("street");
            String clientAddressBuildingNumber = request.params.get("building");
-           String clientAddressAppartmentNumber = request.params.get("appartment");
+           String clientAddressApartmentNumber = request.params.get("apartment");
+           String clientAddressApartmentFloor = request.params.get("floor");
+           String clientAddressApartmentEntrance = request.params.get("entrance");
+           String clientAddressApartmentEntranceCode = request.params.get("entranceCode");
 
-           System.out.println("infoAboutClientAddress from request: " + clientAddressStreetName + " " + clientAddressBuildingNumber + " " + clientAddressAppartmentNumber);
+           System.out.println("infoAboutClientAddress from request: " + clientAddressStreetName + " " + clientAddressBuildingNumber + " " + clientAddressApartmentNumber);
 
            String cartId = _getCartUuid();
             ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
@@ -305,9 +314,17 @@ public class ShoppingCartAPI extends AuthController {
            if (clientAddressBuildingNumber != null) {
                shoppingCart.clientAddressBuildingNumber = clientAddressBuildingNumber;
            }
-           if (clientAddressAppartmentNumber != null) {
-               shoppingCart.clientAddressAppartamentNumber = clientAddressAppartmentNumber;
-
+           if (clientAddressApartmentNumber != null) {
+               shoppingCart.clientAddressApartmentNumber = clientAddressApartmentNumber;
+           }
+           if (clientAddressApartmentFloor != null) {
+               shoppingCart.clientAddressApartmentFloor = clientAddressApartmentFloor;
+           }
+           if (clientAddressApartmentEntrance != null) {
+               shoppingCart.clientAddressApartmentEntrance = clientAddressApartmentEntrance;
+           }
+           if (clientAddressApartmentEntranceCode != null) {
+               shoppingCart.clientAddressApartmentEntranceCode = clientAddressApartmentEntranceCode;
            }
 
            shoppingCart.save();

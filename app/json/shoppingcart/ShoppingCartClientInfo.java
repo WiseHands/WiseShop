@@ -22,7 +22,7 @@ public class ShoppingCartClientInfo {
     @Transient
     public ShoppingCartClientPostDepartamentInfo postDepartamentInfo;
 
-    public ShoppingCartClientInfo(String clientName, String clientPhone, String clientComments, ShoppingCartClientAddressInfo address, ShoppingCartClientPostDepartamentInfo postInfo) {
+    public ShoppingCartClientInfo(String name, String clientName, String clientPhone, String clientComments, ShoppingCartClientAddressInfo address, ShoppingCartClientPostDepartamentInfo postInfo) {
         this.name = clientName;
         this.phone = clientPhone;
         this.comments = clientComments;

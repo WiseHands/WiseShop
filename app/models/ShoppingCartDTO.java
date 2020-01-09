@@ -53,23 +53,27 @@ public class ShoppingCartDTO extends GenericModel {
 
     public String clientName;
     public String clientPhone;
+    public String clientEmail;
     public String clientComments;
     public String clientAddressStreetName;
     public String clientAddressBuildingNumber;
-    public String clientAddressAppartamentNumber;
+    public String clientAddressApartmentNumber;
+    public String clientAddressApartmentFloor;
+    public String clientAddressApartmentEntrance;
+    public String clientAddressApartmentEntranceCode;
     public String clientCity;
     public String clientPostDepartmentNumber;
 
     @PostLoad
     public void formatObject() {
         ShoppingCartClientAddressInfo addressInfo =
-                new ShoppingCartClientAddressInfo(this.clientCity, this.clientAddressStreetName, this.clientAddressBuildingNumber, this.clientAddressAppartamentNumber);
+                new ShoppingCartClientAddressInfo(this.clientCity, this.clientAddressStreetName, this.clientAddressBuildingNumber, this.clientAddressApartmentNumber, this.clientAddressApartmentFloor, this.clientAddressApartmentEntrance, this.clientAddressApartmentEntranceCode);
 
         ShoppingCartClientPostDepartamentInfo postInfo =
                 new ShoppingCartClientPostDepartamentInfo(this.clientCity, this.clientPostDepartmentNumber);
 
         ShoppingCartClientInfo client =
-                new ShoppingCartClientInfo(this.clientName, this.clientPhone, this.clientComments, addressInfo, postInfo);
+                new ShoppingCartClientInfo(this.clientName, this.clientPhone, this.clientEmail, this.clientComments, addressInfo, postInfo);
         this.client = client;
 
 

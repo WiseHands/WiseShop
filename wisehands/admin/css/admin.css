@@ -431,12 +431,19 @@ body {
         padding: 10px 0;
     }
 }
-
+@media (min-width: 1260px) {
+    .col-md-4 {
+        width: auto;
+    }
+}
+.elegant-card, .elegant-card .card-up {
+    width: fit-content;
+}
 
 .vcentering {
     display: flex;
     align-items: center;
-    justify-content: space-between
+    justify-content: flex-between
 }
 
 .errorTextStyling {
