@@ -189,7 +189,6 @@ header {
 .all-projects {
     max-width: 1200px;
     margin: 0 auto;
-    border-radius: 15px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -276,6 +275,52 @@ header {
     background-size: cover;
     position: relative;
 }
+.all-team {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.team-container h2 {
+    color: #01dc34;
+    text-align: center;
+    padding: 5rem 0 1rem 0 ;
+}
+.team-card {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 18%;
+    background-color: #fff;
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    border-radius: 15px;
+    transition: 0.5s ease;
+
+}
+.card-front{
+    width: 300px;
+    height: 350px;
+    background: url("../images/2222front.jpg");
+    background-size: cover;
+    transition: 0.5s ease-in-out;
+}
+.card-front:hover {
+    background: url("../images/2222back.jpg");
+    background-size: cover;
+}
+.card-about {
+    text-align: center;
+}
+.card-about h4 {
+    font-weight: 400;
+    padding: 0.5rem 0;
+}
+.card-about p {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding-bottom: 0.5rem;
+}
+
 @media screen and (max-width: 768px)  {
     .header-links {
         display: none;
