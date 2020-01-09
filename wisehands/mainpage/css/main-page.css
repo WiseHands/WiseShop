@@ -196,10 +196,10 @@ header {
 .project-card {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     flex-basis: 31%;
     background-color: #fff;
-    height: 500px;
-    margin: 1rem 0;
+    height: 100%;
     box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
     border-radius: 15px;
     transition: 0.5s ease;
@@ -249,9 +249,9 @@ header {
     justify-content: space-around;
     width: 95%;
     margin: 1rem auto 0 auto;
-    padding-top: 2rem;
+    padding: 1rem 0;
 }
-.project-link img {
+.project-link img, .card-github img {
     width: 36px;
     cursor: pointer;
 }
@@ -273,10 +273,9 @@ header {
     background: url("../images/230-original.jpg");
     background-position: center;
     background-size: cover;
-    position: relative;
 }
 .all-team {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
@@ -285,31 +284,50 @@ header {
 .team-container h2 {
     color: #01dc34;
     text-align: center;
-    padding: 5rem 0 1rem 0 ;
+    padding:  1rem 0 ;
 }
 .team-card {
     display: flex;
     flex-direction: column;
-    flex-basis: 18%;
-    background-color: #fff;
+    flex-basis: 25%;
     box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
-    border-radius: 15px;
     transition: 0.5s ease;
-
+    margin: 0.5rem 0;
 }
-.card-front{
-    width: 300px;
-    height: 350px;
-    background: url("../images/2222front.jpg");
-    background-size: cover;
+.card-front {
+    width: 230px;
+    height: 270px;
     transition: 0.5s ease-in-out;
 }
 .card-front:hover {
-    background: url("../images/2222back.jpg");
+    transform: rotateY(-180deg);
+}
+.team-1 {
+    background: url("../images/bodya.jpeg");
+    background-position: center;
     background-size: cover;
 }
+.team-1:hover {
+    background: url("../images/bodya.gif");
+    background-position: center;
+    background-size: cover;
+}
+.team-5 {
+    background: url("../images/tony.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.team-5:hover {
+    background: url("../images/tony.gif");
+    background-position: center;
+    background-size: cover;
+}
+
 .card-about {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
 }
 .card-about h4 {
     font-weight: 400;
@@ -320,7 +338,12 @@ header {
     font-weight: 400;
     padding-bottom: 0.5rem;
 }
-
+.card-text {
+    padding-left: 0.5rem;
+}
+.card-github {
+    padding-right: 0.5rem;
+}
 @media screen and (max-width: 768px)  {
     .header-links {
         display: none;
