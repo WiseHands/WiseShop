@@ -68,7 +68,7 @@
 <section class="be-services" id="be-services">
 	<div class="be-services-block main-container">
 		<div class="be-text services-p services-img wow bounceInLeft" data-wow-duration="1s" data-wow-offset="150">
-			<h2 class="services-h2 ">Back End Development</h2>
+			<h2 class="services-h2">Back End Development</h2>
 			<div  class="wow bounceInLeft" data-wow-delay="0.3s">
 				<p>Delivering world-class customer experience while executing understandable, maintainable, well tested code.</p>
 				<p>Backend engineers who can move incredibly fast while delivering a quality product.</p>
@@ -180,6 +180,10 @@
 				</div>
 			</div>
 		</div>
+		<div class="project-feedback wow flipInX" data-wow-delay=0.5s>
+			<p>Have an idea?</p>
+			<button>Contact us</button>
+		</div>
 		<div class="double-arrow">
 			<i class="fa fa-arrow-down" id="projectsArrowDown" style="font-size:3rem; color: #fff"></i>
 			<i class="fa fa-arrow-up" id="projectsArrowUp" style="font-size:3rem; color: #fff"></i>
@@ -190,9 +194,9 @@
 
 <section class="team" id="team">
 	<div class="team-container">
-		<h2 class="services-h2 wow flipInX">Team</h2>
+		<h2 class="services-h2 wow rubberBand">Team</h2>
 		<div class="all-team">
-			<div class="team-card">
+			<div class="team-card  wow bounceIn">
 				<div class="card-front team-1"></div>
 				<div class="card-about">
 					<div class="card-text">
@@ -204,7 +208,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="team-card">
+			<div class="team-card  wow bounceIn">
 				<div class="card-front team-2"></div>
 				<div class="card-about">
 					<div class="card-text">
@@ -216,7 +220,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="team-card">
+			<div class="team-card  wow bounceIn">
 				<div class="card-front team-3"></div>
 				<div class="card-about">
 					<div class="card-text">
@@ -228,7 +232,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="team-card">
+			<div class="team-card  wow bounceIn">
 				<div class="card-front team-4"></div>
 				<div class="card-about">
 					<div class="card-text">
@@ -240,7 +244,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="team-card">
+			<div class="team-card  wow bounceIn">
 				<div class="card-front team-5"></div>
 				<div class="card-about">
 					<div class="card-text">
@@ -261,6 +265,15 @@
 	</div>
 </section>
 
+<section class="contact-form" id="contactForm">
+	<div class="contact-container">
+		<h2>Contact us</h2>
+		<div class="double-arrow">
+			<i class="fa fa-arrow-down" id="contactArrowDown" style="font-size:3rem; color: #212121"></i>
+			<i class="fa fa-arrow-up" id="contactArrowUp" style="font-size:3rem; color: #212121"></i>
+		</div>
+	</div>
+</section>
 
 <script src="wisehands/assets/js/particles.min.js"></script>
 
@@ -340,8 +353,17 @@
 <script>
 	document.getElementById("headTeam").addEventListener("click", showList);
 	document.getElementById("projectsArrowDown").addEventListener("click", showList);
+	document.getElementById("contactArrowUp").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("team").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("teamArrowDown").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("contactForm").scrollIntoView({
 			behavior: 'smooth'
 		})
 	}

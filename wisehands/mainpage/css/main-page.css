@@ -100,7 +100,7 @@ header {
     color: #0e2935;
     cursor: pointer;
 }
-.fe-services-block, .be-services-block, .mob-services-block, .projects-container, .team-container  {
+.fe-services-block, .be-services-block, .mob-services-block, .projects-container, .team-container, .contact-container  {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -183,7 +183,7 @@ header {
 .projects-container h2 {
     color: #aa6d63;
     text-align: center;
-    padding: 5rem 0 1rem 0 ;
+    padding: 1rem 0 ;
 }
 
 .all-projects {
@@ -199,7 +199,6 @@ header {
     justify-content: space-between;
     flex-basis: 31%;
     background-color: #fff;
-    height: 100%;
     box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
     border-radius: 15px;
     transition: 0.5s ease;
@@ -255,7 +254,7 @@ header {
     width: 36px;
     cursor: pointer;
 }
-.project-link button {
+.project-link button, .project-feedback button {
     background-color: #fff;
     color: #000;
     border: 2px solid #000;
@@ -266,6 +265,21 @@ header {
 .project-link button:hover {
     background-color: #000;
     color: #fff;
+}
+.project-feedback {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    border-radius: 15px;
+}
+.project-feedback p {
+    font-size: 2rem;
+    color: #aa6d63;
+    padding-right: 3rem;
 }
 
 .team {
@@ -343,6 +357,14 @@ header {
 .card-github {
     padding-right: 0.5rem;
 }
+
+.contact-form {
+    height: 100vh;
+    background: url("../images/map.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
 @media screen and (max-width: 768px)  {
     .header-links {
         display: none;
