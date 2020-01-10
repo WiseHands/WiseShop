@@ -363,7 +363,51 @@ header {
     background: url("../images/map.jpg");
     background-position: center;
     background-size: cover;
+    position: relative;
 }
+.contact-container h2 {
+    color: #333;
+    text-align: center;
+    padding: 1rem 0 ;
+}
+.contact-card {
+    width: 600px;
+    height: 700px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    position: absolute;
+    top: 15vh;
+    right: 10vw;
+}
+.contact-card-text {
+    width: 90%;
+    margin: 0 auto;
+}
+.contact-card-text p {
+    padding: 1rem 0;
+}
+.contact-card-text h5 {
+    padding: 2rem 0;
+}
+.contact-card-text input[type=text], input[type=email] {
+    width: 100%;
+    margin: 1rem auto;
+    border: none;
+    line-height: 2;
+    border-bottom: 1px solid #030303;
+}
+.contact-card-text input:focus {
+    outline: none;
+}
+.card-text-radio {
+    display: flex;
+    padding-top: 0.5rem;
+}
+.contact-card-text input[type=radio] {
+    padding-right: 2rem;
+}
+
 
 @media screen and (max-width: 768px)  {
     .header-links {
