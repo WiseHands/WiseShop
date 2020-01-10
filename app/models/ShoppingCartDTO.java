@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import json.shoppingcart.*;
 import play.db.jpa.GenericModel;
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

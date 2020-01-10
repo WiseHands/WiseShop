@@ -12,6 +12,9 @@ public class ShoppingCartClientInfo {
     public String phone;
 
     @Expose
+    public String email;
+
+    @Expose
     public String comments;
 
     @Expose
@@ -22,9 +25,10 @@ public class ShoppingCartClientInfo {
     @Transient
     public ShoppingCartClientPostDepartamentInfo postDepartamentInfo;
 
-    public ShoppingCartClientInfo(String name, String clientName, String clientPhone, String clientComments, ShoppingCartClientAddressInfo address, ShoppingCartClientPostDepartamentInfo postInfo) {
+    public ShoppingCartClientInfo(String clientName, String clientPhone, String clientEmail, String clientComments, ShoppingCartClientAddressInfo address, ShoppingCartClientPostDepartamentInfo postInfo) {
         this.name = clientName;
         this.phone = clientPhone;
+        this.email = clientEmail;
         this.comments = clientComments;
         this.address = address;
         this.postDepartamentInfo = postInfo;
