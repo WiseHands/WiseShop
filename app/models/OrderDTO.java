@@ -63,10 +63,10 @@ public class OrderDTO extends GenericModel {
     public String couponId;
 
     @Expose
-    public String destinationLat;
+    public String clientAddressStreetLat;
 
     @Expose
-    public String destinationLng;
+    public String clientAddressStreetLng;
 
     @Expose
     public String userAgent;
@@ -122,8 +122,8 @@ public class OrderDTO extends GenericModel {
         this.state = OrderState.NEW;
         this.comment = comment;
         this.shop = shop;
-        this.destinationLng = destinationLng;
-        this.destinationLat = destinationLat;
+        this.clientAddressStreetLat = destinationLng;
+        this.clientAddressStreetLng = destinationLat;
         this.userAgent = userAgent;
         this.ip = ip;
     }

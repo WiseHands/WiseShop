@@ -34,7 +34,7 @@ public class ShoppingCartAPI extends AuthController {
         ShoppingCartDTO shoppingCart = null;
 
         if(cartId == null) {
-            _createCart(shop);
+            shoppingCart = _createCart(shop);
         } else {
             shoppingCart = (ShoppingCartDTO) ShoppingCartDTO.find("byUuid", cartId).fetch().get(0);
         }
@@ -276,8 +276,11 @@ public class ShoppingCartAPI extends AuthController {
            String clientAddressApartmentFloor = request.params.get("floor");
            String clientAddressApartmentEntrance = request.params.get("entrance");
            String clientAddressApartmentEntranceCode = request.params.get("entranceCode");
+           String clientAddressStreetLat = request.params.get("lat");
+           String clientAddressStreetLng = request.params.get("lng");
 
            System.out.println("infoAboutClientAddress from request: " + clientAddressStreetName + " " + clientAddressBuildingNumber + " " + clientAddressApartmentNumber);
+           System.out.println("infoAboutClientAddress from clientAddressStreetLat: " + clientAddressStreetLat + " " + clientAddressStreetLng);
 
            String cartId = _getCartUuid(request);
             ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
@@ -298,6 +301,12 @@ public class ShoppingCartAPI extends AuthController {
            }
            if (clientAddressApartmentEntranceCode != null) {
                shoppingCart.clientAddressApartmentEntranceCode = clientAddressApartmentEntranceCode;
+           }
+           if (clientAddressStreetLat != null) {
+               shoppingCart.clientAddressStreetLat = clientAddressStreetLat;
+           }
+           if (clientAddressStreetLng != null) {
+               shoppingCart.clientAddressStreetLng = clientAddressStreetLng;
            }
 
            shoppingCart.save();

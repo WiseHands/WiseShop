@@ -65,8 +65,8 @@ public class OrderAPI extends AuthController {
         String clientAddressApartmentEntranceCode = shoppingCart.clientAddressApartmentEntranceCode;
         String clientAddressApartmentFloor = shoppingCart.clientAddressApartmentFloor;
         String clientAddressApartmentNumber = shoppingCart.clientAddressApartmentNumber;
-        String addressLat = "0001";
-        String addressLng = "0002";
+        String addressLat = shoppingCart.clientAddressStreetLat;
+        String addressLng = shoppingCart.clientAddressStreetLng;
         String amountTools = "2";
         String couponId = "001";
         System.out.println("\n\n NEW ORDER " +shop.shopName + " \n client name" + clientName + "client address: " + clientCity + " " + clientAddressStreetName);

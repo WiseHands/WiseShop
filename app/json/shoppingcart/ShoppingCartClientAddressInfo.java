@@ -17,8 +17,14 @@ public class ShoppingCartClientAddressInfo {
     public String entrance;
     @Expose
     public String entranceCode;
+    @Expose
+    public String lat;
+    @Expose
+    public String lng;
 
-    public ShoppingCartClientAddressInfo(String clientCity, String clientAddressStreetName, String clientAddressBuildingNumber, String clientAddressApartmentNumber, String clientAddressApartmentFloor, String clientAddressApartmentEntrance, String clientAddressApartmentEntranceCode) {
+    public ShoppingCartClientAddressInfo(String clientCity, String clientAddressStreetName, String clientAddressBuildingNumber,
+                                         String clientAddressApartmentNumber, String clientAddressApartmentFloor, String clientAddressApartmentEntrance, String clientAddressApartmentEntranceCode,
+                                         String clientAddressStreetLat, String clientAddressStreetLng) {
         this.city = clientCity;
         this.street = clientAddressStreetName;
         this.building = clientAddressBuildingNumber;
@@ -26,5 +32,7 @@ public class ShoppingCartClientAddressInfo {
         this.floor = clientAddressApartmentFloor;
         this.entrance = clientAddressApartmentEntrance;
         this.entranceCode = clientAddressApartmentEntranceCode;
+        this.lat = clientAddressStreetLat;
+        this.lng = clientAddressStreetLng;
     }
 }

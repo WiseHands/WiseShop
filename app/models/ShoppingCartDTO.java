@@ -2,6 +2,7 @@ package models;
 
 import com.google.gson.annotations.Expose;
 import json.shoppingcart.*;
+import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 public class ShoppingCartDTO extends GenericModel {
 
     @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Expose
     public String uuid;
 
@@ -62,11 +65,15 @@ public class ShoppingCartDTO extends GenericModel {
     public String clientAddressApartmentEntranceCode;
     public String clientCity;
     public String clientPostDepartmentNumber;
+    public String clientAddressStreetLat;
+    public String clientAddressStreetLng;
 
     @PostLoad
     public void formatObject() {
         ShoppingCartClientAddressInfo addressInfo =
-                new ShoppingCartClientAddressInfo(this.clientCity, this.clientAddressStreetName, this.clientAddressBuildingNumber, this.clientAddressApartmentNumber, this.clientAddressApartmentFloor, this.clientAddressApartmentEntrance, this.clientAddressApartmentEntranceCode);
+                new ShoppingCartClientAddressInfo(this.clientCity, this.clientAddressStreetName, this.clientAddressBuildingNumber,
+                        this.clientAddressApartmentNumber, this.clientAddressApartmentFloor, this.clientAddressApartmentEntrance, this.clientAddressApartmentEntranceCode,
+                        this.clientAddressStreetLat, this.clientAddressStreetLng);
 
         ShoppingCartClientPostDepartamentInfo postInfo =
                 new ShoppingCartClientPostDepartamentInfo(this.clientCity, this.clientPostDepartmentNumber);
