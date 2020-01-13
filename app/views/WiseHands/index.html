@@ -140,15 +140,16 @@
 				</div>
 				<div class="project-review">
 					<div class="project-review-author">
-						<img src="../../../wisehands/mainpage/images/review1.jpg">
+						<img src="../../../wisehands/mainpage/images/book-author.jpg">
 							<div class="project-author-about">
 								<h3>Святослав Беш</h3>
 								<p>автор книги "Три сторони щастя"</p>
 							</div>
 					</div>
 					<div class="project-author-text">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						<p>Proin sit amet massa auctor, feugiat mauris vel, lacinia tortor.</p>
+						<p>Професійний підхід, уміння почути потреби та побажання замовника, наполеглива та цілеспрямована робота, щоб завершити все вчасно та якісно!
+							Все це про Wise Hands.
+						</p>
 					</div>
 				</div>
 				<div class="project-link">
@@ -182,7 +183,7 @@
 		</div>
 		<div class="project-feedback wow flipInX" data-wow-delay=0.5s>
 			<p>Have an idea?</p>
-			<button>Contact us</button>
+			<button><a href="#contactForm">Contact us</a></button>
 		</div>
 		<div class="double-arrow">
 			<i class="fa fa-arrow-down" id="projectsArrowDown" style="font-size:3rem; color: #fff"></i>
@@ -268,18 +269,29 @@
 <section class="contact-form" id="contactForm">
 	<div class="contact-container">
 		<h2 class="services-h2">Contact us</h2>
+		<div class="location-card">
+			<p>Lviv, Virmenska str.</p>
+			<p></p>
+		</div>
 		<div class="contact-card">
 			<div class="contact-card-text">
-				<h5>Send us a message</h5>
+				<h5>Send us a Message</h5>
 				<input type="text" placeholder="Name">
 				<input type="email" placeholder="Email">
 				<input type="text" placeholder="Name">
 				<p>Preffered method of communication</p>
-				<div class="card-text-radio">
-					<input type="radio" name="" value="male">Email<br>
-					<input type="radio" name="" value="female">Phone<br>
-				</div>
-				<input type="text" placeholder="Message">
+				<form class="card-text-radio">
+					<div class="card-radio-email">
+						<input type="radio" name="method" id="radio-email" value="email" checked><br>
+						<label for="radio-email">Email</label>
+					</div>
+					<div class="card-radio-phone">
+						<input type="radio" name="method" id="radio-phone"  value="phone"><br>
+						<label for="radio-phone">Phone</label>
+					</div>
+				</form>
+				<textarea  id="message-text" placeholder="Message"></textarea>
+				<div class="message-button"><button id="messageSubmit">Submit</button></div>
 			</div>
 		</div>
 		<div class="double-arrow">
