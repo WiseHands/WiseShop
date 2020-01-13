@@ -34,7 +34,6 @@ public class ShoppingCartAPI extends AuthController {
     private String _getCartUuid() {
         String cartId = null;
 
-
         if (request.params.get("cartId") != null) {
             cartId = request.params.get("cartId");
         } else {
@@ -63,16 +62,20 @@ public class ShoppingCartAPI extends AuthController {
         ShoppingCartDTO shoppingCart = null;
 
         if(cartId == null) {
-            shoppingCart = new ShoppingCartDTO();
-            shoppingCart.uuid = cartId;
-            shoppingCart.shopUuid = shop.uuid;
-            shoppingCart = shoppingCart.save();
+            _createCart(shop);
         } else {
             shoppingCart = (ShoppingCartDTO) ShoppingCartDTO.find("byUuid", cartId).fetch().get(0);
         }
 
 
         renderJSON(json(shoppingCart));
+    }
+
+    public ShoppingCartDTO _createCart(ShopDTO shop) {
+        ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
+        shoppingCart.shopUuid = shop.uuid;
+        shoppingCart = shoppingCart.save();
+        return shoppingCart;
     }
 
     public void addProduct(String client) {
@@ -333,7 +336,6 @@ public class ShoppingCartAPI extends AuthController {
            getCart(shop);
     }
 
-
      public void setPostDepartmentInfo(String client) {
          ShopDTO shop = ShopDTO.find("byDomain", client).first();
          if (shop == null){
@@ -358,7 +360,6 @@ public class ShoppingCartAPI extends AuthController {
            getCart(shop);
 
      }
-
 
 
 }
