@@ -27,7 +27,19 @@ public class OrderDTO extends GenericModel {
     public String email;
 
     @Expose
-    public String address;
+    public String clientCity;
+    @Expose
+    public String clientAddressStreetName;
+    @Expose
+    public String clientAddressBuildingNumber;
+    @Expose
+    public String clientAddressApartmentEntrance;
+    @Expose
+    public String clientAddressApartmentEntranceCode;
+    @Expose
+    public String clientAddressApartmentFloor;
+    @Expose
+    public String clientAddressApartmentNumber;
 
     @Expose
     public String deliveryType;
@@ -36,7 +48,7 @@ public class OrderDTO extends GenericModel {
     public String paymentType;
 
     @Expose
-    public String departmentNumber;
+    public String clientPostDepartmentNumber;
 
     @Expose
     public Long time;
@@ -88,15 +100,24 @@ public class OrderDTO extends GenericModel {
     @ManyToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-    public OrderDTO(String name, String phone, String email, String address, String amountTools, String deliveryType, String paymentType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
+    public OrderDTO(String name, String phone, String email,
+                    String clientCity, String clientAddressStreetName, String clientAddressBuildingNumber, String clientAddressApartmentEntrance,
+                    String clientAddressApartmentEntranceCode, String clientAddressApartmentFloor, String clientAddressApartmentNumber,
+                    String amountTools, String deliveryType, String paymentType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.clientCity = clientCity;
+        this.clientAddressStreetName = clientAddressStreetName;
+        this.clientAddressBuildingNumber = clientAddressBuildingNumber;
+        this.clientAddressApartmentEntrance = clientAddressApartmentEntrance;
+        this.clientAddressApartmentEntranceCode = clientAddressApartmentEntranceCode;
+        this.clientAddressApartmentFloor = clientAddressApartmentFloor;
+        this.clientAddressApartmentNumber = clientAddressApartmentNumber;
         this.amountTools = amountTools;
         this.deliveryType = deliveryType;
         this.paymentType = paymentType;
-        this.departmentNumber = departmentNumber;
+        this.clientPostDepartmentNumber = departmentNumber;
         this.time = System.currentTimeMillis();
         this.state = OrderState.NEW;
         this.comment = comment;
@@ -121,8 +142,8 @@ public class OrderDTO extends GenericModel {
                 "Phone: " + this.phone +  "\n" +
                 "Delivery: " + this.deliveryType + "\n" +
                 "Payment: " + this.paymentType + "\n" +
-                "ShoppingCartClientAddressInfo: " + returnIfNotNull(this.address) + "\n" +
-                "Department: " + returnIfNotNull(this.departmentNumber) + "\n" +
+                "ShoppingCartClientAddressInfo: " + returnIfNotNull(this.clientCity) + "\n" +
+                "Department: " + returnIfNotNull(this.clientPostDepartmentNumber) + "\n" +
                 "Total: " + total + "\n" +
                 "Details: " + "http://" + this.shop.domain + "/admin#/details/" + this.uuid;
     }

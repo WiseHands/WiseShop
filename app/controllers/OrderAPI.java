@@ -2,6 +2,7 @@ package controllers;
 
 import enums.OrderState;
 import jobs.SendSmsJob;
+import json.shoppingcart.LineItem;
 import models.*;
 import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.codec.binary.Base64;
@@ -18,6 +19,8 @@ import services.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static util.ShoppingCartUtil._getCartUuid;
 
 public class OrderAPI extends AuthController {
     private static final String CLASSSNAME = "OrderAPI";
@@ -45,32 +48,42 @@ public class OrderAPI extends AuthController {
         Lang.change(locale);
 
         //TODO: add validation
-        JSONParser parser = new JSONParser();
-        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        String deliveryType = (String) jsonBody.get("deliveryType");
-        String paymentType = (String) jsonBody.get("paymentType");
-        String name = (String) jsonBody.get("name");
-        String phone = (String) jsonBody.get("phone");
-        String email = (String) jsonBody.get("email");
-        String address = (String) jsonBody.get("address");
-        String amountTools = (String) jsonBody.get("amountTools");
-        String comment = (String) jsonBody.get("comment");
-        String couponId = (String) jsonBody.get("coupon");
-        String addressLat = (String) jsonBody.get("addressLat");
-        String addressLng = (String) jsonBody.get("addressLng");
-        System.out.println("\n\n NEW ORDER " +shop.shopName + " \n address lat" + addressLat + "address lng " + addressLng + "\n" + "minimum payment " + shop.paymentSettings.minimumPayment);
+        String cartId = _getCartUuid(request);
+
+        ShoppingCartDTO shoppingCart = (ShoppingCartDTO) ShoppingCartDTO.find("byUuid", cartId).fetch().get(0);
+
+        String deliveryType = shoppingCart.deliveryType.name();
+        String paymentType =  shoppingCart.paymentType.name();
+        String clientName = shoppingCart.clientName;
+        String clientPhone = shoppingCart.clientPhone;
+        String clientEmail = shoppingCart.clientEmail;
+        String clientComments = shoppingCart.clientComments;
+        String clientCity = shoppingCart.clientCity;
+        String clientAddressStreetName = shoppingCart.clientAddressStreetName;
+        String clientAddressBuildingNumber = shoppingCart.clientAddressBuildingNumber;
+        String clientAddressApartmentEntrance = shoppingCart.clientAddressApartmentEntrance;
+        String clientAddressApartmentEntranceCode = shoppingCart.clientAddressApartmentEntranceCode;
+        String clientAddressApartmentFloor = shoppingCart.clientAddressApartmentFloor;
+        String clientAddressApartmentNumber = shoppingCart.clientAddressApartmentNumber;
+        String addressLat = "0001";
+        String addressLng = "0002";
+        String amountTools = "2";
+        String couponId = "001";
+        System.out.println("\n\n NEW ORDER " +shop.shopName + " \n client name" + clientName + "client address: " + clientCity + " " + clientAddressStreetName);
         String agent = request.headers.get("user-agent").value();
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";
         if (xforwardedHeader != null){
             ip = xforwardedHeader.value();
         }
-        String newPostDepartment = (String) jsonBody.get("newPostDepartment");
-        JSONArray jsonArray = (JSONArray) jsonBody.get("selectedItems");
+        String newPostDepartment = shoppingCart.clientPostDepartmentNumber;
 
         Double totalCost = (Double) Double.parseDouble("0");
 
-        OrderDTO order = new OrderDTO(name, phone, email, address, amountTools, deliveryType, paymentType, newPostDepartment, comment, shop, addressLat, addressLng, agent, ip);
+        OrderDTO order = new OrderDTO(clientName, clientPhone, clientEmail,
+                clientCity, clientAddressStreetName, clientAddressBuildingNumber, clientAddressApartmentEntrance,
+                clientAddressApartmentEntranceCode, clientAddressApartmentFloor, clientAddressApartmentNumber,
+                amountTools, deliveryType, paymentType, newPostDepartment, clientComments, shop, addressLat, addressLng, agent, ip);
         if(shop.orders == null){
             shop.orders = new ArrayList<OrderDTO>();
         }
@@ -80,12 +93,11 @@ public class OrderAPI extends AuthController {
 
         List<OrderItemDTO> orders = new ArrayList<OrderItemDTO>();
 
-        for (ListIterator iter = jsonArray.listIterator(); iter.hasNext(); ) {
-            JSONObject element = (JSONObject) iter.next();
+        for (LineItem lineItem : shoppingCart.items) {
 
-            int quantity = Integer.parseInt(element.get("quantity").toString());
+            int quantity = lineItem.quantity;
             OrderItemDTO orderItem = new OrderItemDTO();
-            ProductDTO product = ProductDTO.find("byUuid", element.get("uuid")).first();
+            ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
             orderItem.orderUuid = order.uuid;
             System.out.println("DEBUG productUuid for OrderItemDTO " + product.uuid + " NAME: " + product.name);
             orderItem.productUuid = product.uuid;
@@ -95,24 +107,23 @@ public class OrderAPI extends AuthController {
             orderItem.fileName = product.fileName;
             orderItem.quantity = quantity;
 
-
             List<PropertyTagDTO> chosenProperties = new ArrayList<PropertyTagDTO>();
-            JSONArray properties = (JSONArray) element.get("chosenProperties");
-            System.out.println("CHOSEN PROPERTIES" + properties);
-
-            if(properties != null) {
-                for (ListIterator iterator = properties.listIterator(); iterator.hasNext(); ) {
-                    JSONObject property = (JSONObject) iterator.next();
-                    PropertyTagDTO foundProperty = PropertyTagDTO.find("byUuid", property.get("uuid")).first();
-                    PropertyTagDTO newProperty = new PropertyTagDTO();
-                    newProperty.value = foundProperty.value;
-                    newProperty.additionalPrice = foundProperty.additionalPrice;
-                    newProperty = newProperty.save();
-                    chosenProperties.add(newProperty);
-                    totalCost = totalCost + newProperty.additionalPrice;
-                }
-                orderItem.tags = chosenProperties;
-            }
+//            JSONArray properties = (JSONArray) element.get("chosenProperties");
+//            System.out.println("CHOSEN PROPERTIES" + properties);
+//
+//            if(properties != null) {
+//                for (ListIterator iterator = properties.listIterator(); iterator.hasNext(); ) {
+//                    JSONObject property = (JSONObject) iterator.next();
+//                    PropertyTagDTO foundProperty = PropertyTagDTO.find("byUuid", property.get("uuid")).first();
+//                    PropertyTagDTO newProperty = new PropertyTagDTO();
+//                    newProperty.value = foundProperty.value;
+//                    newProperty.additionalPrice = foundProperty.additionalPrice;
+//                    newProperty = newProperty.save();
+//                    chosenProperties.add(newProperty);
+//                    totalCost = totalCost + newProperty.additionalPrice;
+//                }
+//                orderItem.tags = chosenProperties;
+//            }
 
             orderItem.save();
             orders.add(orderItem);
@@ -224,7 +235,6 @@ public class OrderAPI extends AuthController {
         renderJSON(json(orderDTO));
     }
 
-
     public static void list(String client, int page) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -257,7 +267,6 @@ public class OrderAPI extends AuthController {
 
         renderJSON(json(orderDTO));
     }
-
 
     public static void delete(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

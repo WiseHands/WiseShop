@@ -44,7 +44,7 @@ public class MailSenderImpl implements MailSender {
             map.put("name", order.name);
             map.put("phone", order.phone);
             map.put("deliveryType", order.deliveryType);
-            map.put("address", order.address);
+            map.put("address", order.clientCity);
             map.put("total", order.total);
 
             Lang.change(shop.locale);

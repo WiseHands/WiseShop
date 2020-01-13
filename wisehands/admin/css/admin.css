@@ -1,3 +1,10 @@
+.address-order-container{
+    display: flex;
+    flex-direction: column;
+}
+.address-order-container p{
+    margin-bottom: 3px;
+}
 .table {
     display: flex;
     flex-flow: column nowrap;

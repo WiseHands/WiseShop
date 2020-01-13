@@ -127,7 +127,7 @@ GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
 OPTIONS {client}/shop/details/public                    ShoppingCartAPI.allowCors
 
-POST    {client}/shop                             	ShopAPI.create
+POST    {client}/shop                                	ShopAPI.create
 PUT     {client}/shop                                   ShopAPI.update
 PUT     {client}/shop/{locale}                          ShopAPI.changeLocal
 PUT     {client}/shop/domain/{domain}                   ShopAPI.updateDomain
