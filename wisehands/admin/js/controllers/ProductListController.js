@@ -11,16 +11,12 @@ angular.module('WiseHands')
         })
             .then(function successCallback(response) {
                 spinnerService.hide('mySpinner');
+                $scope.loading = false;
                 $scope.products = response.data;
                 $scope.activeShop = localStorage.getItem('activeShop');
-                var maxNumberOfOrders = $scope.products.length === 0 || $scope.products.length < 12;
                 if($scope.products.length === 0){
                     $scope.isProductsInShop = true;
                     $scope.hideMoreButton = true;
-                } else if(maxNumberOfOrders){
-                    $scope.loading = false;
-                } else {
-                    $scope.hideMoreButton = false;
                 }
             }, function errorCallback(data) {
                 spinnerService.hide('mySpinner');
@@ -29,30 +25,6 @@ angular.module('WiseHands')
             });
         };
 
-        var pageNumber = 1;
-        $scope.moreOrders = function () {
-            $scope.hideMoreButton = false;
-            var req = {
-                method: 'GET',
-                url: '/products?page=' + pageNumber,
-                data: {}
-            };
-
-            $http(req)
-                .then(function successCallback(response) {
-                    if(response.data.length !== 0) {
-                        $scope.products = $scope.products.concat(response.data);
-                    } else {
-                        $scope.hideMoreButton = true;
-                    }
-
-                    pageNumber ++;
-                    $scope.loading = false;
-                }, function errorCallback(response) {
-                    $scope.loading = false;
-                    $scope.wrongMessage = true;
-                });
-        };
         sideNavInit.sideNav();
 
         function equalizeHeights(selector) {
