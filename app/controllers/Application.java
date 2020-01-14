@@ -116,12 +116,11 @@ public class Application extends Controller {
 
         Http.Cookie userTokenCookie = request.cookies.get("userToken");
         if(userTokenCookie == null) {
-            UUID uuid = UUID.randomUUID();
-            String token = generateTokenForCookie(uuid.toString(), agent);
             ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
-            shoppingCart.uuid = uuid.toString();
             shoppingCart.shopUuid = shop.uuid;
             shoppingCart.save();
+
+            String token = generateTokenForCookie(shoppingCart.uuid, agent);
             response.setCookie("userToken", token);
         }
     }

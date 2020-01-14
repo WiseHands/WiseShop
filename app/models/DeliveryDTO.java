@@ -28,6 +28,10 @@ public class DeliveryDTO extends GenericModel {
     @Expose
     public Double courierFreeDeliveryLimit;
 
+    public String getCourierPolygonData() {
+        return courierPolygonData;
+    }
+
     @Expose
     @Column(length=10240)
     public String courierPolygonData;

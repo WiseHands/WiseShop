@@ -139,6 +139,8 @@ DELETE  {client}/shop/user                              ShopAPI.removeUserFromSh
 GET     {client}/delivery                               DeliveryAPI.details
 OPTIONS {client}/delivery                               ShoppingCartAPI.allowCors
 
+OPTIONS {client}/courier/check-delivery-boundaries      ShoppingCartAPI.allowCors
+PUT     {client}/courier/check-delivery-boundaries      DeliveryAPI.checkCourierDeliveryBoundaries
 POST    {client}/courier/polygon                        DeliveryAPI.updateCourierPolygonData
 GET     {client}/courier/polygon                        DeliveryAPI.getCourierPolygonData
 DELETE  {client}/courier/polygon                        DeliveryAPI.deleteCourierPolygonData

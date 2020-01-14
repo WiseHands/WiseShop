@@ -1,16 +1,51 @@
 package controllers;
 
+import com.google.gson.Gson;
 import models.DeliveryDTO;
 import models.ShopDTO;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class DeliveryAPI extends AuthController {
 
+    public static void checkCourierDeliveryBoundaries(String client) throws Exception{
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        String lat = request.params.get("lat");
+        String lng = request.params.get("lng");
+        System.out.println("lat " + lat + " lng " + lng);
+
+        JSONParser parser = new JSONParser();
+        String stringToParse = shop.delivery.courierPolygonData;
+        JSONObject polygonData = (JSONObject) parser.parse(stringToParse);
+
+        JSONArray polygon = (JSONArray) polygonData.get("features");
+        JSONObject features = (JSONObject) polygon.get(0);
+        JSONObject geometry = (JSONObject) features.get("geometry");
+        JSONArray coordinates = (JSONArray) geometry.get("coordinates");
+        JSONArray newCoordinates = (JSONArray) coordinates.get(0);
+
+        ArrayList<Array> polygonePoints = new ArrayList<>();
+        for (int i=0; i<newCoordinates.size(); i++) {
+            JSONArray point = (JSONArray) newCoordinates.get(i);
+            Double latitude = (Double) point.get(0);
+            Double longtitude = (Double) point.get(1);
+            System.out.println("POINT [" + i + "]: " + latitude + ":" + longtitude);
+        }
+        System.out.println("polygon from features " + newCoordinates);
+        //features[0].geometry.coordinates[0];
+
+
+    }
     public static void details(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

@@ -32,7 +32,7 @@ public class ShoppingCartAPI extends AuthController {
     public void getCart(ShopDTO shop) {
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = null;
-
+        System.out.println("cartId from request " + cartId);
         if(cartId == null) {
             shoppingCart = _createCart(shop);
         } else {
