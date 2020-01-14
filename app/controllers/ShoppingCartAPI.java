@@ -2,11 +2,16 @@ package controllers;
 
 import json.shoppingcart.LineItem;
 import models.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import play.mvc.Before;
+import util.PolygonUtil;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TimeZone;
 
 import static util.ShoppingCartUtil._getCartUuid;
@@ -265,7 +270,7 @@ public class ShoppingCartAPI extends AuthController {
            );
     }
 
-    public void setAddressInfo(String client) {
+    public void setAddressInfo(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -302,17 +307,53 @@ public class ShoppingCartAPI extends AuthController {
            if (clientAddressApartmentEntranceCode != null) {
                shoppingCart.clientAddressApartmentEntranceCode = clientAddressApartmentEntranceCode;
            }
-           if (clientAddressStreetLat != null) {
+           if (clientAddressStreetLat != null && clientAddressStreetLng != null) {
                shoppingCart.clientAddressStreetLat = clientAddressStreetLat;
-           }
-           if (clientAddressStreetLng != null) {
                shoppingCart.clientAddressStreetLng = clientAddressStreetLng;
+               shoppingCart.clientAddressGpsPointInsideDeliveryBoundaries = isPointInsidePolygon(shop, clientAddressStreetLat, clientAddressStreetLng);
            }
 
            shoppingCart.save();
            shoppingCart.formatObject();
 
            getCart(shop);
+    }
+
+    private boolean isPointInsidePolygon(ShopDTO shop, String latitude, String longitude) throws Exception{
+
+        Double lat = Double.valueOf(latitude);
+        Double lng = Double.valueOf(longitude);
+
+        JSONParser parser = new JSONParser();
+        String stringToParse = shop.delivery.courierPolygonData;
+        JSONObject polygonData = (JSONObject) parser.parse(stringToParse);
+
+        JSONArray polygon = (JSONArray) polygonData.get("features");
+        JSONObject features = (JSONObject) polygon.get(0);
+        JSONObject geometry = (JSONObject) features.get("geometry");
+        JSONArray coordinates = (JSONArray) geometry.get("coordinates");
+        JSONArray newCoordinates = (JSONArray) coordinates.get(0);
+
+        List<PolygonUtil.Point> polygonPoints = new ArrayList<PolygonUtil.Point>();
+        for (int i=0; i<newCoordinates.size(); i++) {
+            JSONArray point = (JSONArray) newCoordinates.get(i);
+            Double latitudePoint = (Double) point.get(0);
+            Double longtitudePoint = (Double) point.get(1);
+            PolygonUtil.Point points = new PolygonUtil.Point(longtitudePoint, latitudePoint);
+            polygonPoints.add(points);
+            System.out.println("POINT [" + i + "]: " + latitudePoint + ":" + longtitudePoint);
+        }
+
+        PolygonUtil.Point[] pointArray = new PolygonUtil.Point[polygonPoints.size()];
+        polygonPoints.toArray(pointArray);
+
+        int length = polygonPoints.size();
+        PolygonUtil.Point point = new PolygonUtil.Point(lat, lng);
+        boolean isPointInsidePolygon = PolygonUtil.isInside(pointArray, length, point);
+
+        System.out.println("isPointInsidePolygon: " + isPointInsidePolygon);
+
+        return isPointInsidePolygon;
     }
 
      public void setPostDepartmentInfo(String client) {

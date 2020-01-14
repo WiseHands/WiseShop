@@ -84,6 +84,7 @@
 
     store.subscribe(() => {
         let shoppingCartState = store.getState();
+        console.log("shoppingCartState from shop-header: ", store.getState());
         let cartCounter = document.querySelector('#shoppingCartCounter');
         let totalProductsQuantity = 0;
         if (shoppingCartState && shoppingCartState.items) {

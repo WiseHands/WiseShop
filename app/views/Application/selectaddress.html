@@ -110,7 +110,7 @@
             <input id="find-address-button" type="button" onclick="findOwnlocation()" value="Визначити">
         </div>
         <div class="load-button">
-            <input id="next-page-button" type="button" value="Далі">
+            <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="Далі">
         </div>
     </div>
 
@@ -217,6 +217,17 @@
         });
     }
 
+    function nextButtonClickListener(){
+        if (marker){
+            let lat = marker.getPosition().lat();
+            let lng = marker.getPosition().lng();
+            let latlng = new google.maps.LatLng(lat, lng);
+            let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+            console.log("isLocationInsidePolygon:_", isLocationInsidePolygon);
+        }
+
+    }
+
     function geocodeLatLng(latlng, isLocationInsidePolygon) {
         let geocoder = new google.maps.Geocoder();
         geocoder.geocode({
@@ -268,13 +279,6 @@
         });
     }
 
-    // $scope.goToRoute = function() {
-    //     if ($scope.buttonDisabled) {
-    //         showWarningMsg('Address not selected');
-    //         return;
-    //     }
-    //     location.hash ='#!/paymentnewstage';
-    // }
 
     function findOwnlocation() {
         if (navigator.geolocation) {

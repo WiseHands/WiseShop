@@ -67,13 +67,14 @@ public class ShoppingCartDTO extends GenericModel {
     public String clientPostDepartmentNumber;
     public String clientAddressStreetLat;
     public String clientAddressStreetLng;
+    public Boolean clientAddressGpsPointInsideDeliveryBoundaries;
 
     @PostLoad
     public void formatObject() {
         ShoppingCartClientAddressInfo addressInfo =
                 new ShoppingCartClientAddressInfo(this.clientCity, this.clientAddressStreetName, this.clientAddressBuildingNumber,
                         this.clientAddressApartmentNumber, this.clientAddressApartmentFloor, this.clientAddressApartmentEntrance, this.clientAddressApartmentEntranceCode,
-                        this.clientAddressStreetLat, this.clientAddressStreetLng);
+                        this.clientAddressStreetLat, this.clientAddressStreetLng, this.clientAddressGpsPointInsideDeliveryBoundaries);
 
         ShoppingCartClientPostDepartamentInfo postInfo =
                 new ShoppingCartClientPostDepartamentInfo(this.clientCity, this.clientPostDepartmentNumber);
