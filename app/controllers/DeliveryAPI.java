@@ -6,12 +6,14 @@ import models.ShopDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import util.PolygonUtil;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DeliveryAPI extends AuthController {
 
@@ -20,8 +22,8 @@ public class DeliveryAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        String lat = request.params.get("lat");
-        String lng = request.params.get("lng");
+        Double lat = Double.valueOf(request.params.get("lat"));
+        Double lng = Double.valueOf(request.params.get("lng"));
         System.out.println("lat " + lat + " lng " + lng);
 
         JSONParser parser = new JSONParser();
@@ -34,15 +36,27 @@ public class DeliveryAPI extends AuthController {
         JSONArray coordinates = (JSONArray) geometry.get("coordinates");
         JSONArray newCoordinates = (JSONArray) coordinates.get(0);
 
-        ArrayList<Array> polygonePoints = new ArrayList<>();
+        List<PolygonUtil.Point> polygonPoints = new ArrayList<PolygonUtil.Point>();
         for (int i=0; i<newCoordinates.size(); i++) {
             JSONArray point = (JSONArray) newCoordinates.get(i);
             Double latitude = (Double) point.get(0);
             Double longtitude = (Double) point.get(1);
+            PolygonUtil.Point points = new PolygonUtil.Point(longtitude, latitude);
+            polygonPoints.add(points);
             System.out.println("POINT [" + i + "]: " + latitude + ":" + longtitude);
         }
-        System.out.println("polygon from features " + newCoordinates);
-        //features[0].geometry.coordinates[0];
+
+
+
+        PolygonUtil.Point[] pointArray = new PolygonUtil.Point[polygonPoints.size()];
+        polygonPoints.toArray(pointArray);
+
+
+         int length = polygonPoints.size();
+         PolygonUtil.Point point = new PolygonUtil.Point(lat, lng);
+        boolean isPointInsidePolygon = PolygonUtil.isInside(pointArray, length, point);
+        System.out.println("polygon from features " + isPointInsidePolygon);
+        //; Point polygon1[] = {{0, 0}, {10, 0}, {10, 10}, {0, 10}};
 
 
     }

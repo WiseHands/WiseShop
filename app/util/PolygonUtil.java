@@ -1,29 +1,24 @@
 package util;
 
-//how to use:
-// Point polygon1[] = {new Point(0, 0),
-//         new Point(10, 0),
-//         new Point(10, 10),
-//         new Point(0, 10)};
-//         int n = polygon1.length;
-//         Point p = new Point(20, 20);
-//         isInside(polygon3, n, p)
+
+import java.util.List;
+
 public class PolygonUtil {
     // Define Infinite (Using INT_MAX
     // caused overflow problems)
-    static int INF = 10000;
+    static Double INF = Double.valueOf(10000);
 
-    static class Point
+    public static class Point
     {
-        int x;
-        int y;
+        Double x;
+        Double y;
 
-        public Point(int x, int y)
+        public Point(Double x, Double y)
         {
             this.x = x;
             this.y = y;
         }
-    };
+    }
 
     // Given three colinear points p, q, r,
     // the function checks if point q lies
@@ -47,7 +42,7 @@ public class PolygonUtil {
     // 2 --> Counterclockwise
     static int orientation(Point p, Point q, Point r)
     {
-        int val = (q.y - p.y) * (r.x - q.x)
+        Double val = (q.y - p.y) * (r.x - q.x)
                 - (q.x - p.x) * (r.y - q.y);
 
         if (val == 0)
@@ -110,7 +105,7 @@ public class PolygonUtil {
 
     // Returns true if the point p lies
     // inside the polygon[] with n vertices
-    static boolean isInside(Point polygon[], int n, Point p)
+    public static boolean isInside(Point polygon[], int n, Point p)
     {
         // There must be at least 3 vertices in polygon[]
         if (n < 3)
