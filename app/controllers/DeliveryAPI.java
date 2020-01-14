@@ -55,8 +55,21 @@ public class DeliveryAPI extends AuthController {
          int length = polygonPoints.size();
          PolygonUtil.Point point = new PolygonUtil.Point(lat, lng);
         boolean isPointInsidePolygon = PolygonUtil.isInside(pointArray, length, point);
-        System.out.println("polygon from features " + isPointInsidePolygon);
-        //; Point polygon1[] = {{0, 0}, {10, 0}, {10, 10}, {0, 10}};
+
+        System.out.println("isPointInsidePolygon: " + isPointInsidePolygon);
+
+
+        if(isPointInsidePolygon) {
+            JSONObject successfulRequest = new JSONObject();
+            successfulRequest.put("status", "ok");
+            successfulRequest.put("message", "given gps point is inside delivery boundaries");
+            renderJSON(successfulRequest);
+        } else {
+            JSONObject failedRequest = new JSONObject();
+            failedRequest.put("status", "failed");
+            failedRequest.put("message", "given gps point is not inside delivery boundaries");
+            renderJSON(failedRequest);
+        }
 
 
     }
