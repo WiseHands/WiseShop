@@ -1,6 +1,4 @@
 #{set shop:shop /}
-#{shop-header /}
-
 <style>
     .center-container {
         display: flex;
@@ -84,9 +82,11 @@
     <script defer src="/wisehands/assets/js/jquery-2.2.3.min.js"></script>
     <script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
     <script defer src="/wisehands/assets/mdb_shop/js/mdb.min.js"></script>
-    #{setup-redux /}
-    #{get-cart /}
 </head>
+#{setup-redux /}
+#{get-cart /}
+#{shop-header /}
+
 <div class="center-container">
     <div class="address-container">
         <!--<p>Адреса:</p>-->
@@ -131,7 +131,7 @@
 
         let var_map_options = {
             center: var_location,
-            zoom: 17
+            zoom:5
         };
         map = new google.maps.Map(document.getElementById('googleMap'),var_map_options);
 
@@ -139,8 +139,6 @@
         document.getElementById('check-address-button').addEventListener('click', function () {
             geocodeAddress(geocoder, map);
         });
-
-        //
 
         fetch('/courier/polygon', {
             method: 'GET',
@@ -166,7 +164,10 @@
         geocoder.geocode({'address': address}, function(results, status) {
             if (status === 'OK') {
                 resultsMap.setCenter(results[0].geometry.location);
-                let marker = new google.maps.Marker({
+                if (marker) {
+                    marker.setMap(null);
+                }
+                marker = new google.maps.Marker({
                     map: resultsMap,
                     position: results[0].geometry.location
                 });
@@ -205,7 +206,7 @@
         }
         let centerLocation = new google.maps.LatLng(bounds.getCenter().lat(), bounds.getCenter().lng());
         map.setCenter(centerLocation);
-        map.setZoom(17);
+        map.setZoom(11);
 
         google.maps.event.addListener(polygon, 'click', function(event) {
             let latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
@@ -215,7 +216,6 @@
             geocodeLatLng(latlng, true);
         });
     }
-
 
     function geocodeLatLng(latlng, isLocationInsidePolygon) {
         let geocoder = new google.maps.Geocoder();
@@ -249,6 +249,9 @@
                         map.setCenter(latlng);
                         showWarningMsg('Address out of delivery range');
                     } else {
+                        if (marker) {
+                            marker.setMap(null);
+                        }
                         marker = new google.maps.Marker({
                             position: latlng,
                             map: map,
