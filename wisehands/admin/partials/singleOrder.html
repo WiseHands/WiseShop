@@ -40,7 +40,8 @@
                 <h5>{{'singleOrder.Email' | translate}}: <p><i>{{order.email}}</i></p></h5>
                 <div class="address-order-container" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">
                     <h5 >{{'singleOrder.Address' | translate}}: </b><p><i>{{address}}
-                        <a ng-show="order.clientAddressStreetLat" href="https://www.google.com.ua/maps/@{{order.clientAddressStreetLng}},{{order.clientAddressStreetLat}},18z?hl=en" target="_blank"><i class="material-icons pointIconColor">place</i>
+                        <a ng-show="order.clientAddressStreetLat"
+                           href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLng}},{{order.clientAddressStreetLat}}&15z&hl=en" target="_blank"><i class="material-icons pointIconColor">place</i>
                         </a></i></p>
                         <p>{{'singleOrder.AddressApartmentEntrance' | translate}} {{order.clientAddressApartmentEntrance}}</p>
                         <p>{{'singleOrder.AddressApartmentEntranceCode' | translate}} {{order.clientAddressApartmentEntranceCode}}</p>
