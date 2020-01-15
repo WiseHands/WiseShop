@@ -105,11 +105,12 @@
     <div class="col-sm-6 col-md-4 hidden-xs" ng-if="item.state !== 'DELETED'" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
         <a href ="#/details/{{item.uuid}}">
             <div class="card elegant-card hoverable">
-                <div ng-show="item.destinationLng && item.deliveryType === 'COURIER'" class="view overlay hm-white-slight z-depth-1">
-                    <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{item.address}}&zoom=15&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:N%7C{{item.destinationLat}},{{item.destinationLng}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive" alt="">
+                <div ng-show="item.clientAddressStreetLng && item.deliveryType === 'COURIER'" class="view overlay hm-white-slight z-depth-1">
+                    <img
+                            ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:C%7C{{item.clientAddressStreetLng}},{{item.clientAddressStreetLat}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive" alt="">
                     <div class="mask waves-effect activator"></div>
                 </div>
-                <div ng-show="item.deliveryType === 'COURIER' && !item.destinationLng" class="view overlay hm-white-slight z-depth-1">
+                <div ng-show="item.deliveryType === 'COURIER' && !item.clientAddressStreetLng" class="view overlay hm-white-slight z-depth-1">
                     <img src="wisehands/assets/images/logoimages/no_map.png" class="img-responsive" alt="">
                     <div class="mask waves-effect activator"></div>
                 </div>
