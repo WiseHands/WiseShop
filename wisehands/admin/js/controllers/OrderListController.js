@@ -12,6 +12,7 @@
             })
                 .then(function successCallback(response) {
                     $scope.activeShop = response.data;
+                    console.log("$scope.activeShop", $scope.activeShop);
                     localStorage.setItem('activeShop', $scope.activeShop.uuid);
                     $scope.loading = false;
                 }, function errorCallback(response) {
@@ -69,7 +70,7 @@
                                 $scope.wrongMessage = true;
                             });
                     var contacts = response.data;
-                    $scope.shopLatLng = contacts.latLng.replace(":", ",");
+                    $scope.shopLatLng = contacts.latLng;
                 }, function errorCallback(data) {
                     console.log(data);
                     $scope.loading = false;
