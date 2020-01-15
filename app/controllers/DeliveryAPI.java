@@ -73,6 +73,7 @@ public class DeliveryAPI extends AuthController {
 
 
     }
+
     public static void details(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

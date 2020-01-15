@@ -80,10 +80,27 @@ public class OrderAPI extends AuthController {
 
         Double totalCost = (Double) Double.parseDouble("0");
 
-        OrderDTO order = new OrderDTO(clientName, clientPhone, clientEmail,
-                clientCity, clientAddressStreetName, clientAddressBuildingNumber, clientAddressApartmentEntrance,
-                clientAddressApartmentEntranceCode, clientAddressApartmentFloor, clientAddressApartmentNumber,
-                amountTools, deliveryType, paymentType, newPostDepartment, clientComments, shop, addressLat, addressLng, agent, ip);
+        OrderDTO order = new OrderDTO(
+                clientName,
+                clientPhone,
+                clientEmail,
+                clientCity,
+                clientAddressStreetName,
+                clientAddressBuildingNumber,
+                clientAddressApartmentEntrance,
+                clientAddressApartmentEntranceCode,
+                clientAddressApartmentFloor,
+                clientAddressApartmentNumber,
+                amountTools,
+                deliveryType,
+                paymentType,
+                newPostDepartment,
+                clientComments,
+                shop,
+                addressLat,
+                addressLng,
+                agent,
+                ip);
         if(shop.orders == null){
             shop.orders = new ArrayList<OrderDTO>();
         }
@@ -106,24 +123,6 @@ public class OrderAPI extends AuthController {
             orderItem.price = product.price;
             orderItem.fileName = product.fileName;
             orderItem.quantity = quantity;
-
-            List<PropertyTagDTO> chosenProperties = new ArrayList<PropertyTagDTO>();
-//            JSONArray properties = (JSONArray) element.get("chosenProperties");
-//            System.out.println("CHOSEN PROPERTIES" + properties);
-//
-//            if(properties != null) {
-//                for (ListIterator iterator = properties.listIterator(); iterator.hasNext(); ) {
-//                    JSONObject property = (JSONObject) iterator.next();
-//                    PropertyTagDTO foundProperty = PropertyTagDTO.find("byUuid", property.get("uuid")).first();
-//                    PropertyTagDTO newProperty = new PropertyTagDTO();
-//                    newProperty.value = foundProperty.value;
-//                    newProperty.additionalPrice = foundProperty.additionalPrice;
-//                    newProperty = newProperty.save();
-//                    chosenProperties.add(newProperty);
-//                    totalCost = totalCost + newProperty.additionalPrice;
-//                }
-//                orderItem.tags = chosenProperties;
-//            }
 
             orderItem.save();
             orders.add(orderItem);
@@ -203,23 +202,29 @@ public class OrderAPI extends AuthController {
         }
 
         JSONObject json = new JSONObject();
-        json.put("uuid", order.uuid);
+        if(shoppingCart.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD)) {
+            try {
+                String payButton = liqPay.payButton(order, shop);
 
-        try {
-            String payButton = liqPay.payButton(order, shop);
+                TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+                dateFormat.setTimeZone(timeZone);
+                Date newDate = new Date();
 
-            TimeZone timeZone = TimeZone.getTimeZone("GMT-1:00");
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
-            dateFormat.setTimeZone(timeZone);
-            Date newDate = new Date();
+                System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(newDate));
 
-            System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(newDate));
-
-            json.put("button", payButton);
-            renderJSON(json);
-        } catch (Exception e) {
+                json.put("status", "ok");
+                json.put("button", payButton);
+                renderJSON(json);
+            } catch (Exception e) {
+                renderJSON(json);
+            }
+        } else if(shoppingCart.paymentType.equals(ShoppingCartDTO.PaymentType.CASHONDELIVERY)){
+            json.put("status", "ok");
             renderJSON(json);
         }
+
+
 
     }
 

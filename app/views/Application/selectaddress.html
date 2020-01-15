@@ -97,7 +97,7 @@
                id="street"
                placeholder="Вулиця">
         <input type="text"
-               id="house-number"
+               id="building"
                placeholder="№ будинку">
         <div class="load-button">
             <input id="check-address-button" type="button" value="Знайти">
@@ -119,8 +119,15 @@
 
 <script>
 
-    let  map, marker, polygon, arrayCoordinates;
+    let  map, marker, polygon, arrayCoordinates, cartId;
 
+    store.subscribe(() => {
+        let shoppingCartState = store.getState();
+        cartId = shoppingCartState.uuid;
+        document.getElementById('street').value = shoppingCartState.client.address.street;
+        document.getElementById('building').value = shoppingCartState.client.address.building;
+
+    });
 
     function initMap() {
         let latLng = "49.843297,24.031514";
@@ -131,7 +138,7 @@
 
         let var_map_options = {
             center: var_location,
-            zoom:5
+            zoom:15
         };
         map = new google.maps.Map(document.getElementById('googleMap'),var_map_options);
 
@@ -159,7 +166,7 @@
     function geocodeAddress(geocoder, resultsMap) {
         let address = document.getElementById('city').value + ", " +
                       document.getElementById('street').value + ", " +
-                      document.getElementById('house-number').value;
+                      document.getElementById('building').value;
         console.log("address", address);
         geocoder.geocode({'address': address}, function(results, status) {
             if (status === 'OK') {
@@ -206,7 +213,7 @@
         }
         let centerLocation = new google.maps.LatLng(bounds.getCenter().lat(), bounds.getCenter().lng());
         map.setCenter(centerLocation);
-        map.setZoom(11);
+        map.setZoom(14);
 
         google.maps.event.addListener(polygon, 'click', function(event) {
             let latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
@@ -223,6 +230,22 @@
             let lng = marker.getPosition().lng();
             let latlng = new google.maps.LatLng(lat, lng);
             let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+            // PUT /api/cart/address/info
+            if (isLocationInsidePolygon) {
+                let street = document.getElementById('street').value;
+                let building = document.getElementById('building').value;
+                const params = '?street=' + street + '&building=' + building +
+                    '&lat=' + lat + '&lng=' + lng + "&cartId=" + cartId;
+
+                fetch('/api/cart/address/info' + params, {
+                    method: 'PUT'
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    window.location ='http://127.0.0.1:8081/shoppingcart';
+                });
+            }
+
             console.log("isLocationInsidePolygon:_", isLocationInsidePolygon);
         }
 
@@ -242,7 +265,7 @@
                     street.shift().toString().replace(",", " ");
 
                     let house = address[1];
-                    document.getElementById('house-number').value = house;
+                    document.getElementById('building').value = house;
                     document.getElementById('street').value = street.toString().replace(",", " ");
 
                     console.log("address for courier", street.toString().replace(",", " "), house);
