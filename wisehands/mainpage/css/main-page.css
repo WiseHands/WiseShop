@@ -84,7 +84,7 @@ header {
     font-family: 'Righteous', sans-serif;
     padding: 1rem 0;
 }
-.slogan input[type=button] {
+.slogan button {
     padding: 0.5rem;
     border: 2px solid #fff;
     background: none;
@@ -94,7 +94,7 @@ header {
     z-index: 555;
     font-size: 1.7rem;
 }
-.slogan input[type=button]:hover {
+.slogan button:hover {
     border: 2px solid #fff;
     background-color: #fff;
     color: #0e2935;
@@ -186,7 +186,7 @@ header {
     padding: 1rem 0 ;
 }
 
-.all-projects {
+.all-projects, .all-team, .all-donate {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -287,13 +287,6 @@ header {
     background-position: center;
     background-size: cover;
 }
-.all-team {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
 .team-container h2 {
     color: #01dc34;
     text-align: center;
@@ -304,7 +297,7 @@ header {
     flex-direction: column;
     box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
     transition: 0.5s ease;
-    margin: 1rem 5rem;
+    margin: 1rem 4rem;
 }
 .card-front {
     width: 230px;
@@ -390,16 +383,53 @@ header {
 
 .donate {
     height: 100vh;
-    background-color: #0b51c5;
+    background: url("../images/142-original.jpg");
     background-position: center;
     background-size: cover;
     position: relative;
 }
 .donate-container h2 {
     text-align: center;
-    margin: 1rem 0;
+    margin: 2rem 0;
+    color: #16544b; /*110e8b*/
 }
-
+.donate-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-basis: 30%;
+    height: 450px;
+    background-color: #fff;
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    transition: 0.5s ease;
+}
+.donate-gif img {
+    width: 100%;
+    height: 250px;
+}
+.donate-price {
+    text-align: center;
+}
+.donate-price h3 {
+    font-size: 2rem;
+}
+.donate-price p {
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+.donate-card button {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    text-transform: uppercase;
+    padding: 0.5rem 0;
+    margin: 1rem;
+    cursor: pointer;
+}
+.donate-card button:hover {
+    background-color: #000;
+    color: #fff;
+}
 
 
 .contact-form {
