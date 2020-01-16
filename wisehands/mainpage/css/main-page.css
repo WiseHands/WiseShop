@@ -100,7 +100,7 @@ header {
     color: #0e2935;
     cursor: pointer;
 }
-.fe-services-block, .be-services-block, .mob-services-block, .projects-container, .team-container, .contact-container  {
+.fe-services-block, .be-services-block, .mob-services-block, .projects-container, .team-container, .contact-container, .donate-container  {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -324,6 +324,16 @@ header {
     background-position: center;
     background-size: cover;
 }
+.team-2 {
+    background: url("../images/vova.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.team-2:hover {
+    background: url("../images/bodya.gif");
+    background-position: center;
+    background-size: cover;
+}
 .team-3 {
     background: url("../images/petrovych.jpg");
     background-position: center;
@@ -377,6 +387,20 @@ header {
 .card-github {
     padding-right: 0.5rem;
 }
+
+.donate {
+    height: 100vh;
+    background-color: #0b51c5;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+.donate-container h2 {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+
 
 .contact-form {
     height: 100vh;

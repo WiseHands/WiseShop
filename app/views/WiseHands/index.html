@@ -266,6 +266,22 @@
 	</div>
 </section>
 
+<section class="donate" id="donate">
+	<div class="donate-container">
+		<h2 class="services-h2">Donate us</h2>
+		<div class="all-donate">
+			<div class="donate-card">
+
+			</div>
+		</div>
+		<div class="double-arrow">
+			<i class="fa fa-arrow-down" id="donateArrowDown" style="font-size:3rem; color: #212121"></i>
+			<i class="fa fa-arrow-up" id="donateArrowUp" style="font-size:3rem; color: #212121"></i>
+		</div>
+	</div>
+</section>
+
+
 <section class="contact-form" id="contactForm">
 	<div class="contact-container">
 		<h2 class="services-h2">Contact us</h2>
@@ -375,7 +391,7 @@
 <script>
 	document.getElementById("headTeam").addEventListener("click", showList);
 	document.getElementById("projectsArrowDown").addEventListener("click", showList);
-	document.getElementById("contactArrowUp").addEventListener("click", showList);
+	document.getElementById("donateArrowUp").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("team").scrollIntoView({
 			behavior: 'smooth'
@@ -384,6 +400,15 @@
 </script>
 <script>
 	document.getElementById("teamArrowDown").addEventListener("click", showList);
+	document.getElementById("contactArrowUp").addEventListener("click", showList);
+	function showList() {
+		document.getElementById("donate").scrollIntoView({
+			behavior: 'smooth'
+		})
+	}
+</script>
+<script>
+	document.getElementById("donateArrowDown").addEventListener("click", showList);
 	function showList() {
 		document.getElementById("contactForm").scrollIntoView({
 			behavior: 'smooth'
