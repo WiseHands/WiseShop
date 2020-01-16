@@ -224,8 +224,6 @@ public class OrderAPI extends AuthController {
             renderJSON(json);
         }
 
-
-
     }
 
     public static void details(String client, String uuid) throws Exception {

@@ -46,6 +46,14 @@
         color: #000;
         border: 2px solid #000;
     }
+    .error-message{
+        text-align: center;
+        color: red;
+        font-size: 1.2rem;
+    }
+    .error-message p{
+        margin: 0px;
+    }
 </style>
 <!DOCTYPE html>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
@@ -109,6 +117,9 @@
         <div class="load-button">
             <input id="find-address-button" type="button" onclick="findOwnlocation()" value="Визначити">
         </div>
+        <div id="error-message" class="error-message">
+            <p>Ви знаходитеся за межами доставки</p>
+        </div>
         <div class="load-button">
             <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="Далі">
         </div>
@@ -120,12 +131,15 @@
 <script>
 
     let  map, marker, polygon, arrayCoordinates, cartId;
+    document.getElementById('error-message').style.display = 'none';
+
 
     store.subscribe(() => {
-        let shoppingCartState = store.getState();
+        const shoppingCartState = store.getState();
+        const address = shoppingCartState.client.address;
         cartId = shoppingCartState.uuid;
-        document.getElementById('street').value = shoppingCartState.client.address.street;
-        document.getElementById('building').value = shoppingCartState.client.address.building;
+        document.getElementById('street').value = address.street;
+        document.getElementById('building').value = address.building;
 
     });
 
@@ -163,6 +177,7 @@
         });
     }
 
+
     function geocodeAddress(geocoder, resultsMap) {
         let address = document.getElementById('city').value + ", " +
                       document.getElementById('street').value + ", " +
@@ -171,13 +186,20 @@
         geocoder.geocode({'address': address}, function(results, status) {
             if (status === 'OK') {
                 resultsMap.setCenter(results[0].geometry.location);
+                let latlng = results[0].geometry.location;
                 if (marker) {
                     marker.setMap(null);
+
                 }
                 marker = new google.maps.Marker({
                     map: resultsMap,
                     position: results[0].geometry.location
                 });
+                let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+                if (!isLocationInsidePolygon) {
+                    document.getElementById('error-message').style.display = 'block';
+                    console.log("outside polygone isLocationInsidePolygon:_", isLocationInsidePolygon);
+                }
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
