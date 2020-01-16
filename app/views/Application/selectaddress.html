@@ -54,6 +54,9 @@
     .error-message p{
         margin: 0px;
     }
+    #city {
+        display: none;
+    }
 </style>
 <!DOCTYPE html>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
@@ -159,6 +162,7 @@
         let geocoder = new google.maps.Geocoder();
         document.getElementById('check-address-button').addEventListener('click', function () {
             geocodeAddress(geocoder, map);
+
         });
 
         fetch('/courier/polygon', {
@@ -187,18 +191,20 @@
             if (status === 'OK') {
                 resultsMap.setCenter(results[0].geometry.location);
                 let latlng = results[0].geometry.location;
+                let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
                 if (marker) {
                     marker.setMap(null);
-
                 }
                 marker = new google.maps.Marker({
                     map: resultsMap,
                     position: results[0].geometry.location
                 });
-                let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
                 if (!isLocationInsidePolygon) {
                     document.getElementById('error-message').style.display = 'block';
                     console.log("outside polygone isLocationInsidePolygon:_", isLocationInsidePolygon);
+                } else {
+                    document.getElementById('error-message').style.display = 'none';
+
                 }
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
@@ -242,7 +248,12 @@
             localStorage.setItem('addressLat', latlng.lat());
             localStorage.setItem('addressLng', latlng.lng());
             console.log('polygon, click You are in range of delivery');
+            let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+            if (isLocationInsidePolygon){
+                document.getElementById('error-message').style.display = 'none';
+            }
             geocodeLatLng(latlng, true);
+
         });
     }
 
