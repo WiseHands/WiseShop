@@ -40,7 +40,6 @@ public class ShoppingCartDTO extends GenericModel {
     @Enumerated(EnumType.ORDINAL)
     public PaymentType paymentType;
 
-
     @Expose
     @OneToMany(orphanRemoval=true)
     public List<LineItem> items;
@@ -52,6 +51,32 @@ public class ShoppingCartDTO extends GenericModel {
     @Expose
     @Transient
     public ShoppingCartConfiguration configuration;
+
+    public ShoppingCartDTO() { }
+
+
+    public ShoppingCartDTO(DeliveryType deliveryType, PaymentType paymentType, List<LineItem> items, ShoppingCartClientInfo client, ShoppingCartConfiguration configuration, String clientName, String clientPhone, String clientEmail, String clientComments, String clientAddressStreetName, String clientAddressBuildingNumber, String clientAddressApartmentNumber, String clientAddressApartmentFloor, String clientAddressApartmentEntrance, String clientAddressApartmentEntranceCode, String clientCity, String clientPostDepartmentNumber, String clientAddressStreetLat, String clientAddressStreetLng, Boolean clientAddressGpsPointInsideDeliveryBoundaries) {
+        this.deliveryType = deliveryType;
+        this.paymentType = paymentType;
+        this.items = items;
+        this.client = client;
+        this.configuration = configuration;
+        this.clientName = clientName;
+        this.clientPhone = clientPhone;
+        this.clientEmail = clientEmail;
+        this.clientComments = clientComments;
+        this.clientAddressStreetName = clientAddressStreetName;
+        this.clientAddressBuildingNumber = clientAddressBuildingNumber;
+        this.clientAddressApartmentNumber = clientAddressApartmentNumber;
+        this.clientAddressApartmentFloor = clientAddressApartmentFloor;
+        this.clientAddressApartmentEntrance = clientAddressApartmentEntrance;
+        this.clientAddressApartmentEntranceCode = clientAddressApartmentEntranceCode;
+        this.clientCity = clientCity;
+        this.clientPostDepartmentNumber = clientPostDepartmentNumber;
+        this.clientAddressStreetLat = clientAddressStreetLat;
+        this.clientAddressStreetLng = clientAddressStreetLng;
+        this.clientAddressGpsPointInsideDeliveryBoundaries = clientAddressGpsPointInsideDeliveryBoundaries;
+    }
 
     public String clientName;
     public String clientPhone;

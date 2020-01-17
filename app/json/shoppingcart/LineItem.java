@@ -2,6 +2,7 @@ package json.shoppingcart;
 
 import com.google.gson.annotations.Expose;
 import models.ShopDTO;
+import models.ShoppingCartDTO;
 import org.hibernate.annotations.GenericGenerator;
 import play.Play;
 import play.db.jpa.GenericModel;
@@ -9,6 +10,7 @@ import play.db.jpa.GenericModel;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 @Entity

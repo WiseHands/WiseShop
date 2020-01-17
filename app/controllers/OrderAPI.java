@@ -164,7 +164,6 @@ public class OrderAPI extends AuthController {
 
         order.total = totalCost;
 
-
         boolean isBiggerThanMimimal = true;
 
         if(shop.paymentSettings.minimumPayment != null) {
@@ -191,8 +190,7 @@ public class OrderAPI extends AuthController {
             unusedCoupon = unusedCoupon.save();
             System.out.println(CLASSSNAME + "  marked as used CouponId: " + unusedCoupon.couponId);
         }
-
-
+        clearShoppingCart(shoppingCart);
         JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
         try {
@@ -202,7 +200,7 @@ public class OrderAPI extends AuthController {
         }
 
         JSONObject json = new JSONObject();
-        if(shoppingCart.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD)) {
+        if(paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name())) {
             try {
                 String payButton = liqPay.payButton(order, shop);
 
@@ -215,6 +213,8 @@ public class OrderAPI extends AuthController {
 
                 json.put("status", "ok");
                 json.put("button", payButton);
+                // clear cart 1) items 2) ...
+
                 renderJSON(json);
             } catch (Exception e) {
                 renderJSON(json);
@@ -223,7 +223,33 @@ public class OrderAPI extends AuthController {
             json.put("status", "ok");
             renderJSON(json);
         }
+    }
 
+    static void clearShoppingCart(ShoppingCartDTO shoppingCart){
+        shoppingCart.items.clear();
+
+        shoppingCart.clientName = null;
+        shoppingCart.clientPhone = null;
+        shoppingCart.clientEmail = null;
+        shoppingCart.clientComments = null;
+
+        shoppingCart.deliveryType = null;
+        shoppingCart.paymentType = null;
+
+        shoppingCart.clientAddressStreetName = null;
+        shoppingCart.clientAddressBuildingNumber = null;
+        shoppingCart.clientAddressApartmentEntrance = null;
+        shoppingCart.clientAddressApartmentEntranceCode = null;
+        shoppingCart.clientAddressApartmentFloor = null;
+        shoppingCart.clientAddressApartmentNumber = null;
+
+        shoppingCart.clientCity = null;
+        shoppingCart.clientPostDepartmentNumber = null;
+        
+        shoppingCart.clientAddressStreetLat = null;
+        shoppingCart.clientAddressStreetLng = null;
+        shoppingCart.clientAddressGpsPointInsideDeliveryBoundaries = null;
+        shoppingCart.save();
     }
 
     public static void details(String client, String uuid) throws Exception {
