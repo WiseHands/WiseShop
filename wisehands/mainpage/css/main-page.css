@@ -327,7 +327,7 @@ header {
     background-size: cover;
 }
 .team-2:hover {
-    background: url("../images/bodya.gif");
+    background: url("../images/vova.gif");
     background-position: center;
     background-size: cover;
 }
@@ -574,9 +574,6 @@ footer {
     background-color: #000;
     color: #fff;
 }
-.footer-social i {
-    padding: 0 6px;
-}
 .footer-block, .footer-text {
     display: flex;
     justify-content: space-between;
@@ -602,41 +599,45 @@ footer h3 {
     flex-direction: column;
     flex-basis: 23%;
 }
-.footer-slogan {
-    text-transform: uppercase;
-    font-size: 1.4rem;
-}
 .small-text p {
     font-size: 0.4rem;
     color: #9A9999;
 }
-.footer-social {
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
+.footer-block {
+    font-size: 0.8rem;
 }
-.footer-wisehands {
+.footer-links {
+    display: flex;
+}
+.footer-links p {
+    padding-right: 20px;
+}
+.footer-copyright {
     display: flex;
     align-items: center;
     padding-left: 20px;
 }
-.footer-wisehands a {
+.footer-copyright a {
     display: flex;
     align-items: center;
 }
-.footer-wisehands img {
+.footer-copyright img {
     width: 36px;
     padding-left: 10px;
 }
-.footer-mail a {
-    text-decoration: none;
-    color: #fff;
+
+@media screen and (max-width: 990px) {
+    footer h3 {
+        padding: 10px 0;
+    }
+    .footer-text {
+        flex-wrap: wrap;
+    }
+    .footer-payment, .footer-delivery, .footer-return, .footer-contact {
+        flex-basis: 46%;
+        padding-bottom: 10px;
+    }
 }
-
-
-
-
-
 @media screen and (max-width: 768px)  {
     .header-links {
         display: none;
@@ -661,5 +662,18 @@ footer h3 {
     }
     .services-img img {
         width: 64px;
+    }
+    .footer-wisehands {
+        display: flex;
+        align-items: center;
+    }
+    input:focus ~ label, input:valid ~ label 		{
+        top:-45px;
+    }
+    .link-height {
+        height: 44px;
+    }
+    .footer-payment, .footer-delivery, .footer-return, .footer-contact {
+        flex-basis: 98%;
     }
 }
