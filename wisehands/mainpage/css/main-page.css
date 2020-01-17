@@ -81,7 +81,7 @@ header {
 }
 .slogan p {
     font-size: 2rem;
-    font-family: 'Righteous', sans-serif;
+    font-family: 'Akkurat', sans-serif;
     padding: 1rem 0;
 }
 .slogan button {
@@ -298,11 +298,14 @@ header {
     box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
     transition: 0.5s ease;
     margin: 1rem 4rem;
+    border-radius: 7px;
 }
 .card-front {
     width: 230px;
     height: 270px;
     transition: 0.5s ease-in-out;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
 }
 .card-front:hover {
     transform: rotateY(-180deg);
@@ -364,6 +367,8 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 .card-about h4 {
     font-weight: 400;
@@ -396,19 +401,53 @@ header {
 .donate-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    flex-basis: 30%;
-    height: 450px;
     background-color: #fff;
+    margin: 1rem 2rem;
     box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
     transition: 0.5s ease;
+    border-radius: 15px;
 }
-.donate-gif img {
-    width: 100%;
+.donate-front {
+    width: 250px;
     height: 250px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.gif-1 {
+    background: url("../images/1.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.gif-1:hover {
+    background: url("../images/1.gif");
+    background-position: center;
+    background-size: cover;
+}
+.gif-2 {
+    background: url("../images/2.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.gif-2:hover {
+    background: url("../images/2.gif");
+    background-position: center;
+    background-size: cover;
+}
+.gif-3 {
+    background: url("../images/3.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.gif-3:hover {
+    background: url("../images/3.gif");
+    background-position: center;
+    background-size: cover;
+}
+.donate-info {
+    text-align: center;
 }
 .donate-price {
-    text-align: center;
+    padding: 1rem 0;
 }
 .donate-price h3 {
     font-size: 2rem;
@@ -418,6 +457,7 @@ header {
     font-weight: 400;
 }
 .donate-card button {
+    width: 70%;
     background-color: #fff;
     color: #000;
     border: 2px solid #000;
@@ -430,7 +470,6 @@ header {
     background-color: #000;
     color: #fff;
 }
-
 
 .contact-form {
     height: 100vh;
