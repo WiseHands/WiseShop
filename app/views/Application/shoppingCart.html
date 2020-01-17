@@ -32,7 +32,7 @@
 #{get-cart /}
 #{shop-header /}
 #{verbatim}
-    <wise-shopping-cart-container cart-id="402881ce6fa0140a016fa39d81600034" currency-label="UAH"></wise-shopping-cart-container>
+    <wise-shopping-cart-container cart-id="402881ce6fade864016fb43528b90056" currency-label="UAH"></wise-shopping-cart-container>
 #{/verbatim}
 
 #{if shop.visualSettingsDTO.isFooterOn}
@@ -46,10 +46,11 @@
     document.addEventListener('shopping-cart-api-response', function (e) {
         store.dispatch({ type: 'SHOPPINGCART', payload: e.detail});
     });
-    document.addEventListener('proceed-with-shopping-cart', function (e) {
-        store.dispatch({ type: 'SHOPPINGCART', payload: e.detail});
-        console.log("SHOPPINGCART", e.detail);
+    document.addEventListener('order-created', function (e) {
+        store.dispatch({ type: 'SHOPPINGCART', payload: { items: []}});
+        console.log("SHOPPINGCART order-created");
     });
+
 </script>
 
 </html>

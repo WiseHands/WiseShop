@@ -143,14 +143,12 @@
         cartId = shoppingCartState.uuid;
         document.getElementById('street').value = address.street;
         document.getElementById('building').value = address.building;
+        initMap(address.lat, address.lng);
 
     });
 
-    function initMap() {
-        let latLng = "49.843297,24.031514";
-        let cords = latLng.split(',');
-            let lat = cords[0];
-            let lng = cords[1];
+    function initMap(lat, lng) {
+
         let var_location = new google.maps.LatLng(lat, lng);
 
         let var_map_options = {
@@ -158,6 +156,10 @@
             zoom:15
         };
         map = new google.maps.Map(document.getElementById('googleMap'),var_map_options);
+        marker = new google.maps.Marker({
+            map: map,
+            position: var_location
+        });
 
         let geocoder = new google.maps.Geocoder();
         document.getElementById('check-address-button').addEventListener('click', function () {
@@ -165,21 +167,22 @@
 
         });
 
-        fetch('/courier/polygon', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            let courierPolygonData = JSON.parse(data);
-            arrayCoordinates = courierPolygonData.features[0].geometry.coordinates[0];
-            console.log("data for polygone", arrayCoordinates);
-            console.log("polygon.length", arrayCoordinates.length);
-            setDeliveryBoundariesPolygonOnMap();
-        });
     }
+
+    fetch('/courier/polygon', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        let courierPolygonData = JSON.parse(data);
+        arrayCoordinates = courierPolygonData.features[0].geometry.coordinates[0];
+        console.log("data for polygone", arrayCoordinates);
+        console.log("polygon.length", arrayCoordinates.length);
+        setDeliveryBoundariesPolygonOnMap();
+    });
 
 
     function geocodeAddress(geocoder, resultsMap) {
@@ -275,7 +278,7 @@
                 }).then(function (response) {
                     return response.json();
                 }).then(function (data) {
-                    window.location ='http://127.0.0.1:8081/shoppingcart';
+                    window.location ='/shoppingcart';
                 });
             }
 
