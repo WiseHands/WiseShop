@@ -16,6 +16,8 @@ import java.util.TimeZone;
 
 import static util.ShoppingCartUtil._getCartUuid;
 
+//-Xverify:none export JAVA_TOOL_OPTIONS="-Xverify:none"
+
 public class ShoppingCartAPI extends AuthController {
 
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -34,7 +36,7 @@ public class ShoppingCartAPI extends AuthController {
 
 
 
-    public void getCart(ShopDTO shop) {
+    public static void getCart(ShopDTO shop) {
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = null;
         System.out.println("cartId from request " + cartId);
@@ -48,14 +50,14 @@ public class ShoppingCartAPI extends AuthController {
         renderJSON(json(shoppingCart));
     }
 
-    public ShoppingCartDTO _createCart(ShopDTO shop) {
+    public static ShoppingCartDTO _createCart(ShopDTO shop) {
         ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
         shoppingCart.shopUuid = shop.uuid;
         shoppingCart = shoppingCart.save();
         return shoppingCart;
     }
 
-    public void addProduct(String client) {
+    public static void addProduct(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -77,7 +79,6 @@ public class ShoppingCartAPI extends AuthController {
 
 
         LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop);
-        lineItem = lineItem.save();
         if (shoppingCart == null) {
             shoppingCart = new ShoppingCartDTO();
             if(cartId != null) {
@@ -86,13 +87,9 @@ public class ShoppingCartAPI extends AuthController {
             shoppingCart.shopUuid = shop.uuid;
         }
 
-        if (shoppingCart.items == null) {
-            shoppingCart.items = new ArrayList<>();
-        }
 
         if (shoppingCart.items.size() == 0) {
             shoppingCart.items.add(lineItem);
-            shoppingCart.save();
         } else {
             boolean isProductUnique = false;
             for (LineItem lineItems : shoppingCart.items) {
@@ -105,15 +102,14 @@ public class ShoppingCartAPI extends AuthController {
 
             if (!isProductUnique) {
                 shoppingCart.items.add(lineItem);
-                shoppingCart.save();
             }
         }
 
-
-        getCart(shop);
+        shoppingCart.save();
+        renderJSON(json(shoppingCart));
     }
 
-    public void deleteProduct(String client) {
+    public static void deleteProduct(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -154,7 +150,7 @@ public class ShoppingCartAPI extends AuthController {
 
     }
 
-    public void decreaseQuantityProduct(String client) {
+    public static void decreaseQuantityProduct(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -175,7 +171,7 @@ public class ShoppingCartAPI extends AuthController {
 
     }
 
-    public void selectDeliveryType(String client) {
+    public static void selectDeliveryType(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -207,7 +203,7 @@ public class ShoppingCartAPI extends AuthController {
         getCart(shop);
     }
 
-    public void selectPaymentType(String client) {
+    public static void selectPaymentType(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -235,7 +231,7 @@ public class ShoppingCartAPI extends AuthController {
         getCart(shop);
     }
 
-    public void setClientInfo(String client) {
+    public static void setClientInfo(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -270,7 +266,7 @@ public class ShoppingCartAPI extends AuthController {
            );
     }
 
-    public void setAddressInfo(String client) throws Exception {
+    public static void setAddressInfo(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -319,7 +315,7 @@ public class ShoppingCartAPI extends AuthController {
            getCart(shop);
     }
 
-    private boolean isPointInsidePolygon(ShopDTO shop, String latitude, String longitude) throws Exception{
+    private static boolean isPointInsidePolygon(ShopDTO shop, String latitude, String longitude) throws Exception{
 
         Double lat = Double.valueOf(latitude);
         Double lng = Double.valueOf(longitude);
@@ -356,7 +352,7 @@ public class ShoppingCartAPI extends AuthController {
         return isPointInsidePolygon;
     }
 
-     public void setPostDepartmentInfo(String client) {
+     public static void setPostDepartmentInfo(String client) {
          ShopDTO shop = ShopDTO.find("byDomain", client).first();
          if (shop == null){
              shop = ShopDTO.find("byDomain", "localhost").first();

@@ -41,7 +41,7 @@ public class ShoppingCartDTO extends GenericModel {
     public PaymentType paymentType;
 
     @Expose
-    @OneToMany(orphanRemoval=true)
+    @OneToMany(orphanRemoval=true, cascade = CascadeType.PERSIST)
     public List<LineItem> items;
 
     @Expose
