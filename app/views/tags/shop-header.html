@@ -1,6 +1,5 @@
 <style>
     header {
-        background-color: #ebebeb;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     }
 
@@ -54,6 +53,13 @@
     a:visited {
         color: black;
     }
+    .shop-name-link{
+        color: black;
+    }
+    #shop-name{
+        margin-bottom: 0px;
+        font-size: 30px;
+    }
 </style>
 <header>
     <div class="header">
@@ -68,10 +74,12 @@
                     #{/if}
                 </a>
             </div>
-            <a href="/">
-            <h3 id="shop-name">${shop.shopName}</h3>
+            <a class="shop-name-link" href="/">
+                <h3 id="shop-name">${shop.shopName}</h3>
             </a>
         </div>
+        <!--ADMIN icon user/profile-->
+        <!--SHOP NETWORK-->
         <span id="shoppingCartCounter" class="fa-stack header-cart">
             <a href="/shoppingcart">
                 <i class="fa fa-stack-2x fa-inverse"></i>
