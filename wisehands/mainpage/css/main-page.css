@@ -210,15 +210,14 @@ header {
     display: flex;
 }
 .project-screen img, .project-review h4  {
-    width: 95%;
     margin: 0 auto;
     padding-bottom: 1rem  ;
 }
 .project-screen img {
-    height: 200px;
+    height: 170px;
 }
 .project-footgo img, .project-book img {
-    width: 200px;
+    width: 170px;
 }
 .project-review {
     display: flex;
@@ -240,7 +239,7 @@ header {
     width: 100%;
 }
 .project-author-text {
-    height: 120px;
+    height: 150px;
     padding-top: 1rem;
     line-height: 1.3;
 }
@@ -515,7 +514,7 @@ header {
 .contact-card-text h5 {
     font-weight: 400;
     font-size: 1.7rem;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
 }
 .contact-card-text input[type=text], input[type=email] {
     width: 100%;
@@ -567,12 +566,16 @@ textarea {
 .message-button {
     display: flex;
     justify-content: center;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
 }
 
 footer {
     background-color: #000;
     color: #fff;
+}
+.footer-block {
+    font-size: 0.8rem;
+    border-top: 2px solid #212121;
 }
 .footer-block, .footer-text {
     display: flex;
@@ -587,7 +590,8 @@ footer {
 }
 .footer-text p {
     font-size: 0.8rem;
-    line-height: 1.3;
+    line-height: 1.5;
+    color: #b1b1b1;
 }
 footer h3 {
     text-transform: uppercase;
@@ -599,12 +603,12 @@ footer h3 {
     flex-direction: column;
     flex-basis: 23%;
 }
+.small-text {
+    padding-bottom: 0.5rem;
+}
 .small-text p {
     font-size: 0.4rem;
-    color: #9A9999;
-}
-.footer-block {
-    font-size: 0.8rem;
+    color: #222;
 }
 .footer-links {
     display: flex;
@@ -626,42 +630,138 @@ footer h3 {
     padding-left: 10px;
 }
 
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 1100px) {
+    .team-container, .donate-container, .projects-container, .projects,
+    .team, .donate {
+        height: 100%;
+    }
+    .slogan {
+        padding-top: 20vh;
+    }
+    .fe-text, .mob-text {
+        text-align: left;
+        padding-top: 15vh;
+    }
+    .be-text {
+        text-align: right;
+        padding-top: 15vh;
+    }
+    .project-card {
+        flex-basis: 45%;
+        margin: 1rem 0;
+    }
+    .footer-text, .footer-block {
+        width: 95%;
+        margin: 0 auto;
+        flex-wrap: wrap;
+    }
     footer h3 {
         padding: 10px 0;
     }
-    .footer-text {
-        flex-wrap: wrap;
-    }
-    .footer-payment, .footer-delivery, .footer-return, .footer-contact {
-        flex-basis: 46%;
+    .footer-frontend, .footer-backend, .footer-devops, .footer-mobile {
+        flex-basis: 50%;
         padding-bottom: 10px;
     }
 }
-@media screen and (max-width: 768px)  {
+@media screen and (max-width: 767px)  {
+    .double-arrow {
+        display: none;
+    }
     .header-links {
         display: none;
     }
     .slogan {
+        width: 95%;
+        margin: 0 auto;
+    }
+    .slogan h1 {
+        font-size: 2rem;
+    }
+    .slogan p {
+        font-size: 1.7rem;
+    }
+    .slogan button {
+        width: 90%;
+    }
+    .slogan button {
+        font-size: 1.6rem;
+    }
+    .slogan {
+        padding-top: 15vh;
+    }
+    .fe-text, .mob-text {
+        text-align: left;
         padding-top: 10vh;
+    }
+    .be-text {
+        text-align: right;
+        padding-top: 10vh;
+    }
+    .services-icons {
+        padding: 1rem 0;
+    }
+    .contact-form, .contact-container {
+        height: 100%;
     }
     .services-h2 {
         font-size: 2.2rem;
+        padding-bottom: 1rem;
     }
     .services-p {
         font-size: 1.4rem;
         line-height: 1.5;
     }
-    .fe-text, .mob-text {
-        text-align: left;
-        padding-top: 5vh;
-    }
-    .be-text {
-        text-align: right;
-        padding-top: 5vh;
-    }
     .services-img img {
         width: 64px;
+    }
+    .project-card {
+        flex-basis: 90%;
+        margin: 1rem 0;
+    }
+    .project-footgo img, .project-book img {
+        width: 100px;
+    }
+    .project-screen img {
+        height: 100px;
+    }
+    .project-americano img {
+        height: 150px;
+    }
+    .project-feedback {
+        width: 90%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        align-items: center;
+    }
+    .project-card:hover {
+        transform: scale(1);
+    }
+    .project-feedback p {
+        font-size: 1.3rem;
+        padding-right: 0;
+    }
+    .project-feedback button {
+        padding: 0.7rem;
+    }
+    .team-card {
+        margin: 1rem auto;
+    }
+    .contact-card {
+        width: 90%;
+        margin: 0 auto 1rem auto;
+        position: relative;
+        top: 0;
+        right: 0;
+     }
+    .donate-title {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .footer-block {
+        flex-direction: column;
+    }
+    .footer-copyright {
+        padding-top: 0.5rem;
     }
     .footer-wisehands {
         display: flex;
