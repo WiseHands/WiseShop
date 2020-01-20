@@ -39,6 +39,8 @@
   "orderList.wrongMessage": "Coś poszło nie tak...",
   "orderList.yesterday": "wczoraj",
   "orderList.selftake": "Odbiór osobisty",
+  "orderList.courier": "Kurier",
+  "orderList.postservice": "Wydział pocztowy",
   "orderList.more": "Więcej",
   "singleOrder.Details": "Szczegóły",
   "singleOrder.Shipped": "Wysłane",

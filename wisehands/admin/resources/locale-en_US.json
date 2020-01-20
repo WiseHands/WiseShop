@@ -158,6 +158,8 @@
   "delivery.newPost": "New Post",
   "delivery.courier": "Courier",
   "delivery.selftake": "Selftake",
+  "orderList.courier": "Courier",
+  "orderList.postservice": "Post sservice",
   "delivery.orderMessage": "Message after order",
   "delivery.enabled": "Enabled",
   "delivery.messageText": "Message text",

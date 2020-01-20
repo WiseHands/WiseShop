@@ -42,6 +42,8 @@
   "orderList.wrongMessage": "Щось пішло не так...",
   "orderList.yesterday": "вчора",
   "orderList.selftake": "Самовивіз",
+  "orderList.courier": "Кур'єр",
+  "orderList.postservice": "Нова Пошта",
   "orderList.more": "Більше",
   "singleOrder.Details": "Деталі",
   "singleOrder.Shipped": "Надіслано",
