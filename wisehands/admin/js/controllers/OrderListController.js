@@ -32,7 +32,6 @@
                         $http(req)
                             .then(function successCallback(response) {
                                 $scope.orders = response.data;
-                                console.log("$scope.orders", $scope.orders);
                                 var maxNumberOfOrders = $scope.orders.length === 0 || $scope.orders.length < 12;
                                 if (maxNumberOfOrders) {
                                     $scope.loading = false;

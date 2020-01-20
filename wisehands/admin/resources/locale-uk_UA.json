@@ -159,6 +159,7 @@
   "delivery.newPost": "Нова Пошта",
   "delivery.courier": "Кур'єр",
   "delivery.selftake": "Самовивіз",
+  "delivery.postservice": "Нова Пошта",
   "delivery.orderMessage": "Повідомлення після замовлення",
   "delivery.enabled": "Увімкнуто",
   "delivery.messageText": "Текст повідомлення",
