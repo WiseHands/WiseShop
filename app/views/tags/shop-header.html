@@ -1,6 +1,7 @@
 <style>
     header {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        height: 54px;
     }
 
     .header {
@@ -8,7 +9,7 @@
         justify-content: space-between;
         align-items: center;
         margin: 0 auto;
-        padding: 10px 15px;
+        padding: 10px 0px;
         max-width: 900px;
     }
 
@@ -67,10 +68,10 @@
             <div class="shop-icon">
                 <a href="/">
                     #{if !shop.visualSettingsDTO.shopLogo }
-                    <img src="/wisehands/assets/images/wiseblack.png">
+                        <img src="/wisehands/assets/images/wiseblack.png">
                     #{/if}
                     #{if shop.visualSettingsDTO.shopLogo }
-                    <img src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
+                        <img src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
                     #{/if}
                 </a>
             </div>

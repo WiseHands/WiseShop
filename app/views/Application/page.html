@@ -2,13 +2,13 @@
 <style>
     body {
         font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        margin: 0px;
+        padding: 0px;
     }
-    .margin-all-0{
-        margin: 0;
-
-    }
-    .flex-container-column{
-        flex-direction: column;
+    .header-full{
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        height: 54px;
+        text-align: center;
     }
     #title-container{
         /*border: 1px solid #0F0F0F;*/
@@ -17,10 +17,10 @@
     }
     .header-container {
         max-width: 900px;
-        padding: 10px 15px;
+        height: inherit;
         margin: 0 auto;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
 
     }
@@ -28,27 +28,23 @@
         text-decoration: none;
         color: #666;
     }
-    .header-container a:hover {
-        color: #000;
-    }
 
     .links-container{
         display: flex;
         justify-content: space-between;
     }
-    #image-box{
-        /*border: 1px solid #0F0F0F;*/
-        height: 50px;
-        width: 50px;
-    }
+
     .image-name-container {
         display: flex;
         align-items: center;
     }
     .image-name-container p {
         font-size: 30px;
-        color: #000;
         margin: 0px;
+    }
+    .image-name-container img {
+        width: 30px;
+        height: 30px;
     }
     .links-container p {
         margin: 10px;
@@ -66,20 +62,17 @@
         font-weight: 600;
     }
     #bodyContainer {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    @media screen and (max-width: 800px) {
-        .links-container{
-            display: none;
-        }
-    }
-    .header-full{
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        padding: 0 1em;
+        width: 100%;
     }
 
     .shop-name {
+        padding-left: 10px;
         font-weight: 300;
+        font-size: 30px;
+        font-family: "Roboto", sans-serif;
+        color: #373a3c;
+        padding-bottom: 2px;
     }
     .data-container{
         max-width: 900px;
@@ -88,6 +81,13 @@
         flex-direction: column;
         align-items: center;
     }
+
+    @media screen and (max-width: 800px) {
+        .links-container{
+            display: none;
+        }
+    }
+
 </style>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -109,23 +109,26 @@
 
     <title>${shop.shopName}</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
 
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
 
-    <base href="/">
-
 
 </head>
-<body class="margin-all-0">
+<body>
         #{verbatim}
             <div class="header-full">
                 <div class="header-container">
                         <a href="/">
                             <div class="image-name-container">
-                                #{if shop.visualSettingsDTO.shopLogo}
-                                    <img id="image-box" src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
+                                #{if !shop.visualSettingsDTO.shopLogo }
+                                <img src="/wisehands/assets/images/wiseblack.png">
                                 #{/if}
-                                    <p class="shop-name">${shop.shopName}</p>
+                                #{if shop.visualSettingsDTO.shopLogo }
+                                <img src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
+                                #{/if}
+                                <p class="shop-name">${shop.shopName}</p>
 
                             </div>
                         </a>
@@ -158,6 +161,5 @@
         #{/verbatim}
 </body>
 </html>
-<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
-<script defer src="wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
+
 
