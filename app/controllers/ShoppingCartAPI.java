@@ -34,8 +34,6 @@ public class ShoppingCartAPI extends AuthController {
         ok();
     }
 
-
-
     public static void getCart(ShopDTO shop) {
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = null;
@@ -200,7 +198,8 @@ public class ShoppingCartAPI extends AuthController {
         shoppingCart.save();
         shoppingCart.formatObject();
 
-        getCart(shop);
+        renderJSON(json(shoppingCart));
+
     }
 
     public static void selectPaymentType(String client) {
@@ -228,7 +227,7 @@ public class ShoppingCartAPI extends AuthController {
         shoppingCart.save();
         shoppingCart.formatObject();
 
-        getCart(shop);
+        renderJSON(json(shoppingCart));
     }
 
     public static void setClientInfo(String client) {
@@ -260,10 +259,8 @@ public class ShoppingCartAPI extends AuthController {
 
            shoppingCart.save();
            shoppingCart.formatObject();
+           renderJSON(json(shoppingCart));
 
-           renderJSON(
-                   shoppingCart
-           );
     }
 
     public static void setAddressInfo(String client) throws Exception {
@@ -312,7 +309,8 @@ public class ShoppingCartAPI extends AuthController {
            shoppingCart.save();
            shoppingCart.formatObject();
 
-           getCart(shop);
+            renderJSON(json(shoppingCart));
+
     }
 
     private static boolean isPointInsidePolygon(ShopDTO shop, String latitude, String longitude) throws Exception{
@@ -357,25 +355,22 @@ public class ShoppingCartAPI extends AuthController {
          if (shop == null){
              shop = ShopDTO.find("byDomain", "localhost").first();
          }
-           String clientCity = request.params.get("clientCity");
-           String clientPostDepartmentNumber = request.params.get("clientPostDepartmentNumber");
+         String clientCity = request.params.get("clientCity");
+         String clientPostDepartmentNumber = request.params.get("clientPostDepartmentNumber");
 
-           String cartId = _getCartUuid(request);
+         String cartId = _getCartUuid(request);
          ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
-           if (clientCity != null) {
-               shoppingCart.clientCity = clientCity;
-           }
-           if (clientPostDepartmentNumber != null) {
-               shoppingCart.clientPostDepartmentNumber = clientPostDepartmentNumber;
-           }
+         if (clientCity != null) {
+             shoppingCart.clientCity = clientCity;
+         }
+         if (clientPostDepartmentNumber != null) {
+             shoppingCart.clientPostDepartmentNumber = clientPostDepartmentNumber;
+         }
 
+         shoppingCart.save();
+         shoppingCart.formatObject();
 
-           shoppingCart.save();
-           shoppingCart.formatObject();
-
-           getCart(shop);
-
+         renderJSON(json(shoppingCart));
      }
-
 
 }

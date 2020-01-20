@@ -133,9 +133,29 @@
 
 <script>
 
+    function detectmob() {
+        if( navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPad/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)
+        ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    const isMobileDevice = detectmob();
+    if (!isMobileDevice) {
+        document.getElementById('find-address-button').style.display = 'none';
+    }
+
     let  map, marker, polygon, arrayCoordinates, cartId;
     document.getElementById('error-message').style.display = 'none';
-
 
     store.subscribe(() => {
         const shoppingCartState = store.getState();
@@ -164,7 +184,6 @@
         let geocoder = new google.maps.Geocoder();
         document.getElementById('check-address-button').addEventListener('click', function () {
             geocodeAddress(geocoder, map);
-
         });
 
     }
@@ -307,9 +326,6 @@
                     console.log("address for courier", street.toString().replace(",", " "), house);
                     localStorage.setItem('address', address);
 
-                    // $scope.$apply(function() {
-                    //     $scope.buttonDisabled = !isLocationInsidePolygon;
-                    // });
                     showInfoMsg(address);
 
                     console.log('geocoding result: ', address, latlng.lat(), latlng.lng());
@@ -337,6 +353,7 @@
             }
         });
     }
+
 
 
     function findOwnlocation() {
