@@ -77,6 +77,10 @@
     .icon-color {
         color: #9e9e9e;
     }
+
+    #admin-icon {
+        display: none;
+    }
 </style>
 <header>
     <div class="header">
@@ -126,6 +130,11 @@
             );
         }
         cartCounter.setAttribute('data-count', totalProductsQuantity);
+
+        const token = localStorage.getItem('JWT_TOKEN');
+        if(token) {
+            document.getElementById('admin-icon').style.display = 'block';
+        }
     })
 </script>
 
