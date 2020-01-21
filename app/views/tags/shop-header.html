@@ -12,6 +12,23 @@
         padding: 10px 15px;
         max-width: 900px;
     }
+    .burger-menu {
+        display: none;
+    }
+    #overlay-mobile {
+        display: none;
+        background-color: rgba(0,0,0,0.5);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 100;
+    }
+    .sidebar-mobile {
+        width: 80%;
+        height: 100%;
+        background-color: rgba(255,255,255,1);
+        opacity: 1;
+    }
 
     .fa-stack:after {
         position: absolute;
@@ -29,14 +46,12 @@
         background-color: red;
         color: white;
     }
-
     .header-left-part {
         display: flex;
         justify-content: space-between;
         align-items: center;
 
     }
-
     .shop-icon {
         margin-right: 10px;
     }
@@ -50,9 +65,7 @@
 
     .red-cart {
         color: #9e9e9e;
-
     }
-
     a:visited {
         color: black;
     }
@@ -87,9 +100,28 @@
     #etwork-icon img{
         color: #9e9e9e;
     }
+    @media screen and (max-width: 767px) {
+        .header-left-part {
+            display: none;
+        }
+        .burger-menu {
+            display: block;
+        }
+    }
 </style>
+
+<div  id="overlay-mobile">
+    <div class="sidebar-mobile">
+
+    </div>
+</div>
+
 <header>
     <div class="header">
+        <div class="burger-menu" id="mobile-menu">
+            <i class="fa fa-bars" style="font-size:36px; color: #9e9e9e"></i>
+        </div>
+
         <div class="header-left-part">
             <div class="shop-icon">
                 <a href="/">
@@ -148,5 +180,24 @@
             document.getElementById('admin-icon').style.display = 'block';
         }
     })
+</script>
+<script>
+    document.getElementById("mobile-menu").addEventListener("click", showMenu);
+    function showMenu() {
+        document.querySelector("#overlay-mobile").style.display = 'block';
+    }
+
+
+    document.getElementById("overlay-mobile").addEventListener("click", closeMenu);
+    function closeMenu() {
+        document.querySelector("#overlay-mobile").style.display = 'none';
+    }
+
+
+    document.querySelector(".sidebar-mobile").addEventListener("click", showSidebar);
+    function showSidebar(e) {
+        e.stopPropagation();
+    }
+
 </script>
 
