@@ -566,7 +566,7 @@
   });
 
   async function generateGifPath(id) {
-    const randomGifNumber = Math.floor(Math.random() * Math.floor(5));
+    const randomGifNumber = Math.floor(Math.random() * Math.floor(10));
     const response = await checkGifForPresence(id, randomGifNumber);
     const responseOkState = await response.ok;
     return Object.assign({responseOkState: responseOkState, gifId: randomGifNumber});
