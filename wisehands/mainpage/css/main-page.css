@@ -311,22 +311,20 @@ header {
     transform: rotateY(-180deg);
 }
 .team-1 {
-    background: url("../images/bodya.jpeg");
+    background: url("../images/bodya.jpg");
     background-position: center;
     background-size: cover;
 }
 .team-1:hover {
-    background: url("../images/bodya.gif");
     background-position: center;
     background-size: cover;
 }
 .team-2 {
-    background: url("../images/vova.jpg");
+    background: url("../images/reverie.jpg");
     background-position: center;
     background-size: cover;
 }
 .team-2:hover {
-    background: url("../images/vova.gif");
     background-position: center;
     background-size: cover;
 }
@@ -336,7 +334,6 @@ header {
     background-size: cover;
 }
 .team-3:hover {
-    background: url("../images/petrovych.gif");
     background-position: center;
     background-size: cover;
 }
@@ -346,7 +343,6 @@ header {
     background-size: cover;
 }
 .team-4:hover {
-    background: url("../images/taras.gif");
     background-position: center;
     background-size: cover;
 }
@@ -357,7 +353,6 @@ header {
     background-size: cover;
 }
 .team-5:hover {
-    background: url("../images/tony.gif");
     background-position: center;
     background-size: cover;
 }
