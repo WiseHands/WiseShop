@@ -7,7 +7,7 @@ angular.module('WiseHands')
         $scope.getNetworks = function () {
             $http({
                 method: 'GET',
-                url: '/all-networks'
+                url: '/api/all-networks'
             })
                 .then(function successCallback(response){
                     $scope.networkList = response.data;

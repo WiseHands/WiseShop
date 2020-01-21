@@ -10,41 +10,24 @@
         overflow: hidden;
 
     }
-    .load-button {
+    .flex-just-con{
+        justify-content: space-between;
+    }
+    .card-info{
+        font-size: medium;
+        font-weight: 400;
+        margin-bottom: 7px;
+        margin-top: 7px;
+    }
+    .width-for-map{
+        width: inherit !important;
+    }
+    .card-info-container{
         display: flex;
-        justify-content: center;
-
-    }
-    .load-button input[type=button]:hover{
-        background-color: #000;
-        color: #fff;
-        border: 2px solid #fff;
+        flex-direction: column;
+        margin: 5px 5px;
     }
 
-    .load-button input[type=button] {
-        background-color: #fff;
-        color: #000;
-        border: 2px solid #000;
-    }
-
-    .button-show-all{
-        width: 270px;
-        background-color: #1c1c1c;
-        color: #FFF;
-        font-size: 1.3em;
-        padding: 10px 5px;
-        margin: 20px 0 0 0;
-        text-transform: uppercase;
-        border: none;
-        cursor: pointer;
-        /*background-color: #ebebeb;*/
-        /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);*/
-    }
-    .button-show-all:hover {
-        background-color: #1c1c1c;
-        color: #fff;
-        border: 2px solid #fff;
-    }
 </style>
 <!DOCTYPE html>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
@@ -99,27 +82,21 @@
     #{verbatim}
         <div class="center-container">
             %{
-                for(_product in shop.productList) {
+                for(_shopInNetwork in network.shopList) {
             }%
                 <div class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                    <div class="card inline">
-                        <div class="noselect view overlay hm-white-slight z-depth-1" >
-                            <a href="/product/${_product.uuid}">
-                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
-                            </a>
+                    <div class="card card-product hoverable set-card column flex-just-con"
+                         onclick="openShop('${_shopInNetwork.domain}')">
+
+                        <div class="card-info-container">
+                            <h5 class="truncate shopCardInfo">${_shopInNetwork.shopName}</h5>
+                            <h6 class="grey-text normal-400">${_shopInNetwork.contact.addressCity}</h6>
                         </div>
-                        <div class="card-block text-xs-center">
-                            <div class="fixed-height2">
-                                <h4 class="card-title productNameTruncate h4-responsive"><a href="/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
-                            </div>
-                            <div class="fixed-height">
-                                <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
-                            </div>
-                            <div class="card-footer">
-                                <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.oldPrice}</span></span>
-                                <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top" title="{{'shopView.addToCart' | translate}}"><i class="fa fa-shopping-cart"></i></a></span>
-                            </div>
+                        <div class="view overlay hm-white-slight z-depth-1 card-maps width-for-map">
+                            <img class="img-responsive"
+                                 src="https://maps.googleapis.com/maps/api/staticmap?center=${_shopInNetwork.contact.latLng}&zoom=15&size=608x300&maptype=roadmap&markers=color:red%7Clabel:S%7C${_shopInNetwork.contact.latLng}&key=${shop.googleStaticMapsApiKey}">
                         </div>
+
                     </div>
                 </div>
             %{
@@ -137,6 +114,18 @@
             #{footer-shop /}
         #{/if}
 </html>
+
+<script>
+    function openShop(domain) {
+        let _url = location.protocol
+            + '//' + domain
+            + ':' + location.port
+            + "/#selectedShop=true";
+        console.log("openShop", _url);
+        location = _url;
+    }
+</script>
+
 
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>

@@ -21,7 +21,7 @@
 
                 $http({
                     method: 'GET',
-                    url: '/network'
+                    url: '/api/network'
                 })
                     .then(function successCallback(response){
                         if (response.data == null) {

@@ -12,13 +12,41 @@
         padding: 10px 15px;
         max-width: 900px;
     }
+    .burger-menu {
+        display: none;
+    }
+    #overlay-mobile {
+        display: none;
+        background-color: rgba(0,0,0,0.5);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 100;
+    }
+    .sidebar-mobile {
+        width: 80%;
+        height: 100%;
+        background-color: rgba(255,255,255,1);
+        opacity: 1;
+        animation: sidebarmove 0.2s linear;
+    }
+    @keyframes sidebarmove {
+        from {
+            opacity: 0;
+            transform: translate3d(-100%, 0, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
 
     .fa-stack:after {
         position: absolute;
         right: -25%;
         top: 0;
         content: attr(data-count);
-        font-size: 50%;
+        font-size: 60%;
         padding: .6em;
         border-radius: 999px;
         line-height: .75em;
@@ -29,18 +57,18 @@
         background-color: red;
         color: white;
     }
-
     .header-left-part {
         display: flex;
         justify-content: space-between;
         align-items: center;
 
     }
-
     .shop-icon {
         margin-right: 10px;
     }
-
+    .header-cart{
+        margin-left: 0.2em;
+    }
     .shop-icon img, .header-cart img {
         width: 30px;
         height: 30px;
@@ -48,9 +76,7 @@
 
     .red-cart {
         color: #9e9e9e;
-
     }
-
     a:visited {
         color: black;
     }
@@ -61,9 +87,51 @@
         margin-bottom: 0px;
         font-size: 30px;
     }
+    .header-right-part{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .header-right-part span{
+        margin: 3px;
+    }
+
+    .big-icon {
+        font-size: 2em;
+    }
+    .icon-color {
+        color: #9e9e9e;
+    }
+
+    #admin-icon {
+        margin-right: 0.4em;
+        display: none;
+    }
+    #etwork-icon img{
+        color: #9e9e9e;
+    }
+    @media screen and (max-width: 767px) {
+        .header-left-part {
+            display: none;
+        }
+        .burger-menu {
+            display: block;
+        }
+    }
 </style>
+
+<div  id="overlay-mobile">
+    <div class="sidebar-mobile">
+    </div>
+</div>
+
 <header>
     <div class="header">
+        <div class="burger-menu" id="mobile-menu">
+            <i class="fa fa-bars" style="font-size:36px; color: #9e9e9e"></i>
+        </div>
+
         <div class="header-left-part">
             <div class="shop-icon">
                 <a href="/">
@@ -79,14 +147,27 @@
                 <h3 id="shop-name">${shop.shopName}</h3>
             </a>
         </div>
-        <!--ADMIN icon user/profile-->
         <!--SHOP NETWORK-->
-        <span id="shoppingCartCounter" class="fa-stack header-cart">
-            <a href="/shoppingcart">
-                <i class="fa fa-stack-2x fa-inverse"></i>
-                <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
-            </a>
-        </span>
+        <div class="header-right-part">
+            <div id="admin-icon" class="header-cart">
+                <a href="/admin">
+                    <i class="fa big-icon icon-color fa-cube"></i>
+                </a>
+            </div>
+            #{if shop.network }
+            <div id="network-icon" >
+                <a href="/shop/network">
+                    <i class="fa big-icon icon-color fa-tasks"></i>
+                </a>
+            </div>
+            #{/if}
+            <div id="shoppingCartCounter" class="fa-stack header-cart">
+                <a href="/shoppingcart">
+                    <i class="fa fa-stack-2x fa-inverse"></i>
+                    <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </header>
 <script>
@@ -103,6 +184,30 @@
             );
         }
         cartCounter.setAttribute('data-count', totalProductsQuantity);
+
+        const token = localStorage.getItem('JWT_TOKEN');
+        if(token) {
+            document.getElementById('admin-icon').style.display = 'block';
+        }
     })
+</script>
+<script>
+    document.getElementById("mobile-menu").addEventListener("click", showMenu);
+    function showMenu() {
+        document.querySelector("#overlay-mobile").style.display = 'block';
+    }
+
+
+    document.getElementById("overlay-mobile").addEventListener("click", closeMenu);
+    function closeMenu() {
+        document.querySelector("#overlay-mobile").style.display = 'none';
+    }
+
+
+    document.querySelector(".sidebar-mobile").addEventListener("click", showSidebar);
+    function showSidebar(e) {
+        e.stopPropagation();
+    }
+
 </script>
 

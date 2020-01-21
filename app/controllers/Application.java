@@ -144,6 +144,19 @@ public class Application extends Controller {
         render(shop);
     }
 
+    public static void shopNetworks(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        ShopNetworkDTO network = shop.getNetwork();
+        network.retrieveShopList();
+
+
+        render(shop, network);
+    }
+
     public static void allProductsInShop(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -294,7 +307,7 @@ public class Application extends Controller {
         render(shop);
     }
 
-    private static String generateTokenForCookie(String userId, String userAgent) {
+    private static String generateTokenForCookie(String shoppingCartId, String userAgent) {
         String token = "";
         try {
             String encodingSecret = Play.configuration.getProperty("jwt.secret");
@@ -305,7 +318,7 @@ public class Application extends Controller {
 
             token = JWT.create()
                     .withIssuedAt(now)
-                    .withSubject(userId)
+                    .withSubject(shoppingCartId)
                     .withClaim("userAgent", userAgent)
                     .withIssuer("wisehands")
                     .sign(algorithm);

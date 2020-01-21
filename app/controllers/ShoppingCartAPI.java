@@ -127,10 +127,8 @@ public class ShoppingCartAPI extends AuthController {
         shoppingCart.items.remove(lineItemToRemove);
         shoppingCart.save();
 
-        LineItem lineItem = LineItem.findById(lineItemUuid);
-        lineItem.delete();
 
-        getCart(shop);
+        renderJSON(json(shoppingCart));
     }
 
     public void increaseQuantityProduct(String client) {
@@ -309,7 +307,7 @@ public class ShoppingCartAPI extends AuthController {
            shoppingCart.save();
            shoppingCart.formatObject();
 
-            renderJSON(json(shoppingCart));
+           renderJSON(json(shoppingCart));
 
     }
 

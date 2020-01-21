@@ -5,7 +5,7 @@ angular.module('WiseHands')
 
             $http({
                 method: 'GET',
-                url: '/available-shops',
+                url: '/api/available-shops',
             }).then(function successCallback(response){
                 $scope.shopList = response.data;
                 console.log("shops for networks", $scope.shopList);
@@ -53,7 +53,7 @@ angular.module('WiseHands')
                     fd.append('networkName', $scope.shopNetworkName);
                     fd.append('shopUuidList', selectedShopList.join());
 
-                    $http.post('/shop-network', fd, {
+                    $http.post('/api/shop-network', fd, {
                         transformRequest: angular.identity,
                         headers: {
                             'Content-Type': undefined,

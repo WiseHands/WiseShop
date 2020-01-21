@@ -9,7 +9,7 @@ angular.module('WiseHands')
         $scope.isShopInNetwork = false;
         $http({
             method: 'GET',
-            url: '/available-shops',
+            url: '/api/available-shops',
         }).then(function successCallback(response){
             $scope.networkShopsList = response.data;
             if ($scope.networkShopsList.length == 0){
@@ -52,7 +52,7 @@ angular.module('WiseHands')
             console.log("selected shop", selectedShopList);
 
 
-            var url = '/network/add-shop';
+            var url = '/api/network/add-shop';
             var fd = new FormData();
 
             fd.append('networkUuid', $scope.uuid);
