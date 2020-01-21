@@ -12,6 +12,7 @@ GET     {client}/product/{uuid}                         Application.product
 GET     {client}/shoppingcart                           Application.shoppingCart
 GET     {client}/products/all                           Application.allProductsInShop
 GET     {client}/selectaddress                          Application.selectAddress
+GET     {client}/shop/network                           Application.shopNetworks
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
@@ -170,14 +171,14 @@ POST    {client}/department                             DepartmentAPI.create
 PUT     {client}/department                             DepartmentAPI.update
 DELETE  {client}/department/{uuid}                      DepartmentAPI.delete
 
-GET     {client}/all-networks                           ShopNetworkAPI.getAll
-GET     {client}/shop-network/{uuid}                    ShopNetworkAPI.get
-GET     {client}/network                                ShopNetworkAPI.getShopList
-GET     {client}/available-shops                        ShopNetworkAPI.getShopListNotInNetwork
-POST    {client}/shop-network                           ShopNetworkAPI.create
-DELETE  {client}/network/delete-shop                    ShopNetworkAPI.deleteShopFromNetwork
-DELETE  {client}/delete-network/{uuid}                  ShopNetworkAPI.deleteNetwork
-PUT     {client}/network/add-shop                       ShopNetworkAPI.addShopToNetwork
+GET     {client}/api/all-networks                       ShopNetworkAPI.getAll
+GET     {client}/api/shop-network/{uuid}                ShopNetworkAPI.get
+GET     {client}/api/network                            ShopNetworkAPI.getShopList
+GET     {client}/api/available-shops                    ShopNetworkAPI.getShopListNotInNetwork
+POST    {client}/api/shop-network                       ShopNetworkAPI.create
+DELETE  {client}/api/network/delete-shop                ShopNetworkAPI.deleteShopFromNetwork
+DELETE  {client}/api/delete-network/{uuid}              ShopNetworkAPI.deleteNetwork
+PUT     {client}/api/network/add-shop                   ShopNetworkAPI.addShopToNetwork
 
 
 GET     {client}/balance                                BalanceAPI.getBalance

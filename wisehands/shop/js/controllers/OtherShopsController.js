@@ -16,7 +16,7 @@
 
                 $http({
                     method: 'GET',
-                    url: '/network'
+                    url: '/api/network'
                 })
                     .then(function successCallback(response){
                         $scope.shopList = response.data.shopList;

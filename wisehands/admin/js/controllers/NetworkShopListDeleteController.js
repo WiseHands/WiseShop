@@ -7,7 +7,7 @@ angular.module('WiseHands')
         sideNavInit.sideNav();
         $http({
             method: 'GET',
-            url: '/shop-network/' + $scope.uuid
+            url: '/api/shop-network/' + $scope.uuid
         })
             .then(function successCallback(response){
                 $scope.networkShopsList = response.data.shopList;
@@ -49,7 +49,7 @@ angular.module('WiseHands')
             });
             console.log("unselected shop", selectedShopList);
 
-            var url = '/network/delete-shop' +
+            var url = '/api/network/delete-shop' +
                 '?networkUuid=' + $scope.uuid +
                 '&shopUuidList=' + selectedShopList.join();
             console.log('url', url);

@@ -1,0 +1,143 @@
+#{set shop:shop /}
+<style>
+    .flex-column-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .center-container{
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
+
+    }
+    .flex-just-con{
+        justify-content: space-between;
+    }
+    .card-info{
+        font-size: medium;
+        font-weight: 400;
+        margin-bottom: 7px;
+        margin-top: 7px;
+    }
+    .width-for-map{
+        width: inherit !important;
+    }
+    .card-info-container{
+        display: flex;
+        flex-direction: column;
+        margin: 5px 5px;
+    }
+
+</style>
+<!DOCTYPE html>
+<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="${shop.contact.description}" />
+    <meta name="author" content="${shop.shopName}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="google-site-verification" content="${shop.googleWebsiteVerificator}" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${shop.shopName}" />
+    <meta property="og:description" content="${shop.contact.description}" />
+    <meta property="og:url" content="https://${shop.domain}/" />
+    <meta property="og:site_name" content="${shop.shopName}" />
+
+
+    <title>${shop.shopName}</title>
+
+    <link href="/wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/shop.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet" >
+    <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
+
+    <link rel='shortcut icon' href='/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
+
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+
+    <script>
+        function buyStart(uuid) {
+
+            fetch('/api/cart?uuid=' + uuid, {
+                method: 'POST'
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                store.dispatch({ type: 'SHOPPINGCART', payload: data});
+            });
+
+        }
+    </script>
+    #{setup-redux /}
+    #{get-cart /}
+</head>
+<body class="flex-column-container">
+    #{shop-header /}
+    #{verbatim}
+        <div class="center-container">
+            %{
+                for(_shopInNetwork in network.shopList) {
+            }%
+                <div class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                    <div class="card card-product hoverable set-card column flex-just-con"
+                         onclick="openShop('${_shopInNetwork.domain}')">
+
+                        <div class="card-info-container">
+                            <h5 class="truncate shopCardInfo">${_shopInNetwork.shopName}</h5>
+                            <h6 class="grey-text normal-400">${_shopInNetwork.contact.addressCity}</h6>
+                        </div>
+                        <div class="view overlay hm-white-slight z-depth-1 card-maps width-for-map">
+                            <img class="img-responsive"
+                                 src="https://maps.googleapis.com/maps/api/staticmap?center=${_shopInNetwork.contact.latLng}&zoom=15&size=608x300&maptype=roadmap&markers=color:red%7Clabel:S%7C${_shopInNetwork.contact.latLng}&key=${shop.googleStaticMapsApiKey}">
+                        </div>
+
+                    </div>
+                </div>
+            %{
+                }
+            }%
+        </div>
+        <!--<div class="load-button">-->
+            <!--<a href="/products/all">-->
+                <!--<input class="button-show-all" type="button" value="show all">-->
+            <!--</a>-->
+        <!--</div>-->
+    #{/verbatim}
+</body>
+        #{if shop.visualSettingsDTO.isFooterOn}
+            #{footer-shop /}
+        #{/if}
+</html>
+
+<script>
+    function openShop(domain) {
+        let _url = location.protocol
+            + '//' + domain
+            + ':' + location.port
+            + "/#selectedShop=true";
+        console.log("openShop", _url);
+        location = _url;
+    }
+</script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&libraries=initMap,drawing,geometry,places"></script>
+
+<script defer src="/wisehands/assets/js/angular.min.js"></script>
+<script defer src="/wisehands/assets/js/angular-route.min.js"></script>
+<script defer src="/wisehands/assets/js/jquery-2.2.3.min.js"></script>
+<script defer src="/wisehands/assets/js/tether.min.js"></script>
+<script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
+<script defer src="/wisehands/assets/mdb_shop/js/mdb.min.js"></script>
+
+
+
