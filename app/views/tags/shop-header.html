@@ -18,7 +18,7 @@
         right: -25%;
         top: 0;
         content: attr(data-count);
-        font-size: 50%;
+        font-size: 60%;
         padding: .6em;
         border-radius: 999px;
         line-height: .75em;
@@ -61,6 +61,22 @@
         margin-bottom: 0px;
         font-size: 30px;
     }
+    .header-right-part{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-right-part span{
+        margin: 3px;
+    }
+
+    .big-icon {
+        font-size: 2em;
+    }
+    .icon-color {
+        color: #9e9e9e;
+    }
 </style>
 <header>
     <div class="header">
@@ -79,14 +95,21 @@
                 <h3 id="shop-name">${shop.shopName}</h3>
             </a>
         </div>
-        <!--ADMIN icon user/profile-->
         <!--SHOP NETWORK-->
-        <span id="shoppingCartCounter" class="fa-stack header-cart">
-            <a href="/shoppingcart">
-                <i class="fa fa-stack-2x fa-inverse"></i>
-                <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
-            </a>
-        </span>
+        <div class="header-right-part">
+            <div id="admin-icon" class="header-cart">
+                <a href="/admin">
+                    <i class="fa big-icon icon-color fa-cube"></i>
+                </a>
+            </div>
+
+            <div id="shoppingCartCounter" class="fa-stack header-cart">
+                <a href="/shoppingcart">
+                    <i class="fa fa-stack-2x fa-inverse"></i>
+                    <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </header>
 <script>

@@ -294,7 +294,7 @@ public class Application extends Controller {
         render(shop);
     }
 
-    private static String generateTokenForCookie(String userId, String userAgent) {
+    private static String generateTokenForCookie(String shoppingCartId, String userAgent) {
         String token = "";
         try {
             String encodingSecret = Play.configuration.getProperty("jwt.secret");
@@ -305,7 +305,7 @@ public class Application extends Controller {
 
             token = JWT.create()
                     .withIssuedAt(now)
-                    .withSubject(userId)
+                    .withSubject(shoppingCartId)
                     .withClaim("userAgent", userAgent)
                     .withIssuer("wisehands")
                     .sign(algorithm);
