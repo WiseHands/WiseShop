@@ -165,6 +165,7 @@
   "delivery.messageText": "Message text",
   "delivery.deliveryPrice": "Delivery price",
   "delivery.freeDeliveryPrice": "Free delivery price",
+  "delivery.minimumOrderTotalAmount": "Minimal order total amount",
   "courierDelivery.deliveryBoundaries":"Delivery boundaries",
   "contacts.contacts": "Contacts",
   "contacts.phone": "Phone",

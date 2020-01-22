@@ -165,6 +165,7 @@
   "delivery.messageText": "Текст повідомлення",
   "delivery.deliveryPrice": "Ціна доставки",
   "delivery.freeDeliveryPrice": "Ціна безплатної доставки",
+  "delivery.minimumOrderTotalAmount": "Сума мінімального замовлення",
   "courierDelivery.deliveryBoundaries":"Межі доставки",
   "contacts.contacts": "Контакти",
   "contacts.phone": "Номер телефону",

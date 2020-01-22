@@ -33,6 +33,10 @@
             <input id="deliveryPrice" type="number" ng-model="delivery.courierPrice" />
         </div>
         <div class="col-md-12 input-field">
+            <p>{{'delivery.minimumOrderTotalAmount' | translate}}</p>
+            <input id="minimumOrderTotalAmount" type="number" ng-model="delivery.minimumOrderTotalAmount">
+        </div>
+        <div class="col-md-12 input-field">
             <p>{{'delivery.freeDeliveryPrice' | translate}}</p>
             <input id="freeDelivery" type="number" ng-model="delivery.courierFreeDeliveryLimit">
         </div>

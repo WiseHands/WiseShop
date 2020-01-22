@@ -165,6 +165,7 @@
   "delivery.messageText": "Tekst wiadomośći",
   "delivery.deliveryPrice": "Cena dostawy",
   "delivery.freeDeliveryPrice": "Cena darmowej dostawy",
+  "delivery.minimumOrderTotalAmount": "Minimal order total amount",
   "courierDelivery.deliveryBoundaries":"Granice dostawy",
   "contacts.contacts": "Kontakt",
   "contacts.phone": "Telefon",
