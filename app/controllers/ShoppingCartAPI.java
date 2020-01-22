@@ -23,7 +23,7 @@ public class ShoppingCartAPI extends AuthController {
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     @Before
-    static void corsHeaders() {
+    public static void corsHeaders() {
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
@@ -31,6 +31,7 @@ public class ShoppingCartAPI extends AuthController {
     }
 
     public static void allowCors(){
+        response.setHeader("Access-Control-Allow-Origin", "*");
         ok();
     }
 
@@ -131,19 +132,32 @@ public class ShoppingCartAPI extends AuthController {
         renderJSON(json(shoppingCart));
     }
 
+    private static ShoppingCartDTO _deleteProduct(ShoppingCartDTO shoppingCart, String lineItemUuid) {
+        LineItem lineItemToRemove = null;
+        for (LineItem lineItem : shoppingCart.items) {
+            if (lineItem.uuid.equals(lineItemUuid)) {
+                lineItemToRemove = lineItem;
+            }
+        }
+        shoppingCart.items.remove(lineItemToRemove);
+        return shoppingCart.save();
+    }
+
     public void increaseQuantityProduct(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         String lineItemUuid = request.params.get("uuid");
+        String cartId = request.params.get("cartId");
 
         LineItem lineItem = LineItem.findById(lineItemUuid);
         lineItem.quantity += 1;
         lineItem.save();
 
-        getCart(shop);
 
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
+        renderJSON(json(shoppingCart));
     }
 
     public static void decreaseQuantityProduct(String client) {
@@ -153,15 +167,19 @@ public class ShoppingCartAPI extends AuthController {
         }
 
         String lineItemUuid = request.params.get("uuid");
+        String cartId = request.params.get("cartId");
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
+
 
         LineItem lineItem = LineItem.findById(lineItemUuid);
         lineItem.quantity -= 1;
         if (lineItem.quantity == 0) {
-            deleteProduct(client);
+            _deleteProduct(shoppingCart, lineItemUuid);
+            renderJSON(json(shoppingCart));
         }
         if (lineItem.quantity >= 0) {
             lineItem.save();
-            getCart(shop);
+            renderJSON(json(shoppingCart));
         }
 
 
