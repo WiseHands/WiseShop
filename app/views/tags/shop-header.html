@@ -40,7 +40,24 @@
             transform: translate3d(0, 0, 0);
         }
     }
+    .sibebar-swipe-off {
+        width: 0%;
+        height: 100%;
+        background-color: rgba(255,255,255,1);
+        opacity: 1;
+        transition-delay: 0.3s;
+        animation: sidebarswipeoff 0.3s linear;
+    }
+    @keyframes sidebarswipeoff {
+        from {
+            transform: translate3d(0, 0, 0);
+        }
 
+        to {
+            visibility: hidden;
+            transform: translate3d(-100%, 0, 0);
+        }
+    }
     .fa-stack:after {
         position: absolute;
         right: -25%;
@@ -122,7 +139,7 @@
 </style>
 
 <div  id="overlay-mobile">
-    <div class="sidebar-mobile">
+    <div class="sidebar-mobile sibebar-swipe-off">
     </div>
 </div>
 
@@ -195,12 +212,21 @@
     document.getElementById("mobile-menu").addEventListener("click", showMenu);
     function showMenu() {
         document.querySelector("#overlay-mobile").style.display = 'block';
+        document.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
+    }
+
+
+    function setDisplayNoneToSidebarOverlay() {
+        document.querySelector("#overlay-mobile").style.display = 'none';
     }
 
     document.getElementById("overlay-mobile").addEventListener("click", closeMenu);
     function closeMenu() {
-        document.querySelector("#overlay-mobile").style.display = 'none';
+        document.querySelector(".sidebar-mobile").classList.add('sibebar-swipe-off');
+        setTimeout(setDisplayNoneToSidebarOverlay, 300);
     }
+
+
 
     document.querySelector(".sidebar-mobile").addEventListener("click", showSidebar);
     function showSidebar(e) {
@@ -241,7 +267,7 @@
             if ( xDiff > 0 ) {
                 /* left swipe */
                 console.log('left swipe:', yDiff);
-                closeMenu();
+                closeMenu()
             } else {
                 /* right swipe */
             }
