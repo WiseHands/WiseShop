@@ -47,7 +47,7 @@ public class ShopServiceImpl implements ShopService{
                 true, selfPickupDeliveryText,
                 true, postServiceDelivery,
                 courierDeliveryPrice,
-                courierFreeDeliveryLimit
+                courierFreeDeliveryLimit, 50.0
         );
         delivery.save();
 
