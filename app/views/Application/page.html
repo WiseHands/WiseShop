@@ -1,3 +1,5 @@
+#{set shop:shop /}
+#{set pageList:pageList /}
 <!DOCTYPE html>
 <style>
     body {
@@ -111,45 +113,23 @@
 
     <title>${shop.shopName}</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="/wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/shop.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet" >
+    <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
 
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
 
 
 </head>
+
+#{setup-redux /}
+#{get-cart /}
 <body>
         #{verbatim}
-            <div class="header-full">
-                <div class="header-container">
-                        <a href="/">
-                            <div class="image-name-container">
-                                #{if !shop.visualSettingsDTO.shopLogo }
-                                <img src="/wisehands/assets/images/wiseblack.png">
-                                #{/if}
-                                #{if shop.visualSettingsDTO.shopLogo }
-                                <img src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
-                                #{/if}
-                                <p class="shop-name">${shop.shopName}</p>
-
-                            </div>
-                        </a>
-
-                        <div class="separator"></div>
-
-                        <div class="links-container">
-                                %{
-                                    for(_page in pageList) {
-                                        }%
-                                        <a class="link" href="/page/${_page.uuid}">
-                                            <p>${_page.title}</p>
-                                        </a>
-                                        %{
-                                    }
-                                }%
-                        </div>
-                </div>
-            </div>
+            #{shop-header /}
             <div class="data-container">
                 <div id="title-container">
                     <p id="titleContainer">
