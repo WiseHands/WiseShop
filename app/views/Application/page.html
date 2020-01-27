@@ -61,9 +61,10 @@
     .link:hover {
         color: #000;
     }
-    #titleContainer {
+    .titleContainer {
         font-size: 1.5rem;
         font-weight: 600;
+        padding: 2rem 0 0.5rem 0;
     }
     #bodyContainer {
         padding: 1em 1em;
@@ -85,7 +86,11 @@
         flex-direction: column;
         align-items: center;
     }
-
+    @media screen and (min-width: 1500px) {
+        .data-container {
+            max-width: 1300px;
+        }
+    }
     @media screen and (max-width: 800px) {
         .links-container{
             display: none;
@@ -132,7 +137,7 @@
             #{shop-header /}
             <div class="data-container">
                 <div id="title-container">
-                    <p id="titleContainer">
+                    <p class="titleContainer">
                         ${page.title}
                     </p>
                 </div>
