@@ -260,7 +260,7 @@
     <section class="additions center-container">
         <h3>Додатки</h3>
         <div class="additions-block">
-            <div class="add-item">
+            <div class="add-item" onclick="addItem()">
                 <img src="../../../wisehands/assets/images/noimage.jpg">
                 <p>додаток</p>
                 <p class="add-price">50 uah</p>
@@ -269,7 +269,8 @@
                 <img src="../../../wisehands/mainpage/images/americano.png">
                 <p>додаток</p>
                 <p class="add-price">50 uah</p>
-            </div>            <div class="add-item"></div>
+            </div>
+            <div class="add-item"></div>
             <div class="add-item"></div>
             <div class="add-item"></div>
             <div class="add-item"></div>
@@ -279,6 +280,13 @@
         #{footer-shop /}
     #{/if}
 #{/verbatim}
+
+<script>
+    function addItem() {
+        console.log('addItem');
+    }
+</script>
+
 </body>
 
 </html>
