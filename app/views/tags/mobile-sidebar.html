@@ -63,16 +63,8 @@
         font-size: 1.7rem;
     }
     .sidebar-panel {
+        line-height: 2;
         padding: 10px;
-    }
-    .sidebar-section {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 3px;
-    }
-    .sidebar-item {
-        display: flex;
     }
     .sidebar-item i {
         padding-right: 10px;
@@ -80,49 +72,91 @@
     .sub-menu {
         display: none;
         width: 100%;
-        padding-left: 50px;
+        padding-left: 20px;
+    }
+    .sub-menu li {
+        padding: 3px 0;
+    }
+    .dropdown-btn {
+        padding: 5px 0;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+    }
+    .fa-angle-down{
+        float: right;
+        padding-top: 5px;
     }
 </style>
 
 
 <div  id="overlay-mobile" class="overlay-hidden-animation null-style"">
-    <div class="sidebar-mobile sibebar-swipe-off">
-        <div class="sidebar-logo">
-            <img src="/wisehands/assets/images/wiseblack.png">
-            <p>wisehands</p>
-        </div>
-        <div class="sidebar-panel">
-            <div class="sidebar-section">
-                <div class="sidebar-item">
-                    <i class="fa fa-bars" style="font-size:24px; color: #9e9e9e"></i>
-                    <p>Товари</p>
-                </div>
-                <i class='fa fa-angle-down' id="subMenu" style='font-size:24px; color: #9e9e9e'></i>
-                <ul class="sub-menu">
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                </ul>
-            </div>
-            <p>Category</p>
-            <p>Category</p>
-            <p>Category</p>
-        </div>
+<div class="sidebar-mobile sibebar-swipe-off">
+    <div class="sidebar-logo">
+        <img src="/wisehands/assets/images/wiseblack.png">
+        <p>wisehands</p>
     </div>
+    <div class="sidebar-panel">
+        <button class="dropdown-btn">
+            <i class="fa fa-bars" style="font-size: 22px;px; color: #9e9e9e"></i>
+            Товари
+            <i class='fa fa-angle-down' style='font-size:20px; color: #9e9e9e'></i>
+        </button>
+        <ul class="sub-menu">
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+        </ul>
+        <button class="dropdown-btn">
+            <i class="fa fa-bars" style="font-size: 22px;px; color: #9e9e9e"></i>
+            Товари
+            <i class='fa fa-angle-down' style='font-size:20px; color: #9e9e9e'></i>
+        </button>
+        <ul class="sub-menu">
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+        </ul>
+
+        <p>Category</p>
+        <p>Category</p>
+        <p>Category</p>
+    </div>
+</div>
 </div>
 
 <script>
-    document.querySelector("#subMenu").addEventListener("click", showSubmenu);
-    function showSubmenu() {
-        document.querySelector(".sub-menu").style.display = 'block';
-    }
-</script>
 
-<script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+
     function setDisplayNoneToSidebarOverlay() {
         document.querySelector("#overlay-mobile").style.display = 'none';
     }
@@ -187,3 +221,4 @@
     };
 
 </script>
+
