@@ -1,3 +1,5 @@
+#{set pageList:pageList /}
+
 <style>
     .null-style {
         margin: 0;
@@ -104,38 +106,37 @@
         <p>wisehands</p>
     </div>
     <div class="sidebar-panel">
+        <a class="link" href="/">
+            <p>Головна</p>
+        </a>
         <button class="dropdown-btn">
-            <i class="fa fa-bars" style="font-size: 22px;px; color: #9e9e9e"></i>
             Товари
             <i class='fa fa-angle-down' style='font-size:20px; color: #9e9e9e'></i>
         </button>
         <ul class="sub-menu">
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-        </ul>
-        <button class="dropdown-btn">
-            <i class="fa fa-bars" style="font-size: 22px;px; color: #9e9e9e"></i>
-            Товари
-            <i class='fa fa-angle-down' style='font-size:20px; color: #9e9e9e'></i>
-        </button>
-        <ul class="sub-menu">
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-        </ul>
+            %{
+                for(_category in shop.categoryList) {
+                }%
+                    <a class="link" href="/category/${_category.uuid}">
+                        <li>${_category.name}</li>
+                    </a>
+                %{
+                }
+            }%
 
-        <p>Category</p>
-        <p>Category</p>
-        <p>Category</p>
+        </ul>
+        %{
+            for(_page in shop.pagesList) {
+        }%
+        <a class="link" href="/page/${_page.uuid}">
+            <p>${_page.title}</p>
+        </a>
+        %{
+        }
+        }%
+
+
+
     </div>
 </div>
 </div>

@@ -108,6 +108,9 @@ public class Application extends Controller {
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false).fetch(PAGE_SIZE);
 
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        shop.pagesList = pageList;
+
         renderTemplate("Application/shop.html", shop, products);
     }
 
@@ -141,7 +144,9 @@ public class Application extends Controller {
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
 
-        render(shop);
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        System.out.println("pageListpageList" + pageList.size());
+        render(shop, pageList);
     }
 
     public static void shopNetworks(String client) {
