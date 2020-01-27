@@ -200,7 +200,7 @@ public class Application extends Controller {
         System.out.println("page for render " + page.getBody());
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-
+        shop.pagesList = pageList;
         render(shop, page, pageList);
     }
 
@@ -212,6 +212,10 @@ public class Application extends Controller {
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<ProductDTO> productList = ProductDTO.find("byCategory", category).fetch();
         System.out.println("\n\n\nCATEGORY" + uuid + category.name + productList.size());
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        shop.pagesList = pageList;
+
         render(shop, category, productList);
     }
 
@@ -223,6 +227,9 @@ public class Application extends Controller {
         ProductDTO product = ProductDTO.findById(uuid);
         System.out.println("\n\n\nCATEGORY" + uuid + product.name);
         CategoryDTO category = product.category;
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        shop.pagesList = pageList;
 
         render(product, category, shop);
     }

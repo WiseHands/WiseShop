@@ -32,6 +32,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    .product-info h2, .product-info p, .add-items-title p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     ul.menu-breadcrumb {
         padding: 0 16px 10px 0;
         margin-bottom: 0;
@@ -69,6 +73,7 @@
     .add-components-main{
         display: flex;
         align-items: flex-end;
+        flex-wrap: wrap;
         justify-content: space-between;
         margin-bottom: 0.5rem;
     }
@@ -78,9 +83,15 @@
     .add-components :hover, .add-item:hover {
         cursor: pointer;
     }
-    .add-button, .add-price {
+    .add-button, .add-price, .add-items {
         display: flex;
         align-items: flex-end;
+        flex-wrap: wrap;
+    }
+    .add-items-title {
+        display: flex;
+        align-items: flex-end;
+        flex-wrap: wrap;
     }
     .add-price {
         display: flex;
@@ -88,9 +99,6 @@
     }
     .add-price span {
         padding: 0 0.5rem;
-    }
-    .add-items-title {
-        padding-left: 1rem;
     }
     .price-buy-block {
         display: flex;
@@ -276,8 +284,23 @@
                         <span>288 uah</span>
                     </div>
                 </div>
-                <div class="add-items-title">
-                    <p>Додаток1</p>
+                <div class="add-items">
+                    <div class="add-items-title">
+                        <i class="fa fa-close" style="font-size:20px"></i>
+                        <p>Додаток1</p>
+                    </div>
+                    <div class="add-items-title">
+                        <i class="fa fa-close" style="font-size:20px"></i>
+                        <p>Додаток1</p>
+                    </div>
+                    <div class="add-items-title">
+                        <i class="fa fa-close" style="font-size:20px"></i>
+                        <p>Додаток1</p>
+                    </div>
+                    <div class="add-items-title">
+                        <i class="fa fa-close" style="font-size:20px"></i>
+                        <p>Додаток1</p>
+                    </div>
                 </div>
             </div>
             <div class="price-buy-block">
