@@ -14,17 +14,13 @@ public class DeliveryCourierConfiguration {
     Double minimumPaymentForFreeDelivery;
 
     @Expose
-    Double minimumOrderTotalAmount;
-
-    @Expose
     Double deliveryPrice;
 
-    public DeliveryCourierConfiguration(String label, Boolean isCourierActive, Double minimumPaymentForFreeDelivery, Double courierPrice, Double minimumOrderTotalAmount){
+    public DeliveryCourierConfiguration(String label, Boolean isCourierActive, Double minimumPaymentForFreeDelivery, Double courierPrice){
         this.label = label;
         this.isCourierActive = isCourierActive;
         this.minimumPaymentForFreeDelivery = minimumPaymentForFreeDelivery;
         this.deliveryPrice = courierPrice;
-        this.minimumOrderTotalAmount = minimumOrderTotalAmount;
     }
 
 }

@@ -144,12 +144,6 @@ public class DeliveryAPI extends AuthController {
             delivery.courierFreeDeliveryLimit = courierFreeDeliveryLimit;
         }
 
-        Object minimumOrderTotalAmountObject = jsonBody.get("minimumOrderTotalAmount");
-        if(minimumOrderTotalAmountObject != null) {
-            Double minimumOrderTotalAmount = Double.parseDouble(String.valueOf(minimumOrderTotalAmountObject));
-            delivery.minimumOrderTotalAmount = minimumOrderTotalAmount;
-        }
-
         Boolean isCourierAvailable = (Boolean) jsonBody.get("isCourierAvailable");
         Boolean isSelfTakeAvailable = (Boolean) jsonBody.get("isSelfTakeAvailable");
         Boolean isNewPostAvailable = (Boolean) jsonBody.get("isNewPostAvailable");

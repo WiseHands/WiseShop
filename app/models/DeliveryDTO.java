@@ -28,9 +28,6 @@ public class DeliveryDTO extends GenericModel {
     @Expose
     public Double courierFreeDeliveryLimit;
 
-    @Expose
-    public Double minimumOrderTotalAmount;
-
 
     public String getCourierPolygonData() {
         return courierPolygonData;
@@ -59,8 +56,7 @@ public class DeliveryDTO extends GenericModel {
     public DeliveryDTO(boolean isCourierAvailable, String courierText,
                        boolean isSelfTakeAvailable, String selfTakeText,
                        boolean isNewPostAvailable, String newPostText,
-                       Double courierPrice, Double courierFreeDeliveryLimit,
-                       Double minimumOrderTotalAmount) {
+                       Double courierPrice, Double courierFreeDeliveryLimit) {
 
         this.isCourierAvailable = isCourierAvailable;
         this.courierText = courierText;
@@ -74,6 +70,5 @@ public class DeliveryDTO extends GenericModel {
         this.courierPrice = courierPrice;
         this.courierFreeDeliveryLimit = courierFreeDeliveryLimit;
 
-        this.minimumOrderTotalAmount = minimumOrderTotalAmount;
     }
 }
