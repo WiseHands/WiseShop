@@ -53,7 +53,8 @@
     .sidebar-logo {
         display: flex;
         align-items: center;
-        padding: 10px;
+        height: 58px;
+        padding: 0.5rem;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     }
     .sidebar-logo img {
@@ -62,7 +63,8 @@
         padding-right: 5px;
     }
     .sidebar-logo p {
-        font-size: 1.7rem;
+        font-size: 2rem;
+        margin-bottom: 0;
     }
     .sidebar-panel {
         line-height: 2;
@@ -101,10 +103,12 @@
 
 <div  id="overlay-mobile" class="overlay-hidden-animation null-style"">
 <div class="sidebar-mobile sibebar-swipe-off">
-    <div class="sidebar-logo">
-        <img src="/wisehands/assets/images/wiseblack.png">
-        <p>wisehands</p>
-    </div>
+    <a class="link" href="/">
+        <div class="sidebar-logo">
+            <img src="/wisehands/assets/images/wiseblack.png">
+            <p>wisehands</p>
+        </div>
+    </a>
     <div class="sidebar-panel">
         <a class="link" href="/">
             <p>Головна</p>
