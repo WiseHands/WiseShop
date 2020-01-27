@@ -32,6 +32,29 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    ul.menu-breadcrumb {
+        padding: 0 16px 10px 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+    ul.menu-breadcrumb li {
+        display: inline;
+        font-size: 18px;
+    }
+    ul.menu-breadcrumb li+li:before {
+        padding: 8px;
+        color: black;
+        content: "/\00a0";
+    }
+    ul.menu-breadcrumb li a {
+        color: #000;
+        text-decoration: none;
+    }
+    ul.menu-breadcrumb li a:hover {
+        color: #000;
+        text-decoration: underline;
+    }
+
     .product-info h2 {
         font-size: 2.1rem;
         font-weight: 500;
@@ -53,7 +76,7 @@
         justify-content: space-between;
     }
     .product-price, product-price-on-photo{
-        padding: 0.5rem 0;
+        padding: 0.5rem 1rem 0.5em 0;
         font-size: 1.3rem;
     }
     .product-price span {
@@ -215,6 +238,11 @@
 <!--            <span class="product-price-on-photo">${product.formatDecimal()} UAH</span>-->
         </div>
         <div class="product-info">
+            <ul class="menu-breadcrumb">
+                <li><a href="#">main</a></li>
+                <li><a href="#">category</a></li>
+                <li><a href="#">burgers</a></li>
+            </ul>
             <h2>${product.name}</h2>
             <p class="text-justify">${product.description}</p>
             <div class="add-components">
