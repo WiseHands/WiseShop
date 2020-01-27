@@ -1,3 +1,6 @@
+
+#{set shop:shop /}
+#{set pageList:pageList /}
 <!DOCTYPE html>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -23,6 +26,7 @@
     <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
     <link href="/wisehands/shop/css/shop.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/breadcrumb.css" rel="stylesheet" />
     <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet" >
     <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
 
@@ -31,10 +35,14 @@
     <base href="/">
 </head>
 <body>
-
+    #{setup-redux /}
+    #{get-cart /}
     #{shop-header /}
 
-    <div class="container-fluid row center-block mt-1">
+
+
+    <div class="container-fluid row center-block mt-1 center-container">
+
         #{verbatim}
             %{
                 for(_product in productList) {
