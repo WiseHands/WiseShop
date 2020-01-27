@@ -61,8 +61,15 @@
     }
     .add-components {
         display: flex;
-        align-items: flex-end;
+        flex-direction: column;
+        justify-content: space-between;
         border: 1px solid #9e9e9e;
+        margin-bottom: 0.5rem;
+    }
+    .add-components-main{
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
         margin-bottom: 0.5rem;
     }
     .add-components i {
@@ -70,6 +77,20 @@
     }
     .add-components :hover, .add-item:hover {
         cursor: pointer;
+    }
+    .add-button, .add-price {
+        display: flex;
+        align-items: flex-end;
+    }
+    .add-price {
+        display: flex;
+        align-items: baseline;
+    }
+    .add-price span {
+        padding: 0 0.5rem;
+    }
+    .add-items-title {
+        padding-left: 1rem;
     }
     .price-buy-block {
         display: flex;
@@ -126,7 +147,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .add-price {
+    .add-item-price {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -134,7 +155,6 @@
         background-color: #000;
         color: #fff;
         margin-bottom: 0;
-
     }
 
     @media screen and (min-width: 1500px) {
@@ -246,8 +266,19 @@
             <h2>${product.name}</h2>
             <p class="text-justify">${product.description}</p>
             <div class="add-components">
-                <i class="fa fa-plus-square" style="font-size:24px"></i>
-                <p>Додатки</p>
+                <div class="add-components-main">
+                    <div class="add-button">
+                        <i class="fa fa-plus-square" style="font-size:24px"></i>
+                        <p>Додатки</p>
+                    </div>
+                    <div class="add-price">
+                        <p>вартість додатків:</p>
+                        <span>288 uah</span>
+                    </div>
+                </div>
+                <div class="add-items-title">
+                    <p>Додаток1</p>
+                </div>
             </div>
             <div class="price-buy-block">
                 <span class="product-price"><span>Вартість: </span>${product.formatDecimal()} UAH</span>
@@ -262,13 +293,13 @@
         <div class="additions-block">
             <div class="add-item" onclick="addItem()">
                 <img src="../../../wisehands/assets/images/noimage.jpg">
-                <p>додаток</p>
-                <p class="add-price">50 uah</p>
+                <p id="add-item-title">додаток1</p>
+                <p class="add-item-price">50 uah</p>
             </div>
             <div class="add-item">
                 <img src="../../../wisehands/mainpage/images/americano.png">
-                <p>додаток</p>
-                <p class="add-price">50 uah</p>
+                <p>додаток2</p>
+                <p class="add-item-price">50 uah</p>
             </div>
             <div class="add-item"></div>
             <div class="add-item"></div>
