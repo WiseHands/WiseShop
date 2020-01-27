@@ -17,12 +17,13 @@
         position: absolute;
         top: 20px;
         right: 20px;
-        background-color: #d71321;
+        background-color: #6e9e38;
         padding: 0.5rem;
         color: #fff;
     }
     .product-photo img {
-        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
     }
     .product-info {
         display: flex;
@@ -31,11 +32,18 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    .product-info h2 {
+        font-size: 2.1rem;
+        font-weight: 500;
+    }
+    .price-buy-block {
+        display: flex;
+        justify-content: space-between;
+    }
     .product-price, product-price-on-photo{
         padding: 0.5rem 0;
         font-size: 1.3rem;
     }
-
     .buy-button {
         width: 270px;
         background-color: #fff;
@@ -46,20 +54,27 @@
         cursor: pointer;
     }
     .buy-button:hover {
-        background-color: #1c1c1c;
+        background-color: #000;
         color: #fff;
     }
-
+    @media screen and (min-width: 1500px) {
+        .center-container {
+            max-width: 1300px;
+        }
+    }
     @media screen and (max-width: 767px) {
         .center-container {
             flex-flow: column wrap;
         }
         .product-photo {
+            display: flex;
             max-width: 100%;
             margin-right: 0;
         }
         .product-photo img {
+            max-width: 100%;
             padding-right: 0;
+            margin: 0 auto;
         }
         .product-info {
             max-width: 100%;
@@ -138,8 +153,10 @@
         <div class="product-info">
             <h2>${product.name}</h2>
             <p class="text-justify">${product.description}</p>
-            <span class="product-price">${product.formatDecimal()} UAH</span>
-            <button class="buy-button"  onclick="buyStart('${product.uuid}')">Buy</button>
+            <div class="price-buy-block">
+                <span class="product-price">${product.formatDecimal()} UAH</span>
+                <button class="buy-button"  onclick="buyStart('${product.uuid}')">Buy</button>
+            </div>
         </div>
 
     </main>
