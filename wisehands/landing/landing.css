@@ -13,6 +13,7 @@ body a {
     max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
+    display: flex;
 }
 .main-block {
     height: 100vh;
@@ -42,4 +43,18 @@ body a {
 }
 .main-block-text button:focus {
     outline: none;
+}
+.opport h2{
+    text-align: center;
+    font-weight: 500;
+    font-size: 2rem;
+}
+.land-payment {
+}
+.land-pay-img {
+    flex-basis: 40%;
+    background: url(../../wisehands/landing/images/payment1.jpg) no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50vh;
 }
