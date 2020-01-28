@@ -269,7 +269,6 @@
             <ul class="menu-breadcrumb">
                 <li><a href="/">Головна</a></li>
                 <li><a href="/category/${product.category.uuid}">${product.category.name}</a></li>
-                <li><a href="#">burgers</a></li>
             </ul>
             <h2>${product.name}</h2>
             <p class="text-justify">${product.description}</p>
@@ -281,31 +280,24 @@
                     </div>
                     <div class="add-price">
                         <p>вартість додатків:</p>
-                        <span>288 uah</span>
+                        <span>35 uah</span>
                     </div>
                 </div>
                 <div class="add-items">
                     <div class="add-items-title">
                         <i class="fa fa-close" style="font-size:20px"></i>
-                        <p>Додаток1</p>
+                        <p>Сир</p>
                     </div>
                     <div class="add-items-title">
                         <i class="fa fa-close" style="font-size:20px"></i>
-                        <p>Додаток1</p>
+                        <p>Рукола</p>
                     </div>
-                    <div class="add-items-title">
-                        <i class="fa fa-close" style="font-size:20px"></i>
-                        <p>Додаток1</p>
-                    </div>
-                    <div class="add-items-title">
-                        <i class="fa fa-close" style="font-size:20px"></i>
-                        <p>Додаток1</p>
-                    </div>
+
                 </div>
             </div>
             <div class="price-buy-block">
                 <span class="product-price"><span>Вартість: </span>${product.formatDecimal()} UAH</span>
-                <button class="buy-button"  onclick="buyStart('${product.uuid}')">Buy</button>
+                <button class="buy-button"  onclick="buyStart('${product.uuid}')">Купити</button>
             </div>
         </div>
 
@@ -315,19 +307,15 @@
         <h3>Додатки</h3>
         <div class="additions-block">
             <div class="add-item" onclick="addItem()">
-                <img src="../../../wisehands/assets/images/noimage.jpg">
-                <p id="add-item-title">додаток1</p>
-                <p class="add-item-price">50 uah</p>
+                <img src="../../../wisehands/assets/images/cheese.jpg">
+                <p id="add-item-title">Сир</p>
+                <p class="add-item-price">20 uah</p>
             </div>
             <div class="add-item">
-                <img src="../../../wisehands/mainpage/images/americano.png">
-                <p>додаток2</p>
-                <p class="add-item-price">50 uah</p>
+                <img src="../../../wisehands/assets/images/rukola.jpg">
+                <p>Рукола</p>
+                <p class="add-item-price">15 uah</p>
             </div>
-            <div class="add-item"></div>
-            <div class="add-item"></div>
-            <div class="add-item"></div>
-            <div class="add-item"></div>
         </div>
     </section>
     #{if shop.visualSettingsDTO.isFooterOn}
