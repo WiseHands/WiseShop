@@ -1,0 +1,45 @@
+body, p, h1, h2, h3, h4, h5, h6, i {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    overflow-x: hidden;
+    font-size: 16px;
+}
+body a {
+    text-decoration: none;
+    color: inherit;
+}
+.landing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.main-block {
+    height: 100vh;
+    display: flex;
+    flex-flow: column wrap;
+}
+.main-block-text {
+    padding-top: 30vh;
+    text-align: center;
+}
+.main-block-text h1 {
+    font-size: 3rem;
+    font-weight: 500;
+}
+.main-block-text button {
+    margin: 1.5rem 0;
+    padding: 0.5rem 2rem;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.main-block-text button:hover {
+    background-color: #000;
+    color: #fff;
+}
+.main-block-text button:focus {
+    outline: none;
+}

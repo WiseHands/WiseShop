@@ -234,7 +234,7 @@ public class Application extends Controller {
         render(product, category, shop);
     }
 
-    public static void shoppingCart(String client, String uuid){
+        public static void shoppingCart(String client, String uuid){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -340,6 +340,8 @@ public class Application extends Controller {
         return token;
     }
 
-
+    public static void landing(String client){
+            render();
+    }
 
 }
