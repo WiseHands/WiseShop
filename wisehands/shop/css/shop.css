@@ -11,6 +11,9 @@
     display: flex;
     padding-top: 1rem;
 }
+.widesize-container {
+    flex-wrap: wrap;
+}
 .flex-row{
     display: flex;
     flex-direction: row;
@@ -403,7 +406,7 @@ main {
     }
 }
 @media screen and (min-width: 1500px) {
-    .center-container {
+    .center-container, .widesize-container {
         max-width: 1300px;
     }
 }
