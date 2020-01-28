@@ -23,14 +23,21 @@
 <div class="container-fluid noSidePadding">
     <form ng-show="!loading" class="col-md-12 noSidePadding" id="addNewProperty" name="addNewProperty" ng-submit="createProperty()">
         <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
-            <input id="property_name" type="text" ng-model="property.name" required>
-            <label for="property_name">{{'editProduct.propertyName' | translate}}</label>
+            <p>{{product.name}}</p>
         </div>
-        <div class="input-field col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <tags-input ng-model="property.tags">
-            </tags-input>
-                <button type="button" class="btn-floating btn-xsmall waves-effect waves-light secondaryColor pull-right" ng-click="addTag()"><i class="material-icons">add</i></button>
+        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
+            <input id="addition_title" type="text" ng-model="addition.title" required>
+            <label for="addition_title">{{'editProduct.additionTitle' | translate}}</label>
         </div>
+        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
+            <input id="addition_price" type="text" ng-model="addition.price" required>
+            <label for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
+        </div>
+        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
+            <h6>{{'editProduct.additionAddPhoto' | translate}}</h6>
+            <input ng-model="addition.file" name="imageLoader" type="file" id="imageLoader" required/>
+        </div>
+
     </form>
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>

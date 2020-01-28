@@ -67,8 +67,8 @@ DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
 GET     {client}/payment/detail                         PaymentSettingsAPI.details
 PUT     {client}/payment/update                         PaymentSettingsAPI.update
 
-GET     {client}/additional-setting/detail               AdditionalSettingAPI.details
-PUT     {client}/additional-setting/update               AdditionalSettingAPI.create
+GET     {client}/additional-setting/detail              AdditionalSettingAPI.details
+PUT     {client}/additional-setting/update              AdditionalSettingAPI.create
 
 
 GET     {client}/visualsettings                         VisualSettingsAPI.details
@@ -191,6 +191,12 @@ POST	{client}/api/category        			        CategoryAPI.create
 PUT 	{client}/api/category/{uuid}/name/{name}	    CategoryAPI.update
 DELETE 	{client}/api/category/{uuid}		        	CategoryAPI.delete
 PUT 	{client}/api/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
+
+
+POST	{client}/addition/{productUuid}   			    AdditionAPI.create
+GET  	{client}/addition/get-all/{productUuid}   		AdditionAPI.getAll
+
+POST	{client}/upload-file            			    FileAPI.upload
 
 
 

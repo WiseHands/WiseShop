@@ -18,6 +18,9 @@ public class ProductImage extends GenericModel {
     public String filename;
 
     @Expose
+    public String filepath;
+
+    @Expose
     public String server;
 
     @Expose
@@ -27,6 +30,11 @@ public class ProductImage extends GenericModel {
     public String region;
 
     public ProductImage(String filename) {
-        this.filename=filename;
+        this.filename = filename;
+    }
+
+    public ProductImage(String filename, String filepath) {
+        this.filename = filename;
+        this.filepath = filepath;
     }
 }

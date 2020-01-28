@@ -64,7 +64,6 @@ public class VisualSettingsAPI extends AuthController {
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
 
-
         List<Upload> photos = (List<Upload>) request.args.get("__UPLOADS");
         for(Upload photo: photos) {
             String filename = UUID.randomUUID()+".jpg";

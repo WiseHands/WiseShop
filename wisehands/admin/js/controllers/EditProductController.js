@@ -57,7 +57,18 @@ angular.module('WiseHands')
                         }
                     )
                 }
-            }
+            };
+
+            $http({
+                method: 'GET',
+                url: '/addition/get-all/' + $routeParams.uuid
+            })
+                .then(function successCallback(response) {
+                    console.log("/addition/get-all/" , response.data);
+                }, function errorCallback(error) {
+                    $scope.loading = false;
+                    console.log(error);
+                });
 
             $http({
                 method: 'GET',
@@ -122,11 +133,7 @@ angular.module('WiseHands')
 
             };
 
-
-
             var fd = new FormData();
-
-
             var imageLoader = document.getElementById('imageLoader');
             imageLoader.addEventListener('change', handleImage, false);
             var canvas = document.getElementById('editCanvas');
@@ -168,7 +175,6 @@ angular.module('WiseHands')
                         $scope.loading = false;
                     });
                 }
-
 
             }
         $scope.addNewPhoto = function () {

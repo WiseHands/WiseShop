@@ -74,8 +74,6 @@ angular.module('WiseHands')
                 });
             }
 
-
-
         }
 
         $scope.loadImage = function () {
@@ -127,7 +125,7 @@ angular.module('WiseHands')
                     }
                 )
             }
-        }
+        };
 
         $scope.createCategory = function () {
             $scope.loading = true;
