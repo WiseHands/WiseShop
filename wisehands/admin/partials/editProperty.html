@@ -42,6 +42,17 @@
         </div>
 
     </form>
+    <div class="col-md-offset-3 input-field col-md-3 col-sm-offset-2 propertyOptionsContainer">
+        <div class="carousel-inner z-depth-1 hoverable" role="listbox">
+            <div class="item active">
+                <img src="{{property.imagePath}}" alt="slide1" ng-click="uploadNewProductImage()">
+            </div>
+            <input id="imageLoader"
+                   onchange="fileSelected()"
+                   class="input-file hiddenFileInput"
+                   type="file"/>
+        </div>
+    </div>
 </div>
 <div class="modal fade" id="deletePropertyOption" tabindex="-1" role="dialog">
     <div class="modal-dialog">

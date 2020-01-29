@@ -80,10 +80,12 @@ public class AdditionAPI extends AuthController {
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
 
         String title = (String) jsonBody.get("title");
+        String imagePath = (String) jsonBody.get("imagePath");
         Double price = Double.parseDouble(String.valueOf(jsonBody.get("price")));
 
         AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
         addition.title = title;
+        addition.imagePath = imagePath;
         addition.price = price;
 
         addition = addition.save();
