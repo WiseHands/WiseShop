@@ -9,7 +9,7 @@
             </a>
 
             <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{property.name}}</h5>
+                <h5 class="white-text">{{property.title}}</h5>
             </div>
             <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
                id="dropdownMenu1"
@@ -33,29 +33,14 @@
     </div>
     <form ng-show="!loading" class="col-md-12 noSidePadding" id="addNewProperty" name="addNewProperty">
         <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2 propertyOptionsContainer">
-            <input id="property_name" type="text" ng-model="property.name" required>
-            <label class="active" for="property_name">{{'editProduct.propertyName' | translate}}</label>
+            <input id="property_name" type="text" ng-model="property.title" required>
+            <label class="active" for="property_name">{{'editProduct.additionTitle' | translate}}</label>
         </div>
-        <div class="col-md-12 " ng-repeat="propertyOption in property.tags">
-            <div class="input-field col-xs-12 col-sm-6">
-                <input id="name" type="text" ng-model="propertyOption.value">
-                <label class="active" for="name">{{'editProduct.optionName' | translate}}</label>
-            </div>
-            <div class="input-field col-xs-10 col-sm-5">
-                <input id="addPrice" type="number" step="0.01" ng-model="propertyOption.additionalPrice">
-                <label class="active" for="name">{{'editProduct.optionPrice' | translate}}</label>
-            </div>
-            <div class="col-xs-2 col-sm-1">
-                <button class="btn-floating btn-xsmall waves-effect waves-light secondaryColor pull-right" data-toggle="modal" data-target="#deletePropertyOption" ng-click="getPropertyOption(propertyOption, $index)"><i class="material-icons">delete_forever</i></button>
-            </div>
-            <div class="editPropertyOptions col-xs-12 visible-xs">
-            </div>
+        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2 propertyOptionsContainer">
+            <input id="property_price" type="text" ng-model="property.price" required>
+            <label class="active" for="property_name">{{'editProduct.additionPrice' | translate}}</label>
         </div>
-        <div class="col-md-12">
-            <div class="col-md-12">
-                <button class="btn-floating btn-xsmall waves-effect waves-light secondaryColor pull-right" ng-click="createNewPropertyOption()"><i class="material-icons">plus_one</i></button>
-            </div>
-        </div>
+
     </form>
 </div>
 <div class="modal fade" id="deletePropertyOption" tabindex="-1" role="dialog">

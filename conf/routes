@@ -195,10 +195,12 @@ PUT 	{client}/api/category/{uuid}/product/{productUuid}  CategoryAPI.assignProdu
 
 POST	{client}/addition/{productUuid}   			    AdditionAPI.create
 GET  	{client}/addition/get-all/{productUuid}   		AdditionAPI.getAll
+GET     {client}/addition/{uuid}                        AdditionAPI.details
+PUT     {client}/addition/{uuid}                        AdditionAPI.update
+DELETE  {client}/addition/{uuid}                        AdditionAPI.delete
+
 
 POST	{client}/upload-file            			    FileAPI.upload
-
-
 
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode

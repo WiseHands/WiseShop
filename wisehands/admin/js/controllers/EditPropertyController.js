@@ -10,9 +10,11 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/property/' + $scope.propertyUuid,
+            url: '/addition/' + $scope.propertyUuid,
         })
             .then(function successCallback(response) {
+
+                console.log("$scope.property = response.data;", response.data);
                 $scope.property = response.data;
                 $scope.loading = false;
 
