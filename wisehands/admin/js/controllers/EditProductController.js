@@ -64,6 +64,7 @@ angular.module('WiseHands')
                 url: '/addition/get-all/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {
+                     $scope.properties = response.data;
                     console.log("/addition/get-all/" , response.data);
                 }, function errorCallback(error) {
                     $scope.loading = false;
@@ -77,6 +78,9 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
 
                     $scope.product = response.data;
+
+                    console.log("$scope.product property :" , response.data);
+
                     $scope.activeShop = localStorage.getItem('activeShop');
                     $scope.product.images.forEach(function(image, index){
                         if(image.uuid === $scope.product.mainImage.uuid){
@@ -177,7 +181,8 @@ angular.module('WiseHands')
                 }
 
             }
-        $scope.addNewPhoto = function () {
+
+            $scope.addNewPhoto = function () {
             $scope.loading = true;
             var imageFd = new FormData();
             for (var i = 0; i < $scope.myBlob.length; i++) {
@@ -211,7 +216,6 @@ angular.module('WiseHands')
                     console.log(response);
                 });
         };
-
 
             $scope.setMainPhotoIndex = function (index, uuid) {
                 $scope.loading = true;
@@ -271,6 +275,7 @@ angular.module('WiseHands')
                         console.log(response);
                     });
             };
+
             $scope.updateProduct = function () {
                 $scope.loading = true;
                 fd.append('uuid', $scope.product.uuid);
