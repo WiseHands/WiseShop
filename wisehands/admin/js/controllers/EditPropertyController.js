@@ -29,12 +29,9 @@ angular.module('WiseHands')
 
         $scope.updateProperty = function () {
             $scope.loading = true;
-            $scope.property.tags = $scope.property.tags.filter(function(tag){
-                return !!tag.value;
-            });
             $http({
                 method: 'PUT',
-                url: '/property/' + $scope.propertyUuid,
+                url: '/addition/' + $scope.propertyUuid,
                 data: $scope.property
             })
                 .then(function successCallback(response) {
@@ -97,7 +94,7 @@ angular.module('WiseHands')
             $scope.modalSpinner = true;
             $http({
                 method: 'DELETE',
-                url: '/property/' + $scope.property.uuid,
+                url: '/addition/' + $scope.property.uuid,
 
             })
                 .then(function successCallback(response) {
