@@ -65,11 +65,9 @@ public class AdditionAPI extends AuthController {
         checkAuthentification(shop);
 
         AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
-
         addition = addition.save();
         renderJSON(json(addition));
     }
-
 
     public static void update(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -88,33 +86,22 @@ public class AdditionAPI extends AuthController {
         addition.title = title;
         addition.price = price;
 
-
         addition = addition.save();
         renderJSON(json(addition));
     }
-//
-//    public static void delete(String client, String uuid) throws Exception {
-//        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-//        if (shop == null) {
-//            shop = ShopDTO.find("byDomain", "localhost").first();
-//        }
-//        checkAuthentification(shop);
-//
-//
-//        ProductPropertyDTO property = ProductPropertyDTO.find("byUuid", uuid).first();
-//        List<ProductPropertyDTO> allProperties = ProductPropertyDTO.find("byNameAndShopUuid", property.name, shop.uuid).fetch();
-//        for (ProductPropertyDTO singleProductProperty : allProperties) {
-//            ProductDTO product = ProductDTO.find("byUuid", singleProductProperty.productUuid).first();
-//            if(product != null) {
-//                product.properties.remove(singleProductProperty);
-//                product = product.save();
-//            }
-//            singleProductProperty.delete();
-//        }
-//
-//
-//        ok();
-//    }
-//
+
+    public static void delete(String client, String uuid) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
+        addition.delete();
+
+        ok();
+    }
+
 
 }
