@@ -65,6 +65,12 @@ header {
     padding: 0.6rem;
     cursor: pointer;
 }
+.burger-menu {
+    display: none;
+    position: relative;
+    top: 10px;
+    right: 10px;
+}
 .main-page {
     background-color: rgb(14, 41, 53);
     height: calc(100vh - 82.963px);
@@ -664,6 +670,12 @@ footer h3 {
     }
     .header-links {
         display: none;
+    }
+    .burger-menu {
+        display: block;
+    }
+    .header-logo p {
+        font-size: 1.7rem;
     }
     .slogan {
         width: 95%;
