@@ -284,17 +284,11 @@
                     </div>
                 </div>
                 <div class="add-items">
-
-                    <div class="add-items-title">
-                        <i class="fa fa-close" style="font-size:20px"></i>
-                        <p id="addition-title">Сир</p>
-                    </div>
-
                 </div>
             </div>
             <div class="price-buy-block">
                 <span class="product-price"><span>Вартість: </span>${product.formatDecimal()} UAH</span>
-                <button class="buy-button"  onclick="buyStart('${product.uuid}')">Купити</button>
+                <button class="buy-button"  onClick="buyStart('${product.uuid}')">Купити</button>
             </div>
         </div>
 
@@ -330,16 +324,13 @@
 </body>
 </html>
 <script>
-    let additions = [];
     function addItem(_addition) {
-        additions.push(_addition);
-        console.log('addItem', additions);
-    }
-    additions.forEach(addAddition);
-    let divElement = document.getElementsByClassName('add-items-title');
-    let additionTitle = document.getElementById('addition-title');
-    function addAddition(item, index) {
-        divElement.appendChild(additionTitle).textContent = item.title;
+        const chosenAdditionsContainer = document.querySelector('.add-items');
+        const additionDiv = document.createElement('div');
+        additionDiv.innerHTML =
+            '<div class="add-items-title"><i class="fa fa-close" style="font-size:20px"></i><p id="addition-title">'
+            + _addition.title + '</p></div>';
+        chosenAdditionsContainer.appendChild(additionDiv);
     }
 </script>
 
