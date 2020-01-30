@@ -1,18 +1,20 @@
 #{set shop:shop /}
 <!DOCTYPE html>
 <style>
-    .center-container{
+    .center-container {
         max-width: 900px;
         margin: 0 auto;
         overflow: hidden;
         display: flex;
         padding-top: 1rem;
     }
+
     .product-photo {
         max-width: 40%;
         position: relative;
         margin-right: 1rem;
     }
+
     .product-price-on-photo {
         position: absolute;
         top: 20px;
@@ -21,10 +23,12 @@
         padding: 0.5rem;
         color: #fff;
     }
+
     .product-photo img {
         max-width: 100%;
         margin: 0 auto;
     }
+
     .product-info {
         display: flex;
         flex-flow: column wrap;
@@ -32,28 +36,34 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     .product-info h2, .product-info p, .add-items-title p {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     ul.menu-breadcrumb {
         padding: 0 16px 10px 0;
         margin-bottom: 0;
         list-style: none;
     }
+
     ul.menu-breadcrumb li {
         display: inline;
         font-size: 18px;
     }
-    ul.menu-breadcrumb li+li:before {
+
+    ul.menu-breadcrumb li + li:before {
         padding: 8px;
         color: black;
         content: "/\00a0";
     }
+
     ul.menu-breadcrumb li a {
         color: #000;
         text-decoration: none;
     }
+
     ul.menu-breadcrumb li a:hover {
         color: #000;
         text-decoration: underline;
@@ -63,6 +73,7 @@
         font-size: 2.1rem;
         font-weight: 500;
     }
+
     .add-components {
         display: flex;
         flex-direction: column;
@@ -70,47 +81,58 @@
         border: 1px solid #9e9e9e;
         margin-bottom: 0.5rem;
     }
-    .add-components-main{
+
+    .add-components-main {
         display: flex;
         align-items: flex-end;
         flex-wrap: wrap;
         justify-content: space-between;
         margin-bottom: 0.5rem;
     }
+
     .add-components i {
         padding: 1rem;
     }
+
     .add-components :hover, .add-item:hover {
         cursor: pointer;
     }
+
     .add-button, .add-price, .add-items {
         display: flex;
         align-items: flex-end;
         flex-wrap: wrap;
     }
+
     .add-items-title {
         display: flex;
         align-items: flex-end;
         flex-wrap: wrap;
     }
+
     .add-price {
         display: flex;
         align-items: baseline;
     }
+
     .add-price span {
         padding: 0 0.5rem;
     }
+
     .price-buy-block {
         display: flex;
         justify-content: space-between;
     }
+
     .product-price, .product-price-on-photo {
         padding: 0.5rem 1rem 0.5em 0;
         font-size: 1.3rem;
     }
+
     .product-price span {
         font-weight: 300;
     }
+
     .buy-button {
         width: 270px;
         background-color: #fff;
@@ -120,23 +142,24 @@
         padding: 0.5rem;
         cursor: pointer;
     }
+
     .buy-button:hover {
         background-color: #000;
         color: #fff;
     }
+
     .additions {
         display: flex;
         flex-direction: column;
         justify-content: center;
         margin-top: 1rem;
     }
-    .additions h3 {
 
-    }
     .additions-block {
         display: flex;
         flex-flow: row wrap;
     }
+
     .add-item {
         display: flex;
         flex-direction: column;
@@ -144,17 +167,20 @@
         width: 150px;
         height: 170px;
         margin: 0.5rem;
-        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     }
+
     .add-item img {
         max-width: 100%;
         height: 100px;
     }
+
     .add-item p {
         text-align: center;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     .add-item-price {
         display: flex;
         justify-content: center;
@@ -170,37 +196,45 @@
             max-width: 1300px;
         }
     }
+
     @media screen and (max-width: 767px) {
         .center-container {
             flex-flow: column wrap;
         }
+
         .product-photo {
             display: flex;
             max-width: 100%;
             margin-right: 0;
         }
+
         .product-photo img {
             max-width: 100%;
             padding-right: 0;
             margin: 0 auto;
         }
+
         .product-info {
             width: 100%;
             padding: 0.5rem;
             margin: 1rem 0;
         }
+
         .product-info h2, .product-info p {
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         .price-buy-block {
             flex-direction: column;
         }
+
         .buy-button {
             width: 100%;
             margin: 0 auto;
         }
+
         .additions-block {
             justify-content: space-around;
         }
@@ -210,32 +244,33 @@
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="${shop.contact.description}" />
-    <meta name="author" content="${shop.shopName}" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="description" content="${shop.contact.description}"/>
+    <meta name="author" content="${shop.shopName}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="google-site-verification" content="${shop.googleWebsiteVerificator}" />
+    <meta name="google-site-verification" content="${shop.googleWebsiteVerificator}"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
 
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="${shop.shopName}" />
-    <meta property="og:description" content="${shop.contact.description}" />
-    <meta property="og:url" content="https://${shop.domain}/" />
-    <meta property="og:site_name" content="${shop.shopName}" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="${shop.shopName}"/>
+    <meta property="og:description" content="${shop.contact.description}"/>
+    <meta property="og:url" content="https://${shop.domain}/"/>
+    <meta property="og:site_name" content="${shop.shopName}"/>
 
     <title>${product.name} | ${category.name} | ${shop.shopName}</title>
 
-    <link href="/wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet" >
-    <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
-    <link href="/wisehands/shop/css/shop.css" rel="stylesheet" />
-    <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet" >
-    <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
+    <link href="/wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet"/>
+    <link href="/wisehands/shop/css/shop.css" rel="stylesheet"/>
+    <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet">
+    <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet"/>
 
 
-    <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
+    <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}'
+          type='image/x-icon'>
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
@@ -243,95 +278,117 @@
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 </head>
 <script>
-    function buyStart(uuid) {
-        console.log("here uuid: ", uuid);
-        fetch('/api/cart?uuid=' + uuid, {
-            method: 'POST'
-        }).then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            store.dispatch({ type: 'SHOPPINGCART', payload: data});
-        });
+  function buyStart(uuid) {
+    console.log("here uuid: ", uuid);
+    fetch('/api/cart?uuid=' + uuid, {
+      method: 'POST'
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      store.dispatch({type: 'SHOPPINGCART', payload: data});
+    });
 
-    }
+  }
 </script>
 #{setup-redux /}
 #{get-cart /}
 #{shop-header /}
 <body>
 #{verbatim}
-    <main class="center-container">
-        <div class="product-photo">
-            <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide">
-<!--            <span class="product-price-on-photo">${product.formatDecimal()} UAH</span>-->
-        </div>
-        <div class="product-info">
-            <ul class="menu-breadcrumb">
-                <li><a href="/">Головна</a></li>
-                <li><a href="/category/${product.category.uuid}">${product.category.name}</a></li>
-            </ul>
-            <h2>${product.name}</h2>
-            <p class="text-justify">${product.description}</p>
-            <div class="add-components">
-                <div class="add-components-main">
-                    <div class="add-button">
-                        <i class="fa fa-plus-square" style="font-size:24px"></i>
-                        <p>Додатки</p>
-                    </div>
-                    <div class="add-price">
-                        <p>вартість додатків:</p>
-                        <span>35 uah</span>
-                    </div>
+<main class="center-container">
+    <div class="product-photo">
+        <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide">
+        <!--            <span class="product-price-on-photo">${product.formatDecimal()} UAH</span>-->
+    </div>
+    <div class="product-info">
+        <ul class="menu-breadcrumb">
+            <li><a href="/">Головна</a></li>
+            <li><a href="/category/${product.category.uuid}">${product.category.name}</a></li>
+        </ul>
+        <h2>${product.name}</h2>
+        <p class="text-justify">${product.description}</p>
+        <div class="add-components">
+            <div class="add-components-main">
+                <div class="add-button">
+                    <i class="fa fa-plus-square" style="font-size:24px"></i>
+                    <p>Додатки</p>
                 </div>
-                <div class="add-items">
+                <div class="add-price">
+                    <p>вартість додатків:</p>
+                    <span>35 uah</span>
                 </div>
             </div>
-            <div class="price-buy-block">
-                <span class="product-price"><span>Вартість: </span>${product.formatDecimal()} UAH</span>
-                <button class="buy-button"  onClick="buyStart('${product.uuid}')">Купити</button>
+            <div class="add-items">
             </div>
         </div>
+        <div class="price-buy-block">
+            <span class="product-price"><span>Вартість: </span>${product.formatDecimal()} UAH</span>
+            <button class="buy-button" onClick="buyStart('${product.uuid}')">Купити</button>
+        </div>
+    </div>
 
-    </main>
+</main>
 
-    #{if product.additions}
-        <section class="additions center-container">
-            <h3>Додатки</h3>
+#{if product.additions}
+<section class="additions center-container">
+    <h3>Додатки</h3>
 
-            <div class="additions-block">
-                %{
-                    for(_addition in product.additions) {
-                }%
-                <div class="add-item" onclick="addItem({
+    <div class="additions-block">
+        %{
+        for(_addition in product.additions) {
+        }%
+        <div class="add-item" onclick="_addItem({
                     title: '${_addition.title}',
                     uuid: '${_addition.uuid}'
                 })">
-                    <img src="${_addition.imagePath}">
-                    <p id="add-item-title">${_addition.title}</p>
-                    <p class="add-item-price">${_addition.price}</p>
-                </div>
-                %{
-                    }
-                }%
-            </div>
+            <img src="${_addition.imagePath}">
+            <p id="add-item-title">${_addition.title}</p>
+            <p class="add-item-price">${_addition.price}</p>
+        </div>
+        %{
+        }
+        }%
+    </div>
 
-        </section>
-    #{/if}
-    #{if shop.visualSettingsDTO.isFooterOn}
-        #{footer-shop /}
-    #{/if}
+</section>
+#{/if}
+#{if shop.visualSettingsDTO.isFooterOn}
+#{footer-shop /}
+#{/if}
 #{/verbatim}
 </body>
 </html>
 <script>
-    function addItem(_addition) {
-        const chosenAdditionsContainer = document.querySelector('.add-items');
-        const additionDiv = document.createElement('div');
-        additionDiv.innerHTML =
-            '<div class="add-items-title"><i class="fa fa-close" style="font-size:20px"></i><p id="addition-title">'
-            + _addition.title + '</p></div>';
-        chosenAdditionsContainer.appendChild(additionDiv);
+  const chosenAdditionsContainer = document.querySelector('.add-items');
+
+  function _addItem(_addition) {
+    const additionTitle = _addition.title;
+    const additionId = _addition.uuid;
+    const createdAddition = document.getElementById(additionId);
+    if (!createdAddition) {
+      const additionDiv = document.createElement('div');
+      additionDiv.id = additionId;
+      additionDiv.className = 'add-items-title';
+      additionDiv.innerHTML =
+        '<i class="fa fa-close" style="font-size:20px"></i><p>'
+        + additionTitle + '</p>';
+      additionDiv.setAttribute('counter', 1);
+      const removeIcon =  additionDiv.getElementsByTagName('i')[0];
+      removeIcon.addEventListener('click', () => {
+        _removeAddition(additionId)
+      });
+      chosenAdditionsContainer.appendChild(additionDiv);
+    } else {
+      const incrementedClickedAddition = Number(createdAddition.getAttribute('counter')) + 1;
+      createdAddition.setAttribute('counter', incrementedClickedAddition);
+      createdAddition.getElementsByTagName('p')[0].innerText = additionTitle + 'x(' + incrementedClickedAddition + ')';
     }
+
+    function _removeAddition(id) {
+      const additionToRemove = document.getElementById(id);
+      chosenAdditionsContainer.removeChild(additionToRemove);
+    }
+  }
 </script>
 
 
