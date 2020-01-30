@@ -190,7 +190,10 @@ body a {
     flex-basis: 50%;
 }
 .land-contact-form {
+    display: flex;
     flex-basis: 50%;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .contact-card {
     width: 70%;
@@ -247,4 +250,33 @@ textarea {
     display: flex;
     justify-content: center;
     padding: 1.5rem 0;
+}
+.footer-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    background-color: #000;
+    color: #fff;
+}
+.footer-links {
+    display: flex;
+    padding-left: 1rem;
+}
+.footer-links a {
+    padding-right: 20px;
+    cursor: pointer;
+}
+.footer-copyright {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+.footer-copyright a {
+    display: flex;
+    align-items: center;
+}
+.footer-copyright img {
+    width: 36px;
+    padding-left: 10px;
 }
