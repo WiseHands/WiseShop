@@ -284,13 +284,10 @@
                     </div>
                 </div>
                 <div class="add-items">
+
                     <div class="add-items-title">
                         <i class="fa fa-close" style="font-size:20px"></i>
-                        <p>Сир</p>
-                    </div>
-                    <div class="add-items-title">
-                        <i class="fa fa-close" style="font-size:20px"></i>
-                        <p>Рукола</p>
+                        <p id="addition-title">Сир</p>
                     </div>
 
                 </div>
@@ -311,7 +308,10 @@
                 %{
                     for(_addition in product.additions) {
                 }%
-                <div class="add-item" onclick="addItem()">
+                <div class="add-item" onclick="addItem({
+                    title: '${_addition.title}',
+                    uuid: '${_addition.uuid}'
+                })">
                     <img src="${_addition.imagePath}">
                     <p id="add-item-title">${_addition.title}</p>
                     <p class="add-item-price">${_addition.price}</p>
@@ -330,8 +330,16 @@
 </body>
 </html>
 <script>
-    function addItem() {
-        console.log('addItem');
+    let additions = [];
+    function addItem(_addition) {
+        additions.push(_addition);
+        console.log('addItem', additions);
+    }
+    additions.forEach(addAddition);
+    let divElement = document.getElementsByClassName('add-items-title');
+    let additionTitle = document.getElementById('addition-title');
+    function addAddition(item, index) {
+        divElement.appendChild(additionTitle).textContent = item.title;
     }
 </script>
 
