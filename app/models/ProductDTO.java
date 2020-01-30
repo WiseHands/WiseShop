@@ -67,6 +67,10 @@ public class ProductDTO extends GenericModel {
     @OneToMany(orphanRemoval = true)
     public List<ProductImage> images;
 
+    @Expose
+    @OneToMany
+    public List<AdditionDTO> additions;
+
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, Integer wholesaleCount, Double wholesalePrice) {
         this(name, description, price, images, shop, null, wholesaleCount, wholesalePrice);
     }

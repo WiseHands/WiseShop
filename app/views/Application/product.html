@@ -303,35 +303,36 @@
 
     </main>
 
-    <section class="additions center-container">
-        <h3>Додатки</h3>
-        <div class="additions-block">
-            <div class="add-item" onclick="addItem()">
-                <img src="../../../wisehands/assets/images/cheese.jpg">
-                <p id="add-item-title">Сир</p>
-                <p class="add-item-price">20 uah</p>
+    #{if product.additions}
+        <section class="additions center-container">
+            <h3>Додатки</h3>
+
+            <div class="additions-block">
+                %{
+                    for(_addition in product.additions) {
+                }%
+                <div class="add-item" onclick="addItem()">
+                    <img src="${_addition.imagePath}">
+                    <p id="add-item-title">${_addition.title}</p>
+                    <p class="add-item-price">${_addition.price}</p>
+                </div>
+                %{
+                    }
+                }%
             </div>
-            <div class="add-item">
-                <img src="../../../wisehands/assets/images/rukola.jpg">
-                <p>Рукола</p>
-                <p class="add-item-price">15 uah</p>
-            </div>
-        </div>
-    </section>
+
+        </section>
+    #{/if}
     #{if shop.visualSettingsDTO.isFooterOn}
         #{footer-shop /}
     #{/if}
 #{/verbatim}
-
+</body>
+</html>
 <script>
     function addItem() {
         console.log('addItem');
     }
 </script>
-
-</body>
-
-</html>
-
 
 

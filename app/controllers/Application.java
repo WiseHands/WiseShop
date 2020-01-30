@@ -231,10 +231,13 @@ public class Application extends Controller {
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
 
+        List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
+        product.additions = additionList;
+
         render(product, category, shop);
     }
 
-        public static void shoppingCart(String client, String uuid){
+    public static void shoppingCart(String client, String uuid){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
