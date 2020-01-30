@@ -17,7 +17,8 @@
                data-toggle="dropdown"
                aria-haspopup="true"
                aria-expanded="false">
-                <i class="fa fa-edit whiteColor pull-right">
+
+                <i class="fa fa-cog whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
                     <a class="col-xs-12 text-left" ng-click="updateProperty()"><p>{{'categories.save' | translate}}</p></a>
@@ -42,6 +43,20 @@
         </div>
 
     </form>
+    <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2 propertyOptionsContainer">
+        <h6>{{'editProduct.additionImage' | translate}}</h6>
+
+        <div class="carousel-inner z-depth-1 hoverable" role="listbox">
+            <div class="item active">
+                <img id="property_img" src="{{property.imagePath}}" alt="slide1" ng-click="uploadNewProductImage()">
+
+            </div>
+            <input id="imageLoader"
+                   onchange="fileSelected()"
+                   class="input-file hiddenFileInput"
+                   type="file"/>
+        </div>
+    </div>
 </div>
 <div class="modal fade" id="deletePropertyOption" tabindex="-1" role="dialog">
     <div class="modal-dialog">
