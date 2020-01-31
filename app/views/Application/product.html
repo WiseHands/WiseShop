@@ -191,6 +191,10 @@
         margin-bottom: 0;
     }
 
+    i.fa-close {
+        font-size:20px
+    }
+
     @media screen and (min-width: 1500px) {
         .center-container {
             max-width: 1300px;
@@ -238,6 +242,7 @@
         .additions-block {
             justify-content: space-around;
         }
+
     }
 
 
@@ -322,7 +327,7 @@
             </div>
         </div>
         <div class="price-buy-block">
-            <span class="product-price"><span>Вартість: </span>${product.formatDecimal()} UAH</span>
+            <span class="product-price" price="${product.price}"><span class="total-span"></span></span>
             <button class="buy-button" onClick="buyStart('${product.uuid}')">Купити</button>
         </div>
     </div>
@@ -339,7 +344,8 @@
         }%
         <div class="add-item" onclick="_addItem({
                     title: '${_addition.title}',
-                    uuid: '${_addition.uuid}'
+                    uuid: '${_addition.uuid}',
+                    price: '${_addition.price}'
                 })">
             <img src="${_addition.imagePath}">
             <p id="add-item-title">${_addition.title}</p>
@@ -360,34 +366,55 @@
 </html>
 <script>
   const chosenAdditionsContainer = document.querySelector('.add-items');
+  const productPriceElement = document.querySelector('.product-price');
+  let totalPrice = Number(productPriceElement.getAttribute('price'));
+  const totalSpan = document.querySelector('.total-span');
+
+  _setTotal(totalPrice);
 
   function _addItem(_addition) {
-    const additionTitle = _addition.title;
-    const additionId = _addition.uuid;
-    const createdAddition = document.getElementById(additionId);
+    const createdAddition = document.getElementById(_addition.uuid);
     if (!createdAddition) {
-      const additionDiv = document.createElement('div');
-      additionDiv.id = additionId;
-      additionDiv.className = 'add-items-title';
-      additionDiv.innerHTML =
-        '<i class="fa fa-close" style="font-size:20px"></i><p>'
-        + additionTitle + '</p>';
-      additionDiv.setAttribute('counter', 1);
-      const removeIcon =  additionDiv.getElementsByTagName('i')[0];
-      removeIcon.addEventListener('click', () => {
-        _removeAddition(additionId)
-      });
-      chosenAdditionsContainer.appendChild(additionDiv);
+      createAdditionDivElement(_addition);
     } else {
       const incrementedClickedAddition = Number(createdAddition.getAttribute('counter')) + 1;
       createdAddition.setAttribute('counter', incrementedClickedAddition);
-      createdAddition.getElementsByTagName('p')[0].innerText = additionTitle + 'x(' + incrementedClickedAddition + ')';
+      createdAddition.getElementsByTagName('p')[0].innerText = _addition.title + '(' + incrementedClickedAddition + ')';
     }
+    _calculateTotal(Number(_addition.price));
+  }
 
-    function _removeAddition(id) {
-      const additionToRemove = document.getElementById(id);
-      chosenAdditionsContainer.removeChild(additionToRemove);
-    }
+  function createAdditionDivElement(_addition) {
+    const additionId = _addition.uuid;
+    const additionDiv = document.createElement('div');
+    additionDiv.id = additionId;
+    additionDiv.className = 'add-items-title';
+    additionDiv.innerHTML =
+      '<i class="fa fa-close"></i><p>'
+      + _addition.title + '</p>';
+    additionDiv.setAttribute('counter', 1);
+    const removeIcon =  additionDiv.getElementsByTagName('i')[0];
+    removeIcon.addEventListener('click', () => {
+      _removeAddition(additionId, Number(_addition.price))
+    });
+    chosenAdditionsContainer.appendChild(additionDiv);
+  }
+
+  function _removeAddition(id, price) {
+    const additionElementToRemove = document.getElementById(id);
+    const counter = Number(additionElementToRemove.getAttribute('counter'));
+    const amountToSubstract = -counter * price;
+    _calculateTotal(amountToSubstract);
+    chosenAdditionsContainer.removeChild(additionElementToRemove);
+  }
+
+  function _calculateTotal(additionPrice) {
+    totalPrice += additionPrice;
+    _setTotal(totalPrice);
+  }
+
+  function _setTotal(total) {
+    totalSpan.innerText = 'Вартість: ' + total + ' UAH';
   }
 </script>
 
