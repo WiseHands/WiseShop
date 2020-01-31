@@ -18,7 +18,7 @@ body a {
 .main-block {
     height: 80vh;
     display: flex;
-    flex-flow: column wrap;
+
 }
 .main-block-text {
     padding-top: 30vh;
@@ -43,6 +43,15 @@ body a {
 }
 .main-block-text button:focus {
     outline: none;
+}
+.header {
+    max-width: 1200px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: flex-end;
+}
+.burger-menu {
+    padding: 1rem;
 }
 .opport {
     background-color: #f2f2f2;
