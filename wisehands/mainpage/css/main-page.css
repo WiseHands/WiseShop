@@ -198,21 +198,18 @@ header {
     background: url("../images/85-original.jpg");
     background-position: center;
     background-size: cover;
-    position: relative;
 }
 .be-services {
     height: 100vh;
     background: url("../images/87-original.jpg");
     background-position: center;
     background-size: cover;
-    position: relative;
 }
 .mob-services {
     height: 100vh;
     background: url("../images/88-original.jpg");
     background-position: center;
     background-size: cover;
-    position: relative;
 }
 .services-h2 {
     font-family: 'Roboto', sans-serif;
@@ -265,7 +262,6 @@ header {
     background: url("../images/86-original.jpg");
     background-position: center;
     background-size: cover;
-    position: relative;
 }
 .projects-container h2 {
     color: #aa6d63;
@@ -473,7 +469,6 @@ header {
     background: url("../images/142-original.jpg");
     background-position: center;
     background-size: cover;
-    position: relative;
 }
 .donate-container h2 {
     text-align: center;
