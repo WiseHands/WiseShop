@@ -143,6 +143,7 @@ header {
     font-size: 1.2rem;
 }
 .sidebar-panel a {
+    cursor: pointer;
     color: #262626;
     line-height: 2.5;
 }
@@ -150,7 +151,6 @@ header {
     font-size: 1.3rem;
     margin-bottom: 0;
 }
-
 
 .main-page {
     background-color: rgb(14, 41, 53);
@@ -754,6 +754,9 @@ footer h3 {
     }
     .burger-menu {
         display: block;
+        position: fixed;
+        top: 10px;
+        right: 10px;
     }
     .header-logo p {
         font-size: 1.7rem;

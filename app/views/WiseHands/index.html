@@ -31,14 +31,13 @@
             </div>
         </a>
         <div class="sidebar-panel">
-            <a class="link" href="#fe-services">Front End Development</a>
-            <a class="link" href="#be-services">Back End Development</a>
-            <a class="link" href="#mob-services">Mobile Application Development</a>
-            <a class="link" href="#projects">Projects</a>
-            <a class="link" href="#team">Team</a>
-            <a class="link" href="#donate">Donate</a>
-            <a class="link" href="#contactForm">Contact us</a>
-
+            <a class="link" id="feLink" href="#fe-services">Front End Development</a>
+            <a class="link" id="beLink" href="#be-services">Back End Development</a>
+            <a class="link" id="mobLink" href="#mob-services">Mobile Application Development</a>
+            <a class="link" id="projectsLink" href="#projects">Projects</a>
+            <a class="link" id="teamLink" href="#team">Team</a>
+            <a class="link" id="donateLink" href="#donate">Donate</a>
+            <a class="link" id="contactLink" href="#contactForm">Contact us</a>
         </div>
     </div>
 </div>
@@ -59,7 +58,6 @@
             <i class="fa fa-bars" style="font-size:36px; color: #fff"></i>
         </div>
     </div>
-
 
 </header>
 <section class="main-page">
@@ -694,6 +692,20 @@
         document.querySelector("#overlay-mobile").style.display = 'block';
         document.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
     }
+
+    document.getElementById("feLink").addEventListener("click", hideSidebar);
+    document.getElementById("beLink").addEventListener("click", hideSidebar);
+    document.getElementById("mobLink").addEventListener("click", hideSidebar);
+    document.getElementById("projectsLink").addEventListener("click", hideSidebar);
+    document.getElementById("teamLink").addEventListener("click", hideSidebar);
+    document.getElementById("donateLink").addEventListener("click", hideSidebar);
+    document.getElementById("contactLink").addEventListener("click", hideSidebar);
+
+
+    function hideSidebar() {
+        document.querySelector("#overlay-mobile").style.display = 'none';
+    }
+
 </script>
 
 </body>
