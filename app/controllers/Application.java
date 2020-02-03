@@ -349,5 +349,8 @@ public class Application extends Controller {
     public static void uaContract(String client){
             render();
     }
+    public static void privacy(String client){
+            render();
+    }
 
 }

@@ -220,6 +220,7 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/main                                   Application.main
 *       {client}/landing                                Application.landing
 *       {client}/ua/contract                            Application.uaContract
+*       {client}/ua/privacy                            Application.privacy
 
 
 # Ignore favicon requests
