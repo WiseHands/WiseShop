@@ -16,7 +16,7 @@ body a {
     display: flex;
 }
 .main-block {
-    height: 80vh;
+    height: 74vh;
     display: flex;
 
 }
@@ -70,8 +70,9 @@ body a {
     opacity: 1;
     animation: sidebarmove 0.3s linear;
     position: fixed;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .16), 0 2px 3px 0 rgba(0, 0, 0, .12);
 }
 @keyframes sidebarmove {
     from {
@@ -145,7 +146,7 @@ body a {
     font-weight: 600;
     font-size: 3rem;
 }
-.land-payment, .land-category, .land-options, .land-areadelivery, .land-analytics, .land-network {
+.land-payment, .land-category, .land-options, .land-area-delivery, .land-analytics, .land-network {
     width: 100%;
     background-color: #f2f2f2;
     padding-bottom: 4rem;
@@ -184,7 +185,7 @@ body a {
     background: url(../../wisehands/landing/images/options.png) no-repeat;
     background-size: contain;
 }
-.land-areadelivery-img {
+.land-area-delivery-img {
     background: url(../../wisehands/landing/images/area.png) no-repeat;
     background-size: contain;
 }
@@ -211,7 +212,7 @@ body a {
     flex-basis: 30%;
     flex-direction: column;
     height: 600px;
-    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12), 3px -3px 3px 0px rgba(0,0,0,0.14);
     border-radius: 10px;
 }
 .tariff-item:hover {
@@ -283,12 +284,17 @@ body a {
     flex-direction: column;
     justify-content: space-between;
 }
+.land-contact-form h2 {
+    font-size: 3rem;
+    text-align: center;
+    padding-top: 3rem;
+}
 .contact-card {
     width: 70%;
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
-    margin: 5rem auto 0 auto;
+    margin: 0 auto;
 }
 .contact-card-text {
     width: 90%;
@@ -339,6 +345,17 @@ textarea {
     justify-content: center;
     padding: 1.5rem 0;
 }
+.contact-adress {
+    padding-left: 3rem;
+}
+.contact-adress-item {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0;
+}
+.contact-adress i {
+    padding-right: 0.5rem;
+}
 .footer-block {
     display: flex;
     justify-content: space-between;
@@ -369,10 +386,62 @@ textarea {
     padding-left: 10px;
 }
 @media screen and (max-width: 768px) {
-    /*.landing-container {*/
-        /*flex-direction: column;*/
-    /*}*/
-    /*.land-map {*/
-        /*display: none;*/
-    /*}*/
+    .main-block {
+        height: 72vh;
+    }
+    .landing-container {
+        flex-direction: column;
+    }
+    .land-text {
+        padding: 0 1rem;
+    }
+    .land-h3 {
+        font-size: 2rem;
+        padding: 1rem 0;
+    }
+    .land-category .landing-container, .land-area-delivery .landing-container, .land-network .landing-container {
+        flex-direction: column-reverse;
+    }
+    .land-options-img {
+        background: url(../../wisehands/landing/images/mob-options.jpg.png) no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    .land-options .land-img {
+        height: 80vh;
+    }
+    .land-area-delivery-img {
+        background-size: cover;
+        background-position: center;
+    }
+    .land-text-left {
+        padding-right: 0;
+        padding-left: 1rem;
+    }
+    .tariff-item {
+        width: 90%;
+        margin: 0 auto 2rem auto;
+    }
+    .land-contact {
+        height: 100%;
+    }
+    .land-contact-form {
+        flex-basis: unset;
+    }
+    .land-img {
+        flex-basis: unset;
+    }
+    .land-map {
+        display: none;
+    }
+    .contact-card {
+        width: 90%;
+        margin-bottom: 1rem;
+    }
+    .footer-links a {
+        padding-right: 10px;
+    }
+    .footer-copyright {
+        display: none;
+    }
 }
