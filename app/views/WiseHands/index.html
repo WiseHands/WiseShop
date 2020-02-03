@@ -27,7 +27,7 @@
         <a class="link" href="/main">
             <div class="sidebar-logo">
                 <img src="/wisehands/assets/images/wiseblack.png">
-                <p>wisehands</p>
+                <p>WiseHands</p>
             </div>
         </a>
         <div class="sidebar-panel">
@@ -36,7 +36,7 @@
             <a class="link" id="mobLink" href="#mob-services">Mobile Application Development</a>
             <a class="link" id="projectsLink" href="#projects">Projects</a>
             <a class="link" id="teamLink" href="#team">Team</a>
-            <a class="link" id="donateLink" href="#donate">Donate</a>
+            <a class="link" id="donateLink" href="#donate">Become patron</a>
             <a class="link" id="contactLink" href="#contactForm">Contact us</a>
         </div>
     </div>
@@ -52,7 +52,7 @@
             <p id="headListServices">Services</p>
             <p id="headProjects">Projects</p></a>
             <p id="headTeam">Team</p></a>
-            <a href="#"><p>Sign in</p></a>
+<!--            <a href="#"><p>Sign in</p></a>-->
         </div>
         <div class="burger-menu" id="mobile-menu">
             <i class="fa fa-bars" style="font-size:36px; color: #fff"></i>
@@ -363,17 +363,6 @@
                 <input type="text" placeholder="Name">
                 <input type="email" placeholder="Email">
                 <input type="text" placeholder="Phone">
-                <p>Preffered method of communication</p>
-                <form class="card-text-radio">
-                    <div class="card-radio-email">
-                        <input type="radio" name="method" id="radio-email" value="email" checked><br>
-                        <label for="radio-email">Email</label>
-                    </div>
-                    <div class="card-radio-phone">
-                        <input type="radio" name="method" id="radio-phone" value="phone"><br>
-                        <label for="radio-phone">Phone</label>
-                    </div>
-                </form>
                 <textarea id="message-text" placeholder="Message"></textarea>
                 <div class="message-button">
                     <button id="messageSubmit">Submit</button>
@@ -700,6 +689,7 @@
     document.getElementById("teamLink").addEventListener("click", hideSidebar);
     document.getElementById("donateLink").addEventListener("click", hideSidebar);
     document.getElementById("contactLink").addEventListener("click", hideSidebar);
+    document.getElementById("#overlay-mobile").addEventListener("click", hideSidebar);
 
     function hideSidebar() {
         document.querySelector("#overlay-mobile").style.display = 'none';

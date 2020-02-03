@@ -21,6 +21,7 @@ canvas {
 }
 header {
     background-color: rgb(14, 41, 53);
+    height: 62px;
 }
 .main-container {
     max-width: 1200px;
@@ -35,7 +36,7 @@ header {
     justify-content: space-between;
     height: 100%;
     margin: 0 auto;
-    padding: 0.5rem;
+    padding: 0 0.5rem;
     color: #fff;
 }
 .header-logo, .header-links {
@@ -50,7 +51,7 @@ header {
     font-size: 2rem;
 }
 .header-links {
-    width: 400px;
+    width: 350px;
     justify-content: space-between;
 }
 .header-links a {
@@ -77,7 +78,7 @@ header {
     background-color: rgba(0,0,0,0);
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     z-index: 100;
     padding: 0;
     margin: 0;
@@ -129,7 +130,7 @@ header {
 .sidebar-logo img {
     width: 36px;
     height: 36px;
-    padding-right: 5px;
+    padding-right: 0.7rem;
 }
 .sidebar-logo p {
     font-size: 2rem;
@@ -154,7 +155,7 @@ header {
 
 .main-page {
     background-color: rgb(14, 41, 53);
-    height: calc(100vh - 82.963px);
+    height: calc(100vh - 62px);
 }
 .slogan {
     color: #fff;
@@ -603,18 +604,6 @@ header {
 .contact-card-text input:focus {
     outline: none;
 }
-.card-text-radio {
-    display: flex;
-    padding-top: 0.5rem;
-}
-.card-radio-email, .card-radio-phone {
-    display: flex;
-    align-items: center;
-    padding-right: 50px;
-}
-.card-text-radio input[type=radio] {
-    font-size: 40px;
-}
 textarea {
     width: 100%;
     height: 150px;
@@ -741,6 +730,28 @@ footer h3 {
     }
 }
 @media screen and (max-width: 767px)  {
+    @media only screen and (max-width : 768px) {
+        .animated {
+            /*CSS transitions*/
+            -o-transition-property: none !important;
+            -moz-transition-property: none !important;
+            -ms-transition-property: none !important;
+            -webkit-transition-property: none !important;
+            transition-property: none !important;
+            /*CSS transforms*/
+            -o-transform: none !important;
+            -moz-transform: none !important;
+            -ms-transform: none !important;
+            -webkit-transform: none !important;
+            transform: none !important;
+            /*CSS animations*/
+            -webkit-animation: none !important;
+            -moz-animation: none !important;
+            -o-animation: none !important;
+            -ms-animation: none !important;
+            animation: none !important;
+        }
+    }
     .double-arrow {
         display: none;
     }
@@ -752,6 +763,9 @@ footer h3 {
         position: fixed;
         top: 10px;
         right: 10px;
+    }
+    .header-logo img {
+        width: 40px;
     }
     .header-logo p {
         font-size: 1.7rem;
