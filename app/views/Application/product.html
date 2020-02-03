@@ -320,7 +320,7 @@
                 </div>
                 <div class="add-price">
                     <p>вартість додатків:</p>
-                    <span>35 uah</span>
+                    <span class="additions-total-price"></span>
                 </div>
             </div>
             <div class="add-items">
@@ -369,7 +369,9 @@
   const productPriceElement = document.querySelector('.product-price');
   let totalPrice = Number(productPriceElement.getAttribute('price'));
   const totalSpan = document.querySelector('.total-span');
+  const additionsTotalPriceContainer = document.querySelector('.additions-total-price');
 
+  _setAdditionsTotalPrice();
   _setTotal(totalPrice);
 
   function _addItem(_addition) {
@@ -381,6 +383,7 @@
       createdAddition.setAttribute('counter', incrementedClickedAddition);
       createdAddition.getElementsByTagName('p')[0].innerText = _addition.title + '(' + incrementedClickedAddition + ')';
     }
+    _setAdditionsTotalPrice();
     _calculateTotal(Number(_addition.price));
   }
 
@@ -393,6 +396,7 @@
       '<i class="fa fa-close"></i><p>'
       + _addition.title + '</p>';
     additionDiv.setAttribute('counter', 1);
+    additionDiv.setAttribute('price', _addition.price);
     const removeIcon =  additionDiv.getElementsByTagName('i')[0];
     removeIcon.addEventListener('click', () => {
       _removeAddition(additionId, Number(_addition.price))
@@ -406,6 +410,7 @@
     const amountToSubstract = -counter * price;
     _calculateTotal(amountToSubstract);
     chosenAdditionsContainer.removeChild(additionElementToRemove);
+    _setAdditionsTotalPrice();
   }
 
   function _calculateTotal(additionPrice) {
@@ -415,6 +420,17 @@
 
   function _setTotal(total) {
     totalSpan.innerText = 'Вартість: ' + total + ' UAH';
+  }
+
+  function _setAdditionsTotalPrice() {
+    let additionsTotalPrice = 0;
+    const selectedAdditions = document.querySelectorAll('.add-items-title');
+    selectedAdditions.forEach(addition => {
+      const counter = addition.getAttribute('counter');
+      const additionPrice = Number(addition.getAttribute('price'));
+      additionsTotalPrice += counter * additionPrice;
+    });
+    additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
   }
 </script>
 
