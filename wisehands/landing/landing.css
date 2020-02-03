@@ -9,6 +9,45 @@ body a {
     text-decoration: none;
     color: inherit;
 }
+.header {
+    width: 100%;
+    margin: 0 auto;
+    height: 65px;
+    padding: 0 0.5rem;
+}
+.header-block {
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0.5rem;
+}
+.header-logo-text, .header-links {
+    display: flex;
+    align-items: center;
+}
+.header-logo-text img {
+    width: 50px;
+    padding-right: 1rem;
+}
+.header-logo-text p {
+    font-size: 2rem;
+}
+.header-logo-text {
+    justify-content: space-between;
+}
+.header-logo-text a {
+    text-decoration: none;
+}
+.header-logo-text p:hover, .header-links p:hover {
+    color: lightseagreen;
+}
+.header-logo-text p, .header-links p {
+    font-size: 1.3rem;
+    padding: 0.6rem;
+    cursor: pointer;
+}
 .landing-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -18,7 +57,6 @@ body a {
 .main-block {
     height: 74vh;
     display: flex;
-
 }
 .main-block-text {
     padding-top: 30vh;
@@ -44,13 +82,8 @@ body a {
 .main-block-text button:focus {
     outline: none;
 }
-.header {
-    max-width: 1200px;
-    display: flex;
-    margin: 0 auto;
-    justify-content: flex-end;
-}
 .burger-menu {
+    display: none;
     padding: 1rem;
 }
 #overlay-mobile {
@@ -219,7 +252,7 @@ body a {
     transform: scale(1.05);
 }
 .tariff-pro {
-    border: 2px solid #ef3d46;
+    border: 2px solid lightseagreen;
 }
 .tariff-item-title, .tariff-price {
     text-align: center;
@@ -235,10 +268,10 @@ body a {
     font-size: 1.8rem;
     font-weight: 700;
     padding-bottom: 1rem;
-    color: #ef3d46;
+    color: lightseagreen;
 }
 .tariff-price span {
-    color: #ef3d46;
+    color: lightseagreen;
     font-weight: 600;
     padding-right: 0.3rem;
 }
@@ -252,7 +285,7 @@ body a {
     padding: 0.5rem 0;
 }
 .fa-check {
-    color: #ef3d46;
+    color: lightseagreen;
     padding-right: 0.5rem;
 }
 .tariff-button {
@@ -386,6 +419,12 @@ textarea {
     padding-left: 10px;
 }
 @media screen and (max-width: 768px) {
+    .header-block {
+        display: none;
+    }
+    .burger-menu {
+        display: block;
+    }
     .main-block {
         height: 72vh;
     }

@@ -346,5 +346,8 @@ public class Application extends Controller {
     public static void landing(String client){
             render();
     }
+    public static void uaContract(String client){
+            render();
+    }
 
 }
