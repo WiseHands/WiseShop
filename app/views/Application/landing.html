@@ -47,8 +47,8 @@
         </div>
 
 
-        <div class="burger-menu" id="mobile-menu">
-            <i class="fa fa-bars" style="font-size:36px; color: #000"></i>
+        <div class="burger-menu" >
+            <i id="mobile-menu" class="fa fa-bars" style="font-size:36px; color: #000"></i>
         </div>
     </div>
 
@@ -230,9 +230,9 @@
             <div class="contact-card">
                 <div class="contact-card-text">
                     <h5>Напишіть нам</h5>
-                    <input type="text" placeholder="Ім'я">
-                    <input type="email" placeholder="Email">
-                    <input type="text" placeholder="Телефон">
+                    <input type="text" placeholder="Ім'я" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="text" placeholder="Телефон" required>
 
                     <textarea id="message-text" placeholder="Повідомлення"></textarea>
                     <div class="message-button">
@@ -246,8 +246,10 @@
                     <p>Львів, вул.Вірменська, 15</p>
                 </div>
                 <div class="contact-adress-item">
-                    <i class="fa fa-phone" style="font-size:20px"></i>
-                    <p>(063) 038 61 73</p>
+                    <a href="tel:+380630386173">
+                        <i class="fa fa-phone" style="font-size:20px"></i>
+                        <p>(063) 038 61 73</p>
+                    </a>
                 </div>
             </div>
             <div class="footer-block">
