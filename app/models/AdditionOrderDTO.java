@@ -1,13 +1,17 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import json.shoppingcart.LineItem;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class AdditionDTO extends GenericModel {
+public class AdditionOrderDTO extends GenericModel {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -22,21 +26,15 @@ public class AdditionDTO extends GenericModel {
     public Double price;
 
     @Expose
+    public Long counter;
+
+    @Expose
     public String imagePath;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
+    @ManyToOne
+    public OrderItemDTO orderItemDTO;
 
     @ManyToOne
-    public ProductDTO product;
+    public LineItem lineItem;
 
 }

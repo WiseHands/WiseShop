@@ -284,8 +284,8 @@
 </head>
 <script>
   function buyStart(uuid) {
-    console.log("here uuid: ", uuid);
-    fetch('/api/cart?uuid=' + uuid, {
+    console.log("here uuid: ", uuid, additionList);
+    fetch('/api/cart?uuid=' + uuid + '&additionList=' + JSON.stringify(additionList), {
       method: 'POST'
     }).then(function (response) {
       return response.json();

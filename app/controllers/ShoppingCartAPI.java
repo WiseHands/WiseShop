@@ -5,6 +5,7 @@ import models.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import play.mvc.Before;
 import util.PolygonUtil;
 
@@ -56,14 +57,38 @@ public class ShoppingCartAPI extends AuthController {
         return shoppingCart;
     }
 
-    public static void addProduct(String client) {
+    public static void addProduct(String client) throws ParseException {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
         String productUuid = request.params.get("uuid");
-        System.out.println("productId " + productUuid);
+        String stringAdditionList = request.params.get("additionList");
+
+        JSONParser parser = new JSONParser();
+        JSONArray jsonAdditionList = (JSONArray) parser.parse(stringAdditionList);
+
+        List<JSONObject> additionList = new ArrayList<JSONObject>();
+        List<AdditionOrderDTO> additionOrderDTOList = new ArrayList<AdditionOrderDTO>();
+
+        for (int i=0; i<jsonAdditionList.size(); i++) {
+        JSONObject additionObject = (JSONObject) jsonAdditionList.get(i);
+            additionList.add(additionObject);
+        }
+
+        for(JSONObject object: additionList){
+            AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
+            AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
+            additionOrderDTO.title = additionDTO.getTitle();
+            additionOrderDTO.price = additionDTO.getPrice();
+            additionOrderDTO.imagePath = additionDTO.getImagePath();
+            additionOrderDTO.counter = (Long) object.get("counter");
+            additionOrderDTO.save();
+            additionOrderDTOList.add(additionOrderDTO);
+        }
+
+        System.out.println("productId " + productUuid + "\n" + additionList);
         ProductDTO product = ProductDTO.findById(productUuid);
 
         int quantity = 1;
@@ -77,7 +102,7 @@ public class ShoppingCartAPI extends AuthController {
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
 
-        LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop);
+        LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop, additionOrderDTOList);
         if (shoppingCart == null) {
             shoppingCart = new ShoppingCartDTO();
             if(cartId != null) {
