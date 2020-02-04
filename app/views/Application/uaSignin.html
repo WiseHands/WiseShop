@@ -24,6 +24,7 @@
         display: flex;
         align-items: center;
         padding: 1rem;
+        margin-bottom: 2rem;
     }
     .signin-header img {
         width: 50px;
@@ -37,12 +38,74 @@
         text-decoration: none;
         color: #000;
     }
+    .signin-block {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        text-align: center;
+    }
+    .signin-block h1 {
+        font-size: 2.5rem;
+        font-weight: 900;
+    }
+    .social-button {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+        flex-wrap: wrap;
+    }
+    .social-button button {
+        margin: 1rem;
+        padding: 0.7rem 3rem 0.7rem 1rem;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+        width: 320px;
+        font-weight: 700;
+    }
+    .signin-fb-button {
+        background-color: #3c5a96;
+        color: #fff;
+    }
+    .signin-fb-button:hover {
+        background-color: #2E4D8B;
+    }
+    .signin-fb-button span, .signin-google-button span {
+        padding: 0 1rem;
+    }
+    .signin-google-button {
+        background-color: #fff;
+        color: #808080;
+        box-shadow: 0 1px 1px rgba(0,0,0,.24), 0 0 1px rgba(0,0,0,.12)
+    }
+    .signin-google-button:hover {
+        color: #000;
+    }
+
 </style>
 
 <body>
     <div class="signin-header">
         <img src="/wisehands/assets/images/main_logo_black.png">
         <a href="/main"><p id="">WiseShop</p></a>
+    </div>
+    <div class="signin-block">
+        <h1>Вхід до особистого кабінету</h1>
+        <div class="social-button">
+            <button class="signin-fb-button">
+                <span>
+                    <i class="fa fa-facebook-f"  style="font-size:24px; color: #fff"></i>
+                </span>Увійти через Facebook
+            </button>
+            <button class="signin-google-button">
+                <span>
+                    <i class="fa fa-google"  style="font-size:24px; color: #808080"></i>
+                </span>Увійти через Google
+            </button>
+        </div>
     </div>
 </body>
 
