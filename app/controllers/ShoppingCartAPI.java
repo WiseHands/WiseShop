@@ -6,6 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import play.Play;
 import play.mvc.Before;
 import util.PolygonUtil;
 
@@ -22,6 +23,7 @@ import static util.ShoppingCartUtil._getCartUuid;
 public class ShoppingCartAPI extends AuthController {
 
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
 
     @Before
     public static void corsHeaders() {
@@ -82,7 +84,7 @@ public class ShoppingCartAPI extends AuthController {
             AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
             additionOrderDTO.title = additionDTO.getTitle();
             additionOrderDTO.price = additionDTO.getPrice();
-            additionOrderDTO.imagePath = additionDTO.getImagePath();
+            additionOrderDTO.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
             additionOrderDTO.counter = (Long) object.get("counter");
             additionOrderDTO.save();
             additionOrderDTOList.add(additionOrderDTO);
@@ -131,6 +133,15 @@ public class ShoppingCartAPI extends AuthController {
 
         shoppingCart.save();
         renderJSON(json(shoppingCart));
+    }
+
+    private static String _getWholePath(String imagePath, ShopDTO shop) {
+        String path = shop.domain;
+        if(isDevEnv) {
+            path = path + ":3334";
+        }
+        return imagePath = String.format("http://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
+
     }
 
     public static void deleteProduct(String client) {
