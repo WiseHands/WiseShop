@@ -28,6 +28,7 @@ body a {
 }
 .header-logo-text img {
     width: 50px;
+    height: 50px;
     padding-right: 1rem;
 }
 .header-logo-text p {
