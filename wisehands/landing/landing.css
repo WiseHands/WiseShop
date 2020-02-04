@@ -90,7 +90,7 @@ body a {
     background-color: rgba(0,0,0,0);
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     z-index: 100;
     padding: 0;
     margin: 0;
@@ -214,7 +214,7 @@ body a {
     background-size: cover;
 }
 .land-options-img {
-    background: url(../../wisehands/landing/images/options.png) no-repeat;
+    background: url(../../wisehands/landing/images/options.jpg) no-repeat;
     background-size: contain;
 }
 .land-area-delivery-img {
@@ -442,7 +442,7 @@ textarea {
         flex-direction: column-reverse;
     }
     .land-options-img {
-        background: url(../../wisehands/landing/images/mob-options.jpg.png) no-repeat;
+        background: url(../../wisehands/landing/images/mob-options.jpg) no-repeat;
         background-size: cover;
         background-position: center;
     }
