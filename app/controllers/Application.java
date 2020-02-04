@@ -352,5 +352,11 @@ public class Application extends Controller {
     public static void privacy(String client){
             render();
     }
+    public static void uaSignin(String client){
+            render();
+    }
+    public static void uaSignup(String client){
+            render();
+    }
 
 }
