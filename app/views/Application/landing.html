@@ -26,9 +26,9 @@
                 </div>
             </a>
             <div class="sidebar-panel">
-                <a class="link" href="#opport">Можливості</a>
-                <a class="link" href="#tariff">Тарифи</a>
-                <a class="link" href="#landContact">Контакти</a>
+                <a class="link" id="opportLink" href="#opport">Можливості</a>
+                <a class="link" id="tariffLink" href="#tariff">Тарифи</a>
+                <a class="link" id="contactLink" href="#landContact">Контакти</a>
             </div>
         </div>
     </div>
@@ -354,8 +354,15 @@
             document.querySelector("#overlay-mobile").style.display = 'block';
             document.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
         }
-
     </script>
+    <script>
+        document.getElementById("opportLink").addEventListener("click", hideSidebar);
+        document.getElementById("tariffLink").addEventListener("click", hideSidebar);
+        document.getElementById("contactLink").addEventListener("click", hideSidebar);
 
+        function hideSidebar() {
+            document.querySelector("#overlay-mobile").style.display = 'none';
+        }
+    </script>
 </body>
 </html>

@@ -83,3 +83,9 @@ function showMenu() {
     document.querySelector("#overlay-mobile").style.display = 'block';
     document.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
 }
+
+document.getElementById("#overlay-mobile").addEventListener("click", hideSidebar);
+
+function hideSidebar() {
+    document.querySelector("#overlay-mobile").style.display = 'none';
+}
