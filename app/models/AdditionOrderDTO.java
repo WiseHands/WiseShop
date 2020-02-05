@@ -26,7 +26,7 @@ public class AdditionOrderDTO extends GenericModel {
     public Double price;
 
     @Expose
-    public Long counter;
+    public Long quantity;
 
     @Expose
     public String imagePath;

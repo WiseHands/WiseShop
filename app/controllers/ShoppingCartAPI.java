@@ -85,7 +85,7 @@ public class ShoppingCartAPI extends AuthController {
             additionOrderDTO.title = additionDTO.getTitle();
             additionOrderDTO.price = additionDTO.getPrice();
             additionOrderDTO.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
-            additionOrderDTO.counter = (Long) object.get("counter");
+            additionOrderDTO.quantity = (Long) object.get("quantity");
             additionOrderDTO.save();
             additionOrderDTOList.add(additionOrderDTO);
         }

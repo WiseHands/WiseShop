@@ -379,7 +379,7 @@
     const createdAddition = document.getElementById(_addition.uuid);
     let setSendAddition = {
       uuid: _addition.uuid,
-      counter: 1
+      quantity: 1
     };
     if (!createdAddition) {
       additionList.push(setSendAddition);
@@ -388,7 +388,7 @@
       const incrementedClickedAddition = Number(createdAddition.getAttribute('counter')) + 1;
       additionList.forEach(item => {
           if (item.uuid === _addition.uuid){
-              item.counter = incrementedClickedAddition;
+              item.quantity = incrementedClickedAddition;
           }
       });
       createdAddition.setAttribute('counter', incrementedClickedAddition);
