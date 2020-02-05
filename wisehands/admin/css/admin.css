@@ -1,3 +1,16 @@
+.product-order-container{
+    display: flex;
+    flex-direction: column;
+}
+.addition-container{
+    display: flex;
+
+}
+.addition-item-container{
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+}
 .address-order-container{
     display: flex;
     flex-direction: column;

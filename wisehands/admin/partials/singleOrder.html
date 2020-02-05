@@ -70,19 +70,31 @@
                     <h5>{{'singleOrder.Order' | translate}}: </h5>
 
 
-                    <div class="row vcentering" ng-repeat="item in order.items">
-                        <div class="col-xs-8 col-sm-8">
-                            <a ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">
-                                <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
-                            </a>
-                            <div ng-if="!item.productUuid">
-                                <p ><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                    <div class="product-order-container" ng-repeat="item in order.items">
+                        <div class="row vcentering">
+                            <div class="col-xs-8 col-sm-8">
+                                <a ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">
+                                    <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                </a>
+                                <div ng-if="!item.productUuid">
+                                    <p ><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4">
+                                <p><i>{{item.quantity}} {{'singleOrder.Pieces' | translate}}.</i></p>
                             </div>
                         </div>
-                        <div class="col-xs-4 col-sm-4">
-                            <p><i>{{item.quantity}} {{'singleOrder.Pieces' | translate}}.</i></p>
+                        <div class="addition-container">
+                            <div class="addition-item-container" ng-repeat="addition in item.additionList">
+                                <span>{{addition.title}}</span>
+                                <span ng-show="addition.quantity>1">({{addition.quantity}})</span><span
+                                    ng-hide="item.additionList.length === $index + 1">,
+                            </span>
+                            </div>
                         </div>
                     </div>
+
+
 
             </div>
         </div>

@@ -109,6 +109,7 @@ public class OrderAPI extends AuthController {
         shop = shop.save();
 
         List<OrderItemDTO> orders = new ArrayList<OrderItemDTO>();
+        List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
 
         for (LineItem lineItem : shoppingCart.items) {
 
@@ -116,7 +117,14 @@ public class OrderAPI extends AuthController {
             OrderItemDTO orderItem = new OrderItemDTO();
             ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
             orderItem.orderUuid = order.uuid;
-            System.out.println("DEBUG productUuid for OrderItemDTO " + product.uuid + " NAME: " + product.name);
+            for(AdditionOrderDTO addition : lineItem.additionList){
+                AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
+                additionOrderDTO.title = addition.title;
+                additionOrderDTO.price = addition.price;
+                additionOrderDTO.quantity = addition.quantity;
+                additionList.add(additionOrderDTO);
+            }
+            orderItem.additionList = additionList;
             orderItem.productUuid = product.uuid;
             orderItem.name = product.name;
             orderItem.description = product.description;
