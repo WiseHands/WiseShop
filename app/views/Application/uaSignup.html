@@ -152,7 +152,7 @@
     input:focus ~ .highlight:before, input:focus ~ .highlight:after {
         width:50%;
     }
-    
+
     .signup-form button {
         padding: 1rem 0 1rem 1rem;
         text-transform: uppercase;
@@ -179,6 +179,17 @@
     .signup-form p:hover {
         cursor: pointer;
         color: #20b2aa;
+    }
+    @media screen and (max-width: 768px) {
+        .signup-header {
+            margin-bottom: 1rem;
+        }
+        .signup-block h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .social-button button {
+            margin: 1rem 0 ;
     }
 </style>
 <body>
