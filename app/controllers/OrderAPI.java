@@ -122,6 +122,7 @@ public class OrderAPI extends AuthController {
                 additionOrderDTO.title = addition.title;
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
+                additionOrderDTO.save();
                 additionList.add(additionOrderDTO);
             }
             orderItem.additionList = additionList;

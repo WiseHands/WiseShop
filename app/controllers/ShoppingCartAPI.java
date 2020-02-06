@@ -67,7 +67,10 @@ public class ShoppingCartAPI extends AuthController {
 
         String productUuid = request.params.get("uuid");
         String stringAdditionList = request.params.get("additionList");
-
+        System.out.println("stringAdditionList" + stringAdditionList);
+        if (stringAdditionList == null){
+            stringAdditionList = "[]";
+        }
         JSONParser parser = new JSONParser();
         JSONArray jsonAdditionList = (JSONArray) parser.parse(stringAdditionList);
 

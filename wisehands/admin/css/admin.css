@@ -4,7 +4,10 @@
 }
 .addition-container{
     display: flex;
-
+    padding-left: 2rem;
+}
+.product-item p {
+    margin-bottom: 0;
 }
 .addition-item-container{
     display: flex;
