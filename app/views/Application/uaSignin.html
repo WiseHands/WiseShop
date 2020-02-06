@@ -91,6 +91,10 @@
         max-width: 350px;
         margin: 0 auto;
     }
+    .signin-form a {
+        text-decoration: none;
+        color: #000;
+    }
     .form-field {
         position: relative;
     }
@@ -149,8 +153,6 @@
         width:50%;
     }
 
-
-
     .signin-form button {
         padding: 1rem 0 1rem 1rem;
         text-transform: uppercase;
@@ -167,6 +169,16 @@
     }
     .signin-form-button:hover {
         background-color: #1d9f98;
+    }
+    .signin-form p {
+        margin: 0.5rem 0 1rem 0;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+    .signin-form p:hover {
+        cursor: pointer;
+        color: #20b2aa;
     }
 </style>
 
@@ -204,6 +216,7 @@
                 <button class="signin-form-button">
                     Увійти
                 </button>
+            <a href="/ua/signup"><p>Зареєструватися</p></a>
         </form>
     </div>
 </body>
