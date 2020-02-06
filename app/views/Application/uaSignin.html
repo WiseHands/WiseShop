@@ -92,6 +92,7 @@
     }
     .signin-form input{
         width: 100%;
+        box-sizing: border-box;
     }
     .signin-form input[type=email] {
         padding: 1rem 0 1rem 1rem;
@@ -112,11 +113,11 @@
         font-weight: 700;
     }
     .signin-form-button {
-        background-color: lightseagreen;
+        background-color: #20b2aa;
         color: #fff;
     }
     .signin-form-button:hover {
-        background-color: #2E4D8B;
+        background-color: #1d9f98;
     }
 </style>
 
@@ -141,11 +142,11 @@
         </div>
         <span>АБО</span>
         <form name="login-form" class="signin-form">
-            <input type="email" name="username" value="Email">
-            <input type="password" name="password" value="Пароль">
-            <button class="signin-form-button">
-                Увійти
-            </button>
+                <input type="email" name="username" value="Email">
+                <input type="password" name="password" value="Пароль">
+                <button class="signin-form-button">
+                    Увійти
+                </button>
         </form>
     </div>
 </body>
