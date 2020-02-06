@@ -180,6 +180,25 @@
         cursor: pointer;
         color: #20b2aa;
     }
+    .form-oferta p {
+        font-size: 0.8rem;
+        font-weight: 400;
+        text-transform: inherit;
+    }
+    .form-oferta p:hover {
+        cursor: auto;
+        color: #000;
+    }
+    .form-oferta a {
+        font-size: 1rem;
+        font-weight: 400;
+        text-decoration: underline;
+    }
+    .form-oferta a:hover {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
     @media screen and (max-width: 768px) {
         .signup-header {
             margin-bottom: 1rem;
@@ -227,7 +246,12 @@
             Зареєструватися
         </button>
         <a href="/ua/signin"><p>Увійти</p></a>
+        <div class="form-oferta">
+            <p>Реєструючись, ви погоджуєтесь з умовами <a>Публічної оферти та Умовами надання послуг WiseShop</a>
+            </p>
+        </div>
     </form>
+
 </div>
 
 
