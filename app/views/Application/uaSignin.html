@@ -19,6 +19,7 @@
         font-family: 'Roboto', 'Helvetica', sans-serif;
         overflow-x: hidden;
         font-size: 16px;
+        box-sizing: border-box;
     }
     .signin-header {
         display: flex;
@@ -85,7 +86,38 @@
     .signin-google-button:hover {
         color: #000;
     }
+    .signin-form {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+    .signin-form input{
+        width: 100%;
+    }
+    .signin-form input[type=email] {
+        padding: 1rem 0 1rem 1rem;
+        margin: 0.5rem 0;
+    }
 
+    .signin-form input[type=password] {
+        margin: 0.5rem 0;
+        padding: 1rem 0 1rem 1rem;
+    }
+    .signin-form button {
+        padding: 1rem 0 1rem 1rem;
+        text-transform: uppercase;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-weight: 700;
+    }
+    .signin-form-button {
+        background-color: lightseagreen;
+        color: #fff;
+    }
+    .signin-form-button:hover {
+        background-color: #2E4D8B;
+    }
 </style>
 
 <body>
@@ -107,6 +139,14 @@
                 </span>Увійти через Google
             </button>
         </div>
+        <span>АБО</span>
+        <form name="login-form" class="signin-form">
+            <input type="email" name="username" value="Email">
+            <input type="password" name="password" value="Пароль">
+            <button class="signin-form-button">
+                Увійти
+            </button>
+        </form>
     </div>
 </body>
 
