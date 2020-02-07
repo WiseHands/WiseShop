@@ -60,6 +60,53 @@ public class OrderAPI extends AuthController {
         return ip;
     }
 
+    public static class OrderItemListResult {
+        Double total = 0.0;
+        List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
+
+        public OrderItemListResult(Double totalCost, List<OrderItemDTO> orderItemList) {
+            this.total = totalCost;
+            this.orderItemList = orderItemList;
+        }
+    }
+
+    private static OrderItemListResult _parseOrderItemsList(List<LineItem> items, OrderDTO order) {
+        List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
+        Double totalCost = Double.parseDouble("0");
+        for (LineItem lineItem : items) {
+            OrderItemDTO orderItem = new OrderItemDTO();
+
+            ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
+            int quantity = lineItem.quantity;
+
+            orderItem.productUuid = product.uuid;
+            orderItem.name = product.name;
+            orderItem.description = product.description;
+            orderItem.price = product.price;
+            orderItem.fileName = product.fileName;
+            orderItem.quantity = quantity;
+            orderItem.orderUuid = order.uuid;
+
+            List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
+            for(AdditionLineItemDTO addition : lineItem.additionList){
+                AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
+                additionOrderDTO.title = addition.title;
+                additionOrderDTO.price = addition.price;
+                additionOrderDTO.quantity = addition.quantity;
+                totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
+                additionList.add(additionOrderDTO);
+            }
+            orderItem.additionList = additionList;
+
+
+            orderItemList.add(orderItem);
+            totalCost += product.price * orderItem.quantity;
+        }
+
+        OrderItemListResult result = new OrderItemListResult(totalCost, orderItemList);
+        return result;
+    }
+
     public static void create(String client) throws Exception {
         ShopDTO shop = _getShop(client);
         _applyLocale(shop);
@@ -76,57 +123,28 @@ public class OrderAPI extends AuthController {
                 agent,
                 ip);
 
-        Double totalCost = (Double) Double.parseDouble("0");
 
 
         shop.orders.add(order);
-        order = order.save();
-        shop = shop.save();
 
-        //WORKS UP UNTIL HERE
 
-        List<OrderItemDTO> orders = new ArrayList<OrderItemDTO>();
-        for (LineItem lineItem : shoppingCart.items) {
-            List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
-            int quantity = lineItem.quantity;
-            OrderItemDTO orderItem = new OrderItemDTO();
-            ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
-            orderItem.orderUuid = order.uuid;
-            for(AdditionLineItemDTO addition : lineItem.additionList){
-                AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
-                additionOrderDTO.title = addition.title;
-                additionOrderDTO.price = addition.price;
-                additionOrderDTO.quantity = addition.quantity;
-                additionList.add(additionOrderDTO);
-            }
-            orderItem.additionList = additionList;
-            orderItem.productUuid = product.uuid;
-            orderItem.name = product.name;
-            orderItem.description = product.description;
-            orderItem.price = product.price;
-            orderItem.fileName = product.fileName;
-            orderItem.quantity = quantity;
 
-            orderItem.save();
-            orders.add(orderItem);
-
-            totalCost += product.price * orderItem.quantity;
-        }
-        order.items = orders;
+        OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
+        order.items = orderItemListResult.orderItemList;
 
         DeliveryDTO delivery = shop.delivery;
         if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)){
-            if (totalCost < delivery.courierFreeDeliveryLimit){
-                totalCost = totalCost + delivery.courierPrice;
+            if (orderItemListResult.total < delivery.courierFreeDeliveryLimit){
+                orderItemListResult.total += delivery.courierPrice;
             }
         }
 
-        order.total = totalCost;
+        order.total = orderItemListResult.total;
+
 
         boolean isBiggerThanMimimal = true;
-
         if(shop.paymentSettings.minimumPayment != null) {
-            isBiggerThanMimimal = shop.paymentSettings.minimumPayment <= totalCost;
+            isBiggerThanMimimal = shop.paymentSettings.minimumPayment <= order.total;
         }
 
         if(!isBiggerThanMimimal) {
@@ -140,6 +158,7 @@ public class OrderAPI extends AuthController {
         }
 
         order = order.save();
+        shop = shop.save();
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
 
@@ -153,7 +172,7 @@ public class OrderAPI extends AuthController {
         }
 
         JSONObject json = new JSONObject();
-        if(shoppingCart.paymentType.name().equals(ShoppingCartDTO.PaymentType.CREDITCARD.name())) {
+        if(order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name())) {
             try {
                 String payButton = liqPay.payButton(order, shop);
 
@@ -172,7 +191,7 @@ public class OrderAPI extends AuthController {
             } catch (Exception e) {
                 renderJSON(json);
             }
-        } else if(shoppingCart.paymentType.equals(ShoppingCartDTO.PaymentType.CASHONDELIVERY)){
+        } else if(order.paymentType.equals(ShoppingCartDTO.PaymentType.CASHONDELIVERY)){
             json.put("status", "ok");
             renderJSON(json);
         }
