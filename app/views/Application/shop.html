@@ -46,8 +46,34 @@
         color: #fff;
         border: 2px solid #fff;
     }
+    .cart-float {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        max-width: 900px;
+        width: 100%;
+        background-color: #e4e9e9;
+        border-top: 5px solid #333;
+        z-index: 300;
+        transition: visibility 0s, opacity 0.5s linear;;
+    }
+    .cart-float-text {
+        display: flex;
+        align-items: baseline;
+        padding: 1rem;
+        justify-content: center;
+    }
+    .cart-float-text p {
+        font-size: 1.1rem;
+        font-weight: 300;
+        margin-bottom: 0;
+    }
+    .cart-float-text i {
+        font-size: 1.5rem;
+        padding-left: 0.5rem;
+    }
     @media screen and (min-width: 1500px) {
-        .center-container {
+        .center-container, .cart-float {
             max-width: 1300px;
         }
     }
@@ -85,11 +111,18 @@
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 
     <script>
+        function setDelayShowCart() {
+            document.querySelector(".cart-float").style.display = 'none';
+        }
         function buyStart(uuid) {
 
             fetch('/api/cart?uuid=' + uuid, {
                 method: 'POST'
             }).then(function (response) {
+                if(response.ok) {
+                    document.querySelector(".cart-float").style.display = 'block';
+                    setTimeout(setDelayShowCart, 2000);
+                }
                 return response.json();
             }).then(function (data) {
                 store.dispatch({ type: 'SHOPPINGCART', payload: data});
@@ -131,7 +164,15 @@
             %{
                 }
             }%
+
+            <div class="cart-float">
+                <div class="cart-float-text">
+                    <p>Товар додано в кошик</p>
+                    <i class="fa fa-check-circle"></i>
+                </div>
+            </div>
         </div>
+
         <!--<div class="load-button">-->
             <!--<a href="/products/all">-->
                 <!--<input class="button-show-all" type="button" value="show all">-->
