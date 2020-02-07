@@ -180,7 +180,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
     .add-item-price {
         display: flex;
         justify-content: center;
@@ -190,13 +189,37 @@
         color: #fff;
         margin-bottom: 0;
     }
-
     i.fa-close {
         font-size:20px
     }
-
+    .cart-float {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        max-width: 900px;
+        width: 100%;
+        background-color: #e4e9e9;
+        border-top: 5px solid #333;
+        z-index: 300;
+        transition: visibility 0s, opacity 0.5s linear;;
+    }
+    .cart-float-text {
+        display: flex;
+        align-items: baseline;
+        padding: 1rem;
+        justify-content: center;
+    }
+    .cart-float-text p {
+        font-size: 1.1rem;
+        font-weight: 300;
+        margin-bottom: 0;
+    }
+    .cart-float-text i {
+        font-size: 1.5rem;
+        padding-left: 0.5rem;
+    }
     @media screen and (min-width: 1500px) {
-        .center-container {
+        .center-container, .cart-float {
             max-width: 1300px;
         }
     }
@@ -205,46 +228,37 @@
         .center-container {
             flex-flow: column wrap;
         }
-
         .product-photo {
             display: flex;
             max-width: 100%;
             margin-right: 0;
         }
-
         .product-photo img {
             max-width: 100%;
             padding-right: 0;
             margin: 0 auto;
         }
-
         .product-info {
             width: 100%;
             padding: 0.5rem;
             margin: 1rem 0;
         }
-
         .product-info h2, .product-info p {
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         .price-buy-block {
             flex-direction: column;
         }
-
         .buy-button {
             width: 100%;
             margin: 0 auto;
         }
-
         .additions-block {
             justify-content: space-around;
         }
-
     }
-
 
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -283,11 +297,20 @@
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 </head>
 <script>
+
+  function setDelayShowCart() {
+    document.querySelector(".cart-float").style.display = 'none';
+  }
+
   function buyStart(uuid) {
     console.log("here uuid: ", uuid, additionList);
     fetch('/api/cart?uuid=' + uuid + '&additionList=' + JSON.stringify(additionList), {
       method: 'POST'
     }).then(function (response) {
+        if(response.ok) {
+            document.querySelector(".cart-float").style.display = 'block';
+            setTimeout(setDelayShowCart, 2000);
+        }
       return response.json();
     }).then(function (data) {
       store.dispatch({type: 'SHOPPINGCART', payload: data});
@@ -354,6 +377,13 @@
         %{
         }
         }%
+    </div>
+
+    <div class="cart-float">
+        <div class="cart-float-text">
+            <p>Товар додано в кошик</p>
+            <i class="fa fa-check-circle"></i>
+        </div>
     </div>
 
 </section>
