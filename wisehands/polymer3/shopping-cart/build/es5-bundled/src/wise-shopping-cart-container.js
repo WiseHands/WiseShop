@@ -25014,7 +25014,11 @@ class WiseShoppingCartContainer extends PolymerElement {
       total += this.cart.configuration.delivery.courier.deliveryPrice;
     }
 
-    return total;
+    if (this.cart.paymentType === 'CREDITCARD') {
+      total += total * this.cart.configuration.payment.creditCard.paymentComission;
+    }
+
+    return +total.toFixed(2);
   }
 
   _validateAndGeocodeAddress(event) {
