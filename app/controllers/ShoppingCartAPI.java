@@ -77,21 +77,18 @@ public class ShoppingCartAPI extends AuthController {
 
         LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop, additionOrderDTOList);
 
-        if (shoppingCart.items.size() == 0) {
-            shoppingCart.items.add(lineItem);
-        } else {
-            boolean isProductUnique = false;
-            for (LineItem lineItems : shoppingCart.items) {
-                if (productUuid.equals(lineItems.productId)) {
-                    isProductUnique = true;
-                    lineItems.quantity = lineItems.quantity + quantity;
-                    lineItems.save();
-                }
-            }
 
-            if (!isProductUnique ) {
-                shoppingCart.items.add(lineItem);
+        boolean isProductUnique = false;
+        for (LineItem lineItems : shoppingCart.items) {
+            if (productUuid.equals(lineItems.productId) && additionOrderDTOList.size() == 0) {
+                isProductUnique = true;
+                lineItems.quantity = lineItems.quantity + quantity;
+                lineItems.save();
             }
+        }
+
+        if (!isProductUnique ) {
+            shoppingCart.items.add(lineItem);
         }
 
         shoppingCart.save();
