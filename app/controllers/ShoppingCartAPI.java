@@ -76,14 +76,6 @@ public class ShoppingCartAPI extends AuthController {
 
 
         LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop, additionOrderDTOList);
-        if (shoppingCart == null) {
-            shoppingCart = new ShoppingCartDTO();
-            if(cartId != null) {
-                shoppingCart.uuid = cartId;
-            }
-            shoppingCart.shopUuid = shop.uuid;
-        }
-
 
         if (shoppingCart.items.size() == 0) {
             shoppingCart.items.add(lineItem);
