@@ -78,16 +78,23 @@ public class ShoppingCartAPI extends AuthController {
         LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop, additionOrderDTOList);
 
 
-        boolean isProductUnique = false;
-        for (LineItem lineItems : shoppingCart.items) {
-            if (productUuid.equals(lineItems.productId) && additionOrderDTOList.size() == 0) {
-                isProductUnique = true;
-                lineItems.quantity = lineItems.quantity + quantity;
-                lineItems.save();
+        boolean foundMatch = false;
+
+        //1. Find Line Item
+        for (LineItem _lineItem : shoppingCart.items) {
+            if (productUuid.equals(_lineItem.productId)) {
+                // LineItem found, next check if addition list match...
+
+
+                foundMatch = additionOrderDTOList.equals(_lineItem.additionList);
+                if(foundMatch) {
+                    _lineItem.quantity = _lineItem.quantity + quantity;
+                    _lineItem.save();
+                }
             }
         }
 
-        if (!isProductUnique ) {
+        if(!foundMatch) {
             shoppingCart.items.add(lineItem);
         }
 

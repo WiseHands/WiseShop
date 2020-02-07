@@ -10,6 +10,9 @@ public class PaymentCreditCardConfiguration {
     @Expose
     Boolean isActivePayByCash;
 
+    @Expose
+    Double paymentComission = 0.0275;
+
     public PaymentCreditCardConfiguration(String label, Boolean isActivePayByCash){
         this.label = label;
         this.isActivePayByCash = isActivePayByCash;

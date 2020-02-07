@@ -34,4 +34,13 @@ public class AdditionLineItemDTO extends GenericModel {
     @ManyToOne
     public LineItem lineItem;
 
+    @Override
+    public boolean equals(Object other) {
+        AdditionLineItemDTO toCompare = (AdditionLineItemDTO) other;
+        boolean isTitleEqual = this.title.equals(toCompare.title);
+        boolean isPriceEqual = this.price.equals(toCompare.price);
+        boolean isQuantityEqual = this.quantity.equals(toCompare.quantity);
+        boolean isImagePathEqual = this.imagePath.equals(toCompare.imagePath);
+        return isTitleEqual && isPriceEqual && isQuantityEqual && isImagePathEqual;
+    }
 }
