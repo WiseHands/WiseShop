@@ -24989,9 +24989,13 @@ class WiseShoppingCartContainer extends PolymerElement {
   _calculateTotal(cart) {
     let total = 0;
     let items = cart.items;
-    console.log(`cart.items__ ${cart.items}`);
+    let additioPrice = 0;
     items.forEach(item => {
       total += item.quantity * item.price;
+      item.additionList.forEach(addition => {
+        additioPrice += addition.price * addition.quantity;
+        total += additioPrice;
+      });
     });
 
     if (this.cart.deliveryType === 'COURIER') {
