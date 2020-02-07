@@ -100,30 +100,26 @@ public class OrderDTO extends GenericModel {
     @ManyToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-    public OrderDTO(String name, String phone, String email,
-                    String clientCity, String clientAddressStreetName, String clientAddressBuildingNumber, String clientAddressApartmentEntrance,
-                    String clientAddressApartmentEntranceCode, String clientAddressApartmentFloor, String clientAddressApartmentNumber,
-                    String amountTools, String deliveryType, String paymentType, String departmentNumber, String comment, ShopDTO shop, String destinationLat, String destinationLng, String userAgent, String ip) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.clientCity = clientCity;
-        this.clientAddressStreetName = clientAddressStreetName;
-        this.clientAddressBuildingNumber = clientAddressBuildingNumber;
-        this.clientAddressApartmentEntrance = clientAddressApartmentEntrance;
-        this.clientAddressApartmentEntranceCode = clientAddressApartmentEntranceCode;
-        this.clientAddressApartmentFloor = clientAddressApartmentFloor;
-        this.clientAddressApartmentNumber = clientAddressApartmentNumber;
-        this.amountTools = amountTools;
-        this.deliveryType = deliveryType;
-        this.paymentType = paymentType;
-        this.clientPostDepartmentNumber = departmentNumber;
+    public OrderDTO(ShoppingCartDTO cart, ShopDTO shop, String userAgent, String ip) {
+        this.name = cart.clientName;
+        this.phone = cart.clientPhone;
+        this.email = cart.clientEmail;
+        this.clientCity = cart.clientCity;
+        this.clientAddressStreetName = cart.clientAddressStreetName;
+        this.clientAddressBuildingNumber = cart.clientAddressBuildingNumber;
+        this.clientAddressApartmentEntrance = cart.clientAddressApartmentEntrance;
+        this.clientAddressApartmentEntranceCode = cart.clientAddressApartmentEntranceCode;
+        this.clientAddressApartmentFloor = cart.clientAddressApartmentFloor;
+        this.clientAddressApartmentNumber = cart.clientAddressApartmentNumber;
+        this.deliveryType = cart.deliveryType.name();
+        this.paymentType = cart.paymentType.name();
+        this.clientPostDepartmentNumber = cart.clientPostDepartmentNumber;
         this.time = System.currentTimeMillis();
         this.state = OrderState.NEW;
-        this.comment = comment;
+        this.comment = cart.clientComments;
         this.shop = shop;
-        this.clientAddressStreetLat = destinationLng;
-        this.clientAddressStreetLng = destinationLat;
+        this.clientAddressStreetLat = cart.clientAddressStreetLat;
+        this.clientAddressStreetLng = cart.clientAddressStreetLng;
         this.userAgent = userAgent;
         this.ip = ip;
     }

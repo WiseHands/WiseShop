@@ -63,7 +63,7 @@ public class ShoppingCartAPI extends AuthController {
         ShopDTO shop = _getShop(client);
 
         String stringAdditionList = request.params.get("additionList");
-        List<AdditionOrderDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop);
+        List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop);
 
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);
@@ -111,7 +111,7 @@ public class ShoppingCartAPI extends AuthController {
         return shop;
     }
 
-    private static List<AdditionOrderDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop){
+    private static List<AdditionLineItemDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop){
         if (stringAdditionList == null){
             stringAdditionList = "[]";
         }
@@ -130,10 +130,10 @@ public class ShoppingCartAPI extends AuthController {
         }
 
 
-        List<AdditionOrderDTO> additionOrderDTOList = new ArrayList<AdditionOrderDTO>();
+        List<AdditionLineItemDTO> additionOrderDTOList = new ArrayList<AdditionLineItemDTO>();
         for(JSONObject object: additionList){
             AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
-            AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
+            AdditionLineItemDTO additionOrderDTO = new AdditionLineItemDTO();
             additionOrderDTO.title = additionDTO.getTitle();
             additionOrderDTO.price = additionDTO.getPrice();
             additionOrderDTO.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);

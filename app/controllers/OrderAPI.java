@@ -35,94 +35,68 @@ public class OrderAPI extends AuthController {
     static MailSender mailSender = new MailSenderImpl();
     static LiqPayService liqPay = LiqPayServiceImpl.getInstance();
 
-    public static void create(String client) throws Exception {
+    private static ShopDTO _getShop(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        return shop;
+    }
 
+    private static void _applyLocale(ShopDTO shop) {
         String locale = "en_US";
         if(shop != null && shop.locale != null) {
             locale = shop.locale;
         }
         Lang.change(locale);
+    }
 
-        //TODO: add validation
-        String cartId = _getCartUuid(request);
-
-        ShoppingCartDTO shoppingCart = (ShoppingCartDTO) ShoppingCartDTO.find("byUuid", cartId).fetch().get(0);
-
-        String deliveryType = shoppingCart.deliveryType.name();
-        String paymentType =  shoppingCart.paymentType.name();
-        String clientName = shoppingCart.clientName;
-        String clientPhone = shoppingCart.clientPhone;
-        String clientEmail = shoppingCart.clientEmail;
-        String clientComments = shoppingCart.clientComments;
-        String clientCity = shoppingCart.clientCity;
-        String clientAddressStreetName = shoppingCart.clientAddressStreetName;
-        String clientAddressBuildingNumber = shoppingCart.clientAddressBuildingNumber;
-        String clientAddressApartmentEntrance = shoppingCart.clientAddressApartmentEntrance;
-        String clientAddressApartmentEntranceCode = shoppingCart.clientAddressApartmentEntranceCode;
-        String clientAddressApartmentFloor = shoppingCart.clientAddressApartmentFloor;
-        String clientAddressApartmentNumber = shoppingCart.clientAddressApartmentNumber;
-        String addressLat = shoppingCart.clientAddressStreetLat;
-        String addressLng = shoppingCart.clientAddressStreetLng;
-        String amountTools = "2";
-        String couponId = "001";
-        System.out.println("\n\n NEW ORDER " +shop.shopName + " \n client name" + clientName + "client address: " + clientCity + " " + clientAddressStreetName);
-        String agent = request.headers.get("user-agent").value();
-        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+    private static String _getUserIp(){
         String ip = "";
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         if (xforwardedHeader != null){
             ip = xforwardedHeader.value();
         }
-        String newPostDepartment = shoppingCart.clientPostDepartmentNumber;
+        return ip;
+    }
+
+    public static void create(String client) throws Exception {
+        ShopDTO shop = _getShop(client);
+        _applyLocale(shop);
+
+        String cartId = _getCartUuid(request);
+        ShoppingCartDTO shoppingCart = (ShoppingCartDTO) ShoppingCartDTO.find("byUuid", cartId).fetch().get(0);
+
+        String agent = request.headers.get("user-agent").value();
+        String ip = _getUserIp();
+
+        OrderDTO order = new OrderDTO(
+                shoppingCart,
+                shop,
+                agent,
+                ip);
 
         Double totalCost = (Double) Double.parseDouble("0");
 
-        OrderDTO order = new OrderDTO(
-                clientName,
-                clientPhone,
-                clientEmail,
-                clientCity,
-                clientAddressStreetName,
-                clientAddressBuildingNumber,
-                clientAddressApartmentEntrance,
-                clientAddressApartmentEntranceCode,
-                clientAddressApartmentFloor,
-                clientAddressApartmentNumber,
-                amountTools,
-                deliveryType,
-                paymentType,
-                newPostDepartment,
-                clientComments,
-                shop,
-                addressLat,
-                addressLng,
-                agent,
-                ip);
-        if(shop.orders == null){
-            shop.orders = new ArrayList<OrderDTO>();
-        }
+
         shop.orders.add(order);
         order = order.save();
         shop = shop.save();
 
+        //WORKS UP UNTIL HERE
+
         List<OrderItemDTO> orders = new ArrayList<OrderItemDTO>();
-        List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
-
         for (LineItem lineItem : shoppingCart.items) {
-
+            List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
             int quantity = lineItem.quantity;
             OrderItemDTO orderItem = new OrderItemDTO();
             ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
             orderItem.orderUuid = order.uuid;
-            for(AdditionOrderDTO addition : lineItem.additionList){
+            for(AdditionLineItemDTO addition : lineItem.additionList){
                 AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
                 additionOrderDTO.title = addition.title;
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
-                additionOrderDTO.save();
                 additionList.add(additionOrderDTO);
             }
             orderItem.additionList = additionList;
@@ -141,33 +115,9 @@ public class OrderAPI extends AuthController {
         order.items = orders;
 
         DeliveryDTO delivery = shop.delivery;
-        if (deliveryType.equals(DeliveryType.COURIER)){
+        if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)){
             if (totalCost < delivery.courierFreeDeliveryLimit){
                 totalCost = totalCost + delivery.courierPrice;
-            }
-        }
-
-        CouponId unusedCoupon = null;
-        if(couponId != null) {
-            System.out.println(CLASSSNAME + " Searching coupon by couponId " + couponId + " in CouponId table");
-            List<CouponId> coupons = CouponId.find("byCouponId", couponId).fetch();
-            for (CouponId coupon : coupons) {
-                if (coupon.used == null || coupon.used == false) {
-                    unusedCoupon = coupon;
-                    System.out.println(CLASSSNAME +" found unused coupon id:" + unusedCoupon.couponId + ", uuid:" + unusedCoupon.couponUuid);
-                    break;
-                }
-            }
-            if(unusedCoupon == null) {
-                System.out.println(CLASSSNAME + " coupon not found, is null or used");
-            } else {
-                CouponPlan couponPlan = CouponPlan.find("byCouponUuid", unusedCoupon.couponUuid).first();
-                System.out.println(CLASSSNAME + " searched for CouponPlan, by coupon uuid" + unusedCoupon.couponUuid + couponPlan);
-                System.out.println(CLASSSNAME + " select * from CouponPlan where couponUuid = '" + unusedCoupon.couponUuid + "';");
-                if(totalCost > couponPlan.minimalOrderTotal) {
-                    totalCost = totalCost - totalCost * couponPlan.percentDiscount/100;
-                    order.couponId = unusedCoupon.couponId;
-                }
             }
         }
 
@@ -193,12 +143,6 @@ public class OrderAPI extends AuthController {
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
 
-
-        if(unusedCoupon != null) {
-            unusedCoupon.used = true;
-            unusedCoupon = unusedCoupon.save();
-            System.out.println(CLASSSNAME + "  marked as used CouponId: " + unusedCoupon.couponId);
-        }
         clearShoppingCart(shoppingCart);
         JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
@@ -209,7 +153,7 @@ public class OrderAPI extends AuthController {
         }
 
         JSONObject json = new JSONObject();
-        if(paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name())) {
+        if(shoppingCart.paymentType.name().equals(ShoppingCartDTO.PaymentType.CREDITCARD.name())) {
             try {
                 String payButton = liqPay.payButton(order, shop);
 

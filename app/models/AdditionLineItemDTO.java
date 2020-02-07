@@ -1,6 +1,7 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import json.shoppingcart.LineItem;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class AdditionOrderDTO extends GenericModel {
+public class AdditionLineItemDTO extends GenericModel {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -31,7 +32,6 @@ public class AdditionOrderDTO extends GenericModel {
     public String imagePath;
 
     @ManyToOne
-    public OrderItemDTO orderItemDTO;
-
+    public LineItem lineItem;
 
 }
