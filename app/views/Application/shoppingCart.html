@@ -40,8 +40,25 @@
 #{/if}
 
 <script>
+    let shoppingCartState = {};
+    store.subscribe(() => {
+        shoppingCartState = store.getState();
+    });
+
+
     document.addEventListener('start-shopping', function (e) {
         window.location = '/';
+    });
+    document.addEventListener('open-product', function (e) {
+        console.log(shoppingCartState.items);
+        let path = '';
+        shoppingCartState.items.forEach(item =>{
+            if (item.uuid === e.detail){
+                path = item.productId;
+            }
+        });
+        window.location = '/product/' + path;
+
     });
     document.addEventListener('shopping-cart-api-response', function (e) {
         store.dispatch({ type: 'SHOPPINGCART', payload: e.detail});
