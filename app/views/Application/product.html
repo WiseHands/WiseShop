@@ -89,7 +89,10 @@
         justify-content: space-between;
         margin-bottom: 0.5rem;
     }
-
+    .add-components-main a {
+        color: inherit;
+        
+    }
     .add-components i {
         padding: 1rem;
     }
@@ -154,7 +157,9 @@
         justify-content: center;
         margin-top: 1rem;
     }
-
+    .additions h3 {
+        padding-left: 1rem;
+    }
     .additions-block {
         display: flex;
         flex-flow: row wrap;
@@ -337,10 +342,12 @@
         <p class="text-justify">${product.description}</p>
         <div class="add-components">
             <div class="add-components-main">
-                <div class="add-button">
-                    <i class="fa fa-plus-square" style="font-size:24px"></i>
-                    <p>Додатки</p>
-                </div>
+                <a href="#additions">
+                    <div class="add-button">
+                        <i class="fa fa-plus-square" style="font-size:24px"></i>
+                        <p>Додатки</p>
+                    </div>
+                </a>
                 <div class="add-price">
                     <p>вартість додатків:</p>
                     <span class="additions-total-price"></span>
@@ -359,7 +366,7 @@
 
 #{if product.additions}
 <section class="additions center-container">
-    <h3>Додатки</h3>
+    <h3 id="additions">Додатки</h3>
 
     <div class="additions-block">
         %{

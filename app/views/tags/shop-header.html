@@ -147,7 +147,11 @@
     </div>
 </header>
 <script>
-
+    document.getElementById("mobile-menu").addEventListener("click", showMenu);
+    function showMenu() {
+        document.querySelector("#overlay-mobile").style.display = 'block';
+        document.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
+    }
     store.subscribe(() => {
         let shoppingCartState = store.getState();
         console.log("shoppingCartState from shop-header: ", store.getState());
