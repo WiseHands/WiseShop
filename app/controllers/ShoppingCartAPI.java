@@ -75,23 +75,13 @@ public class ShoppingCartAPI extends AuthController {
         JSONArray jsonAdditionList = (JSONArray) parser.parse(stringAdditionList);
 
         List<JSONObject> additionList = new ArrayList<JSONObject>();
-        List<AdditionOrderDTO> additionOrderDTOList = new ArrayList<AdditionOrderDTO>();
-
         for (int i=0; i<jsonAdditionList.size(); i++) {
         JSONObject additionObject = (JSONObject) jsonAdditionList.get(i);
             additionList.add(additionObject);
         }
 
-        for(JSONObject object: additionList){
-            AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
-            AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
-            additionOrderDTO.title = additionDTO.getTitle();
-            additionOrderDTO.price = additionDTO.getPrice();
-            additionOrderDTO.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
-            additionOrderDTO.quantity = (Long) object.get("quantity");
-            additionOrderDTO.save();
-            additionOrderDTOList.add(additionOrderDTO);
-        }
+
+        List<AdditionOrderDTO> additionOrderDTOList = _createAdditionListOrderDTO(additionList, shop);
 
         System.out.println("productId " + productUuid + "\n" + additionList);
         ProductDTO product = ProductDTO.findById(productUuid);
@@ -122,20 +112,35 @@ public class ShoppingCartAPI extends AuthController {
         } else {
             boolean isProductUnique = false;
             for (LineItem lineItems : shoppingCart.items) {
-                if (productUuid.equals(lineItems.productId)) {
+                if (productUuid.equals(lineItems.productId) && additionList.size() == 0) {
                     isProductUnique = true;
                     lineItems.quantity = lineItems.quantity + quantity;
                     lineItems.save();
                 }
             }
 
-            if (!isProductUnique) {
+            if (!isProductUnique && additionList.size() > 0) {
                 shoppingCart.items.add(lineItem);
             }
         }
 
         shoppingCart.save();
         renderJSON(json(shoppingCart));
+    }
+
+    private static List<AdditionOrderDTO> _createAdditionListOrderDTO(List<JSONObject> additionList, ShopDTO shop){
+        List<AdditionOrderDTO> additionOrderDTOList = new ArrayList<AdditionOrderDTO>();
+        for(JSONObject object: additionList){
+            AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
+            AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
+            additionOrderDTO.title = additionDTO.getTitle();
+            additionOrderDTO.price = additionDTO.getPrice();
+            additionOrderDTO.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
+            additionOrderDTO.quantity = (Long) object.get("quantity");
+            additionOrderDTO.save();
+            additionOrderDTOList.add(additionOrderDTO);
+        }
+        return additionOrderDTOList;
     }
 
     private static String _getWholePath(String imagePath, ShopDTO shop) {
