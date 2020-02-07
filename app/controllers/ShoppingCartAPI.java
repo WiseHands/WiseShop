@@ -60,40 +60,18 @@ public class ShoppingCartAPI extends AuthController {
     }
 
     public static void addProduct(String client) throws ParseException {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null){
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
+        ShopDTO shop = _getShop(client);
+
+        String stringAdditionList = request.params.get("additionList");
+        List<AdditionOrderDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop);
 
         String productUuid = request.params.get("uuid");
-        String stringAdditionList = request.params.get("additionList");
-        System.out.println("stringAdditionList" + stringAdditionList);
-        if (stringAdditionList == null){
-            stringAdditionList = "[]";
-        }
-        JSONParser parser = new JSONParser();
-        JSONArray jsonAdditionList = (JSONArray) parser.parse(stringAdditionList);
-
-        List<JSONObject> additionList = new ArrayList<JSONObject>();
-        for (int i=0; i<jsonAdditionList.size(); i++) {
-        JSONObject additionObject = (JSONObject) jsonAdditionList.get(i);
-            additionList.add(additionObject);
-        }
-
-
-        List<AdditionOrderDTO> additionOrderDTOList = _createAdditionListOrderDTO(additionList, shop);
-
-        System.out.println("productId " + productUuid + "\n" + additionList);
         ProductDTO product = ProductDTO.findById(productUuid);
 
-        int quantity = 1;
         String quantityParam = request.params.get("quantity");
-        if (quantityParam != null) {
-            quantity = Integer.parseInt(quantityParam);
-        }
+        int quantity = _getProductQuantity(quantityParam);
 
         String cartId = _getCartUuid(request);
-
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
 
@@ -112,14 +90,14 @@ public class ShoppingCartAPI extends AuthController {
         } else {
             boolean isProductUnique = false;
             for (LineItem lineItems : shoppingCart.items) {
-                if (productUuid.equals(lineItems.productId) && additionList.size() == 0) {
+                if (productUuid.equals(lineItems.productId)) {
                     isProductUnique = true;
                     lineItems.quantity = lineItems.quantity + quantity;
                     lineItems.save();
                 }
             }
 
-            if (!isProductUnique && additionList.size() > 0) {
+            if (!isProductUnique ) {
                 shoppingCart.items.add(lineItem);
             }
         }
@@ -128,7 +106,41 @@ public class ShoppingCartAPI extends AuthController {
         renderJSON(json(shoppingCart));
     }
 
-    private static List<AdditionOrderDTO> _createAdditionListOrderDTO(List<JSONObject> additionList, ShopDTO shop){
+    private static int _getProductQuantity(String quantityParam) {
+        int quantity = 1;
+        if (quantityParam != null) {
+            quantity = Integer.parseInt(quantityParam);
+        }
+        return quantity;
+    }
+
+    private static ShopDTO _getShop(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        return shop;
+    }
+
+    private static List<AdditionOrderDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop){
+        if (stringAdditionList == null){
+            stringAdditionList = "[]";
+        }
+        JSONParser parser = new JSONParser();
+        JSONArray jsonAdditionList = null;
+        try {
+            jsonAdditionList = (JSONArray) parser.parse(stringAdditionList);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        List<JSONObject> additionList = new ArrayList<JSONObject>();
+        for (int i=0; i<jsonAdditionList.size(); i++) {
+            JSONObject additionObject = (JSONObject) jsonAdditionList.get(i);
+            additionList.add(additionObject);
+        }
+
+
         List<AdditionOrderDTO> additionOrderDTOList = new ArrayList<AdditionOrderDTO>();
         for(JSONObject object: additionList){
             AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
@@ -193,7 +205,7 @@ public class ShoppingCartAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         String lineItemUuid = request.params.get("uuid");
-        String cartId = request.params.get("cartId");
+        String cartId = _getCartUuid(request);
 
         LineItem lineItem = LineItem.findById(lineItemUuid);
         lineItem.quantity += 1;
@@ -211,7 +223,7 @@ public class ShoppingCartAPI extends AuthController {
         }
 
         String lineItemUuid = request.params.get("uuid");
-        String cartId = request.params.get("cartId");
+        String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
 
