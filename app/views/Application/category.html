@@ -1,6 +1,38 @@
 
 #{set shop:shop /}
 #{set pageList:pageList /}
+<style>
+    .cart-float {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        max-width: 900px;
+        width: 100%;
+        background-color: #e4e9e9;
+        border-top: 5px solid #333;
+        z-index: 300;
+        transition: visibility 0s, opacity 0.5s linear;;
+    }
+    .cart-float-text {
+        display: flex;
+        align-items: baseline;
+        padding: 1rem;
+        justify-content: center;
+    }
+    .cart-float-text p {
+        font-size: 1.1rem;
+        font-weight: 300;
+        margin-bottom: 0;
+    }
+    .cart-float-text i {
+        font-size: 1.5rem;
+        padding-left: 0.5rem;
+    }
+    @media screen and (min-width: 1500px) {
+        .center-container, .cart-float {
+            max-width: 1300px;
+        }
+</style>
 <!DOCTYPE html>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -33,7 +65,29 @@
     <link rel='shortcut icon' href='/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
 
     <base href="/">
+
+
 </head>
+<script>
+    function setDelayShowCart() {
+        document.querySelector(".cart-float").style.display = 'none';
+    }
+    function buyStart(uuid) {
+
+        fetch('/api/cart?uuid=' + uuid, {
+            method: 'POST'
+        }).then(function (response) {
+            if(response.ok) {
+                document.querySelector(".cart-float").style.display = 'block';
+                setTimeout(setDelayShowCart, 2000);
+            }
+            return response.json();
+        }).then(function (data) {
+            store.dispatch({ type: 'SHOPPINGCART', payload: data});
+        });
+
+    }
+</script>
 <body>
     #{setup-redux /}
     #{get-cart /}
@@ -65,7 +119,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <span class="left">${_product.price} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.oldPrice}</span></span>
-                                        <span class="right" ng-click="buyStart(productDTO, $event)"><a data-toggle="tooltip" data-placement="top" title="{{'shopView.addToCart' | translate}}"><i class="fa fa-shopping-cart"></i></a></span>
+                                        <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top" title="{{'shopView.addToCart' | translate}}"><i class="fa fa-shopping-cart"></i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +129,12 @@
             }%
         #{/verbatim}
 
-
+        <div class="cart-float">
+            <div class="cart-float-text">
+                <p>Товар додано в кошик</p>
+                <i class="fa fa-check-circle"></i>
+            </div>
+        </div>
 
     </div>
 

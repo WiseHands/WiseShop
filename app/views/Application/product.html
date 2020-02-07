@@ -361,7 +361,12 @@
             <button class="buy-button" onClick="buyStart('${product.uuid}')">Купити</button>
         </div>
     </div>
-
+    <div class="cart-float">
+        <div class="cart-float-text">
+            <p>Товар додано в кошик</p>
+            <i class="fa fa-check-circle"></i>
+        </div>
+    </div>
 </main>
 
 #{if product.additions}
@@ -386,17 +391,9 @@
         }%
     </div>
 
-    <div class="cart-float">
-        <div class="cart-float-text">
-            <p>Товар додано в кошик</p>
-            <i class="fa fa-check-circle"></i>
-        </div>
-    </div>
+
 
 </section>
-#{/if}
-#{if shop.visualSettingsDTO.isFooterOn}
-#{footer-shop /}
 #{/if}
 #{/verbatim}
 </body>
