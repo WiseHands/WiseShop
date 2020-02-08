@@ -13,6 +13,7 @@
 }
 .widesize-container {
     flex-wrap: wrap;
+    width: 100%;
 }
 .flex-row{
     display: flex;
