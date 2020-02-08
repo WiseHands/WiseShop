@@ -265,6 +265,10 @@
         }
     }
 
+    .addition-header {
+        text-align: center;
+    }
+
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -340,26 +344,54 @@
         </ul>
         <h2>${product.name}</h2>
         <p class="text-justify">${product.description}</p>
-        <div class="add-components">
-            <div class="add-components-main">
-                <a href="#additions">
-                    <div class="add-button">
-                        <i class="fa fa-plus-square" style="font-size:24px"></i>
-                        <p>Додатки</p>
+        #{if product.additions}
+            <div class="add-components">
+                <div class="add-components-main">
+                    <a href="#additions">
+                        <div class="add-button">
+                            <i class="fa fa-plus-square" style="font-size:24px"></i>
+                            <p>Додатки</p>
+                        </div>
+                    </a>
+                    <div class="add-price">
+                        <p>вартість додатків:</p>
+                        <span class="additions-total-price"></span>
                     </div>
-                </a>
-                <div class="add-price">
-                    <p>вартість додатків:</p>
-                    <span class="additions-total-price"></span>
+                </div>
+                <div class="add-items">
                 </div>
             </div>
-            <div class="add-items">
-            </div>
-        </div>
+        #{/if}
         <div class="price-buy-block">
             <span class="product-price" price="${product.price}"><span class="total-span"></span></span>
             <button class="buy-button" onClick="buyStart('${product.uuid}')">Купити</button>
         </div>
+        #{if product.additions}
+        <section class="additions">
+            <h3 id="additions" class="addition-header">Додатки</h3>
+
+            <div class="additions-block">
+                %{
+                for(_addition in product.additions) {
+                }%
+                <div class="add-item" onclick="_addItem({
+                    title: '${_addition.title}',
+                    uuid: '${_addition.uuid}',
+                    price: '${_addition.price}'
+                })">
+                    <img src="${_addition.imagePath}">
+                    <p id="add-item-title">${_addition.title}</p>
+                    <p class="add-item-price">${_addition.price}</p>
+                </div>
+                %{
+                }
+                }%
+            </div>
+
+
+
+        </section>
+        #{/if}
     </div>
     <div class="cart-float">
         <div class="cart-float-text">
@@ -369,32 +401,6 @@
     </div>
 </main>
 
-#{if product.additions}
-<section class="additions center-container">
-    <h3 id="additions">Додатки</h3>
-
-    <div class="additions-block">
-        %{
-        for(_addition in product.additions) {
-        }%
-        <div class="add-item" onclick="_addItem({
-                    title: '${_addition.title}',
-                    uuid: '${_addition.uuid}',
-                    price: '${_addition.price}'
-                })">
-            <img src="${_addition.imagePath}">
-            <p id="add-item-title">${_addition.title}</p>
-            <p class="add-item-price">${_addition.price}</p>
-        </div>
-        %{
-        }
-        }%
-    </div>
-
-
-
-</section>
-#{/if}
 #{/verbatim}
 </body>
 </html>
@@ -476,6 +482,7 @@
   }
 
   function _setAdditionsTotalPrice() {
+    if(!additionsTotalPriceContainer) return;
     let additionsTotalPrice = 0;
     const selectedAdditions = document.querySelectorAll('.add-items-title');
     selectedAdditions.forEach(addition => {
