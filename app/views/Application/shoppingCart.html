@@ -11,6 +11,9 @@
             max-width: 1300px;
         }
     }
+    .form-container {
+        display: none;
+    }
 </style>
 <!DOCTYPE html>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
@@ -40,7 +43,7 @@
 #{verbatim}
     <wise-shopping-cart-container currency-label="UAH"></wise-shopping-cart-container>
 #{/verbatim}
-
+    <div class="form-container"></div>
 
 <script>
     let shoppingCartState = {};
@@ -70,6 +73,20 @@
         store.dispatch({ type: 'SHOPPINGCART', payload: e.detail});
         console.log("SHOPPINGCART", e.detail);
     });
+
+    document.addEventListener('order-created', function (e) {
+        console.log('order-created', e);
+        if(e.detail && e.detail.button) {
+            const container = document.createElement('div');
+            container.innerHTML = '<form method="post" action="https://www.liqpay.com/api/checkout" accept-charset="utf-8">↵<input type="hidden" name="data" value="eyJhY3Rpb24iOiJwYXkiLCJhbW91bnQiOjk2NS4wLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoiTmV3IE9yZGVyIiwib3JkZXJfaWQiOiI0MDI4ODFjZTcwMjA0NzM5MDE3MDI1Mzg0ZjExMDA5MCIsInB1YmxpY19rZXkiOiJpNDkwNTEzNTYyNDQiLCJ2ZXJzaW9uIjoiMyJ9" />↵<input type="hidden" name="signature" value="Q2Tj6o24v/llBQfM2YznpnGGcgE=" />↵<input type="image" src="//static.liqpay.com/buttons/p1ru.radius.png" name="btn_text" /></form>';
+            const form = container.querySelector('form');
+            document.querySelector('.form-container').append(form);
+            form.submit();
+        }
+    });
+
+
+form.submit()
 </script>
 
 </html>
