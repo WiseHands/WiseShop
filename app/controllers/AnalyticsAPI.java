@@ -51,9 +51,9 @@ public class AnalyticsAPI extends AuthController {
         List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, days);
         json.put("popularProducts", popularProductsList);
 
-        BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCash(shop, days);
+        BigInteger paidByCash = PaymentTypeService.getNumberOfPaymentsByCash(shop, days);
 
-        BigInteger paidByCash = PaymentTypeService.getNumberOfPaymentsByCard(shop, days);
+        BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCard(shop, days);
 
         JSONObject paymentCountByType = new JSONObject();
         paymentCountByType.put("paidByCard", paidByCard);

@@ -4,7 +4,7 @@ angular.module('WiseHands')
             $scope.loading = true;
             $http({
                 method: 'GET',
-                url: '/product/' + $routeParams.uuid
+                url: '/api/product/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {
                     $scope.loading = false;
@@ -36,7 +36,7 @@ angular.module('WiseHands')
                 $scope.modalSpinner = true;
                 $http({
                     method: 'DELETE',
-                    url: '/product/' + $routeParams.uuid,
+                    url: '/api/product/' + $routeParams.uuid,
                 })
                     .then(function successCallback(response) {
                         $scope.modalSpinner = false;

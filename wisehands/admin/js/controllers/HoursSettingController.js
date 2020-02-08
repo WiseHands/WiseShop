@@ -46,6 +46,7 @@ angular.module('WiseHands')
                     data: $scope.workDay
                 })
                     .success(function (response) {
+                        showInfoMsg("SAVED");
                         $scope.workDay = response;
 
                         $scope.workDay.monStartTime = new Date ($scope.workDay.monStartTime);
@@ -72,6 +73,7 @@ angular.module('WiseHands')
                         $scope.loading = false;
                     }).
                 error(function (response) {
+                    showWarningMsg("ERROR");
                     $scope.loading = false;
                     console.log(response);
                 });
@@ -81,4 +83,21 @@ angular.module('WiseHands')
 
 
             sideNavInit.sideNav();
-        }]);
+}]);
+function showWarningMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-center",
+        "preventDuplicates": true
+    };
+    toastr.warning(msg);
+}
+
+function showInfoMsg(msg) {
+    toastr.clear();
+    toastr.options = {
+        "positionClass": "toast-bottom-center",
+        "preventDuplicates": true
+    };
+    toastr.info(msg);
+}

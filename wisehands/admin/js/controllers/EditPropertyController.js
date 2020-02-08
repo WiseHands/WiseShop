@@ -10,10 +10,13 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/property/' + $scope.propertyUuid,
+            url: '/addition/' + $scope.propertyUuid,
         })
             .then(function successCallback(response) {
+
+                console.log("$scope.property = response.data;", response.data);
                 $scope.property = response.data;
+                // $scope.filepath = response.data.imagePath;
                 $scope.loading = false;
 
             }, function errorCallback(response) {
@@ -21,18 +24,43 @@ angular.module('WiseHands')
                 $scope.status = 'Щось пішло не так...';
             });
 
-        $scope.deletePropertyOption = function (index) {
-            $scope.property.tags.splice(index, 1);
+        $scope.uploadNewProductImage = function () {
+            $('#imageLoader').click();
+
         };
+
+        fileSelected = function () {
+            const photo = document.getElementById("imageLoader").files[0];
+            sendPhoto(photo);
+            console.log("document.getElementById(imageLoader).files[0]", photo);
+        };
+
+        function sendPhoto(photoUrl){
+            let photoFd = new FormData();
+            photoFd.append('logo', photoUrl);
+            $http.post('/upload-file', photoFd, {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined,
+                }
+            })
+                .success(function(response){
+                    $scope.loading = false;
+                    $scope.property.imagePath = response.filepath;
+
+                    //update Addition imagePath with $scope.filepath
+                })
+                .error(function(response){
+                    $scope.loading = false;
+                    console.log(response);
+                });
+        }
 
         $scope.updateProperty = function () {
             $scope.loading = true;
-            $scope.property.tags = $scope.property.tags.filter(function(tag){
-                return !!tag.value;
-            });
             $http({
                 method: 'PUT',
-                url: '/property/' + $scope.propertyUuid,
+                url: '/addition/' + $scope.propertyUuid,
                 data: $scope.property
             })
                 .then(function successCallback(response) {
@@ -95,7 +123,7 @@ angular.module('WiseHands')
             $scope.modalSpinner = true;
             $http({
                 method: 'DELETE',
-                url: '/property/' + $scope.property.uuid,
+                url: '/addition/' + $scope.property.uuid,
 
             })
                 .then(function successCallback(response) {

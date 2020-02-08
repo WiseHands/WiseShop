@@ -67,6 +67,10 @@ public class ProductDTO extends GenericModel {
     @OneToMany(orphanRemoval = true)
     public List<ProductImage> images;
 
+    @Expose
+    @OneToMany
+    public List<AdditionDTO> additions;
+
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, Integer wholesaleCount, Double wholesalePrice) {
         this(name, description, price, images, shop, null, wholesaleCount, wholesalePrice);
     }
@@ -87,5 +91,15 @@ public class ProductDTO extends GenericModel {
         }
         this.wholesaleCount = wholesaleCount;
         this.wholesalePrice = wholesalePrice;
+    }
+
+    public String formatDecimal() {
+        Double number = this.price;
+        float epsilon = 0.004f; // 4 tenths of a cent
+        if (Math.abs(Math.round(number) - number) < epsilon) {
+            return String.format("%10.0f", number); // sdb
+        } else {
+            return String.format("%10.2f", number); // dj_segfault
+        }
     }
 }

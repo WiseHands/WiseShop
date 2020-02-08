@@ -92,7 +92,6 @@ public class ProductImageAPI extends AuthController {
             error("error deleting file: " + USERIMAGESPATH + product.fileName);
         }
 
-
         List<Upload> photos = (List<Upload>) request.args.get("__UPLOADS");
 
         List<ProductImage> images = new ArrayList<ProductImage>();

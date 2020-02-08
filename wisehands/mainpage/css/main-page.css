@@ -1,0 +1,879 @@
+body, p, h1, h2, h3, h4, h5, h6, i {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    overflow-x: hidden;
+}
+body a {
+    text-decoration: none;
+    color: inherit;
+}
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+canvas {
+    display: block;
+    vertical-align: bottom;
+}
+header {
+    background-color: rgb(14, 41, 53);
+    height: 62px;
+}
+.main-container {
+    max-width: 1200px;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 0 0.8rem;
+}
+.header-block {
+    position: relative;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0.5rem;
+    color: #fff;
+}
+.header-logo, .header-links {
+    display: flex;
+    align-items: center;
+}
+.header-logo img {
+    width: 60px;
+    padding-right: 1rem;
+}
+.header-logo p {
+    font-size: 2rem;
+}
+.header-links {
+    width: 350px;
+    justify-content: space-between;
+}
+.header-links a {
+    text-decoration: none;
+    color: #fff;
+}
+.header-links p:hover {
+    color: lightseagreen;
+}
+.header-links p {
+    font-size: 1.3rem;
+    padding: 0.6rem;
+    cursor: pointer;
+}
+.burger-menu {
+    display: none;
+    position: relative;
+    top: 10px;
+    right: 10px;
+}
+
+#overlay-mobile {
+    display: none;
+    background-color: rgba(0,0,0,0);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 100;
+    padding: 0;
+    margin: 0;
+}
+.sidebar-mobile {
+    width: 80%;
+    height: 100%;
+    background-color: rgba(255,255,255,1);
+    opacity: 1;
+    animation: sidebarmove 0.3s linear;
+    position: fixed;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+
+}
+@keyframes sidebarmove {
+    from {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+.sibebar-swipe-off {
+    width: 0%;
+    height: 100%;
+    background-color: rgba(255,255,255,1);
+    opacity: 1;
+    transition-delay: 0.3s;
+    animation: sidebarswipeoff 0.3s linear;
+}
+@keyframes sidebarswipeoff {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        visibility: hidden;
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    height: 58px;
+    padding: 0.5rem;
+}
+.sidebar-logo img {
+    width: 36px;
+    height: 36px;
+    padding-right: 0.7rem;
+}
+.sidebar-logo p {
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+.sidebar-panel {
+    display: flex;
+    flex-direction: column;
+    line-height: 2;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+.sidebar-panel a {
+    cursor: pointer;
+    color: #262626;
+    line-height: 2.5;
+}
+.sidebar-panel p {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+}
+
+.main-page {
+    background-color: rgb(14, 41, 53);
+    height: calc(100vh - 62px);
+}
+.slogan {
+    color: #fff;
+    text-align: center;
+    padding-top: 30vh ;
+    position: relative;
+}
+.slogan h1 {
+    font-size: 2.4rem;
+    text-transform: uppercase;
+}
+.slogan p {
+    font-size: 2rem;
+    font-family: 'Akkurat', sans-serif;
+    padding: 1rem 0;
+}
+.slogan button {
+    padding: 0.5rem;
+    border: 2px solid #fff;
+    background: none;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 1rem auto;
+    z-index: 555;
+    font-size: 1.7rem;
+}
+.slogan button:hover {
+    border: 2px solid #fff;
+    background-color: #fff;
+    color: #0e2935;
+    cursor: pointer;
+}
+.fe-services-block, .be-services-block, .mob-services-block, .projects-container, .team-container, .contact-container, .donate-container  {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
+.fe-services {
+    height: 100vh;
+    background: url("../images/85-original.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.be-services {
+    height: 100vh;
+    background: url("../images/87-original.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.mob-services {
+    height: 100vh;
+    background: url("../images/88-original.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.services-h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 4rem;
+}
+.services-p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+.fe-text, .mob-text {
+    text-align: left;
+    padding-top: 25vh;
+}
+.be-text {
+    text-align: right;
+    padding-top: 25vh;
+}
+.fe-text h2, .fe-text p {
+    color: #fff;
+}
+.services-img img {
+    width: 100px;
+    padding: 1rem 1rem 0 0;
+    filter: grayscale(100%);
+    transition: 0.5s;
+}
+.services-img img:hover {
+    filter: grayscale(0);
+}
+.be-text h2, .be-text p {
+    color: #63533a;
+}
+.mob-text h2, .mob-text p {
+    color: #75558d;
+}
+.double-arrow {
+    height: 105px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+.double-arrow i:hover {
+    cursor: pointer;
+    text-shadow: 0 0 5px #fff ;
+}
+
+.projects {
+    height: 100vh;
+    background: url("../images/86-original.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.projects-container h2 {
+    color: #aa6d63;
+    text-align: center;
+    padding: 1rem 0 ;
+}
+
+.all-projects, .all-team, .all-donate {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.project-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-basis: 31%;
+    background-color: #fff;
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    border-radius: 15px;
+    transition: 0.5s ease;
+}
+.project-card:hover {
+    transform: scale(1.1);
+}
+.project-screen {
+    display: flex;
+}
+.project-screen img, .project-review h4  {
+    margin: 0 auto;
+    padding-bottom: 1rem  ;
+}
+.project-screen img {
+    height: 170px;
+}
+.project-footgo img, .project-book img {
+    width: 170px;
+}
+.project-review {
+    display: flex;
+    flex-flow: column wrap;
+    width: 95%;
+    margin: 0 auto;
+}
+.project-review-author {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.3rem;
+}
+.project-review-author img {
+    width: 72px;
+    border-radius: 50%;
+    margin-right: 7px;
+}
+.project-author-about {
+    width: 100%;
+}
+.project-author-text {
+    height: 150px;
+    padding-top: 1rem;
+    line-height: 1.3;
+}
+.project-link {
+    display: flex;
+    justify-content: space-around;
+    width: 95%;
+    margin: 1rem auto 0 auto;
+    padding: 1rem 0;
+}
+.project-link img, .card-github img {
+    width: 36px;
+    cursor: pointer;
+}
+.project-link button, .project-feedback button {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    text-transform: uppercase;
+    padding: 0 1rem;
+    cursor: pointer;
+}
+.project-link button:hover, .project-feedback button:hover {
+    background-color: #000;
+    color: #fff;
+}
+.project-feedback {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    border-radius: 15px;
+}
+.project-feedback p {
+    font-size: 2rem;
+    padding-right: 3rem;
+}
+
+.team {
+    height: 100vh;
+    background: url("../images/230-original.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.team-container h2 {
+    color: #01dc34;
+    text-align: center;
+    padding:  1rem 0 ;
+}
+.team-card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    transition: 0.5s ease;
+    margin: 1rem 4rem;
+    border-radius: 7px;
+}
+.card-front {
+    width: 230px;
+    height: 270px;
+    transition: 0.5s ease-in-out;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.card-front:hover {
+    transform: rotateY(-180deg);
+}
+.team-1 {
+    background: url("../images/bodya.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.team-1:hover {
+    background-position: center;
+    background-size: cover;
+}
+.team-2 {
+    background: url("../images/reverie.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.team-2:hover {
+    background-position: center;
+    background-size: cover;
+}
+.team-3 {
+    background: url("../images/petrovych.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.team-3:hover {
+    background-position: center;
+    background-size: cover;
+}
+.team-4 {
+    background: url("../images/taras.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.team-4:hover {
+    background-position: center;
+    background-size: cover;
+}
+
+.team-5 {
+    background: url("../images/tony.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.team-5:hover {
+    background-position: center;
+    background-size: cover;
+}
+
+.card-about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+.card-about h4 {
+    font-weight: 400;
+    padding: 0.5rem 0;
+}
+.card-about p {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding-bottom: 0.5rem;
+}
+.card-text {
+    padding-left: 0.5rem;
+}
+.card-github {
+    padding-right: 0.5rem;
+}
+
+.donate {
+    height: 100vh;
+    background: url("../images/142-original.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.donate-container h2 {
+    text-align: center;
+    margin: 2rem 0;
+    color: #16544b; /*110e8b*/
+}
+.donate-title {
+    display: flex;
+    flex-flow: column wrap;
+}
+.donate-title p {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.3rem;
+    background-color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+.donate-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    margin: 1rem 2rem;
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    transition: 0.5s ease;
+    border-radius: 15px;
+}
+.donate-front {
+    width: 250px;
+    height: 250px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.gif-1 {
+    background: url("../images/1.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.gif-1:hover {
+    background: url("../images/1.gif");
+    background-position: center;
+    background-size: cover;
+}
+.gif-2 {
+    background: url("../images/2.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.gif-2:hover {
+    background: url("../images/2.gif");
+    background-position: center;
+    background-size: cover;
+}
+.gif-3 {
+    background: url("../images/3.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.gif-3:hover {
+    background: url("../images/3.gif");
+    background-position: center;
+    background-size: cover;
+}
+.donate-info {
+    text-align: center;
+}
+.donate-price {
+    padding: 1rem 0;
+}
+.donate-price h3 {
+    font-size: 2rem;
+}
+.donate-price p {
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+.donate-card button {
+    width: 70%;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    text-transform: uppercase;
+    padding: 0.5rem 0;
+    margin: 1rem;
+    cursor: pointer;
+}
+.donate-card button:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.contact-form {
+    height: 100vh;
+    background: url("../images/map.jpg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+.contact-container h2 {
+    color: #333;
+    text-align: center;
+    padding: 1rem 0 ;
+}
+.contact-card {
+    width: 600px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    position: absolute;
+    top: 15vh;
+    right: 10vw;
+}
+.contact-card-text {
+    width: 90%;
+    margin: 0 auto;
+}
+.contact-card-text p {
+    padding: 1rem 0;
+}
+.contact-card-text h5 {
+    font-weight: 400;
+    font-size: 1.7rem;
+    padding: 1.5rem 0;
+}
+.contact-card-text input[type=text], input[type=email] {
+    width: 100%;
+    margin: 1rem auto;
+    border: none;
+    line-height: 2;
+    border-bottom: 1px solid #030303;
+}
+.contact-card-text input:focus {
+    outline: none;
+}
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 1rem;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+.contact-card-text button {
+    width: 70%;
+    background-color: #fff;
+    color: #000;
+    font-size: 1.5rem;
+    border: 2px solid #000;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.contact-card-text button:hover {
+    background-color: #000;
+    color: #fff;
+}
+.message-button {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 0;
+}
+
+footer {
+    background-color: #000;
+    color: #fff;
+}
+.footer-block {
+    font-size: 0.8rem;
+    border-top: 2px solid #212121;
+}
+.footer-block, .footer-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+.footer-text {
+    align-items: baseline;
+}
+.footer-text p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #b1b1b1;
+}
+footer h3 {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    padding: 10px 0 30px 0;
+}
+.footer-payment, .footer-delivery, .footer-return, .footer-contact {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 23%;
+}
+.small-text {
+    padding-bottom: 0.5rem;
+}
+.small-text p {
+    font-size: 0.4rem;
+    color: #222;
+}
+.footer-links {
+    display: flex;
+}
+.footer-links p {
+    padding-right: 20px;
+}
+.footer-copyright {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+.footer-copyright a {
+    display: flex;
+    align-items: center;
+}
+.footer-copyright img {
+    width: 36px;
+    padding-left: 10px;
+}
+
+@media screen and (max-width: 1100px) {
+    .team-container, .donate-container, .projects-container, .projects,
+    .team, .donate {
+        height: 100%;
+    }
+    .slogan {
+        padding-top: 20vh;
+    }
+    .fe-text, .mob-text {
+        text-align: left;
+        padding-top: 15vh;
+    }
+    .be-text {
+        text-align: right;
+        padding-top: 15vh;
+    }
+    .project-card {
+        flex-basis: 45%;
+        margin: 1rem 0;
+    }
+    .footer-text, .footer-block {
+        width: 95%;
+        margin: 0 auto;
+        flex-wrap: wrap;
+    }
+    footer h3 {
+        padding: 10px 0;
+    }
+    .footer-frontend, .footer-backend, .footer-devops, .footer-mobile {
+        flex-basis: 50%;
+        padding-bottom: 10px;
+    }
+}
+@media screen and (max-width: 767px)  {
+    @media only screen and (max-width : 768px) {
+        .animated {
+            /*CSS transitions*/
+            -o-transition-property: none !important;
+            -moz-transition-property: none !important;
+            -ms-transition-property: none !important;
+            -webkit-transition-property: none !important;
+            transition-property: none !important;
+            /*CSS transforms*/
+            -o-transform: none !important;
+            -moz-transform: none !important;
+            -ms-transform: none !important;
+            -webkit-transform: none !important;
+            transform: none !important;
+            /*CSS animations*/
+            -webkit-animation: none !important;
+            -moz-animation: none !important;
+            -o-animation: none !important;
+            -ms-animation: none !important;
+            animation: none !important;
+        }
+    }
+    .double-arrow {
+        display: none;
+    }
+    .header-links {
+        display: none;
+    }
+    .burger-menu {
+        display: block;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+    }
+    .header-logo img {
+        width: 40px;
+    }
+    .header-logo p {
+        font-size: 1.7rem;
+    }
+    .slogan {
+        width: 95%;
+        margin: 0 auto;
+    }
+    .slogan h1 {
+        font-size: 2rem;
+    }
+    .slogan p {
+        font-size: 1.7rem;
+    }
+    .slogan button {
+        width: 90%;
+    }
+    .slogan button {
+        font-size: 1.6rem;
+    }
+    .slogan {
+        padding-top: 15vh;
+    }
+    .fe-text, .mob-text {
+        text-align: left;
+        padding-top: 10vh;
+    }
+    .be-text {
+        text-align: right;
+        padding-top: 10vh;
+    }
+    .services-icons {
+        padding: 1rem 0;
+    }
+    .contact-form, .contact-container {
+        height: 100%;
+    }
+    .services-h2 {
+        font-size: 2.2rem;
+        padding-bottom: 1rem;
+    }
+    .services-p {
+        font-size: 1.4rem;
+        line-height: 1.5;
+    }
+    .services-img img {
+        width: 64px;
+    }
+    .project-card {
+        flex-basis: 90%;
+        margin: 1rem 0;
+    }
+    .project-footgo img, .project-book img {
+        width: 100px;
+    }
+    .project-screen img {
+        height: 100px;
+    }
+    .project-americano img {
+        height: 150px;
+    }
+    .project-feedback {
+        width: 90%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        align-items: center;
+    }
+    .project-card:hover {
+        transform: scale(1);
+    }
+    .project-feedback p {
+        font-size: 1.3rem;
+        padding-right: 0;
+    }
+    .project-feedback button {
+        padding: 0.7rem;
+    }
+    .team-card {
+        margin: 1rem auto;
+    }
+    .contact-card {
+        width: 90%;
+        margin: 0 auto 1rem auto;
+        position: relative;
+        top: 0;
+        right: 0;
+     }
+    .donate-title {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .footer-block {
+        flex-direction: column;
+    }
+    .footer-copyright {
+        padding-top: 0.5rem;
+    }
+    .footer-wisehands {
+        display: flex;
+        align-items: center;
+    }
+    input:focus ~ label, input:valid ~ label 		{
+        top:-45px;
+    }
+    .link-height {
+        height: 44px;
+    }
+    .footer-payment, .footer-delivery, .footer-return, .footer-contact {
+        flex-basis: 98%;
+    }
+}

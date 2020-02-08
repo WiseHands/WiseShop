@@ -38,9 +38,17 @@
                 <h5>{{'singleOrder.FullName' | translate}}: <p><i>{{order.name}}</i></p></h5>
                 <h5>{{'singleOrder.Phone' | translate}}: <p><i>{{order.phone}}</i></p></h5>
                 <h5>{{'singleOrder.Email' | translate}}: <p><i>{{order.email}}</i></p></h5>
-                <h5 ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">{{'singleOrder.Address' | translate}}: </b><p><i>{{order.address}}
-                    <a ng-show="order.destinationLat" href="https://www.google.com.ua/maps/@{{order.destinationLat}},{{order.destinationLng}},21z?hl=en" target="_blank"><i class="material-icons pointIconColor">place</i>
-                    </a></i></p></h5>
+                <div class="address-order-container" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">
+                    <h5 >{{'singleOrder.Address' | translate}}: </b><p><i>{{address}}
+                        <a ng-show="order.clientAddressStreetLat"
+                           href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLng}},{{order.clientAddressStreetLat}}&15z&hl=en" target="_blank"><i class="material-icons pointIconColor">place</i>
+                        </a></i></p>
+                        <p>{{'singleOrder.AddressApartmentEntrance' | translate}} {{order.clientAddressApartmentEntrance}}</p>
+                        <p>{{'singleOrder.AddressApartmentEntranceCode' | translate}} {{order.clientAddressApartmentEntranceCode}}</p>
+                        <p>{{'singleOrder.AddressApartmentFloor' | translate}}{{order.clientAddressApartmentFloor}}</p>
+                        <p>{{'singleOrder.AddressApartmentNumber' | translate}} {{order.clientAddressApartmentNumber}}</p></h5>
+
+                </div>
                 <h5 ng-show="order.deliveryType === 'NOVAPOSHTA'">Адреса (Нова Пошта): <p><i>{{order.departmentNumber}}</i></p></h5>
                 <h5>{{'singleOrder.OrderAmount' | translate}}: <p><i>{{order.total}} {{'orderList.Currency' | translate}}</i></p></h5>
                 <h5>{{'singleOrder.OrderState' | translate}}: <p><i>{{orderState(order)}}</i></p></h5>
@@ -62,19 +70,31 @@
                     <h5>{{'singleOrder.Order' | translate}}: </h5>
 
 
-                    <div class="row vcentering" ng-repeat="item in order.items">
-                        <div class="col-xs-8 col-sm-8">
-                            <a ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">
-                                <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
-                            </a>
-                            <div ng-if="!item.productUuid">
-                                <p ><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                    <div class="product-order-container" ng-repeat="item in order.items">
+                        <div class="row vcentering">
+                            <div class="col-xs-8 col-sm-8 product-item">
+                                <a ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">
+                                    <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                </a>
+                                <div ng-if="!item.productUuid">
+                                    <p ><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 product-item">
+                                <p><i>{{item.quantity}} {{'singleOrder.Pieces' | translate}}.</i></p>
                             </div>
                         </div>
-                        <div class="col-xs-4 col-sm-4">
-                            <p><i>{{item.quantity}} {{'singleOrder.Pieces' | translate}}.</i></p>
+                        <div class="addition-container">
+                            <div class="addition-item-container" ng-repeat="addition in item.additionList">
+                                <span>{{addition.title}}</span>
+                                <span ng-show="addition.quantity>1">({{addition.quantity}})</span><span
+                                    ng-hide="item.additionList.length === $index + 1">,
+                            </span>
+                            </div>
                         </div>
                     </div>
+
+
 
             </div>
         </div>

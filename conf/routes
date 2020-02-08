@@ -7,6 +7,12 @@ GET     {client}/                                       Application.index
 GET     {client}/wisehands                              Application.wisehands
 GET     {client}/shop                                   Application.shop
 GET     {client}/page/{uuid}                            Application.page
+GET     {client}/category/{uuid}                        Application.category
+GET     {client}/product/{uuid}                         Application.product
+GET     {client}/shoppingcart                           Application.shoppingCart
+GET     {client}/products/all                           Application.allProductsInShop
+GET     {client}/selectaddress                          Application.selectAddress
+GET     {client}/shop/network                           Application.shopNetworks
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
@@ -24,6 +30,38 @@ GET     {client}/sudo/users                            	UserAPI.list
 GET     {client}/sudo/user/{uuid}                       UserAPI.one
 DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
 
+
+OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
+POST        {client}/api/cart                               ShoppingCartAPI.addProduct
+
+GET         {client}/api/cart                               ShoppingCartAPI.getCart
+
+DELETE      {client}/api/cart                               ShoppingCartAPI.deleteProduct
+OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
+
+POST        {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
+OPTIONS     {client}/api/cart/increase-quantity             ShoppingCartAPI.allowCors
+
+DELETE      {client}/api/cart/decrease-quantity             ShoppingCartAPI.decreaseQuantityProduct
+OPTIONS     {client}/api/cart/decrease-quantity             ShoppingCartAPI.allowCors
+
+PUT         {client}/api/cart/delivery                      ShoppingCartAPI.selectDeliveryType
+OPTIONS     {client}/api/cart/delivery                      ShoppingCartAPI.allowCors
+
+PUT         {client}/api/cart/payment                       ShoppingCartAPI.selectPaymentType
+OPTIONS     {client}/api/cart/payment                       ShoppingCartAPI.allowCors
+
+PUT         {client}/api/cart/client/info                   ShoppingCartAPI.setClientInfo
+OPTIONS     {client}/api/cart/client/info                   ShoppingCartAPI.allowCors
+
+PUT         {client}/api/cart/address/info                  ShoppingCartAPI.setAddressInfo
+OPTIONS     {client}/api/cart/address/info                  ShoppingCartAPI.allowCors
+
+PUT         {client}/api/cart/post/info                     ShoppingCartAPI.setPostDepartmentInfo
+OPTIONS     {client}/api/cart/post/info                     ShoppingCartAPI.allowCors
+
+
+
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
 DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
@@ -31,8 +69,8 @@ DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
 GET     {client}/payment/detail                         PaymentSettingsAPI.details
 PUT     {client}/payment/update                         PaymentSettingsAPI.update
 
-GET     {client}/additional-setting/detail               AdditionalSettingAPI.details
-PUT     {client}/additional-setting/update               AdditionalSettingAPI.create
+GET     {client}/additional-setting/detail              AdditionalSettingAPI.details
+PUT     {client}/additional-setting/update              AdditionalSettingAPI.create
 
 
 GET     {client}/visualsettings                         VisualSettingsAPI.details
@@ -59,11 +97,11 @@ DELETE  {client}/coupons/{uuid}                         CouponAPI.delete
 DELETE  {client}/coupons                                CouponAPI.deleteAll
 
 
-GET     {client}/products                               ProductAPI.list
-GET     {client}/product/{uuid}                         ProductAPI.details
-POST    {client}/product                                ProductAPI.create
-PUT     {client}/product                                ProductAPI.update
-DELETE  {client}/product/{uuid}                         ProductAPI.delete
+GET     {client}/api/products                               ProductAPI.list
+GET     {client}/api/product/{uuid}                         ProductAPI.details
+POST    {client}/api/product                                ProductAPI.create
+PUT     {client}/api/product                                ProductAPI.update
+DELETE  {client}/api/product/{uuid}                         ProductAPI.delete
 
 
 POST    {client}/product/{productUuid}/image              	ProductImageAPI.add
@@ -89,7 +127,9 @@ DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
 GET     {client}/shops                                	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
-POST    {client}/shop                             	    ShopAPI.create
+OPTIONS {client}/shop/details/public                    ShoppingCartAPI.allowCors
+
+POST    {client}/shop                                	ShopAPI.create
 PUT     {client}/shop                                   ShopAPI.update
 PUT     {client}/shop/{locale}                          ShopAPI.changeLocal
 PUT     {client}/shop/domain/{domain}                   ShopAPI.updateDomain
@@ -99,6 +139,10 @@ POST    {client}/shop/user                              ShopAPI.addUserToShop
 DELETE  {client}/shop/user                              ShopAPI.removeUserFromShop
 
 GET     {client}/delivery                               DeliveryAPI.details
+OPTIONS {client}/delivery                               ShoppingCartAPI.allowCors
+
+OPTIONS {client}/courier/check-delivery-boundaries      ShoppingCartAPI.allowCors
+PUT     {client}/courier/check-delivery-boundaries      DeliveryAPI.checkCourierDeliveryBoundaries
 POST    {client}/courier/polygon                        DeliveryAPI.updateCourierPolygonData
 GET     {client}/courier/polygon                        DeliveryAPI.getCourierPolygonData
 DELETE  {client}/courier/polygon                        DeliveryAPI.deleteCourierPolygonData
@@ -111,6 +155,7 @@ PUT     {client}/liqpaypayment                          PaymentSystemsAPI.update
 
 GET     {client}/orders                                 OrderAPI.list
 GET     {client}/order/{uuid}                           OrderAPI.details
+OPTIONS {client}/order                                  ShoppingCartAPI.allowCors
 POST    {client}/order                                  OrderAPI.create
 DELETE  {client}/order/{uuid}                           OrderAPI.delete
 PUT     {client}/order/{uuid}/cancelled                 OrderAPI.markCancelled
@@ -127,31 +172,42 @@ POST    {client}/department                             DepartmentAPI.create
 PUT     {client}/department                             DepartmentAPI.update
 DELETE  {client}/department/{uuid}                      DepartmentAPI.delete
 
-GET     {client}/all-networks                           ShopNetworkAPI.getAll
-GET     {client}/shop-network/{uuid}                    ShopNetworkAPI.get
-GET     {client}/network                                ShopNetworkAPI.getShopList
-GET     {client}/available-shops                        ShopNetworkAPI.getShopListNotInNetwork
-POST    {client}/shop-network                           ShopNetworkAPI.create
-DELETE  {client}/network/delete-shop                    ShopNetworkAPI.deleteShopFromNetwork
-DELETE  {client}/delete-network/{uuid}                  ShopNetworkAPI.deleteNetwork
-PUT     {client}/network/add-shop                       ShopNetworkAPI.addShopToNetwork
+GET     {client}/api/all-networks                       ShopNetworkAPI.getAll
+GET     {client}/api/shop-network/{uuid}                ShopNetworkAPI.get
+GET     {client}/api/network                            ShopNetworkAPI.getShopList
+GET     {client}/api/available-shops                    ShopNetworkAPI.getShopListNotInNetwork
+POST    {client}/api/shop-network                       ShopNetworkAPI.create
+DELETE  {client}/api/network/delete-shop                ShopNetworkAPI.deleteShopFromNetwork
+DELETE  {client}/api/delete-network/{uuid}              ShopNetworkAPI.deleteNetwork
+PUT     {client}/api/network/add-shop                   ShopNetworkAPI.addShopToNetwork
 
 
 GET     {client}/balance                                BalanceAPI.getBalance
 POST    {client}/pay                                    BalanceAPI.startPayment
 POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification
 
-GET		{client}/category							    CategoryAPI.all
-GET		{client}/category/{uuid}					    CategoryAPI.details
-POST	{client}/category        					    CategoryAPI.create
-PUT 	{client}/category/{uuid}/name/{name}	        CategoryAPI.update
-DELETE 	{client}/category/{uuid}					    CategoryAPI.delete
-PUT 	{client}/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
+GET	    {client}/api/category				            CategoryAPI.all
+GET	    {client}/api/category/{uuid}			        CategoryAPI.details
+POST	{client}/api/category        			        CategoryAPI.create
+PUT 	{client}/api/category/{uuid}/name/{name}	    CategoryAPI.update
+DELETE 	{client}/api/category/{uuid}		        	CategoryAPI.delete
+PUT 	{client}/api/category/{uuid}/product/{productUuid}  CategoryAPI.assignProduct
+
+
+POST	{client}/addition/{productUuid}   			    AdditionAPI.create
+GET  	{client}/addition/get-all/{productUuid}   		AdditionAPI.getAll
+GET     {client}/addition/{uuid}                        AdditionAPI.details
+PUT     {client}/addition/{uuid}                        AdditionAPI.update
+DELETE  {client}/addition/{uuid}                        AdditionAPI.delete
+
+
+POST	{client}/upload-file            			    FileAPI.upload
+
 
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
 
-POST	{client}/subscription      					    PushSubscriptionAPI.subscribe
+POST	{client}/subscription      			PushSubscriptionAPI.subscribe
 
 GET     {client}/pageconstructor/{uuid}                 PageConstructorAPI.details
 GET     {client}/pageconstructor                        PageConstructorAPI.all
@@ -162,6 +218,13 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
+*       {client}/main                                   Application.main
+*       {client}/landing                                Application.landing
+*       {client}/ua/contract                            Application.uaContract
+*       {client}/ua/privacy                             Application.privacy
+*       {client}/ua/signin                              Application.uaSignin
+*       {client}/ua/signup                              Application.uaSignup
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
@@ -169,7 +232,7 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 GET     /wisehands/                             staticDir:wisehands
-GET		/google3d064e8f1e55f5ab.html			        staticFile:google3d064e8f1e55f5ab.html
+GET	/google3d064e8f1e55f5ab.html	        staticFile:google3d064e8f1e55f5ab.html
 
 # GET     {client}/sitemap                        Application.sitemap(format:'xml')
 GET     {client}/sitemap                        SitemapController.sitemap(format:'xml')

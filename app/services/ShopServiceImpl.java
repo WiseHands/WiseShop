@@ -47,8 +47,7 @@ public class ShopServiceImpl implements ShopService{
                 true, selfPickupDeliveryText,
                 true, postServiceDelivery,
                 courierDeliveryPrice,
-                courierFreeDeliveryLimit
-        );
+                courierFreeDeliveryLimit);
         delivery.save();
 
         PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(true, true, freeDeliveryLimit, "", "", "");

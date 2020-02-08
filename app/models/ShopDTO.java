@@ -149,7 +149,7 @@ public class ShopDTO extends GenericModel {
     public List<OrderDTO> orders;
 
     @Expose
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     public List<PageConstructorDTO> pagesList;
 
     @Transient
@@ -160,7 +160,7 @@ public class ShopDTO extends GenericModel {
     public ShopNetworkDTO getNetwork() {
         if(this.networkUuid != null) {
             this.network = ShopNetworkDTO.findById(networkUuid);
-            System.out.println("ShopDTO initializint network" + this.networkUuid + this.network);
+            System.out.println("ShopDTO initializing network" + this.networkUuid + this.network);
         }
         return  this.network;
     }

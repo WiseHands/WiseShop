@@ -1,0 +1,9 @@
+<script>
+    fetch('/api/cart', {
+        method: 'GET'
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            store.dispatch({ type: 'SHOPPINGCART', payload: data});
+    });
+</script>

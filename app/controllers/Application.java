@@ -1,5 +1,8 @@
 package controllers;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 import play.Play;
 import play.i18n.Lang;
 import play.mvc.*;
@@ -12,16 +15,37 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.UUID;
+
 
 public class Application extends Controller {
 
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    public static final int PAGE_SIZE = 6;
 
     @Before
     static void corsHeaders() {
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+        response.setHeader("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
+    }
+
+    public static void main(String client) {
+            if(client.equals("wisehands.me") || isDevEnv) {
+                String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+                String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+                String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+                renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+            }
+            redirect("https://wisehands.me/login", true);
+
+        }
+
+
+    public static void allowCors(){
+        ok();
     }
 
     public static void login(String client) {
@@ -29,9 +53,10 @@ public class Application extends Controller {
             String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
             String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
             String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-            renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+            renderTemplate("WiseHands/login.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
         }
-        redirect("https://wisehands.me/", true);
+        redirect("https://wisehands.me/login", true);
+
     }
 
     public static void wisehands(String client) {
@@ -76,8 +101,31 @@ public class Application extends Controller {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
 
-        renderTemplate("Application/shop.html", shop);
+        generateCookieIfNotPresent(shop);
 
+
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false).fetch(PAGE_SIZE);
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        shop.pagesList = pageList;
+
+        renderTemplate("Application/shop.html", shop, products);
+    }
+
+    private static void generateCookieIfNotPresent(ShopDTO shop) {
+        String agent = request.headers.get("user-agent").value();
+
+        Http.Cookie userTokenCookie = request.cookies.get("userToken");
+        if(userTokenCookie == null) {
+            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
+            shoppingCart.shopUuid = shop.uuid;
+            shoppingCart.save();
+
+            String token = generateTokenForCookie(shoppingCart.uuid, agent);
+            response.setCookie("userToken", token);
+        }
     }
 
     public static void shop(String client) {
@@ -85,7 +133,6 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-
 
         Date date = new Date();
 
@@ -97,6 +144,48 @@ public class Application extends Controller {
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
 
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        System.out.println("pageListpageList" + pageList.size());
+        render(shop, pageList);
+    }
+
+    public static void shopNetworks(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        ShopNetworkDTO network = shop.getNetwork();
+        network.retrieveShopList();
+
+
+        render(shop, network);
+    }
+
+    public static void allProductsInShop(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        Date date = new Date();
+
+        Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
+        String ip = "";
+        if (xforwardedHeader != null){
+            ip = xforwardedHeader.value();
+        }
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
+
+        render(shop);
+    }
+
+    public static void selectAddress(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
 
         render(shop);
     }
@@ -111,8 +200,51 @@ public class Application extends Controller {
         System.out.println("page for render " + page.getBody());
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-
+        shop.pagesList = pageList;
         render(shop, page, pageList);
+    }
+
+    public static void category(String client, String uuid){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        CategoryDTO category = CategoryDTO.findById(uuid);
+        List<ProductDTO> productList = ProductDTO.find("byCategory", category).fetch();
+        System.out.println("\n\n\nCATEGORY" + uuid + category.name + productList.size());
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        shop.pagesList = pageList;
+
+        render(shop, category, productList);
+    }
+
+    public static void product(String client, String uuid){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        ProductDTO product = ProductDTO.findById(uuid);
+        System.out.println("\n\n\nCATEGORY" + uuid + product.name);
+        CategoryDTO category = product.category;
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        shop.pagesList = pageList;
+
+        List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
+        product.additions = additionList;
+
+        render(product, category, shop);
+    }
+
+    public static void shoppingCart(String client, String uuid){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+//        ProductDTO product = ProductDTO.findById(uuid);
+
+        render(shop);
     }
 
     public static void done(String client) {
@@ -194,5 +326,41 @@ public class Application extends Controller {
         render(shop);
     }
 
+    private static String generateTokenForCookie(String shoppingCartId, String userAgent) {
+        String token = "";
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+
+            long nowMillis = System.currentTimeMillis();
+            Date now = new Date(nowMillis);
+
+            token = JWT.create()
+                    .withIssuedAt(now)
+                    .withSubject(shoppingCartId)
+                    .withClaim("userAgent", userAgent)
+                    .withIssuer("wisehands")
+                    .sign(algorithm);
+        } catch (JWTCreationException exception){
+            //Invalid Signing configuration / Couldn't convert Claims.
+        }
+        return token;
+    }
+
+    public static void landing(String client){
+            render();
+    }
+    public static void uaContract(String client){
+            render();
+    }
+    public static void privacy(String client){
+            render();
+    }
+    public static void uaSignin(String client){
+            render();
+    }
+    public static void uaSignup(String client){
+            render();
+    }
 
 }

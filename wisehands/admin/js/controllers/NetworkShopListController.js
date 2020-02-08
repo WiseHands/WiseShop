@@ -7,7 +7,7 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/shop-network/' + $routeParams.uuid
+            url: '/api/shop-network/' + $routeParams.uuid
         })
             .then(function successCallback(response){
                 $scope.networkShopList = response.data.shopList;
@@ -52,7 +52,7 @@ angular.module('WiseHands')
             $scope.modalSpinner = true;
             $http({
                 method: 'DELETE',
-                url: '/delete-network/' + $routeParams.uuid,
+                url: '/api/delete-network/' + $routeParams.uuid,
             })
                 .then(function successCallback(response) {
                     $scope.modalSpinner = false;

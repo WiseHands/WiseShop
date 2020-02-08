@@ -56,7 +56,7 @@ public class AdditionalSettingForShop {
                 "<p>Наші контакти для Вас: </p><ul>\t<li>Телефон "
                         + shop.contact.phone + "</li>\t<li>Емейл "
                         + shop.contact.email + "</li>\t<li>Адреса "
-                        + shop.contact.address + "</li>\t</ul>" +
+                        + shop.contact.addressCity + "</li>\t</ul>" +
                         "<p>&nbsp;</p>";
 
         String aboutUs = "Про нас...";

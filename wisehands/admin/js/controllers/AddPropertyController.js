@@ -3,41 +3,69 @@ angular.module('WiseHands')
         $scope.loading = false;
         $scope.productUuid = $routeParams.productUuid;
         $scope.categoryUuid = $routeParams.categoryUuid;
+
         var locale = localStorage.getItem('locale');
 
-        $scope.addTag = function () {
-            var e = jQuery.Event("keypress");
-            e.which = 13; //choose the one you want
-            e.keyCode = 13;
-            $("#theInputToTest").trigger(e);
-        };
+        $http({
+            method: 'GET',
+            url: '/api/product/' + $scope.productUuid
+        })
+            .then(function successCallback(response) {
+                console.log("response for product ", response.data);
+                $scope.product = response.data;
+            }, function errorCallback(error) {
+
+            });
 
         $scope.createProperty = function () {
             if (locale === 'en_US'){
-                var emptyTagWarning = 'Create, please, one or more property option';
+                var emptyTagWarning = 'Create, please, one or more addition option';
             } else if (locale === 'uk_UA') {
-                emptyTagWarning = 'Створіть, будь ласка, одну або більше опцію властивості';
+                emptyTagWarning = 'Створіть, будь ласка, додаток';
             }
-            if (!$scope.property.tags) {
-                toastr.error(emptyTagWarning)
-
+            if (!$scope.addition) {
+                toastr.error(emptyTagWarning);
             } else {
+                const photo = document.getElementById("imageLoader").files[0];
                 $scope.loading = true;
-                $http({
-                    method: 'POST',
-                    url: '/category/' + $scope.categoryUuid + '/property',
-                    data: $scope.property
+                let photoFd = new FormData();
+                photoFd.append('logo', photo);
+                $http.post('/upload-file', photoFd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                    }
                 })
-                    .then(function successCallback(response) {
-                        $location.path('/products/details/' + $scope.productUuid + '/edit');
+                    .success(function(response){
                         $scope.loading = false;
-                    }, function errorCallback(response) {
+                        $scope.addition.filepath = response.filepath;
+                        sendAdditionProperty();
+                    })
+                    .error(function(response){
                         $scope.loading = false;
                         console.log(response);
-                    });
+                });
+
             }
 
+        };
+
+        function sendAdditionProperty(){
+            $http({
+                method: 'POST',
+                url: '/addition/' + $scope.productUuid,
+                data: $scope.addition
+            })
+                .then(function successCallback(response) {
+                    $location.path('/products/details/' + $scope.productUuid + '/edit');
+                    console.log("$scope.addition", response.data);
+                    $scope.loading = false;
+                }, function errorCallback(response) {
+                    $scope.loading = false;
+                    console.log("$scope.addition", response);
+                });
         }
+
     }]);
 
 

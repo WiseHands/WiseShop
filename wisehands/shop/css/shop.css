@@ -4,7 +4,17 @@
 .fluid-width{
     width: auto !important;
 }
-
+.center-container {
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    padding-top: 1rem;
+}
+.widesize-container {
+    flex-wrap: wrap;
+    width: 100%;
+}
 .flex-row{
     display: flex;
     flex-direction: row;
@@ -394,5 +404,10 @@ main {
     .col-lg-4 {
         float: left;
         width: 32.222222%;
+    }
+}
+@media screen and (min-width: 1500px) {
+    .center-container, .widesize-container {
+        max-width: 1300px;
     }
 }

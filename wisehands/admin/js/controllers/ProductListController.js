@@ -7,7 +7,7 @@ angular.module('WiseHands')
             spinnerService.show('mySpinner');
         $http({
             method: 'GET',
-            url: '/products'
+            url: '/api/products'
         })
             .then(function successCallback(response) {
                 spinnerService.hide('mySpinner');

@@ -57,15 +57,30 @@ angular.module('WiseHands')
                         }
                     )
                 }
-            }
+            };
 
             $http({
                 method: 'GET',
-                url: '/product/' + $routeParams.uuid
+                url: '/addition/get-all/' + $routeParams.uuid
+            })
+                .then(function successCallback(response) {
+                     $scope.properties = response.data;
+                    console.log("/addition/get-all/" , response.data);
+                }, function errorCallback(error) {
+                    $scope.loading = false;
+                    console.log(error);
+                });
+
+            $http({
+                method: 'GET',
+                url: '/api/product/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {
 
                     $scope.product = response.data;
+
+                    console.log("$scope.product property :" , response.data);
+
                     $scope.activeShop = localStorage.getItem('activeShop');
                     $scope.product.images.forEach(function(image, index){
                         if(image.uuid === $scope.product.mainImage.uuid){
@@ -81,7 +96,7 @@ angular.module('WiseHands')
 
             $http({
                 method: 'GET',
-                url: '/category'
+                url: '/api/category'
             })
                 .then(function successCallback(response) {
                     $scope.categories = response.data;
@@ -122,11 +137,7 @@ angular.module('WiseHands')
 
             };
 
-
-
             var fd = new FormData();
-
-
             var imageLoader = document.getElementById('imageLoader');
             imageLoader.addEventListener('change', handleImage, false);
             var canvas = document.getElementById('editCanvas');
@@ -169,9 +180,9 @@ angular.module('WiseHands')
                     });
                 }
 
-
             }
-        $scope.addNewPhoto = function () {
+
+            $scope.addNewPhoto = function () {
             $scope.loading = true;
             var imageFd = new FormData();
             for (var i = 0; i < $scope.myBlob.length; i++) {
@@ -205,7 +216,6 @@ angular.module('WiseHands')
                     console.log(response);
                 });
         };
-
 
             $scope.setMainPhotoIndex = function (index, uuid) {
                 $scope.loading = true;
@@ -265,6 +275,7 @@ angular.module('WiseHands')
                         console.log(response);
                     });
             };
+
             $scope.updateProduct = function () {
                 $scope.loading = true;
                 fd.append('uuid', $scope.product.uuid);
@@ -280,7 +291,7 @@ angular.module('WiseHands')
                 //     fd.append("photos["+ i +"]", $scope.productImages[i]);
                 // }
 
-                $http.put('/product', fd, {
+                $http.put('/api/product', fd, {
                         transformRequest: angular.identity,
                         headers: {
                             'Content-Type': undefined,
@@ -307,7 +318,7 @@ angular.module('WiseHands')
                 $scope.loading = true;
                 $http({
                     method: 'POST',
-                    url: '/category',
+                    url: '/api/category',
                     data: $scope.newCategory
                 })
                     .then(function successCallback(response) {
@@ -333,7 +344,7 @@ angular.module('WiseHands')
                 $scope.product.category = category;
                 $http({
                     method: 'PUT',
-                    url: '/category/' + $scope.product.category.uuid + '/product/' + $routeParams.uuid,
+                    url: '/api/category/' + $scope.product.category.uuid + '/product/' + $routeParams.uuid,
                 })
                     .then(function successCallback(response) {
                         $scope.product = response.data;

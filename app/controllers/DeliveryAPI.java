@@ -1,15 +1,78 @@
 package controllers;
 
+import com.google.gson.Gson;
 import models.DeliveryDTO;
 import models.ShopDTO;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import util.PolygonUtil;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DeliveryAPI extends AuthController {
+
+    public static void checkCourierDeliveryBoundaries(String client) throws Exception{
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        Double lat = Double.valueOf(request.params.get("lat"));
+        Double lng = Double.valueOf(request.params.get("lng"));
+        System.out.println("lat " + lat + " lng " + lng);
+
+        JSONParser parser = new JSONParser();
+        String stringToParse = shop.delivery.courierPolygonData;
+        JSONObject polygonData = (JSONObject) parser.parse(stringToParse);
+
+        JSONArray polygon = (JSONArray) polygonData.get("features");
+        JSONObject features = (JSONObject) polygon.get(0);
+        JSONObject geometry = (JSONObject) features.get("geometry");
+        JSONArray coordinates = (JSONArray) geometry.get("coordinates");
+        JSONArray newCoordinates = (JSONArray) coordinates.get(0);
+
+        List<PolygonUtil.Point> polygonPoints = new ArrayList<PolygonUtil.Point>();
+        for (int i=0; i<newCoordinates.size(); i++) {
+            JSONArray point = (JSONArray) newCoordinates.get(i);
+            Double latitude = (Double) point.get(0);
+            Double longtitude = (Double) point.get(1);
+            PolygonUtil.Point points = new PolygonUtil.Point(longtitude, latitude);
+            polygonPoints.add(points);
+            System.out.println("POINT [" + i + "]: " + latitude + ":" + longtitude);
+        }
+
+
+
+        PolygonUtil.Point[] pointArray = new PolygonUtil.Point[polygonPoints.size()];
+        polygonPoints.toArray(pointArray);
+
+
+         int length = polygonPoints.size();
+         PolygonUtil.Point point = new PolygonUtil.Point(lat, lng);
+        boolean isPointInsidePolygon = PolygonUtil.isInside(pointArray, length, point);
+
+        System.out.println("isPointInsidePolygon: " + isPointInsidePolygon);
+
+
+        if(isPointInsidePolygon) {
+            JSONObject successfulRequest = new JSONObject();
+            successfulRequest.put("status", "ok");
+            successfulRequest.put("message", "given gps point is inside delivery boundaries");
+            renderJSON(successfulRequest);
+        } else {
+            JSONObject failedRequest = new JSONObject();
+            failedRequest.put("status", "failed");
+            failedRequest.put("message", "given gps point is not inside delivery boundaries");
+            renderJSON(failedRequest);
+        }
+
+
+    }
 
     public static void details(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -28,6 +91,7 @@ public class DeliveryAPI extends AuthController {
         checkAuthentification(shop);
 
         String polygonData = params.get("body");
+        System.out.println("polygonData " + polygonData);
         shop.delivery.courierPolygonData = polygonData;
         shop.delivery.save();
         ok();

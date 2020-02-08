@@ -1,3 +1,26 @@
+.product-order-container{
+    display: flex;
+    flex-direction: column;
+}
+.addition-container{
+    display: flex;
+    padding-left: 2rem;
+}
+.product-item p {
+    margin-bottom: 0;
+}
+.addition-item-container{
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+}
+.address-order-container{
+    display: flex;
+    flex-direction: column;
+}
+.address-order-container p{
+    margin-bottom: 3px;
+}
 .table {
     display: flex;
     flex-flow: column nowrap;
@@ -67,6 +90,11 @@
 }
 /*image for add logo in edit page*/
 .img-setting{
+
+}
+.set-address-container{
+    display: flex;
+    flex-direction: column;
 
 }
 
@@ -429,12 +457,19 @@ body {
         padding: 10px 0;
     }
 }
-
+@media (min-width: 1260px) {
+    .col-md-4 {
+        width: auto;
+    }
+}
+.elegant-card, .elegant-card .card-up {
+    width: fit-content;
+}
 
 .vcentering {
     display: flex;
     align-items: center;
-    justify-content: space-between
+    justify-content: flex-between
 }
 
 .errorTextStyling {

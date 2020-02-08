@@ -1,0 +1,403 @@
+#{set shop:shop /}
+<style>
+    .center-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
+        align-items: center;
+
+    }
+    .address-container{
+        width: 100%;
+        margin: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .address-container input {
+        margin: 5px;
+    }
+    .coogle-map-container {
+        height: 400px;
+        width: 100%;
+        margin: 5px;
+    }
+    .find-address-container{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .load-button input{
+        margin: 5px;
+    }
+    .load-button input[type=button]:hover{
+        background-color: #000;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+
+    .load-button input[type=button] {
+        background-color: #fff;
+        color: #000;
+        border: 2px solid #000;
+    }
+    .error-message{
+        text-align: center;
+        color: red;
+        font-size: 1.2rem;
+    }
+    .error-message p{
+        margin: 0px;
+    }
+    #city {
+        display: none;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="${shop.contact.description}" />
+    <meta name="author" content="${shop.shopName}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="google-site-verification" content="${shop.googleWebsiteVerificator}" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${shop.shopName}" />
+    <meta property="og:description" content="${shop.contact.description}" />
+    <meta property="og:url" content="https://${shop.domain}/" />
+    <meta property="og:site_name" content="${shop.shopName}" />
+
+
+    <title>${shop.shopName}</title>
+
+    <link href="/wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
+    <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/shop.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet" >
+    <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
+
+    <link rel='shortcut icon' href='/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
+
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+    <script defer src="/wisehands/assets/js/jquery-2.2.3.min.js"></script>
+    <script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
+    <script defer src="/wisehands/assets/mdb_shop/js/mdb.min.js"></script>
+</head>
+#{setup-redux /}
+#{get-cart /}
+#{shop-header /}
+
+<div class="center-container">
+    <div class="address-container">
+        <!--<p>Адреса:</p>-->
+        <input type="text"
+               id="city"
+               placeholder="Місто" value="${shop.contact.addressCity}">
+        <input type="text"
+               id="street"
+               placeholder="Вулиця">
+        <input type="text"
+               id="building"
+               placeholder="№ будинку">
+        <div class="load-button">
+            <input id="check-address-button" type="button" value="Знайти">
+        </div>
+    </div>
+    <div id="googleMap" class="coogle-map-container" data-wow-delay="0.1s">
+    </div>
+    <div class="find-address-container">
+        <div class="load-button">
+            <input id="find-address-button" type="button" onclick="findOwnlocation()" value="Визначити">
+        </div>
+        <div id="error-message" class="error-message">
+            <p>Ви знаходитеся за межами доставки</p>
+        </div>
+        <div class="load-button">
+            <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="Далі">
+        </div>
+    </div>
+
+</div>
+</html>
+
+<script>
+
+    function detectmob() {
+        if( navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPad/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)
+        ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    const isMobileDevice = detectmob();
+    if (!isMobileDevice) {
+        document.getElementById('find-address-button').style.display = 'none';
+    }
+
+    let  map, marker, polygon, arrayCoordinates, cartId;
+    document.getElementById('error-message').style.display = 'none';
+
+    store.subscribe(() => {
+        const shoppingCartState = store.getState();
+        const address = shoppingCartState.client.address;
+        cartId = shoppingCartState.uuid;
+        document.getElementById('street').value = address.street;
+        document.getElementById('building').value = address.building;
+        initMap(address.lat, address.lng);
+
+    });
+
+    function initMap(lat, lng) {
+
+        let var_location = new google.maps.LatLng(lat, lng);
+
+        let var_map_options = {
+            center: var_location,
+            zoom:15
+        };
+        map = new google.maps.Map(document.getElementById('googleMap'),var_map_options);
+        marker = new google.maps.Marker({
+            map: map,
+            position: var_location
+        });
+
+        let geocoder = new google.maps.Geocoder();
+        document.getElementById('check-address-button').addEventListener('click', function () {
+            geocodeAddress(geocoder, map);
+        });
+
+    }
+
+    fetch('/courier/polygon', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        let courierPolygonData = JSON.parse(data);
+        arrayCoordinates = courierPolygonData.features[0].geometry.coordinates[0];
+        console.log("data for polygone", arrayCoordinates);
+        console.log("polygon.length", arrayCoordinates.length);
+        setDeliveryBoundariesPolygonOnMap();
+    });
+
+
+    function geocodeAddress(geocoder, resultsMap) {
+        let address = document.getElementById('city').value + ", " +
+                      document.getElementById('street').value + ", " +
+                      document.getElementById('building').value;
+        console.log("address", address);
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+                let latlng = results[0].geometry.location;
+                let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+                if (marker) {
+                    marker.setMap(null);
+                }
+                marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+                if (!isLocationInsidePolygon) {
+                    document.getElementById('error-message').style.display = 'block';
+                    console.log("outside polygone isLocationInsidePolygon:_", isLocationInsidePolygon);
+                } else {
+                    document.getElementById('error-message').style.display = 'none';
+
+                }
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
+    function setDeliveryBoundariesPolygonOnMap() {
+        let polygonData = [];
+        for (var i = 0; i < arrayCoordinates.length; i++) {
+            let _item = arrayCoordinates[i];
+            polygonData.push({
+                lat: _item[1],
+                lng: _item[0]
+            });
+        };
+        console.log('polygonData', polygonData);
+
+        var polygonOptions = {
+            paths: polygonData,
+            clickable: true,
+            visible: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#99ff66',
+            fillOpacity: 0.35
+        };
+        polygon = new google.maps.Polygon(polygonOptions);
+        polygon.setMap(map);
+        let bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < polygonData.length; i++) {
+            bounds.extend(polygonData[i]);
+        }
+        let centerLocation = new google.maps.LatLng(bounds.getCenter().lat(), bounds.getCenter().lng());
+        map.setCenter(centerLocation);
+        map.setZoom(14);
+
+        google.maps.event.addListener(polygon, 'click', function(event) {
+            let latlng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+            localStorage.setItem('addressLat', latlng.lat());
+            localStorage.setItem('addressLng', latlng.lng());
+            console.log('polygon, click You are in range of delivery');
+            let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+            if (isLocationInsidePolygon){
+                document.getElementById('error-message').style.display = 'none';
+            }
+            geocodeLatLng(latlng, true);
+
+        });
+    }
+
+    function nextButtonClickListener(){
+        if (marker){
+            let lat = marker.getPosition().lat();
+            let lng = marker.getPosition().lng();
+            let latlng = new google.maps.LatLng(lat, lng);
+            let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+            // PUT /api/cart/address/info
+            if (isLocationInsidePolygon) {
+                let street = document.getElementById('street').value;
+                let building = document.getElementById('building').value;
+                const params = '?street=' + street + '&building=' + building +
+                    '&lat=' + lat + '&lng=' + lng + "&cartId=" + cartId;
+
+                fetch('/api/cart/address/info' + params, {
+                    method: 'PUT'
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    window.location ='/shoppingcart';
+                });
+            }
+
+            console.log("isLocationInsidePolygon:_", isLocationInsidePolygon);
+        }
+
+    }
+
+    function geocodeLatLng(latlng, isLocationInsidePolygon) {
+        let geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            'location': latlng
+        }, function(results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+
+                    map.setZoom(17);
+                    let address = results[0].formatted_address.split(',');
+                    let street = address[0].split(' ');
+                    street.shift().toString().replace(",", " ");
+
+                    let house = address[1];
+                    document.getElementById('building').value = house;
+                    document.getElementById('street').value = street.toString().replace(",", " ");
+
+                    console.log("address for courier", street.toString().replace(",", " "), house);
+                    localStorage.setItem('address', address);
+
+                    showInfoMsg(address);
+
+                    console.log('geocoding result: ', address, latlng.lat(), latlng.lng());
+
+                    if (marker) marker.setMap(null);
+                    if (!isLocationInsidePolygon) {
+                        map.setCenter(latlng);
+                        showWarningMsg('Address out of delivery range');
+                    } else {
+                        if (marker) {
+                            marker.setMap(null);
+                        }
+                        marker = new google.maps.Marker({
+                            position: latlng,
+                            map: map,
+                        });
+                        map.setCenter(latlng);
+                    }
+
+                } else {
+                    console.log('no address');
+                }
+            } else {
+                console.log('finded address ', status);
+            }
+        });
+    }
+
+
+
+    function findOwnlocation() {
+        if (navigator.geolocation) {
+
+            showInfoMsg('Geolocating...');
+            navigator.geolocation.getCurrentPosition(function(position) {
+                let latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
+                console.log('navigator.geolocation latLng:', latlng, ' isLocationInsidePolygon: ', isLocationInsidePolygon);
+
+                localStorage.setItem('addressLat', latlng.lat());
+                localStorage.setItem('addressLng', latlng.lng());
+                geocodeLatLng(latlng, isLocationInsidePolygon);
+            }, function() {
+                showWarningMsg('Geolocation not available')
+            });
+
+        } else {
+            showWarningMsg('Geolocation not available')
+        }
+    }
+
+
+    function showWarningMsg(msg) {
+        toastr.clear();
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": true
+        };
+        toastr.warning(msg);
+    }
+    function showInfoMsg(msg) {
+        toastr.clear();
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": true
+        };
+        toastr.info(msg);
+    }
+
+</script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&callback=initMap&libraries=drawing,geometry,places"></script>
+
+
+
+

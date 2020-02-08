@@ -6,7 +6,7 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/category'
+            url: '/api/category'
         })
             .then(function successCallback(response) {
                 $scope.categories = response.data;
@@ -74,8 +74,6 @@ angular.module('WiseHands')
                 });
             }
 
-
-
         }
 
         $scope.loadImage = function () {
@@ -127,13 +125,13 @@ angular.module('WiseHands')
                     }
                 )
             }
-        }
+        };
 
         $scope.createCategory = function () {
             $scope.loading = true;
             $http({
                 method: 'POST',
-                url: '/category',
+                url: '/api/category',
                 data: $scope.category
             })
                 .then(function successCallback(response) {
@@ -151,7 +149,7 @@ angular.module('WiseHands')
             $scope.loading = true;
             $http({
                 method: 'POST',
-                url: '/category',
+                url: '/api/category',
                 data: $scope.newCategory
             })
                 .then(function successCallback(response) {
@@ -191,7 +189,7 @@ angular.module('WiseHands')
             fd.append('oldPrice', $scope.product.oldPrice);
             fd.append('sortOrder', $scope.product.sortOrder);
 
-            $http.post('/product', fd, {
+            $http.post('/api/product', fd, {
                     transformRequest: angular.identity,
                     headers: {
                         'Content-Type': undefined,

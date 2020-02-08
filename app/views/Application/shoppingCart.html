@@ -1,0 +1,77 @@
+#{set shop:shop /}
+<style>
+    wise-shopping-cart-container{
+        padding: 10px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    @media screen and (min-width: 1500px) {
+        wise-shopping-cart-container {
+            max-width: 1300px;
+        }
+    }
+</style>
+<!DOCTYPE html>
+<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>${shop.shopName}</title>
+
+    <link href="/wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet"/>
+
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+
+    <script src="/wisehands/polymer3/shopping-cart/build/es5-bundled/node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+    <script src="/wisehands/polymer3/shopping-cart/build/es5-bundled/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="/wisehands/polymer3/shopping-cart/build/es5-bundled/src/wise-shopping-cart-container.js"></script>
+
+</head>
+#{setup-redux /}
+#{get-cart /}
+#{shop-header /}
+#{verbatim}
+    <wise-shopping-cart-container currency-label="UAH"></wise-shopping-cart-container>
+#{/verbatim}
+
+
+<script>
+    let shoppingCartState = {};
+    store.subscribe(() => {
+        shoppingCartState = store.getState();
+    });
+
+
+    document.addEventListener('start-shopping', function (e) {
+        window.location = '/';
+    });
+    document.addEventListener('open-product', function (e) {
+        console.log(shoppingCartState.items);
+        let path = '';
+        shoppingCartState.items.forEach(item =>{
+            if (item.uuid === e.detail){
+                path = item.productId;
+            }
+        });
+        window.location = '/product/' + path;
+
+    });
+    document.addEventListener('shopping-cart-api-response', function (e) {
+        store.dispatch({ type: 'SHOPPINGCART', payload: e.detail});
+    });
+    document.addEventListener('proceed-with-shopping-cart', function (e) {
+        store.dispatch({ type: 'SHOPPINGCART', payload: e.detail});
+        console.log("SHOPPINGCART", e.detail);
+    });
+</script>
+
+</html>
+
+

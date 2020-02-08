@@ -33,7 +33,6 @@ angular.module('WiseHands')
                 // signout.signOut();
             });
 
-
         $scope.navbarStyles = [
             {
                 name: 'Blue',

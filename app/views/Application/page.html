@@ -1,13 +1,16 @@
+#{set shop:shop /}
+#{set pageList:pageList /}
 <!DOCTYPE html>
 <style>
     body {
         font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        margin: 0px;
+        padding: 0px;
     }
-    .margin-all-0{
-        margin: 0;
-    }
-    .flex-container-column{
-        flex-direction: column;
+    .header-full{
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        height: 54px;
+        text-align: center;
     }
     #title-container{
         /*border: 1px solid #0F0F0F;*/
@@ -15,37 +18,37 @@
         justify-content: center;
     }
     .header-container {
+        box-sizing: border-box;
+        max-width: 900px;
+        height: inherit;
         margin: 0 auto;
-        box-shadow: 0 2px 3px rgba(0,0,0,0.1);
         display: flex;
-        justify-content: space-around;
+        padding: 0px 15px;
+        justify-content: space-between;
         align-items: center;
+
     }
     .header-container a {
         text-decoration: none;
         color: #666;
     }
-    .header-container a:hover {
-        color: #000;
-    }
+
     .links-container{
         display: flex;
         justify-content: space-between;
     }
-    #image-box{
-        /*border: 1px solid #0F0F0F;*/
-        height: 50px;
-        width: 50px;
-    }
+
     .image-name-container {
         display: flex;
         align-items: center;
     }
     .image-name-container p {
-        font-size: 2rem;
-        padding-left: 10px;
-        color: #000;
-        margin: 20px 0;
+        font-size: 30px;
+        margin: 0px;
+    }
+    .image-name-container img {
+        width: 30px;
+        height: 30px;
     }
     .links-container p {
         margin: 10px;
@@ -58,19 +61,42 @@
     .link:hover {
         color: #000;
     }
-    #titleContainer {
+    .titleContainer {
         font-size: 1.5rem;
         font-weight: 600;
+        padding: 2rem 0 0.5rem 0;
     }
     #bodyContainer {
-        max-width: 1200px;
+        padding: 1em 1em;
+        width: 100%;
+    }
+
+    .shop-name {
+        padding-left: 10px;
+        font-weight: 300;
+        font-size: 30px;
+        font-family: "Roboto", sans-serif;
+        color: #373a3c;
+        padding-bottom: 1px;
+    }
+    .data-container{
+        max-width: 900px;
         margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    @media screen and (min-width: 1500px) {
+        .data-container {
+            max-width: 1300px;
+        }
     }
     @media screen and (max-width: 800px) {
         .links-container{
             display: none;
         }
     }
+
 </style>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -92,52 +118,35 @@
 
     <title>${shop.shopName}</title>
 
+    <link href="/wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/shop.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet" >
+    <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet" />
 
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}' type='image/x-icon' >
 
-    <base href="/">
-
 
 </head>
-<body class="margin-all-0">
-    <div class="flex-container-column">
+
+#{setup-redux /}
+#{get-cart /}
+<body>
         #{verbatim}
-            <div class="header-container">
-                <a href="/">
-                    <div class="image-name-container">
-                        #{if shop.visualSettingsDTO.shopLogo}
-                            <img id="image-box" src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
-                        #{/if}
-                            <p>${shop.shopName}</p>
-
-                    </div>
-                </a>
-
-                <div class="links-container">
-                        %{
-                            for(_page in pageList) {
-                                }%
-                                <a class="link" href="/page/${_page.uuid}">
-                                    <p>${_page.title}</p>
-                                </a>
-                                %{
-                            }
-                        }%
+            #{shop-header /}
+            <div class="data-container">
+                <div id="title-container">
+                    <p class="titleContainer">
+                        ${page.title}
+                    </p>
                 </div>
-
-            </div>
-            <div id="title-container">
-                <p id="titleContainer">
-                    ${page.title}
-                </p>
-            </div>
-            <div id="bodyContainer" style="padding: 10px">
-                ${page.body}
+                <div id="bodyContainer" style="padding: 10px">
+                    ${page.body}
+                </div>
             </div>
         #{/verbatim}
-    </div>
 </body>
 </html>
-<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
-<script defer src="wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
+
 

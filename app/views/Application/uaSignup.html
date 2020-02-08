@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <title>Реєстрація</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="icon"
+          type="image/png"
+          href="wisehands/assets/images/favicon.png">
+</head>
+<style>
+    body, p, h1, h2, h3, h4, h5, h6, i, a {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', 'Helvetica', sans-serif;
+        overflow-x: hidden;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    .signup-header {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        margin: 0 auto 2rem auto;
+        max-width: 1200px;
+    }
+    .signup-header img {
+        width: 50px;
+        height: 50px;
+        padding-right: 1rem;
+    }
+    .signup-header p {
+        font-size: 2rem;
+    }
+    .signup-header a {
+        text-decoration: none;
+        color: #000;
+    }
+    .signup-block {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        text-align: center;
+    }
+    .signup-block h1 {
+        font-size: 2.5rem;
+        font-weight: 900;
+    }
+    .social-button {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+        flex-wrap: wrap;
+    }
+    .social-button button {
+        margin: 1rem;
+        padding: 0.7rem 0.5rem 0.7rem 1rem;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+        width: 320px;
+        font-weight: 700;
+    }
+    .signup-fb-button {
+        background-color: #3c5a96;
+        color: #fff;
+    }
+    .signup-fb-button:hover {
+        background-color: #2E4D8B;
+    }
+    .signup-fb-button span, .signup-google-button span {
+        padding: 0 0.5rem 0 0.5rem;
+    }
+    .signup-google-button {
+        background-color: #fff;
+        color: #808080;
+        box-shadow: 0 1px 1px rgba(0,0,0,.24), 0 0 1px rgba(0,0,0,.12)
+    }
+    .signup-google-button:hover {
+        color: #000;
+    }
+    .signup-form {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+    .signup-form a {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .form-field {
+        position: relative;
+    }
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 1rem 0;
+        padding: 1rem 0 1rem 1rem;
+        border: none;
+        border-bottom: 1px solid #9e9e9e;
+    }
+    input:focus {
+        outline: none;
+    }
+    label {
+        font-size: 1rem;
+        position:absolute;
+        pointer-events:none;
+        left: 1rem;
+        top: 31px;
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+    input:focus ~ label, input:not(:placeholder-shown) ~ label 		{
+        top: 0;
+        font-size:0.9rem;
+        color:#20b2aa;
+    }
+    .highlight 	{
+        position:relative;
+        display:block;
+        width:350px;
+    }
+    .highlight:before, .highlight:after 	{
+        content:'';
+        height:2px;
+        width:0;
+        bottom:1px;
+        position:absolute;
+        top: -17px;
+        background:#20b2aa;
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+    .highlight:before {
+        left:50%;
+    }
+    .highlight:after {
+        right:50%;
+    }
+
+    /* active state */
+    input:focus ~ .highlight:before, input:focus ~ .highlight:after {
+        width:50%;
+    }
+
+    .signup-form button {
+        padding: 1rem 0 1rem 1rem;
+        text-transform: uppercase;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-weight: 700;
+        margin: 1rem 0;
+    }
+    .signup-form-button {
+        background-color: #20b2aa;
+        color: #fff;
+    }
+    .signup-form-button:hover {
+        background-color: #1d9f98;
+    }
+    .signup-form p {
+        margin: 0.5rem 0 1rem 0;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+    .signup-form p:hover {
+        cursor: pointer;
+        color: #20b2aa;
+    }
+    .form-oferta p {
+        font-size: 0.8rem;
+        font-weight: 400;
+        text-transform: inherit;
+    }
+    .form-oferta p:hover {
+        cursor: auto;
+        color: #000;
+    }
+    .form-oferta a {
+        font-size: 1rem;
+        font-weight: 400;
+        text-decoration: underline;
+    }
+    .form-oferta a:hover {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+        .signup-header {
+            margin-bottom: 1rem;
+        }
+        .signup-block h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .social-button button {
+            margin: 1rem 0 ;
+    }
+</style>
+<body>
+<div class="signup-header">
+    <img src="/wisehands/assets/images/main_logo_black.png">
+    <a href="/main"><p id="">WiseShop</p></a>
+</div>
+<div class="signup-block">
+    <h1>Реєстрація</h1>
+    <div class="social-button">
+        <button class="signup-fb-button">
+                <span>
+                    <i class="fa fa-facebook-f"  style="font-size:24px; color: #fff"></i>
+                </span>Зареєструватися через Facebook
+        </button>
+        <button class="signup-google-button">
+                <span>
+                    <i class="fa fa-google"  style="font-size:24px; color: #808080"></i>
+                </span>Зареєструватися через Google
+        </button>
+    </div>
+    <span>Або заповніть поля</span>
+    <form name="login-form" class="signup-form">
+        <div class="form-field">
+            <input id="signup-email" type="email" name="email" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-email">Email</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-password" type="password" name="password" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-password">Пароль</label>
+        </div>
+        <button class="signup-form-button">
+            Зареєструватися
+        </button>
+        <a href="/ua/signin"><p>Увійти</p></a>
+        <div class="form-oferta">
+            <p>Реєструючись, ви погоджуєтесь з умовами <a href="/ua/contract">Публічної оферти та Умовами надання послуг WiseShop</a>
+            </p>
+        </div>
+    </form>
+
+</div>
+
+
+</body>
+</html>
