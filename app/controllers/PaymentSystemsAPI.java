@@ -17,6 +17,7 @@ public class PaymentSystemsAPI  extends AuthController {
         JSONObject json = new JSONObject();
         json.put("liqpayPublicKey", shop.liqpayPublicKey);
         json.put("liqpayPrivateKey", shop.liqpayPrivateKey);
+        json.put("clientPaysProcessingCommission", shop.paymentSettings.clientPaysProcessingCommission);
 
         renderJSON(json);
 
@@ -37,8 +38,10 @@ public class PaymentSystemsAPI  extends AuthController {
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         String liqpayPublicKey = (String) jsonBody.get("liqpayPublicKey");
         String liqpayPrivateKey = (String) jsonBody.get("liqpayPrivateKey");
+        Boolean clientPaysProcessingCommission = (Boolean) jsonBody.get("clientPaysProcessingCommission");
         shop.liqpayPublicKey = liqpayPublicKey;
         shop.liqpayPrivateKey = liqpayPrivateKey;
+        shop.paymentSettings.clientPaysProcessingCommission = clientPaysProcessingCommission;
         shop = shop.save();
         renderJSON(json(shop));
 

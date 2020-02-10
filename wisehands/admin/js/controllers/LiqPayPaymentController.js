@@ -30,7 +30,6 @@ angular.module('WiseHands')
                 data: $scope.liqpay
             })
                 .then(function successCallback(response) {
-                    $scope.liqpay = response.data;
                     console.log("$scope.liqpay successCallback: ", response.data);
                     showInfoMsg("SAVED");
                     $scope.loading = false;
