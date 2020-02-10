@@ -132,7 +132,6 @@ public class OrderAPI extends AuthController {
 
         order.total = orderItemListResult.total;
 
-
         boolean isBiggerThanMimimal = true;
         if(shop.paymentSettings.minimumPayment != null) {
             isBiggerThanMimimal = shop.paymentSettings.minimumPayment <= order.total;
@@ -150,7 +149,6 @@ public class OrderAPI extends AuthController {
 
         shop = shop.save();
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
-
 
         clearShoppingCart(shoppingCart);
         JPA.em().getTransaction().commit();
@@ -240,7 +238,6 @@ public class OrderAPI extends AuthController {
             int offset = PAGE_SIZE * page;
             orders = OrderDTO.find("shop is ?1 and state is not ?2 order by time desc", shop, OrderState.DELETED).from(offset).fetch(PAGE_SIZE);
         }
-
 
         renderJSON(json(orders));
     }

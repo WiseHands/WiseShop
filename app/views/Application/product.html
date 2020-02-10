@@ -359,7 +359,7 @@
         <h2>${product.name}</h2>
         <p class="text-justify">${product.description}</p>
         #{if product.additions}
-            <div class="add-components">
+            <div class="add-components" hidden>
                 <div class="add-components-main">
                     <a href="#additions">
                         <div class="add-button">
@@ -420,6 +420,7 @@
 </html>
 <script>
   const chosenAdditionsContainer = document.querySelector('.add-items');
+  const additionContainerToHide = document.querySelector('.add-components');
   const productPriceElement = document.querySelector('.product-price');
   let totalPrice = Number(productPriceElement.getAttribute('price'));
   const totalSpan = document.querySelector('.total-span');
@@ -430,6 +431,7 @@
   _setTotal(totalPrice);
 
   function _addItem(_addition) {
+    additionContainerToHide.removeAttribute("hidden");
     const createdAddition = document.getElementById(_addition.uuid);
     let setSendAddition = {
       uuid: _addition.uuid,
@@ -471,11 +473,16 @@
   }
 
   function _removeAddition(id, price) {
+
     const additionElementToRemove = document.getElementById(id);
     const counter = Number(additionElementToRemove.getAttribute('counter'));
     const amountToSubstract = -counter * price;
     _calculateTotal(amountToSubstract);
     chosenAdditionsContainer.removeChild(additionElementToRemove);
+    const additionNodesLength = document.querySelectorAll('.add-items-title').length;
+    if (additionNodesLength === 0){
+        additionContainerToHide.setAttribute('hidden', true);
+    }
     _setAdditionsTotalPrice();
       for (let i = 0; i < additionList.length; i++) {
           let obj = additionList[i];
