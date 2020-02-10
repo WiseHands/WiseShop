@@ -131,7 +131,6 @@ function workingHoursHandler(data) {
     }
 
     let isShopClosedNow = isShopClosedToday(data);
-    console.log("isShopClosedNow", isShopClosedNow);
     let IS_SHOP_OPENED = false;
     let MESSAGE = '';
     if(!isShopClosedNow){
@@ -146,28 +145,20 @@ function workingHoursHandler(data) {
     window.IS_SHOP_OPENED = IS_SHOP_OPENED;
     window.MESSAGE = MESSAGE;
 
-    isShopClosedNow = isNotWorkingTime;
-    return isShopClosedNow;
 }
 
 function getData() {
-    let isShopWorkingForSellProduct;
     fetch('/shop/details/public', {
         method: 'GET'
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        isShopWorkingForSellProduct = workingHoursHandler(data);
-        console.log("isShopWorking for buy product", isShopWorkingForSellProduct);
-        return isShopWorkingForSellProduct;
-
+        workingHoursHandler(data);
     });
 }
 
 function setWorkingHoursService() {
-   const isShopWorking = getData();
-   console.log("get isShopWorking from getData()", isShopWorking);
-   return isShopWorking;
+   getData();
 }
 
 setWorkingHoursService();

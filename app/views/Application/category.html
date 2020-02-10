@@ -73,7 +73,12 @@
         document.querySelector(".cart-float").style.display = 'none';
     }
     function buyStart(uuid) {
-
+        if(!window.IS_SHOP_OPENED) {
+            if(window.MESSAGE) {
+                toastr.warning(MESSAGE);
+            }
+            return;
+        }
         fetch('/api/cart?uuid=' + uuid, {
             method: 'POST'
         }).then(function (response) {
@@ -157,6 +162,7 @@
 <script defer src="/wisehands/assets/js/tether.min.js"></script>
 <script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
 <script defer src="/wisehands/assets/mdb_shop/js/mdb.min.js"></script>
+<script src="/wisehands/shop/js/services/WokingHoursService.js"></script>
 
 <script defer src="/wisehands/assets/angular-cookies/angular-cookies.js"></script>
 <script defer src="/wisehands/assets/angular-sanitize/angular-sanitize.js"></script>
@@ -169,44 +175,3 @@
 
 <script defer src="/wisehands/shop/js/routes/routeConfig.js"></script>
 
-<script defer src="/wisehands/shop/js/controllers/ShopController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/ContactsController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/ProductDetailsController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/SideNavController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/CategoryDetailsController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/ShoppingCartController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/OrderFormController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/PaymentStageController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/NewPostController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/ChooseDeliveryController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/SelectedCourierDeliveryController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/SelectedPostDeliveryController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/SelectedSelftakeDeliveryController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/SelectedAddressDeliveryController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/PaymentTypeController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/OtherShopsController.js"></script>
-<script defer src="/wisehands/shop/js/controllers/PageController.js"></script>
-
-<script defer src="/wisehands/shop/js/services/SharedDataService.js"></script>
-<script defer src="/wisehands/shop/js/services/SideNavInitService.js"></script>
-<script defer src="/wisehands/shop/js/services/PublicShopInfoService.js"></script>
-<script defer src="/wisehands/shop/js/services/LocaleService.js"></script>
-<script defer src="/wisehands/shop/js/services/IsUserAdminFactory.js"></script>
-
-<script defer src="/wisehands/shop/js/directives/shopStyling.js"></script>
-<script defer src="/wisehands/shop/js/directives/deliveryCost.js"></script>
-<script defer src="/wisehands/shop/js/directives/autocomplete.js"></script>
-<script defer src="/wisehands/shop/js/directives/onFinishRender.js"></script>
-<script defer src="/wisehands/shop/js/directives/angularSelect/angular-selectbox.js"></script>
-
-<script defer src="/wisehands/assets/js/angular-spinners.min.js"></script>
-
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', '${shop.googleAnalyticsCode}', 'auto');
-    ga('send', 'pageview');
-</script>
