@@ -24828,7 +24828,11 @@ class WiseShoppingCartContainer extends PolymerElement {
   }
 
   _computeLabel(paymentInfo) {
-    return `${paymentInfo.label} (+${paymentInfo.paymentComission * 100} %)`;
+    if (paymentInfo.clientPaysProcessingCommission) {
+      return `${paymentInfo.label} (+${paymentInfo.paymentComission * 100} %)`;
+    }
+
+    return paymentInfo.label;
   }
 
   _computeCourierLabel(courierInfo) {
@@ -25014,7 +25018,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       total += this.cart.configuration.delivery.courier.deliveryPrice;
     }
 
-    if (this.cart.paymentType === 'CREDITCARD') {
+    if (this.cart.paymentType === 'CREDITCARD' && this.cart.configuration.payment.creditCard.clientPaysProcessingCommission) {
       total += total * this.cart.configuration.payment.creditCard.paymentComission;
     }
 

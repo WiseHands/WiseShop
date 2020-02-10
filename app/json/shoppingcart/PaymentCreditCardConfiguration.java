@@ -13,9 +13,13 @@ public class PaymentCreditCardConfiguration {
     @Expose
     Double paymentComission = 0.0275;
 
-    public PaymentCreditCardConfiguration(String label, Boolean isActivePayByCash){
+    @Expose
+    Boolean clientPaysProcessingCommission;
+
+    public PaymentCreditCardConfiguration(String label, Boolean isActivePayByCash, Boolean clientPaysProcessingCommission){
         this.label = label;
         this.isActivePayByCash = isActivePayByCash;
+        this.clientPaysProcessingCommission = clientPaysProcessingCommission;
     }
 
 }
