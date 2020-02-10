@@ -112,11 +112,26 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
     <script src="/wisehands/shop/js/services/WokingHoursService.js"></script>
 
+
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&libraries=initMap,drawing,geometry,places"></script>
+    <script defer src="/wisehands/assets/js/angular.min.js"></script>
+    <script defer src="/wisehands/assets/js/angular-route.min.js"></script>
+    <script defer src="/wisehands/assets/js/jquery-2.2.3.min.js"></script>
+    <script defer src="/wisehands/assets/js/tether.min.js"></script>
+    <script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
+    <script defer src="/wisehands/assets/mdb_shop/js/mdb.min.js"></script>
+
     <script>
         function setDelayShowCart() {
             document.querySelector(".cart-float").style.display = 'none';
         }
         function buyStart(uuid) {
+            if(!window.IS_SHOP_OPENED) {
+                if(window.MESSAGE) {
+                    toastr.warning(MESSAGE);
+                }
+                return;
+            }
 
             fetch('/api/cart?uuid=' + uuid, {
                 method: 'POST'
@@ -187,13 +202,7 @@
         #{/if}
 </html>
 
-<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&libraries=initMap,drawing,geometry,places"></script>
-<script defer src="/wisehands/assets/js/angular.min.js"></script>
-<script defer src="/wisehands/assets/js/angular-route.min.js"></script>
-<script defer src="/wisehands/assets/js/jquery-2.2.3.min.js"></script>
-<script defer src="/wisehands/assets/js/tether.min.js"></script>
-<script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
-<script defer src="/wisehands/assets/mdb_shop/js/mdb.min.js"></script>
+
 
 
 

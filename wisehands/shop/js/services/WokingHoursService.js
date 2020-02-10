@@ -1,6 +1,5 @@
 
 function workStartDay(data) {
-    // console.log("workStartDay");
     let now = moment(currentTime());
     let mon = new Date(data.monStartTime);
     let tue = new Date(data.tueStartTime);
@@ -31,12 +30,9 @@ function workStartDay(data) {
     if (now.weekday() === 6){
         return sat;
     }
-
-
 }
 
 function workEndDay(data) {
-    // console.log("workEndDay");
     let now = moment(currentTime());
     let mon = new Date(data.monEndTime);
     let tue = new Date(data.tueEndTime);
@@ -74,7 +70,7 @@ function currentTime(){
     return currDate.toUTCString();
 }
 
-function isShopOpenToday(data) {
+function isShopClosedToday(data) {
     let now = moment(currentTime());
     let isOpenMon = data.monOpen;
     let isOpenTue = data.tueOpen;
@@ -85,87 +81,93 @@ function isShopOpenToday(data) {
     let isOpenSun = data.sunOpen;
 
     if (now.weekday() === 0){
-        return isOpenSun;
+        return !isOpenSun;
     }
     if (now.weekday() === 1){
-        return isOpenMon;
+        return !isOpenMon;
     }
     if (now.weekday() === 2){
-        return isOpenTue;
+        return !isOpenTue;
     }
     if (now.weekday() === 3){
-        return isOpenWed;
+        return !isOpenWed;
     }
     if (now.weekday() === 4){
-        return isOpenThu;
+        return !isOpenThu;
     }
     if (now.weekday() === 5){
-        return isOpenFri;
+        return !isOpenFri;
     }
     if (now.weekday() === 6){
-        return isOpenSat;
+        return !isOpenSat;
     }
 }
 
 function workingHoursHandler(data) {
-    const isShopOpenNow = isShopOpenToday(data);
 
     let startTime = workStartDay(data);
-
     let startHour = (startTime.getHours()<10?'0':'') + startTime.getHours();
     let startMinute = (startTime.getMinutes()<10?'0':'') + startTime.getMinutes();
-    // console.log("start time for shop", startHour, startMinute);
+
     let endTime = workEndDay(data);
     let endHour = (endTime.getHours()<10?'0':'') + endTime.getHours();
     let endMinute = (endTime.getMinutes()<10?'0':'') + endTime.getMinutes();
-    // console.log("start time for shop", endHour, endMinute);
-
-    let alwaysOpen = data.alwaysOpen;
 
     let currDate =  new Date();
-
     let currTime = currDate.getHours() * 60 + currDate.getMinutes();
     let firstTime = Number(startHour * 60) + Number(startMinute);
     let lastTime = Number(endHour * 60 === 0 ? 1440 : endHour * 60) + Number(endMinute);
-    // console.log("time for working hours", currTime, ":", firstTime, ":", lastTime);
 
     let isNotWorkingTime;
+    let alwaysOpen = data.alwaysOpen;
     if (alwaysOpen === true) {
         isNotWorkingTime = true;
         console.log('shop is working, shop configured to be always opened');
     } else if (currTime >= firstTime && currTime < lastTime){
         isNotWorkingTime = true;
-        console.log('shop is working, current datetime is in working range');
     } else {
         isNotWorkingTime = false;
         console.log('shop is not working, current datetime is not in working range');
-
     }
 
-
-    if(isShopOpenNow){
-        console.log('Сьогодні не працюємо');
+    let isShopClosedNow = isShopClosedToday(data);
+    console.log("isShopClosedNow", isShopClosedNow);
+    let IS_SHOP_OPENED = false;
+    let MESSAGE = '';
+    if(!isShopClosedNow){
+        MESSAGE = 'Сьогодні не працюємо';
     } else if (!isNotWorkingTime) {
-        console.log('Ми працюємо з ' + startHour + '-' + startMinute + ' до ' + endHour + '-' + endMinute)
+        MESSAGE = 'Ми працюємо з ' + startHour + '-' + startMinute + ' до ' + endHour + '-' + endMinute;
     } else {
+        IS_SHOP_OPENED = true;
+        MESSAGE = '';
         console.log('Працюємо');
     }
+    window.IS_SHOP_OPENED = IS_SHOP_OPENED;
+    window.MESSAGE = MESSAGE;
 
+    isShopClosedNow = isNotWorkingTime;
+    return isShopClosedNow;
 }
 
 function getData() {
+    let isShopWorkingForSellProduct;
     fetch('/shop/details/public', {
         method: 'GET'
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log("/from shop public get date", data);
-        workingHoursHandler(data);
+        isShopWorkingForSellProduct = workingHoursHandler(data);
+        console.log("isShopWorking for buy product", isShopWorkingForSellProduct);
+        return isShopWorkingForSellProduct;
+
     });
 }
 
 function setWorkingHoursService() {
-    getData();
+   const isShopWorking = getData();
+   console.log("get isShopWorking from getData()", isShopWorking);
+   return isShopWorking;
 }
 
 setWorkingHoursService();
