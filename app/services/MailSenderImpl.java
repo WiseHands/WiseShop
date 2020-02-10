@@ -74,7 +74,6 @@ public class MailSenderImpl implements MailSender {
             email.setHtmlMsg(rendered);
             email.setCharset("utf-8");
             Mail.send(email);
-//        }
     }
 
     private static String readAllBytesJava7(String filePath)
@@ -112,5 +111,25 @@ public class MailSenderImpl implements MailSender {
 //
 //            Mail.send(email);
 //        }
+    }
+
+    @Override
+    public void sendContactUsEmail(String userEmail, String message) throws Exception {
+        HtmlEmail email = new HtmlEmail();
+        email.setHostName("wstore.pro");
+        email.setFrom("wisehandsme@gmail.com");
+        System.out.println("AddTo: " + "bohdaq@gmail.com");
+        email.setSubject("Нове повідомлення");
+
+        String templateString = readAllBytesJava7("app/emails/contact_us_email_form.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("label", message);
+
+        String rendered = template.render(map);
+
+        email.setHtmlMsg(rendered);
+        email.setCharset("utf-8");
+        Mail.send(email);
     }
 }

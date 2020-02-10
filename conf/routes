@@ -30,6 +30,8 @@ GET     {client}/sudo/users                            	UserAPI.list
 GET     {client}/sudo/user/{uuid}                       UserAPI.one
 DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
 
+POST    {client}/send-contact-us-email                  LandingContactFormAPI.sendContactUsEmail
+
 
 OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
 POST        {client}/api/cart                               ShoppingCartAPI.addProduct
