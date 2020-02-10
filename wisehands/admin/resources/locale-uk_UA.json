@@ -219,6 +219,7 @@
   "settings.changeDomainName": "Зміна назви домену",
   "settings.NewDomainName": "Нова назва домену (наприклад carrot.com)",
   "settings.changeDomainNameButton": "Змінити",
+  "settings.commissionForClient": "Комісія яку сплачує покупець при онлайн оплаті",
   "user.gmail": "Я хочу використати Gmail акаунт",
   "userprofile.myProfile": "Мій Профіль",
   "userprofile.fullname": "П.І.П.",

@@ -844,3 +844,6 @@ input {
 .load-button input {
     font-size: 1.2rem;
 }
+.check-box-commission-container{
+    margin: 1rem 0;
+}

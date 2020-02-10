@@ -34,6 +34,10 @@
             <p>{{'settings.privateKey' | translate}}</p>
             <input id="privateLiqPay" type="password" ng-model="liqpay.liqpayPrivateKey" required>
         </div>
+        <div class="col-sm-6 check-box-commission-container">
+            <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="activeShop.alwaysOpen" />
+            <label for="filled-in-box">{{'settings.commissionForClient' | translate}}</label>
+        </div>
     </form>
 
 </div>

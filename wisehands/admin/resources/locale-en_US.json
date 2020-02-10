@@ -180,6 +180,7 @@
   "users.newUserExist": "User with such e-mail already exists",
   "users.deleteMessage1": "Do you really want to delete this user?",
   "users.deleteMessage2": "User deleted.",
+  "settings.commissionForClient": "The commission paid by the buyer for online payment",
   "settings.settings": "Settings",
   "settings.general": "General",
   "settings.view": "View",
