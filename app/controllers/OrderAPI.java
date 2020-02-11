@@ -3,6 +3,7 @@ package controllers;
 import enums.OrderState;
 import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
+import json.shoppingcart.PaymentCreditCardConfiguration;
 import models.*;
 import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.codec.binary.Base64;
@@ -131,6 +132,13 @@ public class OrderAPI extends AuthController {
         }
 
         order.total = orderItemListResult.total;
+
+        if (shop.paymentSettings.clientPaysProcessingCommission){
+            order.total += order.total * PaymentCreditCardConfiguration._paymentComission;
+            order.total = Math.round(order.total * 100.0) / 100.0;
+        }
+
+        System.out.println("order.total with payment commission: " + order.total);
 
         boolean isBiggerThanMimimal = true;
         if(shop.paymentSettings.minimumPayment != null) {

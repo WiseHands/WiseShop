@@ -11,7 +11,9 @@ public class PaymentCreditCardConfiguration {
     Boolean isActivePayByCash;
 
     @Expose
-    Double paymentComission = 0.0275;
+    Double paymentComission = this._paymentComission;
+
+    public static Double _paymentComission = 0.0275;
 
     @Expose
     Boolean clientPaysProcessingCommission;
