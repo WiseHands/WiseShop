@@ -24,6 +24,7 @@
     .signup-header {
         display: flex;
         align-items: center;
+        justify-content: center;
         padding: 1rem;
         margin: 0 auto 2rem auto;
         max-width: 1200px;
@@ -214,7 +215,7 @@
 <body>
 <div class="signup-header">
     <img src="/wisehands/assets/images/main_logo_black.png">
-    <a href="/main"><p id="">WiseShop</p></a>
+    <a href="/main"><p id="">WiseStore</p></a>
 </div>
 <div class="signup-block">
     <h1>Реєстрація</h1>
@@ -232,6 +233,21 @@
     </div>
     <span>Або заповніть поля</span>
     <form name="login-form" class="signup-form">
+        <div class="form-field">
+            <input id="signup-name" type="text" name="name" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-name">Ім'я</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-surname" type="text" name="surname" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-surname">Прізвище</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-phone" type="tel" name="surname" required placeholder=" "  pattern="^[0-9-+\s()]*$">
+            <span class="highlight"></span>
+            <label for="signup-phone">Номер телефону</label>
+        </div>
         <div class="form-field">
             <input id="signup-email" type="email" name="email" required placeholder=" ">
             <span class="highlight"></span>
