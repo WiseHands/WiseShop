@@ -24643,6 +24643,9 @@ class WiseShoppingCartContainer extends PolymerElement {
                     flex-direction: column;
                     align-items: flex-end;
                 }
+                .total-container h1, h3{
+                    margin: 5px 0;
+                }
 
                 .order-details :nth-last-child(2) h3 {
                     margin-bottom: 0;
@@ -24778,6 +24781,10 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </template>
                                 <span class="error-span" inner-h-t-m-l="[[errorMessage]]"></span>
                                 <div class="total-container">
+                                    <h3>Товарів на суму: [[productsTotal]]</h3>
+                                    <h3>Сума додатків для товарів: [[additionsTotal]]</h3>
+                                    <h3>Сума доставки: [[deliveryPrice]]</h3>
+                                    <h3>Комісія онлайн оплати: [[paymentOnlineCommission]]</h3>
                                     <h1>СУМА: [[total]] [[currencyLabel]]</h1>
                                     <paper-button disabled=[[!cart.items.length]] on-tap="_proceed">NEXT
                                     </paper-button>
@@ -24999,14 +25006,14 @@ class WiseShoppingCartContainer extends PolymerElement {
   _calculateTotal(cart) {
     if (!this.cart.configuration) return;
     let total = 0;
+    let additionPrice = 0;
     let items = cart.items;
-    let additioPrice = 0;
     items.forEach(item => {
-      total += item.quantity * item.price;
       item.additionList.forEach(addition => {
-        additioPrice += addition.price * addition.quantity;
-        total += additioPrice;
+        additionPrice += addition.price * addition.quantity;
+        total += additionPrice;
       });
+      total += item.quantity * item.price;
     });
 
     if (this.cart.deliveryType === 'COURIER') {
