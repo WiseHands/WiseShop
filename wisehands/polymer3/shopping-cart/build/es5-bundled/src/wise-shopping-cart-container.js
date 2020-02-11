@@ -24781,10 +24781,10 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </template>
                                 <span class="error-span" inner-h-t-m-l="[[errorMessage]]"></span>
                                 <div class="total-container">
-                                    <h3>Товарів на суму: [[productsTotal]]</h3>
-                                    <h3>Сума додатків для товарів: [[additionsTotal]]</h3>
-                                    <h3>Сума доставки: [[deliveryPrice]]</h3>
-                                    <h3>Комісія онлайн оплати: [[paymentOnlineCommission]]</h3>
+                                    <h3>Товарів на суму: [[_computeProductsTotal(cart.items)]] UAH</h3>
+                                    <h3>Сума додатків для товарів: [[_computeAdditionsTotal(cart.items)]] UAH</h3>
+                                    <h3>Сума доставки: [[deliveryPrice]] UAH</h3>
+                                    <h3>Комісія онлайн оплати: [[_calculatePaymentOnlineCommission(total, cart.paymentType, cart.configuration.payment.creditCard.paymentComission)]] UAH</h3>
                                     <h1>СУМА: [[total]] [[currencyLabel]]</h1>
                                     <paper-button disabled=[[!cart.items.length]] on-tap="_proceed">NEXT
                                     </paper-button>
@@ -25006,25 +25006,28 @@ class WiseShoppingCartContainer extends PolymerElement {
   _calculateTotal(cart) {
     if (!this.cart.configuration) return;
     let total = 0;
-    let additionPrice = 0;
     let items = cart.items;
+    let additionPrice;
     items.forEach(item => {
+      additionPrice = 0;
       item.additionList.forEach(addition => {
         additionPrice += addition.price * addition.quantity;
-        total += additionPrice;
       });
-      total += item.quantity * item.price;
+      total += item.quantity * (item.price + additionPrice);
     });
 
     if (this.cart.deliveryType === 'COURIER') {
       const freeDelivery = this.cart.configuration.delivery.courier.minimumPaymentForFreeDelivery;
-
-      if (total <= freeDelivery) {
+      const isTotalLessOrEqualThenFreeDeliveryOrder = total <= freeDelivery;
+      this.deliveryPrice = isTotalLessOrEqualThenFreeDeliveryOrder ? cart.configuration.delivery.courier.deliveryPrice : 0;
+      if (isTotalLessOrEqualThenFreeDeliveryOrder) {
         total += this.cart.configuration.delivery.courier.deliveryPrice;
       }
     }
 
-    if (this.cart.paymentType === 'CREDITCARD' && this.cart.configuration.payment.creditCard.clientPaysProcessingCommission) {
+    const isClientPaysProcessingCommission = this.cart.paymentType === 'CREDITCARD' && this.cart.configuration.payment.creditCard.clientPaysProcessingCommission;
+
+    if (isClientPaysProcessingCommission) {
       total += total * this.cart.configuration.payment.creditCard.paymentComission;
     }
 
@@ -25033,6 +25036,28 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   roundToTwo(num) {
     return +(Math.round(num + "e+2") + "e-2");
+  }
+
+  _computeProductsTotal(items) {
+    let total = 0;
+    items.forEach(item => total += item.quantity * item.price)
+    return total;
+  }
+
+  _computeAdditionsTotal(items) {
+    let additionsTotal = 0;
+    items.forEach(item => {
+      item.additionList.forEach(addition => {
+        additionsTotal += addition.price * addition.quantity;
+      })
+    });
+    return additionsTotal;
+  }
+
+  _calculatePaymentOnlineCommission(total, paymentType, commission) {
+    const isDeliveryTypeCourier = paymentType === 'CREDITCARD';
+    const commissionAmount = isDeliveryTypeCourier ? total * commission : 0;
+    return this.roundToTwo(commissionAmount);
   }
 
   _validateAndGeocodeAddress(event) {
