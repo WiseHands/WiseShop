@@ -24997,6 +24997,7 @@ class WiseShoppingCartContainer extends PolymerElement {
   }
 
   _calculateTotal(cart) {
+    if (!this.cart.configuration) return;
     let total = 0;
     let items = cart.items;
     let additioPrice = 0;
@@ -25011,18 +25012,20 @@ class WiseShoppingCartContainer extends PolymerElement {
     if (this.cart.deliveryType === 'COURIER') {
       const freeDelivery = this.cart.configuration.delivery.courier.minimumPaymentForFreeDelivery;
 
-      if (total >= freeDelivery) {
-        return total;
+      if (total <= freeDelivery) {
+        total += this.cart.configuration.delivery.courier.deliveryPrice;
       }
-
-      total += this.cart.configuration.delivery.courier.deliveryPrice;
     }
 
     if (this.cart.paymentType === 'CREDITCARD' && this.cart.configuration.payment.creditCard.clientPaysProcessingCommission) {
       total += total * this.cart.configuration.payment.creditCard.paymentComission;
     }
 
-    return +total.toFixed(2);
+    return this.roundToTwo(total);
+  }
+
+  roundToTwo(num) {
+    return +(Math.round(num + "e+2") + "e-2");
   }
 
   _validateAndGeocodeAddress(event) {
