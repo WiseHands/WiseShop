@@ -24607,6 +24607,10 @@ class WiseShoppingCartContainer extends PolymerElement {
                     color: red;
                     min-height: 1.2em;
                 }
+                
+                .info-span{
+                    padding-left: 15.5px;
+                }
 
                 paper-input {
                     padding: 0 1em;
@@ -24738,13 +24742,16 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 <template is="dom-if" if="[[_isAddressCardVisible(cart.deliveryType)]]">
                                     <paper-card>
                                         <h3>Адреса:</h3>
-
                                         <div hidden="[[!_isCourierDeliveryType(cart.deliveryType)]]">
+                                            <span class="info-span" hidden="[[!cart.client.address.isAddressSetFromMapView]]">
+                                                Вказати місцезнаходження на <a href="/selectaddress">карті</a>.</span>
                                             <paper-input id="street" pattern=".*\\S.*" label="Вулиця"
+                                                         disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          value="{{cart.client.address.street}}" required
                                                          error-message="Заповніть, будь ласка, це поле"
                                                          on-blur="_validateAndGeocodeAddress"></paper-input>
                                             <paper-input id="building" pattern=".*\\S.*"
+                                                         disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          label="Будинок" value="{{cart.client.address.building}}"
                                                          required error-message="Заповніть, будь ласка, це поле"
                                                          on-blur="_validateAndGeocodeAddress"></paper-input>
@@ -24958,10 +24965,16 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (isCourierDeliverySelected) {
       const address = this.cart.client.address;
-      let cart = await this._geocode(`${address.street} ${address.building}`);
+      const isAddressSetFromMapView = address.isAddressSetFromMapView;
+      let cart = this.cart;
+
+      if (!isAddressSetFromMapView) {
+        let cart = await this._geocode(`${address.street} ${address.building}`);
+      }
+
       const isAddressInsideDeliveryBoundaries = cart.client.address.isAddressInsideDeliveryBoundaries;
 
-      if (isValid && isAddressInsideDeliveryBoundaries) {
+      if (isValid && (isAddressSetFromMapView || isAddressInsideDeliveryBoundaries)) {
         this._makeOrderRequest();
       } else {
         this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/selectaddress">карті</a>.`;

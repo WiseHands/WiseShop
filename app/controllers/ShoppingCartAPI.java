@@ -66,9 +66,7 @@ public class ShoppingCartAPI extends AuthController {
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
-
         LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop, additionOrderDTOList);
-
 
         boolean foundMatch = false;
 
@@ -76,8 +74,6 @@ public class ShoppingCartAPI extends AuthController {
         for (LineItem _lineItem : shoppingCart.items) {
             if (productUuid.equals(_lineItem.productId)) {
                 // LineItem found, next check if addition list match...
-
-
                 foundMatch = additionOrderDTOList.equals(_lineItem.additionList);
                 if(foundMatch) {
                     _lineItem.quantity = _lineItem.quantity + quantity;
@@ -127,7 +123,6 @@ public class ShoppingCartAPI extends AuthController {
             JSONObject additionObject = (JSONObject) jsonAdditionList.get(i);
             additionList.add(additionObject);
         }
-
 
         List<AdditionLineItemDTO> additionOrderDTOList = new ArrayList<AdditionLineItemDTO>();
         for(JSONObject object: additionList){
@@ -225,7 +220,6 @@ public class ShoppingCartAPI extends AuthController {
             lineItem.save();
             renderJSON(json(shoppingCart));
         }
-
 
     }
 
@@ -336,6 +330,7 @@ public class ShoppingCartAPI extends AuthController {
            String clientAddressApartmentEntranceCode = request.params.get("entranceCode");
            String clientAddressStreetLat = request.params.get("lat");
            String clientAddressStreetLng = request.params.get("lng");
+           Boolean isAddressSetFromMapView = Boolean.valueOf(request.params.get("isAddressSetFromMapView"));
 
            System.out.println("infoAboutClientAddress from request: " + clientAddressStreetName + " " + clientAddressBuildingNumber + " " + clientAddressApartmentNumber);
            System.out.println("infoAboutClientAddress from clientAddressStreetLat: " + clientAddressStreetLat + " " + clientAddressStreetLng);
@@ -359,6 +354,9 @@ public class ShoppingCartAPI extends AuthController {
            }
            if (clientAddressApartmentEntranceCode != null) {
                shoppingCart.clientAddressApartmentEntranceCode = clientAddressApartmentEntranceCode;
+           }
+           if (isAddressSetFromMapView != null){
+               shoppingCart.isAddressSetFromMapView = isAddressSetFromMapView;
            }
            if (clientAddressStreetLat != null && clientAddressStreetLng != null) {
                shoppingCart.clientAddressStreetLat = clientAddressStreetLat;

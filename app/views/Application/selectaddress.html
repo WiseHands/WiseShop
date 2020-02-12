@@ -204,6 +204,8 @@
         arrayCoordinates = courierPolygonData.features[0].geometry.coordinates[0];
         console.log("data for polygone", arrayCoordinates);
         console.log("polygon.length", arrayCoordinates.length);
+
+        //TODO if map not initialized and we receive response
         setDeliveryBoundariesPolygonOnMap();
     });
 
@@ -212,7 +214,7 @@
         let address = document.getElementById('city').value + ", " +
                       document.getElementById('street').value + ", " +
                       document.getElementById('building').value;
-        console.log("address", address);
+        console.log("geocodeAddress address", address);
         geocoder.geocode({'address': address}, function(results, status) {
             if (status === 'OK') {
                 resultsMap.setCenter(results[0].geometry.location);
@@ -291,10 +293,13 @@
             let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(latlng, polygon);
             // PUT /api/cart/address/info
             if (isLocationInsidePolygon) {
+                const isAddressSetFromMapView = true;
                 let street = document.getElementById('street').value;
                 let building = document.getElementById('building').value;
-                const params = '?street=' + street + '&building=' + building +
-                    '&lat=' + lat + '&lng=' + lng + "&cartId=" + cartId;
+                const params = '?street=' + street + '&building=' + building
+                    + '&lat=' + lat + '&lng='
+                    + lng + '&isAddressSetFromMapView=' + isAddressSetFromMapView
+                    + '&cartId=' + cartId;
 
                 fetch('/api/cart/address/info' + params, {
                     method: 'PUT'
@@ -358,8 +363,6 @@
         });
     }
 
-
-
     function findOwnlocation() {
         if (navigator.geolocation) {
 
@@ -380,7 +383,6 @@
             showWarningMsg('Geolocation not available')
         }
     }
-
 
     function showWarningMsg(msg) {
         toastr.clear();

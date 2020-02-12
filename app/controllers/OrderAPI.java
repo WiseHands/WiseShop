@@ -217,6 +217,7 @@ public class OrderAPI extends AuthController {
         shoppingCart.clientAddressStreetLat = null;
         shoppingCart.clientAddressStreetLng = null;
         shoppingCart.clientAddressGpsPointInsideDeliveryBoundaries = null;
+        shoppingCart.isAddressSetFromMapView = null;
         shoppingCart.save();
     }
 

@@ -23,10 +23,13 @@ public class ShoppingCartClientAddressInfo {
     public String lng;
     @Expose
     public Boolean isAddressInsideDeliveryBoundaries;
+    @Expose
+    public Boolean isAddressSetFromMapView;
 
     public ShoppingCartClientAddressInfo(String clientCity, String clientAddressStreetName, String clientAddressBuildingNumber,
                                          String clientAddressApartmentNumber, String clientAddressApartmentFloor, String clientAddressApartmentEntrance, String clientAddressApartmentEntranceCode,
-                                         String clientAddressStreetLat, String clientAddressStreetLng, Boolean isAddressInsideDeliveryBoundaries) {
+                                         String clientAddressStreetLat, String clientAddressStreetLng,
+                                         Boolean isAddressInsideDeliveryBoundaries, Boolean isAddressSetFromMapView) {
         this.city = clientCity;
         this.street = clientAddressStreetName;
         this.building = clientAddressBuildingNumber;
@@ -37,5 +40,6 @@ public class ShoppingCartClientAddressInfo {
         this.lat = clientAddressStreetLat;
         this.lng = clientAddressStreetLng;
         this.isAddressInsideDeliveryBoundaries = isAddressInsideDeliveryBoundaries;
+        this.isAddressSetFromMapView = isAddressSetFromMapView;
     }
 }
