@@ -172,7 +172,6 @@
     });
 
     function initMap(lat, lng) {
-
         let var_location = new google.maps.LatLng(lat, lng);
 
         let var_map_options = {
@@ -190,6 +189,10 @@
             geocodeAddress(geocoder, map);
         });
 
+        window.MAP_INITIALIZED = true;
+        if(window.API_RESPONSE_RECEIVED) {
+            setDeliveryBoundariesPolygonOnMap();
+        }
     }
 
     fetch('/courier/polygon', {
@@ -205,8 +208,10 @@
         console.log("data for polygone", arrayCoordinates);
         console.log("polygon.length", arrayCoordinates.length);
 
-        //TODO if map not initialized and we receive response
-        setDeliveryBoundariesPolygonOnMap();
+        window.API_RESPONSE_RECEIVED = true;
+        if(window.MAP_INITIALIZED) {
+            setDeliveryBoundariesPolygonOnMap();
+        }
     });
 
 
