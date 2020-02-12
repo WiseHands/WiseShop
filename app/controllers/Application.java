@@ -362,5 +362,8 @@ public class Application extends Controller {
     public static void uaSignup(String client){
             render();
     }
+    public static void uaWizard(String client){
+            render();
+    }
 
 }
