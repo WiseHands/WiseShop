@@ -24643,6 +24643,9 @@ class WiseShoppingCartContainer extends PolymerElement {
                     flex-direction: column;
                     align-items: flex-end;
                 }
+                .total-container h1, h3{
+                    margin: 5px 0;
+                }
 
                 .order-details :nth-last-child(2) h3 {
                     margin-bottom: 0;
@@ -24778,7 +24781,13 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </template>
                                 <span class="error-span" inner-h-t-m-l="[[errorMessage]]"></span>
                                 <div class="total-container">
-                                    <h1>СУМА: [[total]] [[currencyLabel]]</h1>
+                                    <h3>Товарів на суму:[[_computeProductsTotal(cart.items)]][[currencyLabel]]</h3>
+                                    <h3>Додатків на суму: [[_computeAdditionsTotal(cart.items)]][[currencyLabel]]</h3>
+                                    <h3>Доставка: [[deliveryPrice]][[currencyLabel]]</h3>
+                                    <h3 hidden="[[!cart.configuration.payment.creditCard.clientPaysProcessingCommission]]">
+                                        Комісія онлайн оплати: [[_calculatePaymentOnlineCommission(total, cart.paymentType, cart.configuration.payment.creditCard)]][[currencyLabel]]
+                                    </h3>
+                                    <h1>РАЗОМ: [[total]] [[currencyLabel]]</h1>
                                     <paper-button disabled=[[!cart.items.length]] on-tap="_proceed">NEXT
                                     </paper-button>
                                 </div>
@@ -24968,19 +24977,13 @@ class WiseShoppingCartContainer extends PolymerElement {
   }
 
   _onOrderResponseChanged(event, detail) {
-    console.log("_onOrderResponseChanged", detail);
-    const response = detail.value;
-
-    if (response.status === 'ok') {
-      this.cart = {
-        items: []
-      };
-      this.dispatchEvent(new CustomEvent('order-created', {
-        detail: response,
-        bubbles: true,
-        composed: true
-      }));
-    }
+    this.cart = {
+      items: []
+    };
+    this.dispatchEvent(new CustomEvent('order-created', {
+      bubbles: true,
+      composed: true
+    }));
   }
 
   _onLastResponseChanged(event, response) {
@@ -24997,32 +25000,69 @@ class WiseShoppingCartContainer extends PolymerElement {
   }
 
   _calculateTotal(cart) {
+    if (!this.cart.configuration) return;
     let total = 0;
+    let additionPrice;
     let items = cart.items;
-    let additioPrice = 0;
     items.forEach(item => {
-      total += item.quantity * item.price;
+      additionPrice = 0;
       item.additionList.forEach(addition => {
-        additioPrice += addition.price * addition.quantity;
-        total += additioPrice;
+        additionPrice += addition.price * addition.quantity;
       });
+      total += item.quantity * (item.price + additionPrice);
     });
 
     if (this.cart.deliveryType === 'COURIER') {
       const freeDelivery = this.cart.configuration.delivery.courier.minimumPaymentForFreeDelivery;
+      const isTotalLessOrEqualThenFreeDeliveryOrder = total <= freeDelivery;
+      this.deliveryPrice = isTotalLessOrEqualThenFreeDeliveryOrder ? cart.configuration.delivery.courier.deliveryPrice : 0;
 
-      if (total >= freeDelivery) {
-        return total;
+      if (isTotalLessOrEqualThenFreeDeliveryOrder) {
+        total += this.cart.configuration.delivery.courier.deliveryPrice;
       }
-
-      total += this.cart.configuration.delivery.courier.deliveryPrice;
+    } else {
+      this.deliveryPrice = 0;
     }
 
-    if (this.cart.paymentType === 'CREDITCARD' && this.cart.configuration.payment.creditCard.clientPaysProcessingCommission) {
+    const isClientPaysProcessingCommission = this.cart.paymentType === 'CREDITCARD' && this.cart.configuration.payment.creditCard.clientPaysProcessingCommission;
+
+    if (isClientPaysProcessingCommission) {
       total += total * this.cart.configuration.payment.creditCard.paymentComission;
     }
 
-    return +total.toFixed(2);
+    return this.roundToTwo(total);
+  }
+
+  roundToTwo(num) {
+    return +(Math.round(num + "e+2") + "e-2");
+  }
+
+  _computeProductsTotal(items) {
+    let total = 0;
+    items.forEach(item => total += item.quantity * item.price);
+    return total;
+  }
+
+  _computeAdditionsTotal(items) {
+    let additionsTotal = 0;
+    items.forEach(item => {
+      item.additionList.forEach(addition => {
+        additionsTotal += addition.price * addition.quantity;
+      });
+    });
+    return additionsTotal;
+  }
+
+  _calculatePaymentOnlineCommission(total, paymentType, paymentConfig) {
+    if (!this.cart.configuration) return;
+    const isCreditCardSelected = paymentType === 'CREDITCARD';
+    let commissionAmount = 0;
+
+    if (paymentConfig.clientPaysProcessingCommission && isCreditCardSelected) {
+      commissionAmount = total * paymentConfig.paymentComission;
+    }
+
+    return this.roundToTwo(commissionAmount);
   }
 
   _validateAndGeocodeAddress(event) {

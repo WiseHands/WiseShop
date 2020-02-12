@@ -99,6 +99,12 @@
 #{shop-header /}
 
 <div class="center-container">
+    <h3>Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ". Також
+        ви можете
+        ввести адресу і натиснути "ЗНАЙТИ"</h3>
+    <div id="error-message" class="error-message">
+        <p>Дана локація знаходитеся за межами доставки</p>
+    </div>
     <div class="address-container">
         <!--<p>Адреса:</p>-->
         <input type="text"
@@ -120,9 +126,7 @@
         <div class="load-button">
             <input id="find-address-button" type="button" onclick="findOwnlocation()" value="Визначити">
         </div>
-        <div id="error-message" class="error-message">
-            <p>Ви знаходитеся за межами доставки</p>
-        </div>
+
         <div class="load-button">
             <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="Далі">
         </div>
