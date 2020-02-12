@@ -12,6 +12,7 @@
           type="image/png"
           href="wisehands/assets/images/favicon.png">
 </head>
+
 <style>
     body, p, h1, h2, h3, h4, h5, h6, i, a {
         margin: 0;
@@ -21,37 +22,190 @@
         font-size: 16px;
         box-sizing: border-box;
     }
+    .wizard-main {
+        display: flex;
+        height: 100vh;
+    }
+    .wizard-img {
+        flex-basis: 40%;
+        background: url("../wisehands/landing/images/wizard.jpg") no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    .wizard-img img {
+        width: 100%;
+        height: 100vh;
+    }
+    .wizard-block {
+        flex-basis: 60%;
+    }
+    .wizard-form {
+        width: 80%;
+        height: 80%;
+        margin: 1rem auto;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3), 0px 5px 5px 0px rgba(0,0,0,0.14), -1px -2px 2px -1px rgba(0,0,0,0.12);
+    }
+    .wizard-form h2 {
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: 600;
+        padding: 2rem 0 1rem 0;
+    }
+    .steps {
+        display: flex;
+        width: 90%;
+        margin: 0 auto 1rem auto;
+        padding: 1rem 0;
+        border-top: 1px solid #ebebeb;
+        border-bottom: 1px solid #ebebeb;
+    }
+    .step {
+        width: 33%;
+        padding-left: 1rem;
+    }
+    #step2 {
+        border-left: 1px solid #ebebeb ;
+        border-right: 1px solid #ebebeb ;
+    }
+    .step1-form {
+        width: 90%;
+        margin: 0 auto 1rem auto;
+    }
+    .form-field {
+        position: relative;
+    }
+    .form-field-store-domain {
+        position: relative;
+        width: 30%;
+    }
+    .store-domain {
+        display: flex;
+        align-items: flex-end;
+    }
+    .store-domain p {
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    #store-domain {
+        padding-bottom: 0;
+        text-align: right;
+    }
+
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 1rem 0;
+        padding: 1rem 0 1rem 1rem;
+        border: none;
+        border-bottom: 1px solid #9e9e9e;
+    }
+    input:focus {
+        outline: none;
+    }
+    label {
+        font-size: 1rem;
+        position:absolute;
+        pointer-events:none;
+        left: 1rem;
+        top: 31px;
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+    input:focus ~ label, input:not(:placeholder-shown) ~ label 		{
+        top: 0;
+        font-size:0.9rem;
+        color:#20b2aa;
+    }
+    .highlight 	{
+        position:relative;
+        display:block;
+        width:100%;
+    }
+    .highlight:before, .highlight:after 	{
+        content:'';
+        height:2px;
+        width:0;
+        bottom:1px;
+        position:absolute;
+        top: -17px;
+        background:#20b2aa;
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+    .highlight:before {
+        left:50%;
+    }
+    .highlight:after {
+        right:50%;
+    }
+
+    /* active state */
+    input:focus ~ .highlight:before, input:focus ~ .highlight:after {
+        width:50%;
+    }
+    textarea {
+        width: 100%;
+        height: 150px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-top: 1rem;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
 </style>
+
 <body>
+<div class="wizard-main">
+    <div class="wizard-img">
+    </div>
 
-<div class="wizard-block">
-    <form name="wizard-form" class="wizard-form">
-        <div class="steps">
-            <div class="step">
-                <span>1</span>
-                <span>Магазин</span>
+    <div class="wizard-block">
+        <form name="wizard-form" class="wizard-form">
+            <h2>Створення магазину</h2>
+            <div class="steps">
+                <div class="step" id="step1">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                        <strong class="fa-stack-1x">1</strong>
+                    </span>
+                    <span>Магазин</span>
+                </div>
+                <div class="step" id="step2">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                        <strong class="fa-stack-1x">2</strong>
+                    </span>
+                    <span>Магазин</span>
+                </div>
+                <div class="step" id="step3">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                        <strong class="fa-stack-1x">3</strong>
+                    </span>
+                    <span>Магазин</span>
+                </div>
             </div>
-        </div>
-
-
-
-
-        <div class="form-field">
-            <input id="signin-email" type="email" name="email" required placeholder=" ">
-            <span class="highlight"></span>
-            <label for="signin-email">Email</label>
-        </div>
-        <div class="form-field">
-            <input id="signin-password" type="password" name="password" required placeholder=" ">
-            <span class="highlight"></span>
-            <label for="signin-password">Пароль</label>
-        </div>
-        <button class="signin-form-button">
-            Увійти
-        </button>
-        <a href="/ua/signup"><p>Зареєструватися</p></a>
-    </form>
+            <div class="step1-form">
+                <div class="form-field">
+                    <input id="store-name" type="text" name="name" required placeholder=" ">
+                    <span class="highlight"></span>
+                    <label for="store-name">Назва магазину</label>
+                </div>
+                <div class="store-domain">
+                    <div class="form-field-store-domain">
+                        <input id="store-domain" type="text" name="name" required placeholder="mynewstore">
+                    </div>
+                    <p>.wstore.pro</p>
+                </div>
+                <textarea id="store-about" placeholder="Повідомлення"></textarea>
+            </div>
+        </form>
+    </div>
 </div>
-
 </body>
 </html>
