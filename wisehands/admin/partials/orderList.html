@@ -106,7 +106,10 @@
         <a href ="#/details/{{item.uuid}}">
             <div class="card elegant-card hoverable">
                 <div ng-show="item.clientAddressStreetLng && item.deliveryType === 'COURIER'" class="view overlay hm-white-slight z-depth-1">
-                    <img ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:C%7C{{item.clientAddressStreetLng}},{{item.clientAddressStreetLat}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive" alt="">
+                    <img
+                            ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&center={{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&size=600x300&maptype=roadmap&markers=color:red|label:C|{{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&key={{activeShop.googleStaticMapsApiKey}}"
+                            class="img-responsive"
+                            alt="">
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div ng-show="item.deliveryType === 'COURIER' && !item.clientAddressStreetLng" class="view overlay hm-white-slight z-depth-1">
