@@ -466,6 +466,10 @@ body {
     width: fit-content;
 }
 
+.elegant-card {
+    max-width: 350px;
+}
+
 .vcentering {
     display: flex;
     align-items: center;
