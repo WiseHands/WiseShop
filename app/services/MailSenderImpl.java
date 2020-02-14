@@ -113,7 +113,6 @@ public class MailSenderImpl implements MailSender {
 //        }
     }
 
-    @Override
     public void sendContactUsEmail(String userEmail, String message) throws Exception {
         HtmlEmail email = new HtmlEmail();
         email.setHostName("wstore.pro");
