@@ -132,8 +132,9 @@ public class OrderAPI extends AuthController {
         }
 
         order.total = orderItemListResult.total;
-
-        if (shop.paymentSettings.clientPaysProcessingCommission){
+        boolean isPaymentTypeEqualsCreditCard = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
+        Boolean isClientPaysProcessingCommission = shop.paymentSettings.clientPaysProcessingCommission;
+        if (isClientPaysProcessingCommission && isPaymentTypeEqualsCreditCard){
             order.total += order.total * PaymentCreditCardConfiguration._paymentComission;
             order.total = Math.round(order.total * 100.0) / 100.0;
         }
