@@ -40,7 +40,7 @@ public class ShopServiceImpl implements ShopService{
     String navbarColor = "#072e6e";
     String navbarShopItemsColor = "#F44336";
 
-    @Override
+
     public ShopDTO createShop(String name, String domain, UserDTO user) {
         DeliveryDTO delivery = new DeliveryDTO(
                 true, courierDeliveryText,
