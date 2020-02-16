@@ -149,7 +149,7 @@ public class ShopDTO extends GenericModel {
     public List<OrderDTO> orders;
 
     @Expose
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade=CascadeType.ALL)
     public List<PageConstructorDTO> pagesList;
 
     @Transient

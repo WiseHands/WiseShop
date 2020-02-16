@@ -2,6 +2,8 @@ package models;
 
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
@@ -51,7 +53,8 @@ public class UserDTO extends GenericModel {
     public String password;
 
     @Expose
-    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade=CascadeType.ALL)
     public List<ShopDTO> shopList;
 
 
