@@ -182,7 +182,7 @@ public class ShoppingCartAPI extends AuthController {
         return shoppingCart.save();
     }
 
-    public void increaseQuantityProduct(String client) {
+    public static void increaseQuantityProduct(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
