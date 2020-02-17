@@ -87,7 +87,7 @@ public class OrderAPI extends AuthController {
             orderItem.fileName = product.fileName;
             orderItem.quantity = quantity;
             orderItem.orderUuid = order.uuid;
-            orderItem = orderItem.save();
+
 
             for(AdditionLineItemDTO addition : lineItem.additionList){
                 AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
@@ -95,6 +95,9 @@ public class OrderAPI extends AuthController {
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
                 totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
+                if(orderItem.additionsList == null) {
+                    orderItem.additionsList = new ArrayList<AdditionOrderDTO>();
+                }
                 orderItem.additionsList.add(additionOrderDTO);
             }
 
