@@ -87,6 +87,7 @@ public class OrderAPI extends AuthController {
             orderItem.fileName = product.fileName;
             orderItem.quantity = quantity;
             orderItem.orderUuid = order.uuid;
+            orderItem = orderItem.save();
 
             for(AdditionLineItemDTO addition : lineItem.additionList){
                 AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
