@@ -88,17 +88,14 @@ public class OrderAPI extends AuthController {
             orderItem.quantity = quantity;
             orderItem.orderUuid = order.uuid;
 
-            List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
             for(AdditionLineItemDTO addition : lineItem.additionList){
                 AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
                 additionOrderDTO.title = addition.title;
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
                 totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
-                additionList.add(additionOrderDTO);
+                orderItem.additionsList.add(additionOrderDTO);
             }
-            orderItem.additionsList = additionList;
-
 
             orderItemList.add(orderItem);
             totalCost += product.price * orderItem.quantity;
