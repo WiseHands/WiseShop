@@ -71,7 +71,10 @@
         border-left: 1px solid #ebebeb ;
         border-right: 1px solid #ebebeb ;
     }
-    .step1-form {
+    .tab {
+        display: none;
+    }
+    .step1-form, .step2-form, .step3-form {
         width: 90%;
         margin: 0 auto 1rem auto;
     }
@@ -101,7 +104,7 @@
     #store-name {
         margin-bottom: rem;
     }
-    input {
+    .form-field input, .form-field-store-domain input, .wizard-socialnetwork input {
         width: 100%;
         box-sizing: border-box;
         margin: 1rem 0;
@@ -109,20 +112,19 @@
         border: none;
         border-bottom: 1px solid #9e9e9e;
     }
-    input:focus {
+    .form-field input:focus, .wizard-socialnetwork input:focus {
         outline: none;
     }
-    label {
+    .form-field label, .wizard-socialnetwork label {
         font-size: 1rem;
         position:absolute;
         pointer-events:none;
-        left: 1rem;
         top: 31px;
         transition:0.2s ease all;
         -moz-transition:0.2s ease all;
         -webkit-transition:0.2s ease all;
     }
-    input:focus ~ label, input:not(:placeholder-shown) ~ label 		{
+    .form-field input:focus ~ label, .form-field input:not(:placeholder-shown) ~ label, .wizard-socialnetwork input:focus ~ label, .wizard-socialnetwork input:not(:placeholder-shown) ~ label  		{
         top: 0;
         font-size:0.9rem;
         color:#20b2aa;
@@ -166,6 +168,12 @@
         margin-bottom: 16px;
         resize: vertical;
     }
+    .step3-form p:first-child {
+        margin-bottom: 0.5rem;
+    }
+    .wizard-delivery, .wizard-payment {
+        margin-bottom: 1rem;
+    }
     .form-button {
         display: flex;
         justify-content: flex-end;
@@ -173,10 +181,11 @@
         margin: 3rem auto 1rem auto;
 
     }
-    .previous-button {
+    #prevBtn {
         margin-right: 1rem;
     }
-    .previous-button, .next-button {
+    #prevBtn, #nextBtn {
+        background-color: #fff;
         border: 2px solid #000;
         height: 50px;
         width: 100px;
@@ -184,7 +193,7 @@
         justify-content: center;
         align-items: center;
     }
-    .previous-button:hover, .next-button:hover {
+    #prevBtn:hover, #nextBtn:hover {
         color: #fff;
         background-color: #000;
         cursor: pointer;
@@ -197,6 +206,7 @@
     </div>
 
     <div class="wizard-block">
+
         <form name="wizard-form" class="wizard-form">
             <h2>Створення магазину</h2>
             <div class="steps">
@@ -222,7 +232,7 @@
                     <span>Магазин</span>
                 </div>
             </div>
-            <div class="step1-form">
+            <div class="step1-form tab">
                 <div class="form-field">
                     <input id="store-name" type="text" name="name" required placeholder=" ">
                     <span class="highlight"></span>
@@ -235,18 +245,80 @@
                     </div>
                     <p>.wstore.pro</p>
                 </div>
-                <textarea id="store-about" placeholder="Повідомлення"></textarea>
+                <textarea id="store-about" placeholder="Опис магазину"></textarea>
             </div>
+<!--            <div class="step2-form tab">-->
+<!--                <div class="form-field">-->
+<!--                    <input id="store-city" type="text" name="name" required placeholder=" ">-->
+<!--                    <span class="highlight"></span>-->
+<!--                    <label for="store-city">Місто</label>-->
+<!--                </div>-->
+<!--                <div class="form-field">-->
+<!--                    <input id="store-street" type="text" name="name" required placeholder=" ">-->
+<!--                    <span class="highlight"></span>-->
+<!--                    <label for="store-street">Вулиця</label>-->
+<!--                </div>-->
+<!--                <div class="form-field">-->
+<!--                    <input id="store-house" type="text" name="name" placeholder=" ">-->
+<!--                    <span class="highlight"></span>-->
+<!--                    <label for="store-house">Будинок</label>-->
+<!--                </div>-->
+<!--                <p></p>-->
+<!--                <div class="form-field">-->
+<!--                    <input id="store-legalinfo" type="text" name="name" placeholder=" ">-->
+<!--                    <span class="highlight"></span>-->
+<!--                    <label for="store-legalinfo">Назва юридичної особи</label>-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--            <div class="step3-form tab">-->
+<!--                <div class="wizard-delivery">-->
+<!--                    <p>Виберіть варіанти отримання товару</p>-->
+<!--                    <input type="checkbox" id="wizardСourier" name="courier" value="courier">-->
+<!--                    <label for="wizardСourier">Кур'єр</label><br>-->
+<!--                    <input type="checkbox" id="wizardNp" name="novaposhta" value="novaposhta">-->
+<!--                    <label for="wizardNp">Нова пошта</label><br>-->
+<!--                    <input type="checkbox" id="wizardSelf" name="self" value="self">-->
+<!--                    <label for="wizardSelf">Самовивіз</label><br>-->
+<!--                </div>-->
+<!--                <div class="wizard-payment">-->
+<!--                    <p>Виберіть варіант прийому оплати від клієнтів</p>-->
+<!--                    <input type="checkbox" id="wizardOnlinePay" name="onlinepay" value="onlinepay">-->
+<!--                    <label for="wizardOnlinePay">Онлайн-оплата</label><br>-->
+<!--                    <input type="checkbox" id="wizardCash" name="cash" value="cash">-->
+<!--                    <label for="wizardCash">Готівка</label><br>-->
+<!--                </div>-->
+<!--                <div class="wizard-socialnetwork">-->
+<!--                    <p>Вкажіть посилання на соціальні мережі</p>-->
+<!--                    <div class="form-field">-->
+<!--                        <input id="store-facebook" type="text" name="name" required placeholder=" ">-->
+<!--                        <span class="highlight"></span>-->
+<!--                        <label for="store-facebook">Facebook</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-field">-->
+<!--                        <input id="store-instagram" type="text" name="name" required placeholder=" ">-->
+<!--                        <span class="highlight"></span>-->
+<!--                        <label for="store-instagram">Instagram</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-field">-->
+<!--                        <input id="store-youtube" type="text" name="name" required placeholder=" ">-->
+<!--                        <span class="highlight"></span>-->
+<!--                        <label for="store-youtube">Youtube</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
             <div class="form-button">
-                <div class="previous-button">
                     <button type="button" id="prevBtn">Назад</button>
-                </div>
-                <div class="next-button">
                     <button type="button" id="nextBtn">Далі</button>
-                </div>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    
+</script>
 </body>
 </html>
