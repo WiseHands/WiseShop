@@ -181,10 +181,8 @@
         margin: 3rem auto 1rem auto;
 
     }
-    #prevBtn {
-        margin-right: 1rem;
-    }
-    #prevBtn, #nextBtn {
+
+    button {
         background-color: #fff;
         border: 2px solid #000;
         height: 50px;
@@ -192,8 +190,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-left: 1rem;
     }
-    #prevBtn:hover, #nextBtn:hover {
+    button:hover, button:hover {
         color: #fff;
         background-color: #000;
         cursor: pointer;
@@ -247,8 +246,8 @@
                 </div>
                 <textarea id="store-about" placeholder="Опис магазину"></textarea>
                 <div class="form-button">
-                    <button type="button" id="prevBtn" onclick="">Назад</button>
-                    <button type="button" id="nextBtn" onclick="">Далі</button>
+                    <button type="button" id="prevBtn1" onclick="">Назад</button>
+                    <button type="button" id="nextBtn1" onclick="">Далі</button>
                 </div>
             </div>
             <div class="step2-form">
@@ -273,8 +272,8 @@
                     <label for="store-legalinfo">Назва юридичної особи</label>
                 </div>
                 <div class="form-button">
-                    <button type="button" id="prevBtn" onclick="">Назад</button>
-                    <button type="button" id="nextBtn" onclick="">Далі</button>
+                    <button type="button" id="prevBtn2" onclick="">Назад</button>
+                    <button type="button" id="nextBtn2" onclick="">Далі</button>
                 </div>
               </div>
 
@@ -314,8 +313,8 @@
                     </div>
                 </div>
                 <div class="form-button">
-                    <button type="button" id="prevBtn" onclick="nextStep">Назад</button>
-                    <button type="button" id="nextBtn" onclick="">Далі</button>
+                    <button type="button" id="prevBtn3" onclick="nextStep">Назад</button>
+                    <button type="button" id="nextBtn3" onclick="">Далі</button>
                 </div>
             </div>
 
@@ -327,14 +326,45 @@
     let currentStep = 0;
     nextStep(currentStep);
     function nextStep() {
-        if (currentStep) = 0 {
-            document.getElementById("prevBtn").style.display = "none";
+        if (currentStep == 0) {
+            document.getElementById("prevBtn1").style.display = "none";
         }
         else {
-            document.getElementById("prevBtn").style.display = "block";
+            document.getElementById("prevBtn").style.display = "flex";
         }
-    }
-</script>
 
+        document.getElementById("nextBtn1").addEventListener("click", nextPage1);
+        function nextPage1() {
+            document.querySelector(".step1-form").style.display = 'none';
+            document.querySelector(".step2-form").style.display = 'block';
+        }
+
+        document.getElementById("prevBtn2").addEventListener("click", prevPage2);
+        function prevPage2() {
+            document.querySelector(".step2-form").style.display = 'none';
+            document.querySelector(".step1-form").style.display = 'block';
+        }
+
+        document.getElementById("nextBtn2").addEventListener("click", nextPage2);
+        function nextPage2() {
+            document.querySelector(".step2-form").style.display = 'none';
+            document.querySelector(".step3-form").style.display = 'block';
+            document.getElementById("nextBtn3").innerHTML = "Готово";
+
+        }
+
+        document.getElementById("prevBtn3").addEventListener("click", prevPage3);
+        function prevPage3() {
+            document.querySelector(".step3-form").style.display = 'none';
+            document.querySelector(".step2-form").style.display = 'block';
+        }
+
+    }
+
+
+</script>
+<script>
+
+</script>
 </body>
 </html>
