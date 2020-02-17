@@ -71,7 +71,7 @@
         border-left: 1px solid #ebebeb ;
         border-right: 1px solid #ebebeb ;
     }
-    .tab {
+    .step2-form, .step3-form {
         display: none;
     }
     .step1-form, .step2-form, .step3-form {
@@ -207,7 +207,7 @@
 
     <div class="wizard-block">
 
-        <form name="wizard-form" class="wizard-form">
+        <form name="wizard-form" class="wizard-form" id="regForm">
             <h2>Створення магазину</h2>
             <div class="steps">
                 <div class="step" id="step1">
@@ -232,7 +232,7 @@
                     <span>Магазин</span>
                 </div>
             </div>
-            <div class="step1-form tab">
+            <div class="step1-form">
                 <div class="form-field">
                     <input id="store-name" type="text" name="name" required placeholder=" ">
                     <span class="highlight"></span>
@@ -246,79 +246,95 @@
                     <p>.wstore.pro</p>
                 </div>
                 <textarea id="store-about" placeholder="Опис магазину"></textarea>
+                <div class="form-button">
+                    <button type="button" id="prevBtn" onclick="">Назад</button>
+                    <button type="button" id="nextBtn" onclick="">Далі</button>
+                </div>
             </div>
-<!--            <div class="step2-form tab">-->
-<!--                <div class="form-field">-->
-<!--                    <input id="store-city" type="text" name="name" required placeholder=" ">-->
-<!--                    <span class="highlight"></span>-->
-<!--                    <label for="store-city">Місто</label>-->
-<!--                </div>-->
-<!--                <div class="form-field">-->
-<!--                    <input id="store-street" type="text" name="name" required placeholder=" ">-->
-<!--                    <span class="highlight"></span>-->
-<!--                    <label for="store-street">Вулиця</label>-->
-<!--                </div>-->
-<!--                <div class="form-field">-->
-<!--                    <input id="store-house" type="text" name="name" placeholder=" ">-->
-<!--                    <span class="highlight"></span>-->
-<!--                    <label for="store-house">Будинок</label>-->
-<!--                </div>-->
-<!--                <p></p>-->
-<!--                <div class="form-field">-->
-<!--                    <input id="store-legalinfo" type="text" name="name" placeholder=" ">-->
-<!--                    <span class="highlight"></span>-->
-<!--                    <label for="store-legalinfo">Назва юридичної особи</label>-->
-<!--                </div>-->
-<!--              </div>-->
+            <div class="step2-form">
+                <div class="form-field">
+                    <input id="store-city" type="text" name="name" required placeholder=" ">
+                    <span class="highlight"></span>
+                    <label for="store-city">Місто</label>
+                </div>
+                <div class="form-field">
+                    <input id="store-street" type="text" name="name" required placeholder=" ">
+                    <span class="highlight"></span>
+                    <label for="store-street">Вулиця</label>
+                </div>
+                <div class="form-field">
+                    <input id="store-house" type="text" name="name" placeholder=" ">
+                    <span class="highlight"></span>
+                    <label for="store-house">Будинок</label>
+                </div>
+                <div class="form-field">
+                    <input id="store-legalinfo" type="text" name="name" placeholder=" ">
+                    <span class="highlight"></span>
+                    <label for="store-legalinfo">Назва юридичної особи</label>
+                </div>
+                <div class="form-button">
+                    <button type="button" id="prevBtn" onclick="">Назад</button>
+                    <button type="button" id="nextBtn" onclick="">Далі</button>
+                </div>
+              </div>
 
-<!--            <div class="step3-form tab">-->
-<!--                <div class="wizard-delivery">-->
-<!--                    <p>Виберіть варіанти отримання товару</p>-->
-<!--                    <input type="checkbox" id="wizardСourier" name="courier" value="courier">-->
-<!--                    <label for="wizardСourier">Кур'єр</label><br>-->
-<!--                    <input type="checkbox" id="wizardNp" name="novaposhta" value="novaposhta">-->
-<!--                    <label for="wizardNp">Нова пошта</label><br>-->
-<!--                    <input type="checkbox" id="wizardSelf" name="self" value="self">-->
-<!--                    <label for="wizardSelf">Самовивіз</label><br>-->
-<!--                </div>-->
-<!--                <div class="wizard-payment">-->
-<!--                    <p>Виберіть варіант прийому оплати від клієнтів</p>-->
-<!--                    <input type="checkbox" id="wizardOnlinePay" name="onlinepay" value="onlinepay">-->
-<!--                    <label for="wizardOnlinePay">Онлайн-оплата</label><br>-->
-<!--                    <input type="checkbox" id="wizardCash" name="cash" value="cash">-->
-<!--                    <label for="wizardCash">Готівка</label><br>-->
-<!--                </div>-->
-<!--                <div class="wizard-socialnetwork">-->
-<!--                    <p>Вкажіть посилання на соціальні мережі</p>-->
-<!--                    <div class="form-field">-->
-<!--                        <input id="store-facebook" type="text" name="name" required placeholder=" ">-->
-<!--                        <span class="highlight"></span>-->
-<!--                        <label for="store-facebook">Facebook</label>-->
-<!--                    </div>-->
-<!--                    <div class="form-field">-->
-<!--                        <input id="store-instagram" type="text" name="name" required placeholder=" ">-->
-<!--                        <span class="highlight"></span>-->
-<!--                        <label for="store-instagram">Instagram</label>-->
-<!--                    </div>-->
-<!--                    <div class="form-field">-->
-<!--                        <input id="store-youtube" type="text" name="name" required placeholder=" ">-->
-<!--                        <span class="highlight"></span>-->
-<!--                        <label for="store-youtube">Youtube</label>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--            </div>-->
-
-            <div class="form-button">
-                    <button type="button" id="prevBtn">Назад</button>
-                    <button type="button" id="nextBtn">Далі</button>
+            <div class="step3-form">
+                <div class="wizard-delivery">
+                    <p>Виберіть варіанти отримання товару</p>
+                    <input type="checkbox" id="wizardСourier" name="courier" value="courier">
+                    <label for="wizardСourier">Кур'єр</label><br>
+                    <input type="checkbox" id="wizardNp" name="novaposhta" value="novaposhta">
+                    <label for="wizardNp">Нова пошта</label><br>
+                    <input type="checkbox" id="wizardSelf" name="self" value="self">
+                    <label for="wizardSelf">Самовивіз</label><br>
+                </div>
+                <div class="wizard-payment">
+                    <p>Виберіть варіант прийому оплати від клієнтів</p>
+                    <input type="checkbox" id="wizardOnlinePay" name="onlinepay" value="onlinepay">
+                    <label for="wizardOnlinePay">Онлайн-оплата</label><br>
+                    <input type="checkbox" id="wizardCash" name="cash" value="cash">
+                    <label for="wizardCash">Готівка</label><br>
+                </div>
+                <div class="wizard-socialnetwork">
+                    <p>Вкажіть посилання на соціальні мережі</p>
+                    <div class="form-field">
+                        <input id="store-facebook" type="text" name="name" required placeholder=" ">
+                        <span class="highlight"></span>
+                        <label for="store-facebook">Facebook</label>
+                    </div>
+                    <div class="form-field">
+                        <input id="store-instagram" type="text" name="name" required placeholder=" ">
+                        <span class="highlight"></span>
+                        <label for="store-instagram">Instagram</label>
+                    </div>
+                    <div class="form-field">
+                        <input id="store-youtube" type="text" name="name" required placeholder=" ">
+                        <span class="highlight"></span>
+                        <label for="store-youtube">Youtube</label>
+                    </div>
+                </div>
+                <div class="form-button">
+                    <button type="button" id="prevBtn" onclick="nextStep">Назад</button>
+                    <button type="button" id="nextBtn" onclick="">Далі</button>
+                </div>
             </div>
+
         </form>
     </div>
 </div>
 
 <script>
-    
+    let currentStep = 0;
+    nextStep(currentStep);
+    function nextStep() {
+        if (currentStep) = 0 {
+            document.getElementById("prevBtn").style.display = "none";
+        }
+        else {
+            document.getElementById("prevBtn").style.display = "block";
+        }
+    }
 </script>
+
 </body>
 </html>
