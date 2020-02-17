@@ -2,9 +2,7 @@ package json.shoppingcart;
 
 import com.google.gson.annotations.Expose;
 import models.AdditionLineItemDTO;
-import models.AdditionOrderDTO;
 import models.ShopDTO;
-import models.ShoppingCartDTO;
 import org.hibernate.annotations.GenericGenerator;
 import play.Play;
 import play.db.jpa.GenericModel;
@@ -41,7 +39,7 @@ public class LineItem extends GenericModel {
 
     @Expose
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
-    public List<AdditionLineItemDTO> additionList;
+    public List<AdditionLineItemDTO> additionLineItemDTOList;
 
 
     public LineItem(String uuid, String name, String imagePath, Integer quantity, Double price, ShopDTO shop) {
@@ -56,7 +54,7 @@ public class LineItem extends GenericModel {
         this.price = price;
     }
 
-    public LineItem(String uuid, String name, String imagePath, Integer quantity, Double price, ShopDTO shop, List<AdditionLineItemDTO> additionList) {
+    public LineItem(String uuid, String name, String imagePath, Integer quantity, Double price, ShopDTO shop, List<AdditionLineItemDTO> additionLineItemDTOList) {
         this.productId = uuid;
         this.name = name;
         String path = shop.domain;
@@ -66,7 +64,7 @@ public class LineItem extends GenericModel {
         this.imagePath = String.format("http://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
         this.quantity = quantity;
         this.price = price;
-        this.additionList = additionList;
+        this.additionLineItemDTOList = additionLineItemDTOList;
     }
 
 

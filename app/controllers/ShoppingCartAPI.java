@@ -74,7 +74,7 @@ public class ShoppingCartAPI extends AuthController {
         for (LineItem _lineItem : shoppingCart.items) {
             if (productUuid.equals(_lineItem.productId)) {
                 // LineItem found, next check if addition list match...
-                foundMatch = additionOrderDTOList.equals(_lineItem.additionList);
+                foundMatch = additionOrderDTOList.equals(_lineItem.additionLineItemDTOList);
                 if(foundMatch) {
                     _lineItem.quantity = _lineItem.quantity + quantity;
                     _lineItem.save();
