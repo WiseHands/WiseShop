@@ -85,10 +85,10 @@
                             </div>
                         </div>
                         <div class="addition-container">
-                            <div class="addition-item-container" ng-repeat="addition in item.additionList">
+                            <div class="addition-item-container" ng-repeat="addition in item.additionsList">
                                 <span>{{addition.title}}</span>
                                 <span ng-show="addition.quantity>1">({{addition.quantity}})</span><span
-                                    ng-hide="item.additionList.length === $index + 1">,
+                                    ng-hide="item.additionsList.length === $index + 1">,
                             </span>
                             </div>
                         </div>

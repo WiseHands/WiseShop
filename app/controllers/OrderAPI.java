@@ -5,7 +5,10 @@ import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
 import json.shoppingcart.PaymentCreditCardConfiguration;
 import models.*;
+import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.codec.binary.Base64;
+import org.joda.time.DateTime;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.db.jpa.JPA;
@@ -86,7 +89,7 @@ public class OrderAPI extends AuthController {
             orderItem.orderUuid = order.uuid;
 
             List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
-            for(AdditionLineItemDTO addition : lineItem.additionLineItemDTOList){
+            for(AdditionLineItemDTO addition : lineItem.additionList){
                 AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
                 additionOrderDTO.title = addition.title;
                 additionOrderDTO.price = addition.price;
@@ -94,7 +97,7 @@ public class OrderAPI extends AuthController {
                 totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
                 additionList.add(additionOrderDTO);
             }
-            orderItem.additionList = additionList;
+            orderItem.additionsList = additionList;
 
 
             orderItemList.add(orderItem);
