@@ -5,8 +5,7 @@ import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.i18n.Messages;
-import services.ShopService;
-import services.ShopServiceImpl;
+import responses.JsonHandleForbidden;
 import services.SmsSender;
 import services.SmsSenderImpl;
 
@@ -16,7 +15,6 @@ import static controllers.UserAPI.isValidEmailAddress;
 public class WizardAPI extends AuthController {
 
     private static final String JWT_TOKEN = "JWT_TOKEN";
-    private static SmsSender smsSender = new SmsSenderImpl();
 
     public static void checkDomainNameAvailability(String domainName) throws Exception{
         ShopDTO shop = ShopDTO.find("byDomain", domainName).first();
@@ -25,7 +23,6 @@ public class WizardAPI extends AuthController {
         }
         forbidden();
     }
-
 
     public static void signUp() throws Exception {
 
@@ -42,14 +39,17 @@ public class WizardAPI extends AuthController {
         if(isValidEmailAddress(email)){
             UserDTO user = UserDTO.find("byEmail", email).first();
             if (user != null) {
+                System.out.println("user.with.email.already.exist");
                 String reason = Messages.get("user.with.email.already.exist");
-                forbidden(reason);
+                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
+                renderJSON(jsonHandleForbidden);
             }
 
             UserDTO userByPhone = UserDTO.find("byPhone", phone).first();
             if(userByPhone != null) {
                 String reason = Messages.get("user.with.phone.number.already.exist");
-                forbidden(reason);
+                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
+                renderJSON(jsonHandleForbidden);
             }
 
             user = new UserDTO(name, lastName, phone, email, password);

@@ -285,7 +285,6 @@
             email: email,
             password: password
         };
-        console.log("here clientInfo: ",  JSON.stringify(clientInfo));
         let params = JSON.stringify(clientInfo);
         fetch('/api/sign-up', {
             method: 'POST',
@@ -293,17 +292,29 @@
         }).then(function (response) {
             if(response.ok) {
                 let token = response.headers.get('JWT_TOKEN');
-                console.log("ok, send client info", token);
+                localStorage.setItem('JWT_TOKEN', token);
             }
             return response.json();
         }).then(function (data) {
             console.log("response data: ", data);
+            checkUserByEmailOrPhoneNumber(data)
         });
     }
+
     let form = document.getElementById( "login-form" );
     form.addEventListener( "submit", function ( event ) {
         event.preventDefault();
         signUp();
     } );
+
+    function checkUserByEmailOrPhoneNumber(data) {
+        if (data.status === 420){
+            console.log("ERROR", data.message)
+        }
+        if (data.status === 421){
+            console.log("ERROR", data.message)
+        }
+    }
+
 </script>
 </html>
