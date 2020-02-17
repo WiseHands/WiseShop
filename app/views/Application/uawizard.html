@@ -64,6 +64,9 @@
         width: 33%;
         padding-left: 1rem;
     }
+    .step:hover {
+        cursor: pointer;
+    }
     #step2 {
         border-left: 1px solid #ebebeb ;
         border-right: 1px solid #ebebeb ;
@@ -78,10 +81,14 @@
     .form-field-store-domain {
         position: relative;
         width: 30%;
+        font-weight: 600;
     }
     .store-domain {
         display: flex;
         align-items: flex-end;
+    }
+    .store-domain-text {
+        padding-top: 1rem;
     }
     .store-domain p {
         font-weight: 600;
@@ -92,7 +99,7 @@
         text-align: right;
     }
     #store-name {
-        margin-bottom: 2rem;
+        margin-bottom: rem;
     }
     input {
         width: 100%;
@@ -159,6 +166,29 @@
         margin-bottom: 16px;
         resize: vertical;
     }
+    .form-button {
+        display: flex;
+        justify-content: flex-end;
+        width: 90%;
+        margin: 3rem auto 1rem auto;
+
+    }
+    .previous-button {
+        margin-right: 1rem;
+    }
+    .previous-button, .next-button {
+        border: 2px solid #000;
+        height: 50px;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .previous-button:hover, .next-button:hover {
+        color: #fff;
+        background-color: #000;
+        cursor: pointer;
+    }
 </style>
 
 <body>
@@ -198,15 +228,22 @@
                     <span class="highlight"></span>
                     <label for="store-name">Назва магазину</label>
                 </div>
-                <p>Вкажіть веб-адресу Вашого магазину</p>
+                <p class="store-domain-text">Вкажіть веб-адресу Вашого магазину</p>
                 <div class="store-domain">
-
                     <div class="form-field-store-domain">
                         <input id="store-domain" type="text" name="name" required placeholder="mynewstore">
                     </div>
                     <p>.wstore.pro</p>
                 </div>
                 <textarea id="store-about" placeholder="Повідомлення"></textarea>
+            </div>
+            <div class="form-button">
+                <div class="previous-button">
+                    <button type="button" id="prevBtn">Назад</button>
+                </div>
+                <div class="next-button">
+                    <button type="button" id="nextBtn">Далі</button>
+                </div>
             </div>
         </form>
     </div>
