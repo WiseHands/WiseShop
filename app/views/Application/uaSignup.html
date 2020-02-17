@@ -232,7 +232,7 @@
         </button>
     </div>
     <span>Або заповніть поля</span>
-    <form name="login-form" class="signup-form">
+    <form id="login-form" class="signup-form">
         <div class="form-field">
             <input id="signup-name" type="text" name="name" required placeholder=" ">
             <span class="highlight"></span>
@@ -258,7 +258,7 @@
             <span class="highlight"></span>
             <label for="signup-password">Пароль</label>
         </div>
-        <button class="signup-form-button">
+        <button class="signup-form-button" type="submit">
             Зареєструватися
         </button>
         <a href="/ua/signin"><p>Увійти</p></a>
@@ -269,7 +269,41 @@
     </form>
 
 </div>
-
-
 </body>
+<script>
+    function signUp() {
+        console.log("here");
+        let name = document.getElementById('signup-name').value;
+        let lastName = document.getElementById('signup-surname').value;
+        let phone = document.getElementById('signup-phone').value;
+        let email = document.getElementById('signup-email').value;
+        let password = document.getElementById('signup-password').value;
+        let clientInfo = {
+            name: name,
+            lastName: lastName,
+            phone: phone,
+            email: email,
+            password: password
+        };
+        console.log("here clientInfo: ",  JSON.stringify(clientInfo));
+        let params = JSON.stringify(clientInfo);
+        fetch('/api/sign-up', {
+            method: 'POST',
+            body: params
+        }).then(function (response) {
+            if(response.ok) {
+                let token = response.headers.get('JWT_TOKEN');
+                console.log("ok, send client info", token);
+            }
+            return response.json();
+        }).then(function (data) {
+            console.log("response data: ", data);
+        });
+    }
+    let form = document.getElementById( "login-form" );
+    form.addEventListener( "submit", function ( event ) {
+        event.preventDefault();
+        signUp();
+    } );
+</script>
 </html>

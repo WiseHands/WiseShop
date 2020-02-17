@@ -76,4 +76,12 @@ public class UserDTO extends GenericModel {
         this.shopList = new ArrayList<ShopDTO>();
     }
 
+    public UserDTO(String givenName, String familyName, String phone, String email, String password){
+        this.givenName = givenName;
+        this.familyName = familyName;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+    }
+
 }

@@ -262,7 +262,7 @@ public class UserAPI extends AuthController {
         notFound();
     }
 
-    private static String generateToken(UserDTO user) {
+    public static String generateToken(UserDTO user) {
         String token = "";
         try {
             String encodingSecret = Play.configuration.getProperty("jwt.secret");
