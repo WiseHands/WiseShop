@@ -95,7 +95,6 @@ public class OrderAPI extends AuthController {
             orderItem.orderUuid = order.uuid;
 
 
-            orderItem.additionsList = new ArrayList<AdditionOrderDTO>();
             for(AdditionLineItemDTO addition : lineItem.additionList){
                 AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
                 additionOrderDTO = additionOrderDTO.save();
@@ -103,10 +102,9 @@ public class OrderAPI extends AuthController {
                 additionOrderDTO.title = addition.title;
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
-                orderItem.additionsList.add(additionOrderDTO);
+                additionOrderDTO.save();
 
             }
-            System.out.println(orderItem.additionsList.size());
             orderItemList.add(orderItem);
         }
         return orderItemList;
