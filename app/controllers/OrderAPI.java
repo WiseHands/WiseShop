@@ -205,7 +205,7 @@ public class OrderAPI extends AuthController {
     }
 
     static void clearShoppingCart(ShoppingCartDTO shoppingCart){
-        shoppingCart.items.clear();
+        shoppingCart.items = null;
 
         shoppingCart.clientName = null;
         shoppingCart.clientPhone = null;
