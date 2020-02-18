@@ -168,9 +168,13 @@ public class OrderAPI extends AuthController {
         }
 
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
+        JPA.em().getTransaction().commit();
 
+        JPA.em().getTransaction().begin();
         clearShoppingCart(shoppingCart);
         JPA.em().getTransaction().commit();
+
+
         new SendSmsJob(order, shop).now();
         try {
             mailSender.sendEmail(shop, order, Messages.get("new.order"));
