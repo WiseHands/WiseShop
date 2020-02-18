@@ -297,7 +297,10 @@
             return response.json();
         }).then(function (data) {
             console.log("response data: ", data);
-            checkUserByEmailOrPhoneNumber(data)
+            checkUserByEmailOrPhoneNumber(data);
+            if (data.uuid){
+                window.location = "/ua/wizard";
+            }
         });
     }
 

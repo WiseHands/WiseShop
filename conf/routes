@@ -35,6 +35,7 @@ POST    {client}/send-contact-us-email                  LandingContactFormAPI.se
 
 POST    {client}/api/wizard/check-domain-name           WizardAPI.checkDomainNameAvailability
 POST    {client}/api/sign-up                            WizardAPI.signUp
+POST    {client}/api/sign-in                            WizardAPI.signIn
 
 OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
 POST        {client}/api/cart                               ShoppingCartAPI.addProduct

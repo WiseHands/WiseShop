@@ -38,7 +38,6 @@ public class UserDTO extends GenericModel {
     @Expose
     public String locale;
 
-
     @Expose
     public String profileUrl;
 

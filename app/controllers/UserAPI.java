@@ -102,7 +102,6 @@ public class UserAPI extends AuthController {
                 forbidden(json(error));
             }
 
-
             String jwtToken = generateToken(user);
             response.setHeader(JWT_TOKEN, jwtToken);
             String json = json(user);

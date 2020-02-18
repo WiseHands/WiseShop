@@ -212,7 +212,7 @@
             </button>
         </div>
         <span>АБО</span>
-        <form name="login-form" class="signin-form">
+        <form id="login-form" class="signin-form">
             <div class="form-field">
                 <input id="signin-email" type="email" name="email" required placeholder=" ">
                 <span class="highlight"></span>
@@ -223,12 +223,44 @@
                 <span class="highlight"></span>
                 <label for="signin-password">Пароль</label>
             </div>
-                <button class="signin-form-button">
+                <button class="signin-form-button" type="submit">
                     Увійти
                 </button>
             <a href="/ua/signup"><p>Зареєструватися</p></a>
         </form>
     </div>
 </body>
+<script>
+    function signIn() {
+        let email = document.getElementById('signin-email').value;
+        let password = document.getElementById('signin-password').value;
+        let clientInfo = {
+            email: email,
+            password: password
+        };
+        let params = JSON.stringify(clientInfo);
+        fetch('/api/sign-in', {
+            method: 'POST',
+            body: params
+        }).then(function (response) {
+            console.log("response response: ", response);
+            if(response.ok) {
+                let token = response.headers.get('JWT_TOKEN');
+                localStorage.setItem('JWT_TOKEN', token);
+            }
+            return response.json();
+        }).then(function (data) {
+            console.log("response data: ", data);
+            if (data.uuid){
+                window.location = "/ua/wizard";
+            }
+        });
+    }
 
+    let form = document.getElementById( "login-form" );
+    form.addEventListener( "submit", function ( event ) {
+        event.preventDefault();
+        signIn();
+    } );
+</script>
 </html>
