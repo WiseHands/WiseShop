@@ -2,6 +2,8 @@ package models;
 
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
@@ -69,6 +71,7 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<AdditionDTO> additions;
 
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, Integer wholesaleCount, Double wholesalePrice) {
