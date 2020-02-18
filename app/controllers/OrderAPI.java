@@ -126,7 +126,6 @@ public class OrderAPI extends AuthController {
         String ip = _getUserIp();
 
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
-        order = order.save();
         shop.orders.add(order);
 
         OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
