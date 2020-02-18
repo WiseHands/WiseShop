@@ -62,21 +62,25 @@ public class OrderAPI extends AuthController {
         return ip;
     }
 
-    public static class OrderItemListResult {
-        @Transient
-        Double total = 0.0;
-        @Transient
-        List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
 
-        public OrderItemListResult(Double totalCost, List<OrderItemDTO> orderItemList) {
-            this.total = totalCost;
-            this.orderItemList = orderItemList;
+    private static Double calculateTotal(List<LineItem> items) {
+        Double totalCost = Double.parseDouble("0");
+        for (LineItem lineItem : items) {
+            OrderItemDTO orderItem = new OrderItemDTO();
+            orderItem = orderItem.save();
+
+            ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
+            for(AdditionLineItemDTO addition : lineItem.additionList){
+                totalCost += addition.price * addition.quantity;
+            }
+
+            totalCost += product.price * orderItem.quantity;
         }
+        return totalCost;
     }
 
-    private static OrderItemListResult _parseOrderItemsList(List<LineItem> items, OrderDTO order) {
+    private static List<OrderItemDTO> getOrderItemList(List<LineItem> items, OrderDTO order) {
         List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
-        Double totalCost = Double.parseDouble("0");
         for (LineItem lineItem : items) {
             OrderItemDTO orderItem = new OrderItemDTO();
             orderItem = orderItem.save();
@@ -93,7 +97,6 @@ public class OrderAPI extends AuthController {
             orderItem.orderUuid = order.uuid;
 
 
-
             orderItem.additionsList = new ArrayList<AdditionOrderDTO>();
             for(AdditionLineItemDTO addition : lineItem.additionList){
                 AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
@@ -102,21 +105,15 @@ public class OrderAPI extends AuthController {
                 additionOrderDTO.title = addition.title;
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
-                totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
                 orderItem.additionsList.add(additionOrderDTO);
 
             }
-
             System.out.println(orderItem.additionsList.size());
-
-
             orderItemList.add(orderItem);
-            totalCost += product.price * orderItem.quantity;
         }
-
-        OrderItemListResult result = new OrderItemListResult(totalCost, orderItemList);
-        return result;
+        return orderItemList;
     }
+
 
     public static void create(String client) throws Exception {
         ShopDTO shop = _getShop(client);
@@ -134,18 +131,19 @@ public class OrderAPI extends AuthController {
         shop = shop.save();
 
 
-        OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
-        order.items = orderItemListResult.orderItemList;
+        order.items = getOrderItemList(shoppingCart.items, order);
         order = order.save();
+
+        Double _total = calculateTotal(shoppingCart.items);
 
         DeliveryDTO delivery = shop.delivery;
         if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)){
-            if (orderItemListResult.total < delivery.courierFreeDeliveryLimit){
-                orderItemListResult.total += delivery.courierPrice;
+            if (_total < delivery.courierFreeDeliveryLimit){
+                _total += delivery.courierPrice;
             }
         }
 
-        order.total = orderItemListResult.total;
+        order.total = _total;
         boolean isPaymentTypeEqualsCreditCard = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
         Boolean isClientPaysProcessingCommission = shop.paymentSettings.clientPaysProcessingCommission;
         if (isClientPaysProcessingCommission && isPaymentTypeEqualsCreditCard){
