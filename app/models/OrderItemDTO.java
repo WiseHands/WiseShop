@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,7 +41,7 @@ public class OrderItemDTO extends GenericModel{
 
     @Expose
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
-    public List<AdditionOrderDTO> additionsList;
+    public List<AdditionOrderDTO> additionsList = new ArrayList<AdditionOrderDTO>();
 
     @Expose
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)

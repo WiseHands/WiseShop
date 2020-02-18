@@ -95,9 +95,9 @@ public class OrderAPI extends AuthController {
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
                 totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
-                if(orderItem.additionsList == null) {
+/*                if(orderItem.additionsList == null) {
                     orderItem.additionsList = new ArrayList<AdditionOrderDTO>();
-                }
+                }*/
                 orderItem.additionsList.add(additionOrderDTO);
             }
 

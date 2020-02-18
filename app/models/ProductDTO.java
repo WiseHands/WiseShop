@@ -68,7 +68,7 @@ public class ProductDTO extends GenericModel {
     public List<ProductImage> images;
 
     @Expose
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     public List<AdditionDTO> additions;
 
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, Integer wholesaleCount, Double wholesalePrice) {
