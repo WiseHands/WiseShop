@@ -17,6 +17,7 @@ import play.i18n.Messages;
 import play.mvc.Http;
 import services.*;
 
+import javax.persistence.Transient;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -62,7 +63,9 @@ public class OrderAPI extends AuthController {
     }
 
     public static class OrderItemListResult {
+        @Transient
         Double total = 0.0;
+        @Transient
         List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
 
         public OrderItemListResult(Double totalCost, List<OrderItemDTO> orderItemList) {
