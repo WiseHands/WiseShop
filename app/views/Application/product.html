@@ -1,7 +1,7 @@
 #{set shop:shop /}
 <!DOCTYPE html>
 <style>
-    .center-container {
+    .product-center-container {
         max-width: 900px;
         margin: 0 auto;
         overflow: hidden;
@@ -224,14 +224,15 @@
         padding-left: 0.5rem;
     }
     @media screen and (min-width: 1500px) {
-        .center-container, .cart-float {
+        .product-center-container, .cart-float {
             max-width: 1300px;
         }
     }
 
     @media screen and (max-width: 767px) {
-        .center-container {
+        .product-center-container {
             flex-flow: column wrap;
+            padding-top: 0;
         }
         .product-photo {
             display: flex;
@@ -292,7 +293,6 @@
     <link href="/wisehands/assets/mdb_shop/font/font_awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/wisehands/assets/bootstrap4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet"/>
-    <link href="/wisehands/shop/css/shop.css" rel="stylesheet"/>
     <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet">
     <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet"/>
 
@@ -346,7 +346,7 @@
 #{shop-header /}
 <body>
 #{verbatim}
-<main class="center-container">
+<main class="product-center-container">
     <div class="product-photo">
         <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide">
         <!--            <span class="product-price-on-photo">${product.formatDecimal()} UAH</span>-->
