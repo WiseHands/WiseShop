@@ -205,7 +205,10 @@ public class OrderAPI extends AuthController {
     }
 
     static void clearShoppingCart(ShoppingCartDTO shoppingCart){
-        shoppingCart.items = null;
+        for (LineItem _item : shoppingCart.items) {
+            _item.delete();
+        }
+        shoppingCart.items.clear();
 
         shoppingCart.clientName = null;
         shoppingCart.clientPhone = null;
