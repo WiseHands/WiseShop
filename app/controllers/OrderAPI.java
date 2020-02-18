@@ -66,14 +66,13 @@ public class OrderAPI extends AuthController {
     private static Double calculateTotal(List<LineItem> items) {
         Double totalCost = Double.parseDouble("0");
         for (LineItem lineItem : items) {
-            OrderItemDTO orderItem = new OrderItemDTO();
 
             ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
             for(AdditionLineItemDTO addition : lineItem.additionList){
                 totalCost += addition.price * addition.quantity;
             }
-
-            totalCost += product.price * orderItem.quantity;
+            System.out.println(product);
+            totalCost += product.price * lineItem.quantity;
         }
         return totalCost;
     }
