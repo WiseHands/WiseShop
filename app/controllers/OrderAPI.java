@@ -76,6 +76,7 @@ public class OrderAPI extends AuthController {
         Double totalCost = Double.parseDouble("0");
         for (LineItem lineItem : items) {
             OrderItemDTO orderItem = new OrderItemDTO();
+            orderItem = orderItem.save();
 
             ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
             int quantity = lineItem.quantity;
@@ -95,9 +96,6 @@ public class OrderAPI extends AuthController {
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
                 totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
-/*                if(orderItem.additionsList == null) {
-                    orderItem.additionsList = new ArrayList<AdditionOrderDTO>();
-                }*/
                 orderItem.additionsList.add(additionOrderDTO);
             }
 
