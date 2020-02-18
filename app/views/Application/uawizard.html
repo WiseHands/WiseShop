@@ -62,6 +62,8 @@
         border-bottom: 1px solid #ebebeb;
     }
     .step {
+        display: flex;
+        align-items: center;
         width: 33%;
         padding-left: 1rem;
     }
@@ -71,6 +73,27 @@
     #step2 {
         border-left: 1px solid #ebebeb ;
         border-right: 1px solid #ebebeb ;
+    }
+    .wiz-step {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: 2px solid black;
+        width: 36px;
+        height: 36px;
+        margin-right: 0.5rem;
+    }
+    .step-active {
+        color: #20b2aa;
+        border: 2px solid #20b2aa;
+    }
+    .wiz-span {
+        color: #20b2aa;
+    }
+    .wiz-step p {
+        font-size: 1.5rem;
+        font-weight: 600;
     }
     .step2-form, .step3-form {
         display: none;
@@ -200,6 +223,39 @@
         background-color: #000;
         cursor: pointer;
     }
+
+    @media screen and (max-width: 768px) {
+        .wizard-form {
+            width: 90%;
+            height: 850px;
+        }
+        .wizard-img {
+            display: none;
+        }
+        .wizard-block {
+            flex-basis: 100%;
+        }
+        .steps {
+            flex-direction: column;
+        }
+        .step {
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+        .step1-form, .step2-form, .step3-form {
+            width: 95%;
+        }
+        #step2 {
+            border-left: 0;
+            border-right: 0;
+        }
+        .form-field-store-domain {
+            width: auto;
+        }
+        textarea {
+            height: 200px;
+        }
+    }
 </style>
 
 <body>
@@ -213,25 +269,22 @@
             <h2>Створення магазину</h2>
             <div class="steps">
                 <div class="step" id="step1">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle-thin fa-stack-2x"></i>
-                        <strong class="fa-stack-1x">1</strong>
-                    </span>
-                    <span>Магазин</span>
+                    <div class="wiz-step" id="wizStep1">
+                        <p>1</p>
+                    </div>
+                    <span  id="wizSpan1">Магазин</span>
                 </div>
                 <div class="step" id="step2">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle-thin fa-stack-2x"></i>
-                        <strong class="fa-stack-1x">2</strong>
-                    </span>
-                    <span>Контакти</span>
+                    <div class="wiz-step" id="wizStep2">
+                        <p>2</p>
+                    </div>
+                    <span  id="wizSpan2">Контакти</span>
                 </div>
                 <div class="step" id="step3">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle-thin fa-stack-2x"></i>
-                        <strong class="fa-stack-1x">3</strong>
-                    </span>
-                    <span>Конфігурація</span>
+                    <div class="wiz-step" id="wizStep3">
+                        <p>3</p>
+                    </div>
+                    <span  id="wizSpan3">Конфігурація</span>
                 </div>
             </div>
             <div class="step1-form">
@@ -331,6 +384,8 @@
     function nextStep() {
         if (currentStep == 0) {
             document.getElementById("prevBtn1").style.display = "none";
+            document.getElementById("wizStep1").classList.add('step-active');
+            document.getElementById("wizSpan1").classList.add('wiz-span');
         }
         else {
             document.getElementById("prevBtn").style.display = "flex";
@@ -340,12 +395,20 @@
         function nextPage1() {
             document.querySelector(".step1-form").style.display = 'none';
             document.querySelector(".step2-form").style.display = 'block';
+            document.getElementById("wizStep1").classList.remove('step-active')
+            document.getElementById("wizStep2").classList.add('step-active')
+            document.getElementById("wizSpan1").classList.remove('wiz-span')
+            document.getElementById("wizSpan2").classList.add('wiz-span')
         }
 
         document.getElementById("prevBtn2").addEventListener("click", prevPage2);
         function prevPage2() {
             document.querySelector(".step2-form").style.display = 'none';
             document.querySelector(".step1-form").style.display = 'block';
+            document.getElementById("wizStep2").classList.remove('step-active')
+            document.getElementById("wizStep1").classList.add('step-active')
+            document.getElementById("wizSpan2").classList.remove('wiz-span')
+            document.getElementById("wizSpan1").classList.add('wiz-span')
         }
 
         document.getElementById("nextBtn2").addEventListener("click", nextPage2);
@@ -353,13 +416,20 @@
             document.querySelector(".step2-form").style.display = 'none';
             document.querySelector(".step3-form").style.display = 'block';
             document.getElementById("nextBtn3").innerHTML = "Готово";
-
+            document.getElementById("wizStep2").classList.remove('step-active')
+            document.getElementById("wizStep3").classList.add('step-active')
+            document.getElementById("wizSpan2").classList.remove('wiz-span')
+            document.getElementById("wizSpan3").classList.add('wiz-span')
         }
 
         document.getElementById("prevBtn3").addEventListener("click", prevPage3);
         function prevPage3() {
             document.querySelector(".step3-form").style.display = 'none';
             document.querySelector(".step2-form").style.display = 'block';
+            document.getElementById("wizStep3").classList.remove('step-active')
+            document.getElementById("wizStep2").classList.add('step-active')
+            document.getElementById("wizSpan3").classList.remove('wiz-span')
+            document.getElementById("wizSpan2").classList.add('wiz-span')
         }
 
     }
