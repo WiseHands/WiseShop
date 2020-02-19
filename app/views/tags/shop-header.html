@@ -13,7 +13,9 @@
         padding: 10px 15px;
         max-width: 900px;
     }
-
+    .burger-menu:hover {
+        cursor: pointer;
+    }
     .fa-stack:after {
         position: absolute;
         right: -25%;
@@ -55,9 +57,14 @@
     .shop-name-link, .shop-name-link:hover{
         color: black;
     }
-    #shop-name{
+    #shop-name {
         margin-bottom: 0px;
         font-size: 30px;
+    }
+    #shop-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .header-right-part{
         display: flex;

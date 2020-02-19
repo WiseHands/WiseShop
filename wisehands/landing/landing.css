@@ -86,6 +86,9 @@ body a {
     display: none;
     padding: 1rem;
 }
+.burger-menu:hover {
+    cursor: pointer;
+}
 #overlay-mobile {
     display: none;
     background-color: rgba(0,0,0,0);
