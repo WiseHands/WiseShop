@@ -88,23 +88,16 @@ public class OrderAPI extends AuthController {
             orderItem.quantity = quantity;
             orderItem.orderUuid = order.uuid;
 
-
-
-            orderItem.additionsList = new ArrayList<AdditionOrderDTO>();
-            List<AdditionOrderDTO> _additionList = new ArrayList<AdditionOrderDTO>();
+            List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
             for(AdditionLineItemDTO addition : lineItem.additionList){
                 AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
                 additionOrderDTO.title = addition.title;
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
                 totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
+                additionList.add(additionOrderDTO);
             }
-
-            orderItem.additionsList.clear();
-            orderItem.additionsList.addAll(_additionList);
-            System.out.println(orderItem.additionsList.size());
-            _additionList.clear();
-            System.out.println(_additionList.size());
+            orderItem.additionsList = additionList;
 
 
             orderItemList.add(orderItem);
@@ -141,15 +134,12 @@ public class OrderAPI extends AuthController {
         order.total = orderItemListResult.total;
         boolean isPaymentTypeEqualsCreditCard = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
         Boolean isClientPaysProcessingCommission = shop.paymentSettings.clientPaysProcessingCommission;
-        if(isClientPaysProcessingCommission == null){
-            isClientPaysProcessingCommission = false;
-        }
         if (isClientPaysProcessingCommission && isPaymentTypeEqualsCreditCard){
             order.total += order.total * PaymentCreditCardConfiguration._paymentComission;
             order.total = Math.round(order.total * 100.0) / 100.0;
         }
 
-        System.out.println("order.total : " + order.total);
+        System.out.println("order.total with payment commission: " + order.total);
 
         boolean isBiggerThanMimimal = true;
         if(shop.paymentSettings.minimumPayment != null) {
@@ -224,7 +214,7 @@ public class OrderAPI extends AuthController {
 
         shoppingCart.clientCity = null;
         shoppingCart.clientPostDepartmentNumber = null;
-        
+
         shoppingCart.clientAddressStreetLat = null;
         shoppingCart.clientAddressStreetLng = null;
         shoppingCart.clientAddressGpsPointInsideDeliveryBoundaries = null;
