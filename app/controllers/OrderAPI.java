@@ -159,7 +159,7 @@ public class OrderAPI extends AuthController {
         shop = shop.save();
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
-        //clearShoppingCart(shoppingCart);
+        clearShoppingCart(shoppingCart);
         JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
         try {
