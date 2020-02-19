@@ -40,7 +40,7 @@ public class OrderItemDTO extends GenericModel{
     public Integer quantity;
 
     @Expose
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     public List<AdditionOrderDTO> additionsList;
 
     @Expose
