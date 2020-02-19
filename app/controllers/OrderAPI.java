@@ -17,7 +17,6 @@ import play.i18n.Messages;
 import play.mvc.Http;
 import services.*;
 
-import javax.persistence.Transient;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -62,26 +61,21 @@ public class OrderAPI extends AuthController {
         return ip;
     }
 
+    public static class OrderItemListResult {
+        Double total = 0.0;
+        List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
 
-    private static Double calculateTotal(List<LineItem> items) {
-        Double totalCost = Double.parseDouble("0");
-        for (LineItem lineItem : items) {
-
-            ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
-            for(AdditionLineItemDTO addition : lineItem.additionList){
-                totalCost += addition.price * addition.quantity;
-            }
-            System.out.println(product);
-            totalCost += product.price * lineItem.quantity;
+        public OrderItemListResult(Double totalCost, List<OrderItemDTO> orderItemList) {
+            this.total = totalCost;
+            this.orderItemList = orderItemList;
         }
-        return totalCost;
     }
 
-    private static List<OrderItemDTO> getOrderItemList(List<LineItem> items, OrderDTO order) {
+    private static OrderItemListResult _parseOrderItemsList(List<LineItem> items, OrderDTO order) {
         List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
+        Double totalCost = Double.parseDouble("0");
         for (LineItem lineItem : items) {
             OrderItemDTO orderItem = new OrderItemDTO();
-            orderItem = orderItem.save();
 
             ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
             int quantity = lineItem.quantity;
@@ -95,21 +89,31 @@ public class OrderAPI extends AuthController {
             orderItem.orderUuid = order.uuid;
 
 
+
+            orderItem.additionsList = new ArrayList<AdditionOrderDTO>();
+            List<AdditionOrderDTO> _additionList = new ArrayList<AdditionOrderDTO>();
             for(AdditionLineItemDTO addition : lineItem.additionList){
                 AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
-                additionOrderDTO = additionOrderDTO.save();
-
                 additionOrderDTO.title = addition.title;
                 additionOrderDTO.price = addition.price;
                 additionOrderDTO.quantity = addition.quantity;
-                orderItem.additionsList.add(additionOrderDTO);
-
+                totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
             }
-            orderItemList.add(orderItem);
-        }
-        return orderItemList;
-    }
 
+            orderItem.additionsList.clear();
+            orderItem.additionsList.addAll(_additionList);
+            System.out.println(orderItem.additionsList.size());
+            _additionList.clear();
+            System.out.println(_additionList.size());
+
+
+            orderItemList.add(orderItem);
+            totalCost += product.price * orderItem.quantity;
+        }
+
+        OrderItemListResult result = new OrderItemListResult(totalCost, orderItemList);
+        return result;
+    }
 
     public static void create(String client) throws Exception {
         ShopDTO shop = _getShop(client);
@@ -122,27 +126,22 @@ public class OrderAPI extends AuthController {
         String ip = _getUserIp();
 
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
-        order = order.save();
         shop.orders.add(order);
-        shop = shop.save();
 
-
-        order.items = getOrderItemList(shoppingCart.items, order);
-        order = order.save();
-
-        Double _total = calculateTotal(shoppingCart.items);
+        OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
+        order.items = orderItemListResult.orderItemList;
 
         DeliveryDTO delivery = shop.delivery;
         if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)){
-            if (_total < delivery.courierFreeDeliveryLimit){
-                _total += delivery.courierPrice;
+            if (orderItemListResult.total < delivery.courierFreeDeliveryLimit){
+                orderItemListResult.total += delivery.courierPrice;
             }
         }
 
-        order.total = _total;
+        order.total = orderItemListResult.total;
         boolean isPaymentTypeEqualsCreditCard = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
         Boolean isClientPaysProcessingCommission = shop.paymentSettings.clientPaysProcessingCommission;
-        if(isClientPaysProcessingCommission == null) {
+        if(isClientPaysProcessingCommission == null){
             isClientPaysProcessingCommission = false;
         }
         if (isClientPaysProcessingCommission && isPaymentTypeEqualsCreditCard){
@@ -150,7 +149,7 @@ public class OrderAPI extends AuthController {
             order.total = Math.round(order.total * 100.0) / 100.0;
         }
 
-        System.out.println("order.total with payment commission: " + order.total);
+        System.out.println("order.total : " + order.total);
 
         boolean isBiggerThanMimimal = true;
         if(shop.paymentSettings.minimumPayment != null) {
@@ -167,14 +166,11 @@ public class OrderAPI extends AuthController {
             error(403, json.toString());
         }
 
+        shop = shop.save();
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
-        JPA.em().getTransaction().commit();
 
-        JPA.em().getTransaction().begin();
         clearShoppingCart(shoppingCart);
         JPA.em().getTransaction().commit();
-
-
         new SendSmsJob(order, shop).now();
         try {
             mailSender.sendEmail(shop, order, Messages.get("new.order"));
@@ -209,9 +205,6 @@ public class OrderAPI extends AuthController {
     }
 
     static void clearShoppingCart(ShoppingCartDTO shoppingCart){
-        for (LineItem _item : shoppingCart.items) {
-            _item.delete();
-        }
         shoppingCart.items.clear();
 
         shoppingCart.clientName = null;
