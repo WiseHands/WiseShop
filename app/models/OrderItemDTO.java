@@ -47,11 +47,4 @@ public class OrderItemDTO extends GenericModel{
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     public List<PropertyTagDTO> tags;
 
-    @PostLoad
-    private void _postLoad() {
-        if(this.additionsList == null) {
-            this.additionsList = new ArrayList<AdditionOrderDTO>();
-        }
-    }
-
 }
