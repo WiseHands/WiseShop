@@ -97,7 +97,7 @@ public class OrderDTO extends GenericModel {
     @OneToMany(cascade = CascadeType.ALL)
     public List<OrderItemDTO> items;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     public ShopDTO shop;
 
     public OrderDTO(ShoppingCartDTO cart, ShopDTO shop, String userAgent, String ip) {
