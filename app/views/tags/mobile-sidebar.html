@@ -25,7 +25,7 @@
         position: fixed;
         top: 0;
         bottom: 0;
-        overflow-y: scroll;
+        overflow-y: auto;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
 
     }
@@ -122,6 +122,8 @@
 
     .sub-menu li {
         padding: 3px .2em;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .sidebar-panel p:hover, .sidebar-panel button:hover, .sidebar-panel ul li:hover {
