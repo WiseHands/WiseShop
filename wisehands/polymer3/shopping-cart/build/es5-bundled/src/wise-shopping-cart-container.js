@@ -24788,11 +24788,11 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </template>
                                 <span class="error-span" inner-h-t-m-l="[[errorMessage]]"></span>
                                 <div class="total-container">
-                                    <h3>Товарів на суму:[[_computeProductsTotal(cart.items)]][[currencyLabel]]</h3>
-                                    <h3>Додатків на суму: [[_computeAdditionsTotal(cart.items)]][[currencyLabel]]</h3>
-                                    <h3>Доставка: [[deliveryPrice]][[currencyLabel]]</h3>
+                                    <h3>Товарів на суму: [[_computeProductsTotal(cart.items)]] [[currencyLabel]]</h3>
+                                    <h3>Додатків на суму: [[_computeAdditionsTotal(cart.items)]] [[currencyLabel]]</h3>
+                                    <h3>Доставка: [[deliveryPrice]] [[currencyLabel]]</h3>
                                     <h3 hidden="[[!cart.configuration.payment.creditCard.clientPaysProcessingCommission]]">
-                                        Комісія онлайн оплати: [[_calculatePaymentOnlineCommission(total, cart.paymentType, cart.configuration.payment.creditCard)]][[currencyLabel]]
+                                        Комісія онлайн оплати: [[_calculatePaymentOnlineCommission(total, cart.paymentType, cart.configuration.payment.creditCard)]] [[currencyLabel]]
                                     </h3>
                                     <h1>РАЗОМ: [[total]] [[currencyLabel]]</h1>
                                     <paper-button disabled=[[!cart.items.length]] on-tap="_proceed">NEXT

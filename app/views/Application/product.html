@@ -375,7 +375,7 @@
             </div>
         #{/if}
         <div class="price-buy-block">
-            <span class="product-price" price="${product.formatDecimal()}"><span class="total-span"></span></span>
+            <span class="product-price" price="${product.formatDecimal()}" UAH><span class="total-span"></span></span>
             <button class="buy-button" onClick="buyStart('${product.uuid}')">Купити</button>
         </div>
         #{if product.additions}
@@ -393,7 +393,7 @@
                 })">
                     <img src="${_addition.imagePath}">
                     <p id="add-item-title">${_addition.title}</p>
-                    <p class="add-item-price">${_addition.formatDecimal()}</p>
+                    <p class="add-item-price">${_addition.formatDecimal()} UAH</p>
                 </div>
                 %{
                 }
