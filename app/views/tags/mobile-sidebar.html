@@ -63,8 +63,18 @@
     .sidebar-logo img {
         width: 36px;
         height: 36px;
-        padding-right: 5px;
+        margin-right: 7px;
     }
+    .sidebar-logo h3 {
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .sidebar-logo h3:hover {
+        color: #000;
+    }
+
     .sidebar-panel {
         line-height: 2;
         padding: 10px;
@@ -123,7 +133,7 @@
     <a class="link" href="/">
         <div class="sidebar-logo">
             <img src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
-            <h3 id="shop-name">${shop.shopName}</h3>
+            <h3>${shop.shopName}</h3>
         </div>
     </a>
     <div class="sidebar-panel">
