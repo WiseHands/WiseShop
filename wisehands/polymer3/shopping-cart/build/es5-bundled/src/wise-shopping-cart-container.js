@@ -24273,6 +24273,481 @@ Polymer({
     this._activateFocusedItem();
   }
 });
+const PaperSpinnerBehavior = {
+  properties: {
+    /**
+     * Displays the spinner.
+     */active: {
+      type: Boolean,
+      value: false,
+      reflectToAttribute: true,
+      observer: '__activeChanged'
+    },
+    /**
+     * Alternative text content for accessibility support.
+     * If alt is present, it will add an aria-label whose content matches alt
+     * when active. If alt is not present, it will default to 'loading' as the
+     * alt value.
+     */alt: {
+      type: String,
+      value: 'loading',
+      observer: '__altChanged'
+    },
+    __coolingDown: {
+      type: Boolean,
+      value: false
+    }
+  },
+  __computeContainerClasses: function (active, coolingDown) {
+    return [active || coolingDown ? 'active' : '', coolingDown ? 'cooldown' : ''].join(' ');
+  },
+  __activeChanged: function (active, old) {
+    this.__setAriaHidden(!active);
+
+    this.__coolingDown = !active && old;
+  },
+  __altChanged: function (alt) {
+    // user-provided `aria-label` takes precedence over prototype default
+    if (alt === 'loading') {
+      this.alt = this.getAttribute('aria-label') || alt;
+    } else {
+      this.__setAriaHidden(alt === '');
+
+      this.setAttribute('aria-label', alt);
+    }
+  },
+  __setAriaHidden: function (hidden) {
+    var attr = 'aria-hidden';
+
+    if (hidden) {
+      this.setAttribute(attr, 'true');
+    } else {
+      this.removeAttribute(attr);
+    }
+  },
+  __reset: function () {
+    this.active = false;
+    this.__coolingDown = false;
+  }
+};
+var paperSpinnerBehavior = {
+  PaperSpinnerBehavior: PaperSpinnerBehavior
+}; /**
+   @license
+   Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+   This code may only be used under the BSD style license found at
+   http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+   http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+   found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+   part of the polymer project is also subject to an additional IP rights grant
+   found at http://polymer.github.io/PATENTS.txt
+   */
+const $_documentContainer = document.createElement('template');
+$_documentContainer.setAttribute('style', 'display: none;');
+$_documentContainer.innerHTML = `<dom-module id="paper-spinner-styles">
+  <template>
+    <style>
+      /*
+      /**************************/
+      /* STYLES FOR THE SPINNER */
+      /**************************/
+
+      /*
+       * Constants:
+       *      ARCSIZE     = 270 degrees (amount of circle the arc takes up)
+       *      ARCTIME     = 1333ms (time it takes to expand and contract arc)
+       *      ARCSTARTROT = 216 degrees (how much the start location of the arc
+       *                                should rotate each time, 216 gives us a
+       *                                5 pointed star shape (it's 360/5 * 3).
+       *                                For a 7 pointed star, we might do
+       *                                360/7 * 3 = 154.286)
+       *      SHRINK_TIME = 400ms
+       */
+
+      :host {
+        display: inline-block;
+        position: relative;
+        width: 28px;
+        height: 28px;
+
+        /* 360 * ARCTIME / (ARCSTARTROT + (360-ARCSIZE)) */
+        --paper-spinner-container-rotation-duration: 1568ms;
+
+        /* ARCTIME */
+        --paper-spinner-expand-contract-duration: 1333ms;
+
+        /* 4 * ARCTIME */
+        --paper-spinner-full-cycle-duration: 5332ms;
+
+        /* SHRINK_TIME */
+        --paper-spinner-cooldown-duration: 400ms;
+      }
+
+      #spinnerContainer {
+        width: 100%;
+        height: 100%;
+
+        /* The spinner does not have any contents that would have to be
+         * flipped if the direction changes. Always use ltr so that the
+         * style works out correctly in both cases. */
+        direction: ltr;
+      }
+
+      #spinnerContainer.active {
+        -webkit-animation: container-rotate var(--paper-spinner-container-rotation-duration) linear infinite;
+        animation: container-rotate var(--paper-spinner-container-rotation-duration) linear infinite;
+      }
+
+      @-webkit-keyframes container-rotate {
+        to { -webkit-transform: rotate(360deg) }
+      }
+
+      @keyframes container-rotate {
+        to { transform: rotate(360deg) }
+      }
+
+      .spinner-layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        white-space: nowrap;
+        color: var(--paper-spinner-color, var(--google-blue-500));
+      }
+
+      .layer-1 {
+        color: var(--paper-spinner-layer-1-color, var(--google-blue-500));
+      }
+
+      .layer-2 {
+        color: var(--paper-spinner-layer-2-color, var(--google-red-500));
+      }
+
+      .layer-3 {
+        color: var(--paper-spinner-layer-3-color, var(--google-yellow-500));
+      }
+
+      .layer-4 {
+        color: var(--paper-spinner-layer-4-color, var(--google-green-500));
+      }
+
+      /**
+       * IMPORTANT NOTE ABOUT CSS ANIMATION PROPERTIES (keanulee):
+       *
+       * iOS Safari (tested on iOS 8.1) does not handle animation-delay very well - it doesn't
+       * guarantee that the animation will start _exactly_ after that value. So we avoid using
+       * animation-delay and instead set custom keyframes for each color (as layer-2undant as it
+       * seems).
+       */
+      .active .spinner-layer {
+        -webkit-animation-name: fill-unfill-rotate;
+        -webkit-animation-duration: var(--paper-spinner-full-cycle-duration);
+        -webkit-animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+        -webkit-animation-iteration-count: infinite;
+        animation-name: fill-unfill-rotate;
+        animation-duration: var(--paper-spinner-full-cycle-duration);
+        animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+        animation-iteration-count: infinite;
+        opacity: 1;
+      }
+
+      .active .spinner-layer.layer-1 {
+        -webkit-animation-name: fill-unfill-rotate, layer-1-fade-in-out;
+        animation-name: fill-unfill-rotate, layer-1-fade-in-out;
+      }
+
+      .active .spinner-layer.layer-2 {
+        -webkit-animation-name: fill-unfill-rotate, layer-2-fade-in-out;
+        animation-name: fill-unfill-rotate, layer-2-fade-in-out;
+      }
+
+      .active .spinner-layer.layer-3 {
+        -webkit-animation-name: fill-unfill-rotate, layer-3-fade-in-out;
+        animation-name: fill-unfill-rotate, layer-3-fade-in-out;
+      }
+
+      .active .spinner-layer.layer-4 {
+        -webkit-animation-name: fill-unfill-rotate, layer-4-fade-in-out;
+        animation-name: fill-unfill-rotate, layer-4-fade-in-out;
+      }
+
+      @-webkit-keyframes fill-unfill-rotate {
+        12.5% { -webkit-transform: rotate(135deg) } /* 0.5 * ARCSIZE */
+        25%   { -webkit-transform: rotate(270deg) } /* 1   * ARCSIZE */
+        37.5% { -webkit-transform: rotate(405deg) } /* 1.5 * ARCSIZE */
+        50%   { -webkit-transform: rotate(540deg) } /* 2   * ARCSIZE */
+        62.5% { -webkit-transform: rotate(675deg) } /* 2.5 * ARCSIZE */
+        75%   { -webkit-transform: rotate(810deg) } /* 3   * ARCSIZE */
+        87.5% { -webkit-transform: rotate(945deg) } /* 3.5 * ARCSIZE */
+        to    { -webkit-transform: rotate(1080deg) } /* 4   * ARCSIZE */
+      }
+
+      @keyframes fill-unfill-rotate {
+        12.5% { transform: rotate(135deg) } /* 0.5 * ARCSIZE */
+        25%   { transform: rotate(270deg) } /* 1   * ARCSIZE */
+        37.5% { transform: rotate(405deg) } /* 1.5 * ARCSIZE */
+        50%   { transform: rotate(540deg) } /* 2   * ARCSIZE */
+        62.5% { transform: rotate(675deg) } /* 2.5 * ARCSIZE */
+        75%   { transform: rotate(810deg) } /* 3   * ARCSIZE */
+        87.5% { transform: rotate(945deg) } /* 3.5 * ARCSIZE */
+        to    { transform: rotate(1080deg) } /* 4   * ARCSIZE */
+      }
+
+      @-webkit-keyframes layer-1-fade-in-out {
+        0% { opacity: 1 }
+        25% { opacity: 1 }
+        26% { opacity: 0 }
+        89% { opacity: 0 }
+        90% { opacity: 1 }
+        to { opacity: 1 }
+      }
+
+      @keyframes layer-1-fade-in-out {
+        0% { opacity: 1 }
+        25% { opacity: 1 }
+        26% { opacity: 0 }
+        89% { opacity: 0 }
+        90% { opacity: 1 }
+        to { opacity: 1 }
+      }
+
+      @-webkit-keyframes layer-2-fade-in-out {
+        0% { opacity: 0 }
+        15% { opacity: 0 }
+        25% { opacity: 1 }
+        50% { opacity: 1 }
+        51% { opacity: 0 }
+        to { opacity: 0 }
+      }
+
+      @keyframes layer-2-fade-in-out {
+        0% { opacity: 0 }
+        15% { opacity: 0 }
+        25% { opacity: 1 }
+        50% { opacity: 1 }
+        51% { opacity: 0 }
+        to { opacity: 0 }
+      }
+
+      @-webkit-keyframes layer-3-fade-in-out {
+        0% { opacity: 0 }
+        40% { opacity: 0 }
+        50% { opacity: 1 }
+        75% { opacity: 1 }
+        76% { opacity: 0 }
+        to { opacity: 0 }
+      }
+
+      @keyframes layer-3-fade-in-out {
+        0% { opacity: 0 }
+        40% { opacity: 0 }
+        50% { opacity: 1 }
+        75% { opacity: 1 }
+        76% { opacity: 0 }
+        to { opacity: 0 }
+      }
+
+      @-webkit-keyframes layer-4-fade-in-out {
+        0% { opacity: 0 }
+        65% { opacity: 0 }
+        75% { opacity: 1 }
+        90% { opacity: 1 }
+        to { opacity: 0 }
+      }
+
+      @keyframes layer-4-fade-in-out {
+        0% { opacity: 0 }
+        65% { opacity: 0 }
+        75% { opacity: 1 }
+        90% { opacity: 1 }
+        to { opacity: 0 }
+      }
+
+      .circle-clipper {
+        display: inline-block;
+        position: relative;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      /**
+       * Patch the gap that appear between the two adjacent div.circle-clipper while the
+       * spinner is rotating (appears on Chrome 50, Safari 9.1.1, and Edge).
+       */
+      .spinner-layer::after {
+        content: '';
+        left: 45%;
+        width: 10%;
+        border-top-style: solid;
+      }
+
+      .spinner-layer::after,
+      .circle-clipper .circle {
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        border-width: var(--paper-spinner-stroke-width, 3px);
+        border-radius: 50%;
+      }
+
+      .circle-clipper .circle {
+        bottom: 0;
+        width: 200%;
+        border-style: solid;
+        border-bottom-color: transparent !important;
+      }
+
+      .circle-clipper.left .circle {
+        left: 0;
+        border-right-color: transparent !important;
+        -webkit-transform: rotate(129deg);
+        transform: rotate(129deg);
+      }
+
+      .circle-clipper.right .circle {
+        left: -100%;
+        border-left-color: transparent !important;
+        -webkit-transform: rotate(-129deg);
+        transform: rotate(-129deg);
+      }
+
+      .active .gap-patch::after,
+      .active .circle-clipper .circle {
+        -webkit-animation-duration: var(--paper-spinner-expand-contract-duration);
+        -webkit-animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+        -webkit-animation-iteration-count: infinite;
+        animation-duration: var(--paper-spinner-expand-contract-duration);
+        animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+        animation-iteration-count: infinite;
+      }
+
+      .active .circle-clipper.left .circle {
+        -webkit-animation-name: left-spin;
+        animation-name: left-spin;
+      }
+
+      .active .circle-clipper.right .circle {
+        -webkit-animation-name: right-spin;
+        animation-name: right-spin;
+      }
+
+      @-webkit-keyframes left-spin {
+        0% { -webkit-transform: rotate(130deg) }
+        50% { -webkit-transform: rotate(-5deg) }
+        to { -webkit-transform: rotate(130deg) }
+      }
+
+      @keyframes left-spin {
+        0% { transform: rotate(130deg) }
+        50% { transform: rotate(-5deg) }
+        to { transform: rotate(130deg) }
+      }
+
+      @-webkit-keyframes right-spin {
+        0% { -webkit-transform: rotate(-130deg) }
+        50% { -webkit-transform: rotate(5deg) }
+        to { -webkit-transform: rotate(-130deg) }
+      }
+
+      @keyframes right-spin {
+        0% { transform: rotate(-130deg) }
+        50% { transform: rotate(5deg) }
+        to { transform: rotate(-130deg) }
+      }
+
+      #spinnerContainer.cooldown {
+        -webkit-animation: container-rotate var(--paper-spinner-container-rotation-duration) linear infinite, fade-out var(--paper-spinner-cooldown-duration) cubic-bezier(0.4, 0.0, 0.2, 1);
+        animation: container-rotate var(--paper-spinner-container-rotation-duration) linear infinite, fade-out var(--paper-spinner-cooldown-duration) cubic-bezier(0.4, 0.0, 0.2, 1);
+      }
+
+      @-webkit-keyframes fade-out {
+        0% { opacity: 1 }
+        to { opacity: 0 }
+      }
+
+      @keyframes fade-out {
+        0% { opacity: 1 }
+        to { opacity: 0 }
+      }
+    </style>
+  </template>
+</dom-module>`;
+document.head.appendChild($_documentContainer.content);
+const template$a = html`
+  <style include="paper-spinner-styles"></style>
+
+  <div id="spinnerContainer" class-name="[[__computeContainerClasses(active, __coolingDown)]]" on-animationend="__reset" on-webkit-animation-end="__reset">
+    <div class="spinner-layer layer-1">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <div class="spinner-layer layer-2">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <div class="spinner-layer layer-3">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <div class="spinner-layer layer-4">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+`;
+template$a.setAttribute('strip-whitespace', ''); /**
+                                                 Material design: [Progress &
+                                                 activity](https://www.google.com/design/spec/components/progress-activity.html)
+                                                                                               Element providing a multiple color material design circular spinner.
+                                                                                                   <paper-spinner active></paper-spinner>
+                                                                                               The default spinner cycles between four layers of colors; by default they are
+                                                 blue, red, yellow and green. It can be customized to cycle between four
+                                                 different colors. Use <paper-spinner-lite> for single color spinners.
+                                                                                               ### Accessibility
+                                                                                               Alt attribute should be set to provide adequate context for accessibility. If
+                                                 not provided, it defaults to 'loading'. Empty alt can be provided to mark the
+                                                 element as decorative if alternative content is provided in another form (e.g. a
+                                                 text block following the spinner).
+                                                                                                   <paper-spinner alt="Loading contacts list" active></paper-spinner>
+                                                                                               ### Styling
+                                                                                               The following custom properties and mixins are available for styling:
+                                                                                               Custom property | Description | Default
+                                                 ----------------|-------------|----------
+                                                 `--paper-spinner-layer-1-color` | Color of the first spinner rotation | `--google-blue-500`
+                                                 `--paper-spinner-layer-2-color` | Color of the second spinner rotation | `--google-red-500`
+                                                 `--paper-spinner-layer-3-color` | Color of the third spinner rotation | `--google-yellow-500`
+                                                 `--paper-spinner-layer-4-color` | Color of the fourth spinner rotation | `--google-green-500`
+                                                 `--paper-spinner-stroke-width` | The width of the spinner stroke | 3px
+                                                                                               @group Paper Elements
+                                                 @element paper-spinner
+                                                 @hero hero.svg
+                                                 @demo demo/index.html
+                                                 */
+Polymer({
+  _template: template$a,
+  is: 'paper-spinner',
+  behaviors: [PaperSpinnerBehavior]
+});
 
 class WiseShoppingCartItem extends PolymerElement {
   static get template() {
@@ -24290,6 +24765,9 @@ class WiseShoppingCartItem extends PolymerElement {
         .image-container {
             padding: .5em;
         }
+        .image-container:hover{
+            cursor: pointer;
+        }
         iron-image {
             display: flex;
         } 
@@ -24300,6 +24778,14 @@ class WiseShoppingCartItem extends PolymerElement {
            min-width: 0;  
            flex: 1;
            justify-content: space-between;
+        }
+        .product-info-container{
+            flex-direction: column;
+        }
+        .product-info-container h4{
+           font-size: 0.8rem;
+           font-weight: 400;
+           margin: 5px 0;;
         }
         .quantity-span, .total-span {
            margin: 0 .5em;
@@ -24313,6 +24799,10 @@ class WiseShoppingCartItem extends PolymerElement {
            text-overflow: ellipsis;
            margin: 0;
            font-weight: normal;
+        }
+        
+        .total-container h3:hover {
+            cursor: pointer;
         }
        
         .product-calculated-container {
@@ -24332,19 +24822,27 @@ class WiseShoppingCartItem extends PolymerElement {
         }
       </style>
     <paper-card class="paper-card-container">
-      <div class="image-container">
-        <iron-image sizing="cover" height="100" width="100" src="[[cartItem.imagePath]]">
-      </div>
-      <div class="total-container">
-        <h3>[[cartItem.name]]</h3>
-          <div class="product-calculated-container">  
+        <div class="image-container">
+            <iron-image sizing="cover" height="100" width="100" src="[[cartItem.imagePath]]" on-click="_openProductPageByUuid">
+        </div>
+        <div class="total-container">
+            <div class="product-info-container">
+                <h3 on-click="_openProductPageByUuid">[[cartItem.name]]</h3>
+                <h4> 
+                    <template is="dom-repeat" items="[[cartItem.additionList]]">                
+                        [[item.title]]<span hidden="[[!hasMoreThanOneQuantity(item)]]">([[item.quantity]])</span>
+                        <span hidden="[[isLastItem(cartItem.additionList, index)]]">,</span>
+                    </template>        
+                </h4>
+            </div>        
+            <div class="product-calculated-container">  
                 <paper-icon-button icon="remove" on-tap="_decreaseItemQuantity"></paper-icon-button>
                 <p class="quantity-span">[[cartItem.quantity]]</p>
                 <paper-icon-button icon="add" on-tap="_increaseItemQuantity"></paper-icon-button>
-                <div class="total-span">[[_calculateTotalPrice(cartItem.quantity, cartItem.price)]]<br>[[currencyLabel]]</div>
+                <div class="total-span">[[_calculateTotalPrice(cartItem.quantity, cartItem.price, cartItem.additionList)]]<br>[[currencyLabel]]</div>
                 <paper-icon-button icon="close" on-tap="_removeItem"></paper-icon-button>
-          </div>
-      </div>
+            </div>
+        </div>
     </paper-card>
     `;
   }
@@ -24364,12 +24862,24 @@ class WiseShoppingCartItem extends PolymerElement {
     };
   }
 
-  _calculateTotalPrice(quantity, price) {
-    return quantity * price;
+  _calculateTotalPrice(quantity, productPrice, additionList) {
+    let additionPrice = 0;
+    additionList.forEach(item => {
+      additionPrice += item.price * item.quantity;
+    });
+    return quantity * (productPrice + additionPrice);
   }
 
   _decreaseItemQuantity() {
     this.dispatchEvent(new CustomEvent('decrease-item-quantity', {
+      detail: this.cartItem.uuid,
+      bubbles: true,
+      composed: true
+    }));
+  }
+
+  _openProductPageByUuid() {
+    this.dispatchEvent(new CustomEvent('open-product', {
       detail: this.cartItem.uuid,
       bubbles: true,
       composed: true
@@ -24390,6 +24900,14 @@ class WiseShoppingCartItem extends PolymerElement {
       bubbles: true,
       composed: true
     }));
+  }
+
+  isLastItem(additionList, index) {
+    return index + 1 === additionList.length;
+  }
+
+  hasMoreThanOneQuantity(item) {
+    return item.quantity > 1;
   }
 
 }
@@ -24501,6 +25019,7 @@ class WiseShoppingCartContainer extends PolymerElement {
   static get template() {
     // language=HTML
     return html`
+            <paper-spinner active></paper-spinner>
             <style>
                 :host {
                     display: block;
@@ -25146,4 +25665,4 @@ class WiseShoppingCartContainer extends PolymerElement {
 }
 
 window.customElements.define('wise-shopping-cart-container', WiseShoppingCartContainer);
-export { ironA11yAnnouncer as $ironA11yAnnouncer, ironA11yKeysBehavior as $ironA11yKeysBehavior, ironButtonState as $ironButtonState, ironControlState as $ironControlState, ironCheckedElementBehavior as $ironCheckedElementBehavior, ironFormElementBehavior as $ironFormElementBehavior, ironMenuBehavior as $ironMenuBehavior, ironMenubarBehavior as $ironMenubarBehavior, ironMeta as $ironMeta, ironMultiSelectable as $ironMultiSelectable, ironSelectable as $ironSelectable, ironSelection as $ironSelection, ironValidatableBehavior as $ironValidatableBehavior, paperButtonBehavior as $paperButtonBehavior, paperCheckedElementBehavior as $paperCheckedElementBehavior, paperInkyFocusBehavior as $paperInkyFocusBehavior, paperRippleBehavior as $paperRippleBehavior, paperInputAddonBehavior as $paperInputAddonBehavior, paperInputBehavior as $paperInputBehavior, arraySelector as $arraySelector, customStyle as $customStyle, domBind as $domBind, domIf as $domIf, domModule as $domModule, domRepeat as $domRepeat, _class as $class, legacyElementMixin as $legacyElementMixin, mutableDataBehavior as $mutableDataBehavior, polymerFn as $polymerFn, polymer_dom as $polymerDom, templatizerBehavior as $templatizerBehavior, dirMixin as $dirMixin, elementMixin as $elementMixin, gestureEventListeners as $gestureEventListeners, mutableData as $mutableData, propertiesChanged as $propertiesChanged, propertiesMixin as $propertiesMixin, propertyAccessors as $propertyAccessors, propertyEffects as $propertyEffects, templateStamp as $templateStamp, arraySplice as $arraySplice, async as $async, caseMap$1 as $caseMap, debounce as $debounce, flattenedNodesObserver as $flattenedNodesObserver, flush$2 as $flush, gestures$1 as $gestures, hideTemplateControls as $hideTemplateControls, htmlTag as $htmlTag, mixin as $mixin, path as $path, renderStatus as $renderStatus, resolveUrl$1 as $resolveUrl, scopeSubtree$1 as $scopeSubtree, settings as $settings, styleGather as $styleGather, telemetry as $telemetry, templatize$1 as $templatize, wrap$2 as $wrap, polymerElement as $polymerElement, polymerLegacy as $polymerLegacy, applyShimUtils as $applyShimUtils, applyShim as $applyShim$1, commonRegex as $commonRegex, commonUtils as $commonUtils, cssParse as $cssParse, customStyleInterface as $customStyleInterface$1, documentWait$1 as $documentWait, styleSettings as $styleSettings, styleUtil as $styleUtil, templateMap$1 as $templateMap, unscopedStyleHandler as $unscopedStyleHandler, wiseShoppingCartItem as $wiseShoppingCartItem, wiseShoppingCart as $wiseShoppingCart, IronA11yAnnouncer, IronA11yKeysBehavior, IronButtonStateImpl, IronButtonState, IronControlState, IronCheckedElementBehaviorImpl, IronCheckedElementBehavior, IronFormElementBehavior, IronMenuBehaviorImpl, IronMenuBehavior, IronMenubarBehaviorImpl, IronMenubarBehavior, IronMeta, IronMultiSelectableBehaviorImpl, IronMultiSelectableBehavior, IronSelectableBehavior, IronSelection, IronValidatableBehaviorMeta, IronValidatableBehavior, PaperButtonBehaviorImpl, PaperButtonBehavior, PaperCheckedElementBehaviorImpl, PaperCheckedElementBehavior, PaperInkyFocusBehaviorImpl, PaperInkyFocusBehavior, PaperRippleBehavior, PaperInputAddonBehavior, PaperInputHelper, PaperInputBehaviorImpl, PaperInputBehavior, ArraySelectorMixin, ArraySelector, CustomStyle, DomBind, DomIf, DomModule, DomRepeat, mixinBehaviors, Class, LegacyElementMixin, MutableDataBehavior, OptionalMutableDataBehavior, Polymer, flush$1 as flush, enqueueDebouncer as addDebouncer, matchesSelector, EventApi, DomApi, dom, Templatizer, DirMixin, version, ElementMixin, updateStyles, GestureEventListeners, MutableData, OptionalMutableData, PropertiesChanged, PropertiesMixin, PropertyAccessors, PropertyEffects, TemplateStamp, calculateSplices, timeOut, animationFrame, idlePeriod, microTask, dashToCamelCase, camelToDashCase, Debouncer, enqueueDebouncer, flushDebouncers, FlattenedNodesObserver, enqueueDebouncer as enqueueDebouncer$1, flush$1, gestures, recognizers, deepTargetFind, addListener, removeListener, register$1 as register, setTouchAction, prevent, resetMouseCanceller, findOriginalTarget, add, remove, hideElementsGlobally, html, htmlLiteral, dedupingMixin, isPath, root, isAncestor, isDescendant, translate, matches, normalize, split, get, set, isDeep, flush as flush$2, beforeNextRender, afterNextRender, resolveUrl, resolveCss, pathFromUrl, scopeSubtree, useShadow, useNativeCSSProperties, useNativeCustomElements, rootPath, setRootPath, sanitizeDOMValue, setSanitizeDOMValue, passiveTouchGestures, setPassiveTouchGestures, strictTemplatePolicy, setStrictTemplatePolicy, allowTemplateFromDomModule, setAllowTemplateFromDomModule, legacyOptimizations, setLegacyOptimizations, syncInitialRender, setSyncInitialRender, cancelSyntheticClickEvents, setCancelSyntheticClickEvents, stylesFromModules, stylesFromModule, stylesFromTemplate, stylesFromModuleImports, cssFromModules, cssFromModule, cssFromTemplate, cssFromModuleImports, instanceCount, incrementInstanceCount, registrations, register as register$1, dumpRegistrations, templatize, modelForElement, TemplateInstanceBase, wrap$1 as wrap, html as html$1, version as version$1, PolymerElement, Polymer as Polymer$1, html as html$2, Base, invalidate, invalidateTemplate, isValid, templateIsValid, isValidating, templateIsValidating, startValidating, startValidatingTemplate, elementsAreInvalid, ApplyShim as $applyShimDefault, VAR_ASSIGN, MIXIN_MATCH, VAR_CONSUMED, ANIMATION_MATCH, MEDIA_MATCH, IS_VAR, BRACKETED, HOST_PREFIX, HOST_SUFFIX, updateNativeProperties, getComputedStyleValue, detectMixin, StyleNode, parse, stringify, removeCustomPropAssignment, types, CustomStyleProvider, CustomStyleInterface as $customStyleInterfaceDefault, CustomStyleInterfaceInterface, documentWait as $documentWaitDefault, nativeShadow, cssBuild, disableRuntime, nativeCssVariables, toCssText, rulesForStyle, isKeyframesSelector, forEachRule, applyCss, createScopeStyle, applyStylePlaceHolder, applyStyle, isTargetedBuild, findMatchingParen, processVariableAndFallback, setElementClassRaw, wrap as wrap$1, getIsExtends, gatherStyleText, splitSelectorList, getCssBuild, elementHasBuiltCss, getBuildComment, isOptimalCssBuild, templateMap as $templateMapDefault, scopingAttribute, processUnscopedStyle, isUnscopedStyle, WiseShoppingCartItem, WiseShoppingCart };
+export { ironA11yAnnouncer as $ironA11yAnnouncer, ironA11yKeysBehavior as $ironA11yKeysBehavior, ironButtonState as $ironButtonState, ironControlState as $ironControlState, ironCheckedElementBehavior as $ironCheckedElementBehavior, ironFormElementBehavior as $ironFormElementBehavior, ironMenuBehavior as $ironMenuBehavior, ironMenubarBehavior as $ironMenubarBehavior, ironMeta as $ironMeta, ironMultiSelectable as $ironMultiSelectable, ironSelectable as $ironSelectable, ironSelection as $ironSelection, ironValidatableBehavior as $ironValidatableBehavior, paperButtonBehavior as $paperButtonBehavior, paperCheckedElementBehavior as $paperCheckedElementBehavior, paperInkyFocusBehavior as $paperInkyFocusBehavior, paperRippleBehavior as $paperRippleBehavior, paperInputAddonBehavior as $paperInputAddonBehavior, paperInputBehavior as $paperInputBehavior, paperSpinnerBehavior as $paperSpinnerBehavior, arraySelector as $arraySelector, customStyle as $customStyle, domBind as $domBind, domIf as $domIf, domModule as $domModule, domRepeat as $domRepeat, _class as $class, legacyElementMixin as $legacyElementMixin, mutableDataBehavior as $mutableDataBehavior, polymerFn as $polymerFn, polymer_dom as $polymerDom, templatizerBehavior as $templatizerBehavior, dirMixin as $dirMixin, elementMixin as $elementMixin, gestureEventListeners as $gestureEventListeners, mutableData as $mutableData, propertiesChanged as $propertiesChanged, propertiesMixin as $propertiesMixin, propertyAccessors as $propertyAccessors, propertyEffects as $propertyEffects, templateStamp as $templateStamp, arraySplice as $arraySplice, async as $async, caseMap$1 as $caseMap, debounce as $debounce, flattenedNodesObserver as $flattenedNodesObserver, flush$2 as $flush, gestures$1 as $gestures, hideTemplateControls as $hideTemplateControls, htmlTag as $htmlTag, mixin as $mixin, path as $path, renderStatus as $renderStatus, resolveUrl$1 as $resolveUrl, scopeSubtree$1 as $scopeSubtree, settings as $settings, styleGather as $styleGather, telemetry as $telemetry, templatize$1 as $templatize, wrap$2 as $wrap, polymerElement as $polymerElement, polymerLegacy as $polymerLegacy, applyShimUtils as $applyShimUtils, applyShim as $applyShim$1, commonRegex as $commonRegex, commonUtils as $commonUtils, cssParse as $cssParse, customStyleInterface as $customStyleInterface$1, documentWait$1 as $documentWait, styleSettings as $styleSettings, styleUtil as $styleUtil, templateMap$1 as $templateMap, unscopedStyleHandler as $unscopedStyleHandler, wiseShoppingCartItem as $wiseShoppingCartItem, wiseShoppingCart as $wiseShoppingCart, IronA11yAnnouncer, IronA11yKeysBehavior, IronButtonStateImpl, IronButtonState, IronControlState, IronCheckedElementBehaviorImpl, IronCheckedElementBehavior, IronFormElementBehavior, IronMenuBehaviorImpl, IronMenuBehavior, IronMenubarBehaviorImpl, IronMenubarBehavior, IronMeta, IronMultiSelectableBehaviorImpl, IronMultiSelectableBehavior, IronSelectableBehavior, IronSelection, IronValidatableBehaviorMeta, IronValidatableBehavior, PaperButtonBehaviorImpl, PaperButtonBehavior, PaperCheckedElementBehaviorImpl, PaperCheckedElementBehavior, PaperInkyFocusBehaviorImpl, PaperInkyFocusBehavior, PaperRippleBehavior, PaperInputAddonBehavior, PaperInputHelper, PaperInputBehaviorImpl, PaperInputBehavior, PaperSpinnerBehavior, ArraySelectorMixin, ArraySelector, CustomStyle, DomBind, DomIf, DomModule, DomRepeat, mixinBehaviors, Class, LegacyElementMixin, MutableDataBehavior, OptionalMutableDataBehavior, Polymer, flush$1 as flush, enqueueDebouncer as addDebouncer, matchesSelector, EventApi, DomApi, dom, Templatizer, DirMixin, version, ElementMixin, updateStyles, GestureEventListeners, MutableData, OptionalMutableData, PropertiesChanged, PropertiesMixin, PropertyAccessors, PropertyEffects, TemplateStamp, calculateSplices, timeOut, animationFrame, idlePeriod, microTask, dashToCamelCase, camelToDashCase, Debouncer, enqueueDebouncer, flushDebouncers, FlattenedNodesObserver, enqueueDebouncer as enqueueDebouncer$1, flush$1, gestures, recognizers, deepTargetFind, addListener, removeListener, register$1 as register, setTouchAction, prevent, resetMouseCanceller, findOriginalTarget, add, remove, hideElementsGlobally, html, htmlLiteral, dedupingMixin, isPath, root, isAncestor, isDescendant, translate, matches, normalize, split, get, set, isDeep, flush as flush$2, beforeNextRender, afterNextRender, resolveUrl, resolveCss, pathFromUrl, scopeSubtree, useShadow, useNativeCSSProperties, useNativeCustomElements, rootPath, setRootPath, sanitizeDOMValue, setSanitizeDOMValue, passiveTouchGestures, setPassiveTouchGestures, strictTemplatePolicy, setStrictTemplatePolicy, allowTemplateFromDomModule, setAllowTemplateFromDomModule, legacyOptimizations, setLegacyOptimizations, syncInitialRender, setSyncInitialRender, cancelSyntheticClickEvents, setCancelSyntheticClickEvents, stylesFromModules, stylesFromModule, stylesFromTemplate, stylesFromModuleImports, cssFromModules, cssFromModule, cssFromTemplate, cssFromModuleImports, instanceCount, incrementInstanceCount, registrations, register as register$1, dumpRegistrations, templatize, modelForElement, TemplateInstanceBase, wrap$1 as wrap, html as html$1, version as version$1, PolymerElement, Polymer as Polymer$1, html as html$2, Base, invalidate, invalidateTemplate, isValid, templateIsValid, isValidating, templateIsValidating, startValidating, startValidatingTemplate, elementsAreInvalid, ApplyShim as $applyShimDefault, VAR_ASSIGN, MIXIN_MATCH, VAR_CONSUMED, ANIMATION_MATCH, MEDIA_MATCH, IS_VAR, BRACKETED, HOST_PREFIX, HOST_SUFFIX, updateNativeProperties, getComputedStyleValue, detectMixin, StyleNode, parse, stringify, removeCustomPropAssignment, types, CustomStyleProvider, CustomStyleInterface as $customStyleInterfaceDefault, CustomStyleInterfaceInterface, documentWait as $documentWaitDefault, nativeShadow, cssBuild, disableRuntime, nativeCssVariables, toCssText, rulesForStyle, isKeyframesSelector, forEachRule, applyCss, createScopeStyle, applyStylePlaceHolder, applyStyle, isTargetedBuild, findMatchingParen, processVariableAndFallback, setElementClassRaw, wrap as wrap$1, getIsExtends, gatherStyleText, splitSelectorList, getCssBuild, elementHasBuiltCss, getBuildComment, isOptimalCssBuild, templateMap as $templateMapDefault, scopingAttribute, processUnscopedStyle, isUnscopedStyle, WiseShoppingCartItem, WiseShoppingCart };
