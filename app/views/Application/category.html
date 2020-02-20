@@ -5,6 +5,19 @@
     .category-block {
         ;
     }
+    .all-category-cards {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 1rem;
+    }
+    .category-item-card {
+        width: 31%;
+    }
+    .item-img {
+        width: 100%;
+    }
     .category-name {
         text-align: center;
         font-size: 1.5rem;
@@ -37,8 +50,16 @@
         padding-left: 0.5rem;
     }
     @media screen and (min-width: 1500px) {
-        .center-container, .cart-float {
+        .all-category-cards, .cart-float {
             max-width: 1300px;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .all-category-cards {
+            flex-direction: column;
+        }
+        .category-item-card {
+            width: 100%;
         }
     }
 
@@ -110,16 +131,16 @@
 
     <div class="category-block">
         <div class="category-name">${category.name}</div>
-        <div class="row center-block center-container widesize-container">
+        <div class="all-category-cards">
             #{verbatim}
                 %{
                     for(_product in productList) {
                         }%
-                            <div class="col-lg-4 col-md-6 col-sm-6 remove-mob-padding">
+                            <div class="category-item-card">
                                 <div class="card inline">
                                     <a href="/product/${_product.uuid}">
                                         <div class="noselect view overlay hm-white-slight z-depth-1">
-                                                <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
+                                                <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="">
                                             <div class="mask"></div>
                                         </div>
                                     </a>

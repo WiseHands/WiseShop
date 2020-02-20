@@ -13,6 +13,7 @@
         max-width: 40%;
         position: relative;
         margin-right: 1rem;
+        overflow: hidden;
     }
 
     .product-price-on-photo {
@@ -239,7 +240,7 @@
             margin-right: 0;
         }
         .product-photo img {
-            max-width: 100%;
+            width: 100%;
             height: auto;
         }
         .product-info {
@@ -345,7 +346,7 @@
 <body>
 #{verbatim}
 <main class="product-center-container">
-    <div class="product-photo">
+    <div class="product-photo ">
         <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide">
         <!--            <span class="product-price-on-photo">${product.formatDecimal()} UAH</span>-->
     </div>
