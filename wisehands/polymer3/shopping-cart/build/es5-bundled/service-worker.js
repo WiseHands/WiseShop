@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["src/index.html","0f5e868f3405ceeb38271a764177a4c5"],["src/wise-shopping-cart-container.js","79f2309c9783453de0b119d32f702d89"]];
+var precacheConfig = [["src/index.html","0f5e868f3405ceeb38271a764177a4c5"],["src/wise-shopping-cart-container.js","817305771e8c4863ccc5e541e353d18e"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 
