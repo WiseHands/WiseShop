@@ -25271,8 +25271,8 @@ class WiseShoppingCartContainer extends PolymerElement {
                                         Комісія онлайн оплати: [[_calculatePaymentOnlineCommission(total, cart.paymentType, cart.configuration.payment.creditCard)]] [[currencyLabel]]
                                     </h3>
                                     <h1>РАЗОМ: [[total]] [[currencyLabel]]</h1>
-                                    <paper-button  hidden="[[isMakeOrderRequestRunning]]" disabled=[[!cart.items.length]] on-tap="_proceed">NEXT</paper-button>
-                                    <paper-spinner active hidden="[[!isMakeOrderRequestRunning]]"></paper-spinner>
+                                    <paper-button hidden="[[isMakeOrderRequestRunning]]" disabled=[[!cart.items.length]] on-tap="_proceed">NEXT</paper-button>
+                                    <paper-spinner active hidden="[[!isMakeOrderRequestRunning]]">"[[!isMakeOrderRequestRunning]]"</paper-spinner>
                                 </div>
                             </div>
                         </div>
