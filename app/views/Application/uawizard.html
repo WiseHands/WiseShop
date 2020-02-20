@@ -298,7 +298,7 @@
                 <div class="store-domain">
                     <div class="form-field-store-domain">
                         <input id="store-domain" type="text" name="shopDomain" required placeholder="mynewstore"
-                               onblur="setMainSettingForShop(event)">
+                               onblur="checkDomainNameAvailability(event)">
                     </div>
                     <p>.wstore.pro</p>
                 </div>
@@ -437,24 +437,27 @@
 
     }
 
-    function setMainSettingForShop(event) {
-        console.log('setMainSettingForShop: ', event.target.name, event.target.value);
-        _generateRequest(event.target.name, event.target.value);
+    function checkDomainNameAvailability(event) {
+        const domainPath = '.wstore.pro';
+        const params = '?' + event.target.name + '=' + event.target.value + domainPath;
+        const url = '/api/wizard/check-domain-name' + params;
+        _generateRequest(url);
     }
 
-    function _generateRequest(nameParams, valueParams) {
-        let token = localStorage.getItem('JWT_TOKEN');
-        const params = '?' + nameParams + '=' + valueParams;
+    function setMainSettingForShop(event) {
+        console.log('setMainSettingForShop: ', event.target.name, event.target.value);
+        const params = '?' + event.target.name + '=' + event.target.value;
         const url = '/api/wizard/check-domain-name' + params;
-        console.log("params => ", params);
-        console.log("token => ", token);
-        console.log("send URL => ", '/api/wizard/check-domain-name' + params);
+        _generateRequest(url);
+    }
+
+    function _generateRequest(url) {
+        let token = localStorage.getItem('JWT_TOKEN');
         fetch(url, {
             method: 'POST',
             headers: {
                 authorization:  'Bearer ' + token
             }
-
         }).then(function (response) {
             console.log("response response: ", response);
             return response.json();
