@@ -153,15 +153,15 @@
 <body class="flex-column-container">
     #{shop-header /}
     #{verbatim}
-        <div class="center-container widesize-container">
+        <div class="all-cards">
             %{
                 for(_product in shop.productList) {
             }%
-                <div class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                <div class="item-cards">
                     <div class="card inline">
-                        <div class="noselect view overlay hm-white-slight z-depth-1" >
+                        <div class="noselect hm-white-slight z-depth-1" >
                             <a href="/product/${_product.uuid}">
-                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="img-fluid center-block" alt="">
+                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="">
                             </a>
                         </div>
                         <div class="card-block text-xs-center">
