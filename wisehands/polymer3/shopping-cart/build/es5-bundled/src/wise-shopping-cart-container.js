@@ -25019,7 +25019,6 @@ class WiseShoppingCartContainer extends PolymerElement {
   static get template() {
     // language=HTML
     return html`
-            <paper-spinner active></paper-spinner>
             <style>
                 :host {
                     display: block;
@@ -25272,8 +25271,8 @@ class WiseShoppingCartContainer extends PolymerElement {
                                         Комісія онлайн оплати: [[_calculatePaymentOnlineCommission(total, cart.paymentType, cart.configuration.payment.creditCard)]] [[currencyLabel]]
                                     </h3>
                                     <h1>РАЗОМ: [[total]] [[currencyLabel]]</h1>
-                                    <paper-button disabled=[[!cart.items.length]] on-tap="_proceed">NEXT
-                                    </paper-button>
+                                    <paper-button  hidden="[[isMakeOrderRequestRunning]]" disabled=[[!cart.items.length]] on-tap="_proceed">NEXT</paper-button>
+                                    <paper-spinner hidden="[[!isMakeOrderRequestRunning]]" active></paper-spinner>
                                 </div>
                             </div>
                         </div>
