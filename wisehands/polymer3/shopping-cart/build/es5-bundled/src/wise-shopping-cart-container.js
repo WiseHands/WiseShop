@@ -25272,7 +25272,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                                     </h3>
                                     <h1>РАЗОМ: [[total]] [[currencyLabel]]</h1>
                                     <paper-button  hidden="[[isMakeOrderRequestRunning]]" disabled=[[!cart.items.length]] on-tap="_proceed">NEXT</paper-button>
-                                    <paper-spinner hidden="[[!isMakeOrderRequestRunning]]" active></paper-spinner>
+                                    <paper-spinner active hidden="[[!isMakeOrderRequestRunning]]"></paper-spinner>
                                 </div>
                             </div>
                         </div>
