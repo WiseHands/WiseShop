@@ -19,11 +19,12 @@
     max-width: 900px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    padding: 1rem 0.5rem;
+    padding: 1rem 0;
+    flex-wrap: wrap;
 }
-.item-cards {
-    width: 31%;
+.item-card {
+    flex-basis: calc(33.3% - 1rem);
+    margin: 0 0.5rem;
 }
 .item-img {
     width: 100%;
@@ -423,8 +424,9 @@ main {
     .all-cards {
         flex-direction: column;
     }
-    .item-cards {
+    .item-card {
         width: 100%;
+        margin: 0;
     }
 }
 @media screen and (min-width: 1500px) {
