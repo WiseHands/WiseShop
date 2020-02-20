@@ -251,6 +251,7 @@
             return response.json();
         }).then(function (data) {
             console.log("response data: ", data);
+            validateSignIn(data);
             if (data.uuid){
                 window.location = "/ua/wizard";
             }
@@ -262,5 +263,17 @@
         event.preventDefault();
         signIn();
     } );
+
+     function validateSignIn(data){
+         if (data.status === 420){
+             console.log("ERROR", data.message)
+         }
+         if (data.status === 421){
+             console.log("ERROR", data.message)
+         }
+         if (data.status === 422){
+             console.log("ERROR", data.message)
+         }
+     }
 </script>
 </html>

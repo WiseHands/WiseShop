@@ -272,38 +272,41 @@
                     <div class="wiz-step" id="wizStep1">
                         <p>1</p>
                     </div>
-                    <span  id="wizSpan1">Магазин</span>
+                    <span id="wizSpan1">Магазин</span>
                 </div>
                 <div class="step" id="step2">
                     <div class="wiz-step" id="wizStep2">
                         <p>2</p>
                     </div>
-                    <span  id="wizSpan2">Контакти</span>
+                    <span id="wizSpan2">Контакти</span>
                 </div>
                 <div class="step" id="step3">
                     <div class="wiz-step" id="wizStep3">
                         <p>3</p>
                     </div>
-                    <span  id="wizSpan3">Конфігурація</span>
+                    <span id="wizSpan3">Конфігурація</span>
                 </div>
             </div>
             <div class="step1-form">
                 <div class="form-field">
-                    <input id="store-name" type="text" name="name" required placeholder=" ">
+                    <input id="store-name" type="text" name="shopName" required placeholder=" "
+                           onblur="setMainSettingForShop(event)">
                     <span class="highlight"></span>
                     <label for="store-name">Назва магазину</label>
                 </div>
                 <p class="store-domain-text">Вкажіть веб-адресу Вашого магазину</p>
                 <div class="store-domain">
                     <div class="form-field-store-domain">
-                        <input id="store-domain" type="text" name="name" required placeholder="mynewstore">
+                        <input id="store-domain" type="text" name="shopDomain" required placeholder="mynewstore"
+                               onblur="setMainSettingForShop(event)">
                     </div>
                     <p>.wstore.pro</p>
                 </div>
-                <textarea id="store-about" placeholder="Опис магазину"></textarea>
+                <textarea id="store-about" placeholder="Опис магазину" name="shopDescription"
+                          onblur="setMainSettingForShop(event)"></textarea>
                 <div class="form-button">
                     <button type="button" id="prevBtn1" onclick="">Назад</button>
-                    <button type="button" id="nextBtn1" onclick="">Далі</button>
+                    <button type="submit" id="nextBtn1" onclick="">Далі</button>
                 </div>
             </div>
             <div class="step2-form">
@@ -434,7 +437,32 @@
 
     }
 
+    function setMainSettingForShop(event) {
+        console.log('setMainSettingForShop: ', event.target.name, event.target.value);
+        _generateRequest(event.target.name, event.target.value);
+    }
 
+    function _generateRequest(nameParams, valueParams) {
+        let token = localStorage.getItem('JWT_TOKEN');
+        const params = '?' + nameParams + '=' + valueParams;
+        const url = '/api/wizard/check-domain-name' + params;
+        console.log("params => ", params);
+        console.log("token => ", token);
+        console.log("send URL => ", '/api/wizard/check-domain-name' + params);
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                authorization:  'Bearer ' + token
+            }
+
+        }).then(function (response) {
+            console.log("response response: ", response);
+            return response.json();
+        }).then(function (data) {
+            console.log("response data: ", data);
+
+        });
+    }
 </script>
 <script>
 

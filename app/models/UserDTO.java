@@ -56,6 +56,10 @@ public class UserDTO extends GenericModel {
     @ManyToMany(cascade=CascadeType.ALL)
     public List<ShopDTO> shopList;
 
+    @Expose
+    @OneToOne
+    public WizardDTO wizard;
+
 
     //DEPRECATED. NOT USED. SHOULD BE REMOVED
     @Column

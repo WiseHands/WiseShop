@@ -1,29 +1,66 @@
 package controllers;
 
-import models.ShopDTO;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 import models.UserDTO;
+import models.WizardDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.Play;
 import play.i18n.Messages;
 import responses.InvalidPassword;
 import responses.JsonHandleForbidden;
-import responses.UserDoesNotExist;
-import services.SmsSender;
-import services.SmsSenderImpl;
+
 
 import static controllers.UserAPI.generateToken;
 import static controllers.UserAPI.isValidEmailAddress;
 
 public class WizardAPI extends AuthController {
 
+    protected static UserDTO loggedInUser;
     private static final String JWT_TOKEN = "JWT_TOKEN";
+//    checkDomainNameAvailability
+    public static void upDateWizardDetails() throws Exception{
 
-    public static void checkDomainNameAvailability(String domainName) throws Exception{
-        ShopDTO shop = ShopDTO.find("byDomain", domainName).first();
-        if (shop == null){
-            ok();
+
+        String authorizationHeader = request.headers.get("authorization").value();
+        String jwtToken = authorizationHeader.replace("Bearer ","");
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("wisehands")
+                    .build(); //Reusable verifier instance
+            DecodedJWT jwt = verifier.verify(jwtToken);
+            String userId = jwt.getClaim("uuid").asString();
+            UserDTO user = UserDTO.find("byUuid", userId).first();
+            if (user.wizard == null){
+                WizardDTO wizardDTO = new WizardDTO();
+                wizardDTO.user = user;
+                user.wizard = wizardDTO;
+                wizardDTO = wizardDTO.save();
+            }
+
+            String shopName = request.params.get("shopName");
+            String description = request.params.get("shopDescription");
+
+            if (shopName != null){
+                user.wizard.shopName = shopName;
+            }
+            if (description != null){
+                user.wizard.shopDescription = description;
+            }
+
+            user.wizard.save();
+        } catch (JWTVerificationException exception){
+            forbidden("Invalid Authorization header");
         }
-        forbidden();
+
+        ok();
     }
 
     public static void signUp() throws Exception {
@@ -35,8 +72,6 @@ public class WizardAPI extends AuthController {
         String phone = (String) jsonBody.get("phone");
         String email = (String) jsonBody.get("email");
         String password = (String) jsonBody.get("password");
-
-        System.out.println("GET info from signUp form: " +"\n"+ name +"\n"+ lastName +"\n"+ phone +"\n"+ email +"\n"+ password);
 
         if(isValidEmailAddress(email)){
             UserDTO user = UserDTO.find("byEmail", email).first();
@@ -65,7 +100,6 @@ public class WizardAPI extends AuthController {
 
     }
 
-
     public static void signIn() throws Exception{
 
         JSONParser parser = new JSONParser();
@@ -78,15 +112,22 @@ public class WizardAPI extends AuthController {
         if(isValidEmailAddress(email)) {
             UserDTO user = UserDTO.find("byEmail", email).first();
 
-            if (user == null)
-                forbidden(json(new UserDoesNotExist()));
+            if (user == null){
+                String reason = "Користувача не знайдено";
+                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
+                renderJSON(jsonHandleForbidden);
+            }
 
-            if (user.isGoogleSignIn == true) // if the user used google sign in and hacker tries to login via empty password
-                forbidden(json(new UserDoesNotExist()));
+            if (user.isGoogleSignIn == true){ // if the user used google sign in and hacker tries to login via empty password
+                String reason = "Користувача не знайдено";
+                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
+                renderJSON(jsonHandleForbidden);
+            }
 
             if (!user.password.equals(password)) {
                 InvalidPassword error = new InvalidPassword();
-                forbidden(json(error));
+                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(422, error.toString());
+                renderJSON(jsonHandleForbidden);
             }
 
             String jwtToken = generateToken(user);

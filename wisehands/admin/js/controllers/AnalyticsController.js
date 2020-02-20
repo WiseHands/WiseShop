@@ -14,12 +14,10 @@ angular.module('WiseHands')
 
                 fromDateInput.value = moment(to).format(format);
 
-
                 let oneDayInMillis = 24*60*60*1000;
                 let from = to - parseInt(days) * oneDayInMillis;
 
                 toDateInput.value = moment(from).format(format);
-
 
                 $scope.calculateDayRange(from, to);
             };

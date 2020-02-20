@@ -89,28 +89,28 @@ public class UserAPI extends AuthController {
     }
 
     public static void login(String phone, String password) throws Exception {
-            UserDTO user = UserDTO.find("byPhone", phone).first();
+        UserDTO user = UserDTO.find("byPhone", phone).first();
 
-            if(user == null)
-                forbidden(json(new UserDoesNotExist()));
+        if(user == null)
+            forbidden(json(new UserDoesNotExist()));
 
-            if(user.isGoogleSignIn == true) // if the user used google sign in and hacker tries to login via empty password
-                forbidden(json(new UserDoesNotExist()));
+        if(user.isGoogleSignIn == true) // if the user used google sign in and hacker tries to login via empty password
+            forbidden(json(new UserDoesNotExist()));
 
-            if(!user.password.equals(password)) {
-                InvalidPassword error = new InvalidPassword();
-                forbidden(json(error));
-            }
+        if(!user.password.equals(password)) {
+            InvalidPassword error = new InvalidPassword();
+            forbidden(json(error));
+        }
 
-            String jwtToken = generateToken(user);
-            response.setHeader(JWT_TOKEN, jwtToken);
-            String json = json(user);
+        String jwtToken = generateToken(user);
+        response.setHeader(JWT_TOKEN, jwtToken);
+        String json = json(user);
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            System.out.println("User " + user.name + " performed sign in at " + dateFormat.format(date));
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("User " + user.name + " performed sign in at " + dateFormat.format(date));
 
-            renderJSON(json);
+        renderJSON(json);
     }
 
     public static void profile() throws Exception {

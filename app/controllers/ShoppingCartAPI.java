@@ -336,7 +336,7 @@ public class ShoppingCartAPI extends AuthController {
            System.out.println("infoAboutClientAddress from clientAddressStreetLat: " + clientAddressStreetLat + " " + clientAddressStreetLng);
 
            String cartId = _getCartUuid(request);
-            ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
+           ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
            if (clientAddressStreetName != null) {
                shoppingCart.clientAddressStreetName = clientAddressStreetName;
            }

@@ -165,6 +165,10 @@ public class ShopDTO extends GenericModel {
         return  this.network;
     }
 
+    public ShopDTO(){
+
+    }
+
     public ShopDTO(List<UserDTO> users,
                    PaymentSettingsDTO paymentSettings,
                    DeliveryDTO delivery,
@@ -176,7 +180,6 @@ public class ShopDTO extends GenericModel {
                    String liqpayPrivateKey,
                    String customDomain,
                    String locale) {
-
 
         this.userList = users;
 
