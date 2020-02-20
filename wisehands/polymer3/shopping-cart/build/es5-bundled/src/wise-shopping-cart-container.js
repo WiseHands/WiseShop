@@ -25117,11 +25117,11 @@ class WiseShoppingCartContainer extends PolymerElement {
                     color: grey;
                 }
 
-                paper-spinner[active] {
-                    display: block;
-                }
-                paper-spinner {
+                paper-spinner[aria-hidden] {
                     display: none;
+                }
+                paper-spinner:not([aria-hidden]){
+                    display: inline-block;
                 }
 
                 .total-container {
@@ -25279,7 +25279,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                                     </h3>
                                     <h1>РАЗОМ: [[total]] [[currencyLabel]]</h1>
                                     <paper-button hidden="[[isMakeOrderRequestRunning]]" disabled=[[!cart.items.length]] on-tap="_proceed">NEXT</paper-button>
-                                    <paper-spinner active$="[[!isMakeOrderRequestRunning]]"></paper-spinner>
+                                    <paper-spinner active="[[!isMakeOrderRequestRunning]]"></paper-spinner>
                                 </div>
                             </div>
                         </div>
