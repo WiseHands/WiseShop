@@ -42,7 +42,7 @@ public class WizardAPI extends AuthController {
                 WizardDTO wizardDTO = new WizardDTO();
                 wizardDTO.user = user;
                 user.wizard = wizardDTO;
-                wizardDTO = wizardDTO.save();
+                wizardDTO.save();
             }
 
             String shopName = request.params.get("shopName");
