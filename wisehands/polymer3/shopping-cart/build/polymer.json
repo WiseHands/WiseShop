@@ -1,6 +1,6 @@
 {
-  "entrypoint": "src\\index.html",
-  "shell": "src\\wise-shopping-cart-container.js",
+  "entrypoint": "src/index.html",
+  "shell": "src/wise-shopping-cart-container.js",
   "fragments": [],
   "sources": [
     "package.json",

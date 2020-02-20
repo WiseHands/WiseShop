@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import models.ShopDTO;
 import models.UserDTO;
 import models.WizardDTO;
 import org.json.simple.JSONObject;
@@ -23,42 +24,56 @@ public class WizardAPI extends AuthController {
 
     protected static UserDTO loggedInUser;
     private static final String JWT_TOKEN = "JWT_TOKEN";
-//    checkDomainNameAvailability
+
+    public static void checkDomainNameAvailability() throws Exception{
+        String domain = request.params.get("shopDomain");
+        System.out.println("String domain " + domain);
+        String userId = getUserIdFromAuthorization();
+        System.out.println("String userId " + userId);
+        ShopDTO shop = ShopDTO.find("byDomain", domain).first();
+        if (shop == null){
+            String reason = "адреса доступна";
+            System.out.println(reason);
+
+            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
+
+            UserDTO user = UserDTO.find("byUuid", userId).first();
+            user.wizard.shopDomain = domain;
+            System.out.println("user.wizard.shopDomain " + domain);
+            user.wizard.save();
+            renderJSON(jsonHandleForbidden);
+        }
+        String reason = "адреса не доступна";
+        JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
+        renderJSON(jsonHandleForbidden);
+
+    }
+
+
+
     public static void upDateWizardDetails() throws Exception{
 
+        String userId = getUserIdFromAuthorization();
 
-        String authorizationHeader = request.headers.get("authorization").value();
-        String jwtToken = authorizationHeader.replace("Bearer ","");
-        try {
-            String encodingSecret = Play.configuration.getProperty("jwt.secret");
-            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("wisehands")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(jwtToken);
-            String userId = jwt.getClaim("uuid").asString();
-            UserDTO user = UserDTO.find("byUuid", userId).first();
-            if (user.wizard == null){
-                WizardDTO wizardDTO = new WizardDTO();
-                wizardDTO.user = user;
-                user.wizard = wizardDTO;
-                wizardDTO.save();
-            }
-
-            String shopName = request.params.get("shopName");
-            String description = request.params.get("shopDescription");
-
-            if (shopName != null){
-                user.wizard.shopName = shopName;
-            }
-            if (description != null){
-                user.wizard.shopDescription = description;
-            }
-
-            user.wizard.save();
-        } catch (JWTVerificationException exception){
-            forbidden("Invalid Authorization header");
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+        if (user.wizard == null){
+            WizardDTO wizardDTO = new WizardDTO();
+            wizardDTO.user = user;
+            user.wizard = wizardDTO;
+            wizardDTO.save();
         }
+
+        String shopName = request.params.get("shopName");
+        String description = request.params.get("shopDescription");
+
+        if (shopName != null){
+            user.wizard.shopName = shopName;
+        }
+        if (description != null){
+            user.wizard.shopDescription = description;
+        }
+
+        user.wizard.save();
 
         ok();
     }
@@ -138,6 +153,24 @@ public class WizardAPI extends AuthController {
 
         }
 
+    }
+
+    public static String getUserIdFromAuthorization(){
+        String userId = "";
+        String authorizationHeader = request.headers.get("authorization").value();
+        String jwtToken = authorizationHeader.replace("Bearer ","");
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("wisehands")
+                    .build(); //Reusable verifier instance
+            DecodedJWT jwt = verifier.verify(jwtToken);
+            userId = jwt.getClaim("uuid").asString();
+        } catch (JWTVerificationException exception){
+            forbidden("Invalid Authorization header");
+        }
+        return userId;
     }
 
 }

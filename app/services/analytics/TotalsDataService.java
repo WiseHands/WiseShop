@@ -37,7 +37,7 @@ public class TotalsDataService {
 
     private static final String TOTAL_QUERY =
             "SELECT SUM(total), COUNT(total)" +
-            " FROM OrderDTO where shop_uuid='%s'" +
+                    " FROM OrderDTO where shop_uuid='%s'" +
                     " and state!='%s'" +
                     " and state!='%s'" +
                     " and time > %d" +
