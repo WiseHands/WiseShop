@@ -9,10 +9,10 @@
         align-items: center;
 
     }
-    .address-container{
+    .address-container {
+        display: none;
         width: 100%;
         margin: 5px;
-        display: flex;
         align-items: center;
         justify-content: space-between;
     }
@@ -45,6 +45,8 @@
         background-color: #fff;
         color: #000;
         border: 2px solid #000;
+        margin: 0.5rem 0;
+        padding: 0.5rem 2rem;
     }
     .error-message{
         text-align: center;
@@ -99,9 +101,7 @@
 #{shop-header /}
 
 <div class="center-container">
-    <h3>Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ". Також
-        ви можете
-        ввести адресу і натиснути "ЗНАЙТИ"</h3>
+    <h3>Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ".</h3>
     <div id="error-message" class="error-message">
         <p>Дана локація знаходитеся за межами доставки</p>
     </div>
@@ -120,6 +120,9 @@
             <input id="check-address-button" type="button" value="Знайти">
         </div>
     </div>
+    <div class="load-button">
+        <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="Далі">
+    </div>
     <div id="googleMap" class="coogle-map-container" data-wow-delay="0.1s">
     </div>
     <div class="find-address-container">
@@ -127,9 +130,7 @@
             <input id="find-address-button" type="button" onclick="findOwnlocation()" value="Визначити">
         </div>
 
-        <div class="load-button">
-            <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="Далі">
-        </div>
+
     </div>
 
 </div>
@@ -330,8 +331,9 @@
 
                     map.setZoom(17);
                     let address = results[0].formatted_address.split(',');
-                    let street = address[0].split(' ');
-                    street.shift().toString().replace(",", " ");
+                    console.log("address for courier before", address);
+                    let street = address[0];
+                    // street.shift().toString().replace(",", " ");
 
                     let house = address[1];
                     document.getElementById('building').value = house;
