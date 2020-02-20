@@ -25,6 +25,36 @@ public class WizardAPI extends AuthController {
     protected static UserDTO loggedInUser;
     private static final String JWT_TOKEN = "JWT_TOKEN";
 
+    public static void setShopContactInfo() throws Exception{
+        String cityName = request.params.get("cityName");
+        String streetName = request.params.get("streetName");
+        String buildingNumber = request.params.get("buildingNumber");
+        String legalUserName = request.params.get("legalUserName");
+
+        System.out.println("setShopContactInfo\n" + cityName + "\n" + streetName + "\n" + buildingNumber + "\n" + legalUserName);
+
+        String userId = getUserIdFromAuthorization();
+        System.out.println("setShopContactInfo userId\n" + userId);
+
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+        System.out.println("setShopContactInfo get userDTO\n" + user.givenName);
+
+        if(cityName != null){
+            user.wizard.cityName = cityName;
+        }
+        if(streetName != null){
+            user.wizard.streetName = streetName;
+        }
+        if(buildingNumber != null){
+            user.wizard.buildingNumber =buildingNumber;
+        }
+        if(legalUserName != null){
+            user.wizard.legalUserName = legalUserName;
+        }
+        user.wizard.save();
+        ok();
+    }
+
     public static void checkDomainNameAvailability() throws Exception{
         String domain = request.params.get("shopDomain");
         System.out.println("String domain " + domain);
@@ -33,13 +63,9 @@ public class WizardAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", domain).first();
         if (shop == null){
             String reason = "адреса доступна";
-            System.out.println(reason);
-
-            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
-
+            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
             UserDTO user = UserDTO.find("byUuid", userId).first();
             user.wizard.shopDomain = domain;
-            System.out.println("user.wizard.shopDomain " + domain);
             user.wizard.save();
             renderJSON(jsonHandleForbidden);
         }
@@ -48,8 +74,6 @@ public class WizardAPI extends AuthController {
         renderJSON(jsonHandleForbidden);
 
     }
-
-
 
     public static void upDateWizardDetails() throws Exception{
 

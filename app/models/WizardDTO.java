@@ -22,6 +22,18 @@ public class WizardDTO extends GenericModel {
     public String shopDomain;
 
     @Expose
+    public String cityName;
+
+    @Expose
+    public String streetName;
+
+    @Expose
+    public String buildingNumber;
+
+    @Expose
+    public String legalUserName;
+
+    @Expose
     @Lob
     @Column(length = 300000)
     public String shopDescription;

@@ -311,22 +311,26 @@
             </div>
             <div class="step2-form">
                 <div class="form-field">
-                    <input id="store-city" type="text" name="name" required placeholder=" ">
+                    <input id="store-city" type="text" name="cityName" required placeholder=" "
+                           onblur="setShopContactInfo(event)">
                     <span class="highlight"></span>
                     <label for="store-city">Місто</label>
                 </div>
                 <div class="form-field">
-                    <input id="store-street" type="text" name="name" required placeholder=" ">
+                    <input id="store-street" type="text" name="streetName" required placeholder=" "
+                           onblur="setShopContactInfo(event)">
                     <span class="highlight"></span>
                     <label for="store-street">Вулиця</label>
                 </div>
                 <div class="form-field">
-                    <input id="store-house" type="text" name="name" placeholder=" ">
+                    <input id="store-house" type="text" name="buildingNumber" placeholder=" "
+                           onblur="setShopContactInfo(event)">
                     <span class="highlight"></span>
                     <label for="store-house">Будинок</label>
                 </div>
                 <div class="form-field">
-                    <input id="store-legalinfo" type="text" name="name" placeholder=" ">
+                    <input id="store-legalinfo" type="text" name="legalUserName" placeholder=" "
+                           onblur="setShopContactInfo(event)">
                     <span class="highlight"></span>
                     <label for="store-legalinfo">Назва юридичної особи</label>
                 </div>
@@ -437,6 +441,12 @@
 
     }
 
+    function setShopContactInfo(event) {
+        const params = '?' + event.target.name + '=' + event.target.value;
+        const url = '/api/wizard/shop-contact-info' + params;
+        _generateRequest(url);
+    }
+
     function checkDomainNameAvailability(event) {
         const domainPath = '.wstore.pro';
         const params = '?' + event.target.name + '=' + event.target.value + domainPath;
@@ -447,7 +457,7 @@
     function setMainSettingForShop(event) {
         console.log('setMainSettingForShop: ', event.target.name, event.target.value);
         const params = '?' + event.target.name + '=' + event.target.value;
-        const url = '/api/wizard/check-domain-name' + params;
+        const url = '/api/wizard/update' + params;
         _generateRequest(url);
     }
 
