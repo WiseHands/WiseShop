@@ -24734,6 +24734,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                                         <span slot="prefix">+380</span>
                                     </paper-input>
                                     <paper-input id="clientEmail" type="email" label="Email"
+                                                 error-message="Заповніть, будь ласка, це поле"
                                                  value="[[cart.client.email]]" required
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
                                     <paper-input id="clientComments" label="Коментар" value="[[cart.client.comments]]"
