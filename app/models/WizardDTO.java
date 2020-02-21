@@ -39,6 +39,29 @@ public class WizardDTO extends GenericModel {
     public String shopDescription;
 
     @Expose
+    public boolean courierDelivery;
+
+    @Expose
+    public boolean postDepartment;
+
+    @Expose
+    public boolean selfTake;
+
+    @Expose
+    public boolean payOnline;
+
+    @Expose
+    public boolean payCash;
+
+    @Expose
+    public String facebookLink;
+
+    @Expose
+    public String  instagramLink;
+
+    @Expose
+    public String youtubeLink;
+    @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public UserDTO user;
 

@@ -102,6 +102,54 @@ public class WizardAPI extends AuthController {
         ok();
     }
 
+    public static void setVariantsOfDeliveryAndPaymentTypes() throws Exception{
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        boolean courierDelivery = (boolean) jsonBody.get("courierDelivery");
+        boolean postDepartment = (boolean) jsonBody.get("postDepartment");
+        boolean selfTake = (boolean) jsonBody.get("selfTake");
+        boolean payOnline = (boolean) jsonBody.get("payOnline");
+        boolean payCash = (boolean) jsonBody.get("payCash");
+
+        String userId = getUserIdFromAuthorization();
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+        System.out.println("setVariantsOfDeliveryAndPaymentTypes\n" + user.givenName);
+
+        user.wizard.courierDelivery = courierDelivery;
+        user.wizard.postDepartment = postDepartment;
+        user.wizard.selfTake = selfTake;
+        user.wizard.payOnline = payOnline;
+        user.wizard.payCash = payCash;
+
+        user.wizard.save();
+        ok();
+
+    }
+
+    public static void setSocialNetworkInfo() throws Exception{
+
+        String facebookLink = request.params.get("facebook");
+        String instagramLink = request.params.get("instagram");
+        String youtubeLink = request.params.get("youtube");
+
+        String userId = getUserIdFromAuthorization();
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+        System.out.println("setSocialNetworkInfo\n" + user.givenName);
+
+        if (facebookLink != null){
+            user.wizard.facebookLink = facebookLink;
+        }
+        if (instagramLink != null){
+            user.wizard.instagramLink = instagramLink;
+        }
+        if (youtubeLink != null){
+            user.wizard.youtubeLink = youtubeLink;
+        }
+
+        user.wizard.save();
+    }
+
     public static void signUp() throws Exception {
 
         JSONParser parser = new JSONParser();
