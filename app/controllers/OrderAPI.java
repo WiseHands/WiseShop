@@ -376,8 +376,6 @@ public class OrderAPI extends AuthController {
         JSONObject jsonObject = (JSONObject) parser.parse(liqpayResponse);
 
         try {
-
-
             String orderId = String.valueOf(jsonObject.get("order_id"));
 
             OrderDTO order = OrderDTO.find("byUuid",orderId).first();
@@ -387,7 +385,7 @@ public class OrderAPI extends AuthController {
 
             String status = String.valueOf(jsonObject.get("status"));
             if (status.equals("failure") || status.equals("wait_accept")){
-                order.state  = OrderState.PAYMENT_ERROR;
+                order.state = OrderState.PAYMENT_ERROR;
                 order = order.save();
                 String smsText = Messages.get("payment.error.total", order.name, order.total);
                 for (UserDTO user : shop.userList) {
@@ -402,7 +400,7 @@ public class OrderAPI extends AuthController {
 
                 ok();
             } else {
-                order.state  = OrderState.PAYED;
+                order.state = OrderState.PAYED;
                 order = order.save();
 
                 Double amount = order.total * WISEHANDS_COMISSION;
@@ -419,7 +417,6 @@ public class OrderAPI extends AuthController {
 
                 System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became " + tx.state);
 
-
                 String smsText = Messages.get("payment.done.total", order.name, order.total);
                 smsSender.sendSms(order.phone, smsText);
                 smsSender.sendSms(shop.contact.phone, smsText);
@@ -429,7 +426,6 @@ public class OrderAPI extends AuthController {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
                 System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
-
 
                 ok();
             }

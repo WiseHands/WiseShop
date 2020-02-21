@@ -29,12 +29,12 @@ public class MailSenderImpl implements MailSender {
     static MimeMessage generateMailMessage;
 
     public void sendEmail(ShopDTO shop, OrderDTO order, String status) throws Exception {
-        System.out.println("MailSenderImpl " + isDevEnv + status + shop.contact.email);
+        //System.out.println("MailSenderImpl " + isDevEnv + status + shop.contact.email);
 //        if (!isDevEnv) {
             HtmlEmail email = new HtmlEmail();
             email.setHostName(shop.domain);
             email.setFrom("wisehandsme@gmail.com");
-            System.out.println("AddTo: " + shop.contact.email);
+            //System.out.println("AddTo: " + shop.contact.email);
             email.addTo(shop.contact.email);
             email.setSubject(status);
 
@@ -117,7 +117,7 @@ public class MailSenderImpl implements MailSender {
         HtmlEmail email = new HtmlEmail();
         email.setHostName("wstore.pro");
         email.setFrom("wisehandsme@gmail.com");
-        System.out.println("AddTo: " + "bohdaq@gmail.com");
+        //System.out.println("AddTo: " + "bohdaq@gmail.com");
         email.setSubject("Нове повідомлення");
 
         String templateString = readAllBytesJava7("app/emails/contact_us_email_form.html");
