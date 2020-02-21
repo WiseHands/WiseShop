@@ -423,10 +423,11 @@ main {
 @media screen and (max-width: 768px) {
     .all-cards {
         flex-direction: column;
+        padding-top: 0;
     }
     .item-card {
-        width: 100%;
-        margin: 0;
+        width: calc (100% - 1rem);
+        margin: 0.5rem;
     }
 }
 @media screen and (min-width: 1500px) {
