@@ -33,8 +33,11 @@ DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
 POST    {client}/send-contact-us-email                  LandingContactFormAPI.sendContactUsEmail
 
 
+POST    {client}/api/wizard/shop-contact-info           WizardAPI.setShopContactInfo
 POST    {client}/api/wizard/check-domain-name           WizardAPI.checkDomainNameAvailability
 POST    {client}/api/wizard/update                      WizardAPI.upDateWizardDetails
+POST    {client}/api/wizard/delivery-payment-info       WizardAPI.setVariantsOfDeliveryAndPaymentTypes
+POST    {client}/api/wizard/social-info                 WizardAPI.setSocialNetworkInfo
 POST    {client}/api/sign-up                            WizardAPI.signUp
 POST    {client}/api/sign-in                            WizardAPI.signIn
 

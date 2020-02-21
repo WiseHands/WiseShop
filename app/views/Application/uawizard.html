@@ -309,6 +309,7 @@
                     <button type="submit" id="nextBtn1" onclick="">Далі</button>
                 </div>
             </div>
+
             <div class="step2-form">
                 <div class="form-field">
                     <input id="store-city" type="text" name="cityName" required placeholder=" "
@@ -345,39 +346,44 @@
                     <p>Виберіть варіанти отримання товару</p>
                     <input type="checkbox" id="wizardСourier" name="courier" value="courier">
                     <label for="wizardСourier">Кур'єр</label><br>
-                    <input type="checkbox" id="wizardNp" name="novaposhta" value="novaposhta">
-                    <label for="wizardNp">Нова пошта</label><br>
-                    <input type="checkbox" id="wizardSelf" name="self" value="self">
-                    <label for="wizardSelf">Самовивіз</label><br>
+                    <input type="checkbox" id="wizardPost" name="novaposhta" value="novaposhta">
+                    <label for="wizardPost">Нова пошта</label><br>
+                    <input type="checkbox" id="wizardSelftake" name="self" value="self">
+                    <label for="wizardSelftake">Самовивіз</label><br>
                 </div>
                 <div class="wizard-payment">
                     <p>Виберіть варіант прийому оплати від клієнтів</p>
-                    <input type="checkbox" id="wizardOnlinePay" name="onlinepay" value="onlinepay">
-                    <label for="wizardOnlinePay">Онлайн-оплата</label><br>
-                    <input type="checkbox" id="wizardCash" name="cash" value="cash">
-                    <label for="wizardCash">Готівка</label><br>
+                    <input type="checkbox" id="wizardPayOnline" name="onlinepay" value="onlinepay">
+                    <label for="wizardPayOnline">Онлайн-оплата</label><br>
+                    <input type="checkbox" id="wizardPayCash" name="cash" value="cash">
+                    <label for="wizardPayCash">Готівка</label><br>
                 </div>
                 <div class="wizard-socialnetwork">
                     <p>Вкажіть посилання на соціальні мережі</p>
                     <div class="form-field">
-                        <input id="store-facebook" type="text" name="name" required placeholder=" ">
+                        <input id="store-facebook" type="text" name="facebook" required placeholder=" "
+                               onblur="setSocialNetworkInfo(event)">
                         <span class="highlight"></span>
                         <label for="store-facebook">Facebook</label>
                     </div>
                     <div class="form-field">
-                        <input id="store-instagram" type="text" name="name" required placeholder=" ">
+                        <input id="store-instagram" type="text" name="instagram" required placeholder=" "
+                               onblur="setSocialNetworkInfo(event)">
                         <span class="highlight"></span>
                         <label for="store-instagram">Instagram</label>
                     </div>
                     <div class="form-field">
-                        <input id="store-youtube" type="text" name="name" required placeholder=" ">
+                        <input id="store-youtube" type="text" name="youtube" required placeholder=" "
+                               onblur="setSocialNetworkInfo(event)">
                         <span class="highlight"></span>
                         <label for="store-youtube">Youtube</label>
                     </div>
                 </div>
                 <div class="form-button">
                     <button type="button" id="prevBtn3" onclick="nextStep">Назад</button>
-                    <button type="button" id="nextBtn3" onclick="">Далі</button>
+                    <button type="button" id="nextBtn3"
+                            onclick="gettingVariantsOfDeliveryAndPaymentTypes()">Далі
+                    </button>
                 </div>
             </div>
 
@@ -441,6 +447,13 @@
 
     }
 
+    function setMainSettingForShop(event) {
+        console.log('setMainSettingForShop: ', event.target.name, event.target.value);
+        const params = '?' + event.target.name + '=' + event.target.value;
+        const url = '/api/wizard/update' + params;
+        _generateRequest(url);
+    }
+
     function setShopContactInfo(event) {
         const params = '?' + event.target.name + '=' + event.target.value;
         const url = '/api/wizard/shop-contact-info' + params;
@@ -454,17 +467,35 @@
         _generateRequest(url);
     }
 
-    function setMainSettingForShop(event) {
-        console.log('setMainSettingForShop: ', event.target.name, event.target.value);
+    function gettingVariantsOfDeliveryAndPaymentTypes() {
+        const wizardСourier = document.getElementById('wizardСourier').checked;
+        const wizardPost = document.getElementById('wizardPost').checked;
+        const wizardSelftake = document.getElementById('wizardSelftake').checked;
+        const wizardPayOnline = document.getElementById('wizardPayOnline').checked;
+        const wizardPayCash = document.getElementById('wizardPayCash').checked;
+        const toolInfo = {
+            courierDelivery: wizardСourier,
+            postDepartment: wizardPost,
+            selfTake: wizardSelftake,
+            payOnline: wizardPayOnline,
+            payCash: wizardPayCash
+        };
+        const bodyParams = JSON.stringify(toolInfo);
+        const url = '/api/wizard/delivery-payment-info';
+        _generateRequest(url, bodyParams);
+    }
+
+    function setSocialNetworkInfo(event) {
         const params = '?' + event.target.name + '=' + event.target.value;
-        const url = '/api/wizard/update' + params;
+        const url = '/api/wizard/social-info' + params;
         _generateRequest(url);
     }
 
-    function _generateRequest(url) {
+    function _generateRequest(url, json) {
         let token = localStorage.getItem('JWT_TOKEN');
         fetch(url, {
             method: 'POST',
+            body: json,
             headers: {
                 authorization:  'Bearer ' + token
             }
