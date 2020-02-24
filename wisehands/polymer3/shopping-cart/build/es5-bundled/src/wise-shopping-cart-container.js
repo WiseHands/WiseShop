@@ -25484,11 +25484,14 @@ class WiseShoppingCartContainer extends PolymerElement {
     this.cart = {
       items: []
     };
+    const status = this.$.makeOrderAjax.lastRequest.xhr.status;
+    const isSuccessful = status >= 200 && status <= 300;
 
-    if (event.detail.value) {
+    if (isSuccessful) {
       this.dispatchEvent(new CustomEvent('order-created', {
         bubbles: true,
-        composed: true
+        composed: true,
+        detail: detail
       }));
     } else {
       this.dispatchEvent(new CustomEvent('order-processing-error', {
