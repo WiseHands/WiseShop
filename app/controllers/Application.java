@@ -238,7 +238,9 @@ public class Application extends Controller {
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-//        ProductDTO product = ProductDTO.findById(uuid);
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        shop.pagesList = pageList;
 
         render(shop);
     }
