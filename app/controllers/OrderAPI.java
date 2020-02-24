@@ -109,7 +109,6 @@ public class OrderAPI extends AuthController {
     }
 
     public static void create(String client) throws Exception {
-        error("internal error");
         ShopDTO shop = _getShop(client);
         _applyLocale(shop);
 
