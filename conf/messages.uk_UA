@@ -34,3 +34,4 @@ mail.label.comment = Коментар
 create.shop.courier.delivery.text = Викликати кур’єра по Львову – %s грн або безкоштовно (якщо розмір замовлення перевищує %s грн.)
 create.shop.selfpickup.delivery.text = Самовивіз
 create.shop.postservice.delivery.text = Замовити доставку до найближчого відділення Нової Пошти у Вашому місті.
+server.error = Помилка сервера

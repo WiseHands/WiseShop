@@ -361,5 +361,7 @@ public class Application extends Controller {
     public static void uaWizard(String client){
             render();
     }
-
+    public static void serverError(String client){
+            render();
+    }
 }
