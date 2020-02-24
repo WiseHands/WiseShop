@@ -1,3 +1,30 @@
+<style>
+    .pages-list {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .pages-list-item {
+        width: 200px;
+        padding: 0.3rem 0;
+        margin: 1rem;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+        text-align: center;
+        }
+    .pages-list-item a {
+        color: #000;
+    }
+
+    @media screen and (max-width: 768px) {
+        .pages-list {
+            flex-direction: column;
+        }
+        .pages-list-item {
+            width: 95%;
+            text-align: center;
+        }
+    }
+</style>
+
 <nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
     <div class="container-fluid">
         <div class="row vcentering">
@@ -34,3 +61,12 @@
     </div>
 
 </div>
+
+<div class="pages-list">
+    <div class="pages-list-item" ng-repeat="page in pagesList">
+        <a href="#/pageconstructor/edit/{{page.uuid}}" >
+            <h5 class="">{{page.title}}</h5>
+        </a>
+    </div>
+</div>
+
