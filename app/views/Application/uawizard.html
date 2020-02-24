@@ -121,6 +121,10 @@
         font-weight: 600;
         margin-bottom: 1rem;
     }
+    #store-domain-error{
+        color: red;
+        margin-left: 15px;
+    }
     #store-domain {
         padding-bottom: 0;
         text-align: right;
@@ -301,8 +305,9 @@
                                onblur="checkDomainNameAvailability(event)">
                     </div>
                     <p>.wstore.pro</p>
+                    <p id="store-domain-error"></p>
                 </div>
-                <textarea id="store-about" placeholder="Опис магазину" name="shopDescription"
+                <textarea id="store-about" placeholder="Опис магазину" name="shopDescription" required
                           onblur="setMainSettingForShop(event)"></textarea>
                 <div class="form-button">
                     <button type="button" id="prevBtn1" onclick="">Назад</button>
@@ -337,7 +342,7 @@
                 </div>
                 <div class="form-button">
                     <button type="button" id="prevBtn2" onclick="">Назад</button>
-                    <button type="button" id="nextBtn2" onclick="">Далі</button>
+                    <button type="submit" id="nextBtn2" onclick="">Далі</button>
                 </div>
               </div>
 
@@ -381,7 +386,7 @@
                 </div>
                 <div class="form-button">
                     <button type="button" id="prevBtn3" onclick="nextStep">Назад</button>
-                    <button type="button" id="nextBtn3"
+                    <button type="submit" id="nextBtn3"
                             onclick="gettingVariantsOfDeliveryAndPaymentTypes()">Далі
                     </button>
                 </div>
@@ -406,22 +411,29 @@
 
         document.getElementById("nextBtn1").addEventListener("click", nextPage1);
         function nextPage1() {
-            document.querySelector(".step1-form").style.display = 'none';
-            document.querySelector(".step2-form").style.display = 'block';
-            document.getElementById("wizStep1").classList.remove('step-active')
-            document.getElementById("wizStep2").classList.add('step-active')
-            document.getElementById("wizSpan1").classList.remove('wiz-span')
-            document.getElementById("wizSpan2").classList.add('wiz-span')
+            const validatedStoreName = document.getElementById('store-name').required;
+            const validatedStoreDomain = document.getElementById('store-domain').required;
+            const validatedStoreDescription = document.getElementById('store-about').required;
+
+            if (!validatedStoreName.required && !validatedStoreDomain && !validatedStoreDescription){
+                document.querySelector(".step1-form").style.display = 'none';
+                document.querySelector(".step2-form").style.display = 'block';
+                document.getElementById("wizStep1").classList.remove('step-active');
+                document.getElementById("wizStep2").classList.add('step-active');
+                document.getElementById("wizSpan1").classList.remove('wiz-span');
+                document.getElementById("wizSpan2").classList.add('wiz-span');
+            }
+
         }
 
         document.getElementById("prevBtn2").addEventListener("click", prevPage2);
         function prevPage2() {
             document.querySelector(".step2-form").style.display = 'none';
             document.querySelector(".step1-form").style.display = 'block';
-            document.getElementById("wizStep2").classList.remove('step-active')
-            document.getElementById("wizStep1").classList.add('step-active')
-            document.getElementById("wizSpan2").classList.remove('wiz-span')
-            document.getElementById("wizSpan1").classList.add('wiz-span')
+            document.getElementById("wizStep2").classList.remove('step-active');
+            document.getElementById("wizStep1").classList.add('step-active');
+            document.getElementById("wizSpan2").classList.remove('wiz-span');
+            document.getElementById("wizSpan1").classList.add('wiz-span');
         }
 
         document.getElementById("nextBtn2").addEventListener("click", nextPage2);
@@ -429,20 +441,20 @@
             document.querySelector(".step2-form").style.display = 'none';
             document.querySelector(".step3-form").style.display = 'block';
             document.getElementById("nextBtn3").innerHTML = "Готово";
-            document.getElementById("wizStep2").classList.remove('step-active')
-            document.getElementById("wizStep3").classList.add('step-active')
-            document.getElementById("wizSpan2").classList.remove('wiz-span')
-            document.getElementById("wizSpan3").classList.add('wiz-span')
+            document.getElementById("wizStep2").classList.remove('step-active');
+            document.getElementById("wizStep3").classList.add('step-active');
+            document.getElementById("wizSpan2").classList.remove('wiz-span');
+            document.getElementById("wizSpan3").classList.add('wiz-span');
         }
 
         document.getElementById("prevBtn3").addEventListener("click", prevPage3);
         function prevPage3() {
             document.querySelector(".step3-form").style.display = 'none';
             document.querySelector(".step2-form").style.display = 'block';
-            document.getElementById("wizStep3").classList.remove('step-active')
-            document.getElementById("wizStep2").classList.add('step-active')
-            document.getElementById("wizSpan3").classList.remove('wiz-span')
-            document.getElementById("wizSpan2").classList.add('wiz-span')
+            document.getElementById("wizStep3").classList.remove('step-active');
+            document.getElementById("wizStep2").classList.add('step-active');
+            document.getElementById("wizSpan3").classList.remove('wiz-span');
+            document.getElementById("wizSpan2").classList.add('wiz-span');
         }
 
     }
@@ -462,7 +474,7 @@
 
     function checkDomainNameAvailability(event) {
         const domainPath = '.wstore.pro';
-        const params = '?' + event.target.name + '=' + event.target.value + domainPath;
+        const params = '?' + event.target.name + '=' + event.target.value;
         const url = '/api/wizard/check-domain-name' + params;
         _generateRequest(url);
     }
@@ -504,8 +516,19 @@
             return response.json();
         }).then(function (data) {
             console.log("response data: ", data);
-
+            handlingErrorForDomainName(data);
         });
+    }
+
+    function handlingErrorForDomainName(data) {
+        const containerError = document.getElementById('store-domain-error');
+        if (data.status === 420){
+            containerError.style.display = "block";
+            containerError.innerText = data.message;
+        }
+        if (data.status === 421){
+            containerError.style.display = "none";
+        }
     }
 </script>
 <script>

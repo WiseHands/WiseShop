@@ -69,7 +69,7 @@ public class WizardAPI extends AuthController {
             user.wizard.save();
             renderJSON(jsonHandleForbidden);
         }
-        String reason = "адреса не доступна";
+        String reason = "адреса недоступна";
         JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
         renderJSON(jsonHandleForbidden);
 
