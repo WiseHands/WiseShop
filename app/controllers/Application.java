@@ -255,7 +255,7 @@ public class Application extends Controller {
 
         DeliveryDTO delivery = shop.delivery;
         if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
-            delivery.orderMessage = "Замовлення успішно завершено. Очікуйте, з вами зв'яжуться.";
+            delivery.orderMessage = "Замовлення успішно завершене. Очікуйте, з вами зв'яжуться.";
             delivery = delivery.save();
         }
         render(delivery);
