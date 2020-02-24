@@ -59,29 +59,7 @@ public class ShopAPI extends AuthController {
     public static void deleteOne(String client, String uuid) throws Exception { // /shop/details
         checkSudoAuthentification();
 
-        ShopDTO shop = ShopDTO.findById(uuid);
-        for(UserDTO user : shop.userList) {
-            user.shopList.remove(shop);
-            user.save();
-        }
-        shop.userList.clear();
-
-        List<ProductDTO> productsTodelete = new ArrayList<ProductDTO>(shop.productList);
-        shop.productList.clear();
-        for (ProductDTO product : productsTodelete) {
-            product.delete();
-        }
-
-        for (OrderDTO order : shop.orders) {
-            List<OrderItemDTO> orderItemsToDelete = new ArrayList<OrderItemDTO>(order.items);
-            order.items.clear();
-            order = order.save();
-            for (OrderItemDTO orderItem : orderItemsToDelete) {
-                orderItem.delete();
-            }
-        }
-        shop = shop.save();
-        shop.delete();
+        //PRODUCT WILL NEVER BE DELETED
         ok();
 
     }
