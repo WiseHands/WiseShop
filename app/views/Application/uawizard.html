@@ -125,6 +125,11 @@
         color: red;
         margin-left: 15px;
     }
+    #handle-delivery-error{
+        color: red;
+        margin-bottom: 0;
+        margin-left: 60px;
+    }
     #store-domain {
         padding-bottom: 0;
         text-align: right;
@@ -180,7 +185,20 @@
     .highlight:after {
         right:50%;
     }
-
+    #handle-delivery-error{
+        color: red;
+        margin-bottom: 0;
+        margin-left: 60px;
+    }
+    #handle-payment-error{
+        color: red;
+        margin-bottom: 0;
+        margin-left: 35px;
+    }
+    .delivery-payment-container{
+        display: flex;
+        align-items: center
+    }
     /* active state */
     input:focus ~ .highlight:before, input:focus ~ .highlight:after {
         width:50%;
@@ -269,7 +287,7 @@
 
     <div class="wizard-block">
 
-        <form name="wizard-form" class="wizard-form" id="regForm">
+        <div name="wizard-form" class="wizard-form" id="regForm">
             <h2>Створення магазину</h2>
             <div class="steps">
                 <div class="step" id="step1">
@@ -291,7 +309,8 @@
                     <span id="wizSpan3">Конфігурація</span>
                 </div>
             </div>
-            <div class="step1-form">
+
+            <form class="step1-form" id="firstForm">
                 <div class="form-field">
                     <input id="store-name" type="text" name="shopName" required placeholder=" "
                            onblur="setMainSettingForShop(event)">
@@ -313,9 +332,9 @@
                     <button type="button" id="prevBtn1" onclick="">Назад</button>
                     <button type="submit" id="nextBtn1" onclick="">Далі</button>
                 </div>
-            </div>
+            </form>
 
-            <div class="step2-form">
+            <form class="step2-form" id="secondForm">
                 <div class="form-field">
                     <input id="store-city" type="text" name="cityName" required placeholder=" "
                            onblur="setShopContactInfo(event)">
@@ -344,24 +363,40 @@
                     <button type="button" id="prevBtn2" onclick="">Назад</button>
                     <button type="submit" id="nextBtn2" onclick="">Далі</button>
                 </div>
-              </div>
+            </form>
 
-            <div class="step3-form">
+            <form class="step3-form">
                 <div class="wizard-delivery">
                     <p>Виберіть варіанти отримання товару</p>
-                    <input type="checkbox" id="wizardСourier" name="courier" value="courier">
-                    <label for="wizardСourier">Кур'єр</label><br>
-                    <input type="checkbox" id="wizardPost" name="novaposhta" value="novaposhta">
-                    <label for="wizardPost">Нова пошта</label><br>
-                    <input type="checkbox" id="wizardSelftake" name="self" value="self">
-                    <label for="wizardSelftake">Самовивіз</label><br>
+                    <div class="delivery-payment-container">
+                        <div>
+                            <input type="checkbox" id="wizardСourier" name="courier" value="courier">
+                            <label for="wizardСourier">Кур'єр</label><br>
+                            <input type="checkbox" id="wizardPost" name="novaposhta" value="novaposhta">
+                            <label for="wizardPost">Нова пошта</label><br>
+                            <input type="checkbox" id="wizardSelftake" name="self" value="self">
+                            <label for="wizardSelftake">Самовивіз</label><br>
+                        </div>
+                        <div>
+                            <p id="handle-delivery-error"></p>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="wizard-payment">
                     <p>Виберіть варіант прийому оплати від клієнтів</p>
-                    <input type="checkbox" id="wizardPayOnline" name="onlinepay" value="onlinepay">
-                    <label for="wizardPayOnline">Онлайн-оплата</label><br>
-                    <input type="checkbox" id="wizardPayCash" name="cash" value="cash">
-                    <label for="wizardPayCash">Готівка</label><br>
+                    <div class="delivery-payment-container">
+                        <div>
+                            <input type="checkbox" id="wizardPayOnline" name="onlinepay" value="onlinepay">
+                            <label for="wizardPayOnline">Онлайн-оплата</label><br>
+                            <input type="checkbox" id="wizardPayCash" name="cash" value="cash">
+                            <label for="wizardPayCash">Готівка</label><br>
+                        </div>
+                        <div>
+                            <p id="handle-payment-error"></p>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="wizard-socialnetwork">
                     <p>Вкажіть посилання на соціальні мережі</p>
@@ -390,13 +425,14 @@
                             onclick="gettingVariantsOfDeliveryAndPaymentTypes()">Далі
                     </button>
                 </div>
-            </div>
+            </form>
 
-        </form>
+        </div>
     </div>
 </div>
 
 <script>
+    let isValidateAddressDomainName;
     let currentStep = 0;
     nextStep(currentStep);
     function nextStep() {
@@ -409,13 +445,9 @@
             document.getElementById("prevBtn").style.display = "flex";
         }
 
-        document.getElementById("nextBtn1").addEventListener("click", nextPage1);
-        function nextPage1() {
-            const validatedStoreName = document.getElementById('store-name').required;
-            const validatedStoreDomain = document.getElementById('store-domain').required;
-            const validatedStoreDescription = document.getElementById('store-about').required;
-
-            if (!validatedStoreName.required && !validatedStoreDomain && !validatedStoreDescription){
+        const firstForm = document.getElementById('firstForm');
+        firstForm.addEventListener('submit', function(event) {
+            if (isValidateAddressDomainName){
                 document.querySelector(".step1-form").style.display = 'none';
                 document.querySelector(".step2-form").style.display = 'block';
                 document.getElementById("wizStep1").classList.remove('step-active');
@@ -423,8 +455,8 @@
                 document.getElementById("wizSpan1").classList.remove('wiz-span');
                 document.getElementById("wizSpan2").classList.add('wiz-span');
             }
-
-        }
+            event.preventDefault();
+        });
 
         document.getElementById("prevBtn2").addEventListener("click", prevPage2);
         function prevPage2() {
@@ -436,8 +468,8 @@
             document.getElementById("wizSpan1").classList.add('wiz-span');
         }
 
-        document.getElementById("nextBtn2").addEventListener("click", nextPage2);
-        function nextPage2() {
+        const secondForm = document.getElementById('secondForm');
+        secondForm.addEventListener('submit', function (event) {
             document.querySelector(".step2-form").style.display = 'none';
             document.querySelector(".step3-form").style.display = 'block';
             document.getElementById("nextBtn3").innerHTML = "Готово";
@@ -445,7 +477,8 @@
             document.getElementById("wizStep3").classList.add('step-active');
             document.getElementById("wizSpan2").classList.remove('wiz-span');
             document.getElementById("wizSpan3").classList.add('wiz-span');
-        }
+            event.preventDefault();
+        });
 
         document.getElementById("prevBtn3").addEventListener("click", prevPage3);
         function prevPage3() {
@@ -456,7 +489,6 @@
             document.getElementById("wizSpan3").classList.remove('wiz-span');
             document.getElementById("wizSpan2").classList.add('wiz-span');
         }
-
     }
 
     function setMainSettingForShop(event) {
@@ -483,8 +515,18 @@
         const wizardСourier = document.getElementById('wizardСourier').checked;
         const wizardPost = document.getElementById('wizardPost').checked;
         const wizardSelftake = document.getElementById('wizardSelftake').checked;
+
+        const deliveryVariantsError = document.getElementById('handle-delivery-error');
+        const isSelectedDeliveryType = wizardСourier || wizardPost || wizardSelftake;
+        const errorMessage = 'Виберіть один із варіантів';
+        deliveryVariantsError.innerText = isSelectedDeliveryType ? '' : errorMessage;
+
         const wizardPayOnline = document.getElementById('wizardPayOnline').checked;
         const wizardPayCash = document.getElementById('wizardPayCash').checked;
+        const paymentVariantsError = document.getElementById('handle-payment-error');
+        const isSelectedPaymentType = wizardPayOnline || wizardPayCash;
+        paymentVariantsError.innerText = isSelectedPaymentType ? '' : errorMessage;
+
         const toolInfo = {
             courierDelivery: wizardСourier,
             postDepartment: wizardPost,
@@ -492,6 +534,7 @@
             payOnline: wizardPayOnline,
             payCash: wizardPayCash
         };
+        console.log('toolInfo', toolInfo);
         const bodyParams = JSON.stringify(toolInfo);
         const url = '/api/wizard/delivery-payment-info';
         _generateRequest(url, bodyParams);
@@ -525,9 +568,12 @@
         if (data.status === 420){
             containerError.style.display = "block";
             containerError.innerText = data.message;
+            isValidateAddressDomainName = false;
         }
         if (data.status === 421){
             containerError.style.display = "none";
+            isValidateAddressDomainName = true;
+
         }
     }
 </script>
