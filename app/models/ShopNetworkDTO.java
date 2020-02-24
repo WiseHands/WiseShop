@@ -50,7 +50,6 @@ public class ShopNetworkDTO extends GenericModel {
     }
 
     private void persistShopList() {
-        System.out.println("persistShopList" + this.uuidShopList);
         this.rawUuidShopList = String.join(",", this.uuidShopList);
         for (String _id : uuidShopList) {
             ShopDTO _shop = ShopDTO.findById(_id);
@@ -71,7 +70,6 @@ public class ShopNetworkDTO extends GenericModel {
             ShopDTO _shop = ShopDTO.findById(_id);
             this.shopList.add(_shop);
         }
-        System.out.println("retrieveShopList" + this.shopList);
     }
 
 

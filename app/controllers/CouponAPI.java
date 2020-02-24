@@ -35,7 +35,6 @@ public class CouponAPI extends AuthController {
             CouponPlan couponPlan = new CouponPlan(percentDiscount, total, couponDTO.uuid);
             couponPlan = couponPlan.save();
             couponPlans.add(couponPlan);
-            System.out.println("Coupon: " + couponPlan.percentDiscount + "%, " + "from: " + couponPlan.minimalOrderTotal);
         }
 
         List<String> couponList = Arrays.asList(coupons.split("\\r?\\n"));
@@ -43,7 +42,6 @@ public class CouponAPI extends AuthController {
             CouponId couponId = new CouponId(coupon, couponDTO.uuid);
             couponId = couponId.save();
             couponIds.add(couponId);
-            System.out.println("Coupon ID: " + couponId.couponId);
         }
 
         couponDTO.save();

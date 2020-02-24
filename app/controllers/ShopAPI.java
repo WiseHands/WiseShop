@@ -191,9 +191,6 @@ public class ShopAPI extends AuthController {
         }
         checkAuthentification(shop);
 
-        System.out.println("Keys from db: " + shop.liqpayPublicKey + ", " + shop.liqpayPrivateKey);
-
-
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
 
@@ -274,7 +271,6 @@ public class ShopAPI extends AuthController {
         shop.locale = locale;
 
 
-        System.out.println("shop.isShowAmountTools " + shop.isShowAmountTools);
         shop = shop.save();
         renderJSON(json(shop));
 

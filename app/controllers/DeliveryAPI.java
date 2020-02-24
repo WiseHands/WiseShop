@@ -24,7 +24,6 @@ public class DeliveryAPI extends AuthController {
         }
         Double lat = Double.valueOf(request.params.get("lat"));
         Double lng = Double.valueOf(request.params.get("lng"));
-        System.out.println("lat " + lat + " lng " + lng);
 
         JSONParser parser = new JSONParser();
         String stringToParse = shop.delivery.courierPolygonData;
@@ -43,7 +42,6 @@ public class DeliveryAPI extends AuthController {
             Double longtitude = (Double) point.get(1);
             PolygonUtil.Point points = new PolygonUtil.Point(longtitude, latitude);
             polygonPoints.add(points);
-            System.out.println("POINT [" + i + "]: " + latitude + ":" + longtitude);
         }
 
 
@@ -56,7 +54,6 @@ public class DeliveryAPI extends AuthController {
          PolygonUtil.Point point = new PolygonUtil.Point(lat, lng);
         boolean isPointInsidePolygon = PolygonUtil.isInside(pointArray, length, point);
 
-        System.out.println("isPointInsidePolygon: " + isPointInsidePolygon);
 
 
         if(isPointInsidePolygon) {
@@ -91,7 +88,6 @@ public class DeliveryAPI extends AuthController {
         checkAuthentification(shop);
 
         String polygonData = params.get("body");
-        System.out.println("polygonData " + polygonData);
         shop.delivery.courierPolygonData = polygonData;
         shop.delivery.save();
         ok();

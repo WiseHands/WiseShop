@@ -41,7 +41,6 @@ public class ProductImageAPI extends AuthController {
         productImage.delete();
         File file = new File(USERIMAGESPATH + shop.uuid + "/" + productImage.filename);
         if(!file.delete()){
-            System.out.println("error deleting file: " + USERIMAGESPATH + product.fileName);
             error("error deleting file: " + USERIMAGESPATH + product.fileName);
         }
 
@@ -88,7 +87,6 @@ public class ProductImageAPI extends AuthController {
 
         File file = new File(USERIMAGESPATH + shop.uuid + "/" + productImage.filename);
         if(!file.delete()){
-            System.out.println("error deleting file: " + USERIMAGESPATH + product.fileName);
             error("error deleting file: " + USERIMAGESPATH + product.fileName);
         }
 

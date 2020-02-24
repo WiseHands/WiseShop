@@ -29,7 +29,6 @@ public class AdditionAPI extends AuthController {
         String title = (String) jsonBody.get("title");
         String imagePath = (String) jsonBody.get("filepath");
         Double price = Double.parseDouble(String.valueOf(jsonBody.get("price")));
-        System.out.println("additional for product: " + title + " " + price + "\n" + "imagePath" + imagePath);
 
         ProductDTO productDTO = ProductDTO.findById(productUuid);
 

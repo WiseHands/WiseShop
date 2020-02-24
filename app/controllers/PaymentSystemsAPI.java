@@ -31,7 +31,6 @@ public class PaymentSystemsAPI  extends AuthController {
         }
         checkAuthentification(shop);
 
-        System.out.println("Keys from db: " + shop.liqpayPublicKey + ", " + shop.liqpayPrivateKey);
 
 
         JSONParser parser = new JSONParser();

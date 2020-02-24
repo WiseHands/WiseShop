@@ -113,7 +113,6 @@ public class VisualSettingsAPI extends AuthController {
 
         File file = new File(USERIMAGESPATH + shop.uuid + "/" + visualSettings.shopLogo);
         if(!file.delete()){
-            System.out.println("error deleting file: " + USERIMAGESPATH + shop.uuid + "/" + visualSettings.shopLogo);
             error("error deleting file: " + USERIMAGESPATH + shop.uuid + "/" + visualSettings.shopLogo);
         }
 
@@ -133,7 +132,6 @@ public class VisualSettingsAPI extends AuthController {
 
         File file = new File(USERIMAGESPATH + shop.uuid + "/" + visualSettings.shopFavicon);
         if(!file.delete()){
-            System.out.println("error deleting file: " + USERIMAGESPATH + shop.uuid + "/" + visualSettings.shopFavicon);
             error("error deleting file: " + USERIMAGESPATH + shop.uuid + "/" + visualSettings.shopFavicon);
         }
 
@@ -144,7 +142,6 @@ public class VisualSettingsAPI extends AuthController {
 
     public static void getSidebarSchemes(String client) throws Exception {
         List<SidebarColorScheme> colors = SidebarColorScheme.findAll();
-        System.out.println("COLORS: " + colors);
         renderJSON(json(colors));
     }
 

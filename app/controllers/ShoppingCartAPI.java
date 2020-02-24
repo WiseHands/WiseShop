@@ -230,22 +230,18 @@ public class ShoppingCartAPI extends AuthController {
         }
 
         String delivery = request.params.get("deliverytype");
-        System.out.println("deliverytype FROM REQUEST: " + delivery);
 
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
         switch (delivery) {
             case "COURIER":
-                System.out.println("COURIER: " + true);
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.COURIER;
                 break;
             case "POSTSERVICE":
-                System.out.println("POSTSERVICE: " + true);
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.POSTSERVICE;
                 break;
             case "SELFTAKE":
-                System.out.println("SELFTAKE: " + true);
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.SELFTAKE;
                 break;
         }
@@ -263,18 +259,15 @@ public class ShoppingCartAPI extends AuthController {
         }
 
         String payment = request.params.get("paymenttype");
-        System.out.println("payment from request: " + payment);
 
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
         switch (payment) {
             case "CREDITCARD":
-                System.out.println("CREDITCARD: " + true);
                 shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CREDITCARD;
                 break;
             case "CASHONDELIVERY":
-                System.out.println("CASHONDELIVERY: " + true);
                 shoppingCart.paymentType = ShoppingCartDTO.PaymentType.CASHONDELIVERY;
                 break;
         }
@@ -293,8 +286,6 @@ public class ShoppingCartAPI extends AuthController {
            String clientPhone = request.params.get("clientPhone");
            String clientEmail = request.params.get("clientEmail");
            String clientComments = request.params.get("clientComments");
-
-           System.out.println("setClientInfo from request: " + clientComments + " " + clientPhone + " " + clientEmail + " " + clientName);
 
            String cartId = _getCartUuid(request);
            ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
@@ -331,9 +322,6 @@ public class ShoppingCartAPI extends AuthController {
            String clientAddressStreetLat = request.params.get("lat");
            String clientAddressStreetLng = request.params.get("lng");
            Boolean isAddressSetFromMapView = Boolean.valueOf(request.params.get("isAddressSetFromMapView"));
-
-           System.out.println("infoAboutClientAddress from request: " + clientAddressStreetName + " " + clientAddressBuildingNumber + " " + clientAddressApartmentNumber);
-           System.out.println("infoAboutClientAddress from clientAddressStreetLat: " + clientAddressStreetLat + " " + clientAddressStreetLng);
 
            String cartId = _getCartUuid(request);
            ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
@@ -393,7 +381,6 @@ public class ShoppingCartAPI extends AuthController {
             Double longtitudePoint = (Double) point.get(1);
             PolygonUtil.Point points = new PolygonUtil.Point(longtitudePoint, latitudePoint);
             polygonPoints.add(points);
-            System.out.println("POINT [" + i + "]: " + latitudePoint + ":" + longtitudePoint);
         }
 
         PolygonUtil.Point[] pointArray = new PolygonUtil.Point[polygonPoints.size()];
@@ -402,8 +389,6 @@ public class ShoppingCartAPI extends AuthController {
         int length = polygonPoints.size();
         PolygonUtil.Point point = new PolygonUtil.Point(lat, lng);
         boolean isPointInsidePolygon = PolygonUtil.isInside(pointArray, length, point);
-
-        System.out.println("isPointInsidePolygon: " + isPointInsidePolygon);
 
         return isPointInsidePolygon;
     }

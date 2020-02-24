@@ -23,7 +23,6 @@ public class WebPushService {
         // read the response
         InputStream in = new BufferedInputStream(conn.getInputStream());
         String result = org.apache.commons.io.IOUtils.toString(in, "UTF-8");
-        System.out.println("response from microservice: " + result);
 
 
         in.close();

@@ -140,7 +140,6 @@ public class OrderAPI extends AuthController {
             order.total = Math.round(order.total * 100.0) / 100.0;
         }
 
-        System.out.println("order.total with payment commission: " + order.total);
 
         boolean isBiggerThanMimimal = true;
         if(shop.paymentSettings.minimumPayment != null) {
@@ -152,7 +151,6 @@ public class OrderAPI extends AuthController {
             json.put("uuid", order.uuid);
             json.put("ok", false);
             json.put("reason", "Total amount is less than minimum order amount");
-            System.out.println("isBiggerThanMimimal " + isBiggerThanMimimal + ", !isBiggerThanMimimal is " +!isBiggerThanMimimal);
 
             error(403, json.toString());
         }
@@ -416,7 +414,6 @@ public class OrderAPI extends AuthController {
                 balance.addTransaction(tx);
                 balance.save();
 
-                System.out.println("Substracting " + tx.amount + " from " + shop.shopName + " due to order[" + order.uuid + "] became " + tx.state);
 
                 String smsText = Messages.get("payment.done.total", order.name, order.total);
                 smsSender.sendSms(order.phone, smsText);

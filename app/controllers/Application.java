@@ -145,7 +145,6 @@ public class Application extends Controller {
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        System.out.println("pageListpageList" + pageList.size());
         render(shop, pageList);
     }
 
@@ -197,7 +196,6 @@ public class Application extends Controller {
         }
 
         PageConstructorDTO page = PageConstructorDTO.findById(uuid);
-        System.out.println("page for render " + page.getBody());
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
@@ -211,7 +209,6 @@ public class Application extends Controller {
         }
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<ProductDTO> productList = ProductDTO.find("byCategory", category).fetch();
-        System.out.println("\n\n\nCATEGORY" + uuid + category.name + productList.size());
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
@@ -225,7 +222,6 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         ProductDTO product = ProductDTO.findById(uuid);
-        System.out.println("\n\n\nCATEGORY" + uuid + product.name);
         CategoryDTO category = product.category;
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();

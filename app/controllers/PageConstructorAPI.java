@@ -13,8 +13,6 @@ public class PageConstructorAPI extends AuthController {
     public static void details(String client, String uuid) throws Exception {
 
         PageConstructorDTO pageConstructorDTO = PageConstructorDTO.findById(uuid);
-        System.out.println("PageConstructorDTO " + pageConstructorDTO);
-
         renderJSON(json(pageConstructorDTO));
     }
 
@@ -44,7 +42,6 @@ public class PageConstructorAPI extends AuthController {
         }
 
         List<PageConstructorDTO> pageConstructor = PageConstructorDTO.find("byShop", shop).fetch();
-        System.out.println("PageConstructorDTO " + pageConstructor);
         renderJSON(json(pageConstructor));
     }
 

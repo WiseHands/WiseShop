@@ -39,7 +39,6 @@ public class SmsVerificationAPI extends AuthController {
             JSONObject jo = new JSONObject();
             jo.put("status", "error");
             jo.put("reason", msg);
-            System.out.println(jo.toJSONString());
             error(jo.toJSONString());
         }
         ok();

@@ -29,15 +29,12 @@ public class AnalyticsAPI extends AuthController {
         // calculate amount of days
         int oneDayInMillis = 24*60*60*1000;
         long diffInMillis = toDateInMillis - fromDateInMillis;
-        System.out.println("diffInMillis: " + diffInMillis);
 
         long diffInDays = diffInMillis / oneDayInMillis;
-        System.out.println("diffInDays: " + diffInDays);
 
 
         int oneDay = 1;
         int days = Math.round(diffInDays);
-        System.out.println("fromDateToDate Days spent: " + days);
 
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
