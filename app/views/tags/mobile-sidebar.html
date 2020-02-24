@@ -27,7 +27,9 @@
         bottom: 0;
         overflow-y: auto;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-
+    }
+    .main-sidebar-link {
+        display: none;
     }
     @keyframes sidebarmove {
         from {
@@ -129,7 +131,11 @@
     .sidebar-panel p:hover, .sidebar-panel button:hover, .sidebar-panel ul li:hover {
         background-color: lightgrey;
     }
-
+    @media screen and (max-width: 768px) {
+        .main-sidebar-link {
+            display: block;
+        }
+    }
 </style>
 
 
@@ -142,6 +148,7 @@
         </div>
     </a>
     <div class="sidebar-panel">
+        <a class="main-sidebar-link" href="/"><p>Головна</p></a>
         <button class="dropdown-btn">
             Товари
             <i class='fa fa-angle-down' style='font-size:20px; color: #9e9e9e'></i>
