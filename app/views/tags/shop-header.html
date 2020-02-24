@@ -13,6 +13,7 @@
         padding: 0.5rem;
         max-width: 900px;
         width: 100%;
+        background-color: #fff;
     }
     .burger-menu:hover {
         cursor: pointer;
@@ -98,6 +99,9 @@
 
     }
     @media screen and (max-width: 767px) {
+        header {
+            box-shadow: none;
+        }
         .header-left-part {
             display: none;
         }
@@ -106,7 +110,9 @@
             position: fixed;
             background-color: #fff;
             z-index: 500;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
+
     }
 </style>
 
