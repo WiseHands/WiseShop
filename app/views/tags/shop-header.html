@@ -2,7 +2,9 @@
 <style>
     header {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-        height: 58px;
+        position: sticky;
+        top: 0;
+        z-index: 600;
     }
 
     .header {
@@ -100,6 +102,7 @@
     }
     @media screen and (max-width: 767px) {
         header {
+            height: 56px;
             box-shadow: none;
         }
         .header-left-part {
@@ -107,7 +110,7 @@
         }
         .header {
             padding: 10px;
-            position: fixed;
+            position: sticky;
             background-color: #fff;
             z-index: 500;
             border-bottom: 1px solid rgba(0,0,0,0.1);
