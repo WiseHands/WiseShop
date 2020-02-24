@@ -119,7 +119,6 @@ public class OrderAPI extends AuthController {
         String ip = _getUserIp();
 
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
-        shop.orders.add(order);
 
         OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
         order.items = orderItemListResult.orderItemList;
@@ -154,7 +153,7 @@ public class OrderAPI extends AuthController {
             error(403, json.toString());
         }
 
-        shop = shop.save();
+        order = order.save();
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
         clearShoppingCart(shoppingCart);
