@@ -52,7 +52,7 @@ public class WizardAPI extends AuthController {
             user.wizard.legalUserName = legalUserName;
         }
         user.wizard.save();
-        ok();
+        renderJSON(json(user));
     }
 
     public static void checkDomainNameAvailability() throws Exception{
@@ -98,8 +98,8 @@ public class WizardAPI extends AuthController {
         }
 
         user.wizard.save();
+        renderJSON(json(user));
 
-        ok();
     }
 
     public static void setVariantsOfDeliveryAndPaymentTypes() throws Exception{
@@ -123,7 +123,7 @@ public class WizardAPI extends AuthController {
         user.wizard.payCash = payCash;
 
         user.wizard.save();
-        ok();
+        renderJSON(json(user));
 
     }
 
@@ -148,6 +148,8 @@ public class WizardAPI extends AuthController {
         }
 
         user.wizard.save();
+        renderJSON(json(user));
+
     }
 
     public static void signUp() throws Exception {
@@ -219,9 +221,8 @@ public class WizardAPI extends AuthController {
 
             String jwtToken = generateToken(user);
             response.setHeader(JWT_TOKEN, jwtToken);
-            String json = json(user);
 
-            renderJSON(json);
+            renderJSON(json(user));
 
         }
 
