@@ -14,12 +14,25 @@
     flex-direction: row;
     margin: 5px;
 }
-.address-order-container{
-    display: flex;
-    flex-direction: column;
-}
 .address-order-container p{
     margin-bottom: 3px;
+}
+.admin-order-clientinfo, .admin-order-address {
+    display: flex;
+}
+.admin-client-info h5, .admin-address-info h5{
+    padding-right: 0.5rem;
+}
+.admin-client-photo, .admin-address-photo {
+    margin: 1rem;
+}
+.admin-client-photo img, .admin-order-address img {
+    width: 150px;
+    padding-left: 1rem;
+}
+.admin-client-row {
+    display: flex;
+    align-items: baseline;
 }
 .table {
     display: flex;
