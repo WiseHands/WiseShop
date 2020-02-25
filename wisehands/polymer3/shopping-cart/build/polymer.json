@@ -4,6 +4,7 @@
   "fragments": [],
   "sources": [
     "package.json",
+    "images/**/*",
     "src/index.html",
     "src/wise-shopping-cart-container.js"
   ],
