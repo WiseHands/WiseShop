@@ -24972,9 +24972,6 @@ class WiseShoppingCart extends PolymerElement {
       
       <template is="dom-if" if="[[!_isInShoppingCartAnyItems(cartItems.length)]]">
       <div class="empty-cart-container">
-      <div class="done-img wow fadeInUp">
-          <img src="../../../wisehands/landing/images/shopping_cart_empty.png">
-      </div>
           <p>[[basketEmptyLabel]]</p> <br>
           <paper-button on-tap="_startBuyingProducts">[[startShoppingLabel]]</paper-button>
       </div>
