@@ -238,15 +238,18 @@
             email: email,
             password: password
         };
+
         let params = JSON.stringify(clientInfo);
+        console.log("request params for sign IN: ", params);
+
         fetch('/api/sign-in', {
             method: 'POST',
             body: params
         }).then(function (response) {
             console.log("response response: ", response);
             if(response.ok) {
-                let token = response.headers.get('JWT_TOKEN');
-                localStorage.setItem('JWT_TOKEN', token);
+                let token = response.headers.get('JWT_USER_TOKEN');
+                localStorage.setItem('JWT_USER_TOKEN', token);
             }
             return response.json();
         }).then(function (data) {

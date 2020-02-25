@@ -22,8 +22,69 @@ import static controllers.UserAPI.isValidEmailAddress;
 
 public class WizardAPI extends AuthController {
 
-    protected static UserDTO loggedInUser;
-    private static final String JWT_TOKEN = "JWT_TOKEN";
+    private static final String JWT_USER_TOKEN = "JWT_USER_TOKEN";
+
+    public static void getWizardInfo() throws Exception{
+        String userId = getUserIdFromAuthorization();
+        System.out.println("String userId " + userId);
+
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+        if (user.wizard == null){
+            WizardDTO wizardDTO = new WizardDTO();
+            wizardDTO.user = user;
+            user.wizard = wizardDTO;
+            wizardDTO.save();
+        }
+
+        renderJSON(json(user.wizard));
+    }
+
+    public static void upDateWizardDetails() throws Exception{
+
+        String userId = getUserIdFromAuthorization();
+        System.out.println("String userId " + userId);
+
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+        if (user.wizard == null){
+            WizardDTO wizardDTO = new WizardDTO();
+            wizardDTO.user = user;
+            user.wizard = wizardDTO;
+            wizardDTO.save();
+        }
+
+        String shopName = request.params.get("shopName");
+        String description = request.params.get("shopDescription");
+
+        if (shopName != null){
+            user.wizard.shopName = shopName;
+        }
+        if (description != null){
+            user.wizard.shopDescription = description;
+        }
+
+        user.wizard.save();
+        renderJSON(json(user.wizard));
+
+    }
+
+    public static void checkDomainNameAvailability() throws Exception{
+        String domain = request.params.get("shopDomain");
+        String userId = getUserIdFromAuthorization();
+        System.out.println("String userId " + userId);
+        ShopDTO shop = ShopDTO.find("byDomain", domain).first();
+        if (shop == null){
+            String reason = "адреса доступна";
+            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
+            UserDTO user = UserDTO.find("byUuid", userId).first();
+            user.wizard.shopDomain = domain;
+            user.wizard.save();
+            renderJSON(jsonHandleForbidden);
+        }
+        String reason = "адреса недоступна";
+        JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
+        renderJSON(jsonHandleForbidden);
+
+    }
 
     public static void setShopContactInfo() throws Exception{
         String cityName = request.params.get("cityName");
@@ -52,54 +113,7 @@ public class WizardAPI extends AuthController {
             user.wizard.legalUserName = legalUserName;
         }
         user.wizard.save();
-        renderJSON(json(user));
-    }
-
-    public static void checkDomainNameAvailability() throws Exception{
-        String domain = request.params.get("shopDomain");
-        System.out.println("String domain " + domain);
-        String userId = getUserIdFromAuthorization();
-        System.out.println("String userId " + userId);
-        ShopDTO shop = ShopDTO.find("byDomain", domain).first();
-        if (shop == null){
-            String reason = "адреса доступна";
-            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
-            UserDTO user = UserDTO.find("byUuid", userId).first();
-            user.wizard.shopDomain = domain;
-            user.wizard.save();
-            renderJSON(jsonHandleForbidden);
-        }
-        String reason = "адреса недоступна";
-        JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
-        renderJSON(jsonHandleForbidden);
-
-    }
-
-    public static void upDateWizardDetails() throws Exception{
-
-        String userId = getUserIdFromAuthorization();
-
-        UserDTO user = UserDTO.find("byUuid", userId).first();
-        if (user.wizard == null){
-            WizardDTO wizardDTO = new WizardDTO();
-            wizardDTO.user = user;
-            user.wizard = wizardDTO;
-            wizardDTO.save();
-        }
-
-        String shopName = request.params.get("shopName");
-        String description = request.params.get("shopDescription");
-
-        if (shopName != null){
-            user.wizard.shopName = shopName;
-        }
-        if (description != null){
-            user.wizard.shopDescription = description;
-        }
-
-        user.wizard.save();
-        renderJSON(json(user));
-
+        renderJSON(json(user.wizard));
     }
 
     public static void setVariantsOfDeliveryAndPaymentTypes() throws Exception{
@@ -123,7 +137,7 @@ public class WizardAPI extends AuthController {
         user.wizard.payCash = payCash;
 
         user.wizard.save();
-        renderJSON(json(user));
+        renderJSON(json(user.wizard));
 
     }
 
@@ -148,7 +162,7 @@ public class WizardAPI extends AuthController {
         }
 
         user.wizard.save();
-        renderJSON(json(user));
+        renderJSON(json(user.wizard));
 
     }
 
@@ -182,7 +196,7 @@ public class WizardAPI extends AuthController {
             user.save();
 
             String jwtToken = generateToken(user);
-            response.setHeader(JWT_TOKEN, jwtToken);
+            response.setHeader(JWT_USER_TOKEN, jwtToken);
             String json = json(user);
             renderJSON(json);
         }
@@ -220,7 +234,7 @@ public class WizardAPI extends AuthController {
             }
 
             String jwtToken = generateToken(user);
-            response.setHeader(JWT_TOKEN, jwtToken);
+            response.setHeader(JWT_USER_TOKEN, jwtToken);
 
             renderJSON(json(user));
 

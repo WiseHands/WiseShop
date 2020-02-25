@@ -61,7 +61,7 @@ public class WizardDTO extends GenericModel {
 
     @Expose
     public String youtubeLink;
-    @Expose
+
     @OneToOne(cascade=CascadeType.ALL)
     public UserDTO user;
 
