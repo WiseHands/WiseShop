@@ -78,9 +78,9 @@
 
   document.addEventListener('order-created', function (e) {
     console.log('order-created', e);
-    if (e.detail && e.detail.button) {
+    if (e.detail && e.detail.value && e.detail.value.button) {
       const container = document.createElement('div');
-      container.innerHTML = '<form method="post" action="https://www.liqpay.com/api/checkout" accept-charset="utf-8">↵<input type="hidden" name="data" value="eyJhY3Rpb24iOiJwYXkiLCJhbW91bnQiOjk2NS4wLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoiTmV3IE9yZGVyIiwib3JkZXJfaWQiOiI0MDI4ODFjZTcwMjA0NzM5MDE3MDI1Mzg0ZjExMDA5MCIsInB1YmxpY19rZXkiOiJpNDkwNTEzNTYyNDQiLCJ2ZXJzaW9uIjoiMyJ9" />↵<input type="hidden" name="signature" value="Q2Tj6o24v/llBQfM2YznpnGGcgE=" />↵<input type="image" src="//static.liqpay.com/buttons/p1ru.radius.png" name="btn_text" /></form>';
+      container.innerHTML = e.detail.value.button;
       const form = container.querySelector('form');
       document.querySelector('.form-container').append(form);
       form.submit();
