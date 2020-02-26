@@ -84,6 +84,12 @@ public class Application extends Controller {
             String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
             renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
         }
+        if (client.equals("wstore.pro")){
+            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+            renderTemplate("WiseHands/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+        }
 
         Date date = new Date();
 
