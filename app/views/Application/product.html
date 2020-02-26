@@ -134,7 +134,7 @@
     }
 
     .product-price span {
-        font-weight: 300;
+        font-weight: 500;
     }
 
     .buy-button {
@@ -377,7 +377,10 @@
             </div>
         #{/if}
         <div class="price-buy-block">
-            <span class="product-price" price="${product.formatDecimal()}" UAH><span class="total-span"></span></span>
+            <span class="product-price" price="${product.formatDecimal()}" UAH>
+                <span>Вартість:</span>
+                <span class="total-span"></span>
+            </span>
             <button class="buy-button" onClick="buyStart('${product.uuid}')">Купити</button>
         </div>
         #{if product.additions}
@@ -499,7 +502,7 @@
   }
 
   function _setTotal(total) {
-    totalSpan.innerText = 'Вартість: ' + total + ' UAH';
+    totalSpan.innerText = total + ' UAH';
   }
 
   function _setAdditionsTotalPrice() {
