@@ -24827,12 +24827,6 @@ class WiseShoppingCartItem extends PolymerElement {
            align-items: center;
         }
 
-        @media screen and (max-width: 1500px) {
-           .product-info-container {
-              max-width: 50%;
-           }
-        }
-
         @media screen and (max-width: 500px) {
            .total-container{
               flex-direction: column;
@@ -24841,6 +24835,18 @@ class WiseShoppingCartItem extends PolymerElement {
            .product-calculated-container {
               align-self: auto;
            }   
+        }
+
+        @media screen and (max-width: 1024px) {
+           .product-info-container {
+              max-width: 74%;
+           }
+        }
+
+        @media screen and (max-width: 1500px) {
+           .product-info-container {
+              max-width: 50%;
+           }
         }
       </style>
     <paper-card class="paper-card-container">
