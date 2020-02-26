@@ -143,7 +143,7 @@ public class ShoppingCartAPI extends AuthController {
         if(isDevEnv) {
             path = path + ":3334";
         }
-        return imagePath = String.format("http://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
+        return imagePath = String.format("https://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
 
     }
 
