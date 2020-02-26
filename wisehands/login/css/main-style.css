@@ -101,7 +101,9 @@ input[type="reset"].button-submit,
 input[type="button"].button-submit {
     color: #FFF;
     background-color: #126471;
-    border-color: #126471; }
+    border-color: #126471;
+    overflow: hidden;
+    text-overflow: ellipsis; }
 .button.button-submit:hover,
 button.button-submit:hover, .buttonStyling.button-submit:hover,
 input[type="submit"].button-submit:hover,
