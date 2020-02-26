@@ -20,14 +20,20 @@ public class ShoppingCartUtil {
                 return null;
             }
             String userTokenCookie = request.cookies.get("userToken").value;
+            System.out.println("userTokenCookie: " + userTokenCookie);
+
             try {
                 String encodingSecret = Play.configuration.getProperty("jwt.secret");
+                System.out.println("jwt.secret: " + encodingSecret);
+
                 Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
                 JWTVerifier verifier = JWT.require(algorithm)
                         .withIssuer("wisehands")
                         .build(); //Reusable verifier instance
                 DecodedJWT jwt = verifier.verify(userTokenCookie);
                 cartId = jwt.getSubject();
+                System.out.println("cartId: " + cartId);
+
 
             } catch (JWTVerificationException exception) {
                 System.out.println("Invalid Authorization header: " + userTokenCookie);
