@@ -88,7 +88,7 @@ public class Application extends Controller {
             String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
             String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
             String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-            renderTemplate("WiseHands/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+            renderTemplate("Application/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
         }
 
         Date date = new Date();
