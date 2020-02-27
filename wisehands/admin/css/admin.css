@@ -456,12 +456,27 @@ body {
         width: auto;
     }
 }
-.elegant-card, .elegant-card .card-up {
-    width: fit-content;
+.admin-all-orders {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
 }
-
+.all-order-item {
+    width: calc(33% - 2rem);
+    height: 360px;
+    margin: 1rem;
+}
 .elegant-card {
-    max-width: 350px;
+}
+@media screen and (max-width: 768px) {
+    .admin-all-orders {
+        flex-direction: column;
+    }
+    .all-order-item {
+        width: calc(100% - 2rem);
+        margin: 1rem 1rem 0 1rem;
+    }
 }
 
 .vcentering {
@@ -504,10 +519,6 @@ textarea {
 /*New Styles For New Design*/
 
 
-.noSidePadding {
-    padding-right: 0;
-    padding-left: 0;
-}
 .noSideMargin {
     margin-right: 0;
     margin-left: 0;
