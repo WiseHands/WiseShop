@@ -456,26 +456,29 @@ body {
         width: auto;
     }
 }
-.admin-all-orders {
+.admin-all-orders, .admin-all-products {
     display: flex;
     flex-wrap: wrap;
     max-width: 1200px;
     margin: 0 auto;
 }
-.all-order-item {
-    width: calc(33% - 2rem);
+.all-order-item, .all-products-item {
+    width: calc(33.3% - 2rem);
     height: 360px;
     margin: 1rem;
 }
 .elegant-card {
 }
 @media screen and (max-width: 768px) {
-    .admin-all-orders {
+    .admin-all-orders, .admin-all-products {
         flex-direction: column;
     }
-    .all-order-item {
+    .all-order-item, .all-products-item {
         width: calc(100% - 2rem);
         margin: 1rem 1rem 0 1rem;
+    }
+    .all-products-item {
+        height: auto;
     }
 }
 
