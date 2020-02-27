@@ -35,32 +35,23 @@
     <div class="card" ng-hide="loading">
         <div class="row text-center card-block">
             <div class="col-xs-12 col-sm-6 noSidePadding">
-                <div class="admin-order-clientinfo">
-                    <div class="admin-client-photo">
-                        <img src="wisehands/admin/images/img-avatar.png">
-                    </div>
-                    <div class="admin-client-info">
-                        <div class="admin-client-row"><h5>{{'singleOrder.FullName' | translate}}:</h5> <p><i>{{order.name}}</i></p></div>
-                        <div class="admin-client-row"><h5>{{'singleOrder.Phone' | translate}}:</h5> <p><i>{{order.phone}}</i></p></div>
-                        <div class="admin-client-row"><h5>{{'singleOrder.Email' | translate}}:</h5> <p><i>{{order.email}}</i></p></div>
-                    </div>
-                </div>
-                <div class="admin-order-address" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">
-                    <div class="admin-address-photo">
-                        <img src="wisehands/admin/images/map.png">
-                    </div>
-                    <div class="admin-address-info">
-                        <div class="admin-client-row"></div>
-                            <div class="admin-client-row">
-                                <h5 >{{'singleOrder.Address' | translate}}: </b></h5><p><i>{{address}}
-                                <a ng-show="order.clientAddressStreetLat"
-                                   href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLat}},{{order.clientAddressStreetLng}}&15z&hl=en" target="_blank"><i class="material-icons pointIconColor">place</i>
-                                </a></i></p>
-                            </div>
-                            <div class="admin-client-row"><p>{{'singleOrder.AddressApartmentEntranceCode' | translate}} {{order.clientAddressApartmentEntrance}}, {{order.clientAddressApartmentEntranceCode}}</p></div>
-                            <div class="admin-client-row"><p>{{'singleOrder.AddressApartmentFloorNumber' | translate}} {{order.clientAddressApartmentFloor}},  {{order.clientAddressApartmentNumber}}</p></div>
-                    </div>
-
+<!--                    <div class="admin-client-photo">-->
+<!--                        <img src="wisehands/admin/images/img-avatar.png">-->
+<!--                    </div>-->
+                <h5>{{'singleOrder.FullName' | translate}}: <p><i>{{order.name}}</i></p></h5>
+                <h5>{{'singleOrder.Phone' | translate}}: <p><i>{{order.phone}}</i></p></h5>
+                <h5>{{'singleOrder.Email' | translate}}: <p><i>{{order.email}}</i></p></h5>
+                <div class="address-order-container" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'NOVAPOSHTA'">
+                    <h5 >{{'singleOrder.Address' | translate}}: </b><p><i>{{address}}
+                        <a ng-show="order.clientAddressStreetLat"
+                           href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLat}},{{order.clientAddressStreetLng}}&15z&hl=en" target="_blank"><i class="material-icons pointIconColor">place</i>
+                        </a></i></p>
+                        <h5>{{'singleOrder.clientCity' | translate}} <p><i>{{order.clientCity}}</i></p></h5>
+                        <h5>{{'singleOrder.clientPostDepartmentNumber' | translate}} <p><i>{{order.clientPostDepartmentNumber}}</i></p></h5>
+                        <p>{{'singleOrder.AddressApartmentEntrance' | translate}} {{order.clientAddressApartmentEntrance}}</p>
+                        <p>{{'singleOrder.AddressApartmentEntranceCode' | translate}} {{order.clientAddressApartmentEntranceCode}}</p>
+                        <p>{{'singleOrder.AddressApartmentFloor' | translate}}{{order.clientAddressApartmentFloor}}</p>
+                        <p>{{'singleOrder.AddressApartmentNumber' | translate}} {{order.clientAddressApartmentNumber}}</p></h5>
 
                 </div>
                 <h5 ng-show="order.deliveryType === 'NOVAPOSHTA'">Адреса (Нова Пошта): <p><i>{{order.departmentNumber}}</i></p></h5>
