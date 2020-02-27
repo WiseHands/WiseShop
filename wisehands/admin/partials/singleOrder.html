@@ -53,7 +53,7 @@
                         <h5 ng-show="order.clientAddressApartmentNumber" >{{'singleOrder.AddressApartmentNumber' | translate}} <p><i>{{order.clientAddressApartmentNumber}}</i></p></h5>
 
                 </div>
-                <div ng-show="order.deliveryType === 'POSTSERVICE'" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'COURIER'">
+                <div ng-show="order.deliveryType === 'POSTSERVICE' || order.deliveryType === 'NOVAPOSHTA'" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'COURIER'">
                     <h5>{{'singleOrder.clientCity' | translate}} <p><i>{{order.clientCity}}</i></p></h5>
                     <h5>{{'singleOrder.clientPostDepartmentNumber' | translate}} <p><i>{{order.clientPostDepartmentNumber}}</i></p></h5>
                 </div>
