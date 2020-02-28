@@ -8,6 +8,7 @@ import play.db.jpa.GenericModel;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class ShopDTO extends GenericModel {
@@ -201,7 +202,9 @@ public class ShopDTO extends GenericModel {
         this.isTemporaryClosed = true;
     }
 
-//    public List<CategoryDTO> getActiveCategories() {
-//
-//    }
+    public List<CategoryDTO> getActiveCategories() {
+        return this.categoryList.stream()
+                .filter(category -> !category.isHidden)
+                .collect(Collectors.toList());
+    }
 }

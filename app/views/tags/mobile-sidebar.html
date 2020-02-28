@@ -155,7 +155,7 @@
         </button>
         <ul class="sub-menu">
             %{
-                for(_category in shop.categoryList) {
+                for(_category in shop.getActiveCategories()) {
                 }%
                     <a class="link" href="/category/${_category.uuid}">
                         <li>${_category.name}</li>
