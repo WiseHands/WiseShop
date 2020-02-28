@@ -26,9 +26,21 @@
         display: flex;
         height: 100vh;
     }
-    .wizard-img {
+    .wizard-img1 {
         flex-basis: 40%;
-        background: url("../wisehands/landing/images/wizard.jpg") no-repeat;
+        background: url("../wisehands/landing/images/wizard1.jpg") no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    .wizard-img2 {
+        flex-basis: 40%;
+        background: url("../wisehands/landing/images/wizard2.jpg") no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    .wizard-img3 {
+        flex-basis: 40%;
+        background: url("../wisehands/landing/images/wizard3.jpg") no-repeat;
         background-size: cover;
         background-position: center;
     }
@@ -66,9 +78,6 @@
         align-items: center;
         width: 33%;
         padding-left: 1rem;
-    }
-    .step:hover {
-        cursor: pointer;
     }
     #step2 {
         border-left: 1px solid #ebebeb ;
@@ -282,7 +291,7 @@
 
 <body>
 <div class="wizard-main">
-    <div class="wizard-img">
+    <div id="wizardBackImage" class="wizard-img1, wizard-img2, wizard-img3">
     </div>
 
     <div class="wizard-block">
@@ -401,19 +410,19 @@
                 <div class="wizard-socialnetwork">
                     <p>Вкажіть посилання на соціальні мережі</p>
                     <div class="form-field">
-                        <input id="store-facebook" type="text" name="facebook" required placeholder=" "
+                        <input id="store-facebook" type="text" name="facebook"  placeholder=" "
                                onblur="setSocialNetworkInfo(event)">
                         <span class="highlight"></span>
                         <label for="store-facebook">Facebook</label>
                     </div>
                     <div class="form-field">
-                        <input id="store-instagram" type="text" name="instagram" required placeholder=" "
+                        <input id="store-instagram" type="text" name="instagram"  placeholder=" "
                                onblur="setSocialNetworkInfo(event)">
                         <span class="highlight"></span>
                         <label for="store-instagram">Instagram</label>
                     </div>
                     <div class="form-field">
-                        <input id="store-youtube" type="text" name="youtube" required placeholder=" "
+                        <input id="store-youtube" type="text" name="youtube"  placeholder=" "
                                onblur="setSocialNetworkInfo(event)">
                         <span class="highlight"></span>
                         <label for="store-youtube">Youtube</label>
@@ -441,6 +450,9 @@
             document.getElementById("prevBtn1").style.display = "none";
             document.getElementById("wizStep1").classList.add('step-active');
             document.getElementById("wizSpan1").classList.add('wiz-span');
+            document.getElementById("wizardBackImage").classList.add('wizard-img1');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img2');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img3');
         }
         else {
             document.getElementById("prevBtn").style.display = "flex";
@@ -455,6 +467,9 @@
                 document.getElementById("wizStep2").classList.add('step-active');
                 document.getElementById("wizSpan1").classList.remove('wiz-span');
                 document.getElementById("wizSpan2").classList.add('wiz-span');
+                document.getElementById("wizardBackImage").classList.remove('wizard-img1');
+                document.getElementById("wizardBackImage").classList.add('wizard-img2');
+                document.getElementById("wizardBackImage").classList.remove('wizard-img3');
             }
             event.preventDefault();
         });
@@ -467,6 +482,9 @@
             document.getElementById("wizStep1").classList.add('step-active');
             document.getElementById("wizSpan2").classList.remove('wiz-span');
             document.getElementById("wizSpan1").classList.add('wiz-span');
+            document.getElementById("wizardBackImage").classList.add('wizard-img1');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img2');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img3');
         }
 
         const secondForm = document.getElementById('secondForm');
@@ -478,6 +496,9 @@
             document.getElementById("wizStep3").classList.add('step-active');
             document.getElementById("wizSpan2").classList.remove('wiz-span');
             document.getElementById("wizSpan3").classList.add('wiz-span');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img1');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img2');
+            document.getElementById("wizardBackImage").classList.add('wizard-img3');
             event.preventDefault();
         });
 
@@ -489,6 +510,9 @@
             document.getElementById("wizStep2").classList.add('step-active');
             document.getElementById("wizSpan3").classList.remove('wiz-span');
             document.getElementById("wizSpan2").classList.add('wiz-span');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img1');
+            document.getElementById("wizardBackImage").classList.add('wizard-img2');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img3');
         }
     }
 
@@ -584,27 +608,40 @@
 
     function setValueForMainSettingFirstForm(data) {
         console.log('setValueForMainSettingFirstForm', data);
-        document.getElementById('store-name').value = data.shopName;
-        document.getElementById('store-about').innerText = data.shopDescription;
+        if(data.shopName) {
+            document.getElementById('store-name').value = data.shopName;
+        }
 
         const domain = document.getElementById('store-domain');
-        domain.value = data.shopDomain;
+        if(data.shopDomain) {
+            domain.value = data.shopDomain;
+        }
         console.log('setValueForMainSettingFirstForm domain.value', domain.value);
 
         if (domain.value){
             isValidateAddressDomainName = true;
             console.log('setValueForMainSettingFirstForm', isValidateAddressDomainName);
-
         }
+        if (data.shopDescription) {
+            document.getElementById('store-about').innerText = data.shopDescription;
+        }
+
     }
 
     function setValueForShopContactInfoSecondForm(data) {
         console.log('setValueForShopContactInfoSecondForm', data);
-        document.getElementById('store-city').value = data.cityName;
-        document.getElementById('store-street').value = data.streetName;
-        document.getElementById('store-house').value = data.buildingNumber;
-        document.getElementById('store-legalinfo').value = data.legalUserName;
-
+        if(data.cityName) {
+            document.getElementById('store-city').value = data.cityName;
+        }
+        if(data.streetName){
+            document.getElementById('store-street').value = data.streetName;
+        }
+        if(data.buildingNumber) {
+            document.getElementById('store-house').value = data.buildingNumber;
+        }
+        if(data.legalUserName) {
+            document.getElementById('store-legalinfo').value = data.legalUserName;
+        }
     }
 
     function setValueForDeliveryPaymentTypeInfoThirdForm(data) {
@@ -617,11 +654,15 @@
         document.getElementById('wizardPayOnline').checked = data.payOnline;
         document.getElementById('wizardPayCash').checked = data.payCash;
 
-        document.getElementById('store-facebook').value = data.facebookLink;
-        document.getElementById('store-instagram').value = data.instagramLink;
-        document.getElementById('store-youtube').value = data.youtubeLink;
-
-
+        if(data.facebookLink) {
+            document.getElementById('store-facebook').value = data.facebookLink;
+        }
+        if(data.instagramLink) {
+            document.getElementById('store-instagram').value = data.instagramLink;
+        }
+        if(data.youtubeLink) {
+            document.getElementById('store-youtube').value = data.youtubeLink;
+        }
     }
 
     function handlingErrorForDomainName(data) {

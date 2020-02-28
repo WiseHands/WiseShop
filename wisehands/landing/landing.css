@@ -185,7 +185,7 @@ body a {
 .land-payment, .land-category, .land-options, .land-area-delivery, .land-analytics, .land-network {
     width: 100%;
     background-color: #f2f2f2;
-    padding-bottom: 4rem;
+    padding: 2rem 0;
 }
 .land-img {
     flex-basis: 65%;
@@ -205,7 +205,7 @@ body a {
 }
 .land-h3 {
     font-size: 2.6rem;
-    font-weight: 600;
+    font-weight: 200;
     padding-bottom: 1rem;
 }
 .land-p {
