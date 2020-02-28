@@ -112,7 +112,7 @@ public class Application extends Controller {
 
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder desc";
-              products = ProductDTO.find(query, shop, false, true).fetch(PAGE_SIZE);
+              products = ProductDTO.find(query, shop, false, true).fetch();
         System.out.println("PRODUCTS" + products);
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
@@ -215,11 +215,10 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         CategoryDTO category = CategoryDTO.findById(uuid);
-        String byCategory = CategoryDTO.findById(uuid)._key().toString();
 
         List<ProductDTO> productList;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder desc";
-        productList = ProductDTO.find(query, shop, false, true, byCategory).fetch(PAGE_SIZE);
+        productList = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
