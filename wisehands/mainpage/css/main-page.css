@@ -31,7 +31,7 @@ header {
 }
 .header-block {
     position: relative;
-    max-width: 900px;
+    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     height: 100%;

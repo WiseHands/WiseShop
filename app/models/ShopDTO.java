@@ -200,4 +200,8 @@ public class ShopDTO extends GenericModel {
         this.alwaysOpen = true;
         this.isTemporaryClosed = true;
     }
+
+//    public List<CategoryDTO> getActiveCategories() {
+//
+//    }
 }
