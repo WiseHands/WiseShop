@@ -859,3 +859,23 @@ input {
 .check-box-commission-container{
     margin: 1rem 0;
 }
+.all-user-settings {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.user-settings-item {
+    flex-basis: calc(33.3% - 2rem);
+    margin: 1rem;
+}
+@media screen and (max-width: 900px) {
+    .user-settings-item {
+        flex-basis: calc(50% - 2rem);
+    }
+}
+@media screen and (max-width: 900px) {
+    .user-settings-item {
+        flex-basis: calc(100% - 2rem);
+    }
+}
