@@ -69,6 +69,8 @@ public class WizardAPI extends AuthController {
 
     public static void checkDomainNameAvailability() throws Exception{
         String domain = request.params.get("shopDomain");
+//        String domainPath = ".wstore.pro";
+//        domain += domainPath;
         String userId = getUserIdFromAuthorization();
         System.out.println("String userId " + userId);
         ShopDTO shop = ShopDTO.find("byDomain", domain).first();

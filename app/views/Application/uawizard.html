@@ -431,7 +431,7 @@
                 <div class="form-button">
                     <button type="button" id="prevBtn3" onclick="nextStep">Назад</button>
                     <button type="submit" id="nextBtn3"
-                            onclick="gettingVariantsOfDeliveryAndPaymentTypes()">Далі
+                            onclick="settingVariantsOfDeliveryAndPaymentTypes()">Далі
                     </button>
                 </div>
             </form>
@@ -530,13 +530,12 @@
     }
 
     function checkDomainNameAvailability(event) {
-        const domainPath = '.wstore.pro';
         const params = '?' + event.target.name + '=' + event.target.value;
         const url = '/api/wizard/check-domain-name' + params;
         _generateRequest(url);
     }
 
-    function gettingVariantsOfDeliveryAndPaymentTypes() {
+    function settingVariantsOfDeliveryAndPaymentTypes() {
         const wizardСourier = document.getElementById('wizardСourier').checked;
         const wizardPost = document.getElementById('wizardPost').checked;
         const wizardSelftake = document.getElementById('wizardSelftake').checked;

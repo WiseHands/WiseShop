@@ -237,11 +237,7 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/ua/signup                              Application.uaSignup
 *       {client}/ua/wizard                              Application.uaWizard
 *       {client}/server-error                           Application.serverError
-*       {client}/termsofservice                         Application.termsofservice
-*       {client}/privacypolicy                          Application.privacypolicy
-*       {client}/cookiespolicy                          Application.cookiespolicy
-
-
+*       {client}/dashboard                              Application.userDashboard
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
@@ -249,7 +245,7 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 GET     /wisehands/                             staticDir:wisehands
-GET	/google3d064e8f1e55f5ab.html	        staticFile:google3d064e8f1e55f5ab.html
+GET	/google3d064e8f1e55f5ab.html	            staticFile:google3d064e8f1e55f5ab.html
 
 # GET     {client}/sitemap                        Application.sitemap(format:'xml')
 GET     {client}/sitemap                        SitemapController.sitemap(format:'xml')
