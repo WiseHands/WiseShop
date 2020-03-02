@@ -8,7 +8,7 @@ public class PaymentCreditCardConfiguration {
     String label;
 
     @Expose
-    Boolean isActivePayByCash;
+    Boolean isActivePayByCreditCard;
 
     @Expose
     Double paymentComission = this._paymentComission;
@@ -18,9 +18,9 @@ public class PaymentCreditCardConfiguration {
     @Expose
     Boolean clientPaysProcessingCommission;
 
-    public PaymentCreditCardConfiguration(String label, Boolean isActivePayByCash, Boolean clientPaysProcessingCommission){
+    public PaymentCreditCardConfiguration(String label, Boolean isActivePayByCreditCard, Boolean clientPaysProcessingCommission){
         this.label = label;
-        this.isActivePayByCash = isActivePayByCash;
+        this.isActivePayByCreditCard = isActivePayByCreditCard;
         this.clientPaysProcessingCommission = clientPaysProcessingCommission;
     }
 
