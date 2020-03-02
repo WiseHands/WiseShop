@@ -212,6 +212,46 @@ header {
     background-position: center;
     background-size: cover;
 }
+#toContactButton, #betoContactButton, #mobtoContactButton, #toContactButtonMob, #betoContactButtonMob, #mobtoContactButtonMob {
+    width: 250px;
+    height: 60px;
+    background-color: rgba(0,0,0,0.01);
+    color: #fff;
+    border: 2px solid #fff;
+    text-transform: uppercase;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 7rem;
+}
+#toContactButtonMob, #betoContactButtonMob, #mobtoContactButtonMob {
+    width: 200px;
+    height: 50px;
+    font-size: 1rem;
+    margin: 1rem auto;
+    cursor: pointer;
+    display: none;
+}
+#betoContactButton, #betoContactButtonMob {
+    color: #63533a;
+    border: 2px solid #63533a;
+}
+#mobtoContactButton, #mobtoContactButtonMob {
+    color: #75558d;
+    border: 2px solid #75558d;
+}
+.services-icons {
+    display: flex;
+    align-items: center;
+}
+.be-services-icons {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.be-services-icons #toContactButton {
+    margin-right: 6rem;
+}
 .services-h2 {
     font-family: 'Roboto', sans-serif;
     font-size: 4rem;
@@ -338,7 +378,7 @@ header {
     width: 36px;
     cursor: pointer;
 }
-.project-link button, .project-feedback button {
+.project-link button, .project-feedback button  {
     background-color: #fff;
     color: #000;
     border: 2px solid #000;
@@ -791,25 +831,31 @@ footer h3 {
     }
     .fe-text, .mob-text {
         text-align: left;
-        padding-top: 10vh;
+        padding-top: 2vh;
     }
     .be-text {
         text-align: right;
         padding-top: 10vh;
     }
+    #toContactButton, #betoContactButton, #mobtoContactButton {
+        display: none;
+    }
+    #toContactButtonMob, #betoContactButtonMob, #mobtoContactButtonMob {
+        display: block;
+    }
     .services-icons {
-        padding: 1rem 0;
+        padding-top: 1rem;
     }
     .contact-form, .contact-container {
         height: 100%;
     }
     .services-h2 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
         padding-bottom: 1rem;
     }
     .services-p {
-        font-size: 1.4rem;
-        line-height: 1.5;
+        font-size: 1.3rem;
+        line-height: 1.3;
     }
     .services-img img {
         width: 64px;
@@ -828,10 +874,7 @@ footer h3 {
         height: 150px;
     }
     .project-feedback {
-        width: 90%;
-        padding: 0.5rem;
-        margin-bottom: 1rem;
-        align-items: center;
+        display: none;
     }
     .project-card:hover {
         transform: scale(1);
