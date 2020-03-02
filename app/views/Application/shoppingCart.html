@@ -77,7 +77,7 @@
   });
 
   document.addEventListener('order-created', function (e) {
-    console.log('order-created', e);
+    console.log('order-created for credit card payment', e);
     if (e.detail && e.detail.value && e.detail.value.button) {
       const container = document.createElement('div');
       container.innerHTML = e.detail.value.button;

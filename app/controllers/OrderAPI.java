@@ -166,7 +166,8 @@ public class OrderAPI extends AuthController {
         }
 
         JSONObject json = new JSONObject();
-        if(order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name())) {
+        Boolean isOrderPaidByCreditCart = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
+        if(isOrderPaidByCreditCart) {
             try {
                 String payButton = liqPay.payButton(order, shop);
 
@@ -175,7 +176,7 @@ public class OrderAPI extends AuthController {
                 dateFormat.setTimeZone(timeZone);
                 Date newDate = new Date();
 
-                System.out.println("New order " + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(newDate));
+                System.out.println("New order by CREDITCARD" + order.name + ", total " + order.total + ", delivery  " + order.deliveryType + " at " + dateFormat.format(newDate));
 
                 json.put("status", "ok");
                 json.put("button", payButton);
