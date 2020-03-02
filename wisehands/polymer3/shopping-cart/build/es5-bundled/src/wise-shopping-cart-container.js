@@ -25482,6 +25482,12 @@ class WiseShoppingCartContainer extends PolymerElement {
 
       if (isValid && (isAddressSetFromMapView || isAddressInsideDeliveryBoundaries)) {
         this._makeOrderRequest();
+      } else if (!isValid) {
+        requiredInputs.forEach(input => {
+          if (!input.validate()) {
+            input.focus();
+          }
+        });
       } else {
         this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/selectaddress">карті</a>.`;
       }
