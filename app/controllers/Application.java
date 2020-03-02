@@ -376,4 +376,13 @@ public class Application extends Controller {
     public static void serverError(String client){
             render();
     }
+    public static void termsofservice(String client){
+                renderTemplate("WiseHands/termsofservice.html");
+    }
+    public static void privacypolicy(String client){
+                renderTemplate("WiseHands/privacypolicy.html");
+    }
+    public static void cookiespolicy(String client){
+                renderTemplate("WiseHands/cookiespolicy.html");
+    }
 }

@@ -237,6 +237,11 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/ua/signup                              Application.uaSignup
 *       {client}/ua/wizard                              Application.uaWizard
 *       {client}/server-error                           Application.serverError
+*       {client}/termsofservice                         Application.termsofservice
+*       {client}/privacypolicy                          Application.privacypolicy
+*       {client}/cookiespolicy                          Application.cookiespolicy
+
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
