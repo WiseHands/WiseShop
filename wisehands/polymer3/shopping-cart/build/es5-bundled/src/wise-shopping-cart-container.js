@@ -25457,12 +25457,13 @@ class WiseShoppingCartContainer extends PolymerElement {
     }
 
     this.set('errorMessage', '');
+    let isValid = true;
     requiredInputs.forEach(input => {
-      if (input.validate()) {
-        validInputs++;
+      if (!input.validate()) {
+        input.focus();
+        isValid = false;
       }
     });
-    const isValid = validInputs === requiredInputs.length;
     const isCourierDeliverySelected = this.cart.deliveryType === 'COURIER';
 
     if (isValid && !isCourierDeliverySelected) {
@@ -25483,11 +25484,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       if (isValid && (isAddressSetFromMapView || isAddressInsideDeliveryBoundaries)) {
         this._makeOrderRequest();
       } else if (!isValid) {
-        requiredInputs.forEach(input => {
-          if (!input.validate()) {
-            input.focus();
-          }
-        });
+        this.errorMessage = `Перевірте заповнену інфу`;
       } else {
         this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/selectaddress">карті</a>.`;
       }
