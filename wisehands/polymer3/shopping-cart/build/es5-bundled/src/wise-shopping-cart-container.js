@@ -25718,7 +25718,7 @@ class WiseShoppingCartContainer extends PolymerElement {
   _validateAndSendClientInfo(event) {
     const targetElement = event.target;
 
-    if (targetElement.validate() && targetElement.value) {
+    if (targetElement.value) {
       const params = `?${targetElement.id}=${targetElement.value}${this.addCartIdParamIfAvailable(false)}`;
 
       this._generateRequest('PUT', this._generateRequestUrl('/api/cart/client/info', params));
