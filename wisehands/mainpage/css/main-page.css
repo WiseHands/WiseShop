@@ -634,7 +634,7 @@ header {
 }
 .contact-card-text {
     width: 90%;
-    margin: 0 auto;
+    margin: 2rem auto;
 }
 .contact-card-text p {
     padding: 1rem 0;
@@ -644,41 +644,121 @@ header {
     font-size: 1.7rem;
     padding: 1.5rem 0;
 }
-.contact-card-text input[type=text], input[type=email] {
-    width: 100%;
-    margin: 1rem auto;
-    border: none;
-    line-height: 2;
-    border-bottom: 1px solid #030303;
+.form-field {
+    position: relative;
 }
-.contact-card-text input:focus {
+input {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 1rem 0;
+    padding: 1rem 0 1rem 1rem;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+}
+input:focus {
     outline: none;
 }
+label {
+    font-size: 1rem;
+    position:absolute;
+    pointer-events:none;
+    left: 1rem;
+    top: 31px;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+input:focus ~ label, input:not(:placeholder-shown) ~ label 		{
+    top: 0;
+    font-size:0.9rem;
+    color:#20b2aa;
+}
+.highlight 	{
+    position:relative;
+    display:block;
+    width: 100%;
+}
+.highlight:before, .highlight:after 	{
+    content:'';
+    height:2px;
+    width:0;
+    bottom:1px;
+    position:absolute;
+    top: -17px;
+    background:#20b2aa;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+.highlight:before {
+    left:50%;
+}
+.highlight:after {
+    right:50%;
+}
+
+/* active state */
+input:focus ~ .highlight:before, input:focus ~ .highlight:after {
+    width:50%;
+}
+
 textarea {
     width: 100%;
     height: 150px;
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
     box-sizing: border-box;
     margin-top: 1rem;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
     resize: vertical;
 }
-.contact-card-text button {
-    width: 70%;
-    background-color: #fff;
+textarea::placeholder {
+    font-size: 1rem;
+    font-weight: 400;
     color: #000;
-    font-size: 1.5rem;
-    border: 2px solid #000;
-    padding: 0.5rem;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    left: 1rem;
+}
+textarea:focus {
+    outline: none;
+}
+.textarea-block {
+    position: relative;
+}
+.send-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #43a6f6;
+    position: absolute;
+    top: 130px;
+    right: 0;
+}
+.send-icon:hover {
     cursor: pointer;
-    border-radius: 5px;
 }
-.contact-card-text button:hover {
-    background-color: #000;
-    color: #fff;
+.send-icon i {
+    position: absolute;
+    top: 18px;
+    left: 18px;
 }
+
+/*.contact-card-text button {*/
+/*    width: 70%;*/
+/*    background-color: #fff;*/
+/*    color: #000;*/
+/*    font-size: 1.5rem;*/
+/*    border: 2px solid #000;*/
+/*    padding: 0.5rem;*/
+/*    cursor: pointer;*/
+/*    border-radius: 5px;*/
+/*}*/
+/*.contact-card-text button:hover {*/
+/*    background-color: #000;*/
+/*    color: #fff;*/
+/*}*/
 .message-button {
     display: flex;
     justify-content: center;
@@ -925,9 +1005,6 @@ footer h3 {
     .footer-wisehands {
         display: flex;
         align-items: center;
-    }
-    input:focus ~ label, input:valid ~ label 		{
-        top:-45px;
     }
     .link-height {
         height: 44px;

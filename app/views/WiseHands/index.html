@@ -367,13 +367,32 @@
             <div class="contact-card wow bounceInRight">
                 <div class="contact-card-text">
                     <h5>Send Us a message</h5>
-                    <input type="text" placeholder="Name">
-                    <input type="email" placeholder="Email">
-                    <input type="text" placeholder="Phone">
-                    <textarea id="message-text" placeholder="Message"></textarea>
-                    <div class="message-button">
-                        <button id="messageSubmit">Submit</button>
+                    <div class="form-field">
+                        <input id="signup-name" type="text" name="name" required placeholder=" ">
+                        <span class="highlight"></span>
+                        <label for="signup-name">Name</label>
                     </div>
+                    <div class="form-field">
+                        <input id="signup-email" type="email" name="email" required placeholder=" ">
+                        <span class="highlight"></span>
+                        <label for="signup-email">Email</label>
+                    </div>
+                    <div class="form-field">
+                        <input id="signup-phone" type="tel" name="surname" required placeholder=" "  pattern="^[0-9-+\s()]*$">
+                        <span class="highlight"></span>
+                        <label for="signup-phone">Phone</label>
+                    </div>
+                    <div class="textarea-block">
+                        <textarea id="message-text" placeholder="Message"></textarea>
+                        <div class="send-icon">
+                            <i class="fa fa-send-o" style="font-size:24px;color:#fff"></i>
+                        </div>
+                    </div>
+
+<!--                    <div class="message-button">-->
+<!--                        <button id="messageSubmit">Submit</button>-->
+<!--                    </div>-->
+
                 </div>
             </div>
             <div class="contact-main-adress">
