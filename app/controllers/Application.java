@@ -389,4 +389,7 @@ public class Application extends Controller {
     public static void cookiespolicy(String client){
         renderTemplate("WiseHands/cookiespolicy.html");
     }
+    public static void refunds(String client){
+        renderTemplate("WiseHands/refunds.html");
+    }
 }
