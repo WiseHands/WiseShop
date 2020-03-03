@@ -842,6 +842,7 @@ footer h3 {
     }
     #toContactButtonMob, #betoContactButtonMob, #mobtoContactButtonMob {
         display: block;
+        margin-bottom: 2rem;
     }
     .services-icons {
         padding-top: 1rem;
