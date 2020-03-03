@@ -600,27 +600,37 @@ header {
     background-color: #000;
     color: #fff;
 }
-
 .contact-form {
-    height: 100vh;
-    background: url("../images/map.jpg");
+    height: 60vh;
+    /*background: url("../images/map.jpg");*/
     background-position: center;
     background-size: cover;
     position: relative;
+    background-color: #59ade8;
+}
+.contact-layout {
+    height: 40vh;
+    background-color: #fff;
 }
 .contact-container h2 {
-    color: #333;
+    color: #fff;
     text-align: center;
     padding: 1rem 0 ;
 }
-.contact-card {
-    width: 600px;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+.contact-block {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
     position: absolute;
-    top: 15vh;
-    right: 10vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+}
+.contact-card {
+    width: 65%;
+    background-color: #fff;
+    box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
 }
 .contact-card-text {
     width: 90%;
@@ -674,7 +684,12 @@ textarea {
     justify-content: center;
     padding: 1.5rem 0;
 }
-
+.contact-main-adress {
+    width: 35%;
+    background-color: #103f6f;
+    color: #fff;
+    box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+}
 footer {
     background-color: #000;
     color: #fff;
