@@ -4,12 +4,30 @@ import models.ContactDTO;
 import models.ShopDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import services.MailSender;
+import services.MailSenderImpl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ContactAPI extends AuthController {
+
+    static MailSender mailSender = new MailSenderImpl();
+
+    public static void sendMailToUs() throws Exception{
+
+        String clientName = request.params.get("clientName");
+        String clientPhone = request.params.get("clientPhone");
+        String clientMail = request.params.get("clientMail");
+
+        String message = "Доброї години доби Богдане. Мене звати "
+                + clientName + ", телефонуйте за номером: " + clientPhone;
+
+        mailSender.sendContactUsEmail(clientMail, message);
+
+        ok();
+    }
 
     public static void details(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

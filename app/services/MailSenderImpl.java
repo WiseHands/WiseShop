@@ -117,7 +117,8 @@ public class MailSenderImpl implements MailSender {
         HtmlEmail email = new HtmlEmail();
         email.setHostName("wstore.pro");
         email.setFrom("wisehandsme@gmail.com");
-        //System.out.println("AddTo: " + "bohdaq@gmail.com");
+        email.addTo("bohdaq@gmail.com");
+        System.out.println("AddTo: " + "bohdaq@gmail.com");
         email.setSubject("Нове повідомлення");
 
         String templateString = readAllBytesJava7("app/emails/contact_us_email_form.html");

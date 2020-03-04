@@ -180,6 +180,7 @@ PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
 
 GET     {client}/contact/details                        ContactAPI.details
 PUT     {client}/contact                                ContactAPI.update
+POST    {client}/mail/send                              ContactAPI.sendMailToUs
 
 GET     {client}/department                             DepartmentAPI.list
 GET     {client}/department/{uuid}                      DepartmentAPI.details

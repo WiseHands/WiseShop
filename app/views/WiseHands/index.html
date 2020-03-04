@@ -383,7 +383,7 @@
                         <label for="signup-phone">Phone</label>
                     </div>
                     <div class="contact-main-address-button">
-                        <button type="button">Send</button>
+                        <button type="button" onclick="sendMailToUs()">Send</button>
                     </div>
                 </div>
             </div>
@@ -476,7 +476,28 @@
 </footer>
 
 <script src="wisehands/assets/js/particles.min.js"></script>
+<script>
+  function sendMailToUs() {
+      console.log("here click");
+    const clientName = document.getElementById('signup-name').value;
+    const clientPhone = document.getElementById('signup-phone').value;
+    const clientMail = document.getElementById('signup-email').value;
+    const params = '?clientName=' + clientName + '&'
+                    + 'clientPhone=' + clientPhone + '&'
+                    + 'clientMail=' + clientMail;
+    const url = '/mail/send' + params;
+    console.log("url request for send mail: ", url);
 
+    fetch(url, {
+      method: 'POST'
+    }).then(function (response) {
+      console.log("response response: ", response);
+      return response.json();
+    }).then(function (data) {
+      console.log("response data after sending mail: ", data);
+    });
+  }
+</script>
 <script>
   function start() {
     gapi.load('auth2', function () {
