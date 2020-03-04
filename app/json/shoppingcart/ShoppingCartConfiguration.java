@@ -14,9 +14,14 @@ public class ShoppingCartConfiguration {
     @Transient
     public PaymentConfiguration payment;
 
-    public ShoppingCartConfiguration(DeliveryConfiguration delivery, PaymentConfiguration payment) {
+    @Expose
+    @Transient
+    public AdditionalConfiguration additionalConfiguration;
+
+    public ShoppingCartConfiguration(DeliveryConfiguration delivery, PaymentConfiguration payment, AdditionalConfiguration additionalConfiguration) {
         this.delivery = delivery;
         this.payment = payment;
+        this.additionalConfiguration = additionalConfiguration;
     }
 
 

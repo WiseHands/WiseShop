@@ -16,13 +16,9 @@ import play.i18n.Messages;
 import responses.InvalidPassword;
 import responses.JsonHandleForbidden;
 
-
-import static controllers.UserAPI.generateToken;
-import static controllers.UserAPI.isValidEmailAddress;
+import static controllers.UserAPI.*;
 
 public class WizardAPI extends AuthController {
-
-    private static final String JWT_TOKEN = "JWT_TOKEN";
 
     public static void getWizardInfo() throws Exception{
         String authorizationHeader = request.headers.get("authorization").value();

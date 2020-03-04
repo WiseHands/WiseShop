@@ -135,6 +135,7 @@ public class ShopAPI extends AuthController {
         json.put("sunEndTime", shop.sunEndTime);
         json.put("sunOpen", shop.sunOpen);
         json.put("isShowAmountTools", shop.isShowAmountTools);
+        json.put("labelNameForBuyerNameFieldInShoppingCart",shop.labelNameForBuyerNameFieldInShoppingCart);
         boolean couponsEnabled = true;
         List<CouponDTO> coupons = CouponDTO.find("byShopUuid", shop.uuid).fetch();
         if(coupons.size() == 0) {
@@ -208,13 +209,15 @@ public class ShopAPI extends AuthController {
         Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
 
+        String labelNameForBuyerNameFieldInShoppingCart = (String) jsonBody.get("labelNameForBuyerNameFieldInShoppingCart");
         Boolean isShowAmountTools = (Boolean) jsonBody.get("isShowAmountTools");
 
+        shop.labelNameForBuyerNameFieldInShoppingCart = labelNameForBuyerNameFieldInShoppingCart;
+        System.out.println("labelNameForBuyerNameFieldInShoppingCart +> " + labelNameForBuyerNameFieldInShoppingCart);
         shop.isShowAmountTools = isShowAmountTools;
         shop.temporaryClosedTitle = closedShopTitle;
         shop.temporaryClosedDescription = closedShopdiscription;
         shop.isTemporaryClosed = isTemporaryClosed;
-
 
         shop.alwaysOpen = alwaysOpen;
         shop.shopName = name;

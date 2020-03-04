@@ -86,6 +86,9 @@ public class ShopDTO extends GenericModel {
     public boolean isShowAmountTools;
 
     @Expose
+    public String labelNameForBuyerNameFieldInShoppingCart;
+
+    @Expose
     public boolean alwaysOpen;
 
     @Expose

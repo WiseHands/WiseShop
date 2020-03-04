@@ -19,7 +19,7 @@ angular.module('WiseHands')
 
         $scope.updateAdditionalSetting = function () {
             $scope.loading = true;
-
+            console.log('updateAdditionalSetting', $scope.additionSetting);
             $http({
                 method: 'PUT',
                 url: '/shop',

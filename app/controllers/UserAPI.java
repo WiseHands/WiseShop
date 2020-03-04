@@ -28,7 +28,7 @@ import java.util.Date;
 
 
 public class UserAPI extends AuthController {
-    private static final String JWT_TOKEN = "JWT_TOKEN";
+    public static final String JWT_TOKEN = "JWT_TOKEN";
     private static ShopService shopService = ShopServiceImpl.getInstance();
     private static SmsSender smsSender = new SmsSenderImpl();
 
