@@ -22,7 +22,7 @@ import static controllers.UserAPI.isValidEmailAddress;
 
 public class WizardAPI extends AuthController {
 
-    private static final String JWT_USER_TOKEN = "JWT_USER_TOKEN";
+    private static final String JWT_TOKEN = "JWT_TOKEN";
 
     public static void getWizardInfo() throws Exception{
         String authorizationHeader = request.headers.get("authorization").value();
@@ -203,7 +203,7 @@ public class WizardAPI extends AuthController {
             user.save();
 
             String jwtToken = generateToken(user);
-            response.setHeader(JWT_USER_TOKEN, jwtToken);
+            response.setHeader(JWT_TOKEN, jwtToken);
             String json = json(user);
             renderJSON(json);
         }
@@ -241,7 +241,7 @@ public class WizardAPI extends AuthController {
             }
 
             String jwtToken = generateToken(user);
-            response.setHeader(JWT_USER_TOKEN, jwtToken);
+            response.setHeader(JWT_TOKEN, jwtToken);
 
             renderJSON(json(user));
 
