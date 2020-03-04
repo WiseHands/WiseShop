@@ -182,6 +182,21 @@ public class ShoppingCartAPI extends AuthController {
         return shoppingCart.save();
     }
 
+    public static void updateQuantityProduct(String client) throws Exception{
+
+        String lineItemUuid = request.params.get("uuid");
+        Integer quantity = Integer.valueOf(request.params.get("quantity"));
+
+        String cartId = _getCartUuid(request);
+
+        LineItem lineItem = LineItem.findById(lineItemUuid);
+        lineItem.quantity = quantity;
+        lineItem.save();
+
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
+        renderJSON(json(shoppingCart));
+    }
+
     public static void increaseQuantityProduct(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){

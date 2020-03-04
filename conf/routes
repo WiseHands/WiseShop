@@ -50,6 +50,10 @@ GET         {client}/api/cart                               ShoppingCartAPI.getC
 DELETE      {client}/api/cart                               ShoppingCartAPI.deleteProduct
 OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
 
+
+POST        {client}/api/cart/update-quantity               ShoppingCartAPI.updateQuantityProduct
+OPTIONS     {client}/api/cart/update-quantity               ShoppingCartAPI.allowCors
+
 POST        {client}/api/cart/increase-quantity             ShoppingCartAPI.increaseQuantityProduct
 OPTIONS     {client}/api/cart/increase-quantity             ShoppingCartAPI.allowCors
 

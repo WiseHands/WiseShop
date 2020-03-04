@@ -24803,8 +24803,18 @@ class WiseShoppingCartItem extends PolymerElement {
            font-weight: 400;
            margin: 5px 0;;
         }
-        .quantity-span, .total-span {
+        .quantity-input, .total-span {
            margin: 0 .5em;
+        }
+        .quantity-input {
+            --paper-input-container-shared-input-style: {
+                text-align: center;
+                width: 2em;
+                font-size: 1.4em;
+            }
+            --paper-font-caption: {
+                height: 0 !important;
+            }
         }
         .total-span {
            text-align: center;
@@ -24853,7 +24863,7 @@ class WiseShoppingCartItem extends PolymerElement {
             </div>        
             <div class="product-calculated-container">  
                 <paper-icon-button icon="remove" on-tap="_decreaseItemQuantity"></paper-icon-button>
-                <p class="quantity-span">[[cartItem.quantity]]</p>
+                <paper-input allowed-pattern="[0-9]" on-change="_quantityChange" value="[[cartItem.quantity]]" class="quantity-input" id="quantityItem"></paper-input>
                 <paper-icon-button icon="add" on-tap="_increaseItemQuantity"></paper-icon-button>
                 <div class="total-span">[[_calculateTotalPrice(cartItem.quantity, cartItem.price, cartItem.additionList)]]<br>[[currencyLabel]]</div>
                 <paper-icon-button icon="close" on-tap="_removeItem"></paper-icon-button>
@@ -24924,6 +24934,22 @@ class WiseShoppingCartItem extends PolymerElement {
 
   hasMoreThanOneQuantity(item) {
     return item.quantity > 1;
+  }
+
+  _quantityChange() {
+    const quantity = this.$.quantityItem.value;
+
+    if (quantity) {
+      const detail = {
+        itemUuid: this.cartItem.uuid,
+        quantity: quantity
+      };
+      this.dispatchEvent(new CustomEvent('update-quantity', {
+        detail: detail,
+        bubbles: true,
+        composed: true
+      }));
+    }
   }
 
 }
@@ -25461,6 +25487,12 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     this._generateRequest('GET', url);
 
+    this.addEventListener('update-quantity', event => {
+      console.log("/api/cart/update-quantity =>", event.detail);
+      let params = `?uuid=${event.detail.itemUuid}&quantity=${event.detail.quantity}${this.addCartIdParamIfAvailable(false)}`;
+
+      this._generateRequest('POST', this._generateRequestUrl('/api/cart/update-quantity', params));
+    });
     this.addEventListener('increase-item-quantity', event => {
       let params = `?uuid=${event.detail}${this.addCartIdParamIfAvailable(false)}`;
 
