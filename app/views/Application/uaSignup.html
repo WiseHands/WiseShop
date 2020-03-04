@@ -291,8 +291,8 @@
             body: params
         }).then(function (response) {
             if(response.ok) {
-                let token = response.headers.get('JWT_USER_TOKEN');
-                localStorage.setItem('JWT_USER_TOKEN', token);
+                let token = response.headers.get('JWT_TOKEN');
+                localStorage.setItem('JWT_TOKEN', token);
             }
             return response.json();
         }).then(function (data) {

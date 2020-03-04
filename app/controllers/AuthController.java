@@ -13,6 +13,8 @@ import play.i18n.Lang;
 import play.mvc.Before;
 import play.mvc.Controller;
 
+import static controllers.WizardAPI.getUserIdFromAuthorization;
+
 public class AuthController extends Controller {
 
     protected static UserDTO loggedInUser;
@@ -37,18 +39,9 @@ public class AuthController extends Controller {
     }
 
     static UserDTO verifyToken(String token) {
-        UserDTO user = null;
-        try {
-            String encodingSecret = Play.configuration.getProperty("jwt.secret");
-            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("wisehands")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(token);
-            user = UserDTO.findById(jwt.getClaim("uuid").asString());
-        } catch (JWTVerificationException exception){
-            forbidden("Invalid Authorization header: " + token);
-        }
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
+        UserDTO user = UserDTO.findById(userId);
         return user;
     }
 

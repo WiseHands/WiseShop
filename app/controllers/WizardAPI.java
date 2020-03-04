@@ -25,7 +25,8 @@ public class WizardAPI extends AuthController {
     private static final String JWT_USER_TOKEN = "JWT_USER_TOKEN";
 
     public static void getWizardInfo() throws Exception{
-        String userId = getUserIdFromAuthorization();
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
         System.out.println("String userId " + userId);
 
         UserDTO user = UserDTO.find("byUuid", userId).first();
@@ -40,8 +41,8 @@ public class WizardAPI extends AuthController {
     }
 
     public static void upDateWizardDetails() throws Exception{
-
-        String userId = getUserIdFromAuthorization();
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
         System.out.println("String userId " + userId);
 
         UserDTO user = UserDTO.find("byUuid", userId).first();
@@ -71,7 +72,8 @@ public class WizardAPI extends AuthController {
         String domain = request.params.get("shopDomain");
 //        String domainPath = ".wstore.pro";
 //        domain += domainPath;
-        String userId = getUserIdFromAuthorization();
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
         System.out.println("String userId " + userId);
         ShopDTO shop = ShopDTO.find("byDomain", domain).first();
         if (shop == null){
@@ -96,7 +98,8 @@ public class WizardAPI extends AuthController {
 
         System.out.println("setShopContactInfo\n" + cityName + "\n" + streetName + "\n" + buildingNumber + "\n" + legalUserName);
 
-        String userId = getUserIdFromAuthorization();
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
         System.out.println("setShopContactInfo userId\n" + userId);
 
         UserDTO user = UserDTO.find("byUuid", userId).first();
@@ -128,7 +131,8 @@ public class WizardAPI extends AuthController {
         boolean payOnline = (boolean) jsonBody.get("payOnline");
         boolean payCash = (boolean) jsonBody.get("payCash");
 
-        String userId = getUserIdFromAuthorization();
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
         UserDTO user = UserDTO.find("byUuid", userId).first();
         System.out.println("setVariantsOfDeliveryAndPaymentTypes\n" + user.givenName);
 
@@ -149,7 +153,8 @@ public class WizardAPI extends AuthController {
         String instagramLink = request.params.get("instagram");
         String youtubeLink = request.params.get("youtube");
 
-        String userId = getUserIdFromAuthorization();
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
         UserDTO user = UserDTO.find("byUuid", userId).first();
         System.out.println("setSocialNetworkInfo\n" + user.givenName);
 
@@ -244,9 +249,8 @@ public class WizardAPI extends AuthController {
 
     }
 
-    public static String getUserIdFromAuthorization(){
+    public static String getUserIdFromAuthorization(String authorizationHeader){
         String userId = "";
-        String authorizationHeader = request.headers.get("authorization").value();
         String jwtToken = authorizationHeader.replace("Bearer ","");
         try {
             String encodingSecret = Play.configuration.getProperty("jwt.secret");
