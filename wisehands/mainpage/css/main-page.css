@@ -205,7 +205,7 @@ header {
     background-position: center;
     background-size: cover;
 }
-#toContactButton, #betoContactButton, #mobtoContactButton, #toContactButtonMob, #betoContactButtonMob, #mobtoContactButtonMob {
+.contact-button {
     width: 250px;
     height: 60px;
     background-color: rgba(0,0,0,0.01);
@@ -217,6 +217,7 @@ header {
     font-size: 1.2rem;
     margin-left: 7rem;
     margin-right: 7rem;
+    opacity: 0.7;
 }
 
 #toContactButtonMob, #betoContactButtonMob, #mobtoContactButtonMob {
@@ -226,6 +227,9 @@ header {
     margin: 1rem auto;
     cursor: pointer;
     display: none;
+}
+#toContactButton:hover, #betoContactButton:hover, #mobtoContactButton:hover {
+    opacity: 1;
 }
 #betoContactButton, #betoContactButtonMob {
     color: #63533a;
@@ -920,6 +924,9 @@ footer h3 {
     }
     .slogan {
         padding-top: 15vh;
+    }
+    .contact-button {
+        opacity: 1;
     }
     .fe-services-block, .be-services-block, .mob-services-block {
         height: 100%;
