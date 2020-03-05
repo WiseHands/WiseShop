@@ -364,7 +364,7 @@
     <div class="contact-container">
         <h2 class="services-h2 wow zoomIn">Contact Us</h2>
         <div class="contact-block">
-            <div class="contact-card wow bounceInRight">
+            <div class="contact-card wow bounceInRight flex-item-center">
                 <div class="contact-card-text">
                     <h5>Leave your contact details and we will get in touch with you!</h5>
                     <div class="form-field">
@@ -385,6 +385,9 @@
                     <div class="contact-main-address-button">
                         <button type="button" onclick="sendMailToUs()">Send</button>
                     </div>
+                </div>
+                <div id="handling-message" style="justify-content: center; align-content: center">
+                    <p id="show-message"></p>
                 </div>
             </div>
             <div class="contact-main-address">
@@ -477,8 +480,14 @@
 
 <script src="wisehands/assets/js/particles.min.js"></script>
 <script>
-  function sendMailToUs() {
-      console.log("here click");
+    const textContainer = document.getElementsByClassName('contact-card-text');
+    const handlingMessageContainer = document.getElementById('handling-message');
+    const showMessageItem = document.getElementById('show-message');
+
+    handlingMessageContainer.display = 'none';
+
+    function sendMailToUs() {
+    console.log("here click");
     const clientName = document.getElementById('signup-name').value;
     const clientPhone = document.getElementById('signup-phone').value;
     const clientMail = document.getElementById('signup-email').value;
@@ -489,9 +498,28 @@
     fetch(url, {
       method: 'POST'
     }).then(function (response) {
-      return response.json();
+        console.log("here response", response);
+
+        return response.json();
     }).then(function (data) {
+        console.log("here data", data);
+        handlingMessage(data);
+
     });
+  }
+  function handlingMessage(data) {
+      data.status === 420 ? showErrorMessage(data) : showSuccessfulMessage(data);
+  }
+  function showErrorMessage(data) {
+      textContainer.display = 'none';
+      handlingMessageContainer.display = 'block';
+      showMessageItem.innerText = data.message;
+
+  }
+  function showSuccessfulMessage(data) {
+      textContainer.display = 'none';
+      handlingMessageContainer.display = 'block';
+      showMessageItem.innerText = data.message;
   }
 </script>
 <script>

@@ -4,6 +4,7 @@ import models.ContactDTO;
 import models.ShopDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import responses.JsonHandleForbidden;
 import services.MailSender;
 import services.MailSenderImpl;
 
@@ -23,9 +24,19 @@ public class ContactAPI extends AuthController {
 
         String message = "Доброї години доби Богдане. Мене звати "
                 + clientName + ", телефонуйте за номером: " + clientPhone + " або напишіть емейл " + clientMail;
-        mailSender.sendContactUsEmail(message);
 
-        ok();
+
+        try {
+            mailSender.sendContactUsEmail(message);
+            String reason = "Your query was sent";
+            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
+            renderJSON(jsonHandleForbidden);
+        } catch (Exception e) {
+            System.out.println("ContactAPI create mailSender error" + e.getCause() + e.getStackTrace());
+            String reason = "Sorry, have some problem";
+            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
+            renderJSON(jsonHandleForbidden);
+        }
     }
 
     public static void details(String client) throws Exception {

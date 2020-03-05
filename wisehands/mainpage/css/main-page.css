@@ -1036,3 +1036,8 @@ footer h3 {
         flex-basis: 98%;
     }
 }
+.flex-item-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
