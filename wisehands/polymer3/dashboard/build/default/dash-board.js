@@ -1,7 +1,7 @@
 // Import the LitElement base class and html helper function
 import { LitElement, html } from "./node_modules/lit-element/lit-element.js"; // Extend the LitElement base class
 
-class SimpleComponent extends LitElement {
+class DashBoard extends LitElement {
   /**
    * Implement `render` to define a template for your element.
    *
@@ -41,40 +41,36 @@ class SimpleComponent extends LitElement {
                     height: calc(100vh - 50px);
                 }
                 .shop-element{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     margin: 15px;
                     height: 200px;
                     width: 200px;
                 }
+                .shop-element p
             </style>
                                     
-            <div class="profile container row border">
-
-            </div>
+            <div class="profile container row border"></div>
             <div class="work-place container row border">
                 <div class="tools container border"></div>
                 <div class="container row shops-place border">
-                    <div class="shop-element border"></div>
-                    <div class="shop-element border"></div>
-                    <div class="shop-element border"></div>
-                    <div class="shop-element border"></div>
-                    <div class="shop-element border"></div>
-                    <div class="shop-element border"></div>
-                    <div class="shop-element border"></div>
-                    <div class="shop-element border"></div>
-                    <div class="shop-element border"></div>
-                    
+                    <div class="shop-element create-shop border"></div>
+                        ${this.shopList.map(item => html`
+                               <div class="shop-element border">
+                                    <p>${item.shopName}</p>
+                               </div>
+                        `)}                    
                 </div>
             </div>
-        `;
+    `;
   }
 
   static get properties() {
     return {
-      message: {
-        type: String
-      },
-      boolValue: {
-        type: Boolean
+      shopList: {
+        type: Array,
+        value: []
       }
     };
   }
@@ -83,14 +79,29 @@ class SimpleComponent extends LitElement {
     super();
     this.message = 'Hello bro! What is your name?';
     this.boolValue = true;
+    this.getShopList();
   }
 
-  clickHandler(event) {
-    console.log('event from click', event);
-    this.boolValue = !this.boolValue;
+  getShopList() {
+    const _this = this;
+
+    const url = '/shops';
+    let token = localStorage.getItem('JWT_TOKEN');
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        authorization: 'Bearer ' + token
+      }
+    }).then(function (response) {
+      console.log("response response: ", response);
+      return response.json();
+    }).then(function (data) {
+      _this.shopList = data;
+      console.log("response data: ", data);
+    });
   }
 
 } // Register the new element with the browser.
 
 
-customElements.define('simple-component', SimpleComponent);
+customElements.define('dash-board', DashBoard);

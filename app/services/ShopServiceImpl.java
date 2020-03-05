@@ -62,12 +62,6 @@ public class ShopServiceImpl implements ShopService{
         BalanceDTO balance = new BalanceDTO();
 
         VisualSettingsDTO visualSettings = new VisualSettingsDTO();
-        visualSettings.navbarTextColor = navbarTextColor;
-        visualSettings.navbarColor = navbarColor;
-        visualSettings.navbarShopItemsColor = navbarShopItemsColor;
-        SidebarColorScheme color = (SidebarColorScheme) SidebarColorScheme.findAll().get(0);
-        visualSettings.sidebarColorScheme = color;
-
         ShopDTO shop = new ShopDTO(users, paymentSettings, delivery, contact, balance, visualSettings, name, "", "", domain, "en_US");
         shop.startTime = SHOP_OPEN_FROM;
         shop.endTime = SHOP_OPEN_UNTIL;
