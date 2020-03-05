@@ -16,13 +16,16 @@
     body {
         margin: 0;
         padding: 0;
+        background-color: #f4f4f4;
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     }
+    h1, h2, p {}
     header {
-        max-width: 1200px;
+        max-width: 900px;
         margin: 0 auto;
     }
     ul.terms-breadcrumb {
-        padding: 0 16px 10px 0;
+        padding: 0 16px 10px 16px;
         margin-bottom: 0;
         list-style: none;
     }
@@ -40,32 +43,50 @@
 
     ul.terms-breadcrumb li a {
         color: #000;
-        text-decoration: none;
+        text-decoration: underline;
     }
 
     ul.terms-breadcrumb li a:hover {
         color: #000;
-        text-decoration: underline;
+        text-decoration: none;
     }
     .terms-img {
         background: url(../../wisehands/mainpage/images/termsofserv.jpg) no-repeat;
         background-size: cover;
         background-position: center;
         height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .terms-img p {
+        font-size: 4rem;
+        font-weight: 200;
+        background-color: #fff;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin: 1rem;
     }
     .terms {
-        max-width: 1200px;
-        margin: 0 auto;
+        max-width: 900px;
+        margin: 1rem auto;
+        background-color: #fff;
+        padding: 0.5rem 1rem;
     }
     .terms h1 {
         font-weight: 600;
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         color: rgba(0,0,0,0.84);
+        margin: 0.3rem 0;
     }
     .terms h2 {
         font-size: 1.3rem;
     }
-
+    @media only screen and (max-width : 768px) {
+        .terms {
+            margin: 0.5rem;
+        }
+    }
 </style>
 
 
@@ -76,10 +97,10 @@
             <li><a href="">Terms of services</a></li>
         </ul>
     </header>
-    <div class="terms-img"></div>
+    <div class="terms-img">
+        <p>Terms and Conditions</p>
+    </div>
 <div class="terms">
-    <h1>Terms and Conditions</h1>
-
     <p>Last updated: March 02, 2020</p>
 
     <p>Please read these terms and conditions carefully before using Our Service.</p>
