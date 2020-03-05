@@ -911,20 +911,27 @@ footer h3 {
     .slogan {
         padding-top: 15vh;
     }
+    .fe-services-block, .be-services-block, .mob-services-block {
+        height: 100%;
+    }
+
+    .fe-services, .be-services, .mob-services {
+        height: 100%;
+    }
     .fe-text, .mob-text {
         text-align: left;
-        padding-top: 2vh;
+        padding-top: 3vh;
     }
     .be-text {
         text-align: right;
-        padding-top: 10vh;
+        padding-top: 3vh;
     }
     #toContactButton, #betoContactButton, #mobtoContactButton {
         display: none;
     }
     #toContactButtonMob, #betoContactButtonMob, #mobtoContactButtonMob {
         display: block;
-        margin-bottom: 2rem;
+        margin: 2rem auto;
     }
     .services-icons {
         padding-top: 1rem;
