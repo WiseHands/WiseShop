@@ -571,6 +571,10 @@ header {
 .donate-info {
     text-align: center;
 }
+.donate-info p {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
 .donate-price {
     padding: 1rem 0;
 }
