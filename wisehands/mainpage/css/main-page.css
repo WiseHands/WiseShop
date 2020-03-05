@@ -375,6 +375,7 @@ header {
 }
 .project-link img, .card-github img {
     width: 36px;
+    height: 36px;
     cursor: pointer;
 }
 .project-link button, .project-feedback button  {
@@ -384,6 +385,7 @@ header {
     text-transform: uppercase;
     padding: 0 1rem;
     cursor: pointer;
+    height: 40px;
 }
 .project-link button:hover, .project-feedback button:hover {
     background-color: #000;
