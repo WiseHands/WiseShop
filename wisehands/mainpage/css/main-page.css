@@ -58,13 +58,13 @@ header {
     text-decoration: none;
     color: #fff;
 }
-.header-links p:hover {
-    color: lightseagreen;
-}
 .header-links p {
     font-size: 1.3rem;
     padding: 0.6rem;
     cursor: pointer;
+}
+.header-links p:hover {
+    color: lightseagreen;
 }
 .burger-menu {
     display: none;
@@ -72,7 +72,6 @@ header {
     top: 10px;
     right: 10px;
 }
-
 #overlay-mobile {
     display: none;
     background-color: rgba(0,0,0,0);
@@ -91,7 +90,6 @@ header {
     animation: sidebarmove 0.3s linear;
     position: fixed;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-
 }
 @keyframes sidebarmove {
     from {
@@ -152,7 +150,6 @@ header {
     font-size: 1.3rem;
     margin-bottom: 0;
 }
-
 .main-page {
     background-color: rgb(14, 41, 53);
     height: calc(100vh - 62px);
@@ -195,20 +192,16 @@ header {
     justify-content: space-between;
 }
 .fe-services {
-    height: 100vh;
     background: url("../images/85-original.jpg");
-    background-position: center;
-    background-size: cover;
 }
 .be-services {
-    height: 100vh;
     background: url("../images/87-original.jpg");
-    background-position: center;
-    background-size: cover;
 }
 .mob-services {
-    height: 100vh;
     background: url("../images/88-original.jpg");
+}
+.services-bg {
+    height: 100vh;
     background-position: center;
     background-size: cover;
 }
@@ -603,7 +596,7 @@ header {
     color: #fff;
 }
 .contact-form {
-    height: 60vh;
+    height: 70vh;
     background: url("../images/map1.jpg");
     background-position: center;
     background-size: cover;
@@ -613,25 +606,26 @@ header {
     height: 40vh;
     background-color: #fff;
 }
+.contact-container {
+    height: 100%;
+    justify-content: space-around;
+}
 .contact-container h2 {
-    color: #fff;
+    color: rgb(14, 41, 53);
     text-align: center;
-    padding: 1rem 0 ;
+    margin: 1rem 0;
 }
 .contact-block {
     max-width: 1200px;
     width: 100%;
-    margin: 0 auto;
     display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -20%);
+    margin: 0 auto;
 }
 .contact-card {
     width: 65%;
     background-color: #fff;
     box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    margin-left: 1rem;
 }
 .contact-card-text {
     width: 90%;
@@ -710,9 +704,10 @@ input:focus ~ .highlight:before, input:focus ~ .highlight:after {
 }
 .contact-main-address {
     width: 35%;
-    background-color: #103f6f;
+    background-color: rgb(14, 41, 53);
     color: #fff;
     box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    margin-right: 1rem;
 }
 .contact-main-address-text {
     width: 90%;
@@ -758,6 +753,7 @@ input:focus ~ .highlight:before, input:focus ~ .highlight:after {
 }
 
 footer {
+    height: 30vh;
     background-color: #000;
     color: #fff;
 }
@@ -843,6 +839,9 @@ footer h3 {
         margin: 0 auto;
         flex-wrap: wrap;
     }
+    footer {
+        height: 100%;
+    }
     footer h3 {
         padding: 10px 0;
     }
@@ -914,7 +913,6 @@ footer h3 {
     .fe-services-block, .be-services-block, .mob-services-block {
         height: 100%;
     }
-
     .fe-services, .be-services, .mob-services {
         height: 100%;
     }
@@ -1008,6 +1006,9 @@ footer h3 {
     .contact-layout {
         display: none;
     }
+    .contact-container {
+        height: 100%;
+    }
     .contact-container h2 {
         font-size: 1.8rem;
     }
@@ -1026,6 +1027,9 @@ footer h3 {
     }
     .link-height {
         height: 44px;
+    }
+    footer {
+        height: 100%;
     }
     .footer-payment, .footer-delivery, .footer-return, .footer-contact {
         flex-basis: 98%;
