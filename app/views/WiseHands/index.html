@@ -365,7 +365,7 @@
         <h2 class="services-h2 wow zoomIn">Contact Us</h2>
         <div class="contact-block">
             <div class="contact-card wow bounceInRight flex-item-center">
-                <div class="contact-card-text">
+                <div class="contact-card-text" id="contact-card">
                     <h5>Leave your contact details and we will get in touch with you!</h5>
                     <div class="form-field">
                         <input id="signup-name" type="text" name="name" required placeholder=" ">
@@ -480,7 +480,7 @@
 
 <script src="wisehands/assets/js/particles.min.js"></script>
 <script>
-    const textContainer = document.getElementsByClassName('contact-card-text');
+    const contactCard = document.querySelector('.contact-card-text');
     const handlingMessageContainer = document.getElementById('handling-message');
     const showMessageItem = document.getElementById('show-message');
 
@@ -503,6 +503,7 @@
         return response.json();
     }).then(function (data) {
         console.log("here data", data);
+        contactCard.style.display = 'none';
         handlingMessage(data);
 
     });
@@ -511,13 +512,11 @@
       data.status === 420 ? showErrorMessage(data) : showSuccessfulMessage(data);
   }
   function showErrorMessage(data) {
-      textContainer.display = 'none';
       handlingMessageContainer.display = 'block';
       showMessageItem.innerText = data.message;
 
   }
   function showSuccessfulMessage(data) {
-      textContainer.display = 'none';
       handlingMessageContainer.display = 'block';
       showMessageItem.innerText = data.message;
   }
