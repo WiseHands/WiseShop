@@ -22,9 +22,8 @@ public class ContactAPI extends AuthController {
         String clientMail = request.params.get("clientMail");
 
         String message = "Доброї години доби Богдане. Мене звати "
-                + clientName + ", телефонуйте за номером: " + clientPhone;
-
-        mailSender.sendContactUsEmail(clientMail, message);
+                + clientName + ", телефонуйте за номером: " + clientPhone + " або напишіть емейл " + clientMail;
+        mailSender.sendContactUsEmail(message);
 
         ok();
     }

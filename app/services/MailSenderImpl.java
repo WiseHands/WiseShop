@@ -113,7 +113,7 @@ public class MailSenderImpl implements MailSender {
 //        }
     }
 
-    public void sendContactUsEmail(String userEmail, String message) throws Exception {
+    public void sendContactUsEmail(String message) throws Exception {
         HtmlEmail email = new HtmlEmail();
         email.setHostName("wstore.pro");
         email.setFrom("wisehandsme@gmail.com");
