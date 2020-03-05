@@ -16,13 +16,15 @@
     body {
         margin: 0;
         padding: 0;
+        background-color: #f4f4f4;
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     }
     header {
-        max-width: 1200px;
+        max-width: 900px;
         margin: 0 auto;
     }
     ul.privacy-breadcrumb {
-        padding: 0 16px 10px 0;
+        padding: 0 16px 10px 16px;
         margin-bottom: 0;
         list-style: none;
     }
@@ -37,35 +39,52 @@
         color: black;
         content: "/\00a0";
     }
-
     ul.privacy-breadcrumb li a {
         color: #000;
-        text-decoration: none;
+        text-decoration: underline;
     }
 
     ul.privacy-breadcrumb li a:hover {
         color: #000;
-        text-decoration: underline;
+        text-decoration: none;
     }
     .privacy-img {
         background: url(../../wisehands/mainpage/images/privacy.jpg) no-repeat;
         background-size: cover;
         background-position: center;
         height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .privacy-img p {
+        font-size: 4rem;
+        font-weight: 200;
+        background-color: #fff;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin: 1rem;
     }
     .privacy {
-        max-width: 1200px;
-        margin: 0 auto;
+        max-width: 900px;
+        margin: 1rem auto;
+        background-color: #fff;
+        padding: 0.5rem 1rem;
     }
     .privacy h1 {
         font-weight: 600;
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         color: rgba(0,0,0,0.84);
+        margin: 0.3rem 0;
     }
     .privacy h2 {
         font-size: 1.3rem;
     }
-
+    @media only screen and (max-width : 768px) {
+        .privacy {
+            margin: 0.5rem;
+        }
+    }
 </style>
 
 <body>
@@ -75,10 +94,11 @@
         <li><a href="">Privacy Policy</a></li>
     </ul>
 </header>
-<div class="privacy-img"></div>
-
+<div class="privacy-img">
+    <p>Privacy Policy for Wisehands</p>
+</div>
 <div class="privacy">
-    <h1>Privacy Policy for Wisehands</h1>
+    <h1></h1>
 
     <p>At Wisehands.me, accessible from https://wisehands.me/, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Wisehands.me and how we use it.</p>
 
