@@ -420,8 +420,8 @@ header {
     border-radius: 7px;
 }
 .card-front {
-    width: 230px;
-    height: 270px;
+    width: 200px;
+    height: 230px;
     transition: 0.5s ease-in-out;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
@@ -614,10 +614,11 @@ header {
     height: 100%;
     justify-content: space-around;
 }
-.contact-container h2 {
-    color: rgb(14, 41, 53);
+.contact-card-text h2 {
+    color: #000;
     text-align: center;
     margin: 1rem 0;
+    font-size: 3rem;
 }
 .contact-block {
     max-width: 1200px;
@@ -708,7 +709,8 @@ input:focus ~ .highlight:before, input:focus ~ .highlight:after {
 }
 .contact-main-address {
     width: 35%;
-    background-color: rgb(14, 41, 53);
+    /*background-color: rgb(14, 41, 53);*/
+    background-color: #000;
     color: #fff;
     box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
     margin-right: 1rem;
@@ -722,6 +724,7 @@ input:focus ~ .highlight:before, input:focus ~ .highlight:after {
     font-size: 1.3rem;
     padding: 1.5rem 0;
     margin-bottom: 2rem;
+    text-transform: uppercase;
 }
 .contact-main-address-item {
     display: flex;
