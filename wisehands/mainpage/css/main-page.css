@@ -662,15 +662,20 @@ input {
 input:focus {
     outline: none;
 }
+input[invalid=true] {
+    border-bottom: 1px solid red;
+}
 label {
     font-size: 1rem;
     position:absolute;
     pointer-events:none;
-
     top: 31px;
     transition:0.2s ease all;
     -moz-transition:0.2s ease all;
     -webkit-transition:0.2s ease all;
+}
+label::invalid {
+    color: red;
 }
 input:focus ~ label, input:not(:placeholder-shown) ~ label 		{
     top: 0;
