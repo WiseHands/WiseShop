@@ -82,10 +82,10 @@
                 <img src="../../../wisehands/mainpage/images/React.png" title="React">
                 <img src="../../../wisehands/mainpage/images/Vue.png" title="Vue">
                 <img src="../../../wisehands/mainpage/images/Angular.png" title="Angular">
-                <a href="#contactForm"><button id="toContactButton" class="contact-button" type="button">Contact us</button></a>
+                <button id="toContactButton" class="contact-button" type="button">Contact us</button>
             </div>
         </div>
-        <a href="#contactForm"><button id="toContactButtonMob"  class="contact-button" type="button">Contact us</button></a>
+        <button id="toContactButtonMob"  class="contact-button" type="button">Contact us</button>
         <div class="double-arrow">
             <i class="fa fa-arrow-down" id="feArrowDown" style="font-size:3rem; color: #fff"></i>
             <i class="fa fa-arrow-up" id="feArrowUp" style="font-size:3rem; color: #fff"></i>
@@ -106,10 +106,10 @@
                 <img src="../../../wisehands/mainpage/images/Go.png" title="Go">
                 <img src="../../../wisehands/mainpage/images/Java.png" title="Java">
                 <img src="../../../wisehands/mainpage/images/NodeJs.png" title="NodeJS">
-                <a href="#contactForm"><button id="betoContactButton" class="contact-button" type="button">Contact us</button></a>
+                <button id="betoContactButton" class="contact-button" type="button">Contact us</button>
             </div>
         </div>
-        <a href="#contactForm"><button id="betoContactButtonMob" class="contact-button" type="button">Contact us</button></a>
+        <button id="betoContactButtonMob" class="contact-button" type="button">Contact us</button>
         <div class="double-arrow">
             <i class="fa fa-arrow-down" id="beArrowDown" style="font-size:3rem; color: #fff"></i>
             <i class="fa fa-arrow-up" id="beArrowUp" style="font-size:3rem; color: #fff"></i>
@@ -130,10 +130,10 @@
             <div class="services-icons wow bounceInRight" data-wow-delay="0.5s">
                 <img src="../../../wisehands/mainpage/images/Android.png" title="Android">
                 <img src="../../../wisehands/mainpage/images/Ios.png" title="Ios">
-                <a href="#contactForm"><button id="mobtoContactButton" class="contact-button" type="button">Contact us</button></a>
+                <button id="mobtoContactButton" class="contact-button" type="button">Contact us</button>
             </div>
         </div>
-        <a href="#contactForm"><button id="mobtoContactButtonMob"  class="contact-button" type="button">Contact us</button></a>
+        <button id="mobtoContactButtonMob"  class="contact-button" type="button">Contact us</button>
         <div class="double-arrow">
             <i class="fa fa-arrow-down" id="mobArrowDown" style="font-size:3rem; color: #fff"></i>
             <i class="fa fa-arrow-up" id="mobArrowUp" style="font-size:3rem; color: #fff"></i>
@@ -622,18 +622,16 @@
 </script>
 <script>
   document.getElementById("donateArrowDown").addEventListener("click", showList);
+  document.getElementById("toContactButton").addEventListener("click", showList);
+  document.getElementById("betoContactButton").addEventListener("click", showList);
+  document.getElementById("mobtoContactButton").addEventListener("click", showList);
+  document.getElementById("toContactButtonMob").addEventListener("click", showList);
+  document.getElementById("betoContactButtonMob").addEventListener("click", showList);
+  document.getElementById("mobtoContactButtonMob").addEventListener("click", showList);
+
 
   function showList() {
     document.getElementById("contactForm").scrollIntoView({
-      behavior: 'smooth'
-    })
-  }
-</script>
-<script>
-  //  document.getElementById("contactArrowDown").addEventListener("click", showList);
-
-  function showList() {
-    document.getElementById("footer").scrollIntoView({
       behavior: 'smooth'
     })
   }
