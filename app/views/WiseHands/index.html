@@ -388,7 +388,8 @@
                         <button type="button" onclick="sendMailToUs()">Send</button>
                     </div>
                 </div>
-                <div id="handling-message" style="justify-content: center; align-content: center">
+                <div id="handling-message">
+                    <i id="show-message-icon" class="fa fa-check" style="font-size: 8rem"></i>
                     <p id="show-message"></p>
                 </div>
             </div>
@@ -415,15 +416,9 @@
                 </div>
             </div>
         </div>
-<!--        <div class="double-arrow">-->
-<!--            &lt;!&ndash;			<i class="fa fa-arrow-down" id="contactArrowDown" style="font-size:3rem; color: #212121"></i>&ndash;&gt;-->
-<!--            &lt;!&ndash;			<i class="fa fa-arrow-up" id="contactArrowUp" style="font-size:3rem; color: #212121"></i>&ndash;&gt;-->
-<!--        </div>-->
+
     </div>
 </section>
-<!--<div class="contact-layout">-->
-
-<!--</div>-->
 <footer id="footer">
     <div class="footer-text">
         <div class="footer-frontend">
@@ -461,7 +456,6 @@
             </div>
             <i class="fa fa-cc-visa" style="font-size:24px;"></i>
             <i class="fa fa-cc-mastercard" style="font-size:24px; color: #fff"></i>
-
         </div>
     </div>
     <div class="footer-block">
@@ -486,7 +480,7 @@
     const handlingMessageContainer = document.getElementById('handling-message');
     const showMessageItem = document.getElementById('show-message');
 
-    handlingMessageContainer.display = 'none';
+    handlingMessageContainer.style.display = 'none';
 
     function sendMailToUs() {
     console.log("here click");
@@ -514,12 +508,12 @@
       data.status === 420 ? showErrorMessage(data) : showSuccessfulMessage(data);
   }
   function showErrorMessage(data) {
-      handlingMessageContainer.display = 'block';
+      handlingMessageContainer.style.display = 'flex';
       showMessageItem.innerText = data.message;
 
   }
   function showSuccessfulMessage(data) {
-      handlingMessageContainer.display = 'block';
+      handlingMessageContainer.style.display = 'flex';
       showMessageItem.innerText = data.message;
   }
 </script>
