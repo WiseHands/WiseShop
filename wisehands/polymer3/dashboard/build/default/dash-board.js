@@ -55,12 +55,19 @@ class DashBoard extends LitElement {
             <div class="work-place container row border">
                 <div class="tools container border"></div>
                 <div class="container row shops-place border">
-                    <div class="shop-element create-shop border"></div>
-                        ${this.shopList.map(item => html`
-                               <div class="shop-element border">
-                                    <p>${item.shopName}</p>
-                               </div>
-                        `)}                    
+                    <a href="/ua/wizard">
+                        <div class="shop-element create-shop border">
+                            <p>+</p>
+                        </div>
+                    </a>
+                    ${this.shopList.map(item => html`
+                        <a href="${this._buildUrlForShop(item)}">
+                            <div class="shop-element border">
+                                <p>${item.shopName}</p>
+                            </div>
+                        </a>
+                           
+                    `)}                    
                 </div>
             </div>
     `;
@@ -77,9 +84,12 @@ class DashBoard extends LitElement {
 
   constructor() {
     super();
-    this.message = 'Hello bro! What is your name?';
-    this.boolValue = true;
     this.getShopList();
+  }
+
+  _buildUrlForShop(item){
+    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin`;
+    console.log("_buildUrlForShop => ", item);
   }
 
   getShopList() {
