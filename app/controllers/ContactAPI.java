@@ -28,7 +28,7 @@ public class ContactAPI extends AuthController {
 
         try {
             mailSender.sendContactUsEmail(message);
-            String reason = "Your query was sent";
+            String reason = "Your query was sent successfully.";
             JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
             renderJSON(jsonHandleForbidden);
         } catch (Exception e) {
