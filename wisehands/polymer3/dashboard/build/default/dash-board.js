@@ -14,16 +14,28 @@ class DashBoard extends LitElement {
                 body{
                     height: 100vh;
                 }
-                .container{
-                    display: flex;
-                }
-                .row{
-                    flex-direction: row;
-                }
                 .border{
                     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
                 }
+                a {
+                    text-decoration: none;
+                }
+                .header-profile-container{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    height: 56px;
+                }
+                .profile-info{
+                    height: 48px;
+                    width: 48px;
+                }
+                .body-dash-board-container{
+                    display: flex;
+                }
                 .shops-place{
+                    display: flex;
+                    flex-direction: row;
                     align-items: flex-start;
                     flex-wrap: wrap;
                     width: 75%;
@@ -36,24 +48,11 @@ class DashBoard extends LitElement {
                     height: 200px;
                     width: 200px;
                 }
-                .header-profile-container{
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                    
-                    height: 56px;
-                }
-                .profile-info{
-                    height: 48px;
-                    width: 48px;
-                }
-                .body-dash-board-container{
-                    display: flex;
-                }
                 .tools-dash-board-container{
                     width: 25%;
                     background-color: #40b9ff; 
                 }
+                
             </style>
                                     
             <div class="header-profile-container border">
@@ -63,7 +62,7 @@ class DashBoard extends LitElement {
             </div>
             <div class="body-dash-board-container">
                 <div class="tools-dash-board-container border"></div>
-                <div class="container row shops-place border">
+                <div class="shops-place border">
                     <div class="shop-element create-shop border">
                         <a href="/ua/wizard">
                             <div class="shop-element create-shop border">
@@ -71,13 +70,13 @@ class DashBoard extends LitElement {
                             </div>
                         </a>
                     </div>
-                        ${this.shopList.map(item => html`
-                               <a href="${this._buildUrlForShop(item)}">
-                                   <div class="shop-element border">
-                                        <p>${item.shopName}</p>
-                                   </div>
-                               </a>    
-                        `)}                    
+                    ${this.shopList.map(item => html`
+                           <a href="${this._buildUrlForShop(item)}">
+                               <div class="shop-element border">
+                                    <p>${item.shopName}</p>
+                               </div>
+                           </a>    
+                    `)}                    
                 </div>
             </div>
     `;
