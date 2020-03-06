@@ -17,28 +17,16 @@ class DashBoard extends LitElement {
                 .container{
                     display: flex;
                 }
-                .column{
-                    flex-direction: column;
-                }
                 .row{
                     flex-direction: row;
                 }
                 .border{
-                    border: 2px solid black;
-                }
-                .profile{
-                    height: 50px;
-                }
-                .tools{
-                    width: 25%;
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
                 }
                 .shops-place{
                     align-items: flex-start;
                     flex-wrap: wrap;
                     width: 75%;
-                }
-                .work-place{
-                    height: calc(100vh - 50px);
                 }
                 .shop-element{
                     display: flex;
@@ -48,26 +36,48 @@ class DashBoard extends LitElement {
                     height: 200px;
                     width: 200px;
                 }
-                .shop-element p
+                .header-profile-container{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    
+                    height: 56px;
+                }
+                .profile-info{
+                    height: 48px;
+                    width: 48px;
+                }
+                .body-dash-board-container{
+                    display: flex;
+                }
+                .tools-dash-board-container{
+                    width: 25%;
+                    background-color: #40b9ff; 
+                }
             </style>
                                     
-            <div class="profile container row border"></div>
-            <div class="work-place container row border">
-                <div class="tools container border"></div>
+            <div class="header-profile-container border">
+                <div class="profile-info">
+                    <p>O.P</p>
+                </div>
+            </div>
+            <div class="body-dash-board-container">
+                <div class="tools-dash-board-container border"></div>
                 <div class="container row shops-place border">
-                    <a href="/ua/wizard">
-                        <div class="shop-element create-shop border">
-                            <p>+</p>
-                        </div>
-                    </a>
-                    ${this.shopList.map(item => html`
-                        <a href="${this._buildUrlForShop(item)}">
-                            <div class="shop-element border">
-                                <p>${item.shopName}</p>
+                    <div class="shop-element create-shop border">
+                        <a href="/ua/wizard">
+                            <div class="shop-element create-shop border">
+                                <p>+</p>
                             </div>
                         </a>
-                           
-                    `)}                    
+                    </div>
+                        ${this.shopList.map(item => html`
+                               <a href="${this._buildUrlForShop(item)}">
+                                   <div class="shop-element border">
+                                        <p>${item.shopName}</p>
+                                   </div>
+                               </a>    
+                        `)}                    
                 </div>
             </div>
     `;
@@ -85,9 +95,20 @@ class DashBoard extends LitElement {
   constructor() {
     super();
     this.getShopList();
+    this.shopList = [{
+      shopName: "shop0"
+    }, {
+      shopName: "shop1"
+    }, {
+      shopName: "shop3"
+    }, {
+      shopName: "shop4"
+    }, {
+      shopName: "shop5"
+    }];
   }
 
-  _buildUrlForShop(item){
+  _buildUrlForShop(item) {
     return `${window.location.protocol}//${item.domain}:${window.location.port}/admin`;
     console.log("_buildUrlForShop => ", item);
   }
