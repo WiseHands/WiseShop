@@ -256,6 +256,16 @@ input[type=date]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     display: none;
 }
+.card .card-content p {
+    padding-left: 15px;
+}
+.np-order-card {
+    display: flex;
+    justify-content: space-between;
+}
+.np-order-card i {
+    padding-right: 15px;
+}
 /*Text Truncating*/
 .truncate {
     white-space: nowrap;

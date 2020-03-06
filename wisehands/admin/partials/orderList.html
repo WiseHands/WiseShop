@@ -137,8 +137,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p ng-show="item.deliveryType === 'COURIER'" class="truncate">{{'orderList.courier' | translate}}</p>
-                        <p ng-show="item.deliveryType === 'POSTSERVICE'" class="truncate">{{'orderList.postservice' | translate}}</p>
+                        <p ng-show="item.deliveryType === 'COURIER'" class="truncate np-order-card">
+                            {{'orderList.courier' | translate}} <i>{{item.clientAddressStreetName}}, {{item.clientAddressBuildingNumber}}</i></p>
+                        <p ng-show="item.deliveryType === 'POSTSERVICE'" class="truncate np-order-card">
+                            {{'orderList.postservice' | translate}}<i>{{item.clientCity}}, {{item.clientPostDepartmentNumber}}</i></p>
                         <p ng-show="item.deliveryType === 'SELFTAKE'">{{'orderList.selftake' | translate}}</p>
                     </div>
                 </div>

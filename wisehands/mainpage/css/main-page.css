@@ -219,7 +219,6 @@ header {
     margin-right: 7rem;
     opacity: 0.7;
 }
-
 #toContactButtonMob, #betoContactButtonMob, #mobtoContactButtonMob {
     width: 200px;
     height: 50px;
@@ -308,7 +307,6 @@ header {
     text-align: center;
     padding: 1rem 0 ;
 }
-
 .all-projects, .all-team, .all-donate {
     max-width: 1200px;
     margin: 0 auto;
@@ -440,16 +438,8 @@ header {
     background-position: center;
     background-size: cover;
 }
-.team-1:hover {
-    background-position: center;
-    background-size: cover;
-}
 .team-2 {
     background: url("../images/reverie.jpg");
-    background-position: center;
-    background-size: cover;
-}
-.team-2:hover {
     background-position: center;
     background-size: cover;
 }
@@ -458,30 +448,16 @@ header {
     background-position: center;
     background-size: cover;
 }
-.team-3:hover {
-    background-position: center;
-    background-size: cover;
-}
 .team-4 {
     background: url("../images/taras.jpg");
     background-position: center;
     background-size: cover;
 }
-.team-4:hover {
-    background-position: center;
-    background-size: cover;
-}
-
 .team-5 {
     background: url("../images/tony.jpg");
     background-position: center;
     background-size: cover;
 }
-.team-5:hover {
-    background-position: center;
-    background-size: cover;
-}
-
 .card-about {
     display: flex;
     justify-content: space-between;
@@ -505,7 +481,6 @@ header {
 .card-github {
     padding-right: 0.5rem;
 }
-
 .donate {
     height: 100vh;
     background: url("../images/142-original.jpg");
@@ -676,7 +651,7 @@ label {
     -moz-transition:0.2s ease all;
     -webkit-transition:0.2s ease all;
 }
-label::invalid {
+label[invalid=true]{
     color: red;
 }
 input:focus ~ label, input:not(:placeholder-shown) ~ label 		{
@@ -781,6 +756,7 @@ footer {
     color: #fff;
 }
 .footer-block {
+    background-color: #000;
     font-size: 0.8rem;
     border-top: 2px solid #212121;
 }
@@ -791,7 +767,6 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
     padding: 10px 0;
-    background-color: #000;
 }
 .footer-text {
     align-items: baseline;
