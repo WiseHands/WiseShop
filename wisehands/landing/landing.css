@@ -383,15 +383,14 @@ textarea {
 }
 .contact-address {
     padding: 1rem 0 1rem 3rem;
-
 }
-.contact-adress-item, .contact-adress-item a {
+.contact-address-item, .contact-address-item a {
     display: flex;
     align-items: center;
     padding: 0.3rem 0;
 }
-.contact-adress i {
-    padding-right: 0.5rem;
+.contact-address-item i {
+    padding: 0 0.5rem;
 }
 .footer-block {
     display: flex;
