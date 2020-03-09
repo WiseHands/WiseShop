@@ -72,6 +72,8 @@ OPTIONS     {client}/api/cart/address/info                  ShoppingCartAPI.allo
 PUT         {client}/api/cart/post/info                     ShoppingCartAPI.setPostDepartmentInfo
 OPTIONS     {client}/api/cart/post/info                     ShoppingCartAPI.allowCors
 
+GET         {client}/api/dashboard/shops                    UserDashBoardAPI.getShopList
+OPTIONS     {client}/api/dashboard/shops                    UserDashBoardAPI.allowCors
 
 
 GET     {client}/sudo/orders                            OrderAPI.all
