@@ -31,9 +31,6 @@ public class WizardDTO extends GenericModel {
     public String buildingNumber;
 
     @Expose
-    public String legalUserName;
-
-    @Expose
     @Lob
     @Column(length = 300000)
     public String shopDescription;

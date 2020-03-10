@@ -362,12 +362,12 @@
                     <span class="highlight"></span>
                     <label for="store-house">Будинок</label>
                 </div>
-                <div class="form-field">
-                    <input id="store-legalinfo" type="text" name="legalUserName" placeholder=" "
-                           onblur="setShopContactInfo(event)">
-                    <span class="highlight"></span>
-                    <label for="store-legalinfo">Назва юридичної особи</label>
-                </div>
+                <!--<div class="form-field">-->
+                    <!--<input id="store-legalinfo" type="text" name="legalUserName" placeholder=" "-->
+                           <!--onblur="setShopContactInfo(event)">-->
+                    <!--<span class="highlight"></span>-->
+                    <!--<label for="store-legalinfo">Назва юридичної особи</label>-->
+                <!--</div>-->
                 <div class="form-button">
                     <button type="button" id="prevBtn2" onclick="">Назад</button>
                     <button type="submit" id="nextBtn2" onclick="">Далі</button>
@@ -376,7 +376,7 @@
 
             <form class="step3-form">
                 <div class="wizard-delivery">
-                    <p>Виберіть варіанти отримання товару</p>
+                    <p>Виберіть варіанти отримання товару клієнтом</p>
                     <div class="delivery-payment-container">
                         <div>
                             <input type="checkbox" id="wizardСourier" name="courier" value="courier">
@@ -392,21 +392,21 @@
                     </div>
 
                 </div>
-                <div class="wizard-payment">
-                    <p>Виберіть варіант прийому оплати від клієнтів</p>
-                    <div class="delivery-payment-container">
-                        <div>
-                            <input type="checkbox" id="wizardPayOnline" name="onlinepay" value="onlinepay">
-                            <label for="wizardPayOnline">Онлайн-оплата</label><br>
-                            <input type="checkbox" id="wizardPayCash" name="cash" value="cash">
-                            <label for="wizardPayCash">Готівка</label><br>
-                        </div>
-                        <div>
-                            <p id="handle-payment-error"></p>
-                        </div>
-                    </div>
+                <!--<div class="wizard-payment">-->
+                    <!--<p>Виберіть варіант прийому оплати від клієнтів</p>-->
+                    <!--<div class="delivery-payment-container">-->
+                        <!--<div>-->
+                            <!--<input type="checkbox" id="wizardPayOnline" name="onlinepay" value="onlinepay">-->
+                            <!--<label for="wizardPayOnline">Онлайн-оплата</label><br>-->
+                            <!--<input type="checkbox" id="wizardPayCash" name="cash" value="cash">-->
+                            <!--<label for="wizardPayCash">Готівка</label><br>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<p id="handle-payment-error"></p>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
-                </div>
+                <!--</div>-->
                 <div class="wizard-socialnetwork">
                     <p>Вкажіть посилання на соціальні мережі</p>
                     <div class="form-field">
@@ -543,21 +543,14 @@
 
         const deliveryVariantsError = document.getElementById('handle-delivery-error');
         const isSelectedDeliveryType = wizardСourier || wizardPost || wizardSelftake;
+
         const errorMessage = 'Виберіть один із варіантів';
         deliveryVariantsError.innerText = isSelectedDeliveryType ? '' : errorMessage;
-
-        const wizardPayOnline = document.getElementById('wizardPayOnline').checked;
-        const wizardPayCash = document.getElementById('wizardPayCash').checked;
-        const paymentVariantsError = document.getElementById('handle-payment-error');
-        const isSelectedPaymentType = wizardPayOnline || wizardPayCash;
-        paymentVariantsError.innerText = isSelectedPaymentType ? '' : errorMessage;
 
         const toolInfo = {
             courierDelivery: wizardСourier,
             postDepartment: wizardPost,
-            selfTake: wizardSelftake,
-            payOnline: wizardPayOnline,
-            payCash: wizardPayCash
+            selfTake: wizardSelftake
         };
         console.log('toolInfo', toolInfo);
         const bodyParams = JSON.stringify(toolInfo);

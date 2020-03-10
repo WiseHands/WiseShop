@@ -99,9 +99,8 @@ public class WizardAPI extends AuthController {
         String cityName = request.params.get("cityName");
         String streetName = request.params.get("streetName");
         String buildingNumber = request.params.get("buildingNumber");
-        String legalUserName = request.params.get("legalUserName");
 
-        System.out.println("setShopContactInfo\n" + cityName + "\n" + streetName + "\n" + buildingNumber + "\n" + legalUserName);
+        System.out.println("setShopContactInfo\n" + cityName + "\n" + streetName + "\n" + buildingNumber);
 
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
@@ -119,9 +118,7 @@ public class WizardAPI extends AuthController {
         if(buildingNumber != null){
             user.wizard.buildingNumber =buildingNumber;
         }
-        if(legalUserName != null){
-            user.wizard.legalUserName = legalUserName;
-        }
+
         user.wizard.save();
         renderJSON(json(user.wizard));
     }
@@ -133,8 +130,7 @@ public class WizardAPI extends AuthController {
         boolean courierDelivery = (boolean) jsonBody.get("courierDelivery");
         boolean postDepartment = (boolean) jsonBody.get("postDepartment");
         boolean selfTake = (boolean) jsonBody.get("selfTake");
-        boolean payOnline = (boolean) jsonBody.get("payOnline");
-        boolean payCash = (boolean) jsonBody.get("payCash");
+        boolean payCash = true;
 
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
@@ -144,7 +140,6 @@ public class WizardAPI extends AuthController {
         user.wizard.courierDelivery = courierDelivery;
         user.wizard.postDepartment = postDepartment;
         user.wizard.selfTake = selfTake;
-        user.wizard.payOnline = payOnline;
         user.wizard.payCash = payCash;
 
         user.wizard.save();
