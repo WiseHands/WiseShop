@@ -98,8 +98,8 @@ class DashBoard extends LitElement {
   }
 
   _buildUrlForShop(item) {
-    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin`;
-    console.log("_buildUrlForShop => ", item);
+    const token = localStorage.getItem('JWT_TOKEN');
+    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin?JWT_TOKEN=${token}`;
   }
 
   getShopList() {

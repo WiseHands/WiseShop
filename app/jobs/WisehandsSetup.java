@@ -16,6 +16,7 @@ public class WisehandsSetup extends Job {
     private static final String VOA = "voa@shalb.com";
     private static final String TARAS = "research.010@gmail.com";
     private static final String SERHIY = "ivaneyko.serhiy@gmail.com";
+    private static final String ALEXANDER = "tatrun89@gmail.com";
 
     private static final String HAPPYBAG_PUBLIC_LIQPAY_KEY = "i65251982315";
     private static final String HAPPYBAG_PRIVATE_LIQPAY_KEY = "NLsgd1zKW30EvBkPNeuQodXzmvcA7shcrQ7o0Mbs";
@@ -54,10 +55,12 @@ public class WisehandsSetup extends Job {
 
     private void createShop(String shopName, String domain) {
 
-
-
         List<UserDTO> users = new ArrayList<UserDTO>();
         UserDTO user = new UserDTO(BOGDAN, PASSWORD, "380630386173", false);
+        user.isSuperUser = true;
+        users.add(user);
+
+        user = new UserDTO(ALEXANDER, PASSWORD, "380936484003", false);
         user.isSuperUser = true;
         users.add(user);
 

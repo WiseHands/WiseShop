@@ -55,6 +55,22 @@ public class ContactDTO extends GenericModel {
         this.description = description;
     }
 
+    public ContactDTO(String phone, String email, String description,
+                      String addressCity, String addressStreet, String addressNumberHouse,
+                      String linkfacebook, String linkinstagram, String linkyoutube) {
+        this.phone = phone;
+        this.email = email;
+        this.description = description;
+
+        this.addressCity = addressCity;
+        this.addressStreet = addressStreet;
+        this.addressNumberHouse = addressNumberHouse;
+
+        this.linkfacebook = linkfacebook;
+        this.linkinstagram = linkinstagram;
+        this.linkyoutube = linkyoutube;
+    }
+
     private String returnIfNotNull(String target){
         if(target != null){
             return target;

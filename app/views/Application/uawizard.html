@@ -444,6 +444,7 @@
     getWizardInfo();
     let isValidateAddressDomainName;
     let currentStep = 0;
+    const urlForDeliveryPaymentType = '/api/wizard/delivery-payment-info';
     nextStep(currentStep);
     function nextStep() {
         if (currentStep == 0) {
@@ -560,8 +561,9 @@
         };
         console.log('toolInfo', toolInfo);
         const bodyParams = JSON.stringify(toolInfo);
-        const url = '/api/wizard/delivery-payment-info';
-        _generateRequest(url, bodyParams);
+
+        _generateRequest(urlForDeliveryPaymentType, bodyParams);
+
     }
 
     function setSocialNetworkInfo(event) {
@@ -572,6 +574,8 @@
 
     function _generateRequest(url, json) {
         let token = localStorage.getItem('JWT_TOKEN');
+        const isUrlEqualDelivPayType = url == urlForDeliveryPaymentType;
+        console.log("check isUrlEqualDelivPayType: ", isUrlEqualDelivPayType);
         fetch(url, {
             method: 'POST',
             body: json,
@@ -584,6 +588,10 @@
         }).then(function (data) {
             console.log("response data: ", data);
             handlingErrorForDomainName(data);
+            if (data && isUrlEqualDelivPayType){
+                _generateRequest('/api/dashboard/shop/create');
+                window.location = '/dashboard';
+            }
         });
     }
 
@@ -678,8 +686,6 @@
         }
     }
 </script>
-<script>
 
-</script>
 </body>
 </html>

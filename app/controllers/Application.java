@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class Application extends Controller {
 
-    private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
+    public static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     public static final int PAGE_SIZE = 6;
 
@@ -290,7 +290,10 @@ public class Application extends Controller {
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened ADMIN " + shop.shopName + " at " + dateFormat.format(date));
 
-        render(shop);
+
+        VisualSettingsDTO visualSettings = VisualSettingsDTO.find("byShop", shop).first();
+
+        render(shop, visualSettings);
     }
 
     public static void superAdmin(String client) {

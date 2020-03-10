@@ -20,6 +20,8 @@ import static controllers.UserAPI.*;
 
 public class WizardAPI extends AuthController {
 
+
+
     public static void getWizardInfo() throws Exception{
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
@@ -66,8 +68,15 @@ public class WizardAPI extends AuthController {
 
     public static void checkDomainNameAvailability() throws Exception{
         String domain = request.params.get("shopDomain");
-//        String domainPath = ".wstore.pro";
-//        domain += domainPath;
+        String domainPath = "";
+        if (Application.isDevEnv) {
+            domainPath = ".localhost";
+            domain += domainPath;
+        } else  {
+            domainPath = ".wstore.pro";
+            domain += domainPath;
+        }
+
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
         System.out.println("String userId " + userId);
