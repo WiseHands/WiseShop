@@ -284,18 +284,6 @@ header {
 .mob-text h2, .mob-text p {
     color: #75558d;
 }
-.double-arrow {
-    height: 105px;
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: space-between;
-    align-items: center;
-}
-.double-arrow i:hover {
-    cursor: pointer;
-    text-shadow: 0 0 5px #fff ;
-}
-
 .projects {
     height: 100vh;
     background: url("../images/86-original.jpg");
@@ -391,7 +379,7 @@ header {
 }
 .project-feedback {
     max-width: 900px;
-    margin: 0 auto;
+    margin: 1rem auto;
     display: flex;
     justify-content: space-around;
     background-color: #fff;
@@ -870,9 +858,6 @@ footer h3 {
             -ms-animation: none !important;
             animation: none !important;
         }
-    }
-    .double-arrow {
-        display: none;
     }
     .header-links {
         display: none;

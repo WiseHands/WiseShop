@@ -9,9 +9,13 @@
     <link href="wisehands/mainpage/css/main-page.css" rel="stylesheet"/>
     <link href="wisehands/mainpage/css/animate.css" rel="stylesheet"/>
     <script src="wisehands/mainpage/js/wow.min.js"></script>
-    <script>
-      new WOW().init();
-    </script>
+
+    <link rel="stylesheet" type="text/css" href="wisehands/assets/fullpage.js/dist/fullpage.css"/>
+    <script type="text/javascript" src="wisehands/assets/fullpage.js/dist/fullpage.js"></script>
+
+<!--    <script>-->
+<!--      new WOW().init();-->
+<!--    </script>-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
@@ -21,6 +25,7 @@
 </head>
 <body>
 <div id="particles-js"></div>
+<div id="fullpage">
 
 <div  id="overlay-mobile" class="null-style">
     <div class="sidebar-mobile sibebar-swipe-off">
@@ -60,7 +65,8 @@
     </div>
 
 </header>
-<section class="main-page">
+
+<section class="main-page section">
     <div class="slogan wow zoomIn">
         <h1>Open source software development</h1>
         <p>Making great user experiences</p>
@@ -68,7 +74,8 @@
     </div>
 </section>
 <!--/SERVICES-->
-<section class="fe-services services-bg" id="fe-services">
+
+<section class="fe-services services-bg section" id="fe-services">
     <div class="fe-services-block main-container">
         <div class="fe-text services-p services-img wow bounceInRight" data-wow-duration="1s" data-wow-offset="150">
             <h2 class="services-h2">Front End Development</h2>
@@ -86,13 +93,9 @@
             </div>
         </div>
         <button id="toContactButtonMob"  class="contact-button" type="button">Contact us</button>
-        <div class="double-arrow">
-            <i class="fa fa-arrow-down" id="feArrowDown" style="font-size:3rem; color: #fff"></i>
-            <i class="fa fa-arrow-up" id="feArrowUp" style="font-size:3rem; color: #fff"></i>
-        </div>
     </div>
 </section>
-<section class="be-services services-bg" id="be-services">
+<section class="be-services services-bg section" id="be-services">
     <div class="be-services-block main-container">
         <div class="be-text services-p services-img wow bounceInLeft" data-wow-duration="1s" data-wow-offset="150">
             <h2 class="services-h2">Back End Development</h2>
@@ -110,13 +113,9 @@
             </div>
         </div>
         <button id="betoContactButtonMob" class="contact-button" type="button">Contact us</button>
-        <div class="double-arrow">
-            <i class="fa fa-arrow-down" id="beArrowDown" style="font-size:3rem; color: #fff"></i>
-            <i class="fa fa-arrow-up" id="beArrowUp" style="font-size:3rem; color: #fff"></i>
-        </div>
     </div>
 </section>
-<section class="mob-services services-bg" id="mob-services">
+<section class="mob-services services-bg section" id="mob-services">
     <div class="mob-services-block main-container">
         <div class="mob-text services-p services-img wow bounceInRight" data-wow-duration="1s" data-wow-offset="150">
             <h2 class="services-h2 ">Mobile Application Development</h2>
@@ -134,14 +133,10 @@
             </div>
         </div>
         <button id="mobtoContactButtonMob"  class="contact-button" type="button">Contact us</button>
-        <div class="double-arrow">
-            <i class="fa fa-arrow-down" id="mobArrowDown" style="font-size:3rem; color: #fff"></i>
-            <i class="fa fa-arrow-up" id="mobArrowUp" style="font-size:3rem; color: #fff"></i>
-        </div>
     </div>
 </section>
 <!--/SERVICES-->
-<section class="projects" id="projects">
+<section class="projects section" id="projects">
     <div class="projects-container">
         <h2 class="services-h2 wow flipInX">Projects</h2>
         <div class="all-projects wow zoomInUp">
@@ -225,15 +220,10 @@
             <p>Have an idea?</p>
             <button><a href="#contactForm">Contact us</a></button>
         </div>
-        <div class="double-arrow">
-            <i class="fa fa-arrow-down" id="projectsArrowDown" style="font-size:3rem; color: #fff"></i>
-            <i class="fa fa-arrow-up" id="projectsArrowUp" style="font-size:3rem; color: #fff"></i>
-        </div>
     </div>
-
 </section>
 
-<section class="team" id="team">
+<section class="team section" id="team">
     <div class="team-container">
         <h2 class="services-h2 wow rubberBand">Team</h2>
         <div class="all-team">
@@ -304,14 +294,10 @@
             </div>
 
         </div>
-        <div class="double-arrow">
-            <i class="fa fa-arrow-down" id="teamArrowDown" style="font-size:3rem; color: #fff"></i>
-            <i class="fa fa-arrow-up" id="teamArrowUp" style="font-size:3rem; color: #fff"></i>
-        </div>
     </div>
 </section>
 
-<section class="donate" id="donate">
+<section class="donate section" id="donate">
     <div class="donate-container">
         <div class="donate-title wow rubberBand">
             <h2 class="services-h2">Become Patron</h2>
@@ -352,15 +338,11 @@
                 </div>
             </div>
         </div>
-        <div class="double-arrow">
-            <i class="fa fa-arrow-down" id="donateArrowDown" style="font-size:3rem; color: #fff"></i>
-            <i class="fa fa-arrow-up" id="donateArrowUp" style="font-size:3rem; color: #fff"></i>
-        </div>
     </div>
 </section>
 
 
-<section class="contact-form" id="contactForm">
+<section class="contact-form section" id="contactForm">
     <div class="contact-container">
         <div class="contact-block">
             <div class="contact-card wow bounceInRight flex-item-center">
@@ -406,7 +388,7 @@
                     </div>
                     <div class="contact-main-address-item">
                         <i class="fa fa-envelope-open-o" style="font-size:2rem"></i>
-                        <p>wisehandsme@gmail.com</p>
+                        <p>hello@wisehands.me</p>
                     </div>
                     <div class="contact-main-address-socials">
                         <a href="https://www.facebook.com/wisehands.me/"><i class="fa fa-facebook-f" style="font-size:32px"></i></a>
@@ -416,10 +398,9 @@
                 </div>
             </div>
         </div>
-
     </div>
 </section>
-<footer id="footer">
+<footer id="footer" class="section fp-auto-height">
     <div class="footer-text">
         <div class="footer-frontend">
             <h3>Frontend</h3>
@@ -473,7 +454,7 @@
         </div>
     </div>
 </footer>
-
+</div>
 <script src="wisehands/assets/js/particles.min.js"></script>
 <script>
     const contactCard = document.querySelector('.contact-card-text');
@@ -556,50 +537,17 @@
 </script>
 
 <script>
-  document.getElementById("feArrowUp").addEventListener("click", showList);
-
-  function showList() {
-    document.getElementById("header").scrollIntoView({
-      behavior: 'smooth'
-    })
-  }
-</script>
-<script>
   document.getElementById("listServices").addEventListener("click", showList);
   document.getElementById("headListServices").addEventListener("click", showList);
-  document.getElementById("beArrowUp").addEventListener("click", showList);
-
   function showList() {
     document.getElementById("fe-services").scrollIntoView({
       behavior: 'smooth'
     })
   }
 </script>
-<script>
-  document.getElementById("feArrowDown").addEventListener("click", showList);
-  document.getElementById("mobArrowUp").addEventListener("click", showList);
 
-  function showList() {
-    document.getElementById("be-services").scrollIntoView({
-      behavior: 'smooth'
-    })
-  }
-</script>
-
-<script>
-  document.getElementById("projectsArrowUp").addEventListener("click", showList);
-  document.getElementById("beArrowDown").addEventListener("click", showList);
-
-  function showList() {
-    document.getElementById("mob-services").scrollIntoView({
-      behavior: 'smooth'
-    })
-  }
-</script>
 <script>
   document.getElementById("headProjects").addEventListener("click", showList);
-  document.getElementById("mobArrowDown").addEventListener("click", showList);
-  document.getElementById("teamArrowUp").addEventListener("click", showList);
 
   function showList() {
     document.getElementById("projects").scrollIntoView({
@@ -609,8 +557,6 @@
 </script>
 <script>
   document.getElementById("headTeam").addEventListener("click", showList);
-  document.getElementById("projectsArrowDown").addEventListener("click", showList);
-  document.getElementById("donateArrowUp").addEventListener("click", showList);
 
   function showList() {
     document.getElementById("team").scrollIntoView({
@@ -619,18 +565,6 @@
   }
 </script>
 <script>
-  document.getElementById("teamArrowDown").addEventListener("click", showList);
-
-  //  document.getElementById("contactArrowUp").addEventListener("click", showList);
-
-  function showList() {
-    document.getElementById("donate").scrollIntoView({
-      behavior: 'smooth'
-    })
-  }
-</script>
-<script>
-  document.getElementById("donateArrowDown").addEventListener("click", showList);
   document.getElementById("toContactButton").addEventListener("click", showList);
   document.getElementById("betoContactButton").addEventListener("click", showList);
   document.getElementById("mobtoContactButton").addEventListener("click", showList);
@@ -786,6 +720,10 @@
     }
 
 </script>
-
 </body>
+<script type="text/javascript">
+    new fullpage('#fullpage', {
+        licenseKey: 'YOUR KEY HERE',
+    });
+</script>
 </html>
