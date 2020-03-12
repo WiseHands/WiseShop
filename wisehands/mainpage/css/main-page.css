@@ -160,13 +160,12 @@ header {
 .header-section {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 100vh;
 }
 .slogan {
     color: #fff;
     text-align: center;
-    padding-bottom: 30vh ;
+    padding-top: 40vh ;
     position: relative;
     z-index: 500;
 }
@@ -908,6 +907,7 @@ footer h3 {
     }
     .fe-services-block, .be-services-block, .mob-services-block {
         height: 100%;
+        justify-content: normal;
     }
     .fe-services, .be-services, .mob-services {
         height: 100%;
