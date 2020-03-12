@@ -14,6 +14,7 @@ body a {
     height: 100vh;
     background-size: cover;
     background-position: 50% 50%;
+    z-index: 444;
 }
 canvas {
     display: block;
@@ -31,6 +32,7 @@ header {
 }
 .header-block {
     position: relative;
+    top: 0;
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
@@ -38,6 +40,7 @@ header {
     margin: 0 auto;
     padding: 0.5rem;
     color: #fff;
+    z-index: 510;
 }
 .header-logo, .header-links {
     display: flex;
@@ -154,11 +157,18 @@ header {
     background-color: rgb(14, 41, 53);
     height: calc(100vh - 62px);
 }
+.header-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
 .slogan {
     color: #fff;
     text-align: center;
-    padding-top: 30vh ;
+    padding-bottom: 30vh ;
     position: relative;
+    z-index: 500;
 }
 .slogan h1 {
     font-size: 2.4rem;
