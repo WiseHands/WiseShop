@@ -299,10 +299,20 @@ header {
     background-position: center;
     background-size: cover;
 }
+.container-title {
+    margin: 0 auto;
+    width: fit-content;
+}
+.projects-container {
+    justify-content: center;
+}
 .projects-container h2 {
+    background-color: #fff;
     color: #aa6d63;
     text-align: center;
-    padding: 2rem 0 1rem 0 ;
+    padding:  1rem 2rem;
+    margin: 2rem 0;
+    border-radius: 15px;
 }
 .all-projects, .all-team, .all-donate {
     max-width: 1200px;
@@ -310,12 +320,6 @@ header {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-}
-.all-team {
-    padding-top: 10vh;
-}
-.all-donate {
-    padding-top: 20vh;
 }
 .project-card {
     display: flex;
@@ -394,7 +398,7 @@ header {
 }
 .project-feedback {
     max-width: 900px;
-    margin: 1rem auto 2rem auto;
+    margin: 2rem auto;
     display: flex;
     justify-content: space-around;
     background-color: #fff;
@@ -414,12 +418,15 @@ header {
     background-size: cover;
 }
 .team-container {
-    justify-content: normal;
+    justify-content: center;
 }
 .team-container h2 {
+    background-color: #fff;
     color: #01dc34;
     text-align: center;
-    padding:  1rem 0 ;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    margin: 1rem 0;
 }
 .team-card {
     display: flex;
@@ -494,11 +501,10 @@ header {
     background-size: cover;
 }
 .donate-container {
-    justify-content: normal;
+    justify-content: center;
 }
 .donate-container h2 {
     text-align: center;
-    margin: 2rem 0;
     color: #16544b; /*110e8b*/
 }
 .donate-title {
@@ -509,9 +515,12 @@ header {
     margin: 0 auto;
     text-align: center;
     font-size: 1.3rem;
-    background-color: #fff;
-    padding: 1rem 2rem;
     border-radius: 10px;
+}
+.donate-title .container-title {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 1rem 2rem;
 }
 .donate-card {
     display: flex;
