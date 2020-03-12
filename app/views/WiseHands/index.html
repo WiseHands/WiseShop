@@ -386,7 +386,7 @@
                     </div>
                     <div class="contact-main-address-item">
                         <i class="fa fa-mobile-phone" style="font-size:2.3rem"></i>
-                        <p>(380) 63 038 61 73</p>
+                        <p>+380 93 92 41 777 </p>
                     </div>
                     <div class="contact-main-address-item">
                         <i class="fa fa-envelope-open-o" style="font-size:2rem"></i>
@@ -538,49 +538,40 @@
   });
 </script>
 
-<!--<script>-->
-  <!--document.getElementById("listServices").addEventListener("click", showList);-->
-  <!--document.getElementById("headListServices").addEventListener("click", showList);-->
-  <!--function showList() {-->
-    <!--document.getElementById("fe-services").scrollIntoView({-->
-      <!--behavior: 'smooth'-->
-    <!--})-->
-  <!--}-->
-<!--</script>-->
+<script>
+  document.getElementById("listServices").addEventListener("click", showList);
+  document.getElementById("headListServices").addEventListener("click", showList);
+  function showList() {
+      fullpage_api.moveTo(2, 0);
+  }
+</script>
 
-<!--<script>-->
-  <!--document.getElementById("headProjects").addEventListener("click", showList);-->
+<script>
+  document.getElementById("headProjects").addEventListener("click", showList);
+  function showList() {
+      fullpage_api.moveTo(5, 0);
+  }
+</script>
+<script>
+  document.getElementById("headTeam").addEventListener("click", showList);
 
-  <!--function showList() {-->
-          <!--document.getElementById("projects").scrollIntoView({-->
-              <!--behavior: 'smooth'-->
-          <!--})-->
-  <!--}-->
-<!--</script>-->
-<!--<script>-->
-  <!--document.getElementById("headTeam").addEventListener("click", showList);-->
-
-  <!--function showList() {-->
-    <!--document.getElementById("team").scrollIntoView({-->
-      <!--behavior: 'smooth'-->
-    <!--})-->
-  <!--}-->
-<!--</script>-->
-<!--<script>-->
-  <!--document.getElementById("toContactButton").addEventListener("click", showList);-->
-  <!--document.getElementById("betoContactButton").addEventListener("click", showList);-->
-  <!--document.getElementById("mobtoContactButton").addEventListener("click", showList);-->
-  <!--document.getElementById("toContactButtonMob").addEventListener("click", showList);-->
-  <!--document.getElementById("betoContactButtonMob").addEventListener("click", showList);-->
-  <!--document.getElementById("mobtoContactButtonMob").addEventListener("click", showList);-->
+  function showList() {
+      fullpage_api.moveTo(6, 0);
+  }
+</script>
+<script>
+  document.getElementById("toContactButton").addEventListener("click", showList);
+  document.getElementById("betoContactButton").addEventListener("click", showList);
+  document.getElementById("mobtoContactButton").addEventListener("click", showList);
+  document.getElementById("toContactButtonMob").addEventListener("click", showList);
+  document.getElementById("betoContactButtonMob").addEventListener("click", showList);
+  document.getElementById("mobtoContactButtonMob").addEventListener("click", showList);
 
 
-  <!--function showList() {-->
-    <!--document.getElementById("contactForm").scrollIntoView({-->
-      <!--behavior: 'smooth'-->
-    <!--})-->
-  <!--}-->
-<!--</script>-->
+  function showList() {
+      fullpage_api.moveTo(8, 0);
+  }
+</script>
 
 <!--Hover random gif script-->
 <script>
