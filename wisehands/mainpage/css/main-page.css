@@ -302,7 +302,7 @@ header {
 .projects-container h2 {
     color: #aa6d63;
     text-align: center;
-    padding: 1rem 0 ;
+    padding: 2rem 0 1rem 0 ;
 }
 .all-projects, .all-team, .all-donate {
     max-width: 1200px;
@@ -310,6 +310,12 @@ header {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+.all-team {
+    padding-top: 10vh;
+}
+.all-donate {
+    padding-top: 20vh;
 }
 .project-card {
     display: flex;
@@ -388,7 +394,7 @@ header {
 }
 .project-feedback {
     max-width: 900px;
-    margin: 1rem auto;
+    margin: 1rem auto 2rem auto;
     display: flex;
     justify-content: space-around;
     background-color: #fff;
@@ -406,6 +412,9 @@ header {
     background: url("../images/230-original.jpg");
     background-position: center;
     background-size: cover;
+}
+.team-container {
+    justify-content: normal;
 }
 .team-container h2 {
     color: #01dc34;
@@ -483,6 +492,9 @@ header {
     background: url("../images/142-original.jpg");
     background-position: center;
     background-size: cover;
+}
+.donate-container {
+    justify-content: normal;
 }
 .donate-container h2 {
     text-align: center;
