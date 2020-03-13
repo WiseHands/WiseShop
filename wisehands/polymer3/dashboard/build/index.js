@@ -1,435 +1,3 @@
-function _toArray(arr) {
-  return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
-function _toPrimitive(input, hint) {
-  if (typeof input !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (typeof res !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-
-  return (hint === "string" ? String : Number)(input);
-}
-
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-
-  return typeof key === "symbol" ? key : String(key);
-}
-
-function _decorate(decorators, factory, superClass, mixins) {
-  var api = _getDecoratorsApi();
-
-  if (mixins) {
-    for (var i = 0; i < mixins.length; i++) {
-      api = mixins[i](api);
-    }
-  }
-
-  var r = factory(function initialize(O) {
-    api.initializeInstanceElements(O, decorated.elements);
-  }, superClass);
-  var decorated = api.decorateClass(_coalesceClassElements(r.d.map(_createElementDescriptor)), decorators);
-  api.initializeClassElements(r.F, decorated.elements);
-  return api.runClassFinishers(r.F, decorated.finishers);
-}
-
-function _getDecoratorsApi() {
-  _getDecoratorsApi = function () {
-    return api;
-  };
-
-  var api = {
-    elementsDefinitionOrder: [["method"], ["field"]],
-    initializeInstanceElements: function (O, elements) {
-      ["method", "field"].forEach(function (kind) {
-        elements.forEach(function (element) {
-          if (element.kind === kind && element.placement === "own") {
-            this.defineClassElement(O, element);
-          }
-        }, this);
-      }, this);
-    },
-    initializeClassElements: function (F, elements) {
-      var proto = F.prototype;
-      ["method", "field"].forEach(function (kind) {
-        elements.forEach(function (element) {
-          var placement = element.placement;
-
-          if (element.kind === kind && (placement === "static" || placement === "prototype")) {
-            var receiver = placement === "static" ? F : proto;
-            this.defineClassElement(receiver, element);
-          }
-        }, this);
-      }, this);
-    },
-    defineClassElement: function (receiver, element) {
-      var descriptor = element.descriptor;
-
-      if (element.kind === "field") {
-        var initializer = element.initializer;
-        descriptor = {
-          enumerable: descriptor.enumerable,
-          writable: descriptor.writable,
-          configurable: descriptor.configurable,
-          value: initializer === void 0 ? void 0 : initializer.call(receiver)
-        };
-      }
-
-      Object.defineProperty(receiver, element.key, descriptor);
-    },
-    decorateClass: function (elements, decorators) {
-      var newElements = [];
-      var finishers = [];
-      var placements = {
-        static: [],
-        prototype: [],
-        own: []
-      };
-      elements.forEach(function (element) {
-        this.addElementPlacement(element, placements);
-      }, this);
-      elements.forEach(function (element) {
-        if (!_hasDecorators(element)) return newElements.push(element);
-        var elementFinishersExtras = this.decorateElement(element, placements);
-        newElements.push(elementFinishersExtras.element);
-        newElements.push.apply(newElements, elementFinishersExtras.extras);
-        finishers.push.apply(finishers, elementFinishersExtras.finishers);
-      }, this);
-
-      if (!decorators) {
-        return {
-          elements: newElements,
-          finishers: finishers
-        };
-      }
-
-      var result = this.decorateConstructor(newElements, decorators);
-      finishers.push.apply(finishers, result.finishers);
-      result.finishers = finishers;
-      return result;
-    },
-    addElementPlacement: function (element, placements, silent) {
-      var keys = placements[element.placement];
-
-      if (!silent && keys.indexOf(element.key) !== -1) {
-        throw new TypeError("Duplicated element (" + element.key + ")");
-      }
-
-      keys.push(element.key);
-    },
-    decorateElement: function (element, placements) {
-      var extras = [];
-      var finishers = [];
-
-      for (var decorators = element.decorators, i = decorators.length - 1; i >= 0; i--) {
-        var keys = placements[element.placement];
-        keys.splice(keys.indexOf(element.key), 1);
-        var elementObject = this.fromElementDescriptor(element);
-        var elementFinisherExtras = this.toElementFinisherExtras((0, decorators[i])(elementObject) || elementObject);
-        element = elementFinisherExtras.element;
-        this.addElementPlacement(element, placements);
-
-        if (elementFinisherExtras.finisher) {
-          finishers.push(elementFinisherExtras.finisher);
-        }
-
-        var newExtras = elementFinisherExtras.extras;
-
-        if (newExtras) {
-          for (var j = 0; j < newExtras.length; j++) {
-            this.addElementPlacement(newExtras[j], placements);
-          }
-
-          extras.push.apply(extras, newExtras);
-        }
-      }
-
-      return {
-        element: element,
-        finishers: finishers,
-        extras: extras
-      };
-    },
-    decorateConstructor: function (elements, decorators) {
-      var finishers = [];
-
-      for (var i = decorators.length - 1; i >= 0; i--) {
-        var obj = this.fromClassDescriptor(elements);
-        var elementsAndFinisher = this.toClassDescriptor((0, decorators[i])(obj) || obj);
-
-        if (elementsAndFinisher.finisher !== undefined) {
-          finishers.push(elementsAndFinisher.finisher);
-        }
-
-        if (elementsAndFinisher.elements !== undefined) {
-          elements = elementsAndFinisher.elements;
-
-          for (var j = 0; j < elements.length - 1; j++) {
-            for (var k = j + 1; k < elements.length; k++) {
-              if (elements[j].key === elements[k].key && elements[j].placement === elements[k].placement) {
-                throw new TypeError("Duplicated element (" + elements[j].key + ")");
-              }
-            }
-          }
-        }
-      }
-
-      return {
-        elements: elements,
-        finishers: finishers
-      };
-    },
-    fromElementDescriptor: function (element) {
-      var obj = {
-        kind: element.kind,
-        key: element.key,
-        placement: element.placement,
-        descriptor: element.descriptor
-      };
-      var desc = {
-        value: "Descriptor",
-        configurable: true
-      };
-      Object.defineProperty(obj, Symbol.toStringTag, desc);
-      if (element.kind === "field") obj.initializer = element.initializer;
-      return obj;
-    },
-    toElementDescriptors: function (elementObjects) {
-      if (elementObjects === undefined) return;
-      return _toArray(elementObjects).map(function (elementObject) {
-        var element = this.toElementDescriptor(elementObject);
-        this.disallowProperty(elementObject, "finisher", "An element descriptor");
-        this.disallowProperty(elementObject, "extras", "An element descriptor");
-        return element;
-      }, this);
-    },
-    toElementDescriptor: function (elementObject) {
-      var kind = String(elementObject.kind);
-
-      if (kind !== "method" && kind !== "field") {
-        throw new TypeError('An element descriptor\'s .kind property must be either "method" or' + ' "field", but a decorator created an element descriptor with' + ' .kind "' + kind + '"');
-      }
-
-      var key = _toPropertyKey(elementObject.key);
-
-      var placement = String(elementObject.placement);
-
-      if (placement !== "static" && placement !== "prototype" && placement !== "own") {
-        throw new TypeError('An element descriptor\'s .placement property must be one of "static",' + ' "prototype" or "own", but a decorator created an element descriptor' + ' with .placement "' + placement + '"');
-      }
-
-      var descriptor = elementObject.descriptor;
-      this.disallowProperty(elementObject, "elements", "An element descriptor");
-      var element = {
-        kind: kind,
-        key: key,
-        placement: placement,
-        descriptor: Object.assign({}, descriptor)
-      };
-
-      if (kind !== "field") {
-        this.disallowProperty(elementObject, "initializer", "A method descriptor");
-      } else {
-        this.disallowProperty(descriptor, "get", "The property descriptor of a field descriptor");
-        this.disallowProperty(descriptor, "set", "The property descriptor of a field descriptor");
-        this.disallowProperty(descriptor, "value", "The property descriptor of a field descriptor");
-        element.initializer = elementObject.initializer;
-      }
-
-      return element;
-    },
-    toElementFinisherExtras: function (elementObject) {
-      var element = this.toElementDescriptor(elementObject);
-
-      var finisher = _optionalCallableProperty(elementObject, "finisher");
-
-      var extras = this.toElementDescriptors(elementObject.extras);
-      return {
-        element: element,
-        finisher: finisher,
-        extras: extras
-      };
-    },
-    fromClassDescriptor: function (elements) {
-      var obj = {
-        kind: "class",
-        elements: elements.map(this.fromElementDescriptor, this)
-      };
-      var desc = {
-        value: "Descriptor",
-        configurable: true
-      };
-      Object.defineProperty(obj, Symbol.toStringTag, desc);
-      return obj;
-    },
-    toClassDescriptor: function (obj) {
-      var kind = String(obj.kind);
-
-      if (kind !== "class") {
-        throw new TypeError('A class descriptor\'s .kind property must be "class", but a decorator' + ' created a class descriptor with .kind "' + kind + '"');
-      }
-
-      this.disallowProperty(obj, "key", "A class descriptor");
-      this.disallowProperty(obj, "placement", "A class descriptor");
-      this.disallowProperty(obj, "descriptor", "A class descriptor");
-      this.disallowProperty(obj, "initializer", "A class descriptor");
-      this.disallowProperty(obj, "extras", "A class descriptor");
-
-      var finisher = _optionalCallableProperty(obj, "finisher");
-
-      var elements = this.toElementDescriptors(obj.elements);
-      return {
-        elements: elements,
-        finisher: finisher
-      };
-    },
-    runClassFinishers: function (constructor, finishers) {
-      for (var i = 0; i < finishers.length; i++) {
-        var newConstructor = (0, finishers[i])(constructor);
-
-        if (newConstructor !== undefined) {
-          if (typeof newConstructor !== "function") {
-            throw new TypeError("Finishers must return a constructor.");
-          }
-
-          constructor = newConstructor;
-        }
-      }
-
-      return constructor;
-    },
-    disallowProperty: function (obj, name, objectType) {
-      if (obj[name] !== undefined) {
-        throw new TypeError(objectType + " can't have a ." + name + " property.");
-      }
-    }
-  };
-  return api;
-}
-
-function _createElementDescriptor(def) {
-  var key = _toPropertyKey(def.key);
-
-  var descriptor;
-
-  if (def.kind === "method") {
-    descriptor = {
-      value: def.value,
-      writable: true,
-      configurable: true,
-      enumerable: false
-    };
-  } else if (def.kind === "get") {
-    descriptor = {
-      get: def.value,
-      configurable: true,
-      enumerable: false
-    };
-  } else if (def.kind === "set") {
-    descriptor = {
-      set: def.value,
-      configurable: true,
-      enumerable: false
-    };
-  } else if (def.kind === "field") {
-    descriptor = {
-      configurable: true,
-      writable: true,
-      enumerable: true
-    };
-  }
-
-  var element = {
-    kind: def.kind === "field" ? "field" : "method",
-    key: key,
-    placement: def.static ? "static" : def.kind === "field" ? "own" : "prototype",
-    descriptor: descriptor
-  };
-  if (def.decorators) element.decorators = def.decorators;
-  if (def.kind === "field") element.initializer = def.value;
-  return element;
-}
-
-function _coalesceGetterSetter(element, other) {
-  if (element.descriptor.get !== undefined) {
-    other.descriptor.get = element.descriptor.get;
-  } else {
-    other.descriptor.set = element.descriptor.set;
-  }
-}
-
-function _coalesceClassElements(elements) {
-  var newElements = [];
-
-  var isSameElement = function (other) {
-    return other.kind === "method" && other.key === element.key && other.placement === element.placement;
-  };
-
-  for (var i = 0; i < elements.length; i++) {
-    var element = elements[i];
-    var other;
-
-    if (element.kind === "method" && (other = newElements.find(isSameElement))) {
-      if (_isDataDescriptor(element.descriptor) || _isDataDescriptor(other.descriptor)) {
-        if (_hasDecorators(element) || _hasDecorators(other)) {
-          throw new ReferenceError("Duplicated methods (" + element.key + ") can't be decorated.");
-        }
-
-        other.descriptor = element.descriptor;
-      } else {
-        if (_hasDecorators(element)) {
-          if (_hasDecorators(other)) {
-            throw new ReferenceError("Decorators can't be placed on different accessors with for " + "the same property (" + element.key + ").");
-          }
-
-          other.decorators = element.decorators;
-        }
-
-        _coalesceGetterSetter(element, other);
-      }
-    } else {
-      newElements.push(element);
-    }
-  }
-
-  return newElements;
-}
-
-function _hasDecorators(element) {
-  return element.decorators && element.decorators.length;
-}
-
-function _isDataDescriptor(desc) {
-  return desc !== undefined && !(desc.value === undefined && desc.writable === undefined);
-}
-
-function _optionalCallableProperty(obj, name) {
-  var value = obj[name];
-
-  if (value !== undefined && typeof value !== "function") {
-    throw new TypeError("Expected '" + name + "' to be a function");
-  }
-
-  return value;
-}
-
 /**
  * @license
  * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -2861,81 +2429,6 @@ _a = finalized;
 UpdatingElement[_a] = true;
 
 /**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-
-const standardProperty = (options, element) => {
-  // When decorating an accessor, pass it through and add property metadata.
-  // Note, the `hasOwnProperty` check in `createProperty` ensures we don't
-  // stomp over the user's accessor.
-  if (element.kind === 'method' && element.descriptor && !('value' in element.descriptor)) {
-    return Object.assign({}, element, {
-      finisher(clazz) {
-        clazz.createProperty(element.key, options);
-      }
-
-    });
-  } else {
-    // createProperty() takes care of defining the property, but we still
-    // must return some kind of descriptor, so return a descriptor for an
-    // unused prototype field. The finisher calls createProperty().
-    return {
-      kind: 'field',
-      key: Symbol(),
-      placement: 'own',
-      descriptor: {},
-
-      // When @babel/plugin-proposal-decorators implements initializers,
-      // do this instead of the initializer below. See:
-      // https://github.com/babel/babel/issues/9260 extras: [
-      //   {
-      //     kind: 'initializer',
-      //     placement: 'own',
-      //     initializer: descriptor.initializer,
-      //   }
-      // ],
-      initializer() {
-        if (typeof element.initializer === 'function') {
-          this[element.key] = element.initializer.call(this);
-        }
-      },
-
-      finisher(clazz) {
-        clazz.createProperty(element.key, options);
-      }
-
-    };
-  }
-};
-
-const legacyProperty = (options, proto, name) => {
-  proto.constructor.createProperty(name, options);
-};
-/**
- * A property decorator which creates a LitElement property which reflects a
- * corresponding attribute value. A `PropertyDeclaration` may optionally be
- * supplied to configure property features.
- *
- * @ExportDecoratedItems
- */
-
-
-function property(options) {
-  // tslint:disable-next-line:no-any decorator
-  return (protoOrDescriptor, name) => name !== undefined ? legacyProperty(options, protoOrDescriptor, name) : standardProperty(options, protoOrDescriptor);
-}
-
-/**
 @license
 Copyright (c) 2019 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at
@@ -2946,6 +2439,62 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 const supportsAdoptingStyleSheets = 'adoptedStyleSheets' in Document.prototype && 'replace' in CSSStyleSheet.prototype;
+const constructionToken = Symbol();
+class CSSResult {
+  constructor(cssText, safeToken) {
+    if (safeToken !== constructionToken) {
+      throw new Error('CSSResult is not constructable. Use `unsafeCSS` or `css` instead.');
+    }
+
+    this.cssText = cssText;
+  } // Note, this is a getter so that it's lazy. In practice, this means
+  // stylesheets are not created until the first element instance is made.
+
+
+  get styleSheet() {
+    if (this._styleSheet === undefined) {
+      // Note, if `adoptedStyleSheets` is supported then we assume CSSStyleSheet
+      // is constructable.
+      if (supportsAdoptingStyleSheets) {
+        this._styleSheet = new CSSStyleSheet();
+
+        this._styleSheet.replaceSync(this.cssText);
+      } else {
+        this._styleSheet = null;
+      }
+    }
+
+    return this._styleSheet;
+  }
+
+  toString() {
+    return this.cssText;
+  }
+
+}
+
+const textFromCSSResult = value => {
+  if (value instanceof CSSResult) {
+    return value.cssText;
+  } else if (typeof value === 'number') {
+    return value;
+  } else {
+    throw new Error(`Value passed to 'css' function must be a 'css' function result: ${value}. Use 'unsafeCSS' to pass non-literal values, but
+            take care to ensure page security.`);
+  }
+};
+/**
+ * Template tag which which can be used with LitElement's `style` property to
+ * set element styles. For security reasons, only literal string values may be
+ * used. To incorporate non-literal values `unsafeCSS` may be used inside a
+ * template string part.
+ */
+
+
+const css = (strings, ...values) => {
+  const cssText = values.reduce((acc, v, idx) => acc + textFromCSSResult(v) + strings[idx + 1], strings[0]);
+  return new CSSResult(cssText, constructionToken);
+};
 
 /**
  * @license
@@ -3166,41 +2715,264 @@ LitElement['finalized'] = true;
 
 LitElement.render = render$1;
 
-let MyElement = _decorate(null, function (_initialize, _LitElement) {
-  class MyElement extends _LitElement {
-    constructor(...args) {
-      super(...args);
-
-      _initialize(this);
-    }
-
+class FaIcon extends LitElement {
+  static get properties() {
+    return {
+      color: String,
+      iClass: {
+        attribute: "class"
+      },
+      src: String,
+      style: String,
+      size: String,
+      pathPrefix: {
+        attribute: "path-prefix"
+      }
+    };
   }
 
-  return {
-    F: MyElement,
-    d: [{
-      kind: "field",
-      decorators: [property({
-        type: String
-      })],
-      key: "myProp",
-
-      value() {
-        return 'stuff';
+  static get styles() {
+    return css`
+      :host {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
       }
-
-    }, {
-      kind: "method",
-      key: "render",
-      value: function render() {
-        return html`
-      <p>Hello World</p>
-      ${this.myProp}
+      :host svg {
+        fill: var(--fa-icon-fill-color, currentcolor);
+        width: var(--fa-icon-width, 19px);
+        height: var(--fa-icon-height, 19px);
+      }
     `;
-      }
-    }]
-  };
-}, LitElement);
+  }
 
-customElements.define('my-element', MyElement);
+  getSources(className) {
+    const PREFIX_TO_STYLE = {
+      fas: "solid",
+      far: "regular",
+      fal: "light",
+      fab: "brands",
+      fa: "solid"
+    };
+
+    const getPrefix = iClass => {
+      let data = iClass.split(" ");
+      return [PREFIX_TO_STYLE[data[0]], normalizeIconName(data[1])];
+    };
+
+    const normalizeIconName = name => {
+      let icon = name.replace("fa-", "");
+      return icon;
+    };
+
+    let data = getPrefix(className);
+    return `${this.pathPrefix}/@fortawesome/fontawesome-free/sprites/${data[0]}.svg#${data[1]}`;
+  }
+
+  constructor() {
+    super();
+    this.iClass = "";
+    this.src = "";
+    this.style = "";
+    this.size = "";
+    this.color = "";
+    this.pathPrefix = "node_modules";
+  }
+
+  firstUpdated() {
+    this.src = this.getSources(this.iClass);
+  }
+
+  _parseStyles() {
+    return `
+      ${this.size ? `width: ${this.size};` : ''}
+      ${this.size ? `height: ${this.size};` : ''}
+      ${this.color ? `fill: ${this.color};` : ''}
+      ${this.style}
+    `;
+  }
+
+  render() {
+    return html`
+      <svg 
+        .style="${this._parseStyles()}">
+        <use 
+          href="${this.src}">
+        </use>
+      </svg>
+    `;
+  }
+
+}
+
+customElements.define("fa-icon", FaIcon);
+
+// Import the LitElement base class and html helper function
+
+class DashBoard extends LitElement {
+  render() {
+    return html`
+            <style>
+                .border{
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+                }
+                a {
+                    text-decoration: none;
+                }
+                .main-container {
+                    height: 100vh;
+                }
+                .header-profile-container{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 56px;
+                }
+                    .logo-container{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        font-family: 'Roboto', 'Helvetica', sans-serif;
+                        font-size: 20px;
+                    }
+                    .profile-info, .logo{
+                        height: 48px;
+                        width: 48px;
+                        margin: 5px;
+                    }
+                    .product-name{
+                        margin-left: 5px;
+                        color: rgba(0,0,0, .9);
+                    }
+                .body-dash-board-container{
+                    display: flex;
+                    height: calc(100% - 56px)
+                }
+                .tools-dash-board-container{
+                    width: 25%;
+                }
+                    .menu-item {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 4em;
+                        border-bottom: 1px solid lightgrey;
+                        font-family: 'Roboto', 'Helvetica', sans-serif;
+                    }
+                    fa-icon{
+                        margin: 5px;
+                        
+                    }
+                .shops-place{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    flex-wrap: wrap;
+                    width: 75%;
+                }
+                    .shop-element{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 15px;
+                        height: 200px;
+                        width: 200px;
+                    }
+            </style>
+            
+            <div class="main-container">
+                <div class="header-profile-container border">
+                    <div class="logo-container">
+                        <img class="logo" src="images/logo.jpg">
+                        <p class="product-name">WSTORE</p>
+                    </div>
+                    <div class="profile-info">
+                        <p>O.P</p>
+                    </div>
+                </div>
+                <div class="body-dash-board-container">
+                    <div class="tools-dash-board-container border">
+                        <div class="menu-item">
+                            <fa-icon class="fas fa-house-damage"></fa-icon>
+                            <p>Магазини</p>
+                        </div>
+                        <div class="menu-item">
+                            <fa-icon class="fas fa-book"></fa-icon>
+                            <p>Підписки</p>
+                        </div>
+                        <div class="menu-item">
+                            <fa-icon class="fas fa-user-circle"></fa-icon>
+                            <p>Профіль</p>
+                        </div>
+                    </div>
+                    <div class="shops-place border">
+                        <div class="shop-element create-shop border">
+                            <a href="/ua/wizard">
+                                <div class="shop-element create-shop border">
+                                    <p>+</p>
+                                </div>
+                            </a>
+                        </div>
+                        ${this.shopList.map(item => html`
+                               <a href="${this._buildUrlForShop(item)}">
+                                   <div class="shop-element border">
+                                        <p>${item.shopName}</p>
+                                   </div>
+                               </a>    
+                        `)}                    
+                    </div>
+                </div>
+            </div>
+
+    `;
+  }
+
+  static get properties() {
+    return {
+      shopList: {
+        type: Array,
+        value: []
+      }
+    };
+  }
+
+  constructor() {
+    super();
+    this.getShopList();
+    this.shopList = [];
+  }
+
+  _buildUrlForShop(item) {
+    const token = localStorage.getItem('JWT_TOKEN');
+    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin?JWT_TOKEN=${token}`;
+  }
+
+  getShopList() {
+    const _this = this;
+
+    const url = '/api/dashboard/shops';
+    let token = localStorage.getItem('JWT_TOKEN');
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        authorization: 'Bearer ' + token
+      }
+    }).then(function (response) {
+      console.log("response response: ", response);
+      return response.json();
+    }).then(function (data) {
+      console.log('data: ', data);
+
+      if (data) {
+        _this.shopList = data;
+      }
+
+      console.log("response data: ", data);
+    });
+  }
+
+} // Register the new element with the browser.
+
+
+customElements.define('dash-board', DashBoard);
 //# sourceMappingURL=index.js.map
