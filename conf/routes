@@ -76,6 +76,8 @@ GET         {client}/api/dashboard/shops                    UserDashBoardAPI.get
 OPTIONS     {client}/api/dashboard/shops                    UserDashBoardAPI.allowCors
 POST        {client}/api/dashboard/shop/create              UserDashBoardAPI.createShop
 OPTIONS     {client}/api/dashboard/shop/create              UserDashBoardAPI.allowCors
+GET         {client}/api/dashboard/user                     UserDashBoardAPI.getUserInfo
+OPTIONS     {client}/api/dashboard/user                     UserDashBoardAPI.allowCors
 
 
 GET     {client}/sudo/orders                            OrderAPI.all

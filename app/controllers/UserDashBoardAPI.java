@@ -77,4 +77,11 @@ public class UserDashBoardAPI extends AuthController{
 
     }
 
+    public static void getUserInfo() throws Exception {
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+        renderJSON(user);
+    }
+
 }
