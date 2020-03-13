@@ -2887,7 +2887,7 @@ class DashBoard extends LitElement {
                         <p class="product-name">WSTORE</p>
                     </div>
                     <div class="profile-info">
-                        <p>O.P</p>
+                        <p>${this.userFullName}</p>
                     </div>
                 </div>
                 <div class="body-dash-board-container">
@@ -2932,6 +2932,9 @@ class DashBoard extends LitElement {
       shopList: {
         type: Array,
         value: []
+      },
+      userFullName: {
+        type: String
       }
     };
   }
@@ -2939,6 +2942,7 @@ class DashBoard extends LitElement {
   constructor() {
     super();
     this.getShopList();
+    this.getUserInfo();
     this.shopList = [];
   }
 
@@ -2961,13 +2965,33 @@ class DashBoard extends LitElement {
       console.log("response response: ", response);
       return response.json();
     }).then(function (data) {
-      console.log('data: ', data);
+      console.log('data for shopList: ', data);
 
       if (data) {
         _this.shopList = data;
       }
+    });
+  }
 
-      console.log("response data: ", data);
+  getUserInfo() {
+    const _this = this;
+
+    const url = '/api/dashboard/user';
+    let token = localStorage.getItem('JWT_TOKEN');
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        authorization: 'Bearer ' + token
+      }
+    }).then(function (response) {
+      console.log("response response: ", response);
+      return response.json();
+    }).then(function (data) {
+      console.log('data for users: ', data);
+
+      if (data) {
+        _this.userFullName = `${data.givenName}${data.familyName}`;
+      }
     });
   }
 
