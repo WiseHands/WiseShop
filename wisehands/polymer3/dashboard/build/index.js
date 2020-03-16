@@ -2844,11 +2844,19 @@ class DashBoard extends LitElement {
                         margin-left: 5px;
                         color: rgba(0,0,0, .9);
                     }
-                    .profile-info{
+                    .profile-info-container{
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
-                    } 
+                    }
+                        .profile-info{
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-end; 
+                        }
+                        .profile-info p{
+                            margin: 0;
+                        } 
                 .body-dash-board-container{
                     display: flex;
                     height: calc(100% - 56px)
@@ -2884,6 +2892,9 @@ class DashBoard extends LitElement {
                         height: 200px;
                         width: 200px;
                     }
+                    .shop-element p{
+                         color: black;
+                    }
                     .create-shop-plus-logo{
                         height: 24px;
                         width: 24px;
@@ -2896,8 +2907,11 @@ class DashBoard extends LitElement {
                         <img class="logo" src="wisehands/assets/images/dashboard/main_logo_black.png">
                         <p class="product-name">WSTORE</p>
                     </div>
-                    <div class="profile-info">
-                        <p>${this.userFullName}</p>
+                    <div class="profile-info-container">
+                        <div class="profile-info">
+                            <p>${this.userFullName}</p>
+                            <p>1000 грн</p>
+                        </div>
                         <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
                     </div>
                 </div>
@@ -2917,11 +2931,9 @@ class DashBoard extends LitElement {
                         </div>
                     </div>
                     <div class="shops-place border">
-                        <div class="shop-element create-shop border">
+                        <div class="shop-element border">
                             <a href="/ua/wizard">
-                                <div class="shop-element create-shop border">
-                                    <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.svg">
-                                </div>
+                                <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.svg">
                             </a>
                         </div>
                         ${this.shopList.map(item => html`
@@ -2999,8 +3011,10 @@ class DashBoard extends LitElement {
       return response.json();
     }).then(function (data) {
       console.log('data for users: ', data);
-
-      if (data) {
+      if (data.name){
+          _this.userFullName = `${data.name}`;
+      }
+      if (data.givenName && data.familyName) {
         _this.userFullName = `${data.givenName} ${data.familyName}`;
       }
     });

@@ -81,7 +81,8 @@ public class UserDashBoardAPI extends AuthController{
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
         UserDTO user = UserDTO.find("byUuid", userId).first();
-        renderJSON(user);
+        System.out.println("admin name: " + user.name);
+        renderJSON(json(user));
     }
 
 }

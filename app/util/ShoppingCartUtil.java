@@ -16,10 +16,10 @@ public class ShoppingCartUtil {
         if (request.params.get("cartId") != null) {
             cartId = request.params.get("cartId");
         } else {
-            if(request.cookies.get("userToken") == null) {
+            if(request.cookies.get("JWT_TOKEN") == null) {
                 return null;
             }
-            String userTokenCookie = request.cookies.get("userToken").value;
+            String userTokenCookie = request.cookies.get("JWT_TOKEN").value;
             System.out.println("userTokenCookie: " + userTokenCookie);
 
             try {

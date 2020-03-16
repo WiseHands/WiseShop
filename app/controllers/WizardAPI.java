@@ -200,6 +200,7 @@ public class WizardAPI extends AuthController {
             }
 
             user = new UserDTO(name, lastName, phone, email, password);
+            user.name = name + " " + lastName;
             user.save();
 
             String jwtToken = generateToken(user);
