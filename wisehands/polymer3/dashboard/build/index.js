@@ -2893,26 +2893,26 @@ class DashBoard extends LitElement {
             <div class="main-container">
                 <div class="header-profile-container border">
                     <div class="logo-container">
-                        <img class="logo" src="public/shop_logo/main_logo_black.png">
+                        <img class="logo" src="wisehands/assets/images/dashboard/main_logo_black.png">
                         <p class="product-name">WSTORE</p>
                     </div>
                     <div class="profile-info">
                         <p>${this.userFullName}</p>
-                        <img class="logo" src="public/user-header-info.svg">
+                        <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
                     </div>
                 </div>
                 <div class="body-dash-board-container">
                     <div class="tools-dash-board-container border">
                         <div class="menu-item">
-                            <img class="menu-item-logo" src="public/icon-store-dashboard.svg">
+                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
                             <p>Магазини</p>
                         </div>
                         <div class="menu-item">
-                            <img class="menu-item-logo" src="public/icon-subscr-dashboard.svg">
+                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-subscr-dashboard.svg">
                             <p>Підписки</p>
                         </div>
                         <div class="menu-item">
-                            <img class="menu-item-logo" src="public/icon-user-dashboard.svg">
+                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/plus.svg">
                             <p>Профіль</p>
                         </div>
                     </div>
