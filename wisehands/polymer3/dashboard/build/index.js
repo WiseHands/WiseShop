@@ -2912,7 +2912,7 @@ class DashBoard extends LitElement {
                             <p>Підписки</p>
                         </div>
                         <div class="menu-item">
-                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/plus.svg">
+                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-user-dashboard.svg">
                             <p>Профіль</p>
                         </div>
                     </div>
@@ -2920,7 +2920,7 @@ class DashBoard extends LitElement {
                         <div class="shop-element create-shop border">
                             <a href="/ua/wizard">
                                 <div class="shop-element create-shop border">
-                                    <img class="create-shop-plus-logo" src="public/plus.svg">
+                                    <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.svg">
                                 </div>
                             </a>
                         </div>
