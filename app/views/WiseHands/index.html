@@ -6,10 +6,10 @@
     <meta name="google-signin-client_id" content="${googleOauthClientId}">
 
     <title>Wise Hands</title>
-    <link href="wisehands/mainpage/css/main-page.css" rel="stylesheet"/>
-    <link href="wisehands/mainpage/css/animate.css" rel="stylesheet"/>
 
     <link rel="stylesheet" type="text/css" href="wisehands/assets/fullpage.js/dist/fullpage.css"/>
+    <link href="wisehands/mainpage/css/main-page.css" rel="stylesheet"/>
+    <link href="wisehands/mainpage/css/animate.css" rel="stylesheet"/>
 
     <script type="text/javascript" src="wisehands/assets/fullpage.js/vendors/scrolloverflow.min.js"></script>
     <script type="text/javascript" src="wisehands/assets/fullpage.js/dist/fullpage.js"></script>
@@ -22,7 +22,7 @@
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="icon"
           type="image/png"
-          href="wisehands/assets/images/favicon.png">
+          href="wisehands/assets/images/favicon.png">   
 </head>
 <body>
 <div id="fullpage">
@@ -48,9 +48,7 @@
     </div>
 </div>
 
-
-
-<section class="section main-page">
+<section class="section main-page" id="#firstPage">
     <div class="header-section">
         <header id="header">
             <div class="header-block">
@@ -465,6 +463,7 @@
     </div>
 </footer>
 </div>
+
 <script src="wisehands/assets/js/particles.min.js"></script>
 <script>
     const contactCard = document.querySelector('.contact-card-text');
@@ -739,18 +738,29 @@
     }
 
 </script>
-</body>
+<div id="fp-nav">
+    <ul id="myMenu">
+        <li data-menuanchor="firstPage" class="active"><a href="#firstPage">First section</a></li>
+        <li data-menuanchor="secondPage"><a href="#fe-services">Second section</a></li>
+        <li data-menuanchor="thirdPage"><a href="#be-services">Third section</a></li>
+        <li data-menuanchor="fourthPage"><a href="#mob-services">Fourth section</a></li>
+    </ul>
+</div>
+
 
 <script type="text/javascript">
     new fullpage('#fullpage', {
         licenseKey: 'YOUR KEY HERE',
         autoScrolling:true,
         scrollHorizontally: true,
-        scrollOverflow: true
+        scrollOverflow: true,
+        navigation: true,
+        navigationTooltips: ['Home', 'Front End Development', 'Back End Development', 'Mobile Application Development', 'Projects', 'Team', 'Become Patron', "Contact Us"],
+        menu: '#myMenu'
     });
 
 </script>
-
+</body>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FQZPRYQKZD"></script>
 <script>
