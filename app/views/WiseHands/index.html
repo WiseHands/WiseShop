@@ -10,6 +10,8 @@
     <link href="wisehands/mainpage/css/animate.css" rel="stylesheet"/>
 
     <link rel="stylesheet" type="text/css" href="wisehands/assets/fullpage.js/dist/fullpage.css"/>
+
+    <script type="text/javascript" src="wisehands/assets/fullpage.js/vendors/scrolloverflow.min.js"></script>
     <script type="text/javascript" src="wisehands/assets/fullpage.js/dist/fullpage.js"></script>
 
     <!--<script>-->
@@ -48,7 +50,7 @@
 
 
 
-<section class="section main-page ">
+<section class="section main-page">
     <div class="header-section">
         <header id="header">
             <div class="header-block">
@@ -720,11 +722,13 @@
 
 </script>
 </body>
+
 <script type="text/javascript">
     new fullpage('#fullpage', {
         licenseKey: 'YOUR KEY HERE',
         autoScrolling:true,
-        scrollHorizontally: true
+        scrollHorizontally: true,
+        scrollOverflow: true
     });
 
 </script>
