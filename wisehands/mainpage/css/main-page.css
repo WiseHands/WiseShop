@@ -897,6 +897,7 @@ footer h3 {
         position: fixed;
         top: 10px;
         right: 10px;
+        z-index: 500;
     }
     .header-logo img {
         width: 40px;
