@@ -9,5 +9,20 @@ body, p, h1, h2, h3, h4, h5, h6, i {
     margin: 0 auto;
 }
 .services-top-block {
-    background: url("/wisehands/services/images/frontendbg.jpg");
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/frontendbg.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 50vh;
+    margin-top: 3rem;
+    position: relative;
+}
+.services-banner {
+    position: absolute;
+    top: 40%;
+    left: 3rem;
+}
+.services-banner h1 {
+    font-size: 4.5rem;
+    font-size: 700;
+    color: #212529;
 }

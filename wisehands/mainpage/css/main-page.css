@@ -14,7 +14,7 @@ body a {
     height: 100vh;
     background-size: cover;
     background-position: 50% 50%;
-    z-index: 444;
+    z-index: 100;
 }
 canvas {
     display: block;
@@ -40,7 +40,7 @@ header {
     margin: 0 auto;
     padding: 0.5rem;
     color: #fff;
-    z-index: 510;
+    z-index: 200;
 }
 .header-logo, .header-links {
     display: flex;
@@ -81,7 +81,7 @@ header {
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: 600;
+    z-index: 400;
     padding: 0;
     margin: 0;
 }
@@ -167,7 +167,7 @@ header {
     text-align: center;
     padding-top: 40vh ;
     position: relative;
-    z-index: 500;
+    z-index: 300;
 }
 .slogan h1 {
     font-size: 2.4rem;
@@ -185,7 +185,7 @@ header {
     color: #fff;
     text-transform: uppercase;
     margin: 1rem auto;
-    z-index: 555;
+    z-index: 300;
     font-size: 1.7rem;
 }
 .slogan button:hover {
