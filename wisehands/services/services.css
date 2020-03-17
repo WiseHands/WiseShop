@@ -1,0 +1,13 @@
+body, p, h1, h2, h3, h4, h5, h6, i {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-size: 16px;
+}
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.services-top-block {
+    background: url("/wisehands/services/images/frontendbg.jpg");
+}

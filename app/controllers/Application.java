@@ -395,4 +395,7 @@ public class Application extends Controller {
     public static void refunds(String client){
         renderTemplate("WiseHands/refunds.html");
     }
+    public static void hireFrontendDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireFrontendDevelopers.html");
+    }
 }
