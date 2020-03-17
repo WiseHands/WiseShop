@@ -1052,6 +1052,9 @@ footer h3 {
     .footer-payment, .footer-delivery, .footer-return, .footer-contact {
         flex-basis: 98%;
     }
+    #fp-nav {
+        display: none;
+    }
 }
 .flex-item-center {
     display: flex;
