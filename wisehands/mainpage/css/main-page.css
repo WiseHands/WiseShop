@@ -40,7 +40,7 @@ header {
     margin: 0 auto;
     padding: 0.5rem;
     color: #fff;
-    z-index: 200;
+    z-index: 350;
 }
 .header-logo, .header-links {
     display: flex;
