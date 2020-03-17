@@ -889,6 +889,9 @@ footer h3 {
             animation: none !important;
         }
     }
+    .main-page {
+        height: 100vh;
+    }
     .header-links {
         display: none;
     }
