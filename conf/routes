@@ -253,6 +253,10 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/refunds                                Application.refunds
 
 *       {client}/hire-frontend-developers               Application.hireFrontendDevelopers
+*       {client}/hire-backend-developers                Application.hireBackendDevelopers
+*       {client}/hire-devops-developers                 Application.hireDevopsDevelopers
+*       {client}/hire-mobile-developers                 Application.hireMobileDevelopers
+
 
 
 # Ignore favicon requests

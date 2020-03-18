@@ -398,4 +398,13 @@ public class Application extends Controller {
     public static void hireFrontendDevelopers(String client){
         renderTemplate("WiseHands/Services/hireFrontendDevelopers.html");
     }
+    public static void hireBackendDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireBackendDevelopers.html");
+    }
+    public static void hireDevopsDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireDevopsDevelopers.html");
+    }
+    public static void hireMobileDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireMobileDevelopers.html");
+    }
 }
