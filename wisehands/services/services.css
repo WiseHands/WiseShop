@@ -4,6 +4,85 @@ body, p, h1, h2, h3, h4, h5, h6, i {
     font-family: 'Roboto', 'Helvetica', sans-serif;
     font-size: 16px;
 }
+body a {
+    text-decoration: none;
+    color: inherit;
+}
+.header {
+    margin: 0 auto;
+    padding: 0 0.5rem;
+}
+.header-block {
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0.5rem;
+}
+.header-logo-text, .header-links {
+    display: flex;
+    align-items: center;
+}
+.header-block img {
+    width: 50px;
+    height: 50px;
+    padding-right: 1rem;
+}
+
+.dropbtn {
+    background-color: #fff;
+    color: #000;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+}
+.dropbtn:hover, .dropbtn:focus {
+    color: lightseagreen;
+    outline: none;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a:hover {
+    background-color: #fff
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown a:hover {
+    color: lightseagreen;
+}
+
+.header-logo-text {
+    justify-content: space-between;
+}
+.header-logo-text a {
+    text-decoration: none;
+}
+.header-logo-text p, .header-links p {
+    font-size: 1.2rem;
+    padding: 0 1.5rem;
+    cursor: pointer;
+}
+
 .services-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -13,7 +92,6 @@ body, p, h1, h2, h3, h4, h5, h6, i {
     background-position: center;
     background-size: cover;
     height: 50vh;
-    margin-top: 3rem;
     position: relative;
 }
 .services-banner {
