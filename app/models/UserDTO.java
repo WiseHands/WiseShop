@@ -51,13 +51,15 @@ public class UserDTO extends GenericModel {
 
     public String password;
 
-    @Expose
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade=CascadeType.ALL)
     public List<ShopDTO> shopList;
 
     @OneToOne
     public WizardDTO wizard;
+
+    @OneToOne
+    public CoinAccountDTO coinAccountDTO;
 
 
     //DEPRECATED. NOT USED. SHOULD BE REMOVED

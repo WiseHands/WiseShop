@@ -149,10 +149,12 @@ public class ShopDTO extends GenericModel {
     @OneToMany(orphanRemoval=true)
     public List<CategoryDTO> categoryList;
 
-
     @Expose
     @OneToMany(cascade=CascadeType.ALL)
     public List<PageConstructorDTO> pagesList;
+
+    @OneToOne
+    public CoinAccountDTO coinAccountDTO;
 
     @Transient
     private ShopNetworkDTO network;
