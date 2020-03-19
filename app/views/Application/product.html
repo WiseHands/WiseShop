@@ -331,6 +331,11 @@
       method: 'POST'
     }).then(function (response) {
         if(response.ok) {
+            #{verbatim}
+                #{if shop.faceBookPixelApiKey}
+                    fbq('track', 'AddToCart', {content_ids: [uuid]});
+                #{/if}
+            #{/verbatim}
             document.querySelector(".cart-float").style.display = 'block';
             setTimeout(setDelayShowCart, 2000);
         }
