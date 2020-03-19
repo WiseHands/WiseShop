@@ -20,7 +20,8 @@ body a {
     margin: 0 auto;
     padding: 0.5rem;
 }
-.header-logo-text, .header-links {
+
+.header-logo-text, .header-logo {
     display: flex;
     align-items: center;
 }
@@ -29,7 +30,9 @@ body a {
     height: 50px;
     padding-right: 1rem;
 }
-
+.header-logo p {
+    font-size: 1.2rem;
+}
 .dropbtn {
     background-color: #fff;
     color: #000;
