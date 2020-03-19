@@ -407,4 +407,16 @@ public class Application extends Controller {
     public static void hireMobileDevelopers(String client){
         renderTemplate("WiseHands/Services/hireMobileDevelopers.html");
     }
+    public static void hireReactDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireReactDevelopers.html");
+    }
+    public static void hireAngularDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireAngularDevelopers.html");
+    }
+    public static void hireVuejsDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireVuejsDevelopers.html");
+    }
+    public static void hirePolymerDevelopers(String client){
+        renderTemplate("WiseHands/Services/hirePolymerDevelopers.html");
+    }
 }

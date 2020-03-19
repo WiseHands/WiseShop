@@ -253,6 +253,12 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/refunds                                Application.refunds
 
 *       {client}/hire-frontend-developers               Application.hireFrontendDevelopers
+*       {client}/hire-react-developers                  Application.hireReactDevelopers
+*       {client}/hire-angular-developers                Application.hireAngularDevelopers
+*       {client}/hire-vuejs-developers                  Application.hireVuejsDevelopers
+*       {client}/hire-polymer-developers                Application.hirePolymerDevelopers
+
+
 *       {client}/hire-backend-developers                Application.hireBackendDevelopers
 *       {client}/hire-devops-developers                 Application.hireDevopsDevelopers
 *       {client}/hire-mobile-developers                 Application.hireMobileDevelopers
