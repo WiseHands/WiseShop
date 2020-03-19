@@ -194,6 +194,9 @@ header {
     color: #0e2935;
     cursor: pointer;
 }
+.list-mob {
+    display: none;
+}
 .fe-services-block, .be-services-block, .mob-services-block, .projects-container, .team-container, .contact-container, .donate-container  {
     display: flex;
     flex-direction: column;
@@ -928,6 +931,12 @@ footer h3 {
     }
     .contact-button {
         opacity: 1;
+    }
+    #listServices {
+        display: none;
+    }
+    .list-mob {
+        display: block;
     }
     .fe-services-block, .be-services-block, .mob-services-block {
         height: 100%;
