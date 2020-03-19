@@ -179,6 +179,7 @@ public class ShopAPI extends AuthController {
         String googleAnalyticsCode = (String) jsonBody.get("googleAnalyticsCode");
         String googleMapsApiKey = (String) jsonBody.get("googleMapsApiKey");
         String googleStaticMapsApiKey = (String) jsonBody.get("googleStaticMapsApiKey");
+        String faceBookPixelApiKey = (String) jsonBody.get("faceBookPixelApiKey");
         String closedShopTitle = (String) jsonBody.get("temporaryClosedTitle");
         String closedShopdiscription = (String) jsonBody.get("temporaryClosedDescription");
         Boolean isTemporaryClosed = (Boolean) jsonBody.get("isTemporaryClosed");
@@ -249,6 +250,7 @@ public class ShopAPI extends AuthController {
         shop.googleAnalyticsCode = googleAnalyticsCode;
         shop.googleMapsApiKey = googleMapsApiKey;
         shop.googleStaticMapsApiKey = googleStaticMapsApiKey;
+        shop.faceBookPixelApiKey = faceBookPixelApiKey;
         shop.locale = locale;
 
 

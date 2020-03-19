@@ -119,6 +119,9 @@ public class ShopDTO extends GenericModel {
     public String googleStaticMapsApiKey;
 
     @Expose
+    public String faceBookPixelApiKey;
+
+    @Expose
     public String locale;
 
     @OneToOne(cascade=CascadeType.ALL)
