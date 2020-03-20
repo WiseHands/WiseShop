@@ -11,10 +11,10 @@
             </div>
         </a>
         <div class="sidebar-panel">
-            <a class="link" id="opportLink" href="/hire-frontend-developers">Frontend</a>
-            <a class="link" id="tariffLink" href="/hire-backend-developers">Backend</a>
-            <a class="link" id="contactLink" href="/hire-devops-developers">Devops</a>
-            <a class="link" id="contactLink" href="/hire-mobile-developers">Mobile</a>
+            <a class="link" id="hireFrontend" href="/hire-frontend-developers">Frontend</a>
+            <a class="link" id="hireBackend" href="/hire-backend-developers">Backend</a>
+            <a class="link" id="hireDevops" href="/hire-devops-developers">Devops</a>
+            <a class="link" id="hireMobile" href="/hire-mobile-developers">Mobile</a>
         </div>
     </div>
 </div>
@@ -158,9 +158,10 @@
     }
 </script>
 <script>
-    document.getElementById("opportLink").addEventListener("click", hideSidebar);
-    document.getElementById("tariffLink").addEventListener("click", hideSidebar);
-    document.getElementById("contactLink").addEventListener("click", hideSidebar);
+    document.getElementById("hireFrontend").addEventListener("click", hideSidebar);
+    document.getElementById("hireBackend").addEventListener("click", hideSidebar);
+    document.getElementById("hireDevops").addEventListener("click", hideSidebar);
+    document.getElementById("hireMobile").addEventListener("click", hideSidebar);
 
     function hideSidebar() {
         document.querySelector("#overlay-mobile").style.display = 'none';
