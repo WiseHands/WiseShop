@@ -797,6 +797,9 @@ footer {
     line-height: 1.5;
     color: #b1b1b1;
 }
+.footer-text a:hover {
+    text-decoration: underline;
+}
 footer h3 {
     text-transform: uppercase;
     font-size: 1.2rem;
