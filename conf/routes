@@ -263,8 +263,21 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 
 
 *       {client}/hire-backend-developers                Application.hireBackendDevelopers
+*       {client}/hire-go-developers                     Application.hireGoDevelopers
+*       {client}/hire-java-developers                   Application.hireJavaDevelopers
+*       {client}/hire-nodejs-developers                 Application.hireNodejsDevelopers
+*       {client}/hire-python-developers                 Application.hirePythonDevelopers
+
 *       {client}/hire-devops-developers                 Application.hireDevopsDevelopers
+*       {client}/hire-aws-developers                    Application.hireAwsDevelopers
+*       {client}/hire-googlecloud-developers            Application.hireGooglecloudDevelopers
+*       {client}/hire-azure-developers                  Application.hireAzureDevelopers
+*       {client}/hire-kubernetes-developers             Application.hireKubernetesDevelopers
+
 *       {client}/hire-mobile-developers                 Application.hireMobileDevelopers
+*       {client}/hire-ios-developers                    Application.hireIosDevelopers
+*       {client}/hire-android-developers                Application.hireAndroidDevelopers
+
 
 
 

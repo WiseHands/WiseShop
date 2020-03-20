@@ -419,4 +419,34 @@ public class Application extends Controller {
     public static void hirePolymerDevelopers(String client){
         renderTemplate("WiseHands/Services/hirePolymerDevelopers.html");
     }
+    public static void hireGoDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireGoDevelopers.html");
+    }
+    public static void hireJavaDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireJavaDevelopers.html");
+    }
+    public static void hireNodejsDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireNodejsDevelopers.html");
+    }
+    public static void hirePythonDevelopers(String client){
+        renderTemplate("WiseHands/Services/hirePythonDevelopers.html");
+    }
+    public static void hireAwsDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireAwsDevelopers.html");
+    }
+    public static void hireGooglecloudDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireGooglecloudDevelopers.html");
+    }
+    public static void hireAzureDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireAzureDevelopers.html");
+    }
+    public static void hireKubernetesDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireKubernetesDevelopers.html");
+    }
+    public static void hireIosDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireIosDevelopers.html");
+    }
+    public static void hireAndroidDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireAndroidDevelopers.html");
+    }
 }

@@ -90,8 +90,19 @@ body a {
     max-width: 1200px;
     margin: 0 auto;
 }
-.services-top-block {
+.services-frontend {
     background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/frontendbg.jpg");
+}
+.services-backend {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/backendbg.jpg");
+}
+.services-devops {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/devopsbg.jpg");
+}
+.services-mobile {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/mobilebg.jpg");
+}
+.services-top-block {
     background-position: center;
     background-size: cover;
     height: 50vh;
@@ -123,7 +134,9 @@ body a {
 }
 .services-stack {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0 -1rem;
 }
 .services-content h2 {
     font-size: 2.5rem;
