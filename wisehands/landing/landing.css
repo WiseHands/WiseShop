@@ -164,6 +164,9 @@ body a {
     color: #262626;
     line-height: 2.5;
 }
+.sidebar-panel a:hover {
+    color: lightseagreen;
+}
 .sidebar-panel p {
     font-size: 1.3rem;
     margin-bottom: 0;
