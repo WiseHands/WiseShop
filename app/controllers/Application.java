@@ -124,14 +124,14 @@ public class Application extends Controller {
     private static void generateCookieIfNotPresent(ShopDTO shop) {
         String agent = request.headers.get("user-agent").value();
 
-        Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
+        Http.Cookie userTokenCookie = request.cookies.get("userToken");
         if(userTokenCookie == null) {
             ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
             shoppingCart.shopUuid = shop.uuid;
             shoppingCart.save();
 
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
-            response.setCookie("JWT_TOKEN", token);
+            response.setCookie("userToken", token);
         }
     }
 
