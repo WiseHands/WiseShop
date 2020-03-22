@@ -1,4 +1,4 @@
-body, p, h1, h2, h3, h4, h5, h6, i {
+body, p, h1, h2, h3, h4, h5, h6, i, ul, li {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', 'Helvetica', sans-serif;
@@ -87,6 +87,31 @@ body a {
     padding: 10px;
     font-size: 1.2rem;
 }
+.sidebar-item i {
+    padding-right: 10px;
+}
+.sub-menu {
+    display: none;
+    width: 100%;
+    padding-left: 10px;
+}
+.dropdown-btn {
+    padding: 5px 0;
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: #262626;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+.fa-angle-down{
+    float: right;
+    padding-top: 5px;
+}
 .sidebar-panel a {
     color: #262626;
     line-height: 2.5;
@@ -98,7 +123,17 @@ body a {
     font-size: 1.3rem;
     margin-bottom: 0;
 }
-
+.sidebar-panel p, .sidebar-panel button {
+    padding: 0 .2em;
+}
+.sub-menu li {
+    padding: 3px .2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*.sidebar-panel p:hover, .sidebar-panel button:hover, .sidebar-panel ul li:hover {*/
+    /*background-color: lightgrey;*/
+/*}*/
 .header {
     margin: 0 auto;
     padding: 0 0.5rem;
