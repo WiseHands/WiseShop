@@ -48,7 +48,9 @@ public class ShoppingCartAPI extends AuthController {
         if(fetch.size() > 0) {
             shoppingCart = fetch.get(0);
         } else {
-            shoppingCart = _createCart(shop);
+            shoppingCart = new ShoppingCartDTO();
+            shoppingCart.shopUuid = shop.uuid;
+            shoppingCart = shoppingCart.save();
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
             response.setCookie("userToken", token);
         }
