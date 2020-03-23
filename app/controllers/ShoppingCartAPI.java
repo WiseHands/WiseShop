@@ -39,8 +39,8 @@ public class ShoppingCartAPI extends AuthController {
         ok();
     }
 
-    public static void getCart(ShopDTO shop) {
-        String agent = request.headers.get("user-agent").value();
+    public static void getCart(String client) {
+        ShopDTO shop = _getShop(client);
 
         String cartId = _getCartUuid(request);
         List<ShoppingCartDTO> fetch = ShoppingCartDTO.find("byUuid", cartId).fetch();
@@ -48,9 +48,8 @@ public class ShoppingCartAPI extends AuthController {
         if(fetch.size() > 0) {
             shoppingCart = fetch.get(0);
         } else {
-            shoppingCart = new ShoppingCartDTO();
-            shoppingCart.shopUuid = shop.uuid;
-            shoppingCart = shoppingCart.save();
+            shoppingCart = _createCart(shop);
+            String agent = request.headers.get("user-agent").value();
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
             response.setCookie("userToken", token);
         }
