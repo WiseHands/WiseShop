@@ -234,6 +234,43 @@ body a {
 .services-angular {
     background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/angularbg.jpg");
 }
+.services-vuejs {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/vuebg.jpg");
+}
+.services-polymer {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/polymerbg.jpg");
+}
+.services-go {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/gobg.jpg");
+}
+.services-java {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/javabg.jpg");
+}
+.services-nodejs {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/nodebg.jpg");
+}
+.services-python {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/pythonbg.jpg");
+}
+.services-aws {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/awsbg.jpg");
+}
+.services-googlecloud {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/googlebg.jpg");
+}
+.services-azure {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/azurebg.jpg");
+}
+.services-kubernetes {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/kubernetesbg.jpg");
+}
+.services-ios {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/iosbg.jpg");
+}
+.services-android {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/androidbg.jpg");
+}
+
 .services-top-block {
     background-position: center;
     background-size: cover;
