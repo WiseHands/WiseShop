@@ -337,7 +337,7 @@ public class Application extends Controller {
         render(shop);
     }
 
-    private static String generateTokenForCookie(String shoppingCartId, String userAgent) {
+    public static String generateTokenForCookie(String shoppingCartId, String userAgent) {
         String token = "";
         try {
             String encodingSecret = Play.configuration.getProperty("jwt.secret");
