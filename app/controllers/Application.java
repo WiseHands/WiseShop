@@ -59,6 +59,17 @@ public class Application extends Controller {
 
     }
 
+    public static void uaSignin(String client) {
+        if(client.equals("wisehands.me") || isDevEnv) {
+            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+            renderTemplate("Application/uaSignin.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+        }
+        redirect("https://wisehands.me/login", true);
+
+    }
+
     public static void wisehands(String client) {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
         String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
@@ -366,9 +377,7 @@ public class Application extends Controller {
     public static void privacy(String client){
             render();
     }
-    public static void uaSignin(String client){
-            render();
-    }
+
     public static void uaSignup(String client){
             render();
     }

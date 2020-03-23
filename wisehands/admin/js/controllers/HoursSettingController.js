@@ -37,12 +37,11 @@ angular.module('WiseHands')
 
 
             $scope.setWorkingHour = function () {
-
-
+                console.log('$scope.workDay', $scope.workDay);
                 $scope.loading = true;
                 $http({
                     method: 'PUT',
-                    url: '/shop',
+                    url: '/shop/update/working-hours',
                     data: $scope.workDay
                 })
                     .success(function (response) {

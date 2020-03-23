@@ -80,7 +80,8 @@ GET         {client}/api/dashboard/user                     UserDashBoardAPI.get
 OPTIONS     {client}/api/dashboard/user                     UserDashBoardAPI.allowCors
 
 # payment system for dashboard
-POST        {client}/wayforpay_callback                     WayForPayAPI.verifyCallback
+POST        {client}/api/wayforpay/verify-callback          WayForPayAPI.verifyCallback
+POST        {client}/api/wayforpay/generate-signature       WayForPayAPI.generateSignatureWayForPay
 
 
 GET     {client}/sudo/orders                            OrderAPI.all
@@ -148,6 +149,9 @@ DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
 GET     {client}/shops                                	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
+
+PUT     {client}/shop/update/working-hours              ShopAPI.updateWorkingHoursForShop
+
 OPTIONS {client}/shop/details/public                    ShoppingCartAPI.allowCors
 
 POST    {client}/shop                                	ShopAPI.create
