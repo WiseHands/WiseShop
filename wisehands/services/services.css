@@ -110,7 +110,7 @@ body a {
 }
 .fa-angle-down{
     float: right;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 .sidebar-panel a {
     color: #262626;
@@ -228,6 +228,12 @@ body a {
 .services-mobile {
     background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/mobilebg.jpg");
 }
+.services-react {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/reactbg.jpg");
+}
+.services-angular {
+    background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 58%), url("/wisehands/services/images/angularbg.jpg");
+}
 .services-top-block {
     background-position: center;
     background-size: cover;
@@ -237,12 +243,13 @@ body a {
 .services-banner {
     position: absolute;
     top: 40%;
-    left: 3rem;
+    left: 1rem;
 }
 .services-banner h1 {
     font-size: 4.5rem;
     font-size: 700;
     color: #212529;
+    max-width: 600px;
 }
 .services-content {
     margin-top: 3rem;
