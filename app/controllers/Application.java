@@ -66,6 +66,13 @@ public class Application extends Controller {
         renderTemplate("Application/uaSignin.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
     }
 
+    public static void uaSignup(String client) {
+        String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+        String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+        String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+        renderTemplate("Application/uaSignup.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+    }
+
     public static void wisehands(String client) {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
         String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
@@ -374,9 +381,6 @@ public class Application extends Controller {
             render();
     }
 
-    public static void uaSignup(String client){
-            render();
-    }
     public static void uaWizard(String client){
             render();
     }

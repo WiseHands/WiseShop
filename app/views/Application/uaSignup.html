@@ -225,7 +225,7 @@
                     <i class="fa fa-facebook-f"  style="font-size:24px; color: #fff"></i>
                 </span>Зареєструватися через Facebook
         </button>
-        <button class="signup-google-button">
+        <button class="signup-google-button" onclick="signUpThroughGoogle()">
                 <span>
                     <i class="fa fa-google"  style="font-size:24px; color: #808080"></i>
                 </span>Зареєструватися через Google
@@ -270,6 +270,48 @@
 
 </div>
 </body>
+<script>
+
+    function start() {
+        gapi.load('auth2', function() {
+            window.auth2 = gapi.auth2.init({
+                client_id: '${googleOauthClientId}'
+            });
+        });
+    }
+
+    function signUpThroughGoogle() {
+        console.log("here");
+        window.auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInCallback);
+
+    };
+
+    function signInCallback(authResult) {
+        if (authResult['code']) {
+            const url = '/storeauthcode?authCode=' + authResult['code'];
+
+            fetch(url, {
+                method: 'POST'
+            }).then(function(response){
+                //headers //status
+                if(response.ok) {
+                    let token = response.headers.get('JWT_TOKEN');
+                    localStorage.setItem('JWT_TOKEN', token);
+                }
+                console.log('signInCallback' + response);
+                return response.json();
+            }).then(function(data){
+                console.log('signInCallback' + data);
+
+                if (data){
+                    window.location = "/dashboard";
+                }
+
+            })
+        }
+    }
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
 <script>
     function signUp() {
         console.log("here");
