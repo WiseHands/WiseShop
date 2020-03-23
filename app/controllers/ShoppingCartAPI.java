@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
+import static controllers.Application.generateTokenForCookie;
 import static util.ShoppingCartUtil._getCartUuid;
 
 //-Xverify:none export JAVA_TOOL_OPTIONS="-Xverify:none"
@@ -39,8 +40,18 @@ public class ShoppingCartAPI extends AuthController {
     }
 
     public static void getCart(ShopDTO shop) {
+        String agent = request.headers.get("user-agent").value();
+
         String cartId = _getCartUuid(request);
-        ShoppingCartDTO shoppingCart = (ShoppingCartDTO) ShoppingCartDTO.find("byUuid", cartId).fetch().get(0);
+        List<ShoppingCartDTO> fetch = ShoppingCartDTO.find("byUuid", cartId).fetch();
+        ShoppingCartDTO shoppingCart;
+        if(fetch.size() > 0) {
+            shoppingCart = fetch.get(0);
+        } else {
+            shoppingCart = _createCart(shop);
+            String token = generateTokenForCookie(shoppingCart.uuid, agent);
+            response.setCookie("userToken", token);
+        }
         renderJSON(json(shoppingCart));
     }
 
