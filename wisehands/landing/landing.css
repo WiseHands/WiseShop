@@ -206,6 +206,11 @@ body a {
     flex-basis: 35%;
     padding-right: 2rem;
 }
+.underline {
+    width: 50px;
+    border-bottom: 2px solid lightseagreen;
+    margin: 0.5rem 0;
+}
 .land-h3 {
     font-size: 2.6rem;
     font-weight: 200;
@@ -214,26 +219,27 @@ body a {
 .land-p {
     font-size: 1.3rem;
     font-weight: 400;
-    padding-bottom: 0.5rem;
+    line-height: 1.5;
+    padding: 1rem 0;
 }
 .land-category-img {
-    background: url(../../wisehands/landing/images/category.png) no-repeat;
+    background: url(../../wisehands/landing/images/list.jpg) no-repeat;
     background-size: cover;
 }
 .land-options-img {
-    background: url(../../wisehands/landing/images/options.jpg) no-repeat;
+    background: url(../../wisehands/landing/images/options2.jpg) no-repeat;
     background-size: contain;
 }
 .land-area-delivery-img {
-    background: url(../../wisehands/landing/images/area.png) no-repeat;
+    background: url(../../wisehands/landing/images/area.jpg) no-repeat;
     background-size: contain;
 }
 .land-analytics-img {
-    background: url(../../wisehands/landing/images/analytic.png) no-repeat;
+    background: url(../../wisehands/landing/images/analytics.jpg) no-repeat;
     background-size: cover;
 }
 .land-network-img {
-    background: url(../../wisehands/landing/images/network.png) no-repeat;
+    background: url(../../wisehands/landing/images/network.jpg) no-repeat;
     background-size: cover;
 }
 
