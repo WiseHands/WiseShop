@@ -635,8 +635,12 @@
             }).then(function (data) {
                 console.log("response /api/dashboard/shop/create: ", data.shopName);
                 handlingErrorForDomainName(data);
+                if (data.shopName){
+                    window.location = '/dashboard';
+                }
                 if (data && isUrlEqualDelivPayType) {
-                    generateRequestForCreatingShop();
+                    _generateRequest('/api/dashboard/shop/create');
+                    // window.location = '/dashboard';
                 }
 
             });

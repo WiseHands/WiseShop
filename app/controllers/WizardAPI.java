@@ -107,7 +107,7 @@ public class WizardAPI extends AuthController {
         System.out.println("setShopContactInfo userId\n" + userId);
 
         UserDTO user = UserDTO.find("byUuid", userId).first();
-        System.out.println("setShopContactInfo get userDTO\n" + user.givenName);
+        System.out.println("setShopContactInfo get userDTO\n" + userId);
 
         if(cityName != null){
             user.wizard.cityName = cityName;
