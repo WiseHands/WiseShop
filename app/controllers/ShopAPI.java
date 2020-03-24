@@ -184,44 +184,72 @@ public class ShopAPI extends AuthController {
         String closedShopdiscription = (String) jsonBody.get("temporaryClosedDescription");
         Boolean isTemporaryClosed = (Boolean) jsonBody.get("isTemporaryClosed");
 
-
-        String monStartTime = (String) jsonBody.get("monStartTime");
-        String monEndTime = (String) jsonBody.get("monEndTime");
-        Boolean monOpen = (Boolean) jsonBody.get("monOpen");
-        String tueStartTime = (String) jsonBody.get("tueStartTime");
-        String tueEndTime = (String) jsonBody.get("tueEndTime");
-        Boolean tueOpen = (Boolean) jsonBody.get("tueOpen");
-        String wedStartTime = (String) jsonBody.get("wedStartTime");
-        String wedEndTime = (String) jsonBody.get("wedEndTime");
-        Boolean wedOpen = (Boolean) jsonBody.get("wedOpen");
-        String thuStartTime = (String) jsonBody.get("thuStartTime");
-        String thuEndTime = (String) jsonBody.get("thuEndTime");
-        Boolean thuOpen = (Boolean) jsonBody.get("thuOpen");
-        String friStartTime = (String) jsonBody.get("friStartTime");
-        String friEndTime = (String) jsonBody.get("friEndTime");
-        Boolean friOpen = (Boolean) jsonBody.get("friOpen");
-        String satStartTime = (String) jsonBody.get("satStartTime");
-        String satEndTime = (String) jsonBody.get("satEndTime");
-        Boolean satOpen = (Boolean) jsonBody.get("satOpen");
-        String sunStartTime = (String) jsonBody.get("sunStartTime");
-        String sunEndTime = (String) jsonBody.get("sunEndTime");
-        Boolean sunOpen = (Boolean) jsonBody.get("sunOpen");
-
         Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
 
         String labelNameForBuyerNameFieldInShoppingCart = (String) jsonBody.get("labelNameForBuyerNameFieldInShoppingCart");
-        Boolean isShowAmountTools = (Boolean) jsonBody.get("isShowAmountTools");
 
         shop.labelNameForBuyerNameFieldInShoppingCart = labelNameForBuyerNameFieldInShoppingCart;
         System.out.println("labelNameForBuyerNameFieldInShoppingCart +> " + labelNameForBuyerNameFieldInShoppingCart);
-        shop.isShowAmountTools = isShowAmountTools;
+        shop.shopName = name;
+
         shop.temporaryClosedTitle = closedShopTitle;
         shop.temporaryClosedDescription = closedShopdiscription;
         shop.isTemporaryClosed = isTemporaryClosed;
-
         shop.alwaysOpen = alwaysOpen;
-        shop.shopName = name;
+
+        shop.googleWebsiteVerificator = googleWebsiteVerificator;
+        shop.googleAnalyticsCode = googleAnalyticsCode;
+        shop.googleMapsApiKey = googleMapsApiKey;
+        shop.googleStaticMapsApiKey = googleStaticMapsApiKey;
+        shop.faceBookPixelApiKey = faceBookPixelApiKey;
+        shop.locale = locale;
+
+
+        shop = shop.save();
+        renderJSON(json(shop));
+
+    }
+
+    public static void updateWorkingHoursForShop(String client) throws Exception{
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        System.out.println("jsonBody for save time: \n" + jsonBody);
+
+        String monStartTime = (String) jsonBody.get("monStartTime");
+        String monEndTime = (String) jsonBody.get("monEndTime");
+        if (monStartTime == null && monEndTime == null){
+            System.out.println("null here because hours -- null");
+        }
+        boolean monOpen = checkIsShopOpenToday(jsonBody, "monOpen");
+        String tueStartTime = (String) jsonBody.get("tueStartTime");
+        String tueEndTime = (String) jsonBody.get("tueEndTime");
+        boolean tueOpen = checkIsShopOpenToday(jsonBody, "tueOpen");
+        String wedStartTime = (String) jsonBody.get("wedStartTime");
+        String wedEndTime = (String) jsonBody.get("wedEndTime");
+        boolean wedOpen = checkIsShopOpenToday(jsonBody, "wedOpen");
+        String thuStartTime = (String) jsonBody.get("thuStartTime");
+        String thuEndTime = (String) jsonBody.get("thuEndTime");
+        boolean thuOpen = checkIsShopOpenToday(jsonBody, "thuOpen");
+        String friStartTime = (String) jsonBody.get("friStartTime");
+        String friEndTime = (String) jsonBody.get("friEndTime");
+        boolean friOpen = checkIsShopOpenToday(jsonBody, "friOpen");
+        String satStartTime = (String) jsonBody.get("satStartTime");
+        String satEndTime = (String) jsonBody.get("satEndTime");
+        boolean satOpen = checkIsShopOpenToday(jsonBody, "satOpen");
+        String sunStartTime = (String) jsonBody.get("sunStartTime");
+        String sunEndTime = (String) jsonBody.get("sunEndTime");
+        boolean sunOpen = checkIsShopOpenToday(jsonBody, "sunOpen");
+
+        System.out.println("working time\n" + monStartTime + "\n" + thuStartTime
+                + "\n" + wedStartTime + "\n" + thuStartTime + "\n" + friStartTime
+                + "\n" + satStartTime + "\n" + sunStartTime);
 
         shop.monStartTime = monStartTime;
         shop.monEndTime = monEndTime;
@@ -245,18 +273,21 @@ public class ShopAPI extends AuthController {
         shop.sunEndTime = sunEndTime;
         shop.sunOpen = sunOpen;
 
-
-        shop.googleWebsiteVerificator = googleWebsiteVerificator;
-        shop.googleAnalyticsCode = googleAnalyticsCode;
-        shop.googleMapsApiKey = googleMapsApiKey;
-        shop.googleStaticMapsApiKey = googleStaticMapsApiKey;
-        shop.faceBookPixelApiKey = faceBookPixelApiKey;
-        shop.locale = locale;
-
-
         shop = shop.save();
         renderJSON(json(shop));
+    }
 
+    private static boolean checkIsShopOpenToday(JSONObject jsonBody, String day) {
+        boolean isShopOpen;
+        try {
+            isShopOpen = (boolean) jsonBody.get(day);
+            return isShopOpen;
+        }
+        catch(Exception e) {
+            isShopOpen = false;
+            System.out.println("Exception for "+ day + " : => " + e);
+            return isShopOpen;
+        }
     }
 
 

@@ -76,6 +76,8 @@ public class UserDashBoardAPI extends AuthController{
         shop.googleMapsApiKey = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
         visualSettings.shop = shop;
         shop.save();
+        System.out.println("json(shop): " + json(shop));
+        renderJSON(json(shop));
 
     }
 

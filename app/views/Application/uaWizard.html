@@ -622,7 +622,7 @@
         function _generateRequest(url, json) {
             let token = localStorage.getItem('JWT_TOKEN');
             const isUrlEqualDelivPayType = url == urlForDeliveryPaymentType;
-            console.log("check isUrlEqualDelivPayType: ", isUrlEqualDelivPayType);
+            console.log("check isUrlEqualDelivPayType for creating shop: ", isUrlEqualDelivPayType);
             fetch(url, {
                 method: 'POST',
                 body: json,
@@ -633,10 +633,12 @@
                 console.log("response response: ", response);
                 return response.json();
             }).then(function (data) {
-                console.log("response data: ", data);
+                console.log("response /api/dashboard/shop/create: ", data.shopName);
                 handlingErrorForDomainName(data);
                 if (data && isUrlEqualDelivPayType) {
                     _generateRequest('/api/dashboard/shop/create');
+                }
+                if(data.shopName){
                     window.location = '/dashboard';
                 }
             });
