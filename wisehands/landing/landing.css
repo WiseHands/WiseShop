@@ -453,14 +453,6 @@ textarea {
     .land-category .landing-container, .land-area-delivery .landing-container, .land-network .landing-container {
         flex-direction: column-reverse;
     }
-    .land-options-img {
-        background: url(../../wisehands/landing/images/mob-options.jpg) no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
-    .land-options .land-img {
-        height: 80vh;
-    }
     .land-area-delivery-img {
         background-size: cover;
         background-position: center;

@@ -7,8 +7,12 @@
     <title>Wise Store</title>
     <link href="wisehands/landing/landing.css" rel="stylesheet"/>
     <link href="wisehands/mainpage/css/animate.css" rel="stylesheet"/>
-    <script src="wisehands/landing/landing.js"></script>
+    <script src="/wisehands/mainpage/js/wow.min.js"></script>
+    <script>
+    new WOW().init();
+    </script>
 
+    <script src="wisehands/landing/landing.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
@@ -66,8 +70,8 @@
     </div>
     <section class="land-payment">
         <div class="landing-container">
-            <div class="land-img land-payment-img"></div>
-            <div class="land-text">
+            <div class="land-img land-payment-img wow fadeIn" data-wow-delay="0.3s"></div>
+            <div class="land-text wow fadeInRight" data-wow-delay="0.3s" data-wow-duration="1.5s">
                 <h3 class="land-h3">Оплата онлайн</h3>
                 <div class="underline"></div>
                 <p class="land-p">Приймайте онлайн-оплату безпосередньо на свій рахунок</p>
@@ -78,18 +82,18 @@
     </section>
     <section class="land-category">
         <div class="landing-container">
-            <div class="land-text-left">
+            <div class="land-text-left wow fadeInLeft"  data-wow-delay="0.3s">
                 <h3 class="land-h3">Категорії</h3>
                 <div class="underline"></div>
                 <p class="land-p">Структуруйте асортимент ваших товарів по категоріях</p>
             </div>
-            <div class="land-img land-category-img"></div>
+            <div class="land-img land-category-img wow fadeIn" data-wow-delay="0.3s" data-wow-duration="1.5s"></div>
         </div>
     </section>
     <section class="land-options">
         <div class="landing-container">
-            <div class="land-img land-options-img"></div>
-            <div class="land-text">
+            <div class="land-img land-options-img wow fadeIn" data-wow-delay="0.3s"></div>
+            <div class="land-text wow fadeInRight"  data-wow-delay="0.3s" data-wow-duration="1.5s">
                 <h3 class="land-h3">Додаткові опції</h3>
                 <div class="underline"></div>
                 <p class="land-p">Можливість створювати та додавати опції до основного товару (наприклад для товару піца - це можливість додати додатковий соус, сир, зелень) </p>
@@ -98,34 +102,34 @@
     </section>
     <section class="land-area-delivery">
         <div class="landing-container">
-            <div class="land-text-left">
+            <div class="land-text-left wow fadeInLeft"  data-wow-delay="0.3s">
                 <h3 class="land-h3">Зона доставки</h3>
                 <div class="underline"></div>
                 <p class="land-p">Встановлюйте необхідну межу доставки по місту</p>
             </div>
-            <div class="land-img land-area-delivery-img"></div>
+            <div class="land-img land-area-delivery-img wow fadeIn" data-wow-delay="0.3s" data-wow-duration="1.5s"></div>
         </div>
     </section>
     <section class="land-analytics">
         <div class="landing-container">
-            <div class="land-img land-analytics-img"></div>
-            <div class="land-text">
+            <div class="land-img land-analytics-img wow fadeIn" data-wow-delay="0.3s"></div>
+            <div class="land-text wow fadeInRight"  data-wow-delay="0.3s" data-wow-duration="1.5s">
                 <h3 class="land-h3">Аналітика</h3>
                 <div class="underline"></div>
                 <p class="land-p">Детальний аналіз Вашого бізнесу: відвідувачі, замовлення, виручка</виручка></p>
             </div>
         </div>
     </section>
-    <section class="land-network">
-        <div class="landing-container">
-            <div class="land-text-left">
-                <h3 class="land-h3">Мережа закладів</h3>
-                <div class="underline"></div>
-                <p class="land-p">Керуйте мережею своїх закладів</p>
-            </div>
-            <div class="land-img land-network-img"></div>
-        </div>
-    </section>
+    <!--<section class="land-network">-->
+        <!--<div class="landing-container">-->
+            <!--<div class="land-text-left">-->
+                <!--<h3 class="land-h3">Мережа закладів</h3>-->
+                <!--<div class="underline"></div>-->
+                <!--<p class="land-p">Керуйте мережею своїх закладів</p>-->
+            <!--</div>-->
+            <!--<div class="land-img land-network-img"></div>-->
+        <!--</div>-->
+    <!--</section>-->
 
     <section class="tariff" id="tariff">
         <h2>Тарифи</h2>
@@ -185,7 +189,7 @@
                     </div>
                     <div class="tariff-desc-row">
                         <i class="fa fa-check" style="font-size:20px"></i>
-                        <p>власний домен</p>
+                        <p>інтеграції</p>
                     </div>
                 </div>
                 <div class="tariff-button">

@@ -288,6 +288,9 @@ body a {
     color: #212529;
     max-width: 600px;
 }
+.services-banner-mob {
+
+}
 .services-content {
     margin-top: 3rem;
     padding: 1rem;
@@ -325,7 +328,23 @@ body a {
 .stack-item img:hover {
     filter: grayscale(0%);
 }
-
+.services-contact-btn {
+    display: flex;
+    justify-content: center;
+}
+.services-contact-btn button {
+    margin: 1.5rem 0;
+    padding: 0.5rem 2rem;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.services-contact-btn button:hover {
+    background-color: #000;
+    color: #fff;
+}
 @media screen and (max-width: 768px) {
     .header-block {
         display: none;
@@ -333,7 +352,20 @@ body a {
     .burger-menu {
         display: block;
     }
-    .services-banner h1 {
+    .services-banner {
+        display: none;
+        top: 25%;
+        left: 0;
+    }
+    .services-banner-mob {
+        display: block;
+    }
+    .services-banner-mob h1 {
         font-size: 2.5rem;
+        text-align: center;
+        background: #fff;
+        padding: 1rem;
+        margin: 1rem;
+        border-radius: 0.5rem;
     }
 }
