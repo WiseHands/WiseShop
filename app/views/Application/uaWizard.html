@@ -1,758 +1,753 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-        <title>Створення магазину</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
-        <link rel="icon"
-              type="image/png"
-              href="wisehands/assets/images/favicon.png">
-    </head>
+    <title>Створення магазину</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="icon"
+          type="image/png"
+          href="wisehands/assets/images/favicon.png">
+</head>
 
-    <style>
-        body, p, h1, h2, h3, h4, h5, h6, i, a {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', 'Helvetica', sans-serif;
-            overflow-x: hidden;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
+<style>
+    body, p, h1, h2, h3, h4, h5, h6, i, a {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', 'Helvetica', sans-serif;
+        overflow-x: hidden;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
 
-        .wizard-main {
-            display: flex;
-            height: 100vh;
-        }
+    .wizard-main {
+        display: flex;
+        height: 100vh;
+    }
 
-        .wizard-img1 {
-            flex-basis: 40%;
-            background: url("../wisehands/landing/images/wizard1.jpg") no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
+    .wizard-img1 {
+        flex-basis: 40%;
+        background: url("../wisehands/landing/images/wizard1.jpg") no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
 
-        .wizard-img2 {
-            flex-basis: 40%;
-            background: url("../wisehands/landing/images/wizard2.jpg") no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
+    .wizard-img2 {
+        flex-basis: 40%;
+        background: url("../wisehands/landing/images/wizard2.jpg") no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
 
-        .wizard-img3 {
-            flex-basis: 40%;
-            background: url("../wisehands/landing/images/wizard3.jpg") no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
+    .wizard-img3 {
+        flex-basis: 40%;
+        background: url("../wisehands/landing/images/wizard3.jpg") no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
 
-        .wizard-img img {
-            width: 100%;
-            height: 100vh;
-        }
+    .wizard-img img {
+        width: 100%;
+        height: 100vh;
+    }
 
-        .wizard-block {
-            flex-basis: 60%;
-        }
+    .wizard-block {
+        flex-basis: 60%;
+    }
 
+    .wizard-form {
+        width: 80%;
+        height: 750px;
+        margin: 1rem auto;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3), 0px 5px 5px 0px rgba(0, 0, 0, 0.14), -1px -2px 2px -1px rgba(0, 0, 0, 0.12);
+        position: relative;
+    }
+
+    .wizard-form h2 {
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: 600;
+        padding: 2rem 0 1rem 0;
+    }
+
+    .steps {
+        display: flex;
+        width: 90%;
+        margin: 0 auto 1rem auto;
+        padding: 1rem 0;
+        border-top: 1px solid #ebebeb;
+        border-bottom: 1px solid #ebebeb;
+    }
+
+    .step {
+        display: flex;
+        align-items: center;
+        width: 33%;
+        padding-left: 1rem;
+    }
+
+    #step2 {
+        border-left: 1px solid #ebebeb;
+        border-right: 1px solid #ebebeb;
+    }
+
+    .wiz-step {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: 2px solid black;
+        width: 36px;
+        height: 36px;
+        margin-right: 0.5rem;
+    }
+
+    .step-active {
+        color: #20b2aa;
+        border: 2px solid #20b2aa;
+    }
+
+    .wiz-span {
+        color: #20b2aa;
+    }
+
+    .wiz-step p {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .step2-form, .step3-form {
+        display: none;
+    }
+
+    .step1-form, .step2-form, .step3-form {
+        width: 90%;
+        margin: 0 auto 1rem auto;
+    }
+
+    .form-field {
+        position: relative;
+    }
+
+    .form-field-store-domain {
+        position: relative;
+        width: 30%;
+        font-weight: 600;
+    }
+
+    .store-domain {
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .store-domain-text {
+        padding-top: 1rem;
+    }
+
+    .store-domain p {
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    #store-domain-error {
+        color: red;
+        margin-left: 15px;
+    }
+
+    #handle-delivery-error {
+        color: red;
+        margin-bottom: 0;
+        margin-left: 60px;
+    }
+
+    #store-domain {
+        padding-bottom: 0;
+        text-align: right;
+    }
+
+    #store-name {
+        margin-bottom: rem;
+    }
+
+    .form-field input, .form-field-store-domain input, .wizard-socialnetwork input {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 1rem 0;
+        padding: 1rem 0 1rem 1rem;
+        border: none;
+        border-bottom: 1px solid #9e9e9e;
+    }
+
+    .form-field input:focus, .wizard-socialnetwork input:focus {
+        outline: none;
+    }
+
+    .form-field label, .wizard-socialnetwork label {
+        font-size: 1rem;
+        position: absolute;
+        pointer-events: none;
+        top: 31px;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+
+    .form-field input:focus ~ label, .form-field input:not(:placeholder-shown) ~ label, .wizard-socialnetwork input:focus ~ label, .wizard-socialnetwork input:not(:placeholder-shown) ~ label {
+        top: 0;
+        font-size: 0.9rem;
+        color: #20b2aa;
+    }
+
+    .highlight {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    .highlight:before, .highlight:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        bottom: 1px;
+        position: absolute;
+        top: -17px;
+        background: #20b2aa;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+
+    .highlight:before {
+        left: 50%;
+    }
+
+    .highlight:after {
+        right: 50%;
+    }
+
+    #handle-delivery-error {
+        color: red;
+        margin-bottom: 0;
+        margin-left: 60px;
+    }
+
+    #handle-payment-error {
+        color: red;
+        margin-bottom: 0;
+        margin-left: 35px;
+    }
+
+    .delivery-payment-container {
+        display: flex;
+        align-items: center
+    }
+
+    /* active state */
+    input:focus ~ .highlight:before, input:focus ~ .highlight:after {
+        width: 50%;
+    }
+
+    textarea {
+        width: 100%;
+        height: 150px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-top: 1rem;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    .step3-form p:first-child {
+        margin-bottom: 0.5rem;
+    }
+
+    .wizard-delivery, .wizard-payment {
+        margin-bottom: 1rem;
+    }
+
+    .form-button {
+        display: flex;
+        justify-content: flex-end;
+        width: 90%;
+        margin: 3rem auto 1rem auto;
+        position: absolute;
+        right: 2rem;
+        bottom: 2rem;
+    }
+
+    button {
+        background-color: #fff;
+        border: 2px solid #000;
+        height: 50px;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1rem;
+    }
+
+    button:hover, button:hover {
+        color: #fff;
+        background-color: #000;
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
         .wizard-form {
-            width: 80%;
-            height: 750px;
-            margin: 1rem auto;
-            border-radius: 10px;
-            box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3), 0px 5px 5px 0px rgba(0, 0, 0, 0.14), -1px -2px 2px -1px rgba(0, 0, 0, 0.12);
-            position: relative;
-        }
-
-        .wizard-form h2 {
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: 600;
-            padding: 2rem 0 1rem 0;
-        }
-
-        .steps {
-            display: flex;
             width: 90%;
-            margin: 0 auto 1rem auto;
-            padding: 1rem 0;
-            border-top: 1px solid #ebebeb;
-            border-bottom: 1px solid #ebebeb;
+            height: 850px;
         }
 
-        .step {
-            display: flex;
-            align-items: center;
-            width: 33%;
-            padding-left: 1rem;
-        }
-
-        #step2 {
-            border-left: 1px solid #ebebeb;
-            border-right: 1px solid #ebebeb;
-        }
-
-        .wiz-step {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            border: 2px solid black;
-            width: 36px;
-            height: 36px;
-            margin-right: 0.5rem;
-        }
-
-        .step-active {
-            color: #20b2aa;
-            border: 2px solid #20b2aa;
-        }
-
-        .wiz-span {
-            color: #20b2aa;
-        }
-
-        .wiz-step p {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .step2-form, .step3-form {
+        .wizard-img {
             display: none;
         }
 
-        .step1-form, .step2-form, .step3-form {
-            width: 90%;
-            margin: 0 auto 1rem auto;
+        .wizard-block {
+            flex-basis: 100%;
         }
 
-        .form-field {
-            position: relative;
+        .steps {
+            flex-direction: column;
+        }
+
+        .step {
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+
+        .step1-form, .step2-form, .step3-form {
+            width: 95%;
+        }
+
+        #step2 {
+            border-left: 0;
+            border-right: 0;
         }
 
         .form-field-store-domain {
-            position: relative;
-            width: 30%;
-            font-weight: 600;
-        }
-
-        .store-domain {
-            display: flex;
-            align-items: flex-end;
-        }
-
-        .store-domain-text {
-            padding-top: 1rem;
-        }
-
-        .store-domain p {
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        #store-domain-error {
-            color: red;
-            margin-left: 15px;
-        }
-
-        #handle-delivery-error {
-            color: red;
-            margin-bottom: 0;
-            margin-left: 60px;
-        }
-
-        #store-domain {
-            padding-bottom: 0;
-            text-align: right;
-        }
-
-        #store-name {
-            margin-bottom: rem;
-        }
-
-        .form-field input, .form-field-store-domain input, .wizard-socialnetwork input {
-            width: 100%;
-            box-sizing: border-box;
-            margin: 1rem 0;
-            padding: 1rem 0 1rem 1rem;
-            border: none;
-            border-bottom: 1px solid #9e9e9e;
-        }
-
-        .form-field input:focus, .wizard-socialnetwork input:focus {
-            outline: none;
-        }
-
-        .form-field label, .wizard-socialnetwork label {
-            font-size: 1rem;
-            position: absolute;
-            pointer-events: none;
-            top: 31px;
-            transition: 0.2s ease all;
-            -moz-transition: 0.2s ease all;
-            -webkit-transition: 0.2s ease all;
-        }
-
-        .form-field input:focus ~ label, .form-field input:not(:placeholder-shown) ~ label, .wizard-socialnetwork input:focus ~ label, .wizard-socialnetwork input:not(:placeholder-shown) ~ label {
-            top: 0;
-            font-size: 0.9rem;
-            color: #20b2aa;
-        }
-
-        .highlight {
-            position: relative;
-            display: block;
-            width: 100%;
-        }
-
-        .highlight:before, .highlight:after {
-            content: '';
-            height: 2px;
-            width: 0;
-            bottom: 1px;
-            position: absolute;
-            top: -17px;
-            background: #20b2aa;
-            transition: 0.2s ease all;
-            -moz-transition: 0.2s ease all;
-            -webkit-transition: 0.2s ease all;
-        }
-
-        .highlight:before {
-            left: 50%;
-        }
-
-        .highlight:after {
-            right: 50%;
-        }
-
-        #handle-delivery-error {
-            color: red;
-            margin-bottom: 0;
-            margin-left: 60px;
-        }
-
-        #handle-payment-error {
-            color: red;
-            margin-bottom: 0;
-            margin-left: 35px;
-        }
-
-        .delivery-payment-container {
-            display: flex;
-            align-items: center
-        }
-
-        /* active state */
-        input:focus ~ .highlight:before, input:focus ~ .highlight:after {
-            width: 50%;
+            width: auto;
         }
 
         textarea {
-            width: 100%;
-            height: 150px;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            margin-top: 1rem;
-            margin-bottom: 16px;
-            resize: vertical;
+            height: 200px;
         }
+    }
+</style>
 
-        .step3-form p:first-child {
-            margin-bottom: 0.5rem;
-        }
-
-        .wizard-delivery, .wizard-payment {
-            margin-bottom: 1rem;
-        }
-
-        .form-button {
-            display: flex;
-            justify-content: flex-end;
-            width: 90%;
-            margin: 3rem auto 1rem auto;
-            position: absolute;
-            right: 2rem;
-            bottom: 2rem;
-        }
-
-        button {
-            background-color: #fff;
-            border: 2px solid #000;
-            height: 50px;
-            width: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-left: 1rem;
-        }
-
-        button:hover, button:hover {
-            color: #fff;
-            background-color: #000;
-            cursor: pointer;
-        }
-
-        @media screen and (max-width: 768px) {
-            .wizard-form {
-                width: 90%;
-                height: 850px;
-            }
-
-            .wizard-img {
-                display: none;
-            }
-
-            .wizard-block {
-                flex-basis: 100%;
-            }
-
-            .steps {
-                flex-direction: column;
-            }
-
-            .step {
-                width: 100%;
-                margin: 0.5rem 0;
-            }
-
-            .step1-form, .step2-form, .step3-form {
-                width: 95%;
-            }
-
-            #step2 {
-                border-left: 0;
-                border-right: 0;
-            }
-
-            .form-field-store-domain {
-                width: auto;
-            }
-
-            textarea {
-                height: 200px;
-            }
-        }
-    </style>
-
-    <body>
-    <div class="wizard-main">
-        <div id="wizardBackImage" class="wizard-img1, wizard-img2, wizard-img3">
-        </div>
-
-        <div class="wizard-block">
-
-            <div name="wizard-form" class="wizard-form" id="regForm">
-                <h2>Створення магазину</h2>
-                <div class="steps">
-                    <div class="step" id="step1">
-                        <div class="wiz-step" id="wizStep1">
-                            <p>1</p>
-                        </div>
-                        <span id="wizSpan1">Магазин</span>
-                    </div>
-                    <div class="step" id="step2">
-                        <div class="wiz-step" id="wizStep2">
-                            <p>2</p>
-                        </div>
-                        <span id="wizSpan2">Контакти</span>
-                    </div>
-                    <div class="step" id="step3">
-                        <div class="wiz-step" id="wizStep3">
-                            <p>3</p>
-                        </div>
-                        <span id="wizSpan3">Конфігурація</span>
-                    </div>
-                </div>
-
-                <form class="step1-form" id="firstForm">
-                    <div class="form-field">
-                        <input id="store-name" type="text" name="shopName" required placeholder=" "
-                               onblur="setMainSettingForShop(event)">
-                        <span class="highlight"></span>
-                        <label for="store-name">Назва магазину</label>
-                    </div>
-                    <p class="store-domain-text">Вкажіть веб-адресу Вашого магазину</p>
-                    <div class="store-domain">
-                        <div class="form-field-store-domain">
-                            <input id="store-domain" type="text" name="shopDomain" required placeholder="mynewstore"
-                                   onblur="checkDomainNameAvailability(event)">
-                        </div>
-                        <p>.wstore.pro</p>
-                        <p id="store-domain-error"></p>
-                    </div>
-                    <textarea id="store-about" placeholder="Опис магазину" name="shopDescription" required
-                              onblur="setMainSettingForShop(event)"></textarea>
-                    <div class="form-button">
-                        <button type="button" id="prevBtn1" onclick="">Назад</button>
-                        <button type="submit" id="nextBtn1" onclick="">Далі</button>
-                    </div>
-                </form>
-
-                <form class="step2-form" id="secondForm">
-                    <div class="form-field">
-                        <input id="store-city" type="text" name="cityName" required placeholder=" "
-                               onblur="setShopContactInfo(event)">
-                        <span class="highlight"></span>
-                        <label for="store-city">Місто</label>
-                    </div>
-                    <div class="form-field">
-                        <input id="store-street" type="text" name="streetName" required placeholder=" "
-                               onblur="setShopContactInfo(event)">
-                        <span class="highlight"></span>
-                        <label for="store-street">Вулиця</label>
-                    </div>
-                    <div class="form-field">
-                        <input id="store-house" type="text" name="buildingNumber" placeholder=" "
-                               onblur="setShopContactInfo(event)">
-                        <span class="highlight"></span>
-                        <label for="store-house">Будинок</label>
-                    </div>
-                    <!--<div class="form-field">-->
-                    <!--<input id="store-legalinfo" type="text" name="legalUserName" placeholder=" "-->
-                    <!--onblur="setShopContactInfo(event)">-->
-                    <!--<span class="highlight"></span>-->
-                    <!--<label for="store-legalinfo">Назва юридичної особи</label>-->
-                    <!--</div>-->
-                    <div class="form-button">
-                        <button type="button" id="prevBtn2" onclick="">Назад</button>
-                        <button type="submit" id="nextBtn2" onclick="">Далі</button>
-                    </div>
-                </form>
-
-                <form class="step3-form">
-                    <div class="wizard-delivery">
-                        <p>Виберіть варіанти отримання товару клієнтом</p>
-                        <div class="delivery-payment-container">
-                            <div>
-                                <input type="checkbox" id="wizardСourier" name="courier" value="courier">
-                                <label for="wizardСourier">Кур'єр</label><br>
-                                <input type="checkbox" id="wizardPost" name="novaposhta" value="novaposhta">
-                                <label for="wizardPost">Нова пошта</label><br>
-                                <input type="checkbox" id="wizardSelftake" name="self" value="self">
-                                <label for="wizardSelftake">Самовивіз</label><br>
-                            </div>
-                            <div>
-                                <p id="handle-delivery-error"></p>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!--<div class="wizard-payment">-->
-                    <!--<p>Виберіть варіант прийому оплати від клієнтів</p>-->
-                    <!--<div class="delivery-payment-container">-->
-                    <!--<div>-->
-                    <!--<input type="checkbox" id="wizardPayOnline" name="onlinepay" value="onlinepay">-->
-                    <!--<label for="wizardPayOnline">Онлайн-оплата</label><br>-->
-                    <!--<input type="checkbox" id="wizardPayCash" name="cash" value="cash">-->
-                    <!--<label for="wizardPayCash">Готівка</label><br>-->
-                    <!--</div>-->
-                    <!--<div>-->
-                    <!--<p id="handle-payment-error"></p>-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-                    <!--</div>-->
-                    <div class="wizard-socialnetwork">
-                        <p>Вкажіть посилання на соціальні мережі</p>
-                        <div class="form-field">
-                            <input id="store-facebook" type="text" name="facebook" placeholder=" "
-                                   onblur="setSocialNetworkInfo(event)">
-                            <span class="highlight"></span>
-                            <label for="store-facebook">Facebook</label>
-                        </div>
-                        <div class="form-field">
-                            <input id="store-instagram" type="text" name="instagram" placeholder=" "
-                                   onblur="setSocialNetworkInfo(event)">
-                            <span class="highlight"></span>
-                            <label for="store-instagram">Instagram</label>
-                        </div>
-                        <div class="form-field">
-                            <input id="store-youtube" type="text" name="youtube" placeholder=" "
-                                   onblur="setSocialNetworkInfo(event)">
-                            <span class="highlight"></span>
-                            <label for="store-youtube">Youtube</label>
-                        </div>
-                    </div>
-                    <div class="form-button">
-                        <button type="button" id="prevBtn3" onclick="nextStep">Назад</button>
-                        <button type="submit" id="nextBtn3"
-                                onclick="settingVariantsOfDeliveryAndPaymentTypes()">Далі
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
+<body>
+<div class="wizard-main">
+    <div id="wizardBackImage" class="wizard-img1, wizard-img2, wizard-img3">
     </div>
 
-    <script>
-        getWizardInfo();
-        let isValidateAddressDomainName;
-        let currentStep = 0;
-        const urlForDeliveryPaymentType = '/api/wizard/delivery-payment-info';
-        nextStep(currentStep);
+    <div class="wizard-block">
 
-        function nextStep() {
-            if (currentStep == 0) {
-                document.getElementById("prevBtn1").style.display = "none";
-                document.getElementById("wizStep1").classList.add('step-active');
-                document.getElementById("wizSpan1").classList.add('wiz-span');
-                document.getElementById("wizardBackImage").classList.add('wizard-img1');
-                document.getElementById("wizardBackImage").classList.remove('wizard-img2');
-                document.getElementById("wizardBackImage").classList.remove('wizard-img3');
-            }
-            else {
-                document.getElementById("prevBtn").style.display = "flex";
-            }
+        <div name="wizard-form" class="wizard-form" id="regForm">
+            <h2>Створення магазину</h2>
+            <div class="steps">
+                <div class="step" id="step1">
+                    <div class="wiz-step" id="wizStep1">
+                        <p>1</p>
+                    </div>
+                    <span id="wizSpan1">Магазин</span>
+                </div>
+                <div class="step" id="step2">
+                    <div class="wiz-step" id="wizStep2">
+                        <p>2</p>
+                    </div>
+                    <span id="wizSpan2">Контакти</span>
+                </div>
+                <div class="step" id="step3">
+                    <div class="wiz-step" id="wizStep3">
+                        <p>3</p>
+                    </div>
+                    <span id="wizSpan3">Конфігурація</span>
+                </div>
+            </div>
 
-            const firstForm = document.getElementById('firstForm');
-            firstForm.addEventListener('submit', function (event) {
-                if (isValidateAddressDomainName) {
-                    document.querySelector(".step1-form").style.display = 'none';
-                    document.querySelector(".step2-form").style.display = 'block';
-                    document.getElementById("wizStep1").classList.remove('step-active');
-                    document.getElementById("wizStep2").classList.add('step-active');
-                    document.getElementById("wizSpan1").classList.remove('wiz-span');
-                    document.getElementById("wizSpan2").classList.add('wiz-span');
-                    document.getElementById("wizardBackImage").classList.remove('wizard-img1');
-                    document.getElementById("wizardBackImage").classList.add('wizard-img2');
-                    document.getElementById("wizardBackImage").classList.remove('wizard-img3');
-                }
-                event.preventDefault();
-            });
+            <form class="step1-form" id="firstForm">
+                <div class="form-field">
+                    <input id="store-name" type="text" name="shopName" required placeholder=" "
+                           onblur="setMainSettingForShop(event)">
+                    <span class="highlight"></span>
+                    <label for="store-name">Назва магазину</label>
+                </div>
+                <p class="store-domain-text">Вкажіть веб-адресу Вашого магазину</p>
+                <div class="store-domain">
+                    <div class="form-field-store-domain">
+                        <input id="store-domain" type="text" name="shopDomain" required placeholder="mynewstore"
+                               onblur="checkDomainNameAvailability(event)">
+                    </div>
+                    <p>.wstore.pro</p>
+                    <p id="store-domain-error"></p>
+                </div>
+                <textarea id="store-about" placeholder="Опис магазину" name="shopDescription" required
+                          onblur="setMainSettingForShop(event)"></textarea>
+                <div class="form-button">
+                    <button type="button" id="prevBtn1" onclick="">Назад</button>
+                    <button type="submit" id="nextBtn1" onclick="">Далі</button>
+                </div>
+            </form>
 
-            document.getElementById("prevBtn2").addEventListener("click", prevPage2);
+            <form class="step2-form" id="secondForm">
+                <div class="form-field">
+                    <input id="store-city" type="text" name="cityName" required placeholder=" "
+                           onblur="setShopContactInfo(event)">
+                    <span class="highlight"></span>
+                    <label for="store-city">Місто</label>
+                </div>
+                <div class="form-field">
+                    <input id="store-street" type="text" name="streetName" required placeholder=" "
+                           onblur="setShopContactInfo(event)">
+                    <span class="highlight"></span>
+                    <label for="store-street">Вулиця</label>
+                </div>
+                <div class="form-field">
+                    <input id="store-house" type="text" name="buildingNumber" placeholder=" "
+                           onblur="setShopContactInfo(event)">
+                    <span class="highlight"></span>
+                    <label for="store-house">Будинок</label>
+                </div>
+                <!--<div class="form-field">-->
+                <!--<input id="store-legalinfo" type="text" name="legalUserName" placeholder=" "-->
+                <!--onblur="setShopContactInfo(event)">-->
+                <!--<span class="highlight"></span>-->
+                <!--<label for="store-legalinfo">Назва юридичної особи</label>-->
+                <!--</div>-->
+                <div class="form-button">
+                    <button type="button" id="prevBtn2" onclick="">Назад</button>
+                    <button type="submit" id="nextBtn2" onclick="">Далі</button>
+                </div>
+            </form>
 
-            function prevPage2() {
-                document.querySelector(".step2-form").style.display = 'none';
-                document.querySelector(".step1-form").style.display = 'block';
-                document.getElementById("wizStep2").classList.remove('step-active');
-                document.getElementById("wizStep1").classList.add('step-active');
-                document.getElementById("wizSpan2").classList.remove('wiz-span');
-                document.getElementById("wizSpan1").classList.add('wiz-span');
-                document.getElementById("wizardBackImage").classList.add('wizard-img1');
-                document.getElementById("wizardBackImage").classList.remove('wizard-img2');
-                document.getElementById("wizardBackImage").classList.remove('wizard-img3');
-            }
+            <form class="step3-form">
+                <div class="wizard-delivery">
+                    <p>Виберіть варіанти отримання товару клієнтом</p>
+                    <div class="delivery-payment-container">
+                        <div>
+                            <input type="checkbox" id="wizardСourier" name="courier" value="courier">
+                            <label for="wizardСourier">Кур'єр</label><br>
+                            <input type="checkbox" id="wizardPost" name="novaposhta" value="novaposhta">
+                            <label for="wizardPost">Нова пошта</label><br>
+                            <input type="checkbox" id="wizardSelftake" name="self" value="self">
+                            <label for="wizardSelftake">Самовивіз</label><br>
+                        </div>
+                        <div>
+                            <p id="handle-delivery-error"></p>
+                        </div>
+                    </div>
 
-            const secondForm = document.getElementById('secondForm');
-            secondForm.addEventListener('submit', function (event) {
-                document.querySelector(".step2-form").style.display = 'none';
-                document.querySelector(".step3-form").style.display = 'block';
-                document.getElementById("nextBtn3").innerHTML = "Готово";
-                document.getElementById("wizStep2").classList.remove('step-active');
-                document.getElementById("wizStep3").classList.add('step-active');
-                document.getElementById("wizSpan2").classList.remove('wiz-span');
-                document.getElementById("wizSpan3").classList.add('wiz-span');
-                document.getElementById("wizardBackImage").classList.remove('wizard-img1');
-                document.getElementById("wizardBackImage").classList.remove('wizard-img2');
-                document.getElementById("wizardBackImage").classList.add('wizard-img3');
-                event.preventDefault();
-            });
+                </div>
+                <!--<div class="wizard-payment">-->
+                <!--<p>Виберіть варіант прийому оплати від клієнтів</p>-->
+                <!--<div class="delivery-payment-container">-->
+                <!--<div>-->
+                <!--<input type="checkbox" id="wizardPayOnline" name="onlinepay" value="onlinepay">-->
+                <!--<label for="wizardPayOnline">Онлайн-оплата</label><br>-->
+                <!--<input type="checkbox" id="wizardPayCash" name="cash" value="cash">-->
+                <!--<label for="wizardPayCash">Готівка</label><br>-->
+                <!--</div>-->
+                <!--<div>-->
+                <!--<p id="handle-payment-error"></p>-->
+                <!--</div>-->
+                <!--</div>-->
 
-            document.getElementById("prevBtn3").addEventListener("click", prevPage3);
+                <!--</div>-->
+                <div class="wizard-socialnetwork">
+                    <p>Вкажіть посилання на соціальні мережі</p>
+                    <div class="form-field">
+                        <input id="store-facebook" type="text" name="facebook" placeholder=" "
+                               onblur="setSocialNetworkInfo(event)">
+                        <span class="highlight"></span>
+                        <label for="store-facebook">Facebook</label>
+                    </div>
+                    <div class="form-field">
+                        <input id="store-instagram" type="text" name="instagram" placeholder=" "
+                               onblur="setSocialNetworkInfo(event)">
+                        <span class="highlight"></span>
+                        <label for="store-instagram">Instagram</label>
+                    </div>
+                    <div class="form-field">
+                        <input id="store-youtube" type="text" name="youtube" placeholder=" "
+                               onblur="setSocialNetworkInfo(event)">
+                        <span class="highlight"></span>
+                        <label for="store-youtube">Youtube</label>
+                    </div>
+                </div>
+                <div class="form-button">
+                    <button type="button" id="prevBtn3" onclick="nextStep">Назад</button>
+                    <button type="submit" id="nextBtn3"
+                            onclick="settingVariantsOfDeliveryAndPaymentTypes()">Далі
+                    </button>
+                </div>
+            </form>
 
-            function prevPage3() {
-                document.querySelector(".step3-form").style.display = 'none';
+        </div>
+    </div>
+</div>
+
+<script>
+    getWizardInfo();
+    let isValidateAddressDomainName;
+    let currentStep = 0;
+    const urlForDeliveryPaymentType = '/api/wizard/delivery-payment-info';
+    nextStep(currentStep);
+
+    function nextStep() {
+        if (currentStep == 0) {
+            document.getElementById("prevBtn1").style.display = "none";
+            document.getElementById("wizStep1").classList.add('step-active');
+            document.getElementById("wizSpan1").classList.add('wiz-span');
+            document.getElementById("wizardBackImage").classList.add('wizard-img1');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img2');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img3');
+        }
+        else {
+            document.getElementById("prevBtn").style.display = "flex";
+        }
+
+        const firstForm = document.getElementById('firstForm');
+        firstForm.addEventListener('submit', function (event) {
+            if (isValidateAddressDomainName) {
+                document.querySelector(".step1-form").style.display = 'none';
                 document.querySelector(".step2-form").style.display = 'block';
-                document.getElementById("wizStep3").classList.remove('step-active');
+                document.getElementById("wizStep1").classList.remove('step-active');
                 document.getElementById("wizStep2").classList.add('step-active');
-                document.getElementById("wizSpan3").classList.remove('wiz-span');
+                document.getElementById("wizSpan1").classList.remove('wiz-span');
                 document.getElementById("wizSpan2").classList.add('wiz-span');
                 document.getElementById("wizardBackImage").classList.remove('wizard-img1');
                 document.getElementById("wizardBackImage").classList.add('wizard-img2');
                 document.getElementById("wizardBackImage").classList.remove('wizard-img3');
             }
+            event.preventDefault();
+        });
+
+        document.getElementById("prevBtn2").addEventListener("click", prevPage2);
+
+        function prevPage2() {
+            document.querySelector(".step2-form").style.display = 'none';
+            document.querySelector(".step1-form").style.display = 'block';
+            document.getElementById("wizStep2").classList.remove('step-active');
+            document.getElementById("wizStep1").classList.add('step-active');
+            document.getElementById("wizSpan2").classList.remove('wiz-span');
+            document.getElementById("wizSpan1").classList.add('wiz-span');
+            document.getElementById("wizardBackImage").classList.add('wizard-img1');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img2');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img3');
         }
 
-        function setMainSettingForShop(event) {
-            console.log('setMainSettingForShop: ', event.target.name, event.target.value);
-            const params = '?' + event.target.name + '=' + event.target.value;
-            const url = '/api/wizard/update' + params;
-            _generateRequest(url);
+        const secondForm = document.getElementById('secondForm');
+        secondForm.addEventListener('submit', function (event) {
+            document.querySelector(".step2-form").style.display = 'none';
+            document.querySelector(".step3-form").style.display = 'block';
+            document.getElementById("nextBtn3").innerHTML = "Готово";
+            document.getElementById("wizStep2").classList.remove('step-active');
+            document.getElementById("wizStep3").classList.add('step-active');
+            document.getElementById("wizSpan2").classList.remove('wiz-span');
+            document.getElementById("wizSpan3").classList.add('wiz-span');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img1');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img2');
+            document.getElementById("wizardBackImage").classList.add('wizard-img3');
+            event.preventDefault();
+        });
+
+        document.getElementById("prevBtn3").addEventListener("click", prevPage3);
+
+        function prevPage3() {
+            document.querySelector(".step3-form").style.display = 'none';
+            document.querySelector(".step2-form").style.display = 'block';
+            document.getElementById("wizStep3").classList.remove('step-active');
+            document.getElementById("wizStep2").classList.add('step-active');
+            document.getElementById("wizSpan3").classList.remove('wiz-span');
+            document.getElementById("wizSpan2").classList.add('wiz-span');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img1');
+            document.getElementById("wizardBackImage").classList.add('wizard-img2');
+            document.getElementById("wizardBackImage").classList.remove('wizard-img3');
+        }
+    }
+
+    function setMainSettingForShop(event) {
+        console.log('setMainSettingForShop: ', event.target.name, event.target.value);
+        const params = '?' + event.target.name + '=' + event.target.value;
+        const url = '/api/wizard/update' + params;
+        _generateRequest(url);
+    }
+
+    function setShopContactInfo(event) {
+        const params = '?' + event.target.name + '=' + event.target.value;
+        const url = '/api/wizard/shop-contact-info' + params;
+        _generateRequest(url);
+    }
+
+    function checkDomainNameAvailability(event) {
+        const params = '?' + event.target.name + '=' + event.target.value;
+        const url = '/api/wizard/check-domain-name' + params;
+        _generateRequest(url);
+    }
+
+    function settingVariantsOfDeliveryAndPaymentTypes() {
+        const wizardСourier = document.getElementById('wizardСourier').checked;
+        const wizardPost = document.getElementById('wizardPost').checked;
+        const wizardSelftake = document.getElementById('wizardSelftake').checked;
+
+        const deliveryVariantsError = document.getElementById('handle-delivery-error');
+        const isSelectedDeliveryType = wizardСourier || wizardPost || wizardSelftake;
+
+        const errorMessage = 'Виберіть один із варіантів';
+        deliveryVariantsError.innerText = isSelectedDeliveryType ? '' : errorMessage;
+
+        const toolInfo = {
+            courierDelivery: wizardСourier,
+            postDepartment: wizardPost,
+            selfTake: wizardSelftake
+        };
+        console.log('toolInfo', toolInfo);
+        const bodyParams = JSON.stringify(toolInfo);
+
+        _generateRequest(urlForDeliveryPaymentType, bodyParams);
+
+    }
+
+    function setSocialNetworkInfo(event) {
+        const params = '?' + event.target.name + '=' + event.target.value;
+        const url = '/api/wizard/social-info' + params;
+        _generateRequest(url);
+    }
+
+    function _generateRequest(url, json) {
+        let token = localStorage.getItem('JWT_TOKEN');
+        const isUrlEqualDelivPayType = url == urlForDeliveryPaymentType;
+        console.log("check isUrlEqualDelivPayType for creating shop: ", isUrlEqualDelivPayType);
+        fetch(url, {
+            method: 'POST',
+            body: json,
+            headers: {
+                authorization: 'Bearer ' + token
+            }
+        }).then(function (response) {
+            console.log("response response: ", response);
+            return response.json();
+        }).then(function (data) {
+            console.log("response /api/dashboard/shop/create: ", data.shopName);
+            handlingErrorForDomainName(data);
+            if (data && isUrlEqualDelivPayType) {
+                generateRequestForCreatingShop().then(() => window.location = '/dashboard');
+            }
+
+        });
+    }
+
+    function generateRequestForCreatingShop(){
+        let token = localStorage.getItem('JWT_TOKEN');
+        const fetchRequest = fetch('/api/dashboard/shop/create', {
+            method: 'POST',
+            headers: {
+                authorization: 'Bearer ' + token
+            }
+        }).then(function (response) {
+            console.log("response response: ", response);
+            return response.json();
+        }).then(function (data) {
+
+        });
+        return fetchRequest;
+
+    }
+
+
+
+    function getWizardInfo() {
+        const url = '/api/wizard/get-wizard-info';
+        let token = localStorage.getItem('JWT_TOKEN');
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer ' + token
+            }
+        }).then(function (response) {
+            console.log("response response: ", response);
+            return response.json();
+        }).then(function (data) {
+            setValueForMainSettingFirstForm(data);
+            setValueForShopContactInfoSecondForm(data);
+            setValueForDeliveryPaymentTypeInfoThirdForm(data);
+        });
+    }
+
+    function setValueForMainSettingFirstForm(data) {
+        console.log('setValueForMainSettingFirstForm', data);
+        if (data.shopName) {
+            document.getElementById('store-name').value = data.shopName;
         }
 
-        function setShopContactInfo(event) {
-            const params = '?' + event.target.name + '=' + event.target.value;
-            const url = '/api/wizard/shop-contact-info' + params;
-            _generateRequest(url);
+        const domain = document.getElementById('store-domain');
+        if (data.shopDomain) {
+            domain.value = data.shopDomain;
+        }
+        console.log('setValueForMainSettingFirstForm domain.value', domain.value);
+
+        if (domain.value) {
+            isValidateAddressDomainName = true;
+            console.log('setValueForMainSettingFirstForm', isValidateAddressDomainName);
+        }
+        if (data.shopDescription) {
+            document.getElementById('store-about').innerText = data.shopDescription;
         }
 
-        function checkDomainNameAvailability(event) {
-            const params = '?' + event.target.name + '=' + event.target.value;
-            const url = '/api/wizard/check-domain-name' + params;
-            _generateRequest(url);
+    }
+
+    function setValueForShopContactInfoSecondForm(data) {
+        console.log('setValueForShopContactInfoSecondForm', data);
+        if (data.cityName) {
+            document.getElementById('store-city').value = data.cityName;
         }
-
-        function settingVariantsOfDeliveryAndPaymentTypes() {
-            const wizardСourier = document.getElementById('wizardСourier').checked;
-            const wizardPost = document.getElementById('wizardPost').checked;
-            const wizardSelftake = document.getElementById('wizardSelftake').checked;
-
-            const deliveryVariantsError = document.getElementById('handle-delivery-error');
-            const isSelectedDeliveryType = wizardСourier || wizardPost || wizardSelftake;
-
-            const errorMessage = 'Виберіть один із варіантів';
-            deliveryVariantsError.innerText = isSelectedDeliveryType ? '' : errorMessage;
-
-            const toolInfo = {
-                courierDelivery: wizardСourier,
-                postDepartment: wizardPost,
-                selfTake: wizardSelftake
-            };
-            console.log('toolInfo', toolInfo);
-            const bodyParams = JSON.stringify(toolInfo);
-
-            _generateRequest(urlForDeliveryPaymentType, bodyParams);
-
+        if (data.streetName) {
+            document.getElementById('store-street').value = data.streetName;
         }
-
-        function setSocialNetworkInfo(event) {
-            const params = '?' + event.target.name + '=' + event.target.value;
-            const url = '/api/wizard/social-info' + params;
-            _generateRequest(url);
+        if (data.buildingNumber) {
+            document.getElementById('store-house').value = data.buildingNumber;
         }
-
-        function _generateRequest(url, json) {
-            let token = localStorage.getItem('JWT_TOKEN');
-            const isUrlEqualDelivPayType = url == urlForDeliveryPaymentType;
-            console.log("check isUrlEqualDelivPayType for creating shop: ", isUrlEqualDelivPayType);
-            fetch(url, {
-                method: 'POST',
-                body: json,
-                headers: {
-                    authorization: 'Bearer ' + token
-                }
-            }).then(function (response) {
-                console.log("response response: ", response);
-                return response.json();
-            }).then(function (data) {
-                console.log("response /api/dashboard/shop/create: ", data.shopName);
-                handlingErrorForDomainName(data);
-                if (data.shopName){
-                    window.location = '/dashboard';
-                }
-                if (data && isUrlEqualDelivPayType) {
-                    _generateRequest('/api/dashboard/shop/create');
-                    // window.location = '/dashboard';
-                }
-
-            });
+        if (data.legalUserName) {
+            document.getElementById('store-legalinfo').value = data.legalUserName;
         }
+    }
 
-        function generateRequestForCreatingShop(){
-            let token = localStorage.getItem('JWT_TOKEN');
-            fetch('/api/dashboard/shop/create', {
-                method: 'POST',
-                headers: {
-                    authorization: 'Bearer ' + token
-                }
-            }).then(function (response) {
-                console.log("response response: ", response);
-                return response.json();
-            }).then(function (data) {
-                if(data.shopName){
-                    window.location = '/dashboard';
-                }
-            });
+    function setValueForDeliveryPaymentTypeInfoThirdForm(data) {
+
+        document.getElementById('wizardСourier').checked = data.courierDelivery;
+        document.getElementById('wizardPost').checked = data.postDepartment;
+        document.getElementById('wizardSelftake').checked = data.selfTake;
+
+        if (data.facebookLink) {
+            document.getElementById('store-facebook').value = data.facebookLink;
+        }
+        if (data.instagramLink) {
+            document.getElementById('store-instagram').value = data.instagramLink;
+        }
+        if (data.youtubeLink) {
+            document.getElementById('store-youtube').value = data.youtubeLink;
+        }
+    }
+
+    function handlingErrorForDomainName(data) {
+        const containerError = document.getElementById('store-domain-error');
+        if (data.status === 420) {
+            containerError.style.display = "block";
+            containerError.innerText = data.message;
+            isValidateAddressDomainName = false;
+        }
+        if (data.status === 421) {
+            containerError.style.display = "none";
+            isValidateAddressDomainName = true;
 
         }
+    }
+</script>
 
-
-
-        function getWizardInfo() {
-            const url = '/api/wizard/get-wizard-info';
-            let token = localStorage.getItem('JWT_TOKEN');
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    authorization: 'Bearer ' + token
-                }
-            }).then(function (response) {
-                console.log("response response: ", response);
-                return response.json();
-            }).then(function (data) {
-                setValueForMainSettingFirstForm(data);
-                setValueForShopContactInfoSecondForm(data);
-                setValueForDeliveryPaymentTypeInfoThirdForm(data);
-            });
-        }
-
-        function setValueForMainSettingFirstForm(data) {
-            console.log('setValueForMainSettingFirstForm', data);
-            if (data.shopName) {
-                document.getElementById('store-name').value = data.shopName;
-            }
-
-            const domain = document.getElementById('store-domain');
-            if (data.shopDomain) {
-                domain.value = data.shopDomain;
-            }
-            console.log('setValueForMainSettingFirstForm domain.value', domain.value);
-
-            if (domain.value) {
-                isValidateAddressDomainName = true;
-                console.log('setValueForMainSettingFirstForm', isValidateAddressDomainName);
-            }
-            if (data.shopDescription) {
-                document.getElementById('store-about').innerText = data.shopDescription;
-            }
-
-        }
-
-        function setValueForShopContactInfoSecondForm(data) {
-            console.log('setValueForShopContactInfoSecondForm', data);
-            if (data.cityName) {
-                document.getElementById('store-city').value = data.cityName;
-            }
-            if (data.streetName) {
-                document.getElementById('store-street').value = data.streetName;
-            }
-            if (data.buildingNumber) {
-                document.getElementById('store-house').value = data.buildingNumber;
-            }
-            if (data.legalUserName) {
-                document.getElementById('store-legalinfo').value = data.legalUserName;
-            }
-        }
-
-        function setValueForDeliveryPaymentTypeInfoThirdForm(data) {
-
-            document.getElementById('wizardСourier').checked = data.courierDelivery;
-            document.getElementById('wizardPost').checked = data.postDepartment;
-            document.getElementById('wizardSelftake').checked = data.selfTake;
-
-            if (data.facebookLink) {
-                document.getElementById('store-facebook').value = data.facebookLink;
-            }
-            if (data.instagramLink) {
-                document.getElementById('store-instagram').value = data.instagramLink;
-            }
-            if (data.youtubeLink) {
-                document.getElementById('store-youtube').value = data.youtubeLink;
-            }
-        }
-
-        function handlingErrorForDomainName(data) {
-            const containerError = document.getElementById('store-domain-error');
-            if (data.status === 420) {
-                containerError.style.display = "block";
-                containerError.innerText = data.message;
-                isValidateAddressDomainName = false;
-            }
-            if (data.status === 421) {
-                containerError.style.display = "none";
-                isValidateAddressDomainName = true;
-
-            }
-        }
-    </script>
-
-    </body>
-    </html>
+</body>
+</html>
