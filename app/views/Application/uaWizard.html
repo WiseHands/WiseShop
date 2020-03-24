@@ -636,13 +636,31 @@
                 console.log("response /api/dashboard/shop/create: ", data.shopName);
                 handlingErrorForDomainName(data);
                 if (data && isUrlEqualDelivPayType) {
-                    _generateRequest('/api/dashboard/shop/create');
+                    generateRequestForCreatingShop();
                 }
+
+            });
+        }
+
+        function generateRequestForCreatingShop(){
+            let token = localStorage.getItem('JWT_TOKEN');
+            fetch('/api/dashboard/shop/create', {
+                method: 'POST',
+                headers: {
+                    authorization: 'Bearer ' + token
+                }
+            }).then(function (response) {
+                console.log("response response: ", response);
+                return response.json();
+            }).then(function (data) {
                 if(data.shopName){
                     window.location = '/dashboard';
                 }
             });
+
         }
+
+
 
         function getWizardInfo() {
             const url = '/api/wizard/get-wizard-info';
