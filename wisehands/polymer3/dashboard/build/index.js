@@ -2770,27 +2770,23 @@ class ProfileContainer extends LitElement {
             <div class="main-container">
                 <div class="balance-container">
                     <p>Баланс: ${this.balance} UAH</p>
-                    <input id="amount" .value=${this.amountPayment} @input="${this.handleAmountPayment}">
-                    
+                    <input id="amountPayment" .value=${this.amountPayment} @input="${this.handleAmountPayment}">
                     
                     <button @click="${this.generateSignatureForPayment}">поповнити</button>  
                     
-                    
                     <div class="payment-form-container">
                         <form id="payment-form" method="post" action="https://secure.wayforpay.com/pay">
-                            <input id="merchantAccount" value="">
-                            <input id="merchantDomainName" value="">
-                            <input id="merchantSignature" value="">
-                            <input name="merchantTransactionSecureType" value="AUTO">
-                            <input name="orderReference" value="USER_ID">
-                            <input name="orderDate" value="TIME">
-                            <input name="amount" value="1000">
-                            <input name="currency" value="UAH">
-                            <input name="orderTimeout" value="49000">
-                            <input name="productName[]" value="Поповнення рахунку користувача USER_ID">
-                            <input name="productPrice[]" value="1000">
-                            <input name="productCount[]" value="1">
-                            <input name="defaultPaymentSystem"="card">
+                            <input id="merchantAccount" name="merchantAccount" value="">
+                            <input id="merchantDomainName" name="merchantDomainName" value="">
+                            <input id="merchantSignature" name="merchantSignature" value="">
+                            <input id="merchantTransactionSecureType" name="merchantTransactionSecureType" value="AUTO">
+                            <input id="orderReference" name="orderReference" value="USER_ID">
+                            <input id="orderDate" name="orderDate" value="TIME">
+                            <input id="amount" name="amount" value="">
+                            <input id="currency" name="currency" value="UAH">
+                            <input id="productName" name="productName[]" value="Поповнення рахунку користувача USER_ID">
+                            <input id="productPrice" name="productPrice[]" value="">
+                            <input id="productCount" name="productCount[]" value="1">
                             <input type="submit" value="Submit">
                         </form>
                     </div>
@@ -2808,12 +2804,6 @@ class ProfileContainer extends LitElement {
       },
       amountPayment: {
         type: Number
-      },
-      wayForPayResponse: {
-        type: Object,
-        value: {
-          merchantAccount: ''
-        }
       }
     };
   }
@@ -2832,10 +2822,7 @@ class ProfileContainer extends LitElement {
     const url = `/api/wayforpay/generate-signature?amount=${this.amountPayment}`;
     this.generatePostRequest(url);
     console.log(`get amount from value ${this.amountPayment}`);
-  } // setWayForPayForm(data) {
-  //     document.getElementById('merchantAccount').value = data.merchantAccount;
-  // }
-
+  }
 
   submitFormForPayment() {
     const firstForm = document.getElementById('firstForm');
@@ -2845,12 +2832,7 @@ class ProfileContainer extends LitElement {
   replenishCoinAccount() {
     const url = '';
     this.generateGetRequest(url);
-  } // https://wstore.pro/wayforpay_callback
-  // https://wstore.pro/success_topup
-  // https://wstore.pro/declined_topup
-  //  POST        {client}/api/wayforpay/verify-callback          WayForPayAPI.verifyCallback
-  //  POST        {client}/api/wayforpay/generate-sing-key        WayForPayAPI.verifyCallback
-
+  }
 
   generateGetRequest(url) {
     fetch(url, {
@@ -2864,6 +2846,7 @@ class ProfileContainer extends LitElement {
   }
 
   generatePostRequest(url) {
+    let _this = this;
 
     let token = localStorage.getItem('JWT_TOKEN');
     fetch(url, {
@@ -2875,9 +2858,23 @@ class ProfileContainer extends LitElement {
       console.log("response response: ", response);
       return response.json();
     }).then(function (data) {
-      this.getElementById('merchantAccount').value = data.merchantAccount;
-      console.log('data from post response: ', data);
+      console.log('data from generatePostRequest: ', data);
+
+      _this.setPaymentWayForPayForm(data);
     });
+  }
+
+  setPaymentWayForPayForm(data) {
+    this.shadowRoot.querySelector('#merchantAccount').value = data.merchantAccount;
+    this.shadowRoot.querySelector('#merchantDomainName').value = data.merchantDomainName;
+    this.shadowRoot.querySelector('#merchantSignature').value = data.signature;
+    this.shadowRoot.querySelector('#orderReference').value = data.orderReference;
+    this.shadowRoot.querySelector('#orderDate').value = data.orderDate;
+    this.shadowRoot.querySelector('#amount').value = data.amount;
+    this.shadowRoot.querySelector('#currency').value = data.currency;
+    this.shadowRoot.querySelector('#productName').value = data.productName;
+    this.shadowRoot.querySelector('#productCount').value = data.productCount;
+    this.shadowRoot.querySelector('#productPrice').value = data.productPrice;
   }
 
 } // Register the new element with the browser.
