@@ -44,7 +44,25 @@
 #{shop-header /}
 #{verbatim}
 <wise-shopping-cart-container currency-label="UAH" basket-empty-label="Ваш кошик порожній" start-shopping-label="РОЗПОЧАТИ ПОКУПКИ"></wise-shopping-cart-container>
+
+#{if shop.faceBookPixelApiKey}
+<script>
+    console.log('present faceBookPixelApiKey');
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '${shop.faceBookPixelApiKey}');
+    fbq('track', 'PageView');
+    fbq('track', 'InitiateCheckout');
+</script>
+#{/if}
 #{/verbatim}
+
 <div class="form-container"></div>
 
 <script>
