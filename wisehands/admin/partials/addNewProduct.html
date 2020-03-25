@@ -27,10 +27,10 @@
     </div>
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
         <div class="load-product-image col-md-6" ng-click="loadImage()">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
             <div class="item active" ng-show="productImages.length >= 1">
                 <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
             </div>
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
             <p>Add product image size 700 * 525 pixels</p>
         </div>
         <div class="add-product-info col-md-6">
@@ -62,44 +62,60 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div class="input-field col-md-6">
+                                <div class="input-field col-md-12">
                                     <input id="oldPrice" type="number" ng-model="product.oldPrice">
                                     <label for="oldPrice">{{'addNewProduct.oldPrice' | translate}}</label>
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div class="input-field col-md-6">
+                                <div class="input-field col-md-12">
                                     <input id="productOrder" type="number" ng-model="product.sortOrder">
                                     <label for="productOrder">{{'displayOrder' | translate}}</label>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+
+            <div class="input-field ">
+                <p>Category</p>
+                <div class="add-product-category">
+                    <div class="create-category" data-toggle="modal" data-target="#categoryModal">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    </div>
+                    <div class="item-category">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="input-field " ng-show="categories.length === 0">
+                <p class="text-center redError">{{'addNewProduct.noCategory' | translate}}</p>
+            </div>
+            <div class="input-field z-index">
+                <!--<label for="category" class="active categoryLabelFontSize">{{'addNewProduct.category' | translate}}</label>-->
+                <select class="form-control"
+                        id="category"
+                        ng-model="product.category"
+                        ng-options="category as category.name for category in categories track by category.uuid" required>
+                    <option></option>
+                </select>
+            </div>
+            <!--<div class="input-field white-text">-->
+                <!--<button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" data-toggle="modal" data-target="#categoryModal">-->
+                    <!--<span>{{'addNewProduct.createCategory' | translate}}</span>-->
+                <!--</button>-->
+            <!--</div>-->
         </div>
 
 
 
 
 
-        <div class="input-field col-xs-12" ng-show="categories.length === 0">
-            <p class="text-center redError">{{'addNewProduct.noCategory' | translate}}</p>
-        </div>
-        <div class="input-field col-xs-12 z-index">
-            <label for="category" class="active categoryLabelFontSize">{{'addNewProduct.category' | translate}}</label>
-            <select class="form-control"
-                    id="category"
-                    ng-model="product.category"
-                    ng-options="category as category.name for category in categories track by category.uuid" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="input-field col-xs-12 white-text">
-            <button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" data-toggle="modal" data-target="#categoryModal">
-            <span>{{'addNewProduct.createCategory' | translate}}</span>
-            </button>
-        </div>
+
+
         <div class="file-field input-field col-xs-12 white-text">
             <button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" ng-click="loadImage()">
                 <span>{{'addNewProduct.addPhoto' | translate}}</span>
@@ -107,35 +123,35 @@
             <input name="imageLoader" type="file" id="imageLoader" required/>
         </div>
     </form>
-    <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
-        <div class="col-sm-7">
-            <div class="carousel-inner hoverable" role="listbox">
-                <div class="item active" ng-show="productImages.length >= 1">
-                    <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <ul class="carousel-indicators" ng-show="productImages.length">
-                <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
-                    <img ng-src="{{image}}"
-                         class="img-responsive z-depth-1 hoverable"
-                         data-toggle="tooltip"
-                         data-placement="top"
-                         title="{{'addNewProduct.makeMain' | translate}}"
-                         ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
-                    <div class="label secondaryColor photoLabelStyle hoverable"
-                         data-toggle="tooltip"
-                         data-placement="top"
-                         title="{{'addNewProduct.deletePhoto' | translate}}"
-                         ng-click="removeImage($index); $event.stopPropagation();">
-                        <span class="secondaryColor glyphicon glyphicon-remove-sign"></span>
-                    </div>
-                    <button class="btn btn-default" ng-click="editImage(image, $index)">Edit image</button>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <!--<div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">-->
+        <!--<div class="col-sm-7">-->
+            <!--<div class="carousel-inner hoverable" role="listbox">-->
+                <!--<div class="item active" ng-show="productImages.length >= 1">-->
+                    <!--<img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-5">-->
+            <!--<ul class="carousel-indicators" ng-show="productImages.length">-->
+                <!--<li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">-->
+                    <!--<img ng-src="{{image}}"-->
+                         <!--class="img-responsive z-depth-1 hoverable"-->
+                         <!--data-toggle="tooltip"-->
+                         <!--data-placement="top"-->
+                         <!--title="{{'addNewProduct.makeMain' | translate}}"-->
+                         <!--ng-click="setMainPhotoIndex($index); $event.stopPropagation();">-->
+                    <!--<div class="label secondaryColor photoLabelStyle hoverable"-->
+                         <!--data-toggle="tooltip"-->
+                         <!--data-placement="top"-->
+                         <!--title="{{'addNewProduct.deletePhoto' | translate}}"-->
+                         <!--ng-click="removeImage($index); $event.stopPropagation();">-->
+                        <!--<span class="secondaryColor glyphicon glyphicon-remove-sign"></span>-->
+                    <!--</div>-->
+                    <!--<button class="btn btn-default" ng-click="editImage(image, $index)">Edit image</button>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
     <canvas id="imageCanvas" class="productImage"></canvas>
 </div>
 <div class="modal fade" id="categoryModal" role="dialog">
