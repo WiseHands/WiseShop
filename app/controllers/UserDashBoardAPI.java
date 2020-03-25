@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import static controllers.WizardAPI.getUserIdFromAuthorization;
+import static services.ShopServiceImpl._appendDomainToList;
 
 public class UserDashBoardAPI extends AuthController{
 
@@ -75,6 +76,8 @@ public class UserDashBoardAPI extends AuthController{
         shop.googleStaticMapsApiKey = "AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg";
         shop.googleMapsApiKey = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
         visualSettings.shop = shop;
+
+        _appendDomainToList(user.wizard.shopDomain);
         shop.save();
         renderJSON(json(shop));
 
