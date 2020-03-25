@@ -486,9 +486,8 @@
       settingVariantsOfDeliveryAndPaymentTypes();
       return;
     }
-    currentFormStep++;
-
     if (!validateCurrentForm()) return;
+    currentFormStep++;
     setCurrentFormAndFormStepIndicator();
     setIsPreviousStepButtonHidden();
     setNextButtonLabel();
