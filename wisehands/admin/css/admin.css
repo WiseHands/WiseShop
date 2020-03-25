@@ -879,6 +879,24 @@ input {
     flex-basis: calc(33.3% - 2rem);
     margin: 1rem;
 }
+.load-product-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 300px;
+    border: 2px dotted #666;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+.load-product-image i {
+    color: #666;
+    font-size: 4rem;
+}
+.load-product-image p {
+    position: absolute;
+    top: 80%;
+}
 @media screen and (max-width: 900px) {
     .user-settings-item {
         flex-basis: calc(50% - 2rem);

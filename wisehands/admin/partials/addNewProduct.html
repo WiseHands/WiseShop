@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
     <div class="container-fluid">
         <div class="row vcentering">
@@ -24,52 +26,63 @@
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
-
-        <div class="input-field col-md-6">
-            <input id="product_name" type="text" ng-model="product.name" required>
-            <label for="product_name">{{'addNewProduct.productName' | translate}}</label>
+        <div class="load-product-image col-md-6" ng-click="loadImage()">
+            <div class="item active" ng-show="productImages.length >= 1">
+                <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
+            </div>
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            <p>Add product image size 700 * 525 pixels</p>
         </div>
-        <div class="input-field col-md-6">
-            <input id="product_price" type="number" step="0.01" ng-model="product.price" required>
-            <label for="product_price">{{'addNewProduct.productPrice' | translate}}</label>
-        </div>
-
-
-        <div class="input-field col-md-12">
-            <textarea id="textarea1" class="materialize-textarea" ng-model="product.description" required></textarea>
-            <label for="textarea1">{{'addNewProduct.productDescription' | translate}}</label>
-        </div>
-        <div class="input-field col-md-12">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                    <div class="panel-heading cursorPointer" data-toggle="collapse"  data-target="#collapse3">
-                        <h4 class="panel-title text-center">
-                            {{'addNewProduct.additional' | translate}}
-                        </h4>
-                    </div>
-                    <div id="collapse3" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="input-field">
-                                <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" ng-init="product.isActive=true" />
-                                <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
-                            </div>
+        <div class="add-product-info col-md-6">
+            <div class="input-field">
+                <input id="product_name" type="text" ng-model="product.name" required>
+                <label for="product_name">{{'addNewProduct.productName' | translate}}</label>
+            </div>
+            <div class="input-field">
+                <input id="product_price" type="number" step="0.01" ng-model="product.price" required>
+                <label for="product_price">{{'addNewProduct.productPrice' | translate}}</label>
+            </div>
+            <div class="input-field">
+                <textarea id="textarea1" class="materialize-textarea" ng-model="product.description" required></textarea>
+                <label for="textarea1">{{'addNewProduct.productDescription' | translate}}</label>
+            </div>
+            <div class="input-field">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading cursorPointer" data-toggle="collapse"  data-target="#collapse3">
+                            <h4 class="panel-title text-center">
+                                {{'addNewProduct.additional' | translate}}
+                            </h4>
                         </div>
-                        <div class="panel-body">
-                            <div class="input-field col-md-6">
-                                <input id="oldPrice" type="number" ng-model="product.oldPrice">
-                                <label for="oldPrice">{{'addNewProduct.oldPrice' | translate}}</label>
+                        <div id="collapse3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="input-field">
+                                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" ng-init="product.isActive=true" />
+                                    <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="panel-body">
-                            <div class="input-field col-md-6">
-                                <input id="productOrder" type="number" ng-model="product.sortOrder">
-                                <label for="productOrder">{{'displayOrder' | translate}}</label>
+                            <div class="panel-body">
+                                <div class="input-field col-md-6">
+                                    <input id="oldPrice" type="number" ng-model="product.oldPrice">
+                                    <label for="oldPrice">{{'addNewProduct.oldPrice' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="input-field col-md-6">
+                                    <input id="productOrder" type="number" ng-model="product.sortOrder">
+                                    <label for="productOrder">{{'displayOrder' | translate}}</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
+
+
         <div class="input-field col-xs-12" ng-show="categories.length === 0">
             <p class="text-center redError">{{'addNewProduct.noCategory' | translate}}</p>
         </div>

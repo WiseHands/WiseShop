@@ -246,13 +246,29 @@
             <div class="contact-card">
                 <div class="contact-card-text">
                     <h5>Напишіть нам</h5>
-                    <input type="text" placeholder="Ім'я" required>
-                    <input type="email" placeholder="Email" required>
-                    <input type="text" placeholder="Телефон" required>
+                    <div class="form-field">
+                        <input id="signup-name" type="text" name="name" required placeholder=" ">
+                        <span class="highlight"></span>
+                        <label for="signup-name">Ім'я</label>
+                    </div>
+                    <div class="form-field">
+                        <input id="signup-email" type="email" name="email" required placeholder=" ">
+                        <span class="highlight"></span>
+                        <label for="signup-email">Email</label>
+                    </div>
+                    <div class="form-field">
+                        <input id="signup-phone" type="tel" name="surname" required placeholder=" " minlength="9" pattern="9|^[0-9-+\s()]*$">
+                        <span class="highlight"></span>
+                        <label for="signup-phone">Телефон</label>
+                    </div>
 
                     <textarea id="message-text" placeholder="Повідомлення"></textarea>
-                    <div class="message-button">
-                        <button id="messageSubmit">Надіслати</button>
+                    <div class="contact-landing-button">
+                        <button type="button" onclick="validateContactUsForm()">Надіслати</button>
+                    </div>
+                    <div id="handling-message">
+                        <i id="show-message-icon" class="fa fa-check" style="font-size: 8rem"></i>
+                        <p id="show-message"></p>
                     </div>
                 </div>
             </div>
@@ -386,6 +402,58 @@
 
         function hideSidebar() {
             document.querySelector("#overlay-mobile").style.display = 'none';
+        }
+    </script>
+
+    <script>
+        const contactCard = document.querySelector('.contact-card-text');
+        const handlingMessageContainer = document.getElementById('handling-message');
+        const showMessageItem = document.getElementById('show-message');
+
+        handlingMessageContainer.style.display = 'none';
+
+        function validateContactUsForm() {
+            const inputs = document.querySelectorAll('input');
+            let validInputs = 0;
+            inputs.forEach(input =>
+                    {
+                        const inputValidity = input.checkValidity();
+                        input.value = input.value.trim();
+                        input.setAttribute('invalid', !inputValidity);
+                        if(inputValidity)
+                            validInputs++;
+                    }
+            );
+            const isValid = validInputs === inputs.length;
+            if(isValid) {
+                const params = '?clientName=' + inputs[0].value + '&'
+                        + 'clientPhone=' + inputs[1].value + '&'
+                        + 'clientMail=' + inputs[2].value;
+                const url = '/mail/send' + params;
+                fetch(url, {
+                    method: 'POST'
+                }).then(function (response) {
+                    console.log("here response", response);
+
+                    return response.json();
+                }).then(function (data) {
+                    console.log("here data", data);
+                    contactCard.style.display = 'none';
+                    handlingMessage(data);
+                });
+            }
+        }
+        function handlingMessage(data) {
+            data.status === 420 ? showErrorMessage(data) : showSuccessfulMessage(data);
+        }
+        function showErrorMessage(data) {
+            handlingMessageContainer.style.display = 'flex';
+            showMessageItem.innerText = data.message;
+
+        }
+        function showSuccessfulMessage(data) {
+            handlingMessageContainer.style.display = 'flex';
+            showMessageItem.innerText = data.message;
         }
     </script>
 
