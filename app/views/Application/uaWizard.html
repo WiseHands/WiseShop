@@ -479,8 +479,9 @@
       settingVariantsOfDeliveryAndPaymentTypes();
       return;
     }
-    if (!validateCurrentForm()) return;
     currentFormStep++;
+
+    if (!validateCurrentForm()) return;
     setCurrentFormAndFormStepIndicator();
     setIsPreviousStepButtonHidden();
     setNextButtonLabel();
@@ -511,7 +512,7 @@
   function setCurrentFormAndFormStepIndicator() {
     wizardForms.forEach(form => {
       const formStep = form.getAttribute('form-step');
-      const isCurrentFormStepEqualsDisplayedFormStep = currentFormStep === formStep;
+      const isCurrentFormStepEqualsDisplayedFormStep = currentFormStep === Number(formStep);
       form.hidden = !isCurrentFormStepEqualsDisplayedFormStep;
     });
 
@@ -596,7 +597,9 @@
       console.log("response /api/dashboard/shop/create: ", data.shopName);
       handlingErrorForDomainName(data);
       if (data && isUrlEqualDelivPayType) {
-        generateRequestForCreatingShop().then(() => window.location = '/dashboard');
+          setTimeout(function() {
+             generateRequestForCreatingShop().then(() => window.location = '/dashboard');
+          }, 10000);
       }
 
     });
@@ -605,18 +608,17 @@
   function generateRequestForCreatingShop() {
     let token = localStorage.getItem('JWT_TOKEN');
     const fetchRequest = fetch('/api/dashboard/shop/create', {
-      method: 'POST',
-      headers: {
-        authorization: 'Bearer ' + token
-      }
+        method: 'POST',
+        headers: {
+            authorization: 'Bearer ' + token
+        }
     }).then(function (response) {
-      console.log("response response: ", response);
-      return response.json();
+        console.log("response response: ", response);
+        return response.json();
     }).then(function (data) {
 
     });
     return fetchRequest;
-
   }
 
 

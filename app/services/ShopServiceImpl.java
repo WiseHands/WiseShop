@@ -112,7 +112,7 @@ public class ShopServiceImpl implements ShopService{
         return domainValidation;
     }
 
-    private static void _appendDomainToList(String domainName) {
+    public static void _appendDomainToList(String domainName) {
         String filename = "domains.txt";
         System.out.println("Appending domain name" + domainName + " to domains.txt");
         try {

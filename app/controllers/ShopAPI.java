@@ -50,12 +50,14 @@ public class ShopAPI extends AuthController {
         List<ShopDTO> shops = ShopDTO.findAll();
         renderJSON(json(shops));
     }
+
     public static void one(String client, String uuid) throws Exception { // /shop/details
         checkSudoAuthentification();
 
         ShopDTO shop = ShopDTO.findById(uuid);
         renderJSON(json(shop));
     }
+
     public static void deleteOne(String client, String uuid) throws Exception { // /shop/details
         checkSudoAuthentification();
 
@@ -160,7 +162,6 @@ public class ShopAPI extends AuthController {
         renderJSON(json(shop));
 
     }
-
 
     public static void update(String client) throws Exception { // /shop PUT
 
@@ -290,7 +291,6 @@ public class ShopAPI extends AuthController {
         }
     }
 
-
     public static void listUsers(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -301,7 +301,6 @@ public class ShopAPI extends AuthController {
         renderJSON(json(shop.userList));
 
     }
-
 
     public static void addUserToShop(String client, String email, String phone) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
