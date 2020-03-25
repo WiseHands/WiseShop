@@ -369,6 +369,7 @@
                     <span>Конфігурація</span>
                 </div>
             </div>
+            <form onsubmit="return false">
                 <section class="step1-form" id="firstForm" form-step="1">
                     <div class="form-field">
                         <input id="store-name" type="text" name="shopName" required>
@@ -458,6 +459,7 @@
                     <button type="submit" class="next-step-button" onclick="proceedNext()">Далі
                     </button>
                 </div>
+            </form>
 
         </div>
     </div>
@@ -472,6 +474,11 @@
   const currentStepIndicators = document.querySelectorAll('.step');
   const previousActionButton = document.querySelector('.previous-step-button');
   const nextActionButton = document.querySelector('.next-step-button');
+  const requiredFields = document.querySelectorAll('[required]');
+
+  requiredFields.forEach(requiredField => {
+    requiredField.addEventListener('input', event => event.target.setCustomValidity(''));
+  });
 
   function proceedNext() {
     const isLastSTep = currentFormStep === 3;
@@ -511,7 +518,7 @@
   function setCurrentFormAndFormStepIndicator() {
     wizardForms.forEach(form => {
       const formStep = form.getAttribute('form-step');
-      const isCurrentFormStepEqualsDisplayedFormStep = currentFormStep === formStep;
+      const isCurrentFormStepEqualsDisplayedFormStep = currentFormStep === Number(formStep);
       form.hidden = !isCurrentFormStepEqualsDisplayedFormStep;
     });
 
