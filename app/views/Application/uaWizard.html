@@ -300,10 +300,11 @@
     /*start circle loading animation*/
 
     .circle-loading-animation {
+        margin-top: 20%;
+        margin-left: 40%;
         position: relative;
         width: 120px;
         height:120px;
-        margin:auto;
     }
 
     .circle-loading-animation .wBall {
@@ -645,12 +646,22 @@
         }
     }
 
+    @media screen and (max-width: 1100px){
+        .circle-loading-animation{
+            margin-top: 20%;
+        }
+        .wizard-form{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+    }
+
 
     /*end circle loading animation*/
 
     @media screen and (max-width: 768px) {
         .wizard-form {
-            width: 90%;
             height: 850px;
         }
 
@@ -699,6 +710,7 @@
 
         <div class="wizard-form">
             <h2>Створення магазину</h2>
+
             <div class="steps">
                 <div class="step active">
                     <div class="wiz-step">
@@ -719,6 +731,7 @@
                     <span>Конфігурація</span>
                 </div>
             </div>
+
             <form onsubmit="return false">
 
                 <section class="step1-form" id="firstForm" form-step="1">
@@ -806,30 +819,30 @@
 
                 </section>
 
-                <div class="circle-loading-animation" hidden>
-                    <div class="wBall" id="wBall_1">
-                        <div class="wInnerBall"></div>
-                    </div>
-                    <div class="wBall" id="wBall_2">
-                        <div class="wInnerBall"></div>
-                    </div>
-                    <div class="wBall" id="wBall_3">
-                        <div class="wInnerBall"></div>
-                    </div>
-                    <div class="wBall" id="wBall_4">
-                        <div class="wInnerBall"></div>
-                    </div>
-                    <div class="wBall" id="wBall_5">
-                        <div class="wInnerBall"></div>
-                    </div>
-                </div>
-
                 <div class="form-button">
                     <button class="previous-step-button" onclick="previousStep()" hidden>Назад</button>
-                    <button type="submit" class="next-step-button" onclick="proceedNext()">Далі
-                    </button>
+                    <button type="submit" class="next-step-button" onclick="proceedNext()">Далі</button>
                 </div>
+
             </form>
+
+            <div class="circle-loading-animation" hidden>
+                <div class="wBall" id="wBall_1">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_2">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_3">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_4">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_5">
+                    <div class="wInnerBall"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -845,11 +858,14 @@
   const currentStepIndicators = document.querySelectorAll('.step');
   const previousActionButton = document.querySelector('.previous-step-button');
   const nextActionButton = document.querySelector('.next-step-button');
+  const requiredFields = document.querySelectorAll('[required]');
+
   const circleLoadingAnimation = document.querySelector('.circle-loading-animation');
+
   const stepsTitleThatNeedHidden = document.querySelector('.steps');
   const formButtonThatNeedHidden = document.querySelector('.form-button');
-  const thirdFormStep = document.querySelector('.step3-form');
-  const requiredFields = document.querySelectorAll('[required]');
+  const form = document.querySelector('form');
+
 
   requiredFields.forEach(requiredField => {
     requiredField.addEventListener('input', event => event.target.setCustomValidity(''));
@@ -979,7 +995,7 @@
         setTimeout(function() {
 
 
-            // generateRequestForCreatingShop().then(() => window.location = '/dashboard');
+             generateRequestForCreatingShop().then(() => window.location = '/dashboard');
 
         },10000);
       }
@@ -988,10 +1004,8 @@
   }
 
   function showLoadingCircleAnimation(){
-      thirdFormStep.hidden = true;
-      circleLoadingAnimation.hidden = false;
-      stepsTitleThatNeedHidden.hidden = true;
-      formButtonThatNeedHidden.hidden = true;
+    form.hidden = true;
+    circleLoadingAnimation.hidden = false;
   }
 
   function generateRequestForCreatingShop() {
