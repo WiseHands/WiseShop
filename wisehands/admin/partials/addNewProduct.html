@@ -53,8 +53,9 @@
                     <div class="create-category" data-toggle="modal" data-target="#categoryModal">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </div>
-                    <div class="item-category"  ng-repeat="category in categories" ng-class="{selected: category.uuid === selectedCategoryId}">
-                        <div class="card-item"  ng-click="chooseCategory(category.uuid)" title="{{category.name}}"><p>{{category.name}}</p></div>
+                    <div class="item-category"  ng-repeat="category in categories">
+                        <div class="card-item"  ng-click="chooseCategory(category.uuid)" title="{{category.name}}">
+                            <p ng-class="{selected: category.uuid === selectedCategoryId}">{{category.name}}</p></div>
                     </div>
                 </div>
 
