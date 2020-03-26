@@ -736,7 +736,8 @@
 
                 <section class="step1-form" id="firstForm" form-step="1">
                     <div class="form-field">
-                        <input id="store-name" type="text" name="shopName" required>
+                        <input id="store-name" type="text" name="shopName" required
+                               onblur="setMainSettingForShop(event)">
                         <span class="highlight"></span>
                         <label for="store-name">Назва магазину</label>
                     </div>
