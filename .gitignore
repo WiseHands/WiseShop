@@ -37,7 +37,7 @@ eclipse
 *.iml
 *.ipr
 *.iws
-atlassian-ide-plugin.xml
+atlassian-ide-pl    ugin.xml
 tmp/*
 server.pid
 torba.zip

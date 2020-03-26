@@ -167,7 +167,14 @@ angular.module('WiseHands')
                     console.log(response);
                 });
         };
-
+        $scope.chooseCategory = function (categoryid) {
+            console.log('categoryid', categoryid);
+            $scope.selectedCategoryId = categoryid;
+            event.stopPropagation();
+        };
+        $scope.isCategorySelected = function (categoryid) {
+            return categoryid === $scope.selectedCategoryId;
+        };
         $scope.hideModal = function () {
             $('#categoryModal').modal('hide');
             $('body').removeClass('modal-open');
@@ -184,7 +191,7 @@ angular.module('WiseHands')
             fd.append('description', $scope.product.description);
             fd.append('price', $scope.product.price);
             fd.append('mainPhotoIndex', $scope.product.mainPhoto);
-            fd.append('category', $scope.product.category.uuid);
+            fd.append('category', $scope.selectedCategoryId);
             fd.append('isActive', $scope.product.isActive);
             fd.append('oldPrice', $scope.product.oldPrice);
             fd.append('sortOrder', $scope.product.sortOrder);

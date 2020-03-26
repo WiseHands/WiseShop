@@ -27,11 +27,11 @@
     </div>
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
         <div class="load-product-image col-md-6" ng-click="loadImage()">
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            <i class="fa fa-plus"></i>
             <div class="item active loaded-photo" ng-show="productImages.length >= 1">
                 <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
             </div>
-            <p>Add product image size 700 * 525 pixels</p>
+            <p>{{'addNewProduct.addPhoto' | translate}}</p>
         </div>
         <div class="add-product-info col-md-6">
             <div class="input-field">
@@ -45,6 +45,22 @@
             <div class="input-field">
                 <textarea id="textarea1" class="materialize-textarea" ng-model="product.description" required></textarea>
                 <label for="textarea1">{{'addNewProduct.productDescription' | translate}}</label>
+            </div>
+
+            <div class="input-field ">
+                <p>{{'addNewProduct.category' | translate}}</p>
+                <div class="add-product-category">
+                    <div class="create-category" data-toggle="modal" data-target="#categoryModal">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    </div>
+                    <div class="item-category"  ng-repeat="category in categories" ng-class="{selected: category.uuid === selectedCategoryId}">
+                        <div class="card-item"  ng-click="chooseCategory(category.uuid)" title="{{category.name}}"><p>{{category.name}}</p></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="input-field " ng-show="categories.length === 0">
+                <p class="text-center redError">{{'addNewProduct.noCategory' | translate}}</p>
             </div>
             <div class="input-field">
                 <div class="panel-group" id="accordion">
@@ -79,30 +95,15 @@
                 </div>
             </div>
 
-            <div class="input-field ">
-                <p>Category</p>
-                <div class="add-product-category">
-                    <div class="create-category" data-toggle="modal" data-target="#categoryModal">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    </div>
-                    <div class="item-category"  ng-repeat="category in categories">
-                        <p>{{category.name}}</p>
-                    </div>
-                </div>
-
-            </div>
-            <div class="input-field " ng-show="categories.length === 0">
-                <p class="text-center redError">{{'addNewProduct.noCategory' | translate}}</p>
-            </div>
-            <div class="input-field z-index">
-                <!--<label for="category" class="active categoryLabelFontSize">{{'addNewProduct.category' | translate}}</label>-->
-                <select class="form-control"
-                        id="category"
-                        ng-model="product.category"
-                        ng-options="category as category.name for category in categories track by category.uuid" required>
-                    <option></option>
-                </select>
-            </div>
+            <!--<div class="input-field z-index">-->
+                <!--&lt;!&ndash;<label for="category" class="active categoryLabelFontSize">{{'addNewProduct.category' | translate}}</label>&ndash;&gt;-->
+                <!--<select class="form-control"-->
+                        <!--id="category"-->
+                        <!--ng-model="product.category"-->
+                        <!--ng-options="category as category.name for category in categories track by category.uuid" required>-->
+                    <!--<option></option>-->
+                <!--</select>-->
+            <!--</div>-->
             <!--<div class="input-field white-text">-->
                 <!--<button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" data-toggle="modal" data-target="#categoryModal">-->
                     <!--<span>{{'addNewProduct.createCategory' | translate}}</span>-->
@@ -117,9 +118,9 @@
 
 
         <div class="file-field input-field col-xs-12 white-text">
-            <button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" ng-click="loadImage()">
-                <span>{{'addNewProduct.addPhoto' | translate}}</span>
-            </button>
+            <!--<button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" ng-click="loadImage()">-->
+                <!--<span>{{'addNewProduct.addPhoto' | translate}}</span>-->
+            <!--</button>-->
             <input name="imageLoader" type="file" id="imageLoader" required/>
         </div>
     </form>
