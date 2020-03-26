@@ -382,7 +382,7 @@ public class Application extends Controller {
     }
 
     public static void uaWizard(String client){
-            render();
+        renderTemplate("Application/uaNewWizard.html");
     }
     public static void serverError(String client){
             render();
