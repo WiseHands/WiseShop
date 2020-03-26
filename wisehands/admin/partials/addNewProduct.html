@@ -28,7 +28,7 @@
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
         <div class="load-product-image col-md-6" ng-click="loadImage()">
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
-            <div class="item active" ng-show="productImages.length >= 1">
+            <div class="item active loaded-photo" ng-show="productImages.length >= 1">
                 <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
             </div>
             <p>Add product image size 700 * 525 pixels</p>
@@ -85,8 +85,8 @@
                     <div class="create-category" data-toggle="modal" data-target="#categoryModal">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </div>
-                    <div class="item-category">
-
+                    <div class="item-category"  ng-repeat="category in categories">
+                        <p>{{category.name}}</p>
                     </div>
                 </div>
 
