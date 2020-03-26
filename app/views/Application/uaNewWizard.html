@@ -1045,10 +1045,11 @@
     if (data.shopName) {
       document.getElementById('store-name').value = data.shopName;
     }
-
     const domain = document.getElementById('store-domain');
-    if (data.shopDomain) {
-      domain.value = data.shopDomain;
+    let shopDomain = data.shopDomain;
+    if (shopDomain) {
+      shopDomain = shopDomain.split('.');
+      domain.value = shopDomain[0];
     }
     console.log('setValueForMainSettingFirstForm domain.value', domain.value);
 
