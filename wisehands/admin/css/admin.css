@@ -969,6 +969,7 @@ input {
     overflow: hidden;
     padding: 0.5rem;
     max-height: 140px;
+    text-align: center;
 }
 @media screen and (max-width: 768px) {
     .load-product-image {
