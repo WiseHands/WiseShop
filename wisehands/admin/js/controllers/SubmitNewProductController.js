@@ -32,7 +32,7 @@ angular.module('WiseHands')
             if (file) {
                 document.querySelector(".error-text").style.display = "none";
                 document.getElementById("add-product-icon").style.display = "none";
-
+                document.querySelector(".load-product-image").classList.remove("load-product-image-border");
             }
 
             reader.onloadend = function(event){
