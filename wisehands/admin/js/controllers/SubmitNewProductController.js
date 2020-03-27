@@ -29,6 +29,9 @@ angular.module('WiseHands')
             });
             var file  = e.target.files[0];
             var reader = new FileReader();
+            if (file) {
+                document.querySelector(".error-text").style.display = "none";
+            }
 
             reader.onloadend = function(event){
 
@@ -182,6 +185,11 @@ angular.module('WiseHands')
         };
 
         $scope.submitProduct = function () {
+            if (!document.getElementById("imageLoader").value) {
+                document.querySelector(".error-text").style.display = "block";
+                return;
+            }
+
             $scope.loading = true;
             for (var i = 0; i < $scope.productImagesDTO.length; i++) {
                 var blob = $scope.productImagesDTO[i];

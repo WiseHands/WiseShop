@@ -893,6 +893,9 @@ input {
     padding: 0;
     position: relative;
 }
+.load-product-image input {
+    display: none;
+}
 .load-product-image i {
     position: absolute;
     color: #000;
@@ -902,7 +905,7 @@ input {
     /*text-align: center;*/
     /*background-color: #fff;*/
 }
-.load-product-image p {
+.add-photo-text {
     position: absolute;
     top: 80%;
     background-color: #fff;
@@ -914,6 +917,12 @@ input {
     max-height: 100%;
     border: 2px dotted #666;
     overflow: hidden;
+}
+.error-text {
+    display: none;
+    color: #ff0000;
+    position: absolute;
+    top: 75%;
 }
 .add-product-category {
     display: flex;
@@ -933,7 +942,7 @@ input {
     font-size: 2rem;
     color: #666;
 }
-.item-category .card-item {
+.card-item {
     background-color: #fff;
     border: none;
     width: 140px;
@@ -956,7 +965,14 @@ input {
     overflow: hidden;
     padding: 0.5rem;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 768px) {
+    .load-product-image {
+        height: 100%;
+        min-height: 200px;
+        margin-bottom: 1rem;
+    }
+}
+    @media screen and (max-width: 900px) {
     .user-settings-item {
         flex-basis: calc(50% - 2rem);
     }

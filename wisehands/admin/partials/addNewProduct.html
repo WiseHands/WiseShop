@@ -27,11 +27,13 @@
     </div>
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
         <div class="load-product-image col-md-6" ng-click="loadImage()">
+            <input name="imageLoader" type="file" id="imageLoader"/>
             <i class="fa fa-plus"></i>
             <div class="item active loaded-photo" ng-show="productImages.length >= 1">
                 <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
             </div>
-            <p>{{'addNewProduct.addPhoto' | translate}}</p>
+            <p class="add-photo-text">{{'addNewProduct.addPhoto' | translate}}</p>
+            <p class="error-text">Add image required</p>
         </div>
         <div class="add-product-info col-md-6">
             <div class="input-field">
@@ -122,7 +124,6 @@
             <!--<button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" ng-click="loadImage()">-->
                 <!--<span>{{'addNewProduct.addPhoto' | translate}}</span>-->
             <!--</button>-->
-            <input name="imageLoader" type="file" id="imageLoader" required/>
         </div>
     </form>
     <!--<div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">-->
