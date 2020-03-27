@@ -28,7 +28,7 @@
     <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
         <div class="load-product-image col-md-6" ng-click="loadImage()">
             <input name="imageLoader" type="file" id="imageLoader"/>
-            <i class="fa fa-plus"></i>
+            <i id="add-product-icon" class="fa fa-plus"></i>
             <div class="item active loaded-photo" ng-show="productImages.length >= 1">
                 <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
             </div>

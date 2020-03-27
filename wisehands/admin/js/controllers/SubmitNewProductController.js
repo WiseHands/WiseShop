@@ -31,6 +31,8 @@ angular.module('WiseHands')
             var reader = new FileReader();
             if (file) {
                 document.querySelector(".error-text").style.display = "none";
+                document.getElementById("add-product-icon").style.display = "none";
+
             }
 
             reader.onloadend = function(event){
