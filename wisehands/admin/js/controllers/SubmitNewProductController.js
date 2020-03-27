@@ -173,6 +173,9 @@ angular.module('WiseHands')
         $scope.chooseCategory = function (categoryid) {
             console.log('categoryid', categoryid);
             $scope.selectedCategoryId = categoryid;
+            if ($scope.selectedCategoryId) {
+                document.getElementById('error-select-category').style.display = "none";
+            }
             event.stopPropagation();
         };
         $scope.isCategorySelected = function (categoryid) {
@@ -187,6 +190,10 @@ angular.module('WiseHands')
         $scope.submitProduct = function () {
             if (!document.getElementById("imageLoader").value) {
                 document.querySelector(".error-text").style.display = "block";
+                return;
+            }
+            if (!$scope.selectedCategoryId) {
+                document.getElementById('error-select-category').style.display = "block";
                 return;
             }
 

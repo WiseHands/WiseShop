@@ -33,7 +33,7 @@
                 <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
             </div>
             <p class="add-photo-text">{{'addNewProduct.addPhoto' | translate}}</p>
-            <p class="error-text">Add image required</p>
+            <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
         </div>
         <div class="add-product-info col-md-6">
             <div class="input-field">
@@ -51,6 +51,7 @@
 
             <div class="input-field ">
                 <p>{{'addNewProduct.category' | translate}}</p>
+                <p id="error-select-category">{{'addNewProduct.errorChooseCategory' | translate}}</p>
                 <div class="add-product-category">
                     <div class="create-category" data-toggle="modal" data-target="#categoryModal">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>

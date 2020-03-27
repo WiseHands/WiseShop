@@ -924,6 +924,10 @@ input {
     position: absolute;
     top: 75%;
 }
+#error-select-category {
+    display: none;
+    color: #ff0000;
+}
 .add-product-category {
     display: flex;
     flex-wrap: wrap;
