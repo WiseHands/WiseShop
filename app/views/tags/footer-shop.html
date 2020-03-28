@@ -1,7 +1,7 @@
 <style>
     footer {
         display: flex;
-        max-width: 1300px;
+        max-width: 900px;
         width: 100%;
         margin: 0 auto;
         padding-top: 20px;
@@ -120,7 +120,11 @@
     #address {
         word-break: break-word;
     }
-
+    @media screen and (min-width: 1500px) {
+        .footer {
+            max-width: 1300px;
+        }
+    }
     @media screen and (max-width: 767px) {
         footer {
             flex-direction: column;
