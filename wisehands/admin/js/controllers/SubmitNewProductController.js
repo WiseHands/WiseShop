@@ -9,6 +9,19 @@ angular.module('WiseHands')
             url: '/api/category'
         })
             .then(function successCallback(response) {
+                $scope.strLimit = 7;
+                $scope.showMore = function () {
+                    $scope.strLimit = $scope.strLimit.length;
+                    document.querySelector(".show-more-btn").style.display = 'none';
+                    document.querySelector(".show-less-btn").style.display = 'block';
+
+                }
+                $scope.showLess = function () {
+                    $scope.strLimit = $scope.strLimit = 7;
+                    document.querySelector(".show-less-btn").style.display = 'none';
+                    document.querySelector(".show-more-btn").style.display = 'block';
+                }
+
                 $scope.categories = response.data;
                 $scope.loading = false;
             }, function errorCallback(error) {
