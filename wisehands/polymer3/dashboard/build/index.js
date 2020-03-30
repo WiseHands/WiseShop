@@ -2776,17 +2776,17 @@ class ProfileContainer extends LitElement {
                     
                     <div class="payment-form-container">
                         <form id="payment-form" method="post" action="https://secure.wayforpay.com/pay">
-                            <input id="merchantAccount" name="merchantAccount" value="">
-                            <input id="merchantDomainName" name="merchantDomainName" value="">
-                            <input id="merchantSignature" name="merchantSignature" value="">
-                            <input id="merchantTransactionSecureType" name="merchantTransactionSecureType" value="AUTO">
-                            <input id="orderReference" name="orderReference" value="USER_ID">
-                            <input id="orderDate" name="orderDate" value="TIME">
-                            <input id="amount" name="amount" value="">
-                            <input id="currency" name="currency" value="UAH">
-                            <input id="productName" name="productName[]" value="Поповнення рахунку користувача USER_ID">
-                            <input id="productPrice" name="productPrice[]" value="">
-                            <input id="productCount" name="productCount[]" value="1">
+                            <input id="account" name="merchantAccount" value="">
+                            <input id="domainName" name="merchantDomainName" value="">
+                            <input id="signature" name="merchantSignature" value="">
+                            <input name="merchantTransactionSecureType" value="AUTO">
+                            <input id="reference" name="orderReference" value="USER_ID">
+                            <input id="date" name="orderDate" value="TIME">
+                            <input id="allPrice" name="amount" value="">
+                            <input id="currencyCash" name="currency" value="UAH">
+                            <input id="name" name="productName[]" value="Поповнення рахунку користувача USER_ID">
+                            <input id="price" name="productPrice[]" value="">
+                            <input id="count" name="productCount[]" value="">
                             <input type="submit" value="Submit">
                         </form>
                     </div>
@@ -2822,11 +2822,6 @@ class ProfileContainer extends LitElement {
     const url = `/api/wayforpay/generate-signature?amount=${this.amountPayment}`;
     this.generatePostRequest(url);
     console.log(`get amount from value ${this.amountPayment}`);
-  }
-
-  submitFormForPayment() {
-    const firstForm = document.getElementById('firstForm');
-    firstForm.addEventListener('submit', function (event) {});
   }
 
   replenishCoinAccount() {
@@ -2865,16 +2860,16 @@ class ProfileContainer extends LitElement {
   }
 
   setPaymentWayForPayForm(data) {
-    this.shadowRoot.querySelector('#merchantAccount').value = data.merchantAccount;
-    this.shadowRoot.querySelector('#merchantDomainName').value = data.merchantDomainName;
-    this.shadowRoot.querySelector('#merchantSignature').value = data.signature;
-    this.shadowRoot.querySelector('#orderReference').value = data.orderReference;
-    this.shadowRoot.querySelector('#orderDate').value = data.orderDate;
-    this.shadowRoot.querySelector('#amount').value = data.amount;
-    this.shadowRoot.querySelector('#currency').value = data.currency;
-    this.shadowRoot.querySelector('#productName').value = data.productName;
-    this.shadowRoot.querySelector('#productCount').value = data.productCount;
-    this.shadowRoot.querySelector('#productPrice').value = data.productPrice;
+    this.shadowRoot.querySelector('#account').value = data.merchantAccount;
+    this.shadowRoot.querySelector('#domainName').value = data.merchantDomainName;
+    this.shadowRoot.querySelector('#signature').value = data.signature;
+    this.shadowRoot.querySelector('#reference').value = data.orderReference;
+    this.shadowRoot.querySelector('#date').value = data.orderDate;
+    this.shadowRoot.querySelector('#allPrice').value = data.amount;
+    this.shadowRoot.querySelector('#currencyCash').value = data.currency;
+    this.shadowRoot.querySelector('#name').value = data.productName;
+    this.shadowRoot.querySelector('#count').value = data.productCount;
+    this.shadowRoot.querySelector('#price').value = data.productPrice;
   }
 
 } // Register the new element with the browser.
@@ -3037,18 +3032,18 @@ class DashBoard extends LitElement {
                     <div class="work-place-dash-board-container border">
                         ${this.isShowShopListContainer ? html`                                            
                         <div class="shop-list-container">
-                            <div class="shop-element border">
-                                <a href="/ua/wizard">
+                             <a @click="${this.creatingShopThroughWizard}">
+                                <div class="shop-element border">
                                     <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.svg">
-                                </a>
-                            </div>
+                                </div>
+                             </a>
                              ${this.shopList.map(item => html`
-                                   <a href="${this._buildUrlForShop(item)}">
-                                       <div class="shop-element border">
-                                            <p>${item.shopName}</p>
-                                       </div>
-                                   </a>    
-                            `)}                    
+                                <a href="${this._buildUrlForShop(item)}">
+                                    <div class="shop-element border">
+                                        <p>${item.shopName}</p>
+                                    </div>
+                                </a>    
+                             `)}                    
                         </div>` : html``} 
                         
                         ${this.isShowSubscriptionContainer ? html`
@@ -3094,6 +3089,11 @@ class DashBoard extends LitElement {
     this.shopList = [];
     this.userFullName = 'Ім. Пр.';
     this.isShowShopListContainer = true;
+  }
+
+  creatingShopThroughWizard() {
+    localStorage.setItem('isShopCreated', 'false');
+    window.location = "/ua/wizard";
   }
 
   _buildUrlForShop(item) {
