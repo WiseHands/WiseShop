@@ -1008,7 +1008,9 @@ input {
     .add-product-block {
         flex-direction: column;
     }
-
+    .m-left {
+        margin-left: 0;
+    }
     .load-product-image {
         height: 100%;
         min-height: 200px;

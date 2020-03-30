@@ -57,9 +57,10 @@ body a {
 .main-block {
     height: 74vh;
     display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 .main-block-text {
-    padding-top: 30vh;
     text-align: center;
 }
 .main-block-text h1 {
@@ -82,6 +83,11 @@ body a {
 .main-block-text button:focus {
     outline: none;
 }
+.main-block-image img {
+    max-width: 450px;
+}
+
+
 .burger-menu {
     display: none;
     padding: 1rem;
@@ -182,8 +188,8 @@ body a {
 }
 .opport h2{
     text-align: center;
-    font-weight: 600;
-    font-size: 3rem;
+    font-weight: 400;
+    font-size: 3.5rem;
 }
 .land-payment, .land-category, .land-options, .land-area-delivery, .land-analytics, .land-network {
     width: 100%;
@@ -195,7 +201,7 @@ body a {
     height: 52vh;
 }
 .land-payment-img {
-    background: url(../../wisehands/landing/images/payment1.jpg) no-repeat;
+    background: url(../../wisehands/landing/images/pay.svg) no-repeat;
     background-size: cover;
 }
 .land-text {
@@ -223,23 +229,23 @@ body a {
     padding: 1rem 0;
 }
 .land-category-img {
-    background: url(../../wisehands/landing/images/list.jpg) no-repeat;
+    background: url(../../wisehands/landing/images/category.svg) no-repeat;
     background-size: cover;
 }
 .land-options-img {
-    background: url(../../wisehands/landing/images/options2.jpg) no-repeat;
+    background: url(../../wisehands/landing/images/options.svg) no-repeat;
     background-size: contain;
 }
 .land-area-delivery-img {
-    background: url(../../wisehands/landing/images/area.jpg) no-repeat;
+    background: url(../../wisehands/landing/images/area.svg) no-repeat;
     background-size: contain;
 }
 .land-analytics-img {
-    background: url(../../wisehands/landing/images/analytics.jpg) no-repeat;
+    background: url(../../wisehands/landing/images/analytics.svg) no-repeat;
     background-size: cover;
 }
 .land-network-img {
-    background: url(../../wisehands/landing/images/network.jpg) no-repeat;
+    background: url(../../wisehands/landing/images/network.svg) no-repeat;
     background-size: cover;
 }
 
