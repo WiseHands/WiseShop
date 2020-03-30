@@ -113,6 +113,8 @@
   "addNewProduct.productWholesaleCount": "Ilość towaru do sprzedaży hurtowej",
   "addNewProduct.productWholesalePrice": "Cena jednego produktu do sprzedaży hurtowej",
   "addNewProduct.productDescription": "Opis",
+  "addNewProduct.showMoreButton": "Pokaż więcej",
+  "addNewProduct.showLessButton": "Pokaż mniej",
   "addNewProduct.additional": "Dodatkowo",
   "addNewProduct.showInShop": "Pokaż w sklepie",
   "addNewProduct.oldPrice": "Stara cena",
