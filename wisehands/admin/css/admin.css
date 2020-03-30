@@ -982,6 +982,16 @@ input {
     max-height: 140px;
     text-align: center;
 }
+.save-button {
+    display: flex;
+    justify-content: center;
+    margin: 1rem auto;
+    padding: 0.5rem 2rem;
+    background-color: #126471;
+    color: #fff;
+    border: none;
+    font-size: 1.6rem;
+}
 @media screen and (max-width: 768px) {
     .add-product-block {
         flex-direction: column;
