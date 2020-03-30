@@ -482,6 +482,25 @@ textarea {
     width: 36px;
     padding-left: 10px;
 }
+footer {
+    min-height: 200px;
+    background-color: #f2f2f2;
+}
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 1rem;
+}
+.footer-item h4 {
+    font-size: 1.4rem;
+    color: #5B5C5E;
+    padding-bottom: 1rem;
+}
+.footer-item {
+    font-weight: 400;
+    color: #6E6E6E;
+    line-height: 2;
+}
 @media screen and (max-width: 768px) {
     .header-block {
         display: none;
@@ -519,6 +538,7 @@ textarea {
     }
     .land-contact {
         height: 100%;
+        display: block;
     }
     .land-contact-form {
         flex-basis: unset;
