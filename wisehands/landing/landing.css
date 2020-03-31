@@ -459,35 +459,27 @@ textarea {
 .contact-address-item i {
     padding: 0 0.5rem;
 }
-.footer-block {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    background-color: #000;
-    color: #fff;
-}
-.footer-links {
-    display: flex;
-    padding-left: 1rem;
-}
-.footer-links a {
-    padding-right: 20px;
-    cursor: pointer;
-}
-.footer-copyright {
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-}
-.footer-copyright a {
-    display: flex;
-    align-items: center;
-}
-.footer-copyright img {
-    width: 36px;
-    padding-left: 10px;
-}
+/*.footer-block {*/
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
+    /*padding: 1rem 0;*/
+    /*background-color: #000;*/
+    /*color: #fff;*/
+/*}*/
+/*.footer-links {*/
+    /*display: flex;*/
+    /*padding-left: 1rem;*/
+/*}*/
+/*.footer-links a {*/
+    /*padding-right: 20px;*/
+    /*cursor: pointer;*/
+/*}*/
+/*.footer-copyright img {*/
+    /*width: 36px;*/
+    /*padding-left: 10px;*/
+/*}*/
+
 footer {
     min-height: 200px;
     background-color: #f2f2f2;
@@ -495,8 +487,33 @@ footer {
 .footer-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     padding: 2rem 1rem;
 }
+.footer-logo a {
+    display: flex;
+    align-items: center;
+}
+.footer-logo img {
+    width: 36px;
+    height: 36px;
+    margin-right: 0.5rem;
+}
+.footer-logo p {
+    font-size: 1.4rem;
+}
+.footer-copyright a {
+    display: flex;
+    align-items: center;
+}
+.footer-address, .footer-phone, .footer-social {
+    display: flex;
+    align-items: center;
+}
+.footer-phone i {
+    padding-right: 0.5rem;
+}
+
 .footer-item h4 {
     font-size: 1.4rem;
     color: #5B5C5E;
@@ -506,6 +523,32 @@ footer {
     font-weight: 400;
     color: #6E6E6E;
     line-height: 2;
+}
+.footer-button button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 3rem;
+    background-color: #f2f2f2;
+    color: #000;
+    border: 2px solid #000;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.footer-button button:hover {
+    background-color: #000;
+    color: #f2f2f2;
+}
+.footer-bottom {
+    margin-top: 1rem;
+    padding: 2rem 1rem;
+    border-top: 1px solid #d4d4d4;
+    color: #6E6E6E;
+}
+.footer-phone {
+    min-width: 25%;
+}
+.footer-social {
+    width: 150px;
+    justify-content: space-around;
 }
 @media screen and (max-width: 768px) {
     .header-block {
