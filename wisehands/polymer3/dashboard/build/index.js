@@ -2992,8 +2992,15 @@ class DashBoard extends LitElement {
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
+                                color: white;
                                 height: 60%;
+                                width: 90%;
+                                border-radius: 5px;
+                                background-color: #00BCD4;
                             }
+                                .shop-name p{
+                                    font-size: 2em;
+                                }
                             .shop-info-container{
                                 display: flex;
                                 flex-direction: row;
@@ -3001,9 +3008,13 @@ class DashBoard extends LitElement {
                                 align-items: center;
                                 height: 20%;
                                 width: 100%;
+                                padding-top: 10px;
                             }
                                 .shop-info-container p {
                                     color: black;
+                                }
+                                .shop-info-container img:hover{
+                                    cursor: pointer;
                                 }
                                 .shop-balance, .shop-link{
                                     display: flex;
@@ -3069,13 +3080,14 @@ class DashBoard extends LitElement {
                                         </a>    
                                         <div class="shop-info-container">
                                              <div class="shop-balance">
-                                                <p>balance</p>
-                                            </div>
-                                            <div class="shop-link">
                                                 <img class="menu-item-logo"
                                                  @click="${this.showProfileContainer}"
-                                                 src="wisehands/assets/images/dashboard/money.png">                         
+                                                 src="wisehands/assets/images/dashboard/money.png">
                                             </div>
+                                            <a class="shop-link" href="${this._buildUrlForShop(item)}">
+                                                 <img class="menu-item-logo"
+                                                 src="wisehands/assets/images/dashboard/link.png">                         
+                                            </a>
                                         </div>
                                     </div>
                              `)}                    
