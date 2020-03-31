@@ -849,7 +849,10 @@
 </div>
 
 <script>
-  getWizardInfo();
+  const isShopCreated = localStorage.getItem('isShopCreated');
+  if(isShopCreated === 'true'){
+      getWizardInfo();
+  }
   let isValidateAddressDomainName;
   let currentFormStep = 1;
 
@@ -862,9 +865,6 @@
   const requiredFields = document.querySelectorAll('[required]');
 
   const circleLoadingAnimation = document.querySelector('.circle-loading-animation');
-
-  const stepsTitleThatNeedHidden = document.querySelector('.steps');
-  const formButtonThatNeedHidden = document.querySelector('.form-button');
   const form = document.querySelector('form');
 
 
@@ -927,6 +927,7 @@
   }
 
   function setMainSettingForShop(event) {
+    localStorage.setItem('isShopCreated', 'true');
     console.log('setMainSettingForShop: ', event.target.name, event.target.value);
     const params = '?' + event.target.name + '=' + event.target.value;
     const url = '/api/wizard/update' + params;

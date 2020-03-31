@@ -2774,7 +2774,7 @@ class ProfileContainer extends LitElement {
                     
                     <button @click="${this.generateSignatureForPayment}">поповнити</button>  
                     
-                    <div class="payment-form-container">
+                    <div class="payment-form-container" hidden>
                         <form id="payment-form" method="post" action="https://secure.wayforpay.com/pay">
                             <input id="account" name="merchantAccount" value="">
                             <input id="domainName" name="merchantDomainName" value="">
@@ -2870,6 +2870,7 @@ class ProfileContainer extends LitElement {
     this.shadowRoot.querySelector('#name').value = data.productName;
     this.shadowRoot.querySelector('#count').value = data.productCount;
     this.shadowRoot.querySelector('#price').value = data.productPrice;
+    this.shadowRoot.querySelector('form').submit();
   }
 
 } // Register the new element with the browser.
@@ -2926,10 +2927,7 @@ class DashBoard extends LitElement {
                         }
                         .profile-info p{
                             margin: 0;
-                        }
-                        .profile-info-balance{
-                            display: flex;                            
-                        } 
+                        }                        
                 .body-dash-board-container{
                     display: flex;
                     height: calc(100% - 56px)
@@ -2966,22 +2964,54 @@ class DashBoard extends LitElement {
                         align-items: flex-start;
                         flex-wrap: wrap;
                     }
-                        .shop-element{
+                        .create-shop-element{
                             display: flex;
                             justify-content: center;
                             align-items: center;
                             margin: 15px;
                             height: 200px;
                             width: 200px;
-                        }
-                        .shop-element p{
+                        }                        
+                        .create-shop-element p{
                              color: black;
                         }
-                        .create-shop-plus-logo{
-                            height: 24px;
-                            width: 24px;
+                            .create-shop-plus-logo{
+                                height: 24px;
+                                width: 24px;
+                            }
+                        .shop-element-container{
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            margin: 15px;
+                            height: 200px;
+                            width: 200px;
                         }
-                                      
+                            .shop-name{
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 60%;
+                            }
+                            .shop-info-container{
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                align-items: center;
+                                height: 20%;
+                                width: 100%;
+                            }
+                                .shop-info-container p {
+                                    color: black;
+                                }
+                                .shop-balance, .shop-link{
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    padding: 10px;
+                                }
+                                                                    
                     subcription-container{
                         width: 100%;
                         height: 100%;
@@ -3004,12 +3034,7 @@ class DashBoard extends LitElement {
                     </div>
                     <div class="profile-info-container">
                         <div class="profile-info">
-                            <p>${this.userFullName}</p>
-                            <div class="profile-info-balance">
-                                <p>Баланс:</p>
-                                <p>1000 грн</p>
-                            </div>
-                            
+                            <p>${this.userFullName}</p>                                                        
                         </div>
                         <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
                     </div>
@@ -3033,16 +3058,26 @@ class DashBoard extends LitElement {
                         ${this.isShowShopListContainer ? html`                                            
                         <div class="shop-list-container">
                              <a @click="${this.creatingShopThroughWizard}">
-                                <div class="shop-element border">
+                                <div class="create-shop-element border">
                                     <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.svg">
                                 </div>
                              </a>
                              ${this.shopList.map(item => html`
-                                <a href="${this._buildUrlForShop(item)}">
-                                    <div class="shop-element border">
-                                        <p>${item.shopName}</p>
+                                    <div class="shop-element-container border">
+                                        <a class="shop-name" href="${this._buildUrlForShop(item)}">
+                                            <p>${item.shopName}</p>
+                                        </a>    
+                                        <div class="shop-info-container">
+                                             <div class="shop-balance">
+                                                <p>balance</p>
+                                            </div>
+                                            <div class="shop-link">
+                                                <img class="menu-item-logo"
+                                                 @click="${this.showProfileContainer}"
+                                                 src="wisehands/assets/images/dashboard/money.png">                         
+                                            </div>
+                                        </div>
                                     </div>
-                                </a>    
                              `)}                    
                         </div>` : html``} 
                         
