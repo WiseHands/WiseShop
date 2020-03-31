@@ -2966,12 +2966,19 @@ class DashBoard extends LitElement {
                     }
                         .create-shop-element{
                             display: flex;
+                            flex-direction: column;
                             justify-content: center;
                             align-items: center;
                             margin: 15px;
                             height: 200px;
                             width: 200px;
                         }                        
+                        .create-shop-text-container{
+                            display: flex;                            
+                            align-items: center;
+                            padding-top: 10px;
+                            height: 40px;
+                        }
                         .create-shop-element p{
                              color: black;
                         }
@@ -3070,7 +3077,12 @@ class DashBoard extends LitElement {
                         <div class="shop-list-container">
                              <a @click="${this.creatingShopThroughWizard}">
                                 <div class="create-shop-element border">
-                                    <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.svg">
+                                    <div class="shop-name">
+                                        <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.png">
+                                    </div>
+                                    <div class="create-shop-text-container">
+                                        <p>Створити магазин</p>
+                                    </div>
                                 </div>
                              </a>
                              ${this.shopList.map(item => html`
