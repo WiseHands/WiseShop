@@ -194,7 +194,7 @@ body a {
 .land-payment, .land-category, .land-options, .land-area-delivery, .land-analytics, .land-network {
     width: 100%;
     background-color: #f2f2f2;
-    padding: 2rem 0;
+    padding: 5rem 0;
 }
 .land-img {
     flex-basis: 65%;
@@ -510,7 +510,7 @@ footer {
     display: flex;
     align-items: center;
 }
-.footer-phone i {
+.footer-phone i, .footer-address i {
     padding-right: 0.5rem;
 }
 
@@ -562,6 +562,9 @@ footer {
     }
     .landing-container {
         flex-direction: column;
+    }
+    .main-block-image img, .land-payment-img img {
+        max-width: 100%;
     }
     .land-text {
         padding: 0 1rem;
