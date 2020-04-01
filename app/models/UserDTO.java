@@ -58,10 +58,6 @@ public class UserDTO extends GenericModel {
     @OneToOne
     public WizardDTO wizard;
 
-    @OneToOne
-    public CoinAccountDTO coinAccountDTO;
-
-
     //DEPRECATED. NOT USED. SHOULD BE REMOVED
     @Column
     public String token;
