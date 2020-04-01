@@ -510,15 +510,12 @@ footer a:hover {
     display: flex;
     align-items: center;
 }
-.footer-address, .footer-phone, .footer-social {
+.footer-address a, .footer-phone a, .footer-social {
     display: flex;
     align-items: center;
 }
 .footer-phone i, .footer-address i {
     padding-right: 0.5rem;
-}
-.footer-address a {
-    display: flex;
 }
 .footer-item h4 {
     font-size: 1.4rem;
