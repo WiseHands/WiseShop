@@ -92,18 +92,25 @@ public class WayForPayAPI extends AuthController {
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         System.out.println("payment confirmation WFP jsonBody: " + jsonBody);
 
-        String transactionStatus = (String) jsonBody.get("transactionStatus");
         String orderReference = (String) jsonBody.get("orderReference");
-
-        String dataToSign = "";
         String status = "accept";
         Long time = System.currentTimeMillis() / 1000L;
         String key = Play.configuration.getProperty("wayforpay.secretkey");
 
-        dataToSign = orderReference + ";" + status + ";" + time;
+        String dataToSign = orderReference + ";" + status + ";" + time;
         String signature = hmacDigest(dataToSign, key, "HmacMD5");
 
+        CoinTransactionDTO transaction = CoinTransactionDTO.findById(orderReference);
+        String transactionStatus = (String) jsonBody.get("transactionStatus");
+
         if (transactionStatus.equals("Approved")){
+            if(transaction.status.equals(TransactionStatus.PENDING)) {
+                transaction.account.balance += transaction.amount;
+                transaction.account.save();
+                transaction.status = TransactionStatus.OK;
+                transaction.save();
+            }
+
             WayForPayRequestParams params = new WayForPayRequestParams(orderReference, status, time, signature);
             renderJSON(json(params));
         }
@@ -130,7 +137,7 @@ public class WayForPayAPI extends AuthController {
         Integer productCount = 1;
         Long orderDate = System.currentTimeMillis() / 1000L;
 
-        String orderReference = creatingOrderReferenceByTransaction(shop);
+        String orderReference = creatingOrderReferenceByTransaction(shop, amount);
 
         String dataToSign = "";
         dataToSign = merchantAccount + ";" + merchantDomainName  + ";" +
@@ -150,7 +157,7 @@ public class WayForPayAPI extends AuthController {
         renderJSON(json(params));
     }
 
-    private static String creatingOrderReferenceByTransaction(ShopDTO shop) {
+    private static String creatingOrderReferenceByTransaction(ShopDTO shop, double amount) {
         CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
         if(coinAccount == null) {
             coinAccount = new CoinAccountDTO(shop);
@@ -161,6 +168,7 @@ public class WayForPayAPI extends AuthController {
         transaction.type = TransactionType.REFILL;
         transaction.status = TransactionStatus.PENDING;
         transaction.account = coinAccount;
+        transaction.amount = amount;
         transaction = transaction.save();
 
         coinAccount.addTransaction(transaction);
