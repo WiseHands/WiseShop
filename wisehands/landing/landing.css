@@ -116,6 +116,16 @@ body a {
     left: 0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .16), 0 2px 3px 0 rgba(0, 0, 0, .12);
 }
+.blur-block {
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 80%;
+    background-color: #fff;
+    transition: 0.7s easy;
+    opacity: 0.8;
+}
 @keyframes sidebarmove {
     from {
         opacity: 0;
