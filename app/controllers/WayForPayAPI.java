@@ -75,6 +75,12 @@ public class WayForPayAPI extends AuthController {
         System.out.println("verify way for pay callback jsonBody: " + jsonBody);
     }
 
+    public static void paymentConfirmation(String client) throws Exception{
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        System.out.println("payment confirmation WFP jsonBody: " + jsonBody);
+    }
+
     public static String formatDecimal(Double amount) {
         return String.format("%.2f", amount); // dj_segfault
     }
@@ -96,6 +102,27 @@ public class WayForPayAPI extends AuthController {
         Integer productCount = 1;
         Long orderDate = System.currentTimeMillis() / 1000L;
 
+        String orderReference = creatingOrderReferenceByTransaction(shop);
+
+        String dataToSign = "";
+        dataToSign = merchantAccount + ";" + merchantDomainName  + ";" +
+                orderReference + ";" + orderDate + ";" +
+                formatDecimal + ";" + currency + ";" + productName + ";" +
+                productCount + ";" + formatDecimal;
+
+        String key = Play.configuration.getProperty("wayforpay.secretkey");
+        System.out.println("dataToSign\n" + dataToSign);
+
+        String signature = hmacDigest(dataToSign, key, "HmacMD5");
+
+        WayForPayRequestParams params = new WayForPayRequestParams(
+                merchantAccount, merchantDomainName, orderReference,
+                orderDate, formatDecimal, currency, productName,
+                productCount, formatDecimal, signature, serviceUrl);
+        renderJSON(json(params));
+    }
+
+    private static String creatingOrderReferenceByTransaction(ShopDTO shop) {
         CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
         if(coinAccount == null) {
             coinAccount = new CoinAccountDTO(shop);
@@ -110,28 +137,8 @@ public class WayForPayAPI extends AuthController {
 
         coinAccount.addTransaction(transaction);
         coinAccount.save();
-        String orderReference = transaction.uuid;
-
-
-        System.out.println("verify way for pay generateSignatureWayForPay: " + formatDecimal + " " + user.uuid + " " + user.givenName);
-        String dataToSign = "";
-        dataToSign = merchantAccount + ";" + merchantDomainName  + ";" +
-                orderReference + ";" + orderDate + ";" +
-                formatDecimal + ";" + currency + ";" + productName + ";" +
-                productCount + ";" + formatDecimal + ":" + serviceUrl;
-        String key = Play.configuration.getProperty("wayforpay.secretkey");
-        System.out.println("dataToSign\n" + dataToSign);
-        System.out.println("wayforpay.secretkey " + key);
-
-        String signature = hmacDigest(dataToSign, key, "HmacMD5");
-
-        WayForPayRequestParams params = new WayForPayRequestParams(
-                merchantAccount, merchantDomainName, orderReference,
-                orderDate, formatDecimal, currency, productName,
-                productCount, formatDecimal, signature, serviceUrl);
-        renderJSON(json(params));
+        return transaction.uuid;
     }
-
 
 
 }
