@@ -44,31 +44,4 @@ public class HMAC {
         return digest;
     }
 
-    public static String encodeHmacMD5(String key, String message) throws SignatureException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "HmacMD5");
-        Mac mac = Mac.getInstance("HmacMD5");
-        mac.init(secretKeySpec);
-        return toHexString(mac.doFinal(message.getBytes()));
-    }
-
-    private static String doBASE64(byte[] bytes) {
-        Base64.Encoder encoder = Base64.getEncoder();
-        String base64 = encoder.encodeToString(bytes);
-        return base64;
-    }
-
-    public static String HMAC_MD5_encode(String key, String message) throws Exception {
-
-        SecretKeySpec keySpec = new SecretKeySpec(
-                key.getBytes(),
-                "HmacMD5");
-
-        Mac mac = Mac.getInstance("HmacMD5");
-        mac.init(keySpec);
-        byte[] rawHmac = mac.doFinal(message.getBytes());
-
-        return Hex.encodeHexString(rawHmac);
-    }
-
-
 }

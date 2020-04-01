@@ -2841,10 +2841,12 @@ class ProfileContainer extends LitElement {
   }
 
   generatePostRequest(url) {
+    const params = `?shopUuid=${this.selectedShop.uuid}`;
+
     let _this = this;
 
     let token = localStorage.getItem('JWT_TOKEN');
-    fetch(url, {
+    fetch(url + params, {
       method: 'POST',
       headers: {
         authorization: 'Bearer ' + token
@@ -2877,6 +2879,122 @@ class ProfileContainer extends LitElement {
 
 
 customElements.define('profile-container', ProfileContainer);
+
+class ShopTile extends LitElement {
+  render() {
+    return html`
+            <style>
+                .border{
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+                }
+                
+                .container{
+                    height: 100%;
+                    width: 100%;
+                }
+                    .shop-name{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: white;
+                        height: 60%;
+                        width: 90%;
+                        margin: 15px 10px 0 10px;
+                        border-radius: 5px;
+                        background-color: #00BCD4;
+                    }
+                        .shop-name p{
+                            font-size: 2em;
+                        }
+                    .shop-info-container{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        height: 20%;
+                        width: 100%;
+                        margin-top: 10px;
+                    }
+                        .shop-info-container p {
+                            color: black;
+                        }
+                        .shop-info-container img:hover{
+                            cursor: pointer;
+                        }
+                        .shop-balance, .shop-link{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 10px;
+                        }
+                .menu-item-logo{
+                    height: 24px;
+                    width: 24px;
+                    margin: 5px;
+                }
+                .menu-item:hover{
+                    background-color: darkgray;
+                    cursor: pointer;
+                }
+                                     
+            </style>
+              <div class="container border">
+                <a class="shop-name" href="${this._buildUrlForShop(this.shop)}">
+                    <p>${this.shop.shopName}</p>
+                </a>    
+                <div class="shop-info-container">
+                     <div class="shop-balance">
+                        <img class="menu-item-logo"
+                         @click="${this.showBalanceWidgetForShop}"
+                         src="wisehands/assets/images/dashboard/money.png">
+                    </div>
+                    <a class="shop-link" href="${this._buildUrlForShop(this.shop)}">
+                         <img class="menu-item-logo"
+                         src="wisehands/assets/images/dashboard/link.png">                         
+                    </a>
+                </div>
+              </div>
+           
+
+    `;
+  }
+
+  static get properties() {
+    return {
+      shop: {
+        type: Object
+      }
+    };
+  }
+
+  constructor() {
+    super();
+  }
+
+  updated(changedProperties) {
+    changedProperties.forEach((oldValue, propName) => {
+      console.log(`${propName} changed. oldValue: ${oldValue}`);
+    });
+  }
+
+  _buildUrlForShop(item) {
+    const token = localStorage.getItem('JWT_TOKEN');
+    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin?JWT_TOKEN=${token}`;
+  }
+
+  showBalanceWidgetForShop() {
+    console.log("here");
+    this.dispatchEvent(new CustomEvent('open-balance', {
+      bubbles: true,
+      composed: true,
+      detail: this.shop
+    }));
+  }
+
+} // Register the new element with the browser.
+
+
+customElements.define('shop-tile', ShopTile);
 
 // Import the LitElement base class and html helper function
 
@@ -2986,16 +3104,8 @@ class DashBoard extends LitElement {
                                 height: 24px;
                                 width: 24px;
                             }
-                        .shop-element-container{
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            align-items: center;
-                            margin: 15px;
-                            height: 200px;
-                            width: 200px;
-                        }
-                            .shop-name{
+                    
+                        .shop-name{
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
@@ -3008,27 +3118,16 @@ class DashBoard extends LitElement {
                                 .shop-name p{
                                     font-size: 2em;
                                 }
-                            .shop-info-container{
-                                display: flex;
-                                flex-direction: row;
-                                justify-content: space-between;
-                                align-items: center;
-                                height: 20%;
-                                width: 100%;
-                                padding-top: 10px;
-                            }
-                                .shop-info-container p {
-                                    color: black;
-                                }
-                                .shop-info-container img:hover{
-                                    cursor: pointer;
-                                }
-                                .shop-balance, .shop-link{
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    padding: 10px;
-                                }
+                                
+                    shop-tile{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 15px;
+                        height: 200px;
+                        width: 200px;
+                    }                        
                                                                     
                     subcription-container{
                         width: 100%;
@@ -3039,7 +3138,6 @@ class DashBoard extends LitElement {
                         display: flex;
                         margin-left: 10px;
                         width: 100%;
-
                     }    
                                      
             </style>
@@ -3086,22 +3184,7 @@ class DashBoard extends LitElement {
                                 </div>
                              </a>
                              ${this.shopList.map(item => html`
-                                    <div class="shop-element-container border">
-                                        <a class="shop-name" href="${this._buildUrlForShop(item)}">
-                                            <p>${item.shopName}</p>
-                                        </a>    
-                                        <div class="shop-info-container">
-                                             <div class="shop-balance">
-                                                <img class="menu-item-logo"
-                                                 @click="${this.showProfileContainer}"
-                                                 src="wisehands/assets/images/dashboard/money.png">
-                                            </div>
-                                            <a class="shop-link" href="${this._buildUrlForShop(item)}">
-                                                 <img class="menu-item-logo"
-                                                 src="wisehands/assets/images/dashboard/link.png">                         
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <shop-tile .shop="${item}"></shop-tile>
                              `)}                    
                         </div>` : html``} 
                         
@@ -3148,16 +3231,15 @@ class DashBoard extends LitElement {
     this.shopList = [];
     this.userFullName = 'Ім. Пр.';
     this.isShowShopListContainer = true;
+    this.addEventListener('open-balance', event => {
+      this.selectedShop = event.detail;
+      this.showProfileContainer();
+    });
   }
 
   creatingShopThroughWizard() {
     localStorage.setItem('isShopCreated', 'false');
     window.location = "/ua/wizard";
-  }
-
-  _buildUrlForShop(item) {
-    const token = localStorage.getItem('JWT_TOKEN');
-    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin?JWT_TOKEN=${token}`;
   }
 
   showShopListContainer() {
