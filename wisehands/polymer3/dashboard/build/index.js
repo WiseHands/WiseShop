@@ -2777,6 +2777,7 @@ class BalanceContainer extends LitElement {
                     <div class="payment-form-container" hidden>
                         <form id="payment-form" method="post" action="https://secure.wayforpay.com/pay">
                             <input id="account" name="merchantAccount" value="">
+                            <input id="serviceUrl" name="serviceUrl" value="">
                             <input id="domainName" name="merchantDomainName" value="">
                             <input id="signature" name="merchantSignature" value="">
                             <input name="merchantTransactionSecureType" value="AUTO">
@@ -2873,6 +2874,7 @@ class BalanceContainer extends LitElement {
     this.shadowRoot.querySelector('#name').value = data.productName;
     this.shadowRoot.querySelector('#count').value = data.productCount;
     this.shadowRoot.querySelector('#price').value = data.productPrice;
+    this.shadowRoot.querySelector('#serviceUrl').value = data.serviceUrl;
     this.shadowRoot.querySelector('form').submit();
   }
 
@@ -3160,7 +3162,7 @@ class DashBoard extends LitElement {
                     <div class="tools-dash-board-container border">
                         <div class="menu-item" @click="${this.showShopListContainer}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
-                            <p>магазини</p>
+                            <p>Магазини</p>
                         </div>
                         <div class="menu-item" @click="${this.showSubscriptionContainer}">
                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-subscr-dashboard.svg">
