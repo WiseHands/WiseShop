@@ -265,6 +265,7 @@ body a {
     height: 600px;
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12), 3px -3px 3px 0px rgba(0,0,0,0.14);
     border-radius: 10px;
+    transition: 0.5s ease;
 }
 .tariff-item:hover {
     transform: scale(1.05);
@@ -516,7 +517,9 @@ footer a:hover {
 .footer-phone i, .footer-address i {
     padding-right: 0.5rem;
 }
-
+.footer-address a {
+    display: flex;
+}
 .footer-item h4 {
     font-size: 1.4rem;
     color: #5B5C5E;
