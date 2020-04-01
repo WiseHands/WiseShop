@@ -136,7 +136,7 @@ public class WayForPayAPI extends AuthController {
         transaction = transaction.save();
 
         coinAccount.addTransaction(transaction);
-        coinAccount.save();
+        coinAccount = coinAccount.save();
         return transaction.uuid;
     }
 
