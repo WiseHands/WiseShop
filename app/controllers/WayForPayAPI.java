@@ -28,6 +28,8 @@ public class WayForPayAPI extends AuthController {
         @Expose
         Long orderDate;
         @Expose
+        Long time;
+        @Expose
         String amount;
         @Expose
         String currency;
@@ -39,6 +41,17 @@ public class WayForPayAPI extends AuthController {
         String productPrice;
         @Expose
         String serviceUrl;
+        @Expose
+        String status;
+        @Expose
+        String signature;
+
+        public WayForPayRequestParams(String orderReference, String status, Long time, String signature){
+            this.orderReference = orderReference;
+            this.status = status;
+            this.time = time;
+            this.signature = signature;
+        }
 
         public WayForPayRequestParams(String merchantAccount, String merchantDomainName, String orderReference,
                                       Long orderDate, String amount, String currency,
@@ -57,8 +70,7 @@ public class WayForPayAPI extends AuthController {
             this.serviceUrl = serviceUrl;
         }
 
-        @Expose
-        String signature;
+
 
 
     }
@@ -79,6 +91,22 @@ public class WayForPayAPI extends AuthController {
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         System.out.println("payment confirmation WFP jsonBody: " + jsonBody);
+
+        String transactionStatus = (String) jsonBody.get("transactionStatus");
+        String orderReference = (String) jsonBody.get("orderReference");
+
+        String dataToSign = "";
+        String status = "accept";
+        Long time = System.currentTimeMillis() / 1000L;
+        String key = Play.configuration.getProperty("wayforpay.secretkey");
+
+        dataToSign = orderReference + ";" + status + ";" + time;
+        String signature = hmacDigest(dataToSign, key, "HmacMD5");
+
+        if (transactionStatus.equals("Approved")){
+            WayForPayRequestParams params = new WayForPayRequestParams(orderReference, status, time, signature);
+            renderJSON(json(params));
+        }
     }
 
     public static String formatDecimal(Double amount) {
