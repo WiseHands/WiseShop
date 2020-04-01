@@ -156,8 +156,6 @@ public class ShopDTO extends GenericModel {
     @OneToMany(cascade=CascadeType.ALL)
     public List<PageConstructorDTO> pagesList;
 
-    @OneToOne
-    public CoinAccountDTO coinAccountDTO;
 
     @Transient
     private ShopNetworkDTO network;

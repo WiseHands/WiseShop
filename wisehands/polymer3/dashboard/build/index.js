@@ -2743,7 +2743,7 @@ class SubcriptionContainer extends LitElement {
 
 customElements.define('subcription-container', SubcriptionContainer);
 
-class ProfileContainer extends LitElement {
+class BalanceContainer extends LitElement {
   render() {
     return html`
             <style>
@@ -2769,7 +2769,7 @@ class ProfileContainer extends LitElement {
             
             <div class="main-container">
                 <div class="balance-container">
-                    <p>Баланс: ${this.balance} UAH</p>
+                    <p>Магазин: ${this.shop.shopName} Баланс: ${this.balance} UAH</p>
                     <input id="amountPayment" .value=${this.amountPayment} @input="${this.handleAmountPayment}">
                     
                     <button @click="${this.generateSignatureForPayment}">поповнити</button>  
@@ -2804,6 +2804,9 @@ class ProfileContainer extends LitElement {
       },
       amountPayment: {
         type: Number
+      },
+      shop: {
+        type: Object
       }
     };
   }
@@ -2819,7 +2822,7 @@ class ProfileContainer extends LitElement {
   }
 
   generateSignatureForPayment() {
-    const url = `/api/wayforpay/generate-signature?amount=${this.amountPayment}`;
+    const url = `/api/wayforpay/generate-signature?amount=${this.amountPayment}&shopUuid=${this.shop.uuid}`;
     this.generatePostRequest(url);
     console.log(`get amount from value ${this.amountPayment}`);
   }
@@ -2841,12 +2844,10 @@ class ProfileContainer extends LitElement {
   }
 
   generatePostRequest(url) {
-    const params = `?shopUuid=${this.selectedShop.uuid}`;
-
     let _this = this;
 
     let token = localStorage.getItem('JWT_TOKEN');
-    fetch(url + params, {
+    fetch(url, {
       method: 'POST',
       headers: {
         authorization: 'Bearer ' + token
@@ -2878,7 +2879,7 @@ class ProfileContainer extends LitElement {
 } // Register the new element with the browser.
 
 
-customElements.define('profile-container', ProfileContainer);
+customElements.define('balance-container', BalanceContainer);
 
 class ShopTile extends LitElement {
   render() {
@@ -3075,12 +3076,12 @@ class DashBoard extends LitElement {
                     width: 75%;
                 }
                     .shop-list-container{
-                        width: 100%;
-                        height: 100%;
+
+                    }
+                    .inner-container{
                         display: flex;
-                        flex-direction: row;
-                        align-items: flex-start;
                         flex-wrap: wrap;
+                        
                     }
                         .create-shop-element{
                             display: flex;
@@ -3134,7 +3135,7 @@ class DashBoard extends LitElement {
                         height: 100%;
                         display: flex;
                     }
-                    profile-container{
+                    balance-container{
                         display: flex;
                         margin-left: 10px;
                         width: 100%;
@@ -3173,7 +3174,8 @@ class DashBoard extends LitElement {
                     <div class="work-place-dash-board-container border">
                         ${this.isShowShopListContainer ? html`                                            
                         <div class="shop-list-container">
-                             <a @click="${this.creatingShopThroughWizard}">
+                             <div class="inner-container">
+                                <a @click="${this.creatingShopThroughWizard}">
                                 <div class="create-shop-element border">
                                     <div class="shop-name">
                                         <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.png">
@@ -3185,7 +3187,8 @@ class DashBoard extends LitElement {
                              </a>
                              ${this.shopList.map(item => html`
                                     <shop-tile .shop="${item}"></shop-tile>
-                             `)}                    
+                             `)}   
+                            </div>                 
                         </div>` : html``} 
                         
                         ${this.isShowSubscriptionContainer ? html`
@@ -3193,7 +3196,7 @@ class DashBoard extends LitElement {
                         ` : ''}
                         
                         ${this.isShowProfileContainer ? html`
-                            <profile-container></profile-container>
+                            <balance-container .shop="${this.selectedShop}"></balance-container>
                         ` : html``}
                         
                     </div>

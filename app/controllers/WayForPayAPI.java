@@ -1,15 +1,17 @@
 package controllers;
 
 import com.google.gson.annotations.Expose;
+import enums.TransactionStatus;
+import enums.TransactionType;
+import models.CoinAccountDTO;
+import models.CoinTransactionDTO;
+import models.ShopDTO;
 import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
-import play.mvc.results.RenderJson;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import static controllers.WizardAPI.getUserIdFromAuthorization;
 import static util.HMAC.*;
@@ -35,11 +37,13 @@ public class WayForPayAPI extends AuthController {
         Integer productCount;
         @Expose
         String productPrice;
+        @Expose
+        String serviceUrl;
 
         public WayForPayRequestParams(String merchantAccount, String merchantDomainName, String orderReference,
                                       Long orderDate, String amount, String currency,
                                       String productName, Integer productCount, String productPrice,
-                                      String signature) {
+                                      String signature, String serviceUrl) {
             this.merchantAccount = merchantAccount;
             this.merchantDomainName = merchantDomainName;
             this.orderReference = orderReference;
@@ -50,6 +54,7 @@ public class WayForPayAPI extends AuthController {
             this.productCount = productCount;
             this.productPrice = productPrice;
             this.signature = signature;
+            this.serviceUrl = serviceUrl;
         }
 
         @Expose
@@ -79,35 +84,51 @@ public class WayForPayAPI extends AuthController {
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
 
+        String shopUuid = request.params.get("shopUuid");
+        ShopDTO shop = ShopDTO.findById(shopUuid);
+
         UserDTO user = UserDTO.find("byUuid", userId).first();
-        String orderReference = user.uuid;
 
-        String productName = "Поповнення власного рахунку " + user.uuid;
+        String productName = "Поповнення власного рахунку для магазину " + shop.shopName;
+        String serviceUrl = "https://wstore.pro/wayforpay/payment-confirmation";
         Double amount = Double.valueOf(request.params.get("amount"));
+        String formatDecimal = formatDecimal(amount);
         Integer productCount = 1;
-
         Long orderDate = System.currentTimeMillis() / 1000L;
 
-        String formatDecimal = formatDecimal(amount);
+        CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+        if(coinAccount == null) {
+            coinAccount = new CoinAccountDTO(shop);
+            coinAccount = coinAccount.save();
+        }
+
+        CoinTransactionDTO transaction = new CoinTransactionDTO();
+        transaction.type = TransactionType.REFILL;
+        transaction.status = TransactionStatus.PENDING;
+        transaction.account = coinAccount;
+        transaction = transaction.save();
+
+        coinAccount.addTransaction(transaction);
+        coinAccount.save();
+        String orderReference = transaction.uuid;
+
+
         System.out.println("verify way for pay generateSignatureWayForPay: " + formatDecimal + " " + user.uuid + " " + user.givenName);
         String dataToSign = "";
-
-
         dataToSign = merchantAccount + ";" + merchantDomainName  + ";" +
                 orderReference + ";" + orderDate + ";" +
                 formatDecimal + ";" + currency + ";" + productName + ";" +
-                productCount + ";" + formatDecimal;
+                productCount + ";" + formatDecimal + ":" + serviceUrl;
         String key = Play.configuration.getProperty("wayforpay.secretkey");
         System.out.println("dataToSign\n" + dataToSign);
         System.out.println("wayforpay.secretkey " + key);
 
         String signature = hmacDigest(dataToSign, key, "HmacMD5");
-//        String signature = HMAC_MD5_encode(key, dataToSign);
 
         WayForPayRequestParams params = new WayForPayRequestParams(
                 merchantAccount, merchantDomainName, orderReference,
                 orderDate, formatDecimal, currency, productName,
-                productCount, formatDecimal, signature);
+                productCount, formatDecimal, signature, serviceUrl);
         renderJSON(json(params));
     }
 

@@ -5,10 +5,8 @@ import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,14 +19,22 @@ public class CoinAccountDTO extends GenericModel {
     public String uuid;
 
     @Expose
-    public Double balance;
+    public double balance;
+
+    @OneToOne
+    public ShopDTO shop;
 
     @OneToMany
-    public List<CoinTransactionDTO> coinTransactionDTO;
+    public List<CoinTransactionDTO> transactionList;
 
-    public CoinAccountDTO(Double balance, List<CoinTransactionDTO> coinTransactionDTO) {
-        this.balance = balance;
-        this.coinTransactionDTO = coinTransactionDTO;
+    public CoinAccountDTO(ShopDTO shop) {
+        this.shop = shop;
     }
 
+    public void addTransaction(CoinTransactionDTO transaction) {
+        if(this.transactionList == null) {
+            this.transactionList = new ArrayList<CoinTransactionDTO>();
+        }
+        this.transactionList.add(transaction);
+    }
 }

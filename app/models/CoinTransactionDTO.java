@@ -1,12 +1,12 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import enums.TransactionStatus;
+import enums.TransactionType;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class CoinTransactionDTO extends GenericModel {
@@ -17,17 +17,15 @@ public class CoinTransactionDTO extends GenericModel {
     @Expose
     public String uuid;
 
-    public enum Type { REFILL, TRANSFER }
+    @Expose
+    @ManyToOne
+    public CoinAccountDTO account;
 
     @Expose
-    public CoinAccountDTO from;
+    @Enumerated
+    public TransactionType type;
 
     @Expose
-    public CoinAccountDTO to;
-
-    @Expose
-    public Type type;
-
-    public CoinTransactionDTO(){}
-
+    @Enumerated
+    public TransactionStatus status;
 }
