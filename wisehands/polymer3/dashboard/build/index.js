@@ -2898,7 +2898,7 @@ class TableTransaction extends LitElement {
                     <div class="Rtable-cell replay-link-cell column-heading">Сума</div>
                     <div class="Rtable-cell pdf-cell column-heading">Статус</div>
                   </div>
-                    ${this.tranasction - list.map(item => html`    
+                    ${this.tranasctionList.map(item => html`    
                        
                        <div class="Rtable-row">
                       <div class="Rtable-cell date-cell">
@@ -2934,6 +2934,9 @@ class TableTransaction extends LitElement {
     return {
       shop: {
         type: Object
+      },
+      tranasctionList: {
+        type: Array
       }
     };
   }
@@ -3038,7 +3041,7 @@ class BalanceContainer extends LitElement {
                     </div>
                     <div class="transaction-table-container">
                         <p>Table here</p>
-                            <table-transaction .tranasction-list="${this.coinAccount.transactionList}"></table-transaction>
+                            <table-transaction .tranasctionList="${this.coinAccount.transactionList}"></table-transaction>
                         </div>
                 </section>
     
