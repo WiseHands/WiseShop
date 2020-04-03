@@ -1,3 +1,3 @@
 package enums;
 
-public enum TransactionType { REFILL, TRANSFER }
+public enum TransactionType { REFILL, TRANSFER, COMMISSION_FEE }

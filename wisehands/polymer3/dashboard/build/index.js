@@ -2903,22 +2903,22 @@ class TableTransaction extends LitElement {
                        <div class="Rtable-row">
                       <div class="Rtable-cell date-cell">
                         <div class="Rtable-cell--heading">Дата</div>
-                        <div class="Rtable-cell--content date-content"><span class="webinar-date">${item.time}</div>
+                        <div class="Rtable-cell--content date-content"><span class="webinar-date">${this.setDateTime(item.time)}</div>
                       </div>
                       <div class="Rtable-cell topic-cell">
                         <div class="Rtable-cell--content title-content">${this.shop.shopName}</div>
                       </div>
                       <div class="Rtable-cell access-link-cell">
                         <div class="Rtable-cell--heading">Тип</div>
-                        <div class="Rtable-cell--content access-link-content">${item.type}</div>
+                        <div class="Rtable-cell--content access-link-content">${this.formatType(item.type)}</div>                        
                       </div>
                       <div class="Rtable-cell replay-link-cell">
                         <div class="Rtable-cell--heading">Сума</div>
-                        <div class="Rtable-cell--content replay-link-content">${item.amount}</div>
+                        <div class="Rtable-cell--content replay-link-content">${item.amount} ₴</div>
                       </div>
                       <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                         <div class="Rtable-cell--heading">Статус</div>
-                        <div class="Rtable-cell--content pdf-content">${item.status}</div>
+                        <div class="Rtable-cell--content pdf-content">${this.formatStatus(item.status)}</div>
                       </div>
                     </div>
                                         
@@ -2945,17 +2945,36 @@ class TableTransaction extends LitElement {
     super();
   }
 
-  _buildUrlForShop(item) {
-    const token = localStorage.getItem('JWT_TOKEN');
-    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin?JWT_TOKEN=${token}`;
+  setDateTime(secs) {
+    return moment.unix(secs).format('LL HH:mm');
   }
 
-  showBalanceWidgetForShop() {
-    this.dispatchEvent(new CustomEvent('open-balance', {
-      bubbles: true,
-      composed: true,
-      detail: this.shop
-    }));
+  formatStatus(statusCode) {
+    let status = '';
+
+    if (statusCode === 'PENDING') {
+      status = 'Очікує підтвердження';
+    } else if (statusCode === 'OK') {
+      status = 'Успішно завершено';
+    } else if (statusCode === 'FAIL') {
+      status = 'Помилка опрацювання';
+    }
+
+    return status;
+  }
+
+  formatType(statusCode) {
+    let status = '';
+
+    if (statusCode === 'REFILL') {
+      status = 'Поповнення рахунку';
+    } else if (statusCode === 'TRANSFER') {
+      status = 'Переказ';
+    } else if (statusCode === 'COMMISSION_FEE') {
+      status = 'Списання комісії';
+    }
+
+    return status;
   }
 
 } // Register the new element with the browser.
