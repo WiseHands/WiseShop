@@ -95,7 +95,7 @@ public class UserDashBoardAPI extends AuthController{
         String shopUuid = request.params.get("shopUuid");
         System.out.println("getShopInfo for balance: " + shopUuid);
         ShopDTO shop = ShopDTO.findById(shopUuid);
-        CoinAccountDTO coinAccount = new CoinAccountDTO(shop);
+        CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
         renderJSON(json(coinAccount));
     }
 
