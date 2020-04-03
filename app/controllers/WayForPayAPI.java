@@ -116,10 +116,6 @@ public class WayForPayAPI extends AuthController {
         }
     }
 
-    public static String formatDecimal(Double amount) {
-        return String.format("%.2f", amount); // dj_segfault
-    }
-
     public static void generateSignatureWayForPay(String client) throws Exception{
 
         String authorizationHeader = request.headers.get("authorization").value();
@@ -176,5 +172,9 @@ public class WayForPayAPI extends AuthController {
         return transaction.uuid;
     }
 
+
+    public static String formatDecimal(Double amount) {
+        return String.format("%.2f", amount); // dj_segfault
+    }
 
 }

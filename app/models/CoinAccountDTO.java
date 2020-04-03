@@ -24,6 +24,7 @@ public class CoinAccountDTO extends GenericModel {
     @OneToOne
     public ShopDTO shop;
 
+    @Expose
     @OneToMany
     public List<CoinTransactionDTO> transactionList;
 
