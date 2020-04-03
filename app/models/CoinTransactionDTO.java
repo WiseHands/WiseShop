@@ -18,6 +18,9 @@ public class CoinTransactionDTO extends GenericModel {
     public String uuid;
 
     @Expose
+    public double amount;
+
+    @Expose
     @ManyToOne
     public CoinAccountDTO account;
 

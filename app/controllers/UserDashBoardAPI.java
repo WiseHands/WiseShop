@@ -91,4 +91,9 @@ public class UserDashBoardAPI extends AuthController{
         renderJSON(json(user));
     }
 
+    public static void getShopInfo() throws Exception{
+
+    }
+
+
 }

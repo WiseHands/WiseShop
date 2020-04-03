@@ -78,6 +78,8 @@ POST        {client}/api/dashboard/shop/create              UserDashBoardAPI.cre
 OPTIONS     {client}/api/dashboard/shop/create              UserDashBoardAPI.allowCors
 GET         {client}/api/dashboard/user                     UserDashBoardAPI.getUserInfo
 OPTIONS     {client}/api/dashboard/user                     UserDashBoardAPI.allowCors
+GET         {client}/api/dashboard/shop/info                UserDashBoardAPI.getShopInfo
+OPTIONS     {client}/api/dashboard/shop/info                UserDashBoardAPI.allowCors
 
 # payment system for dashboard
 POST        {client}/api/wayforpay/verify-callback          WayForPayAPI.verifyCallback
