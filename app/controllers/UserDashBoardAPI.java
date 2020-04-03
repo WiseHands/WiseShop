@@ -92,7 +92,11 @@ public class UserDashBoardAPI extends AuthController{
     }
 
     public static void getShopInfo() throws Exception{
-
+        String shopUuid = request.params.get("shopUuid");
+        System.out.println("getShopInfo for balance: " + shopUuid);
+        ShopDTO shop = ShopDTO.findById(shopUuid);
+        CoinAccountDTO coinAccount = new CoinAccountDTO(shop);
+        renderJSON(json(coinAccount));
     }
 
 

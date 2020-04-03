@@ -2773,13 +2773,13 @@ class TableTransaction extends LitElement {
                   width: 20%;
                 }
                 .topic-cell {
-                  width: 41%;
+                  width: 33%;
                 }
                 .access-link-cell {
-                  width: 13%;
+                  width: 17%;
                 }
                 .replay-link-cell {
-                  width: 13%;
+                  width: 17%;
                 }
                 .pdf-cell {
                   width: 13%;
@@ -2824,7 +2824,7 @@ class TableTransaction extends LitElement {
                 }
                /* Responsive
                 ==================================== */
-                @media all and (max-width: 750px) {
+                @media all and (max-width: 875px) {
                   .is-striped {
                     background-color: white;
                   }
@@ -2887,36 +2887,37 @@ class TableTransaction extends LitElement {
                   width: 100%;
                 }
             </style>
+            
               <div class="container">
                   <div class="wrapper">
                   <div class="Rtable Rtable--5cols Rtable--collapse">
                     <div class="Rtable-row Rtable-row--head">
-                      <div class="Rtable-cell date-cell column-heading">Date</div>
-                      <div class="Rtable-cell topic-cell column-heading">Topic</div>
-                      <div class="Rtable-cell access-link-cell column-heading">Access Link</div>
-                      <div class="Rtable-cell replay-link-cell column-heading">Replay</div>
-                      <div class="Rtable-cell pdf-cell column-heading">Checklist</div>
+                      <div class="Rtable-cell date-cell column-heading">Дата</div>
+                      <div class="Rtable-cell topic-cell column-heading">Кому</div>
+                      <div class="Rtable-cell access-link-cell column-heading">Від кого</div>
+                      <div class="Rtable-cell replay-link-cell column-heading">Сума</div>
+                      <div class="Rtable-cell pdf-cell column-heading">Статус</div>
                     </div>
                 
                     <div class="Rtable-row">
                       <div class="Rtable-cell date-cell">
-                        <div class="Rtable-cell--heading">Date</div>
+                        <div class="Rtable-cell--heading">Дата</div>
                         <div class="Rtable-cell--content date-content"><span class="webinar-date">August 2nd, 2016</span><br />6:00 pm (CDT)</div>
                       </div>
                       <div class="Rtable-cell topic-cell">
-                        <div class="Rtable-cell--content title-content">The “Rock-Solid” Foundations Quickstart</div>
+                        <div class="Rtable-cell--content title-content">магазин Американо</div>
                       </div>
                       <div class="Rtable-cell access-link-cell">
-                        <div class="Rtable-cell--heading">Access Link</div>
-                        <div class="Rtable-cell--content access-link-content"><a href="#0"><i class="ion-link"></i></a></div>
+                        <div class="Rtable-cell--heading">Від кого</div>
+                        <div class="Rtable-cell--content access-link-content">ВейФорПей</div>
                       </div>
                       <div class="Rtable-cell replay-link-cell">
-                        <div class="Rtable-cell--heading">Replay</div>
-                        <div class="Rtable-cell--content replay-link-content"><a href="#0"><i class="ion-ios-videocam"></i></a></div>
+                        <div class="Rtable-cell--heading">Сума</div>
+                        <div class="Rtable-cell--content replay-link-content">300 грн</div>
                       </div>
                       <div class="Rtable-cell Rtable-cell--foot pdf-cell">
-                        <div class="Rtable-cell--heading">Checklist</div>
-                        <div class="Rtable-cell--content pdf-content"><a href="#0"><i class="ion-document-text"></i></a></div>
+                        <div class="Rtable-cell--heading">Статус</div>
+                        <div class="Rtable-cell--content pdf-content">Ок</div>
                       </div>
                     </div>
 
@@ -3008,7 +3009,7 @@ class BalanceContainer extends LitElement {
                 <!--<p>Інформація:</p>-->
                 <span class="line"></span>
                 <section class="balance-container">
-                    <p> Баланс: ${this.balance} UAH</p>
+                    <p> Баланс: ${this.coinAccount.balance} UAH</p>
                     <div class="row-container">
                         <p>Поповнити на суму:</p>
                         <input id="amountPayment" .value=${this.amountPayment} @input="${this.handleAmountPayment}">
@@ -3064,8 +3065,8 @@ class BalanceContainer extends LitElement {
 
   static get properties() {
     return {
-      balance: {
-        type: Number
+      coinAccount: {
+        type: Object
       },
       amountPayment: {
         type: Number
@@ -3078,8 +3079,31 @@ class BalanceContainer extends LitElement {
 
   constructor() {
     super();
-    this.balance = 0;
+    this.coinAccount = {
+      balance: 0
+    };
     this.amountPayment = 0;
+  }
+
+  updated(changedProperties) {
+    changedProperties.forEach((oldValue, propName) => {
+      if (propName === 'shop' && !!this.shop && !this.isBalanceRetrieved) {
+        this.isBalanceRetrieved = true;
+        this.getBalanceForThisShop();
+      }
+
+      console.log(`${propName} changed. oldValue: ${oldValue}`);
+    });
+  }
+
+  getBalanceForThisShop() {
+    const url = `/api/dashboard/shop/info?shopUuid=${this.shop.uuid}`;
+    this.generateGetRequest(url);
+  }
+
+  setBalanceForThisShop(data) {
+    this.coinAccount = data;
+    console.log(`setBalanceForThisShop: ${data}`);
   }
 
   handleAmountPayment(e) {
@@ -3092,19 +3116,19 @@ class BalanceContainer extends LitElement {
     console.log(`get amount from value ${this.amountPayment}`);
   }
 
-  replenishCoinAccount() {
-    const url = '';
-    this.generateGetRequest(url);
-  }
+  generateGetRequest(url, params) {
+    let _this = this;
 
-  generateGetRequest(url) {
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      body: params
     }).then(function (response) {
       console.log("response response: ", response);
       return response.json();
     }).then(function (data) {
       console.log('data for users: ', data);
+
+      _this.setBalanceForThisShop(data);
     });
   }
 
