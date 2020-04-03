@@ -2773,16 +2773,16 @@ class TableTransaction extends LitElement {
                   width: 20%;
                 }
                 .topic-cell {
-                  width: 33%;
+                  width: 30%;
                 }
-                .access-link-cell {
-                  width: 17%;
+                .type-cell {
+                  width: 18%;
                 }
-                .replay-link-cell {
-                  width: 17%;
+                .amount-cell {
+                  width: 16%;
                 }
-                .pdf-cell {
-                  width: 13%;
+                .status-cell {
+                  width: 16%;
                 }
                 /* Apply styles
                 ================================== */
@@ -2894,9 +2894,9 @@ class TableTransaction extends LitElement {
                   <div class="Rtable-row Rtable-row--head">
                     <div class="Rtable-cell date-cell column-heading">Дата</div>
                     <div class="Rtable-cell topic-cell column-heading">Кому</div>
-                    <div class="Rtable-cell access-link-cell column-heading">Тип</div>
-                    <div class="Rtable-cell replay-link-cell column-heading">Сума</div>
-                    <div class="Rtable-cell pdf-cell column-heading">Статус</div>
+                    <div class="Rtable-cell type-cell column-heading">Тип</div>
+                    <div class="Rtable-cell amount-cell column-heading">Сума</div>
+                    <div class="Rtable-cell status-cell column-heading">Статус</div>
                   </div>
                     ${this.tranasctionList.map(item => html`    
                        
@@ -2908,17 +2908,17 @@ class TableTransaction extends LitElement {
                       <div class="Rtable-cell topic-cell">
                         <div class="Rtable-cell--content title-content">${this.shop.shopName}</div>
                       </div>
-                      <div class="Rtable-cell access-link-cell">
+                      <div class="Rtable-cell type-cell">
                         <div class="Rtable-cell--heading">Тип</div>
                         <div class="Rtable-cell--content access-link-content">${this.formatType(item.type)}</div>                        
                       </div>
-                      <div class="Rtable-cell replay-link-cell">
+                      <div class="Rtable-cell amount-cell">
                         <div class="Rtable-cell--heading">Сума</div>
                         <div class="Rtable-cell--content replay-link-content">${item.amount} ₴</div>
                       </div>
-                      <div class="Rtable-cell Rtable-cell--foot pdf-cell">
+                      <div class="Rtable-cell Rtable-cell--foot status-cell">
                         <div class="Rtable-cell--heading">Статус</div>
-                        <div class="Rtable-cell--content pdf-content">${this.formatStatus(item.status)}</div>
+                        <div class="Rtable-cell--content status-content">${this.formatStatus(item.status)}</div>
                       </div>
                     </div>
                                         

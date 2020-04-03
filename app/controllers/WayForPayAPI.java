@@ -114,6 +114,15 @@ public class WayForPayAPI extends AuthController {
 
             WayForPayRequestParams params = new WayForPayRequestParams(orderReference, status, time, signature);
             renderJSON(json(params));
+        } else if (transactionStatus.equals("Expired")){
+            if(transaction.status.equals(TransactionStatus.PENDING)) {
+                transaction.expirationTime = System.currentTimeMillis() / 1000L;
+                transaction.status = TransactionStatus.FAIL;
+                transaction.save();
+            }
+
+            WayForPayRequestParams params = new WayForPayRequestParams(orderReference, status, time, signature);
+            renderJSON(json(params));
         }
     }
 

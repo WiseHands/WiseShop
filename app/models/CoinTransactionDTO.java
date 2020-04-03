@@ -36,4 +36,7 @@ public class CoinTransactionDTO extends GenericModel {
 
     @Expose
     public Long confirmationTime;
+
+    @Expose
+    public Long expirationTime;
 }
