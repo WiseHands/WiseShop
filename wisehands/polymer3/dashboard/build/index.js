@@ -2888,44 +2888,46 @@ class TableTransaction extends LitElement {
                 }
             </style>
             
-              <div class="container">
-                  <div class="wrapper">
-                  <div class="Rtable Rtable--5cols Rtable--collapse">
-                    <div class="Rtable-row Rtable-row--head">
-                      <div class="Rtable-cell date-cell column-heading">Дата</div>
-                      <div class="Rtable-cell topic-cell column-heading">Кому</div>
-                      <div class="Rtable-cell access-link-cell column-heading">Від кого</div>
-                      <div class="Rtable-cell replay-link-cell column-heading">Сума</div>
-                      <div class="Rtable-cell pdf-cell column-heading">Статус</div>
-                    </div>
-                
-                    <div class="Rtable-row">
+            <div class="container">
+              <div class="wrapper">
+                <div class="Rtable Rtable--5cols Rtable--collapse">
+                  <div class="Rtable-row Rtable-row--head">
+                    <div class="Rtable-cell date-cell column-heading">Дата</div>
+                    <div class="Rtable-cell topic-cell column-heading">Кому</div>
+                    <div class="Rtable-cell access-link-cell column-heading">Тип</div>
+                    <div class="Rtable-cell replay-link-cell column-heading">Сума</div>
+                    <div class="Rtable-cell pdf-cell column-heading">Статус</div>
+                  </div>
+                    ${this.tranasction - list.map(item => html`    
+                       
+                       <div class="Rtable-row">
                       <div class="Rtable-cell date-cell">
                         <div class="Rtable-cell--heading">Дата</div>
-                        <div class="Rtable-cell--content date-content"><span class="webinar-date">August 2nd, 2016</span><br />6:00 pm (CDT)</div>
+                        <div class="Rtable-cell--content date-content"><span class="webinar-date">${item.time}</div>
                       </div>
                       <div class="Rtable-cell topic-cell">
-                        <div class="Rtable-cell--content title-content">магазин Американо</div>
+                        <div class="Rtable-cell--content title-content">${this.shop.shopName}</div>
                       </div>
                       <div class="Rtable-cell access-link-cell">
-                        <div class="Rtable-cell--heading">Від кого</div>
-                        <div class="Rtable-cell--content access-link-content">ВейФорПей</div>
+                        <div class="Rtable-cell--heading">Тип</div>
+                        <div class="Rtable-cell--content access-link-content">${item.type}</div>
                       </div>
                       <div class="Rtable-cell replay-link-cell">
                         <div class="Rtable-cell--heading">Сума</div>
-                        <div class="Rtable-cell--content replay-link-content">300 грн</div>
+                        <div class="Rtable-cell--content replay-link-content">${item.amount}</div>
                       </div>
                       <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                         <div class="Rtable-cell--heading">Статус</div>
-                        <div class="Rtable-cell--content pdf-content">Ок</div>
+                        <div class="Rtable-cell--content pdf-content">${item.status}</div>
                       </div>
                     </div>
-
-                    </div>
-                  </div>
+                                        
+                    `)}                       
                 </div>
               </div>
-    `;
+            </div>
+                  
+`;
   }
 
   static get properties() {
@@ -3036,7 +3038,7 @@ class BalanceContainer extends LitElement {
                     </div>
                     <div class="transaction-table-container">
                         <p>Table here</p>
-                            <table-transaction></table-transaction>
+                            <table-transaction .tranasction-list="${this.coinAccount.transactionList}"></table-transaction>
                         </div>
                 </section>
     

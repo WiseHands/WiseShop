@@ -30,4 +30,7 @@ public class CoinTransactionDTO extends GenericModel {
     @Expose
     @Enumerated
     public TransactionStatus status;
+
+    @Expose
+    public Long time;
 }

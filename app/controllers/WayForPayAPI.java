@@ -165,6 +165,7 @@ public class WayForPayAPI extends AuthController {
         transaction.status = TransactionStatus.PENDING;
         transaction.account = coinAccount;
         transaction.amount = amount;
+        transaction.time = System.currentTimeMillis() / 1000L;
         transaction = transaction.save();
 
         coinAccount.addTransaction(transaction);
