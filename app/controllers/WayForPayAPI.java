@@ -107,6 +107,7 @@ public class WayForPayAPI extends AuthController {
             if(transaction.status.equals(TransactionStatus.PENDING)) {
                 transaction.account.balance += transaction.amount;
                 transaction.account.save();
+                transaction.confirmationTime = System.currentTimeMillis() / 1000L;
                 transaction.status = TransactionStatus.OK;
                 transaction.save();
             }
