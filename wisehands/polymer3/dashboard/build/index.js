@@ -2819,7 +2819,7 @@ class TableTransaction extends LitElement {
                   font-size: 2em;
                   color: #333;
                 }
-                .Rtable .Rtable-row .Rtable-cell .Rtable-cell--content .webinar-date {
+                .Rtable .Rtable-row .Rtable-cell .Rtable-cell--content {
                   font-weight: 700;
                 }
                /* Responsive
