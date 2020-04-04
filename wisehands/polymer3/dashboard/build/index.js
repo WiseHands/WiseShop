@@ -2890,7 +2890,7 @@ class TableTransaction extends LitElement {
                 <div class="Rtable Rtable--5cols Rtable--collapse">
                   <div class="Rtable-row Rtable-row--head">
                     <div class="Rtable-cell date-cell column-heading">Дата</div>
-                    <div class="Rtable-cell topic-cell column-heading">Кому</div>
+                    <div class="Rtable-cell topic-cell column-heading">Магазин</div>
                     <div class="Rtable-cell type-cell column-heading">Тип</div>
                     <div class="Rtable-cell amount-cell column-heading">Сума</div>
                     <div class="Rtable-cell status-cell column-heading">Статус</div>
