@@ -3392,7 +3392,7 @@ class DashBoard extends LitElement {
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: 400;
+    z-index: 100;
     padding: 0;
     margin: 0;
 }
@@ -3446,7 +3446,7 @@ class DashBoard extends LitElement {
 }
 .sidebar-logo p {
     font-size: 2rem;
-    margin-bottom: 0;
+    margin: 0;
 }
 .sidebar-panel {
     display: flex;
@@ -3571,15 +3571,18 @@ class DashBoard extends LitElement {
                         align-items: center;
                     }
                     .mobile-tools-dash-board-container {
-                        width: 300px;
-                       
-                        background-color: #fff);
-                      
+                                         
                     }
                         
             </style>
-             <div  id="overlay-mobile" class="null-style">
-                <div class="sidebar-mobile sibebar-swipe-off">
+             <div  id="overlay-mobile" class="null-style" @click="${this.closeSidebar}">
+                <div class="sidebar-mobile sibebar-swipe-off" @click="${this.showSidebar}">
+                    <a class="link" href="/dashboard">
+                        <div class="sidebar-logo">
+                            <img src="/wisehands/assets/images/wiseblack.png">
+                            <p>WSTORE</p>
+                        </div>
+                    </a>
                     <div class="mobile-tools-dash-board-container">
                         <div class="menu-item" @click="${this.showShopListContainer}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
@@ -3722,15 +3725,26 @@ class DashBoard extends LitElement {
     this.shadowRoot.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
   }
 
-  setDisplayNoneToSidebarOverlay() {
+  closeSidebar() {
+    this.shadowRoot.querySelector(".sidebar-mobile").classList.add('sibebar-swipe-off');
+    setTimeout(this.setDisplayNoneToSidebarOverlay, 300);
     this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
-    this.shadowRoot.getElementById("overlay-mobile").addEventListener("click", closeMenu);
   }
 
-  closeMenu() {
-    this.shadowRoot.querySelector(".sidebar-mobile").classList.add('sibebar-swipe-off');
-    setTimeout(setDisplayNoneToSidebarOverlay, 300);
+  setDisplayNoneToSidebarOverlay() {
+    this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
   }
+
+  showSidebar(e) {
+    e.stopPropagation();
+  } // closeMenu() {
+  //
+  //     this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
+  //
+  //     this.shadowRoot.querySelector(".sidebar-mobile").classList.add('sibebar-swipe-off');
+  //     setTimeout(hideSidebar, 300);
+  // }
+
 
   hideSidebar() {
     this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
