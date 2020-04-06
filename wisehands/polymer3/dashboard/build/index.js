@@ -2819,9 +2819,6 @@ class TableTransaction extends LitElement {
                   font-size: 2em;
                   color: #333;
                 }
-                .Rtable .Rtable-row .Rtable-cell .Rtable-cell--content .webinar-date {
-                  font-weight: 700;
-                }
                /* Responsive
                 ==================================== */
                 @media all and (max-width: 875px) {
@@ -2893,7 +2890,7 @@ class TableTransaction extends LitElement {
                 <div class="Rtable Rtable--5cols Rtable--collapse">
                   <div class="Rtable-row Rtable-row--head">
                     <div class="Rtable-cell date-cell column-heading">Дата</div>
-                    <div class="Rtable-cell topic-cell column-heading">Кому</div>
+                    <div class="Rtable-cell topic-cell column-heading">Магазин</div>
                     <div class="Rtable-cell type-cell column-heading">Тип</div>
                     <div class="Rtable-cell amount-cell column-heading">Сума</div>
                     <div class="Rtable-cell status-cell column-heading">Статус</div>
@@ -2972,6 +2969,8 @@ class TableTransaction extends LitElement {
       status = 'Переказ';
     } else if (statusCode === 'COMMISSION_FEE') {
       status = 'Списання комісії';
+    } else if (statusCode === 'OFFLINE_REFILL') {
+      status = 'Поповнення рахунку (офлайн)';
     }
 
     return status;
@@ -3055,11 +3054,11 @@ class BalanceContainer extends LitElement {
                     <!--<p>Адміністрування:</p>-->
                     <p>Зарахування офлайн поповнення</p>
                     <div class="row-container">
-                        <input id="adminPayment" .value=${this.adminPayment} @input="${this.handleRefillAdminPayment}">
+                        <input id="adminPayment" .value=${this.offlinePayment} @input="${this.handleOfflinePayment}">
                         <button @click="${this.refillAdminPayment}">поповнити</button>
                     </div>
                     <div class="transaction-table-container">
-                        <p>Table here</p>
+                        <p>Транзакції</p>
                             <table-transaction .shop="${this.shop}" .tranasctionList="${this.coinAccount.transactionList}"></table-transaction>
                         </div>
                 </section>
@@ -3095,6 +3094,9 @@ class BalanceContainer extends LitElement {
       amountPayment: {
         type: Number
       },
+      offlinePayment: {
+        type: Number
+      },
       shop: {
         type: Object
       }
@@ -3107,6 +3109,7 @@ class BalanceContainer extends LitElement {
       balance: 0
     };
     this.amountPayment = 0;
+    this.offlinePayment = 0;
   }
 
   updated(changedProperties) {
@@ -3134,10 +3137,18 @@ class BalanceContainer extends LitElement {
     this.amountPayment = e.target.value;
   }
 
+  handleOfflinePayment(e) {
+    this.offlinePayment = e.target.value;
+  }
+
   generateSignatureForPayment() {
     const url = `/api/wayforpay/generate-signature?amount=${this.amountPayment}&shopUuid=${this.shop.uuid}`;
-    this.generatePostRequest(url);
-    console.log(`get amount from value ${this.amountPayment}`);
+    this.generatePostRequestForWayForPayForm(url);
+  }
+
+  refillAdminPayment() {
+    const url = `/api/wayforpay/offline-payment?amount=${this.offlinePayment}&shopUuid=${this.shop.uuid}`;
+    this.generatePostRequestForOfflineRefillPayment(url);
   }
 
   generateGetRequest(url, params) {
@@ -3156,7 +3167,7 @@ class BalanceContainer extends LitElement {
     });
   }
 
-  generatePostRequest(url) {
+  generatePostRequestForWayForPayForm(url) {
     let _this = this;
 
     let token = localStorage.getItem('JWT_TOKEN');
@@ -3172,6 +3183,25 @@ class BalanceContainer extends LitElement {
       console.log('data from generatePostRequest: ', data);
 
       _this.setPaymentWayForPayForm(data);
+    });
+  }
+
+  generatePostRequestForOfflineRefillPayment(url) {
+    let _this = this;
+
+    let token = localStorage.getItem('JWT_TOKEN');
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        authorization: 'Bearer ' + token
+      }
+    }).then(function (response) {
+      console.log("response response: ", response);
+      return response.json();
+    }).then(function (data) {
+      console.log('data from generatePostRequest: ', data);
+
+      _this.setBalanceForThisShop(data);
     });
   }
 
@@ -3217,6 +3247,7 @@ class ShopTile extends LitElement {
                         margin: 15px 10px 0 10px;
                         border-radius: 5px;
                         background-color: #00BCD4;
+                        text-decoration: none;
                     }
                         .shop-name p{
                             font-size: 2em;
@@ -3341,7 +3372,7 @@ class DashBoard extends LitElement {
                         margin-left: 5px;
                         color: rgba(0,0,0, .9);
                     }
-                    .profile-info-container{
+                    .profile-info-container {
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
@@ -3353,14 +3384,96 @@ class DashBoard extends LitElement {
                         }
                         .profile-info p{
                             margin: 0;
-                        }                        
+                        } 
+                         
+#overlay-mobile {
+    display: none;
+    background-color: rgba(0,0,0,0);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 400;
+    padding: 0;
+    margin: 0;
+}
+.sidebar-mobile {
+    width: 85%;
+    height: 100%;
+    background-color: rgba(255,255,255,1);
+    opacity: 1;
+    animation: sidebarmove 0.3s linear;
+    position: fixed;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+}
+@keyframes sidebarmove {
+    from {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+.sibebar-swipe-off {
+    width: 0%;
+    height: 100%;
+    background-color: rgba(255,255,255,1);
+    opacity: 1;
+    transition-delay: 0.3s;
+    animation: sidebarswipeoff 0.3s linear;
+}
+@keyframes sidebarswipeoff {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        visibility: hidden;
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    height: 58px;
+    padding: 0.5rem;
+}
+.sidebar-logo img {
+    width: 36px;
+    height: 36px;
+    padding-right: 0.7rem;
+}
+.sidebar-logo p {
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+.sidebar-panel {
+    display: flex;
+    flex-direction: column;
+    line-height: 2;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+.sidebar-panel a {
+    cursor: pointer;
+    color: #262626;
+    line-height: 2.5;
+}
+.sidebar-panel p {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+}
+                .mobile-logo-container, .mobile-profile-info-container  {
+                    display: none;
+                }
                 .body-dash-board-container{
                     display: flex;
                     height: calc(100% - 56px)
                 }
                 .tools-dash-board-container{
                     width: 25%;
-                }
+                }                                                                                               
                     .menu-item {
                         display: flex;
                         align-items: center;
@@ -3446,10 +3559,48 @@ class DashBoard extends LitElement {
                         display: flex;
                         width: 100%;
                     }    
-                                     
+                @media screen and (max-width: 768px) {
+                    .tools-dash-board-container, .profile-info-container, .logo-container  {
+                        display: none;
+                    }
+                    .work-place-dash-board-container {
+                        width: 100%
+                    }     
+                    .mobile-logo-container, .mobile-profile-info-container {
+                        display: flex;
+                        align-items: center;
+                    }
+                    .mobile-tools-dash-board-container {
+                        width: 300px;
+                       
+                        background-color: #fff);
+                      
+                    }
+                        
             </style>
-            
+             <div  id="overlay-mobile" class="null-style">
+                <div class="sidebar-mobile sibebar-swipe-off">
+                    <div class="mobile-tools-dash-board-container">
+                        <div class="menu-item" @click="${this.showShopListContainer}">
+                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
+                            <p>Магазини</p>
+                        </div>
+                        <div class="menu-item" @click="${this.showSubscriptionContainer}">
+                           <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-subscr-dashboard.svg">
+                           <p>Підписки</p>
+                        </div>
+                        <div class="menu-item" @click="${this.showProfileContainer}">
+                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-user-dashboard.svg">
+                            <p>Профіль</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="blur-block">
+        
+                </div>
+            </div>
             <div class="main-container">
+                                
                 <div class="header-profile-container border">
                     <div class="logo-container">
                         <img class="logo" src="wisehands/assets/images/dashboard/main_logo_black.png">
@@ -3461,7 +3612,21 @@ class DashBoard extends LitElement {
                         </div>
                         <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
                     </div>
+                    
+                    <div class="mobile-logo-container" @click="${this.showSideMenu}">
+                        <img class="logo" src="wisehands/assets/images/dashboard/menu.svg">
+                    </div>
+                    
+                    
+                    <div class="mobile-profile-info-container">
+                        <div class="profile-info">
+                            <p>${this.userFullName}</p>                                                        
+                        </div>
+                        <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
+                    </div>
+                                     
                 </div>
+
                 <div class="body-dash-board-container">
                     <div class="tools-dash-board-container border">
                         <div class="menu-item" @click="${this.showShopListContainer}">
@@ -3508,6 +3673,7 @@ class DashBoard extends LitElement {
                     </div>
                 </div>
             </div>
+                           
             
     `;
   }
@@ -3529,6 +3695,9 @@ class DashBoard extends LitElement {
       },
       isShowProfileContainer: {
         type: Boolean
+      },
+      isShowSideMenu: {
+        type: Boolean
       }
     };
   }
@@ -3546,24 +3715,48 @@ class DashBoard extends LitElement {
     });
   }
 
+  showSideMenu() {
+    console.log('click');
+    this.isShowSideMenu = true;
+    this.shadowRoot.querySelector("#overlay-mobile").style.display = 'block';
+    this.shadowRoot.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
+  }
+
+  setDisplayNoneToSidebarOverlay() {
+    this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
+    this.shadowRoot.getElementById("overlay-mobile").addEventListener("click", closeMenu);
+  }
+
+  closeMenu() {
+    this.shadowRoot.querySelector(".sidebar-mobile").classList.add('sibebar-swipe-off');
+    setTimeout(setDisplayNoneToSidebarOverlay, 300);
+  }
+
+  hideSidebar() {
+    this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
+  }
+
   creatingShopThroughWizard() {
     localStorage.setItem('isShopCreated', 'false');
     window.location = "/ua/wizard";
   }
 
   showShopListContainer() {
+    this.hideSidebar();
     this.isShowShopListContainer = true;
     this.isShowSubscriptionContainer = false;
     this.isShowProfileContainer = false;
   }
 
   showSubscriptionContainer() {
+    this.hideSidebar();
     this.isShowShopListContainer = false;
     this.isShowSubscriptionContainer = true;
     this.isShowProfileContainer = false;
   }
 
   showProfileContainer() {
+    this.hideSidebar();
     this.isShowShopListContainer = false;
     this.isShowSubscriptionContainer = false;
     this.isShowProfileContainer = true;
