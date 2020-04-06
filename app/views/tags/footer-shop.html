@@ -199,18 +199,16 @@
 
     .work-day {
         height: 35px;
+        width: 130px;
         display: flex;
-        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
         margin-left: 0.5rem;
     }
     .work-day p {
         margin-right: 1rem;
     }
-    .day {
-        padding-top: 2px;
-        margin-bottom: 0;
-        margin: 0 auto;
-    }
+
 </style>
 <footer id="footer-shop" class="footer">
     <div class="footer-first-block">
@@ -219,27 +217,27 @@
             <div class="working-week-time">
                 <div class="first-working-time-block">
                     <div class="work-day">
-                        <p>ПН <h6 class="day" id="mon"></h6></p>
+                        <p>ПН</p><h6 id="mon"></h6>
                     </div>
                     <div class="work-day">
-                        <p>ВТ <h6 class="day" id="tue"></h6></p>
+                        <p>ВТ</p><h6 id="tue"></h6>
                     </div>
                     <div class="work-day">
-                        <p>СР <h6 class="day" id="wed"></h6></p>
+                        <p>СР</p><h6 id="wed"></h6>
                     </div>
                     <div class="work-day">
-                        <p>ЧТ <h6 class="day" id="thu"></h6></p>
+                        <p>ЧТ</p><h6 id="thu"></h6>
                     </div>
                 </div>
                 <div class="second-working-time-block">
                     <div class="work-day">
-                        <p>ПТ <h6 class="day" id="fri"></h6></p>
+                        <p>ПТ</p><h6 id="fri"></h6>
                     </div>
                     <div class="work-day">
-                        <p>СБ <h6 class="day" type="time" id="sat"></h6></p>
+                        <p>СБ</p><h6  type="time" id="sat"></h6>
                     </div>
                     <div class="work-day">
-                        <p>НД <h6 class="day" type="time" id="sun"></h6></p>
+                        <p>НД</p><h6  type="time" id="sun"></h6>
                     </div>
                 </div>
             </div>
