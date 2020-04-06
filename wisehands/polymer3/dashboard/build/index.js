@@ -3335,11 +3335,322 @@ class ShopTile extends LitElement {
 
 customElements.define('shop-tile', ShopTile);
 
+class PricePlanTile extends LitElement {
+  render() {
+    return html`
+            <style>
+                .border{
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+                }
+                
+                .container{
+                    height: 100%;
+                    width: 100%;
+                }
+                    .shop-name{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: white;
+                        height: 60%;
+                        width: 90%;
+                        margin: 15px 10px 0 10px;
+                        border-radius: 5px;
+                        background-color: #00BCD4;
+                        text-decoration: none;
+                    }
+                        .shop-name p{
+                            font-size: 2em;
+                        }
+                    .shop-info-container{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        height: 20%;
+                        width: 100%;
+                        margin-top: 10px;
+                    }
+                        .shop-info-container p {
+                            color: black;
+                        }
+                        .shop-info-container img:hover{
+                            cursor: pointer;
+                        }
+                        .shop-balance, .shop-link{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 10px;
+                        }
+                .menu-item-logo{
+                    height: 24px;
+                    width: 24px;
+                    margin: 5px;
+                }
+                .menu-item:hover{
+                    background-color: darkgray;
+                    cursor: pointer;
+                }
+                                     
+            </style>
+              <div class="container border">
+                <a class="shop-name" href="${this._buildUrlForShop(this.shop)}">
+                    <p>${this.shop.shopName}</p>
+                </a>    
+                <div class="shop-info-container">
+                     <div class="shop-balance">
+                        <img class="menu-item-logo"
+                         @click="${this.showBalanceWidgetForShop}"
+                         src="wisehands/assets/images/dashboard/money.png">
+                    </div>
+                    <a class="shop-link" href="${this._buildUrlForShop(this.shop)}">
+                         <img class="menu-item-logo"
+                         src="wisehands/assets/images/dashboard/link.png">                         
+                    </a>
+                </div>
+              </div>
+           
+
+    `;
+  }
+
+  static get properties() {
+    return {
+      shop: {
+        type: Object
+      }
+    };
+  }
+
+  constructor() {
+    super();
+  }
+
+  _buildUrlForShop(item) {
+    const token = localStorage.getItem('JWT_TOKEN');
+    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin?JWT_TOKEN=${token}`;
+  }
+
+  showBalanceWidgetForShop() {
+    this.dispatchEvent(new CustomEvent('open-balance', {
+      bubbles: true,
+      composed: true,
+      detail: this.shop
+    }));
+  }
+
+} // Register the new element with the browser.
+
+
+customElements.define('price-plane-tile', PricePlanTile);
+
+class PricePlanContainer extends LitElement {
+  render() {
+    return html`
+            <style>     
+                .border{
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+                }
+                
+                .container{
+                    height: 100%;
+                    width: 100%;
+                    
+                }
+                .price-plan-container{
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+                .price-plan-container a {
+                    text-decoration: none;
+                }
+                .price-plan-container a:hover {
+                    cursor: pointer;
+                }
+                .create-shop-element{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 15px;
+                    height: 200px;
+                    width: 200px;
+                }                        
+                .create-shop-text-container{
+                    display: flex;                            
+                    align-items: center;
+                    padding-top: 10px;
+                    height: 40px;
+                }
+                .create-shop-element p{
+                     color: black;
+                }
+                    .create-shop-plus-logo{
+                        height: 24px;
+                        width: 24px;
+                    }
+            
+                .shop-name{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: white;
+                        height: 60%;
+                        width: 90%;
+                        border-radius: 5px;
+                        background-color: #00BCD4;
+                    }
+                        .shop-name p{
+                            font-size: 2em;
+                        }
+                price-plane-tile{
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  margin: 15px;
+                  height: 200px;
+                  width: 200px;
+                }      
+                .creating-price-plan-container{
+                  display: flex;
+                  flex-direction: column;  
+                  margin: 10px;
+                }
+                .plan-name-container, .plan-commission-container {
+                  display: flex;
+                  flex-direction: row;  
+                }
+                .plan-name-container input, p {
+                  margin: 5px;  
+                }
+                .plan-commission-container input, p{
+                  margin: 5px;
+                }
+                creating-price-plan-container button {
+                  margin: 5px;
+                   
+                }  
+            </style>
+            
+            <div class="container">
+              ${this.isShowPricePlanContainer ? html`
+                  <section class="price-plan-container">
+                    <a @click="${this.creatingPricePlanForShops}">
+                      <div class="create-shop-element border">
+                        <div class="shop-name">
+                          <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.png">
+                        </div>
+                        <div class="create-shop-text-container">
+                          <p>Створити тариф</p>
+                        </div>
+                      </div>
+                    </a>
+                      
+                  </section> ` : html``}
+              ${this.isShowCreatingPricePlan ? html`
+                <section class="creating-price-plan-container">
+                  <p>Створення нового тарифного плану</p>
+                  <div class="plan-name-container">
+                    <p>Назва тварифу</p>
+                    <input id="planMame" .value=${this.planName} @input="${this.handlePlanName}">                
+                  </div>
+                  <div class="plan-commission-container">
+                    <p>Відсоток комісії (показати %)</p>
+                    <input id="commission" .value=${this.commissionForPlane} @input="${this.handleCommissionForPlane}">                
+                  </div>
+                  <div>
+                    <button @click="${this.savingPricePlane}">Зберегти</button>                  
+                  </div>
+                  
+                  
+                </section>  
+              ` : html``}
+              
+            </div>
+                  
+`;
+  }
+
+  static get properties() {
+    return {
+      shop: {
+        type: Object
+      },
+      planName: {
+        type: String
+      },
+      commissionForPlane: {
+        type: String
+      },
+      isShowPricePlanContainer: {
+        type: Boolean
+      },
+      isShowCreatingPricePlan: {
+        type: Boolean
+      }
+    };
+  }
+
+  constructor() {
+    super();
+    this.planName = '';
+    this.commissionForPlane = '';
+    this.isShowPricePlanContainer = true;
+  }
+
+  handlePlanName(e) {
+    this.planName = e.target.value;
+  }
+
+  handleCommissionForPlane(e) {
+    this.commissionForPlane = e.target.value;
+  }
+
+  creatingPricePlanForShops() {
+    this.isShowCreatingPricePlan = true;
+    this.isShowPricePlanContainer = false;
+  }
+
+  savingPricePlane() {
+    const url = `/api/pricing-plan/create?planName=${this.planName}&commissionFree=${this.commissionForPlane}`;
+    this.generatePostRequestForCreatingPricingPlan(url);
+  }
+
+  generatePostRequestForCreatingPricingPlan(url) {
+    const _this = this;
+
+    let token = localStorage.getItem('JWT_TOKEN');
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        authorization: 'Bearer ' + token
+      }
+    }).then(function (response) {
+      console.log("response response: ", response);
+      return response.json();
+    }).then(function (data) {
+      console.log('data from generatePostRequest PLAN:: ', data);
+      _this.isShowCreatingPricePlan = false;
+      _this.isShowPricePlanContainer = true;
+    });
+  } //     ${this.pricePlanList.map(item => html`
+  //        <price-plane-tile .pricePlan="${item}"></price-plane-tile>
+  //     `)}
+
+
+} // Register the new element with the browser.
+
+
+customElements.define('price-plan-container', PricePlanContainer);
+
 // Import the LitElement base class and html helper function
 
 class DashBoard extends LitElement {
   render() {
     return html`
+
             <style>
                 .border{
                     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
@@ -3386,84 +3697,84 @@ class DashBoard extends LitElement {
                             margin: 0;
                         } 
                          
-#overlay-mobile {
-    display: none;
-    background-color: rgba(0,0,0,0);
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: 100;
-    padding: 0;
-    margin: 0;
-}
-.sidebar-mobile {
-    width: 85%;
-    height: 100%;
-    background-color: rgba(255,255,255,1);
-    opacity: 1;
-    animation: sidebarmove 0.3s linear;
-    position: fixed;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-}
-@keyframes sidebarmove {
-    from {
-        opacity: 0;
-        transform: translate3d(-100%, 0, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-.sibebar-swipe-off {
-    width: 0%;
-    height: 100%;
-    background-color: rgba(255,255,255,1);
-    opacity: 1;
-    transition-delay: 0.3s;
-    animation: sidebarswipeoff 0.3s linear;
-}
-@keyframes sidebarswipeoff {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        visibility: hidden;
-        transform: translate3d(-100%, 0, 0);
-    }
-}
-.sidebar-logo {
-    display: flex;
-    align-items: center;
-    height: 58px;
-    padding: 0.5rem;
-}
-.sidebar-logo img {
-    width: 36px;
-    height: 36px;
-    padding-right: 0.7rem;
-}
-.sidebar-logo p {
-    font-size: 2rem;
-    margin: 0;
-}
-.sidebar-panel {
-    display: flex;
-    flex-direction: column;
-    line-height: 2;
-    padding: 10px;
-    font-size: 1.2rem;
-}
-.sidebar-panel a {
-    cursor: pointer;
-    color: #262626;
-    line-height: 2.5;
-}
-.sidebar-panel p {
-    font-size: 1.3rem;
-    margin-bottom: 0;
-}
+                #overlay-mobile {
+                    display: none;
+                    background-color: rgba(0,0,0,0);
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    z-index: 400;
+                    padding: 0;
+                    margin: 0;
+                }
+                .sidebar-mobile {
+                    width: 85%;
+                    height: 100%;
+                    background-color: rgba(255,255,255,1);
+                    opacity: 1;
+                    animation: sidebarmove 0.3s linear;
+                    position: fixed;
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+                }
+                @keyframes sidebarmove {
+                    from {
+                        opacity: 0;
+                        transform: translate3d(-100%, 0, 0);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translate3d(0, 0, 0);
+                    }
+                }
+                .sibebar-swipe-off {
+                    width: 0%;
+                    height: 100%;
+                    background-color: rgba(255,255,255,1);
+                    opacity: 1;
+                    transition-delay: 0.3s;
+                    animation: sidebarswipeoff 0.3s linear;
+                }
+                @keyframes sidebarswipeoff {
+                    from {
+                        transform: translate3d(0, 0, 0);
+                    }
+                
+                    to {
+                        visibility: hidden;
+                        transform: translate3d(-100%, 0, 0);
+                    }
+                }
+                .sidebar-logo {
+                    display: flex;
+                    align-items: center;
+                    height: 58px;
+                    padding: 0.5rem;
+                }
+                .sidebar-logo img {
+                    width: 36px;
+                    height: 36px;
+                    padding-right: 0.7rem;
+                }
+                .sidebar-logo p {
+                    font-size: 2rem;
+                    margin: 0;
+                }
+                .sidebar-panel {
+                    display: flex;
+                    flex-direction: column;
+                    line-height: 2;
+                    padding: 10px;
+                    font-size: 1.2rem;
+                }
+                .sidebar-panel a {
+                    cursor: pointer;
+                    color: #262626;
+                    line-height: 2.5;
+                }
+                .sidebar-panel p {
+                    font-size: 1.3rem;
+                    margin-bottom: 0;
+                }
                 .mobile-logo-container, .mobile-profile-info-container  {
                     display: none;
                 }
@@ -3558,7 +3869,11 @@ class DashBoard extends LitElement {
                     balance-container{
                         display: flex;
                         width: 100%;
-                    }    
+                    } 
+                    price-plan-container{
+                        display: flex;
+                        width: 100%;
+                    }
                 @media screen and (max-width: 768px) {
                     .tools-dash-board-container, .profile-info-container, .logo-container  {
                         display: none;
@@ -3570,11 +3885,10 @@ class DashBoard extends LitElement {
                         display: flex;
                         align-items: center;
                     }
-                    .mobile-tools-dash-board-container {
-                                         
-                    }
+                }
                         
             </style>
+            
              <div  id="overlay-mobile" class="null-style" @click="${this.closeSidebar}">
                 <div class="sidebar-mobile sibebar-swipe-off" @click="${this.showSidebar}">
                     <a class="link" href="/dashboard">
@@ -3591,6 +3905,10 @@ class DashBoard extends LitElement {
                         <div class="menu-item" @click="${this.showSubscriptionContainer}">
                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-subscr-dashboard.svg">
                            <p>Підписки</p>
+                        </div>
+                        <div class="menu-item" @click="${this.showPricePlanContainer}">
+                           <img class="menu-item-logo" src="wisehands/assets/images/dashboard/priceplane.png">
+                           <p>Тарифи</p>
                         </div>
                         <div class="menu-item" @click="${this.showProfileContainer}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-user-dashboard.svg">
@@ -3620,7 +3938,6 @@ class DashBoard extends LitElement {
                         <img class="logo" src="wisehands/assets/images/dashboard/menu.svg">
                     </div>
                     
-                    
                     <div class="mobile-profile-info-container">
                         <div class="profile-info">
                             <p>${this.userFullName}</p>                                                        
@@ -3640,6 +3957,10 @@ class DashBoard extends LitElement {
                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-subscr-dashboard.svg">
                            <p>Підписки</p>
                         </div>
+                        <div class="menu-item" @click="${this.showPricePlanContainer}">
+                           <img class="menu-item-logo" src="wisehands/assets/images/dashboard/priceplane.png">
+                           <p>Тарифи</p>
+                        </div>
                         <div class="menu-item" @click="${this.showProfileContainer}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-user-dashboard.svg">
                             <p>Профіль</p>
@@ -3650,19 +3971,19 @@ class DashBoard extends LitElement {
                         <div class="shop-list-container">
                              <div class="inner-container">
                                 <a @click="${this.creatingShopThroughWizard}">
-                                <div class="create-shop-element border">
-                                    <div class="shop-name">
-                                        <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.png">
+                                    <div class="create-shop-element border">
+                                        <div class="shop-name">
+                                            <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.png">
+                                        </div>
+                                        <div class="create-shop-text-container">
+                                            <p>Створити магазин</p>
+                                        </div>
                                     </div>
-                                    <div class="create-shop-text-container">
-                                        <p>Створити магазин</p>
-                                    </div>
-                                </div>
-                             </a>
-                             ${this.shopList.map(item => html`
-                                    <shop-tile .shop="${item}"></shop-tile>
-                             `)}   
-                            </div>                 
+                                </a>
+                                ${this.shopList.map(item => html`
+                                     <shop-tile .shop="${item}"></shop-tile>
+                                `)}   
+                             </div>                 
                         </div>` : html``} 
                         
                         ${this.isShowSubscriptionContainer ? html`
@@ -3671,6 +3992,10 @@ class DashBoard extends LitElement {
                         
                         ${this.isShowProfileContainer ? html`
                             <balance-container .shop="${this.selectedShop}"></balance-container>
+                        ` : html``}
+                        
+                        ${this.isShowPricePlanContainer ? html`
+                            <price-plan-container></price-plan-container>
                         ` : html``}
                         
                     </div>
@@ -3700,6 +4025,9 @@ class DashBoard extends LitElement {
         type: Boolean
       },
       isShowSideMenu: {
+        type: Boolean
+      },
+      isShowPricePlanContainer: {
         type: Boolean
       }
     };
@@ -3731,20 +4059,9 @@ class DashBoard extends LitElement {
     this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
   }
 
-  setDisplayNoneToSidebarOverlay() {
-    this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
-  }
-
   showSidebar(e) {
     e.stopPropagation();
-  } // closeMenu() {
-  //
-  //     this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
-  //
-  //     this.shadowRoot.querySelector(".sidebar-mobile").classList.add('sibebar-swipe-off');
-  //     setTimeout(hideSidebar, 300);
-  // }
-
+  }
 
   hideSidebar() {
     this.shadowRoot.querySelector("#overlay-mobile").style.display = 'none';
@@ -3760,20 +4077,31 @@ class DashBoard extends LitElement {
     this.isShowShopListContainer = true;
     this.isShowSubscriptionContainer = false;
     this.isShowProfileContainer = false;
+    this.isShowPricePlanContainer = false;
   }
 
   showSubscriptionContainer() {
     this.hideSidebar();
-    this.isShowShopListContainer = false;
     this.isShowSubscriptionContainer = true;
+    this.isShowShopListContainer = false;
     this.isShowProfileContainer = false;
+    this.isShowPricePlanContainer = false;
   }
 
   showProfileContainer() {
     this.hideSidebar();
+    this.isShowProfileContainer = true;
     this.isShowShopListContainer = false;
     this.isShowSubscriptionContainer = false;
-    this.isShowProfileContainer = true;
+    this.isShowPricePlanContainer = false;
+  }
+
+  showPricePlanContainer() {
+    this.hideSidebar();
+    this.isShowShopListContainer = false;
+    this.isShowSubscriptionContainer = false;
+    this.isShowProfileContainer = false;
+    this.isShowPricePlanContainer = true;
   }
 
   getShopList() {
