@@ -2969,6 +2969,8 @@ class TableTransaction extends LitElement {
       status = 'Переказ';
     } else if (statusCode === 'COMMISSION_FEE') {
       status = 'Списання комісії';
+    } else if (statusCode === 'OFFLINE_REFILL') {
+      status = 'Поповнення рахунку (офлайн)';
     }
 
     return status;
@@ -3052,11 +3054,11 @@ class BalanceContainer extends LitElement {
                     <!--<p>Адміністрування:</p>-->
                     <p>Зарахування офлайн поповнення</p>
                     <div class="row-container">
-                        <input id="adminPayment" .value=${this.adminPayment} @input="${this.handleRefillAdminPayment}">
+                        <input id="adminPayment" .value=${this.offlinePayment} @input="${this.handleOfflinePayment}">
                         <button @click="${this.refillAdminPayment}">поповнити</button>
                     </div>
                     <div class="transaction-table-container">
-                        <p>Table here</p>
+                        <p>Транзакції</p>
                             <table-transaction .shop="${this.shop}" .tranasctionList="${this.coinAccount.transactionList}"></table-transaction>
                         </div>
                 </section>
@@ -3092,6 +3094,9 @@ class BalanceContainer extends LitElement {
       amountPayment: {
         type: Number
       },
+      offlinePayment: {
+        type: Number
+      },
       shop: {
         type: Object
       }
@@ -3104,6 +3109,7 @@ class BalanceContainer extends LitElement {
       balance: 0
     };
     this.amountPayment = 0;
+    this.offlinePayment = 0;
   }
 
   updated(changedProperties) {
@@ -3131,10 +3137,18 @@ class BalanceContainer extends LitElement {
     this.amountPayment = e.target.value;
   }
 
+  handleOfflinePayment(e) {
+    this.offlinePayment = e.target.value;
+  }
+
   generateSignatureForPayment() {
     const url = `/api/wayforpay/generate-signature?amount=${this.amountPayment}&shopUuid=${this.shop.uuid}`;
-    this.generatePostRequest(url);
-    console.log(`get amount from value ${this.amountPayment}`);
+    this.generatePostRequestForWayForPayForm(url);
+  }
+
+  refillAdminPayment() {
+    const url = `/api/wayforpay/offline-payment?amount=${this.offlinePayment}&shopUuid=${this.shop.uuid}`;
+    this.generatePostRequestForOfflineRefillPayment(url);
   }
 
   generateGetRequest(url, params) {
@@ -3153,7 +3167,7 @@ class BalanceContainer extends LitElement {
     });
   }
 
-  generatePostRequest(url) {
+  generatePostRequestForWayForPayForm(url) {
     let _this = this;
 
     let token = localStorage.getItem('JWT_TOKEN');
@@ -3169,6 +3183,25 @@ class BalanceContainer extends LitElement {
       console.log('data from generatePostRequest: ', data);
 
       _this.setPaymentWayForPayForm(data);
+    });
+  }
+
+  generatePostRequestForOfflineRefillPayment(url) {
+    let _this = this;
+
+    let token = localStorage.getItem('JWT_TOKEN');
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        authorization: 'Bearer ' + token
+      }
+    }).then(function (response) {
+      console.log("response response: ", response);
+      return response.json();
+    }).then(function (data) {
+      console.log('data from generatePostRequest: ', data);
+
+      _this.setBalanceForThisShop(data);
     });
   }
 
@@ -3214,6 +3247,7 @@ class ShopTile extends LitElement {
                         margin: 15px 10px 0 10px;
                         border-radius: 5px;
                         background-color: #00BCD4;
+                        text-decoration: none;
                     }
                         .shop-name p{
                             font-size: 2em;
