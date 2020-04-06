@@ -84,6 +84,7 @@ OPTIONS     {client}/api/dashboard/shop/info                UserDashBoardAPI.all
 # payment system for dashboard
 POST        {client}/api/wayforpay/verify-callback          WayForPayAPI.verifyCallback
 POST        {client}/api/wayforpay/generate-signature       WayForPayAPI.generateSignatureWayForPay
+POST        {client}/api/wayforpay/offline-payment          WayForPayAPI.createOfflinePayment
 POST        {client}/wayforpay/payment-confirmation         WayForPayAPI.paymentConfirmation
 
 

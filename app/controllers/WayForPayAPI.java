@@ -10,6 +10,7 @@ import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
+import responses.UserNotAllowedToPerformActionError;
 
 import java.text.DecimalFormat;
 
@@ -126,15 +127,43 @@ public class WayForPayAPI extends AuthController {
         }
     }
 
+    public static void createOfflinePayment(String client) throws Exception{
+
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+
+        String shopUuid = request.params.get("shopUuid");
+        Double amount = Double.valueOf(request.params.get("amount"));
+        if (user.isSuperUser){
+            ShopDTO shop = ShopDTO.findById(shopUuid);
+            CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+            CoinTransactionDTO transaction = new CoinTransactionDTO();
+            transaction.type = TransactionType.OFFLINE_REFILL;
+            transaction.status = TransactionStatus.OK;
+            transaction.account = coinAccount;
+            transaction.amount = amount;
+            transaction.time = System.currentTimeMillis() / 1000L;
+            transaction = transaction.save();
+            coinAccount.addTransaction(transaction);
+            coinAccount.balance += amount;
+            coinAccount.save();
+            renderJSON(json(coinAccount));
+        } else {
+            renderJSON(json(new UserNotAllowedToPerformActionError()));
+        }
+
+    }
+
     public static void generateSignatureWayForPay(String client) throws Exception{
 
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
+        UserDTO user = UserDTO.find("byUuid", userId).first();
 
         String shopUuid = request.params.get("shopUuid");
         ShopDTO shop = ShopDTO.findById(shopUuid);
 
-        UserDTO user = UserDTO.find("byUuid", userId).first();
 
         String productName = "Поповнення власного рахунку для магазину " + shop.shopName;
         String serviceUrl = "https://wstore.pro/wayforpay/payment-confirmation";
