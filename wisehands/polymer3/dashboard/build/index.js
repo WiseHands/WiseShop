@@ -3959,7 +3959,7 @@ class DashBoard extends LitElement {
                         </div>
                         <div class="menu-item" @click="${this.showPricePlanContainer}">
                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/priceplane.png">
-                           <p>Тарифи</p>
+                           <p>Тарифи</p>    
                         </div>
                         <div class="menu-item" @click="${this.showProfileContainer}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-user-dashboard.svg">
