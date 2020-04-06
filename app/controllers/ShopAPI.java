@@ -145,8 +145,7 @@ public class ShopAPI extends AuthController {
         }
         json.put("couponsEnabled", couponsEnabled);
 
-        renderJSON(json);
-
+        renderJSON(json(json));
     }
 
     public static void changeLocal(String client, String locale) throws Exception {
