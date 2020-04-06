@@ -7,6 +7,8 @@
                   url: '/shop/details'
             })
                 .then(function successCallback(response) {
+                  if(!response.data.delivery.courierPolygonData) return;
+
                   $scope.courierPolygonData = JSON.parse(response.data.delivery.courierPolygonData);
                   console.log("loadPolygons", $scope.courierPolygonData, typeof $scope.courierPolygonData);
                 }, function errorCallback(data) {
