@@ -59,14 +59,14 @@
     }
     .social-button button {
         margin: 1rem;
-        padding: 0.7rem 0.5rem 0.7rem 1rem;
+        padding: 0.7rem 0.5rem;
         text-transform: uppercase;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         border: none;
         cursor: pointer;
-        width: 320px;
+        width: 350px;
         font-weight: 700;
     }
     .signup-fb-button {
@@ -82,7 +82,7 @@
     .signup-google-button {
         background-color: #fff;
         color: #808080;
-        box-shadow: 0 1px 1px rgba(0,0,0,.24), 0 0 1px rgba(0,0,0,.12)
+        box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
     }
     .signup-google-button:hover {
         color: #000;
@@ -220,15 +220,16 @@
 <div class="signup-block">
     <h1>Реєстрація</h1>
     <div class="social-button">
-        <button class="signup-fb-button">
-                <span>
-                    <i class="fa fa-facebook-f"  style="font-size:24px; color: #fff"></i>
-                </span>Зареєструватися через Facebook
-        </button>
+        <!--<button class="signup-fb-button">-->
+                <!--<span>-->
+                    <!--<i class="fa fa-facebook-f"  style="font-size:24px; color: #fff"></i>-->
+                <!--</span>-->
+                 <!--Facebook-->
+        <!--</button>-->
         <button class="signup-google-button" onclick="signUpThroughGoogle()">
                 <span>
                     <i class="fa fa-google"  style="font-size:24px; color: #808080"></i>
-                </span>Зареєструватися через Google
+                </span> Google
         </button>
     </div>
     <span>Або заповніть поля</span>
