@@ -15,7 +15,13 @@
     #title-container{
         /*border: 1px solid #0F0F0F;*/
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 45vh;
+        background-position: center;
+        background-size: cover;
+        position: relative;
     }
     .header-container {
         box-sizing: border-box;
@@ -62,10 +68,11 @@
         color: #000;
     }
     .titleContainer {
-        font-size: 1.5rem;
-        font-weight: 600;
-        padding: 2rem 0 0.5rem 0;
+        font-size: 3rem;
+        font-weight: 300;
+        padding: 2rem 0 0.5rem 1rem;
     }
+
     #bodyContainer {
         padding: 1em 1em;
         width: 100%;
@@ -94,6 +101,19 @@
     @media screen and (max-width: 800px) {
         .links-container{
             display: none;
+        }
+        #title-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    }
+        .titleContainer-mob {
+            font-size: 2.5rem;
+            text-align: center;
+            background: #fff;
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 0.5rem;
         }
     }
 
@@ -135,9 +155,9 @@
 <body>
     #{verbatim}
         #{shop-header /}
-        <div class="data-container">
+        <div class="data-container" id="data-bg">
             <div id="title-container">
-                <p class="titleContainer">
+                <p class="titleContainer titleContainer-mob">
                     ${page.title}
                 </p>
             </div>
@@ -146,6 +166,12 @@
             </div>
         </div>
     #{/verbatim}
+    <script>
+        const backGroundImageIndex = Math.floor(Math.random() * 10) + 1;
+        const style = "linear-gradient(to right, rgba(255,255,255,1) 6%, rgba(255,255,255,0.82) 24%, rgba(246,246,246,0.6) 47%, rgba(237,237,237,0.08) 100%), url('/wisehands/assets/images/pages-bg/pagebg" +backGroundImageIndex+ ".jpg') no-repeat center center / cover";
+        document.getElementById('title-container').style.background = style;
+
+    </script>
     #{if shop.faceBookPixelApiKey}
     <script>
         console.log('present faceBookPixelApiKey');
