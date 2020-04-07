@@ -14,14 +14,19 @@
     }
     #title-container{
         /*border: 1px solid #0F0F0F;*/
+        width: 100%;
+        height: 45vh;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+    }
+    .gradient-block {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        background:  linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(246,246,246,0.53) 47%, rgba(237,237,237,0) 100%);
         width: 100%;
-        height: 45vh;
-        background-position: center;
-        background-size: cover;
-        position: relative;
+        height: 100%;
     }
     .header-container {
         box-sizing: border-box;
@@ -102,14 +107,9 @@
         }
     }
     @media screen and (max-width: 800px) {
-        .links-container{
+        .links-container {
             display: none;
         }
-        #title-container{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-    }
         .titleContainer-mob {
             font-size: 2.5rem;
             text-align: center;
@@ -117,6 +117,12 @@
             padding: 1rem;
             margin: 1rem;
             border-radius: 0.5rem;
+        }
+        .gradient-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: none;
         }
     }
 
@@ -159,11 +165,14 @@
     #{verbatim}
         #{shop-header /}
         <div class="data-container" id="data-bg">
-            <div id="title-container">
-                <p class="titleContainer titleContainer-mob">
-                    ${page.title}
-                </p>
-            </div>
+                <div id="title-container">
+                    <div class="gradient-block">
+                        <p class="titleContainer titleContainer-mob">
+                            ${page.title}
+                        </p>
+                    </div>
+               </div>
+
             <div id="bodyContainer" style="padding: 10px">
                 ${page.body}
             </div>
@@ -171,9 +180,8 @@
     #{/verbatim}
     <script>
         const backGroundImageIndex = Math.floor(Math.random() * 10) + 1;
-        const style = "linear-gradient(to right, rgba(255,255,255,1) 6%, rgba(255,255,255,0.82) 24%, rgba(246,246,246,0.6) 47%, rgba(237,237,237,0.08) 100%), url('/wisehands/assets/images/pages-bg/pagebg" +backGroundImageIndex+ ".jpg') no-repeat center center / cover";
-        document.getElementById('title-container').style.background = style;
-
+        const style = "url('/wisehands/assets/images/pages-bg/pagebg" +backGroundImageIndex+ ".jpg')";
+        document.getElementById('title-container').style.backgroundImage = style;
     </script>
     #{if shop.faceBookPixelApiKey}
     <script>
