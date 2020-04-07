@@ -181,6 +181,30 @@
         cursor: pointer;
         color: #20b2aa;
     }
+    .or-text {
+        max-width: 350px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .or-text:before {
+        margin-right: 5px;
+        margin-left: -50%;
+    }
+
+    .or-text:after {
+        margin-left: 5px;
+        margin-right: -50%;
+    }
+    .or-text:before, .or-text:after {
+        content: '';
+        background: #777;
+        display: inline-block;
+        height: 1px;
+        width: 50%;
+        vertical-align: middle;
+        position: relative;
+    }
+
     @media screen and (max-width: 768px) {
         .signin-header {
             margin-bottom: 1rem;
@@ -198,7 +222,7 @@
         <a href="/landing"><p id="">WiseStore</p></a>
     </div>
     <div class="signin-block">
-        <h1>Вхід до особистого кабінету</h1>
+        <h1>Вхід</h1>
         <div class="social-button">
             <!--<button class="signin-fb-button">-->
                 <!--<span>-->
@@ -213,7 +237,9 @@
                 <p>Google</p>
             </button>
         </div>
-        <span>АБО</span>
+        <div class="or-text">
+            Або
+        </div>
         <form id="login-form" class="signin-form">
             <div class="form-field">
                 <input id="signin-email" type="email" name="email" required placeholder=" ">

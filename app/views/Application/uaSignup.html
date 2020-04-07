@@ -199,6 +199,29 @@
         text-decoration: none;
         cursor: pointer;
     }
+    .or-text {
+        max-width: 350px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .or-text:before {
+        margin-right: 5px;
+        margin-left: -50%;
+    }
+
+    .or-text:after {
+        margin-left: 5px;
+        margin-right: -50%;
+    }
+    .or-text:before, .or-text:after {
+        content: '';
+        background: #777;
+        display: inline-block;
+        height: 1px;
+        width: 50%;
+        vertical-align: middle;
+        position: relative;
+    }
 
     @media screen and (max-width: 768px) {
         .signup-header {
@@ -232,7 +255,9 @@
                 </span> Google
         </button>
     </div>
-    <span>Або заповніть поля</span>
+    <div class="or-text">
+        Або заповніть поля
+    </div>
     <form id="login-form" class="signup-form">
         <div class="form-field">
             <input id="signup-name" type="text" name="name" required placeholder=" ">
