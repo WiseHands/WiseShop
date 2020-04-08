@@ -72,6 +72,18 @@
         font-size: 1.5rem;
         padding-left: 0.5rem;
     }
+    .no-items-store {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+        font-size: 2rem;
+        padding: 2rem 0;
+    }
+    .no-items-store img {
+        width: 300px;
+    }
     @media screen and (min-width: 1500px) {
         .center-container, .cart-float {
             max-width: 1300px;
@@ -158,6 +170,13 @@
 <body class="">
     #{shop-header /}
     #{verbatim}
+        #{if products.size() == 0 }
+            <div class="no-items-store">
+                <img src="/wisehands/assets/images/no-items.svg">
+                <p>Товари відстуні</p>
+            </div>
+        #{/if}
+
         <div class="all-cards">
             %{
                for(_product in products) {
