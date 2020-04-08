@@ -2659,22 +2659,46 @@ LitElement['finalized'] = true;
 
 LitElement.render = render$1;
 
-class SubcriptionContainer extends LitElement {
+class PricePlanMain extends LitElement {
   render() {
     return html`
             <style>
                 .border{
                     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
                 }
+                .column{
+                    flex-direction: column;
+                }
+                .row{
+                    flex-direction: row;
+                }
+                .container{
+                    display: flex;
+                }
                 .main-container{
                     display: flex;
                     margin: 15px;                   
                 }
+                .container p, input, button{
+                    margin: 5px;
+                }
                                      
             </style>
             
-            <div class="main-container">
-              <p>Balance: ${this.balance}</p>
+            <div class="main-container column">
+              <p>Редагування тарифного плану</p>
+              <div class="container row">
+                <p>Тариф: </p>
+                <input .value="${this.pricePlan.name}" @input="${this.handlePricePlanName}">
+              </div>
+              <div class="container row">
+                <p>Відсоток: </p>
+                <input .value="${this.pricePlan.commissionFee}" @input="${this.handlePricePlanCommissionFee}">
+              </div>
+              <div class="container row">
+                <button @click="${this.savingPricePlan}">Зберегти</button>
+                <button @click="${this.removingPricePlan}">Видалити</button>
+              </div>  
             </div>
 
     `;
@@ -2682,66 +2706,72 @@ class SubcriptionContainer extends LitElement {
 
   static get properties() {
     return {
-      balance: {
-        type: Number
+      pricePlan: {
+        type: Object
+      },
+      isShowPricePlanContainer: {
+        type: Boolean
+      },
+      isShowPricePlanMainContainer: {
+        type: Boolean
       }
     };
   }
 
   constructor() {
     super();
-    this.getUserInfo();
-    this.balance = 12536.5;
   }
 
-  _buildUrlForShop(item) {
-    const token = localStorage.getItem('JWT_TOKEN');
-    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin?JWT_TOKEN=${token}`;
+  handlePricePlanName(e) {
+    this.pricePlan.name = e.target.value;
   }
 
-  getShopList() {
+  handlePricePlanCommissionFee(e) {
+    this.pricePlan.commissionFee = e.target.value;
+  }
+
+  showPricingPlanWidgetForShop() {
+    this.dispatchEvent(new CustomEvent('open-pricing-plan-list', {
+      bubbles: true,
+      composed: true,
+      detail: this.pricePlan
+    }));
+  }
+
+  savingPricePlan() {
     const _this = this;
 
-    const url = '/api/dashboard/shops';
-    let token = localStorage.getItem('JWT_TOKEN');
+    const url = `/api/pricing-plan/update?name=${this.pricePlan.name}&commissionFee=${this.pricePlan.commissionFee}&uuid=${this.pricePlan.uuid}`;
     fetch(url, {
-      method: 'GET',
-      headers: {
-        authorization: 'Bearer ' + token
-      }
+      method: 'POST'
     }).then(function (response) {
-      console.log("response response: ", response);
       return response.json();
     }).then(function (data) {
-      console.log('data for shopList: ', data);
+      console.log('savingPricePlan', data);
 
-      if (data) {
-        _this.shopList = data;
-      }
+      _this.showPricingPlanWidgetForShop();
     });
   }
 
-  getUserInfo() {
+  removingPricePlan() {
+    const _this = this;
 
-    const url = '/api/dashboard/user';
-    let token = localStorage.getItem('JWT_TOKEN');
+    const url = `/api/pricing-plan/delete?uuid=${this.pricePlan.uuid}`;
     fetch(url, {
-      method: 'GET',
-      headers: {
-        authorization: 'Bearer ' + token
-      }
+      method: 'DELETE'
     }).then(function (response) {
-      console.log("response response: ", response);
       return response.json();
     }).then(function (data) {
-      console.log('data for users: ', data);
+      console.log('savingPricePlan', data);
+
+      _this.showPricingPlanWidgetForShop();
     });
   }
 
 } // Register the new element with the browser.
 
 
-customElements.define('subcription-container', SubcriptionContainer);
+customElements.define('price-plan-main-container', PricePlanMain);
 
 class TableTransaction extends LitElement {
   render() {
@@ -3008,8 +3038,13 @@ class BalanceContainer extends LitElement {
                             display: flex;
                             flex-direction: row;
                             justify-content: flex-start;
+                            align-items: center;
+                            margin: 2.5px;
                         }
                         .row-container input, button{
+                            margin: 5px;
+                        }
+                        drop-down-list{
                             margin: 5px;
                         }
                     .status-plane-container{
@@ -3042,8 +3077,16 @@ class BalanceContainer extends LitElement {
                 <span class="line"></span>
                 <section class="status-plane-container">
                     <div class="row-container">
-                        <p>Тариф: ${this.plane}</p>
-                        <button @click="${this.getPlaneForShop}">змінити</button>  
+                        <div class="drop-down-list">
+                          <label for="plans">Тариф:</label>
+                            <select id="plans">
+                              ${this.pricePlanList.map(item => html`
+                                <option>${item.name}</option>
+                              `)}
+                            </select>
+                            <button @click="${this.getPlaneForShop}">змінити</button>  
+                        </div>
+                        
                     </div>
                     <div class="row-container">
                         <p>Статус: ${this.status}</p>
@@ -3110,6 +3153,26 @@ class BalanceContainer extends LitElement {
     };
     this.amountPayment = 0;
     this.offlinePayment = 0;
+    this.pricePlanList = [];
+    this.getPricingPlanList();
+  }
+
+  getPricingPlanList() {
+    const _this = this;
+
+    const url = '/api/pricing-plan/get-list';
+    fetch(url, {
+      method: 'GET'
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      console.log('here click and get selected value from drop-down', data);
+      _this.pricePlanList = data;
+    });
+  }
+
+  getPlaneForShop() {
+    console.log('here click and get selected value from drop-down', this.shop);
   }
 
   updated(changedProperties) {
@@ -3130,7 +3193,7 @@ class BalanceContainer extends LitElement {
 
   setBalanceForThisShop(data) {
     this.coinAccount = data;
-    console.log(`setBalanceForThisShop: ${data}`);
+    console.log(`setBalanceForThisShop: ${data.balance}`);
   }
 
   handleAmountPayment(e) {
@@ -3342,10 +3405,17 @@ class PricePlanTile extends LitElement {
                 .border{
                     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
                 }
-                
-                .container{
-                    height: 100%;
-                    width: 100%;
+                .create-shop-element{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 15px;
+                    min-height: 200px;
+                    width: 200px;
+                }
+                .create-shop-element:hover{
+                    cursor: pointer;
                 }
                     .shop-name{
                         display: flex;
@@ -3354,7 +3424,6 @@ class PricePlanTile extends LitElement {
                         color: white;
                         height: 60%;
                         width: 90%;
-                        margin: 15px 10px 0 10px;
                         border-radius: 5px;
                         background-color: #00BCD4;
                         text-decoration: none;
@@ -3362,62 +3431,31 @@ class PricePlanTile extends LitElement {
                         .shop-name p{
                             font-size: 2em;
                         }
-                    .shop-info-container{
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: space-between;
+                    .create-shop-text-container{
+                        display: flex;                            
                         align-items: center;
-                        height: 20%;
-                        width: 100%;
-                        margin-top: 10px;
+                        padding-top: 10px;
+                        height: 40px;
                     }
-                        .shop-info-container p {
-                            color: black;
-                        }
-                        .shop-info-container img:hover{
-                            cursor: pointer;
-                        }
-                        .shop-balance, .shop-link{
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            padding: 10px;
-                        }
-                .menu-item-logo{
-                    height: 24px;
-                    width: 24px;
-                    margin: 5px;
-                }
-                .menu-item:hover{
-                    background-color: darkgray;
-                    cursor: pointer;
-                }
                                      
             </style>
-              <div class="container border">
-                <a class="shop-name" href="${this._buildUrlForShop(this.shop)}">
-                    <p>${this.shop.shopName}</p>
-                </a>    
-                <div class="shop-info-container">
-                     <div class="shop-balance">
-                        <img class="menu-item-logo"
-                         @click="${this.showBalanceWidgetForShop}"
-                         src="wisehands/assets/images/dashboard/money.png">
-                    </div>
-                    <a class="shop-link" href="${this._buildUrlForShop(this.shop)}">
-                         <img class="menu-item-logo"
-                         src="wisehands/assets/images/dashboard/link.png">                         
-                    </a>
+              
+                <div class="create-shop-element border"
+                  @click="${this.showPricingPlanWidgetForShop}">
+                  <div class="shop-name">
+                    <p>${this.pricePlan.name}</p>
+                  </div>
+                  <div class="create-shop-text-container">
+                    <p>${this.pricePlan.commissionFee} %</p>
+                  </div>
                 </div>
-              </div>
-           
 
     `;
   }
 
   static get properties() {
     return {
-      shop: {
+      pricePlan: {
         type: Object
       }
     };
@@ -3427,16 +3465,11 @@ class PricePlanTile extends LitElement {
     super();
   }
 
-  _buildUrlForShop(item) {
-    const token = localStorage.getItem('JWT_TOKEN');
-    return `${window.location.protocol}//${item.domain}:${window.location.port}/admin?JWT_TOKEN=${token}`;
-  }
-
-  showBalanceWidgetForShop() {
-    this.dispatchEvent(new CustomEvent('open-balance', {
+  showPricingPlanWidgetForShop() {
+    this.dispatchEvent(new CustomEvent('open-pricing-plan', {
       bubbles: true,
       composed: true,
-      detail: this.shop
+      detail: this.pricePlan
     }));
   }
 
@@ -3445,7 +3478,7 @@ class PricePlanTile extends LitElement {
 
 customElements.define('price-plane-tile', PricePlanTile);
 
-class PricePlanContainer extends LitElement {
+class PricePlanListContainer extends LitElement {
   render() {
     return html`
             <style>     
@@ -3547,6 +3580,10 @@ class PricePlanContainer extends LitElement {
                         </div>
                       </div>
                     </a>
+                    
+                  ${this.pricePlanList.map(item => html`
+                    <price-plane-tile .pricePlan="${item}"></price-plane-tile>
+                  `)}
                       
                   </section> ` : html``}
               ${this.isShowCreatingPricePlan ? html`
@@ -3589,6 +3626,9 @@ class PricePlanContainer extends LitElement {
       },
       isShowCreatingPricePlan: {
         type: Boolean
+      },
+      pricePlanList: {
+        type: Array
       }
     };
   }
@@ -3598,6 +3638,8 @@ class PricePlanContainer extends LitElement {
     this.planName = '';
     this.commissionForPlane = '';
     this.isShowPricePlanContainer = true;
+    this.pricePlanList = [];
+    this.getPricingPlanList();
   }
 
   handlePlanName(e) {
@@ -3614,7 +3656,7 @@ class PricePlanContainer extends LitElement {
   }
 
   savingPricePlane() {
-    const url = `/api/pricing-plan/create?planName=${this.planName}&commissionFree=${this.commissionForPlane}`;
+    const url = `/api/pricing-plan/create?planName=${this.planName}&commissionFee=${this.commissionForPlane}`;
     this.generatePostRequestForCreatingPricingPlan(url);
   }
 
@@ -3632,18 +3674,29 @@ class PricePlanContainer extends LitElement {
       return response.json();
     }).then(function (data) {
       console.log('data from generatePostRequest PLAN:: ', data);
+      _this.pricePlanList = data;
       _this.isShowCreatingPricePlan = false;
       _this.isShowPricePlanContainer = true;
     });
-  } //     ${this.pricePlanList.map(item => html`
-  //        <price-plane-tile .pricePlan="${item}"></price-plane-tile>
-  //     `)}
+  }
 
+  getPricingPlanList() {
+    const _this = this;
+
+    const url = '/api/pricing-plan/get-list';
+    fetch(url, {
+      method: 'GET'
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      _this.pricePlanList = data;
+    });
+  }
 
 } // Register the new element with the browser.
 
 
-customElements.define('price-plan-container', PricePlanContainer);
+customElements.define('price-plan-list-container', PricePlanListContainer);
 
 // Import the LitElement base class and html helper function
 
@@ -3793,13 +3846,16 @@ class DashBoard extends LitElement {
                         border-bottom: 1px solid lightgrey;
                         font-family: 'Roboto', 'Helvetica', sans-serif;
                     }
+                    .menu-item[selected="true"] {
+                        background-color: darkgrey;
+                    }
                     .menu-item-logo{
                         height: 24px;
                         width: 24px;
                         margin: 5px;
                     }
                     .menu-item:hover{
-                        background-color: darkgray;
+                        background-color: darkgrey;
                         cursor: pointer;
                     }
                 .work-place-dash-board-container{
@@ -3822,7 +3878,10 @@ class DashBoard extends LitElement {
                             margin: 15px;
                             height: 200px;
                             width: 200px;
-                        }                        
+                        }
+                        .create-shop-element:hover {
+                            cursor: pointer;
+                        }                                           
                         .create-shop-text-container{
                             display: flex;                            
                             align-items: center;
@@ -3898,21 +3957,17 @@ class DashBoard extends LitElement {
                         </div>
                     </a>
                     <div class="mobile-tools-dash-board-container">
-                        <div class="menu-item" @click="${this.showShopListContainer}">
+                        <div class="menu-item" @click="${this.showShopListContainer}" selected="${this.isShowShopListContainer}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
                             <p>Магазини</p>
-                        </div>
-                        <div class="menu-item" @click="${this.showSubscriptionContainer}">
-                           <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-subscr-dashboard.svg">
-                           <p>Підписки</p>
-                        </div>
-                        <div class="menu-item" @click="${this.showPricePlanContainer}">
+                        </div>                        
+                        <div class="menu-item" @click="${this.showPricePlanListContainer}" selected="${this.isShowPricePlanListContainer}">
                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/priceplane.png">
                            <p>Тарифи</p>
                         </div>
-                        <div class="menu-item" @click="${this.showProfileContainer}">
+                        <div class="menu-item" @click="${this.logOutUser}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-user-dashboard.svg">
-                            <p>Профіль</p>
+                            <p>Вихід</p>
                         </div>
                     </div>
                 </div>
@@ -3949,21 +4004,17 @@ class DashBoard extends LitElement {
 
                 <div class="body-dash-board-container">
                     <div class="tools-dash-board-container border">
-                        <div class="menu-item" @click="${this.showShopListContainer}">
+                        <div class="menu-item" @click="${this.showShopListContainer}" selected="${this.isShowShopListContainer}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
                             <p>Магазини</p>
-                        </div>
-                        <div class="menu-item" @click="${this.showSubscriptionContainer}">
-                           <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-subscr-dashboard.svg">
-                           <p>Підписки</p>
-                        </div>
-                        <div class="menu-item" @click="${this.showPricePlanContainer}">
+                        </div>                        
+                        <div class="menu-item" @click="${this.showPricePlanListContainer}" selected="${this.isShowPricePlanListContainer}">
                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/priceplane.png">
-                           <p>Тарифи</p>    
+                           <p>Тарифи</p>
                         </div>
-                        <div class="menu-item" @click="${this.showProfileContainer}">
+                        <div class="menu-item" @click="${this.logOutUser}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-user-dashboard.svg">
-                            <p>Профіль</p>
+                            <p>Вихід</p>
                         </div>
                     </div>
                     <div class="work-place-dash-board-container border">
@@ -3986,16 +4037,16 @@ class DashBoard extends LitElement {
                              </div>                 
                         </div>` : html``} 
                         
-                        ${this.isShowSubscriptionContainer ? html`
-                            <subcription-container></subcription-container>
-                        ` : ''}
-                        
-                        ${this.isShowProfileContainer ? html`
+                        ${this.isShowBalanceContainer ? html`
                             <balance-container .shop="${this.selectedShop}"></balance-container>
                         ` : html``}
                         
-                        ${this.isShowPricePlanContainer ? html`
-                            <price-plan-container></price-plan-container>
+                        ${this.isShowPricePlanListContainer ? html`
+                            <price-plan-list-container></price-plan-list-container>
+                        ` : html``}
+                        
+                        ${this.isShowPricePlanMainContainer ? html`
+                            <price-plan-main-container .pricePlan="${this.selectedPricePlan}"></price-plan-main-container>
                         ` : html``}
                         
                     </div>
@@ -4018,16 +4069,16 @@ class DashBoard extends LitElement {
       isShowShopListContainer: {
         type: Boolean
       },
-      isShowSubscriptionContainer: {
-        type: Boolean
-      },
-      isShowProfileContainer: {
+      isShowBalanceContainer: {
         type: Boolean
       },
       isShowSideMenu: {
         type: Boolean
       },
-      isShowPricePlanContainer: {
+      isShowPricePlanListContainer: {
+        type: Boolean
+      },
+      isShowPricePlanMainContainer: {
         type: Boolean
       }
     };
@@ -4040,10 +4091,44 @@ class DashBoard extends LitElement {
     this.shopList = [];
     this.userFullName = 'Ім. Пр.';
     this.isShowShopListContainer = true;
+    this.checkIfUserIsLogIn();
+    this.openBalance();
+    this.openPricingPlan();
+    this.openPricingPlanList();
+  }
+
+  openBalance() {
     this.addEventListener('open-balance', event => {
       this.selectedShop = event.detail;
-      this.showProfileContainer();
+      this.showBalanceContainer();
     });
+  }
+
+  openPricingPlan() {
+    this.addEventListener('open-pricing-plan', event => {
+      this.selectedPricePlan = event.detail;
+      this.showPricingPlanMainContainer();
+    });
+  }
+
+  openPricingPlanList() {
+    this.addEventListener('open-pricing-plan-list', event => {
+      this.selectedPricePlan = event.detail;
+      this.showPricePlanListContainer();
+    });
+  }
+
+  checkIfUserIsLogIn() {
+    let token = localStorage.getItem('JWT_TOKEN');
+
+    if (!token) {
+      window.location = '/';
+    }
+  }
+
+  logOutUser() {
+    localStorage.removeItem('JWT_TOKEN');
+    window.location = '/';
   }
 
   showSideMenu() {
@@ -4075,33 +4160,33 @@ class DashBoard extends LitElement {
   showShopListContainer() {
     this.hideSidebar();
     this.isShowShopListContainer = true;
-    this.isShowSubscriptionContainer = false;
-    this.isShowProfileContainer = false;
-    this.isShowPricePlanContainer = false;
+    this.isShowBalanceContainer = false;
+    this.isShowPricePlanListContainer = false;
+    this.isShowPricePlanMainContainer = false;
   }
 
-  showSubscriptionContainer() {
+  showBalanceContainer() {
     this.hideSidebar();
-    this.isShowSubscriptionContainer = true;
+    this.isShowBalanceContainer = true;
     this.isShowShopListContainer = false;
-    this.isShowProfileContainer = false;
-    this.isShowPricePlanContainer = false;
+    this.isShowPricePlanListContainer = false;
+    this.isShowPricePlanMainContainer = false;
   }
 
-  showProfileContainer() {
+  showPricePlanListContainer() {
     this.hideSidebar();
-    this.isShowProfileContainer = true;
+    this.isShowPricePlanListContainer = true;
     this.isShowShopListContainer = false;
-    this.isShowSubscriptionContainer = false;
-    this.isShowPricePlanContainer = false;
+    this.isShowBalanceContainer = false;
+    this.isShowPricePlanMainContainer = false;
   }
 
-  showPricePlanContainer() {
+  showPricingPlanMainContainer() {
     this.hideSidebar();
     this.isShowShopListContainer = false;
-    this.isShowSubscriptionContainer = false;
-    this.isShowProfileContainer = false;
-    this.isShowPricePlanContainer = true;
+    this.isShowBalanceContainer = false;
+    this.isShowPricePlanListContainer = false;
+    this.isShowPricePlanMainContainer = true;
   }
 
   getShopList() {
