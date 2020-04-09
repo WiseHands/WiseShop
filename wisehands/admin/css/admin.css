@@ -1010,6 +1010,21 @@ input {
     margin-bottom: 2rem;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
 }
+.no-items-store {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    font-size: 2rem;
+    padding: 2rem 0;
+}
+.no-items-store p {
+    font-size: 2rem;
+}
+.no-items-store img {
+    width: 350px;
+}
 @media screen and (max-width: 768px) {
     .add-product-block {
         flex-direction: column;

@@ -18,7 +18,7 @@
 </nav>
 
 <div class="container-fluid noSidePadding cardTopPadding admin-all-products">
-    <h4 ng-show="products.length === 0" class="text-center"><i>{{'products.noProducts' | translate}}</i></h4>
+
     <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
     <div class="text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
@@ -56,3 +56,9 @@
     </div>
 
 </div>
+<h4 ng-show="products.length === 0" class="text-center">
+    <div class="no-items-store">
+        <img src="/wisehands/assets/images/noproducts.svg">
+        <p>{{'products.noProducts' | translate}}</p>
+    </div>
+</h4>

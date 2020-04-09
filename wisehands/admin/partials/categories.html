@@ -16,7 +16,6 @@
 </nav>
 
 <div class="container-fluid noSidePadding">
-    <h4 ng-show="categories.length === 0" class="text-center"><i>{{'categories.noCategory' | translate}}</i></h4>
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
@@ -47,6 +46,13 @@
         </div>
     </div>
 </div>
+<h4 ng-show="categories.length === 0" class="text-center">
+    <div class="no-items-store">
+        <img src="/wisehands/assets/images/noproducts.svg">
+        <p>{{'categories.noCategory' | translate}}</p>
+    </div>
+</h4>
+
 <div class="modal fade" id="categoryModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">

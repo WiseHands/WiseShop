@@ -158,7 +158,10 @@
     <!--<div class="panel-body noAnchorStyle">На даний момент Ваш рахунок рівний: {{balance.balance | number:2}} грн!</div>-->
     <!--</div></a>-->
     <!--</div>-->
-    <h4 ng-show="orders.length === 0 || isAllOrdersDeleted" class="text-center"><i>{{'orderList.noOrders' | translate}}</i></h4>
+
+
+
+
     <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
     <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
         <i>{{'orderList.NoFilterMatches' | translate}}</i>
@@ -167,7 +170,12 @@
         <spinner name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
 </div>
-
+<h4 ng-show="orders.length === 0 || isAllOrdersDeleted" >
+    <div class="no-items-store">
+        <img src="/wisehands/assets/images/no-items.svg">
+        <p>{{'orderList.noOrders' | translate}}</p>
+    </div>
+</h4>
 <div ng-show="!hideMoreButton" class="text-center">
     <button ng-click="moreOrders()" class="btn waves-effect waves-light secondaryColor">{{'orderList.more' | translate}}</button>
 </div>

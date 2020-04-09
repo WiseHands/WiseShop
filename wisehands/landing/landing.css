@@ -296,13 +296,15 @@ body a {
 .tariff-price h5 {
     font-size: 1.8rem;
     font-weight: 700;
-    padding-bottom: 1rem;
     color: lightseagreen;
 }
 .tariff-price span {
     color: lightseagreen;
     font-weight: 600;
     padding-right: 0.3rem;
+}
+.tariff-padding {
+    padding: 0.5rem 0;
 }
 .tariff-description {
     padding: 1rem;
