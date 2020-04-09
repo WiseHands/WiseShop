@@ -156,6 +156,9 @@ public class ShopDTO extends GenericModel {
     @OneToMany(cascade=CascadeType.ALL)
     public List<PageConstructorDTO> pagesList;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public PricingPlanDTO pricingPlan;
 
     @Transient
     private ShopNetworkDTO network;

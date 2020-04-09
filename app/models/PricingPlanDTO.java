@@ -4,9 +4,7 @@ import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class PricingPlanDTO extends GenericModel {
@@ -22,6 +20,9 @@ public class PricingPlanDTO extends GenericModel {
 
     @Expose
     public Double commissionFee;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    public ShopDTO shop;
 
     public PricingPlanDTO(String pricingPlanName, Double commissionFee){
         this.name = pricingPlanName;

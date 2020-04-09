@@ -1,6 +1,7 @@
 package controllers;
 
 import models.PricingPlanDTO;
+import models.ShopDTO;
 import models.UserDTO;
 import responses.JsonHandleForbidden;
 
@@ -64,6 +65,27 @@ public class PricingPlanAPI extends AuthController {
 
         JsonHandleForbidden json = new JsonHandleForbidden(200, "deleting plan successful");
         renderJSON(json(json));
+    }
+
+
+    public static void setPricingPlanToThisShop() throws Exception{
+
+        String pricingPlanUuid = request.params.get("pricingPlanUuid");
+        String shopUuid = request.params.get("shopUuid");
+
+        System.out.println("pricingPlanUuid\n" + pricingPlanUuid + "\n" + "shopUuid\n" + shopUuid);
+
+        ShopDTO shop = ShopDTO.findById(shopUuid);
+        PricingPlanDTO pricingPlan = PricingPlanDTO.findById(pricingPlanUuid);
+        shop.pricingPlan = pricingPlan;
+        shop.save();
+        renderJSON(json(shop));
+    }
+
+    public static void getShopByUuid() throws Exception{
+        String shopUuid = request.params.get("shopUuid");
+        ShopDTO shop = ShopDTO.findById(shopUuid);
+        renderJSON(json(shop));
     }
 
 }

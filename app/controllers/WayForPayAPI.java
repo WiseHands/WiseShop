@@ -138,6 +138,10 @@ public class WayForPayAPI extends AuthController {
         if (user.isSuperUser){
             ShopDTO shop = ShopDTO.findById(shopUuid);
             CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+            if(coinAccount == null) {
+                coinAccount = new CoinAccountDTO(shop);
+                coinAccount = coinAccount.save();
+            }
             CoinTransactionDTO transaction = new CoinTransactionDTO();
             transaction.type = TransactionType.OFFLINE_REFILL;
             transaction.status = TransactionStatus.OK;
