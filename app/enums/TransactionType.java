@@ -5,5 +5,6 @@ public enum TransactionType {
         TRANSFER,
         COMMISSION_FEE,
         OFFLINE_REFILL,
+        MONTHLY_FEE,
 
 }

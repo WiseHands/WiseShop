@@ -1,5 +1,10 @@
 package jobs;
 
+import enums.TransactionStatus;
+import enums.TransactionType;
+import models.CoinAccountDTO;
+import models.CoinTransactionDTO;
+import models.ShopDTO;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import play.jobs.*;
@@ -8,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @On("0 0 12 * * ?")
 public class MonthlyFee extends Job {
@@ -22,10 +28,53 @@ public class MonthlyFee extends Job {
         Long currentTimeInMmSec = System.currentTimeMillis();
         Date currentDate = new Date(currentTimeInMmSec);
 
-        if (calendar.getTime().equals(currentDate)){
-            System.out.println("calendar.getTime().equals(currentDate)" + calendar.getTime().equals(currentDate));
-            System.out.println("calendar.getTime() and (currentDate)" + calendar.getTime() +"\n"+ currentDate);
+        boolean isTodayFirstDayOfCurrentMonth = calendar.getTime().equals(currentDate);
+        if (isTodayFirstDayOfCurrentMonth){
+            List<ShopDTO> shopList = ShopDTO.findAll();
+            for (ShopDTO shop : shopList){
+                if (shop.pricingPlan != null){
+                    CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+                    if(coinAccount == null) {
+                        coinAccount = new CoinAccountDTO(shop);
+                        coinAccount = coinAccount.save();
+                    }
+                    CoinTransactionDTO transaction = new CoinTransactionDTO();
+                    transaction.type = TransactionType.MONTHLY_FEE;
+                    transaction.status = TransactionStatus.OK;
+                    transaction.account = coinAccount;
+                    transaction.amount = -shop.pricingPlan.commissionFee;
+                    transaction.time = System.currentTimeMillis() / 1000L;
+                    transaction = transaction.save();
+                    coinAccount.addTransaction(transaction);
+                    coinAccount.balance += transaction.amount;
+                    coinAccount.save();
+                    System.out.println("paid a monthly fee!!!!!!!!!!!");
+                }
+            }
         }
+
+    }
+
+    public void getMonthlyFee(ShopDTO shop) {
+
+        CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+        Double commissionFee = shop.pricingPlan.commissionFee;
+
+        if(coinAccount == null) {
+            coinAccount = new CoinAccountDTO(shop);
+            coinAccount = coinAccount.save();
+        }
+        CoinTransactionDTO transaction = new CoinTransactionDTO();
+        transaction.type = TransactionType.MONTHLY_FEE;
+        transaction.status = TransactionStatus.OK;
+        transaction.account = coinAccount;
+        transaction.amount = -commissionFee;
+        transaction.time = System.currentTimeMillis() / 1000L;
+        transaction = transaction.save();
+        coinAccount.addTransaction(transaction);
+        coinAccount.balance += transaction.amount;
+        coinAccount.save();
+
 
     }
 
