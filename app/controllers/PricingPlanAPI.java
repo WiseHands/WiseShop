@@ -1,8 +1,6 @@
 package controllers;
 
-import models.PricingPlanDTO;
-import models.ShopDTO;
-import models.UserDTO;
+import models.*;
 import responses.JsonHandleForbidden;
 
 import java.util.List;
@@ -15,6 +13,7 @@ public class PricingPlanAPI extends AuthController {
 
         String planName = request.params.get("planName");
         Double commissionFee = Double.valueOf(request.params.get("commissionFee"));
+        Double monthlyFee = Double.valueOf(request.params.get("monthlyFee"));
 
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
@@ -23,7 +22,7 @@ public class PricingPlanAPI extends AuthController {
         System.out.println("PARAMS: => " + planName + "/*/" + commissionFee);
 
         if (user.isSuperUser){
-            PricingPlanDTO pricingPlan = new PricingPlanDTO(planName, commissionFee);
+            PricingPlanDTO pricingPlan = new PricingPlanDTO(planName, commissionFee, monthlyFee);
             pricingPlan.save();
             getPricingPlanList();
         } else {
@@ -44,12 +43,15 @@ public class PricingPlanAPI extends AuthController {
         String pricingPlanUuid = request.params.get("uuid");
         String name = request.params.get("name");
         Double commissionFee = Double.valueOf(request.params.get("commissionFee"));
+        Double monthlyFee = Double.valueOf(request.params.get("monthlyFee"));
+
 
         System.out.println("updatingPricingPlan " + pricingPlanUuid + ":"+ commissionFee  + ":"+ name);
 
         PricingPlanDTO pricing = PricingPlanDTO.findById(pricingPlanUuid);
         pricing.name = name;
         pricing.commissionFee = commissionFee;
+        pricing.monthlyFee = monthlyFee;
         pricing.save();
 
         renderJSON(json(pricing));
@@ -66,7 +68,6 @@ public class PricingPlanAPI extends AuthController {
         JsonHandleForbidden json = new JsonHandleForbidden(200, "deleting plan successful");
         renderJSON(json(json));
     }
-
 
     public static void setPricingPlanToThisShop() throws Exception{
 

@@ -42,7 +42,7 @@ public class MonthlyFee extends Job {
                     transaction.type = TransactionType.MONTHLY_FEE;
                     transaction.status = TransactionStatus.OK;
                     transaction.account = coinAccount;
-                    transaction.amount = -shop.pricingPlan.commissionFee;
+                    transaction.amount = -shop.pricingPlan.monthlyFee;
                     transaction.time = System.currentTimeMillis() / 1000L;
                     transaction = transaction.save();
                     coinAccount.addTransaction(transaction);

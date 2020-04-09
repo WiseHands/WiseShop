@@ -21,11 +21,16 @@ public class PricingPlanDTO extends GenericModel {
     @Expose
     public Double commissionFee;
 
+    @Expose
+    public Double monthlyFee;
+
+
     @OneToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-    public PricingPlanDTO(String pricingPlanName, Double commissionFee){
+    public PricingPlanDTO(String pricingPlanName, Double commissionFee, Double monthlyFee){
         this.name = pricingPlanName;
         this.commissionFee = commissionFee;
+        this.monthlyFee = monthlyFee;
     }
 }
