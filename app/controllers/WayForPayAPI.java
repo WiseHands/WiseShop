@@ -107,10 +107,6 @@ public class WayForPayAPI extends AuthController {
         if (transactionStatus.equals("Approved")){
             if(transaction.status.equals(TransactionStatus.PENDING)) {
                 transaction.account.balance += transaction.amount;
-                if (transaction.account.balance > 0){
-                    transaction.account.shop.isInsufficientBalanceAmount = false;
-                    transaction.account.shop.save();
-                }
                 transaction.account.save();
                 transaction.confirmationTime = System.currentTimeMillis() / 1000L;
                 transaction.status = TransactionStatus.OK;
@@ -156,10 +152,6 @@ public class WayForPayAPI extends AuthController {
             coinAccount.addTransaction(transaction);
             coinAccount.balance += amount;
             coinAccount.save();
-            if (coinAccount.balance > 0){
-                shop.isInsufficientBalanceAmount = false;
-                shop.save();
-            }
             renderJSON(json(coinAccount));
         } else {
             renderJSON(json(new UserNotAllowedToPerformActionError()));

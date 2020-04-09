@@ -120,7 +120,8 @@ public class Application extends Controller {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
         // TODO Toni add new page
-        if (shop.isInsufficientBalanceAmount) {
+        CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+        if (coinAccount.balance < 0) {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
 

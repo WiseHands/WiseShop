@@ -160,9 +160,6 @@ public class ShopDTO extends GenericModel {
     @OneToOne(cascade=CascadeType.ALL)
     public PricingPlanDTO pricingPlan;
 
-    @Expose
-    public boolean isInsufficientBalanceAmount;
-
     @Transient
     private ShopNetworkDTO network;
 

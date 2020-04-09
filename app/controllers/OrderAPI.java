@@ -144,9 +144,6 @@ public class OrderAPI extends AuthController {
             coinAccount.addTransaction(transaction);
             coinAccount.balance += transaction.amount;
             coinAccount.save();
-            if (coinAccount.balance <= 0){
-                shop.isInsufficientBalanceAmount = true;
-            }
         }
 
         boolean isPaymentTypeEqualsCreditCard = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
