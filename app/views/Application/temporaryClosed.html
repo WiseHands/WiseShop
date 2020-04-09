@@ -1,18 +1,48 @@
 <!doctype html>
-<title>>${shop.shopName}</title>
+<title>${shop.shopName}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
 <style>
-  body { text-align: center; padding: 150px; }
-  h1 { font-size: 50px; }
-  body { font: 20px Helvetica, sans-serif; color: #333; }
-  article { display: block; text-align: left; width: 650px; margin: 0 auto; }
-  a { color: #dc8100; text-decoration: none; }
-  a:hover { color: #333; text-decoration: none; }
+  body {
+      margin: 0;
+      padding: 0;
+      font-family: font-family: 'Roboto', 'Helvetica', sans-serif;
+      text-align: center;
+  }
+  h1 {
+      font-size: 2.3rem;
+      font-weight: 400;
+      padding: 1rem 0;
+      margin: 0
+  }
+  p {
+      margin: 0;
+      padding: 0;
+  }
+  article {
+      height: 100%;
+  }
+  .no-items-store {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      padding: 2rem 0;
+  }
+  .no-items-store p {
+      padding: 1rem 0;
+  }
+  .no-items-store img {
+      max-width: 350px;
+  }
 </style>
 
 <article>
-    <h1>${shop.temporaryClosedTitle}</h1>
-    <div>
-        <p>${shop.temporaryClosedDescription}</p>
+    <div class="no-items-store">
         <p>${shop.shopName}</p>
+        <img src="/wisehands/assets/images/closed-store.svg">
+        <h1>${shop.temporaryClosedTitle}</h1>
+        <p>${shop.temporaryClosedDescription}</p>
     </div>
 </article>
