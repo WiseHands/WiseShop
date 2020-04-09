@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-import java.util.UUID;
 
 
 public class Application extends Controller {
@@ -118,6 +117,10 @@ public class Application extends Controller {
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
         if (shop.isTemporaryClosed) {
+            renderTemplate("Application/temporaryClosed.html", shop);
+        }
+        // TODO Toni add new page
+        if (shop.isInsufficientBalanceAmount) {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
 

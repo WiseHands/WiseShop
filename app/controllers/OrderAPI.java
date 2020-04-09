@@ -7,10 +7,7 @@ import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
 import json.shoppingcart.PaymentCreditCardConfiguration;
 import models.*;
-import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.codec.binary.Base64;
-import org.joda.time.DateTime;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.db.jpa.JPA;
@@ -148,7 +145,7 @@ public class OrderAPI extends AuthController {
             coinAccount.balance += transaction.amount;
             coinAccount.save();
             if (coinAccount.balance <= 0){
-                shop.isBalanceForShopLessThenCloseShop = true;
+                shop.isInsufficientBalanceAmount = true;
             }
         }
 

@@ -161,7 +161,7 @@ public class ShopDTO extends GenericModel {
     public PricingPlanDTO pricingPlan;
 
     @Expose
-    public boolean isBalanceForShopLessThenCloseShop;
+    public boolean isInsufficientBalanceAmount;
 
     @Transient
     private ShopNetworkDTO network;
