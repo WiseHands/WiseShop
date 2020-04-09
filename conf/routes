@@ -87,6 +87,11 @@ POST        {client}/api/wayforpay/generate-signature       WayForPayAPI.generat
 POST        {client}/api/wayforpay/offline-payment          WayForPayAPI.createOfflinePayment
 POST        {client}/wayforpay/payment-confirmation         WayForPayAPI.paymentConfirmation
 
+POST        {client}/api/pricing-plan/create           PricingPlanAPI.creatingPricingPlan
+GET         {client}/api/pricing-plan/get-list         PricingPlanAPI.getPricingPlanList
+POST        {client}/api/pricing-plan/update           PricingPlanAPI.updatingPricingPlan
+DELETE      {client}/api/pricing-plan/delete           PricingPlanAPI.deletingPricingPlan
+
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
