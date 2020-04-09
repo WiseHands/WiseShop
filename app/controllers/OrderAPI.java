@@ -134,16 +134,18 @@ public class OrderAPI extends AuthController {
         if (shop.pricingPlan != null){
             Double percentage = order.total * shop.pricingPlan.commissionFee / 100;
             CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
-            CoinTransactionDTO transaction = new CoinTransactionDTO();
-            transaction.type = TransactionType.COMMISSION_FEE;
-            transaction.status = TransactionStatus.OK;
-            transaction.account = coinAccount;
-            transaction.amount = -percentage;
-            transaction.time = System.currentTimeMillis() / 1000L;
-            transaction = transaction.save();
-            coinAccount.addTransaction(transaction);
-            coinAccount.balance += transaction.amount;
-            coinAccount.save();
+            if (coinAccount != null) {
+                CoinTransactionDTO transaction = new CoinTransactionDTO();
+                transaction.type = TransactionType.COMMISSION_FEE;
+                transaction.status = TransactionStatus.OK;
+                transaction.account = coinAccount;
+                transaction.amount = -percentage;
+                transaction.time = System.currentTimeMillis() / 1000L;
+                transaction = transaction.save();
+                coinAccount.addTransaction(transaction);
+                coinAccount.balance += transaction.amount;
+                coinAccount.save();
+            }
         }
 
         boolean isPaymentTypeEqualsCreditCard = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
