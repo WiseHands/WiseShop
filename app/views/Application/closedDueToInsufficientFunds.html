@@ -1,0 +1,48 @@
+<!doctype html>
+<title>${shop.shopName}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: font-family: 'Roboto', 'Helvetica', sans-serif;
+        text-align: center;
+    }
+    h1 {
+        font-size: 2.3rem;
+        font-weight: 400;
+        padding: 0.5rem 0 0 0;
+        margin: 0
+    }
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    article {
+        height: 100%;
+    }
+    .no-money {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        padding: 2rem 0;
+    }
+    .no-money p {
+        padding: 1rem 0;
+    }
+    .no-money img {
+        max-width: 350px;
+    }
+</style>
+
+<article>
+    <div class="no-money">
+        <p>${shop.shopName}</p>
+        <img src="/wisehands/assets/images/closed-store.svg">
+        <h1>${shop.temporaryClosedTitle}</h1>
+        <p>${shop.temporaryClosedDescription}</p>
+    </div>
+</article>

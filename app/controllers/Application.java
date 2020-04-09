@@ -119,10 +119,9 @@ public class Application extends Controller {
         if (shop.isTemporaryClosed) {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
-        // TODO Toni add new page
         CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
         if (coinAccount != null && coinAccount.balance < 0) {
-            renderTemplate("Application/temporaryClosed.html", shop);
+            renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
         }
 
         generateCookieIfNotPresent(shop);
