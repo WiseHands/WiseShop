@@ -1,6 +1,8 @@
 package controllers;
 
 import enums.OrderState;
+import enums.TransactionStatus;
+import enums.TransactionType;
 import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
 import json.shoppingcart.PaymentCreditCardConfiguration;
@@ -131,6 +133,25 @@ public class OrderAPI extends AuthController {
         }
 
         order.total = orderItemListResult.total;
+
+        if (shop.pricingPlan != null){
+            Double percentage = order.total * shop.pricingPlan.commissionFee / 100;
+            CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+            CoinTransactionDTO transaction = new CoinTransactionDTO();
+            transaction.type = TransactionType.COMMISSION_FEE;
+            transaction.status = TransactionStatus.OK;
+            transaction.account = coinAccount;
+            transaction.amount = -percentage;
+            transaction.time = System.currentTimeMillis() / 1000L;
+            transaction = transaction.save();
+            coinAccount.addTransaction(transaction);
+            coinAccount.balance += transaction.amount;
+            coinAccount.save();
+            if (coinAccount.balance <= 0){
+                shop.isBalanceForShopLessThenCloseShop = true;
+            }
+        }
+
         boolean isPaymentTypeEqualsCreditCard = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
         Boolean isClientPaysProcessingCommission = shop.paymentSettings.clientPaysProcessingCommission;
         if (isClientPaysProcessingCommission && isPaymentTypeEqualsCreditCard){

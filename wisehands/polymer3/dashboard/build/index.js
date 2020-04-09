@@ -2925,7 +2925,7 @@ class TableTransaction extends LitElement {
                     <div class="Rtable-cell amount-cell column-heading">Сума</div>
                     <div class="Rtable-cell status-cell column-heading">Статус</div>
                   </div>
-                    ${this.tranasctionList.map(item => html`    
+                    ${this.transactionList.map(item => html`    
                        
                        <div class="Rtable-row">
                       <div class="Rtable-cell date-cell">
@@ -2962,7 +2962,7 @@ class TableTransaction extends LitElement {
       shop: {
         type: Object
       },
-      tranasctionList: {
+      transactionList: {
         type: Array
       }
     };
@@ -2970,6 +2970,7 @@ class TableTransaction extends LitElement {
 
   constructor() {
     super();
+    this.transactionList = [];
   }
 
   setDateTime(secs) {
@@ -3059,6 +3060,12 @@ class BalanceContainer extends LitElement {
                         display: flex;
                         flex-direction: column;
                     }
+                    option{
+                        width: 100%;
+                    }
+                    select{
+                        width: -webkit-fill-available;
+                    }
                                      
             </style>
             
@@ -3077,20 +3084,20 @@ class BalanceContainer extends LitElement {
                 <span class="line"></span>
                 <section class="status-plane-container">
                     <div class="row-container">
+                        <p>Поточний тариф: ${this._getPlanName(this.shop.pricingPlan)}</p>
+                    </div>
+                    <div class="row-container">
                         <div class="drop-down-list">
                           <label for="plans">Тариф:</label>
                             <select id="plans">
                               ${this.pricePlanList.map(item => html`
-                                <option>${item.name}</option>
+                                <option id="${item.uuid}">${item.name}</option>
                               `)}
                             </select>
                             <button @click="${this.getPlaneForShop}">змінити</button>  
                         </div>
-                        
                     </div>
-                    <div class="row-container">
-                        <p>Статус: ${this.status}</p>
-                    </div>
+                    
                 </section>
                 <span class="line"></span>
                 <section class="administration-container">
@@ -3102,7 +3109,7 @@ class BalanceContainer extends LitElement {
                     </div>
                     <div class="transaction-table-container">
                         <p>Транзакції</p>
-                            <table-transaction .shop="${this.shop}" .tranasctionList="${this.coinAccount.transactionList}"></table-transaction>
+                            <table-transaction .shop="${this.shop}" .transactionList="${this.coinAccount.transactionList}"></table-transaction>
                         </div>
                 </section>
     
@@ -3142,6 +3149,12 @@ class BalanceContainer extends LitElement {
       },
       shop: {
         type: Object
+      },
+      plan: {
+        type: String
+      },
+      pricePlanList: {
+        type: Array
       }
     };
   }
@@ -3149,30 +3162,16 @@ class BalanceContainer extends LitElement {
   constructor() {
     super();
     this.coinAccount = {
-      balance: 0
+      balance: 0,
+      transactionList: []
     };
     this.amountPayment = 0;
     this.offlinePayment = 0;
     this.pricePlanList = [];
     this.getPricingPlanList();
-  }
-
-  getPricingPlanList() {
-    const _this = this;
-
-    const url = '/api/pricing-plan/get-list';
-    fetch(url, {
-      method: 'GET'
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      console.log('here click and get selected value from drop-down', data);
-      _this.pricePlanList = data;
+    this.addEventListener('set-plan-to-shop', event => {
+      this.shop = event.detail;
     });
-  }
-
-  getPlaneForShop() {
-    console.log('here click and get selected value from drop-down', this.shop);
   }
 
   updated(changedProperties) {
@@ -3191,9 +3190,65 @@ class BalanceContainer extends LitElement {
     this.generateGetRequest(url);
   }
 
+  _getPlanName(plan) {
+    if (plan) return plan.name;
+    return 'NOT_SELECTED';
+  }
+
+  getPricingPlanList() {
+    let _this = this;
+
+    const url = '/api/pricing-plan/get-list';
+    fetch(url, {
+      method: 'GET'
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      console.log('get getPricingPlanList from drop-down', data);
+      _this.pricePlanList = data;
+    });
+  }
+
+  getPlaneForShop() {
+    const plansList = this.shadowRoot.querySelector('#plans');
+    const selectedUuidByIndex = plansList.selectedIndex;
+    const pricingPlanUuid = plansList.querySelectorAll('option')[selectedUuidByIndex].id;
+    const url = `/api/pricing-plan/set-plan-to-shop?shopUuid=${this.shop.uuid}&pricingPlanUuid=${pricingPlanUuid}`;
+    this.setPricingPlanToThisShop(url);
+  }
+
+  setPricingPlanToThisShop(url) {
+    let _this = this;
+
+    fetch(url, {
+      method: 'POST'
+    }).then(function (response) {
+      console.log("response response: ", response);
+      return response.json();
+    }).then(function (data) {
+      console.log('data from setPricingPlanToThisShop: ', data, data.pricingPlan.name);
+      _this.shop = data;
+
+      _this.setPlanForShop();
+    });
+  }
+
+  setPlanForShop() {
+    this.dispatchEvent(new CustomEvent('open-balance', {
+      bubbles: true,
+      composed: true,
+      detail: this.shop
+    }));
+  }
+
   setBalanceForThisShop(data) {
-    this.coinAccount = data;
-    console.log(`setBalanceForThisShop: ${data.balance}`);
+    if (data) {
+      this.coinAccount = data;
+    } else {
+      this.coinAccount.balance = 0;
+    }
+
+    console.log("ERROR no data for setBalanceForThisShop!!!");
   }
 
   handleAmountPayment(e) {
@@ -3224,8 +3279,6 @@ class BalanceContainer extends LitElement {
       console.log("response response: ", response);
       return response.json();
     }).then(function (data) {
-      console.log('data for users: ', data);
-
       _this.setBalanceForThisShop(data);
     });
   }
@@ -3344,6 +3397,10 @@ class ShopTile extends LitElement {
                 .menu-item:hover{
                     background-color: darkgray;
                     cursor: pointer;
+                }
+                
+                img:hover {
+                transform: scale(1.1);
                 }
                                      
             </style>
@@ -3846,7 +3903,7 @@ class DashBoard extends LitElement {
                         border-bottom: 1px solid lightgrey;
                         font-family: 'Roboto', 'Helvetica', sans-serif;
                     }
-                    .menu-item[selected="true"] {
+                    .menu-item[selected] {
                         background-color: darkgrey;
                     }
                     .menu-item-logo{
@@ -3957,11 +4014,11 @@ class DashBoard extends LitElement {
                         </div>
                     </a>
                     <div class="mobile-tools-dash-board-container">
-                        <div class="menu-item" @click="${this.showShopListContainer}" selected="${this.isShowShopListContainer}">
+                        <div class="menu-item" @click="${this.showShopListContainer}" selected>
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
                             <p>Магазини</p>
                         </div>                        
-                        <div class="menu-item" @click="${this.showPricePlanListContainer}" selected="${this.isShowPricePlanListContainer}">
+                        <div class="menu-item" @click="${this.showPricePlanListContainer}">
                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/priceplane.png">
                            <p>Тарифи</p>
                         </div>
@@ -4004,11 +4061,11 @@ class DashBoard extends LitElement {
 
                 <div class="body-dash-board-container">
                     <div class="tools-dash-board-container border">
-                        <div class="menu-item" @click="${this.showShopListContainer}" selected="${this.isShowShopListContainer}">
+                        <div class="menu-item" @click="${this.showShopListContainer}" selected>
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
                             <p>Магазини</p>
                         </div>                        
-                        <div class="menu-item" @click="${this.showPricePlanListContainer}" selected="${this.isShowPricePlanListContainer}">
+                        <div class="menu-item" @click="${this.showPricePlanListContainer}">
                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/priceplane.png">
                            <p>Тарифи</p>
                         </div>
@@ -4157,12 +4214,23 @@ class DashBoard extends LitElement {
     window.location = "/ua/wizard";
   }
 
-  showShopListContainer() {
+  showShopListContainer(event) {
     this.hideSidebar();
     this.isShowShopListContainer = true;
     this.isShowBalanceContainer = false;
     this.isShowPricePlanListContainer = false;
     this.isShowPricePlanMainContainer = false;
+    this.setSelectedState(event.currentTarget);
+  }
+
+  setSelectedState(clickedMenuItem) {
+    const isClickedMenuItemSelected = clickedMenuItem.hasAttribute('selected');
+
+    if (!isClickedMenuItemSelected) {
+      const selectedMenuItems = this.shadowRoot.querySelectorAll('[selected]');
+      selectedMenuItems.forEach(item => item.removeAttribute('selected'));
+      clickedMenuItem.setAttribute('selected', '');
+    }
   }
 
   showBalanceContainer() {
@@ -4173,12 +4241,13 @@ class DashBoard extends LitElement {
     this.isShowPricePlanMainContainer = false;
   }
 
-  showPricePlanListContainer() {
+  showPricePlanListContainer(event) {
     this.hideSidebar();
     this.isShowPricePlanListContainer = true;
     this.isShowShopListContainer = false;
     this.isShowBalanceContainer = false;
     this.isShowPricePlanMainContainer = false;
+    this.setSelectedState(event.currentTarget);
   }
 
   showPricingPlanMainContainer() {
