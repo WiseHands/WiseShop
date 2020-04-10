@@ -20,8 +20,6 @@ import static controllers.UserAPI.*;
 
 public class WizardAPI extends AuthController {
 
-
-
     public static void getWizardInfo() throws Exception{
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);

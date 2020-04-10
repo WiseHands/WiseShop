@@ -7,6 +7,7 @@ import models.CoinTransactionDTO;
 import models.ShopDTO;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+import play.Logger;
 import play.jobs.*;
 
 import java.time.format.DateTimeFormatter;
@@ -19,6 +20,8 @@ import java.util.List;
 public class MonthlyFee extends Job {
 
     public void doJob() throws Exception {
+        System.out.println("MonthlyFee job");
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
 
@@ -29,6 +32,9 @@ public class MonthlyFee extends Job {
         Date currentDate = new Date(currentTimeInMmSec);
 
         boolean isTodayFirstDayOfCurrentMonth = calendar.getTime().equals(currentDate);
+        System.out.println("MonthlyFee job isTodayFirstDayOfCurrentMonth => " + isTodayFirstDayOfCurrentMonth);
+        Logger.info("MonthlyFee job isTodayFirstDayOfCurrentMonth => " + isTodayFirstDayOfCurrentMonth);
+
         if (isTodayFirstDayOfCurrentMonth){
             List<ShopDTO> shopList = ShopDTO.findAll();
             for (ShopDTO shop : shopList){

@@ -6,5 +6,6 @@ public enum TransactionType {
         COMMISSION_FEE,
         OFFLINE_REFILL,
         MONTHLY_FEE,
+        CHANGE_PRICING_PLAN,
 
 }

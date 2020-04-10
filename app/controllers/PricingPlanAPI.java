@@ -1,5 +1,7 @@
 package controllers;
 
+import enums.TransactionStatus;
+import enums.TransactionType;
 import models.*;
 import responses.JsonHandleForbidden;
 
@@ -54,6 +56,7 @@ public class PricingPlanAPI extends AuthController {
         pricing.monthlyFee = monthlyFee;
         pricing.save();
 
+
         renderJSON(json(pricing));
     }
 
@@ -78,8 +81,32 @@ public class PricingPlanAPI extends AuthController {
 
         ShopDTO shop = ShopDTO.findById(shopUuid);
         PricingPlanDTO pricingPlan = PricingPlanDTO.findById(pricingPlanUuid);
+
+        CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+        if(coinAccount == null) {
+            coinAccount = new CoinAccountDTO(shop);
+            coinAccount = coinAccount.save();
+        }
+        if (coinAccount.balance < pricingPlan.monthlyFee) {
+            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(
+                    420, "Недостатньо коштів для підключення тарифу", shop);
+            renderJSON(json(jsonHandleForbidden));
+        }
+
+        CoinTransactionDTO transaction = new CoinTransactionDTO();
+        transaction.type = TransactionType.CHANGE_PRICING_PLAN;
+        transaction.status = TransactionStatus.OK;
+        transaction.account = coinAccount;
+        transaction.amount = -pricingPlan.monthlyFee;
+        transaction.time = System.currentTimeMillis() / 1000L;
+        transaction = transaction.save();
+        coinAccount.addTransaction(transaction);
+        coinAccount.balance += -pricingPlan.monthlyFee;
+        coinAccount.save();
         shop.pricingPlan = pricingPlan;
+        shop.coinAccount = coinAccount;
         shop.save();
+
         renderJSON(json(shop));
     }
 

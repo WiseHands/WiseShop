@@ -216,7 +216,6 @@ public class WayForPayAPI extends AuthController {
         return transaction.uuid;
     }
 
-
     public static String formatDecimal(Double amount) {
         return String.format("%.2f", amount); // dj_segfault
     }

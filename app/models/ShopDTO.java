@@ -1,7 +1,6 @@
 package models;
 
 import com.google.gson.annotations.Expose;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
@@ -160,6 +159,10 @@ public class ShopDTO extends GenericModel {
     @OneToOne(cascade=CascadeType.ALL)
     public PricingPlanDTO pricingPlan;
 
+    @Expose
+    @OneToOne
+    public CoinAccountDTO coinAccount;
+
     @Transient
     private ShopNetworkDTO network;
 
@@ -208,7 +211,7 @@ public class ShopDTO extends GenericModel {
         this.domain = customDomain;
         this.locale = locale;
         this.alwaysOpen = true;
-        this.isTemporaryClosed = true;
+        this.isTemporaryClosed = false;
     }
 
     public List<CategoryDTO> getActiveCategories() {
