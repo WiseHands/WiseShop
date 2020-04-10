@@ -2696,6 +2696,10 @@ class PricePlanMain extends LitElement {
                 <input .value="${this.pricePlan.commissionFee}" @input="${this.handlePricePlanCommissionFee}">
               </div>
               <div class="container row">
+                <p>Щомісячний платіж по тарифу: </p>
+                <input .value="${this.pricePlan.monthlyFee}" @input="${this.handlePricePlanMonthlyFee}">
+              </div>
+              <div class="container row">
                 <button @click="${this.savingPricePlan}">Зберегти</button>
                 <button @click="${this.removingPricePlan}">Видалити</button>
               </div>  
@@ -2730,6 +2734,10 @@ class PricePlanMain extends LitElement {
     this.pricePlan.commissionFee = e.target.value;
   }
 
+  handlePricePlanMonthlyFee(e) {
+    this.pricePlan.monthlyFee = e.target.value;
+  }
+
   showPricingPlanWidgetForShop() {
     this.dispatchEvent(new CustomEvent('open-pricing-plan-list', {
       bubbles: true,
@@ -2741,7 +2749,7 @@ class PricePlanMain extends LitElement {
   savingPricePlan() {
     const _this = this;
 
-    const url = `/api/pricing-plan/update?name=${this.pricePlan.name}&commissionFee=${this.pricePlan.commissionFee}&uuid=${this.pricePlan.uuid}`;
+    const url = `/api/pricing-plan/update?name=${this.pricePlan.name}&commissionFee=${this.pricePlan.commissionFee}&uuid=${this.pricePlan.uuid}&monthlyFee=${this.pricePlan.monthlyFee}`;
     fetch(url, {
       method: 'POST'
     }).then(function (response) {
@@ -3002,6 +3010,8 @@ class TableTransaction extends LitElement {
       status = 'Списання комісії';
     } else if (statusCode === 'OFFLINE_REFILL') {
       status = 'Поповнення рахунку (офлайн)';
+    } else if (statusCode === 'MONTHLY_FEE') {
+      status = 'Списання місячної плати';
     }
 
     return status;
@@ -3169,9 +3179,6 @@ class BalanceContainer extends LitElement {
     this.offlinePayment = 0;
     this.pricePlanList = [];
     this.getPricingPlanList();
-    this.addEventListener('set-plan-to-shop', event => {
-      this.shop = event.detail;
-    });
   }
 
   updated(changedProperties) {
@@ -3654,6 +3661,10 @@ class PricePlanListContainer extends LitElement {
                     <p>Відсоток комісії (показати %)</p>
                     <input id="commission" .value=${this.commissionForPlane} @input="${this.handleCommissionForPlane}">                
                   </div>
+                   <div class="plan-commission-container">
+                    <p>Щомісячний платіж</p>
+                    <input id="monthly" .value=${this.monthlyFee} @input="${this.handleMonthlyFee}">                
+                  </div>
                   <div>
                     <button @click="${this.savingPricePlane}">Зберегти</button>                  
                   </div>
@@ -3678,6 +3689,9 @@ class PricePlanListContainer extends LitElement {
       commissionForPlane: {
         type: String
       },
+      monthlyFee: {
+        type: String
+      },
       isShowPricePlanContainer: {
         type: Boolean
       },
@@ -3694,6 +3708,7 @@ class PricePlanListContainer extends LitElement {
     super();
     this.planName = '';
     this.commissionForPlane = '';
+    this.monthlyFee = '';
     this.isShowPricePlanContainer = true;
     this.pricePlanList = [];
     this.getPricingPlanList();
@@ -3707,13 +3722,17 @@ class PricePlanListContainer extends LitElement {
     this.commissionForPlane = e.target.value;
   }
 
+  handleMonthlyFee(e) {
+    this.monthlyFee = e.target.value;
+  }
+
   creatingPricePlanForShops() {
     this.isShowCreatingPricePlan = true;
     this.isShowPricePlanContainer = false;
   }
 
   savingPricePlane() {
-    const url = `/api/pricing-plan/create?planName=${this.planName}&commissionFee=${this.commissionForPlane}`;
+    const url = `/api/pricing-plan/create?planName=${this.planName}&commissionFee=${this.commissionForPlane}&monthlyFee=${this.monthlyFee}`;
     this.generatePostRequestForCreatingPricingPlan(url);
   }
 
@@ -3771,11 +3790,19 @@ class DashBoard extends LitElement {
                 .main-container {
                     height: 100vh;
                 }
+                .dash-block {
+                    max-width: 900px;
+                    margin: 0 auto;
+                }    
                 .header-profile-container{
+                    width: 100%;
+                }
+                .header-dash-block {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    height: 56px;
+                    max-width: 900px;
+                    margin: 0 auto;
                 }
                     .logo-container{
                         display: flex;
@@ -3783,6 +3810,7 @@ class DashBoard extends LitElement {
                         justify-content: space-between;
                         font-family: 'Roboto', 'Helvetica', sans-serif;
                         font-size: 20px;
+                        padding-left: 0.5rem;
                     }
                     .logo{
                         height: 48px;
@@ -3857,8 +3885,9 @@ class DashBoard extends LitElement {
                 .sidebar-logo {
                     display: flex;
                     align-items: center;
-                    height: 58px;
-                    padding: 0.5rem;
+                    height: 63px;
+                    padding-left: 0.7rem;
+
                 }
                 .sidebar-logo img {
                     width: 36px;
@@ -3898,21 +3927,23 @@ class DashBoard extends LitElement {
                     .menu-item {
                         display: flex;
                         align-items: center;
-                        justify-content: center;
                         height: 4em;
-                        border-bottom: 1px solid lightgrey;
                         font-family: 'Roboto', 'Helvetica', sans-serif;
+                        padding-left: 1rem; 
+                        margin: 0.5rem;
+                        border-radius: 5px;
                     }
                     .menu-item[selected] {
-                        background-color: darkgrey;
+                        background-color: #eaf0fa;
                     }
                     .menu-item-logo{
                         height: 24px;
                         width: 24px;
                         margin: 5px;
+                        padding-right: 0.5rem;
                     }
                     .menu-item:hover{
-                        background-color: darkgrey;
+                        background-color: #eaf0fa;
                         cursor: pointer;
                     }
                 .work-place-dash-board-container{
@@ -3990,6 +4021,11 @@ class DashBoard extends LitElement {
                         display: flex;
                         width: 100%;
                     }
+                @media screen and (min-width: 1500px) {
+                    .dash-block, .header-dash-block {
+                    max-width: 1300px;
+                    }
+                }    
                 @media screen and (max-width: 768px) {
                     .tools-dash-board-container, .profile-info-container, .logo-container  {
                         display: none;
@@ -4032,34 +4068,35 @@ class DashBoard extends LitElement {
         
                 </div>
             </div>
-            <div class="main-container">
+            <div class="main-container ">
                                 
                 <div class="header-profile-container border">
-                    <div class="logo-container">
-                        <img class="logo" src="wisehands/assets/images/dashboard/main_logo_black.png">
-                        <p class="product-name">WSTORE</p>
-                    </div>
-                    <div class="profile-info-container">
-                        <div class="profile-info">
-                            <p>${this.userFullName}</p>                                                        
+                    <div class="header-dash-block">
+                        <div class="logo-container">
+                            <img class="logo" src="/wisehands/assets/images/dashboard/main_logo_black.png">
+                            <p class="product-name">WSTORE</p>
                         </div>
-                        <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
-                    </div>
-                    
-                    <div class="mobile-logo-container" @click="${this.showSideMenu}">
-                        <img class="logo" src="wisehands/assets/images/dashboard/menu.svg">
-                    </div>
-                    
-                    <div class="mobile-profile-info-container">
-                        <div class="profile-info">
-                            <p>${this.userFullName}</p>                                                        
+                        <div class="profile-info-container">
+                            <div class="profile-info">
+                                <p>${this.userFullName}</p>                                                        
+                            </div>
+                            <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
                         </div>
-                        <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
-                    </div>
-                                     
+                        
+                        <div class="mobile-logo-container" @click="${this.showSideMenu}">
+                            <img class="logo" src="wisehands/assets/images/dashboard/menu.svg">
+                        </div>
+                        
+                        <div class="mobile-profile-info-container">
+                            <div class="profile-info">
+                                <p>${this.userFullName}</p>                                                        
+                            </div>
+                            <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
+                        </div>
+                    </div>                 
                 </div>
 
-                <div class="body-dash-board-container">
+                <div class="body-dash-board-container dash-block">
                     <div class="tools-dash-board-container border">
                         <div class="menu-item" @click="${this.showShopListContainer}" selected>
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
@@ -4067,7 +4104,7 @@ class DashBoard extends LitElement {
                         </div>                        
                         <div class="menu-item" @click="${this.showPricePlanListContainer}">
                            <img class="menu-item-logo" src="wisehands/assets/images/dashboard/priceplane.png">
-                           <p>Тарифи</p>
+                           <p>Тарифи</p>    
                         </div>
                         <div class="menu-item" @click="${this.logOutUser}">
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-user-dashboard.svg">
@@ -4155,8 +4192,16 @@ class DashBoard extends LitElement {
   }
 
   openBalance() {
+    const _this = this;
+
     this.addEventListener('open-balance', event => {
-      this.selectedShop = event.detail;
+      _this.selectedShop = event.detail;
+      console.log("open-balance in addEventListener: ", event.detail);
+      this.shopList.forEach(shop => {
+        if (shop.uuid = _this.selectedShop.uuid) {
+          shop.pricingPlan = _this.selectedShop.pricingPlan;
+        }
+      });
       this.showBalanceContainer();
     });
   }
