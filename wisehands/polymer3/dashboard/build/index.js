@@ -2808,19 +2808,19 @@ class TableTransaction extends LitElement {
                 /* Table column sizing
                 ================================== */
                 .date-cell {
-                  width: 20%;
+                  width: 22%;
                 }
                 .topic-cell {
-                  width: 30%;
+                  width: 20%;
                 }
                 .type-cell {
-                  width: 18%;
+                  width: 20%;
                 }
                 .amount-cell {
-                  width: 16%;
+                  width: 18%;
                 }
                 .status-cell {
-                  width: 16%;
+                  width: 20%;
                 }
                 /* Apply styles
                 ================================== */
@@ -3007,11 +3007,13 @@ class TableTransaction extends LitElement {
     } else if (statusCode === 'TRANSFER') {
       status = 'Переказ';
     } else if (statusCode === 'COMMISSION_FEE') {
-      status = 'Списання комісії';
+      status = 'Комісія за куплений товар';
     } else if (statusCode === 'OFFLINE_REFILL') {
       status = 'Поповнення рахунку (офлайн)';
     } else if (statusCode === 'MONTHLY_FEE') {
-      status = 'Списання місячної плати';
+      status = `Щомісячна оплата тарифу: ${this.shop.pricingPlan.name}`;
+    } else if (statusCode === 'CHANGE_PRICING_PLAN') {
+      status = `Зміна трафного плану: ${this.shop.pricingPlan.name}`;
     }
 
     return status;
@@ -3045,6 +3047,13 @@ class BalanceContainer extends LitElement {
                         display: flex;
                         flex-direction: column;
                     }
+                        .column-container{
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            margin: 2.5px;
+
+                        }
                         .row-container{
                             display: flex;
                             flex-direction: row;
@@ -3055,8 +3064,9 @@ class BalanceContainer extends LitElement {
                         .row-container input, button{
                             margin: 5px;
                         }
-                        drop-down-list{
-                            margin: 5px;
+                        .drop-down-list{
+                            display: flex;
+                            margin: 10px;
                         }
                     .status-plane-container{
                         display: flex;
@@ -3096,7 +3106,7 @@ class BalanceContainer extends LitElement {
                     <div class="row-container">
                         <p>Поточний тариф: ${this._getPlanName(this.shop.pricingPlan)}</p>
                     </div>
-                    <div class="row-container">
+                    <div class="column-container">
                         <div class="drop-down-list">
                           <label for="plans">Тариф:</label>
                             <select id="plans">
@@ -3104,8 +3114,11 @@ class BalanceContainer extends LitElement {
                                 <option id="${item.uuid}">${item.name}</option>
                               `)}
                             </select>
-                            <button @click="${this.getPlaneForShop}">змінити</button>  
-                        </div>
+                        </div>    
+                        <div class="row-container">
+                          <button @click="${this.getPlaneForShop}">змінити</button>
+                          <p style="color: red">${this.errorForPricingPlan}</p>
+                        </div>    
                     </div>
                     
                 </section>
@@ -3165,6 +3178,9 @@ class BalanceContainer extends LitElement {
       },
       pricePlanList: {
         type: Array
+      },
+      errorForPricingPlan: {
+        type: String
       }
     };
   }
@@ -3175,6 +3191,7 @@ class BalanceContainer extends LitElement {
       balance: 0,
       transactionList: []
     };
+    this.errorForPricingPlan = '';
     this.amountPayment = 0;
     this.offlinePayment = 0;
     this.pricePlanList = [];
@@ -3199,7 +3216,7 @@ class BalanceContainer extends LitElement {
 
   _getPlanName(plan) {
     if (plan) return plan.name;
-    return 'NOT_SELECTED';
+    return 'Не встановлено';
   }
 
   getPricingPlanList() {
@@ -3233,14 +3250,27 @@ class BalanceContainer extends LitElement {
       console.log("response response: ", response);
       return response.json();
     }).then(function (data) {
-      console.log('data from setPricingPlanToThisShop: ', data, data.pricingPlan.name);
-      _this.shop = data;
+      console.log('data from setPricingPlanToThisShop: ', data);
 
-      _this.setPlanForShop();
+      _this.setPlanForShop(data);
     });
   }
 
-  setPlanForShop() {
+  setPlanForShop(data) {
+    this.setBalanceForThisShop(data.coinAccount);
+
+    if (data.status) {
+      this.errorForPricingPlan = `${data.message}`;
+      this.shop = data.shop;
+      this.coinAccount = data.shop.coinAccount;
+    }
+
+    if (data.uuid) {
+      this.errorForPricingPlan = '';
+      this.transactionList = data.coinAccount.transactionList;
+      this.shop = data;
+    }
+
     this.dispatchEvent(new CustomEvent('open-balance', {
       bubbles: true,
       composed: true,
@@ -3255,7 +3285,7 @@ class BalanceContainer extends LitElement {
       this.coinAccount.balance = 0;
     }
 
-    console.log("ERROR no data for setBalanceForThisShop!!!");
+    console.log("ERROR no data for setBalanceForThisShop!!!", data);
   }
 
   handleAmountPayment(e) {
