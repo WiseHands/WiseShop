@@ -352,6 +352,23 @@ public class OrderAPI extends AuthController {
         order.state = OrderState.CANCELLED;
         order.save();
 
+        if (shop.pricingPlan != null){
+            Double percentage = order.total * shop.pricingPlan.commissionFee / 100;
+            CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+            if (coinAccount != null) {
+                CoinTransactionDTO transaction = new CoinTransactionDTO();
+                transaction.type = TransactionType.ORDER_CANCELLED;
+                transaction.status = TransactionStatus.OK;
+                transaction.account = coinAccount;
+                transaction.amount = percentage;
+                transaction.time = System.currentTimeMillis() / 1000L;
+                transaction = transaction.save();
+                coinAccount.addTransaction(transaction);
+                coinAccount.balance += transaction.amount;
+                coinAccount.save();
+            }
+        }
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         System.out.println("User " + loggedInUser.name + " marked order " + order.name + " as CANCELLED at " + dateFormat.format(date));
