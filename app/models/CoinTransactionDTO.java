@@ -24,6 +24,9 @@ public class CoinTransactionDTO extends GenericModel {
     public CoinAccountDTO account;
 
     @Expose
+    public String orderUuid;
+
+    @Expose
     @Enumerated
     public TransactionType type;
 

@@ -130,6 +130,7 @@ public class OrderAPI extends AuthController {
         }
 
         order.total = orderItemListResult.total;
+        order = order.save();
 
         if (shop.pricingPlan != null){
             Double percentage = order.total * shop.pricingPlan.commissionFee / 100;
@@ -139,6 +140,7 @@ public class OrderAPI extends AuthController {
                 transaction.type = TransactionType.COMMISSION_FEE;
                 transaction.status = TransactionStatus.OK;
                 transaction.account = coinAccount;
+                transaction.orderUuid = order.uuid;
                 transaction.amount = -percentage;
                 transaction.time = System.currentTimeMillis() / 1000L;
                 transaction = transaction.save();
@@ -154,7 +156,6 @@ public class OrderAPI extends AuthController {
             order.total += order.total * PaymentCreditCardConfiguration._paymentComission;
             order.total = Math.round(order.total * 100.0) / 100.0;
         }
-
 
         boolean isBiggerThanMimimal = true;
         if(shop.paymentSettings.minimumPayment != null) {
@@ -361,6 +362,7 @@ public class OrderAPI extends AuthController {
                 transaction.status = TransactionStatus.OK;
                 transaction.account = coinAccount;
                 transaction.amount = percentage;
+                transaction.orderUuid = order.uuid;
                 transaction.time = System.currentTimeMillis() / 1000L;
                 transaction = transaction.save();
                 coinAccount.addTransaction(transaction);
