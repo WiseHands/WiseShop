@@ -36,7 +36,7 @@
         <div class="row text-center card-block">
             <div class="admin-all-orders">
                 <div class="admin-order-card">
-                    <h4>Замовник</h4>
+                    <h4>{{'singleOrder.titleCustomer' | translate}}</h4>
                     <div class="admin-order-card-row">
                         <h5>{{'singleOrder.FullName' | translate}}: </h5>
                         <p>{{order.name}}</p>
@@ -52,7 +52,7 @@
 
                 </div>
                 <div class="admin-order-card">
-                    <h4>{{'singleOrder.Order' | translate}}: </h4>
+                    <h4>{{'singleOrder.titleOrder' | translate}}</h4>
                     <div class="admin-order-card-row">
                         <h5>{{'singleOrder.OrderAmount' | translate}}:  </h5>
                         <p>{{order.total}} {{'orderList.Currency' | translate}}</p>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="admin-order-card">
-                    <h4>Доставка</h4>
+                    <h4>{{'singleOrder.titleDelivery' | translate}}</h4>
                     <div class="admin-order-card-row">
                         <h5>{{'singleOrder.deliveryType' | translate}}: </h5>
                         <p>{{order.deliveryType}}</p>
@@ -119,7 +119,7 @@
 
                 </div>
                 <div class="admin-order-card">
-                    <h4>Оплата</h4>
+                    <h4>{{'singleOrder.titlePayment' | translate}}</h4>
                     <div class="admin-order-card-row">
                         <h5>{{'singleOrder.paymentType' | translate}}:</h5>
                         <p>{{order.paymentType}}</p>
