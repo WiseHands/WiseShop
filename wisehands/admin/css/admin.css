@@ -1025,6 +1025,41 @@ input {
 .no-items-store img {
     width: 350px;
 }
+.admin-container {
+    max-width: 900px;
+    margin:  0 auto;
+    padding: 1rem;
+}
+.admin-all-orders {
+    display: flex;
+    flex-wrap: wrap;
+}
+.admin-order-card {
+    flex: 1 1 calc(50% - 2rem) ;
+    margin: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    padding: 1rem 2rem;
+}
+.admin-order-card p, .admin-order-card h4 {
+    padding: 0;
+    margin: 0;
+}
+.admin-order-card-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2rem 0;
+}
+.admin-order-card-row h5 {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+@media screen and (min-width: 1500px) {
+    .admin-container {
+        max-width: 1300px;
+    }
+}
 @media screen and (max-width: 768px) {
     .add-product-block {
         flex-direction: column;
