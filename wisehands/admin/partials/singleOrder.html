@@ -82,6 +82,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="admin-order-card-row">
+                        <h5 ng-show="order.comment">{{'singleOrder.Comments' | translate}}:</h5>
+                        <p>{{order.comment}}</p>
+                    </div>
                 </div>
                 <div class="admin-order-card">
                     <h4>{{'singleOrder.titleDelivery' | translate}}</h4>
@@ -116,7 +120,6 @@
                             <p>{{order.clientAddressApartmentNumber}}</p>
                         </div>
                     </div>
-
                 </div>
                 <div class="admin-order-card">
                     <h4>{{'singleOrder.titlePayment' | translate}}</h4>
@@ -127,10 +130,6 @@
                     <div class="admin-order-card-row">
                         <h5>{{'singleOrder.Date' | translate}}: </h5>
                         <p>{{properDate}}</p>
-                    </div>
-                    <div class="admin-order-card-row">
-                        <h5 ng-show="order.comment">{{'singleOrder.Comments' | translate}}:</h5>
-                        <p>{{order.comment}}</p>
                     </div>
                     <div class="admin-order-card-row">
                         <h5>{{'singleOrder.Platform' | translate}}: </h5>
