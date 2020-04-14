@@ -145,7 +145,12 @@
                         <h4>{{'singleOrder.titlePayment' | translate}}</h4>
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.paymentType' | translate}}:</h5>
-                            <p>{{order.paymentType}}</p>
+                            <div ng-show="order.paymentType === 'CREDITCARD'">
+                                <p>{{'singleOrder.paymentTypeOnline' | translate}}</p>
+                            </div>
+                            <div ng-show="order.paymentType === 'CASHONDELIVERY'">
+                                <p>{{'singleOrder.paymentTypeCash' | translate}}</p>
+                            </div>
                         </div>
                         <!--<div class="admin-order-card-row" ng-hide="order.paymentType === 'CASHONDELIVERY'">-->
                             <!--<h5>{{'singleOrder.paymentState' | translate}}:</h5>-->
