@@ -141,9 +141,9 @@
                             <h5>{{'singleOrder.paymentType' | translate}}:</h5>
                             <p>{{order.paymentType}}</p>
                         </div>
-                        <div class="admin-order-card-row">
-                            <h5>{{'singleOrder.paymentStatus' | translate}}:</h5>
-                            <p></p>
+                        <div class="admin-order-card-row" ng-hide="order.paymentType === 'CASHONDELIVERY'">
+                            <h5>{{'singleOrder.paymentState' | translate}}:</h5>
+                            <p>{{order.paymentState}}</p>
                         </div>
 
                         <div class="admin-order-card-row">
@@ -183,7 +183,6 @@
                         <h5 ng-show="order.clientAddressApartmentEntranceCode">{{'singleOrder.AddressApartmentEntranceCode' | translate}} <p><i>{{order.clientAddressApartmentEntranceCode}}</i></p></h5>
                         <h5 ng-show="order.clientAddressApartmentFloor">{{'singleOrder.AddressApartmentFloor' | translate}} <p><i>{{order.clientAddressApartmentFloor}}</i></p></h5>
                         <h5 ng-show="order.clientAddressApartmentNumber" >{{'singleOrder.AddressApartmentNumber' | translate}} <p><i>{{order.clientAddressApartmentNumber}}</i></p></h5>
-
                 </div>
                 <div ng-show="order.deliveryType === 'POSTSERVICE' || order.deliveryType === 'NOVAPOSHTA'" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'COURIER'">
                     <h5>{{'singleOrder.clientCity' | translate}} <p><i>{{order.clientCity}}</i></p></h5>
