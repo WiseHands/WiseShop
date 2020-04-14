@@ -1,6 +1,7 @@
 package controllers;
 
 import enums.OrderState;
+import enums.PaymentState;
 import enums.TransactionStatus;
 import enums.TransactionType;
 import jobs.SendSmsJob;
@@ -130,6 +131,7 @@ public class OrderAPI extends AuthController {
         }
 
         order.total = orderItemListResult.total;
+        order.paymentState = PaymentState.PENDING;
         order = order.save();
 
         if (shop.pricingPlan != null){
@@ -420,6 +422,7 @@ public class OrderAPI extends AuthController {
             String status = String.valueOf(jsonObject.get("status"));
             if (status.equals("failure") || status.equals("wait_accept")){
                 order.state = OrderState.PAYMENT_ERROR;
+                order.paymentState = PaymentState.PAYMENT_ERROR;
                 order = order.save();
                 String smsText = Messages.get("payment.error.total", order.name, order.total);
                 for (UserDTO user : shop.userList) {
@@ -435,6 +438,7 @@ public class OrderAPI extends AuthController {
                 ok();
             } else {
                 order.state = OrderState.PAYED;
+                order.paymentState = PaymentState.PAYED;
                 order = order.save();
 
                 Double amount = order.total * WISEHANDS_COMISSION;
