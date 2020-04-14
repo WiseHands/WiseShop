@@ -56,6 +56,8 @@
   "singleOrder.paymentTypeOnline": "Online",
   "singleOrder.paymentTypeCash": "Cash",
   "singleOrder.paymentState": "Status",
+  "singleOrder.paymentStatePending": "Pending",
+  "singleOrder.paymentStatePaid": "Paid",
   "singleOrder.Platform": "Platform",
   "singleOrder.SmsSentToCustomer": "SMS sent to customer",
   "singleOrder.SmsSentToManager": "SMS sent to manager",
