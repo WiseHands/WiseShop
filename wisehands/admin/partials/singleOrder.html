@@ -51,6 +51,10 @@
                             <p>{{order.email}}</p>
                         </div>
                         <div class="admin-order-card-row">
+                            <h5>{{'singleOrder.Date' | translate}}: </h5>
+                            <p>{{properDate}}</p>
+                        </div>
+                        <div class="admin-order-card-row">
                             <h5>{{'singleOrder.Platform' | translate}}: </h5>
                             <p>{{userAgent}}</p>
                         </div>
@@ -73,9 +77,11 @@
                         <div class="address-order-container" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'POSTSERVICE'">
                             <div class="admin-order-card-row">
                                 <h5>{{'singleOrder.Address' | translate}}:</h5>
-                                <p>{{address}}
+                                <p>
                                     <a ng-show="order.clientAddressStreetLat"
-                                       href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLat}},{{order.clientAddressStreetLng}}&15z&hl=en" target="_blank"><i class="material-icons pointIconColor">place</i>
+                                       href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLat}},{{order.clientAddressStreetLng}}&15z&hl=en" target="_blank">
+                                        <i class="material-icons pointIconColor">place</i>
+                                        {{address}}
                                     </a>
                                 </p>
                             </div>
@@ -133,10 +139,6 @@
                             </div>
                         </div>
                         <div class="admin-order-card-row">
-                            <h5>{{'singleOrder.Date' | translate}}: </h5>
-                            <p>{{properDate}}</p>
-                        </div>
-                        <div class="admin-order-card-row">
                             <h5 ng-show="order.comment">{{'singleOrder.Comments' | translate}}:</h5>
                             <p>{{order.comment}}</p>
                         </div>
@@ -145,10 +147,12 @@
                         <h4>{{'singleOrder.titlePayment' | translate}}</h4>
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.paymentType' | translate}}:</h5>
-                            <div ng-show="order.paymentType === 'CREDITCARD'">
+                            <div class="payment-order-icon" ng-show="order.paymentType === 'CREDITCARD'">
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 <p>{{'singleOrder.paymentTypeOnline' | translate}}</p>
                             </div>
-                            <div ng-show="order.paymentType === 'CASHONDELIVERY'">
+                            <div class="payment-order-icon" ng-show="order.paymentType === 'CASHONDELIVERY'">
+                                <i class="fa fa-money" aria-hidden="true"></i>
                                 <p>{{'singleOrder.paymentTypeCash' | translate}}</p>
                             </div>
                         </div>

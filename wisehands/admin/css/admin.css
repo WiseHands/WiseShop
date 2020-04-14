@@ -1075,6 +1075,13 @@ input {
 .order-details-image p {
     color: #000;
 }
+.payment-order-icon {
+    display: flex;
+    align-items: center;
+}
+.payment-order-icon p {
+    margin-left: 3px;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
