@@ -1066,6 +1066,9 @@ input {
 .admin-order-details-row {
     display: flex;
 }
+.admin-order-details-row p {
+    text-align: left;
+}
 .order-details-image {
     display: flex;
     align-items: center;
