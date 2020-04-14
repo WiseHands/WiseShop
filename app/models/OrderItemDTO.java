@@ -37,6 +37,9 @@ public class OrderItemDTO extends GenericModel{
     public String fileName;
 
     @Expose
+    public String imagePath;
+
+    @Expose
     public Integer quantity;
 
     @Expose
