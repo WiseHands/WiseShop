@@ -57,6 +57,7 @@
   "singleOrder.Phone": "Номер телефону",
   "singleOrder.deliveryType": "Тип доставки",
   "singleOrder.paymentType": "Тип оплати",
+  "singleOrder.paymentStatus": "Статус оплати",
   "singleOrder.Platform": "Платформа",
   "singleOrder.SmsSentToCustomer": "SMS надіслано замовнику",
   "singleOrder.SmsSentToManager": "SMS надіслано менеджеру",

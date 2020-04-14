@@ -1034,8 +1034,12 @@ input {
     display: flex;
     flex-wrap: wrap;
 }
+.admin-all-orders-col {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 50%;
+}
 .admin-order-card {
-    flex: 1 1 calc(50% - 2rem) ;
     margin: 1rem;
     border-radius: 10px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
@@ -1044,6 +1048,9 @@ input {
 .admin-order-card p, .admin-order-card h4 {
     padding: 0;
     margin: 0;
+}
+.admin-order-card h4 {
+    text-align: left;
 }
 .admin-order-card-row {
     display: flex;

@@ -54,6 +54,7 @@
   "singleOrder.Phone": "Numer telefonu",
   "singleOrder.deliveryType": "Typ dostawy",
   "singleOrder.paymentType": "Typ płatności",
+  "singleOrder.paymentStatus": "Status płatności",
   "singleOrder.Platform": "Platforma",
   "singleOrder.SmsSentToCustomer": "SMS wysłany do klientaу",
   "singleOrder.SmsSentToManager": "SMS wysłany do menedżera",

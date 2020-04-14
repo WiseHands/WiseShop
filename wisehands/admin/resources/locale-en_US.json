@@ -50,6 +50,7 @@
   "singleOrder.Email": "Email",
   "singleOrder.deliveryType": "Delivery type",
   "singleOrder.paymentType": "Payment type",
+  "singleOrder.paymentStatus": "Payment status",
   "singleOrder.Platform": "Platform",
   "singleOrder.SmsSentToCustomer": "SMS sent to customer",
   "singleOrder.SmsSentToManager": "SMS sent to manager",
