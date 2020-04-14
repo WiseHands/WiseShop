@@ -1063,6 +1063,9 @@ input {
     font-weight: 400;
     padding-right: 0.5rem;
 }
+.admin-order-details-row {
+    display: flex;
+}
 .order-details-image {
     display: flex;
     align-items: center;

@@ -62,7 +62,7 @@
   "singleOrder.paymentType": "Тип",
   "singleOrder.paymentTypeOnline": "Онлайн",
   "singleOrder.paymentTypeCash": "Готівка",
-  "singleOrder.paymentState": "Статус оплати",
+  "singleOrder.paymentState": "Статус",
   "singleOrder.Platform": "Платформа",
   "singleOrder.SmsSentToCustomer": "SMS надіслано замовнику",
   "singleOrder.SmsSentToManager": "SMS надіслано менеджеру",

@@ -59,7 +59,7 @@
   "singleOrder.paymentType": "Typ",
   "singleOrder.paymentTypeOnline": "Online",
   "singleOrder.paymentTypeCash": "Gotówkowe",
-  "singleOrder.paymentState": "Status płatności",
+  "singleOrder.paymentState": "Status",
   "singleOrder.Platform": "Platforma",
   "singleOrder.SmsSentToCustomer": "SMS wysłany do klientaу",
   "singleOrder.SmsSentToManager": "SMS wysłany do menedżera",

@@ -3997,8 +3997,8 @@ class DashBoard extends LitElement {
                     display: flex;
                     width: 75%;
                 }
-                    .shop-list-container{
-
+                    .shop-list-container {
+                        display: flex;
                     }
                     .inner-container{
                         display: flex;
@@ -4158,7 +4158,7 @@ class DashBoard extends LitElement {
                             <p>Вихід</p>
                         </div>
                     </div>
-                    <div class="work-place-dash-board-container border">
+                    <div class="work-place-dash-board-container">
                         ${this.isShowShopListContainer ? html`                                            
                         <div class="shop-list-container">
                              <div class="inner-container">
