@@ -49,7 +49,7 @@
   "singleOrder.titleOrder" : "Замовлення",
   "singleOrder.titleDelivery" : "Доставка",
   "singleOrder.titlePayment" : "Оплата",
-  "singleOrder.Details": "Деталі",
+  "singleOrder.Order": "Замовлення",
   "singleOrder.Shipped": "Надіслано",
   "singleOrder.Canceled": "Скасовано",
   "singleOrder.Delete": "Видалити",

@@ -46,7 +46,7 @@
   "singleOrder.titleOrder" : "Zamówienie",
   "singleOrder.titleDelivery" : "Dostawa",
   "singleOrder.titlePayment" : "Zapłata",
-  "singleOrder.Details": "Szczegóły",
+  "singleOrder.Order": "Zamówienie",
   "singleOrder.Shipped": "Wysłane",
   "singleOrder.Canceled": "Odwołany",
   "singleOrder.Delete": "Usunąć",

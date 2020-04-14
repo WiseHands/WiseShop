@@ -41,7 +41,7 @@
   "singleOrder.titleOrder" : "Order",
   "singleOrder.titleDelivery" : "Delivery",
   "singleOrder.titlePayment" : "Payment",
-  "singleOrder.Details": "Details",
+  "singleOrder.Order": "Order",
   "singleOrder.Shipped": "Shipped",
   "singleOrder.Canceled": "Canceled",
   "singleOrder.Delete": "Delete",
