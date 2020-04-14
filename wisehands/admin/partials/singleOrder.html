@@ -117,7 +117,7 @@
                                 <div class="admin-order-card-row">
                                     <div>
                                         <a class="order-details-image" ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">
-                                            <img src="{{orderItem.imagePath}}">
+                                            <img src="{{item.imagePath}}">
                                             <p>{{item.name}} <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
                                         </a>
                                         <div ng-if="!item.productUuid">
