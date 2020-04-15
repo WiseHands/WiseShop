@@ -4204,7 +4204,7 @@ class DashBoard extends LitElement {
                 </div>
 
                 <div class="body-dash-board-container dash-block">
-                    <div class="tools-dash-board-container border">
+                    <div class="tools-dash-board-container">
                         <div class="menu-item" @click="${this.showShopListContainer}" selected>
                             <img class="menu-item-logo" src="wisehands/assets/images/dashboard/icon-store-dashboard.svg">
                             <p>Магазини</p>
@@ -4218,7 +4218,7 @@ class DashBoard extends LitElement {
                             <p>Вихід</p>
                         </div>
                     </div>
-                    <div class="work-place-dash-board-container border">
+                    <div class="work-place-dash-board-container">
                         ${this.isShowShopListContainer ? html`                                            
                         <div class="shop-list-container">
                              <div class="inner-container">
