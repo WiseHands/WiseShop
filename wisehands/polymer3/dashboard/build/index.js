@@ -3417,9 +3417,12 @@ class ShopTile extends LitElement {
                         border-radius: 5px;
                         background-color: #00BCD4;
                         text-decoration: none;
+                        white-space: nowrap;
                     }
                         .shop-name p{
                             font-size: 2em;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                         }
                     .shop-info-container{
                         display: flex;
@@ -3907,14 +3910,17 @@ class DashBoard extends LitElement {
                     text-decoration: none;
                 }
                 .main-container {
-                    height: 100vh;
                 }
                 .dash-block {
                     max-width: 900px;
                     margin: 0 auto;
                 }    
                 .header-profile-container{
+                    position: fixed;
+                    top: 0;
                     width: 100%;
+                    background-color: #fff;
+                    z-index: 10;
                 }
                 .header-dash-block {
                     display: flex;
@@ -4037,11 +4043,17 @@ class DashBoard extends LitElement {
                     display: none;
                 }
                 .body-dash-board-container{
+                    position: relative;
+                    top: 63px;
                     display: flex;
                     height: calc(100% - 56px)
                 }
                 .tools-dash-board-container{
+                    position: sticky;
+                    height: 100%;
                     width: 25%;
+                    top: 63px;
+
                 }                                                                                               
                     .menu-item {
                         display: flex;
