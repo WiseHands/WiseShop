@@ -2924,7 +2924,6 @@ class TableTransaction extends LitElement {
                 
                 .reference-link {
                     font-size: 1em !important;
-                    text-decoration: none;
                 }
             </style>
             
@@ -3823,6 +3822,78 @@ customElements.define('price-plan-list-container', PricePlanListContainer);
 
 // Import the LitElement base class and html helper function
 
+class ProfilePicture extends LitElement {
+  render() {
+    return html`
+
+    <style>
+        .profile-info-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .profile-info{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; 
+        }
+        .profile-info p{
+            margin: 0;
+        } 
+        .logo{
+            height: 48px;
+            width: 48px;
+            margin: 5px;
+        }
+        @media screen and (max-width: 768px) {
+                    .profile-info-container{
+                        display: flex;
+                    }    
+                }
+    </style>
+            
+
+                        <div class="profile-info-container">
+                            <div class="profile-info">
+                                <p>${this.computeUserName(this.user)}</p>                                                        
+                            </div>
+                            <img class="logo" src="${this.computeProfilePicture(this.user)}">
+                        </div>
+                        
+                           
+            
+    `;
+  }
+
+  static get properties() {
+    return {
+      user: {
+        type: Object
+      }
+    };
+  }
+
+  computeUserName(user) {
+    if (user.uuid) {
+      return user.name;
+    }
+  }
+
+  computeProfilePicture(user) {
+    if (user.profileUrl) {
+      return user.profileUrl;
+    } else {
+      return 'wisehands/assets/images/dashboard/user-header-info.svg';
+    }
+  }
+
+} // Register the new element with the browser.
+
+
+customElements.define('profile-picture', ProfilePicture);
+
+// Import the LitElement base class and html helper function
+
 class DashBoard extends LitElement {
   render() {
     return html`
@@ -3997,8 +4068,8 @@ class DashBoard extends LitElement {
                     display: flex;
                     width: 75%;
                 }
-                    .shop-list-container {
-                        display: flex;
+                    .shop-list-container{
+
                     }
                     .inner-container{
                         display: flex;
@@ -4074,13 +4145,13 @@ class DashBoard extends LitElement {
                     }
                 }    
                 @media screen and (max-width: 768px) {
-                    .tools-dash-board-container, .profile-info-container, .logo-container  {
+                    .tools-dash-board-container, .logo-container  {
                         display: none;
                     }
                     .work-place-dash-board-container {
                         width: 100%
                     }     
-                    .mobile-logo-container, .mobile-profile-info-container {
+                    .mobile-logo-container {
                         display: flex;
                         align-items: center;
                     }
@@ -4122,24 +4193,12 @@ class DashBoard extends LitElement {
                         <div class="logo-container">
                             <img class="logo" src="/wisehands/assets/images/dashboard/main_logo_black.png">
                             <p class="product-name">WSTORE</p>
-                        </div>
-                        <div class="profile-info-container">
-                            <div class="profile-info">
-                                <p>${this.userFullName}</p>                                                        
-                            </div>
-                            <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
-                        </div>
-                        
+                        </div>                                                      
                         <div class="mobile-logo-container" @click="${this.showSideMenu}">
                             <img class="logo" src="wisehands/assets/images/dashboard/menu.svg">
                         </div>
-                        
-                        <div class="mobile-profile-info-container">
-                            <div class="profile-info">
-                                <p>${this.userFullName}</p>                                                        
-                            </div>
-                            <img class="logo" src="wisehands/assets/images/dashboard/user-header-info.svg">
-                        </div>
+                        <profile-picture .user="${this.user}"></profile-picture>   
+
                     </div>                 
                 </div>
 
@@ -4158,7 +4217,7 @@ class DashBoard extends LitElement {
                             <p>Вихід</p>
                         </div>
                     </div>
-                    <div class="work-place-dash-board-container">
+                    <div class="work-place-dash-board-container border">
                         ${this.isShowShopListContainer ? html`                                            
                         <div class="shop-list-container">
                              <div class="inner-container">
@@ -4389,6 +4448,7 @@ class DashBoard extends LitElement {
       console.log('data for users: ', data);
 
       if (data) {
+        _this.user = data;
         _this.userFullName = `${data.givenName} ${data.familyName}`;
         console.log(`user UUID: ${data.uuid}`);
       }
