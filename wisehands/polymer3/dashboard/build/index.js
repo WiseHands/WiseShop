@@ -3844,6 +3844,7 @@ class ProfilePicture extends LitElement {
             height: 48px;
             width: 48px;
             margin: 5px;
+            border-radius: 50%;
         }
         @media screen and (max-width: 768px) {
                     .profile-info-container{
