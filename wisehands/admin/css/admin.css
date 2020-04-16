@@ -1061,8 +1061,6 @@ input {
     padding: 0.2rem 0;
 }
 .admin-order-card-row-comment {
-    align-items: baseline;
-    display: flex;
     justify-content: flex-start;
 }
 .admin-order-card-row-comment h5 {
