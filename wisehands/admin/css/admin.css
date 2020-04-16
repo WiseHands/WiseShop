@@ -499,7 +499,9 @@ body {
     align-items: center;
     justify-content: flex-between
 }
-
+#filterOptions {
+    margin-top: 1rem;
+}
 .errorTextStyling {
     color: red;
     word-wrap:break-word;
