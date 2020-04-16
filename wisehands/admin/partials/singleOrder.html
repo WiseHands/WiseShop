@@ -134,7 +134,9 @@
                                             <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
                                         </div>
                                     </div>
-                                    <p class="admin-order-details-quantity">{{item.quantity}} {{'singleOrder.Pieces' | translate}}.</p>
+                                    <div  class="admin-order-details-quantity">
+                                        <p>{{item.quantity}} {{'singleOrder.Pieces' | translate}}</p>
+                                    </div>
                                 </div>
 
                             </div>
