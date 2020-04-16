@@ -149,6 +149,7 @@
   "addNewProduct.deletePhoto": "Remove image",
   "addNewProduct.addProperty": "Add property",
   "addNewProduct.description": "Description",
+  "productDetails.category": "Category",
   "productDetails.details": "Details",
   "productDetails.edit": "Edit",
   "productDetails.delete": "Delete",
