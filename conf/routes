@@ -260,6 +260,7 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/ua/contract                            Application.uaContract
 *       {client}/ua/privacy                             Application.privacy
 *       {client}/ua/signin                              Application.uaSignin
+*       {client}/ua/shop-location                       Application.uaShopLocation
 *       {client}/ua/signup                              Application.uaSignup
 *       {client}/ua/wizard                              Application.uaWizard
 *       {client}/server-error                           Application.serverError
