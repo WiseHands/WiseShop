@@ -69,9 +69,9 @@
                         <input id="categorySortOrder" type="number"  ng-model="thisCategory.sortOrder" />
                         <label class="active" for="categorySortOrder">{{'displayOrder' | translate}}</label>
                     </div>
-                    <div class="input-field col-md-12">
+                    <div class="input-field col-md-12 modal-category-label">
                         <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="thisCategory.isHidden" />
-                        <label for="filled-in-box">{{'is.hidden' | translate}}</label>
+                        <label  for="filled-in-box">{{'category.ishidden' | translate}}</label>
                     </div>
                     <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
                     <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>

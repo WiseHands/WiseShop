@@ -104,7 +104,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#collapse3">
                                 <h4 class="panel-title text-center">
-                                    {{'addNewProduct.additional' | translate}}
+                                    {{'editProduct.properties' | translate}}
                                 </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
@@ -133,7 +133,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#collapse4">
                                 <h4 class="panel-title text-center">
-                                    {{'editProduct.properties' | translate}}
+                                    {{'addNewProduct.additional' | translate}}
                                 </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
@@ -150,7 +150,8 @@
                                             <label for="filled-in-box-{{propertyOption.value}}">{{propertyOption.value}}(+{{propertyOption.additionalPrice}})</label>
                                     </div>
                                 </div>
-                                <div class="panel-body noPaddingMobile">
+                                <div class="panel-body noPaddingMobile addition-product">
+                                    <p class="col-xs-10">{{'editProduct.addAddition' | translate}}</p>
                                     <a class="pull-right" href="#/category/{{product.categoryUuid}}/addproperty/{{product.uuid}}">
                                         <button class="btn-floating btn-xsmall waves-effect waves-light secondaryColor"><i class="material-icons">add</i></button>
                                     </a>
