@@ -76,7 +76,7 @@
                         <div class="address-order-container" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'POSTSERVICE'">
                             <div class="admin-order-card-row">
                                 <h5>{{'singleOrder.Address' | translate}}:</h5>
-                                <p>
+                                <p class="text-align-right">
                                     <a ng-show="order.clientAddressStreetLat"
                                        href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLat}},{{order.clientAddressStreetLng}}&15z&hl=en" target="_blank">
                                         <i class="material-icons pointIconColor">place</i>
