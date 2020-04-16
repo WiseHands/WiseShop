@@ -1071,6 +1071,7 @@ input {
 }
 .admin-order-details-quantity {
     width: 100px;
+    text-align: right;
 }
 .order-details-image {
     display: flex;
@@ -1078,7 +1079,6 @@ input {
 }
 .order-details-image img {
     width: 67px;
-    height: 50px;
     margin-right: 5px;
     object-fit: cover;
 }
