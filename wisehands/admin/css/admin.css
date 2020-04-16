@@ -14,7 +14,9 @@
     flex-direction: row;
     margin: 5px;
 }
-
+.text-align-left {
+    text-align: left;
+}
 .table {
     display: flex;
     flex-flow: column nowrap;
@@ -1057,6 +1059,14 @@ input {
     align-items: center;
     justify-content: space-between;
     padding: 0.2rem 0;
+}
+.admin-order-card-row-comment {
+    align-items: baseline;
+    display: flex;
+    justify-content: flex-start;
+}
+.admin-order-card-row-comment h5 {
+    margin-right: 5px;
 }
 .admin-order-card-row h5 {
     font-size: 1.2rem;
