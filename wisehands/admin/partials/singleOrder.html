@@ -113,6 +113,44 @@
                             </div>
                         </div>
                     </div>
+                    <div class="admin-order-card">
+                        <h4>{{'singleOrder.titlePayment' | translate}}</h4>
+                        <div class="admin-order-card-row">
+                            <h5>{{'singleOrder.paymentType' | translate}}:</h5>
+                            <div class="payment-order-icon" ng-show="order.paymentType === 'CREDITCARD'">
+                                <i class="fa fa-credit-card" ></i>
+                                <p>{{'singleOrder.paymentTypeOnline' | translate}}</p>
+                            </div>
+                            <div class="payment-order-icon" ng-show="order.paymentType === 'CASHONDELIVERY'">
+                                <i class="fa fa-money"></i>
+                                <p>{{'singleOrder.paymentTypeCash' | translate}}</p>
+                            </div>
+                        </div>
+
+                        <div class="admin-order-card-row" ng-hide="order.paymentType === 'CASHONDELIVERY'">
+                            <h5>{{'singleOrder.paymentState' | translate}}:</h5>
+                            <div ng-show="order.paymentState === 'PENDING'">
+                                <p>{{'singleOrder.paymentStatePending' | translate}}</p>
+                            </div>
+                            <div ng-show="order.paymentState === 'PAYED'">
+                                <p>{{'singleOrder.paymentStatePaid' | translate}}</p>
+                            </div>
+                        </div>
+                        <!--<div class="admin-order-card-row">-->
+                        <!--<h5 ng-show="order.sentToManager">{{'singleOrder.SmsSentToManager' | translate}}: <p>{{'yes' | translate}}</p></h5>-->
+                        <!--</div>-->
+                        <!--<div class="admin-order-card-row">-->
+                        <!--<h5 ng-show="order.sentToCustomer">{{'singleOrder.SmsSentToCustomer' | translate}}: <p>{{'yes' | translate}}</p></h5>-->
+                        <!--</div>-->
+                        <!--<div class="admin-order-card-row">-->
+                        <!--<h5 ng-show="order.errorReasonSentToManager">{{'singleOrder.ErrorReasonSentToManager' | translate}}: </h5>-->
+                        <!--<p>{{order.errorReasonSentToManager}}</p>-->
+                        <!--</div>-->
+                        <!--<div class="admin-order-card-row">-->
+                        <!--<h5 ng-show="order.errorReasonSentToCustomer">{{'singleOrder.ErrorReasonSentToCustomer' | translate}}: </h5>-->
+                        <!--<p>{{order.errorReasonSentToCustomer}}</p>-->
+                        <!--</div>-->
+                    </div>
                 </div>
                 <div class="admin-all-orders-col">
                     <div class="admin-order-card">
@@ -153,44 +191,6 @@
                             <h5 ng-show="order.comment">{{'singleOrder.Comments' | translate}}:</h5>
                             <p>{{order.comment}}</p>
                         </div>
-                    </div>
-                    <div class="admin-order-card">
-                        <h4>{{'singleOrder.titlePayment' | translate}}</h4>
-                        <div class="admin-order-card-row">
-                            <h5>{{'singleOrder.paymentType' | translate}}:</h5>
-                            <div class="payment-order-icon" ng-show="order.paymentType === 'CREDITCARD'">
-                                <i class="fa fa-credit-card" ></i>
-                                <p>{{'singleOrder.paymentTypeOnline' | translate}}</p>
-                            </div>
-                            <div class="payment-order-icon" ng-show="order.paymentType === 'CASHONDELIVERY'">
-                                <i class="fa fa-money"></i>
-                                <p>{{'singleOrder.paymentTypeCash' | translate}}</p>
-                            </div>
-                        </div>
-
-                        <div class="admin-order-card-row" ng-hide="order.paymentType === 'CASHONDELIVERY'">
-                            <h5>{{'singleOrder.paymentState' | translate}}:</h5>
-                            <div ng-show="order.paymentState === 'PENDING'">
-                                <p>{{'singleOrder.paymentStatePending' | translate}}</p>
-                            </div>
-                            <div ng-show="order.paymentState === 'PAYED'">
-                                <p>{{'singleOrder.paymentStatePaid' | translate}}</p>
-                            </div>
-                        </div>
-                        <!--<div class="admin-order-card-row">-->
-                            <!--<h5 ng-show="order.sentToManager">{{'singleOrder.SmsSentToManager' | translate}}: <p>{{'yes' | translate}}</p></h5>-->
-                        <!--</div>-->
-                        <!--<div class="admin-order-card-row">-->
-                            <!--<h5 ng-show="order.sentToCustomer">{{'singleOrder.SmsSentToCustomer' | translate}}: <p>{{'yes' | translate}}</p></h5>-->
-                        <!--</div>-->
-                        <!--<div class="admin-order-card-row">-->
-                        <!--<h5 ng-show="order.errorReasonSentToManager">{{'singleOrder.ErrorReasonSentToManager' | translate}}: </h5>-->
-                        <!--<p>{{order.errorReasonSentToManager}}</p>-->
-                        <!--</div>-->
-                        <!--<div class="admin-order-card-row">-->
-                        <!--<h5 ng-show="order.errorReasonSentToCustomer">{{'singleOrder.ErrorReasonSentToCustomer' | translate}}: </h5>-->
-                        <!--<p>{{order.errorReasonSentToCustomer}}</p>-->
-                        <!--</div>-->
                     </div>
                 </div>
 
