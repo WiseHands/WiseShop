@@ -1042,7 +1042,6 @@ input {
 .admin-container {
     max-width: 900px;
     margin:  0 auto;
-    padding: 1rem;
 }
 .admin-all-orders {
     display: flex;
@@ -1054,7 +1053,7 @@ input {
     flex: 1 1 50%;
 }
 .admin-order-card {
-    margin: 1rem 0;
+    margin: 1rem;
     border-radius: 10px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     padding: 1rem;
@@ -1134,6 +1133,12 @@ input {
     }
     .save-button {
         margin: 1rem auto;
+    }
+    .admin-order-card {
+        max-width: 95%;
+        margin: 1rem;
+        padding: 1rem;
+
     }
 }
     @media screen and (max-width: 900px) {
