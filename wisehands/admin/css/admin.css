@@ -1116,6 +1116,18 @@ input {
 .addition-product p {
     font-size: 14px;
 }
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.card-product-title {
+    height: 58px;
+}
+.card-content .card-product-title h5 {
+    border-bottom: none;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
