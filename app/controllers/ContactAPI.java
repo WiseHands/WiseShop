@@ -2,6 +2,7 @@ package controllers;
 
 import models.ContactDTO;
 import models.ShopDTO;
+import models.ShopLocation;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import responses.JsonHandleForbidden;
@@ -57,6 +58,7 @@ public class ContactAPI extends AuthController {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        System.out.println("jsonBody " + jsonBody);
 
         String email = (String) jsonBody.get("email");
         String phone = (String) jsonBody.get("phone");
@@ -64,19 +66,41 @@ public class ContactAPI extends AuthController {
         String addressCity = (String) jsonBody.get("addressCity");
         String addressStreet = (String) jsonBody.get("addressStreet");
         String addressNumberHouse = (String) jsonBody.get("addressNumberHouse");
-        String latLng = (String) jsonBody.get("latLng");
+
         String linkfacebook = (String) jsonBody.get("linkfacebook");
         String linkinstagram = (String) jsonBody.get("linkinstagram");
         String linkyoutube = (String) jsonBody.get("linkyoutube");
 
+        JSONObject jsonShopLocation = (JSONObject) jsonBody.get("shopLocation");
+        System.out.println("get shopLocation " + jsonShopLocation);
+
+        double lat = Double.valueOf((String) jsonShopLocation.get("latitude"));
+        double lng = Double.valueOf((String) jsonShopLocation.get("longitude"));
+
+//        Double longitude = Double.parseDouble((String) jsonShopLocation.get("longitude"));
+//        System.out.println("get shopLocation " + latitude + "," + longitude);
+        System.out.println("get shopLocation " + lat + "," + lng);
+
         ContactDTO contact = shop.contact;
+//        ShopLocation shopLocationFromContact = ShopLocation.find("byContact", contact).first();
+
+        if (shop.contact.shopLocation == null){
+            ShopLocation shopLocation = new ShopLocation(lat, lng);
+            System.out.println("shopLocation " + shopLocation.latitude + "," + shopLocation.longitude);
+            shop.contact.shopLocation = shopLocation;
+        } else {
+            shop.contact.shopLocation.latitude = lat;
+            shop.contact.shopLocation.longitude = lng;
+            System.out.println("shopLocation update" + lat + "," + lng);
+
+        }
         contact.email = email;
         contact.phone = phone;
         contact.addressCity = addressCity;
         contact.addressStreet = addressStreet;
         contact.addressNumberHouse = addressNumberHouse;
         contact.description = description;
-        contact.latLng = latLng;
+        contact.latLng = String.valueOf(lat) + "," + String.valueOf(lng);
         contact.linkfacebook = linkfacebook;
         contact.linkinstagram = linkinstagram;
         contact.linkyoutube = linkyoutube;

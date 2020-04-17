@@ -38,12 +38,19 @@
             <input id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse" placeholder="Number house">
         </div>
         <div class="input-field col-md-6 flex-column-container">
-            <p>{{'contacts.coords' | translate}}</p>
-<!--            <input id="coords" type="text" ng-model="contacts.latLng" placeholder="49.848596,24.0229203">-->
-
-            <a href="/ua/shop-location">
-                {{'categories.create' | translate}}
-            </a>
+            <div class="test-shop-location-row">
+                <p> {{'contacts.coords' | translate}}</p>
+                <a href="/ua/shop-location">{{'categories.map' | translate}}</a>
+            </div>
+            <div class="set-lat-shop-location">
+                <p>Введіть широту</p>
+                <input id="shopLatitude" type="text" ng-model="contacts.shopLocation.latitude" placeholder="49.848596">
+            </div>
+            <div class="set-lng-shop-location">
+                <p>Введіть довготу</p>
+                <input id="shopLongitude" type="text" ng-model="contacts.shopLocation.longitude" placeholder="24.022936">
+            </div>
+            <!--            <input id="coords" type="text" ng-model="contacts.latLng" placeholder="49.848596,24.0229203">-->
         </div>
         <div class="input-field col-md-12">
             <p>{{'contacts.description' | translate}}</p>

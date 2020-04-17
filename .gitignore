@@ -4,7 +4,7 @@
 *.pyc
 public/bower_components
 public/
-domain.txt
+domains.txt
 
 
 # Files related to Play build or usage

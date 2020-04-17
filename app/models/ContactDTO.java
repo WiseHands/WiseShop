@@ -43,6 +43,10 @@ public class ContactDTO extends GenericModel {
     public String linkyoutube;
 
     @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public ShopLocation shopLocation;
+
+    @Expose
     @Lob
     @Column(length = 300000)
     public String description;

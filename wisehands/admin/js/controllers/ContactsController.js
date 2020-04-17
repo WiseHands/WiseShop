@@ -15,6 +15,8 @@ angular.module('WiseHands')
 
 
         $scope.updateContacts = function () {
+                    console.log("$scope.contacts", $scope.contacts);
+
             $scope.loading = true;
             $http({
                 method: 'PUT',
@@ -27,7 +29,7 @@ angular.module('WiseHands')
                     showInfoMsg("SAVED");
                 }, function errorCallback(response) {
                     $scope.loading = false;
-                    console.log(response);
+                    console.log('/contact put', response);
                     showWarningMsg("ERROR");
                 });
 
