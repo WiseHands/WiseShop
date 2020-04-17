@@ -1089,8 +1089,10 @@ input {
     text-align: left;
 }
 .admin-order-details-quantity {
-    width: 100px;
     text-align: right;
+}
+.admin-order-details-quantity p {
+    width: 60px;
 }
 .order-details-image {
     display: flex;
