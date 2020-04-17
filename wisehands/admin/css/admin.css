@@ -1131,6 +1131,7 @@ input {
 }
 .card-content .card-product-title h5 {
     border-bottom: none;
+    padding-bottom: 0;
 }
 @media screen and (min-width: 1500px) {
     .admin-container {
