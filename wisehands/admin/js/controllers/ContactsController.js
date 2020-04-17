@@ -12,6 +12,8 @@ angular.module('WiseHands')
             }, function errorCallback(data) {
                 $scope.loading = false;
             });
+
+
         $scope.updateContacts = function () {
             $scope.loading = true;
             $http({
@@ -30,6 +32,7 @@ angular.module('WiseHands')
                 });
 
         };
+
         sideNavInit.sideNav();
     }]);
 function showWarningMsg(msg) {

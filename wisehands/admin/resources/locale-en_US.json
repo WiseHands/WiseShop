@@ -112,6 +112,7 @@
   "categories.categoryDescription": "Category description",
   "categories.save": "Save",
   "categories.create": "Create",
+  "categories.shopLocation": "Map",
   "categories.deleteMessage1": "Do you really want to delete this category?",
   "categories.deleteMessage2": "Category deleted.",
   "categories.deleteMessage1Warning": "(Category delete will cause removal of all products in it!)",

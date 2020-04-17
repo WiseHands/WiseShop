@@ -37,9 +37,13 @@
             <input id="addressStreet" type="text" ng-model="contacts.addressStreet" placeholder="Street">
             <input id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse" placeholder="Number house">
         </div>
-        <div class="input-field col-md-6">
+        <div class="input-field col-md-6 flex-column-container">
             <p>{{'contacts.coords' | translate}}</p>
-            <input id="coords" type="text" ng-model="contacts.latLng" placeholder="49.848596,24.0229203">
+<!--            <input id="coords" type="text" ng-model="contacts.latLng" placeholder="49.848596,24.0229203">-->
+
+            <a href="/ua/shop-location">
+                {{'categories.create' | translate}}
+            </a>
         </div>
         <div class="input-field col-md-12">
             <p>{{'contacts.description' | translate}}</p>

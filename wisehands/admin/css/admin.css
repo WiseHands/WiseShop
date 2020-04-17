@@ -1,3 +1,7 @@
+.flex-column-container{
+    display: flex;
+    flex-direction: column
+}
 .pdd-0{
     padding: 0 !important;
 }
