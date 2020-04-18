@@ -62,11 +62,11 @@
 
 <div class="pages-list">
     <div class="pages-list-item" ng-repeat="page in pagesList">
-        <div id="pages-list-item-bg">
-            <img ng-src="{{page.imageUrl}}">
-        </div>
         <a href="#/pageconstructor/edit/{{page.uuid}}" >
-            <h5 class="">{{page.title}}</h5>
+            <div id="pages-list-item-bg">
+                <img ng-src="{{page.imageUrl}}">
+            </div>
+                <h5 class="">{{page.title}}</h5>
         </a>
     </div>
 </div>

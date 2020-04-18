@@ -1092,6 +1092,9 @@ input {
 .admin-order-card h4 {
     text-align: left;
 }
+.admin-order-card p {
+    text-align: right;
+}
 .admin-order-card-row {
     display: flex;
     align-items: center;
@@ -1108,6 +1111,7 @@ input {
     font-size: 1.2rem;
     font-weight: 400;
     padding-right: 0.5rem;
+    text-align: left;
 }
 .admin-order-details-row {
     display: flex;
