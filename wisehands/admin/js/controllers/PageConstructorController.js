@@ -10,6 +10,13 @@ angular.module('WiseHands')
             url: '/pageconstructor'
         })
             .then(function successCallback(response) {
+
+                response.data.forEach(item => {
+                   let backGroundImageIndex = Math.floor(Math.random() * 10) + 1;
+                   let imageUrl =  "/wisehands/assets/images/pages-bg/pagebg" +backGroundImageIndex+ ".jpg";
+                    item.imageUrl = imageUrl;
+                });
+
                 $scope.pagesList = response.data;
                 console.log("GET response.data: ", response.data);
                 $scope.loading = false;
@@ -18,6 +25,8 @@ angular.module('WiseHands')
 
                 $scope.loading = false;
             });
+
+
 
 
                     // end of some code for coupons

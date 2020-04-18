@@ -1,11 +1,22 @@
 <style>
     .pages-list {
         display: flex;
-        flex-flow: row wrap;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
         font-size: 16px;
     }
+    #pages-list-item-bg {
+        height: 300px;
+        width: 100%;
+    }
+    #pages-list-item-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
     .pages-list-item {
-        width: 200px;
+        flex: 1 1 30%;
         padding: 0.3rem 0;
         margin: 1rem;
         box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
@@ -51,6 +62,9 @@
 
 <div class="pages-list">
     <div class="pages-list-item" ng-repeat="page in pagesList">
+        <div id="pages-list-item-bg">
+            <img ng-src="{{page.imageUrl}}">
+        </div>
         <a href="#/pageconstructor/edit/{{page.uuid}}" >
             <h5 class="">{{page.title}}</h5>
         </a>
