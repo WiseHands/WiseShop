@@ -22,28 +22,37 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <div class="row text-center" ng-hide="loading">
-        <a href="#/delivery/newPost">
-            <div class="col-sm-4 text-center">
+    <div class="row text-center delivey-list" ng-hide="loading">
+        <div class="delivey-list-item">
+            <a href="#/delivery/newPost">
+                <div class="delivey-list-item-bg">
+                    <img src="\wisehands\assets\images\delivey-img\newpost.svg">
+                </div>
                 <div class="card-panel secondaryColor darken-3 hoverable">
                     <h5 class="white-text">{{'delivery.newPost' | translate}}</h5>
                 </div>
-            </div>
-        </a>
-        <a href="#/delivery/courier">
-            <div class="col-sm-4 text-center">
+            </a>
+        </div>
+        <div class="delivey-list-item">
+            <a href="#/delivery/courier">
+                <div class="delivey-list-item-bg">
+                    <img src="\wisehands\assets\images\delivey-img\coruier.svg">
+                </div>
                 <div class="card-panel secondaryColor hoverable">
                     <h5 class="white-text">{{'delivery.courier' | translate}}</h5>
                 </div>
-            </div>
-        </a>
-        <a href="#/delivery/selfTake">
-            <div class="col-sm-4 text-center">
+            </a>
+        </div>
+        <div class="delivey-list-item">
+            <a href="#/delivery/selfTake">
+                <div class="delivey-list-item-bg">
+                    <img src="\wisehands\assets\images\delivey-img\selftake.svg">
+                </div>
                 <div class="card-panel secondaryColor hoverable">
                     <h5 class="white-text">{{'delivery.selftake' | translate}}</h5>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
     <div class="col-md-12 input-field" ng-hide="loading">
         <p>{{'delivery.orderMessage' | translate}}</p>
