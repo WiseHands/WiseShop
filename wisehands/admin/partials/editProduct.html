@@ -24,60 +24,8 @@
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <div class="col-md-12 noSidePadding" ng-hide="loading">
-        <div class="card card-min hoverable">
-            <div class="card-image waves-effect waves-block waves-light view overlay hm-white-slight col-sm-6">
-                <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
-                    <!--Main image-->
-                    <div class="col-xs-8">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner z-depth-1 hoverable" role="listbox">
-                            <!-- First slide -->
-                            <div class="item active">
-                                <img src="{{productImages[product.mainPhoto].dataURL}}" alt="slide1" ng-click="uploadNewProductImage()">
-                            </div>
-                            <canvas class="img-responsive center-block landscapeImageScale" id="editCanvas" ng-click="uploadNewProductImage()" style="display: none"></canvas>
-                            <input id="imageLoader"
-                                   class="input-file hiddenFileInput"
-                                   type="file"/>
-                            <!-- /.item -->
-
-                            <!-- Second slide -->
-                            <!--<div class="item" ng-repeat="image in productImages">-->
-                                <!--<img src="{{image}}" alt="slide2">-->
-                            <!--</div>-->
-                            <!-- /.item -->
-                        </div>
-                        <!-- /.carousel-inner -->
-                    </div>
-                    <!--/.Main image-->
-
-                    <!-- Indicators -->
-                    <div class="col-xs-4">
-                        <ul class="carousel-indicators correctImageDisplay" ng-show="productImages.length">
-                            <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
-                                <img src="{{image.dataURL}}"
-                                     class="img-responsive z-depth-1 hoverable"
-                                     data-toggle="tooltip"
-                                     data-placement="top"
-                                     title="{{'addNewProduct.makeMain' | translate}}"
-                                     ng-click="setMainPhotoIndex($index, image.uuid); $event.stopPropagation();">
-                                <div class="label secondaryColor photoLabelStyle hoverable"
-                                     data-toggle="tooltip"
-                                     data-placement="top"
-                                     title="{{'addNewProduct.deletePhoto' | translate}}"
-                                     ng-click="removeImage(image.uuid); $event.stopPropagation();">
-                                    <span class="glyphicon glyphicon-remove-sign"></span>
-                                </div>
-                                <button class="btn btn-default" ng-click="editImage(image)">Edit image</button>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Indicators -->
-
-                </div>
-
-            </div>
-            <div class="card-content col-sm-6 noSidePadding">
+        <div class="card-min edit-product-block">
+            <div class="edit-product-col card-content  noSidePadding">
                 <!--<div class="input-field col-md-12" ng-show="categories.length >= 1">-->
                     <!--<label class="active" for="categories">{{'addNewProduct.category' | translate}}</label>-->
                     <!--<select id="categories"-->
@@ -87,19 +35,22 @@
                             <!--ng-options="category as category.name for category in categories track by category.uuid">-->
                     <!--</select>-->
                 <!--</div>-->
-                <div class="input-field col-md-12">
-                    <input id="name" type="text" ng-model="product.name">
-                    <label class="active" for="name">{{'addNewProduct.productName' | translate}}</label>
+                <div class="edit-product-card">
+                    <div class="input-field col-md-12">
+                        <input id="name" type="text" ng-model="product.name">
+                        <label class="active" for="name">{{'addNewProduct.productName' | translate}}</label>
+                    </div>
+                    <div class="input-field col-md-12">
+                        <input id="price" type="text" ng-model="product.price">{{'products.currency' | translate}}
+                        <label class="active" for="price">{{'addNewProduct.productPrice' | translate}}</label>
+                    </div>
+                    <div class="input-field col-md-12">
+                        <textarea id="description" class="materialize-textarea" ng-model="product.description"></textarea>
+                        <label class="active" for="description">{{'addNewProduct.productDescription' | translate}}</label>
+                    </div>
                 </div>
-                <div class="input-field col-md-12">
-                    <input id="price" type="text" ng-model="product.price">{{'products.currency' | translate}}
-                    <label class="active" for="price">{{'addNewProduct.productPrice' | translate}}</label>
-                </div>
-                <div class="input-field col-md-12">
-                    <textarea id="description" class="materialize-textarea" ng-model="product.description"></textarea>
-                    <label class="active" for="description">{{'addNewProduct.productDescription' | translate}}</label>
-                </div>
-                <div class="input-field col-md-12">
+
+                <div class="edit-product-card">
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default">
                             <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#collapse3">
@@ -128,7 +79,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-field col-md-12">
+
+                <div class="edit-product-card">
                     <div class="panel-group" id="accordion2">
                         <div class="panel panel-default">
                             <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#collapse4">
@@ -146,8 +98,8 @@
                                     </div>
                                     <!-- property.tags ??? -->
                                     <div ng-repeat="propertyOption in property.tags">
-                                            <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box-{{propertyOption.value}}" ng-model="propertyOption.selected" />
-                                            <label for="filled-in-box-{{propertyOption.value}}">{{propertyOption.value}}(+{{propertyOption.additionalPrice}})</label>
+                                        <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box-{{propertyOption.value}}" ng-model="propertyOption.selected" />
+                                        <label for="filled-in-box-{{propertyOption.value}}">{{propertyOption.value}}(+{{propertyOption.additionalPrice}})</label>
                                     </div>
                                 </div>
                                 <div class="panel-body noPaddingMobile addition-product">
@@ -158,6 +110,60 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="edit-product-col card-image waves-block waves-light view overlay hm-white-slight">
+                <div class="edit-product-card">
+                    <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
+                        <!--Main image-->
+                        <div class="col-xs-8">
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner z-depth-1 hoverable" role="listbox">
+                                <!-- First slide -->
+                                <div class="item active">
+                                    <img src="{{productImages[product.mainPhoto].dataURL}}" alt="slide1" ng-click="uploadNewProductImage()">
+                                </div>
+                                <canvas class="img-responsive center-block landscapeImageScale" id="editCanvas" ng-click="uploadNewProductImage()" style="display: none"></canvas>
+                                <input id="imageLoader"
+                                       class="input-file hiddenFileInput"
+                                       type="file"/>
+                                <!-- /.item -->
+
+                                <!-- Second slide -->
+                                <!--<div class="item" ng-repeat="image in productImages">-->
+                                <!--<img src="{{image}}" alt="slide2">-->
+                                <!--</div>-->
+                                <!-- /.item -->
+                            </div>
+                            <!-- /.carousel-inner -->
+                        </div>
+                        <!--/.Main image-->
+
+                        <!-- Indicators -->
+                        <div class="col-xs-4">
+                            <ul class="carousel-indicators correctImageDisplay" ng-show="productImages.length">
+                                <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
+                                    <img src="{{image.dataURL}}"
+                                         class="img-responsive z-depth-1 hoverable"
+                                         data-toggle="tooltip"
+                                         data-placement="top"
+                                         title="{{'addNewProduct.makeMain' | translate}}"
+                                         ng-click="setMainPhotoIndex($index, image.uuid); $event.stopPropagation();">
+                                    <div class="label secondaryColor photoLabelStyle hoverable"
+                                         data-toggle="tooltip"
+                                         data-placement="top"
+                                         title="{{'addNewProduct.deletePhoto' | translate}}"
+                                         ng-click="removeImage(image.uuid); $event.stopPropagation();">
+                                        <span class="glyphicon glyphicon-remove-sign"></span>
+                                    </div>
+                                    <button class="btn btn-default" ng-click="editImage(image)">Edit image</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Indicators -->
+
                     </div>
                 </div>
             </div>

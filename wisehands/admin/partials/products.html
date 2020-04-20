@@ -20,8 +20,8 @@
 <div class="container-fluid noSidePadding cardTopPadding admin-all-products">
 
     <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
-    <div class="text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
+    <div class="center-spinner">
+        <spinner name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
     </div>
     <div ng-hide="loading" class="btn-group btn-group-justified col-xs-12" role="group" aria-label="...">
         <div class="btn-group" role="group">
