@@ -11,6 +11,8 @@
     <link rel="icon"
           type="image/png"
           href="wisehands/assets/images/favicon.png">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM&callback=initMap"></script>
+
 </head>
 <style>
     body, p, h1, h2, h3, h4, h5, h6, i, a {
@@ -29,119 +31,51 @@
         margin: 0 auto 2rem auto;
         max-width: 1200px;
     }
+    .body-container{
+        height: 100%;
+    }
+    .map{
+        display: flex;
+        height: 500px;
+
+    }
     .border{
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     }
 </style>
-
 <body>
     <div class="header-container border">
         <p>Some text about shop location</p>
     </div>
 
-    <div class="body-container border">
-        <p>map here</p>
-    </div>
+    <div id="googleMap" class="map"></div>
+
 
 </body>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-161672434-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-161672434-1');
-</script>
-<script>
-    function signIn() {
-        let email = document.getElementById('signin-email').value;
-        let password = document.getElementById('signin-password').value;
-        let clientInfo = {
-            email: email,
-            password: password
-        };
-
-        let params = JSON.stringify(clientInfo);
-        console.log("request params for sign IN: ", params);
-
-        fetch('/api/sign-in', {
-            method: 'POST',
-            body: params
-        }).then(function (response) {
-            console.log("response response: ", response);
-            if(response.ok) {
-                let token = response.headers.get('JWT_TOKEN');
-                localStorage.setItem('JWT_TOKEN', token);
-            }
-            return response.json();
-        }).then(function (data) {
-            console.log("response data: ", data);
-            validateSignIn(data);
-            if (data.uuid){
-                window.location = "/dashboard";
-            }
-        });
-    }
-
-    let form = document.getElementById( "login-form" );
-    form.addEventListener( "submit", function ( event ) {
-        event.preventDefault();
-        signIn();
-    } );
-
-     function validateSignIn(data){
-         if (data.status === 420){
-             console.log("ERROR", data.message)
-         }
-         if (data.status === 421){
-             console.log("ERROR", data.message)
-         }
-         if (data.status === 422){
-             console.log("ERROR", data.message)
-         }
-     }
-</script>
-<script>
-
-    function start() {
-        gapi.load('auth2', function() {
-            window.auth2 = gapi.auth2.init({
-                client_id: '${googleOauthClientId}'
-            });
-        });
-    }
-
-    function googleSignIn() {
-        console.log("here");
-        window.auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInCallback);
-
-    };
-
-    function signInCallback(authResult) {
-        if (authResult['code']) {
-            const url = '/storeauthcode?authCode=' + authResult['code'];
-
-            fetch(url, {
-                method: 'POST'
-            }).then(function(response){
-                //headers //status
-                if(response.ok) {
-                    let token = response.headers.get('JWT_TOKEN');
-                    localStorage.setItem('JWT_TOKEN', token);
-                }
-                console.log('signInCallback' + response);
-                return response.json();
-            }).then(function(data){
-                console.log('signInCallback' + data);
-
-                if (data){
-                    window.location = "/dashboard";
-                }
-
-            })
-        }
-    }
-</script>
-<script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
 </html>
+<script>
+    let map;
+    fetch('/contact/details', {
+        method: 'GET'
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log("data for map",data.shopLocation);
+        initMap(data.shopLocation);
+    });
+
+    function initMap(shopCoordinates){
+        console.log("mapInitialization", Number(shopCoordinates.latitude), Number(shopCoordinates.longitude));
+        latitude = Number(shopCoordinates.latitude);
+        longitude = Number(shopCoordinates.longitude);
+        let shopLocation = new google.maps.LatLng(latitude, longitude);
+            console.log("shopLocation", shopLocation.toString());
+        let mapOptions = {
+            streetViewControl: false,
+            center: shopLocation,
+            zoom: 17
+        };
+        map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+        const marker = new google.maps.Marker({position: shopLocation, map: map});
+    }
+</script>
