@@ -48,13 +48,13 @@
         <p>Some text about shop location</p>
     </div>
 
-    <div id="googleMap" class="map"></div>
+    <div id="googleMap" class="map" data-wow-delay="0.1s"></div>
 
 
 </body>
 </html>
 <script>
-    let map;
+    let map, marker;
     fetch('/contact/details', {
         method: 'GET'
     }).then(function (response) {
@@ -76,6 +76,14 @@
             zoom: 17
         };
         map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
-        const marker = new google.maps.Marker({position: shopLocation, map: map});
+        marker = new google.maps.Marker({position: shopLocation, map: map});
+        map.addListener('click', function(event) {
+            if (marker) marker.setMap(null);
+            marker = new google.maps.Marker(
+                { position: event.latLng,
+                  map: map }
+            );
+            console.log('click on map', event.latLng);
+        });
     }
 </script>
