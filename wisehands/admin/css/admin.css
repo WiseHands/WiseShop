@@ -1186,8 +1186,9 @@ input {
     flex-wrap: wrap;
 }
 .delivey-list-item {
-    flex: 1 1 30%;
+    flex: 0 1 30%;
     margin: 1rem;
+    min-width: 300px;
 }
 .delivey-list-item-bg {
     height: 300px;
@@ -1197,6 +1198,9 @@ input {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.order-message {
+    width: 100%;
 }
 .center-spinner {
     display: flex;

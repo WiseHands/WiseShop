@@ -22,7 +22,7 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <div class="row text-center delivey-list" ng-hide="loading">
+    <div class="delivey-list row text-center " ng-hide="loading">
         <div class="delivey-list-item">
             <a href="#/delivery/newPost">
                 <div class="delivey-list-item-bg">
@@ -53,9 +53,10 @@
                 </div>
             </a>
         </div>
+        <div class="order-message input-field" ng-hide="loading">
+            <p>{{'delivery.orderMessage' | translate}}</p>
+            <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.orderMessage"></textarea>
+        </div>
     </div>
-    <div class="col-md-12 input-field" ng-hide="loading">
-        <p>{{'delivery.orderMessage' | translate}}</p>
-        <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.orderMessage"></textarea>
-    </div>
+
 </div>
