@@ -54,7 +54,7 @@ header {
     font-size: 2rem;
 }
 .header-links {
-    width: 350px;
+    width: 200px;
     justify-content: space-between;
 }
 .header-links a {
