@@ -74,15 +74,12 @@ public class ContactAPI extends AuthController {
         JSONObject jsonShopLocation = (JSONObject) jsonBody.get("shopLocation");
         System.out.println("get shopLocation " + jsonShopLocation);
 
-        double lat = Double.valueOf((String) jsonShopLocation.get("latitude"));
-        double lng = Double.valueOf((String) jsonShopLocation.get("longitude"));
+        double lat = Double.parseDouble(String.valueOf(jsonShopLocation.get("latitude")));
+        double lng = Double.parseDouble(String.valueOf(jsonShopLocation.get("longitude")));
 
-//        Double longitude = Double.parseDouble((String) jsonShopLocation.get("longitude"));
-//        System.out.println("get shopLocation " + latitude + "," + longitude);
         System.out.println("get shopLocation " + lat + "," + lng);
 
         ContactDTO contact = shop.contact;
-//        ShopLocation shopLocationFromContact = ShopLocation.find("byContact", contact).first();
 
         if (shop.contact.shopLocation == null){
             ShopLocation shopLocation = new ShopLocation(lat, lng);

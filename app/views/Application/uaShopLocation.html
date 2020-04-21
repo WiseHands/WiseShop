@@ -23,46 +23,77 @@
         font-size: 16px;
         box-sizing: border-box;
     }
-    .header-container, .body-container {
+    .column-container{
         display: flex;
+        flex-direction: column;
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
         align-items: center;
-        justify-content: center;
-        padding: 1rem;
-        margin: 0 auto 2rem auto;
-        max-width: 1200px;
     }
-    .body-container{
-        height: 100%;
-    }
-    .map{
+    .title-container {
         display: flex;
-        height: 500px;
+        flex-direction: column;
+        padding: 1rem;
+        max-width: 900px;
+    }
+        .shop-address-container{
+            align-items: flex-start;
+        }
+            .text-row{
+               display: flex;
+               flex-direction: row;
+            }
+            .text-row p{
+                margin-right: 3px;
+            }
+    .map{
+        height: 400px;
+        width: 100%;
+        margin: 5px;
 
     }
     .border{
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     }
+
 </style>
 <body>
-    <div class="header-container border">
-        <p>Some text about shop location</p>
+<div class="column-container">
+    <div class="title-container">
+        <p>Позначте адресу магазина на карті, або збережіть існуючу адресу</p>
+        <div class="shop-address-container">
+            <div class="text-row"> <p>Місто: </p> <p id="addressCity"></p> </div>
+            <div class="text-row"> <p>Вулиця: </p> <p id="addressStreet"></p> </div>
+            <div class="text-row"> <p>№ будівлі: </p> <p id="addressNumberHouse"></p> </div>
+        </div>
     </div>
-
     <div id="googleMap" class="map" data-wow-delay="0.1s"></div>
-
+</div>
 
 </body>
 </html>
 <script>
-    let map, marker;
+    let map, marker, pointLocation;
+    const addressCity = document.getElementById('addressCity');
+    const addressStreet = document.getElementById('addressStreet');
+    const addressNumberHouse = document.getElementById('addressNumberHouse');
+
     fetch('/contact/details', {
         method: 'GET'
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log("data for map",data.shopLocation);
+        console.log("data for map",data);
         initMap(data.shopLocation);
+        setAddressFromResponse(data);
     });
+
+    function setAddressFromResponse(address){
+        addressCity.innerText = address.addressCity
+        addressStreet.innerText = address.addressStreet
+        addressNumberHouse.innerText = address.addressNumberHouse
+    }
 
     function initMap(shopCoordinates){
         console.log("mapInitialization", Number(shopCoordinates.latitude), Number(shopCoordinates.longitude));
@@ -78,12 +109,41 @@
         map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
         marker = new google.maps.Marker({position: shopLocation, map: map});
         map.addListener('click', function(event) {
+            pointLocation = event.latLng
             if (marker) marker.setMap(null);
             marker = new google.maps.Marker(
-                { position: event.latLng,
+                { position: pointLocation,
                   map: map }
             );
+            geocodeLatLng(pointLocation);
             console.log('click on map', event.latLng);
         });
     }
+
+    function geocodeLatLng(location) {
+        let geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            'location': location
+        }, function(results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+
+                    map.setZoom(17);
+                    console.log("address for shop store", results[0].address_components[0].long_name);
+                    console.log("address for shop store", results[0].address_components[1].long_name);
+                    console.log("address for shop store", results[0].address_components[2].long_name);
+
+                    addressCity.innerText = results[0].address_components[2].long_name;
+                    addressStreet.innerText = results[0].address_components[1].long_name;
+                    addressNumberHouse.innerText = results[0].address_components[0].long_name;
+
+                } else {
+                    console.log('no address');
+                }
+            } else {
+                console.log('finded address ', status);
+            }
+        });
+    }
+
 </script>
