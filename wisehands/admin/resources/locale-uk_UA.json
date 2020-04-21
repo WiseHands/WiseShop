@@ -159,6 +159,7 @@
   "productDetails.deleteMessage2": "Товар видалений.",
   "shopDetails.deleteMessage1": "Ви дійсно хочете видалити даний магазин?",
   "shopDetails.deleteMessage2": "Магазин видалений.",
+  "editProduct.general": "Основне",
   "editProduct.edit": "Редагувати продукт",
   "editProduct.property": "Додаток",
   "editProduct.additionProduct": "Продукт: ",

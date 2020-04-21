@@ -1128,7 +1128,7 @@ input {
     padding-right: 0.5rem;
     text-align: left;
 }
-.admin-order-details-row {
+.admin-order-details-row, .edit-product-card-row{
     display: flex;
 }
 .admin-order-details-row p {
@@ -1158,6 +1158,9 @@ input {
 }
 .payment-order-icon p {
     margin-left: 3px;
+}
+.addition-product {
+    display: flex;
 }
 .addition-product p {
     font-size: 14px;
@@ -1202,6 +1205,9 @@ input {
 .order-message {
     width: 100%;
 }
+.order-message p {
+    text-align: left;
+}
 .center-spinner {
     display: flex;
     justify-content: center;
@@ -1209,6 +1215,8 @@ input {
 }
 .edit-product-block {
     display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 .edit-product-col {
     display: flex;
@@ -1221,13 +1229,22 @@ input {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     padding: 1rem;
 }
+.edit-product-card h4 {
+    margin-bottom: 1.5rem;
+}
+.edit-product-card .input-field {
+    margin: 2rem 0;
+}
+.edit-product-card .input-field label {
+    left: 0;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
     }
 }
 @media screen and (max-width: 768px) {
-    .add-product-block {
+    .add-product-block, .edit-product-block {
         flex-direction: column;
     }
     .m-left {

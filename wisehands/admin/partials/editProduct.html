@@ -23,9 +23,9 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <div class="col-md-12 noSidePadding" ng-hide="loading">
+    <div ng-hide="loading">
         <div class="card-min edit-product-block">
-            <div class="edit-product-col card-content  noSidePadding">
+            <div class="edit-product-col card-content ">
                 <!--<div class="input-field col-md-12" ng-show="categories.length >= 1">-->
                     <!--<label class="active" for="categories">{{'addNewProduct.category' | translate}}</label>-->
                     <!--<select id="categories"-->
@@ -36,84 +36,59 @@
                     <!--</select>-->
                 <!--</div>-->
                 <div class="edit-product-card">
-                    <div class="input-field col-md-12">
+                    <h4>{{'editProduct.general' | translate}}</h4>
+                    <div class="input-field">
                         <input id="name" type="text" ng-model="product.name">
                         <label class="active" for="name">{{'addNewProduct.productName' | translate}}</label>
                     </div>
-                    <div class="input-field col-md-12">
-                        <input id="price" type="text" ng-model="product.price">{{'products.currency' | translate}}
-                        <label class="active" for="price">{{'addNewProduct.productPrice' | translate}}</label>
+                    <div class="input-field">
+                        <input id="price" type="text" ng-model="product.price">
+                        <label class="active" for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</label>
                     </div>
-                    <div class="input-field col-md-12">
+                    <div class="input-field">
                         <textarea id="description" class="materialize-textarea" ng-model="product.description"></textarea>
                         <label class="active" for="description">{{'addNewProduct.productDescription' | translate}}</label>
                     </div>
                 </div>
 
                 <div class="edit-product-card">
-                    <div class="panel-group" id="accordion">
-                        <div class="panel panel-default">
-                            <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#collapse3">
-                                <h4 class="panel-title text-center">
-                                    {{'editProduct.properties' | translate}}
-                                </h4>
-                            </div>
-                            <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" />
-                                    <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="input-field col-md-12">
-                                        <input id="oldPrice" type="number" ng-model="product.oldPrice">
-                                        <label for="oldPrice" class="active">{{'addNewProduct.oldPrice' | translate}}</label>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="input-field col-md-12">
-                                        <input id="productOrder" type="number" ng-model="product.sortOrder">
-                                        <label for="productOrder" class="active">{{'displayOrder' | translate}}</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <h4>{{'editProduct.properties' | translate}}</h4>
+                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" />
+                    <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
+                    <div class="input-field">
+                        <input id="oldPrice" type="number" ng-model="product.oldPrice">
+                        <label for="oldPrice" class="active">{{'addNewProduct.oldPrice' | translate}}</label>
+                    </div>
+                    <div class="input-field ">
+                        <input id="productOrder" type="number" ng-model="product.sortOrder">
+                        <label for="productOrder" class="active">{{'displayOrder' | translate}}</label>
                     </div>
                 </div>
 
                 <div class="edit-product-card">
-                    <div class="panel-group" id="accordion2">
-                        <div class="panel panel-default">
-                            <div class="panel-heading cursorPointer" data-toggle="collapse" data-target="#collapse4">
-                                <h4 class="panel-title text-center">
-                                    {{'addNewProduct.additional' | translate}}
-                                </h4>
-                            </div>
-                            <div id="collapse4" class="panel-collapse collapse">
-                                <div class="panel-body noPaddingMobile" ng-repeat="property in properties">
-                                    <div class=" border-bottom0 vcentering propertyFlexPanel">
-                                        <h5 class=" border-bottom0 col-xs-10 ">{{property.title}}</h5>
-                                        <a href="#/product/{{product.uuid}}/editProperty/{{property.uuid}}">
-                                            <button class="col-md-2 btn-floating btn-xsmall waves-effect waves-light secondaryColor"><i class="material-icons">mode_edit</i></button>
-                                        </a>
-                                    </div>
-                                    <!-- property.tags ??? -->
-                                    <div ng-repeat="propertyOption in property.tags">
-                                        <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box-{{propertyOption.value}}" ng-model="propertyOption.selected" />
-                                        <label for="filled-in-box-{{propertyOption.value}}">{{propertyOption.value}}(+{{propertyOption.additionalPrice}})</label>
-                                    </div>
-                                </div>
-                                <div class="panel-body noPaddingMobile addition-product">
-                                    <p class="col-xs-10">{{'editProduct.addAddition' | translate}}</p>
-                                    <a class="pull-right" href="#/category/{{product.categoryUuid}}/addproperty/{{product.uuid}}">
-                                        <button class="btn-floating btn-xsmall waves-effect waves-light secondaryColor"><i class="material-icons">add</i></button>
-                                    </a>
-                                </div>
-                            </div>
+                    <h4>{{'addNewProduct.additional' | translate}}</h4>
+                    <div class=" noPaddingMobile" ng-repeat="property in properties">
+                        <div class=" border-bottom0 vcentering propertyFlexPanel">
+                            <h5 class=" border-bottom0 col-xs-10 ">{{property.title}}</h5>
+                            <a href="#/product/{{product.uuid}}/editProperty/{{property.uuid}}">
+                                <button class="col-md-2 btn-floating btn-xsmall waves-effect waves-light secondaryColor"><i class="material-icons">mode_edit</i></button>
+                            </a>
+                        </div>
+                        <!-- property.tags ??? -->
+                        <div ng-repeat="propertyOption in property.tags">
+                            <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box-{{propertyOption.value}}" ng-model="propertyOption.selected" />
+                            <label for="filled-in-box-{{propertyOption.value}}">{{propertyOption.value}}(+{{propertyOption.additionalPrice}})</label>
                         </div>
                     </div>
-
+                    <div class=" noPaddingMobile addition-product">
+                        <p class="">{{'editProduct.addAddition' | translate}}</p>
+                        <a class="pull-right" href="#/category/{{product.categoryUuid}}/addproperty/{{product.uuid}}">
+                            <button class="btn-floating btn-xsmall waves-effect waves-light secondaryColor"><i class="material-icons">add</i></button>
+                        </a>
+                    </div>
                 </div>
             </div>
+
             <div class="edit-product-col card-image waves-block waves-light view overlay hm-white-slight">
                 <div class="edit-product-card">
                     <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">

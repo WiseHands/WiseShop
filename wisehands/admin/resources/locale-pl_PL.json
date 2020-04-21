@@ -160,6 +160,7 @@
   "productDetails.deleteMessage2": "Produkt usunięty.",
   "shopDetails.deleteMessage1": "Czy na pewno chcesz usunąć ten sklep?",
   "shopDetails.deleteMessage2": "Sklep usunięty.",
+  "editProduct.general": "Wspólne",
   "editProduct.edit": "Edytuj produkt",
   "editProduct.property": "Właściwość",
   "editProduct.propertyName": "Nazwa właściwości",
