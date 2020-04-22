@@ -644,6 +644,7 @@ label.whiteCheckBox::after {
 .photoLabelStyle {
     text-indent: 0;
     display: block;
+    min-width: 150px;
 }
 .imageFlex {
     width: auto !important;
@@ -1003,8 +1004,8 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 131px;
-    height: 131px;
+    width: 123px;
+    height: 123px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     cursor: pointer;
     margin: 0.5rem;
@@ -1016,8 +1017,8 @@ input {
 .card-item {
     background-color: #fff;
     border: none;
-    width: 131px;
-    height: 131px;
+    width: 123px;
+    height: 123px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     margin: 0.5rem;
     display: flex;
@@ -1046,6 +1047,10 @@ input {
     color: #fff;
     border: none;
     font-size: 1.6rem;
+    margin-left: 1rem;
+}
+.add-product-select-category {
+    margin: 1rem;
 }
 .show-more-btn {
     font-size: 1.25rem;
@@ -1094,20 +1099,21 @@ input {
     flex-direction: column;
     flex: 1 1 50%;
 }
-.admin-order-card {
+.admin-card {
     margin: 1rem;
     border-radius: 10px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     padding: 1rem;
 }
-.admin-order-card p, .admin-order-card h4 {
+.admin-card p, .admin-card h4 {
     padding: 0;
     margin: 0;
 }
-.admin-order-card h4 {
+.admin-card h4 {
     text-align: left;
+    margin: 1rem 0;
 }
-.admin-order-card p {
+.admin-card p {
     text-align: right;
 }
 .admin-order-card-row {
@@ -1223,20 +1229,25 @@ input {
     flex-direction: column;
     flex: 1 1 50%;
 }
-.edit-product-card {
-    margin: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-    padding: 1rem;
-}
-.edit-product-card h4 {
-    margin-bottom: 1.5rem;
-}
-.edit-product-card .input-field {
+
+.admin-card .input-field {
     margin: 2rem 0;
 }
-.edit-product-card .input-field label {
+.admin-card .input-field label {
     left: 0;
+}
+.edit-product-edit-image {
+    margin: 3rem;
+}
+.edit-product-edit-image img {
+    width: 100%;
+}
+.carousel-gallery .carousel-indicators img {
+    width: 100%;
+    min-width: 150px;
+}
+.addition-options p {
+    text-align: left;
 }
 @media screen and (min-width: 1500px) {
     .admin-container {
@@ -1258,7 +1269,7 @@ input {
     .save-button {
         margin: 1rem auto;
     }
-    .admin-order-card {
+    .admin-card {
         max-width: 95%;
         margin: 1rem;
         padding: 1rem;

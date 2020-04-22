@@ -35,7 +35,7 @@
                             <!--ng-options="category as category.name for category in categories track by category.uuid">-->
                     <!--</select>-->
                 <!--</div>-->
-                <div class="edit-product-card">
+                <div class="admin-card ">
                     <h4>{{'editProduct.general' | translate}}</h4>
                     <div class="input-field">
                         <input id="name" type="text" ng-model="product.name">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="edit-product-card">
+                <div class="admin-card">
                     <h4>{{'editProduct.properties' | translate}}</h4>
                     <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" />
                     <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <div class="edit-product-card">
+                <div class="admin-card">
                     <h4>{{'addNewProduct.additional' | translate}}</h4>
                     <div class=" noPaddingMobile" ng-repeat="property in properties">
                         <div class=" border-bottom0 vcentering propertyFlexPanel">
@@ -80,7 +80,7 @@
                             <label for="filled-in-box-{{propertyOption.value}}">{{propertyOption.value}}(+{{propertyOption.additionalPrice}})</label>
                         </div>
                     </div>
-                    <div class=" noPaddingMobile addition-product">
+                    <div class="addition-options noPaddingMobile addition-product">
                         <p class="">{{'editProduct.addAddition' | translate}}</p>
                         <a class="pull-right" href="#/category/{{product.categoryUuid}}/addproperty/{{product.uuid}}">
                             <button class="btn-floating btn-xsmall waves-effect waves-light secondaryColor"><i class="material-icons">add</i></button>
@@ -90,10 +90,9 @@
             </div>
 
             <div class="edit-product-col card-image waves-block waves-light view overlay hm-white-slight">
-                <div class="edit-product-card">
+                <div class="admin-card">
                     <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
                         <!--Main image-->
-                        <div class="col-xs-8">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner z-depth-1 hoverable" role="listbox">
                                 <!-- First slide -->
@@ -113,30 +112,29 @@
                                 <!-- /.item -->
                             </div>
                             <!-- /.carousel-inner -->
-                        </div>
                         <!--/.Main image-->
 
                         <!-- Indicators -->
-                        <div class="col-xs-4">
                             <ul class="carousel-indicators correctImageDisplay" ng-show="productImages.length">
-                                <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
-                                    <img src="{{image.dataURL}}"
-                                         class="img-responsive z-depth-1 hoverable"
-                                         data-toggle="tooltip"
-                                         data-placement="top"
-                                         title="{{'addNewProduct.makeMain' | translate}}"
-                                         ng-click="setMainPhotoIndex($index, image.uuid); $event.stopPropagation();">
-                                    <div class="label secondaryColor photoLabelStyle hoverable"
-                                         data-toggle="tooltip"
-                                         data-placement="top"
-                                         title="{{'addNewProduct.deletePhoto' | translate}}"
-                                         ng-click="removeImage(image.uuid); $event.stopPropagation();">
-                                        <span class="glyphicon glyphicon-remove-sign"></span>
-                                    </div>
-                                    <button class="btn btn-default" ng-click="editImage(image)">Edit image</button>
-                                </li>
+                                <div class="edit-product-edit-image">
+                                    <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
+                                        <img src="{{image.dataURL}}"
+                                             class="img-responsive z-depth-1 hoverable"
+                                             data-toggle="tooltip"
+                                             data-placement="top"
+                                             title="{{'addNewProduct.makeMain' | translate}}"
+                                             ng-click="setMainPhotoIndex($index, image.uuid); $event.stopPropagation();">
+                                        <div class="label secondaryColor photoLabelStyle hoverable"
+                                             data-toggle="tooltip"
+                                             data-placement="top"
+                                             title="{{'addNewProduct.deletePhoto' | translate}}"
+                                             ng-click="removeImage(image.uuid); $event.stopPropagation();">
+                                            <span class="glyphicon glyphicon-remove-sign"></span>
+                                        </div>
+                                        <button class="btn btn-default" ng-click="editImage(image)">Edit image</button>
+                                    </li>
+                                </div>
                             </ul>
-                        </div>
                         <!-- Indicators -->
 
                     </div>
