@@ -569,6 +569,12 @@ footer a:hover {
     justify-content: space-around;
 }
 @media screen and (max-width: 768px) {
+    .main-block-text h1 {
+        font-size: 3rem;
+    }
+    .opport h2 {
+        font-size: 2.5rem;
+    }
     .header-block {
         display: none;
     }
