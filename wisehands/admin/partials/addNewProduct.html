@@ -37,6 +37,7 @@
         </div>
         <div class="add-product-info">
             <div class="admin-card">
+                <h4>{{'editProduct.general' | translate}}</h4>
                 <div class="input-field m-left">
                     <input id="product_name" type="text" ng-model="product.name" required>
                     <label for="product_name">{{'addNewProduct.productName' | translate}}</label>
@@ -52,20 +53,22 @@
             </div>
             <div class="add-product-select-category">
                 <div class="input-field">
-                    <p class="m-left">{{'addNewProduct.category' | translate}}</p>
+                    <h4 class="m-left">{{'addNewProduct.category' | translate}}</h4>
                     <p class="m-left" id="error-select-category">{{'addNewProduct.errorChooseCategory' | translate}}</p>
                     <div class="add-product-category">
                         <div class="create-category" data-toggle="modal" data-target="#categoryModal">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </div>
-                        <div class="item-category"  ng-repeat="category in categories | limitTo : strLimit" ng-class="{selected: category.uuid === selectedCategoryId}">
+                        <div class="item-category"  ng-repeat="category in categories | limitTo : NumberOfCategoriesToShow" ng-class="{selected: category.uuid === selectedCategoryId}">
                             <div class="card-item"  ng-click="chooseCategory(category.uuid)" title="{{category.name}}">
                                 <p>{{category.name}}</p></div>
                         </div>
-                    </div>
+                        <div class="show-category">
+                            <p  class="show-more-btn" ng-click="showMore()" ng-show="categories.length > 6" >{{'addNewProduct.showMoreButton' | translate}}</p>
+                            <p  class="show-less-btn" ng-click="showLess()"  >{{'addNewProduct.showLessButton' | translate}}</p>
+                        </div>
                 </div>
-                <p  class="show-more-btn m-left" ng-click="showMore()" >{{'addNewProduct.showMoreButton' | translate}}</p>
-                <p  class="show-less-btn m-left" ng-click="showLess()" >{{'addNewProduct.showLessButton' | translate}}</p>
+
                 <div class="input-field " ng-show="categories.length === 0">
                     <p class="text-center redError">{{'addNewProduct.noCategory' | translate}}</p>
                 </div>

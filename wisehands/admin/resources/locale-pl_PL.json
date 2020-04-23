@@ -134,7 +134,7 @@
   "addNewProduct.oldPrice": "Stara cena",
   "displayOrder": "Kolejność wyświetlania",
   "addNewProduct.noCategory": "Nie utworzono żadnej kategorii. Proszę utworzyć kategorię.",
-  "addNewProduct.category": "Wybierz kategorię",
+  "addNewProduct.category": "Kategoria",
   "addNewProduct.errorChooseCategory": "Wymagana kategoria",
   "addNewProduct.createCategory": "Utwórz kategorię",
   "addNewProduct.addPhoto": "Dodaj obraz (rozmiar 700 x 525 px)",
