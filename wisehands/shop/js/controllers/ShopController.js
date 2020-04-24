@@ -49,16 +49,6 @@
                 isUserAdmin.get(function(){
                     $scope.isUserAdmin = true;
                 });
-                var isShowAllProducts;
-                $http({
-                    method: 'GET',
-                    url: '/visualsettings'
-                }).then(function succesCallback(response){
-                    isShowAllProducts = response.data.isShowAllProducts;
-                    $scope.hideMoreButton = isShowAllProducts;
-                    console.log("$scope.isShowAllProducts", $scope.hideMoreButton);
-                });
-
 
                 $scope.isProductsInShop = false;
                 $http({
@@ -76,9 +66,6 @@
                         } else if(maxNumberOfOrders){
                             $scope.loading = false;
                             console.log("$scope.maxNumberOfOrders ", maxNumberOfOrders);
-                        } else if (isShowAllProducts){
-                            $scope.hideMoreButton = true;
-                            console.log("$$scope.hideMoreButton when $scope.isShowAllProducts = true", $scope.hideMoreButton);
                         } else {
                             $scope.hideMoreButton = false;
                             console.log("$$scope.hideMoreButton = false;", $scope.hideMoreButton);

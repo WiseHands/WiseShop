@@ -115,22 +115,13 @@ public class ProductAPI extends AuthController {
 
         List<ProductDTO> products;
 
-        if(shop.visualSettingsDTO.isShowAllProducts) {
-            products = ProductDTO.find(
-                    "select p from ProductDTO p, CategoryDTO c " +
-                            "where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc", shop, false
-            ).fetch();
-        } else {
-            String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc";
-            boolean isHidden = false;
 
-            if(page == 0) {
-                products = ProductDTO.find(query, shop, isHidden).fetch(PAGE_SIZE);
-            } else {
-                int offset = PAGE_SIZE * page;
-                products = ProductDTO.find(query, shop, isHidden).from(offset).fetch(PAGE_SIZE);
-            }
-        }
+        products = ProductDTO.find(
+                "select p from ProductDTO p, CategoryDTO c " +
+                        "where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc", shop, false
+        ).fetch();
+
+
 
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

@@ -127,7 +127,7 @@
   "addNewProduct.showLessButton": "Show Less",
   "addNewProduct.additional": "Additional Options",
   "addNewProduct.hideInShop": "Do not display product in shop",
-  "addNewProduct.oldPrice": "Old price",
+  "addNewProduct.oldPrice": "Price without discount",
   "addNewShops.add": "Add new shop",
   "addNewShops.edit": "Edit shop",
   "addNewShops.shopName": "Shop name",
