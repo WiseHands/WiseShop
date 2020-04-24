@@ -63,20 +63,17 @@
                             <div class="card-item"  ng-click="chooseCategory(category.uuid)" title="{{category.name}}">
                                 <p>{{category.name}}</p></div>
                         </div>
-                        <div class="show-category">
+                        <div class="show-category" ng-hide="categories.length < 7">
                             <p  class="show-more-btn" ng-click="showMore()" ng-show="categories.length > 6" >{{'addNewProduct.showMoreButton' | translate}}</p>
-                            <p  class="show-less-btn" ng-click="showLess()"  >{{'addNewProduct.showLessButton' | translate}}</p>
+                            <p  class="show-less-btn" ng-click="showLess()">{{'addNewProduct.showLessButton' | translate}}</p>
                         </div>
                 </div>
 
-                <div class="input-field " ng-show="categories.length === 0">
-                    <p class="text-center redError">{{'addNewProduct.noCategory' | translate}}</p>
-                </div>
             </div>
             <div class="admin-card">
                 <h4>{{'editProduct.properties' | translate}}</h4>
-                <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" />
-                <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
+                <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isHidden" />
+                <label for="filled-in-box">{{'addNewProduct.hideInShop' | translate}}</label>
                 <div class="input-field">
                     <input id="oldPrice" type="number" ng-model="product.oldPrice">
                     <label for="oldPrice" class="active">{{'addNewProduct.oldPrice' | translate}}</label>
@@ -86,7 +83,7 @@
                     <label for="productOrder" class="active">{{'displayOrder' | translate}}</label>
                 </div>
             </div>
-            <button class="save-button m-left"
+            <button class="save-button"
                     type="submit"
                     form="addNewProductForm">
                 Save

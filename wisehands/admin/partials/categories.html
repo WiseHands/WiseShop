@@ -15,7 +15,7 @@
     </div>
 </nav>
 
-<div class="container-fluid noSidePadding">
+<div class="container-fluid admin-all-products noSidePadding">
     <div class="spinner-block">
         <spinner class="center-spinner" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
@@ -50,6 +50,11 @@
     <div class="no-items-store">
         <img src="/wisehands/assets/images/noproducts.svg">
         <p>{{'categories.noCategory' | translate}}</p>
+        <a data-toggle="modal" data-target="#newCategoryModal">
+            <div class="add-category-noproduct">
+                <p>{{'addNewProduct.addCategory' | translate}}</p>
+            </div>
+        </a>
     </div>
 </h4>
 

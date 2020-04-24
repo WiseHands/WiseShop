@@ -1048,10 +1048,12 @@ input {
     color: #fff;
     border: none;
     font-size: 1.6rem;
-    margin-left: 1rem;
 }
 .add-product-select-category {
     margin: 1rem;
+}
+.add-product-select-category .admin-card {
+    margin: 1rem 0;
 }
 .show-category {
     background-color: #fff;
@@ -1092,6 +1094,21 @@ input {
 }
 .no-items-store img {
     width: 350px;
+}
+.add-product-noproduct, .add-category-noproduct {
+    border: 2px solid #054d58;
+    color: #054d58;
+}
+.add-product-noproduct:hover, .add-category-noproduct:hover {
+    border: 2px solid #126471;
+    background-color: #126471 ;
+    color: #fff;
+}
+.add-product-noproduct p, .add-category-noproduct p {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0.5rem 2rem;
+    text-transform: uppercase;
 }
 .admin-container {
     max-width: 900px;
