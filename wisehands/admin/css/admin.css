@@ -1044,16 +1044,21 @@ input {
     display: flex;
     justify-content: center;
     padding: 0.5rem 3rem;
+    border: 2px solid #054d58 ;
+    background-color: #fff;
+    font-size: 1.6rem;
+    width: 200px;
+}
+.save-button:hover {
     background-color: #126471;
     color: #fff;
-    border: none;
-    font-size: 1.6rem;
 }
 .add-product-select-category {
     margin: 1rem;
 }
 .add-product-select-category .admin-card {
     margin: 1rem 0;
+    max-width: 100%;
 }
 .show-category {
     background-color: #fff;

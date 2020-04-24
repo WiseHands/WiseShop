@@ -17,7 +17,7 @@
     </div>
 </nav>
 
-<div class="container-fluid noSidePadding cardTopPadding admin-all-products">
+<div class="noSidePadding cardTopPadding admin-all-products">
 
     <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
     <div class="spinner-block">
@@ -33,7 +33,7 @@
     </div>
     <div class="all-products-item" ng-repeat="product in products | filter:search | orderBy:'sortOrder'" on-finish-render="ngRepeatFinished">
         <a href="#/product/details/{{product.uuid}}">
-                <div class="noMargin card card-product hoverable">
+                <div class="card card-product hoverable">
                 <div class="card-image waves-effect waves-block waves-light view cardImageBlock">
                     <div class="flexContainerForPriceLabels2 card-label">
                         <h5 class="white-text"><span class="label primaryColor">{{product.price}} {{'products.currency' | translate}}</span></h5>
