@@ -1221,10 +1221,16 @@ input {
 .order-message p {
     text-align: left;
 }
+.spinner-block {
+    width: 100%;
+}
 .center-spinner {
+    margin: 0 auto;
+    height: calc(100vh - 86px);
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 .edit-product-block {
     display: flex;
