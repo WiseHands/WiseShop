@@ -1144,6 +1144,7 @@ input {
 }
 .admin-card p {
     text-align: right;
+    word-break: break-all;
 }
 .admin-order-card-row {
     display: flex;
@@ -1156,6 +1157,9 @@ input {
 }
 .admin-order-card-row-comment h5 {
     margin-right: 5px;
+}
+..admin-order-card-row-comment p {
+
 }
 .admin-order-card-row h5 {
     font-size: 1.2rem;
@@ -1254,17 +1258,16 @@ input {
     align-items: center;
     width: 100%;
 }
-.edit-product-block {
+.edit-product-block, .details-product-block {
     display: flex;
     max-width: 1200px;
     margin: 0 auto;
 }
-.edit-product-col {
+.edit-product-col, .details-product-col {
     display: flex;
     flex-direction: column;
     flex: 1 1 50%;
 }
-
 .admin-card .input-field {
     margin: 2rem 0;
 }
