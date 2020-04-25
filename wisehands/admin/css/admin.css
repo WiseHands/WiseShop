@@ -1027,6 +1027,10 @@ input {
     cursor: pointer;
     line-height: 1.3;
 }
+.card-item p {
+    line-height: 1.3;
+    max-height: 123px;
+}
 .selected {
     font-size: 1.3rem;
     color: #20b2aa;
@@ -1037,7 +1041,7 @@ input {
     text-overflow: ellipsis;
     overflow: hidden;
     padding: 0.5rem;
-    max-height: 140px;
+    max-height: 130px;
     text-align: center;
 }
 .save-button {
