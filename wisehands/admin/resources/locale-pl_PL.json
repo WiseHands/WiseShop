@@ -63,6 +63,7 @@
   "singleOrder.paymentState": "Status",
   "singleOrder.paymentStatePending": "W oczekiwaniu",
   "singleOrder.paymentStatePaid": "Płatne",
+  "singleOrder.paymentStateError": "Płatność nieudana",
   "singleOrder.Platform": "Platforma",
   "singleOrder.SmsSentToCustomer": "SMS wysłany do klientaу",
   "singleOrder.SmsSentToManager": "SMS wysłany do menedżera",

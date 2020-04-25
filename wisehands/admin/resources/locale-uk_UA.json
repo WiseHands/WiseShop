@@ -66,6 +66,7 @@
   "singleOrder.paymentState": "Статус",
   "singleOrder.paymentStatePending": "В очікуванні",
   "singleOrder.paymentStatePaid": "Оплачено",
+  "singleOrder.paymentStateError": "Помилка оплати",
   "singleOrder.Platform": "Платформа",
   "singleOrder.SmsSentToCustomer": "SMS надіслано замовнику",
   "singleOrder.SmsSentToManager": "SMS надіслано менеджеру",
