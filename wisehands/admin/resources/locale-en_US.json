@@ -155,7 +155,7 @@
   "addNewProduct.addProperty": "Add property",
   "addNewProduct.description": "Description",
   "productDetails.category": "Category",
-  "productDetails.details": "Details",
+  "productDetails.details": "Product",
   "productDetails.edit": "Edit",
   "productDetails.delete": "Delete",
   "productDetails.deleteMessage1": "Do you really want to delete this product?",

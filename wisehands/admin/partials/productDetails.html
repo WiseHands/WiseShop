@@ -27,25 +27,26 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid">
+<div>
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <div class="noSidePadding" ng-hide="loading">
-        <div class="details-product-block card-min hoverable">
+        <div class="details-product-block card-min">
             <div class="details-product-col">
                 <div class="admin-card">
+                    <h4>{{'editProduct.general' | translate}}</h4>
                     <label for="name">{{'addNewProduct.productName' | translate}}</label>
                     <h5 id="name" class="product-title">{{product.name}}</h5>
                     <label for="price">{{'productDetails.category' | translate}}</label>
                     <p id="price">{{product.categoryName}}</p>
                 </div>
                 <div class="admin-card">
-                    <div id="home" class="tab-pane fade in active">
-                        <br>
+                    <h4>{{'addNewProduct.productDescription' | translate}}</h4>
+                    <div id="home">
                         <p>{{product.description}}</p>
                     </div>
-                    <div id="menu1" class="tab-pane fade">
+                    <div id="menu1">
                         <div ng-repeat="property in product.properties">
                             <br>
                             <h5>{{property.name}}</h5>
@@ -59,10 +60,10 @@
             </div>
 
             <div class="details-product-col">
-                <div class="card-image waves-effect waves-block waves-light view overlay hm-white-slight noSidePadding">
+                <div class="details-product-col-image card-image waves-effect waves-block waves-light view overlay hm-white-slight noSidePadding">
                     <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
                         <!--Main image-->
-                        <div class="col-xs-8">
+                        <div class="">
                             <div class="flexContainerForPriceLabels card-label">
                                 <h5><span class="label primaryColor">{{product.price}} {{'products.currency' | translate}}</span></h5>
                                 <h5><span ng-hide="product.oldPrice == null" class="label primaryColor crossedPriceFont"><strike>{{product.oldPrice}} {{'products.currency' | translate}}</strike></span></h5>
@@ -108,23 +109,6 @@
             <!--<li class="active"><a class="productDetailsTabIcons" data-toggle="tab" data-target="#home"><i class="material-icons">description</i></a></li>-->
             <!--<li ng-hide="product.properties.length === 0" ><a class="productDetailsTabIcons" data-toggle="tab" data-target="#menu1"><i class="material-icons">assignment</i></a></li>-->
         <!--</ul>-->
-
-        <div class="tab-content card-panel">
-            <div id="home" class="tab-pane fade in active">
-                <br>
-                <p>{{product.description}}</p>
-            </div>
-            <div id="menu1" class="tab-pane fade">
-                <div ng-repeat="property in product.properties">
-                    <br>
-                    <h5>{{property.name}}</h5>
-                        <p ng-repeat="propertyOption in property.tags">
-                            <input name="group1" type="checkbox" id="cat-11" ng-model="propertyOption.selected" disabled/>
-                            <label for="cat-11">{{propertyOption.value}} <span>(+{{propertyOption.additionalPrice}})</span></label>
-                        </p>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 

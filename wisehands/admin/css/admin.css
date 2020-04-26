@@ -1272,6 +1272,12 @@ input {
     flex-direction: column;
     flex: 1 1 50%;
 }
+.details-product-col p {
+    text-align: left;
+}
+.details-product-col-image {
+    margin: 1rem;
+}
 .admin-card .input-field {
     margin: 2rem 0;
 }
@@ -1297,7 +1303,7 @@ input {
     }
 }
 @media screen and (max-width: 768px) {
-    .add-product-block, .edit-product-block {
+    .add-product-block, .edit-product-block, .details-product-block {
         flex-direction: column;
     }
     .m-left {
