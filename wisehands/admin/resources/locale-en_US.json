@@ -200,6 +200,8 @@
   "contacts.phone": "Phone",
   "contacts.address": "Address",
   "contacts.coords": "Mark your store on the",
+  "contacts.coordsCont": "or set coordinates below",
+  "contacts.map": "map",
   "contacts.description": "Description",
   "contacts.linkfacebook": "Link for Facebook that will be showing in footer",
   "contacts.linkinstagram": "Link for Instagram that will be showing in footer",
