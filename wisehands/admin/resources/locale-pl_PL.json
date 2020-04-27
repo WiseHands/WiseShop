@@ -119,6 +119,7 @@
   "categories.noCategory": "Brak kategorii",
   "categories.categoryDescription": "Opis kategorii",
   "categories.save": "Zapisać",
+  "categories.delete": "Usunąć",
   "categories.create": "Stworzyć",
   "categories.map": " Mapa",
   "categories.deleteMessage1": "Czy na pewno chcesz usunąć tę kategorię?",

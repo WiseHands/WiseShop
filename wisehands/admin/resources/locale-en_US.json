@@ -114,6 +114,7 @@
   "categories.noCategory": "No categories",
   "categories.categoryDescription": "Category description",
   "categories.save": "Save",
+  "categories.delete": "Delete",
   "categories.create": "Create",
   "categories.map": " map",
   "categories.deleteMessage1": "Do you really want to delete this category?",

@@ -128,9 +128,15 @@ public class CategoryAPI extends AuthController {
 
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<ProductDTO> prods = ProductDTO.find("byCategory", category).fetch();
+
         shop.categoryList.remove(category);
         shop.save();
-
+        for (ProductDTO product : prods){
+            List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
+            for (AdditionDTO addition : additionList){
+                addition.delete();
+            }
+        }
         for(ProductDTO product : prods) {
             shop.productList.remove(product);
             shop.save();
