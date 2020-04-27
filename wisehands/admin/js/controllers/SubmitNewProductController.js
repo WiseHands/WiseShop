@@ -3,6 +3,9 @@ angular.module('WiseHands')
         '$scope', '$location', '$http', 'signout', '$uibModal',
         function ($scope, $location, $http, signout, $uibModal) {
 
+        $scope.product = {
+            isActive: true
+            };
 
         $http({
             method: 'GET',
@@ -223,7 +226,7 @@ angular.module('WiseHands')
             fd.append('price', $scope.product.price);
             fd.append('mainPhotoIndex', $scope.product.mainPhoto);
             fd.append('category', $scope.selectedCategoryId);
-            fd.append('isActive', !$scope.product.isHidden);
+            fd.append('isActive', !$scope.product.isActive);
             fd.append('oldPrice', $scope.product.oldPrice);
             fd.append('sortOrder', $scope.product.sortOrder);
 
