@@ -226,7 +226,7 @@ angular.module('WiseHands')
             fd.append('price', $scope.product.price);
             fd.append('mainPhotoIndex', $scope.product.mainPhoto);
             fd.append('category', $scope.selectedCategoryId);
-            fd.append('isActive', !$scope.product.isActive);
+            fd.append('isActive', $scope.product.isActive);
             fd.append('oldPrice', $scope.product.oldPrice);
             fd.append('sortOrder', $scope.product.sortOrder);
 
