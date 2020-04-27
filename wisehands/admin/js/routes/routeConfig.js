@@ -169,6 +169,11 @@
                         controller:'PaymentController',
                         activetab: 'payment'
                     }).
+                    when('/discounts',{
+                        templateUrl:'wisehands/admin/partials/discounts.html',
+                        controller:'DiscountsController',
+                        activetab: 'discounts'
+                    }).
                     when('/liqpaypayment',{
                         templateUrl:'wisehands/admin/partials/liqPayPayment.html',
                         controller:'LiqPayPaymentController',

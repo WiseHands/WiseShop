@@ -1272,8 +1272,16 @@ input {
     flex-direction: column;
     flex: 1 1 50%;
 }
+.details-product-col h5, .details-product-col p, .details-product-col label  {
+    margin: 0;
+}
+.details-product-col h5 {
+    margin-bottom: 1rem;
+}
 .details-product-col p {
     text-align: left;
+    line-height: 1.4;
+    margin-bottom: 1rem;
 }
 .details-product-col-image {
     margin: 1rem;

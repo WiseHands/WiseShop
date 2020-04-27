@@ -1,0 +1,54 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'payment.discounts' | translate}}
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="setPaymentOptions()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<form ng-submit="createCoupons()">
+    <div class="input-field col-xs-12 col-sm-6">
+        <p>{{'payment.discount' | translate}}</p>
+        <input type="number" ng-model="plans.percentDiscount" required>
+    </div>
+    <div class="vcentering col-xs-12 col-sm-6 noSidePadding">
+        <div class="input-field col-xs-9 col-sm-10">
+            <p>{{'payment.minOrder' | translate}}</p>
+            <input type="number" ng-model="plans.total" required>
+        </div>
+        <div class="col-xs-3 col-sm-2">
+            <button type="button" class="btn-floating btn-xsmall waves-effect waves-light secondaryColor pull-left" ng-click="createNewCouponRow()"><i class="material-icons"><i class="material-icons">plus_one</i></i></button>
+        </div>
+    </div>
+    <div ng-repeat="row in couponRows">
+        <div class="input-field col-xs-12 col-sm-6">
+            <p>{{'payment.discount' | translate}}</p>
+            <input type="number" ng-model="row.percentDiscount" required>
+        </div>
+        <div class="vcentering col-xs-12 col-sm-6 noSidePadding">
+            <div class="input-field col-xs-12">
+                <p>{{'payment.minOrder' | translate}}</p>
+                <input type="number" ng-model="row.total" required>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 input-field">
+        <p>{{'payment.couponsIds' | translate}}</p>
+        <textarea id="textarea1" class="materialize-textarea" ng-model="couponsIds" rows="1" required></textarea>
+    </div>
+    <div class="col-sm-12">
+        <button type="submit" class="btn secondaryColor waves-effect waves-light pull-right">{{'categories.create' | translate}}</button>
+    </div>
+</form>
