@@ -135,7 +135,7 @@
   "addNewProduct.showLessButton": "Показати менше",
   "addNewProduct.additional": "Додатки",
   "addNewProduct.add": "Додати товар",
-  "addNewProduct.hideInShop": "Не показувати товар в магазині",
+  "addNewProduct.showInShop": "Показувати товар в магазині",
   "addNewProduct.oldPrice": "Ціна без знижки",
   "displayOrder": "Порядок відображення",
   "addNewProduct.noCategory": "У вас не створено жодної категорії. Будь ласка, створіть категорію.",

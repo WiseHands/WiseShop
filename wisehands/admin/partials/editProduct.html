@@ -53,8 +53,8 @@
 
                 <div class="admin-card">
                     <h4>{{'editProduct.properties' | translate}}</h4>
-                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isHidden" />
-                    <label for="filled-in-box">{{'addNewProduct.hideInShop' | translate}}</label>
+                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" />
+                    <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
                     <div class="input-field">
                         <input id="oldPrice" type="number" ng-model="product.oldPrice">
                         <label for="oldPrice" class="active">{{'addNewProduct.oldPrice' | translate}}</label>
