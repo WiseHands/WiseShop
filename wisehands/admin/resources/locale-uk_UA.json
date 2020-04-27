@@ -119,6 +119,7 @@
   "categories.addCategory": "Додати категорію",
   "categories.categoryDescription": "Опис категорії",
   "categories.save": "Зберегти",
+  "categories.delete": "Видалити",
   "categories.create": "Створити",
   "categories.map": " Карті",
   "categories.deleteMessage1": "Ви дійсно хочете видалити дану категорію?",
