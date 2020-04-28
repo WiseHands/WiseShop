@@ -179,6 +179,8 @@
   "editProduct.additionPrice": "Additional option price",
   "editProduct.additionImage": "Additional option image",
   "payment.payment": "Płatność",
+  "payment.paymentTypeCash": "Gotówką",
+  "payment.paymentTypeOnline": "Online",
   "payment.discounts": "Rabaty",
   "payment.cash": "Płatność gotówką",
   "payment.cashDiscription": "Tekst, który zobaczy klient przy płatności gotówką.",

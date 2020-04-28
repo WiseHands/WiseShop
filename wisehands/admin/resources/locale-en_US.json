@@ -178,6 +178,8 @@
   "editProduct.additionPrice": "Additional option price",
   "editProduct.additionImage": "Additional option image",
   "payment.payment": "Payment",
+  "payment.paymentTypeCash": "Cash",
+  "payment.paymentTypeOnline": "Online",
   "payment.discounts": "Discounts",
   "payment.cash": "Cash payment enabled",
   "payment.online": "Online payment enabled",

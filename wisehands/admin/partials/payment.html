@@ -21,7 +21,28 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-
+    <div class="payment-list">
+        <div class="payment-item">
+            <a href="#/paymentcash">
+                <div class="payment-item-bg">
+                    <img src="\wisehands\assets\images\payment-img\payment-cash.svg">
+                </div>
+                <div class="payment-item-title">
+                    <h5 class="white-text">{{'payment.paymentTypeCash' | translate}}</h5>
+                </div>
+            </a>
+        </div>
+        <div class="payment-item">
+            <a href="#/paymentonline">
+                <div class="payment-item-bg">
+                    <img src="\wisehands\assets\images\payment-img\payment-online.svg">
+                </div>
+                <div class="payment-item-title">
+                    <h5 class="white-text">{{'payment.paymentTypeOnline' | translate}}</h5>
+                </div>
+            </a>
+        </div>
+    </div>
     <div ng-hide="loading">
         <div class="row plr-15">
             <hr class="margin-hr">

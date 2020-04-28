@@ -214,6 +214,12 @@
                         controller:'EditPropertyController',
                         activetab: 'addproperty'
                     }).
+                    when('/paymentcash',{
+                        templateUrl:'wisehands/admin/partials/paymentCash.html',
+                    }).
+                    when('/paymentonline',{
+                        templateUrl:'wisehands/admin/partials/paymentOnline.html',
+                    }).
                     otherwise({
                         redirectTo:'/'
                     });
