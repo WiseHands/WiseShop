@@ -681,6 +681,9 @@ label.whiteCheckBox::after {
     display: flex;
     flex-direction: column;
 }
+.flexContainerForPriceLabels h5 {
+    padding-top: 10px;
+}
 .flexContainerForPriceLabels2 {
     display: flex;
     justify-content: space-between;
@@ -1151,7 +1154,7 @@ input {
 }
 .admin-card h4 {
     text-align: left;
-    margin: 1rem 0;
+    margin: 0.5rem 0 1rem 0;
 }
 .admin-card p {
     text-align: right;
@@ -1282,7 +1285,7 @@ input {
 .details-product-col h5, .details-product-col p, .details-product-col label  {
     margin: 0;
 }
-.details-product-col h5 {
+.details-product-col .admin-card h5 {
     margin-bottom: 1rem;
 }
 .details-product-col p {
@@ -1292,6 +1295,9 @@ input {
 }
 .details-product-col-image {
     margin: 1rem;
+}
+.details-product-col-image h5 {
+    margin-bottom: 1rem;
 }
 .admin-card .input-field {
     margin: 2rem 0;
