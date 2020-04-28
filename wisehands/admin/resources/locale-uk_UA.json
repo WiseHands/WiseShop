@@ -137,6 +137,8 @@
   "addNewProduct.additional": "Додатки",
   "addNewProduct.add": "Додати товар",
   "addNewProduct.showInShop": "Показувати клієнтам товар в магазині",
+  "addNewProduct.isShowInShop": "Товар показується клієнтам",
+  "addNewProduct.isNotShowInShop": "Товар не показується клієнтам",
   "addNewProduct.oldPrice": "Ціна без знижки",
   "displayOrder": "Порядок відображення",
   "addNewProduct.noCategory": "У вас не створено жодної категорії. Будь ласка, створіть категорію.",

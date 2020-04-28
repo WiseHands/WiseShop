@@ -135,6 +135,8 @@
   "addNewProduct.showLessButton": "Pokaż mniej",
   "addNewProduct.additional": "Dodatkowo",
   "addNewProduct.ShowInShop": "Pokaż produkt w sklepie dla klientów",
+  "addNewProduct.isShowInShop": "Produkt jest pokazywany klientom",
+  "addNewProduct.isNotShowInShop": "Produkt nie jest pokazywany klientom",
   "addNewProduct.oldPrice": "Сena bez rabatu",
   "displayOrder": "Kolejność wyświetlania",
   "addNewProduct.noCategory": "Nie utworzono żadnej kategorii",

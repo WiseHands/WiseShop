@@ -130,6 +130,8 @@
   "addNewProduct.showLessButton": "Show Less",
   "addNewProduct.additional": "Additional Options",
   "addNewProduct.showInShop": "Display product in shop for clients",
+  "addNewProduct.isShowInShop": "Product is shown to the clients",
+  "addNewProduct.isNotShowInShop": "Product is not shown to the client",
   "addNewProduct.oldPrice": "Price without discount",
   "addNewShops.add": "Add new shop",
   "addNewShops.edit": "Edit shop",
