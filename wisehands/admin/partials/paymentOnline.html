@@ -19,24 +19,23 @@
 </nav>
 
 <div class="payment-block payment-block-online">
-    <div class="row ">
+    <div class="input-field payment-block-item">
+        <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled" />
+        <label for="filled-in-box2">{{'payment.online' | translate}}</label>
+    </div>
+    <div class="input-field payment-block-item">
+        <input type="text" class="filled-in checkBoxStyling" id="filled-in-text2"
+               ng-model="payment.onlinePaymentTitle" placeholder="{{'payment.onlineDiscription' | translate}}"/>
+    </div>
+
+    <div class="payment-block-item">
         <p>{{'payment.systemPay' | translate}}</p>
         <a href="#/liqpaypayment">
-            <div class="col-sm-4 text-center">
+            <div class="payment-system text-center">
                 <div class="card-panel secondaryColor darken-3 hoverable">
                     <h5 class="white-text">LiqPay</h5>
                 </div>
             </div>
         </a>
     </div>
-
-    <div class="input-field col-sm-12">
-        <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled" />
-        <label for="filled-in-box2">{{'payment.online' | translate}}</label>
-    </div>
-    <div class="input-field col-sm-6">
-        <input type="text" class="filled-in checkBoxStyling" id="filled-in-text2"
-               ng-model="payment.onlinePaymentTitle" placeholder="{{'payment.onlineDiscription' | translate}}"/>
-    </div>
-
 </div>

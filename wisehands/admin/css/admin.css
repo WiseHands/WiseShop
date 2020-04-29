@@ -1284,8 +1284,14 @@ input {
     max-width: 1200px;
     margin: 0 auto;
 }
-.payment-block-online .row p {
-    padding-left: 1rem;
+.payment-block .input-field label {
+    left: 0;
+}
+.payment-block-item {
+    margin: 1rem;
+}
+.payment-system {
+    max-width: 250px ;
 }
 
 .order-message {
