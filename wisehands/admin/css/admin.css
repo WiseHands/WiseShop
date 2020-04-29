@@ -1156,7 +1156,7 @@ input {
     text-align: left;
     margin: 0.5rem 0 1rem 0;
 }
-.admin-card p {
+.admin-card .admin-order-card-row p {
     text-align: right;
     word-break: break-all;
 }
@@ -1290,11 +1290,17 @@ input {
 .payment-block .input-field label {
     left: 0;
 }
+.payment-block-online {
+    display: flex;
+}
+.payment-block-online .admin-card {
+    flex: 1 1 50%;
+}
 .payment-block-item {
     margin: 1rem;
 }
 .payment-system {
-    max-width: 250px ;
+    max-width: 100%;
 }
 
 .order-message {
@@ -1366,7 +1372,7 @@ input {
     }
 }
 @media screen and (max-width: 768px) {
-    .add-product-block, .edit-product-block, .details-product-block {
+    .add-product-block, .edit-product-block, .details-product-block, .payment-block-online {
         flex-direction: column;
     }
     .m-left {
