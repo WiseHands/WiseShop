@@ -1259,6 +1259,9 @@ input {
     flex-wrap: nowrap;
     justify-content: space-around;
 }
+.min-payment-block {
+    margin: 1rem;
+}
 .payment-item {
     flex: 0 1 40%;
     margin: 2rem 1rem;
@@ -1382,7 +1385,7 @@ input {
         margin: 1rem;
         padding: 1rem;
     }
-    .delivey-list {
+    .delivey-list, .payment-list {
         flex-direction: column;
         align-items: center;
     }
