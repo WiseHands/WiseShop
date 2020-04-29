@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('PaymentCashController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared',
+    .controller('PaymentOnlineController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared',
         function ($scope, $http, signout, sideNavInit, shared) {
             $scope.loading = true;
 

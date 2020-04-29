@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    {{'payment.payment' | translate}}
+                    {{'payment.paymentTypeOnline' | translate}}
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding">
@@ -17,3 +17,26 @@
         </div>
     </div>
 </nav>
+
+<div class="payment-block payment-block-online">
+    <div class="row ">
+        <p>{{'payment.systemPay' | translate}}</p>
+        <a href="#/liqpaypayment">
+            <div class="col-sm-4 text-center">
+                <div class="card-panel secondaryColor darken-3 hoverable">
+                    <h5 class="white-text">LiqPay</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="input-field col-sm-12">
+        <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled" />
+        <label for="filled-in-box2">{{'payment.online' | translate}}</label>
+    </div>
+    <div class="input-field col-sm-6">
+        <input type="text" class="filled-in checkBoxStyling" id="filled-in-text2"
+               ng-model="payment.onlinePaymentTitle" placeholder="{{'payment.onlineDiscription' | translate}}"/>
+    </div>
+
+</div>
