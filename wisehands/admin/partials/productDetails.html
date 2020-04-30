@@ -33,7 +33,7 @@
     </div>
     <div class="noSidePadding" ng-hide="loading">
         <div class="details-product-block card-min">
-            <div class="details-product-col">
+            <div class="admin-column">
                 <div class="admin-card">
                     <h4>{{'editProduct.general' | translate}}</h4>
                     <label for="name">{{'addNewProduct.productName' | translate}}</label>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="admin-card">
+                <div class="admin-card details-product-col">
                     <h4>{{'editProduct.properties' | translate}}</h4>
                     <p ng-show="product.isActive" >{{'addNewProduct.isShowInShop' | translate}}</p>
                     <p ng-show="!product.isActive" >{{'addNewProduct.isNotShowInShop' | translate}}</p>
@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="details-product-col">
+            <div class="admin-column details-product-col">
                 <div class="details-product-col-image card-image waves-effect waves-block waves-light view overlay hm-white-slight noSidePadding">
                     <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
                         <!--Main image-->

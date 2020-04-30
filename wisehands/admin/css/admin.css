@@ -1331,7 +1331,7 @@ input {
     max-width: 1200px;
     margin: 0 auto;
 }
-.edit-product-col, .details-product-col {
+.edit-product-col, .admin-column {
     display: flex;
     flex-direction: column;
     flex: 1 1 50%;

@@ -18,58 +18,68 @@
     </div>
 </nav>
 
-<div class="container-fluid noSidePadding">
+<div class="noSidePadding">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
     <form class="col-md-12 noSidePadding" id="contactsForm" name="contactsForm" ng-hide="loading">
-        <div class="input-field col-md-6">
-            <p>{{'contacts.phone' | translate}}</p>
-            <input class="form-control validate" id="phone_number" type="tel" ng-model="contacts.phone" placeholder="380123456789" ng-value="+380" pattern="^380[0-9]{9,9}$" required>
-        </div>
-        <div class="input-field col-md-6">
-            <p>E-mail</p>
-            <input id="email" type="email" ng-model="contacts.email" placeholder="your email here">
-        </div>
-        <div class="input-field col-md-6 set-address-container">
-            <p>{{'contacts.address' | translate}}</p>
-            <input id="addressCity" type="text" ng-model="contacts.addressCity" placeholder="City">
-            <input id="addressStreet" type="text" ng-model="contacts.addressStreet" placeholder="Street">
-            <input id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse" placeholder="Number house">
-        </div>
-        <div class="input-field col-md-6 flex-column-container">
-            <div class="text-shop-location-row">
-                <p>{{'contacts.coords' | translate}}
-                <a href="/ua/shop-location">{{'contacts.map' | translate}}</a>
-                {{'contacts.coordsCont' | translate}}</p>
-            </div>
-            <div class="set-coords-shop-row-container">
-                <div class="set-lat-shop-location">
-                    <input id="shopLatitude" type="text" ng-model="contacts.shopLocation.latitude" placeholder="49.848596">
+        <div class="admin-container admin-all-orders ">
+            <div class="admin-column">
+                <div class="admin-card">
+                    <h4>{{'editProduct.general' | translate}}</h4>
+                    <div class="input-field">
+                        <p>{{'contacts.phone' | translate}}</p>
+                        <input class="form-control validate" id="phone_number" type="tel" ng-model="contacts.phone" placeholder="380123456789" ng-value="+380" pattern="^380[0-9]{9,9}$" required>
+                    </div>
+                    <div class="input-field">
+                        <p>E-mail</p>
+                        <input id="email" type="email" ng-model="contacts.email" placeholder="your email here">
+                    </div>
                 </div>
-                <div class="set-lng-shop-location">
-                    <input id="shopLongitude" type="text" ng-model="contacts.shopLocation.longitude" placeholder="24.022936">
+                <div class="admin-card">
+                    <h4>{{'contacts.socialNetworks' | translate}}</h4>
+                    <div class="input-field">
+                        <p>{{'contacts.linkfacebook' | translate}}</p>
+                        <input id="linkfacebook" type="text" ng-model="contacts.linkfacebook" placeholder="facebook.com">
+                    </div>
+                    <div class="input-field">
+                        <p>{{'contacts.linkinstagram' | translate}}</p>
+                        <input id="linkinstagram" type="text" ng-model="contacts.linkinstagram" placeholder="instagram.com">
+                    </div>
+                    <div class="input-field">
+                        <p>{{'contacts.linkyoutube' | translate}}</p>
+                        <input id="linkyoutube" type="text" ng-model="contacts.linkyoutube" placeholder="youtube.com">
+                    </div>
                 </div>
             </div>
-            <!--            <input id="coords" type="text" ng-model="contacts.latLng" placeholder="49.848596,24.0229203">-->
+            <div class="admin-column">
+                <div class="admin-card">
+                    <h4>{{'contacts.address' | translate}}</h4>
+                    <div class="input-field set-address-container">
+                        <input id="addressCity" type="text" ng-model="contacts.addressCity" placeholder="City">
+                        <input id="addressStreet" type="text" ng-model="contacts.addressStreet" placeholder="Street">
+                        <input id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse" placeholder="Number house">
+                    </div>
+                    <div class="input-field flex-column-container">
+                        <div class="text-shop-location-row">
+                            <p>GPS location</p>
+                            <!--<p>{{'contacts.coords' | translate}}-->
+                                <!--<a href="/ua/shop-location">{{'contacts.map' | translate}}</a>-->
+                                <!--{{'contacts.coordsCont' | translate}}</p>-->
+                        </div>
+                        <div class="set-coords-shop-row-container">
+                            <div class="set-lat-shop-location">
+                                <input id="shopLatitude" type="text" ng-model="contacts.shopLocation.latitude" placeholder="Latitude">
+                            </div>
+                            <div class="set-lng-shop-location">
+                                <input id="shopLongitude" type="text" ng-model="contacts.shopLocation.longitude" placeholder="Longitude">
+                            </div>
+                        </div>
+                        <!--            <input id="coords" type="text" ng-model="contacts.latLng" placeholder="49.848596,24.0229203">-->
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="input-field col-md-12">
-            <p>{{'contacts.description' | translate}}</p>
-            <textarea id="textarea1" class="materialize-textarea pdd-0" ng-model="contacts.description"></textarea>
-        </div>
-        <br>
-        <hr>
-        <div class="input-field col-md-6">
-            <p>{{'contacts.linkfacebook' | translate}}</p>
-            <input id="linkfacebook" type="text" ng-model="contacts.linkfacebook" placeholder="facebook.com">
-        </div>
-        <div class="input-field col-md-6">
-            <p>{{'contacts.linkinstagram' | translate}}</p>
-            <input id="linkinstagram" type="text" ng-model="contacts.linkinstagram" placeholder="instagram.com">
-        </div>
-        <div class="input-field col-md-6">
-            <p>{{'contacts.linkyoutube' | translate}}</p>
-            <input id="linkyoutube" type="text" ng-model="contacts.linkyoutube" placeholder="youtube.com">
-        </div>
+
     </form>
 </div>
