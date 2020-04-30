@@ -17,7 +17,7 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid">
+<div class="">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
@@ -43,10 +43,9 @@
             </a>
         </div>
     </div>
-    <div class="payment-block" ng-hide="loading">
-
-        <div class="row">
-            <div class="input-field col-xs-12 ">
+    <div class="payment-block " ng-hide="loading">
+        <div class="row min-payment-block">
+            <div class="input-field ">
                 <p>{{'payment.minPayment' | translate}}</p>
                 <input type="text" id="filled-in-minimumPayment" ng-model="payment.minimumPayment"/>
             </div>

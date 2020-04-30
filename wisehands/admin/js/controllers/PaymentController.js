@@ -95,7 +95,7 @@ angular.module('WiseHands')
         $scope.createNewCouponRow = function () {
             $scope.couponRows.push({});
         };
-        sideNavInit.sideNav();
+        sideNavInit.sideNav();  sideNavInit.sideNav();
     }]);
 function showWarningMsg(msg) {
     toastr.clear();

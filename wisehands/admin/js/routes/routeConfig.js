@@ -217,12 +217,10 @@
                     when('/paymentcash',{
                         templateUrl:'wisehands/admin/partials/paymentCash.html',
                         controller:'PaymentCashController',
-
                 }).
                     when('/paymentonline',{
                         templateUrl:'wisehands/admin/partials/paymentOnline.html',
                         controller:'PaymentOnlineController',
-
                 }).
                     otherwise({
                         redirectTo:'/'
