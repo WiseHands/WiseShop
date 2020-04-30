@@ -191,7 +191,7 @@
   "payment.minPayment": "The minimum payment for an order",
   "payment.minOrder": "Min. order amount",
   "payment.couponsIds": "Coupons IDs (each from new line)",
-  "payment.systemPay": "Payment systems",
+  "payment.systemPay": "Payment Systems",
   "delivery.delivery": "Delivery",
   "delivery.newPost": "New Post",
   "delivery.courier": "Courier",

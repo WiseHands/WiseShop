@@ -20,6 +20,7 @@
 
 <div class="payment-block payment-block-online">
     <div class="admin-card">
+        <h4>{{'editProduct.general' | translate}}</h4>
         <div class="input-field payment-block-item">
             <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled" />
             <label for="filled-in-box2">{{'payment.online' | translate}}</label>
@@ -30,8 +31,7 @@
         </div>
     </div>
     <div class="admin-card">
-        <div class="payment-block-item">
-            <p>{{'payment.systemPay' | translate}}</p>
+            <h4>{{'payment.systemPay' | translate}}</h4>
             <a href="#/liqpaypayment">
                 <div class="payment-system text-center">
                     <div class="card-panel secondaryColor darken-3 hoverable">
@@ -39,7 +39,6 @@
                     </div>
                 </div>
             </a>
-        </div>
     </div>
 
 </div>

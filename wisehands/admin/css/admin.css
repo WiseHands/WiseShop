@@ -1296,6 +1296,12 @@ input {
 .payment-block-online .admin-card {
     flex: 1 1 50%;
 }
+.payment-block-online .admin-card .input-field {
+    margin: 1rem 0;
+}
+.payment-block-online .card-panel {
+    margin-top: 2rem;
+}
 .payment-block-item {
     margin: 1rem;
 }

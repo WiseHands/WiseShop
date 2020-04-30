@@ -17,13 +17,16 @@
         </div>
     </div>
 </nav>
-<div class="payment-block">
-    <div class="input-field col-sm-12">
-        <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
-        <label for="filled-in-box">{{'payment.cash' | translate}}</label>
-    </div>
-    <div class="input-field col-sm-6">
-        <input type="text" class="filled-in checkBoxStyling" id="filled-in-text"
-               ng-model="payment.manualPaymentTitle" placeholder="{{'payment.cashDiscription' | translate}}"/>
-    </div>
+<div class="row payment-block">
+        <div class="admin-card">
+            <h4>{{'editProduct.general' | translate}}</h4>
+            <div class="input-field">
+                <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
+                <label for="filled-in-box">{{'payment.cash' | translate}}</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="filled-in checkBoxStyling" id="filled-in-text"
+                       ng-model="payment.manualPaymentTitle" placeholder="{{'payment.cashDiscription' | translate}}"/>
+            </div>
+        </div>
 </div>
