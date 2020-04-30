@@ -1172,9 +1172,6 @@ input {
 .admin-order-card-row-comment h5 {
     margin-right: 5px;
 }
-..admin-order-card-row-comment p {
-
-}
 .admin-order-card-row h5 {
     font-size: 1.2rem;
     font-weight: 400;
@@ -1296,7 +1293,7 @@ input {
 .payment-block-online .admin-card {
     flex: 1 1 50%;
 }
-.payment-block-online .admin-card .input-field {
+.payment-block-online .admin-card .input-field, .courier-block  .admin-card .input-field    {
     margin: 1rem 0;
 }
 .payment-block-online .card-panel {
@@ -1308,7 +1305,9 @@ input {
 .payment-system {
     max-width: 100%;
 }
-
+.courier-block .btn {
+    margin: 0;
+}
 .order-message {
     width: 100%;
 }
