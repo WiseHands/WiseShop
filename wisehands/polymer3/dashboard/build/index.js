@@ -3134,14 +3134,13 @@ class BalanceContainer extends LitElement {
                                 </select>
                             </div>
                             <div class="row-container">
-                              <button @click="${this.getPlaneForShop}">змінити</button>
+                              <button @click="${this.changePlaneForShop}">змінити</button>
                               <p style="color: red">${this.errorForPricingPlan}</p>
                             </div>
                         </div>
                     `}
                 </section>
                 <span class="line"></span>
-
 
                 <section class="administration-container">
 
@@ -3225,7 +3224,7 @@ class BalanceContainer extends LitElement {
     this.getPricingPlanList();
     this.isUserSuperAdmin = true;
     this.isUserSuperAdminThenHideOfflinePaymentSection();
-    console.log('this.isUserSuperAdminThenHideOfflinePaymentSection();');
+    console.log('this.constructor balance-container', this.shop);
   }
 
   isUserSuperAdminThenHideOfflinePaymentSection() {
@@ -3278,7 +3277,7 @@ class BalanceContainer extends LitElement {
     });
   }
 
-  getPlaneForShop() {
+  changePlaneForShop() {
     const plansList = this.shadowRoot.querySelector('#plans');
     const selectedUuidByIndex = plansList.selectedIndex;
     const pricingPlanUuid = plansList.querySelectorAll('option')[selectedUuidByIndex].id;
@@ -3312,11 +3311,13 @@ class BalanceContainer extends LitElement {
 
     if (data.uuid) {
       this.errorForPricingPlan = '';
+      console.log('get transactionList ', data);
       this.transactionList = data.coinAccount.transactionList;
       this.shop = data;
     }
 
-    this.dispatchEvent(new CustomEvent('open-balance', {
+    console.log('update shop after add plan', this.shop);
+    this.dispatchEvent(new CustomEvent('updating-pricing-plan-in-unique-shop', {
       bubbles: true,
       composed: true,
       detail: this.shop
@@ -3330,7 +3331,7 @@ class BalanceContainer extends LitElement {
       this.coinAccount.balance = 0;
     }
 
-    console.log("ERROR no data for setBalanceForThisShop!!!", data);
+    console.log("setBalanceForThisShop", data);
   }
 
   handleAmountPayment(e) {
@@ -3394,7 +3395,7 @@ class BalanceContainer extends LitElement {
         authorization: 'Bearer ' + token
       }
     }).then(function (response) {
-      console.log("response response: ", response);
+      console.log("PostRequestForOfflineRefillPayment response: ", response);
       return response.json();
     }).then(function (data) {
       console.log('data from generatePostRequest: ', data);
@@ -3520,6 +3521,7 @@ class ShopTile extends LitElement {
 
   constructor() {
     super();
+    console.log('this.constructor shop-tile', this.shop);
   }
 
   _buildUrlForShop(item) {
@@ -3528,7 +3530,8 @@ class ShopTile extends LitElement {
   }
 
   showBalanceWidgetForShop() {
-    this.dispatchEvent(new CustomEvent('open-balance', {
+    console.log('showBalanceWidgetForShop show-balance-container');
+    this.dispatchEvent(new CustomEvent('show-balance-container', {
       bubbles: true,
       composed: true,
       detail: this.shop
@@ -4349,9 +4352,11 @@ class DashBoard extends LitElement {
     this.isHiddenPlansBlockInMenu = true;
     this.checkIfUserIsLogIn();
     this.isUserSuperAdminThanHidePlansBlockInMenu();
-    this.openBalance();
+    this.openBalanceContainer();
     this.openPricingPlan();
     this.openPricingPlanList();
+    console.log('this.constructor dash-board-container', this.shop);
+    console.log('this.constructor dash-board-container', this.shopList);
   }
 
   isUserSuperAdminThanHidePlansBlockInMenu() {
@@ -4367,17 +4372,14 @@ class DashBoard extends LitElement {
     }
   }
 
-  openBalance() {
+  openBalanceContainer() {
+    console.log('open balance container');
+
     const _this = this;
 
-    this.addEventListener('open-balance', event => {
+    this.addEventListener('show-balance-container', event => {
+      console.log("show-balance-container in addEventListener: ", event.detail);
       _this.selectedShop = event.detail;
-      console.log("open-balance in addEventListener: ", event.detail);
-      this.shopList.forEach(shop => {
-        if (shop.uuid = _this.selectedShop.uuid) {
-          shop.pricingPlan = _this.selectedShop.pricingPlan;
-        }
-      });
       this.showBalanceContainer();
     });
   }
@@ -4442,6 +4444,15 @@ class DashBoard extends LitElement {
     this.isShowPricePlanListContainer = false;
     this.isShowPricePlanMainContainer = false;
     this.setSelectedState(event.currentTarget);
+    this.addEventListener('updating-pricing-plan-in-unique-shop', event => {
+      console.log("updating-pricing-plan-in-unique-shop: ", event.detail.uuid);
+      const uniqueShop = event.detail;
+      this.shopList.forEach(shop => {
+        if (shop.uuid = uniqueShop.uuid) {
+          shop.pricingPlan = uniqueShop.pricingPlan;
+        }
+      });
+    });
   }
 
   setSelectedState(clickedMenuItem) {
