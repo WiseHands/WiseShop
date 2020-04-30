@@ -169,8 +169,8 @@
     <h4 class="text-center" ng-show="(orders | filter:orderFilter).length == 0 && orders.length != 0">
         <i>{{'orderList.NoFilterMatches' | translate}}</i>
     </h4>
-    <div class="text-center">
-        <spinner name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    <div class="spinner-block">
+        <spinner class="center-spinner" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
 </div>
 <h4 ng-show="orders.length === 0 || isAllOrdersDeleted" >

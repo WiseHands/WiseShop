@@ -32,15 +32,6 @@
         </div>
     </div>
     <form class="col-md-12 noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading" ng-submit="updateShopStyling()">
-        <div class="input-field col-md-12">
-            <p>{{'settings.navbarStyle' | translate}}</p>
-            <select class="form-control"
-                    ng-model="selectedSkin"
-                    ng-change="navbarStyling(selectedSkin)"
-                    ng-options="skin as skin.name for skin in navbarStyles" required>
-                <option></option>
-            </select>
-        </div>
         <div class="file-field input-field col-md-offset-6 col-md-6" ng-show="!shopStyling.shopFavicon">
             <button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block" ng-click="loadFavicon()">
                 <span>{{'addNewProduct.add' | translate}} favicon</span>
@@ -52,18 +43,6 @@
             <button type="button" class="btn secondaryColor waves-effect waves-light btn-block" ng-click="deleteFavicon()">
                 <span>{{'productDetails.delete' | translate}} favicon</span>
             </button>
-        </div>
-        <div class="input-field col-md-12">
-            <p>{{'settings.navbarColor' | translate}} <a href="https://www.materialpalette.com/" target="_blank" ><i class="fa fa-question-circle"></i></a></p>
-            <input colorpicker ng-model="shopStyling.navbarColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
-        </div>
-        <div class="input-field col-md-12">
-            <p>{{'settings.navbarTextColor' | translate}}</p>
-            <input colorpicker ng-model="shopStyling.navbarTextColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
-        </div>
-        <div class="input-field col-md-12">
-            <p>{{'settings.navbarQuantity' | translate}}</p>
-            <input colorpicker ng-model="shopStyling.navbarShopItemsColor" type="text" required pattern="^#(?:[0-9a-fA-F]{3}){1,2}$">
         </div>
 
         <div class="input-field col-md-12" ng-show="logo">
@@ -90,27 +69,4 @@
         </div>
     </form>
 </div>
-<nav class="navbar boxShadow" style="background-color: {{shopStyling.navbarColor}}" ng-hide="loading">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-6 col-sm-1">
-                <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}"><i class="fa fa-bars"></i></a>
-            </div>
-            <div class="hidden-xs col-sm-4" ng-show="!logo">
-                <a class="navbar-brand waves-effect waves-light" style="color: {{shopStyling.navbarTextColor}}">Brand</a>
-            </div>
-            <div class="col-sm-2">
-                <a>
-                    <img ng-show="logo" class="img-responsive hidden-sm hidden-xs" style="max-width:32px;"
-                         ng-src="{{logo}}">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-5" ng-class="{'col-sm-offset-5': logo}">
-                <a class="navbar-brand waves-effect waves-light pull-right" style="color: {{shopStyling.navbarTextColor}}">
-                    <span class="badge" style="color: {{shopStyling.navbarTextColor}}; background-color: {{shopStyling.navbarShopItemsColor}}">4</span> <i class="fa fa-shopping-cart"></i> <span class="hidden-xs"> {{'settings.cart' | translate}}</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
 
