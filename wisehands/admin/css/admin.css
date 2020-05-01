@@ -1133,6 +1133,12 @@ input {
     max-width: 900px;
     margin:  0 auto;
 }
+.admin-card .input-field {
+    margin: 1rem 0;
+}
+.admin-card .input-field label {
+    left: 0;
+}
 .admin-all-orders {
     display: flex;
     flex-wrap: wrap;
@@ -1231,25 +1237,31 @@ input {
     border-bottom: none;
     padding-bottom: 0;
 }
-.delivey-list, .payment-list {
+.delivery-list, .payment-list {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
 }
-.delivey-list-item {
+.delivery-list-item {
     flex: 0 1 30%;
     margin: 1rem;
     min-width: 300px;
 }
-.delivey-list-item-bg {
+.delivery-list-item-bg {
     height: 300px;
     width: 100%;
 }
-.delivey-list-item-bg img {
+.delivery-list-item-bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.admin-card .delivery-message {
+    margin-top: 2.5rem;
+}
+.delivery-message textarea {
+    padding: 0.5rem 0;
 }
 .payment-list {
     flex-wrap: nowrap;
@@ -1292,9 +1304,6 @@ input {
 .payment-block-online .admin-card {
     flex: 1 1 50%;
 }
-.payment-block-online .admin-card .input-field, .courier-block  .admin-card .input-field    {
-    margin: 1rem 0;
-}
 .payment-block-online .card-panel {
     margin-top: 2rem;
 }
@@ -1329,6 +1338,9 @@ input {
     max-width: 1200px;
     margin: 0 auto;
 }
+.edit-product-block .admin-card .input-field {
+    margin: 2rem 0;
+}
 .edit-product-col, .admin-column {
     display: flex;
     flex-direction: column;
@@ -1350,12 +1362,6 @@ input {
 }
 .details-product-col-image h5 {
     margin-bottom: 1rem;
-}
-.admin-card .input-field {
-    margin: 2rem 0;
-}
-.admin-card .input-field label {
-    left: 0;
 }
 .edit-product-edit-image {
     margin: 3rem;
@@ -1395,11 +1401,11 @@ input {
         margin: 1rem;
         padding: 1rem;
     }
-    .delivey-list, .payment-list {
+    .delivery-list, .payment-list {
         flex-direction: column;
         align-items: center;
     }
-    .delivey-list-item {
+    .delivery-list-item {
         margin: 1rem 0;
     }
 }

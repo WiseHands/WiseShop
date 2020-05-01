@@ -27,7 +27,7 @@
         <h4>{{'editProduct.general' | translate}}</h4>
         <div class="input-field">
             <input type="checkbox" class="filled-in pull-left checkBoxStyling" id="filled-in-box" ng-model="delivery.isCourierAvailable" />
-            <label for="filled-in-box">{{'delivery.enabled' | translate}}</label>
+            <label for="filled-in-box">{{'delivery.courierEnabled' | translate}}</label>
         </div>
         <div class=" input-field">
             <p>{{'delivery.deliveryPrice' | translate}}</p>
@@ -38,7 +38,7 @@
             <p>{{'delivery.freeDeliveryPrice' | translate}}</p>
             <input id="freeDelivery" type="number" ng-model="delivery.courierFreeDeliveryLimit">
         </div>
-        <div class=" input-field">
+        <div class="delivery-message input-field">
             <p>{{'delivery.messageText' | translate}}</p>
             <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.courierText"></textarea>
         </div>

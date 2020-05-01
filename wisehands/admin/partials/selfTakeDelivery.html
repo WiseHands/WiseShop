@@ -19,16 +19,17 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid noSidePadding">
+<div class="admin-container noSidePadding">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <form class="col-md-12 noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
-        <div class="input-field col-md-6">
+    <form class="admin-card noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
+        <h4>{{'editProduct.general' | translate}}</h4>
+        <div class="input-field ">
             <input type="checkbox" class="filled-in pull-left checkBoxStyling" id="filled-in-box" ng-model="delivery.isSelfTakeAvailable" />
-            <label for="filled-in-box">{{'delivery.enabled' | translate}}</label>
+            <label for="filled-in-box">{{'delivery.selfTakeEnabled' | translate}}</label>
         </div>
-        <div class="col-md-12 input-field">
+        <div class="delivery-message input-field">
             <p>{{'delivery.messageText' | translate}}</p>
             <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.selfTakeText"></textarea>
         </div>
