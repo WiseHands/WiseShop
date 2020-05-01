@@ -1157,7 +1157,6 @@ input {
     margin: 0.5rem 0 1rem 0;
 }
 .admin-card .admin-order-card-row p {
-    text-align: right;
     word-break: break-all;
 }
 .admin-order-card-row {
@@ -1181,7 +1180,7 @@ input {
 .admin-order-details-row, .edit-product-card-row{
     display: flex;
 }
-.admin-order-details-row p {
+.admin-card .admin-order-details-row p {
     text-align: left;
 }
 .admin-order-details-quantity {
