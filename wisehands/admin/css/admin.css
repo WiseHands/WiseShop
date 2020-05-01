@@ -1376,6 +1376,9 @@ input {
 .addition-options p {
     text-align: left;
 }
+#userInfoForm select {
+    width: 250px;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;

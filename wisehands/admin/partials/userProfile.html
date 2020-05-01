@@ -16,35 +16,26 @@
         </div>
     </div>
 </nav>
-<div class="admin-container container-fluid noSidePadding">
+<div class="admin-container noSidePadding">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <form class="col-md-12 noSidePadding" id="userInfoForm" name="userInfoForm" ng-hide="loading">
-        <div class="input-field col-md-6">
+    <form class="admin-card  noSidePadding" id="userInfoForm" name="userInfoForm" ng-hide="loading">
+        <h4>{{'editProduct.general' | translate}}</h4>
+        <div class="input-field ">
             <p>{{'userprofile.fullname' | translate}}</p>
             <input type="text" ng-model="userInfo.name">
         </div>
-        <div class="input-field col-md-6">
+        <div class="input-field ">
             <p>{{'singleOrder.Phone' | translate}}</p>
             <input type="tel" ng-model="userInfo.phone" ng-disabled="!userInfo.isGoogleSignIn">
         </div>
-        <div class="input-field col-md-6">
+        <div class="input-field ">
             <p>E-mail</p>
             <input type="email" ng-model="userInfo.email" ng-disabled="userInfo.isGoogleSignIn">
         </div>
-        <div class="input-field col-xs-12 vcentering noSidePadding">
-            <div class="col-xs-6">
-                <p>{{'settings.shop' | translate}}</p>
-                    <select class="form-control col-md-6"
-                        ng-model="selectedShop"
-                        ng-change="shopSelected(shop)"
-                        ng-options="shop as shop.shopName for shop in shops">
-                </select>
-            </div>
-        </div>
     </form>
 </div>
-<div class="flex-button">
-    <button type="button" ng-click="createNetworkShops()" class="btn secondaryColor analytics-use-btn waves-effect waves-light ng-binding unique-color z-depth-1 primaryColor" style="justify-content: flex-start">{{'addShopsNetwork.netName' | translate}}</button>
-</div>
+<!--<div class="flex-button">-->
+<!--    <button type="button" ng-click="createNetworkShops()" class="btn secondaryColor analytics-use-btn waves-effect waves-light ng-binding unique-color z-depth-1 primaryColor" style="justify-content: flex-start">{{'addShopsNetwork.netName' | translate}}</button>-->
+<!--</div>-->
