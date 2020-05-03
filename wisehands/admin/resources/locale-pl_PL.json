@@ -196,7 +196,7 @@
   "delivery.newPost": "Przesyłka",
   "delivery.courier": "Dostawa kurierska",
   "delivery.selftake": "Odbiór osobisty",
-  "delivery.orderMessage": "Wiadomość po zamówieniu",
+  "delivery.orderMessage": "Wiadomość, którą zobaczy klient po złożeniu zamówienia",
   "delivery.courierEnabled": "Pozwól klientowi wybrać kuriera jako opcję dostawy",
   "delivery.newPostEnabled": "Pozwól klientowi wybrać usługa dostawy jako opcję dostawy",
   "delivery.selfTakeEnabled": "Pozwól klientowi  na odbiór osobisty",

@@ -196,7 +196,7 @@
   "delivery.newPost": "New Post",
   "delivery.courier": "Courier",
   "delivery.selftake": "Self take",
-  "delivery.orderMessage": "Message after order",
+  "delivery.orderMessage": "Message that the customer will see after placing the order",
   "delivery.courierEnabled": "Allow customer to choose courier as a delivery option",
   "delivery.newPostEnabled": "Allow customer to choose Nova Poshta as a delivery option",
   "delivery.selfTakeEnabled": "Allow customer to self take",

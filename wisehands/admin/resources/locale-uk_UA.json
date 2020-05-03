@@ -201,7 +201,7 @@
   "delivery.courier": "Кур'єр",
   "delivery.selftake": "Самовивіз",
   "delivery.postservice": "Нова Пошта",
-  "delivery.orderMessage": "Повідомлення після замовлення",
+  "delivery.orderMessage": "Повідомлення, яке побачить клієнт після оформлення замовлення",
   "delivery.courierEnabled": "Надати клієнту можливість вибрати кур'єра як спосіб доставки",
   "delivery.newPostEnabled": "Надати клієнту можливість вибрати Нову Пошту як спосіб доставки",
   "delivery.selfTakeEnabled": "Надати клієнту можливість самовивозу",
