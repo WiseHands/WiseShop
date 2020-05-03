@@ -1346,6 +1346,9 @@ input {
     flex-direction: column;
     flex: 1 1 50%;
 }
+.details-product-block .admin-card h5 {
+    margin: 0 0 1.3rem 0;
+}
 .details-product-col h5, .details-product-col p, .details-product-col label  {
     margin: 0;
 }
