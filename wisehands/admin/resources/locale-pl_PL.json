@@ -202,7 +202,7 @@
   "delivery.selfTakeEnabled": "Pozwól klientowi  na odbiór osobisty",
   "delivery.messageText": "Tekst, który klient widzi w koszyku dla tej opcji dostawy",
   "delivery.deliveryPrice": "Cena dostawy",
-  "delivery.freeDeliveryPrice": "Cena darmowej dostawy",
+  "delivery.freeDeliveryPrice": "Minimalna kwota zamówienia za bezpłatną wysyłkę",
   "delivery.minimumOrderTotalAmount": "Minimal order total amount",
   "courierDelivery.deliveryBoundaries":"Granice dostawy",
   "contacts.contacts": "Kontakt",
