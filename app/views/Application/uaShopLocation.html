@@ -38,14 +38,27 @@
         max-width: 900px;
     }
         .shop-address-container{
-            align-items: flex-start;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
+          .text-address-container{
+            flex-direction: column;
+            align-items: flex-start;
+
+          }
             .text-row{
                display: flex;
                flex-direction: row;
+               margin: 3px;
             }
             .text-row p{
                 margin-right: 3px;
+            }
+            .text-row input{
+              border-style: none;
+              border-width: 1px;
+              border-bottom-style: solid;
             }
     .map{
         height: 400px;
@@ -63,9 +76,14 @@
     <div class="title-container">
         <p>Позначте адресу магазина на карті, або збережіть існуючу адресу</p>
         <div class="shop-address-container">
-            <div class="text-row"> <p>Місто: </p> <p id="addressCity"></p> </div>
-            <div class="text-row"> <p>Вулиця: </p> <p id="addressStreet"></p> </div>
-            <div class="text-row"> <p>№ будівлі: </p> <p id="addressNumberHouse"></p> </div>
+          <div class="text-address-container">
+            <div class="text-row"> <p>Місто: </p> <input id="addressCity"></input> </div>
+            <div class="text-row"> <p>Вулиця: </p> <input id="addressStreet"></input> </div>
+            <div class="text-row"> <p>№ будівлі: </p> <input id="addressNumberHouse"></input> </div>
+          </div>
+          <div>
+            <button onclick="saveChosenAddress()">SAVE</button>
+          </div>
         </div>
     </div>
     <div id="googleMap" class="map" data-wow-delay="0.1s"></div>
@@ -90,15 +108,18 @@
     });
 
     function setAddressFromResponse(address){
-        addressCity.innerText = address.addressCity
-        addressStreet.innerText = address.addressStreet
-        addressNumberHouse.innerText = address.addressNumberHouse
+        addressCity.value = address.addressCity
+        addressStreet.value = address.addressStreet
+        addressNumberHouse.value = address.addressNumberHouse
     }
 
     function initMap(shopCoordinates){
-        console.log("mapInitialization", Number(shopCoordinates.latitude), Number(shopCoordinates.longitude));
         latitude = Number(shopCoordinates.latitude);
         longitude = Number(shopCoordinates.longitude);
+        if ((!!latitude && !!longitude) || (latitude === 0 && longitude === 0)){
+            latitude = 49.8433513;
+            longitude =24.0315123;
+        }
         let shopLocation = new google.maps.LatLng(latitude, longitude);
             console.log("shopLocation", shopLocation.toString());
         let mapOptions = {
@@ -127,16 +148,9 @@
         }, function(results, status) {
             if (status === 'OK') {
                 if (results[0]) {
-
-                    map.setZoom(17);
-                    console.log("address for shop store", results[0].address_components[0].long_name);
-                    console.log("address for shop store", results[0].address_components[1].long_name);
-                    console.log("address for shop store", results[0].address_components[2].long_name);
-
-                    addressCity.innerText = results[0].address_components[2].long_name;
-                    addressStreet.innerText = results[0].address_components[1].long_name;
-                    addressNumberHouse.innerText = results[0].address_components[0].long_name;
-
+                    addressCity.value = results[0].address_components[2].long_name;
+                    addressStreet.value = results[0].address_components[1].long_name;
+                    addressNumberHouse.value = results[0].address_components[0].long_name;
                 } else {
                     console.log('no address');
                 }
@@ -144,6 +158,30 @@
                 console.log('finded address ', status);
             }
         });
+    }
+
+    function saveChosenAddress(){
+      console.log('pointLocation from map', pointLocation.lat(), pointLocation.lng());
+      console.log('pointLocation from map', addressCity.value, addressStreet.value,addressNumberHouse.value);
+      objectBody = {
+        addressCity: addressCity.value,
+        addressStreet: addressStreet.value,
+        addressNumberHouse: addressNumberHouse.value,
+        shopLocation: {
+          latitude: pointLocation.lat(),
+          longitude: pointLocation.lng()
+        }
+      };
+      console.log('objectBody for update contacts', objectBody);
+      fetch('/contact', {
+          method: 'PUT',
+          body: objectBody,
+      }).then(function (response) {
+          return response.json();
+      }).then(function (data) {
+          console.log("saveChosenAddress", data);
+
+      });
     }
 
 </script>

@@ -58,7 +58,7 @@ public class ContactAPI extends AuthController {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        System.out.println("jsonBody " + jsonBody);
+        System.out.println("jsonBody for updating contacts" + jsonBody);
 
         String email = (String) jsonBody.get("email");
         String phone = (String) jsonBody.get("phone");
