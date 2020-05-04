@@ -28,36 +28,41 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid noSidePadding">
+<div class="admin-container edit-property-block noSidePadding">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <form ng-show="!loading" class="col-md-12 noSidePadding" id="addNewProperty" name="addNewProperty">
-        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2 propertyOptionsContainer">
-            <input id="property_name" type="text" ng-model="property.title" required>
-            <label class="active" for="property_name">{{'editProduct.additionTitle' | translate}}</label>
-        </div>
-        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2 propertyOptionsContainer">
-            <input id="property_price" type="text" ng-model="property.price" required>
-            <label class="active" for="property_name">{{'editProduct.additionPrice' | translate}}</label>
-        </div>
-
-    </form>
-    <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2 propertyOptionsContainer">
-        <h6>{{'editProduct.additionImage' | translate}}</h6>
-
-        <div class="carousel-inner z-depth-1 hoverable" role="listbox">
-            <div class="item active">
-                <img id="property_img" src="{{property.imagePath}}" alt="slide1" ng-click="uploadNewProductImage()">
-
-            </div>
-            <input id="imageLoader"
-                   onchange="fileSelected()"
-                   class="input-file hiddenFileInput"
-                   type="file"/>
+    <div class="admin-column">
+        <div class="admin-card">
+            <form ng-show="!loading" class="col-md-12 noSidePadding" id="addNewProperty" name="addNewProperty">
+                <div class="input-field   propertyOptionsContainer">
+                    <input id="property_name" type="text" ng-model="property.title" required>
+                    <label class="active" for="property_name">{{'editProduct.additionTitle' | translate}}</label>
+                </div>
+                <div class="input-field propertyOptionsContainer">
+                    <input id="property_price" type="text" ng-model="property.price" required>
+                    <label class="active" for="property_name">{{'editProduct.additionPrice' | translate}}</label>
+                </div>
+            </form>
         </div>
     </div>
-</div>
+    <div class="admin-column">
+        <div class="admin-card">
+            <div class=" input-field    propertyOptionsContainer">
+                <h6>{{'editProduct.additionImage' | translate}}</h6>
+                <div class="carousel-inner z-depth-1 hoverable" role="listbox">
+                    <div class="item active">
+                        <img id="property_img" src="{{property.imagePath}}" alt="slide1" ng-click="uploadNewProductImage()">
+                    </div>
+                    <input id="imageLoader"
+                           onchange="fileSelected()"
+                           class="input-file hiddenFileInput"
+                           type="file"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 <div class="modal fade" id="deletePropertyOption" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">

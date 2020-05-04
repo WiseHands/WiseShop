@@ -1106,7 +1106,7 @@ input {
 .admin-card .input-field label {
     left: 0;
 }
-.admin-all-orders, .addition-block {
+.admin-all-orders, .addition-block, .edit-property-block {
     display: flex;
     flex-wrap: wrap;
 }
@@ -1353,6 +1353,9 @@ input {
 }
 #userInfoForm select {
     width: 250px;
+}
+.addition-block-product-image img {
+    width: 100%;
 }
 @media screen and (min-width: 1500px) {
     .admin-container {

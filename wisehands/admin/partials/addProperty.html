@@ -23,7 +23,12 @@
 <div class="admin-container addition-block container-fluid  noSidePadding">
     <div class="admin-column">
         <div class="admin-card">
-
+            <div class="addition-block-product-image">
+                <h5 id="name" class="product-title">{{product.name}}</h5>
+                <h5 id="price">{{product.categoryName}}</h5>
+                <h5>{{product.price}} {{'products.currency' | translate}}</h5>
+                <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="slide1">
+            </div>
         </div>
     </div>
     <div class="admin-column">

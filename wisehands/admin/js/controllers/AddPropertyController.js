@@ -13,6 +13,12 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 console.log("response for product ", response.data);
                 $scope.product = response.data;
+                $scope.activeShop = localStorage.getItem('activeShop');
+                $scope.product.images.forEach(function(image, index){
+                    if(image.uuid === $scope.product.mainImage.uuid){
+                        $scope.selected = index;
+                    }
+                })
             }, function errorCallback(error) {
 
             });
