@@ -74,7 +74,7 @@
 
             <div class="admin-column details-product-col">
                 <div class="details-product-col-image card-image waves-effect waves-block waves-light view overlay hm-white-slight noSidePadding">
-                    <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
+                    <div id="car-gall" class="carousel slide carousel-fade carousel-gallery">
                         <!--Main image-->
                         <div class="">
                             <div class="flexContainerForPriceLabels card-label">
@@ -116,11 +116,10 @@
 
                 </div>
                 <div class="admin-card">
-                    <div class=" border-bottom0 vcentering propertyFlexPanel">
-                        <h5 class=" border-bottom0  ">{{property.title}}</h5>
-                        <a href="#/product/{{product.uuid}}/editProperty/{{property.uuid}}">
-                            <button class=" btn-floating btn-xsmall waves-effect waves-light secondaryColor"><i class="material-icons">mode_edit</i></button>
-                        </a>
+                    <div class="noPaddingMobile" ng-repeat="property in properties">
+                        <div class=" border-bottom0 vcentering propertyFlexPanel">
+                            <h5 class=" border-bottom0  ">{{property.title}}</h5>
+                        </div>
                     </div>
                 </div>
             </div>

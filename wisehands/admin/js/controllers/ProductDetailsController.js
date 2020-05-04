@@ -4,6 +4,18 @@ angular.module('WiseHands')
             $scope.loading = true;
             $http({
                 method: 'GET',
+                url: '/addition/get-all/' + $routeParams.uuid
+            })
+                .then(function successCallback(response) {
+                    $scope.properties = response.data;
+                    console.log("/addition/get-all/" , response.data);
+                }, function errorCallback(error) {
+                    $scope.loading = false;
+                    console.log(error);
+                });
+
+            $http({
+                method: 'GET',
                 url: '/api/product/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {

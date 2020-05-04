@@ -55,31 +55,31 @@
             <div class="admin-column">
                 <div class="admin-card">
                     <h4>{{'contacts.address' | translate}}</h4>
-                    <div class="input-field set-address-container">
-                        <input id="addressCity" type="text" ng-model="contacts.addressCity" placeholder="{{'contacts.city' | translate}}">
-                        <input id="addressStreet" type="text" ng-model="contacts.addressStreet" placeholder="{{'contacts.street' | translate}}">
-                        <input id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse" placeholder="{{'contacts.numberHouse' | translate}}">
+                    <div class="input-field">
+                        <p>{{'contacts.city' | translate}}</p>
+                        <input id="addressCity" type="text" ng-model="contacts.addressCity" placeholder="{{'contacts.cityEg' | translate}}">
                     </div>
-                    <div class="input-field flex-column-container">
-                        <div class="text-shop-location-row">
-                            <p>GPS location</p>
-                            <!--<p>{{'contacts.coords' | translate}}-->
-                                <!--<a href="/ua/shop-location">{{'contacts.map' | translate}}</a>-->
-                                <!--{{'contacts.coordsCont' | translate}}</p>-->
-                        </div>
-                        <div class="set-coords-shop-row-container">
-                            <div class="set-lat-shop-location">
-                                <input id="shopLatitude" type="text" ng-model="contacts.shopLocation.latitude" placeholder="Latitude">
-                            </div>
-                            <div class="set-lng-shop-location">
-                                <input id="shopLongitude" type="text" ng-model="contacts.shopLocation.longitude" placeholder="Longitude">
-                            </div>
-                        </div>
-                        <!--            <input id="coords" type="text" ng-model="contacts.latLng" placeholder="49.848596,24.0229203">-->
+                    <div class="input-field">
+                        <p>{{'contacts.street' | translate}}</p>
+                        <input id="addressStreet" type="text" ng-model="contacts.addressStreet" placeholder="{{'contacts.streetEg' | translate}}">
+                    </div>
+                    <div class="input-field">
+                        <p>{{'contacts.numberHouse' | translate}}</p>
+                        <input id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse" placeholder="{{'contacts.numberHouseEg' | translate}}">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h4>GPS location</h4>
+                    <div class="input-field">
+                        <p>{{'contacts.latitude' | translate}}</p>
+                        <input id="shopLatitude" type="text" ng-model="contacts.shopLocation.latitude" placeholder="{{'contacts.latitudeEg' | translate}}">
+                    </div>
+                    <div class="input-field">
+                        <p>{{'contacts.longitude' | translate}}</p>
+                        <input id="shopLongitude" type="text" ng-model="contacts.shopLocation.longitude" placeholder="{{'contacts.longitudeEg' | translate}}">
                     </div>
                 </div>
             </div>
         </div>
-
     </form>
 </div>

@@ -2,33 +2,6 @@
     display: flex;
     flex-direction: column
 }
-.text-shop-location-row{
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: flex-start;
-}
-.text-shop-location-row a{
-    margin-left: 5px;
-    margin-right: 5px;
-    font-size: 18px;
-}
-.set-coords-shop-row-container{
-    display: flex;
-    flex-direction: row;
-}
-.set-lat-shop-location input, .set-lng-shop-location input{
-    height: 3rem;
-}
-.set-lng-shop-location{
-    margin-left: 20px;
-}
-.set-lat-shop-location p{
-    margin-bottom: 0 !important;
-}
-.set-lng-shop-location p{
-    margin-bottom: 0 !important;
-}
 .pdd-0{
     padding: 0 !important;
 }
@@ -125,12 +98,6 @@
 .img-setting{
 
 }
-.set-address-container{
-    display: flex;
-    flex-direction: column;
-
-}
-
 .hidden-on-mobile {
     display: none;
 }
@@ -1139,7 +1106,7 @@ input {
 .admin-card .input-field label {
     left: 0;
 }
-.admin-all-orders {
+.admin-all-orders, .addition-block {
     display: flex;
     flex-wrap: wrap;
 }
@@ -1147,6 +1114,9 @@ input {
     display: flex;
     flex-direction: column;
     flex: 1 1 50%;
+}
+.admin-all-orders   input[type=text] {
+    height: 2rem;
 }
 .admin-card {
     margin: 1rem;
@@ -1216,6 +1186,8 @@ input {
 }
 .addition-product {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .addition-product p {
     font-size: 14px;

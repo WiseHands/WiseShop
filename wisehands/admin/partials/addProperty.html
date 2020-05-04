@@ -20,25 +20,32 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid noSidePadding">
-    <form ng-show="!loading" class="col-md-12 noSidePadding" id="addNewProperty" name="addNewProperty" ng-submit="createProperty()">
-        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
-            <p>{{'editProduct.additionProduct' | translate}}{{product.name}}</p>
-        </div>
-        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
-            <input id="addition_title" type="text" ng-model="addition.title" required>
-            <label for="addition_title">{{'editProduct.additionTitle' | translate}}</label>
-        </div>
-        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
-            <input id="addition_price" type="text" ng-model="addition.price" required>
-            <label for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
-        </div>
-        <div class="col-md-offset-3 input-field col-md-6 col-sm-8 col-sm-offset-2">
-            <h6>{{'editProduct.additionAddPhoto' | translate}}</h6>
-            <input ng-model="addition.file" name="imageLoader" type="file" id="imageLoader" required/>
-        </div>
+<div class="admin-container addition-block container-fluid  noSidePadding">
+    <div class="admin-column">
+        <div class="admin-card">
 
-    </form>
+        </div>
+    </div>
+    <div class="admin-column">
+        <form ng-show="!loading" class="admin-card noSidePadding" id="addNewProperty" name="addNewProperty" ng-submit="createProperty()">
+            <div class=" input-field">
+                <p>{{'editProduct.additionProduct' | translate}}{{product.name}}</p>
+            </div>
+            <div class=" input-field">
+                <input id="addition_title" type="text" ng-model="addition.title" required>
+                <label for="addition_title">{{'editProduct.additionTitle' | translate}}</label>
+            </div>
+            <div class=" input-field">
+                <input id="addition_price" type="text" ng-model="addition.price" required>
+                <label for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
+            </div>
+            <div class=" input-field">
+                <h6>{{'editProduct.additionAddPhoto' | translate}}</h6>
+                <input ng-model="addition.file" name="imageLoader" type="file" id="imageLoader" required/>
+            </div>
+
+        </form>
+    </div>
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
