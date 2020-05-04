@@ -108,6 +108,7 @@
   "products.categories": "Categories",
   "products.currency": "USD",
   "products.noProducts": "No products",
+  "products.noAdditions": "No Options",
   "products.addProduct": "Add product",
   "products.showMore": "Show more",
   "categories.categoryName": "Category name",

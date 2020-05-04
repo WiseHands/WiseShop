@@ -113,10 +113,11 @@
                         <!-- Indicators -->
 
                     </div>
-
                 </div>
                 <div class="admin-card">
-                    <div class="noPaddingMobile" ng-repeat="property in properties">
+                    <h4>{{'addNewProduct.additional' | translate}}</h4>
+                    <p ng-show="properties.length === 0">{{'products.noAdditions' | translate}}</p>
+                    <div class="noPaddingMobile" ng-repeat="property in properties"  ng-hide="properties.length === 0">
                         <div class=" border-bottom0 vcentering propertyFlexPanel">
                             <h5 class=" border-bottom0  ">{{property.title}}</h5>
                         </div>

@@ -113,6 +113,7 @@
   "products.categories": "Kategorie",
   "products.currency": "PLN",
   "products.noProducts": "Brak produktów",
+  "products.noAdditions": "Brak opcji",
   "products.addProduct": "Dodaj produkt",
   "products.showMore": "Show more",
   "categories.categoryName": "Nazwa Kategorii",

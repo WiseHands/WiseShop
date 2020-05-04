@@ -112,6 +112,7 @@
   "products.categories": "Категорії",
   "products.currency": "ГРН",
   "products.noProducts": "Товари відсутні",
+  "products.noAdditions": "Немає додатків",
   "products.addProduct": "Додати товар",
   "products.showMore": "Показати ще",
   "categories.categoryName": "Назва категорії",
