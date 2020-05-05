@@ -301,5 +301,7 @@
   "additionSetting.changeOrderDone": "Редагування напису на сторінці завершення замовлення ",
   "additionSetting.exampleChangeOrderDone": "Замовлення успішно завершене. Очікуйте, з вами зв'яжуться.",
   "additionalSetting.showAmountTools": "Показувати кількість приборів для товарів"
+  "addproperty.product": "Товар",
+  "addproperty.option": "Додаток"
 
 }
