@@ -180,7 +180,7 @@
   "editProduct.additionTitle": "Additional option name",
   "editProduct.additionPrice": "Additional option price",
   "editProduct.additionImage": "Additional option image",
-  "editProduct.additionAddPhoto": "Add option photo (Photo size must be 450px wide and 300px high)",
+  "editProduct.additionAddPhoto": "Add option image ( size 450px wide and 300px high)",
   "payment.payment": "Payment",
   "payment.paymentTypeCash": "Cash",
   "payment.paymentTypeOnline": "Online",

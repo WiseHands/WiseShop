@@ -47,10 +47,17 @@
                 <label for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
             </div>
             <div class=" input-field">
-                <h6>{{'editProduct.additionAddPhoto' | translate}}</h6>
-                <input ng-model="addition.file" name="imageLoader" type="file" id="imageLoader" required/>
+                <!--<input ng-model="addition.file" name="imageLoader" type="file" id="imageLoader" required/>-->
             </div>
-
+            <div class="load-product-image load-product-image-border" ng-click="loadImage()">
+                <input name="imageLoader" type="file" id="imageLoader"/>
+                <i id="add-product-icon" class="fa fa-plus"></i>
+                <div class="item active loaded-photo" ng-show="productImages.length >= 1">
+                    <img id="main" class="center-block" ng-src="{{property.imagePath}}" alt="slide1">
+                </div>
+                <p class="add-photo-text">{{'editProduct.additionAddPhoto' | translate}}</p>
+                <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
+            </div>
         </form>
     </div>
     <div class="row text-center">

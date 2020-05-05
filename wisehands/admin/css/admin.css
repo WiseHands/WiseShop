@@ -920,7 +920,7 @@ input {
     flex-basis: 50%;
 }
 .load-product-image {
-    flex-basis: 50%;
+    flex: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -957,6 +957,7 @@ input {
     background-color: #fff;
     border-radius: 2px;
     padding: 0.5rem;
+    text-align: center;
 }
 .load-product-image img {
     max-width: 100%;
@@ -1363,13 +1364,16 @@ input {
 .addition-block-product-image h5 {
     margin: 0 0 1rem 0;
 }
+.edit-property-block .input-field {
+    margin: 2rem 0;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
     }
 }
 @media screen and (max-width: 768px) {
-    .add-product-block, .edit-product-block, .details-product-block, .payment-block-online {
+    .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block {
         flex-direction: column;
     }
     .m-left {

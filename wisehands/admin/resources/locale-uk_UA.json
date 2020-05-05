@@ -176,7 +176,7 @@
   "editProduct.additionTitle": "Назва додатку",
   "editProduct.additionPrice": "Ціна додатку",
   "editProduct.additionImage": "Натисність на фото щоб змінити його (розмір фото повинен бути 450px ширини та 300px висоти)",
-  "editProduct.additionAddPhoto": "Додати фото додатку (розмір фото повинен бути 450px ширини та 300px висоти)",
+  "editProduct.additionAddPhoto": "Додати фото додатку (розмір 450px ширини та 300px висоти)",
   "editProduct.properties": "Налаштування",
   "editProduct.optionName": "Назва опції",
   "editProduct.optionPrice": "Ціна опції",

@@ -23,7 +23,15 @@ angular.module('WiseHands')
 
             });
 
+        $scope.loadImage = function () {
+            $('#imageLoader').click();
+        };
+
         $scope.createProperty = function () {
+            if (!document.getElementById("imageLoader").value) {
+                document.querySelector(".error-text").style.display = "block";
+                return;
+            }
             if (locale === 'en_US'){
                 var emptyTagWarning = 'Create, please, one or more addition option';
             } else if (locale === 'uk_UA') {
@@ -53,9 +61,7 @@ angular.module('WiseHands')
                 });
 
             }
-
         };
-
         function sendAdditionProperty(){
             $http({
                 method: 'POST',
