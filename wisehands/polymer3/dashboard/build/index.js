@@ -2784,8 +2784,8 @@ customElements.define('price-plan-main-container', PricePlanMain);
 class TableTransaction extends LitElement {
   render() {
     return html`
-            <style>               
-                
+            <style>
+
                 .container{
                     height: 100%;
                     width: 100%;
@@ -2793,18 +2793,19 @@ class TableTransaction extends LitElement {
                 *{
                   box-sizing: border-box;
                 }
-                
+
                 .wrapper {
                   width: 100%;
+                  height: 50%
                   max-width: 1000px;
                   margin: 1em auto;
                   padding: 1em;
                 }
-                
+
                 .is-striped {
                   background-color: rgba(233, 200, 147, 0.2);
                 }
-                
+
                 /* Table column sizing
                 ================================== */
                 .date-cell {
@@ -2921,12 +2922,12 @@ class TableTransaction extends LitElement {
                 .no-flexbox .Rtable.Rtable-cell {
                   width: 100%;
                 }
-                
+
                 .reference-link {
                     font-size: 1em !important;
                 }
             </style>
-            
+
             <div class="container">
               <div class="wrapper">
                 <div class="Rtable Rtable--5cols Rtable--collapse">
@@ -2937,8 +2938,8 @@ class TableTransaction extends LitElement {
                     <div class="Rtable-cell amount-cell column-heading">Сума</div>
                     <div class="Rtable-cell status-cell column-heading">Статус</div>
                   </div>
-                    ${this.transactionList.map(item => html`    
-                       
+                    ${this.transactionList.map(item => html`
+
                        <div class="Rtable-row">
                       <div class="Rtable-cell date-cell">
                         <div class="Rtable-cell--heading">Дата</div>
@@ -2954,24 +2955,24 @@ class TableTransaction extends LitElement {
                             <a class="reference-link" href="${this._buildUrlForOrderTransaction(item, this.shop)}">${this.formatType(item)}</a>
                           ` : html`
                             <p>${this.formatType(item)}</p>
-                          `}           
-                        </div>                        
+                          `}
+                        </div>
                       </div>
                       <div class="Rtable-cell amount-cell">
                         <div class="Rtable-cell--heading">Сума</div>
-                        <div class="Rtable-cell--content replay-link-content">${item.amount} ₴</div>
+                        <div class="Rtable-cell--content replay-link-content">${this.roundToTwo(item.amount)} ₴</div>
                       </div>
                       <div class="Rtable-cell Rtable-cell--foot status-cell">
                         <div class="Rtable-cell--heading">Статус</div>
                         <div class="Rtable-cell--content status-content">${this.formatStatus(item.status)}</div>
                       </div>
                     </div>
-                                        
-                    `)}                       
+
+                    `)}
                 </div>
               </div>
             </div>
-                  
+
 `;
   }
 
@@ -2989,6 +2990,11 @@ class TableTransaction extends LitElement {
   constructor() {
     super();
     this.transactionList = [];
+    console.log("this.transactionList", this.transactionList);
+  }
+
+  roundToTwo(num) {
+    return +(Math.round(num + "e+2") + "e-2");
   }
 
   setDateTime(secs) {
@@ -3040,6 +3046,174 @@ class TableTransaction extends LitElement {
 
 customElements.define('table-transaction', TableTransaction);
 
+class GoogleSetting extends LitElement {
+  render() {
+    return html`
+            <style>
+
+                .container{
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+                .border{
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+                    margin: 5px;
+                }
+                .google-setting-container{
+                  display: flex;
+                  flex-direction: row;
+                  flex-wrap: wrap;
+                }
+                  .site-verification-container, .analytic-container,
+                  .static-map-key-container, .static-map-key-container,
+                  .map-key-container, .facebook-key-container {
+                    width:48%;
+
+                  }
+                  .site-verification-container p, input, .analytic-container p, input,
+                  .static-map-key-container p, input, .static-map-key-container p, input,
+                  .map-key-container p, input, .facebook-key-container p, input{
+                    margin: 5px 5px 5px 10px;
+                    width:96%;
+                  }
+                  .site-verification-container input, .analytic-container input,
+                  .static-map-key-container input, .static-map-key-container input,
+                  .map-key-container input, .facebook-key-container input{
+                    border-style: none;
+                    border-width: 1px;
+                    border-bottom-style: solid;
+                  }
+
+                @media screen and (max-width: 529px){
+                  .site-verification-container, .analytic-container,
+                  .static-map-key-container, .static-map-key-container,
+                  .map-key-container, .facebook-key-container {
+                    width:98%;
+
+                  }
+                }
+
+            </style>
+
+            <div class="container border">
+            <p>Налаштування</p>
+              <div class="google-setting-container">
+                <div class="site-verification-container">
+                  <p>Підтвердження сайту Google</p>
+                  <input id="verification" type="text" .value="${this.shop.googleWebsiteVerificator}" @input="${this.handleVerification}"
+                    @blur="${this.saveVerification}">
+                </div>
+                <div class="analytic-container">
+                  <p>Google Аналітика</p>
+                  <input id="analytic" type="text" .value="${this.shop.googleAnalyticsCode}" @input="${this.handleAnalytics}"
+                    @blur="${this.saveAnalytics}">
+                </div>
+                <div class="static-map-key-container">
+                  <p>Статичний ключ для Google карти</p>
+                  <input id="staticMap" type="text" .value="${this.shop.googleStaticMapsApiKey}" @input="${this.handleStativMapKey}"
+                   @blur="${this.saveStativMapKey}">
+                </div>
+                <div class="map-key-container">
+                  <p>Ключ для Google карти</p>
+                  <input id="map" type="text" .value="${this.shop.googleMapsApiKey}" @input="${this.handleMapKey}"
+                   @blur="${this.saveMapKey}">
+                </div>
+                <div class="facebook-key-container">
+                  <p>Facebook Pixel API Key</p>
+                  <input id="faceBookPixelApiKey" type="text" .value="${this.shop.faceBookPixelApiKey}" @input="${this.handleFaceBookApiKey}"
+                    @blur="${this.saveFaceBookApiKey}">
+                </div>
+              </div>
+            </div>
+      `;
+  }
+
+  static get properties() {
+    return {
+      shop: {
+        type: Object
+      }
+    };
+  }
+
+  constructor() {
+    super();
+    console.log('google-setting-page: ', this.shop);
+  }
+
+  handleVerification(event) {
+    this.googleWebsiteVerificator = event.target.value;
+  }
+
+  saveVerification(event) {
+    const params = `?googleWebsiteVerificator=${this.googleWebsiteVerificator}`;
+    this.saveGoogleSetting(params);
+  }
+
+  handleAnalytics(event) {
+    this.googleAnalyticsCode = event.target.value;
+  }
+
+  saveAnalytics(event) {
+    console.log("googleAnalyticsCode", this.googleAnalyticsCode);
+    const params = `?googleAnalyticsCode=${this.googleAnalyticsCode}`;
+    this.saveGoogleSetting(params);
+  }
+
+  handleStativMapKey(event) {
+    this.googleStaticMapsApiKey = event.target.value;
+  }
+
+  saveStativMapKey(event) {
+    console.log("googleStaticMapsApiKey", this.googleStaticMapsApiKey);
+    const params = `?googleStaticMapsApiKey=${this.googleStaticMapsApiKey}`;
+    this.saveGoogleSetting(params);
+  }
+
+  handleMapKey(event) {
+    this.googleMapsApiKey = event.target.value;
+  }
+
+  saveMapKey(event) {
+    console.log("googleMapsApiKey", this.googleMapsApiKey);
+    const params = `?googleMapsApiKey=${this.googleMapsApiKey}`;
+    this.saveGoogleSetting(params);
+  }
+
+  handleFaceBookApiKey(event) {
+    this.faceBookPixelApiKey = event.target.value;
+  }
+
+  saveFaceBookApiKey(event) {
+    console.log("faceBookPixelApiKey", this.faceBookPixelApiKey);
+    const params = `?faceBookPixelApiKey=${this.faceBookPixelApiKey}`;
+    this.saveGoogleSetting(params);
+  }
+
+  saveGoogleSetting(params) {
+    fetch(`/api/dashboard/shop/setting${params}`, {
+      method: 'PUT'
+    }).then(response => {
+      console.log("response response: ", response);
+      return response.json();
+    }).then(data => {
+      console.log("response saveGoogleSetting: ", data);
+      this.dispatchEvent(new CustomEvent('update-shop-list', {
+        bubbles: true,
+        composed: true,
+        detail: data
+      }));
+    });
+  }
+
+} // Register the new element with the browser.
+
+
+customElements.define('google-setting', GoogleSetting);
+
 class BalanceContainer extends LitElement {
   render() {
     return html`
@@ -3058,7 +3232,7 @@ class BalanceContainer extends LitElement {
                 }
                 .main-balance-container p {
                     margin: 5px;
-                } 
+                }
                     .balance-container{
                         display: flex;
                         flex-direction: column;
@@ -3068,7 +3242,6 @@ class BalanceContainer extends LitElement {
                             flex-direction: column;
                             align-items: flex-start;
                             margin: 2.5px;
-
                         }
                         .row-container{
                             display: flex;
@@ -3091,7 +3264,7 @@ class BalanceContainer extends LitElement {
                     .administration-container{
                         display: flex;
                         flex-direction: column;
-                    }    
+                    }
                     .payment-form-container form{
                         display: flex;
                         flex-direction: column;
@@ -3102,19 +3275,22 @@ class BalanceContainer extends LitElement {
                     select{
                         width: -webkit-fill-available;
                     }
-                                     
+                google-setting{
+                  width: 100%;
+                }
+
             </style>
-            
+
             <div class="main-balance-container">
                 <p>Магазин: ${this.shop.shopName}</p>
                 <!--<p>Інформація:</p>-->
                 <span class="line"></span>
                 <section class="balance-container">
-                    <p> Баланс: ${this.coinAccount.balance} UAH</p>
+                    <p> Баланс: ${this.roundToTwo(this.coinAccount.balance)} UAH</p>
                     <div class="row-container">
                         <p>Поповнити на суму:</p>
-                        <input id="amountPayment" .value=${this.amountPayment} @input="${this.handleAmountPayment}">
-                        <button @click="${this.generateSignatureForPayment}">поповнити</button>  
+                        <input id="amountPayment" .value=${this.amountPayment} @input="${this.handleAmountPayment}" pattern="[0-9]+([\.,][0-9]+)?">
+                        <button @click="${this.generateSignatureForPayment}">поповнити</button>
                     </div>
                 </section>
                 <span class="line"></span>
@@ -3134,7 +3310,7 @@ class BalanceContainer extends LitElement {
                                 </select>
                             </div>
                             <div class="row-container">
-                              <button @click="${this.changePlaneForShop}">змінити</button>
+                              <button @click="${this.changePricingPlanForShop}">змінити</button>
                               <p style="color: red">${this.errorForPricingPlan}</p>
                             </div>
                         </div>
@@ -3147,18 +3323,24 @@ class BalanceContainer extends LitElement {
                     ${this.isUserSuperAdmin ? html`` : html`
                         <p>Зарахування офлайн поповнення</p>
                         <div class="row-container">
-                            <input id="adminPayment" .value=${this.offlinePayment} @input="${this.handleOfflinePayment}">
+                            <input id="adminPayment" .value=${this.offlinePayment} @input="${this.handleOfflinePayment}" pattern="^\d*(\.\d{0,2})?$" step=".01">
                             <button @click="${this.refillAdminPayment}">поповнити</button>
+
                         </div>
                     `}
 
                     <div class="transaction-table-container">
+                      <span class="line"></span>
                         <p>Транзакції</p>
                             <table-transaction .shop="${this.shop}" .transactionList="${this.coinAccount.transactionList}"></table-transaction>
                     </div>
+                    <span class="line"></span>
                 </section>
 
-    
+                <google-setting .shop="${this.shop}"></google-setting>
+
+
+
                 <div class="payment-form-container" hidden>
                     <form id="payment-form" method="post" action="https://secure.wayforpay.com/pay">
                         <input id="account" name="merchantAccount" value="">
@@ -3177,8 +3359,8 @@ class BalanceContainer extends LitElement {
                     </form>
                 </div>
             </div>
-                
-    
+
+
 `;
   }
 
@@ -3223,21 +3405,29 @@ class BalanceContainer extends LitElement {
     this.pricePlanList = [];
     this.getPricingPlanList();
     this.isUserSuperAdmin = true;
-    this.isUserSuperAdminThenHideOfflinePaymentSection();
+    this.hideOfflinePaymentSection();
     console.log('this.constructor balance-container', this.shop);
+    this.addEventListener('show-balance-container', event => {
+      console.log("show-balance-container in addEventListener sent shop to google: ", event.detail);
+      this.shop = event.detail;
+    });
   }
 
-  isUserSuperAdminThenHideOfflinePaymentSection() {
+  roundToTwo(num) {
+    return +(Math.round(num + "e+2") + "e-2");
+  }
+
+  hideOfflinePaymentSection() {
     console.log('inside this.isUserSuperAdminThenHideOfflinePaymentSection');
 
     const _this = this;
 
     let token = localStorage.getItem('JWT_TOKEN');
-    let tokenPlayLoad = token.split('.')[1].replace('-', '+').replace('_', '/');
-    let playLoad = JSON.parse(window.atob(tokenPlayLoad));
+    let tokenPayLoad = token.split('.')[1].replace('-', '+').replace('_', '/');
+    let payLoad = JSON.parse(window.atob(tokenPayLoad));
 
-    if (playLoad.isSuperAdmin == true) {
-      console.log('JSON playload for balance: ', playLoad.isSuperAdmin);
+    if (payLoad.isSuperAdmin == true) {
+      console.log('JSON playload for balance: ', payLoad.isSuperAdmin);
       _this.isUserSuperAdmin = false;
     }
   }
@@ -3277,7 +3467,7 @@ class BalanceContainer extends LitElement {
     });
   }
 
-  changePlaneForShop() {
+  changePricingPlanForShop() {
     const plansList = this.shadowRoot.querySelector('#plans');
     const selectedUuidByIndex = plansList.selectedIndex;
     const pricingPlanUuid = plansList.querySelectorAll('option')[selectedUuidByIndex].id;
@@ -3286,17 +3476,13 @@ class BalanceContainer extends LitElement {
   }
 
   setPricingPlanToThisShop(url) {
-    let _this = this;
-
     fetch(url, {
       method: 'POST'
-    }).then(function (response) {
-      console.log("response response: ", response);
+    }).then(response => {
       return response.json();
-    }).then(function (data) {
+    }).then(data => {
       console.log('data from setPricingPlanToThisShop: ', data);
-
-      _this.setPlanForShop(data);
+      this.setPlanForShop(data);
     });
   }
 
@@ -3340,6 +3526,8 @@ class BalanceContainer extends LitElement {
 
   handleOfflinePayment(e) {
     this.offlinePayment = e.target.value;
+    this.roundToTwo(this.offlinePayment);
+    console.log(`handleOfflinePayment${this.offlinePayment}`);
   }
 
   generateSignatureForPayment() {
@@ -3946,7 +4134,7 @@ class DashBoard extends LitElement {
                 .dash-block {
                     max-width: 900px;
                     margin: 0 auto;
-                }    
+                }
                 .header-profile-container{
                     position: fixed;
                     top: 0;
@@ -3986,12 +4174,12 @@ class DashBoard extends LitElement {
                         .profile-info{
                             display: flex;
                             flex-direction: column;
-                            align-items: flex-end; 
+                            align-items: flex-end;
                         }
                         .profile-info p{
                             margin: 0;
-                        } 
-                         
+                        }
+
                 #overlay-mobile {
                     display: none;
                     background-color: rgba(0,0,0,0);
@@ -4033,7 +4221,7 @@ class DashBoard extends LitElement {
                     from {
                         transform: translate3d(0, 0, 0);
                     }
-                
+
                     to {
                         visibility: hidden;
                         transform: translate3d(-100%, 0, 0);
@@ -4086,13 +4274,13 @@ class DashBoard extends LitElement {
                     width: 25%;
                     top: 63px;
 
-                }                                                                                               
+                }
                     .menu-item {
                         display: flex;
                         align-items: center;
                         height: 4em;
                         font-family: 'Roboto', 'Helvetica', sans-serif;
-                        padding-left: 1rem; 
+                        padding-left: 1rem;
                         margin: 0.5rem;
                         border-radius: 5px;
                     }
@@ -4119,7 +4307,7 @@ class DashBoard extends LitElement {
                     .inner-container{
                         display: flex;
                         flex-wrap: wrap;
-                        
+
                     }
                         .create-shop-element{
                             display: flex;
@@ -4132,9 +4320,9 @@ class DashBoard extends LitElement {
                         }
                         .create-shop-element:hover {
                             cursor: pointer;
-                        }                                           
+                        }
                         .create-shop-text-container{
-                            display: flex;                            
+                            display: flex;
                             align-items: center;
                             padding-top: 10px;
                             height: 40px;
@@ -4146,7 +4334,7 @@ class DashBoard extends LitElement {
                                 height: 24px;
                                 width: 24px;
                             }
-                    
+
                         .shop-name{
                                 display: flex;
                                 justify-content: center;
@@ -4160,7 +4348,7 @@ class DashBoard extends LitElement {
                                 .shop-name p{
                                     font-size: 2em;
                                 }
-                                
+
                     shop-tile{
                         display: flex;
                         flex-direction: column;
@@ -4169,8 +4357,8 @@ class DashBoard extends LitElement {
                         margin: 15px;
                         height: 200px;
                         width: 200px;
-                    }                        
-                                                                    
+                    }
+
                     subcription-container{
                         width: 100%;
                         height: 100%;
@@ -4179,7 +4367,7 @@ class DashBoard extends LitElement {
                     balance-container{
                         display: flex;
                         width: 100%;
-                    } 
+                    }
                     price-plan-container{
                         display: flex;
                         width: 100%;
@@ -4188,22 +4376,22 @@ class DashBoard extends LitElement {
                     .dash-block, .header-dash-block {
                     max-width: 1300px;
                     }
-                }    
+                }
                 @media screen and (max-width: 768px) {
                     .tools-dash-board-container, .logo-container  {
                         display: none;
                     }
                     .work-place-dash-board-container {
                         width: 100%
-                    }     
+                    }
                     .mobile-logo-container {
                         display: flex;
                         align-items: center;
                     }
                 }
-                        
+
             </style>
-            
+
              <div  id="overlay-mobile" class="null-style" @click="${this.closeSidebar}">
                 <div class="sidebar-mobile sibebar-swipe-off" @click="${this.showSidebar}">
                     <a class="link" href="/dashboard">
@@ -4232,23 +4420,23 @@ class DashBoard extends LitElement {
                     </div>
                 </div>
                 <div class="blur-block">
-        
+
                 </div>
             </div>
             <div class="main-container ">
-                                
+
                 <div class="header-profile-container border">
                     <div class="header-dash-block">
                         <div class="logo-container">
                             <img class="logo" src="/wisehands/assets/images/dashboard/main_logo_black.png">
                             <p class="product-name">WSTORE</p>
-                        </div>                                                      
+                        </div>
                         <div class="mobile-logo-container" @click="${this.showSideMenu}">
                             <img class="logo" src="wisehands/assets/images/dashboard/menu.svg">
                         </div>
-                        <profile-picture .user="${this.user}"></profile-picture>   
+                        <profile-picture .user="${this.user}"></profile-picture>
 
-                    </div>                 
+                    </div>
                 </div>
 
                 <div class="body-dash-board-container dash-block">
@@ -4273,7 +4461,7 @@ class DashBoard extends LitElement {
                         </div>
                     </div>
                     <div class="work-place-dash-board-container">
-                        ${this.isShowShopListContainer ? html`                                            
+                        ${this.isShowShopListContainer ? html`
                         <div class="shop-list-container">
                              <div class="inner-container">
                                 <a @click="${this.creatingShopThroughWizard}">
@@ -4288,27 +4476,27 @@ class DashBoard extends LitElement {
                                 </a>
                                 ${this.shopList.map(item => html`
                                      <shop-tile .shop="${item}"></shop-tile>
-                                `)}   
-                             </div>                 
-                        </div>` : html``} 
-                        
+                                `)}
+                             </div>
+                        </div>` : html``}
+
                         ${this.isShowBalanceContainer ? html`
                             <balance-container .shop="${this.selectedShop}"></balance-container>
                         ` : html``}
-                        
+
                         ${this.isShowPricePlanListContainer ? html`
                             <price-plan-list-container></price-plan-list-container>
                         ` : html``}
-                        
+
                         ${this.isShowPricePlanMainContainer ? html`
                             <price-plan-main-container .pricePlan="${this.selectedPricePlan}"></price-plan-main-container>
                         ` : html``}
-                        
+
                     </div>
                 </div>
             </div>
-                           
-            
+
+
     `;
   }
 
@@ -4351,7 +4539,7 @@ class DashBoard extends LitElement {
     this.isShowShopListContainer = true;
     this.isHiddenPlansBlockInMenu = true;
     this.checkIfUserIsLogIn();
-    this.isUserSuperAdminThanHidePlansBlockInMenu();
+    this.hidePlansBlockInMenu();
     this.openBalanceContainer();
     this.openPricingPlan();
     this.openPricingPlanList();
@@ -4359,7 +4547,7 @@ class DashBoard extends LitElement {
     console.log('this.constructor dash-board-container', this.shop);
   }
 
-  isUserSuperAdminThanHidePlansBlockInMenu() {
+  hidePlansBlockInMenu() {
     const _this = this;
 
     let token = localStorage.getItem('JWT_TOKEN');
@@ -4373,28 +4561,28 @@ class DashBoard extends LitElement {
   }
 
   openBalanceContainer() {
-    const _this = this;
-
     this.addEventListener('show-balance-container', event => {
       console.log("show-balance-container in addEventListener: ", event.detail);
-      _this.selectedShop = event.detail;
+      this.selectedShop = event.detail;
       this.showBalanceContainer();
     });
   }
 
   updateShopListUsePricingPlan() {
+    this.addEventListener('update-shop-list', this._updateShopListHandler);
+  }
 
-    this.addEventListener('update-shop-list', event => {
-      console.log("update-shop-list in addEventListener: ", event.detail);
-      this.shopList.forEach(shop => {
-        if (shop.uuid == event.detail.uuid) {
-          console.log('shop in shop List', shop);
-          shop.pricingPlan = event.detail.pricingPlan;
-          shop.coinAccount.balance = event.detail.coinAccount.balance;
-        }
-      });
-      console.log('shop in shop shopList', this.shopList);
-    });
+  _updateShopListHandler(event) {
+    const affectedShop = event.detail;
+    const shop = this.shopList.find(shop => shop.uuid === affectedShop.uuid);
+    shop.pricingPlan = affectedShop.pricingPlan;
+    shop.coinAccount.balance = affectedShop.coinAccount.balance;
+    shop.googleWebsiteVerificator = affectedShop.googleWebsiteVerificator;
+    shop.googleAnalyticsCode = affectedShop.googleAnalyticsCode;
+    shop.googleStaticMapsApiKey = affectedShop.googleStaticMapsApiKey;
+    shop.googleMapsApiKey = affectedShop.googleMapsApiKey;
+    shop.faceBookPixelApiKey = affectedShop.faceBookPixelApiKey;
+    console.log('updateShopListUsePricingPlan', affectedShop);
   }
 
   openPricingPlan() {
