@@ -24,18 +24,20 @@
     <div class="admin-column">
         <div class="admin-card">
             <div class="addition-block-product-image">
-                <h5 id="name" class="product-title">{{product.name}}</h5>
-                <h5 id="price">{{product.categoryName}}</h5>
-                <h5>{{product.price}} {{'products.currency' | translate}}</h5>
+                <h4>{{'addproperty.product' | translate}}</h4>
                 <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="slide1">
+                <label for="name">{{'addNewProduct.productName' | translate}}</label>
+                <h5 id="name" class="product-title">{{product.name}}</h5>
+                <label for="price">{{'productDetails.category' | translate}}</label>
+                <h5 id="price">{{product.categoryName}}</h5>
+                <label for="price">{{'addNewProduct.productPrice' | translate}}</label>
+                <h5>{{product.price}} {{'products.currency' | translate}}</h5>
             </div>
         </div>
     </div>
     <div class="admin-column">
         <form ng-show="!loading" class="admin-card noSidePadding" id="addNewProperty" name="addNewProperty" ng-submit="createProperty()">
-            <div class=" input-field">
-                <p>{{'editProduct.additionProduct' | translate}}{{product.name}}</p>
-            </div>
+            <h4>{{'addproperty.option' | translate}}</h4>
             <div class=" input-field">
                 <input id="addition_title" type="text" ng-model="addition.title" required>
                 <label for="addition_title">{{'editProduct.additionTitle' | translate}}</label>

@@ -1357,6 +1357,12 @@ input {
 .addition-block-product-image img {
     width: 100%;
 }
+.addition-block-product-image label {
+    margin: 0.5rem 0 0 0;
+}
+.addition-block-product-image h5 {
+    margin: 0 0 1rem 0;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;

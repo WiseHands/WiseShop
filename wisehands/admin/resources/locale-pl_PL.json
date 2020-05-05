@@ -266,8 +266,6 @@
   "settings.addSetting": "Addition setting for shop",
   "settings.isFooterOn": "Show footer",
   "settings.isShowAllProducts": "Show all products",
-
-
   "settings.temporaryTitle": "Nagłówek",
   "settings.temporaryDiscr": "Krótki opis",
   "settings.NewDomainName": "Nowa nazwa domeny (carrot.com e.g.)",
@@ -298,5 +296,9 @@
   "payment.setButton": "Edytuj napis na przycisku płatności",
   "additionSetting.title": "Dodatkowe ustawienie",
   "additionSetting.changeName": "Edycja elementa \"Imię\" na stronie zamówienia",
-  "additionSetting.exampleChangeName": "Domyślnie element nosi nazwę \"Imię\""
+  "additionSetting.exampleChangeName": "Domyślnie element nosi nazwę \"Imię\"",
+  "addproperty.product": "Produkt",
+  "addproperty.option": "Opcja"
+
+
 }
