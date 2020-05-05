@@ -38,4 +38,9 @@ public class CoinAccountDTO extends GenericModel {
         }
         this.transactionList.add(transaction);
     }
+
+    public void setBalance(double balance) {
+        this.balance = Math.round(balance * 100.0) / 100.0;
+    }
+
 }

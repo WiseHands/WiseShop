@@ -135,6 +135,8 @@ public class WayForPayAPI extends AuthController {
 
         String shopUuid = request.params.get("shopUuid");
         Double amount = Double.valueOf(request.params.get("amount"));
+        amount = Math.round(amount * 100.0) / 100.0;
+        System.out.println("createOfflinePayment, round mount" + amount);
         if (user.isSuperUser){
             ShopDTO shop = ShopDTO.findById(shopUuid);
             CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
