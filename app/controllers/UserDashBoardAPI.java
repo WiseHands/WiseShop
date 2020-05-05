@@ -1,11 +1,14 @@
 package controllers;
 
 import models.*;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import play.mvc.Before;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -95,6 +98,40 @@ public class UserDashBoardAPI extends AuthController{
         CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
         renderJSON(json(coinAccount));
     }
+
+
+    public static void saveGoogleSettingForShop(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        String googleWebsiteVerificator = request.params.get("googleWebsiteVerificator");
+        String googleAnalyticsCode = request.params.get("googleAnalyticsCode");
+        String googleStaticMapsApiKey = request.params.get("googleStaticMapsApiKey");
+        String googleMapsApiKey = request.params.get("googleMapsApiKey");
+        String faceBookPixelApiKey = request.params.get("faceBookPixelApiKey");
+        System.out.println("google setting: " + googleWebsiteVerificator + googleAnalyticsCode + googleStaticMapsApiKey
+        + googleMapsApiKey + faceBookPixelApiKey);
+
+        if (googleWebsiteVerificator != null){
+            shop.googleWebsiteVerificator = googleWebsiteVerificator;
+        }
+        if (googleAnalyticsCode != null){
+            shop.googleAnalyticsCode = googleAnalyticsCode;
+        }
+        if (googleStaticMapsApiKey != null){
+            shop.googleStaticMapsApiKey = googleStaticMapsApiKey;
+        }
+        if (googleMapsApiKey != null){
+            shop.googleMapsApiKey = googleMapsApiKey;
+        }
+        if (faceBookPixelApiKey != null){
+            shop.faceBookPixelApiKey = faceBookPixelApiKey;
+        }
+        renderJSON(json(shop));
+    }
+
 
 
 }

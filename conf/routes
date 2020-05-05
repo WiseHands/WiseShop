@@ -80,6 +80,8 @@ GET         {client}/api/dashboard/user                     UserDashBoardAPI.get
 OPTIONS     {client}/api/dashboard/user                     UserDashBoardAPI.allowCors
 GET         {client}/api/dashboard/shop/info                UserDashBoardAPI.getShopInfo
 OPTIONS     {client}/api/dashboard/shop/info                UserDashBoardAPI.allowCors
+PUT         {client}/api/dashboard/shop/setting             UserDashBoardAPI.saveGoogleSettingForShop
+
 
 # payment system for dashboard
 POST        {client}/api/wayforpay/verify-callback          WayForPayAPI.verifyCallback
