@@ -129,7 +129,10 @@ public class UserDashBoardAPI extends AuthController{
         if (faceBookPixelApiKey != null){
             shop.faceBookPixelApiKey = faceBookPixelApiKey;
         }
+<<<<<<< Updated upstream
         shop.save();
+=======
+>>>>>>> Stashed changes
         renderJSON(json(shop));
     }
 
