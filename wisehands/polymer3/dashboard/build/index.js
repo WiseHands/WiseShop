@@ -2809,7 +2809,7 @@ class TableTransaction extends LitElement {
                 /* Table column sizing
                 ================================== */
                 .date-cell {
-                  width: 22%;
+                  width: 20%;
                 }
                 .topic-cell {
                   width: 20%;
@@ -2818,7 +2818,10 @@ class TableTransaction extends LitElement {
                   width: 20%;
                 }
                 .amount-cell {
-                  width: 18%;
+                  width: 10%;
+                }
+                .balance-cell{
+                  width: 10%;
                 }
                 .status-cell {
                   width: 20%;
@@ -2936,6 +2939,7 @@ class TableTransaction extends LitElement {
                     <div class="Rtable-cell topic-cell column-heading">Магазин</div>
                     <div class="Rtable-cell type-cell column-heading">Тип</div>
                     <div class="Rtable-cell amount-cell column-heading">Сума</div>
+                    <div class="Rtable-cell balance-cell column-heading">Баланс</div>
                     <div class="Rtable-cell status-cell column-heading">Статус</div>
                   </div>
                     ${this.transactionList.map(item => html`
@@ -2961,6 +2965,10 @@ class TableTransaction extends LitElement {
                       <div class="Rtable-cell amount-cell">
                         <div class="Rtable-cell--heading">Сума</div>
                         <div class="Rtable-cell--content replay-link-content">${this.roundToTwo(item.amount)} ₴</div>
+                      </div>
+                      <div class="Rtable-cell balance-cell">
+                        <div class="Rtable-cell--heading">Баланс</div>
+                        <div class="Rtable-cell--content replay-link-content">${this.shop.coinAccount.balance} ₴</div>
                       </div>
                       <div class="Rtable-cell Rtable-cell--foot status-cell">
                         <div class="Rtable-cell--heading">Статус</div>
@@ -3056,10 +3064,7 @@ class GoogleSetting extends LitElement {
                     width: 100%;
                     display: flex;
                     flex-direction: column;
-<<<<<<< Updated upstream
                     align-items: center;
-=======
->>>>>>> Stashed changes
                 }
                 .border{
                     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
@@ -3079,11 +3084,7 @@ class GoogleSetting extends LitElement {
                   .site-verification-container p, input, .analytic-container p, input,
                   .static-map-key-container p, input, .static-map-key-container p, input,
                   .map-key-container p, input, .facebook-key-container p, input{
-<<<<<<< Updated upstream
                     margin: 5px 5px 5px 10px;
-=======
-                    margin: 5px;
->>>>>>> Stashed changes
                     width:96%;
                   }
                   .site-verification-container input, .analytic-container input,
@@ -3105,7 +3106,6 @@ class GoogleSetting extends LitElement {
 
             </style>
 
-<<<<<<< Updated upstream
             <div class="container border">
             <p>Налаштування</p>
               <div class="google-setting-container">
@@ -3133,35 +3133,6 @@ class GoogleSetting extends LitElement {
                   <p>Facebook Pixel API Key</p>
                   <input id="faceBookPixelApiKey" type="text" .value="${this.shop.faceBookPixelApiKey}" @input="${this.handleFaceBookApiKey}"
                     @blur="${this.saveFaceBookApiKey}">
-=======
-            <div class="container">
-              <p>GoogleSetting</p>
-              <div class="google-setting-container">
-                <div class="site-verification-container border">
-                  <p class="text">Site verification by Google</p>
-                  <input id="verification" type="text" .value="this.googleWebsiteVerificator" @input="${this.handleVerification}"
-                   placeholder="${this.shop.googleWebsiteVerificator}" @blur="${this.saveVerification}">
-                </div>
-                <div class="analytic-container border">
-                  <p>analytic</p>
-                  <input id="analytics" type="text" .value="this.googleAnalyticsCode" @input="${this.handleAnalytics}"
-                   placeholder="${this.shop.googleAnalyticsCode}"  @blur="${this.saveAnalytics}">
-                </div>
-                <div class="static-map-key-container border">
-                  <p>Static Map API Key</p>
-                  <input id="staticMap" type="text" .value="this.googleStaticMapsApiKey" @input="${this.handleStativMapKey}"
-                   placeholder="${this.shop.googleStaticMapsApiKey}"  @blur="${this.saveStativMapKey}">
-                </div>
-                <div class="map-key-container border">
-                  <p>Map API Key</p>
-                  <input id="map" type="text" .value="this.googleMapsApiKey" @input="${this.handleMapKey}"
-                   placeholder="${this.shop.googleMapsApiKey}"  @blur="${this.saveMapKey}">
-                </div>
-                <div class="facebook-key-container border">
-                  <p>Facebook Pixel API Key</p>
-                  <input id="faceBookPixelApiKey" type="text" .value="this.faceBookPixelApiKey" @input="${this.handleFaceBookApiKey}"
-                   placeholder="${this.shop.faceBookPixelApiKey}"  @blur="${this.saveFaceBookApiKey}">
->>>>>>> Stashed changes
                 </div>
               </div>
             </div>
@@ -3178,11 +3149,7 @@ class GoogleSetting extends LitElement {
 
   constructor() {
     super();
-<<<<<<< Updated upstream
     console.log('google-setting-page: ', this.shop);
-=======
-    console.log('google-analytics-page: ', this.shop);
->>>>>>> Stashed changes
   }
 
   handleVerification(event) {
@@ -3190,13 +3157,7 @@ class GoogleSetting extends LitElement {
   }
 
   saveVerification(event) {
-<<<<<<< Updated upstream
     const params = `?googleWebsiteVerificator=${this.googleWebsiteVerificator}`;
-=======
-    console.log("googleWebsiteVerificator", this.googleWebsiteVerificator, this.shop);
-    const params = `?googleWebsiteVerificator=${this.googleWebsiteVerificator}`;
-    console.log("googleWebsiteVerificator", this.googleWebsiteVerificator, params);
->>>>>>> Stashed changes
     this.saveGoogleSetting(params);
   }
 
@@ -3206,11 +3167,8 @@ class GoogleSetting extends LitElement {
 
   saveAnalytics(event) {
     console.log("googleAnalyticsCode", this.googleAnalyticsCode);
-<<<<<<< Updated upstream
     const params = `?googleAnalyticsCode=${this.googleAnalyticsCode}`;
     this.saveGoogleSetting(params);
-=======
->>>>>>> Stashed changes
   }
 
   handleStativMapKey(event) {
@@ -3219,11 +3177,8 @@ class GoogleSetting extends LitElement {
 
   saveStativMapKey(event) {
     console.log("googleStaticMapsApiKey", this.googleStaticMapsApiKey);
-<<<<<<< Updated upstream
     const params = `?googleStaticMapsApiKey=${this.googleStaticMapsApiKey}`;
     this.saveGoogleSetting(params);
-=======
->>>>>>> Stashed changes
   }
 
   handleMapKey(event) {
@@ -3232,11 +3187,8 @@ class GoogleSetting extends LitElement {
 
   saveMapKey(event) {
     console.log("googleMapsApiKey", this.googleMapsApiKey);
-<<<<<<< Updated upstream
     const params = `?googleMapsApiKey=${this.googleMapsApiKey}`;
     this.saveGoogleSetting(params);
-=======
->>>>>>> Stashed changes
   }
 
   handleFaceBookApiKey(event) {
@@ -3245,7 +3197,6 @@ class GoogleSetting extends LitElement {
 
   saveFaceBookApiKey(event) {
     console.log("faceBookPixelApiKey", this.faceBookPixelApiKey);
-<<<<<<< Updated upstream
     const params = `?faceBookPixelApiKey=${this.faceBookPixelApiKey}`;
     this.saveGoogleSetting(params);
   }
@@ -3263,21 +3214,6 @@ class GoogleSetting extends LitElement {
         composed: true,
         detail: data
       }));
-=======
-  }
-
-  saveGoogleSetting(params) {
-    console.log(`/api/dashboard/shop/setting${params}`);
-    fetch('/api/dashboard/shop/setting' + params, {
-      method: 'PUT'
-    }).then(function (response) {
-      console.log("response response: ", response);
-      return response.json();
-    }).then(function (data) {
-      console.log('data from setPricingPlanToThisShop: ', data);
-
-      _this.setPlanForShop(data);
->>>>>>> Stashed changes
     });
   }
 
@@ -3411,8 +3347,6 @@ class BalanceContainer extends LitElement {
 
                 <google-setting .shop="${this.shop}"></google-setting>
 
-
-
                 <div class="payment-form-container" hidden>
                     <form id="payment-form" method="post" action="https://secure.wayforpay.com/pay">
                         <input id="account" name="merchantAccount" value="">
@@ -3483,13 +3417,10 @@ class BalanceContainer extends LitElement {
       console.log("show-balance-container in addEventListener sent shop to google: ", event.detail);
       this.shop = event.detail;
     });
-<<<<<<< Updated upstream
   }
 
   roundToTwo(num) {
     return +(Math.round(num + "e+2") + "e-2");
-=======
->>>>>>> Stashed changes
   }
 
   hideOfflinePaymentSection() {
@@ -4652,15 +4583,12 @@ class DashBoard extends LitElement {
     const shop = this.shopList.find(shop => shop.uuid === affectedShop.uuid);
     shop.pricingPlan = affectedShop.pricingPlan;
     shop.coinAccount.balance = affectedShop.coinAccount.balance;
-<<<<<<< Updated upstream
     shop.googleWebsiteVerificator = affectedShop.googleWebsiteVerificator;
     shop.googleAnalyticsCode = affectedShop.googleAnalyticsCode;
     shop.googleStaticMapsApiKey = affectedShop.googleStaticMapsApiKey;
     shop.googleMapsApiKey = affectedShop.googleMapsApiKey;
     shop.faceBookPixelApiKey = affectedShop.faceBookPixelApiKey;
     console.log('updateShopListUsePricingPlan', affectedShop);
-=======
->>>>>>> Stashed changes
   }
 
   openPricingPlan() {
