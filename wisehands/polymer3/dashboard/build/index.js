@@ -2968,7 +2968,7 @@ class TableTransaction extends LitElement {
                       </div>
                       <div class="Rtable-cell balance-cell">
                         <div class="Rtable-cell--heading">Баланс</div>
-                        <div class="Rtable-cell--content replay-link-content">${this.shop.coinAccount.balance} ₴</div>
+                        <div class="Rtable-cell--content replay-link-content">${item.transactionBalance} ₴</div>
                       </div>
                       <div class="Rtable-cell Rtable-cell--foot status-cell">
                         <div class="Rtable-cell--heading">Статус</div>

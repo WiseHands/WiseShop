@@ -20,6 +20,9 @@ public class CoinTransactionDTO extends GenericModel {
     @Expose
     public double amount;
 
+    @Expose
+    public double transactionBalance;
+
     @ManyToOne
     public CoinAccountDTO account;
 

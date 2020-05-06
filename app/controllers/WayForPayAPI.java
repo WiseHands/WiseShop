@@ -150,9 +150,10 @@ public class WayForPayAPI extends AuthController {
             transaction.account = coinAccount;
             transaction.amount = amount;
             transaction.time = System.currentTimeMillis() / 1000L;
-            transaction = transaction.save();
             coinAccount.addTransaction(transaction);
             coinAccount.balance += amount;
+            transaction.transactionBalance = coinAccount.balance;
+            transaction.save();
             coinAccount.save();
             renderJSON(json(coinAccount));
         } else {
