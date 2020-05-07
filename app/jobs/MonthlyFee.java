@@ -50,9 +50,10 @@ public class MonthlyFee extends Job {
                     transaction.account = coinAccount;
                     transaction.amount = -shop.pricingPlan.monthlyFee;
                     transaction.time = System.currentTimeMillis() / 1000L;
-                    transaction = transaction.save();
                     coinAccount.addTransaction(transaction);
                     coinAccount.balance += transaction.amount;
+                    transaction.transactionBalance = coinAccount.balance;
+                    transaction.save();
                     coinAccount.save();
                     System.out.println("paid a monthly fee!!!!!!!!!!!");
                 }

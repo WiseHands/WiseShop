@@ -146,9 +146,10 @@ public class OrderAPI extends AuthController {
                 transaction.orderUuid = order.uuid;
                 transaction.amount = -percentage;
                 transaction.time = System.currentTimeMillis() / 1000L;
-                transaction = transaction.save();
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;
+                transaction.transactionBalance = coinAccount.balance;
+                transaction.save();
                 coinAccount.save();
             }
         }
@@ -367,9 +368,11 @@ public class OrderAPI extends AuthController {
                 transaction.amount = percentage;
                 transaction.orderUuid = order.uuid;
                 transaction.time = System.currentTimeMillis() / 1000L;
-                transaction = transaction.save();
+
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;
+                transaction.transactionBalance = coinAccount.balance;
+                transaction.save();
                 coinAccount.save();
             }
         }
