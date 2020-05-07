@@ -1,6 +1,7 @@
 ﻿# You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, doładuj swoje konto
 shop.not.found = Sklep nie jest dostępny. Skontaktuj się z administratorem
 new.order = Nowe zamówienie
 order.is.processing = Zamówienie (%s, %s) obrabia się

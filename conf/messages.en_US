@@ -1,6 +1,7 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+balance.transaction.low.shop.balance = The balance of the store is less than 100 dollars, please top up your account
 shop.not.found = The requested Shop is not available. Contact administrator
 new.order = New Order
 order.is.processing = Order (%s, %s) is being processed
