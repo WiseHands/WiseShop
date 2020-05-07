@@ -149,6 +149,9 @@ public class OrderAPI extends AuthController {
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;
                 transaction.transactionBalance = coinAccount.balance;
+                if (coinAccount.balance < 100){
+                    sendMessageIfLowBalance(shop);
+                }
                 transaction.save();
                 coinAccount.save();
             }
@@ -211,6 +214,13 @@ public class OrderAPI extends AuthController {
         } else if(order.paymentType.equals(ShoppingCartDTO.PaymentType.CASHONDELIVERY)){
             json.put("status", "ok");
             renderJSON(json);
+        }
+    }
+
+    private static void sendMessageIfLowBalance(ShopDTO shop) throws Exception {
+        String smsText = "Баланс магазину менше 100 грн, поповніть будь ласка рахунок";
+        for (UserDTO user : shop.userList) {
+            smsSender.sendSms(user.phone, smsText);
         }
     }
 
@@ -372,6 +382,7 @@ public class OrderAPI extends AuthController {
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;
                 transaction.transactionBalance = coinAccount.balance;
+
                 transaction.save();
                 coinAccount.save();
             }
