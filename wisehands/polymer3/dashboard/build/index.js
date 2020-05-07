@@ -3144,7 +3144,7 @@ class GoogleSetting extends LitElement {
                     @blur="${this.saveFaceBookApiKey}">
                 </div>
                 <div class="save-setting-container">
-                  <button @click="${this.saveGoogleSetting}">Зберегти</button>
+                  <button @click="${this.saveSettings}">Зберегти</button>
                 </div>
               </div>
             </div>
@@ -3184,29 +3184,29 @@ class GoogleSetting extends LitElement {
     this.faceBookPixelApiKey = event.target.value;
   }
 
-  saveGoogleSetting() {
+  saveSettings() {
     const params = `?googleWebsiteVerificator=${this.googleWebsiteVerificator}
                       &googleAnalyticsCode=${this.googleAnalyticsCode}
                       &googleStaticMapsApiKey=${this.googleStaticMapsApiKey}
                       &googleMapsApiKey=${this.googleMapsApiKey}
                       &faceBookPixelApiKey=${this.faceBookPixelApiKey}`;
-    this.saveGoogleSettingByFetch(params);
+    this.setSetting(params);
   }
 
-  saveGoogleSettingByFetch(params) {
+  setSetting(params) {
     fetch(`/api/dashboard/shop/setting${params}`, {
       method: 'PUT'
     }).then(response => {
-      console.log("response response: ", response);
       return response.json();
-    }).then(data => {
-      console.log("response saveGoogleSetting: ", data);
-      this.dispatchEvent(new CustomEvent('update-shop-list', {
-        bubbles: true,
-        composed: true,
-        detail: data
-      }));
-    });
+    }).then(data => this.updateShopObject(data));
+  }
+
+  updateShopObject(data) {
+    this.dispatchEvent(new CustomEvent('update-shop-list', {
+      bubbles: true,
+      composed: true,
+      detail: data
+    }));
   }
 
 } // Register the new element with the browser.
