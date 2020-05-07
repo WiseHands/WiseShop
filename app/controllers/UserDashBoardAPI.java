@@ -100,7 +100,7 @@ public class UserDashBoardAPI extends AuthController{
     }
 
 
-    public static void saveGoogleSettingForShop() throws Exception {
+    public static void saveSettingsForShop() throws Exception {
 
         String googleWebsiteVerificator = request.params.get("googleWebsiteVerificator");
         String googleAnalyticsCode = request.params.get("googleAnalyticsCode");
