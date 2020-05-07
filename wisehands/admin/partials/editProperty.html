@@ -49,17 +49,16 @@
     </div>
     <div class="admin-column">
         <div class="admin-card">
-            <div class=" input-field    propertyOptionsContainer">
-                <h6>{{'editProduct.additionImage' | translate}}</h6>
-                <div class="carousel-inner z-depth-1 hoverable" role="listbox">
-                    <div class="item active">
-                        <img id="property_img" src="{{property.imagePath}}" alt="slide1" ng-click="uploadNewProductImage()">
-                    </div>
-                    <input id="imageLoader"
-                           onchange="fileSelected()"
-                           class="input-file hiddenFileInput"
-                           type="file"/>
+            <h4>{{'editProduct.additionImage' | translate}}</h4>
+            <div class="carousel-inner  " role="listbox" ng-click="uploadNewProductImage()">
+                <div class="item active add-option-image">
+                    <img id="property_img" src="{{property.imagePath}}" alt="slide1">
+                    <p class="add-option-image-text">{{'editProduct.additionAddPhoto' | translate}}</p>
                 </div>
+                <input id="imageLoader"
+                       onchange="fileSelected()"
+                       class="input-file hiddenFileInput"
+                       type="file"/>
             </div>
         </div>
     </div>

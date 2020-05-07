@@ -1355,6 +1355,9 @@ input {
 #userInfoForm select {
     width: 250px;
 }
+.addition-block .admin-card {
+    height: 100%;
+}
 .addition-block-product-image img {
     width: 100%;
 }
@@ -1366,6 +1369,27 @@ input {
 }
 .edit-property-block .input-field {
     margin: 2rem 0;
+}
+.add-option-image {
+    position: relative;
+    cursor: pointer;
+    min-height: 250px;
+    height: 100%;
+}
+.add-option-image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #fff;
+    border-radius: 2px;
+}
+.add-option-image  .error-text {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 @media screen and (min-width: 1500px) {
     .admin-container {
