@@ -100,11 +100,7 @@ public class UserDashBoardAPI extends AuthController{
     }
 
 
-    public static void saveGoogleSettingForShop(String client) throws Exception {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
+    public static void saveGoogleSettingForShop() throws Exception {
 
         String googleWebsiteVerificator = request.params.get("googleWebsiteVerificator");
         String googleAnalyticsCode = request.params.get("googleAnalyticsCode");
@@ -113,6 +109,9 @@ public class UserDashBoardAPI extends AuthController{
         String faceBookPixelApiKey = request.params.get("faceBookPixelApiKey");
         System.out.println("google setting: " + googleWebsiteVerificator + googleAnalyticsCode + googleStaticMapsApiKey
         + googleMapsApiKey + faceBookPixelApiKey);
+
+        String shopUuid = request.params.get("shopUuid");
+        ShopDTO shop = ShopDTO.findById(shopUuid);
 
         if (googleWebsiteVerificator != null){
             shop.googleWebsiteVerificator = googleWebsiteVerificator;
