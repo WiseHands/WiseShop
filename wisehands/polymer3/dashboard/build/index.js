@@ -3164,32 +3164,13 @@ class GoogleSetting extends LitElement {
     console.log('google-setting-page: ', this.shop);
   }
 
-  handleVerification(event) {
-    this.googleWebsiteVerificator = event.target.value;
-  }
-
-  handleAnalytics(event) {
-    this.googleAnalyticsCode = event.target.value;
-  }
-
-  handleStativMapKey(event) {
-    this.googleStaticMapsApiKey = event.target.value;
-  }
-
-  handleMapKey(event) {
-    this.googleMapsApiKey = event.target.value;
-  }
-
-  handleFaceBookApiKey(event) {
-    this.faceBookPixelApiKey = event.target.value;
-  }
-
   saveSettings() {
-    const params = `?googleWebsiteVerificator=${this.googleWebsiteVerificator}
-                      &googleAnalyticsCode=${this.googleAnalyticsCode}
-                      &googleStaticMapsApiKey=${this.googleStaticMapsApiKey}
-                      &googleMapsApiKey=${this.googleMapsApiKey}
-                      &faceBookPixelApiKey=${this.faceBookPixelApiKey}`;
+    const verification = this.shadowRoot.getElementById('verification').value;
+    const analytic = this.shadowRoot.getElementById('analytic').value;
+    const staticMapApiKey = this.shadowRoot.getElementById('staticMap').value;
+    const mapsApiKeythis = this.shadowRoot.getElementById('map').value;
+    const faceBookPixelApiKey = this.shadowRoot.getElementById('faceBookPixelApiKey').value;
+    const params = `?shopUuid=${this.shop.uuid}&googleWebsiteVerificator=${verification}&googleAnalyticsCode=${analytic}&googleStaticMapsApiKey=${staticMapApiKey}&googleMapsApiKey=${mapsApiKeythis}&faceBookPixelApiKey=${faceBookPixelApiKey}`;
     this.setSettings(params);
   }
 
@@ -3198,7 +3179,9 @@ class GoogleSetting extends LitElement {
       method: 'PUT'
     }).then(response => {
       return response.json();
-    }).then(data => this.updateShopObject(data));
+    }).then(data => {
+      this.updateShopObject(data);
+    });
   }
 
   updateShopObject(data) {
@@ -3617,7 +3600,7 @@ class ShopTile extends LitElement {
                 .border{
                     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
                 }
-                
+
                 .container{
                     height: 100%;
                     width: 100%;
@@ -3670,16 +3653,16 @@ class ShopTile extends LitElement {
                     background-color: darkgray;
                     cursor: pointer;
                 }
-                
+
                 img:hover {
                 transform: scale(1.1);
                 }
-                                     
+
             </style>
               <div class="container border">
                 <a class="shop-name" href="${this._buildUrlForShop(this.shop)}">
                     <p>${this.shop.shopName}</p>
-                </a>    
+                </a>
                 <div class="shop-info-container">
                      <div class="shop-balance">
                         <img class="menu-item-logo"
@@ -3688,11 +3671,11 @@ class ShopTile extends LitElement {
                     </div>
                     <a class="shop-link" href="${this._buildUrlForShop(this.shop)}">
                          <img class="menu-item-logo"
-                         src="wisehands/assets/images/dashboard/link.png">                         
+                         src="wisehands/assets/images/dashboard/link.png">
                     </a>
                 </div>
               </div>
-           
+
 
     `;
   }
@@ -3716,7 +3699,7 @@ class ShopTile extends LitElement {
   }
 
   showBalanceWidgetForShop() {
-    console.log('showBalanceWidgetForShop show-balance-container');
+    console.log('showBalanceWidgetForShop show-balance-container', this.shop);
     this.dispatchEvent(new CustomEvent('show-balance-container', {
       bubbles: true,
       composed: true,
@@ -4538,10 +4521,10 @@ class DashBoard extends LitElement {
     this.isHiddenPlansBlockInMenu = true;
     this.checkIfUserIsLogIn();
     this.hidePlansBlockInMenu();
+    this.updateShopList();
     this.openBalanceContainer();
     this.openPricingPlan();
     this.openPricingPlanList();
-    this.updateShopListUsePricingPlan();
     console.log('this.constructor dash-board-container', this.shop);
   }
 
@@ -4566,7 +4549,7 @@ class DashBoard extends LitElement {
     });
   }
 
-  updateShopListUsePricingPlan() {
+  updateShopList() {
     this.addEventListener('update-shop-list', this._updateShopListHandler);
   }
 
@@ -4580,7 +4563,7 @@ class DashBoard extends LitElement {
     shop.googleStaticMapsApiKey = affectedShop.googleStaticMapsApiKey;
     shop.googleMapsApiKey = affectedShop.googleMapsApiKey;
     shop.faceBookPixelApiKey = affectedShop.faceBookPixelApiKey;
-    console.log('updateShopListUsePricingPlan', affectedShop);
+    console.log('updateShopList', affectedShop);
   }
 
   openPricingPlan() {
