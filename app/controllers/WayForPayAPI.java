@@ -108,6 +108,7 @@ public class WayForPayAPI extends AuthController {
             if(transaction.status.equals(TransactionStatus.PENDING)) {
                 transaction.account.balance += transaction.amount;
                 transaction.account.save();
+                transaction.transactionBalance = transaction.account.balance;
                 transaction.confirmationTime = System.currentTimeMillis() / 1000L;
                 transaction.status = TransactionStatus.OK;
                 transaction.save();
@@ -215,7 +216,7 @@ public class WayForPayAPI extends AuthController {
         transaction = transaction.save();
 
         coinAccount.addTransaction(transaction);
-        coinAccount = coinAccount.save();
+        coinAccount.save();
         return transaction.uuid;
     }
 

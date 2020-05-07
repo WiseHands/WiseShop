@@ -99,9 +99,11 @@ public class PricingPlanAPI extends AuthController {
         transaction.account = coinAccount;
         transaction.amount = -pricingPlan.monthlyFee;
         transaction.time = System.currentTimeMillis() / 1000L;
-        transaction = transaction.save();
+
         coinAccount.addTransaction(transaction);
         coinAccount.balance += -pricingPlan.monthlyFee;
+        transaction.transactionBalance = coinAccount.balance;
+        transaction.save();
         coinAccount.save();
         shop.pricingPlan = pricingPlan;
         shop.coinAccount = coinAccount;
