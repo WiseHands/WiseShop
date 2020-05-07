@@ -3077,9 +3077,8 @@ class GoogleSetting extends LitElement {
                 }
                   .site-verification-container, .analytic-container,
                   .static-map-key-container, .static-map-key-container,
-                  .map-key-container, .facebook-key-container {
+                  .map-key-container, .facebook-key-container, .save-setting-container{
                     width:48%;
-
                   }
                   .site-verification-container p, input, .analytic-container p, input,
                   .static-map-key-container p, input, .static-map-key-container p, input,
@@ -3095,10 +3094,20 @@ class GoogleSetting extends LitElement {
                     border-bottom-style: solid;
                   }
 
+                .save-setting-container{
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                }
+
+                .save-setting-container button{
+                  margin: 10px 0 15px 0;
+                }
+
                 @media screen and (max-width: 529px){
                   .site-verification-container, .analytic-container,
                   .static-map-key-container, .static-map-key-container,
-                  .map-key-container, .facebook-key-container {
+                  .map-key-container, .facebook-key-container, .save-setting-container {
                     width:98%;
 
                   }
@@ -3134,6 +3143,9 @@ class GoogleSetting extends LitElement {
                   <input id="faceBookPixelApiKey" type="text" .value="${this.shop.faceBookPixelApiKey}" @input="${this.handleFaceBookApiKey}"
                     @blur="${this.saveFaceBookApiKey}">
                 </div>
+                <div class="save-setting-container">
+                  <button @click="${this.saveSettings}">Зберегти</button>
+                </div>
               </div>
             </div>
       `;
@@ -3156,65 +3168,45 @@ class GoogleSetting extends LitElement {
     this.googleWebsiteVerificator = event.target.value;
   }
 
-  saveVerification(event) {
-    const params = `?googleWebsiteVerificator=${this.googleWebsiteVerificator}`;
-    this.saveGoogleSetting(params);
-  }
-
   handleAnalytics(event) {
     this.googleAnalyticsCode = event.target.value;
-  }
-
-  saveAnalytics(event) {
-    console.log("googleAnalyticsCode", this.googleAnalyticsCode);
-    const params = `?googleAnalyticsCode=${this.googleAnalyticsCode}`;
-    this.saveGoogleSetting(params);
   }
 
   handleStativMapKey(event) {
     this.googleStaticMapsApiKey = event.target.value;
   }
 
-  saveStativMapKey(event) {
-    console.log("googleStaticMapsApiKey", this.googleStaticMapsApiKey);
-    const params = `?googleStaticMapsApiKey=${this.googleStaticMapsApiKey}`;
-    this.saveGoogleSetting(params);
-  }
-
   handleMapKey(event) {
     this.googleMapsApiKey = event.target.value;
-  }
-
-  saveMapKey(event) {
-    console.log("googleMapsApiKey", this.googleMapsApiKey);
-    const params = `?googleMapsApiKey=${this.googleMapsApiKey}`;
-    this.saveGoogleSetting(params);
   }
 
   handleFaceBookApiKey(event) {
     this.faceBookPixelApiKey = event.target.value;
   }
 
-  saveFaceBookApiKey(event) {
-    console.log("faceBookPixelApiKey", this.faceBookPixelApiKey);
-    const params = `?faceBookPixelApiKey=${this.faceBookPixelApiKey}`;
-    this.saveGoogleSetting(params);
+  saveSettings() {
+    const params = `?googleWebsiteVerificator=${this.googleWebsiteVerificator}
+                      &googleAnalyticsCode=${this.googleAnalyticsCode}
+                      &googleStaticMapsApiKey=${this.googleStaticMapsApiKey}
+                      &googleMapsApiKey=${this.googleMapsApiKey}
+                      &faceBookPixelApiKey=${this.faceBookPixelApiKey}`;
+    this.setSettings(params);
   }
 
-  saveGoogleSetting(params) {
+  setSettings(params) {
     fetch(`/api/dashboard/shop/setting${params}`, {
       method: 'PUT'
     }).then(response => {
-      console.log("response response: ", response);
       return response.json();
-    }).then(data => {
-      console.log("response saveGoogleSetting: ", data);
-      this.dispatchEvent(new CustomEvent('update-shop-list', {
-        bubbles: true,
-        composed: true,
-        detail: data
-      }));
-    });
+    }).then(data => this.updateShopObject(data));
+  }
+
+  updateShopObject(data) {
+    this.dispatchEvent(new CustomEvent('update-shop-list', {
+      bubbles: true,
+      composed: true,
+      detail: data
+    }));
   }
 
 } // Register the new element with the browser.
