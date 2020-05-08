@@ -87,16 +87,20 @@ public class MailSenderImpl implements MailSender {
         email.addTo(shop.contact.email);
         email.setSubject(status);
 
-        String templateString = readAllBytesJava7("app/emails/email_form.html");
+        String templateString = readAllBytesJava7("app/emails/email_low_shop_balance.html");
         Template template = Template.parse(templateString);
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("name", shop.shopName);
-        map.put("phone", shop.contact);
+        map.put("shopName", shop.shopName);
         map.put("balance", shop.coinAccount.balance);
 
         Lang.change(shop.locale);
-        String labelText = Messages.get("mail.label.name");
-        map.put("labelText", labelText);
+        String lowBalanceLabel = Messages.get("balance.transaction.low.shop.balance");
+        map.put("lowBalanceLabel", lowBalanceLabel);
+
+        String shopBalanceLabel = Messages.get("shop.balance");
+        map.put("shopBalanceLabel", shopBalanceLabel);
+        String currencyLabel = Messages.get("shop.balance.currency");
+        map.put("currencyLabel", currencyLabel);
 
 
 

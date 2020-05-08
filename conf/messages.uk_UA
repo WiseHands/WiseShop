@@ -2,6 +2,8 @@
 # For example, for French create a messages.fr file
 #
 balance.transaction.low.shop.balance = Баланс магазину менше 100 грн, поповніть будь ласка рахунок
+shop.balance = Баланс магазину
+shop.balance.currency = ₴
 shop.not.found = Магазин не знайдено...
 new.order = Нове замовлення
 order.is.processing = Замовлення (%s, %s) обробляється
