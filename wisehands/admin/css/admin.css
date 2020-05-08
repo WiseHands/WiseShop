@@ -1391,6 +1391,16 @@ input {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.delivery-boundaries {
+    display: flex;
+}
+.delivery-boundaries ul {
+    padding-left: 1rem;
+}
+.delivery-boundaries li {
+    list-style-type: decimal;
+    margin-bottom: 1rem;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;

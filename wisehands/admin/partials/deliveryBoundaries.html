@@ -19,9 +19,19 @@
         </div>
     </div>
 </nav>
-<main class="container" style="padding-top: 20px">
-
-    <h5 class="text-center">Click on <img src="../wisehands/assets/images/logoimages/drawshape.png"> and draw delivery boundaries on the map.</h5>
-    <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 500px"></div>
-
+<main class="admin-container delivery-boundaries" style="padding-top: 20px">
+    <div class="admin-column">
+        <h4 class="text-center">Click on <img src="../wisehands/assets/images/logoimages/drawshape.png"> and draw delivery boundaries on the map.</h4>
+        <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 500px"></div>
+    </div>
+    <div class="admin-column">
+        <div class="admin-card">
+            <h4>{{'deliveryBoundaries.instruction' | translate}}</h4>
+            <ul>
+                <li>{{'deliveryBoundaries.instructionStep1' | translate}}</li>
+                <li>{{'deliveryBoundaries.instructionStep2' | translate}}</li>
+                <li>{{'deliveryBoundaries.instructionStep3' | translate}}</li>
+            </ul>
+        </div>
+    </div>
 </main>
