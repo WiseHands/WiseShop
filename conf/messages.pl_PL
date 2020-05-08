@@ -5,6 +5,7 @@ balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, 
 shop.balance = Saldo sklepowe
 shop.balance.currency = zł
 shop.not.found = Sklep nie jest dostępny. Skontaktuj się z administratorem
+shop.login = Zaloguj sie
 new.order = Nowe zamówienie
 order.is.processing = Zamówienie (%s, %s) obrabia się
 new.order.total = Nowe zamówienie %s Razem %s

@@ -102,6 +102,9 @@ public class MailSenderImpl implements MailSender {
         String currencyLabel = Messages.get("shop.balance.currency");
         map.put("currencyLabel", currencyLabel);
 
+        String loginLabel = Messages.get("shop.login");
+        map.put("loginLabel", loginLabel);
+
 
 
         String rendered = template.render(map);

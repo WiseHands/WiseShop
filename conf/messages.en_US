@@ -5,6 +5,7 @@ balance.transaction.low.shop.balance = The balance of the store is less than 100
 shop.balance = Shop balance
 shop.balance.currency = $
 shop.not.found = The requested Shop is not available. Contact administrator
+shop.login = Login
 new.order = New Order
 order.is.processing = Order (%s, %s) is being processed
 new.order.total = New order %s Total %s

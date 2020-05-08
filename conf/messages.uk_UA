@@ -5,6 +5,7 @@ balance.transaction.low.shop.balance = Баланс магазину менше 
 shop.balance = Баланс магазину
 shop.balance.currency = ₴
 shop.not.found = Магазин не знайдено...
+shop.login = Логін
 new.order = Нове замовлення
 order.is.processing = Замовлення (%s, %s) обробляється
 new.order.total = Нове замовлення %s Сума %s
