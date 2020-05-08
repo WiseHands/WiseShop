@@ -1400,6 +1400,14 @@ input {
 .delivery-boundaries li {
     list-style-type: decimal;
     margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+.delivery-boundaries p {
+    font-size: 1rem;
+}
+#googleMap {
+    margin: 1rem;
 }
 @media screen and (min-width: 1500px) {
     .admin-container {
@@ -1409,6 +1417,9 @@ input {
 @media screen and (max-width: 768px) {
     .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block {
         flex-direction: column;
+    }
+    .delivery-boundaries {
+        flex-direction: column-reverse;
     }
     .m-left {
         margin-left: 0;
