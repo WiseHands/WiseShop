@@ -218,25 +218,19 @@ public class OrderAPI extends AuthController {
     }
 
     private static void sendMessageIfLowBalance(ShopDTO shop) throws Exception {
-        String smsTextUa = "Баланс магазину менше 100 грн, поповніть будь ласка рахунок";
-        String smsTextUS = "The balance of the store is less than 100 dollars, please top up your account";
-        String smsTextPL = "Saldo sklepu to mniej niż 100 złotych, doładuj swoje konto";
         if (shop.locale.equals("uk_UA")){
-            for (UserDTO user : shop.userList) {
-                smsSender.sendSms(user.phone, smsTextUa);
-            }
+            Lang.change("uk_UA");
         }
         if (shop.locale.equals("en_US")){
-            for (UserDTO user : shop.userList) {
-                smsSender.sendSms(user.phone, smsTextUS);
-            }
+            Lang.change("en_US");
         }
         if (shop.locale.equals("pl_PL")){
-            for (UserDTO user : shop.userList) {
-                smsSender.sendSms(user.phone, smsTextPL);
-            }
+            Lang.change("pl_PL");
         }
-
+        for (UserDTO user : shop.userList) {
+            smsSender.sendSms(user.phone, Messages.get("balance.transaction.low.shop.balance"));
+            mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
+        }
     }
 
     static void clearShoppingCart(ShoppingCartDTO shoppingCart){

@@ -1,6 +1,7 @@
 package services;
 
 import liqp.Template;
+import models.CoinAccountDTO;
 import models.OrderDTO;
 import models.ShopDTO;
 import models.UserDTO;
@@ -75,6 +76,37 @@ public class MailSenderImpl implements MailSender {
             email.setCharset("utf-8");
             Mail.send(email);
     }
+
+    public void sendEmailLowShopBalance(ShopDTO shop, String status) throws Exception {
+        //System.out.println("MailSenderImpl " + isDevEnv + status + shop.contact.email);
+//        if (!isDevEnv) {
+        HtmlEmail email = new HtmlEmail();
+        email.setHostName(shop.domain);
+        email.setFrom("wisehandsme@gmail.com");
+        //System.out.println("AddTo: " + shop.contact.email);
+        email.addTo(shop.contact.email);
+        email.setSubject(status);
+
+        String templateString = readAllBytesJava7("app/emails/email_form.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", shop.shopName);
+        map.put("phone", shop.contact);
+        map.put("balance", shop.coinAccount.balance);
+
+        Lang.change(shop.locale);
+        String labelText = Messages.get("mail.label.name");
+        map.put("labelText", labelText);
+
+
+
+        String rendered = template.render(map);
+
+        email.setHtmlMsg(rendered);
+        email.setCharset("utf-8");
+        Mail.send(email);
+    }
+
 
     private static String readAllBytesJava7(String filePath)
     {
