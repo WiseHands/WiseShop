@@ -2841,6 +2841,9 @@ class TableTransaction extends LitElement {
                   display: -webkit-box;
                   display: flex;
                 }
+                .Rtable-row{
+                  align-items:baseline;
+                }
                 .Rtable .Rtable-row .Rtable-cell {
                   box-sizing: border-box;
                   -webkit-box-flex: 1;
@@ -2944,37 +2947,37 @@ class TableTransaction extends LitElement {
                   </div>
                     ${this.transactionList.map(item => html`
 
-                       <div class="Rtable-row">
-                      <div class="Rtable-cell date-cell">
-                        <div class="Rtable-cell--heading">Дата</div>
-                        <div class="Rtable-cell--content date-content"><span class="webinar-date">${this.setDateTime(item.time)}</div>
-                      </div>
-                      <div class="Rtable-cell topic-cell">
-                        <div class="Rtable-cell--content title-content">${this.shop.shopName}</div>
-                      </div>
-                      <div class="Rtable-cell type-cell">
-                        <div class="Rtable-cell--heading">Тип</div>
-                        <div class="Rtable-cell--content access-link-content">
-                          ${!!item.orderUuid ? html`
-                            <a class="reference-link" href="${this._buildUrlForOrderTransaction(item, this.shop)}">${this.formatType(item)}</a>
-                          ` : html`
-                            <p>${this.formatType(item)}</p>
-                          `}
+                      <div class="Rtable-row">
+                        <div class="Rtable-cell date-cell">
+                          <div class="Rtable-cell--heading">Дата</div>
+                          <div class="Rtable-cell--content date-content"><span class="webinar-date">${this.setDateTime(item.time)}</div>
+                        </div>
+                        <div class="Rtable-cell topic-cell">
+                          <div class="Rtable-cell--content title-content">${this.shop.shopName}</div>
+                        </div>
+                        <div class="Rtable-cell type-cell">
+                          <div class="Rtable-cell--heading">Тип</div>
+                          <div class="Rtable-cell--content access-link-content">
+                            ${!!item.orderUuid ? html`
+                              <a class="reference-link" href="${this._buildUrlForOrderTransaction(item, this.shop)}">${this.formatType(item)}</a>
+                              ` : html`
+                                <p>${this.formatType(item)}</p>
+                            `}
+                          </div>
+                        </div>
+                        <div class="Rtable-cell amount-cell">
+                          <div class="Rtable-cell--heading">Сума</div>
+                          <div class="Rtable-cell--content replay-link-content">${this.roundToTwo(item.amount)} ₴</div>
+                        </div>
+                        <div class="Rtable-cell balance-cell">
+                          <div class="Rtable-cell--heading">Баланс</div>
+                          <div class="Rtable-cell--content replay-link-content">${item.transactionBalance} ₴</div>
+                        </div>
+                        <div class="Rtable-cell Rtable-cell--foot status-cell">
+                          <div class="Rtable-cell--heading">Статус</div>
+                          <div class="Rtable-cell--content status-content">${this.formatStatus(item.status)}</div>
                         </div>
                       </div>
-                      <div class="Rtable-cell amount-cell">
-                        <div class="Rtable-cell--heading">Сума</div>
-                        <div class="Rtable-cell--content replay-link-content">${this.roundToTwo(item.amount)} ₴</div>
-                      </div>
-                      <div class="Rtable-cell balance-cell">
-                        <div class="Rtable-cell--heading">Баланс</div>
-                        <div class="Rtable-cell--content replay-link-content">${item.transactionBalance} ₴</div>
-                      </div>
-                      <div class="Rtable-cell Rtable-cell--foot status-cell">
-                        <div class="Rtable-cell--heading">Статус</div>
-                        <div class="Rtable-cell--content status-content">${this.formatStatus(item.status)}</div>
-                      </div>
-                    </div>
 
                     `)}
                 </div>
@@ -3092,6 +3095,9 @@ class GoogleSetting extends LitElement {
                     border-style: none;
                     border-width: 1px;
                     border-bottom-style: solid;
+                  }
+                  .facebook-key-container{
+                    margin-bottom: 10px;
                   }
 
                 .save-setting-container{
@@ -3399,8 +3405,6 @@ class BalanceContainer extends LitElement {
   }
 
   hideOfflinePaymentSection() {
-    console.log('inside this.isUserSuperAdminThenHideOfflinePaymentSection');
-
     const _this = this;
 
     let token = localStorage.getItem('JWT_TOKEN');
@@ -3408,7 +3412,6 @@ class BalanceContainer extends LitElement {
     let payLoad = JSON.parse(window.atob(tokenPayLoad));
 
     if (payLoad.isSuperAdmin == true) {
-      console.log('JSON playload for balance: ', payLoad.isSuperAdmin);
       _this.isUserSuperAdmin = false;
     }
   }
@@ -3483,7 +3486,6 @@ class BalanceContainer extends LitElement {
       this.shop = data;
     }
 
-    console.log('updating-pricing-plan-in-unique-shop', this.shop);
     this.dispatchEvent(new CustomEvent('update-shop-list', {
       bubbles: true,
       composed: true,
@@ -4563,7 +4565,6 @@ class DashBoard extends LitElement {
     shop.googleStaticMapsApiKey = affectedShop.googleStaticMapsApiKey;
     shop.googleMapsApiKey = affectedShop.googleMapsApiKey;
     shop.faceBookPixelApiKey = affectedShop.faceBookPixelApiKey;
-    console.log('updateShopList', affectedShop);
   }
 
   openPricingPlan() {
