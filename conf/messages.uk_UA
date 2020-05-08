@@ -1,7 +1,11 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+balance.transaction.low.shop.balance = Баланс магазину менше 100 грн, поповніть будь ласка рахунок
+shop.balance = Баланс магазину
+shop.balance.currency = ₴
 shop.not.found = Магазин не знайдено...
+shop.login = Логін
 new.order = Нове замовлення
 order.is.processing = Замовлення (%s, %s) обробляється
 new.order.total = Нове замовлення %s Сума %s

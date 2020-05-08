@@ -149,6 +149,9 @@ public class OrderAPI extends AuthController {
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;
                 transaction.transactionBalance = coinAccount.balance;
+                if (coinAccount.balance < 100){
+                    sendMessageIfLowBalance(shop);
+                }
                 transaction.save();
                 coinAccount.save();
             }
@@ -211,6 +214,22 @@ public class OrderAPI extends AuthController {
         } else if(order.paymentType.equals(ShoppingCartDTO.PaymentType.CASHONDELIVERY)){
             json.put("status", "ok");
             renderJSON(json);
+        }
+    }
+
+    private static void sendMessageIfLowBalance(ShopDTO shop) throws Exception {
+        if (shop.locale.equals("uk_UA")){
+            Lang.change("uk_UA");
+        }
+        if (shop.locale.equals("en_US")){
+            Lang.change("en_US");
+        }
+        if (shop.locale.equals("pl_PL")){
+            Lang.change("pl_PL");
+        }
+        for (UserDTO user : shop.userList) {
+            smsSender.sendSms(user.phone, Messages.get("balance.transaction.low.shop.balance"));
+            mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
         }
     }
 
@@ -372,6 +391,7 @@ public class OrderAPI extends AuthController {
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;
                 transaction.transactionBalance = coinAccount.balance;
+
                 transaction.save();
                 coinAccount.save();
             }
