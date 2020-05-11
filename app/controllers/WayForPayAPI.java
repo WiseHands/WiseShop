@@ -14,6 +14,7 @@ import responses.UserNotAllowedToPerformActionError;
 
 import java.text.DecimalFormat;
 
+
 import static controllers.WizardAPI.getUserIdFromAuthorization;
 import static util.HMAC.*;
 
@@ -156,6 +157,8 @@ public class WayForPayAPI extends AuthController {
             transaction.transactionBalance = coinAccount.balance;
             transaction.save();
             coinAccount.save();
+            // TODO receive transaction list from DB and attach to coinAccount
+//            String resultTransactionList = CoinBalanceTransactionApi.getFirstTenTransactions(shop);
             renderJSON(json(coinAccount));
         } else {
             renderJSON(json(new UserNotAllowedToPerformActionError()));
@@ -165,13 +168,8 @@ public class WayForPayAPI extends AuthController {
 
     public static void generateSignatureWayForPay(String client) throws Exception{
 
-        String authorizationHeader = request.headers.get("authorization").value();
-        String userId = getUserIdFromAuthorization(authorizationHeader);
-        UserDTO user = UserDTO.find("byUuid", userId).first();
-
         String shopUuid = request.params.get("shopUuid");
         ShopDTO shop = ShopDTO.findById(shopUuid);
-
 
         String productName = "Поповнення власного рахунку для магазину " + shop.shopName;
         String serviceUrl = "https://wstore.pro/wayforpay/payment-confirmation";
@@ -213,8 +211,8 @@ public class WayForPayAPI extends AuthController {
         transaction.account = coinAccount;
         transaction.amount = amount;
         transaction.time = System.currentTimeMillis() / 1000L;
+        transaction.transactionBalance = coinAccount.balance;
         transaction = transaction.save();
-
         coinAccount.addTransaction(transaction);
         coinAccount.save();
         return transaction.uuid;
