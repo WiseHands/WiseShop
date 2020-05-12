@@ -150,7 +150,7 @@
                         activetab: 'contacts'
                     }).
                     when('/workinghours',{
-                        templateUrl:'wisehands/admin/partials/workinghours.html',
+                        templateUrl:'wisehands/admin/partials/workingHours.html',
                         controller:'WorkinghoursController',
                         activetab: 'workinghours'
                     }).
