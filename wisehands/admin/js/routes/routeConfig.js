@@ -149,6 +149,11 @@
                         controller:'ContactsController',
                         activetab: 'contacts'
                     }).
+                    when('/workinghours',{
+                        templateUrl:'wisehands/admin/partials/workinghours.html',
+                        controller:'WorkinghoursController',
+                        activetab: 'workinghours'
+                    }).
                     when('/usersettings',{
                         templateUrl:'wisehands/admin/partials/usersSettings.html',
                         controller:'UsersSettingsController',

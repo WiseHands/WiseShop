@@ -48,51 +48,8 @@
                 <!--<button type="button" class="btn btn-primary waves-effect waves-light btn-block" ng-click="increaseBalance()" ng-disabled="!selectedShop.balance">Поповнити</button>-->
             <!--</div>-->
         <!--</div>-->
-        <div class="input-field col-md-12 z-index-2">
-            <h5>{{'settings.workingHours' | translate}}</h5>
-            <button type="button" ng-click="hoursSetting()" class="btn settings-hour secondaryColor analytics-use-btn waves-effect waves-light ng-binding unique-color z-depth-1 primaryColor" style="justify-content: flex-start">{{'settings.setWorkingHours' | translate}}</button>
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="activeShop.alwaysOpen" />
-                    <label for="filled-in-box">{{'settings.alwaysOpen' | translate}}</label>
-                </div>
-            </div><br>
 
-            <!--<div ng-hide="activeShop.alwaysOpen">-->
-                <!--<div class="col-sm-6">-->
-                    <!--<p>{{'settings.from' | translate}}:</p>-->
-                    <!--<input id="startTime" type="time" ng-model="activeShop.startTime">-->
-                <!--</div>-->
-                <!--<div class="col-sm-6">-->
-                    <!--<p>{{'settings.to' | translate}}:</p>-->
-                    <!--<input id="endTime" type="time" ng-model="activeShop.endTime">-->
-                <!--</div>-->
-            <!--</div>-->
-
-        </div>
-
-        <div class="input-field col-md-12 z-index-2">
-          <h5>{{'settings.isTemporary' | translate}}</h5>
-            <div class="row">
-              <div class="col-sm-12">
-                  <input id="shopClosedbox" type="checkbox" class="filled-in checkBoxStyling" ng-model="activeShop.isTemporaryClosed" ng-click="whenShopClosed()" />
-                  <label for="shopClosedbox">{{'settings.whenClosed' | translate}}</label>
-              </div>
-            </div><br>
-
-              <div ng-hide="!activeShop.isTemporaryClosed">
-                <div class="col-sm-6">
-                    <p>{{'settings.temporaryTitle' | translate}}</p>
-                    <input id="temporaryTitle" type="text" ng-model="activeShop.temporaryClosedTitle">
-                </div>
-
-                <div class="col-sm-6">
-                    <p>{{'settings.temporaryDiscr' | translate}}</p>
-                    <input id="temporaryDiscr" type="text" ng-model="activeShop.temporaryClosedDescription">
-                </div>
-              </div>
-        </div>
 
         <div class="input-field col-md-12 z-index-2">
             <h5>{{'settings.addSetting' | translate}}</h5>
