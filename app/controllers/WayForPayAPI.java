@@ -12,7 +12,10 @@ import org.json.simple.parser.JSONParser;
 import play.Play;
 import responses.UserNotAllowedToPerformActionError;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
+
 
 import static controllers.WizardAPI.getUserIdFromAuthorization;
 import static util.HMAC.*;
@@ -150,12 +153,16 @@ public class WayForPayAPI extends AuthController {
             transaction.status = TransactionStatus.OK;
             transaction.account = coinAccount;
             transaction.amount = amount;
-            transaction.time = System.currentTimeMillis() / 1000L;
+            transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
             coinAccount.addTransaction(transaction);
             coinAccount.balance += amount;
             transaction.transactionBalance = coinAccount.balance;
             transaction.save();
             coinAccount.save();
+
+            coinAccount.transactionList = CoinBalanceTransactionApi.getFirstTenTransactions(shop);
+            System.out.println("transactionList " + coinAccount.transactionList.size());
+//            CoinBalanceTransactionApi.getFirstTenTransactions(shop);
             renderJSON(json(coinAccount));
         } else {
             renderJSON(json(new UserNotAllowedToPerformActionError()));
@@ -165,13 +172,8 @@ public class WayForPayAPI extends AuthController {
 
     public static void generateSignatureWayForPay(String client) throws Exception{
 
-        String authorizationHeader = request.headers.get("authorization").value();
-        String userId = getUserIdFromAuthorization(authorizationHeader);
-        UserDTO user = UserDTO.find("byUuid", userId).first();
-
         String shopUuid = request.params.get("shopUuid");
         ShopDTO shop = ShopDTO.findById(shopUuid);
-
 
         String productName = "Поповнення власного рахунку для магазину " + shop.shopName;
         String serviceUrl = "https://wstore.pro/wayforpay/payment-confirmation";
@@ -212,9 +214,9 @@ public class WayForPayAPI extends AuthController {
         transaction.status = TransactionStatus.PENDING;
         transaction.account = coinAccount;
         transaction.amount = amount;
-        transaction.time = System.currentTimeMillis() / 1000L;
+        transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
+        transaction.transactionBalance = coinAccount.balance;
         transaction = transaction.save();
-
         coinAccount.addTransaction(transaction);
         coinAccount.save();
         return transaction.uuid;
