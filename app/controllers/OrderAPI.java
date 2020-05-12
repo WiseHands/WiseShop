@@ -17,6 +17,7 @@ import play.i18n.Messages;
 import play.mvc.Http;
 import services.*;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -145,7 +146,7 @@ public class OrderAPI extends AuthController {
                 transaction.account = coinAccount;
                 transaction.orderUuid = order.uuid;
                 transaction.amount = -percentage;
-                transaction.time = System.currentTimeMillis() / 1000L;
+                transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;
                 transaction.transactionBalance = coinAccount.balance;
@@ -386,7 +387,7 @@ public class OrderAPI extends AuthController {
                 transaction.account = coinAccount;
                 transaction.amount = percentage;
                 transaction.orderUuid = order.uuid;
-                transaction.time = System.currentTimeMillis() / 1000L;
+                transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
 
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;

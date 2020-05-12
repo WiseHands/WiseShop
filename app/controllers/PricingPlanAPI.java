@@ -5,6 +5,8 @@ import enums.TransactionType;
 import models.*;
 import responses.JsonHandleForbidden;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import static controllers.WizardAPI.getUserIdFromAuthorization;
@@ -98,7 +100,7 @@ public class PricingPlanAPI extends AuthController {
         transaction.status = TransactionStatus.OK;
         transaction.account = coinAccount;
         transaction.amount = -pricingPlan.monthlyFee;
-        transaction.time = System.currentTimeMillis() / 1000L;
+        transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
 
         coinAccount.addTransaction(transaction);
         coinAccount.balance += -pricingPlan.monthlyFee;

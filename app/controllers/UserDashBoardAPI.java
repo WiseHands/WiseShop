@@ -32,16 +32,6 @@ public class UserDashBoardAPI extends AuthController{
         ok();
     }
 
-    public static void getShopList() throws Exception {
-
-        String authorizationHeader = request.headers.get("authorization").value();
-        String userId = getUserIdFromAuthorization(authorizationHeader);
-        UserDTO user = UserDTO.find("byUuid", userId).first();
-        System.out.println("shop list for user: " + user.shopList);
-        renderJSON(json(user.shopList));
-
-    }
-
     public static void createShop() throws Exception{
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
@@ -99,7 +89,6 @@ public class UserDashBoardAPI extends AuthController{
         renderJSON(json(coinAccount));
     }
 
-
     public static void saveSettingsForShop() throws Exception {
 
         String googleWebsiteVerificator = request.params.get("googleWebsiteVerificator");
@@ -131,6 +120,17 @@ public class UserDashBoardAPI extends AuthController{
         shop.save();
         renderJSON(json(shop));
     }
+
+    public static void getShopList() throws Exception {
+
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+        System.out.println("shop list for user: " + user.shopList);
+        renderJSON(json(user.shopList));
+
+    }
+
 
 
 

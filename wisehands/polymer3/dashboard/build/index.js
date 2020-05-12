@@ -3320,7 +3320,7 @@ class BalanceContainer extends LitElement {
 
                     <div class="transaction-table-container">
                       <span class="line"></span>
-                        <p>Транзакції</p>
+                        <p>Останні десять транзакцій</p>
                             <table-transaction .shop="${this.shop}" .transactionList="${this.coinAccount.transactionList}"></table-transaction>
                     </div>
                     <span class="line"></span>
@@ -3347,8 +3347,7 @@ class BalanceContainer extends LitElement {
                 </div>
             </div>
 
-
-`;
+    `;
   }
 
   static get properties() {
@@ -3394,10 +3393,7 @@ class BalanceContainer extends LitElement {
     this.isUserSuperAdmin = true;
     this.hideOfflinePaymentSection();
     console.log('this.constructor balance-container', this.shop);
-    this.addEventListener('show-balance-container', event => {
-      console.log("show-balance-container in addEventListener sent shop to google: ", event.detail);
-      this.shop = event.detail;
-    });
+    this.addEventListener('show-balance-container', event => this.shop = event.detail);
   }
 
   roundToTwo(num) {
@@ -3421,6 +3417,7 @@ class BalanceContainer extends LitElement {
       if (propName === 'shop' && !!this.shop && !this.isBalanceRetrieved) {
         this.isBalanceRetrieved = true;
         this.getBalanceForThisShop();
+        this.getFirstTenTransactions();
       }
 
       console.log(`${propName} changed. oldValue: ${oldValue}`);
@@ -3429,6 +3426,11 @@ class BalanceContainer extends LitElement {
 
   getBalanceForThisShop() {
     const url = `/api/dashboard/shop/info?shopUuid=${this.shop.uuid}`;
+    this.generateGetRequest(url);
+  }
+
+  getFirstTenTransactions() {
+    const url = `/api/transaction/get-ten-transactions?shopUuid=${this.shop.uuid}`;
     this.generateGetRequest(url);
   }
 
@@ -3471,7 +3473,7 @@ class BalanceContainer extends LitElement {
   }
 
   setPlanForShop(data) {
-    this.setBalanceForThisShop(data.coinAccount);
+    this.updateCoinAccount(data.coinAccount);
 
     if (data.status) {
       this.errorForPricingPlan = `${data.message}`;
@@ -3493,14 +3495,14 @@ class BalanceContainer extends LitElement {
     }));
   }
 
-  setBalanceForThisShop(data) {
+  updateCoinAccount(data) {
+    console.log("updateCoinAccount data ", data);
+
     if (data) {
       this.coinAccount = data;
     } else {
       this.coinAccount.balance = 0;
     }
-
-    console.log("setBalanceForThisShop", data);
   }
 
   handleAmountPayment(e) {
@@ -3524,17 +3526,13 @@ class BalanceContainer extends LitElement {
   }
 
   generateGetRequest(url, params) {
-    let _this = this;
-
-    fetch(url, {
+    const getParams = {
       method: 'GET',
       body: params
-    }).then(function (response) {
-      console.log("response response: ", response);
+    };
+    fetch(url, getParams).then(response => {
       return response.json();
-    }).then(function (data) {
-      _this.setBalanceForThisShop(data);
-    });
+    }).then(data => this.updateCoinAccount(data));
   }
 
   generatePostRequestForWayForPayForm(url) {
@@ -3566,12 +3564,11 @@ class BalanceContainer extends LitElement {
         authorization: 'Bearer ' + token
       }
     }).then(function (response) {
-      console.log("PostRequestForOfflineRefillPayment response: ", response);
       return response.json();
     }).then(function (data) {
       console.log('data from generatePostRequest: ', data);
 
-      _this.setBalanceForThisShop(data);
+      _this.updateCoinAccount(data);
     });
   }
 
@@ -4665,8 +4662,6 @@ class DashBoard extends LitElement {
   }
 
   getShopList() {
-    const _this = this;
-
     const url = '/api/dashboard/shops';
     let token = localStorage.getItem('JWT_TOKEN');
     fetch(url, {
@@ -4674,15 +4669,11 @@ class DashBoard extends LitElement {
       headers: {
         authorization: 'Bearer ' + token
       }
-    }).then(function (response) {
-      console.log("response response: ", response);
+    }).then(response => {
       return response.json();
-    }).then(function (data) {
-      console.log('data for shopList: ', data);
-
-      if (data) {
-        _this.shopList = data;
-      }
+    }).then(data => {
+      console.log('getShopList: ', data);
+      this.shopList = data;
     });
   }
 
