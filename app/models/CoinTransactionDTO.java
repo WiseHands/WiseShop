@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class CoinTransactionDTO extends GenericModel {
@@ -38,11 +39,24 @@ public class CoinTransactionDTO extends GenericModel {
     public TransactionStatus status;
 
     @Expose
-    public Long time;
+    public BigDecimal time;
 
     @Expose
     public Long confirmationTime;
 
     @Expose
     public Long expirationTime;
+
+    public CoinTransactionDTO() {
+
+    }
+
+    public CoinTransactionDTO(double amount, TransactionStatus status, BigDecimal time, double transactionBalance, TransactionType type) {
+        this.amount = amount;
+        this.status = status;
+        this.time = time;
+        this.transactionBalance = transactionBalance;
+        this.type = type;
+    }
+
 }

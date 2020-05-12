@@ -5,13 +5,11 @@ import enums.TransactionType;
 import models.CoinAccountDTO;
 import models.CoinTransactionDTO;
 import models.ShopDTO;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 import play.Logger;
 import play.jobs.*;
 
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +47,7 @@ public class MonthlyFee extends Job {
                     transaction.status = TransactionStatus.OK;
                     transaction.account = coinAccount;
                     transaction.amount = -shop.pricingPlan.monthlyFee;
-                    transaction.time = System.currentTimeMillis() / 1000L;
+                    transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
                     coinAccount.addTransaction(transaction);
                     coinAccount.balance += transaction.amount;
                     transaction.transactionBalance = coinAccount.balance;
@@ -76,7 +74,7 @@ public class MonthlyFee extends Job {
         transaction.status = TransactionStatus.OK;
         transaction.account = coinAccount;
         transaction.amount = -commissionFee;
-        transaction.time = System.currentTimeMillis() / 1000L;
+        transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
         transaction = transaction.save();
         coinAccount.addTransaction(transaction);
         coinAccount.balance += transaction.amount;

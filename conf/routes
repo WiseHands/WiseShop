@@ -84,10 +84,14 @@ PUT         {client}/api/dashboard/shop/setting             UserDashBoardAPI.sav
 
 
 # payment system for dashboard
+POST        {client}/wayforpay/payment-confirmation         WayForPayAPI.paymentConfirmation
+
 POST        {client}/api/wayforpay/verify-callback          WayForPayAPI.verifyCallback
 POST        {client}/api/wayforpay/generate-signature       WayForPayAPI.generateSignatureWayForPay
 POST        {client}/api/wayforpay/offline-payment          WayForPayAPI.createOfflinePayment
-POST        {client}/wayforpay/payment-confirmation         WayForPayAPI.paymentConfirmation
+
+GET         {client}/api/transaction/get-ten-transactions   CoinBalanceTransactionApi.dispatchFirstTenTransactions
+
 
 POST        {client}/api/pricing-plan/create                 PricingPlanAPI.creatingPricingPlan
 GET         {client}/api/pricing-plan/get-list               PricingPlanAPI.getPricingPlanList
