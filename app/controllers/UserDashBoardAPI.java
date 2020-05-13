@@ -89,6 +89,16 @@ public class UserDashBoardAPI extends AuthController{
         renderJSON(json(coinAccount));
     }
 
+    public static void saveShopName() throws Exception{
+        String shopUuid = request.params.get("shopUuid");
+        String shopName = request.params.get("shopName");
+        System.out.println("getShopInfo for shopName: " + shopName);
+        ShopDTO shop = ShopDTO.findById(shopUuid);
+        shop.shopName = shopName;
+        shop.save();
+        renderJSON(json(shop));
+    }
+
     public static void saveSettingsForShop() throws Exception {
 
         String googleWebsiteVerificator = request.params.get("googleWebsiteVerificator");

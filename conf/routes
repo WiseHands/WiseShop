@@ -81,6 +81,7 @@ OPTIONS     {client}/api/dashboard/user                     UserDashBoardAPI.all
 GET         {client}/api/dashboard/shop/info                UserDashBoardAPI.getShopInfo
 OPTIONS     {client}/api/dashboard/shop/info                UserDashBoardAPI.allowCors
 PUT         {client}/api/dashboard/shop/setting             UserDashBoardAPI.saveSettingsForShop
+PUT         {client}/api/dashboard/shop/save-name           UserDashBoardAPI.saveShopName
 
 
 # payment system for dashboard
