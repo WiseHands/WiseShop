@@ -237,6 +237,7 @@
   "contacts.linkfacebook": "Link to Facebook",
   "contacts.linkinstagram": "Link to Instagram",
   "contacts.linkyoutube": "Link to Youtube",
+  "contacts.gps": "GPS location",
   "users.users": "Users",
   "users.newUser": "New user",
   "users.newUserExist": "User with such e-mail already exists",
