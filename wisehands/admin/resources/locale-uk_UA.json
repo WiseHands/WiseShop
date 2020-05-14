@@ -270,7 +270,7 @@
   "settings.isFooterOn": "Показати footer",
   "settings.isShowAllProducts": "Показати всі продукти",
   "settings.whenClosed": "Зачинити магазин",
-  "settings.isTemporary": "Jeśli z jakiegoś powodu chcesz tymczasowo zamknąć sklep, zaznacz to pole poniżej",
+  "settings.isTemporary": "Якщо бажаєте тимчасово зачинити магазин, поставте галочку нижче",
   "settings.temporaryTitle": "Заголовок",
   "settings.temporaryDiscr": "Короткий опис",
   "settings.changeDomainName": "Зміна назви домену",
