@@ -1355,6 +1355,9 @@ input {
 #userInfoForm select {
     width: 250px;
 }
+.addition-block .admin-card {
+    height: 100%;
+}
 .addition-block-product-image img {
     width: 100%;
 }
@@ -1367,6 +1370,82 @@ input {
 .edit-property-block .input-field {
     margin: 2rem 0;
 }
+.add-option-image {
+    position: relative;
+    cursor: pointer;
+    min-height: 250px;
+    height: 100%;
+}
+.add-option-image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #fff;
+    border-radius: 2px;
+}
+.add-option-image  .error-text {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.delivery-boundaries {
+    display: flex;
+}
+.delivery-boundaries ul {
+    padding-left: 1rem;
+}
+.delivery-boundaries li {
+    list-style-type: decimal;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.6;
+}
+.delivery-boundaries p {
+    font-size: 1rem;
+}
+#googleMap {
+    margin: 1rem;
+}
+.save-button-delivery-bounderies {
+    padding: 0.1rem  1rem;
+    border: 2px solid #054d58 ;
+    background-color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin: 0.5rem;
+}
+.save-button-delivery-bounderies:hover {
+    background-color: #126471;
+    color: #fff;
+}
+.admin-breadcrumb {
+    margin: 6rem 0 1rem 1rem;
+}
+ul.admin-breadcrumb li {
+    display: inline;
+    font-size: 18px;
+}
+
+ul.admin-breadcrumb li + li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+
+ul.admin-breadcrumb li a {
+    color: #000;
+    text-decoration: none;
+}
+
+ul.admin-breadcrumb li a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
@@ -1375,6 +1454,9 @@ input {
 @media screen and (max-width: 768px) {
     .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block {
         flex-direction: column;
+    }
+    .delivery-boundaries {
+        flex-direction: column-reverse;
     }
     .m-left {
         margin-left: 0;

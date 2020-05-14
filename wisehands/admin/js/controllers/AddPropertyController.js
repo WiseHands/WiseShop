@@ -23,19 +23,32 @@ angular.module('WiseHands')
 
             });
 
-        $scope.loadImage = function () {
+        $scope.uploadOptionImage = function () {
             $('#imageLoader').click();
+
         };
+
+        var imageLoader = document.getElementById('imageLoader');
+        imageLoader.addEventListener('change', handleImage, false);
+
+        function handleImage(e){
+            var file  = e.target.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function(event){
+
+                const propertyImage = document.querySelector("#property_img");
+                propertyImage.setAttribute('src', event.target.result);
+
+            };
+            if (file && file.type.match('image.*')) {
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        }
 
         $scope.createProperty = function () {
             if (!document.getElementById("imageLoader").value) {
                 document.querySelector(".error-text").style.display = "block";
                 return;
-            }
-            if (locale === 'en_US'){
-                var emptyTagWarning = 'Create, please, one or more addition option';
-            } else if (locale === 'uk_UA') {
-                emptyTagWarning = 'Створіть, будь ласка, додаток';
             }
             if (!$scope.addition) {
                 toastr.error(emptyTagWarning);
