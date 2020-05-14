@@ -43,7 +43,7 @@
 
     </div>
     <div class="admin-column">
-        <div ng-hide="activeShop.alwaysOpen">
+        <div ng-hide="activeShop.alwaysOpen || activeShop.isTemporaryClosed">
             <div class="admin-card">
                 <h4 class="table-day">{{'hourssetting.monday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.monOpen">
