@@ -3234,6 +3234,12 @@ class BalanceContainer extends LitElement {
                   margin: 3px;
                   display: flex;
                 }
+                .edit-shop-name input{
+                   border-style: none;
+                   border-width: 1px;
+                   border-bottom-style: solid;
+                   margin-bottom: 5px;
+                }
                 .balance-container{
                     display: flex;
                     flex-direction: column;
