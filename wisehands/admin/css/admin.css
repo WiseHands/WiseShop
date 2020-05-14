@@ -1107,7 +1107,10 @@ input {
 .admin-card .input-field label {
     left: 0;
 }
-.admin-all-orders, .addition-block, .edit-property-block {
+.admin-card table {
+    width: 100%;
+}
+.admin-all-orders, .addition-block, .edit-property-block, .working-hours-block {
     display: flex;
     flex-wrap: wrap;
 }
@@ -1445,14 +1448,34 @@ ul.admin-breadcrumb li a:hover {
     color: #000;
     text-decoration: underline;
 }
-
+.close-shop-checkbox {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 0.5rem;
+}
+.close-shop-checkbox p {
+    margin: 0  0.5rem 0 0;
+    padding: 0;
+}
+.whours-input-time {
+    margin: 0 0 1.2rem 0;
+}
+.working-hours-block .admin-card p {
+    line-height: 1.4;
+}
+.working-hours-block .admin-card label {
+    margin: 0.5rem 0 1rem 0;
+}
+.admin-card .closed-shop-options {
+    margin-bottom: 1.2rem;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
     }
 }
 @media screen and (max-width: 768px) {
-    .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block {
+    .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block, .working-hours-block {
         flex-direction: column;
     }
     .delivery-boundaries {

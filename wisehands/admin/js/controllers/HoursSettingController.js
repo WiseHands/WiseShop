@@ -80,7 +80,6 @@ angular.module('WiseHands')
             };
 
 
-
             sideNavInit.sideNav();
 }]);
 function showWarningMsg(msg) {

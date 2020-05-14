@@ -17,6 +17,16 @@
     </div>
 </nav>
 <div class="container-fluid noSidePadding flex-table">
+    <div class="admin-card">
+        <h4 class="table-day">{{'hourssetting.monday' | translate}}</h4>
+        <input type="time" ng-model="workDay.monStartTime">
+        <input type="time" ng-model="workDay.monEndTime">
+        <div class="custom-control custom-checkbox close-shop-checkbox">
+            <p>{{'hourssetting.closed' | translate}}</p>
+            <input type="checkbox" class="custom-control-input" ng-model="workDay.monOpen" id="tableDefaultCheck1">
+            <label class="custom-control-label" for="tableDefaultCheck1"></label>
+        </div>
+    </div>
     <table>
         <tr>
             <th>{{'hourssetting.day' | translate}}</th>

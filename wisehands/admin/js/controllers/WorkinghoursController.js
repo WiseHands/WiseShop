@@ -1,4 +1,3 @@
-
 angular.module('WiseHands')
     .controller('WorkinghoursController', ['$scope', '$http', '$location', 'sideNavInit', 'signout', 'shared', '$rootScope',
         function ($scope, $http, $location, sideNavInit, signout, shared, $rootScope) {
@@ -7,6 +6,7 @@ angular.module('WiseHands')
             $scope.hoursSetting = function () {
                 $location.path('/hourssetting');
             };
+
 
             $http({
                 method: 'GET',
@@ -46,7 +46,73 @@ angular.module('WiseHands')
                 }
             };
 
-            $scope.updateStoreSettings = function () {
+
+                $http({
+                    method: 'GET',
+                    url: '/shop/details/public'
+                })
+                    .then(function successCallback(response) {
+                        $scope.workDay = response.data;
+                        console.log('details of works days: ', $scope.workDay);
+                        $scope.workDay.monStartTime = new Date ($scope.workDay.monStartTime);
+                        $scope.workDay.monEndTime = new Date ($scope.workDay.monEndTime);
+                        $scope.workDay.tueStartTime = new Date ($scope.workDay.tueStartTime);
+                        $scope.workDay.tueEndTime = new Date ($scope.workDay.tueEndTime);
+                        $scope.workDay.wedStartTime = new Date ($scope.workDay.wedStartTime);
+                        $scope.workDay.wedEndTime = new Date ($scope.workDay.wedEndTime);
+                        $scope.workDay.thuStartTime = new Date ($scope.workDay.thuStartTime);
+                        $scope.workDay.thuEndTime = new Date ($scope.workDay.thuEndTime);
+                        $scope.workDay.friStartTime = new Date ($scope.workDay.friStartTime);
+                        $scope.workDay.friEndTime = new Date ($scope.workDay.friEndTime);
+                        $scope.workDay.satStartTime = new Date ($scope.workDay.satStartTime);
+                        $scope.workDay.satEndTime = new Date ($scope.workDay.satEndTime);
+                        $scope.workDay.sunStartTime = new Date ($scope.workDay.sunStartTime);
+                        $scope.workDay.sunEndTime = new Date ($scope.workDay.sunEndTime);
+                        $scope.loading = false;
+                    }, function errorCallback(response) {
+                        $scope.loading = false;
+                    });
+
+                $scope.setWorkingHour = function () {
+                    console.log('$scope.workDay', $scope.workDay);
+                    $scope.loading = true;
+                    $http({
+                        method: 'PUT',
+                        url: '/shop/update/working-hours',
+                        data: $scope.workDay
+                    })
+                        .success(function (response) {
+                            showInfoMsg("SAVED");
+                            $scope.workDay = response;
+
+                            $scope.workDay.monStartTime = new Date ($scope.workDay.monStartTime);
+                            console.log('monStartTime', $scope.workDay.monStartTime);
+                            $scope.workDay.monEndTime = new Date ($scope.workDay.monEndTime);
+                            $scope.workDay.tueStartTime = new Date ($scope.workDay.tueStartTime);
+                            console.log('tueStartTime', $scope.workDay.tueStartTime);
+                            $scope.workDay.tueEndTime = new Date ($scope.workDay.tueEndTime);
+                            $scope.workDay.wedStartTime = new Date ($scope.workDay.wedStartTime);
+                            console.log('wedStartTime', $scope.workDay.wedStartTime);
+                            $scope.workDay.wedEndTime = new Date ($scope.workDay.wedEndTime);
+                            $scope.workDay.thuStartTime = new Date ($scope.workDay.thuStartTime);
+                            console.log('thuStartTime', $scope.workDay.thuStartTime);
+                            $scope.workDay.thuEndTime = new Date ($scope.workDay.thuEndTime);
+                            $scope.workDay.friStartTime = new Date ($scope.workDay.friStartTime);
+                            console.log('friStartTime', $scope.workDay.friStartTime);
+                            $scope.workDay.friEndTime = new Date ($scope.workDay.friEndTime);
+                            $scope.workDay.satStartTime = new Date ($scope.workDay.satStartTime);
+                            console.log('satStartTime', $scope.workDay.satStartTime);
+                            $scope.workDay.satEndTime = new Date ($scope.workDay.satEndTime);
+                            $scope.workDay.sunStartTime = new Date ($scope.workDay.sunStartTime);
+                            console.log('sunStartTime', $scope.workDay.sunStartTime);
+                            $scope.workDay.sunEndTime = new Date ($scope.workDay.sunEndTime);
+                            $scope.loading = false;
+                        }).
+                    error(function (response) {
+                        showWarningMsg("ERROR");
+                        $scope.loading = false;
+                        console.log(response);
+                    });
 
                 $scope.loading = true;
                 $http({
