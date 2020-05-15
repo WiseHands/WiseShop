@@ -204,11 +204,6 @@
                         controller:'UserProfileController',
                         activetab: 'userprofile'
                     }).
-                    when('/hourssetting',{
-                        templateUrl:'wisehands/admin/partials/hoursSetting.html',
-                        controller:'HoursSettingController',
-                        activetab: 'hourssetting'
-                    }).
                     when('/category/:categoryUuid/addproperty/:productUuid',{
                         templateUrl:'wisehands/admin/partials/addProperty.html',
                         controller:'AddPropertyController',
