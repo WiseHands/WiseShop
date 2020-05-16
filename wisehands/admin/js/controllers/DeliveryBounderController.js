@@ -47,9 +47,9 @@ angular.module('WiseHands')
       });
 
       _bindDataLayerListeners($scope.map.data);
-      _loadPolygons($scope.map, $scope.courierPolygonData);
       const deleteAreaButton = _createDeleteDeliveryBoundariesButton($scope.map);
       $scope.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(deleteAreaButton);
+      _loadPolygon($scope.map, $scope.courierPolygonData);
     }
 
     function _bindDataLayerListeners(dataLayer) {
@@ -57,20 +57,8 @@ angular.module('WiseHands')
       dataLayer.addListener('removefeature', _enablePolygonEditing);
     }
 
-    function _loadPolygons(map, data) {
-      if (_isEmpty(data)) return;
-      map.data.forEach(property => {
-        map.data.remove(property);
-      });
-      map.data.addGeoJson(data);
-    }
-
-    function _isEmpty(obj) {
-      for (const key in obj) {
-        if (obj.hasOwnProperty(key))
-          return false;
-      }
-      return true;
+    function _loadPolygon(map, data) {
+      if (data.length) map.data.addGeoJson(data);
     }
 
     function _disablePolygonEditing() {
@@ -85,17 +73,34 @@ angular.module('WiseHands')
     $scope._saveDeliveryBoundaries = () => {
       $scope.map.data.toGeoJson(json => {
         const objjson = JSON.parse(JSON.stringify(json));
-        $http({
-          method: 'POST',
-          url: '/courier/polygon',
-          data: objjson,
-        }).then(() => _showSaveToaster(),
-          error => {
-            $scope.status = 'Щось пішло не так...';
-            console.log(error);
-          });
+        const isPolygonPresentOnMap = !!objjson.features.length;
+        isPolygonPresentOnMap ? _savePolygon(objjson) : _deletePolygon();
       });
     };
+
+    function _savePolygon(polygon) {
+      $http({
+        method: 'POST',
+        url: '/courier/polygon',
+        data: polygon,
+      }).then(_showSaveToaster(),
+        error => {
+          $scope.status = 'Щось пішло не так...';
+          console.log(error);
+        });
+    }
+
+    function _deletePolygon() {
+      $http({
+        method: 'DELETE',
+        url: '/courier/polygon',
+        data: {}
+      }).then(_showSaveToaster(),
+        error => {
+          $scope.status = 'Щось пішло не так...';
+          console.log(error);
+        });
+    }
 
     function _showSaveToaster() {
       toastr.clear();
@@ -118,11 +123,6 @@ angular.module('WiseHands')
         map.data.forEach(property => {
           map.data.remove(property);
         });
-        $http({
-          method: 'DELETE',
-          url: '/courier/polygon',
-          data: {}
-        })
       });
       return deleteAreaButton;
     }
