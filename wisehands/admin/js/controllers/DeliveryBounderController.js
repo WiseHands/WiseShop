@@ -7,22 +7,25 @@ angular.module('WiseHands')
     })
       .then(response => {
         if (response.data.delivery.courierPolygonData) $scope.courierPolygonData = JSON.parse(response.data.delivery.courierPolygonData);
+        _getContactDetails();
       }, error => {
         $scope.status = 'Щось пішло не так з координатами.';
         console.log(error);
       });
 
-    $http({
-      method: 'GET',
-      url: '/contact/details'
-    })
-      .then(response => {
-        const contacts = response.data;
-        if (contacts.latLng) _initMap(contacts.latLng);
-      }, error => {
-        $scope.status = 'Щось пішло не так...';
-        console.log(error);
-      });
+    function _getContactDetails() {
+      $http({
+        method: 'GET',
+        url: '/contact/details'
+      })
+        .then(response => {
+          const contacts = response.data;
+          if (contacts.latLng) _initMap(contacts.latLng);
+        }, error => {
+          $scope.status = 'Щось пішло не так...';
+          console.log(error);
+        });
+    }
 
     function _initMap(latLng) {
       const cords = latLng.split(',');
