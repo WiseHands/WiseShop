@@ -58,7 +58,7 @@ angular.module('WiseHands')
     }
 
     function _loadPolygon(map, data) {
-      if (data.length) map.data.addGeoJson(data);
+      if (Object.keys(obj).length) map.data.addGeoJson(data);
     }
 
     function _disablePolygonEditing() {
