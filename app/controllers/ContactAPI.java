@@ -15,6 +15,9 @@ import java.util.Date;
 
 public class ContactAPI extends AuthController {
 
+    static final double DEFAULT_SHOP_LATITUDE = 49.843246;
+    static final double DEFAULT_SHOP_LONGITUDE = 24.031556;
+
     static MailSender mailSender = new MailSenderImpl();
 
     public static void sendMailToUs() throws Exception{
@@ -79,8 +82,8 @@ public class ContactAPI extends AuthController {
         System.out.println("get shopLocation " + jsonShopLocation);
 
         if (jsonShopLocation == null){
-            shopLatitude = 49.843246;
-            shopLongitude = 24.031556;
+            shopLatitude = DEFAULT_SHOP_LATITUDE;
+            shopLongitude = DEFAULT_SHOP_LONGITUDE;
         } else {
             shopLatitude = Double.parseDouble(String.valueOf(jsonShopLocation.get("latitude")));
             shopLongitude = Double.parseDouble(String.valueOf(jsonShopLocation.get("longitude")));
