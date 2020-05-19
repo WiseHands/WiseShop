@@ -15,6 +15,9 @@ import java.util.Date;
 
 public class ContactAPI extends AuthController {
 
+    static final double DEFAULT_SHOP_LATITUDE = 49.843246;
+    static final double DEFAULT_SHOP_LONGITUDE = 24.031556;
+
     static MailSender mailSender = new MailSenderImpl();
 
     public static void sendMailToUs() throws Exception{
@@ -50,6 +53,10 @@ public class ContactAPI extends AuthController {
 
 
     public static void update(String client) throws Exception {
+
+        double shopLatitude;
+        double shopLongitude;
+
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -74,22 +81,24 @@ public class ContactAPI extends AuthController {
         JSONObject jsonShopLocation = (JSONObject) jsonBody.get("shopLocation");
         System.out.println("get shopLocation " + jsonShopLocation);
 
-        double lat = Double.parseDouble(String.valueOf(jsonShopLocation.get("latitude")));
-        double lng = Double.parseDouble(String.valueOf(jsonShopLocation.get("longitude")));
+        if (jsonShopLocation == null){
+            shopLatitude = DEFAULT_SHOP_LATITUDE;
+            shopLongitude = DEFAULT_SHOP_LONGITUDE;
+        } else {
+            shopLatitude = Double.parseDouble(String.valueOf(jsonShopLocation.get("latitude")));
+            shopLongitude = Double.parseDouble(String.valueOf(jsonShopLocation.get("longitude")));
+        }
 
-        System.out.println("get shopLocation " + lat + "," + lng);
+        System.out.println("get shopLocation " + shopLatitude + "," + shopLongitude);
 
         ContactDTO contact = shop.contact;
 
         if (shop.contact.shopLocation == null){
-            ShopLocation shopLocation = new ShopLocation(lat, lng);
-            System.out.println("shopLocation " + shopLocation.latitude + "," + shopLocation.longitude);
+            ShopLocation shopLocation = new ShopLocation(shopLatitude, shopLongitude);
             shop.contact.shopLocation = shopLocation;
         } else {
-            shop.contact.shopLocation.latitude = lat;
-            shop.contact.shopLocation.longitude = lng;
-            System.out.println("shopLocation update" + lat + "," + lng);
-
+            shop.contact.shopLocation.latitude = shopLatitude;
+            shop.contact.shopLocation.longitude = shopLongitude;
         }
         contact.email = email;
         contact.phone = phone;
@@ -97,7 +106,8 @@ public class ContactAPI extends AuthController {
         contact.addressStreet = addressStreet;
         contact.addressNumberHouse = addressNumberHouse;
         contact.description = description;
-        contact.latLng = String.valueOf(lat) + "," + String.valueOf(lng);
+        contact.latLng = String.valueOf(shopLatitude) + "," + String.valueOf(shopLongitude);
+        System.out.println("contact.latLng " + contact.latLng);
         contact.linkfacebook = linkfacebook;
         contact.linkinstagram = linkinstagram;
         contact.linkyoutube = linkyoutube;
