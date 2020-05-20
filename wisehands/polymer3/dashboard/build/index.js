@@ -3685,6 +3685,8 @@ class ShopTile extends LitElement {
                             font-size: 2em;
                             overflow: hidden;
                             text-overflow: ellipsis;
+                            padding: 0.5rem;
+                            margin: 0; 
                         }
                     .shop-info-container{
                         display: flex;
@@ -3720,7 +3722,24 @@ class ShopTile extends LitElement {
                 img:hover {
                 transform: scale(1.1);
                 }
-
+                
+                @media screen and (max-width: 768px) {
+                    .shop-name {
+                        margin: 15px auto 0 auto;
+                    } 
+                    .shop-name p {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        padding: 0.5rem;
+                        text-align: center;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        -webkit-box-orient: vertical;
+                        white-space: normal;
+                        word-break: break-all;
+                        line-height: 1.2;
+                    }
+                }    
             </style>
               <div class="container border">
                 <a class="shop-name" href="${this._buildUrlForShop(this.shop)}">
@@ -4179,6 +4198,7 @@ class DashBoard extends LitElement {
                     max-width: 900px;
                     margin: 0 auto;
                 }
+                
                 .header-profile-container{
                     position: fixed;
                     top: 0;
@@ -4425,8 +4445,15 @@ class DashBoard extends LitElement {
                     .tools-dash-board-container, .logo-container  {
                         display: none;
                     }
-                    .work-place-dash-board-container {
+                    .work-place-dash-board-container, shop-tile, .create-shop-element {
                         width: 100%
+                    }
+                    shop-tile, .create-shop-element {
+                        height: 250px;
+                    }
+                    .shop-name {
+                        height: 70%;
+                        width: 90%;
                     }
                     .mobile-logo-container {
                         display: flex;
@@ -4508,16 +4535,16 @@ class DashBoard extends LitElement {
                         ${this.isShowShopListContainer ? html`
                         <div class="shop-list-container">
                              <div class="inner-container">
-                                <a @click="${this.creatingShopThroughWizard}">
                                     <div class="create-shop-element border">
-                                        <div class="shop-name">
-                                            <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.png">
-                                        </div>
+                                        <a @click="${this.creatingShopThroughWizard}" class="shop-name">
+                                          <div>
+                                              <img class="create-shop-plus-logo" src="wisehands/assets/images/dashboard/plus.png">
+                                          </div>
+                                        </a>
                                         <div class="create-shop-text-container">
                                             <p>Створити магазин</p>
                                         </div>
-                                    </div>
-                                </a>
+                                    </div>                            
                                 ${this.shopList.map(item => html`
                                      <shop-tile .shop="${item}"></shop-tile>
                                 `)}
