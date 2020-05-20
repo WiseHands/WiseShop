@@ -1317,7 +1317,7 @@ input {
     width: 100%;
 }
 
-.admin-all-orders, .addition-block, .edit-property-block, .working-hours-block {
+.admin-all-orders, .addition-block, .edit-property-block, .working-hours-block, .settings-block {
     display: flex;
     flex-wrap: wrap;
 }
@@ -1725,7 +1725,7 @@ input {
 }
 
 .delete-area-button span {
-   padding: 0 5px;
+    padding: 0 5px;
 }
 
 .admin-breadcrumb {
@@ -1787,7 +1787,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 @media screen and (max-width: 768px) {
-    .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block, .working-hours-block {
+    .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block, .working-hours-block, .settings-block {
         flex-direction: column;
     }
 

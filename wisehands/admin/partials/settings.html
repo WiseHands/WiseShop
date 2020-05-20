@@ -17,18 +17,50 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid noSidePadding">
-    <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
-    </div>
-    <div class="btn-group btn-group-justified col-xs-12 z-index" role="group" aria-label="..." ng-hide="loading">
-        <div class="btn-group" role="group">
-            <button type="button" class="btn white-text disabled">{{'settings.general' | translate}}</button>
+<div class="row text-center">
+    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+</div>
+<div class="admin-container">
+    <form class="settings-block noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading" ng-submit="updateShopStyling()">
+        <div class="admin-column">
+            <div class="admin-card">
+                <div class="file-field input-field" ng-show="!shopStyling.shopFavicon">
+                    <button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block" ng-click="loadFavicon()">
+                        <span>{{'addNewProduct.add' | translate}} favicon</span>
+                    </button>
+                    <input name="favIconLoader" type="file" id="favIconLoader"
+                           onchange="angular.element(this).scope().favIconUpload(this)" />
+                </div>
+                <div class="input-field  " ng-show="shopStyling.shopFavicon">
+                    <button type="button" class="btn secondaryColor waves-effect waves-light btn-block" ng-click="deleteFavicon()">
+                        <span>{{'productDetails.delete' | translate}} favicon</span>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="btn-group" role="group">
-            <a href="#/viewsettings" type="button" class="btn secondaryColor">{{'settings.view' | translate}}</a>
+        <div class="admin-column">
+            <div class="admin-card">
+                <div class="file-field input-field  " ng-show="!logo">
+                    <button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block" ng-click="loadImage()">
+                        <span>{{'settings.addLogo' | translate}}</span>
+                    </button>
+                    <input name="imageLoader" type="file" id="imageLoader"
+                           onchange="angular.element(this).scope().imageUpload(this)" />
+                </div>
+
+                <div class="input-field " ng-hide="!logo">
+                    <button type="button" class="btn secondaryColor waves-effect waves-light btn-block" ng-click="deleteLogo()">
+                        <span>{{'settings.removeLogo' | translate}}</span>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="input-field col-sm-12">
+            <input id="filled-in-isFooterOn" type="checkbox" class="filled-in checkBoxStyling" ng-model="shopStyling.isFooterOn"/>
+            <label for="filled-in-isFooterOn">{{'settings.isFooterOn' | translate}}</label>
+        </div>
+
+    </form>
 
     <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
 
