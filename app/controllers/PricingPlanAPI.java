@@ -100,7 +100,7 @@ public class PricingPlanAPI extends AuthController {
         transaction.status = TransactionStatus.OK;
         transaction.account = coinAccount;
         transaction.amount = -pricingPlan.monthlyFee;
-        transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
+        transaction.time = (System.currentTimeMillis() / 1000L);
 
         coinAccount.addTransaction(transaction);
         coinAccount.balance += -pricingPlan.monthlyFee;
