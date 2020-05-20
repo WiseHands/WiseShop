@@ -39,7 +39,7 @@ public class CoinTransactionDTO extends GenericModel {
     public TransactionStatus status;
 
     @Expose
-    public BigDecimal time;
+    public Long time;
 
     @Expose
     public Long confirmationTime;
@@ -51,7 +51,7 @@ public class CoinTransactionDTO extends GenericModel {
 
     }
 
-    public CoinTransactionDTO(double amount, TransactionStatus status, BigDecimal time, double transactionBalance, TransactionType type) {
+    public CoinTransactionDTO(double amount, TransactionStatus status, Long time, double transactionBalance, TransactionType type) {
         this.amount = amount;
         this.status = status;
         this.time = time;
