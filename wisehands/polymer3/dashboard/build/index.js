@@ -4458,6 +4458,16 @@ class DashBoard extends LitElement {
                     .mobile-logo-container {
                         display: flex;
                         align-items: center;
+                        flex-direction: column;
+                    }
+                    .menu-line {
+                        width: 40px;
+                        height: 5px;
+                        background-color: #000;
+                        margin: 0 0 7px 10px;
+                    }
+                    .menu-line:last-child {
+                        margin-bottom: 0;
                     }
                 }
 
@@ -4503,7 +4513,9 @@ class DashBoard extends LitElement {
                             <p class="product-name">WSTORE</p>
                         </div>
                         <div class="mobile-logo-container" @click="${this.showSideMenu}">
-                            <img class="logo" src="wisehands/assets/images/dashboard/menu.svg">
+                            <div class="menu-line"></div>
+                            <div class="menu-line"></div>
+                            <div class="menu-line"></div>
                         </div>
                         <profile-picture .user="${this.user}"></profile-picture>
 
