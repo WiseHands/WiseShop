@@ -47,7 +47,7 @@ public class MonthlyFee extends Job {
                     transaction.status = TransactionStatus.OK;
                     transaction.account = coinAccount;
                     transaction.amount = -shop.pricingPlan.monthlyFee;
-                    transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
+                    transaction.time = System.currentTimeMillis() / 1000L;
                     coinAccount.addTransaction(transaction);
                     coinAccount.balance += transaction.amount;
                     transaction.transactionBalance = coinAccount.balance;
@@ -74,7 +74,7 @@ public class MonthlyFee extends Job {
         transaction.status = TransactionStatus.OK;
         transaction.account = coinAccount;
         transaction.amount = -commissionFee;
-        transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
+        transaction.time = System.currentTimeMillis() / 1000L;
         transaction = transaction.save();
         coinAccount.addTransaction(transaction);
         coinAccount.balance += transaction.amount;

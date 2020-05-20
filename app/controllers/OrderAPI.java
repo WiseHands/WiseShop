@@ -146,7 +146,7 @@ public class OrderAPI extends AuthController {
                 transaction.account = coinAccount;
                 transaction.orderUuid = order.uuid;
                 transaction.amount = -percentage;
-                transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
+                transaction.time = System.currentTimeMillis() / 1000L;
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;
                 transaction.transactionBalance = coinAccount.balance;
@@ -366,6 +366,22 @@ public class OrderAPI extends AuthController {
         renderJSON(json(order));
     }
 
+    public static void getFeedbackToOrder(String client, String uuid) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        System.out.println("getFeedbackToOrder");
+
+//        smsSender.sendSms(order.phone, Messages.get("balance.transaction.low.shop.balance"));
+//        mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
+
+        renderJSON(json(order));
+    }
+
     public static void markCancelled(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -387,7 +403,7 @@ public class OrderAPI extends AuthController {
                 transaction.account = coinAccount;
                 transaction.amount = percentage;
                 transaction.orderUuid = order.uuid;
-                transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
+                transaction.time = System.currentTimeMillis() / 1000L;
 
                 coinAccount.addTransaction(transaction);
                 coinAccount.balance += transaction.amount;

@@ -7,7 +7,6 @@ import models.CoinTransactionDTO;
 import models.ShopDTO;
 import play.db.jpa.JPA;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class CoinBalanceTransactionApi extends AuthController{
     private static CoinTransactionDTO createCoinTransactionDTO(Object[] item) {
         double amount = (double) item[0];
         TransactionStatus status = getTransactionStatus(item[1]);
-        BigDecimal time = (BigDecimal) item[2];
+        Long time = Long.valueOf(String.valueOf(item[2]));
         double transactionBalance = (double) item[3];
         TransactionType type = getTransactionType(item[4]) ;
         CoinTransactionDTO transaction = new CoinTransactionDTO(amount,status,time,transactionBalance,type);

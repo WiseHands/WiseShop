@@ -153,7 +153,7 @@ public class WayForPayAPI extends AuthController {
             transaction.status = TransactionStatus.OK;
             transaction.account = coinAccount;
             transaction.amount = amount;
-            transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
+            transaction.time = System.currentTimeMillis() / 1000L;
             coinAccount.addTransaction(transaction);
             coinAccount.balance += amount;
             transaction.transactionBalance = coinAccount.balance;
@@ -214,7 +214,7 @@ public class WayForPayAPI extends AuthController {
         transaction.status = TransactionStatus.PENDING;
         transaction.account = coinAccount;
         transaction.amount = amount;
-        transaction.time = BigDecimal.valueOf(System.currentTimeMillis() / 1000L);
+        transaction.time = System.currentTimeMillis() / 1000L;
         transaction.transactionBalance = coinAccount.balance;
         transaction = transaction.save();
         coinAccount.addTransaction(transaction);
