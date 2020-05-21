@@ -49,6 +49,36 @@ angular.module('WiseHands')
                 $scope.activeShop.isTemporaryClosed = false;
               }
         };
+        $scope.updateSettings = () => {
+            $scope.updateShopStyling();
+            $scope.updateStoreSettings();
+        }
+
+        $scope.updateShopStyling = function () {
+            $scope.loading = true;
+            $scope.shopStyling.sidebarColorScheme = $scope.selectedSkin;
+            $http({
+                method: 'PUT',
+                url: '/visualsettings',
+                data: $scope.shopStyling
+            })
+                .success(function (response) {
+                    console.log("response for footer: ", response);
+                    $scope.loading = false;
+                    $scope.shopStyling = response;
+                    $scope.navbarStyles.forEach(function(skin) {
+                        if (skin.code === $scope.shopStyling.sidebarColorScheme.code){
+                            $scope.selectedSkin = skin;
+                        }
+                    });
+                    showInfoMsg("SAVED");
+                }).
+            error(function (response) {
+                $scope.loading = false;
+                console.log(response);
+                showWarningMsg("ERROR");
+            });
+        };
 
         $scope.updateStoreSettings = function () {
 
