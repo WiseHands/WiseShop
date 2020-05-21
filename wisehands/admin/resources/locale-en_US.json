@@ -170,7 +170,7 @@
   "shopDetails.deleteMessage1": "Do you really want to delete this shop?",
   "shopDetails.deleteMessage2": "Shop deleted.",
   "editProduct.general": "General",
-  "editProduct.edit": "Edit product",
+  "editProduct.edit": "Product",
   "editProduct.property": "Property",
   "editProduct.propertyName": "Property name",
   "editProduct.additionProduct": "Product: ",
