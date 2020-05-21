@@ -19,8 +19,8 @@
     </div>
 </nav>
 <form class="admin-container container-fluid" ng-submit="saveThisPage()" id="saveThisPageForm">
-    <div class="input-field col-md-12 z-index-3 mt-30">
-        <div class="col-sm-6">
+    <div class="input-field z-index-3 mt-30">
+        <div class="col-sm-12">
             <p class="mb-0">{{'addNewPage.setTitle' | translate}}</p>
             <input id="setTitle" type="text" ng-model="title" required>
         </div>
@@ -30,7 +30,7 @@
         <!--</div>-->
     </div>
     <div class="container-fluid">
-        <div class="col-xs-12 input-field ">
+        <div class=" input-field ">
             <p>{{'addNewPage.setBody' | translate}}</p>
             <textarea class="editor-for-page" id="editor" name="editor" required></textarea>
         </div>
