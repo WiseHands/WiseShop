@@ -1,7 +1,7 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
-feedback.email.title = відгук про ваше замовлення від %s
+feedback.email.title = Відгук про ваше замовлення від %s
 feedback.main.label = Привіт %s
 feedback.email.text = Залиште свій відгук для замовлення. Допоможіть нам стати кращими
 feedback.write.feedback = Залишити відгук

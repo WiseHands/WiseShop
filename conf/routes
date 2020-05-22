@@ -205,7 +205,7 @@ POST    {client}/order                                  OrderAPI.create
 DELETE  {client}/order/{uuid}                           OrderAPI.delete
 PUT     {client}/order/{uuid}/cancelled                 OrderAPI.markCancelled
 PUT     {client}/order/{uuid}/shipped                   OrderAPI.markShipped
-PUT     {client}/order/feedback/{uuid}                  OrderAPI.sendFeedbackRequestToClient
+PUT     {client}/order/{uuid}/feedback                  OrderAPI.sendFeedbackRequestToClient
 PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
 *       {client}/success                                OrderAPI.success
 

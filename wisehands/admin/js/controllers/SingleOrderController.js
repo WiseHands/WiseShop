@@ -135,7 +135,7 @@
                         });
                 };
 
-                $scope.getFeedbackForOrder = function () {
+                $scope.requestFeedbackForOrderInClient = function () {
                     console.log('$routeParams.uuid', $routeParams.uuid);
                     $scope.loading = true;
                     $scope.errorFeedback = false;
@@ -158,6 +158,7 @@
                             }
 //                            window.location = '/ua/feedback/' + $routeParams.uuid;
                         }, response => {
+
                             $scope.loading = false;
                             $scope.modalSpinner = false;
                             console.log(response);
