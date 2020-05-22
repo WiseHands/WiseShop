@@ -13,6 +13,8 @@ angular.module('WiseHands')
             }, function errorCallback(response) {
                 $scope.loading = false;
             });
+
+
         $scope.setDeliveryOptions = function () {
             $scope.loading = true;
             $http({
@@ -34,8 +36,57 @@ angular.module('WiseHands')
         };
         
         sideNavInit.sideNav();
-       
+       //google map init//
+
+        $http({
+            method: 'GET',
+            url: '/shop/details'
+        })
+            .then(response => {
+                if (response.data.delivery.courierPolygonData) $scope.courierPolygonData = JSON.parse(response.data.delivery.courierPolygonData);
+                _getContactDetails();
+            }, error => {
+                $scope.status = 'Щось пішло не так з координатами.';
+                console.log(error);
+            });
+
+        function _getContactDetails() {
+            $http({
+                method: 'GET',
+                url: '/contact/details'
+            })
+                .then(response => {
+                    const contacts = response.data;
+                    if (contacts.latLng) _initMap(contacts.latLng);
+                }, error => {
+                    $scope.status = 'Щось пішло не так...';
+                    console.log(error);
+                });
+        }
+
+        function _initMap(latLng) {
+            const cords = latLng.split(',');
+            const lat = cords[0];
+            const lng = cords[1];
+            const var_location = new google.maps.LatLng(lat, lng);
+            $scope.var_map_options = {
+                streetViewControl: false,
+                center: var_location,
+                zoom: 10
+            };
+            $scope.map = new google.maps.Map(document.getElementById('googleMap'), $scope.var_map_options);
+            const var_marker = new google.maps.Marker({
+                position: var_location,
+                map: $scope.map
+            });
+            var_marker.setMap($scope.map);
+            _loadPolygon($scope.map, $scope.courierPolygonData);
+        }
+        function _loadPolygon(map, data) {
+            if (Object.keys(data).length) map.data.addGeoJson(data);
+        }
     }]);
+
 function showWarningMsg(msg) {
     toastr.clear();
     toastr.options = {
