@@ -367,7 +367,7 @@ public class OrderAPI extends AuthController {
         renderJSON(json(order));
     }
 
-    public static void getFeedbackToOrder(String client, String uuid) {
+    public static void sendFeedbackRequestToClient(String client, String uuid) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -383,7 +383,7 @@ public class OrderAPI extends AuthController {
             renderJSON(json(jsonHandle));
         } catch (Exception e) {
             e.printStackTrace();
-            JsonHandleForbidden jsonHandle = new JsonHandleForbidden(419, "error sending feedback");
+            JsonHandleForbidden jsonHandle = new JsonHandleForbidden(419, "error sending feedback request");
             renderJSON(json(jsonHandle));
         }
 

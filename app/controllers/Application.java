@@ -78,7 +78,7 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
-        renderTemplate("Application/uaFeedbackToOrder.html", shop, order);
+        renderTemplate("Application/orderFeedback.html", shop, order);
     }
 
     public static void uaSignup(String client) {

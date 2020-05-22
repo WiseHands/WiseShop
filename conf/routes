@@ -101,6 +101,8 @@ DELETE      {client}/api/pricing-plan/delete                 PricingPlanAPI.dele
 POST        {client}/api/pricing-plan/set-plan-to-shop       PricingPlanAPI.setPricingPlanToThisShop
 GET         {client}/api/pricing-plan/get-shop               PricingPlanAPI.getShopByUuid
 
+POST        {client}/api/feedback/create                 FeedbackToOrderAPI.createFeedbackFromClient
+
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
@@ -203,7 +205,7 @@ POST    {client}/order                                  OrderAPI.create
 DELETE  {client}/order/{uuid}                           OrderAPI.delete
 PUT     {client}/order/{uuid}/cancelled                 OrderAPI.markCancelled
 PUT     {client}/order/{uuid}/shipped                   OrderAPI.markShipped
-PUT     {client}/order/feedback/{uuid}                  OrderAPI.getFeedbackToOrder
+PUT     {client}/order/feedback/{uuid}                  OrderAPI.sendFeedbackRequestToClient
 PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
 *       {client}/success                                OrderAPI.success
 

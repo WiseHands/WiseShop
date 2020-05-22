@@ -73,6 +73,14 @@ public class ProductDTO extends GenericModel {
     @OneToMany
     public List<AdditionDTO> additions;
 
+    @Expose
+    @OneToMany
+    public List<FeedbackToOrderDTO> feedbacks;
+
+    @Expose
+    @OneToOne
+    public FeedbackToOrderDTO feedbackToOrder;
+
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, Integer wholesaleCount, Double wholesalePrice) {
         this(name, description, price, images, shop, null, wholesaleCount, wholesalePrice);
     }
