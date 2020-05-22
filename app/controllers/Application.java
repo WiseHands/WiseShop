@@ -72,7 +72,7 @@ public class Application extends Controller {
         renderTemplate("Application/uaShopLocation.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
     }
 
-    public static void uaFeedbackToOrder(String client, String uuid) {
+    public static void orderFeedback(String client, String uuid) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();

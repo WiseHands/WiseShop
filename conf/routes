@@ -273,7 +273,7 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/ua/shop-location                       Application.uaShopLocation
 *       {client}/ua/signup                              Application.uaSignup
 *       {client}/ua/wizard                              Application.uaWizard
-*       {client}/ua/feedback/{uuid}                     Application.uaFeedbackToOrder
+*       {client}/ua/{uuid}/feedback                     Application.orderFeedback
 *       {client}/server-error                           Application.serverError
 *       {client}/dashboard                              Application.userDashboard
 
