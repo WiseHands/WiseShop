@@ -15,6 +15,7 @@ import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Http;
+import responses.JsonHandleForbidden;
 import services.*;
 
 import java.math.BigDecimal;
@@ -366,7 +367,7 @@ public class OrderAPI extends AuthController {
         renderJSON(json(order));
     }
 
-    public static void getFeedbackToOrder(String client, String uuid) throws Exception {
+    public static void getFeedbackToOrder(String client, String uuid) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -374,12 +375,18 @@ public class OrderAPI extends AuthController {
         checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
-        System.out.println("getFeedbackToOrder");
 
-//        smsSender.sendSms(order.phone, Messages.get("balance.transaction.low.shop.balance"));
-//        mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
+        try {
+//            smsSender.sendSmsForFeedbackToOrder(order.phone, Messages.get("balance.transaction.low.shop.balance"));
+            mailSender.sendEmailForFeedbackToOrder(shop, order, Messages.get("feedback.email.title", shop.shopName));
+            JsonHandleForbidden jsonHandle = new JsonHandleForbidden(420, "feedback was sent");
+            renderJSON(json(jsonHandle));
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsonHandleForbidden jsonHandle = new JsonHandleForbidden(419, "error sending feedback");
+            renderJSON(json(jsonHandle));
+        }
 
-        renderJSON(json(order));
     }
 
     public static void markCancelled(String client, String uuid) throws Exception {

@@ -72,6 +72,15 @@ public class Application extends Controller {
         renderTemplate("Application/uaShopLocation.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
     }
 
+    public static void uaFeedbackToOrder(String client, String uuid) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        renderTemplate("Application/uaFeedbackToOrder.html", shop, order);
+    }
+
     public static void uaSignup(String client) {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
         String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
