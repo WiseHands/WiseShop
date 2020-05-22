@@ -105,12 +105,50 @@ public class MailSenderImpl implements MailSender {
         String loginLabel = Messages.get("shop.login");
         map.put("loginLabel", loginLabel);
 
+        String rendered = template.render(map);
 
+        email.setHtmlMsg(rendered);
+        email.setCharset("utf-8");
+        Mail.send(email);
+    }
+
+    public void sendEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String status) throws Exception {
+        HtmlEmail email = new HtmlEmail();
+        email.setHostName(shop.domain);
+        email.setFrom("wisehandsme@gmail.com");
+        email.addTo(order.email);
+        email.setSubject(status);
+
+        String templateString = readAllBytesJava7("app/emails/email_feedback_to_order.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("shopName", shop.shopName);
+        map.put("orderUuid", order.uuid);
+        System.out.println("orderUuid for " + order.uuid);
+        String path = shop.domain;
+        System.out.println("shop.domain " + shop.domain);
+        if(isDevEnv) {
+            path = path + ":3334";
+            System.out.println("shop.domain " + shop.domain);
+
+        }
+        map.put("shopDomain", path);
+
+        Lang.change(shop.locale);
+        String mainFeedbackTitle = Messages.get("feedback.main.label", order.name);
+        map.put("mainFeedbackTitle", mainFeedbackTitle);
+
+        String mainFeedbackText = Messages.get("feedback.email.text", shop.shopName);
+        map.put("mainFeedbackText", mainFeedbackText);
+
+        String writeFeedback = Messages.get("feedback.write.feedback");
+        map.put("writeFeedback", writeFeedback);
 
         String rendered = template.render(map);
 
         email.setHtmlMsg(rendered);
         email.setCharset("utf-8");
+        System.out.println("sendEmailForFeedbackToOrder");
         Mail.send(email);
     }
 

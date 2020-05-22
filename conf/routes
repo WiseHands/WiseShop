@@ -203,6 +203,7 @@ POST    {client}/order                                  OrderAPI.create
 DELETE  {client}/order/{uuid}                           OrderAPI.delete
 PUT     {client}/order/{uuid}/cancelled                 OrderAPI.markCancelled
 PUT     {client}/order/{uuid}/shipped                   OrderAPI.markShipped
+PUT     {client}/order/feedback/{uuid}                  OrderAPI.getFeedbackToOrder
 PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
 *       {client}/success                                OrderAPI.success
 
@@ -270,6 +271,7 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/ua/shop-location                       Application.uaShopLocation
 *       {client}/ua/signup                              Application.uaSignup
 *       {client}/ua/wizard                              Application.uaWizard
+*       {client}/ua/feedback/{uuid}                     Application.uaFeedbackToOrder
 *       {client}/server-error                           Application.serverError
 *       {client}/dashboard                              Application.userDashboard
 
