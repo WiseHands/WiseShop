@@ -23,7 +23,7 @@
                     <a class="col-xs-12 text-left" ng-click="shippedOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED'"><p>{{'singleOrder.Shipped' | translate}}</p></a>
                     <a class="col-xs-12 text-left" ng-click="cancelledOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED' || order.state === 'PAYED'"><p>{{'singleOrder.Canceled' | translate}}</p></a>
                     <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteOrder"><p>{{'singleOrder.Delete' | translate}}</p></a>
-                    <a class="col-xs-12 text-left" data-toggle="modal" data-target="#feedbackToOrder" ng-click="getFeedbackForOrder()"><p>{{'singleOrder.requestFeedback' | translate}}</p></a>
+                    <a class="col-xs-12 text-left" data-toggle="modal" data-target="#feedbackToOrder" ng-click="requestFeedbackForOrderInClient()"><p>{{'singleOrder.requestFeedback' | translate}}</p></a>
                 </div>
             </a>
         </div>

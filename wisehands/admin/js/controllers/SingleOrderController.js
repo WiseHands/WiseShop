@@ -143,7 +143,7 @@
                     $scope.modalSpinner = true;
                     $http({
                         method: 'PUT',
-                        url: '/order/feedback/' + $routeParams.uuid,
+                        url: '/order/' + $routeParams.uuid + '/feedback'
                     })
                         .then( response => {
                             $scope.loading = false;
