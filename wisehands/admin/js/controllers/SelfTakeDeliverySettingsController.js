@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-  .controller('DeliverySettingsController', ['$scope', '$http', '$location', 'sideNavInit', function ($scope, $http, $location, sideNavInit) {
+  .controller('SelfTakeDeliverySettingsController', ['$scope', '$http', '$location', 'sideNavInit', function ($scope, $http, $location, sideNavInit) {
     $scope.loading = true;
 
     $http({
