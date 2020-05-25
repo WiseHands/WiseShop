@@ -152,10 +152,6 @@
             templateUrl: 'wisehands/admin/partials/liqPayPayment.html',
             controller: 'LiqPayPaymentController',
             activetab: 'liqpaypayment'
-          }).when('/viewsettings', {
-            templateUrl: 'wisehands/admin/partials/viewSettings.html',
-            controller: 'ViewSettingsController',
-            activetab: 'settings'
           }).when('/discount/:uuid', {
             templateUrl: 'wisehands/admin/partials/pageconstructor.html',
             controller: 'DiscountController',
