@@ -1169,6 +1169,21 @@ input {
 .admin-order-details-quantity p {
     width: 60px;
 }
+
+.admin-order-feedback h5 {
+    text-align: left;
+}
+.feedback-stars {
+    min-width: 126px;
+    margin-left: 0.5rem;
+}
+
+.feedback-text {
+    color: #777;
+    text-align: left;
+    font-size: 0.9rem;
+    font-style: italic;
+}
 .order-details-image {
     display: flex;
     align-items: center;
@@ -1468,6 +1483,14 @@ ul.admin-breadcrumb li a:hover {
 }
 .admin-card .closed-shop-options {
     margin-bottom: 1.2rem;
+}
+
+.boundaries-btn {
+    display: inline-flex;
+    background-color: #126471;
+    padding: 0 2rem;
+    text-align: center;
+    color: #fff;
 }
 @media screen and (min-width: 1500px) {
     .admin-container {

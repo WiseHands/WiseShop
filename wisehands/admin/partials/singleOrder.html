@@ -195,6 +195,35 @@
                             <p>{{order.comment}}</p>
                         </div>
                     </div>
+                    <div class="admin-card admin-order-feedback">
+                        <h4>{{'singleOrder.feedback' | translate}}</h4>
+                        <h5>{{'singleOrder.titleOrder' | translate}}</h5>
+                        <div class="admin-order-card-row" ng-repeat="item in order.items">
+                            <div class="admin-order-details-row">
+                                <a class="order-details-image" ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">
+                                    <img src="{{item.imagePath}}">
+                                    <div class="admin-order-item-feedback">
+                                        <p>{{item.name}} <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                        <p class="feedback-text">dsssssssssssssssg gfd gdfg fdg fdg dfg dfg dfg dfg dfg dfgfgdfgfd g</p>
+                                    </div>
+
+                                </a>
+
+                                <div ng-if="!item.productUuid">
+                                    <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                </div>
+                            </div>
+                            <div class="feedback-stars">
+                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                            </div>
+                        </div>
+                        <h5>{{'singleOrder.titleDelivery' | translate}}</h5>
+                        <p class="feedback-text">dsssггfd gdfg гнг dfgгн dfgнг fd g</p>
+                    </div>
                 </div>
 
             </div>
