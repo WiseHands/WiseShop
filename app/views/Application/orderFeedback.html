@@ -107,7 +107,7 @@
         }%
             <div class="order-item-card border">
                 <div class="img-item">
-                    <img src="/public/product_images/${shop.uuid}/${_orderItem.fileName}" class="item-img" alt="">
+                    <img src="${_orderItem.imagePath}" class="item-img" alt="">
                 </div>
                 <div class="feedback-item border">
                     <p uuid="${_orderItem.uuid}">${_orderItem.name}</p>
@@ -124,10 +124,10 @@
     <div class="delivery-feedback-container">
         <p>Відгук про доставку</p>
         <input id="deliveryFeedbackQuality" value="" placeholder="1 - 5">
-        <input id="deliveryFeedbackInput" value="" placeholder="Залишіть відгук тут">
+        <input id="deliveryFeedbackDescription" value="" placeholder="Залишіть відгук тут">
     </div>
     <div class="button-sent-feedback-container">
-        <button onclick="getOrderFeedbackData()">Sent feedback</button>
+        <button onclick="sentFeedback('${order.uuid}')">Sent feedback</button>
     </div>
 </div>
 #{/verbatim}
@@ -149,22 +149,26 @@ function getOrderFeedbackData() {
             description: document.querySelector('[feedback-message-uuid="' + uuid + '"]').value
         }
         orderFeedbackDataArray.push(productFeedbackObject);
-    })
-    console.log("orderUuids", orderUuids);
+    });
+
+    console.log("orderFeedbackDataArray => ", orderFeedbackDataArray);
+    return orderFeedbackDataArray;
 }
 
 function sentFeedback(orderUuid) {
     objectBody = {
         orderUuid: orderUuid,
         deliveryFeedback: {
-            quality: deliveryFeedbackQuality,
-            description: deliveryFeedbackInput
+            quality: document.querySelector('#deliveryFeedbackQuality').value,
+            description: document.querySelector('#deliveryFeedbackDescription').value
         },
         feedbackToOrderItems : getOrderFeedbackData()
-      };
+    };
+    console.log('sentFeedback => ', objectBody);
+    const params = JSON.stringify(objectBody);
     fetch('/api/feedback/save', {
         method: 'POST',
-        body: objectBody,
+        body: params,
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
