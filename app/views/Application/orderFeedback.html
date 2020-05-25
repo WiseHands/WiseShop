@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <title>Магазин на карті</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="icon"
+          type="image/png"
+          href="wisehands/assets/images/favicon.png">
+
+</head>
+<style>
+    body, p, h1, h2, h3, h4, h5, h6, i, a {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', 'Helvetica', sans-serif;
+        overflow-x: hidden;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .border{
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    }
+
+    .main-container{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px;
+    }
+    .title-container{
+      margin: 5px;
+    }
+
+    .order-feedback-container{
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+    }
+
+    .order-item-card{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .img-item{
+        display: flex;
+    }
+    .feedback-item{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .feedback-item p {
+        margin: 6px;
+    }
+
+    .feedback-item input, .delivery-feedback-container input{
+         border-style: none;
+         border-width: 1px;
+         border-bottom-style: solid;
+         margin: 5px;
+    }
+
+    .delivery-feedback-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .delivery-feedback-container p {
+        margin: 6px;
+    }
+    .button-sent-feedback-container{
+        display: flex;
+    }
+    button {
+        background-color: #fff;
+        border: 2px solid #000;
+        height: 50px;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1rem;
+    }
+
+    button:hover, button:hover {
+        color: #fff;
+        background-color: #000;
+        cursor: pointer;
+    }
+</style>
+<body>
+#{verbatim}
+<div class="main-container">
+    <div class="title-container">
+        <p>Залишіть будь ласка відгук про своє замовлення </p>
+    </div>
+    <div class="order-feedback-container">
+        %{
+            for(_orderItem in order.items) {
+        }%
+            <div class="order-item-card border">
+                <div class="img-item">
+                    <img src="${_orderItem.imagePath}" class="item-img" alt="">
+                </div>
+                <div class="feedback-item border">
+                    <p uuid="${_orderItem.uuid}">${_orderItem.name}</p>
+                    <p>${_orderItem.price}</p>
+                    <p>Оцініть товар від 1 до 5</p>
+                    <input quality-mark-uuid="${_orderItem.uuid}" value="" placeholder="1 - 5">
+                    <input feedback-message-uuid="${_orderItem.uuid}" value="" placeholder="Залишіть відгук тут">
+                </div>
+            </div>
+        %{
+            }
+        }%
+    </div>
+    <div class="delivery-feedback-container">
+        <p>Відгук про доставку</p>
+        <input id="deliveryFeedbackQuality" value="" placeholder="1 - 5">
+        <input id="deliveryFeedbackDescription" value="" placeholder="Залишіть відгук тут">
+    </div>
+    <div class="button-sent-feedback-container">
+        <button onclick="sentFeedback('${order.uuid}')">Sent feedback</button>
+    </div>
+</div>
+#{/verbatim}
+</body>
+</html>
+<script>
+const deliveryFeedbackQuality = document.getElementById('deliveryFeedbackQuality');
+const deliveryFeedbackInput = document.getElementById('deliveryFeedbackInput');
+
+
+function getOrderFeedbackData() {
+    const orderFeedbackDataArray = [];
+    const orderUuids = document.querySelectorAll('[uuid]');
+    orderUuids.forEach(item => {
+        const uuid = item.getAttribute('uuid').toString();
+        const productFeedbackObject = {
+            uuid: uuid,
+            quality: document.querySelector('[quality-mark-uuid="' + uuid + '"]').value,
+            description: document.querySelector('[feedback-message-uuid="' + uuid + '"]').value
+        }
+        orderFeedbackDataArray.push(productFeedbackObject);
+    });
+
+    console.log("orderFeedbackDataArray => ", orderFeedbackDataArray);
+    return orderFeedbackDataArray;
+}
+
+function sentFeedback(orderUuid) {
+    objectBody = {
+        orderUuid: orderUuid,
+        deliveryFeedback: {
+            quality: document.querySelector('#deliveryFeedbackQuality').value,
+            description: document.querySelector('#deliveryFeedbackDescription').value
+        },
+        feedbackToOrderItems : getOrderFeedbackData()
+    };
+    console.log('sentFeedback => ', objectBody);
+    const params = JSON.stringify(objectBody);
+    fetch('/api/feedback/save', {
+        method: 'POST',
+        body: params,
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log("/api/feedback/save")
+    });
+
+}
+</script>

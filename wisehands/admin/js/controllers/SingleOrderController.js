@@ -14,8 +14,6 @@
                         $scope.loading = false;
                         var data = response.data;
                         $scope.address = "вул. "+data.clientAddressStreetName + ", буд. "+ data.clientAddressBuildingNumber;
-
-                            console.log('data for GET order', data);
                         var uastring = data.userAgent;
                         parser.setUA(uastring);
                         var result = parser.getResult();
@@ -38,10 +36,12 @@
 
                 $scope.hideModal = function () {
                     $('#deleteOrder').modal('hide');
+                    $('#feedbackToOrder').modal('hide');
                     $('body').removeClass('modal-open');
                     $('.modal-backdrop').remove();
                 };
                 $scope.deleteButton = true;
+
                 $scope.deleteOrder = function () {
                     $scope.deleteButton = false;
                     $scope.modalSpinner = true;
@@ -57,6 +57,7 @@
                             console.log(response);
                         });
                 };
+
                 $scope.orderState = function(order){
                     if (!order) return;
                     if (order.state === "NEW") {
@@ -118,6 +119,7 @@
                             console.log(response);
                         });
                 };
+
                 $scope.shippedOrder = function () {
                     $scope.loading = true;
                     $http({
@@ -132,7 +134,39 @@
                             console.log(response);
                         });
                 };
+
+                $scope.requestFeedbackForOrderInClient = function () {
+                    console.log('$routeParams.uuid', $routeParams.uuid);
+                    $scope.loading = true;
+                    $scope.errorFeedback = false;
+                    $scope.successfulFeedback = false;
+                    $scope.modalSpinner = true;
+                    $http({
+                        method: 'PUT',
+                        url: '/order/' + $routeParams.uuid + '/feedback'
+                    })
+                        .then( response => {
+                            $scope.loading = false;
+                            $scope.modalSpinner = false;
+                            if (response.data.status === 420){
+                                $scope.errorFeedback = false;
+                                $scope.successfulFeedback = true;
+                            }
+                            if (response.data.status === 419){
+                                $scope.errorFeedback = true;
+                                $scope.successfulFeedback = false;
+                            }
+//                            window.location = '/ua/feedback/' + $routeParams.uuid;
+                        }, response => {
+
+                            $scope.loading = false;
+                            $scope.modalSpinner = false;
+                            console.log(response);
+                        });
+                };
+
+
                 $scope.goBack = function () {
                     window.history.back();
                 }
-            }]);
+}]);
