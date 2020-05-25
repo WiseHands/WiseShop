@@ -272,6 +272,10 @@ input[type=date]::-webkit-inner-spin-button {
 .np-order-card i {
     padding-right: 15px;
 }
+
+.fa-star-o {
+    cursor: pointer;
+}
 /*Text Truncating*/
 .truncate {
     white-space: nowrap;

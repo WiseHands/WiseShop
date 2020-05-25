@@ -20,10 +20,17 @@
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="shippedOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED'"><p>{{'singleOrder.Shipped' | translate}}</p></a>
-                    <a class="col-xs-12 text-left" ng-click="cancelledOrder()" ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED' || order.state === 'PAYED'"><p>{{'singleOrder.Canceled' | translate}}</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteOrder"><p>{{'singleOrder.Delete' | translate}}</p></a>
-                    <a class="col-xs-12 text-left" data-toggle="modal" data-target="#feedbackToOrder" ng-click="requestFeedbackForOrderInClient()"><p>{{'singleOrder.requestFeedback' | translate}}</p></a>
+                    <a class="col-xs-12 text-left" ng-click="shipOrder()"
+                       ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED'"><p>{{'singleOrder.Shipped' |
+                        translate}}</p></a>
+                    <a class="col-xs-12 text-left" ng-click="cancelOrder()"
+                       ng-hide="order.state === 'SHIPPED' || order.state === 'CANCELLED' || order.state === 'PAYED'"><p>
+                        {{'singleOrder.Canceled' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteOrder">
+                        <p>{{'singleOrder.Delete' | translate}}</p></a>
+                    <a class="col-xs-12 text-left" data-toggle="modal" data-target="#feedbackToOrder"
+                       ng-click="requestOrderFeedback()"><p>{{'singleOrder.requestFeedback' | translate}}</p>
+                    </a>
                 </div>
             </a>
         </div>
@@ -31,7 +38,8 @@
 </nav>
 <div class="admin-container">
     <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+                 show="loading"></spinner>
     </div>
     <div ng-hide="loading">
         <div class="row text-center card-block">
@@ -74,31 +82,37 @@
                                 <p>{{'singleOrder.deliveryTypePostService' | translate}}</p>
                             </div>
                         </div>
-                        <div class="address-order-container" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'POSTSERVICE'">
+                        <div class="address-order-container"
+                             ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'POSTSERVICE'">
                             <div class="admin-order-card-row">
                                 <h5>{{'singleOrder.Address' | translate}}:</h5>
                                 <p class="text-align-right">
                                     <a ng-show="order.clientAddressStreetLat"
-                                       href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLat}},{{order.clientAddressStreetLng}}&15z&hl=en" target="_blank">
+                                       href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLat}},{{order.clientAddressStreetLng}}&15z&hl=en"
+                                       target="_blank">
                                         <i class="material-icons pointIconColor">place</i>
                                         {{address}}
                                     </a>
                                 </p>
                             </div>
                             <div class="admin-order-card-row">
-                                <h5 ng-show="order.clientAddressApartmentEntrance">{{'singleOrder.AddressApartmentEntrance' | translate}}</h5>
+                                <h5 ng-show="order.clientAddressApartmentEntrance">
+                                    {{'singleOrder.AddressApartmentEntrance' | translate}}</h5>
                                 <p>{{order.clientAddressApartmentEntrance}}</p>
                             </div>
                             <div class="admin-order-card-row">
-                                <h5 ng-show="order.clientAddressApartmentEntranceCode">{{'singleOrder.AddressApartmentEntranceCode' | translate}}</h5>
+                                <h5 ng-show="order.clientAddressApartmentEntranceCode">
+                                    {{'singleOrder.AddressApartmentEntranceCode' | translate}}</h5>
                                 <p>{{order.clientAddressApartmentEntranceCode}}</p>
                             </div>
                             <div class="admin-order-card-row">
-                                <h5 ng-show="order.clientAddressApartmentFloor">{{'singleOrder.AddressApartmentFloor' | translate}}</h5>
+                                <h5 ng-show="order.clientAddressApartmentFloor">{{'singleOrder.AddressApartmentFloor' |
+                                    translate}}</h5>
                                 <p>{{order.clientAddressApartmentFloor}}</p>
                             </div>
                             <div class="admin-order-card-row">
-                                <h5 ng-show="order.clientAddressApartmentNumber" >{{'singleOrder.AddressApartmentNumber' | translate}}</h5>
+                                <h5 ng-show="order.clientAddressApartmentNumber">{{'singleOrder.AddressApartmentNumber'
+                                    | translate}}</h5>
                                 <p>{{order.clientAddressApartmentNumber}}</p>
                             </div>
 
@@ -119,7 +133,7 @@
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.paymentType' | translate}}:</h5>
                             <div class="payment-order-icon" ng-show="order.paymentType === 'CREDITCARD'">
-                                <i class="fa fa-credit-card" ></i>
+                                <i class="fa fa-credit-card"></i>
                                 <p>{{'singleOrder.paymentTypeOnline' | translate}}</p>
                             </div>
                             <div class="payment-order-icon" ng-show="order.paymentType === 'CASHONDELIVERY'">
@@ -140,27 +154,13 @@
                                 <p>{{'singleOrder.paymentStateError' | translate}}</p>
                             </div>
                         </div>
-                        <!--<div class="admin-order-card-row">-->
-                        <!--<h5 ng-show="order.sentToManager">{{'singleOrder.SmsSentToManager' | translate}}: <p>{{'yes' | translate}}</p></h5>-->
-                        <!--</div>-->
-                        <!--<div class="admin-order-card-row">-->
-                        <!--<h5 ng-show="order.sentToCustomer">{{'singleOrder.SmsSentToCustomer' | translate}}: <p>{{'yes' | translate}}</p></h5>-->
-                        <!--</div>-->
-                        <!--<div class="admin-order-card-row">-->
-                        <!--<h5 ng-show="order.errorReasonSentToManager">{{'singleOrder.ErrorReasonSentToManager' | translate}}: </h5>-->
-                        <!--<p>{{order.errorReasonSentToManager}}</p>-->
-                        <!--</div>-->
-                        <!--<div class="admin-order-card-row">-->
-                        <!--<h5 ng-show="order.errorReasonSentToCustomer">{{'singleOrder.ErrorReasonSentToCustomer' | translate}}: </h5>-->
-                        <!--<p>{{order.errorReasonSentToCustomer}}</p>-->
-                        <!--</div>-->
                     </div>
                 </div>
                 <div class="admin-all-orders-col">
                     <div class="admin-card">
                         <h4>{{'singleOrder.titleOrder' | translate}}</h4>
                         <div class="admin-order-card-row">
-                            <h5>{{'singleOrder.OrderAmount' | translate}}:  </h5>
+                            <h5>{{'singleOrder.OrderAmount' | translate}}: </h5>
                             <p>{{order.total}} {{'orderList.Currency' | translate}}</p>
                         </div>
 
@@ -168,15 +168,20 @@
                             <div class="">
                                 <div class="admin-order-card-row">
                                     <div class="admin-order-details-row">
-                                        <a class="order-details-image" ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">
+                                        <a class="order-details-image" ng-if="item.productUuid"
+                                           href="#/product/details/{{item.productUuid}}">
                                             <img src="{{item.imagePath}}">
-                                            <p>{{item.name}} <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                            <p>{{item.name}} <span ng-show="item.tags.length > 0"> (<span
+                                                    ng-repeat="property in item.tags">{{property.value}}</span>)</span>
+                                            </p>
                                         </a>
                                         <div ng-if="!item.productUuid">
-                                            <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                            <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span
+                                                    ng-repeat="property in item.tags">{{property.value}}</span>)</span>
+                                            </p>
                                         </div>
                                     </div>
-                                    <div  class="admin-order-details-quantity">
+                                    <div class="admin-order-details-quantity">
                                         <p>{{item.quantity}} {{'singleOrder.Pieces' | translate}}</p>
                                     </div>
                                 </div>
@@ -201,17 +206,21 @@
                         <h5>{{'singleOrder.titleOrder' | translate}}</h5>
                         <div class="admin-order-card-row" ng-repeat="item in order.items">
                             <div class="admin-order-details-row">
-                                <a class="order-details-image" ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">
+                                <a class="order-details-image" ng-if="item.productUuid"
+                                   href="#/product/details/{{item.productUuid}}">
                                     <img src="{{item.imagePath}}">
                                     <div class="admin-order-item-feedback">
-                                        <p>{{item.name}} <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
-                                        <p class="feedback-text">dsssssssssssssssg gfd gdfg fdg fdg dfg dfg dfg dfg dfg dfgfgdfgfd g</p>
+                                        <p>{{item.name}} <span ng-show="item.tags.length > 0"> (<span
+                                                ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                        <p class="feedback-text">dsssssssssssssssg gfd gdfg fdg fdg dfg dfg dfg dfg dfg
+                                            dfgfgdfgfd g</p>
                                     </div>
 
                                 </a>
 
                                 <div ng-if="!item.productUuid">
-                                    <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                    <p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span
+                                            ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
                                 </div>
                             </div>
                             <div class="feedback-stars">
@@ -228,77 +237,6 @@
                 </div>
 
             </div>
-
-
-            <!--<div class="col-xs-12 col-sm-6 noSidePadding">-->
-<!--&lt;!&ndash;                    <div class="admin-client-photo">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <img src="wisehands/admin/images/img-avatar.png">&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-                <!--<h5>{{'singleOrder.FullName' | translate}}: <p><i>{{order.name}}</i></p></h5>-->
-                <!--<h5>{{'singleOrder.Phone' | translate}}: <p><i>{{order.phone}}</i></p></h5>-->
-                <!--<h5>{{'singleOrder.Email' | translate}}: <p><i>{{order.email}}</i></p></h5>-->
-                <!--<div class="address-order-container" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'POSTSERVICE'">-->
-                    <!--<h5>{{'singleOrder.Address' | translate}}: </b><p><i>{{address}}-->
-                        <!--<a ng-show="order.clientAddressStreetLat"-->
-                           <!--href="https://www.google.com.ua/maps/?q=loc:{{order.clientAddressStreetLat}},{{order.clientAddressStreetLng}}&15z&hl=en" target="_blank"><i class="material-icons pointIconColor">place</i>-->
-                        <!--</a></i></p>-->
-                    <!--</h5>-->
-                        <!--<h5 ng-show="order.clientAddressApartmentEntrance">{{'singleOrder.AddressApartmentEntrance' | translate}} <p><i>{{order.clientAddressApartmentEntrance}}</i></p></h5>-->
-                        <!--<h5 ng-show="order.clientAddressApartmentEntranceCode">{{'singleOrder.AddressApartmentEntranceCode' | translate}} <p><i>{{order.clientAddressApartmentEntranceCode}}</i></p></h5>-->
-                        <!--<h5 ng-show="order.clientAddressApartmentFloor">{{'singleOrder.AddressApartmentFloor' | translate}} <p><i>{{order.clientAddressApartmentFloor}}</i></p></h5>-->
-                        <!--<h5 ng-show="order.clientAddressApartmentNumber" >{{'singleOrder.AddressApartmentNumber' | translate}} <p><i>{{order.clientAddressApartmentNumber}}</i></p></h5>-->
-                <!--</div>-->
-                <!--<div ng-show="order.deliveryType === 'POSTSERVICE' || order.deliveryType === 'NOVAPOSHTA'" ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'COURIER'">-->
-                    <!--<h5>{{'singleOrder.clientCity' | translate}} <p><i>{{order.clientCity}}</i></p></h5>-->
-                    <!--<h5>{{'singleOrder.clientPostDepartmentNumber' | translate}} <p><i>{{order.clientPostDepartmentNumber}}</i></p></h5>-->
-                <!--</div>-->
-                <!--<h5>{{'singleOrder.OrderAmount' | translate}}: <p><i>{{order.total}} {{'orderList.Currency' | translate}}</i></p></h5>-->
-                <!--<h5>{{'singleOrder.OrderState' | translate}}: <p><i>{{orderState(order)}}</i></p></h5>-->
-                <!--<h5>{{'singleOrder.deliveryType' | translate}}: <p><i>{{order.deliveryType}}</i></p></h5>-->
-                <!--<h5>{{'singleOrder.paymentType' | translate}}: <p><i>{{order.paymentType}}</i></p></h5>-->
-                <!--<h5>{{'singleOrder.Date' | translate}}: <p><i>{{properDate}}</i></p></h5>-->
-                <!--<h5 ng-show="order.comment">{{'singleOrder.Comments' | translate}}: <p><i>{{order.comment}}</i></p></h5>-->
-                <!--<h5>{{'singleOrder.Platform' | translate}}: <p><i>{{userAgent}}</i></p></h5>-->
-                <!--<h5 ng-show="order.sentToManager">{{'singleOrder.SmsSentToManager' | translate}}: <p><i>{{'yes' | translate}}</i></p></h5>-->
-                <!--<h5 ng-show="order.sentToCustomer">{{'singleOrder.SmsSentToCustomer' | translate}}: <p><i>{{'yes' | translate}}</i></p></h5>-->
-                <!--<h5 ng-show="order.errorReasonSentToManager">{{'singleOrder.ErrorReasonSentToManager' | translate}}: <p><i>{{order.errorReasonSentToManager}}</i></p></h5>-->
-                <!--<h5 ng-show="order.errorReasonSentToCustomer">{{'singleOrder.ErrorReasonSentToCustomer' | translate}}: <p><i>{{order.errorReasonSentToCustomer}}</i></p></h5>-->
-            <!--</div>-->
-            <!--<div class="col-xs-12 col-sm-6 noSidePadding">-->
-
-                    <!--<h5>{{'singleOrder.AmountTools' | translate}} {{order.amountTools}}</h5>-->
-
-
-                    <!--<h5>{{'singleOrder.Order' | translate}}: </h5>-->
-
-
-                    <!--<div class="product-order-container" ng-repeat="item in order.items">-->
-                        <!--<div class="row vcentering">-->
-                            <!--<div class="col-xs-8 col-sm-8 product-item">-->
-                                <!--<a ng-if="item.productUuid" href="#/product/details/{{item.productUuid}}">-->
-                                    <!--<p><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>-->
-                                <!--</a>-->
-                                <!--<div ng-if="!item.productUuid">-->
-                                    <!--<p ><i>{{item.name}}</i> <span ng-show="item.tags.length > 0"> (<span ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="col-xs-4 col-sm-4 product-item">-->
-                                <!--<p><i>{{item.quantity}} {{'singleOrder.Pieces' | translate}}.</i></p>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="addition-container">-->
-                            <!--<div class="addition-item-container" ng-repeat="addition in item.additionsList">-->
-                                <!--<span>{{addition.title}}</span>-->
-                                <!--<span ng-show="addition.quantity>1">({{addition.quantity}})</span><span-->
-                                    <!--ng-hide="item.additionsList.length === $index + 1">,-->
-                            <!--</span>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-
-
-            <!--</div>-->
         </div>
     </div>
 </div>
@@ -314,13 +252,18 @@
                     <p ng-show="succesfullDelete"><i>{{'singleOrder.DeleteMessage2' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
-                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                    <spinner class="col-xs-offset-8" name="mySpinner"
+                             img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
                 <div class="col-xs-offset-3 col-xs-6">
-                    <button type="button" class="btn secondaryColor btn-sm btn-block white-text" ng-click="deleteOrder()" ng-show="deleteButton">{{'singleOrder.Delete' | translate}}</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block white-text"
+                            ng-click="deleteOrder()" ng-show="deleteButton">{{'singleOrder.Delete' | translate}}
+                    </button>
                 </div>
                 <a href="#/" class="col-xs-offset-4 col-xs-4 noUnderline">
-                    <button type="button" class="btn secondaryColor btn-sm btn-block white-text" ng-show="succesfullDelete" ng-click="hideModal()">Ok</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block white-text"
+                            ng-show="succesfullDelete" ng-click="hideModal()">Ok
+                    </button>
                 </a>
             </div>
         </div>
@@ -338,7 +281,8 @@
                     <p ng-show="errorFeedback"><i>{{'singleOrder.errorFeedback' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
-                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                    <spinner class="col-xs-offset-8" name="mySpinner"
+                             img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
             </div>
         </div>
