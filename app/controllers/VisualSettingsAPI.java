@@ -44,10 +44,6 @@ public class VisualSettingsAPI extends AuthController {
         visualSettings.navbarShopItemsColor = (String) jsonBody.get("navbarShopItemsColor");
         visualSettings.logoHref = (String) jsonBody.get("logoHref");
         visualSettings.isFooterOn = Boolean.parseBoolean(String.valueOf(jsonBody.get("isFooterOn")));
-        JSONObject sidebarColorSchemeJson = (JSONObject) jsonBody.get("sidebarColorScheme");
-        String code = (String)sidebarColorSchemeJson.get("code");
-        SidebarColorScheme sidebarColorScheme = SidebarColorScheme.find("byCode", code).first();
-        visualSettings.sidebarColorScheme = sidebarColorScheme;
         visualSettings = visualSettings.save();
         shop.save();
 
@@ -139,9 +135,5 @@ public class VisualSettingsAPI extends AuthController {
         renderJSON(json(visualSettings));
     }
 
-    public static void getSidebarSchemes(String client) throws Exception {
-        List<SidebarColorScheme> colors = SidebarColorScheme.findAll();
-        renderJSON(json(colors));
-    }
 
 }
