@@ -3,10 +3,8 @@ package controllers;
 import enums.TransactionStatus;
 import enums.TransactionType;
 import models.*;
-import responses.JsonHandleForbidden;
+import responses.JsonResponse;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
 import static controllers.WizardAPI.getUserIdFromAuthorization;
@@ -30,7 +28,7 @@ public class PricingPlanAPI extends AuthController {
             pricingPlan.save();
             getPricingPlanList();
         } else {
-            JsonHandleForbidden jsonHandle = new JsonHandleForbidden(403, "user isn't super admin");
+            JsonResponse jsonHandle = new JsonResponse(403, "user isn't super admin");
             System.out.println("jsonHandle: " + jsonHandle.toString());
             renderJSON(json(jsonHandle));
         }
@@ -70,7 +68,7 @@ public class PricingPlanAPI extends AuthController {
         PricingPlanDTO pricing = PricingPlanDTO.findById(pricingPlanUuid);
         pricing.delete();
 
-        JsonHandleForbidden json = new JsonHandleForbidden(200, "deleting plan successful");
+        JsonResponse json = new JsonResponse(200, "deleting plan successful");
         renderJSON(json(json));
     }
 
@@ -90,9 +88,9 @@ public class PricingPlanAPI extends AuthController {
             coinAccount = coinAccount.save();
         }
         if (coinAccount.balance < pricingPlan.monthlyFee) {
-            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(
+            JsonResponse jsonResponse = new JsonResponse(
                     420, "Недостатньо коштів для підключення тарифу", shop);
-            renderJSON(json(jsonHandleForbidden));
+            renderJSON(json(jsonResponse));
         }
 
         CoinTransactionDTO transaction = new CoinTransactionDTO();
