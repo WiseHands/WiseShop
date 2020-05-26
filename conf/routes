@@ -109,7 +109,9 @@ GET     {client}/sudo/order/{uuid}                      OrderAPI.one
 DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
 
 GET     {client}/payment/detail                         PaymentSettingsAPI.details
-PUT     {client}/payment/update                         PaymentSettingsAPI.update
+PUT     {client}/payment/minimal                        PaymentSettingsAPI.setMinimalPayment
+PUT     {client}/payment/update/cash/setting            PaymentSettingsAPI.updateCashPayment
+PUT     {client}/payment/update/online/setting          PaymentSettingsAPI.updateOnlinePayment
 
 GET     {client}/additional-setting/detail              AdditionalSettingAPI.details
 PUT     {client}/additional-setting/update              AdditionalSettingAPI.create

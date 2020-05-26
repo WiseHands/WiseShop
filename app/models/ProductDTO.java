@@ -83,8 +83,6 @@ public class ProductDTO extends GenericModel {
         this.feedbackList.add(orderFeedback);
     }
 
-
-
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, Integer wholesaleCount, Double wholesalePrice) {
         this(name, description, price, images, shop, null, wholesaleCount, wholesalePrice);
     }

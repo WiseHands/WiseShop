@@ -11,7 +11,7 @@
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
-                   ng-click="setPaymentOptions()">
+                   ng-click="saveOnlinePaymentOptions()">
                 </i>
             </a>
         </div>
@@ -22,7 +22,7 @@
     <div class="admin-card">
         <h4>{{'editProduct.general' | translate}}</h4>
         <div class="input-field payment-block-item">
-            <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled" />
+            <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="payment.onlinePaymentEnabled"/>
             <label for="filled-in-box2">{{'payment.online' | translate}}</label>
         </div>
         <div class="input-field payment-block-item">
