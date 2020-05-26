@@ -27,6 +27,8 @@ public class PaymentSettingsAPI extends AuthController {
         }
         checkAuthentification(shop);
 
+        PaymentSettingsDTO paymentSettings = shop.paymentSettings;
+
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         Boolean manualPaymentEnabled = (Boolean) jsonBody.get("manualPaymentEnabled");
@@ -34,17 +36,20 @@ public class PaymentSettingsAPI extends AuthController {
         Double freeDeliveryLimit = Double.parseDouble(String.valueOf(jsonBody.get("freeDeliveryLimit")));
         String manualPaymentTitle = (String) jsonBody.get("manualPaymentTitle");
         String onlinePaymentTitle = (String) jsonBody.get("onlinePaymentTitle");
-        Double minimumPayment = Double.parseDouble(String.valueOf(jsonBody.get("minimumPayment")));
-        String buttonPaymentTitle = (String) jsonBody.get("buttonPaymentTitle");
 
-        PaymentSettingsDTO paymentSettings = shop.paymentSettings;
+        if(jsonBody.get("minimumPayment") != null) {
+            paymentSettings.minimumPayment = Double.parseDouble(String.valueOf(jsonBody.get("minimumPayment")));
+        }
+
+        if(jsonBody.get("buttonPaymentTitle") != null) {
+            paymentSettings.buttonPaymentTitle = (String) jsonBody.get("buttonPaymentTitle");
+        }
+
         paymentSettings.freeDeliveryLimit = freeDeliveryLimit;
         paymentSettings.manualPaymentEnabled = manualPaymentEnabled;
         paymentSettings.onlinePaymentEnabled = onlinePaymentEnabled;
         paymentSettings.manualPaymentTitle = manualPaymentTitle;
         paymentSettings.onlinePaymentTitle = onlinePaymentTitle;
-        paymentSettings.minimumPayment = minimumPayment;
-        paymentSettings.buttonPaymentTitle = buttonPaymentTitle;
 
         paymentSettings = paymentSettings.save();
 
