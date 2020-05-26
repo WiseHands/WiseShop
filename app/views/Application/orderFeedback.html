@@ -127,7 +127,7 @@
         <input id="deliveryFeedbackDescription" value="" placeholder="Залишіть відгук тут">
     </div>
     <div class="button-sent-feedback-container">
-        <button onclick="sentFeedback('${order.uuid}')">Sent feedback</button>
+        <button onclick="sendFeedback('${order.uuid}')">Sent feedback</button>
     </div>
 </div>
 #{/verbatim}
@@ -155,7 +155,7 @@ function getOrderFeedbackData() {
     return orderFeedbackDataArray;
 }
 
-function sentFeedback(orderUuid) {
+function sendFeedback(orderUuid) {
     objectBody = {
         orderUuid: orderUuid,
         deliveryFeedback: {
@@ -170,9 +170,9 @@ function sentFeedback(orderUuid) {
         method: 'POST',
         body: params,
     }).then(function (response) {
-        return response.json();
+        return response.json()
     }).then(function (data) {
-        console.log("/api/feedback/save")
+        console.log("/api/feedback/save", data)
     });
 
 }

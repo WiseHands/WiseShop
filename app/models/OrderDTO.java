@@ -102,6 +102,9 @@ public class OrderDTO extends GenericModel {
     @OneToMany(cascade = CascadeType.ALL)
     public List<OrderItemDTO> items;
 
+    @OneToOne
+    public FeedbackDTO orderFeedback;
+
     @ManyToOne
     public ShopDTO shop;
 

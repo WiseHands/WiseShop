@@ -15,10 +15,9 @@ import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Http;
-import responses.JsonHandleForbidden;
+import responses.JsonResponse;
 import services.*;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -379,11 +378,11 @@ public class OrderAPI extends AuthController {
         try {
 //            smsSender.sendSmsForFeedbackToOrder(order.phone, Messages.get("balance.transaction.low.shop.balance"));
             mailSender.sendEmailForFeedbackToOrder(shop, order, Messages.get("feedback.email.title", shop.shopName));
-            JsonHandleForbidden jsonHandle = new JsonHandleForbidden(420, "feedback was sent");
+            JsonResponse jsonHandle = new JsonResponse(420, "feedback was sent");
             renderJSON(json(jsonHandle));
         } catch (Exception e) {
             e.printStackTrace();
-            JsonHandleForbidden jsonHandle = new JsonHandleForbidden(419, "error sending feedback request");
+            JsonResponse jsonHandle = new JsonResponse(419, "error sending feedback request");
             renderJSON(json(jsonHandle));
         }
 

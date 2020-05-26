@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 import play.Play;
 import play.i18n.Messages;
 import responses.InvalidPassword;
-import responses.JsonHandleForbidden;
+import responses.JsonResponse;
 
 import static controllers.UserAPI.*;
 
@@ -81,15 +81,15 @@ public class WizardAPI extends AuthController {
         ShopDTO shop = ShopDTO.find("byDomain", domain).first();
         if (shop == null){
             String reason = "адреса доступна";
-            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
+            JsonResponse jsonResponse = new JsonResponse(421, reason);
             UserDTO user = UserDTO.find("byUuid", userId).first();
             user.wizard.shopDomain = domain;
             user.wizard.save();
-            renderJSON(jsonHandleForbidden);
+            renderJSON(jsonResponse);
         }
         String reason = "адреса недоступна";
-        JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
-        renderJSON(jsonHandleForbidden);
+        JsonResponse jsonResponse = new JsonResponse(420, reason);
+        renderJSON(jsonResponse);
 
     }
 
@@ -186,15 +186,15 @@ public class WizardAPI extends AuthController {
             if (user != null) {
                 System.out.println("user.with.email.already.exist");
                 String reason = Messages.get("user.with.email.already.exist");
-                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
-                renderJSON(jsonHandleForbidden);
+                JsonResponse jsonResponse = new JsonResponse(420, reason);
+                renderJSON(jsonResponse);
             }
 
             UserDTO userByPhone = UserDTO.find("byPhone", phone).first();
             if(userByPhone != null) {
                 String reason = Messages.get("user.with.phone.number.already.exist");
-                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
-                renderJSON(jsonHandleForbidden);
+                JsonResponse jsonResponse = new JsonResponse(421, reason);
+                renderJSON(jsonResponse);
             }
 
             user = new UserDTO(name, lastName, phone, email, password);
@@ -223,20 +223,20 @@ public class WizardAPI extends AuthController {
 
             if (user == null){
                 String reason = "Користувача не знайдено";
-                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(420, reason);
-                renderJSON(jsonHandleForbidden);
+                JsonResponse jsonResponse = new JsonResponse(420, reason);
+                renderJSON(jsonResponse);
             }
 
             if (user.isGoogleSignIn == true){ // if the user used google sign in and hacker tries to login via empty password
                 String reason = "Користувача не знайдено";
-                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
-                renderJSON(jsonHandleForbidden);
+                JsonResponse jsonResponse = new JsonResponse(421, reason);
+                renderJSON(jsonResponse);
             }
 
             if (!user.password.equals(password)) {
                 InvalidPassword error = new InvalidPassword();
-                JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(422, error.toString());
-                renderJSON(jsonHandleForbidden);
+                JsonResponse jsonResponse = new JsonResponse(422, error.toString());
+                renderJSON(jsonResponse);
             }
 
             String jwtToken = generateToken(user);

@@ -101,7 +101,7 @@ DELETE      {client}/api/pricing-plan/delete                 PricingPlanAPI.dele
 POST        {client}/api/pricing-plan/set-plan-to-shop       PricingPlanAPI.setPricingPlanToThisShop
 GET         {client}/api/pricing-plan/get-shop               PricingPlanAPI.getShopByUuid
 
-POST        {client}/api/feedback/save                  FeedbackToOrderAPI.createFeedbackFromClient
+POST        {client}/api/feedback/save                  OrderFeedbackAPI.createFeedback
 
 
 GET     {client}/sudo/orders                            OrderAPI.all
@@ -267,13 +267,16 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/login                                  Application.login
 *       {client}/main                                   Application.main
 *       {client}/landing                                Application.landing
-*       {client}/ua/contract                            Application.uaContract
-*       {client}/ua/privacy                             Application.privacy
-*       {client}/ua/signin                              Application.uaSignin
-*       {client}/ua/shop-location                       Application.uaShopLocation
-*       {client}/ua/signup                              Application.uaSignup
-*       {client}/ua/wizard                              Application.uaWizard
-*       {client}/ua/{uuid}/feedback                     Application.orderFeedback
+
+# remove /ua from below paths
+*       {client}/contract                               Application.uaContract
+*       {client}/privacy                                Application.privacy
+*       {client}/signin                                 Application.uaSignin
+*       {client}/shop-location                          Application.uaShopLocation
+*       {client}/signup                                 Application.uaSignup
+*       {client}/wizard                                 Application.uaWizard
+*       {client}/{uuid}/feedback                        Application.orderFeedback
+# end removing /ua
 *       {client}/server-error                           Application.serverError
 *       {client}/dashboard                              Application.userDashboard
 

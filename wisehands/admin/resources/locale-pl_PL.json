@@ -52,6 +52,7 @@
   "singleOrder.Shipped": "Wysłane",
   "singleOrder.Canceled": "Odwołany",
   "singleOrder.Delete": "Usunąć",
+  "singleOrder.requestFeedback": "Prośba o opinię",
   "singleOrder.FullName": "Pełne imię i nazwisko",
   "singleOrder.Phone": "Numer telefonu",
   "singleOrder.deliveryType": "Typ",

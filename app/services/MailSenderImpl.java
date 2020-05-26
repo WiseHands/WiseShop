@@ -124,13 +124,10 @@ public class MailSenderImpl implements MailSender {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("shopName", shop.shopName);
         map.put("orderUuid", order.uuid);
-        System.out.println("orderUuid for " + order.uuid);
         String path = shop.domain;
         System.out.println("shop.domain " + shop.domain);
         if(isDevEnv) {
             path = path + ":3334";
-            System.out.println("shop.domain " + shop.domain);
-
         }
         map.put("shopDomain", path);
 
@@ -148,7 +145,6 @@ public class MailSenderImpl implements MailSender {
 
         email.setHtmlMsg(rendered);
         email.setCharset("utf-8");
-        System.out.println("sendEmailForFeedbackToOrder");
         Mail.send(email);
     }
 

@@ -7,7 +7,7 @@ import play.db.jpa.GenericModel;
 import javax.persistence.*;
 
 @Entity
-public class FeedbackToOrderDTO extends GenericModel {
+public class FeedbackDTO extends GenericModel {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -21,13 +21,19 @@ public class FeedbackToOrderDTO extends GenericModel {
     @Expose
     public String quality;
 
+    @Expose
+    public long feedbackTime;
+
     @OneToOne
     public OrderDTO order;
 
     @ManyToOne
     public ProductDTO product;
 
-
-
+    public FeedbackDTO(String description, String quality, long feedbackTime) {
+        this.description = description;
+        this.quality = quality;
+        this.feedbackTime = feedbackTime;
+    }
 
 }
