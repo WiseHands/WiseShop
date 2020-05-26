@@ -145,6 +145,7 @@
   "addNewProduct.save": "Зберегти",
   "displayOrder": "Порядок відображення",
   "addNewProduct.noCategory": "У вас не створено жодної категорії. Будь ласка, створіть категорію.",
+  "addNewProduct.addCategory": "Добавити категорію",
   "addNewProduct.category": "Категорія",
   "addNewProduct.errorChooseCategory": "Категорія обов'язкова",
   "addNewProduct.createCategory": "Створити категорію",
