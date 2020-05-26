@@ -19,14 +19,18 @@ public class OrderFeedbackAPI extends AuthController{
         JSONArray feedbackList = (JSONArray) jsonBody.get("feedbackToOrderItems");
         for(int i = 0; i<feedbackList.size(); i++){
             JSONObject parseFeedbackObject = (JSONObject) feedbackList.get(i);
+
             String productUuid = (String) parseFeedbackObject.get("uuid");
             String description = (String) parseFeedbackObject.get("description");
             String quality = (String) parseFeedbackObject.get("quality");
 
             ProductDTO product = ProductDTO.findById(productUuid);
-            FeedbackDTO feedback = new FeedbackDTO(description, quality, time);
-            product.addFeedback(feedback);
-            product.save();
+            if (product != null){
+                FeedbackDTO feedback = new FeedbackDTO(description, quality, time);
+                product.addFeedback(feedback);
+                product.save();
+            }
+
         }
 
         JSONObject parseDeliveryFeedback = (JSONObject) jsonBody.get("deliveryFeedback");
