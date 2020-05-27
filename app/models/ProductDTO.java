@@ -73,7 +73,7 @@ public class ProductDTO extends GenericModel {
     public List<AdditionDTO> additions;
 
     @Expose
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<FeedbackDTO> feedbackList;
 
     public void addFeedback(FeedbackDTO orderFeedback) {

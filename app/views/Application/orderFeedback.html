@@ -144,11 +144,11 @@
                 <!--<img src="${_orderItem.imagePath}" class="item-img" alt="">-->
             </div>
             <div class="feedback-item border">
-                <h5 uuid="${_orderItem.uuid}">${_orderItem.name}</h5>
+                <h5 uuid="${_orderItem.productUuid}">${_orderItem.name}</h5>
                 <p>${_orderItem.price}</p>
                 <p>Оцініть товар від 1 до 5</p>
-                <input quality-mark-uuid="${_orderItem.uuid}" value="" placeholder="1 - 5">
-                <textarea feedback-message-uuid="${_orderItem.uuid}" value=""
+                <input quality-mark-uuid="${_orderItem.productUuid}" value="" placeholder="1 - 5">
+                <textarea feedback-message-uuid="${_orderItem.productUuid}" value=""
                           placeholder="Залишіть відгук тут"></textarea>
             </div>
         </div>

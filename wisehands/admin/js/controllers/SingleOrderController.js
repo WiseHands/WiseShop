@@ -6,6 +6,14 @@ angular.module('WiseHands')
 
       $http({
         method: 'GET',
+        url: `/api/feedback/get/${$routeParams.uuid}`,
+      })
+        .then(response => {
+          console.log('response feedback => ', response.data);
+        });
+
+      $http({
+        method: 'GET',
         url: `/order/${$routeParams.uuid}`,
       })
         .then(response => {

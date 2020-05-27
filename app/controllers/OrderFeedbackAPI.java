@@ -2,10 +2,14 @@ package controllers;
 
 import models.FeedbackDTO;
 import models.OrderDTO;
+import models.OrderItemDTO;
 import models.ProductDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderFeedbackAPI extends AuthController{
 
@@ -21,6 +25,7 @@ public class OrderFeedbackAPI extends AuthController{
             JSONObject parseFeedbackObject = (JSONObject) feedbackList.get(i);
 
             String productUuid = (String) parseFeedbackObject.get("uuid");
+            System.out.println("productUuid => " + productUuid);
             String description = (String) parseFeedbackObject.get("description");
             String quality = (String) parseFeedbackObject.get("quality");
 
@@ -46,9 +51,18 @@ public class OrderFeedbackAPI extends AuthController{
         renderJSON(jsonBody);
     }
 
-//    public static void getOrderFeedback(uuid order){
-//
-//    }
+    public static void getOrderFeedback(){
+        String orderUuid = request.params.get("uuid");
+        System.out.println("uuid " + orderUuid);
+        OrderDTO order = OrderDTO.findById(orderUuid);
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
+        for(OrderItemDTO orderItem: order.items){
+            ProductDTO product = ProductDTO.findById(orderItem.productUuid);
+            productList.add(product);
+        }
+        renderJSON(json(productList));
+
+    }
 //
 //    public static void getFeedbackListForProduct(uuid product){
 //

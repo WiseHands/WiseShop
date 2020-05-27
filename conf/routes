@@ -93,7 +93,6 @@ POST        {client}/api/wayforpay/offline-payment          WayForPayAPI.createO
 
 GET         {client}/api/transaction/get-ten-transactions   CoinBalanceTransactionApi.dispatchFirstTenTransactions
 
-
 POST        {client}/api/pricing-plan/create                 PricingPlanAPI.creatingPricingPlan
 GET         {client}/api/pricing-plan/get-list               PricingPlanAPI.getPricingPlanList
 POST        {client}/api/pricing-plan/update                 PricingPlanAPI.updatingPricingPlan
@@ -102,7 +101,9 @@ POST        {client}/api/pricing-plan/set-plan-to-shop       PricingPlanAPI.setP
 GET         {client}/api/pricing-plan/get-shop               PricingPlanAPI.getShopByUuid
 
 POST        {client}/api/feedback/save                  OrderFeedbackAPI.createFeedback
-
+GET         {client}/api/feedback/get/{uuid}            OrderFeedbackAPI.getOrderFeedback
+GET         {client}/api/feedback...                    OrderFeedbackAPI.getFeedbackListForProduct
+GET         {client}/api/feedback...                    OrderFeedbackAPI.getFeedbackListForShop
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
