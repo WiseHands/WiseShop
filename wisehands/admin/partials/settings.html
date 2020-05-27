@@ -28,7 +28,7 @@
             <div class="admin-card">
                 <h4>Favicon</h4>
                 <div class="upload-favicon">
-                    <img  src="{{}}" alt="">
+                    <img ng-hide="!shopStyling.shopFavicon" src="{{faviconSrc}}">
                     <p class="upload-text">Щоб завантажити favicon (іконка сайту, що зображається поряд з адресою сайту в адресному рядку, біля заголовку сторінки у вкладці або в списку закладок браузера) натисніть сюди. Рекомендований розмір 180*180px</p>
                 </div>
                 <div class="file-field input-field" ng-show="!shopStyling.shopFavicon">
