@@ -26,6 +26,11 @@
     <form class="settings-block noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading">
         <div class="admin-column">
             <div class="admin-card">
+                <h4>Favicon</h4>
+                <div class="upload-favicon">
+                    <img  src="{{}}" alt="">
+                    <p class="upload-text">Щоб завантажити favicon (іконка сайту, що зображається поряд з адресою сайту в адресному рядку, біля заголовку сторінки у вкладці або в списку закладок браузера) натисніть сюди. Рекомендований розмір 180*180px</p>
+                </div>
                 <div class="file-field input-field" ng-show="!shopStyling.shopFavicon">
                     <button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block"
                             ng-click="loadFavicon()">
@@ -44,6 +49,11 @@
         </div>
         <div class="admin-column">
             <div class="admin-card">
+                <h4>Логотип</h4>
+                <div class="upload-favicon">
+                    <img  src="{{ }}" alt="">
+                    <p class="upload-text">Щоб завантажити логотип натисніть сюди, логотип буде автоматично завантажено. Рекомендований розмір 512*512</p>
+                </div>
                 <div class="file-field input-field  " ng-show="!logo">
                     <button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block"
                             ng-click="loadImage()">
