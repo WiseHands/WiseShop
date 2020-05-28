@@ -1783,6 +1783,7 @@ ul.admin-breadcrumb li a:hover {
 .upload-favicon, .upload-logo {
     display: flex;
     justify-content: center;
+    align-items: center;
     height: 225px;
 }
 .upload-favicon img {
@@ -1800,11 +1801,16 @@ ul.admin-breadcrumb li a:hover {
     border-radius: 10px;
     height: 95%;
     margin-bottom: 2rem;
-    line-height: 1.5;
 }
+
+.admin-card .upload-text p {
+    line-height: 1.4;
+}
+
 .admin-card .upload-text:hover {
     cursor: pointer;
 }
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
@@ -1847,6 +1853,13 @@ ul.admin-breadcrumb li a:hover {
 
     .delivery-list-item {
         margin: 1rem 0;
+    }
+    .upload-favicon, .upload-logo {
+        height: auto;
+    }
+
+    .upload-text i {
+        margin: 1rem 0 0 0;
     }
 }
 
