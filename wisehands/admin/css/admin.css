@@ -1779,10 +1779,21 @@ ul.admin-breadcrumb li a:hover {
 .admin-card .closed-shop-options {
     margin-bottom: 1.2rem;
 }
+
 .upload-favicon, .upload-logo {
-    height: 220px;
+    display: flex;
+    justify-content: center;
+    height: 225px;
 }
+.upload-favicon img {
+    width: 200px;
+    height: 200px;
+}
+
 .admin-card .upload-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 1rem;
     text-align: center;
     border: 1px dashed #000;
@@ -1790,7 +1801,6 @@ ul.admin-breadcrumb li a:hover {
     height: 95%;
     margin-bottom: 2rem;
     line-height: 1.5;
-
 }
 .admin-card .upload-text:hover {
     cursor: pointer;
