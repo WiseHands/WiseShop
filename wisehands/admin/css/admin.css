@@ -1786,7 +1786,7 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
     height: 225px;
 }
-.upload-favicon img {
+.upload-favicon img, .upload-logo img {
     width: 200px;
     height: 200px;
 }
