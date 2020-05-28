@@ -94,7 +94,7 @@ public class VisualSettingsAPI extends AuthController {
             visualSettings.shopFavicon = filename;
         }
         visualSettings = visualSettings.save();
-        renderJSON(json(visualSettings));
+        renderJSON(json(visualSettings.shopFavicon));
     }
 
     public static void deleteLogo(String client, File fake) throws Exception {

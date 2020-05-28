@@ -28,22 +28,18 @@
             <div class="admin-card">
                 <h4>Favicon</h4>
                 <div class="upload-favicon">
-                    <img ng-hide="!shopStyling.shopFavicon" src="{{faviconSrc}}">
-                    <div class="upload-text" ng-hide="shopStyling.shopFavicon" ng-click="loadFavicon()">
+                    <img ng-hide="!faviconSrc" src="{{faviconSrc}}">
+                    <div class="upload-text" ng-hide="faviconSrc" ng-click="loadFavicon()">
                         <p>Щоб завантажити favicon (іконка сайту, що зображається поряд з адресою сайту
                         в адресному рядку, біля заголовку сторінки у вкладці або в списку закладок браузера) натисніть сюди. Рекомендований розмір 180*180px</p>
                         <i  class="fa fa-plus" style="font-size: 32px"></i>
                     </div>
                 </div>
                 <div class="file-field input-field" ng-show="!shopStyling.shopFavicon">
-                    <!--<button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block"-->
-                            <!--&gt;-->
-                        <!--<span>{{'addNewProduct.add' | translate}} favicon</span>-->
-                    <!--</button>-->
                     <input name="favIconLoader" type="file" id="favIconLoader"
                            onchange="angular.element(this).scope().favIconUpload(this)" />
                 </div>
-                <div class="input-field  " ng-show="shopStyling.shopFavicon">
+                <div class="input-field  " ng-show="faviconSrc">
                     <button type="button" class="btn secondaryColor waves-effect waves-light btn-block"
                             ng-click="deleteFavicon()">
                         <span>{{'productDetails.delete' | translate}} favicon</span>

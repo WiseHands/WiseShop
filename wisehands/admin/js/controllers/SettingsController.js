@@ -39,12 +39,6 @@ angular.module('WiseHands')
       $('#imageLoader').click();
     };
 
-    $scope.loadFavicon = () => {
-      const favIconLoader = $('#favIconLoader');
-      favIconLoader[0].value = '';
-      favIconLoader.click();
-    };
-
     $scope.imageUpload = event => {
       $scope.$apply(() => {
         $scope.loading = true;
@@ -59,6 +53,15 @@ angular.module('WiseHands')
           $scope.loading = false;
         });
       }
+    };
+
+    $scope.imageIsLoaded = event => {
+      $scope.$apply(() => {
+        $scope.logo = event.target.result;
+        $scope.logoBlob = dataURItoBlob($scope.logo);
+        $scope.addLogo();
+        $scope.loading = false;
+      });
     };
 
     $scope.addLogo = () => {
@@ -79,15 +82,6 @@ angular.module('WiseHands')
         });
     };
 
-    $scope.imageIsLoaded = event => {
-      $scope.$apply(() => {
-        $scope.logo = event.target.result;
-        $scope.logoBlob = dataURItoBlob($scope.logo);
-        $scope.addLogo();
-        $scope.loading = false;
-      });
-    };
-
     $scope.deleteLogo = () => {
       $scope.loading = true;
       $http({
@@ -106,6 +100,12 @@ angular.module('WiseHands')
     function setFaviconSrc(favicon) {
       $scope.faviconSrc = favicon ? `/public/shop_logo/${activeShop}/${favicon}` : '';
     }
+
+    $scope.loadFavicon = () => {
+      const favIconLoader = $('#favIconLoader');
+      favIconLoader[0].value = '';
+      favIconLoader.click();
+    };
 
     $scope.favIconUpload = event => {
       $scope.loading = true;
@@ -130,8 +130,7 @@ angular.module('WiseHands')
         }
       })
         .success(response => {
-          $scope.shopStyling = response;
-          setFaviconSrc($scope.shopStyling.shopFavicon);
+          setFaviconSrc(response);
           $scope.loading = false;
         })
         .error(error => {
@@ -177,9 +176,7 @@ angular.module('WiseHands')
     function dataURItoBlob(dataURI) {
       const binary = atob(dataURI.split(',')[1]);
       const array = [];
-      for (let i = 0; i < binary.length; i++) {
-        array.push(binary.charCodeAt(i));
-      }
+      [...binary].forEach((char, index) => array.push(binary.charCodeAt(index)));
       return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
     }
 
