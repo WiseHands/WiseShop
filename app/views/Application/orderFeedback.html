@@ -49,17 +49,18 @@
 
     .order-item-card {
         display: flex;
-        margin: 1rem;
+        flex: 0 1 50%;
     }
 
     .img-item {
         display: flex;
-        flex: 0 1 50%;
+        margin-left: 1rem;
     }
 
     .img-item img {
         max-width: 100%;
         max-height: 250px;
+        object-fit: cover;
     }
 
     .feedback-item {
@@ -67,6 +68,7 @@
         flex-direction: column;
         flex: 0 1 50%;
         padding-left: 1rem;
+        margin-right: 1rem;
     }
 
     .main-container h5 {
@@ -134,8 +136,20 @@
     }
 
     @media screen and (max-width: 768px) {
-        .order-item-card {
+        .order-feedback-container, .order-item-card {
             flex-direction: column;
+        }
+        .img-item {
+            margin: 1rem 1rem 0 1rem;
+        }
+
+        .img-item img {
+            max-height: 175px;
+            width: 100%;
+        }
+
+        .feedback-item {
+            margin: 0 1rem 1rem 1rem;
         }
     }
 </style>
@@ -175,7 +189,7 @@
         }%
     </div>
     <div class="delivery-feedback-container border">
-        <h5>Відгук про доставку</h5>
+        <h5>Відгук про замовлення</h5>
         <div class="feedback-stars">
             <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
             <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
@@ -184,7 +198,7 @@
             <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
         </div>
         <!--<input id="deliveryFeedbackQualityMark" value="" placeholder="1 - 5">-->
-        <textarea id="deliveryFeedbackDescription" value="" placeholder="Залишіть відгук тут"></textarea>
+        <textarea id="deliveryFeedbackDescription" value="" placeholder="Залиште відгук тут"></textarea>
     </div>
     <div class="button-sent-feedback-container">
         <button onclick="sentFeedback('${order.uuid}')">Send feedback</button>
