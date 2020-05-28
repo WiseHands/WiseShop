@@ -11,6 +11,7 @@ angular.module('WiseHands')
         $scope.loading = false;
         $scope.shopStyling = response.data.visualSettingsDTO;
         setFaviconSrc($scope.shopStyling.shopFavicon);
+        setLogoSrc($scope.shopStyling.shopLogo);
       }, error => {
         $scope.loading = false;
         console.log(error);
@@ -34,53 +35,48 @@ angular.module('WiseHands')
       });
     };
 
-    $scope.loadImage = () => {
-      $('#imageLoader')[0].value = '';
-      $('#imageLoader').click();
+    function setLogoSrc(logoSrc) {
+      $scope.logoSrc = logoSrc ? `/public/shop_logo/${activeShop}/${logoSrc}` : '';
+    }
+
+    $scope.loadLogo = () => {
+      const logoLoader = $('#logoLoader');
+      logoLoader[0].value = '';
+      logoLoader.click();
     };
 
-    $scope.imageUpload = event => {
-      $scope.$apply(() => {
-        $scope.loading = true;
-      });
+    $scope.logoUpload = event => {
+      $scope.loading = true;
       const file = event.files[0];
       const reader = new FileReader();
-      reader.onloadend = $scope.imageIsLoaded;
+      reader.onloadend = addLogo;
       if (file && file.type.match('image.*')) {
         reader.readAsDataURL(event.files[0]);
       } else {
-        $scope.$apply(() => {
-          $scope.loading = false;
-        });
+        $scope.loading = false;
       }
     };
 
-    $scope.imageIsLoaded = event => {
-      $scope.$apply(() => {
-        $scope.logo = event.target.result;
-        $scope.logoBlob = dataURItoBlob($scope.logo);
-        $scope.addLogo();
-        $scope.loading = false;
-      });
-    };
-
-    $scope.addLogo = () => {
+    function addLogo(event) {
+      const logo = event.target.result;
+      const logoBlob = dataURItoBlob(logo);
       const logoFd = new FormData();
-      logoFd.append('logo', $scope.logoBlob);
+      logoFd.append('logo', logoBlob);
       $http.put('/visualsettings/logo', logoFd, {
         transformRequest: angular.identity,
         headers: {
           'Content-Type': undefined,
         }
       })
-        .success(() => {
+        .success(response => {
+          setLogoSrc(response);
           $scope.loading = false;
         })
         .error(error => {
           $scope.loading = false;
           console.log(error);
         });
-    };
+    }
 
     $scope.deleteLogo = () => {
       $scope.loading = true;
@@ -89,7 +85,7 @@ angular.module('WiseHands')
         url: '/visualsettings/logo',
       })
         .then(() => {
-          $scope.logo = '';
+          $scope.logoSrc = '';
           $scope.loading = false;
         }, error => {
           $scope.loading = false;

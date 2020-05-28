@@ -70,7 +70,7 @@ public class VisualSettingsAPI extends AuthController {
             visualSettings.shopLogo = filename;
         }
         visualSettings = visualSettings.save();
-        json(visualSettings);
+        renderJSON(json(visualSettings.shopLogo));
     }
 
     public static void uploadFavicon(String client, File fake) throws Exception {
