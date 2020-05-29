@@ -158,7 +158,8 @@
 #{verbatim}
 <div class="main-container">
     <div class="title-container">
-        <p>Залиште, будь ласка, відгук про своє замовлення </p>
+        <p>${order.name}, дякуємо за замовлення! Залиште, будь ласка, відгук </p>
+        <p>${order.total}   <span id="order-time">29.05.2020  12.12</span></p>
     </div>
     <div class="order-feedback-container">
         %{
@@ -209,6 +210,13 @@
 </body>
 </html>
 <script>
+  function displayTime() {
+      const time = ${order.time};
+      console.log(time);
+      document.getElementById("order-time").innerHTML = time;
+  }
+    displayTime();
+
   function getOrderFeedbackData() {
     const orderFeedbackDataArray = [];
     const orderUuids = document.querySelectorAll('[uuid]');
