@@ -49,17 +49,19 @@
 
     .order-item-card {
         display: flex;
-        margin: 1rem;
+        flex: 0 1 50%;
+        margin: 1rem 0;
     }
 
     .img-item {
         display: flex;
-        flex: 0 1 50%;
+        margin-left: 1rem;
     }
 
     .img-item img {
         max-width: 100%;
         max-height: 250px;
+        object-fit: cover;
     }
 
     .feedback-item {
@@ -67,6 +69,7 @@
         flex-direction: column;
         flex: 0 1 50%;
         padding-left: 1rem;
+        margin-right: 1rem;
     }
 
     .main-container h5 {
@@ -138,8 +141,21 @@
     }
 
     @media screen and (max-width: 768px) {
-        .order-item-card {
+        .order-feedback-container, .order-item-card {
             flex-direction: column;
+        }
+
+        .img-item {
+            margin: 1rem 1rem 0 1rem;
+        }
+
+        .img-item img {
+            max-height: 175px;
+            width: 100%;
+        }
+
+        .feedback-item {
+            margin: 0 1rem 1rem 1rem;
         }
     }
 </style>
@@ -147,7 +163,8 @@
 #{verbatim}
 <div class="main-container">
     <div class="title-container">
-        <p>Залиште, будь ласка, відгук про своє замовлення </p>
+        <p>${order.name}, дякуємо за замовлення! Залиште, будь ласка, відгук </p>
+        <p>${order.total} <span id="order-time">29.05.2020  12.12</span></p>
     </div>
     <div class="order-feedback-container">
         %{
@@ -180,7 +197,7 @@
         }%
     </div>
     <div class="delivery-feedback-container border">
-        <h5>Відгук про доставку</h5>
+        <h5>Відгук про замовлення</h5>
         <div class="feedback-stars">
             <i onclick="onStarClicked(this)" star-rate="1" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
             <i onclick="onStarClicked(this)" star-rate="2" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
@@ -188,10 +205,10 @@
             <i onclick="onStarClicked(this)" star-rate="4" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
             <i onclick="onStarClicked(this)" star-rate="5" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
         </div>
-        <textarea id="deliveryFeedbackDescription" value="" placeholder="Залишіть відгук тут"></textarea>
+        <textarea id="deliveryFeedbackDescription" value="" placeholder="Залиште відгук тут"></textarea>
     </div>
     <div class="button-sent-feedback-container">
-        <button onclick="sentFeedback('${order.uuid}')">Send feedback</button>
+        <button onclick="sentFeedback('${order.uuid}')">ВІДПРАВИТИ ВІДГУК</button>
     </div>
 </div>
 #{/verbatim}
@@ -213,6 +230,14 @@
       }
     );
   }
+
+  function displayTime() {
+    const time = ${order.time};
+    console.log(time);
+    document.getElementById("order-time").innerHTML = time;
+  }
+
+  displayTime();
 
   function getOrderFeedbackData() {
     const orderFeedbackDataArray = [];
