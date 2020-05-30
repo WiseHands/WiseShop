@@ -1395,14 +1395,6 @@ input {
     width: 60px;
 }
 
-<
-<
-<
-<
-<
-<
-<
-HEAD
 .admin-order-feedback h5 {
     text-align: left;
 }
@@ -1419,17 +1411,6 @@ HEAD
     font-style: italic;
 }
 
-=
-=
-=
-=
-=
-=
-=
-> > > > > > >
-
-5764
-c91fb4ea4a77961c419fd20d9d16a9634dd8
 .order-details-image {
     display: flex;
     align-items: center;
@@ -1819,14 +1800,6 @@ ul.admin-breadcrumb li a:hover {
     margin-bottom: 1.2rem;
 }
 
-<
-<
-<
-<
-<
-<
-<
-HEAD
 .boundaries-btn {
     display: inline-flex;
     background-color: #126471;
@@ -1834,18 +1807,6 @@ HEAD
     text-align: center;
     color: #fff;
 }
-
-=
-=
-=
-=
-=
-=
-=
-> > > > > > >
-
-5764
-c91fb4ea4a77961c419fd20d9d16a9634dd8
 
 @media screen and (min-width: 1500px) {
     .admin-container {
