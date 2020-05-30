@@ -26,12 +26,11 @@ public class OrderFeedbackAPI extends AuthController{
 
             String productUuid = (String) parseFeedbackObject.get("uuid");
             System.out.println("productUuid => " + productUuid);
-            String description = (String) parseFeedbackObject.get("description");
             String quality = (String) parseFeedbackObject.get("quality");
 
             ProductDTO product = ProductDTO.findById(productUuid);
             if (product != null){
-                FeedbackDTO feedback = new FeedbackDTO(description, quality, time);
+                FeedbackDTO feedback = new FeedbackDTO(quality, time);
                 product.addFeedback(feedback);
                 product.save();
             }
@@ -41,11 +40,8 @@ public class OrderFeedbackAPI extends AuthController{
         JSONObject parseDeliveryFeedback = (JSONObject) jsonBody.get("deliveryFeedback");
         String description = (String) parseDeliveryFeedback.get("description");
         String quality = (String) parseDeliveryFeedback.get("quality");
-        FeedbackDTO feedback = new FeedbackDTO(description, quality, time);
-
         String orderUuid = (String) jsonBody.get("orderUuid");
         OrderDTO order = OrderDTO.findById(orderUuid);
-        order.orderFeedback = feedback;
         order.save();
 
         renderJSON(jsonBody);

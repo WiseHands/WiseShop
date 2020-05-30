@@ -30,8 +30,7 @@ public class FeedbackDTO extends GenericModel {
     @ManyToOne
     public ProductDTO product;
 
-    public FeedbackDTO(String description, String quality, long feedbackTime) {
-        this.description = description;
+    public FeedbackDTO(String quality, long feedbackTime) {
         this.quality = quality;
         this.feedbackTime = feedbackTime;
     }

@@ -133,6 +133,10 @@
         margin-bottom: 1rem;
     }
 
+    .fa-star-o, .fa-star {
+        cursor: pointer;
+    }
+
     @media screen and (max-width: 768px) {
         .order-item-card {
             flex-direction: column;
@@ -152,22 +156,23 @@
         <div class="order-item-card ">
             <div class="img-item">
                 <img src="/wisehands/assets/images/pages-bg/pagebg3.jpg" class="item-img" alt="">
-                <!--<img src="${_orderItem.imagePath}" class="item-img" alt="">-->
             </div>
-            <div class="feedback-item border">
-                <h5 uuid="${_orderItem.productUuid}">${_orderItem.name}</h5>
+            <div uuid="${_orderItem.productUuid}" class="feedback-item border">
+                <h5>${_orderItem.name}</h5>
                 <p>${_orderItem.price}</p>
                 <p>Оцініть товар</p>
                 <div class="feedback-stars">
-                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                    <i onclick="onStarClicked(this)" star-rate="1" class="fa fa-star-o"
+                       style="font-size:24px; color: #000"></i>
+                    <i onclick="onStarClicked(this)" star-rate="2" class="fa fa-star-o"
+                       style="font-size:24px; color: #000"></i>
+                    <i onclick="onStarClicked(this)" star-rate="3" class="fa fa-star-o"
+                       style="font-size:24px; color: #000"></i>
+                    <i onclick="onStarClicked(this)" star-rate="4" class="fa fa-star-o"
+                       style="font-size:24px; color: #000"></i>
+                    <i onclick="onStarClicked(this)" star-rate="5" class="fa fa-star-o"
+                       style="font-size:24px; color: #000"></i>
                 </div>
-                <!--<input quality-mark-uuid="${_orderItem.productUuid}" value="" placeholder="1 - 5">-->
-                <!--<textarea feedback-message-uuid="${_orderItem.productUuid}" value=""-->
-                          <!--placeholder="Залишіть відгук тут"></textarea>-->
             </div>
         </div>
         %{
@@ -177,13 +182,12 @@
     <div class="delivery-feedback-container border">
         <h5>Відгук про доставку</h5>
         <div class="feedback-stars">
-            <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-            <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-            <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-            <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-            <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+            <i onclick="onStarClicked(this)" star-rate="1" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+            <i onclick="onStarClicked(this)" star-rate="2" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+            <i onclick="onStarClicked(this)" star-rate="3" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+            <i onclick="onStarClicked(this)" star-rate="4" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+            <i onclick="onStarClicked(this)" star-rate="5" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
         </div>
-        <!--<input id="deliveryFeedbackQualityMark" value="" placeholder="1 - 5">-->
         <textarea id="deliveryFeedbackDescription" value="" placeholder="Залишіть відгук тут"></textarea>
     </div>
     <div class="button-sent-feedback-container">
@@ -194,15 +198,30 @@
 </body>
 </html>
 <script>
+  function onStarClicked(event) {
+    const starRate = event.getAttribute('star-rate');
+    const parentNode = event.parentNode;
+    const starElements = parentNode.querySelectorAll('*');
+    starElements.forEach((element, index) => {
+        if (starRate >= index + 1) {
+          element.classList.remove('fa-star-o');
+          element.classList.add('fa-star');
+        } else {
+          element.classList.remove('fa-star');
+          element.classList.add('fa-star-o');
+        }
+      }
+    );
+  }
+
   function getOrderFeedbackData() {
     const orderFeedbackDataArray = [];
     const orderUuids = document.querySelectorAll('[uuid]');
     orderUuids.forEach(item => {
-      const uuid = item.getAttribute('uuid').toString();
+      const uuid = item.getAttribute('uuid');
       const productFeedbackObject = {
         uuid: uuid,
-        quality: document.querySelector('[quality-mark-uuid="' + uuid + '"]').value,
-        description: document.querySelector('[feedback-message-uuid="' + uuid + '"]').value
+        quality: item.querySelectorAll('div .fa-star').length.toString()
       };
       orderFeedbackDataArray.push(productFeedbackObject);
     });
@@ -213,11 +232,12 @@
     const objectBody = {
       orderUuid: orderUuid,
       deliveryFeedback: {
-        quality: document.querySelector('#deliveryFeedbackQualityMark').value,
+        quality: document.querySelectorAll('.delivery-feedback-container .fa-star').length.toString(),
         description: document.querySelector('#deliveryFeedbackDescription').value
       },
       feedbackToOrderItems: getOrderFeedbackData()
     };
+    console.log(objectBody);
     const params = JSON.stringify(objectBody);
     fetch('/api/feedback/save', {
       method: 'POST',
