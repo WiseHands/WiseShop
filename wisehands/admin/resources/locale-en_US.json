@@ -210,6 +210,7 @@
   "delivery.freeDeliveryPrice": "The minimum order amount for free shipping",
   "delivery.minimumOrderTotalAmount": "Minimal order total amount",
   "courierDelivery.deliveryBoundaries":"Delivery boundaries",
+  "courierDelivery.setBoundaries":"Set boundaries",
   "deliveryBoundaries.instruction":"Instruction",
   "deliveryBoundaries.instructionStep1":"Set delivery boundaries:",
   "deliveryBoundaries.instructionStep21":"Click on",

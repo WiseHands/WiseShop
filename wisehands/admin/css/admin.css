@@ -1814,6 +1814,14 @@ ul.admin-breadcrumb li a:hover {
     cursor: pointer;
 }
 
+.boundaries-btn {
+    display: inline-flex;
+    background-color: #126471;
+    padding: 0 2rem;
+    text-align: center;
+    color: #fff;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;

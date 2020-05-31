@@ -211,6 +211,7 @@
   "delivery.freeDeliveryPrice": "Мінімальна сума замовлення для безкоштовної доставки",
   "delivery.minimumOrderTotalAmount": "Сума мінімального замовлення",
   "courierDelivery.deliveryBoundaries":"Межі доставки",
+  "courierDelivery.setBoundaries":"Встановити межі",
   "deliveryBoundaries.instruction":"Інструкція",
   "deliveryBoundaries.instructionStep1":"Встановіть межі для кур'єрської доставки:",
   "deliveryBoundaries.instructionStep21":"Клікніть по",

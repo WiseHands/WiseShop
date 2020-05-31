@@ -210,6 +210,7 @@
   "delivery.freeDeliveryPrice": "Minimalna kwota zamówienia za bezpłatną wysyłkę",
   "delivery.minimumOrderTotalAmount": "Minimal order total amount",
   "courierDelivery.deliveryBoundaries":"Granice dostawy",
+  "courierDelivery.setBoundaries":"Wyznaczać granice",
   "deliveryBoundaries.instruction":"Instrukcja",
   "deliveryBoundaries.instructionStep1":"Instruction",
   "deliveryBoundaries.instructionStep21":"Kliknij",
