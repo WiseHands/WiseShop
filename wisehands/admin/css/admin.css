@@ -1381,6 +1381,9 @@ input {
 
 .admin-card .admin-order-details-row p {
     text-align: left;
+    font-size: 1.15rem;
+    line-height: 1.2;
+    word-break: break-word;
 }
 
 .admin-order-details-quantity {
