@@ -115,11 +115,21 @@
         display: flex;
     }
 
-    #feedback-success p, #feedback-error p {
+    #feedback-success, #feedback-error {
+        display: none;
+    }
+
+    #feedback-success , #feedback-error {
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 100vh;
     }
+
+    #feedback-success p, #feedback-error p {
+        font-size: 2rem;
+    }
+
     button {
         background-color: #fff;
         border: 2px solid #000;
