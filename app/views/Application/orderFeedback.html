@@ -115,7 +115,7 @@
         display: flex;
     }
 
-    #feedback-success, #feedback-error {
+    #feedback-success p, #feedback-error p {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -170,8 +170,10 @@
 #{verbatim}
 <div class="main-container">
     <div class="title-container">
+
         <p>${order.name}, дякуємо за замовлення! Залиште, будь ласка, відгук </p>
         <p>за замовлення на суму ${order.total} <span time="${order.time}" id="order-time"></span></p>
+
     </div>
     <div class="order-feedback-container">
         %{
@@ -218,12 +220,13 @@
         <button onclick="sentFeedback('${order.uuid}')">ВІДПРАВИТИ ВІДГУК</button>
     </div>
 
-    <div id="feedback-success">
-        <p>Дякуємо за Ваш відгук</p>
-    </div>
-    <div id="feedback-error">
-        <p>Помилка відправки відгука</p>
-    </div>
+
+</div>
+<div id="feedback-success">
+    <p>Дякуємо за Ваш відгук</p>
+</div>
+<div id="feedback-error">
+    <p>Помилка відправки відгука</p>
 </div>
 #{/verbatim}
 </body>
@@ -278,6 +281,16 @@
     fetch('/api/feedback/save', {
       method: 'POST',
       body: params,
-    })
+    }).then(function(response){
+                return response.json();
+            }).then(function(data){
+            if (data){
+              document.querySelector('#feedback-success').style.display = 'flex';
+              document.querySelector('.main-container').style.display = 'none';
+              document.querySelector('#feedback-error').style.display = 'none';
+            }
+       console.log('/api/feedback/save', data);
+
+            });
   }
 </script>
