@@ -19,6 +19,7 @@ angular.module('WiseHands')
         .then(response => {
             $scope.loading = false;
             const data = response.data;
+            console.log('response to order => ', response.data);
             $scope.address = `вул. ${data.clientAddressStreetName}, буд. ${data.clientAddressBuildingNumber}`;
             const uastring = data.userAgent;
             parser.setUA(uastring);

@@ -292,15 +292,17 @@
       method: 'POST',
       body: params,
     }).then(function(response){
-                return response.json();
-            }).then(function(data){
+         if(!response.ok) {
+            document.querySelector('#feedback-error').style.display = 'flex';
+         }
+       return response.json();
+       }).then(function(data){
             if (data){
               document.querySelector('#feedback-success').style.display = 'flex';
               document.querySelector('.main-container').style.display = 'none';
               document.querySelector('#feedback-error').style.display = 'none';
             }
        console.log('/api/feedback/save', data);
-
-            });
+        });
   }
 </script>

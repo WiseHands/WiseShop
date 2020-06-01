@@ -89,6 +89,7 @@
   "singleOrder.AddressApartmentFloor" : "Podłoga mieszkania: ",
   "singleOrder.AddressApartmentNumber" : "Numer mieszkania: ",
   "singleOrder.feedback" : "Odpowiedź",
+  "singleOrder.feedbackToCommonOrder" : "Odpowiedź na całego zamówienia",
   "sideNav.Orders": "Zamówienia",
   "sideNav.Analytics": "Analityka",
   "sideNav.Products": "Produkty",
