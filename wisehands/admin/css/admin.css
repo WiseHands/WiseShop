@@ -317,10 +317,6 @@ input[type=date]::-webkit-inner-spin-button {
     padding-right: 15px;
 }
 
-.fa-star-o {
-    cursor: pointer;
-}
-
 /*Text Truncating*/
 .truncate {
     white-space: nowrap;
@@ -1395,22 +1391,6 @@ input {
     width: 60px;
 }
 
-.admin-order-feedback h5 {
-    text-align: left;
-}
-
-.feedback-stars {
-    min-width: 126px;
-    margin-left: 0.5rem;
-}
-
-.feedback-text {
-    color: #777;
-    text-align: left;
-    font-size: 0.9rem;
-    font-style: italic;
-}
-
 .order-details-image {
     display: flex;
     align-items: center;
@@ -1799,14 +1779,28 @@ ul.admin-breadcrumb li a:hover {
 .admin-card .closed-shop-options {
     margin-bottom: 1.2rem;
 }
-
-.boundaries-btn {
-    display: inline-flex;
-    background-color: #126471;
-    padding: 0 2rem;
-    text-align: center;
-    color: #fff;
+.upload-favicon, .upload-logo {
+    height: 220px;
 }
+.admin-card .upload-text {
+    padding: 1rem;
+    text-align: center;
+    border: 1px dashed #000;
+    border-radius: 10px;
+    height: 95%;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+.admin-card .upload-text:hover {
+    cursor: pointer;
+}
+/* feedback to order in single order page*/
+.feedback-to-all-order{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
 
 @media screen and (min-width: 1500px) {
     .admin-container {

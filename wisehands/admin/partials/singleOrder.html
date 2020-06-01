@@ -209,9 +209,9 @@
                                    href="#/product/details/{{item.productUuid}}">
                                     <img src="{{item.imagePath}}">
                                     <div class="admin-order-item-feedback">
-                                        <p>{{item.name}} <span ng-show="item.tags.length > 0"> (<span
-                                                ng-repeat="property in item.tags">{{property.value}}</span>)</span></p>
+                                        <p>{{item.name}}</p>
                                         <p class="feedback-text">{{item.description}}</p>
+                                        <p>STAR:{{item.feedbackToOrderItem.quality}}</p>
                                     </div>
                                 </a>
                             </div>

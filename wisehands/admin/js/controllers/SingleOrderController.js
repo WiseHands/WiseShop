@@ -6,20 +6,15 @@ angular.module('WiseHands')
 
       $http({
         method: 'GET',
-        url: `/api/feedback/get/${$routeParams.uuid}`,
-      })
-        .then(response => {
-          console.log('response feedback => ', response.data);
-        });
-
-      $http({
-        method: 'GET',
         url: `/order/${$routeParams.uuid}`,
       })
         .then(response => {
             $scope.loading = false;
             const data = response.data;
             console.log('response to order => ', response.data);
+
+
+
             $scope.address = `вул. ${data.clientAddressStreetName}, буд. ${data.clientAddressBuildingNumber}`;
             const uastring = data.userAgent;
             parser.setUA(uastring);

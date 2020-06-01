@@ -27,11 +27,20 @@ public class FeedbackDTO extends GenericModel {
     @OneToOne
     public OrderDTO order;
 
+    @OneToOne
+    public OrderItemDTO orderItem;
+
     @ManyToOne
     public ProductDTO product;
 
     public FeedbackDTO(String quality, long feedbackTime) {
         this.quality = quality;
+        this.feedbackTime = feedbackTime;
+    }
+
+    public FeedbackDTO(String quality, String description, long feedbackTime) {
+        this.quality = quality;
+        this.description = description;
         this.feedbackTime = feedbackTime;
     }
 
