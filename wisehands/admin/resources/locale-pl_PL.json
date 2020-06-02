@@ -53,6 +53,7 @@
   "singleOrder.Canceled": "Odwołany",
   "singleOrder.Delete": "Usunąć",
   "singleOrder.requestFeedback": "Wyślij prośbę o opinię",
+  "singleOrder.pendingRequestFeedback": "Oczekuje na opinię",
   "singleOrder.noRequestFeedback": "Brak odpowiedzi",
   "singleOrder.FullName": "Pełne imię i nazwisko",
   "singleOrder.Phone": "Numer telefonu",

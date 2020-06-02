@@ -203,7 +203,7 @@
                     </div>
                     <div class="admin-card">
                         <h4>{{'singleOrder.feedback' | translate}}</h4>
-                        <div class="feedback-container" ng-show="order.orderFeedback">
+                        <div class="feedback-container" ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
                             <div class="admin-order-card-row" ng-repeat="item in order.items">
                                 <div class="admin-order-details-row">
                                     <a class="order-details-image" ng-if="item.productUuid"
@@ -237,11 +237,13 @@
                                 <p>{{order.orderFeedback.quality}}</p>
                             </div>
                         </div>
-                        <div class="show-feedback-request" ng-show="!order.orderFeedback">
-                            <p ng-click="requestOrderFeedback()">{{'singleOrder.noRequestFeedback' | translate}}</p>
+                        <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'REQUEST_NOT_SEND'">
                             <a class="text-left" data-toggle="modal" data-target="#feedbackToOrder"
                                ng-click="requestOrderFeedback()"><p>{{'singleOrder.requestFeedback' | translate}}</p>
                             </a>
+                        </div>
+                        <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'PENDING_REQUEST'">
+                            <p>{{'singleOrder.pendingRequestFeedback' | translate}}</p>
                         </div>
                     </div>
                 </div>

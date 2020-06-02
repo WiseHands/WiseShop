@@ -46,6 +46,7 @@
   "singleOrder.Shipped": "Shipped",
   "singleOrder.Canceled": "Canceled",
   "singleOrder.requestFeedback": "Send Request Feedback",
+  "singleOrder.pendingRequestFeedback": "Pending Request Feedback",
   "singleOrder.noRequestFeedback": "No response",
   "singleOrder.Delete": "Delete",
   "singleOrder.FullName": "Full Name",
