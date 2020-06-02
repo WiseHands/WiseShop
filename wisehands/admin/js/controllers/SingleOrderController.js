@@ -11,8 +11,6 @@ angular.module('WiseHands')
         .then(response => {
             $scope.loading = false;
             const data = response.data;
-            console.log('response to order => ', response.data);
-
             $scope.address = `вул. ${data.clientAddressStreetName}, буд. ${data.clientAddressBuildingNumber}`;
             const uastring = data.userAgent;
             parser.setUA(uastring);
@@ -88,7 +86,7 @@ angular.module('WiseHands')
         $scope.errorFeedback = false;
         $scope.successfulFeedback = false;
         $scope.modalSpinner = true;
-        $scope.$apply(() => $scope.order.feedbackRequestState = 'PENDING_REQUEST');
+        $scope.order.feedbackRequestState = 'PENDING_REQUEST';
         $http({
           method: 'PUT',
           url: `/order/${$routeParams.uuid}/feedback`

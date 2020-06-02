@@ -212,29 +212,27 @@
                                         <div class="admin-order-item-feedback">
                                             <p>{{item.name}}</p>
                                             <p class="feedback-text">{{item.description}}</p>
-                                            <p>STAR:{{item.feedbackToOrderItem.quality}}</p>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="feedback-stars">
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                <div class="item-feedback-stars">
+                                    <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                    <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                    <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                    <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                    <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
                                 </div>
                             </div>
                             <div class="feedback-to-all-order">
                                 <h5>{{'singleOrder.feedbackToCommonOrder' | translate}}</h5>
                                 <div class="feedback-stars">
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                    <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                    <i ng-class="order.orderFeedback.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                    <i ng-class="order.orderFeedback.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                    <i ng-class="order.orderFeedback.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                    <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
                                 </div>
                                 <p>{{order.orderFeedback.description}}</p>
-                                <p>{{order.orderFeedback.quality}}</p>
                             </div>
                         </div>
                         <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'REQUEST_NOT_SEND'">
