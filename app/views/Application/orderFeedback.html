@@ -115,12 +115,9 @@
         display: flex;
     }
 
-    #feedback-success, #feedback-error {
-        display: none;
-    }
-
     #feedback-success , #feedback-error {
-        display: flex;
+        display: none;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
@@ -128,6 +125,17 @@
 
     #feedback-success p, #feedback-error p {
         font-size: 2rem;
+    }
+
+    #feedback-success a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    #feedback-success a:hover {
+        text-decoration: underline;
+        color: #337ab7;
+        cursor: pointer;
     }
 
     button {
@@ -234,6 +242,10 @@
 </div>
 <div id="feedback-success">
     <p>Дякуємо за Ваш відгук</p>
+    <p>
+        <a href="/">Перейти на головну сторінку</a>
+    </p>
+    </a>
 </div>
 <div id="feedback-error">
     <p>Помилка відправки відгука</p>
