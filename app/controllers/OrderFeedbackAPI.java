@@ -1,5 +1,6 @@
 package controllers;
 
+import enums.FeedbackRequestState;
 import models.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,6 +31,7 @@ public class OrderFeedbackAPI extends AuthController{
         String quality = (String) parseDeliveryFeedback.get("quality");
         FeedbackDTO orderFeedback = new FeedbackDTO(quality, description, time);
         order.orderFeedback = orderFeedback;
+        order.feedbackRequestState = FeedbackRequestState.REQUEST_SENT;
         order.save();
 
         renderJSON(jsonBody);
