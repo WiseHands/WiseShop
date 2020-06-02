@@ -1801,6 +1801,10 @@ ul.admin-breadcrumb li a:hover {
     text-align: left;
 }
 
+.show-feedback-request {
+    text-align: left;
+}
+
 
 @media screen and (min-width: 1500px) {
     .admin-container {
