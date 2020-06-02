@@ -1,9 +1,6 @@
 package controllers;
 
-import enums.OrderState;
-import enums.PaymentState;
-import enums.TransactionStatus;
-import enums.TransactionType;
+import enums.*;
 import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
 import json.shoppingcart.PaymentCreditCardConfiguration;
@@ -178,7 +175,7 @@ public class OrderAPI extends AuthController {
 
             error(403, json.toString());
         }
-
+        order.feedbackRequestState = FeedbackRequestState.REQUEST_NOT_SEND;
         order = order.save();
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 

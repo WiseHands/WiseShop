@@ -1,6 +1,7 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import enums.FeedbackRequestState;
 import enums.OrderState;
 import enums.PaymentState;
 import org.hibernate.annotations.GenericGenerator;
@@ -97,6 +98,10 @@ public class OrderDTO extends GenericModel {
     @Expose
     @Enumerated(EnumType.STRING)
     public PaymentState paymentState;
+
+    @Expose
+    @Enumerated(EnumType.STRING)
+    public FeedbackRequestState feedbackRequestState;
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)

@@ -1,6 +1,8 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import enums.FeedbackRequestState;
+import enums.OrderState;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 

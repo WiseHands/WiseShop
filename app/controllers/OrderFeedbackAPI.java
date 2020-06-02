@@ -16,7 +16,6 @@ public class OrderFeedbackAPI extends AuthController{
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        System.out.println("createFeedbackFromClient : " + jsonBody);
 
         JSONArray feedbackList = (JSONArray) jsonBody.get("feedbackToOrderItems");
         createFeedbackListForProduct(feedbackList);
@@ -41,7 +40,6 @@ public class OrderFeedbackAPI extends AuthController{
             JSONObject parseFeedbackObject = (JSONObject) feedbackList.get(i);
 
             String productUuid = (String) parseFeedbackObject.get("uuid");
-            System.out.println("productUuid => " + productUuid);
             String quality = (String) parseFeedbackObject.get("quality");
 
             ProductDTO product = ProductDTO.findById(productUuid);
@@ -58,7 +56,6 @@ public class OrderFeedbackAPI extends AuthController{
             JSONObject parseFeedbackObject = (JSONObject) feedbackList.get(i);
             String productUuid = (String) parseFeedbackObject.get("uuid");
             String quality = (String) parseFeedbackObject.get("quality");
-            System.out.println("quality for feedback " + quality);
             FeedbackDTO feedback = new FeedbackDTO(quality, time);
             for(OrderItemDTO item: order.items){
                 if (item.productUuid.equals(productUuid)){
@@ -71,7 +68,6 @@ public class OrderFeedbackAPI extends AuthController{
 
     public static void getOrderFeedback(){
         String orderUuid = request.params.get("uuid");
-        System.out.println("uuid " + orderUuid);
         OrderDTO order = OrderDTO.findById(orderUuid);
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
         for(OrderItemDTO orderItem: order.items){
