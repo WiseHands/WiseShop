@@ -54,7 +54,7 @@
   "singleOrder.Order": "Замовлення",
   "singleOrder.Shipped": "Надіслано",
   "singleOrder.Canceled": "Скасовано",
-  "singleOrder.requestFeedback": "Відправити запит на відгук",
+  "singleOrder.requestFeedback": "Відправити запит",
   "singleOrder.noRequestFeedback": "Відгук відсутній",
   "singleOrder.pendingRequestFeedback": "Очікується відгук",
   "singleOrder.Delete": "Видалити",

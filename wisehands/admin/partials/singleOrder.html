@@ -238,6 +238,7 @@
                             </div>
                         </div>
                         <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'REQUEST_NOT_SEND'">
+                            <p>Запит на відгук ще не відправлений клієнту</p>
                             <a class="text-left" data-toggle="modal" data-target="#feedbackToOrder"
                                ng-click="requestOrderFeedback()"><p>{{'singleOrder.requestFeedback' | translate}}</p>
                             </a>
