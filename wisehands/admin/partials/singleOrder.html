@@ -203,37 +203,42 @@
                     </div>
                     <div class="admin-card">
                         <h4>{{'singleOrder.feedback' | translate}}</h4>
-                        <div class="admin-order-card-row" ng-repeat="item in order.items">
-                            <div class="admin-order-details-row">
-                                <a class="order-details-image" ng-if="item.productUuid"
-                                   href="#/product/details/{{item.productUuid}}">
-                                    <img src="{{item.imagePath}}">
-                                    <div class="admin-order-item-feedback">
-                                        <p>{{item.name}}</p>
-                                        <p class="feedback-text">{{item.description}}</p>
-                                        <p>STAR:{{item.feedbackToOrderItem.quality}}</p>
-                                    </div>
-                                </a>
+                        <div class="feedback-container" ng-show="order.orderFeedback">
+                            <div class="admin-order-card-row" ng-repeat="item in order.items">
+                                <div class="admin-order-details-row">
+                                    <a class="order-details-image" ng-if="item.productUuid"
+                                       href="#/product/details/{{item.productUuid}}">
+                                        <img src="{{item.imagePath}}">
+                                        <div class="admin-order-item-feedback">
+                                            <p>{{item.name}}</p>
+                                            <p class="feedback-text">{{item.description}}</p>
+                                            <p>STAR:{{item.feedbackToOrderItem.quality}}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="feedback-stars">
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                </div>
                             </div>
-                            <div class="feedback-stars">
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                            <div class="feedback-to-all-order">
+                                <h5>{{'singleOrder.feedbackToCommonOrder' | translate}}</h5>
+                                <div class="feedback-stars">
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                    <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
+                                </div>
+                                <p>{{order.orderFeedback.description}}</p>
+                                <p>{{order.orderFeedback.quality}}</p>
                             </div>
                         </div>
-                        <div class="feedback-to-all-order">
-                            <h5>{{'singleOrder.feedbackToCommonOrder' | translate}}</h5>
-                            <div class="feedback-stars">
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                                <i class="fa fa-star-o" style="font-size:24px; color: #000"></i>
-                            </div>
-                            <p>{{order.orderFeedback.description}}</p>
-                            <p>{{order.orderFeedback.quality}}</p>
+                        <div class="show-feedback-request" ng-show="!order.orderFeedback">
+                            <p ng-click="requestOrderFeedback()">{{'singleOrder.requestFeedback' | translate}}</p>
                         </div>
                     </div>
                 </div>
