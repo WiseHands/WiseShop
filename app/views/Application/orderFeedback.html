@@ -103,7 +103,7 @@
     .delivery-feedback-container {
         display: flex;
         flex-direction: column;
-        margin: 1rem;
+        margin: 1rem 1rem 0;
         padding: 1rem;
     }
 
@@ -124,36 +124,31 @@
     }
 
     #feedback-success p, #feedback-error p {
-        font-size: 2rem;
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .button-sent-feedback-container {
+        background-color: #fff;
+        border: 2px solid #000;
+        height: 50px;
+        padding: 0 2rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem;
+        text-transform: uppercase;
+    }
+
+    .button-sent-feedback-container:hover {
+        color: #fff;
+        background-color: #000;
+        cursor: pointer;
     }
 
     #feedback-success a {
         text-decoration: none;
         color: #000;
-    }
-
-    #feedback-success a:hover {
-        text-decoration: underline;
-        color: #337ab7;
-        cursor: pointer;
-    }
-
-    button {
-        background-color: #fff;
-        border: 2px solid #000;
-        height: 50px;
-        padding: 0 2rem;
-        margin-bottom: 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 1rem;
-    }
-
-    button:hover, button:hover {
-        color: #fff;
-        background-color: #000;
-        cursor: pointer;
     }
 
     .feedback-stars {
@@ -190,7 +185,7 @@
     <div class="title-container">
 
         <p>${order.name}, дякуємо за замовлення! Залиште, будь ласка, відгук </p>
-        <p>за замовлення на суму ${order.total} <span time="${order.time}" id="order-time"></span></p>
+        <p>за замовлення на суму <span price="${order.total}"> </span> <span time="${order.time}" id="order-time"></span></p>
 
     </div>
     <div class="order-feedback-container">
@@ -235,16 +230,17 @@
         <textarea id="deliveryFeedbackDescription" value="" placeholder="Залиште відгук тут"></textarea>
     </div>
     <div class="button-sent-feedback-container">
-        <button onclick="sentFeedback('${order.uuid}')">ВІДПРАВИТИ ВІДГУК</button>
+        <div onclick="sentFeedback('${order.uuid}')">ВІДПРАВИТИ ВІДГУК</div>
     </div>
 
 
 </div>
 <div id="feedback-success">
     <p>Дякуємо за Ваш відгук</p>
-    <p>
-        <a href="/">Перейти на головну сторінку</a>
-    </p>
+    <a href="/">
+        <div class="button-sent-feedback-container">
+            Перейти на головну сторінку
+        </div>
     </a>
 </div>
 <div id="feedback-error">
@@ -254,6 +250,12 @@
 </body>
 </html>
 <script>
+   (() => {
+   const orderPriceSpan = document.querySelector('[price]');
+   const orderPriceValue = Number(orderPriceSpan.getAttribute('price'));
+   orderPriceSpan.innerText = Math.trunc(orderPriceValue);
+   })();
+
   (() => {
     const orderTimeSpan = document.querySelector('[time]');
     const orderTimeValue = Number(orderTimeSpan.getAttribute('time'));
