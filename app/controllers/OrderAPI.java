@@ -371,6 +371,8 @@ public class OrderAPI extends AuthController {
         checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        order.feedbackRequestState = FeedbackRequestState.PENDING_REQUEST;
+        order.save();
 
         try {
 //            smsSender.sendSmsForFeedbackToOrder(order.phone, Messages.get("balance.transaction.low.shop.balance"));
