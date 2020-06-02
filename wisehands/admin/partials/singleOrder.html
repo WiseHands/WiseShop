@@ -202,7 +202,21 @@
                         </div>
                     </div>
                     <div class="admin-card">
-                        <h4>{{'singleOrder.feedback' | translate}}</h4>
+                        <div class="admin-order-card-row">
+                            <h4>{{'singleOrder.feedback' | translate}}</h4>
+                            <div class="feedback-stars">
+                                <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                <i ng-class="order.orderFeedback.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                <i ng-class="order.orderFeedback.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                <i ng-class="order.orderFeedback.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                            </div>
+                        </div>
+
+                        <div class="feedback-to-all-order">
+
+                            <p>{{order.orderFeedback.description}}</p>
+                        </div>
                         <div class="feedback-container" ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
                             <div class="admin-order-card-row" ng-repeat="item in order.items">
                                 <div class="admin-order-details-row">
@@ -211,7 +225,6 @@
                                         <img src="{{item.imagePath}}">
                                         <div class="admin-order-item-feedback">
                                             <p>{{item.name}}</p>
-                                            <p class="feedback-text">{{item.description}}</p>
                                         </div>
                                     </a>
                                 </div>
@@ -222,17 +235,6 @@
                                     <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
                                     <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
                                 </div>
-                            </div>
-                            <div class="feedback-to-all-order">
-                                <h5>{{'singleOrder.feedbackToCommonOrder' | translate}}</h5>
-                                <div class="feedback-stars">
-                                    <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                    <i ng-class="order.orderFeedback.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                    <i ng-class="order.orderFeedback.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                    <i ng-class="order.orderFeedback.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                    <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                </div>
-                                <p>{{order.orderFeedback.description}}</p>
                             </div>
                         </div>
                         <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'REQUEST_NOT_SEND'">
