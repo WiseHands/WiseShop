@@ -111,11 +111,11 @@
         margin: 6px;
     }
 
-    .button-sent-feedback-container {
+    .button-send-feedback-container {
         display: flex;
     }
 
-    #feedback-success , #feedback-error {
+    #feedback-success , #feedback-error, #feedback-request-state  {
         display: none;
         flex-direction: column;
         justify-content: center;
@@ -125,43 +125,33 @@
 
     #feedback-request-state {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
 
+    }
     #feedback-success p, #feedback-error p, #feedback-request-state p {
         font-size: 2rem;
     }
 
-    #feedback-success a {
-        text-decoration: none;
-        color: #000;
-    }
-
-    #feedback-success a:hover {
-        text-decoration: underline;
-        color: #337ab7;
-        cursor: pointer;
-    }
-
-    button {
+    .button-send-feedback-container {
         background-color: #fff;
         border: 2px solid #000;
         height: 50px;
         padding: 0 2rem;
-        margin-bottom: 1rem;
-        display: flex;
+        display: inline-flex;
         justify-content: center;
         align-items: center;
-        margin-left: 1rem;
+        margin: 1rem;
+        text-transform: uppercase;
     }
 
-    button:hover, button:hover {
+    .button-send-feedback-container:hover {
         color: #fff;
         background-color: #000;
         cursor: pointer;
+    }
+
+    #feedback-success a, #feedback-request-state a {
+        text-decoration: none;
+        color: #000;
     }
 
     .feedback-stars {
@@ -194,9 +184,14 @@
 </style>
 <body>
 #{verbatim}
-#{if isSentRequest}
+#{if isSendRequest}
 <div id="feedback-request-state">
     <p>Ваш відгук було надіслано</p>
+        <a href="/">
+            <div class="button-send-feedback-container">
+                Перейти на головну сторінку
+            </div>
+        </a>
 </div>
 #{/if}
 #{else}
@@ -248,17 +243,18 @@
         </div>
         <textarea id="deliveryFeedbackDescription" value="" placeholder="Залиште відгук тут"></textarea>
     </div>
-    <div class="button-sent-feedback-container">
-        <button onclick="sentFeedback('${order.uuid}')">ВІДПРАВИТИ ВІДГУК</button>
+    <div class="button-send-feedback-container">
+        <div onclick="sendFeedback('${order.uuid}')">ВІДПРАВИТИ ВІДГУК</div>
     </div>
 </div>
 #{/else}
 
 <div id="feedback-success">
     <p>Дякуємо за Ваш відгук</p>
-    <p>
-        <a href="/">Перейти на головну сторінку</a>
-    </p>
+    <a href="/">
+        <div class="button-send-feedback-container">
+            Перейти на головну сторінку
+        </div>
     </a>
 </div>
 <div id="feedback-error">
@@ -310,7 +306,7 @@
     return orderFeedbackDataArray;
   }
 
-  function sentFeedback(orderUuid) {
+  function sendFeedback(orderUuid) {
     const objectBody = {
       orderUuid: orderUuid,
       deliveryFeedback: {

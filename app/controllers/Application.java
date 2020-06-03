@@ -79,10 +79,9 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
-        boolean isSentRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
-        System.out.println("order STATE " + order.feedbackRequestState + "=>" + isSentRequest);
+        boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
 
-        renderTemplate("Application/orderFeedback.html", shop, order, isSentRequest);
+        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest);
     }
 
     public static void uaSignup(String client) {
