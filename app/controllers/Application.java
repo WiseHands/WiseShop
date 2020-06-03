@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import enums.FeedbackRequestState;
 import play.Play;
 import play.i18n.Lang;
+import play.i18n.Messages;
 import play.mvc.*;
 
 import models.*;
@@ -81,7 +82,9 @@ public class Application extends Controller {
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
 
-        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest);
+        String currency = Messages.get("shop.balance.currency");
+
+        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency);
     }
 
     public static void uaSignup(String client) {

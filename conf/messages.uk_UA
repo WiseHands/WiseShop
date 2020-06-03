@@ -3,7 +3,7 @@
 #
 feedback.email.title = Відгук про ваше замовлення від %s
 feedback.main.label = Привіт %s
-feedback.email.text = Залиште свій відгук для замовлення. Допоможіть нам стати кращими
+feedback.email.text = Залиште свій відгук про замовлення. Допоможіть нам стати кращими
 feedback.write.feedback = Залишити відгук
 balance.transaction.low.shop.balance = Баланс магазину менше 100 грн, поповніть будь ласка рахунок
 shop.balance = Баланс магазину
