@@ -204,7 +204,7 @@
                     <div class="admin-card">
                         <div class="admin-order-card-row">
                             <h4>{{'singleOrder.feedback' | translate}}</h4>
-                            <div class="feedback-stars">
+                            <div class="feedback-stars" ng-show="order.orderFeedback">
                                 <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
                                 <i ng-class="order.orderFeedback.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
                                 <i ng-class="order.orderFeedback.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
@@ -213,9 +213,11 @@
                             </div>
                         </div>
 
-                        <div class="feedback-to-all-order">
-
+                        <div class="feedback-to-all-order" ng-show="order.orderFeedback.description">
                             <p>{{order.orderFeedback.description}}</p>
+                        </div>
+                        <div class="feedback-to-all-order" ng-show="!order.orderFeedback.description">
+                            <p>Коментарі на відгук відсутні</p>
                         </div>
                         <div class="feedback-container" ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
                             <div class="admin-order-card-row" ng-repeat="item in order.items">
