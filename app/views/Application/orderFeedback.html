@@ -204,7 +204,7 @@
     <div class="title-container">
 
         <p>${order.name}, дякуємо за замовлення! Залиште, будь ласка, відгук </p>
-        <p>за замовлення на суму ${order.total} <span time="${order.time}" id="order-time"></span></p>
+        <p>за замовлення на суму <span price="${order.total}"></span> грн <span time="${order.time}" id="order-time"></span></p>
 
     </div>
     <div class="order-feedback-container">
@@ -268,11 +268,17 @@
 </body>
 </html>
 <script>
-  (() => {
-    const orderTimeSpan = document.querySelector('[time]');
-    const orderTimeValue = Number(orderTimeSpan.getAttribute('time'));
-    orderTimeSpan.innerText = moment(orderTimeValue).locale('uk').format('DD MMMM YYYY, h:mm:ss');
-  })();
+    (() => {
+        const orderPriceSpan = document.querySelector('[price]');
+        const orderPriceValue = Number(orderPriceSpan.getAttribute('price'));
+        orderPriceSpan.innerText = Math.trunc(orderPriceValue);
+    })();
+
+    (() => {
+        const orderTimeSpan = document.querySelector('[time]');
+        const orderTimeValue = Number(orderTimeSpan.getAttribute('time'));
+        orderTimeSpan.innerText = moment(orderTimeValue).locale('uk').format('DD MMMM YYYY, h:mm:ss');
+    })();
 
   function onStarClicked(event) {
     const starRate = event.getAttribute('star-rate');
