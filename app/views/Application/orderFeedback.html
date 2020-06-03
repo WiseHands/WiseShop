@@ -197,10 +197,8 @@
 #{else}
 <div class="main-container">
     <div class="title-container">
-
         <p>${order.name}, дякуємо за замовлення! Залиште, будь ласка, відгук </p>
         <p>за замовлення на суму <span price="${order.total}"></span> грн <span time="${order.time}" id="order-time"></span></p>
-
     </div>
     <div class="order-feedback-container">
         %{
@@ -212,7 +210,7 @@
             </div>
             <div uuid="${_orderItem.productUuid}" class="feedback-item border">
                 <h5>${_orderItem.name}</h5>
-                <p>${_orderItem.price}</p>
+                <p><span price="${_orderItem.price}"></span> грн</p>
                 <p>Оцініть товар</p>
                 <div class="feedback-stars">
                     <i onclick="onStarClicked(this)" star-rate="1" class="fa fa-star-o"
@@ -265,9 +263,11 @@
 </html>
 <script>
     (() => {
-        const orderPriceSpan = document.querySelector('[price]');
-        const orderPriceValue = Number(orderPriceSpan.getAttribute('price'));
-        orderPriceSpan.innerText = Math.trunc(orderPriceValue);
+        const orderPriceSpanList = document.querySelectorAll('[price]');
+        orderPriceSpanList.forEach(item => {
+            const orderPriceSpanValue = Number(item.getAttribute('price'));
+            item.innerText = Math.trunc(orderPriceSpanValue);
+        })
     })();
 
     (() => {
