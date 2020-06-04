@@ -65,10 +65,18 @@
                     <p ng-show="!product.isActive" >{{'addNewProduct.isNotShowInShop' | translate}}</p>
                     <label ng-show="product.oldPrice" for="oldPrice">{{'addNewProduct.oldPrice' | translate}}</label>
                     <p ng-show="product.oldPrice" id="oldPrice">{{product.oldPrice}}</p>
-
                     <label ng-show="product.sortOrder" for="productOrder">{{'displayOrder' | translate}}</label>
                     <p ng-show="product.sortOrder" id="productOrder">{{product.sortOrder}}</p>
 
+                </div>
+                <div class="admin-card">
+                    <h4>{{'productDetails.feedBacks' | translate}}</h4>
+                    <p>{{'productDetails.feedBacksInfoText' | translate}}</p>
+                    <a href="/{{product.uuid}}/product/review">
+                        <div class="details-product-feedback-btn ">
+                            <p>переглянути</p>
+                        </div>
+                    </a>
                 </div>
             </div>
 

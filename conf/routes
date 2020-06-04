@@ -278,6 +278,7 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/signup                                 Application.uaSignup
 *       {client}/wizard                                 Application.uaWizard
 *       {client}/{uuid}/feedback                        Application.orderFeedback
+*       {client}/{uuid}/product/review                  Application.productReviews
 # end removing /ua
 *       {client}/server-error                           Application.serverError
 *       {client}/dashboard                              Application.userDashboard

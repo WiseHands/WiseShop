@@ -1608,6 +1608,24 @@ input {
     margin-bottom: 1rem;
 }
 
+.details-product-feedback-btn {
+    justify-content: center;
+    padding: 0.5rem 2rem;
+    border: 2px solid #054d58;
+    background-color: #fff;
+    color: #000;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    width: min-content;
+    margin-top: 1rem;
+}
+
+.details-product-feedback-btn:hover {
+    background-color: #126471;
+    color: #fff;
+    cursor: pointer;
+}
+
 .edit-product-edit-image {
     margin: 3rem;
 }

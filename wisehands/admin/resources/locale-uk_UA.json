@@ -175,6 +175,8 @@
   "productDetails.delete": "Видалити",
   "productDetails.deleteMessage1": "Ви дійсно хочете видалити даний товар?",
   "productDetails.deleteMessage2": "Товар видалений.",
+  "productDetails.feedBacks": "Відгуки",
+  "productDetails.feedBacksInfoText": "Відгуки клієнтів про товар",
   "shopDetails.deleteMessage1": "Ви дійсно хочете видалити даний магазин?",
   "shopDetails.deleteMessage2": "Магазин видалений.",
   "editProduct.general": "Основне",

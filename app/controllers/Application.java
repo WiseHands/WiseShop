@@ -81,10 +81,18 @@ public class Application extends Controller {
         }
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
-
         String currency = Messages.get("shop.balance.currency");
-
         renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency);
+    }
+
+    public static void productReviews(String client, String uuid) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        ProductDTO product = ProductDTO.find("byUuid",uuid).first();
+        String currency = Messages.get("shop.balance.currency");
+        renderTemplate("Application/productReviews.html", shop, product, currency);
     }
 
     public static void uaSignup(String client) {

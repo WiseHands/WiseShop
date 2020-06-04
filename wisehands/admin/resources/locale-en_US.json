@@ -173,6 +173,7 @@
   "productDetails.delete": "Delete",
   "productDetails.deleteMessage1": "Do you really want to delete this product?",
   "productDetails.deleteMessage2": "Product deleted.",
+  "productDetails.feedBacks": "Reviews",
   "shopDetails.deleteMessage1": "Do you really want to delete this shop?",
   "shopDetails.deleteMessage2": "Shop deleted.",
   "editProduct.general": "General",
