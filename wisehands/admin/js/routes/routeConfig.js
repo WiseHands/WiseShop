@@ -217,11 +217,17 @@
                     when('/paymentcash',{
                         templateUrl:'wisehands/admin/partials/paymentCash.html',
                         controller:'PaymentCashController',
-                }).
+                    }).
                     when('/paymentonline',{
                         templateUrl:'wisehands/admin/partials/paymentOnline.html',
                         controller:'PaymentOnlineController',
-                }).
+                    }).
+                    when('/productreviews/:uuid',{
+                        templateUrl:'wisehands/admin/partials/productReviews.html',
+                        controller:'ProductReviewsController',
+                        activetab: 'productlist'
+
+                    }).
                     otherwise({
                         redirectTo:'/'
                     });
