@@ -224,6 +224,7 @@
                     <i onclick="onStarClicked(this)" star-rate="5" class="fa fa-star-o"
                        style="font-size:24px; color: #000"></i>
                 </div>
+                <textarea feedback-message-uuid="${_orderItem.productUuid}" value="" placeholder="Залишіть відгук тут"></textarea>
             </div>
         </div>
         %{
@@ -299,7 +300,8 @@
       const uuid = item.getAttribute('uuid');
       const productFeedbackObject = {
         uuid: uuid,
-        quality: item.querySelectorAll('div .fa-star').length.toString()
+        quality: item.querySelectorAll('div .fa-star').length.toString(),
+        review: document.querySelector('[feedback-message-uuid="' + uuid + '"]').value
       };
       orderFeedbackDataArray.push(productFeedbackObject);
     });

@@ -18,12 +18,12 @@ public class OrderFeedbackAPI extends AuthController{
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
 
-        JSONArray feedbackList = (JSONArray) jsonBody.get("feedbackToOrderItems");
-        createFeedbackListForProduct(feedbackList);
-
         String orderUuid = (String) jsonBody.get("orderUuid");
         OrderDTO order = OrderDTO.findById(orderUuid);
 
+        JSONArray feedbackList = (JSONArray) jsonBody.get("feedbackToOrderItems");
+
+        createFeedbackListForProduct(feedbackList, order);
         createFeedbackForOrderItem(feedbackList, order);
 
         JSONObject parseDeliveryFeedback = (JSONObject) jsonBody.get("deliveryFeedback");
@@ -37,16 +37,17 @@ public class OrderFeedbackAPI extends AuthController{
         renderJSON(jsonBody);
     }
 
-    private static void createFeedbackListForProduct(JSONArray feedbackList) {
+    private static void createFeedbackListForProduct(JSONArray feedbackList, OrderDTO order) {
         for(int i = 0; i<feedbackList.size(); i++){
             JSONObject parseFeedbackObject = (JSONObject) feedbackList.get(i);
 
             String productUuid = (String) parseFeedbackObject.get("uuid");
             String quality = (String) parseFeedbackObject.get("quality");
+            String review = (String) parseFeedbackObject.get("review");
 
             ProductDTO product = ProductDTO.findById(productUuid);
             if (product != null){
-                FeedbackDTO feedback = new FeedbackDTO(quality, time);
+                FeedbackDTO feedback = new FeedbackDTO(quality, review, order.name, time);
                 product.addFeedback(feedback);
                 product.save();
             }

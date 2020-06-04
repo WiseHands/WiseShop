@@ -21,6 +21,12 @@ public class FeedbackDTO extends GenericModel {
     public String description;
 
     @Expose
+    public String customerName;
+
+    @Expose
+    public String review;
+
+    @Expose
     public String quality;
 
     @Expose
@@ -43,6 +49,13 @@ public class FeedbackDTO extends GenericModel {
     public FeedbackDTO(String quality, String description, long feedbackTime) {
         this.quality = quality;
         this.description = description;
+        this.feedbackTime = feedbackTime;
+    }
+
+    public FeedbackDTO(String quality, String review, String customerName, long feedbackTime) {
+        this.quality = quality;
+        this.review = review;
+        this.customerName = customerName;
         this.feedbackTime = feedbackTime;
     }
 
