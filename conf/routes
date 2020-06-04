@@ -101,7 +101,7 @@ POST        {client}/api/pricing-plan/set-plan-to-shop       PricingPlanAPI.setP
 GET         {client}/api/pricing-plan/get-shop               PricingPlanAPI.getShopByUuid
 
 POST        {client}/api/feedback/save                  OrderFeedbackAPI.createFeedback
-GET         {client}/api/feedback/{uuid}/get/list       OrderFeedbackAPI.getFeedbackListForProduct
+GET         {client}/api/feedback/get/list/{uuid}       OrderFeedbackAPI.getFeedbackListForProduct
 GET         {client}/api/feedback...                    OrderFeedbackAPI.getFeedbackListForShop
 
 GET     {client}/sudo/orders                            OrderAPI.all
