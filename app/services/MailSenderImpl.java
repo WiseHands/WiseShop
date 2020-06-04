@@ -125,18 +125,17 @@ public class MailSenderImpl implements MailSender {
         map.put("shopName", shop.shopName);
         map.put("orderUuid", order.uuid);
         String path = shop.domain;
-        System.out.println("shop.domain " + shop.domain);
         if(isDevEnv) {
             path = path + ":3334";
         }
         map.put("shopDomain", path);
 
         Lang.change(shop.locale);
-        String mainFeedbackTitle = Messages.get("feedback.main.label", order.name);
-        map.put("mainFeedbackTitle", mainFeedbackTitle);
+        String hiClient = Messages.get("feedback.main.label", order.name);
+        map.put("hiClient", hiClient);
 
-        String mainFeedbackText = Messages.get("feedback.email.text", shop.shopName);
-        map.put("mainFeedbackText", mainFeedbackText);
+        String helpUs = Messages.get("feedback.email.text", shop.shopName);
+        map.put("helpUs", helpUs);
 
         String writeFeedback = Messages.get("feedback.write.feedback");
         map.put("writeFeedback", writeFeedback);

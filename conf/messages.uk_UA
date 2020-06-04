@@ -2,9 +2,9 @@
 # For example, for French create a messages.fr file
 #
 feedback.email.title = Відгук про ваше замовлення від %s
-feedback.main.label = Привіт %s
-feedback.email.text = Залиште свій відгук про замовлення. Допоможіть нам стати кращими
-feedback.write.feedback = Залишити відгук
+feedback.main.label = Привіт %s.
+feedback.email.text = Допоможіть нам стати кращими, залиште свій відгук про замовлення.
+feedback.write.feedback = Написати відгук
 balance.transaction.low.shop.balance = Баланс магазину менше 100 грн, поповніть будь ласка рахунок
 shop.balance = Баланс магазину
 shop.balance.currency = ₴

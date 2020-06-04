@@ -3,9 +3,9 @@
 #
 feedback.email.title = informacje zwrotne do twojego zamówienia od %s
 
-feedback.main.label = Witaj %s
-feedback.email.text = Proszę zostawić swoją recenzję na temat zamówienia. Pomóż nam stać najlepszym
-feedback.write.feedback = Napisać recenzję
+feedback.main.label = Witaj %s.
+feedback.email.text =  Pomóż nam stać najlepszym, proszę zostawić swoją recenzję na temat zamówienia.
+feedback.write.feedback = Zostawić swoją recenzję
 
 balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, doładuj swoje konto
 shop.balance = Saldo sklepowe

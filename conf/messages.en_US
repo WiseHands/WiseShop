@@ -3,9 +3,9 @@
 #
 feedback.email.title = Leave feedback for your order from %s
 
-feedback.main.label = Hello %s
-feedback.email.text = Please leave your feedback for an order. Help us become better
-feedback.write.feedback = Leave Feedback
+feedback.main.label = Hello %s.
+feedback.email.text = Help us become better, please leave your feedback for an order.
+feedback.write.feedback = Write reviews
 balance.transaction.low.shop.balance = The balance of the store is less than 100 dollars, please top up your account
 shop.balance = Shop balance
 shop.balance.currency = $
