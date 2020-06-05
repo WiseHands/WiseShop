@@ -213,10 +213,10 @@
                             </div>
                         </div>
 
-                        <div class="feedback-to-all-order" ng-show="order.orderFeedback.description">
-                            <p>{{order.orderFeedback.description}}</p>
+                        <div class="feedback-to-all-order" ng-show="order.orderFeedback.generalReview">
+                            <p>{{order.orderFeedback.generalReview}}</p>
                         </div>
-                        <div class="feedback-to-all-order" ng-show="order.orderFeedback && !order.orderFeedback.description">
+                        <div class="feedback-to-all-order" ng-show="order.orderFeedback && !order.orderFeedback.generalReview">
                             <p>Коментарі на відгук відсутні</p>
                         </div>
                         <div class="feedback-container" ng-show="order.feedbackRequestState === 'REQUEST_SENT'">

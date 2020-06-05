@@ -18,7 +18,7 @@ public class FeedbackDTO extends GenericModel {
     public String uuid;
 
     @Expose
-    public String description;
+    public String generalReview;
 
     @Expose
     public String customerName;
@@ -31,6 +31,9 @@ public class FeedbackDTO extends GenericModel {
 
     @Expose
     public long feedbackTime;
+
+    @Expose
+    public boolean hideReview;
 
     @OneToOne
     public OrderDTO order;
@@ -46,9 +49,9 @@ public class FeedbackDTO extends GenericModel {
         this.feedbackTime = feedbackTime;
     }
 
-    public FeedbackDTO(String quality, String description, long feedbackTime) {
+    public FeedbackDTO(String quality, String generalReview, long feedbackTime) {
         this.quality = quality;
-        this.description = description;
+        this.generalReview = generalReview;
         this.feedbackTime = feedbackTime;
     }
 

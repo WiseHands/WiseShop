@@ -81,6 +81,15 @@ public class OrderFeedbackAPI extends AuthController{
 
     }
 
+    public static void hideFeedback(){
+        String feedbackUuid = request.params.get("uuid");
+        FeedbackDTO feedback = FeedbackDTO.findById(feedbackUuid);
+        feedback.hideReview = true;
+        feedback.save();
+        renderJSON(json(feedback));
+
+    }
+
     public static void getFeedbackListForProduct(){
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);

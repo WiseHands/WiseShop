@@ -102,6 +102,7 @@ GET         {client}/api/pricing-plan/get-shop               PricingPlanAPI.getS
 
 POST        {client}/api/feedback/save                  OrderFeedbackAPI.createFeedback
 GET         {client}/api/feedback/get/list/{uuid}       OrderFeedbackAPI.getFeedbackListForProduct
+PUT         {client}/api/feedback/hide/{uuid}           OrderFeedbackAPI.hideFeedback
 GET         {client}/api/feedback...                    OrderFeedbackAPI.getFeedbackListForShop
 
 GET     {client}/sudo/orders                            OrderAPI.all
