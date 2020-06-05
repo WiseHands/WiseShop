@@ -27,6 +27,40 @@
         </div>
     </div>
 </nav>
-<div>
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+                 show="loading"></spinner>
+    </div>
+    <div ng-hide="loading">
+        <div class="admin-container product-reviews-block">
+            <div class="admin-column">
+                <div class="admin-card">
+                    <!--<h4>{{'singleOrder.titleOrder' | translate}}</h4>-->
+                    <div class="review-product-info">
+                        <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="image">
+                        <h5>{{product.name}} {{product.price}}{{'orderList.Currency' | translate}}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-column">
+                <div class="admin-card">
+                    <div class="product-all-reviews">
+                        <h4>{{'productDetails.feedBacks' | translate}}</h4>
+                        <div ng-repeat="review in product.feedbackList">
+                            <div class="feedback-stars">
+                                <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                            </div>
+                            <p>{{review.feedbackTime}}</p>
+                            <p>{{review.customerName}}</p>
+                            <p>{{review.review}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-</div>
+        </div>
+    </div>

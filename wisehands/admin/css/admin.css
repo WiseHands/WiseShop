@@ -1317,7 +1317,7 @@ input {
     width: 100%;
 }
 
-.admin-all-orders, .addition-block, .edit-property-block, .working-hours-block, .settings-block {
+.admin-all-orders, .addition-block, .edit-property-block, .working-hours-block, .settings-block, .product-reviews-block {
     display: flex;
     flex-wrap: wrap;
 }
@@ -1827,6 +1827,17 @@ ul.admin-breadcrumb li a:hover {
     margin: 1rem 0;
 }
 
+.review-product-info {
+    display: flex;
+}
+
+.review-product-info img {
+    max-width: 70%;
+}
+
+.review-product-info h5 {
+    margin-left: 1rem;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
