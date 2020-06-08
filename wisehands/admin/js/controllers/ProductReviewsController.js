@@ -8,8 +8,10 @@ angular.module('WiseHands')
                 url: '/api/product/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {
-                    $scope.product = response.data;
+                    const product = response.data;
                     $scope.loading = false;
+                    parseProductData(product);
+
 
                     $scope.activeShop = localStorage.getItem('activeShop');
                     $scope.product.images.forEach(function(image, index){
@@ -24,7 +26,17 @@ angular.module('WiseHands')
                     console.log(error);
                 });
 
+            function parseProductData(product) {
+                product.feedbackList.map(item => {
+                    item.feedbackTime = moment(item.feedbackTime).format('DD MMMM YYYY h:mm:ss');
+                    return item;
+                })
+                $scope.product = product;
+            }
+
             $scope.goBack = function () {
                 window.history.back();
             }
+
+
     }]);

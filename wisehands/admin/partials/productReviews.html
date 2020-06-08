@@ -35,18 +35,13 @@
         <div class="admin-container product-reviews-block">
             <div class="admin-column">
                 <div class="admin-card">
-                    <!--<h4>{{'singleOrder.titleOrder' | translate}}</h4>-->
-                    <div class="review-product-info">
-                        <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="image">
-                        <h5>{{product.name}} {{product.price}}{{'orderList.Currency' | translate}}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="admin-column">
-                <div class="admin-card">
-                    <div class="product-all-reviews">
                         <h4>{{'productDetails.feedBacks' | translate}}</h4>
-                        <div ng-repeat="review in product.feedbackList">
+                        <h5>{{product.name}} {{product.price}} {{'orderList.Currency' | translate}}</h5>
+                </div>
+                <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:'-feedbackTime'">
+                    <div class="review-item">
+                        <div class="review-info">
+                            <p>{{review.customerName}}</p>
                             <div class="feedback-stars">
                                 <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
                                 <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
@@ -55,12 +50,20 @@
                                 <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
                             </div>
                             <p>{{review.feedbackTime}}</p>
-                            <p>{{review.customerName}}</p>
+                        </div>
+                        <div class="review-text">
                             <p>{{review.review}}</p>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <div class="admin-column">
+                <div class="admin-card">
+                    <!--<h4>{{'singleOrder.titleOrder' | translate}}</h4>-->
+                    <div class="review-product-info">
+                        <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="image">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>

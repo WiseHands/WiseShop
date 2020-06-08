@@ -1832,11 +1832,27 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .review-product-info img {
-    max-width: 70%;
+    max-width: 100%;
 }
 
 .review-product-info h5 {
     margin-left: 1rem;
+}
+
+.review-item {
+    display: flex;
+}
+
+.review-info {
+    flex: 0 0 30%;
+}
+
+.review-text {
+    flex: 0 0 70%;
+}
+
+.review-info .feedback-stars {
+    margin: 0.5rem 0;
 }
 @media screen and (min-width: 1500px) {
     .admin-container {
