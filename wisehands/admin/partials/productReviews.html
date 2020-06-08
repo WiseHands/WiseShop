@@ -9,7 +9,7 @@
             </a>
 
             <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'productDetails.details' | translate}}</h5>
+                <h5 class="white-text">{{'productDetails.feedBacks' | translate}}</h5>
             </div>
             <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
                id="dropdownMenu1"
@@ -34,14 +34,10 @@
     <div ng-hide="loading">
         <div class="admin-container product-reviews-block">
             <div class="admin-column">
-                <div class="admin-card">
-                        <h4>{{'productDetails.feedBacks' | translate}}</h4>
-                        <h5>{{product.name}} {{product.price}} {{'orderList.Currency' | translate}}</h5>
-                </div>
                 <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:'-feedbackTime'">
                     <div class="review-item">
                         <div class="review-info">
-                            <p>{{review.customerName}}</p>
+                            <h5>{{review.customerName}}</h5>
                             <div class="feedback-stars">
                                 <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
                                 <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
@@ -63,6 +59,7 @@
                     <div class="review-product-info">
                         <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="image">
                     </div>
+                    <h4>{{product.name}} {{product.price}} {{'orderList.Currency' | translate}}</h4>
                 </div>
             </div>
         </div>

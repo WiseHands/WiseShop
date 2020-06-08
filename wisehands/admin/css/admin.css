@@ -1847,6 +1847,11 @@ ul.admin-breadcrumb li a:hover {
     flex: 0 0 30%;
 }
 
+.review-info p {
+    line-height: 1.3;
+    font-size: 1rem;
+    color: #777;
+}
 .review-text {
     flex: 0 0 70%;
 }
