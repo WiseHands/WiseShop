@@ -34,8 +34,8 @@
     <div ng-hide="loading">
         <div class="admin-container product-reviews-block">
             <div class="admin-column">
-                <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:'-feedbackTime'">
-                    <div class="review-item">
+                <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:'+feedbackTime'" ng-show="review.quality > 0">
+                    <div class="review-item" >
                         <div class="review-info">
                             <h5>{{review.customerName}}</h5>
                             <div class="feedback-stars">
@@ -50,6 +50,9 @@
                         <div class="review-text">
                             <p>{{review.review}}</p>
                         </div>
+                    </div>
+                    <div>
+                        <p>Показати відгук на сайті</p>
                     </div>
                 </div>
             </div>

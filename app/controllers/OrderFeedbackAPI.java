@@ -5,15 +5,18 @@ import models.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.jsoup.Jsoup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderFeedbackAPI extends AuthController{
 
-    static long time = System.currentTimeMillis() / 1000L;
+    static long time = System.currentTimeMillis();
+
 
     public static void createFeedback() throws Exception{
+        System.out.println("create feedback => " + time);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));

@@ -12,7 +12,6 @@ angular.module('WiseHands')
                     $scope.loading = false;
                     parseProductData(product);
 
-
                     $scope.activeShop = localStorage.getItem('activeShop');
                     $scope.product.images.forEach(function(image, index){
                         if(image.uuid === $scope.product.mainImage.uuid){
@@ -37,6 +36,4 @@ angular.module('WiseHands')
             $scope.goBack = function () {
                 window.history.back();
             }
-
-
     }]);
