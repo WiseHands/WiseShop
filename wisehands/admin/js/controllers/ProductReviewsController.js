@@ -19,7 +19,7 @@ angular.module('WiseHands')
                         }
                     })
 
-                    console.log("/api/feedback/get/list/" , response.data);
+                    console.log("get/list/" , response.data);
                 }, function errorCallback(error) {
                     $scope.loading = false;
                     console.log(error);
@@ -27,7 +27,7 @@ angular.module('WiseHands')
 
             function parseProductData(product) {
                 product.feedbackList.map(item => {
-                    item.feedbackTime = moment(item.feedbackTime).format('DD MMMM YYYY h:mm:ss');
+                    item.feedbackTime = moment(item.feedbackTime).format('DD MMMM YYYY HH:mm:ss');
                     return item;
                 })
                 $scope.product = product;

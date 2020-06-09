@@ -7,16 +7,20 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OrderFeedbackAPI extends AuthController{
 
-    static long time = System.currentTimeMillis();
-
-
     public static void createFeedback() throws Exception{
-        System.out.println("create feedback => " + time);
+        long time = System.currentTimeMillis();
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+        Date date = new Date(time);
+        System.out.println("create feedback => " + date + "\n"+ time);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -26,8 +30,8 @@ public class OrderFeedbackAPI extends AuthController{
 
         JSONArray feedbackList = (JSONArray) jsonBody.get("feedbackToOrderItems");
 
-        createFeedbackListForProduct(feedbackList, order);
-        createFeedbackForOrderItem(feedbackList, order);
+        createFeedbackListForProduct(feedbackList, order, time);
+        createFeedbackForOrderItem(feedbackList, order, time);
 
         JSONObject parseDeliveryFeedback = (JSONObject) jsonBody.get("deliveryFeedback");
         String description = (String) parseDeliveryFeedback.get("description");
@@ -40,7 +44,7 @@ public class OrderFeedbackAPI extends AuthController{
         renderJSON(jsonBody);
     }
 
-    private static void createFeedbackListForProduct(JSONArray feedbackList, OrderDTO order) {
+    private static void createFeedbackListForProduct(JSONArray feedbackList, OrderDTO order, long time) {
         for(int i = 0; i<feedbackList.size(); i++){
             JSONObject parseFeedbackObject = (JSONObject) feedbackList.get(i);
 
@@ -57,7 +61,7 @@ public class OrderFeedbackAPI extends AuthController{
         }
     }
 
-    private static void createFeedbackForOrderItem(JSONArray feedbackList, OrderDTO order) {
+    private static void createFeedbackForOrderItem(JSONArray feedbackList, OrderDTO order, long time) {
         for(int i = 0; i<feedbackList.size(); i++){
             JSONObject parseFeedbackObject = (JSONObject) feedbackList.get(i);
             String productUuid = (String) parseFeedbackObject.get("uuid");
@@ -94,10 +98,13 @@ public class OrderFeedbackAPI extends AuthController{
     }
 
     public static void getFeedbackListForProduct(){
-        String productUuid = request.params.get("uuid");
-        ProductDTO product = ProductDTO.findById(productUuid);
-        List<FeedbackDTO> feedbackList = product.feedbackList;
-        renderJSON(json(feedbackList));
+
+//        ProductDTO product = ProductDTO.findById(productUuid);
+//        if (product != null){
+//            List<FeedbackDTO> feedbackList = product.feedbackList;
+//            renderJSON(json(feedbackList));
+//        }
+        ok();
 
     }
 
