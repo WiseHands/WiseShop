@@ -33,6 +33,27 @@ angular.module('WiseHands')
                 $scope.product = product;
             }
 
+            $scope.showFeedback = (event) => {
+               const url = `/api/feedback/show/${event.review.uuid}`
+               sendParamsToFeedbackAPI(url);
+            }
+
+            $scope.hideFeedback = (event) => {
+               const url = `/api/feedback/hide/${event.review.uuid}`
+               sendParamsToFeedbackAPI(url);
+            }
+
+            function sendParamsToFeedbackAPI(url){
+
+            $http({
+              method: 'PUT',
+              url: url
+            }).then((data) => {
+               console.log("sendParamsShowFeedback " , data);
+            })
+
+            }
+
             $scope.goBack = function () {
                 window.history.back();
             }

@@ -52,7 +52,10 @@
                         </div>
                     </div>
                     <div>
-                        <p>Показати відгук на сайті</p>
+                        <p ng-click="showFeedback(this)" ng-show="!review.showReview">Показати відгук на сайті</p>
+                    </div>
+                    <div>
+                        <p ng-click="hideFeedback(this)" ng-show="review.showReview">Приховати відгук на сайті</p>
                     </div>
                 </div>
             </div>

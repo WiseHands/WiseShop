@@ -33,7 +33,7 @@ public class FeedbackDTO extends GenericModel {
     public long feedbackTime;
 
     @Expose
-    public boolean hideReview;
+    public boolean showReview;
 
     @OneToOne
     public OrderDTO order;
