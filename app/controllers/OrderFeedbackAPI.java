@@ -107,14 +107,15 @@ public class OrderFeedbackAPI extends AuthController{
     }
 
     public static void getFeedbackListForProduct(){
-
-//        ProductDTO product = ProductDTO.findById(productUuid);
-//        if (product != null){
-//            List<FeedbackDTO> feedbackList = product.feedbackList;
-//            renderJSON(json(feedbackList));
-//        }
-        ok();
-
+        String productUuid = request.params.get("uuid");
+        ProductDTO product = ProductDTO.findById(productUuid);
+        List<FeedbackDTO> feedbackList = new ArrayList<FeedbackDTO>();
+        for (FeedbackDTO feedback: product.feedbackList){
+            if (feedback.showReview){
+                feedbackList.add(feedback);
+            }
+        }
+       renderJSON(json(feedbackList));
     }
 
     public static void getFeedbackListForShop(){
