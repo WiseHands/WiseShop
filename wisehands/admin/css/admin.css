@@ -1829,18 +1829,39 @@ ul.admin-breadcrumb li a:hover {
     flex: 0 0 30%;
 }
 
+.review-info h5 {
+    margin-top: 0;
+}
+
 .review-info p {
     line-height: 1.3;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #777;
+    cursor: pointer;
 }
 .review-text {
     flex: 0 0 70%;
+    margin-left: 1rem;
+}
+
+.review-text p:first-child {
+    color: #777;
+    font-size: 0.9rem;
 }
 
 .review-info .feedback-stars {
     margin: 0.5rem 0;
 }
+
+.show-review p {
+    font-size: 1.1rem;
+}
+
+.show-review i {
+    margin-right: 0.5rem;
+}
+
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
@@ -1883,6 +1904,10 @@ ul.admin-breadcrumb li a:hover {
 
     .delivery-list-item {
         margin: 1rem 0;
+    }
+
+    .product-reviews-block  {
+        flex-direction: column-reverse;
     }
 }
 

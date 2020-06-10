@@ -2,8 +2,10 @@ angular.module('WiseHands')
     .controller('ProductReviewsController', ['$http', '$scope', '$routeParams', 'signout', function($http, $scope, $routeParams, signout) {
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
+            $scope.hideTitle = false;
 
-            $http({
+
+        $http({
                 method: 'GET',
                 url: '/api/product/' + $routeParams.uuid
             })
@@ -34,12 +36,12 @@ angular.module('WiseHands')
             }
 
             $scope.showFeedback = (event) => {
-               const url = `/api/feedback/show/${event.review.uuid}`
+               const url = `/api/feedback/show/${event.review.uuid}`;
                sendParamsToFeedbackAPI(url);
             }
 
             $scope.hideFeedback = (event) => {
-               const url = `/api/feedback/hide/${event.review.uuid}`
+               const url = `/api/feedback/hide/${event.review.uuid}`;
                sendParamsToFeedbackAPI(url);
             }
 
