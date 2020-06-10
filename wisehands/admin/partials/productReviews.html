@@ -20,60 +20,67 @@
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>{{'productDetails.edit' | translate}}</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
+                    <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>
+                        {{'productDetails.edit' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal"
+                       data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
                 </div>
             </a>
         </div>
     </div>
 </nav>
-    <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
-                 show="loading"></spinner>
-    </div>
-    <div ng-hide="loading">
-        <div class="admin-container product-reviews-block">
-            <div class="admin-column">
-                <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:'+feedbackTime'" ng-show="review.quality > 0">
-                    <div class="review-item" >
-                        <div class="review-info">
-                            <p ng-show="review.showReview">відгук відображається</p>
-                            <p ng-show="!review.showReview">відгук не відображається</p>
-                            <h5>{{review.customerName}}</h5>
-                            <div class="feedback-stars">
-                                <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                <i ng-class="review.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                <i ng-class="review.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                            </div>
-                            <div class="show-review" >
-                                <p ng-click="showFeedback(this)" ng-show="!review.showReview">
-                                    <span><i class="fa fa-eye" style="font-size: 18px"></i></span>
-                                    Показати відгук на сайті</p>
-                            </div>
-                            <div class="show-review">
-                                <p ng-click="hideFeedback(this)" ng-show="review.showReview">
-                                    <span><i class="fa fa-eye-slash"style="font-size: 18px"></i></span>
-                                    Приховати відгук на сайті</p>
-                            </div>
+<div class="row text-center">
+    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+             show="loading"></spinner>
+</div>
+<div ng-hide="loading">
+    <div class="admin-container product-reviews-block">
+        <div class="admin-column">
+            <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:'+feedbackTime'"
+                 ng-show="review.quality > 0">
+                <div class="review-item">
+                    <div class="review-info">
+                        <p ng-show="review.showReview">відгук відображається</p>
+                        <p ng-show="!review.showReview">відгук не відображається</p>
+                        <h5>{{review.customerName}}</h5>
+                        <div class="feedback-stars">
+                            <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"
+                               style="font-size:24px; color: #000"></i>
+                            <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"
+                               style="font-size:24px; color: #000"></i>
+                            <i ng-class="review.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"
+                               style="font-size:24px; color: #000"></i>
+                            <i ng-class="review.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"
+                               style="font-size:24px; color: #000"></i>
+                            <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"
+                               style="font-size:24px; color: #000"></i>
                         </div>
-                        <div class="review-text">
-                            <p>{{review.feedbackTime}}</p>
-                            <p>{{review.review}}</p>
+                        <div ng-click="showOrHideFeedback(this)" class="show-review">
+                            <p ng-show="!review.showReview">
+                                <span><i class="fa fa-eye" style="font-size: 18px"></i></span>
+                                Показати відгук на сайті</p>
+                            <p ng-show="review.showReview">
+                                <span><i class="fa fa-eye-slash" style="font-size: 18px"></i></span>
+                                Приховати відгук на сайті</p>
                         </div>
                     </div>
+                    <div class="review-text">
+                        <p>{{review.feedbackTime}}</p>
+                        <p>{{review.review}}</p>
+                    </div>
+                </div>
 
-                </div>
             </div>
-            <div class="admin-column">
-                <div class="admin-card">
-                    <!--<h4>{{'singleOrder.titleOrder' | translate}}</h4>-->
-                    <div class="review-product-info">
-                        <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="image">
-                    </div>
-                    <h4 >{{product.name}} {{product.price}} {{'orderList.Currency' | translate}}</h4>
+        </div>
+        <div class="admin-column">
+            <div class="admin-card">
+                <!--<h4>{{'singleOrder.titleOrder' | translate}}</h4>-->
+                <div class="review-product-info">
+                    <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}"
+                         alt="image">
                 </div>
+                <h4>{{product.name}} {{product.price}} {{'orderList.Currency' | translate}}</h4>
             </div>
         </div>
     </div>
+</div>
