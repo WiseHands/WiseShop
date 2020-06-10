@@ -14,6 +14,7 @@ import models.*;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -269,6 +270,13 @@ public class Application extends Controller {
         }
         ProductDTO product = ProductDTO.findById(uuid);
         CategoryDTO category = product.category;
+        List<FeedbackDTO> feedbackList = new ArrayList<FeedbackDTO>();
+        for (FeedbackDTO feedback: product.feedbackList){
+            if (feedback.showReview){
+                feedbackList.add(feedback);
+            }
+        }
+        product.feedbackList = feedbackList;
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
