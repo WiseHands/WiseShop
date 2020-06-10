@@ -2,8 +2,6 @@ angular.module('WiseHands')
     .controller('ProductReviewsController', ['$http', '$scope', '$routeParams', 'signout', function($http, $scope, $routeParams, signout) {
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
-            $scope.hideTitle = false;
-
 
         $http({
                 method: 'GET',
