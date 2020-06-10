@@ -27,7 +27,7 @@ angular.module('WiseHands')
 
     $scope.showOrHideFeedback = event => {
       const review = event.review;
-      const url = event.review.showReview ? `/api/feedback/hide/${review.uuid}` : `/api/feedback/show/${review.uuid}`;
+      const url = review.showReview ? `/api/feedback/hide/${review.uuid}` : `/api/feedback/show/${review.uuid}`;
       sendParamsToFeedbackAPI(url, review);
     };
 
