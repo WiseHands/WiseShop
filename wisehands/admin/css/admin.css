@@ -1839,6 +1839,11 @@ ul.admin-breadcrumb li a:hover {
     color: #777;
     cursor: pointer;
 }
+
+.review-info i {
+    font-size: 0.9rem;
+}
+
 .review-text {
     flex: 0 0 70%;
     margin-left: 1rem;
@@ -1848,13 +1853,37 @@ ul.admin-breadcrumb li a:hover {
     color: #777;
     font-size: 0.9rem;
 }
+.review-text p:last-child {
+    color: #039be5;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.review-text p:last-child:hover {
+    color: #039be5;
+}
 
 .review-info .feedback-stars {
     margin: 0.5rem 0;
 }
+.feedback-stars i {
+    margin: 0;
+}
+
+.review-text textarea {
+    width: 95%;
+    overflow-y: hidden;
+    margin: 1rem 1rem 0.5rem 0;
+    resize: none;
+    min-height: 4rem;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    outline: none;
+}
 
 .show-review p {
     font-size: 1.1rem;
+    margin: 1rem 0;
 }
 
 .show-review i {
