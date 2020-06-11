@@ -274,7 +274,7 @@
     (() => {
         const orderTimeSpan = document.querySelector('[time]');
         const orderTimeValue = Number(orderTimeSpan.getAttribute('time'));
-        orderTimeSpan.innerText = moment(orderTimeValue).locale('uk').format('DD MMMM YYYY, h:mm:ss');
+        orderTimeSpan.innerText = moment(orderTimeValue).locale('uk').format('DD MMMM YYYY, HH:mm:ss');
     })();
 
   function onStarClicked(event) {
