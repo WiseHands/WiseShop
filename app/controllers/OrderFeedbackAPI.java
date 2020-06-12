@@ -54,7 +54,7 @@ public class OrderFeedbackAPI extends AuthController{
 
             ProductDTO product = ProductDTO.findById(productUuid);
             if (product != null){
-                FeedbackDTO feedback = new FeedbackDTO(quality, review, order.name, time);
+                FeedbackDTO feedback = new FeedbackDTO(quality, review, order.name, time, product.uuid);
                 product.addFeedback(feedback);
                 product.save();
             }

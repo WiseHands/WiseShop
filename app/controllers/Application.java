@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import enums.FeedbackRequestState;
 import play.Play;
+import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.*;
@@ -201,7 +202,6 @@ public class Application extends Controller {
         ShopNetworkDTO network = shop.getNetwork();
         network.retrieveShopList();
 
-
         render(shop, network);
     }
 
@@ -229,7 +229,6 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-
         render(shop);
     }
 
@@ -268,23 +267,50 @@ public class Application extends Controller {
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        ProductDTO product = ProductDTO.findById(uuid);
-        CategoryDTO category = product.category;
-        List<FeedbackDTO> feedbackList = new ArrayList<FeedbackDTO>();
-        for (FeedbackDTO feedback: product.feedbackList){
-            if (feedback.showReview){
-                feedbackList.add(feedback);
-            }
-        }
-        product.feedbackList = feedbackList;
-
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
 
+        ProductDTO product = ProductDTO.findById(uuid);
+        CategoryDTO category = product.category;
+
+        product.feedbackList = getFeedbackListFromDB(product);
+        System.out.println("product.feedbackList => " + product.feedbackList);
         List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
         product.additions = additionList;
 
         render(product, category, shop);
+    }
+
+    private static List<FeedbackDTO> getFeedbackListFromDB(ProductDTO product) {
+        String query = "SELECT customerName, feedbackTime, quality, review FROM FeedbackDTO" +
+                " WHERE showReview = 1 and productUuid = '%s'";
+        String feedbackListQuery = formatQueryString(query, product);
+        List<Object[]> resultList = JPA.em().createNativeQuery(feedbackListQuery).getResultList();
+        List<FeedbackDTO> feedbackResultList = new ArrayList<FeedbackDTO>();
+
+        for (Object[] item: resultList){
+            FeedbackDTO feedback = createFeedbackDTO(item);
+            feedbackResultList.add(feedback);
+        }
+
+        return feedbackResultList;
+    }
+
+    private static FeedbackDTO createFeedbackDTO(Object[] item) {
+        String customerName = (String) item[0];
+        Long feedbackTime = Long.valueOf(String.valueOf(item[1]));
+        String quality = (String) item[2];
+        String review = (String) item[3];
+        System.out.println("FeedbackDTO => " + customerName + feedbackTime + quality + review);
+        FeedbackDTO feedback = new FeedbackDTO(quality, review, customerName, feedbackTime);
+        return feedback;
+    }
+
+    private static String formatQueryString(String query, ProductDTO product) {
+        String formattedQuery = String.format(
+                query,
+                product.uuid);
+        return formattedQuery;
     }
 
     public static void shoppingCart(String client, String uuid){
