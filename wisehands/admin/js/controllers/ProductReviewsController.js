@@ -33,7 +33,7 @@ angular.module('WiseHands')
 
     $scope.saveComment = event => {
       const uuid = event.review.uuid;
-      const comment = 'some comment for feedback that need get from textarea'
+      const comment = event.review.feedbackComment.comment;
       const bodyParams = {
         feedbackUuid: event.review.uuid,
         comment: comment

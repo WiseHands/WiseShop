@@ -41,6 +41,7 @@ public class FeedbackDTO extends GenericModel {
     @OneToOne
     public OrderDTO order;
 
+    @Expose
     @OneToOne
     public FeedbackCommentDTO feedbackComment;
 
