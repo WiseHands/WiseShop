@@ -1827,6 +1827,9 @@ ul.admin-breadcrumb li a:hover {
 
 .review-info {
     flex: 0 0 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .review-info h5 {

@@ -224,8 +224,53 @@
         font-size: 1.5rem;
         padding-left: 0.5rem;
     }
+    .shop-product-tabs {
+        padding-bottom: 0;
+    }
+    .product-tab {
+        max-width: 250px;
+        width: 100%;
+        background-color: #f1f1f1;
+        border: 1px solid #DADADA;
+        border-bottom: 0;
+        margin-left: 1rem;
+        padding: 0.5rem 0;
+        cursor: pointer;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    .active-tab {
+        background-color: #fff;
+    }
+    .product-tab p {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .shop-all-reviews {
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 0.5rem;
+    }
+    .shop-review-item {
+        display: flex;
+    }
+    .shop-review-item-info {
+        flex: 0 1 20%;
+    }
+    .shop-review-item-text{
+        flex: 0 1 80%;
+        margin-left: 1rem;
+    }
+    #reviews {
+        display: none;
+    }
     @media screen and (min-width: 1500px) {
-        .product-center-container, .cart-float {
+        .product-center-container, .cart-float, .shop-all-reviews {
             max-width: 1300px;
         }
     }
@@ -419,6 +464,42 @@
         </div>
     </div>
 </main>
+<div class="shop-product-tabs product-center-container">
+    <button class="w3-bar-item w3-button tablink product-tab active-tab" onclick="openTab(event,'about')">Про товар</button>
+    <button class="w3-bar-item w3-button tablink product-tab " onclick="openTab(event,'reviews')">Відгуки</button>
+</div>
+<div id="about" class="shop-all-reviews w3-container w3-border item-tab">
+    <h2>Lorem ipsum dolor sit amet</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+</div>
+<div id="reviews" class="shop-all-reviews w3-container w3-border item-tab" >
+    %{
+    for(_review in product.feedbackList) {
+    }%
+    <div class="shop-review-item">
+        <div class="shop-review-item-info">
+            <p>${_review.customerName}</p>
+            <p>${_review.quality}</p>
+            <div class="feedback-stars">
+                <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                <i ng-class="review.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                <i ng-class="review.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+            </div>
+        </div>
+        <div class="shop-review-item-text">
+            <p time="${_review.feedbackTime}"></p>
+            <p>${_review.review}</p>
+        </div>
+    </div>
+    <hr>
+    %{
+    }
+    }%
+</div>
+
+
 #{if shop.faceBookPixelApiKey}
     <script>
         console.log('present faceBookPixelApiKey');
@@ -437,7 +518,33 @@
 #{/verbatim}
 </body>
 </html>
+
 <script>
+    function openTab(evt, tabName) {
+        var i, x, tablinks;
+        x = document.getElementsByClassName("item-tab");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active-tab", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active-tab";
+    }
+</script>
+
+<script>
+    (() => {
+        const orderTimeList = document.querySelectorAll('[time]');
+        orderTimeList.forEach(item => {
+            const orderTimeSpanList = Number(item.getAttribute('time'));
+            item.innerText = moment(orderTimeSpanList).format('DD MMMM YYYY, HH:mm:ss');
+        })
+    })();
+
+
   const chosenAdditionsContainer = document.querySelector('.add-items');
   const additionContainerToHide = document.querySelector('.add-components');
   const productPriceElement = document.querySelector('.product-price');

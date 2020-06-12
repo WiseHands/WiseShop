@@ -40,21 +40,23 @@
                  ng-show="review.quality > 0">
                 <div class="review-item">
                     <div class="review-info">
-                        <h5>{{review.customerName}}</h5>
-                        <div class="feedback-stars">
-                            <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"
-                               style="font-size:24px; color: #000"></i>
-                            <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"
-                               style="font-size:24px; color: #000"></i>
-                            <i ng-class="review.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"
-                               style="font-size:24px; color: #000"></i>
-                            <i ng-class="review.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"
-                               style="font-size:24px; color: #000"></i>
-                            <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"
-                               style="font-size:24px; color: #000"></i>
+                        <div>
+                            <h5>{{review.customerName}}</h5>
+                            <div class="feedback-stars">
+                                <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                            </div>
+                            <i ng-show="review.showReview">відгук відображається</i>
+                            <i ng-show="!review.showReview">відгук не відображається</i>
                         </div>
-                        <i ng-show="review.showReview">відгук відображається</i>
-                        <i ng-show="!review.showReview">відгук не відображається</i>
                         <div ng-click="showOrHideFeedback(this)" class="show-review">
                             <p ng-show="!review.showReview">
                                 <span><i class="fa fa-eye" style="font-size: 18px"></i></span>
