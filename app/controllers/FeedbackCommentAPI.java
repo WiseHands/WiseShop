@@ -18,8 +18,7 @@ public class FeedbackCommentAPI extends AuthController{
         long time = System.currentTimeMillis();
         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
         Date date = new Date(time);
-
-        System.out.println("create Comment to feedback => " + date + "\n"+ time);
+        System.out.println("create Comment to feedback => " + date);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -29,10 +28,10 @@ public class FeedbackCommentAPI extends AuthController{
 
         FeedbackDTO feedback = FeedbackDTO.findById(feedbackUuid);
         FeedbackCommentDTO feedbackComment = new FeedbackCommentDTO(comment);
+        feedbackComment.save();
         feedback.feedbackComment = feedbackComment;
         feedback.save();
         renderJSON(feedback);
-
     }
 
 }

@@ -69,11 +69,10 @@
                     <div class="review-text">
                         <p>{{review.feedbackTime}}</p>
                         <p>{{review.review}}</p>
-                        <textarea placeholder="Відповісти на відгук"></textarea>
-                        <p>Відправити відповідь</p>
+                        <textarea id="comment" placeholder="Відповісти на відгук"></textarea>
+                        <p ng-click="saveComment(this)">Відправити відповідь</p>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="admin-column">

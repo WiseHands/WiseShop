@@ -31,6 +31,27 @@ angular.module('WiseHands')
       sendParamsToFeedbackAPI(url, review);
     };
 
+    $scope.saveComment = event => {
+      const uuid = event.review.uuid;
+      const comment = 'some comment for feedback that need get from textarea'
+      const bodyParams = {
+        feedbackUuid: event.review.uuid,
+        comment: comment
+      };
+      const url = `/api/comment/save`;
+      console.log(bodyParams);
+      sendParamsToCommentFeedbackAPI(url, bodyParams);
+    };
+
+    function sendParamsToCommentFeedbackAPI(url, bodyParams) {
+      $http({
+        method: 'POST',
+        url: url,
+        data: bodyParams
+        }).then(response => console.log(response))
+      }
+
+
     function sendParamsToFeedbackAPI(url, review) {
       $http({
         method: 'PUT',

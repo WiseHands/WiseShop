@@ -106,8 +106,7 @@ PUT         {client}/api/feedback/show/{uuid}           OrderFeedbackAPI.showRev
 PUT         {client}/api/feedback/hide/{uuid}           OrderFeedbackAPI.hideReview
 GET         {client}/api/feedback...                    OrderFeedbackAPI.getFeedbackListForShop
 
-POST        {client}/api/comment/save                   OrderFeedbackAPI.createComment
-
+POST        {client}/api/comment/save                   FeedbackCommentAPI.createComment
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
