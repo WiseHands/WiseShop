@@ -293,6 +293,11 @@
         display: none;
     }
 
+    i.fa-star, i.fa-star-o {
+        font-size: 24px;
+        color: #000
+    }
+
     @media screen and (min-width: 1500px) {
         .product-center-container, .cart-float, .shop-all-reviews {
             max-width: 1300px;
@@ -510,18 +515,12 @@
     <div class="shop-review-item">
         <div class="shop-review-item-info">
             <p>${_review.customerName}</p>
-            <p>${_review.quality}</p>
-            <div class="feedback-stars">
-                <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"
-                   style="font-size:24px; color: #000"></i>
-                <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"
-                   style="font-size:24px; color: #000"></i>
-                <i ng-class="review.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"
-                   style="font-size:24px; color: #000"></i>
-                <i ng-class="review.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"
-                   style="font-size:24px; color: #000"></i>
-                <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"
-                   style="font-size:24px; color: #000"></i>
+            <div feedback-rate="${_review.quality}" class="feedback-stars">
+                <i class="fa"></i>
+                <i class="fa"></i>
+                <i class="fa"></i>
+                <i class="fa"></i>
+                <i class="fa"></i>
             </div>
         </div>
         <div class="shop-review-item-text">
@@ -573,6 +572,21 @@
       item.innerText = moment(orderTimeSpanList).format('DD MMMM YYYY, HH:mm:ss');
     })
   })();
+
+  (() => {
+    const feedbackStars = document.querySelectorAll('.feedback-stars');
+    feedbackStars.forEach(item => setFeedbackRate(item))
+  })();
+
+  function setFeedbackRate(feedbackStarsContainer) {
+    const stars = feedbackStarsContainer.querySelectorAll('i');
+    const feedbackRate = feedbackStarsContainer.getAttribute('feedback-rate');
+    stars.forEach((star, index) => {
+      const isStarInFeedbackRateRange = index + 1 <= feedbackRate;
+      const starRateClass = isStarInFeedbackRateRange ? 'fa-star' : 'fa-star-o';
+      star.classList.add(starRateClass);
+    });
+  }
 
   function openTab(event) {
     const activeTabs = document.querySelectorAll('[active]');
