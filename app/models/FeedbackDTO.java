@@ -30,6 +30,9 @@ public class FeedbackDTO extends GenericModel {
     public String review;
 
     @Expose
+    public String comment;
+
+    @Expose
     public String quality;
 
     @Expose

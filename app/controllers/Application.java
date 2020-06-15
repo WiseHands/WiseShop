@@ -128,7 +128,6 @@ public class Application extends Controller {
 
         Date date = new Date();
 
-
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";
         if (xforwardedHeader != null){
@@ -282,7 +281,9 @@ public class Application extends Controller {
     }
 
     private static List<FeedbackDTO> getFeedbackListFromDB(ProductDTO product) {
-        String query = "SELECT customerName, feedbackTime, quality, review FROM FeedbackDTO" +
+        String query = "SELECT customerName, feedbackTime, quality, review, FeedbackCommentDTO.comment FROM FeedbackDTO" +
+                " RIGHT JOIN FeedbackCommentDTO" +
+                " ON FeedbackDTO.feedbackComment_uuid = FeedbackCommentDTO.uuid" +
                 " WHERE showReview = 1 and productUuid = '%s'";
         String feedbackListQuery = formatQueryString(query, product);
         List<Object[]> resultList = JPA.em().createNativeQuery(feedbackListQuery).getResultList();
@@ -301,8 +302,10 @@ public class Application extends Controller {
         Long feedbackTime = Long.valueOf(String.valueOf(item[1]));
         String quality = (String) item[2];
         String review = (String) item[3];
-        System.out.println("FeedbackDTO => " + customerName + feedbackTime + quality + review);
+        String comment = (String) item[4];
+        System.out.println("FeedbackDTO => " + customerName + feedbackTime + quality + review + comment);
         FeedbackDTO feedback = new FeedbackDTO(quality, review, customerName, feedbackTime);
+        feedback.comment = comment;
         return feedback;
     }
 
