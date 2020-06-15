@@ -284,6 +284,10 @@
         flex: 0 1 20%;
     }
 
+    .shop-review-item-info p {
+        font-weight: 600;
+    }
+
     .shop-review-item-text {
         flex: 0 1 80%;
         margin-left: 1rem;
@@ -296,6 +300,15 @@
     i.fa-star, i.fa-star-o {
         font-size: 24px;
         color: #000
+    }
+
+    .reply-for-review {
+        margin-left: 2rem;
+    }
+
+    .reply-for-review h4 {
+        font-size: 14px;
+        font-weight: 600;
     }
 
     @media screen and (min-width: 1500px) {
@@ -526,6 +539,10 @@
         <div class="shop-review-item-text">
             <p time="${_review.feedbackTime}"></p>
             <p>${_review.review}</p>
+            <div class="reply-for-review">
+                <h4>${shop.shopName}</h4>
+                <p>Відповідь на відгук</p>
+            </div>
         </div>
     </div>
     <hr>
