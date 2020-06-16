@@ -1,6 +1,7 @@
 angular.module('WiseHands')
   .controller('ProductReviewsController', ['$http', '$scope', '$routeParams', function ($http, $scope, $routeParams) {
     $scope.loading = true;
+    $scope.showAnswer = true;
 
     $http({
       method: 'GET',
@@ -33,21 +34,23 @@ angular.module('WiseHands')
       sendParamsToFeedbackAPI(url, review);
     };
 
-    $scope.saveComment = event => {
-      const uuid = event.review.uuid;
-      const customerName = event.review.customerName;
-      const customerMail = event.review.customerMail;
-      const comment = event.review.feedbackComment.comment;
-      const bodyParams = {
-        feedbackUuid: uuid,
-        comment: comment,
-        productUuid: $routeParams.uuid,
-        customerName: customerName,
-        customerMail: customerMail
-      };
-      const url = `/api/comment/save`;
-      sendParamsToCommentFeedbackAPI(url, bodyParams);
-        $('#sendReply').modal('hide');
+    $scope.saveComment = () => {
+      $('#sendReply').modal('hide');
+
+        // const uuid = event.review.uuid;
+      // const customerName = event.review.customerName;
+      // const customerMail = event.review.customerMail;
+      // const comment = event.review.feedbackComment.comment;
+      // const bodyParams = {
+      //   feedbackUuid: uuid,
+      //   comment: comment,
+      //   productUuid: $routeParams.uuid,
+      //   customerName: customerName,
+      //   customerMail: customerMail
+      // };
+      // const url = `/api/comment/save`;
+      // sendParamsToCommentFeedbackAPI(url, bodyParams);
+
 
     };
 

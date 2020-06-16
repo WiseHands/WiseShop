@@ -69,7 +69,7 @@
                     <div class="review-text">
                         <p>{{review.feedbackTime}}</p>
                         <p>{{review.review}}</p>
-                        <div class="reply-for-review" ng-show="!comment">
+                        <div class="reply-for-review" ng-show="showAnswer">
                             <textarea ng-model="review.feedbackComment.comment" placeholder="Відповісти на відгук"></textarea>
                             <a class="text-left" data-toggle="modal" data-target="#sendReply">
                                 <p>Відправити відповідь</p>
@@ -100,7 +100,7 @@
                 </button>
                 <div class="col-xs-12 text-center ">
                     <p><i>Ваша відповідь на відгук буде відображена на сайті</i></p>
-                    <a ng-click="saveComment(this)" data-dismiss="modal" aria-label="Close">Відправити відповідь</a>
+                    <a ng-click="saveComment()" data-dismiss="modal">Відправити відповідь</a>
                     <a data-dismiss="modal" aria-label="Close">Скасувати</a>
                 </div>
                 <div class="col-xs-9">
