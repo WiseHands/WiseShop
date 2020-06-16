@@ -36,6 +36,7 @@ public class FeedbackCommentAPI extends AuthController{
         FeedbackCommentDTO feedbackComment = new FeedbackCommentDTO(comment);
         feedbackComment.save();
         feedback.feedbackComment = feedbackComment;
+        feedback.showReview = true;
         feedback.save();
 
         String customerMail = (String) jsonBody.get("customerMail");

@@ -67,11 +67,12 @@
                         </div>
                     </div>
                     <div class="review-text">
-                        <p>{{review.feedbackTime}}</p>
+                        <p>{{review.parsedFeedbackTime}}</p>
                         <p>{{review.review}}</p>
-                        <div class="reply-for-review" ng-show="showAnswer">
+                        <p ng-show="review.showReview">{{review.feedbackComment.comment}}</p>
+                        <div class="reply-for-review" ng-show="!review.showReview">
                             <textarea ng-model="review.feedbackComment.comment" placeholder="Відповісти на відгук"></textarea>
-                            <a class="text-left" data-toggle="modal" data-target="#sendReply">
+                            <a class="text-left" data-toggle="modal" ng-click="setFeedbackItemContext(this)" data-target="#sendReply">
                                 <p>Відправити відповідь</p>
                             </a>
                         </div>
