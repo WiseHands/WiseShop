@@ -522,33 +522,38 @@
     <p>${product.description}</p>
 </div>
 <div class="shop-all-reviews w3-container w3-border item-tab">
-    %{
-    for(_review in product.feedbackList) {
-    }%
-    <div class="shop-review-item">
-        <div class="shop-review-item-info">
-            <p>${_review.customerName}</p>
-            <div feedback-rate="${_review.quality}" class="feedback-stars">
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
+    #{if product.feedbackList}
+        %{
+            for(_review in product.feedbackList) {
+        }%
+        <div class="shop-review-item">
+            <div class="shop-review-item-info">
+                <p>${_review.customerName}</p>
+                <div feedback-rate="${_review.quality}" class="feedback-stars">
+                    <i class="fa"></i>
+                    <i class="fa"></i>
+                    <i class="fa"></i>
+                    <i class="fa"></i>
+                    <i class="fa"></i>
+                </div>
+            </div>
+            <div class="shop-review-item-text">
+                <p time="${_review.feedbackTime}"></p>
+                <p>${_review.review}</p>
+                <div class="reply-for-review">
+                    <h4>${shop.shopName}</h4>
+                    <p>${_review.comment}</p>
+                </div>
             </div>
         </div>
-        <div class="shop-review-item-text">
-            <p time="${_review.feedbackTime}"></p>
-            <p>${_review.review}</p>
-            <div class="reply-for-review">
-                <h4>${shop.shopName}</h4>
-                <p>${_review.comment}</p>
-            </div>
-        </div>
-    </div>
-    <hr>
-    %{
-    }
-    }%
+        <hr>
+        %{
+            }
+        }%
+    #{/if}
+    #{else}
+        <p>Відгуки відсутні</p>
+    #{/else}
 </div>
 
 

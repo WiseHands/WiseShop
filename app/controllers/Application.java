@@ -282,7 +282,7 @@ public class Application extends Controller {
 
     private static List<FeedbackDTO> getFeedbackListFromDB(ProductDTO product) {
         String query = "SELECT customerName, feedbackTime, quality, review, FeedbackCommentDTO.comment FROM FeedbackDTO" +
-                " RIGHT JOIN FeedbackCommentDTO" +
+                " LEFT JOIN FeedbackCommentDTO" +
                 " ON FeedbackDTO.feedbackComment_uuid = FeedbackCommentDTO.uuid" +
                 " WHERE showReview = 1 and productUuid = '%s'";
         String feedbackListQuery = formatQueryString(query, product);
