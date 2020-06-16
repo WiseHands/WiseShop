@@ -1887,10 +1887,15 @@ ul.admin-breadcrumb li a:hover {
 .show-review p {
     font-size: 1.1rem;
     margin: 1rem 0;
+    color: #039be5;
 }
 
 .show-review i {
     margin-right: 0.5rem;
+}
+
+.reply-for-review {
+    margin-left: 2rem;
 }
 
 @media screen and (min-width: 1500px) {

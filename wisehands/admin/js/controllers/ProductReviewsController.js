@@ -47,6 +47,7 @@ angular.module('WiseHands')
       };
       const url = `/api/comment/save`;
       sendParamsToCommentFeedbackAPI(url, bodyParams);
+        $('#sendReply').modal('hide');
 
     };
 
@@ -55,8 +56,10 @@ angular.module('WiseHands')
         method: 'POST',
         url: url,
         data: bodyParams
+        }).then (response => {
+            console.log(response.data);
         })
-      }
+    }
 
     function sendParamsToFeedbackAPI(url, review) {
       $http({
@@ -64,4 +67,5 @@ angular.module('WiseHands')
         url: url
       }).then(() => review.showReview = !review.showReview)
     }
+
   }]);
