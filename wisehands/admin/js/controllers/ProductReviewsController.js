@@ -8,7 +8,9 @@ angular.module('WiseHands')
     })
       .then(response => {
         const product = response.data;
-        parseProductData(product);
+          console.log(product);
+
+          parseProductData(product);
         $scope.activeShop = localStorage.getItem('activeShop');
         $scope.selected = $scope.product.images.findIndex(item => item.uuid === product.mainImage.uuid);
         $scope.loading = false;
@@ -33,13 +35,19 @@ angular.module('WiseHands')
 
     $scope.saveComment = event => {
       const uuid = event.review.uuid;
+      const customerName = event.review.customerName;
+      const customerMail = event.review.customerMail;
       const comment = event.review.feedbackComment.comment;
       const bodyParams = {
         feedbackUuid: uuid,
-        comment: comment
+        comment: comment,
+        productUuid: $routeParams.uuid,
+        customerName: customerName,
+        customerMail: customerMail
       };
       const url = `/api/comment/save`;
       sendParamsToCommentFeedbackAPI(url, bodyParams);
+
     };
 
     function sendParamsToCommentFeedbackAPI(url, bodyParams) {

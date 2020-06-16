@@ -36,7 +36,7 @@
 <div ng-hide="loading">
     <div class="admin-container product-reviews-block">
         <div class="admin-column">
-            <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:'feedbackTime'"
+            <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:'-feedbackTime'"
                  ng-show="review.quality > 0">
                 <div class="review-item">
                     <div class="review-info">

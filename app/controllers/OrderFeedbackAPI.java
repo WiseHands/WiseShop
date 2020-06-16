@@ -37,6 +37,7 @@ public class OrderFeedbackAPI extends AuthController{
         String description = (String) parseDeliveryFeedback.get("description");
         String quality = (String) parseDeliveryFeedback.get("quality");
         FeedbackDTO orderFeedback = new FeedbackDTO(quality, description, time);
+
         order.orderFeedback = orderFeedback;
         order.feedbackRequestState = FeedbackRequestState.REQUEST_SENT;
         order.save();
@@ -55,6 +56,7 @@ public class OrderFeedbackAPI extends AuthController{
             ProductDTO product = ProductDTO.findById(productUuid);
             if (product != null){
                 FeedbackDTO feedback = new FeedbackDTO(quality, review, order.name, time, product.uuid);
+                feedback.customerMail = order.email;
                 product.addFeedback(feedback);
                 product.save();
             }

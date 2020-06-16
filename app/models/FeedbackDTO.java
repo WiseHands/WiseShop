@@ -27,6 +27,9 @@ public class FeedbackDTO extends GenericModel {
     public String customerName;
 
     @Expose
+    public String customerMail;
+
+    @Expose
     public String review;
 
     @Expose
