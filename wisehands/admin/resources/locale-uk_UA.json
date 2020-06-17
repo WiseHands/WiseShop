@@ -94,6 +94,7 @@
   "singleOrder.AddressApartmentFloor" : "Поверх: ",
   "singleOrder.AddressApartmentNumber" : "№ квартири: ",
   "singleOrder.feedback" : "Відгук",
+  "singleOrder.generalFeedback" : "Клієнт не залишив загальний коментар про замовлення",
   "sideNav.Orders": "Замовлення",
   "sideNav.Analytics": "Аналітика",
   "sideNav.Products": "Товари",

@@ -1802,6 +1802,7 @@ ul.admin-breadcrumb li a:hover {
     display: flex;
     flex-direction: column;
     text-align: left;
+    margin-bottom: 10px;
 }
 
 .show-feedback-request {
