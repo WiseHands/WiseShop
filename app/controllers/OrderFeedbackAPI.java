@@ -79,7 +79,8 @@ public class OrderFeedbackAPI extends AuthController{
             JSONObject parseFeedbackObject = (JSONObject) feedbackList.get(i);
             String productUuid = (String) parseFeedbackObject.get("uuid");
             String quality = (String) parseFeedbackObject.get("quality");
-            FeedbackDTO feedback = new FeedbackDTO(quality, time);
+            String review = (String) parseFeedbackObject.get("review");
+            FeedbackDTO feedback = new FeedbackDTO(quality, time, review);
             for(OrderItemDTO item: order.items){
                 if (item.productUuid.equals(productUuid)){
                     item.feedbackToOrderItem = feedback;

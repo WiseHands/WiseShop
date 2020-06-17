@@ -1943,7 +1943,14 @@ ul.admin-breadcrumb li a:hover {
     font-weight: 300;
     margin-bottom: 0.5rem;
 }
-
+.product-feedback-container{
+    display: flex;
+    flex-direction: column;
+}
+div.product-review {
+    padding-left: 72px;
+    text-align: left;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
