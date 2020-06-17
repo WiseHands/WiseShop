@@ -36,7 +36,15 @@
 <div ng-hide="loading">
     <div class="admin-container product-reviews-block">
         <div class="admin-column">
-            <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:'-feedbackTime'"
+            <div class="sort-reviews">
+                <p ng-click="sortBy('feedbackTime')">По даті
+                    <span class="sortorder" ng-show="propertyName === 'feedbackTime'" ng-class="{reverse: reverse}"></span>
+                </p>
+                <p ng-click="sortBy('quality')">По рейтингу
+                    <span class="sortorder" ng-show="propertyName === 'quality'" ng-class="{reverse: reverse}"></span>
+                </p>
+            </div>
+            <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:propertyName:reverse"
                  ng-show="review.quality > 0">
                 <div class="review-item">
                     <div class="review-info">
@@ -101,8 +109,10 @@
                 </button>
                 <div class="col-xs-12 text-center ">
                     <p><i>Ваша відповідь на відгук буде відображена на сайті</i></p>
-                    <a ng-click="saveComment()" data-dismiss="modal">Відправити відповідь</a>
-                    <a data-dismiss="modal" aria-label="Close">Скасувати</a>
+                    <div class="modal-send-reply">
+                        <a ng-click="saveComment()" data-dismiss="modal">Відправити відповідь</a>
+                        <a data-dismiss="modal" aria-label="Close">Скасувати</a>
+                    </div>
                 </div>
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner"

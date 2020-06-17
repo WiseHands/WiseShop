@@ -25,6 +25,13 @@ angular.module('WiseHands')
       $scope.product = product;
     }
 
+      $scope.propertyName = 'feedbackTime';
+      $scope.reverse = true;
+      $scope.sortBy = function(propertyName) {
+          $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+          $scope.propertyName = propertyName;
+      };
+
     $scope.showOrHideFeedback = event => {
       const review = event.review;
       const url = review.showReview ? `/api/feedback/hide/${review.uuid}` : `/api/feedback/show/${review.uuid}`;
