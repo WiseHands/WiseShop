@@ -2,26 +2,25 @@ angular.module('WiseHands')
   .controller('ProductReviewsController', ['$http', '$scope', '$routeParams', function ($http, $scope, $routeParams) {
     $scope.loading = true;
 
-      $http({
-          method: 'GET',
-          url: '/shop/details'
-      })
-          .then(function successCallback(response) {
-              $scope.shop = response.data;
-              $scope.loading = false;
-          }, function errorCallback(response) {
-              $scope.loading = false;
-          });
+    $http({
+      method: 'GET',
+      url: '/shop/details'
+    })
+      .then(response => {
+        $scope.shop = response.data;
+        $scope.loading = false;
+      }, () => $scope.loading = false);
 
-      $http({
+    $http({
       method: 'GET',
       url: `/api/product/${$routeParams.uuid}`
     })
       .then(response => {
         const product = response.data;
         parseProductData(product);
-        $scope.activeShop = localStorage.getItem('activeShop');
-        $scope.selected = $scope.product.images.findIndex(item => item.uuid === product.mainImage.uuid);
+        const activeShop = localStorage.getItem('activeShop');
+        const mainImageIndex = $scope.product.images.findIndex(item => item.uuid === product.mainImage.uuid);
+        $scope.productImageUrl = `public/product_images/${activeShop}/${product.images[mainImageIndex].filename}`;
         $scope.loading = false;
       }, error => {
         $scope.loading = false;
@@ -36,12 +35,12 @@ angular.module('WiseHands')
       $scope.product = product;
     }
 
-      $scope.propertyName = 'feedbackTime';
-      $scope.reverse = true;
-      $scope.sortBy = function(propertyName) {
-          $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-          $scope.propertyName = propertyName;
-      };
+    $scope.sortByProperty = 'feedbackTime';
+    $scope.reverse = true;
+    $scope.sortBy = sortByProperty => {
+      $scope.reverse = ($scope.sortByProperty === sortByProperty) ? !$scope.reverse : false;
+      $scope.sortByProperty = sortByProperty;
+    };
 
     $scope.showOrHideFeedback = event => {
       const review = event.review;
@@ -49,9 +48,7 @@ angular.module('WiseHands')
       sendParamsToFeedbackAPI(url, review);
     };
 
-    $scope.setFeedbackItemContext = event => {
-      $scope.clickedFeedbackItem = event;
-    };
+    $scope.setFeedbackItemContext = event => $scope.clickedFeedbackItem = event;
 
     $scope.saveComment = () => {
       $('#sendReply').modal('hide');
@@ -87,7 +84,7 @@ angular.module('WiseHands')
       $http({
         method: 'PUT',
         url: url
-      }).then(() => review.showReview = !review.showReview)
+      }).then(response => review.showReview = response.data.showReview)
     }
 
   }]);
