@@ -245,8 +245,8 @@
         </div>
         <textarea id="deliveryFeedbackDescription" value="" placeholder="Залиште відгук тут"></textarea>
     </div>
-    <div class="button-send-feedback-container">
-        <div onclick="sendFeedback('${order.uuid}')">ВІДПРАВИТИ ВІДГУК</div>
+    <div onclick="sendFeedback('${order.uuid}')" class="button-send-feedback-container">
+        <div>ВІДПРАВИТИ ВІДГУК</div>
     </div>
 </div>
 #{/else}
