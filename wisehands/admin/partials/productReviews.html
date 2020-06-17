@@ -38,13 +38,14 @@
         <div class="admin-column">
             <div class="sort-reviews">
                 <p ng-click="sortBy('feedbackTime')">По даті
-                    <span class="sortorder" ng-show="propertyName === 'feedbackTime'" ng-class="{reverse: reverse}"></span>
+                    <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
+                          ng-class="{reverse: reverse}"></span>
                 </p>
                 <p ng-click="sortBy('quality')">По рейтингу
-                    <span class="sortorder" ng-show="propertyName === 'quality'" ng-class="{reverse: reverse}"></span>
+                    <span class="sortorder" ng-show="sortByProperty === 'quality'" ng-class="{reverse: reverse}"></span>
                 </p>
             </div>
-            <div class="admin-card" ng-repeat="review in product.feedbackList  | orderBy:propertyName:reverse"
+            <div class="admin-card" ng-repeat="review in product.feedbackList | orderBy:sortByProperty:reverse"
                  ng-show="review.quality > 0">
                 <div class="review-item">
                     <div class="review-info">
@@ -79,11 +80,13 @@
                         <p>{{review.review}}</p>
                         <div ng-show="review.showReview" class="admin-reply-in-review">
                             <h4>{{shop.shopName}}</h4>
-                            <p >{{review.feedbackComment.comment}}</p>
+                            <p>{{review.feedbackComment.comment}}</p>
                         </div>
                         <div class="reply-for-review" ng-show="!review.showReview">
-                            <textarea ng-model="review.feedbackComment.comment" placeholder="Відповісти на відгук"></textarea>
-                            <a class="text-left" data-toggle="modal" ng-click="setFeedbackItemContext(this)" data-target="#sendReply">
+                            <textarea ng-model="review.feedbackComment.comment"
+                                      placeholder="Відповісти на відгук"></textarea>
+                            <a class="text-left" data-toggle="modal" ng-click="setFeedbackItemContext(this)"
+                               data-target="#sendReply">
                                 <p>Відправити відповідь</p>
                             </a>
                         </div>
@@ -95,7 +98,7 @@
             <div class="admin-card">
                 <!--<h4>{{'singleOrder.titleOrder' | translate}}</h4>-->
                 <div class="review-product-info">
-                    <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}"
+                    <img ng-src="{{productImageUrl}}"
                          alt="image">
                 </div>
                 <h4>{{product.name}} {{product.price}} {{'orderList.Currency' | translate}}</h4>
