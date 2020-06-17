@@ -78,11 +78,12 @@
                     <div class="review-text">
                         <p class="review-feedbacktime">{{review.parsedFeedbackTime}}</p>
                         <p>{{review.review}}</p>
+                        <p ng-show="!review.review">Клієнт не залишив відгук</p>
                         <div ng-show="review.showReview" class="admin-reply-in-review">
                             <h4>{{shop.shopName}}</h4>
                             <p>{{review.feedbackComment.comment}}</p>
                         </div>
-                        <div class="reply-for-review" ng-show="!review.showReview">
+                        <div class="reply-for-review" ng-show="!review.showReview && review.review">
                             <textarea ng-model="review.feedbackComment.comment"
                                       placeholder="Відповісти на відгук"></textarea>
                             <a class="text-left" data-toggle="modal" ng-click="setFeedbackItemContext(this)"
