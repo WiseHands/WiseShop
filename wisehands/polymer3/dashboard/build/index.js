@@ -4718,7 +4718,7 @@ class DashBoard extends LitElement {
 
   creatingShopThroughWizard() {
     localStorage.setItem('isShopCreated', 'false');
-    window.location = "/ua/wizard";
+    window.location = "/wizard";
   }
 
   showShopListContainer(event) {

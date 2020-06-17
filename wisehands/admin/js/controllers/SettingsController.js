@@ -1,3 +1,4 @@
+
 angular.module('WiseHands')
   .controller('SettingsController', ['$scope', '$http', 'signout', 'sideNavInit', function ($scope, $http, signout, sideNavInit) {
     $scope.loading = true;

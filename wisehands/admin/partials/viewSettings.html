@@ -1,0 +1,72 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'settings.settings' | translate}}
+                </h5>
+            </div>
+            <div class="col-xs-2 noRightPadding">
+                <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
+                        type="submit"
+                        form="shopStyling">
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <div class="btn-group btn-group-justified col-xs-12 z-index" role="group" aria-label="..." ng-hide="loading">
+        <div class="btn-group" role="group">
+            <a href="#/settings" type="button" class="btn secondaryColor">{{'settings.general' | translate}}</a>
+        </div>
+        <div class="btn-group" role="group">
+            <a type="button" class="btn white-text disabled">{{'settings.view' | translate}}</a>
+        </div>
+    </div>
+    <form class="col-md-12 noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading" ng-submit="updateShopStyling()">
+        <div class="file-field input-field col-md-offset-6 col-md-6" ng-show="!shopStyling.shopFavicon">
+            <button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block" ng-click="loadFavicon()">
+                <span>{{'addNewProduct.add' | translate}} favicon</span>
+            </button>
+            <input name="favIconLoader" type="file" id="favIconLoader"
+                   onchange="angular.element(this).scope().favIconUpload(this)" />
+        </div>
+        <div class="input-field col-md-offset-6 col-md-6" ng-show="shopStyling.shopFavicon">
+            <button type="button" class="btn secondaryColor waves-effect waves-light btn-block" ng-click="deleteFavicon()">
+                <span>{{'productDetails.delete' | translate}} favicon</span>
+            </button>
+        </div>
+
+        <div class="input-field col-md-12" ng-show="logo">
+            <p>{{'settings.logoHref' | translate}}</p>
+            <input ng-model="shopStyling.logoHref" type="text" placeholder="https://www.myshoplandingpage.com">
+        </div>
+        <div class="input-field col-sm-12">
+            <input id="filled-in-isFooterOn" type="checkbox" class="filled-in checkBoxStyling" ng-model="shopStyling.isFooterOn"/>
+            <label for="filled-in-isFooterOn">{{'settings.isFooterOn' | translate}}</label>
+        </div>
+
+        <div class="file-field input-field col-md-offset-6 col-md-6" ng-show="!logo">
+            <button type="button" class="btn secondaryColor waves-effect waves-light buttonInputFile btn-block" ng-click="loadImage()">
+                <span>{{'settings.addLogo' | translate}}</span>
+            </button>
+            <input name="imageLoader" type="file" id="imageLoader"
+            onchange="angular.element(this).scope().imageUpload(this)" />
+        </div>
+
+        <div class="input-field col-md-offset-6 col-md-6" ng-hide="!logo">
+            <button type="button" class="btn secondaryColor waves-effect waves-light btn-block" ng-click="deleteLogo()">
+                <span>{{'settings.removeLogo' | translate}}</span>
+            </button>
+        </div>
+    </form>
+</div>
+

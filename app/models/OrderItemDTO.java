@@ -50,4 +50,8 @@ public class OrderItemDTO extends GenericModel{
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     public List<PropertyTagDTO> tags;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public FeedbackDTO feedbackToOrderItem;
+
 }

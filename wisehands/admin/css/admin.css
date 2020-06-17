@@ -579,7 +579,7 @@ body {
 .vcentering {
     display: flex;
     align-items: center;
-    justify-content: flex-between
+    justify-content: flex-between;
 }
 
 #filterOptions {
@@ -1317,7 +1317,7 @@ input {
     width: 100%;
 }
 
-.admin-all-orders, .addition-block, .edit-property-block, .working-hours-block, .settings-block {
+.admin-all-orders, .addition-block, .edit-property-block, .working-hours-block, .settings-block, .product-reviews-block {
     display: flex;
     flex-wrap: wrap;
 }
@@ -1782,7 +1782,178 @@ ul.admin-breadcrumb li a:hover {
 .admin-card .closed-shop-options {
     margin-bottom: 1.2rem;
 }
+.upload-favicon, .upload-logo {
+    height: 220px;
+}
+.admin-card .upload-text {
+    padding: 1rem;
+    text-align: center;
+    border: 1px dashed #000;
+    border-radius: 10px;
+    height: 95%;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+.admin-card .upload-text:hover {
+    cursor: pointer;
+}
+/* feedback to order in single order page*/
+.feedback-to-all-order{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
 
+.show-feedback-request {
+    text-align: left;
+}
+
+.show-feedback-request p {
+    margin: 1rem 0;
+}
+
+.review-product-info {
+    display: flex;
+}
+
+.review-product-info img {
+    max-width: 100%;
+}
+
+.review-product-info h5 {
+    margin-left: 1rem;
+}
+
+.review-item {
+    display: flex;
+    margin-right: 0.5rem;
+}
+
+.review-info {
+    flex: 0 0 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-info h5 {
+    margin-top: 0;
+}
+
+.review-info p {
+    line-height: 1.3;
+    font-size: 1.1rem;
+    color: #777;
+    cursor: pointer;
+}
+
+.review-info i {
+    font-size: 0.9rem;
+}
+
+.review-text {
+    flex: 0 0 70%;
+    margin-left: 1rem;
+    word-break: break-all;
+}
+
+.review-feedbacktime {
+    color: #777;
+    font-size: 1.1rem;
+}
+
+.reply-for-review p{
+    color: #039be5;
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.reply-for-review p:hover {
+    color: #039be5;
+}
+
+.review-info .feedback-stars {
+    margin: 0.5rem 0;
+}
+.feedback-stars i {
+    margin: 0;
+}
+
+.review-text textarea {
+    width: 95%;
+    overflow-y: hidden;
+    margin: 1rem 1rem 0.5rem 0;
+    resize: none;
+    min-height: 4rem;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    outline: none;
+}
+
+.show-review p {
+    font-size: 1.1rem;
+    margin: 1rem 0 0 0;
+    color: #039be5;
+}
+
+.show-review i {
+    margin-right: 0.5rem;
+}
+
+.reply-for-review {
+}
+
+.modal-send-reply {
+    display: flex;
+    justify-content: space-around;
+}
+
+.sort-reviews {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem 1rem 0 1rem;
+}
+.sort-reviews p {
+    padding: 0;
+    margin: 0 0 0 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.sort-reviews p:hover {
+    color: #039be5;
+}
+
+.sortorder:after {
+    content: '\25b2';
+}
+
+.sortorder.reverse:after {
+    content: '\25bc';   /
+}
+
+.admin-reply-in-review {
+    margin-left: 1rem;
+}
+.admin-reply-in-review p {
+    font-size: 1rem;
+    color: #000;
+}
+
+.admin-reply-in-review h4 {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+}
+.product-feedback-container{
+    display: flex;
+    flex-direction: column;
+}
+div.product-review {
+    padding-left: 72px;
+    text-align: left;
+}
 .upload-favicon, .upload-logo {
     display: flex;
     justify-content: center;
@@ -1870,6 +2041,10 @@ ul.admin-breadcrumb li a:hover {
 
     .delivery-list-item {
         margin: 1rem 0;
+    }
+
+    .product-reviews-block {
+        flex-direction: column-reverse;
     }
     .upload-favicon, .upload-logo {
         height: auto;

@@ -506,6 +506,9 @@ footer a:hover {
     flex-wrap: wrap;
     padding: 2rem 1rem;
 }
+.footer-logo {
+    padding-bottom: 1rem;
+}
 .footer-logo a {
     display: flex;
     align-items: center;
@@ -559,10 +562,11 @@ footer a:hover {
     color: #6E6E6E;
 }
 .footer-phone {
-    margin: 0.5rem 0;
+    min-width: 25%;
 }
-.footer-social a {
-    margin-right: 1rem;
+.footer-social {
+    width: 150px;
+    justify-content: space-around;
 }
 @media screen and (max-width: 768px) {
     .main-block-text h1 {

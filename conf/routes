@@ -93,7 +93,6 @@ POST        {client}/api/wayforpay/offline-payment          WayForPayAPI.createO
 
 GET         {client}/api/transaction/get-ten-transactions   CoinBalanceTransactionApi.dispatchFirstTenTransactions
 
-
 POST        {client}/api/pricing-plan/create                 PricingPlanAPI.creatingPricingPlan
 GET         {client}/api/pricing-plan/get-list               PricingPlanAPI.getPricingPlanList
 POST        {client}/api/pricing-plan/update                 PricingPlanAPI.updatingPricingPlan
@@ -101,13 +100,22 @@ DELETE      {client}/api/pricing-plan/delete                 PricingPlanAPI.dele
 POST        {client}/api/pricing-plan/set-plan-to-shop       PricingPlanAPI.setPricingPlanToThisShop
 GET         {client}/api/pricing-plan/get-shop               PricingPlanAPI.getShopByUuid
 
+POST        {client}/api/feedback/save                  OrderFeedbackAPI.createFeedback
+GET         {client}/api/feedback/get/list/{uuid}       OrderFeedbackAPI.getFeedbackListForProduct
+PUT         {client}/api/feedback/show/{uuid}           OrderFeedbackAPI.showReview
+PUT         {client}/api/feedback/hide/{uuid}           OrderFeedbackAPI.hideReview
+GET         {client}/api/feedback...                    OrderFeedbackAPI.getFeedbackListForShop
+
+POST        {client}/api/comment/save                   FeedbackCommentAPI.createComment
 
 GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
 DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
 
 GET     {client}/payment/detail                         PaymentSettingsAPI.details
-PUT     {client}/payment/update                         PaymentSettingsAPI.update
+PUT     {client}/payment/minimal                        PaymentSettingsAPI.setMinimalPayment
+PUT     {client}/payment/update/cash/setting            PaymentSettingsAPI.updateCashPayment
+PUT     {client}/payment/update/online/setting          PaymentSettingsAPI.updateOnlinePayment
 
 GET     {client}/additional-setting/detail              AdditionalSettingAPI.details
 PUT     {client}/additional-setting/update              AdditionalSettingAPI.create
@@ -203,6 +211,7 @@ POST    {client}/order                                  OrderAPI.create
 DELETE  {client}/order/{uuid}                           OrderAPI.delete
 PUT     {client}/order/{uuid}/cancelled                 OrderAPI.markCancelled
 PUT     {client}/order/{uuid}/shipped                   OrderAPI.markShipped
+PUT     {client}/order/{uuid}/feedback                  OrderAPI.sendFeedbackRequestToClient
 PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
 *       {client}/success                                OrderAPI.success
 
@@ -251,7 +260,7 @@ POST	{client}/upload-file            			    FileAPI.upload
 GET     {client}/sendverificationsms                    SmsVerificationAPI.generateSmsVerificationCode
 GET     {client}/verifycode                             SmsVerificationAPI.verifySmsCode
 
-POST	{client}/subscription      			PushSubscriptionAPI.subscribe
+POST	{client}/subscription                			PushSubscriptionAPI.subscribe
 
 GET     {client}/pageconstructor/{uuid}                 PageConstructorAPI.details
 GET     {client}/pageconstructor                        PageConstructorAPI.all
@@ -264,12 +273,16 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/login                                  Application.login
 *       {client}/main                                   Application.main
 *       {client}/landing                                Application.landing
-*       {client}/ua/contract                            Application.uaContract
-*       {client}/ua/privacy                             Application.privacy
-*       {client}/ua/signin                              Application.uaSignin
-*       {client}/ua/shop-location                       Application.uaShopLocation
-*       {client}/ua/signup                              Application.uaSignup
-*       {client}/ua/wizard                              Application.uaWizard
+
+# remove /ua from below paths
+*       {client}/contract                               Application.uaContract
+*       {client}/privacy                                Application.privacy
+*       {client}/signin                                 Application.uaSignin
+*       {client}/shop-location                          Application.uaShopLocation
+*       {client}/signup                                 Application.uaSignup
+*       {client}/wizard                                 Application.uaWizard
+*       {client}/{uuid}/feedback                        Application.orderFeedback
+# end removing /ua
 *       {client}/server-error                           Application.serverError
 *       {client}/dashboard                              Application.userDashboard
 

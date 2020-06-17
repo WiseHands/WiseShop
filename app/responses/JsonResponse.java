@@ -3,7 +3,7 @@ package responses;
 import com.google.gson.annotations.Expose;
 import models.ShopDTO;
 
-public class JsonHandleForbidden {
+public class JsonResponse {
 
     @Expose
     public int status;
@@ -14,12 +14,12 @@ public class JsonHandleForbidden {
     @Expose
     public ShopDTO shop;
 
-    public JsonHandleForbidden(int status, String message){
+    public JsonResponse(int status, String message){
         this.status = status;
         this.message = message;
     }
 
-    public JsonHandleForbidden(int status, String message, ShopDTO shop){
+    public JsonResponse(int status, String message, ShopDTO shop){
         this.status = status;
         this.message = message;
         this.shop = shop;

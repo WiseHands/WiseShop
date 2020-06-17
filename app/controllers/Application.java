@@ -3,8 +3,11 @@ package controllers;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import enums.FeedbackRequestState;
 import play.Play;
+import play.db.jpa.JPA;
 import play.i18n.Lang;
+import play.i18n.Messages;
 import play.mvc.*;
 
 import models.*;
@@ -12,6 +15,7 @@ import models.*;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -72,6 +76,17 @@ public class Application extends Controller {
         renderTemplate("Application/uaShopLocation.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
     }
 
+    public static void orderFeedback(String client, String uuid) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
+        String currency = Messages.get("shop.balance.currency");
+        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency);
+    }
+
     public static void uaSignup(String client) {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
         String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
@@ -112,7 +127,6 @@ public class Application extends Controller {
         }
 
         Date date = new Date();
-
 
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";
@@ -187,7 +201,6 @@ public class Application extends Controller {
         ShopNetworkDTO network = shop.getNetwork();
         network.retrieveShopList();
 
-
         render(shop, network);
     }
 
@@ -215,7 +228,6 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-
         render(shop);
     }
 
@@ -254,16 +266,54 @@ public class Application extends Controller {
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        ProductDTO product = ProductDTO.findById(uuid);
-        CategoryDTO category = product.category;
-
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
 
+        ProductDTO product = ProductDTO.findById(uuid);
+        CategoryDTO category = product.category;
+
+        product.feedbackList = getFeedbackListFromDB(product);
+        System.out.println("product.feedbackList => " + product.feedbackList);
         List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
         product.additions = additionList;
 
         render(product, category, shop);
+    }
+
+    private static List<FeedbackDTO> getFeedbackListFromDB(ProductDTO product) {
+        String query = "SELECT customerName, feedbackTime, quality, review, FeedbackCommentDTO.comment FROM FeedbackDTO" +
+                " LEFT JOIN FeedbackCommentDTO" +
+                " ON FeedbackDTO.feedbackComment_uuid = FeedbackCommentDTO.uuid" +
+                " WHERE showReview = 1 and productUuid = '%s' order by feedbackTime desc";
+        String feedbackListQuery = formatQueryString(query, product);
+        List<Object[]> resultList = JPA.em().createNativeQuery(feedbackListQuery).getResultList();
+        List<FeedbackDTO> feedbackResultList = new ArrayList<FeedbackDTO>();
+
+        for (Object[] item: resultList){
+            FeedbackDTO feedback = createFeedbackDTO(item);
+            feedbackResultList.add(feedback);
+        }
+
+        return feedbackResultList;
+    }
+
+    private static FeedbackDTO createFeedbackDTO(Object[] item) {
+        String customerName = (String) item[0];
+        Long feedbackTime = Long.valueOf(String.valueOf(item[1]));
+        String quality = (String) item[2];
+        String review = (String) item[3];
+        String comment = (String) item[4];
+        System.out.println("FeedbackDTO => " + customerName + feedbackTime + quality + review + comment);
+        FeedbackDTO feedback = new FeedbackDTO(quality, review, customerName, feedbackTime);
+        feedback.comment = comment;
+        return feedback;
+    }
+
+    private static String formatQueryString(String query, ProductDTO product) {
+        String formattedQuery = String.format(
+                query,
+                product.uuid);
+        return formattedQuery;
     }
 
     public static void shoppingCart(String client, String uuid){

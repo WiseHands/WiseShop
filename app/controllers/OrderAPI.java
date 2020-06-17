@@ -1,9 +1,6 @@
 package controllers;
 
-import enums.OrderState;
-import enums.PaymentState;
-import enums.TransactionStatus;
-import enums.TransactionType;
+import enums.*;
 import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
 import json.shoppingcart.PaymentCreditCardConfiguration;
@@ -15,9 +12,9 @@ import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Http;
+import responses.JsonResponse;
 import services.*;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -178,7 +175,7 @@ public class OrderAPI extends AuthController {
 
             error(403, json.toString());
         }
-
+        order.feedbackRequestState = FeedbackRequestState.REQUEST_NOT_SEND;
         order = order.save();
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
@@ -366,7 +363,7 @@ public class OrderAPI extends AuthController {
         renderJSON(json(order));
     }
 
-    public static void getFeedbackToOrder(String client, String uuid) throws Exception {
+    public static void sendFeedbackRequestToClient(String client, String uuid) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -374,12 +371,20 @@ public class OrderAPI extends AuthController {
         checkAuthentification(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
-        System.out.println("getFeedbackToOrder");
+        order.feedbackRequestState = FeedbackRequestState.PENDING_REQUEST;
+        order.save();
 
-//        smsSender.sendSms(order.phone, Messages.get("balance.transaction.low.shop.balance"));
-//        mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
+        try {
+            mailSender.sendEmailForFeedbackToOrder(shop, order,
+                    Messages.get("feedback.email.notification.to.client.leave.feedback", shop.shopName, order.name));
+            JsonResponse jsonHandle = new JsonResponse(420, "feedback was sent");
+            renderJSON(json(jsonHandle));
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsonResponse jsonHandle = new JsonResponse(419, "error sending feedback request");
+            renderJSON(json(jsonHandle));
+        }
 
-        renderJSON(json(order));
     }
 
     public static void markCancelled(String client, String uuid) throws Exception {

@@ -1,10 +1,7 @@
 package services;
 
 import liqp.Template;
-import models.CoinAccountDTO;
-import models.OrderDTO;
-import models.ShopDTO;
-import models.UserDTO;
+import models.*;
 import org.apache.commons.mail.HtmlEmail;
 import play.Play;
 import play.i18n.Lang;
@@ -105,7 +102,40 @@ public class MailSenderImpl implements MailSender {
         String loginLabel = Messages.get("shop.login");
         map.put("loginLabel", loginLabel);
 
+        String rendered = template.render(map);
 
+        email.setHtmlMsg(rendered);
+        email.setCharset("utf-8");
+        Mail.send(email);
+    }
+
+    public void sendEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String status) throws Exception {
+        HtmlEmail email = new HtmlEmail();
+        email.setHostName(shop.domain);
+        email.setFrom("wisehandsme@gmail.com");
+        email.addTo(order.email);
+        email.setSubject(status);
+
+        String templateString = readAllBytesJava7("app/emails/email_feedback_to_order.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("shopName", shop.shopName);
+        map.put("orderUuid", order.uuid);
+        String path = shop.domain;
+        if(isDevEnv) {
+            path = path + ":3334";
+        }
+        map.put("shopDomain", path);
+
+        Lang.change(shop.locale);
+        String hiClient = Messages.get("feedback.main.label", order.name);
+        map.put("hiClient", hiClient);
+
+        String helpUs = Messages.get("feedback.email.text", shop.shopName);
+        map.put("helpUs", helpUs);
+
+        String writeFeedback = Messages.get("feedback.write.feedback");
+        map.put("writeFeedback", writeFeedback);
 
         String rendered = template.render(map);
 
@@ -114,6 +144,77 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
+
+    public void sendEmailCommentForFeedback(ShopDTO shop, String customerMail, String customerName, ProductDTO product, String status) throws Exception {
+        HtmlEmail email = new HtmlEmail();
+
+        email.setHostName(shop.domain);
+        email.setFrom("wisehandsme@gmail.com");
+        email.addTo(customerMail);
+        email.setSubject(status);
+
+        String templateString = readAllBytesJava7("app/emails/email_comment_to_feedback.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("shopName", shop.shopName);
+        map.put("productUuid", product.uuid);
+
+        String path = shop.domain;
+        if(isDevEnv) {
+            path = path + ":3334";
+        }
+        map.put("shopDomain", path);
+
+        Lang.change(shop.locale);
+        String hiClient = Messages.get("feedback.main.label", customerName);
+        map.put("hiClient", hiClient);
+
+        String answer = Messages.get("feedback.email.answer", shop.shopName);
+        map.put("answer", answer);
+
+        String revise = Messages.get("feedback.email.revise");
+        map.put("revise", revise);
+
+        String rendered = template.render(map);
+
+        email.setHtmlMsg(rendered);
+        email.setCharset("utf-8");
+        Mail.send(email);
+    }
+
+    public void sendNotificationToAdminAboutFeedback(ShopDTO shop, OrderDTO order, String status) throws Exception {
+        HtmlEmail email = new HtmlEmail();
+
+        email.setHostName(shop.domain);
+        email.setFrom(order.email);
+        email.addTo(shop.contact.email);
+        email.setSubject(status);
+
+        String templateString = readAllBytesJava7("app/emails/email_notification _about_new_feedback_to_admin.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("shopName", shop.shopName);
+        map.put("orderUuid", order.uuid);
+
+        String path = shop.domain;
+        if(isDevEnv) {
+            path = path + ":3334";
+        }
+        map.put("shopDomain", path);
+
+        Lang.change(shop.locale);
+        String feedback = Messages.get("feedback.email.feedback", order.name);
+        map.put("feedback", feedback);
+
+        String revise = Messages.get("feedback.email.revise");
+        map.put("revise", revise);
+
+        String rendered = template.render(map);
+
+        email.setHtmlMsg(rendered);
+        email.setCharset("utf-8");
+        Mail.send(email);
+    }
 
     private static String readAllBytesJava7(String filePath)
     {

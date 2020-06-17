@@ -26,7 +26,7 @@
         align-items: center;
         justify-content: center;
         padding: 1rem;
-        margin: 0 auto;
+        margin: 0 auto 2rem auto;
         max-width: 1200px;
     }
     .signup-header img {
@@ -41,32 +41,24 @@
         text-decoration: none;
         color: #000;
     }
-    .signup-container {
+    .signup-block {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 1rem;
         text-align: center;
-        display: flex;
-        height:  calc(100vh - 82px);
-        align-items: center;
     }
     .signup-block h1 {
-        font-size: 1.8rem;
+        font-size: 2.5rem;
         font-weight: 500;
-    }
-    .signup-image, .signup-block {
-        flex: 0 1 50%;
-        margin: 1rem;
     }
     .social-button {
         display: flex;
         justify-content: center;
         padding: 1rem 0;
         flex-wrap: wrap;
-        max-width: 80%;
-        margin: 0 auto;
     }
     .social-button button {
+        margin: 1rem;
         padding: 0.7rem 0.5rem;
         text-transform: uppercase;
         display: flex;
@@ -74,7 +66,7 @@
         align-items: center;
         border: none;
         cursor: pointer;
-        width: 100%;
+        width: 350px;
         font-weight: 700;
     }
     .signup-fb-button {
@@ -95,11 +87,8 @@
     .signup-google-button:hover {
         color: #000;
     }
-    .signup-image img {
-        max-width: 100%;
-    }
     .signup-form {
-        max-width: 80%;
+        max-width: 350px;
         margin: 0 auto;
     }
     .signup-form a {
@@ -137,9 +126,9 @@
         color:#20b2aa;
     }
     .highlight 	{
-        position: relative;
-        display: block;
-        width: 100%;
+        position:relative;
+        display:block;
+        width:350px;
     }
     .highlight:before, .highlight:after 	{
         content:'';
@@ -174,7 +163,6 @@
         width: 100%;
         font-weight: 700;
         margin: 1rem 0;
-        letter-spacing: 1px;
     }
     .signup-form-button {
         background-color: #20b2aa;
@@ -186,9 +174,8 @@
     .signup-form p {
         margin: 0.5rem 0 1rem 0;
         font-size: 0.8rem;
-        font-weight: 600;
+        font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 1px;
     }
     .signup-form p:hover {
         cursor: pointer;
@@ -204,7 +191,7 @@
         color: #000;
     }
     .form-oferta a {
-        font-size: 0.8rem;
+        font-size: 1rem;
         font-weight: 400;
         text-decoration: underline;
     }
@@ -213,7 +200,7 @@
         cursor: pointer;
     }
     .or-text {
-        max-width: 80%;
+        max-width: 350px;
         margin: 0 auto;
         overflow: hidden;
     }
@@ -240,18 +227,12 @@
         .signup-header {
             margin-bottom: 1rem;
         }
+        .signup-block h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
         .social-button button {
-            margin: 1rem 0;
-        }
-        .signup-form, .social-button, .or-text {
-            max-width: 100%;
-        }
-        .signup-image {
-            display: none;
-        }
-        .signup-block {
-            flex: 1;
-        }
+            margin: 1rem 0 ;
     }
 </style>
 <body>
@@ -259,64 +240,60 @@
     <img src="/wisehands/assets/images/main_logo_black.png">
     <a href="/landing"><p id="">WiseStore</p></a>
 </div>
-<div class="signup-container">
-    <div class="signup-image">
-        <img src="/wisehands/assets/images/signup.svg">
-    </div>
-    <div class="signup-block">
-        <h1>Реєстрація</h1>
-        <div class="social-button">
-            <!--<button class="signup-fb-button">-->
-            <!--<span>-->
-            <!--<i class="fa fa-facebook-f"  style="font-size:24px; color: #fff"></i>-->
-            <!--</span>-->
-            <!--Facebook-->
-            <!--</button>-->
-            <button class="signup-google-button" onclick="signUpThroughGoogle()">
+<div class="signup-block">
+    <h1>Реєстрація</h1>
+    <div class="social-button">
+        <!--<button class="signup-fb-button">-->
+                <!--<span>-->
+                    <!--<i class="fa fa-facebook-f"  style="font-size:24px; color: #fff"></i>-->
+                <!--</span>-->
+                 <!--Facebook-->
+        <!--</button>-->
+        <button class="signup-google-button" onclick="signUpThroughGoogle()">
                 <span>
                     <i class="fa fa-google"  style="font-size:24px; color: #808080"></i>
                 </span> Google
-            </button>
-        </div>
-        <div class="or-text">
-            Або заповніть поля
-        </div>
-        <form id="login-form" class="signup-form">
-            <div class="form-field">
-                <input id="signup-name" type="text" name="name" required placeholder=" ">
-                <span class="highlight"></span>
-                <label for="signup-name">Ім'я</label>
-            </div>
-            <div class="form-field">
-                <input id="signup-surname" type="text" name="surname" required placeholder=" ">
-                <span class="highlight"></span>
-                <label for="signup-surname">Прізвище</label>
-            </div>
-            <div class="form-field">
-                <input id="signup-phone" type="tel" name="surname" required placeholder=" "  pattern="^[0-9-+\s()]*$">
-                <span class="highlight"></span>
-                <label for="signup-phone">Номер телефону</label>
-            </div>
-            <div class="form-field">
-                <input id="signup-email" type="email" name="email" required placeholder=" ">
-                <span class="highlight"></span>
-                <label for="signup-email">Email</label>
-            </div>
-            <div class="form-field">
-                <input id="signup-password" type="password" name="password" required placeholder=" ">
-                <span class="highlight"></span>
-                <label for="signup-password">Пароль</label>
-            </div>
-            <button class="signup-form-button" type="submit">
-                Зареєструватися
-            </button>
-            <a href="/ua/signin"><p>Увійти</p></a>
-            <div class="form-oferta">
-                <p>Реєструючись, ви погоджуєтесь з умовами <a href="/ua/contract">публічної оферти та умовами надання послуг WiseStore</a>
-                </p>
-            </div>
-        </form>
+        </button>
     </div>
+    <div class="or-text">
+        Або заповніть поля
+    </div>
+    <form id="login-form" class="signup-form">
+        <div class="form-field">
+            <input id="signup-name" type="text" name="name" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-name">Ім'я</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-surname" type="text" name="surname" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-surname">Прізвище</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-phone" type="tel" name="surname" required placeholder=" "  pattern="^[0-9-+\s()]*$">
+            <span class="highlight"></span>
+            <label for="signup-phone">Номер телефону</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-email" type="email" name="email" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-email">Email</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-password" type="password" name="password" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-password">Пароль</label>
+        </div>
+        <button class="signup-form-button" type="submit">
+            Зареєструватися
+        </button>
+        <a href="/signin"><p>Увійти</p></a>
+        <div class="form-oferta">
+            <p>Реєструючись, ви погоджуєтесь з умовами <a href="/contract">Публічної оферти та Умовами надання послуг WiseStore</a>
+            </p>
+        </div>
+    </form>
+
 </div>
 </body>
 <!-- Global site tag (gtag.js) - Google Analytics -->

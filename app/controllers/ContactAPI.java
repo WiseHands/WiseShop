@@ -5,7 +5,7 @@ import models.ShopDTO;
 import models.ShopLocation;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import responses.JsonHandleForbidden;
+import responses.JsonResponse;
 import services.MailSender;
 import services.MailSenderImpl;
 
@@ -33,13 +33,13 @@ public class ContactAPI extends AuthController {
         try {
             mailSender.sendContactUsEmail(message);
             String reason = "Your query was sent successfully.";
-            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
-            renderJSON(jsonHandleForbidden);
+            JsonResponse jsonResponse = new JsonResponse(421, reason);
+            renderJSON(jsonResponse);
         } catch (Exception e) {
             System.out.println("ContactAPI create mailSender error" + e.getCause() + e.getStackTrace());
             String reason = "Sorry, have some problem";
-            JsonHandleForbidden jsonHandleForbidden = new JsonHandleForbidden(421, reason);
-            renderJSON(jsonHandleForbidden);
+            JsonResponse jsonResponse = new JsonResponse(421, reason);
+            renderJSON(jsonResponse);
         }
     }
 

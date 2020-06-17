@@ -2,11 +2,10 @@ package models;
 
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -72,6 +71,17 @@ public class ProductDTO extends GenericModel {
     @Expose
     @OneToMany
     public List<AdditionDTO> additions;
+
+    @Expose
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<FeedbackDTO> feedbackList;
+
+    public void addFeedback(FeedbackDTO orderFeedback) {
+        if(this.feedbackList == null) {
+            this.feedbackList = new ArrayList<FeedbackDTO>();
+        }
+        this.feedbackList.add(orderFeedback);
+    }
 
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, Integer wholesaleCount, Double wholesalePrice) {
         this(name, description, price, images, shop, null, wholesaleCount, wholesalePrice);

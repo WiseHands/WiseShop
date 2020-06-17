@@ -26,7 +26,7 @@
         align-items: center;
         justify-content: center;
         padding: 1rem;
-        margin: 0 auto;
+        margin: 0 auto 2rem auto;
         max-width: 1200px;
     }
     .signin-header img {
@@ -41,32 +41,24 @@
         text-decoration: none;
         color: #000;
     }
-    .signin-container {
+    .signin-block {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 1rem;
         text-align: center;
-        display: flex;
-        align-items: center;
-        height: calc(100vh - 82px);
     }
     .signin-block h1 {
-        font-size: 1.8rem;
-        font-weight: 400;
-    }
-    .signin-image, .signin-block {
-        flex: 0 1 50%;
-        margin: 1rem;
+        font-size: 2.5rem;
+        font-weight: 500;
     }
     .social-button {
         display: flex;
         justify-content: center;
         padding: 1rem 0;
         flex-wrap: wrap;
-        max-width: 80%;
-        margin: 0 auto;
     }
     .social-button button {
+        margin: 1rem;
         padding: 0.7rem 1rem;
         text-transform: uppercase;
         display: flex;
@@ -74,8 +66,8 @@
         align-items: center;
         border: none;
         cursor: pointer;
+        width: 350px;
         font-weight: 700;
-        width: 100%;
     }
     .signin-fb-button {
         background-color: #3c5a96;
@@ -95,11 +87,9 @@
     .signin-google-button:hover {
         color: #000;
     }
-    .signin-image img {
-        max-width: 100%;
-    }
+
     .signin-form {
-        max-width: 80%;
+        max-width: 350px;
         margin: 0 auto;
     }
     .signin-form a {
@@ -138,7 +128,7 @@
     .highlight 	{
         position:relative;
         display:block;
-        width: 100%;
+        width:350px;
     }
     .highlight:before, .highlight:after 	{
         content:'';
@@ -173,7 +163,6 @@
         width: 100%;
         font-weight: 700;
         margin: 1rem 0;
-        letter-spacing: 1px;
     }
     .signin-form-button {
         background-color: #20b2aa;
@@ -185,16 +174,15 @@
     .signin-form p {
         margin: 0.5rem 0 1rem 0;
         font-size: 0.8rem;
-        font-weight: 600;
+        font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 1px;
     }
     .signin-form p:hover {
         cursor: pointer;
         color: #20b2aa;
     }
     .or-text {
-        max-width: 80%;
+        max-width: 350px;
         margin: 0 auto;
         overflow: hidden;
     }
@@ -221,14 +209,9 @@
         .signin-header {
             margin-bottom: 1rem;
         }
-        .signin-form, .social-button, .or-text {
-            max-width: 100%;
-        }
-        .signin-image {
-            display: none;
-        }
-        .signin-block {
-            flex: 1;
+        .signin-block h1 {
+            font-size: 2rem;
+            font-weight: 700;
         }
     }
 </style>
@@ -238,47 +221,41 @@
         <img src="/wisehands/assets/images/main_logo_black.png">
         <a href="/landing"><p id="">WiseStore</p></a>
     </div>
-    <div class="signin-container">
-        <div class="signin-image">
-            <img src="/wisehands/assets/images/signin.svg">
-        </div>
-        <div class="signin-block">
-            <h1>Вхід</h1>
-            <div class="social-button">
-                <!--<button class="signin-fb-button">-->
+    <div class="signin-block">
+        <h1>Вхід</h1>
+        <div class="social-button">
+            <!--<button class="signin-fb-button">-->
                 <!--<span>-->
-                <!--<i class="fa fa-facebook-f"  style="font-size:24px; color: #fff"></i>-->
+                    <!--<i class="fa fa-facebook-f"  style="font-size:24px; color: #fff"></i>-->
                 <!--</span>-->
                 <!--<p>Facebook</p>-->
-                <!--</button>-->
-                <button class="signin-google-button" onclick="googleSignIn()">
+            <!--</button>-->
+            <button class="signin-google-button" onclick="googleSignIn()">
                 <span>
                     <i class="fa fa-google"  style="font-size:24px; color: #808080"></i>
                 </span>
-                    <p>Google</p>
-                </button>
+                <p>Google</p>
+            </button>
+        </div>
+        <div class="or-text">
+            Або
+        </div>
+        <form id="login-form" class="signin-form">
+            <div class="form-field">
+                <input id="signin-email" type="email" name="email" required placeholder=" ">
+                <span class="highlight"></span>
+                <label for="signin-email">Email</label>
             </div>
-            <div class="or-text">
-                Або
+            <div class="form-field">
+                <input id="signin-password" type="password" name="password" required placeholder=" ">
+                <span class="highlight"></span>
+                <label for="signin-password">Пароль</label>
             </div>
-            <form id="login-form" class="signin-form">
-                <div class="form-field">
-                    <input id="signin-email" type="email" name="email" required placeholder=" ">
-                    <span class="highlight"></span>
-                    <label for="signin-email">Email</label>
-                </div>
-                <div class="form-field">
-                    <input id="signin-password" type="password" name="password" required placeholder=" ">
-                    <span class="highlight"></span>
-                    <label for="signin-password">Пароль</label>
-                </div>
                 <button class="signin-form-button" type="submit">
                     Увійти
                 </button>
-                <a href="/ua/signup"><p>Зареєструватися</p></a>
-            </form>
-        </div>
-
+            <a href="/signup"><p>Зареєструватися</p></a>
+        </form>
     </div>
 </body>
 <!-- Global site tag (gtag.js) - Google Analytics -->

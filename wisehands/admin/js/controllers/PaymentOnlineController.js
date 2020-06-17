@@ -15,11 +15,11 @@ angular.module('WiseHands')
                     $scope.loading = false;
                 });
 
-            $scope.setPaymentOptions = function () {
+            $scope.saveOnlinePaymentOptions = function () {
                 $scope.loading = true;
                 $http({
                     method: 'PUT',
-                    url: '/payment/update',
+                    url: '/payment/update/online/setting',
                     data: $scope.payment,
                 })
                     .then(function successCallback(response) {

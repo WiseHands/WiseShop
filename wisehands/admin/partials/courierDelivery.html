@@ -23,7 +23,7 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <form class="admin-card" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
+    <form class="admin-card admin" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
         <h4>{{'editProduct.general' | translate}}</h4>
         <div class="input-field">
             <input type="checkbox" class="filled-in pull-left checkBoxStyling" id="filled-in-box" ng-model="delivery.isCourierAvailable" />
@@ -42,19 +42,13 @@
             <p>{{'delivery.messageText' | translate}}</p>
             <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.courierText"></textarea>
         </div>
-    </form>
-    <div class="admin-card">
-        <div class="boundaries-map">
-            <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s"
-                 style="height: 500px">
-            </div>
-        </div>
-        <h4>{{'courierDelivery.deliveryBoundaries' | translate}}</h4>
+        <div>
             <a href="#/deliveryboundaries">
-                <div type="button" class="boundaries-btn">
-                    <h5>{{'courierDelivery.setBoundaries' | translate}}</h5>
-                </div>
+                <button type="button" class="btn btn-primary">
+                    {{'courierDelivery.deliveryBoundaries' | translate}}
+                </button>
             </a>
-    </div>
+        </div>
+    </form>
 
 </div>

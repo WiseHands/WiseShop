@@ -1,6 +1,14 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+feedback.email.notification.to.client.leave.feedback = [%s] %s, залиште будь ласка відгук про ваше замовлення
+feedback.email.notification.to.admin.about.new.feedback = [%s] Клієнт %s залишив відгук про замовлення
+feedback.main.label = Привіт %s.
+feedback.email.feedback = Користувач %s залишив відгук про замовлення.
+feedback.email.text = Допоможіть нам стати кращими, залиште свій відгук про замовлення.
+feedback.write.feedback = Написати відгук
+feedback.email.answer = Ми відповіли на Ваш відгук
+feedback.email.revise = Переглянути
 balance.transaction.low.shop.balance = Баланс магазину менше 100 грн, поповніть будь ласка рахунок
 shop.balance = Баланс магазину
 shop.balance.currency = ₴

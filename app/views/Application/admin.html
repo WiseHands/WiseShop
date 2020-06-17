@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml" ng-app="WiseHands" ng-strict-di>
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="/manifest">
@@ -18,12 +18,12 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link href="wisehands/assets/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+		<link href="wisehands/assets/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.min.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.min.css" />
 
     <link href="wisehands/assets/mdb_superAdmin/css/mdb.min.css" rel="stylesheet">
-    <link href="wisehands/admin/css/admin.css" rel="stylesheet"/>
+    <link href="wisehands/admin/css/admin.css" rel="stylesheet" />
     <link href="wisehands/assets/angular-bootstrap-colorpicker/css/colorpicker.min.css" rel="stylesheet">
     <link href="wisehands/assets/ng-tags-input/ng-tags-input.css" rel="stylesheet">
     <link rel="icon"
@@ -34,53 +34,28 @@
 <body class="parentScroll">
 <ul id="slide-out" class="side-nav admin-side-nav dark-side-nav hidden-scrollbar" ng-controller="SideNavController">
     <div class="row vcentering">
-        <div class="col-xs-4">
-            <img class="img-responsive" src="wisehands/assets/images/main_logo.png">
-        </div>
+            <div class="col-xs-4">
+               <img class="img-responsive" src="wisehands/assets/images/main_logo.png">
+            </div>
         <div class="col-xs-8">
             <h5 class="white-text cursorPointer truncate-shop-info" ng-click="getUrl()">WiseStore</h5>
         </div>
     </div>
     <ul class="collapsible collapsible-accordion inner">
-        <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/"
-                                                                            class="waves-effect waves-light"><i
-                class="fa fa-tasks"></i> {{'sideNav.Orders' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products"
-                                                                              class="waves-effect waves-light"><i
-                class="fa fa-cart-plus"></i> {{'sideNav.Products' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'pageconstructors'}"><a href="#/pageconstructor"
-                                                                                   class="waves-effect waves-light"><i
-                class="fa fa-files-o"></i> {{'sideNav.Pages' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery"
-                                                                           class="waves-effect waves-light"><i
-                class="fa fa-fighter-jet"></i> {{'sideNav.Delivery' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'payment'}"><a href="#/payment"
-                                                                          class="waves-effect waves-light"><i
-                class="fa fa-money"></i> {{'sideNav.Payment' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> {{'sideNav.Orders' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> {{'sideNav.Products' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'pageconstructors'}"><a href="#/pageconstructor" class="waves-effect waves-light"><i class="fa fa-files-o"></i> {{'sideNav.Pages' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> {{'sideNav.Delivery' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'payment'}"><a href="#/payment" class="waves-effect waves-light"><i class="fa fa-money"></i> {{'sideNav.Payment' | translate}}</a></li>
         <!--<li ng-class="{active: $route.current.activetab == 'discounts'}"><a href="#/discounts" class="waves-effect waves-light"><i class="fa fa-percent"></i> {{'sideNav.Discounts' | translate}}</a></li>-->
-        <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts"
-                                                                           class="waves-effect waves-light"><i
-                class="fa fa-envelope"></i> {{'sideNav.Contacts' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'workinghours'}"><a href="#/workinghours"
-                                                                               class="waves-effect waves-light"><i
-                class="fa fa-clock-o"></i> {{'sideNav.workingHours' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings"
-                                                                               class="waves-effect waves-light"><i
-                class="fa fa-users"></i> {{'sideNav.Users' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'analytics'}"><a href="#/analytics"
-                                                                            class="waves-effect waves-light"><i
-                class="fa fa-line-chart"></i> {{'sideNav.Analytics' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings"
-                                                                           class="waves-effect waves-light"><i
-                class="fa fa-gears"></i> {{'sideNav.Settings' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'userprofile'}"><a href="#/userprofile"
-                                                                              class="waves-effect waves-light"><i
-                class="fa fa-user"></i> {{'sideNav.Profile' | translate}}</a></li>
-        <li ng-class="{active: $route.current.activetab == 'dashboard'}"><a href="/dashboard"
-                                                                            class="waves-effect waves-light"><i
-                class="fa fa-tachometer"></i> {{'sideNav.Dashboard' | translate}}</a></li>
-        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i>
-            {{'sideNav.SignOut' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'contacts'}"><a href="#/contacts" class="waves-effect waves-light"><i class="fa fa-envelope"></i> {{'sideNav.Contacts' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'workinghours'}"><a href="#/workinghours" class="waves-effect waves-light"><i class="fa fa-clock-o"></i> {{'sideNav.workingHours' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'usersettings'}"><a href="#/usersettings" class="waves-effect waves-light"><i class="fa fa-users"></i> {{'sideNav.Users' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'analytics'}"><a href="#/analytics" class="waves-effect waves-light"><i class="fa fa-line-chart"></i> {{'sideNav.Analytics' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'settings'}"><a href="#/settings" class="waves-effect waves-light"><i class="fa fa-gears"></i> {{'sideNav.Settings' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'userprofile'}"><a href="#/userprofile" class="waves-effect waves-light"><i class="fa fa-user"></i> {{'sideNav.Profile' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'dashboard'}"><a href="/dashboard" class="waves-effect waves-light"><i class="fa fa-tachometer"></i> {{'sideNav.Dashboard' | translate}}</a></li>
+        <li ng-click="signOut()" target="_self"><a class="waves-effect waves-light"><i class="fa fa-sign-out"></i> {{'sideNav.SignOut' | translate}}</a></li>
 
     </ul>
 </ul>
@@ -120,11 +95,9 @@
 <script src="wisehands/admin/js/controllers/SubmitNewProductController.js"></script>
 <script src="wisehands/admin/js/controllers/CreateNetworkShopsController.js"></script>
 <script src="wisehands/admin/js/controllers/ProductDetailsController.js"></script>
+<script src="wisehands/admin/js/controllers/ProductReviewsController.js"></script>
 <script src="wisehands/admin/js/controllers/EditProductController.js"></script>
 <script src="wisehands/admin/js/controllers/DeliverySettingsController.js"></script>
-<script src="wisehands/admin/js/controllers/NewPostDeliverySettingsController.js"></script>
-<script src="wisehands/admin/js/controllers/CourierDeliverySettingsController.js"></script>
-<script src="wisehands/admin/js/controllers/SelfTakeDeliverySettingsController.js"></script>
 <script src="wisehands/admin/js/controllers/SettingsController.js"></script>
 <script src="wisehands/admin/js/controllers/AdditionSettingsController.js"></script>
 <script src="wisehands/admin/js/controllers/ContactsController.js"></script>
