@@ -44,10 +44,6 @@ public class VisualSettingsAPI extends AuthController {
         visualSettings.navbarShopItemsColor = (String) jsonBody.get("navbarShopItemsColor");
         visualSettings.logoHref = (String) jsonBody.get("logoHref");
         visualSettings.isFooterOn = Boolean.parseBoolean(String.valueOf(jsonBody.get("isFooterOn")));
-        JSONObject sidebarColorSchemeJson = (JSONObject) jsonBody.get("sidebarColorScheme");
-        String code = (String)sidebarColorSchemeJson.get("code");
-        SidebarColorScheme sidebarColorScheme = SidebarColorScheme.find("byCode", code).first();
-        visualSettings.sidebarColorScheme = sidebarColorScheme;
         visualSettings = visualSettings.save();
         shop.save();
 
@@ -74,7 +70,7 @@ public class VisualSettingsAPI extends AuthController {
             visualSettings.shopLogo = filename;
         }
         visualSettings = visualSettings.save();
-        json(visualSettings);
+        renderJSON(json(visualSettings.shopLogo));
     }
 
     public static void uploadFavicon(String client, File fake) throws Exception {
@@ -98,7 +94,7 @@ public class VisualSettingsAPI extends AuthController {
             visualSettings.shopFavicon = filename;
         }
         visualSettings = visualSettings.save();
-        renderJSON(json(visualSettings));
+        renderJSON(json(visualSettings.shopFavicon));
     }
 
     public static void deleteLogo(String client, File fake) throws Exception {
@@ -139,9 +135,5 @@ public class VisualSettingsAPI extends AuthController {
         renderJSON(json(visualSettings));
     }
 
-    public static void getSidebarSchemes(String client) throws Exception {
-        List<SidebarColorScheme> colors = SidebarColorScheme.findAll();
-        renderJSON(json(colors));
-    }
 
 }

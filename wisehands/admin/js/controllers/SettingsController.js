@@ -1,120 +1,156 @@
 
 angular.module('WiseHands')
-    .controller('SettingsController', ['$scope', '$http', '$location', 'sideNavInit', 'signout', 'shared', '$rootScope',
-    		function ($scope, $http, $location, sideNavInit, signout, shared, $rootScope) {
-        $scope.loading = true;
+  .controller('SettingsController', ['$scope', '$http', 'signout', 'sideNavInit', function ($scope, $http, signout, sideNavInit) {
+    $scope.loading = true;
+    const activeShop = localStorage.getItem('activeShop');
 
-                $scope.hoursSetting = function () {
-                    $location.path('/hourssetting');
-                };
+    $http({
+      method: 'GET',
+      url: '/shop/details',
+    })
+      .then(response => {
+        $scope.loading = false;
+        $scope.shopStyling = response.data.visualSettingsDTO;
+        setFaviconSrc($scope.shopStyling.shopFavicon);
+        setLogoSrc($scope.shopStyling.shopLogo);
+      }, error => {
+        $scope.loading = false;
+        console.log(error);
+      });
 
-        $http({
-            method: 'GET',
-            url: '/balance'
+    $scope.updateShopStyling = () => {
+      $scope.loading = true;
+      $http({
+        method: 'PUT',
+        url: '/visualsettings',
+        data: $scope.shopStyling
+      })
+        .success(response => {
+          $scope.loading = false;
+          $scope.shopStyling = response;
+          showInfoMsg("SAVED");
+        }).error(error => {
+        $scope.loading = false;
+        console.log(error);
+        showWarningMsg("ERROR");
+      });
+    };
+
+    function setLogoSrc(logoSrc) {
+      $scope.logoSrc = logoSrc ? `/public/shop_logo/${activeShop}/${logoSrc}` : '';
+    }
+
+    $scope.loadLogo = () => {
+      const logoLoader = $('#logoLoader');
+      logoLoader[0].value = '';
+      logoLoader.click();
+    };
+
+    $scope.logoUpload = event => {
+      $scope.loading = true;
+      const file = event.files[0];
+      const reader = new FileReader();
+      reader.onloadend = addLogo;
+      if (file && file.type.match('image.*')) {
+        reader.readAsDataURL(event.files[0]);
+      } else {
+        $scope.loading = false;
+      }
+    };
+
+    function addLogo(event) {
+      const logo = event.target.result;
+      const logoBlob = dataURItoBlob(logo);
+      const logoFd = new FormData();
+      logoFd.append('logo', logoBlob);
+      $http.put('/visualsettings/logo', logoFd, {
+        transformRequest: angular.identity,
+        headers: {
+          'Content-Type': undefined,
+        }
+      })
+        .success(response => {
+          setLogoSrc(response);
+          $scope.loading = false;
         })
-            .then(function successCallback(response) {
-                $scope.balance = response.data;
-                $scope.loading = false;
-            }, function errorCallback(response) {
-                $scope.loading = false;
+        .error(error => {
+          $scope.loading = false;
+          console.log(error);
+        });
+    }
 
-            });
+    $scope.deleteLogo = () => {
+      $scope.loading = true;
+      $http({
+        method: 'DELETE',
+        url: '/visualsettings/logo',
+      })
+        .then(() => {
+          $scope.logoSrc = '';
+          $scope.loading = false;
+        }, error => {
+          $scope.loading = false;
+          console.log(error);
+        });
+    };
 
-        $http({
-            method: 'GET',
-            url: '/shop/details'
+    function setFaviconSrc(favicon) {
+      $scope.faviconSrc = favicon ? `/public/shop_logo/${activeShop}/${favicon}` : '';
+    }
+
+    $scope.loadFavicon = () => {
+      const favIconLoader = $('#favIconLoader');
+      favIconLoader[0].value = '';
+      favIconLoader.click();
+    };
+
+    $scope.favIconUpload = event => {
+      $scope.loading = true;
+      const file = event.files[0];
+      const reader = new FileReader();
+      reader.onloadend = addFavicon;
+      if (file && file.type.match('image.*')) {
+        reader.readAsDataURL(file);
+      } else {
+        $scope.loading = false;
+      }
+    };
+
+    function addFavicon(event) {
+      const faviconBlob = dataURItoBlob(event.target.result);
+      const faviconFd = new FormData();
+      faviconFd.append('favicon', faviconBlob);
+      $http.put('/visualsettings/favicon', faviconFd, {
+        transformRequest: angular.identity,
+        headers: {
+          'Content-Type': undefined,
+        }
+      })
+        .success(response => {
+          setFaviconSrc(response);
+          $scope.loading = false;
         })
-            .then(function successCallback(response) {
-                $scope.activeShop = response.data;
-                console.log('details value of checkbox whenClosed:', $scope.activeShop.isTemporaryClosed);
-                // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
-                // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
-                $scope.loading = false;
-            }, function errorCallback(response) {
-                $scope.loading = false;
-            });
+        .error(error => {
+          $scope.loading = false;
+          console.log(error);
+        });
+    }
 
-        $scope.setAdditionSetting = function(){
-            $location.path('/additionsettings');
-        };
-
-
-        $scope.whenShopClosed = function(){
-              if ($scope.activeShop.isTemporaryClosed){
-                console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
-                $scope.activeShop.isTemporaryClosed = true;
-
-              } else {
-                console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
-                $scope.activeShop.isTemporaryClosed = false;
-              }
-        };
-
-        $scope.updateStoreSettings = function () {
-
-            $scope.loading = true;
-            $http({
-                method: 'PUT',
-                url: '/shop',
-                data: $scope.activeShop
-            })
-                .success(function (response) {
-                    $scope.activeShop = response;
-                    showInfoMsg("SAVED");
-                    console.log('after PUT whenClosed', $scope.activeShop.whenClosed);
-                    localStorage.setItem('activeShopName', $scope.activeShop.shopName);
-                    // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
-                    // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
-                    document.title = $scope.activeShop.shopName;
-                    $scope.loading = false;
-                }).
-            error(function (response) {
-                $scope.loading = false;
-                showWarningMsg("UNKNOWN ERROR");
-                console.log(response);
-            });
-
-        };
-
-        $scope.changeDomainName = function(){
-          console.log(document.getElementById("newDomainName").value);
-          $http({
-              method: 'PUT',
-              url: '/shop/domain/'  + document.getElementById("newDomainName").value
-          })
-              .success(function (response) {
-                console.log(response.data.locale);
-                showInfoMsg("Ok");
-              }).
-          error(function (response) {
-              showWarningMsg("fail");
-          });
-        };
-
-        $scope.increaseBalance = function () {
-            $scope.loading = true;
-            $http({
-                method: 'POST',
-                url: '/pay?amount=' + $scope.selectedShop.balance
-            })
-                .success(function (response) {
-                    $scope.loading = false;
-                    $scope.successfullResponse = true;
-                    var modalContent = document.querySelector(".proceedWithPayment");
-                    console.log(response);
-                    modalContent.innerHTML = response;
-                    modalContent.firstChild.submit();
-
-                }).
-            error(function (response) {
-                $scope.successfullResponse = false;
-                $scope.loading = false;
-                console.log(response);
-            });
-        };
-        sideNavInit.sideNav();
-
-    }]);
+    $scope.deleteFavicon = () => {
+      $scope.loading = true;
+      $http({
+        method: 'DELETE',
+        url: '/visualsettings/favicon',
+      })
+        .then(response => {
+          $scope.shopStyling = response.data;
+          $scope.faviconSrc = '';
+          $scope.loading = false;
+        }, error => {
+          $scope.loading = false;
+          console.log(error);
+        });
+    };
 
     function showWarningMsg(msg) {
       toastr.clear();
@@ -134,10 +170,12 @@ angular.module('WiseHands')
       toastr.info(msg);
     }
 
-function encodeQueryData(data)
-{
-    var ret = [];
-    for (var d in data)
-        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-    return ret.join("&");
-}
+    function dataURItoBlob(dataURI) {
+      const binary = atob(dataURI.split(',')[1]);
+      const array = [];
+      [...binary].forEach((char, index) => array.push(binary.charCodeAt(index)));
+      return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+    }
+
+    sideNavInit.sideNav();
+  }]);

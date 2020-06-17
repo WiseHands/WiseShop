@@ -27,14 +27,18 @@ public class PaymentSettingsAPI extends AuthController {
         }
         checkAuthentification(shop);
 
+        PaymentSettingsDTO paymentSettings = shop.paymentSettings;
+
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         Boolean manualPaymentEnabled = (Boolean) jsonBody.get("manualPaymentEnabled");
         String manualPaymentTitle = (String) jsonBody.get("manualPaymentTitle");
 
-        PaymentSettingsDTO paymentSettings = shop.paymentSettings;
+        String onlinePaymentTitle = (String) jsonBody.get("onlinePaymentTitle");
+
         paymentSettings.manualPaymentEnabled = manualPaymentEnabled;
         paymentSettings.manualPaymentTitle = manualPaymentTitle;
+
 
         paymentSettings = paymentSettings.save();
 

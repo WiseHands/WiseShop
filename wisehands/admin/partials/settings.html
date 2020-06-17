@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <div class="row vcentering">
             <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i
+                        class="fa fa-bars"></i></a>
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
@@ -11,36 +12,83 @@
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right saveProductButtonStyling"
-                   ng-click="updateStoreSettings()">
+                   ng-click="updateShopStyling()">
                 </i>
             </a>
         </div>
     </div>
 </nav>
-<div class="container-fluid noSidePadding">
-    <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
-    </div>
-    <div class="btn-group btn-group-justified col-xs-12 z-index" role="group" aria-label="..." ng-hide="loading">
-        <div class="btn-group" role="group">
-            <button type="button" class="btn white-text disabled">{{'settings.general' | translate}}</button>
+<div class="row text-center">
+    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+             show="loading"></spinner>
+</div>
+<div class="admin-container">
+    <form class="settings-block noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading">
+        <div class="admin-column">
+            <div class="admin-card">
+                <h4>Favicon</h4>
+                <p class="upload-info-text">Щоб завантажити favicon (іконка сайту, що зображається поряд з адресою сайту
+                    в адресному рядку, біля заголовку сторінки у вкладці або в списку закладок браузера)
+                    натисніть сюди. Рекомендований розмір 180*180px</p>
+                <div class="upload-favicon">
+                    <img ng-hide="!faviconSrc" src="{{faviconSrc}}">
+                    <div class="upload-text" ng-hide="faviconSrc" ng-click="loadFavicon()">
+                        <img src="wisehands/assets/images/setting-img/favicon1.png">
+                        <i class="fa fa-plus" style="font-size: 32px"></i>
+                    </div>
+                </div>
+                <div class="file-field input-field" ng-show="!shopStyling.shopFavicon">
+                    <input name="favIconLoader" type="file" id="favIconLoader"
+                           onchange="angular.element(this).scope().favIconUpload(this)"/>
+                </div>
+                <div class="input-field  " ng-show="faviconSrc">
+                    <button type="button" class="btn secondaryColor waves-effect waves-light btn-block"
+                            ng-click="deleteFavicon()">
+                        <span>{{'productDetails.delete' | translate}} favicon</span>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="btn-group" role="group">
-            <a href="#/viewsettings" type="button" class="btn secondaryColor">{{'settings.view' | translate}}</a>
+        <div class="admin-column">
+            <div class="admin-card">
+                <h4>Логотип</h4>
+                <p class="upload-info-text">Щоб завантажити логотип натисніть сюди, логотип буде автоматично завантажено. Рекомендований
+                    розмір 512*512</p>
+                <div class="upload-logo">
+                    <img ng-hide="!logoSrc" src="{{logoSrc}}">
+                    <div class="upload-text" ng-hide="logoSrc" ng-click="loadLogo()">
+                        <img src="wisehands/assets/images/setting-img/logo.jpg">
+                        <i class="fa fa-plus" style="font-size: 32px"></i>
+                    </div>
+                </div>
+                <div class="file-field input-field  " ng-show="!logoSrc">
+                    <input name="logoLoader" type="file" id="logoLoader"
+                           onchange="angular.element(this).scope().logoUpload(this)"/>
+                </div>
+
+                <div class="input-field " ng-hide="!logoSrc">
+                    <button type="button" class="btn secondaryColor waves-effect waves-light btn-block"
+                            ng-click="deleteLogo()">
+                        <span>{{'settings.removeLogo' | translate}}</span>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="input-field col-sm-12">
+            <input id="filled-in-isFooterOn" type="checkbox" class="filled-in checkBoxStyling"
+                   ng-model="shopStyling.isFooterOn"/>
+            <label for="filled-in-isFooterOn">{{'settings.isFooterOn' | translate}}</label>
+        </div>
+
+    </form>
 
     <form class="col-md-12 noSidePadding" id="settingsForm" name="settingsForm" ng-hide="loading">
+
+
         <noscript>
-          <img height="1" width="1" style="display:none"
-               src="https://www.facebook.com/tr?id=586428541954481&ev=PageView&noscript=1"/>
+            <img height="1" width="1" style="display:none"
+                 src="https://www.facebook.com/tr?id=586428541954481&ev=PageView&noscript=1"/>
         </noscript>
-        <style>
-          .input-field {
-            /* border: 1px solid black; */
-          }
-        </style>
-            </form>
+    </form>
 </div>
-<!--<div class="proceedWithPayment"></div>-->
 <div class="proceedWithPayment"></div>

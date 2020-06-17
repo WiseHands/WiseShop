@@ -65,7 +65,7 @@ public class WizardAPI extends AuthController {
     }
 
     public static void checkDomainNameAvailability() throws Exception{
-        String domain = request.params.get("shopDomain");
+        String domain = request.params.get("shopDomain").toLowerCase();
         String domainPath = "";
         if (Application.isDevEnv) {
             domainPath = ".localhost";
@@ -129,6 +129,7 @@ public class WizardAPI extends AuthController {
         boolean postDepartment = (boolean) jsonBody.get("postDepartment");
         boolean selfTake = (boolean) jsonBody.get("selfTake");
         boolean payCash = true;
+        boolean payOnline = false;
 
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
@@ -139,6 +140,7 @@ public class WizardAPI extends AuthController {
         user.wizard.postDepartment = postDepartment;
         user.wizard.selfTake = selfTake;
         user.wizard.payCash = payCash;
+        user.wizard.payOnline = payOnline;
 
         user.wizard.save();
         renderJSON(json(user.wizard));
@@ -227,7 +229,7 @@ public class WizardAPI extends AuthController {
                 renderJSON(jsonResponse);
             }
 
-            if (user.isGoogleSignIn == true){ // if the user used google sign in and hacker tries to login via empty password
+            if (user.isGoogleSignIn){ // if the user used google sign in and hacker tries to login via empty password
                 String reason = "Користувача не знайдено";
                 JsonResponse jsonResponse = new JsonResponse(421, reason);
                 renderJSON(jsonResponse);

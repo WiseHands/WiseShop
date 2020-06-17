@@ -579,7 +579,7 @@ body {
 .vcentering {
     display: flex;
     align-items: center;
-    justify-content: flex-between
+    justify-content: flex-between;
 }
 
 #filterOptions {
@@ -1381,6 +1381,9 @@ input {
 
 .admin-card .admin-order-details-row p {
     text-align: left;
+    font-size: 1.15rem;
+    line-height: 1.2;
+    word-break: break-word;
 }
 
 .admin-order-details-quantity {
@@ -1951,6 +1954,51 @@ div.product-review {
     padding-left: 72px;
     text-align: left;
 }
+.upload-favicon, .upload-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.upload-favicon img, .upload-logo img {
+    max-width: 100%;
+    height: 200px;
+}
+
+.upload-favicon i, .upload-logo i {
+    margin-top: 1rem;
+}
+
+.admin-card .upload-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    text-align: center;
+    border: 1px dashed #000;
+    border-radius: 10px;
+    width: 100%;
+    height: 95%;
+    margin:  1rem 0;
+}
+
+.admin-card .upload-info-text  {
+    line-height: 1.23;
+    height: 90px;
+}
+
+.admin-card .upload-text:hover {
+    cursor: pointer;
+}
+
+.boundaries-btn {
+    display: inline-flex;
+    background-color: #126471;
+    padding: 0 2rem;
+    text-align: center;
+    color: #fff;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
@@ -1995,8 +2043,19 @@ div.product-review {
         margin: 1rem 0;
     }
 
-    .product-reviews-block  {
+    .product-reviews-block {
         flex-direction: column-reverse;
+    }
+    .upload-favicon, .upload-logo {
+        height: auto;
+    }
+
+    .upload-text i {
+        margin: 1rem 0 0 0;
+    }
+
+    .admin-card .upload-info-text  {
+        height: auto;
     }
 }
 
