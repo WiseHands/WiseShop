@@ -545,9 +545,14 @@
             <div class="shop-review-item-text">
                 <p time="${_review.feedbackTime}"></p>
                 <p>${_review.review}</p>
+                #{if _review.review} <p>${_review.review}</p> #{/if}
+                #{else} <p>Клієнт не залишив коментаря</p> #{/else}
                 <div class="reply-for-review">
-                    <h4>${shop.shopName}</h4>
-                    <p>${_review.comment}</p>
+                    #{if _review.review || _review.comment}
+                        <h4>${shop.shopName}</h4>
+                        <p>${_review.comment}</p>
+                    #{/if}
+
                 </div>
             </div>
         </div>
@@ -556,9 +561,7 @@
             }
         }%
     #{/if}
-    #{else}
-        <p>Відгуки відсутні</p>
-    #{/else}
+    #{else} <p>Відгуки відсутні</p> #{/else}
 </div>
 
 
