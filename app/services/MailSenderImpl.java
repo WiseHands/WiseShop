@@ -182,6 +182,39 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
+    public void sendNotificationToAdminAboutFeedback(ShopDTO shop, OrderDTO order, String status) throws Exception {
+        HtmlEmail email = new HtmlEmail();
+
+        email.setHostName(shop.domain);
+        email.setFrom(order.email);
+        email.addTo(shop.contact.email);
+        email.setSubject(status);
+
+        String templateString = readAllBytesJava7("app/emails/email_notification _about_new_feedback_to_admin.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("shopName", shop.shopName);
+        map.put("orderUuid", order.uuid);
+
+        String path = shop.domain;
+        if(isDevEnv) {
+            path = path + ":3334";
+        }
+        map.put("shopDomain", path);
+
+        Lang.change(shop.locale);
+        String feedback = Messages.get("feedback.email.feedback", order.name);
+        map.put("feedback", feedback);
+
+        String revise = Messages.get("feedback.email.revise");
+        map.put("revise", revise);
+
+        String rendered = template.render(map);
+
+        email.setHtmlMsg(rendered);
+        email.setCharset("utf-8");
+        Mail.send(email);
+    }
 
     private static String readAllBytesJava7(String filePath)
     {

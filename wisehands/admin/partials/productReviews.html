@@ -78,7 +78,7 @@
                     <div class="review-text">
                         <p class="review-feedbacktime">{{review.parsedFeedbackTime}}</p>
                         <p>{{review.review}}</p>
-                        <p ng-show="!review.review">Клієнт не залишив відгук</p>
+                        <p ng-show="!review.review">Клієнт не залишив коментар</p>
                         <div ng-show="review.showReview" class="admin-reply-in-review">
                             <h4>{{shop.shopName}}</h4>
                             <p>{{review.feedbackComment.comment}}</p>
@@ -115,7 +115,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="col-xs-12 text-center ">
-                    <p><i>Ваша відповідь на відгук буде відображена на сайті</i></p>
+                    <p><i>Даний відгук з Вашим коментарем буде відображений на сайті</i></p>
                     <div class="modal-send-reply">
                         <a ng-click="saveComment()" data-dismiss="modal">Відправити відповідь</a>
                         <a data-dismiss="modal" aria-label="Close">Скасувати</a>

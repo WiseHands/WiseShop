@@ -375,8 +375,8 @@ public class OrderAPI extends AuthController {
         order.save();
 
         try {
-//            smsSender.sendSmsForFeedbackToOrder(order.phone, Messages.get("balance.transaction.low.shop.balance"));
-            mailSender.sendEmailForFeedbackToOrder(shop, order, Messages.get("feedback.email.title", shop.shopName));
+            mailSender.sendEmailForFeedbackToOrder(shop, order,
+                    Messages.get("feedback.email.notification.to.client.leave.feedback", shop.shopName, order.name));
             JsonResponse jsonHandle = new JsonResponse(420, "feedback was sent");
             renderJSON(json(jsonHandle));
         } catch (Exception e) {

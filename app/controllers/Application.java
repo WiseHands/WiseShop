@@ -284,7 +284,7 @@ public class Application extends Controller {
         String query = "SELECT customerName, feedbackTime, quality, review, FeedbackCommentDTO.comment FROM FeedbackDTO" +
                 " LEFT JOIN FeedbackCommentDTO" +
                 " ON FeedbackDTO.feedbackComment_uuid = FeedbackCommentDTO.uuid" +
-                " WHERE showReview = 1 and productUuid = '%s'";
+                " WHERE showReview = 1 and productUuid = '%s' order by feedbackTime desc";
         String feedbackListQuery = formatQueryString(query, product);
         List<Object[]> resultList = JPA.em().createNativeQuery(feedbackListQuery).getResultList();
         List<FeedbackDTO> feedbackResultList = new ArrayList<FeedbackDTO>();

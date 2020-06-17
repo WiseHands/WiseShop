@@ -6,6 +6,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
+import play.i18n.Messages;
+import services.MailSender;
+import services.MailSenderImpl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,7 +19,13 @@ import java.util.List;
 
 public class OrderFeedbackAPI extends AuthController{
 
-    public static void createFeedback() throws Exception{
+    static MailSender mailSender = new MailSenderImpl();
+
+    public static void createFeedback(String client) throws Exception{
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         long time = System.currentTimeMillis();
         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
         Date date = new Date(time);
@@ -27,6 +36,8 @@ public class OrderFeedbackAPI extends AuthController{
 
         String orderUuid = (String) jsonBody.get("orderUuid");
         OrderDTO order = OrderDTO.findById(orderUuid);
+
+        mailSender.sendNotificationToAdminAboutFeedback(shop, order, Messages.get("feedback.email.notification.to.admin.about.new.feedback", shop.shopName, order.name));
 
         JSONArray feedbackList = (JSONArray) jsonBody.get("feedbackToOrderItems");
 
