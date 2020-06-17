@@ -166,6 +166,354 @@
         cursor: pointer;
     }
 
+    /*start circle loading animation*/
+
+    .circle-loading-animation {
+        margin-top: 11%;
+        margin-left: 44%;
+        position: relative;
+        width: 120px;
+        height:120px;
+    }
+
+    .circle-loading-animation .wBall {
+        position: absolute;
+        width: 114px;
+        height: 114px;
+        opacity: 0;
+        transform: rotate(225deg);
+        -o-transform: rotate(225deg);
+        -ms-transform: rotate(225deg);
+        -webkit-transform: rotate(225deg);
+        -moz-transform: rotate(225deg);
+        animation: orbit 4.5325s infinite;
+        -o-animation: orbit 4.5325s infinite;
+        -ms-animation: orbit 4.5325s infinite;
+        -webkit-animation: orbit 4.5325s infinite;
+        -moz-animation: orbit 4.5325s infinite;
+    }
+
+    .circle-loading-animation .wBall .wInnerBall{
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: rgb(0,0,0);
+        left:0px;
+        top:0px;
+        border-radius: 15px;
+    }
+
+    .circle-loading-animation #wBall_1 {
+        animation-delay: 0.986s;
+        -o-animation-delay: 0.986s;
+        -ms-animation-delay: 0.986s;
+        -webkit-animation-delay: 0.986s;
+        -moz-animation-delay: 0.986s;
+    }
+
+    .circle-loading-animation #wBall_2 {
+        animation-delay: 0.193s;
+        -o-animation-delay: 0.193s;
+        -ms-animation-delay: 0.193s;
+        -webkit-animation-delay: 0.193s;
+        -moz-animation-delay: 0.193s;
+    }
+
+    .circle-loading-animation #wBall_3 {
+        animation-delay: 0.3965s;
+        -o-animation-delay: 0.3965s;
+        -ms-animation-delay: 0.3965s;
+        -webkit-animation-delay: 0.3965s;
+        -moz-animation-delay: 0.3965s;
+    }
+
+    .circle-loading-animation #wBall_4 {
+        animation-delay: 0.5895s;
+        -o-animation-delay: 0.5895s;
+        -ms-animation-delay: 0.5895s;
+        -webkit-animation-delay: 0.5895s;
+        -moz-animation-delay: 0.5895s;
+    }
+
+    .circle-loading-animation #wBall_5 {
+        animation-delay: 0.793s;
+        -o-animation-delay: 0.793s;
+        -ms-animation-delay: 0.793s;
+        -webkit-animation-delay: 0.793s;
+        -moz-animation-delay: 0.793s;
+    }
+
+    @keyframes orbit {
+        0% {
+            opacity: 1;
+            z-index:99;
+            transform: rotate(180deg);
+            animation-timing-function: ease-out;
+        }
+
+        7% {
+            opacity: 1;
+            transform: rotate(300deg);
+            animation-timing-function: linear;
+            origin:0%;
+        }
+
+        30% {
+            opacity: 1;
+            transform:rotate(410deg);
+            animation-timing-function: ease-in-out;
+            origin:7%;
+        }
+
+        39% {
+            opacity: 1;
+            transform: rotate(645deg);
+            animation-timing-function: linear;
+            origin:30%;
+        }
+
+        70% {
+            opacity: 1;
+            transform: rotate(770deg);
+            animation-timing-function: ease-out;
+            origin:39%;
+        }
+
+        75% {
+            opacity: 1;
+            transform: rotate(900deg);
+            animation-timing-function: ease-out;
+            origin:70%;
+        }
+
+        76% {
+            opacity: 0;
+            transform:rotate(900deg);
+        }
+
+        100% {
+            opacity: 0;
+            transform: rotate(900deg);
+        }
+    }
+
+    @-o-keyframes orbit {
+        0% {
+            opacity: 1;
+            z-index:99;
+            -o-transform: rotate(180deg);
+            -o-animation-timing-function: ease-out;
+        }
+
+        7% {
+            opacity: 1;
+            -o-transform: rotate(300deg);
+            -o-animation-timing-function: linear;
+            -o-origin:0%;
+        }
+
+        30% {
+            opacity: 1;
+            -o-transform:rotate(410deg);
+            -o-animation-timing-function: ease-in-out;
+            -o-origin:7%;
+        }
+
+        39% {
+            opacity: 1;
+            -o-transform: rotate(645deg);
+            -o-animation-timing-function: linear;
+            -o-origin:30%;
+        }
+
+        70% {
+            opacity: 1;
+            -o-transform: rotate(770deg);
+            -o-animation-timing-function: ease-out;
+            -o-origin:39%;
+        }
+
+        75% {
+            opacity: 1;
+            -o-transform: rotate(900deg);
+            -o-animation-timing-function: ease-out;
+            -o-origin:70%;
+        }
+
+        76% {
+            opacity: 0;
+            -o-transform:rotate(900deg);
+        }
+
+        100% {
+            opacity: 0;
+            -o-transform: rotate(900deg);
+        }
+    }
+
+    @-ms-keyframes orbit {
+        0% {
+            opacity: 1;
+            z-index:99;
+            -ms-transform: rotate(180deg);
+            -ms-animation-timing-function: ease-out;
+        }
+
+        7% {
+            opacity: 1;
+            -ms-transform: rotate(300deg);
+            -ms-animation-timing-function: linear;
+            -ms-origin:0%;
+        }
+
+        30% {
+            opacity: 1;
+            -ms-transform:rotate(410deg);
+            -ms-animation-timing-function: ease-in-out;
+            -ms-origin:7%;
+        }
+
+        39% {
+            opacity: 1;
+            -ms-transform: rotate(645deg);
+            -ms-animation-timing-function: linear;
+            -ms-origin:30%;
+        }
+
+        70% {
+            opacity: 1;
+            -ms-transform: rotate(770deg);
+            -ms-animation-timing-function: ease-out;
+            -ms-origin:39%;
+        }
+
+        75% {
+            opacity: 1;
+            -ms-transform: rotate(900deg);
+            -ms-animation-timing-function: ease-out;
+            -ms-origin:70%;
+        }
+
+        76% {
+            opacity: 0;
+            -ms-transform:rotate(900deg);
+        }
+
+        100% {
+            opacity: 0;
+            -ms-transform: rotate(900deg);
+        }
+    }
+
+    @-webkit-keyframes orbit {
+        0% {
+            opacity: 1;
+            z-index:99;
+            -webkit-transform: rotate(180deg);
+            -webkit-animation-timing-function: ease-out;
+        }
+
+        7% {
+            opacity: 1;
+            -webkit-transform: rotate(300deg);
+            -webkit-animation-timing-function: linear;
+            -webkit-origin:0%;
+        }
+
+        30% {
+            opacity: 1;
+            -webkit-transform:rotate(410deg);
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-origin:7%;
+        }
+
+        39% {
+            opacity: 1;
+            -webkit-transform: rotate(645deg);
+            -webkit-animation-timing-function: linear;
+            -webkit-origin:30%;
+        }
+
+        70% {
+            opacity: 1;
+            -webkit-transform: rotate(770deg);
+            -webkit-animation-timing-function: ease-out;
+            -webkit-origin:39%;
+        }
+
+        75% {
+            opacity: 1;
+            -webkit-transform: rotate(900deg);
+            -webkit-animation-timing-function: ease-out;
+            -webkit-origin:70%;
+        }
+
+        76% {
+            opacity: 0;
+            -webkit-transform:rotate(900deg);
+        }
+
+        100% {
+            opacity: 0;
+            -webkit-transform: rotate(900deg);
+        }
+    }
+
+    @-moz-keyframes orbit {
+        0% {
+            opacity: 1;
+            z-index:99;
+            -moz-transform: rotate(180deg);
+            -moz-animation-timing-function: ease-out;
+        }
+
+        7% {
+            opacity: 1;
+            -moz-transform: rotate(300deg);
+            -moz-animation-timing-function: linear;
+            -moz-origin:0%;
+        }
+
+        30% {
+            opacity: 1;
+            -moz-transform:rotate(410deg);
+            -moz-animation-timing-function: ease-in-out;
+            -moz-origin:7%;
+        }
+
+        39% {
+            opacity: 1;
+            -moz-transform: rotate(645deg);
+            -moz-animation-timing-function: linear;
+            -moz-origin:30%;
+        }
+
+        70% {
+            opacity: 1;
+            -moz-transform: rotate(770deg);
+            -moz-animation-timing-function: ease-out;
+            -moz-origin:39%;
+        }
+
+        75% {
+            opacity: 1;
+            -moz-transform: rotate(900deg);
+            -moz-animation-timing-function: ease-out;
+            -moz-origin:70%;
+        }
+
+        76% {
+            opacity: 0;
+            -moz-transform:rotate(900deg);
+        }
+
+        100% {
+            opacity: 0;
+            -moz-transform: rotate(900deg);
+        }
+    }
+    /*end circle animation*/
+
     @media screen and (max-width: 768px) {
         .order-feedback-container, .order-item-card {
             flex-direction: column;
@@ -182,6 +530,10 @@
 
         .feedback-item {
             margin: 0 1rem 1rem 1rem;
+        }
+        .circle-loading-animation{
+            margin-top: 40%;
+            margin-left: 40%;
         }
     }
 </style>
@@ -248,9 +600,26 @@
     <div onclick="sendFeedback('${order.uuid}')" class="button-send-feedback-container">
         <div>ВІДПРАВИТИ ВІДГУК</div>
     </div>
+
 </div>
 #{/else}
-
+<div class="circle-loading-animation">
+    <div class="wBall" id="wBall_1">
+        <div class="wInnerBall"></div>
+    </div>
+    <div class="wBall" id="wBall_2">
+        <div class="wInnerBall"></div>
+    </div>
+    <div class="wBall" id="wBall_3">
+        <div class="wInnerBall"></div>
+    </div>
+    <div class="wBall" id="wBall_4">
+        <div class="wInnerBall"></div>
+    </div>
+    <div class="wBall" id="wBall_5">
+        <div class="wInnerBall"></div>
+    </div>
+</div>
 <div id="feedback-success">
     <p>Дякуємо за Ваш відгук</p>
     <a href="/">
@@ -266,6 +635,13 @@
 </body>
 </html>
 <script>
+    const circleLoadingAnimation = document.querySelector('.circle-loading-animation');
+    circleLoadingAnimation.style.display = 'none';
+
+    const mainContainer = document.querySelector('.main-container');
+    const errorContainer = document.querySelector('#feedback-error');
+    const successContainer = document.querySelector('#feedback-success');
+
     (() => {
         const orderPriceSpanList = document.querySelectorAll('[price]');
         orderPriceSpanList.forEach(item => {
@@ -312,6 +688,10 @@
   }
 
   function sendFeedback(orderUuid) {
+      mainContainer.style.display = 'none';
+      setInterval(function() {
+          circleLoadingAnimation.style.display = 'flex';
+      },1000);
     const objectBody = {
       orderUuid: orderUuid,
       deliveryFeedback: {
@@ -326,15 +706,17 @@
       body: params,
     }).then((response) =>{
          if(!response.ok) {
-            document.querySelector('#feedback-error').style.display = 'flex';
-            document.querySelector('.main-container').style.display = 'none';
+            errorContainer.style.display = 'flex';
+            mainContainer.style.display = 'none';
+            circleLoadingAnimation.style.display = 'none';
          }
        return response.json();
        }).then((data) =>{
             if (data){
-              document.querySelector('#feedback-success').style.display = 'flex';
-              document.querySelector('.main-container').style.display = 'none';
-              document.querySelector('#feedback-error').style.display = 'none';
+              successContainer.style.display = 'flex';
+              mainContainer.style.display = 'none';
+              errorContainer.style.display = 'none';
+              circleLoadingAnimation.style.display = 'none';
             }
        });
   }
