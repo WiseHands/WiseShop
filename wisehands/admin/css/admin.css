@@ -1854,18 +1854,19 @@ ul.admin-breadcrumb li a:hover {
     word-break: break-all;
 }
 
-.review-text p:first-child {
+.review-feedbacktime {
     color: #777;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 }
-.review-text p:last-child {
+
+.reply-for-review p{
     color: #039be5;
     font-size: 1rem;
     cursor: pointer;
     line-height: 1.4;
 }
 
-.review-text p:last-child:hover {
+.reply-for-review p:hover {
     color: #039be5;
 }
 
@@ -1898,7 +1899,6 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .reply-for-review {
-    margin-left: 1rem;
 }
 
 .modal-send-reply {
@@ -1928,6 +1928,20 @@ ul.admin-breadcrumb li a:hover {
 
 .sortorder.reverse:after {
     content: '\25bc';   /
+}
+
+.admin-reply-in-review {
+    margin-left: 1rem;
+}
+.admin-reply-in-review p {
+    font-size: 1rem;
+    color: #000;
+}
+
+.admin-reply-in-review h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
 @media screen and (min-width: 1500px) {

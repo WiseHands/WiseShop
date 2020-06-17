@@ -2,7 +2,18 @@ angular.module('WiseHands')
   .controller('ProductReviewsController', ['$http', '$scope', '$routeParams', function ($http, $scope, $routeParams) {
     $scope.loading = true;
 
-    $http({
+      $http({
+          method: 'GET',
+          url: '/shop/details'
+      })
+          .then(function successCallback(response) {
+              $scope.shop = response.data;
+              $scope.loading = false;
+          }, function errorCallback(response) {
+              $scope.loading = false;
+          });
+
+      $http({
       method: 'GET',
       url: `/api/product/${$routeParams.uuid}`
     })
