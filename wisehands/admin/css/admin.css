@@ -1383,7 +1383,8 @@ input {
 
 .admin-card .admin-order-details-row p {
     text-align: left;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
+    font-weight: 400;
     line-height: 1.2;
     word-break: break-word;
 }
@@ -1402,7 +1403,7 @@ input {
 }
 
 .order-details-image img {
-    width: 67px;
+    min-width: 67px;
     margin-right: 5px;
     object-fit: cover;
 }
@@ -1868,6 +1869,7 @@ ul.admin-breadcrumb li a:hover {
 
 .feedback-stars {
     min-width: 126px;
+    margin-left: 0.5rem;
 }
 
 .review-info .feedback-stars {
@@ -1947,10 +1949,16 @@ ul.admin-breadcrumb li a:hover {
     display: flex;
     flex-direction: column;
 }
-div.product-review {
+
+.product-review {
     padding-left: 72px;
     text-align: left;
 }
+
+.product-review p {
+    font-size: 1.1rem;
+}
+
 .upload-favicon, .upload-logo {
     display: flex;
     justify-content: center;
