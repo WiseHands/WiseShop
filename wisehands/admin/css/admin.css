@@ -1855,9 +1855,13 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .review-text {
-    flex: 0 0 70%;
+    flex: 0 1 70%;
     margin-left: 1rem;
     word-break: break-all;
+}
+
+.review-text p {
+    word-break: break-word;
 }
 
 .review-feedbacktime {
@@ -1950,7 +1954,7 @@ ul.admin-breadcrumb li a:hover {
 
 .admin-reply-in-review h4 {
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 0.5rem;
 }
 .product-feedback-container{
