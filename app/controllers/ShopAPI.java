@@ -1,7 +1,6 @@
 package controllers;
 
 import models.*;
-import org.joda.time.DateTime;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.i18n.Messages;
@@ -220,10 +219,19 @@ public class ShopAPI extends AuthController {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        System.out.println("jsonBody for save time: \n" + jsonBody);
 
         String monStartTime = (String) jsonBody.get("monStartTime");
         String monEndTime = (String) jsonBody.get("monEndTime");
+
+        System.out.println("time from setting hours -- " + monStartTime);
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = format.parse(monStartTime);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        String _monStartTime = dateFormat.format(date);
+        System.out.println("time for working hours -- " + dateFormat.format(date));
+
         if (monStartTime == null && monEndTime == null){
             System.out.println("null here because hours -- null");
         }
@@ -247,11 +255,7 @@ public class ShopAPI extends AuthController {
         String sunEndTime = (String) jsonBody.get("sunEndTime");
         boolean sunOpen = checkIsShopOpenToday(jsonBody, "sunOpen");
 
-        System.out.println("working time\n" + monStartTime + "\n" + thuStartTime
-                + "\n" + wedStartTime + "\n" + thuStartTime + "\n" + friStartTime
-                + "\n" + satStartTime + "\n" + sunStartTime);
-
-        shop.monStartTime = monStartTime;
+        shop.monStartTime = _monStartTime;
         shop.monEndTime = monEndTime;
         shop.monOpen = monOpen;
         shop.tueStartTime = tueStartTime;

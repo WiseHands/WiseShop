@@ -424,17 +424,29 @@
         if (data.monOpen === true) {
             document.getElementById('mon').innerHTML = 'Зачинено';
         } else {
-            let _startDate = new Date(data.monStartTime);
-            let _endDate = new Date(data.monEndTime);
-            let mon = getRightFormat(_startDate.getHours()) + ":" + getRightFormat(_startDate.getMinutes()) + "-" +
-                getRightFormat(_endDate.getHours()) + ":" + getRightFormat(_endDate.getMinutes());
-            document.getElementById('mon').innerHTML = mon;
+            let monStartTime = new Date(data.monStartTime);
+
+            let parseStartDate = data.monStartTime.split(/[^0-9]/);
+            let _startDate = new Date (parseStartDate[0],parseStartDate[1]-1,parseStartDate[2],parseStartDate[3],parseStartDate[4],parseStartDate[5] );
+            let parseEndDate = data.monEndTime.split(/[^0-9]/);
+            let _endDate = new Date(parseEndDate[0],parseEndDate[1]-1,parseEndDate[2],parseEndDate[3],parseEndDate[4],parseEndDate[5]);
+
+            let mondayWorkingHours = getRightFormat(_startDate.getHours()) + ":" +
+                getRightFormat(_startDate.getMinutes()) + "-" +
+                getRightFormat(_endDate.getHours()) + ":" +
+                getRightFormat(_endDate.getMinutes());
+
+            document.getElementById('mon').innerHTML = mondayWorkingHours;
+            console.log("mondayWorkingHours", mondayWorkingHours);
+
         }
         if (data.tueOpen === true) {
             document.getElementById('tue').innerHTML = 'Зачинено';
         } else {
-            let tue = getRightFormat(new Date(data.tueStartTime).getHours()) + ":" + getRightFormat(new Date(data.tueStartTime).getMinutes()) + "-" +
-                getRightFormat(new Date(data.tueEndTime).getHours()) + ":" + getRightFormat(new Date(data.tueEndTime).getMinutes());
+            let tue = getRightFormat(new Date(data.tueStartTime).getHours()) + ":" +
+                getRightFormat(new Date(data.tueStartTime).getMinutes()) + "-" +
+                getRightFormat(new Date(data.tueEndTime).getHours()) + ":" +
+                getRightFormat(new Date(data.tueEndTime).getMinutes());
             document.getElementById('tue').innerHTML = tue;
         }
         if (data.wedOpen === true) {
