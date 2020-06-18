@@ -1784,21 +1784,7 @@ ul.admin-breadcrumb li a:hover {
 .admin-card .closed-shop-options {
     margin-bottom: 1.2rem;
 }
-.upload-favicon, .upload-logo {
-    height: 220px;
-}
-.admin-card .upload-text {
-    padding: 1rem;
-    text-align: center;
-    border: 1px dashed #000;
-    border-radius: 10px;
-    height: 95%;
-    margin-bottom: 2rem;
-    line-height: 1.5;
-}
-.admin-card .upload-text:hover {
-    cursor: pointer;
-}
+
 /* feedback to order in single order page*/
 .feedback-to-all-order{
     display: flex;
@@ -1972,7 +1958,7 @@ div.product-review {
 }
 .upload-favicon img, .upload-logo img {
     max-width: 100%;
-    height: 200px;
+    object-fit: cover;
 }
 
 .upload-favicon i, .upload-logo i {
@@ -1995,7 +1981,6 @@ div.product-review {
 
 .admin-card .upload-info-text  {
     line-height: 1.23;
-    height: 90px;
 }
 
 .admin-card .upload-text:hover {
