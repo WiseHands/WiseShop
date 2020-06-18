@@ -1404,6 +1404,7 @@ input {
 
 .order-details-image img {
     min-width: 67px;
+    width: 67px;
     margin-right: 5px;
     object-fit: cover;
 }
