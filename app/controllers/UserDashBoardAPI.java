@@ -3,6 +3,7 @@ package controllers;
 import models.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.i18n.Lang;
 import play.mvc.Before;
 
 import java.text.DateFormat;
@@ -52,8 +53,9 @@ public class UserDashBoardAPI extends AuthController{
                 user.wizard.cityName, user.wizard.streetName, user.wizard.buildingNumber,
                 user.wizard.facebookLink, user.wizard.instagramLink, user.wizard.youtubeLink
         );
+
         PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(user.wizard.payCash, user.wizard.payOnline,
-                (double) 0, "", "", ""
+                (double) 0, "Готівкою", "Карткою", ""
         );
 
         BalanceDTO balance = new BalanceDTO();
@@ -61,7 +63,7 @@ public class UserDashBoardAPI extends AuthController{
 
         ShopDTO shop = new ShopDTO(users, paymentSettings, delivery,
                 contact, balance, visualSettings, user.wizard.shopName,
-                "public liqpay key here", "private liqpay key here", user.wizard.shopDomain, "en_US"
+                "public liqpay key here", "private liqpay key here", user.wizard.shopDomain, "uk_UA"
         );
         shop.googleStaticMapsApiKey = "AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg";
         shop.googleMapsApiKey = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
