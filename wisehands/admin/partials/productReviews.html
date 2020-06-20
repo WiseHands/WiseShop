@@ -9,7 +9,7 @@
             </a>
 
             <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'productDetails.feedBacks' | translate}}</h5>
+                <h5 class="white-text">{{'productDetails.reviews' | translate}}</h5>
             </div>
             <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
                id="dropdownMenu1"
@@ -37,11 +37,11 @@
     <div class="admin-container product-reviews-block">
         <div class="admin-column">
             <div class="sort-reviews">
-                <p ng-click="sortBy('feedbackTime')">По даті
+                <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
                     <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
                           ng-class="{reverse: reverse}"></span>
                 </p>
-                <p ng-click="sortBy('quality')">По рейтингу
+                <p ng-click="sortBy('quality')">{{'productReviews.byRating' | translate}}
                     <span class="sortorder" ng-show="sortByProperty === 'quality'" ng-class="{reverse: reverse}"></span>
                 </p>
             </div>
@@ -63,32 +63,34 @@
                                 <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"
                                    style="font-size:24px; color: #000"></i>
                             </div>
-                            <i ng-show="review.showReview">відгук відображається</i>
-                            <i ng-show="!review.showReview">відгук не відображається</i>
+                            <i ng-show="review.showReview">{{'productReviews.reviewDisplayed' | translate}}</i>
+                            <i ng-show="!review.showReview">{{'productReviews.reviewNotDisplayed' | translate}}</i>
                         </div>
                         <div ng-click="showOrHideFeedback(this)" class="show-review">
                             <p ng-show="!review.showReview">
                                 <span><i class="fa fa-eye" style="font-size: 18px"></i></span>
-                                Показати</p>
+                                {{'productReviews.showReview' | translate}}
+                            </p>
                             <p ng-show="review.showReview">
                                 <span><i class="fa fa-eye-slash" style="font-size: 18px"></i></span>
-                                Приховати</p>
+                                {{'productReviews.hideReview' | translate}}
+                            </p>
                         </div>
                     </div>
                     <div class="review-text">
                         <p class="review-feedbacktime">{{review.parsedFeedbackTime}}</p>
                         <p>{{review.review}}</p>
-                        <p ng-show="!review.review">Клієнт не залишив коментар</p>
+                        <p ng-show="!review.review">{{'productReviews.customerDidNotLeaveComment' | translate}}</p>
                         <div ng-show="review.showReview" class="admin-reply-in-review">
                             <h4>{{shop.shopName}}</h4>
                             <p>{{review.feedbackComment.comment}}</p>
                         </div>
                         <div class="reply-for-review" ng-show="!review.showReview && review.review">
                             <textarea ng-model="review.feedbackComment.comment"
-                                      placeholder="Відповісти на відгук"></textarea>
+                                      placeholder="{{'productReviews.respondToReview' | translate}}"></textarea>
                             <a class="text-left" data-toggle="modal" ng-click="setFeedbackItemContext(this)"
                                data-target="#sendReply">
-                                <p>Відправити відповідь</p>
+                                <p>{{'productReviews.sendReplyForComment' | translate}}</p>
                             </a>
                         </div>
                     </div>
@@ -115,10 +117,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="col-xs-12 text-center ">
-                    <p><i>Даний відгук з Вашим коментарем буде відображений на сайті</i></p>
+                    <p><i>{{'productReviews.warningMessageReplyForComment' | translate}}</i></p>
                     <div class="modal-send-reply">
-                        <a ng-click="saveComment()" data-dismiss="modal">Відправити відповідь</a>
-                        <a data-dismiss="modal" aria-label="Close">Скасувати</a>
+                        <a ng-click="saveComment()" data-dismiss="modal">{{'productReviews.sendReplyForComment' | translate}}</a>
+                        <a data-dismiss="modal" aria-label="Close">{{'productReviews.cancelReplyForComment' | translate}}</a>
                     </div>
                 </div>
                 <div class="col-xs-9">
