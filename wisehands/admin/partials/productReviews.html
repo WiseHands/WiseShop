@@ -82,7 +82,7 @@
                         <p>{{review.review}}</p>
                         <p ng-show="!review.review">{{'productReviews.customerDidNotLeaveComment' | translate}}</p>
                         <div ng-show="review.showReview" class="admin-reply-in-review">
-                            <h4>{{shop.shopName}}</h4>
+                            <h4 ng-show="review.showReview && review.feedbackComment.comment">{{shop.shopName}}</h4>
                             <p>{{review.feedbackComment.comment}}</p>
                         </div>
                         <div class="reply-for-review" ng-show="!review.showReview && review.review">
