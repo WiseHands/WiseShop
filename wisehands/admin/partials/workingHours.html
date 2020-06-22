@@ -142,7 +142,7 @@
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.sunOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="time" ng-model="workDay.sunEndTime">
+                    <input type="time" step="60" ng-model="workDay.sunEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.sunOpen" id="tableDefaultCheck7">

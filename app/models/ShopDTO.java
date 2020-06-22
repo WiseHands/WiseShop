@@ -156,6 +156,18 @@ public class ShopDTO extends GenericModel {
     public List<PageConstructorDTO> pagesList;
 
     @Expose
+    @OneToMany(cascade=CascadeType.ALL)
+    public List<WorkingDayDTO> workingDayLists;
+
+    public void addWorkingDay(WorkingDayDTO workingDay){
+        if(this.workingDayLists == null){
+            this.workingDayLists = new ArrayList<WorkingDayDTO>();
+        }
+        this.workingDayLists.add(workingDay);
+    }
+
+
+    @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public PricingPlanDTO pricingPlan;
 
