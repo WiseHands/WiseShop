@@ -167,8 +167,7 @@
                                     <div class="admin-order-details-row">
                                         <a class="order-details-image" ng-if="item.productUuid"
                                            href="#/product/details/{{item.productUuid}}">
-                                            <!--<img src="{{item.imagePath}}">-->
-                                            <img src="\wisehands\assets\images\delivey-img\coruier.svg">
+                                            <img src="{{item.imagePath}}">
                                             <p>{{item.name}} <span ng-show="item.tags.length > 0"> (<span
                                                     ng-repeat="property in item.tags">{{property.value}}</span>)</span>
                                             </p>
@@ -222,13 +221,10 @@
                                     <div class="product-feedback-info">
                                         <a class="feedback-order-details-image" ng-if="item.productUuid"
                                            href="#/productreviews/{{item.productUuid}}">
-                                            <!--<img src="{{item.imagePath}}">-->
-
-
+                                            <img src="{{item.imagePath}}">
                                             <div class="admin-order-item-feedback">
                                                 <p>{{item.name}}</p>
                                             </div>
-                                            <img src="\wisehands\assets\images\delivey-img\coruier.svg">
                                         </a>
 
                                     </div>
