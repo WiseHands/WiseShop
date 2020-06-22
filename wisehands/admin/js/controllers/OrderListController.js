@@ -156,9 +156,33 @@
                     return 'error_outline';
                 }
             };
-
-            $scope.orderStateString = function(order){
+            $scope.orderFeedbackState = function (order) {
                 if (!order) return;
+
+                if (order.feedbackRequestState === "REQUEST_SENT" && order.state === "NEW") {
+                    if (locale === 'en_US') {
+                        return 'feedback received';
+                    } else if (locale === 'uk_UA') {
+                        return 'Відгук отриманий';
+                    }
+                } else if (order.feedbackRequestState === "PENDING_REQUEST") {
+                    if (locale === 'en_US') {
+                        return 'Feedback is expected';
+                    } else if (locale === 'uk_UA') {
+                        return 'Відгук очікується';
+                    }
+                } else if (order.feedbackRequestState === "REQUEST_NOT_SEND") {
+                    if (locale === 'en_US') {
+                        return 'feedback request not sent';
+                    } else if (locale === 'uk_UA') {
+                        return 'запит на відгук не відправлений';
+                    }
+                }
+            };
+            $scope.orderStateString = function(order){
+                console.log('orderStateString',order);
+                if (!order) return;
+
                 if (order.state === "NEW") {
                     if (locale === 'en_US') {
                         return 'New';

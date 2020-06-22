@@ -150,6 +150,11 @@
                 <div class="card-footer">
                     <ul class="list-inline">
                         <li>{{orderStateString(item)}}</li>
+                        <li>{{orderFeedbackState(item)}}</li>
+
+                        <!--<span ng-show="item.feedbackRequestState === 'REQUEST_SENT'"> відгук отриманий</span>-->
+                        <!--<span ng-show="item.feedbackRequestState === 'PENDING_REQUEST'"> відгук очікується</span>-->
+                        <!--<span ng-show="item.feedbackRequestState === 'REQUEST_NOT_SEND'">запит на відгук не відправлений</span>-->
                     </ul>
                 </div>
             </div>
