@@ -410,78 +410,71 @@
         return response.json();
     }).then(function (data) {
 
-        function getRightFormat(number) {
-            let formattedNumber;
-            if(number < 10) {
-                formattedNumber = '0' + number;
-            } else {
-                formattedNumber = '' + number;
-            }
-            return formattedNumber;
-        }
+
+
 
         console.log("response for footer data", data);
         if (data.monOpen === true) {
             document.getElementById('mon').innerHTML = 'Зачинено';
         } else {
-            let _startDate = new Date(data.monStartTime);
-            let _endDate = new Date(data.monEndTime);
-            let mon = getRightFormat(_startDate.getHours()) + ":" + getRightFormat(_startDate.getMinutes()) + "-" +
-                getRightFormat(_endDate.getHours()) + ":" + getRightFormat(_endDate.getMinutes());
-            document.getElementById('mon').innerHTML = mon;
+            document.getElementById('mon').innerHTML = setWorkingHours(data.monStartTime, data.monEndTime);
         }
         if (data.tueOpen === true) {
             document.getElementById('tue').innerHTML = 'Зачинено';
         } else {
-            let tue = getRightFormat(new Date(data.tueStartTime).getHours()) + ":" + getRightFormat(new Date(data.tueStartTime).getMinutes()) + "-" +
-                getRightFormat(new Date(data.tueEndTime).getHours()) + ":" + getRightFormat(new Date(data.tueEndTime).getMinutes());
-            document.getElementById('tue').innerHTML = tue;
+            document.getElementById('tue').innerHTML = setWorkingHours(data.tueStartTime, data.tueEndTime);
         }
         if (data.wedOpen === true) {
             document.getElementById('wed').innerHTML = 'Зачинено';
         } else {
-            let wed = getRightFormat(new Date(data.wedStartTime).getHours()) + ":" +
-                getRightFormat(new Date(data.wedStartTime).getMinutes()) + "-" +
-                getRightFormat(new Date(data.wedEndTime).getHours()) + ":" +
-                getRightFormat(new Date(data.wedEndTime).getMinutes());
-            document.getElementById('wed').innerHTML = wed;
+            document.getElementById('wed').innerHTML = setWorkingHours(data.wedStartTime, data.wedEndTime);
         }
         if (data.thuOpen === true) {
             document.getElementById('thu').innerHTML = 'Зачинено';
         } else {
-            let thu = getRightFormat(new Date(data.thuStartTime).getHours()) + ":" +
-                getRightFormat(new Date(data.thuStartTime).getMinutes()) + "-" +
-                getRightFormat(new Date(data.thuEndTime).getHours()) + ":" +
-                getRightFormat(new Date(data.thuEndTime).getMinutes());
-            document.getElementById('thu').innerHTML = thu;
+            document.getElementById('thu').innerHTML = setWorkingHours(data.thuStartTime, data.thuEndTime);
         }
         if (data.friOpen === true) {
             document.getElementById('fri').innerHTML = 'Зачинено';
         } else {
-            let fri = getRightFormat(new Date(data.friStartTime).getHours()) + ":" +
-                getRightFormat(new Date(data.friStartTime).getMinutes()) + "-" +
-                getRightFormat(new Date(data.friEndTime).getHours()) + ":" +
-                getRightFormat(new Date(data.friEndTime).getMinutes());
-            document.getElementById('fri').innerHTML = fri;
+            document.getElementById('fri').innerHTML = setWorkingHours(data.friStartTime, data.friEndTime);
         }
         if (data.satOpen === true) {
             document.getElementById('sat').innerHTML = 'Зачинено';
         } else {
-            let sat = getRightFormat(new Date(data.satStartTime).getHours()) + ":" +
-                getRightFormat(new Date(data.satStartTime).getMinutes()) + "-" +
-                getRightFormat(new Date(data.satEndTime).getHours()) + ":" +
-                getRightFormat(new Date(data.satEndTime).getMinutes());
-            document.getElementById('sat').innerHTML = sat;
+            document.getElementById('sat').innerHTML = setWorkingHours(data.satStartTime, data.satEndTime);
         }
         if (data.sunOpen === true) {
             document.getElementById('sun').innerHTML = 'Зачинено';
         } else {
-            let sun = getRightFormat(new Date(data.sunStartTime).getHours()) + ":" +
-                getRightFormat(new Date(data.sunStartTime).getMinutes()) + "-" +
-                getRightFormat(new Date(data.sunEndTime).getHours()) + ":" +
-                getRightFormat(new Date(data.sunEndTime).getMinutes());
-            document.getElementById('sun').innerHTML = sun;
+            document.getElementById('sun').innerHTML = setWorkingHours(data.sunStartTime, data.sunEndTime);
         }
     });
+
+    function setWorkingHours(startTime, endTime){
+        let parseStartDate = startTime.split(/[^0-9]/);
+        let _startDate = new Date (parseStartDate[0],parseStartDate[1]-1,parseStartDate[2],parseStartDate[3],parseStartDate[4],parseStartDate[5] );
+
+        let parseEndDate = endTime.split(/[^0-9]/);
+        let _endDate = new Date(parseEndDate[0],parseEndDate[1]-1,parseEndDate[2],parseEndDate[3],parseEndDate[4],parseEndDate[5]);
+
+        let workingHours = getRightFormat(_startDate.getHours()) + ":" +
+            getRightFormat(_startDate.getMinutes()) + "-" +
+            getRightFormat(_endDate.getHours()) + ":" +
+            getRightFormat(_endDate.getMinutes());
+
+        return workingHours;
+    }
+
+    function getRightFormat(number) {
+        let formattedNumber;
+        if(number < 10) {
+            formattedNumber = '0' + number;
+        } else {
+            formattedNumber = '' + number;
+        }
+        return formattedNumber;
+    }
+
 
 </script>

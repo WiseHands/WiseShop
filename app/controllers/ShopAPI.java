@@ -1,7 +1,6 @@
 package controllers;
 
 import models.*;
-import org.joda.time.DateTime;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.i18n.Messages;
@@ -12,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -220,61 +220,50 @@ public class ShopAPI extends AuthController {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        System.out.println("jsonBody for save time: \n" + jsonBody);
 
-        String monStartTime = (String) jsonBody.get("monStartTime");
-        String monEndTime = (String) jsonBody.get("monEndTime");
-        if (monStartTime == null && monEndTime == null){
-            System.out.println("null here because hours -- null");
-        }
         boolean monOpen = checkIsShopOpenToday(jsonBody, "monOpen");
-        String tueStartTime = (String) jsonBody.get("tueStartTime");
-        String tueEndTime = (String) jsonBody.get("tueEndTime");
         boolean tueOpen = checkIsShopOpenToday(jsonBody, "tueOpen");
-        String wedStartTime = (String) jsonBody.get("wedStartTime");
-        String wedEndTime = (String) jsonBody.get("wedEndTime");
         boolean wedOpen = checkIsShopOpenToday(jsonBody, "wedOpen");
-        String thuStartTime = (String) jsonBody.get("thuStartTime");
-        String thuEndTime = (String) jsonBody.get("thuEndTime");
         boolean thuOpen = checkIsShopOpenToday(jsonBody, "thuOpen");
-        String friStartTime = (String) jsonBody.get("friStartTime");
-        String friEndTime = (String) jsonBody.get("friEndTime");
         boolean friOpen = checkIsShopOpenToday(jsonBody, "friOpen");
-        String satStartTime = (String) jsonBody.get("satStartTime");
-        String satEndTime = (String) jsonBody.get("satEndTime");
         boolean satOpen = checkIsShopOpenToday(jsonBody, "satOpen");
-        String sunStartTime = (String) jsonBody.get("sunStartTime");
-        String sunEndTime = (String) jsonBody.get("sunEndTime");
         boolean sunOpen = checkIsShopOpenToday(jsonBody, "sunOpen");
 
-        System.out.println("working time\n" + monStartTime + "\n" + thuStartTime
-                + "\n" + wedStartTime + "\n" + thuStartTime + "\n" + friStartTime
-                + "\n" + satStartTime + "\n" + sunStartTime);
-
-        shop.monStartTime = monStartTime;
-        shop.monEndTime = monEndTime;
+        shop.monStartTime = setWorkingTime((String) jsonBody.get("monStartTime"));
+        shop.monEndTime = setWorkingTime((String) jsonBody.get("monEndTime"));
         shop.monOpen = monOpen;
-        shop.tueStartTime = tueStartTime;
-        shop.tueEndTime = tueEndTime;
+        shop.tueStartTime = setWorkingTime((String) jsonBody.get("tueStartTime"));
+        shop.tueEndTime = setWorkingTime((String) jsonBody.get("tueEndTime"));
         shop.tueOpen = tueOpen;
-        shop.wedStartTime = wedStartTime;
-        shop.wedEndTime =wedEndTime;
+        shop.wedStartTime = setWorkingTime((String) jsonBody.get("wedStartTime"));
+        shop.wedEndTime = setWorkingTime((String) jsonBody.get("wedEndTime"));
         shop.wedOpen = wedOpen;
-        shop.thuStartTime = thuStartTime;
-        shop.thuEndTime = thuEndTime;
+        shop.thuStartTime = setWorkingTime((String) jsonBody.get("thuStartTime"));
+        shop.thuEndTime = setWorkingTime((String) jsonBody.get("thuEndTime"));
         shop.thuOpen = thuOpen;
-        shop.friStartTime = friStartTime;
-        shop.friEndTime = friEndTime;
+        shop.friStartTime = setWorkingTime((String) jsonBody.get("friStartTime"));
+        shop.friEndTime = setWorkingTime((String) jsonBody.get("friEndTime"));
         shop.friOpen = friOpen;
-        shop.satStartTime = satStartTime;
-        shop.satEndTime = satEndTime;
+        shop.satStartTime = setWorkingTime((String) jsonBody.get("satStartTime"));
+        shop.satEndTime = setWorkingTime((String) jsonBody.get("satEndTime"));
         shop.satOpen = satOpen;
-        shop.sunStartTime = sunStartTime;
-        shop.sunEndTime = sunEndTime;
+        shop.sunStartTime = setWorkingTime((String) jsonBody.get("sunStartTime"));
+        shop.sunEndTime = setWorkingTime((String) jsonBody.get("sunEndTime"));
         shop.sunOpen = sunOpen;
+        System.out.println("time for working hours monStartTime -- " + shop.monStartTime);
 
         shop = shop.save();
         renderJSON(json(shop));
+    }
+
+    private static String setWorkingTime (String workingTime) throws ParseException {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = format.parse(workingTime);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        return dateFormat.format(date);
+
     }
 
     private static boolean checkIsShopOpenToday(JSONObject jsonBody, String day) {

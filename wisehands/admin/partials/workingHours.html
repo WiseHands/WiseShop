@@ -20,25 +20,25 @@
 <div class="admin-container working-hours-block">
     <div class="admin-column">
         <div class="admin-card">
-                <h4 >{{'editProduct.general' | translate}}</h4>
-                <p>{{'settings.work24/7' | translate}}</p>
-                <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="activeShop.alwaysOpen" />
-                <label for="filled-in-box">{{'settings.alwaysOpen' | translate}}</label>
-                <p>{{'settings.isTemporary' | translate}}</p>
-                <input id="shopClosedbox" type="checkbox" class="filled-in checkBoxStyling" ng-model="activeShop.isTemporaryClosed" ng-click="whenShopClosed()" />
-                <label for="shopClosedbox">{{'settings.whenClosed' | translate}}</label>
+            <h4 >{{'editProduct.general' | translate}}</h4>
+            <p>{{'settings.work24/7' | translate}}</p>
+            <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling" ng-model="activeShop.alwaysOpen" />
+            <label for="filled-in-box">{{'settings.alwaysOpen' | translate}}</label>
+            <p>{{'settings.isTemporary' | translate}}</p>
+            <input id="shopClosedbox" type="checkbox" class="filled-in checkBoxStyling" ng-model="activeShop.isTemporaryClosed" ng-click="whenShopClosed()" />
+            <label for="shopClosedbox">{{'settings.whenClosed' | translate}}</label>
 
-                <div ng-hide="!activeShop.isTemporaryClosed">
-                    <div class="closed-shop-options">
-                        <p>{{'settings.temporaryTitle' | translate}}</p>
-                        <input id="temporaryTitle" type="text" ng-model="activeShop.temporaryClosedTitle">
-                    </div>
-
-                    <div class="closed-shop-options">
-                        <p>{{'settings.temporaryDiscr' | translate}}</p>
-                        <input id="temporaryDiscr" type="text" ng-model="activeShop.temporaryClosedDescription">
-                    </div>
+            <div ng-hide="!activeShop.isTemporaryClosed">
+                <div class="closed-shop-options">
+                    <p>{{'settings.temporaryTitle' | translate}}</p>
+                    <input id="temporaryTitle" type="text" ng-model="activeShop.temporaryClosedTitle">
                 </div>
+
+                <div class="closed-shop-options">
+                    <p>{{'settings.temporaryDiscr' | translate}}</p>
+                    <input id="temporaryDiscr" type="text" ng-model="activeShop.temporaryClosedDescription">
+                </div>
+            </div>
         </div>
 
     </div>
@@ -142,7 +142,7 @@
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.sunOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="time" ng-model="workDay.sunEndTime">
+                    <input type="time" step="60" ng-model="workDay.sunEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.sunOpen" id="tableDefaultCheck7">
