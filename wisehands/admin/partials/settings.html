@@ -35,15 +35,14 @@
                         <i class="fa fa-plus" style="font-size: 32px"></i>
                     </div>
                 </div>
-                <div class="file-field input-field" ng-show="!shopStyling.shopFavicon">
+                <div class="file-field" ng-show="!shopStyling.shopFavicon">
                     <input name="favIconLoader" type="file" id="favIconLoader"
                            onchange="angular.element(this).scope().favIconUpload(this)"/>
                 </div>
-                <div class="input-field  " ng-show="faviconSrc">
-                    <button type="button" class="btn secondaryColor waves-effect waves-light btn-block"
-                            ng-click="deleteFavicon()">
+                <div class="delete-logo-favicon"  ng-show="faviconSrc">
+                    <p ng-click="deleteFavicon()">
                         <span>{{'productDetails.delete' | translate}} favicon</span>
-                    </button>
+                    </p>
                 </div>
             </div>
         </div>
@@ -58,16 +57,15 @@
                         <i class="fa fa-plus" style="font-size: 32px"></i>
                     </div>
                 </div>
-                <div class="file-field input-field  " ng-show="!logoSrc">
+                <div class="file-field" ng-show="!logoSrc">
                     <input name="logoLoader" type="file" id="logoLoader"
                            onchange="angular.element(this).scope().logoUpload(this)"/>
                 </div>
 
-                <div class="input-field " ng-hide="!logoSrc">
-                    <button type="button" class="btn secondaryColor waves-effect waves-light btn-block"
-                            ng-click="deleteLogo()">
+                <div class="delete-logo-favicon" ng-hide="!logoSrc">
+                    <p ng-click="deleteLogo()">
                         <span>{{'settings.removeLogo' | translate}}</span>
-                    </button>
+                    </p>
                 </div>
             </div>
         </div>

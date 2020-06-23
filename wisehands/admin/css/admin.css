@@ -1995,11 +1995,25 @@ ul.admin-breadcrumb li a:hover {
 .upload-favicon img, .upload-logo img {
     max-width: 100%;
     object-fit: cover;
+    max-height: 250px;
+    margin: 1rem 0;
 }
 
 .upload-favicon i, .upload-logo i {
     margin-top: 1rem;
 }
+
+.delete-logo-favicon p {
+    text-align: center;
+    color: #039be5;
+    cursor: pointer;
+    line-height: 1.4;;
+}
+
+.delete-logo-favicon p:hover {
+    color: #23527c;
+}
+
 
 .admin-card .upload-text {
     display: flex;
