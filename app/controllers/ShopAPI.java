@@ -229,28 +229,32 @@ public class ShopAPI extends AuthController {
         boolean satOpen = checkIsShopOpenToday(jsonBody, "satOpen");
         boolean sunOpen = checkIsShopOpenToday(jsonBody, "sunOpen");
 
-        shop.monStartTime = setWorkingTime((String) jsonBody.get("monStartTime"));
-        shop.monEndTime = setWorkingTime((String) jsonBody.get("monEndTime"));
+        System.out.println("time for working hours from UI monStartTime -- " + (String) jsonBody.get("monStartTime"));
+        System.out.println("time for working hours from UI monEndTime -- " + (String) jsonBody.get("monEndTime"));
+
+        shop.monStartTime = (String) jsonBody.get("monStartTime");
+        shop.monEndTime = (String) jsonBody.get("monEndTime");
         shop.monOpen = monOpen;
-        shop.tueStartTime = setWorkingTime((String) jsonBody.get("tueStartTime"));
-        shop.tueEndTime = setWorkingTime((String) jsonBody.get("tueEndTime"));
+        shop.tueStartTime = (String) jsonBody.get("tueStartTime");
+        shop.tueEndTime = (String) jsonBody.get("tueEndTime");
         shop.tueOpen = tueOpen;
-        shop.wedStartTime = setWorkingTime((String) jsonBody.get("wedStartTime"));
-        shop.wedEndTime = setWorkingTime((String) jsonBody.get("wedEndTime"));
+        shop.wedStartTime = (String) jsonBody.get("wedStartTime");
+        shop.wedEndTime = (String) jsonBody.get("wedEndTime");
         shop.wedOpen = wedOpen;
-        shop.thuStartTime = setWorkingTime((String) jsonBody.get("thuStartTime"));
-        shop.thuEndTime = setWorkingTime((String) jsonBody.get("thuEndTime"));
+        shop.thuStartTime = (String) jsonBody.get("thuStartTime");
+        shop.thuEndTime = (String) jsonBody.get("thuEndTime");
         shop.thuOpen = thuOpen;
-        shop.friStartTime = setWorkingTime((String) jsonBody.get("friStartTime"));
-        shop.friEndTime = setWorkingTime((String) jsonBody.get("friEndTime"));
+        shop.friStartTime = (String) jsonBody.get("friStartTime");
+        shop.friEndTime = (String) jsonBody.get("friEndTime");
         shop.friOpen = friOpen;
-        shop.satStartTime = setWorkingTime((String) jsonBody.get("satStartTime"));
-        shop.satEndTime = setWorkingTime((String) jsonBody.get("satEndTime"));
+        shop.satStartTime = (String) jsonBody.get("satStartTime");
+        shop.satEndTime = (String) jsonBody.get("satEndTime");
         shop.satOpen = satOpen;
-        shop.sunStartTime = setWorkingTime((String) jsonBody.get("sunStartTime"));
-        shop.sunEndTime = setWorkingTime((String) jsonBody.get("sunEndTime"));
+        shop.sunStartTime = (String) jsonBody.get("sunStartTime");
+        shop.sunEndTime = (String) jsonBody.get("sunEndTime");
         shop.sunOpen = sunOpen;
         System.out.println("time for working hours monStartTime -- " + shop.monStartTime);
+        System.out.println("time for working hours monStartTime -- " + shop.monEndTime);
 
         shop = shop.save();
         renderJSON(json(shop));
