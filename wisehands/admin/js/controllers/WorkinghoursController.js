@@ -46,10 +46,19 @@ angular.module('WiseHands')
                     $scope.loading = false;
             });
 
-            $scope.validateHhMm = function  (inputField, id) {
+
+
+            $scope.validateHhMm = function (inputField, id) {
                 let isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField);
                 if (!isValid) {
-                    document.getElementById(id).value = 'Введіть правельний час';
+                    document.getElementById(id).value = 'Введіть правильний час';
+                }
+            };
+
+            $scope.clearError = function (id){
+                let error = document.getElementById(id).value;
+                if(error.length > 5){
+                    this.error = "";
                 }
             };
 
