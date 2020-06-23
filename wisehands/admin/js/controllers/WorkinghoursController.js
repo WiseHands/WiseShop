@@ -52,32 +52,11 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         $scope.workDay = response.data;
-                        console.log('details of works days: ', $scope.workDay);
 
-                        $scope.workDay.monStartTime = setWorkingTime($scope.workDay.monStartTime);
-                        $scope.workDay.monEndTime = setWorkingTime($scope.workDay.monEndTime);
-                        $scope.workDay.tueStartTime = setWorkingTime($scope.workDay.tueStartTime);
-                        $scope.workDay.tueEndTime = setWorkingTime($scope.workDay.tueEndTime);
-                        $scope.workDay.wedStartTime = setWorkingTime($scope.workDay.wedStartTime);
-                        $scope.workDay.wedEndTime = setWorkingTime($scope.workDay.wedEndTime);
-                        $scope.workDay.thuStartTime = setWorkingTime($scope.workDay.thuStartTime);
-                        $scope.workDay.thuEndTime = setWorkingTime($scope.workDay.thuEndTime);
-                        $scope.workDay.friStartTime = setWorkingTime($scope.workDay.friStartTime);
-                        $scope.workDay.friEndTime = setWorkingTime($scope.workDay.friEndTime);
-                        $scope.workDay.satStartTime = setWorkingTime($scope.workDay.satStartTime);
-                        $scope.workDay.satEndTime = setWorkingTime($scope.workDay.satEndTime);
-                        $scope.workDay.sunStartTime = setWorkingTime($scope.workDay.sunStartTime);
-                        $scope.workDay.sunEndTime = setWorkingTime($scope.workDay.sunEndTime);
                         $scope.loading = false;
                     }, function errorCallback(response) {
                         $scope.loading = false;
                     });
-
-                function setWorkingTime(time){
-                    let parseStartDate = time.split(/[^0-9]/);
-                    return new Date (parseStartDate[0],parseStartDate[1]-1,parseStartDate[2],parseStartDate[3],parseStartDate[4],parseStartDate[5] );
-                }
-
 
                 $scope.setWorkingHour = function () {
                     console.log('$scope.workDay before put', $scope.workDay);
@@ -89,21 +68,7 @@ angular.module('WiseHands')
                     })
                         .success(function (response) {
                             showInfoMsg("SAVED");
-                            $scope.workDay = response;
-                            $scope.workDay.monStartTime = setWorkingTime($scope.workDay.monStartTime);
-                            $scope.workDay.monEndTime = setWorkingTime($scope.workDay.monEndTime);
-                            $scope.workDay.tueStartTime = setWorkingTime($scope.workDay.tueStartTime);
-                            $scope.workDay.tueEndTime = setWorkingTime($scope.workDay.tueEndTime);
-                            $scope.workDay.wedStartTime = setWorkingTime($scope.workDay.wedStartTime);
-                            $scope.workDay.wedEndTime = setWorkingTime($scope.workDay.wedEndTime);
-                            $scope.workDay.thuStartTime = setWorkingTime($scope.workDay.thuStartTime);
-                            $scope.workDay.thuEndTime = setWorkingTime($scope.workDay.thuEndTime);
-                            $scope.workDay.friStartTime = setWorkingTime($scope.workDay.friStartTime);
-                            $scope.workDay.friEndTime = setWorkingTime($scope.workDay.friEndTime);
-                            $scope.workDay.satStartTime = setWorkingTime($scope.workDay.satStartTime);
-                            $scope.workDay.satEndTime = setWorkingTime($scope.workDay.satEndTime);
-                            $scope.workDay.sunStartTime = setWorkingTime($scope.workDay.sunStartTime);
-                            $scope.workDay.sunEndTime = setWorkingTime($scope.workDay.sunEndTime);
+                            console.log('$scope.workDay response put', response);
                             $scope.loading = false;
                         }).
                     error(function (response) {

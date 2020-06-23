@@ -79,16 +79,16 @@ public class ShopDTO extends GenericModel {
     public  String sunEndTime;
     @Expose
     public boolean sunOpen;
-    
+
+    @Expose
+    public boolean alwaysOpen;
+
 //  end time values for hoursSetting page
     @Expose
     public boolean isShowAmountTools;
 
     @Expose
     public String labelNameForBuyerNameFieldInShoppingCart;
-
-    @Expose
-    public boolean alwaysOpen;
 
     @Expose
     public boolean isTemporaryClosed;

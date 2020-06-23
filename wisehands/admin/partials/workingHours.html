@@ -48,11 +48,11 @@
                 <h4 class="table-day">{{'hourssetting.monday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.monOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input type="time" ng-model="workDay.monStartTime">
+                    <input type="text" placeholder="00:00" ng-model="workDay.monStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.monOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="time" ng-model="workDay.monEndTime">
+                    <input type="text" placeholder="24:00" ng-model="workDay.monEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.monOpen" id="tableDefaultCheck1">
@@ -63,11 +63,11 @@
                 <h4 class="table-day">{{'hourssetting.tuesday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.tueOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input type="time" ng-model="workDay.tueStartTime">
+                    <input type="text" placeholder="00:00"  ng-model="workDay.tueStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.tueOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="time" ng-model="workDay.tueEndTime">
+                    <input type="text" placeholder="24:00"  ng-model="workDay.tueEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.tueOpen" id="tableDefaultCheck2">
@@ -78,11 +78,11 @@
                 <h4 class="table-day">{{'hourssetting.wednesday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.wedOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input type="time" ng-model="workDay.wedStartTime">
+                    <input type="text" placeholder="00:00"  ng-model="workDay.wedStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.wedOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="time" ng-model="workDay.wedEndTime">
+                    <input type="text" placeholder="24:00"  ng-model="workDay.wedEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.wedOpen" id="tableDefaultCheck3">
@@ -93,11 +93,11 @@
                 <h4 class="table-day">{{'hourssetting.thursday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.thuOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input type="time" ng-model="workDay.thuStartTime">
+                    <input type="text" placeholder="00:00"  ng-model="workDay.thuStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.thuOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="time" ng-model="workDay.thuEndTime">
+                    <input type="text" placeholder="24:00"  ng-model="workDay.thuEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.thuOpen" id="tableDefaultCheck4">
@@ -108,11 +108,11 @@
                 <h4 class="table-day">{{'hourssetting.friday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.friOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input type="time" ng-model="workDay.friStartTime">
+                    <input type="text" placeholder="00:00"  ng-model="workDay.friStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.friOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="time" ng-model="workDay.friEndTime">
+                    <input type="text" placeholder="24:00"  ng-model="workDay.friEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.friOpen" id="tableDefaultCheck5">
@@ -123,11 +123,11 @@
                 <h4 class="table-day">{{'hourssetting.saturday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.satOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input type="time" ng-model="workDay.satStartTime">
+                    <input type="text" placeholder="00:00"  ng-model="workDay.satStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.satOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="time" ng-model="workDay.satEndTime">
+                    <input type="text" placeholder="24:00"  ng-model="workDay.satEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.satOpen" id="tableDefaultCheck6">
@@ -138,11 +138,11 @@
                 <h4 class="table-day">{{'hourssetting.sunday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.sunOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input type="time" ng-model="workDay.sunStartTime">
+                    <input type="text" placeholder="00:00"  ng-model="workDay.sunStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.sunOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="time" step="60" ng-model="workDay.sunEndTime">
+                    <input type="text" placeholder="24:00" ng-model="workDay.sunEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.sunOpen" id="tableDefaultCheck7">

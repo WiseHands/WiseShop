@@ -1,13 +1,13 @@
 
 function workStartDay(data) {
     let now = moment(currentTime());
-    let mon = new Date(data.monStartTime);
-    let tue = new Date(data.tueStartTime);
-    let wed = new Date(data.wedStartTime);
-    let thu = new Date(data.thuStartTime);
-    let fri = new Date(data.friStartTime);
-    let sat = new Date(data.satStartTime);
-    let sun = new Date(data.sunStartTime);
+    let mon = data.monStartTime;
+    let tue = data.tueStartTime;
+    let wed = data.wedStartTime;
+    let thu = data.thuStartTime;
+    let fri = data.friStartTime;
+    let sat = data.satStartTime;
+    let sun = data.sunStartTime;
 
     if (now.weekday() === 0){
         return sun;
@@ -34,13 +34,13 @@ function workStartDay(data) {
 
 function workEndDay(data) {
     let now = moment(currentTime());
-    let mon = new Date(data.monEndTime);
-    let tue = new Date(data.tueEndTime);
-    let wed = new Date(data.wedEndTime);
-    let thu = new Date(data.thuEndTime);
-    let fri = new Date(data.friEndTime);
-    let sat = new Date(data.satEndTime);
-    let sun = new Date(data.sunEndTime);
+    let mon = data.monEndTime;
+    let tue = data.tueEndTime;
+    let wed = data.wedEndTime;
+    let thu = data.thuEndTime;
+    let fri = data.friEndTime;
+    let sat = data.satEndTime;
+    let sun = data.sunEndTime;
 
     if (now.weekday() === 0){
         return sun;
@@ -104,14 +104,15 @@ function isShopClosedToday(data) {
 }
 
 function workingHoursHandler(data) {
-
     let startTime = workStartDay(data);
-    let startHour = (startTime.getHours()<10?'0':'') + startTime.getHours();
-    let startMinute = (startTime.getMinutes()<10?'0':'') + startTime.getMinutes();
+    let parseStartTime = startTime.split(':');
+    let startHour = (parseStartTime[0]<10?'0':'') + parseStartTime[0];
+    let startMinute = parseStartTime[1];
 
     let endTime = workEndDay(data);
-    let endHour = (endTime.getHours()<10?'0':'') + endTime.getHours();
-    let endMinute = (endTime.getMinutes()<10?'0':'') + endTime.getMinutes();
+    let parseEndTime = endTime.split(':');
+    let endHour = (parseEndTime[0]<10?'0':'') + parseEndTime[0];
+    let endMinute = parseEndTime[1];
 
     let currDate =  new Date();
     let currTime = currDate.getHours() * 60 + currDate.getMinutes();
