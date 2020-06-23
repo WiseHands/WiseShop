@@ -28,9 +28,6 @@
                         {{'singleOrder.Canceled' | translate}}</p></a>
                     <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteOrder">
                         <p>{{'singleOrder.Delete' | translate}}</p></a>
-                    <a class="col-xs-12 text-left" data-toggle="modal" data-target="#feedbackToOrder"
-                       ng-click="requestOrderFeedback()"><p>{{'singleOrder.requestFeedback' | translate}}</p>
-                    </a>
                 </div>
             </a>
         </div>
@@ -201,7 +198,7 @@
                             <p>{{order.comment}}</p>
                         </div>
                     </div>
-                    <div class="admin-card">
+                    <div class="admin-card product-feedback-container">
                         <div class="admin-order-card-row">
                             <h4>{{'singleOrder.feedback' | translate}}</h4>
                             <div class="feedback-stars" ng-show="order.orderFeedback">
@@ -219,31 +216,29 @@
                         <div class="feedback-to-all-order" ng-show="order.orderFeedback && !order.orderFeedback.generalReview">
                             <p>{{'singleOrder.generalFeedback' | translate}}</p>
                         </div>
-                        <div class="feedback-container" ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
-                            <div class="admin-order-card-row" ng-repeat="item in order.items">
-                                <div class="product-feedback-container">
-                                    <div class="admin-order-details-row">
-                                        <a class="order-details-image" ng-if="item.productUuid"
+                        <div ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
+                                <div  class="feedback-container" ng-repeat="item in order.items">
+                                    <div class="product-feedback-info">
+                                        <a class="feedback-order-details-image" ng-if="item.productUuid"
                                            href="#/productreviews/{{item.productUuid}}">
                                             <img src="{{item.imagePath}}">
                                             <div class="admin-order-item-feedback">
                                                 <p>{{item.name}}</p>
                                             </div>
                                         </a>
+
                                     </div>
-                                    <div class="product-review">
+                                    <div class="product-feedback-text">
+                                        <div class="feedback-stars">
+                                            <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                            <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                            <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                            <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                            <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                        </div>
                                         <p>{{item.feedbackToOrderItem.review}}</p>
                                     </div>
                                 </div>
-                                <div class="feedback-stars">
-                                    <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                    <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                    <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                    <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                    <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                </div>
-
-                            </div>
 
                         </div>
                         <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'REQUEST_NOT_SEND'">

@@ -35,7 +35,7 @@
     }
 
     .title-container {
-        margin: 2rem 0;
+        margin: 2rem 1rem;
         text-align: center;
     }
 
@@ -166,6 +166,13 @@
         cursor: pointer;
     }
 
+    .feedback-date-price span {
+        font-size: 1.5rem;
+    }
+
+    #order-time {
+        margin-right: 2rem;
+    }
     /*start circle loading animation*/
 
     .circle-loading-animation {
@@ -519,6 +526,23 @@
             flex-direction: column;
         }
 
+        .title-container {
+            margin: 2rem 1rem 0.5rem 1rem;
+        }
+
+        .title-container p {
+            font-size: 1.6rem;
+        }
+
+        .feedback-date-price {
+            display: flex;
+            font-size: 1.3rem;
+            margin-top: 2rem;
+        }
+        .feedback-date-price span {
+            font-size: 1.3rem;
+        }
+
         .img-item {
             margin: 1rem 1rem 0 1rem;
         }
@@ -534,6 +558,10 @@
         .circle-loading-animation{
             margin-top: 40%;
             margin-left: 40%;
+        }
+
+        .button-send-feedback-container {
+            display: flex;
         }
     }
 </style>
@@ -552,8 +580,9 @@
 #{else}
 <div class="main-container">
     <div class="title-container">
-        <p>${order.name}, дякуємо за замовлення! Залиште, будь ласка, відгук </p>
-        <p>за замовлення на суму <span price="${order.total}"></span> ${currency} <span time="${order.time}" id="order-time"></span></p>
+        <p>${order.name}, дякуємо за замовлення!</p>
+        <p>Залиште, будь ласка, відгук </p>
+        <p class="feedback-date-price"><span time="${order.time}" id="order-time"></span> <span price="${order.total}"></span><span>${currency}</span></p>
     </div>
     <div class="order-feedback-container">
         %{
@@ -598,7 +627,7 @@
         <textarea id="deliveryFeedbackDescription" value="" placeholder="Залиште відгук тут"></textarea>
     </div>
     <div onclick="sendFeedback('${order.uuid}')" class="button-send-feedback-container">
-        <div>ВІДПРАВИТИ ВІДГУК</div>
+        <p>ВІДПРАВИТИ ВІДГУК</p>
     </div>
 
 </div>

@@ -26,10 +26,8 @@
     <form class="settings-block noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading">
         <div class="admin-column">
             <div class="admin-card">
-                <h4>Favicon</h4>
-                <p class="upload-info-text">Щоб завантажити favicon (іконка сайту, що зображається поряд з адресою сайту
-                    в адресному рядку, біля заголовку сторінки у вкладці або в списку закладок браузера)
-                    натисніть сюди. Рекомендований розмір 180*180px</p>
+                <h4>{{'settings.favicon' | translate}}</h4>
+                <p class="upload-info-text">{{'settings.loadFavicon' | translate}}</p>
                 <div class="upload-favicon">
                     <img ng-hide="!faviconSrc" src="{{faviconSrc}}">
                     <div class="upload-text" ng-hide="faviconSrc" ng-click="loadFavicon()">
@@ -51,9 +49,8 @@
         </div>
         <div class="admin-column">
             <div class="admin-card">
-                <h4>Логотип</h4>
-                <p class="upload-info-text">Щоб завантажити логотип натисніть сюди, логотип буде автоматично завантажено. Рекомендований
-                    розмір 512*512</p>
+                <h4>{{'settings.logotype' | translate}}</h4>
+                <p class="upload-info-text">{{'settings.loadLogotype' | translate}}</p>
                 <div class="upload-logo">
                     <img ng-hide="!logoSrc" src="{{logoSrc}}">
                     <div class="upload-text" ng-hide="logoSrc" ng-click="loadLogo()">

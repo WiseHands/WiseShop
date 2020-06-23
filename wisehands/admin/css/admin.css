@@ -1141,9 +1141,11 @@ input {
 }
 
 .load-product-image img {
+    min-height: 525px;
     max-width: 100%;
     max-height: 100%;
     overflow: hidden;
+    object-fit: cover;
 }
 
 .error-text {
@@ -1381,7 +1383,8 @@ input {
 
 .admin-card .admin-order-details-row p {
     text-align: left;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
+    font-weight: 400;
     line-height: 1.2;
     word-break: break-word;
 }
@@ -1399,13 +1402,14 @@ input {
     align-items: center;
 }
 
-.order-details-image img {
+.order-details-image img, .feedback-order-details-image img {
+    min-width: 67px;
     width: 67px;
     margin-right: 5px;
     object-fit: cover;
 }
 
-.order-details-image p {
+.order-details-image p, .feedback-order-details-image p {
     color: #000;
 }
 
@@ -1782,21 +1786,7 @@ ul.admin-breadcrumb li a:hover {
 .admin-card .closed-shop-options {
     margin-bottom: 1.2rem;
 }
-.upload-favicon, .upload-logo {
-    height: 220px;
-}
-.admin-card .upload-text {
-    padding: 1rem;
-    text-align: center;
-    border: 1px dashed #000;
-    border-radius: 10px;
-    height: 95%;
-    margin-bottom: 2rem;
-    line-height: 1.5;
-}
-.admin-card .upload-text:hover {
-    cursor: pointer;
-}
+
 /* feedback to order in single order page*/
 .feedback-to-all-order{
     display: flex;
@@ -1853,9 +1843,13 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .review-text {
-    flex: 0 0 70%;
+    flex: 0 1 70%;
     margin-left: 1rem;
     word-break: break-all;
+}
+
+.review-text p {
+    word-break: break-word;
 }
 
 .review-feedbacktime {
@@ -1872,6 +1866,11 @@ ul.admin-breadcrumb li a:hover {
 
 .reply-for-review p:hover {
     color: #039be5;
+}
+
+.feedback-stars {
+    min-width: 126px;
+    margin-left: 0.5rem;
 }
 
 .review-info .feedback-stars {
@@ -1944,17 +1943,50 @@ ul.admin-breadcrumb li a:hover {
 
 .admin-reply-in-review h4 {
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 0.5rem;
 }
-.product-feedback-container{
+
+.product-feedback-container {
     display: flex;
     flex-direction: column;
 }
-div.product-review {
-    padding-left: 72px;
+
+.feedback-admin-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.feedback-container {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.product-feedback-info {
+    flex: 0 0 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.feedback-container .feedback-stars {
+    margin-left: 0;
+}
+
+.product-feedback-text {
+    margin-left: 1rem;
     text-align: left;
 }
+
+.product-feedback-text p {
+    font-size: 1.1rem;
+    word-break: break-word;
+}
+
+.admin-order-item-feedback p {
+    word-break: break-word;
+}
+
 .upload-favicon, .upload-logo {
     display: flex;
     justify-content: center;
@@ -1962,7 +1994,7 @@ div.product-review {
 }
 .upload-favicon img, .upload-logo img {
     max-width: 100%;
-    height: 200px;
+    object-fit: cover;
 }
 
 .upload-favicon i, .upload-logo i {
@@ -1985,7 +2017,6 @@ div.product-review {
 
 .admin-card .upload-info-text  {
     line-height: 1.23;
-    height: 90px;
 }
 
 .admin-card .upload-text:hover {

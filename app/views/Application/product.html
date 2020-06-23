@@ -236,7 +236,7 @@
     }
 
     .shop-product-tabs {
-        padding-bottom: 0;
+        padding: 0;
     }
 
     .product-tab[active] {
@@ -269,7 +269,7 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        padding: 1rem 0.5rem;
+        padding: 1rem;
     }
 
     .shop-all-reviews:not([active]) {
@@ -363,6 +363,25 @@
 
         .additions-block {
             justify-content: space-around;
+        }
+
+        .feedback-stars {
+            width: 100px;
+        }
+
+        i.fa-star, i.fa-star-o {
+            font-size: 18px;
+        }
+
+        .shop-product-tabs {
+            display: flex;
+            flex-flow: row;
+        }
+
+        .product-tab {
+            max-width: 100%;
+            padding: 0.5rem;
+            width: auto;
         }
     }
 
