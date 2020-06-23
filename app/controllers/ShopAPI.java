@@ -182,9 +182,9 @@ public class ShopAPI extends AuthController {
         String faceBookPixelApiKey = (String) jsonBody.get("faceBookPixelApiKey");
         String closedShopTitle = (String) jsonBody.get("temporaryClosedTitle");
         String closedShopdiscription = (String) jsonBody.get("temporaryClosedDescription");
-        Boolean isTemporaryClosed = (Boolean) jsonBody.get("isTemporaryClosed");
+        boolean isTemporaryClosed = (boolean) jsonBody.get("isTemporaryClosed");
 
-        Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
+        boolean alwaysOpen = (boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
 
         String labelNameForBuyerNameFieldInShoppingCart = (String) jsonBody.get("labelNameForBuyerNameFieldInShoppingCart");

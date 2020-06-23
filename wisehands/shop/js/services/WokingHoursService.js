@@ -106,12 +106,12 @@ function isShopClosedToday(data) {
 function workingHoursHandler(data) {
     let startTime = workStartDay(data);
     let parseStartTime = startTime.split(':');
-    let startHour = (parseStartTime[0]<10?'0':'') + parseStartTime[0];
+    let startHour = parseStartTime[0];
     let startMinute = parseStartTime[1];
 
     let endTime = workEndDay(data);
     let parseEndTime = endTime.split(':');
-    let endHour = (parseEndTime[0]<10?'0':'') + parseEndTime[0];
+    let endHour = parseEndTime[0];
     let endMinute = parseEndTime[1];
 
     let currDate =  new Date();
