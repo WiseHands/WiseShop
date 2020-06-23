@@ -42,7 +42,7 @@
         </div>
 
     </div>
-    <div class="admin-column">
+    <div id="inputTimeContainer" class="admin-column">
         <div ng-hide="activeShop.alwaysOpen || activeShop.isTemporaryClosed">
             <div class="admin-card">
                 <h4 class="table-day">{{'hourssetting.monday' | translate}}</h4>
@@ -63,11 +63,14 @@
                 <h4 class="table-day">{{'hourssetting.tuesday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.tueOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input type="text" placeholder="00:00"  ng-model="workDay.tueStartTime">
+                    <input id="workDay.tueOpen" type="text" placeholder="00:00"
+                           ng-blur="validateHhMm(workDay.tueStartTime, this)"
+                           ng-model="workDay.tueStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.tueOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input type="text" placeholder="24:00"  ng-model="workDay.tueEndTime">
+                    <input type="text" placeholder="24:00" ng-change="validateHhMm(this)"
+                           ng-model="workDay.tueEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.tueOpen" id="tableDefaultCheck2">
@@ -108,7 +111,8 @@
                 <h4 class="table-day">{{'hourssetting.friday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.friOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input type="text" placeholder="00:00"  ng-model="workDay.friStartTime">
+                    <input type="text" placeholder="00:00" onchange="validateHhMm(this)"
+                           ng-model="workDay.friStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.friOpen">
                     <p>{{'hourssetting.end' | translate}}</p>

@@ -34,8 +34,8 @@ angular.module('WiseHands')
                 });
 
 
-            $scope.whenShopClosed = function(){
-                if ($scope.activeShop.isTemporaryClosed){
+            $scope.whenShopClosed = function () {
+                if ($scope.activeShop.isTemporaryClosed) {
                     console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
                     $scope.activeShop.isTemporaryClosed = true;
 
@@ -46,36 +46,50 @@ angular.module('WiseHands')
             };
 
 
+            $http({
+                method: 'GET',
+                url: '/shop/details/public'
+            })
+                .then(function successCallback(response) {
+                    $scope.workDay = response.data;
+
+                    $scope.loading = false;
+                }, function errorCallback(response) {
+                    $scope.loading = false;
+                });
+
+            $scope.validateHhMm = function  (inputField, _this) {
+                console.log('validateHhMm from input', inputField, _this);
+
+                let isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField);
+
+                if (isValid) {
+                    console.log('validateHhMm', isValid);
+                } else {
+                    console.log('validateHhMm', isValid);
+                }
+                let inputTimeContainer = document.querySelector('#inputTimeContainer');
+                let inputTimeList = inputTimeContainer.querySelectorAll('input[type="text"]');
+                console.log("inputTimeList", inputTimeList);
+            };
+
+            $scope.setWorkingHour = function () {
+                console.log('$scope.workDay before put', $scope.workDay);
+                $scope.loading = true;
                 $http({
-                    method: 'GET',
-                    url: '/shop/details/public'
+                    method: 'PUT',
+                    url: '/shop/update/working-hours',
+                    data: $scope.workDay
                 })
-                    .then(function successCallback(response) {
-                        $scope.workDay = response.data;
-
+                    .success(function (response) {
+                        showInfoMsg("SAVED");
+                        console.log('$scope.workDay response put', response);
                         $scope.loading = false;
-                    }, function errorCallback(response) {
-                        $scope.loading = false;
-                    });
-
-                $scope.setWorkingHour = function () {
-                    console.log('$scope.workDay before put', $scope.workDay);
-                    $scope.loading = true;
-                    $http({
-                        method: 'PUT',
-                        url: '/shop/update/working-hours',
-                        data: $scope.workDay
-                    })
-                        .success(function (response) {
-                            showInfoMsg("SAVED");
-                            console.log('$scope.workDay response put', response);
-                            $scope.loading = false;
-                        }).
-                    error(function (response) {
-                        showWarningMsg("ERROR");
-                        $scope.loading = false;
-                        console.log(response);
-                    });
+                    }).error(function (response) {
+                    showWarningMsg("ERROR");
+                    $scope.loading = false;
+                    console.log(response);
+                });
 
                 $scope.loading = true;
                 $http({
@@ -92,8 +106,7 @@ angular.module('WiseHands')
                         // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
                         document.title = $scope.activeShop.shopName;
                         $scope.loading = false;
-                    }).
-                error(function (response) {
+                    }).error(function (response) {
                     $scope.loading = false;
                     showWarningMsg("UNKNOWN ERROR");
                     console.log(response);
@@ -123,8 +136,7 @@ function showInfoMsg(msg) {
     toastr.info(msg);
 }
 
-function encodeQueryData(data)
-{
+function encodeQueryData(data) {
     var ret = [];
     for (var d in data)
         ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
