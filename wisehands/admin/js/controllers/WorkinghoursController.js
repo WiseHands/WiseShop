@@ -10,24 +10,18 @@ angular.module('WiseHands')
             $http({
                 method: 'GET',
                 url: '/balance'
-            })
-                .then(function successCallback(response) {
+            }).then(function successCallback(response) {
                     $scope.balance = response.data;
                     $scope.loading = false;
-                }, function errorCallback(response) {
+            }, function errorCallback(response) {
                     $scope.loading = false;
-
-                });
+            });
 
             $http({
                 method: 'GET',
                 url: '/shop/details'
-            })
-                .then(function successCallback(response) {
+            }).then(function successCallback(response) {
                     $scope.activeShop = response.data;
-                    console.log('details value of checkbox whenClosed:', $scope.activeShop.isTemporaryClosed);
-                    // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
-                    // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
                     $scope.loading = false;
                 }, function errorCallback(response) {
                     $scope.loading = false;
@@ -36,43 +30,27 @@ angular.module('WiseHands')
 
             $scope.whenShopClosed = function () {
                 if ($scope.activeShop.isTemporaryClosed) {
-                    console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
                     $scope.activeShop.isTemporaryClosed = true;
-
                 } else {
-                    console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
                     $scope.activeShop.isTemporaryClosed = false;
                 }
             };
 
-
             $http({
                 method: 'GET',
                 url: '/shop/details/public'
-            })
-                .then(function successCallback(response) {
+            }).then(function successCallback(response) {
                     $scope.workDay = response.data;
-
                     $scope.loading = false;
-                }, function errorCallback(response) {
+            }, function errorCallback(response) {
                     $scope.loading = false;
-                });
+            });
 
-            let inputTimeContainer = document.querySelector('#inputTimeContainer');
-            let inputTimeList = inputTimeContainer.querySelectorAll('input[type="text"]');
-            console.log("inputTimeList", inputTimeList);
-
-            $scope.validateHhMm = function  (inputField, _this) {
-                console.log('validateHhMm from input', inputField, _this);
-
+            $scope.validateHhMm = function  (inputField, id) {
                 let isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField);
-
-                if (isValid) {
-                    console.log('validateHhMm', isValid);
-                } else {
-                    console.log('validateHhMm', isValid);
+                if (!isValid) {
+                    document.getElementById(id).value = 'Введіть правельний час';
                 }
-
             };
 
             $scope.setWorkingHour = function () {

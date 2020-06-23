@@ -48,14 +48,14 @@
                 <h4 class="table-day">{{'hourssetting.monday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.monOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input id="0" type="text" placeholder="00:00"
-                           ng-blur="validateHhMm(workDay.monStartTime, this)"
+                    <input id="mondayStartingTime" type="text" placeholder="00:00"
+                           ng-blur="validateHhMm(workDay.monStartTime, 'mondayStartingTime')"
                            ng-model="workDay.monStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.monOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input id="1" type="text" placeholder="24:00"
-                           ng-blur="validateHhMm(workDay.monEndTime, this)"
+                    <input id="mondayClosingTime" type="text" placeholder="24:00"
+                           ng-blur="validateHhMm(workDay.monEndTime, 'mondayClosingTime')"
                            ng-model="workDay.monEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
@@ -67,14 +67,14 @@
                 <h4 class="table-day">{{'hourssetting.tuesday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.tueOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input id="2" type="text" placeholder="00:00"
-                           ng-blur="validateHhMm(workDay.tueStartTime, this)"
+                    <input id="tuesdayStartingTime" type="text" placeholder="00:00"
+                           ng-blur="validateHhMm(workDay.tueStartTime, 'mondayStartingTime')"
                            ng-model="workDay.tueStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.tueOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input id="3" type="text" placeholder="24:00" ng-change="validateHhMm(this)"
-                           ng-blur="validateHhMm(workDay.tueEndTime, this)"
+                    <input id="tuesdayClosingTime" type="text" placeholder="24:00" ng-change="validateHhMm(this)"
+                           ng-blur="validateHhMm(workDay.tueEndTime, 'tuesdayClosingTime')"
                            ng-model="workDay.tueEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
@@ -86,14 +86,14 @@
                 <h4 class="table-day">{{'hourssetting.wednesday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.wedOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input id="4" type="text" placeholder="00:00"
-                           ng-blur="validateHhMm(workDay.wedStartTime, this)"
+                    <input id="wednesdayStartingTime" type="text" placeholder="00:00"
+                           ng-blur="validateHhMm(workDay.wedStartTime, 'wednesdayStartingTime')"
                            ng-model="workDay.wedStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.wedOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input id="5" type="text" placeholder="24:00"
-                           ng-blur="validateHhMm(workDay.wedEndTime, this)"
+                    <input id="wednesdayClosingTime" type="text" placeholder="24:00"
+                           ng-blur="validateHhMm(workDay.wedEndTime, 'wednesdayClosingTime')"
                            ng-model="workDay.wedEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
@@ -105,14 +105,14 @@
                 <h4 class="table-day">{{'hourssetting.thursday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.thuOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input id="6" type="text" placeholder="00:00"
-                           ng-blur="validateHhMm(workDay.thuStartTime, this)"
+                    <input id="thursdayStartingTime" type="text" placeholder="00:00"
+                           ng-blur="validateHhMm(workDay.thuStartTime, 'thursdayStartingTime')"
                            ng-model="workDay.thuStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.thuOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input id="7" type="text" placeholder="24:00"
-                           ng-blur="validateHhMm(workDay.thuEndTime, this)"
+                    <input id="thursdayClosingTime" type="text" placeholder="24:00"
+                           ng-blur="validateHhMm(workDay.thuEndTime, 'thursdayClosingTime')"
                            ng-model="workDay.thuEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
@@ -125,14 +125,14 @@
                 <h4 class="table-day">{{'hourssetting.friday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.friOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input id="8" type="text" placeholder="00:00"
-                           ng-blur="validateHhMm(workDay.friStartTime, this)"
+                    <input id="fridayStartingTime" type="text" placeholder="00:00"
+                           ng-blur="validateHhMm(workDay.friStartTime, 'fridayStartingTime')"
                            ng-model="workDay.friStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.friOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input id="9" type="text" placeholder="24:00"
-                           ng-blur="validateHhMm(workDay.friEndTime, this)"
+                    <input id="fridayClosingTime" type="text" placeholder="24:00"
+                           ng-blur="validateHhMm(workDay.friEndTime, 'fridayClosingTime')"
                            ng-model="workDay.friEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
@@ -144,14 +144,14 @@
                 <h4 class="table-day">{{'hourssetting.saturday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.satOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input id="10" type="text" placeholder="00:00"
-                           ng-blur="validateHhMm(workDay.satStartTime, this)"
+                    <input id="saturdayStartingTime" type="text" placeholder="00:00"
+                           ng-blur="validateHhMm(workDay.satStartTime, 'saturdayStartingTime')"
                            ng-model="workDay.satStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.satOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input id="11" type="text" placeholder="24:00"
-                           ng-blur="validateHhMm(workDay.satEndTime, this)"
+                    <input id="saturdayClosingTime" type="text" placeholder="24:00"
+                           ng-blur="validateHhMm(workDay.satEndTime, 'saturdayClosingTime')"
                            ng-model="workDay.satEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
@@ -163,14 +163,14 @@
                 <h4 class="table-day">{{'hourssetting.sunday' | translate}}</h4>
                 <div class="whours-input-time" ng-hide="workDay.sunOpen">
                     <p>{{'hourssetting.start' | translate}}</p>
-                    <input id="12" type="text" placeholder="00:00"
-                           ng-blur="validateHhMm(workDay.sunStartTime, this)"
+                    <input id="sundayStartingTime" type="text" placeholder="00:00"
+                           ng-blur="validateHhMm(workDay.sunStartTime, 'sundayStartingTime')"
                            ng-model="workDay.sunStartTime">
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.sunOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
-                    <input id="13" type="text" placeholder="24:00"
-                           ng-blur="validateHhMm(workDay.sunEndTime, this)"
+                    <input id="sundayClosingTime" type="text" placeholder="24:00"
+                           ng-blur="validateHhMm(workDay.sunEndTime, 'sundayClosingTime')"
                            ng-model="workDay.sunEndTime">
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
