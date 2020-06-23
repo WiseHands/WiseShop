@@ -1967,6 +1967,7 @@ ul.admin-breadcrumb li a:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    text-align: left;
 }
 
 .feedback-container .feedback-stars {
@@ -1985,6 +1986,7 @@ ul.admin-breadcrumb li a:hover {
 
 .admin-order-item-feedback p {
     word-break: break-word;
+    line-height: 1.2;
 }
 
 .upload-favicon, .upload-logo {
