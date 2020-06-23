@@ -452,18 +452,23 @@
     });
 
     function setWorkingHours(startTime, endTime){
-        let parseStartDate = startTime.split(/[^0-9]/);
-        let _startDate = new Date (parseStartDate[0],parseStartDate[1]-1,parseStartDate[2],parseStartDate[3],parseStartDate[4],parseStartDate[5] );
 
-        let parseEndDate = endTime.split(/[^0-9]/);
-        let _endDate = new Date(parseEndDate[0],parseEndDate[1]-1,parseEndDate[2],parseEndDate[3],parseEndDate[4],parseEndDate[5]);
+      let _startTime = moment(startTime).format(`HH:mm`);
+      let _endTime = moment(endTime).format(`HH:mm`);
+      console.log('currentDate', _startTime);
 
-        let workingHours = getRightFormat(_startDate.getHours()) + ":" +
-            getRightFormat(_startDate.getMinutes()) + "-" +
-            getRightFormat(_endDate.getHours()) + ":" +
-            getRightFormat(_endDate.getMinutes());
+//        let parseStartDate = currentDate.toString().split(/[^0-9]/);
+//        let _startDate = new Date (parseStartDate[0],parseStartDate[1]-1,parseStartDate[2],parseStartDate[3],parseStartDate[4],parseStartDate[5] );
+//
+//        let parseEndDate = endTime.split(/[^0-9]/);
+//        let _endDate = new Date(parseEndDate[0],parseEndDate[1]-1,parseEndDate[2],parseEndDate[3],parseEndDate[4],parseEndDate[5]);
 
-        return workingHours;
+//        let workingHours = getRightFormat(currentDate.getHours()) + ":" +
+//            getRightFormat(currentDate.getMinutes()) + "-" +
+//            getRightFormat(_endDate.getHours()) + ":" +
+//            getRightFormat(_endDate.getMinutes());
+
+        return _startTime + " - " + _endTime;
     }
 
     function getRightFormat(number) {
