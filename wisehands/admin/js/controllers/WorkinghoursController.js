@@ -58,6 +58,10 @@ angular.module('WiseHands')
                     $scope.loading = false;
                 });
 
+            let inputTimeContainer = document.querySelector('#inputTimeContainer');
+            let inputTimeList = inputTimeContainer.querySelectorAll('input[type="text"]');
+            console.log("inputTimeList", inputTimeList);
+
             $scope.validateHhMm = function  (inputField, _this) {
                 console.log('validateHhMm from input', inputField, _this);
 
@@ -68,9 +72,7 @@ angular.module('WiseHands')
                 } else {
                     console.log('validateHhMm', isValid);
                 }
-                let inputTimeContainer = document.querySelector('#inputTimeContainer');
-                let inputTimeList = inputTimeContainer.querySelectorAll('input[type="text"]');
-                console.log("inputTimeList", inputTimeList);
+
             };
 
             $scope.setWorkingHour = function () {
