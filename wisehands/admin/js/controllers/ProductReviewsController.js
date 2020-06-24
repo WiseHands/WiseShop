@@ -11,9 +11,13 @@ angular.module('WiseHands')
         $scope.loading = false;
       }, () => $scope.loading = false);
 
-      $scope.getUrl = function () {
-          $window.location.href = `/product/${$routeParams.uuid}`;
-      };
+    $scope.getUrl = function () {
+      $window.location.href = `/product/${$routeParams.uuid}`;
+    };
+
+    $scope.goBack = () => {
+      window.history.back();
+    };
 
 
     $http({

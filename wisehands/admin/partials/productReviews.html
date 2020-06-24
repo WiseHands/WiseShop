@@ -3,7 +3,7 @@
         <div class="row vcentering">
             <a class="col-xs-2 noPaddingLeft"
                type="button"
-               href="#/products">
+               ng-click="goBack()">
                 <i class="fa fa-arrow-circle-left whiteColor pull-left">
                 </i>
             </a>
@@ -99,7 +99,7 @@
         </div>
         <div class="admin-column">
             <div class="admin-card link-to-product" ng-click="getUrl()">
-                <!--<h4>{{'singleOrder.titleOrder' | translate}}</h4>-->
+                <!-- link here  -->
                 <div class="review-product-info">
                     <img ng-src="{{productImageUrl}}"
                          alt="image">
