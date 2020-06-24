@@ -2056,6 +2056,10 @@ ul.admin-breadcrumb li a:hover {
     color: #fff;
 }
 
+.link-to-product:hover{
+    cursor: pointer;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;

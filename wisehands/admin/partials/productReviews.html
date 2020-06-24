@@ -98,16 +98,13 @@
             </div>
         </div>
         <div class="admin-column">
-            <div class="admin-card">
+            <div class="admin-card link-to-product" ng-click="getUrl()">
                 <!--<h4>{{'singleOrder.titleOrder' | translate}}</h4>-->
                 <div class="review-product-info">
                     <img ng-src="{{productImageUrl}}"
                          alt="image">
                 </div>
                 <h4>{{product.name}} {{product.price}} {{'orderList.Currency' | translate}}</h4>
-                <a href="/product/${_product.uuid}">
-
-                </a>
             </div>
         </div>
     </div>

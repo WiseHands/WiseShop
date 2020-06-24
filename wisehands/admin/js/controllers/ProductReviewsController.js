@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-  .controller('ProductReviewsController', ['$http', '$scope', '$routeParams', function ($http, $scope, $routeParams) {
+  .controller('ProductReviewsController', ['$http', '$scope', '$routeParams', '$window', function ($http, $scope, $routeParams, $window) {
     $scope.loading = true;
 
     $http({
@@ -10,6 +10,11 @@ angular.module('WiseHands')
         $scope.shop = response.data;
         $scope.loading = false;
       }, () => $scope.loading = false);
+
+      $scope.getUrl = function () {
+          $window.location.href = `/product/${$routeParams.uuid}`;
+      };
+
 
     $http({
       method: 'GET',
