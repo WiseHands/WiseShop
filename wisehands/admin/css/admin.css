@@ -2059,18 +2059,15 @@ ul.admin-breadcrumb li a:hover {
     border: 1px dashed #000;
     border-radius: 10px;
     width: 100%;
-<<<<<<< Updated upstream
-    height: 95%;
+    height: 100%;
     margin: 1rem 0;
 }
 
 .admin-card .upload-info-text {
-=======
     margin:  1rem 0;
 }
 
 .admin-card .upload-info-text p  {
->>>>>>> Stashed changes
     line-height: 1.23;
 }
 
@@ -2101,6 +2098,10 @@ ul.admin-breadcrumb li a:hover {
 
 .link-to-product:hover{
     cursor: pointer;
+}
+
+.external-link-img {
+    width: 30px;
 }
 
 @media screen and (min-width: 1500px) {
