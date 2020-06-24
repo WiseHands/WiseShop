@@ -104,25 +104,6 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        String locale = "en_US";
-        if(shop != null && shop.locale != null) {
-            locale = shop.locale;
-        }
-        Lang.change(locale);
-
-        if (client.equals("wisehands.me")){
-            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
-            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
-            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-            renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
-        }
-        if (client.equals("wstore.pro")){
-            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
-            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
-            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-            renderTemplate("Application/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
-        }
-
         Date date = new Date();
 
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
@@ -147,12 +128,67 @@ public class Application extends Controller {
 
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
-              products = ProductDTO.find(query, shop, false, true).fetch();
+        products = ProductDTO.find(query, shop, false, true).fetch();
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
 
-        renderTemplate("Application/shop.html", shop, products);
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String language = "";
+        if (acceptLanguage != null){
+            String acceptLanguageValue = acceptLanguage.value();
+            List<Locale.LanguageRange> languageList = Locale.LanguageRange.parse(acceptLanguageValue);
+
+            String languageFromAccept = languageList.get(0).getRange();
+            String[] strings = languageFromAccept.split("-");
+            language = strings[0];
+
+            System.out.println("Accept-Language:" + language);
+        }
+
+        Lang.change(language);
+        renderTemplate("Application/shop.html", shop, products, language);
+    }
+
+
+    public static void languageChooser(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+
+
+        if (client.equals("wisehands.me")){
+            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+            renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+        }
+        if (client.equals("wstore.pro")){
+            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+            renderTemplate("Application/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+        }
+
+
+
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        if (acceptLanguage != null){
+            String acceptLanguageValue = acceptLanguage.value();
+            List<Locale.LanguageRange> languageList = Locale.LanguageRange.parse(acceptLanguageValue);
+
+            String languageFromAccept = languageList.get(0).getRange();
+            String[] strings = languageFromAccept.split("-");
+            String language = strings[0];
+
+            System.out.println("Accept-Language:" + language);
+
+
+            redirect("/" + language, false);
+        }
+
     }
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {
@@ -195,15 +231,6 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        if (shop.locale.equals("uk_UA")){
-            Lang.change("uk_UA");
-        }
-        if (shop.locale.equals("en_US")){
-            Lang.change("en_US");
-        }
-        if (shop.locale.equals("pl_PL")){
-            Lang.change("pl_PL");
-        }
         Map<String, Object> map = new HashMap<String, Object>();
         String lowBalanceLabel = Messages.get("balance.transaction.low.shop.balance");
         map.put("lowBalanceLabel", lowBalanceLabel);

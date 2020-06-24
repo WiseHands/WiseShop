@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     {client}/                                       Application.index
+GET     {client}/                                       Application.languageChooser
 GET     {client}/wisehands                              Application.wisehands
 GET     {client}/shop                                   Application.shop
 GET     {client}/page/{uuid}                            Application.page
@@ -328,6 +328,8 @@ GET	/google3d064e8f1e55f5ab.html	            staticFile:google3d064e8f1e55f5ab.h
 # GET     {client}/sitemap                        Application.sitemap(format:'xml')
 GET     {client}/sitemap                        SitemapController.sitemap(format:'xml')
 GET     {client}/manifest                       Application.manifestAdmin
+
+GET     {client}/{language}                     Application.index
 
 
 # Catch all

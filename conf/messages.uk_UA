@@ -1,6 +1,7 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+working.schedule.label=Графік Роботи
 feedback.email.notification.to.client.leave.feedback = [%s] %s, залиште будь ласка відгук про ваше замовлення
 feedback.email.notification.to.admin.about.new.feedback = [%s] Клієнт %s залишив відгук про замовлення
 feedback.main.label = Привіт %s.
