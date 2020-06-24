@@ -15,10 +15,7 @@ import models.*;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 
 public class Application extends Controller {
@@ -190,6 +187,27 @@ public class Application extends Controller {
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         render(shop, pageList);
+    }
+
+    public static void footerShop(String client){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        if (shop.locale.equals("uk_UA")){
+            Lang.change("uk_UA");
+        }
+        if (shop.locale.equals("en_US")){
+            Lang.change("en_US");
+        }
+        if (shop.locale.equals("pl_PL")){
+            Lang.change("pl_PL");
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        String lowBalanceLabel = Messages.get("balance.transaction.low.shop.balance");
+        map.put("lowBalanceLabel", lowBalanceLabel);
+        renderTemplate("tags/footer-shop.html", shop, map);
     }
 
     public static void shopNetworks(String client) {
