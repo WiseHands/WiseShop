@@ -33,9 +33,7 @@ public class AuthController extends Controller {
         if(shop != null && !shop.userList.contains(loggedInUser)) {
             forbidden("This user do not belong to given shop: " + loggedInUser.name);
         }
-        if(shop != null) {
-            Lang.change(shop.locale);
-        }
+
     }
 
     static UserDTO verifyToken(String token) {

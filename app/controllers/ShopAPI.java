@@ -182,9 +182,9 @@ public class ShopAPI extends AuthController {
         String faceBookPixelApiKey = (String) jsonBody.get("faceBookPixelApiKey");
         String closedShopTitle = (String) jsonBody.get("temporaryClosedTitle");
         String closedShopdiscription = (String) jsonBody.get("temporaryClosedDescription");
-        Boolean isTemporaryClosed = (Boolean) jsonBody.get("isTemporaryClosed");
+        boolean isTemporaryClosed = (boolean) jsonBody.get("isTemporaryClosed");
 
-        Boolean alwaysOpen = (Boolean) jsonBody.get("alwaysOpen");
+        boolean alwaysOpen = (boolean) jsonBody.get("alwaysOpen");
         String locale = (String) jsonBody.get("locale");
 
         String labelNameForBuyerNameFieldInShoppingCart = (String) jsonBody.get("labelNameForBuyerNameFieldInShoppingCart");
@@ -229,9 +229,6 @@ public class ShopAPI extends AuthController {
         boolean satOpen = checkIsShopOpenToday(jsonBody, "satOpen");
         boolean sunOpen = checkIsShopOpenToday(jsonBody, "sunOpen");
 
-        System.out.println("time for working hours from UI monStartTime -- " + (String) jsonBody.get("monStartTime"));
-        System.out.println("time for working hours from UI monEndTime -- " + (String) jsonBody.get("monEndTime"));
-
         shop.monStartTime = (String) jsonBody.get("monStartTime");
         shop.monEndTime = (String) jsonBody.get("monEndTime");
         shop.monOpen = monOpen;
@@ -253,21 +250,9 @@ public class ShopAPI extends AuthController {
         shop.sunStartTime = (String) jsonBody.get("sunStartTime");
         shop.sunEndTime = (String) jsonBody.get("sunEndTime");
         shop.sunOpen = sunOpen;
-        System.out.println("time for working hours monStartTime -- " + shop.monStartTime);
-        System.out.println("time for working hours monStartTime -- " + shop.monEndTime);
 
         shop = shop.save();
         renderJSON(json(shop));
-    }
-
-    private static String setWorkingTime (String workingTime) throws ParseException {
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
-        Date date = format.parse(workingTime);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        return dateFormat.format(date);
-
     }
 
     private static boolean checkIsShopOpenToday(JSONObject jsonBody, String day) {

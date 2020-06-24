@@ -1,150 +1,104 @@
 angular.module('WiseHands')
-  .controller('WorkinghoursController', ['$scope', '$http', '$location', 'sideNavInit', 'signout', 'shared', '$rootScope',
-    function ($scope, $http, $location, sideNavInit, signout, shared, $rootScope) {
+  .controller('WorkinghoursController', ['$scope', '$http', 'sideNavInit',
+    function ($scope, $http, sideNavInit) {
       $scope.loading = true;
-
-      $scope.hoursSetting = function () {
-        $location.path('/hourssetting');
-      };
-
-      $http({
-        method: 'GET',
-        url: '/balance'
-      })
-        .then(function successCallback(response) {
-          $scope.balance = response.data;
-          $scope.loading = false;
-        }, function errorCallback(response) {
-          $scope.loading = false;
-
-        });
 
       $http({
         method: 'GET',
         url: '/shop/details'
-      })
-        .then(function successCallback(response) {
+      }).then(response => {
           $scope.activeShop = response.data;
-          console.log('details value of checkbox whenClosed:', $scope.activeShop.isTemporaryClosed);
-          // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
-          // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
           $scope.loading = false;
-        }, function errorCallback(response) {
-          $scope.loading = false;
-        });
-
-
-      $scope.whenShopClosed = function () {
-        if ($scope.activeShop.isTemporaryClosed) {
-          console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
-          $scope.activeShop.isTemporaryClosed = true;
-
-        } else {
-          console.log('$scope.activeShop.isTemporaryClosed', $scope.activeShop.isTemporaryClosed);
-          $scope.activeShop.isTemporaryClosed = false;
-        }
-      };
-
-      function setWorkingTime(time) {
-        let parseStartDate = time.split(/[^0-9]/);
-        return new Date(parseStartDate[0], parseStartDate[1] - 1, parseStartDate[2], parseStartDate[3], parseStartDate[4], parseStartDate[5]);
-      }
-
+        }, () => $scope.loading = false
+      );
 
       $http({
         method: 'GET',
         url: '/shop/details/public'
-      })
-        .then(function successCallback(response) {
+      }).then(response => {
           $scope.workDay = response.data;
-          console.log('details of works days: ', $scope.workDay);
-
-          $scope.workDay.monStartTime = new Date ($scope.workDay.monStartTime);
-          $scope.workDay.monEndTime = new Date ($scope.workDay.monEndTime);
-          $scope.workDay.tueStartTime = new Date ($scope.workDay.tueStartTime);
-          $scope.workDay.tueEndTime = new Date ($scope.workDay.tueEndTime);
-          $scope.workDay.wedStartTime = new Date ($scope.workDay.wedStartTime);
-          $scope.workDay.wedEndTime = new Date ($scope.workDay.wedEndTime);
-          $scope.workDay.thuStartTime = new Date ($scope.workDay.thuStartTime);
-          $scope.workDay.thuEndTime = new Date ($scope.workDay.thuEndTime);
-          $scope.workDay.friStartTime = new Date ($scope.workDay.friStartTime);
-          $scope.workDay.friEndTime = new Date ($scope.workDay.friEndTime);
-          $scope.workDay.satStartTime = new Date ($scope.workDay.satStartTime);
-          $scope.workDay.satEndTime = new Date ($scope.workDay.satEndTime);
-          $scope.workDay.sunStartTime = new Date ($scope.workDay.sunStartTime);
-          $scope.workDay.sunEndTime = new Date ($scope.workDay.sunEndTime);
           $scope.loading = false;
-        }, function errorCallback(response) {
-          $scope.loading = false;
-        });
+        }, () => $scope.loading = false
+      );
 
+      $scope.validateTimeInput = event => validate(event.currentTarget);
 
-      $scope.setWorkingHour = function () {
+      function validate(input) {
+        const isValid = moment(input.value, 'HH:mm', true).isValid();
+        const errorMessageContainer = input.nextElementSibling;
+        errorMessageContainer.hidden = isValid;
+        return isValid;
+      }
+
+      $scope.updateShopWorkingState = () => {
+        const isShopAlwaysOpenedOrCurrentlyClosed = $scope.activeShop.isTemporaryClosed || $scope.activeShop.alwaysOpen;
+        if (!isShopAlwaysOpenedOrCurrentlyClosed && validateTimeInputs()) {
+          updateWorkingHours();
+          updateShopDetails();
+        }
+      };
+
+      function validateTimeInputs() {
+        const timeInputsContainer = document.querySelector('#inputTimeContainer');
+        const timeInputs = timeInputsContainer.querySelectorAll('input[type="text"]:not([is-required="true"])');
+        const validInputsCounter = [...timeInputs].reduce((accumulator, input) => {
+          if (validate(input)) accumulator++;
+          return accumulator;
+        }, 0);
+        return validInputsCounter === timeInputs.length;
+      }
+
+      function updateWorkingHours() {
         $scope.loading = true;
         $http({
           method: 'PUT',
           url: '/shop/update/working-hours',
           data: $scope.workDay
         })
-          .success(function (response) {
-            showInfoMsg("SAVED");
-            console.log('$scope.workDay after put', response);
+          .then(() => {
+            showInfoMessage("SAVED");
             $scope.loading = false;
-          }).error(function (response) {
-          showWarningMsg("ERROR");
-          $scope.loading = false;
-          console.log(response);
-        });
+          }, error => {
+            showWarningMessage("ERROR");
+            $scope.loading = false;
+            console.log(error);
+          });
+      }
 
-
+      function updateShopDetails() {
         $scope.loading = true;
         $http({
           method: 'PUT',
           url: '/shop',
           data: $scope.activeShop
         })
-          .success(function (response) {
-            $scope.activeShop = response;
-            showInfoMsg("SAVED");
-            console.log('after PUT whenClosed', $scope.activeShop.whenClosed);
-            localStorage.setItem('activeShopName', $scope.activeShop.shopName);
-            // $scope.activeShop.endTime = new Date ($scope.activeShop.endTime);
-            // $scope.activeShop.startTime = new Date ($scope.activeShop.startTime);
-            document.title = $scope.activeShop.shopName;
+          .then(() => {
+            showInfoMessage("SAVED");
             $scope.loading = false;
-          }).error(function (response) {
-          $scope.loading = false;
-          showWarningMsg("UNKNOWN ERROR");
-          console.log(response);
-        });
-
-      };
+          }, error => {
+            $scope.loading = false;
+            showWarningMessage("UNKNOWN ERROR");
+            console.log(error);
+          });
+      }
 
       sideNavInit.sideNav();
 
+      function showWarningMessage(message) {
+        toastr.clear();
+        toastr.options = {
+          positionClass: 'toast-bottom-right',
+          preventDuplicates: true
+        };
+        toastr.warning(message);
+      }
+
+      function showInfoMessage(message) {
+        toastr.clear();
+        toastr.options = {
+          positionClass: 'toast-bottom-right',
+          preventDuplicates: true
+        };
+        toastr.info(message);
+      }
     }]);
-
-function showWarningMsg(msg) {
-  toastr.clear();
-  toastr.options = {
-    "positionClass": "toast-bottom-right",
-    "preventDuplicates": true
-  };
-  toastr.warning(msg);
-}
-
-function showInfoMsg(msg) {
-  toastr.clear();
-  toastr.options = {
-    "positionClass": "toast-bottom-right",
-    "preventDuplicates": true
-  };
-  toastr.info(msg);
-}
-
-function encodeQueryData(data) {
-  var ret = [];
-  for (var d in data)
-    ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-  return ret.join("&");
-}

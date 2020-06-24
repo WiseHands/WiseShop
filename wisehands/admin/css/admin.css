@@ -1775,6 +1775,10 @@ ul.admin-breadcrumb li a:hover {
     margin: 0 0 1.2rem 0;
 }
 
+.invalid-time-format-error-message {
+    color: red;
+}
+
 .working-hours-block .admin-card p {
     line-height: 1.4;
 }
@@ -1788,7 +1792,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 /* feedback to order in single order page*/
-.feedback-to-all-order{
+.feedback-to-all-order {
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -1857,7 +1861,7 @@ ul.admin-breadcrumb li a:hover {
     font-size: 1.1rem;
 }
 
-.reply-for-review p{
+.reply-for-review p {
     color: #039be5;
     font-size: 1rem;
     cursor: pointer;
@@ -1876,6 +1880,7 @@ ul.admin-breadcrumb li a:hover {
 .review-info .feedback-stars {
     margin: 0.5rem 0;
 }
+
 .feedback-stars i {
     margin: 0;
 }
@@ -1914,6 +1919,7 @@ ul.admin-breadcrumb li a:hover {
     justify-content: flex-end;
     margin: 1rem 1rem 0 1rem;
 }
+
 .sort-reviews p {
     padding: 0;
     margin: 0 0 0 1rem;
@@ -1930,12 +1936,14 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .sortorder.reverse:after {
-    content: '\25bc';   /
+    content: '\25bc';
+/
 }
 
 .admin-reply-in-review {
     margin-left: 1rem;
 }
+
 .admin-reply-in-review p {
     font-size: 1rem;
     color: #000;
@@ -1994,6 +2002,7 @@ ul.admin-breadcrumb li a:hover {
     justify-content: center;
     align-items: center;
 }
+
 .upload-favicon img, .upload-logo img {
     max-width: 100%;
     object-fit: cover;
@@ -2028,10 +2037,10 @@ ul.admin-breadcrumb li a:hover {
     border-radius: 10px;
     width: 100%;
     height: 95%;
-    margin:  1rem 0;
+    margin: 1rem 0;
 }
 
-.admin-card .upload-info-text  {
+.admin-card .upload-info-text {
     line-height: 1.23;
 }
 
@@ -2094,6 +2103,7 @@ ul.admin-breadcrumb li a:hover {
     .product-reviews-block {
         flex-direction: column-reverse;
     }
+
     .upload-favicon, .upload-logo {
         height: auto;
     }
@@ -2102,7 +2112,7 @@ ul.admin-breadcrumb li a:hover {
         margin: 1rem 0 0 0;
     }
 
-    .admin-card .upload-info-text  {
+    .admin-card .upload-info-text {
         height: auto;
     }
 }
