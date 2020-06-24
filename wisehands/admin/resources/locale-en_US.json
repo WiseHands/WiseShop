@@ -260,6 +260,7 @@
   "contacts.linkinstagram": "Link to Instagram",
   "contacts.linkyoutube": "Link to Youtube",
   "contacts.gps": "GPS location",
+  "contacts.setGps": "Set GPS",
   "users.users": "Users",
   "users.newUser": "New user",
   "users.newUserExist": "User with such e-mail already exists",

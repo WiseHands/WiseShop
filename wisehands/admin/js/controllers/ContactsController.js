@@ -15,7 +15,7 @@ angular.module('WiseHands')
 
 
         $scope.updateContacts = function () {
-                    console.log("$scope.contacts", $scope.contacts);
+            console.log("$scope.contacts", $scope.contacts);
 
             $scope.loading = true;
             $http({
