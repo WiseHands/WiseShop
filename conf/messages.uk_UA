@@ -1,7 +1,28 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
-working.schedule.label=Графік Роботи
+page.product.main.label = Головна
+page.product.additions.label = Додатки
+page.product.additions.cost = Вартість додатків:
+page.product.price = Вартість:
+page.product.buy = Купити
+page.product.add.to.basket = Товар додано в кошик
+page.product.about.product = Про товар
+page.product.reviews = Відгуки
+footer.payment.label = Приймаємо
+footer.be.in.touch.label = Будьте в курсі
+footer.be.in.touch.news = Дізнавайтесь про найцікавіші новини, знижки та акції
+footer.be.in.touch.newsletter = Вас додано до розсилки
+footer.be.in.touch.enter.email = Введіть email
+footer.information.label = Інформація
+footer.working.schedule.label = Графік Роботи
+footer.working.schedule.monday = ПН
+footer.working.schedule.tuesday = ВТ
+footer.working.schedule.wednesday = СР
+footer.working.schedule.thursday = ЧТ
+footer.working.schedule.friday = ПТ
+footer.working.schedule.saturday = СБ
+footer.working.schedule.sunday = НД
 feedback.email.notification.to.client.leave.feedback = [%s] %s, залиште будь ласка відгук про ваше замовлення
 feedback.email.notification.to.admin.about.new.feedback = [%s] Клієнт %s залишив відгук про замовлення
 feedback.main.label = Привіт %s.

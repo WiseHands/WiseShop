@@ -477,7 +477,7 @@
     </div>
     <div class="product-info">
         <ul class="menu-breadcrumb">
-            <li><a href="/">Головна</a></li>
+            <li><a href="/">&{'page.product.main.label'}</a></li>
             <li><a href="/category/${product.category.uuid}">${product.category.name}</a></li>
         </ul>
         <h2>${product.name}</h2>
@@ -488,11 +488,11 @@
                 <a href="#additions">
                     <div class="add-button">
                         <i class="fa fa-plus-square" style="font-size:24px"></i>
-                        <p>Додатки</p>
+                        <p>&{'page.product.additions.label'}</p>
                     </div>
                 </a>
                 <div class="add-price">
-                    <p>вартість додатків:</p>
+                    <p>&{'page.product.additions.cost'}</p>
                     <span class="additions-total-price"></span>
                 </div>
             </div>
@@ -501,15 +501,15 @@
         </div>
         #{/if}
         <div class="price-buy-block">
-            <span class="product-price" price="${product.formatDecimal()}" UAH>
-                <span>Вартість:</span>
+            <span class="product-price" price="${product.formatDecimal()}">
+                <span>&{'page.product.price'}</span>
                 <span class="total-span"></span>
             </span>
-            <button class="buy-button" onClick="buyStart('${product.uuid}')">Купити</button>
+            <button class="buy-button" onClick="buyStart('${product.uuid}')">&{'page.product.buy'}</button>
         </div>
         #{if product.additions}
         <section class="additions">
-            <h3 id="additions" class="addition-header">Додатки</h3>
+            <h3 id="additions" class="addition-header">&{'page.product.additions.label'}</h3>
 
             <div class="additions-block">
                 %{
@@ -533,14 +533,14 @@
     </div>
     <div class="cart-float">
         <div class="cart-float-text">
-            <p>Товар додано в кошик</p>
+            <p>&{'page.product.add.to.basket'}</p>
             <i class="fa fa-check-circle"></i>
         </div>
     </div>
 </main>
 <div class="shop-product-tabs product-center-container">
-    <button class="product-tab" active onclick="openTab(event)">Про товар</button>
-    <button class="product-tab" onclick="openTab(event)">Відгуки</button>
+    <button class="product-tab" active onclick="openTab(event)">&{'page.product.about.product'}</button>
+    <button class="product-tab" onclick="openTab(event)">&{'page.product.reviews'}</button>
 </div>
 <div active class="shop-all-reviews w3-container w3-border item-tab">
 

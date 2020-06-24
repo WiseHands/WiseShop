@@ -1,7 +1,28 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
-working.schedule.label=Working Schedule
+page.product.main.label = Main
+page.product.additions.label = Additions
+page.product.additions.price = Additions price
+page.product.price = Price:
+page.product.buy = Buy
+page.product.add.to.basket = Product added to cart
+page.product.about.product = About product
+page.product.reviews = Reviews
+footer.payment.label = Accept
+footer.be.in.touch.label = Be in Touch
+footer.be.in.touch.news = Find out about the most interesting news, discounts and promotions
+footer.be.in.touch.newsletter = You have been added to the newsletter
+footer.be.in.touch.enter.email = Enter your e-mail
+footer.information.label = Information
+footer.working.schedule.label = Working Schedule
+footer.working.schedule.monday = Mon
+footer.working.schedule.tuesday = Tue
+footer.working.schedule.wednesday = Wed
+footer.working.schedule.thursday = Thu
+footer.working.schedule.friday = Fri
+footer.working.schedule.saturday = Sat
+footer.working.schedule.sunday = Sun
 feedback.email.notification.to.client.leave.feedback = [%s] %s, please leave a review about your order
 feedback.email.notification.to.admin.about.new.feedback = [%s] Customer %s leave a review about order
 feedback.email.title = Leave feedback for your order from %s

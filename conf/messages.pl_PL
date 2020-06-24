@@ -1,7 +1,28 @@
 ﻿# You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
-working.schedule.label=Rozkład Pracy
+page.product.main.label = Główny
+page.product.additions.label = Wzbogacenie
+page.product.additions.cost = Wzbogacenie koszt
+page.product.price = Wartość:
+page.product.buy = Kupić
+page.product.add.to.basket = Produkt dodany do koszyka
+page.product.about.product = O produkcie
+page.product.reviews = Opinie
+footer.payment.label = Akceptujemy
+footer.be.in.touch.label = Być w Kontakcie
+footer.be.in.touch.news = Dowiedz się o najciekawszych nowościach, rabatach i promocjach
+footer.be.in.touch.newsletter = Zostałeś dodany do newslettera
+footer.be.in.touch.enter.email = Wprowadź swój email
+footer.information.label = Informacja
+footer.working.schedule.label=Rozkład Pracy
+footer.working.schedule.monday = PN
+footer.working.schedule.tuesday = WT
+footer.working.schedule.wednesday = SR
+footer.working.schedule.thursday = CZ
+footer.working.schedule.friday = PI
+footer.working.schedule.saturday = SO
+footer.working.schedule.sunday = NI
 
 feedback.email.notification.to.client.leave.feedback = [%s] %s, proszę zostawić opinię o swoim zamówieniu
 feedback.email.notification.to.admin.about.new.feedback = [%s] Klient %s wystawia opinię na temat zamówienia
