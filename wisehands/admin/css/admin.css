@@ -1838,6 +1838,7 @@ ul.admin-breadcrumb li a:hover {
 .review-item {
     display: flex;
     margin-right: 0.5rem;
+    word-break: break-word;
 }
 
 .review-info {
@@ -2094,6 +2095,10 @@ ul.admin-breadcrumb li a:hover {
     padding: 0 2rem;
     text-align: center;
     color: #fff;
+}
+
+.link-to-product h4 {
+    word-break: break-word;
 }
 
 .link-to-product:hover{
