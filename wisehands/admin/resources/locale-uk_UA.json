@@ -95,6 +95,7 @@
   "singleOrder.AddressApartmentNumber" : "№ квартири: ",
   "singleOrder.feedback" : "Відгук",
   "singleOrder.generalFeedback" : "Клієнт не залишив загальний коментар про замовлення",
+  "singleOrder.feedbackComment" : "Коментар",
   "sideNav.Orders": "Замовлення",
   "sideNav.Analytics": "Аналітика",
   "sideNav.Products": "Товари",
@@ -191,10 +192,6 @@
   "productReviews.warningMessageReplyForComment": "Даний відгук з Вашим коментарем буде відображений на сайті",
   "productReviews.cancelReplyForComment": "Скасувати",
   "productReviews.sendReplyForComment": "Відправити відповідь",
-
-
-
-
   "shopDetails.deleteMessage1": "Ви дійсно хочете видалити даний магазин?",
   "shopDetails.deleteMessage2": "Магазин видалений.",
   "editProduct.general": "Основне",
@@ -277,8 +274,8 @@
   "settings.loadFavicon": "Щоб завантажити favicon (іконка сайту, що зображається поряд з адресою сайту в адресному рядку, біля заголовку сторінки у вкладці або в списку закладок браузера) натисніть сюди. Рекомендований розмір 180*180px",
   "settings.logotype": "Логотип",
   "settings.footer": "Footer",
+  "settings.loadFooter": "Щоб показувати на сайті внизу сторінки інфорамцію про Ваш магазин (графік роботи, посилання на сторінки, зворотній зв'язок, контактні дані і т.д.) відмітьте поле внизу",
   "settings.loadLogotype": "Щоб завантажити логотип натисніть сюди, логотип буде автоматично завантажено. Рекомендований розмір 512*512",
-
   "settings.general": "Загальні",
   "settings.view": "Вигляд",
   "settings.shopName": "Назва магазину",

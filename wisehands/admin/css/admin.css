@@ -2069,7 +2069,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .admin-card .upload-info-text p  {
-    line-height: 1.23;
+    line-height: 1.3;
 }
 
 .admin-card .upload-setting-img:hover {
@@ -2087,6 +2087,10 @@ ul.admin-breadcrumb li a:hover {
 .settings-footer-switch img {
     max-width: 100%;
     margin-top: 1rem;
+}
+
+.settings-footer-switch p {
+    line-height: 1.3;
 }
 
 .boundaries-btn {

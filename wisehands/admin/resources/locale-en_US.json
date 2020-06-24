@@ -86,6 +86,7 @@
   "singleOrder.AddressApartmentNumber" : "Apartment number: ",
   "singleOrder.feedback" : "Feedback",
   "singleOrder.generalFeedback" : "The customer did not leave a general comment about the order",
+  "singleOrder.feedbackComment" : "Comment",
   "sideNav.Orders": "Orders",
   "sideNav.Analytics": "Analytics",
   "sideNav.Products": "Products",
@@ -271,9 +272,8 @@
   "settings.loadFavicon": "To download the favicon (the icon of the site that appears next to the site address in the address bar, next to the page title in the tab or in the list of browser bookmarks), click here. The recommended size is 180 * 180px",
   "settings.logotype": "Logotype",
   "settings.footer": "Footer",
-
+  "settings.loadFooter": "To show information about your store at the bottom of the page (work schedule, page links, feedback, contact information, etc.), check the box at the bottom",
   "settings.loadLogotype": "Click here to download the logo, the logo will be uploaded automatically. The recommended size is 512 * 512",
-
   "settings.general": "General",
   "settings.view": "View",
   "settings.shopName": "Shop name",
