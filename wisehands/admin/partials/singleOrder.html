@@ -202,11 +202,11 @@
                         <div class="admin-order-card-row">
                             <h4>{{'singleOrder.feedback' | translate}}</h4>
                             <div class="feedback-stars" ng-show="order.orderFeedback">
-                                <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                <i ng-class="order.orderFeedback.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                <i ng-class="order.orderFeedback.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                <i ng-class="order.orderFeedback.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                                <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="order.orderFeedback.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="order.orderFeedback.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="order.orderFeedback.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
                             </div>
                         </div>
 
@@ -221,21 +221,21 @@
                                     <div class="product-feedback-info">
                                         <a class="feedback-order-details-image" ng-if="item.productUuid"
                                            href="#/productreviews/{{item.productUuid}}">
-                                            <img src="{{item.imagePath}}">
-                                            <div class="admin-order-item-feedback">
-                                                <p>{{item.name}}</p>
-                                            </div>
+                                            <!--<img src="{{item.imagePath}}">-->
+                                            <img src="\wisehands\assets\images\delivey-img\coruier.svg">
+                                            <p>{{item.name}}</p>
                                         </a>
+                                        <div class="feedback-stars">
+                                            <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                            <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                            <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                            <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                            <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                        </div>
 
                                     </div>
-                                    <div class="product-feedback-text">
-                                        <div class="feedback-stars">
-                                            <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                            <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                            <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                            <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                            <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
-                                        </div>
+                                    <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
+                                        <h6>Коментар</h6>
                                         <p>{{item.feedbackToOrderItem.review}}</p>
                                     </div>
                                 </div>

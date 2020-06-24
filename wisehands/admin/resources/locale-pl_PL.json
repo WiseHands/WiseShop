@@ -269,6 +269,7 @@
   "settings.commissionForClient": "Prowizja od systemu płatności jest wypłacana przez klienta podczas składania zamówienia",
   "settings.settings": "Ustawienia",
   "settings.favicon": "Favicon",
+  "settings.footer": "Footer",
   "settings.loadFavicon": "Aby pobrać ikonę ulubionych (ikona witryny wyświetlana obok adresu witryny w pasku adresu, obok tytułu strony na karcie lub na liście zakładek przeglądarki), kliknij tutaj. Zalecany rozmiar to 180 * 180 pikseli",
   "settings.logotype": "Logotyp",
   "settings.loadLogotype": "Kliknij tutaj, aby pobrać logo, logo zostanie przesłane automatycznie. Zalecany rozmiar to 512 * 512",
