@@ -1,6 +1,9 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+shopping.cart.basket.empty.label = Ваш кошик порожній
+shopping.cart.start.shopping.label = РОЗПОЧАТИ ПОКУПКИ
+
 page.product.main.label = Головна
 page.product.additions.label = Додатки
 page.product.additions.cost = Вартість додатків:
@@ -26,6 +29,7 @@ footer.working.schedule.thursday = ЧТ
 footer.working.schedule.friday = ПТ
 footer.working.schedule.saturday = СБ
 footer.working.schedule.sunday = НД
+
 feedback.email.notification.to.client.leave.feedback = [%s] %s, залиште будь ласка відгук про ваше замовлення
 feedback.email.notification.to.admin.about.new.feedback = [%s] Клієнт %s залишив відгук про замовлення
 feedback.main.label = Привіт %s.
@@ -34,6 +38,7 @@ feedback.email.text = Допоможіть нам стати кращими, з�
 feedback.write.feedback = Написати відгук
 feedback.email.answer = Ми відповіли на Ваш відгук
 feedback.email.revise = Переглянути
+
 balance.transaction.low.shop.balance = Баланс магазину менше 100 грн, поповніть будь ласка рахунок
 shop.balance = Баланс магазину
 shop.balance.currency = ₴

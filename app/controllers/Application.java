@@ -232,10 +232,7 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        Map<String, Object> map = new HashMap<String, Object>();
-        String lowBalanceLabel = Messages.get("balance.transaction.low.shop.balance");
-        map.put("lowBalanceLabel", lowBalanceLabel);
-        renderTemplate("tags/footer-shop.html", shop, map);
+        renderTemplate("tags/footer-shop.html", shop);
     }
 
     public static void shopNetworks(String client) {
@@ -265,8 +262,8 @@ public class Application extends Controller {
         }
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
-
-        render(shop);
+        String language = setlanguageForShop();
+        render(shop, language);
     }
 
     public static void selectAddress(String client) {
@@ -274,7 +271,8 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        render(shop);
+        String language = setlanguageForShop();
+        render(shop, language);
     }
 
     public static void page(String client, String uuid) {
@@ -374,8 +372,8 @@ public class Application extends Controller {
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
-
-        render(shop);
+        String language = setlanguageForShop();
+        render(shop, language);
     }
 
     public static void done(String client) {
@@ -483,7 +481,8 @@ public class Application extends Controller {
     }
 
     public static void landing(String client){
-            render();
+        String language = setlanguageForShop();
+            render(language);
     }
     public static void uaContract(String client){
             render();

@@ -1,6 +1,9 @@
 ﻿# You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+shopping.cart.basket.empty.label = Koszyk jest pusty
+shopping.cart.start.shopping.label = Zacznij kupować
+
 page.product.main.label = Główny
 page.product.additions.label = Wzbogacenie
 page.product.additions.cost = Wzbogacenie koszt
@@ -34,12 +37,13 @@ feedback.main.label = Witaj %s.
 feedback.email.text =  Pomóż nam stać najlepszym, proszę zostawić swoją recenzję na temat zamówienia.
 feedback.write.feedback = Zostawić swoją recenzję
 
-balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, doładuj swoje konto
 shop.balance = Saldo sklepowe
 shop.balance.currency = zł
 shop.not.found = Sklep nie jest dostępny. Skontaktuj się z administratorem
 shop.missing.products = Brak produktów
 shop.login = Zaloguj sie
+
+balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, doładuj swoje konto
 new.order = Nowe zamówienie
 order.is.processing = Zamówienie (%s, %s) obrabia się
 new.order.total = Nowe zamówienie %s Razem %s

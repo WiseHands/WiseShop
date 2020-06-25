@@ -9,7 +9,7 @@ GET     {client}/{language}/shop                        Application.shop
 GET     {client}/{language}/page/{uuid}                 Application.page
 GET     {client}/{language}/category/{uuid}             Application.category
 GET     {client}/{language}/product/{uuid}              Application.product
-GET     {client}/{language}/shoppingcart                Application.shoppingCart
+GET     {client}/shoppingcart                           Application.shoppingCart
 GET     {client}/{language}/products/all                Application.allProductsInShop
 GET     {client}/{language}/selectaddress               Application.selectAddress
 GET     {client}/{language}/shop/network                Application.shopNetworks
