@@ -3,16 +3,16 @@
 # ~~~~
 
 # Home page
-GET     {client}/                                       Application.index
+GET     {client}/                                       Application.languageChooser
 GET     {client}/wisehands                              Application.wisehands
-GET     {client}/shop                                   Application.shop
-GET     {client}/page/{uuid}                            Application.page
-GET     {client}/category/{uuid}                        Application.category
-GET     {client}/product/{uuid}                         Application.product
-GET     {client}/shoppingcart                           Application.shoppingCart
-GET     {client}/products/all                           Application.allProductsInShop
-GET     {client}/selectaddress                          Application.selectAddress
-GET     {client}/shop/network                           Application.shopNetworks
+GET     {client}/{language}/shop                        Application.shop
+GET     {client}/{language}/page/{uuid}                 Application.page
+GET     {client}/{language}/category/{uuid}             Application.category
+GET     {client}/{language}/product/{uuid}              Application.product
+GET     {client}/{language}/shoppingcart                Application.shoppingCart
+GET     {client}/{language}/products/all                Application.allProductsInShop
+GET     {client}/{language}/selectaddress               Application.selectAddress
+GET     {client}/{language}/shop/network                Application.shopNetworks
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
@@ -328,6 +328,8 @@ GET	/google3d064e8f1e55f5ab.html	            staticFile:google3d064e8f1e55f5ab.h
 # GET     {client}/sitemap                        Application.sitemap(format:'xml')
 GET     {client}/sitemap                        SitemapController.sitemap(format:'xml')
 GET     {client}/manifest                       Application.manifestAdmin
+
+GET     {client}/{language}                     Application.index
 
 
 # Catch all

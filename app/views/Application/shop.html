@@ -1,5 +1,6 @@
 #{set shop:shop /}
 #{set pageList:pageList /}
+#{set language:language /}
 <style>
     .flex-column-container{
         display: flex;
@@ -91,7 +92,7 @@
     }
 </style>
 <!DOCTYPE html>
-<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
+<html language="${language}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -173,7 +174,7 @@
         #{if products.size() == 0 }
             <div class="no-items-store">
                 <img src="/wisehands/assets/images/empty.gif">
-                <p>Товари відстуні</p>
+                <p>&{'shop.missing.products'}</p>
             </div>
         #{/if}
 
@@ -184,13 +185,13 @@
                 <div class="item-card">
                     <div class="card inline">
                         <div class="noselect hm-white-slight z-depth-1" >
-                            <a href="/product/${_product.uuid}">
+                            <a href="/${language}/product/${_product.uuid}">
                                  <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
                             </a>
                         </div>
                         <div class="card-block text-xs-center">
                             <div class="fixed-height2">
-                                <h4 class="card-title productNameTruncate h4-responsive"><a href="/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                                <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
                             </div>
                             <div class="fixed-height">
                                 <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
@@ -208,7 +209,7 @@
 
             <div class="cart-float">
                 <div class="cart-float-text">
-                    <p>Товар додано в кошик</p>
+                    <p>&{'page.product.add.to.basket'}</p>
                     <i class="fa fa-check-circle"></i>
                 </div>
             </div>

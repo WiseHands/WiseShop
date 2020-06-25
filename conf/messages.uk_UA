@@ -1,6 +1,48 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
-#
+# label for some element like button
+button.find.label = Знайти
+button.next.label = Далі
+button.back.label = Назад
+
+title.add.product.to.basket.label = Додати до кошика
+
+# translation for pages
+page.select.address.find.location = Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ".
+page.select.address.out.delivery = Дана локація знаходиться за межами доставки
+page.select.address.placeholder.city = Місто
+page.select.address.placeholder.street = Вулиця
+page.select.address.placeholder.house = № будинку
+
+shopping.cart.basket.empty.label = Ваш кошик порожній
+shopping.cart.start.shopping.label = РОЗПОЧАТИ ПОКУПКИ
+
+page.product.main.label = Головна
+page.product.additions.label = Додатки
+page.product.additions.cost = Вартість додатків:
+page.product.price = Вартість:
+page.product.buy = Купити
+page.product.add.to.basket = Товар додано в кошик
+page.product.about.product = Про товар
+page.product.reviews = Відгуки
+page.product.no.reviews = Клієнт не залишив коментаря
+page.product.no.reviews = Відгуки відсутні
+
+footer.payment.label = Приймаємо
+footer.be.in.touch.label = Будьте в курсі
+footer.be.in.touch.news = Дізнавайтесь про найцікавіші новини, знижки та акції
+footer.be.in.touch.newsletter = Вас додано до розсилки
+footer.be.in.touch.enter.email = Введіть email
+footer.information.label = Інформація
+footer.working.schedule.label = Графік Роботи
+footer.working.schedule.monday = ПН
+footer.working.schedule.tuesday = ВТ
+footer.working.schedule.wednesday = СР
+footer.working.schedule.thursday = ЧТ
+footer.working.schedule.friday = ПТ
+footer.working.schedule.saturday = СБ
+footer.working.schedule.sunday = НД
+
 feedback.email.notification.to.client.leave.feedback = [%s] %s, залиште будь ласка відгук про ваше замовлення
 feedback.email.notification.to.admin.about.new.feedback = [%s] Клієнт %s залишив відгук про замовлення
 feedback.main.label = Привіт %s.
@@ -9,10 +51,12 @@ feedback.email.text = Допоможіть нам стати кращими, з�
 feedback.write.feedback = Написати відгук
 feedback.email.answer = Ми відповіли на Ваш відгук
 feedback.email.revise = Переглянути
+
 balance.transaction.low.shop.balance = Баланс магазину менше 100 грн, поповніть будь ласка рахунок
 shop.balance = Баланс магазину
 shop.balance.currency = ₴
 shop.not.found = Магазин не знайдено...
+shop.missing.products = Товари відсутні
 shop.login = Логін
 new.order = Нове замовлення
 order.is.processing = Замовлення (%s, %s) обробляється

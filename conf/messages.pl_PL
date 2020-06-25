@@ -1,17 +1,62 @@
 ﻿# You can specialize this file for each language.
 # For example, for French create a messages.fr file
-#
-feedback.email.title = informacje zwrotne do twojego zamówienia od %s
+# label for some element like button
+button.find.label = Znajdować
+button.next.label = Następny
+button.back.label = Nazad
 
+title.add.product.to.basket.label = Dodaj do koszyka
+
+# translation for pages
+page.select.address.find.location = Znajdź miejsce na mapie w obszarze dostawy i kliknij je. Następnie kliknij „NASTĘPNY”.
+page.select.address.out.delivery = Ta lokalizacja jest poza dostawą
+page.select.address.placeholder.city = Miasto
+page.select.address.placeholder.street = Ulica
+page.select.address.placeholder.house = Dom
+
+shopping.cart.basket.empty.label = Koszyk jest pusty
+shopping.cart.start.shopping.label = Zacznij kupować
+
+page.product.main.label = Główny
+page.product.additions.label = Wzbogacenie
+page.product.additions.cost = Wzbogacenie koszt
+page.product.price = Wartość:
+page.product.buy = Kupić
+page.product.add.to.basket = Produkt dodany do koszyka
+page.product.about.product = O produkcie
+page.product.reviews = Opinie
+page.product.no.reviews = Klient nie zostawił komentarza
+page.product.no.reviews = Brak recenzji
+
+footer.payment.label = Akceptujemy
+footer.be.in.touch.label = Być w Kontakcie
+footer.be.in.touch.news = Dowiedz się o najciekawszych nowościach, rabatach i promocjach
+footer.be.in.touch.newsletter = Zostałeś dodany do newslettera
+footer.be.in.touch.enter.email = Wprowadź swój email
+footer.information.label = Informacja
+footer.working.schedule.label=Rozkład Pracy
+footer.working.schedule.monday = PN
+footer.working.schedule.tuesday = WT
+footer.working.schedule.wednesday = SR
+footer.working.schedule.thursday = CZ
+footer.working.schedule.friday = PI
+footer.working.schedule.saturday = SO
+footer.working.schedule.sunday = NI
+
+feedback.email.notification.to.client.leave.feedback = [%s] %s, proszę zostawić opinię o swoim zamówieniu
+feedback.email.notification.to.admin.about.new.feedback = [%s] Klient %s wystawia opinię na temat zamówienia
+feedback.email.title = informacje zwrotne do twojego zamówienia od %s
 feedback.main.label = Witaj %s.
 feedback.email.text =  Pomóż nam stać najlepszym, proszę zostawić swoją recenzję na temat zamówienia.
 feedback.write.feedback = Zostawić swoją recenzję
 
-balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, doładuj swoje konto
 shop.balance = Saldo sklepowe
 shop.balance.currency = zł
 shop.not.found = Sklep nie jest dostępny. Skontaktuj się z administratorem
+shop.missing.products = Brak produktów
 shop.login = Zaloguj sie
+
+balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, doładuj swoje konto
 new.order = Nowe zamówienie
 order.is.processing = Zamówienie (%s, %s) obrabia się
 new.order.total = Nowe zamówienie %s Razem %s

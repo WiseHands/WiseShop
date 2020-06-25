@@ -211,44 +211,44 @@
         margin-left: 0.5rem;
     }
     .work-day p {
-        margin-right: 1rem;
+        margin-right: 0.5rem;
     }
 
 </style>
-<footer id="footer-shop" class="footer">
+<footer id="footer-shop" class="footer" language="${language}">
     <div class="footer-first-block">
         <div class="footer-info">
-            <h4>Графік роботи</h4>
+            <h4>&{'footer.working.schedule.label'}</h4>
             <div class="working-week-time">
                 <div class="first-working-time-block">
                     <div class="work-day">
-                        <p>ПН</p><h6 id="mon"></h6>
+                        <p>&{'footer.working.schedule.monday'}</p><h6 id="mon"></h6>
                     </div>
                     <div class="work-day">
-                        <p>ВТ</p><h6 id="tue"></h6>
+                        <p>&{'footer.working.schedule.tuesday'}</p><h6 id="tue"></h6>
                     </div>
                     <div class="work-day">
-                        <p>СР</p><h6 id="wed"></h6>
+                        <p>&{'footer.working.schedule.wednesday'}</p><h6 id="wed"></h6>
                     </div>
                     <div class="work-day">
-                        <p>ЧТ</p><h6 id="thu"></h6>
+                        <p>&{'footer.working.schedule.thursday'}</p><h6 id="thu"></h6>
                     </div>
                 </div>
                 <div class="second-working-time-block">
                     <div class="work-day">
-                        <p>ПТ</p><h6 id="fri"></h6>
+                        <p>&{'footer.working.schedule.friday'}</p><h6 id="fri"></h6>
                     </div>
                     <div class="work-day">
-                        <p>СБ</p><h6  type="time" id="sat"></h6>
+                        <p>&{'footer.working.schedule.saturday'}</p><h6 id="sat"></h6>
                     </div>
                     <div class="work-day">
-                        <p>НД</p><h6  type="time" id="sun"></h6>
+                        <p>&{'footer.working.schedule.sunday'}</p><h6 id="sun"></h6>
                     </div>
                 </div>
             </div>
         </div>
         <div class="footer-info">
-            <h4>Інформація</h4>
+            <h4>&{'footer.information.label'}</h4>
             <ul id="pageList">
                 <div class="footer-info-block">
                     <div class="footer-info-first-block">
@@ -279,17 +279,17 @@
     </div>
 
     <div class="footer-second-block">
-
         <div class="footer-feedback">
             <div class="offset-left">
-                <h4>Будьте в курсі</h4>
-                <p>Дізнавайесь про найцікавіші новини, знижки та акції</p>
+                <h4>&{'footer.be.in.touch.label'}</h4>
+                <p>&{'footer.be.in.touch.news'}</p>
+
             </div>
             <div id="textfeedback" class="feedback-float-text">
-                <p>Вас додано до розсилки</p>
+                <p>&{'footer.be.in.touch.newsletter'}</p>
             </div>
             <div id="feedback" class="feedback-input">
-                <input id="subEmail" type="email" placeholder="enter your e-maill" required>
+                <input id="subEmail" type="email" placeholder="&{'footer.be.in.touch.enter.email'}" required>
                 <div>
                     <img id="sendSubEmail" src="/wisehands/assets/images/footer-shop/send.png">
                 </div>
@@ -312,7 +312,7 @@
 
         <div class="footer-payment">
             <div class="payment-img">
-                <h4 class="offset-left">Приймаємо</h4>
+                <h4 class="offset-left">&{'footer.payment.label'}</h4>
                 <img src="/wisehands/assets/images/footer-shop/msvisa1.png">
             </div>
             <div class="contact-info offset-left">
@@ -349,7 +349,7 @@
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log("data for pages list", data);
+        const language = document.querySelector('footer').getAttribute('language');
         document.getElementById("page").innerHTML = data[0].title;
         document.getElementById("page1").innerHTML = data[1].title;
         document.getElementById("page2").innerHTML = data[2].title;
@@ -357,12 +357,12 @@
         document.getElementById("page4").innerHTML = data[4].title;
         document.getElementById("page5").innerHTML = data[5].title;
 
-        document.getElementById("link").href = data[0].url + data[0].uuid;
-        document.getElementById("link1").href = data[1].url + data[1].uuid;
-        document.getElementById("link2").href = data[2].url + data[2].uuid;
-        document.getElementById("link3").href = data[3].url + data[3].uuid;
-        document.getElementById("link4").href = data[4].url + data[4].uuid;
-        document.getElementById("link5").href = data[5].url + data[5].uuid;
+        document.getElementById("link").href = '/'+ language + data[0].url + data[0].uuid;
+        document.getElementById("link1").href = '/'+ language + data[1].url + data[1].uuid;
+        document.getElementById("link2").href = '/'+ language + data[2].url + data[2].uuid;
+        document.getElementById("link3").href = '/'+ language + data[3].url + data[3].uuid;
+        document.getElementById("link4").href = '/'+ language + data[4].url + data[4].uuid;
+        document.getElementById("link5").href = '/'+ language + data[5].url + data[5].uuid;
     });
 
 
