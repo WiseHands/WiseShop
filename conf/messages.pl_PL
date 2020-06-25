@@ -3,6 +3,8 @@
 # label for some element like button
 button.find.label = Znajdować
 button.next.label = Następny
+button.back.label = Nazad
+
 title.add.product.to.basket.label = Dodaj do koszyka
 
 # translation for pages
