@@ -43,7 +43,6 @@ public class Application extends Controller {
 
         }
 
-
     public static void allowCors(){
         ok();
     }
@@ -155,7 +154,6 @@ public class Application extends Controller {
         return language;
     }
 
-
     public static void languageChooser(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -232,7 +230,9 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        renderTemplate("tags/footer-shop.html", shop);
+        String language = setlanguageForShop();
+        renderTemplate("tags/footer-shop.html", shop, language);
+
     }
 
     public static void shopNetworks(String client) {
@@ -481,8 +481,10 @@ public class Application extends Controller {
     }
 
     public static void landing(String client){
+
         String language = setlanguageForShop();
-            render(language);
+        render(language);
+
     }
     public static void uaContract(String client){
             render();
@@ -495,7 +497,8 @@ public class Application extends Controller {
         renderTemplate("Application/uaNewWizard.html");
     }
     public static void serverError(String client){
-            render();
+        String language = setlanguageForShop();
+        render(language);
     }
     public static void userDashboard(String client) {
         renderTemplate("wstore/userDashboard.html");

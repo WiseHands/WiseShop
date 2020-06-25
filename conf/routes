@@ -9,7 +9,7 @@ GET     {client}/{language}/shop                        Application.shop
 GET     {client}/{language}/page/{uuid}                 Application.page
 GET     {client}/{language}/category/{uuid}             Application.category
 GET     {client}/{language}/product/{uuid}              Application.product
-GET     {client}/shoppingcart                           Application.shoppingCart
+GET     {client}/{language}/shoppingcart                Application.shoppingCart
 GET     {client}/{language}/products/all                Application.allProductsInShop
 GET     {client}/{language}/selectaddress               Application.selectAddress
 GET     {client}/{language}/shop/network                Application.shopNetworks
@@ -268,7 +268,7 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
-*       {client}/done                                   Application.done
+*       {client}/language/done                          Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
 *       {client}/main                                   Application.main
@@ -283,7 +283,7 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/wizard                                 Application.uaWizard
 *       {client}/{uuid}/feedback                        Application.orderFeedback
 # end removing /ua
-*       {client}/server-error                           Application.serverError
+*       {client}/language/server-error                  Application.serverError
 *       {client}/dashboard                              Application.userDashboard
 
 *       {client}/termsofservice                         Application.termsofservice

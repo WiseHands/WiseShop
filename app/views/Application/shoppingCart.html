@@ -1,4 +1,5 @@
 #{set shop:shop /}
+#{set language:language /}
 <style>
     wise-shopping-cart-container {
         padding: 1rem;
@@ -43,7 +44,7 @@
 #{get-cart /}
 #{shop-header /}
 #{verbatim}
-<wise-shopping-cart-container language="${language}" currency-label="UAH" basket-empty-label="&{'shopping.cart.basket.empty.label'}"
+<wise-shopping-cart-container currency-label="UAH" basket-empty-label="&{'shopping.cart.basket.empty.label'}"
                               start-shopping-label="&{'shopping.cart.start.shopping.label'}"></wise-shopping-cart-container>
 
 #{if shop.faceBookPixelApiKey}
@@ -62,11 +63,12 @@
     fbq('track', 'InitiateCheckout');
 </script>
 #{/if}
-
+#{/verbatim}
 
 <div class="form-container"></div>
 
 <script>
+
   let shoppingCartState = {};
   store.subscribe(() => {
     shoppingCartState = store.getState();
@@ -84,7 +86,8 @@
         path = item.productId;
       }
     });
-    window.location = '/${language}/product/' + path;
+    const language = document.querySelector('html').getAttribute('language');
+    window.location = '/'+language+'/product/' + path;
 
   });
   document.addEventListener('shopping-cart-api-response', function (e) {
@@ -104,17 +107,25 @@
       document.querySelector('.form-container').append(form);
       form.submit();
     } else {
-        window.location = '/done';
+      const language = document.querySelector('html').getAttribute('language');
+      window.location = '/' + language + 'done';
     }
   });
 
   document.addEventListener('order-processing-error', function (e) {
-        console.log('order-processing-error', e);
-        window.location = '/server-error';
+     console.log('order-processing-error', e);
+     const language = document.querySelector('html').getAttribute('language');
+     window.location = '/' + language + '/server-error';
+  });
+
+  document.addEventListener('shopping-cart-navigate-to-address-selection-on-map', function (e) {
+     console.log('order-processing-error', e);
+     const language = document.querySelector('html').getAttribute('language');
+     window.location = '/' + language + '/selectaddress';
   });
 
 </script>
-#{/verbatim}
+
 </html>
 
 
