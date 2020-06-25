@@ -44,7 +44,7 @@
 #{get-cart /}
 #{shop-header /}
 #{verbatim}
-<wise-shopping-cart-container currency-label="UAH" basket-empty-label="&{'shopping.cart.basket.empty.label'}"
+<wise-shopping-cart-container language="${language}" currency-label="UAH" basket-empty-label="&{'shopping.cart.basket.empty.label'}"
                               start-shopping-label="&{'shopping.cart.start.shopping.label'}"></wise-shopping-cart-container>
 
 #{if shop.faceBookPixelApiKey}
@@ -118,14 +118,7 @@
      window.location = '/' + language + '/server-error';
   });
 
-  document.addEventListener('shopping-cart-navigate-to-address-selection-on-map', function (e) {
-     console.log('order-processing-error', e);
-     const language = document.querySelector('html').getAttribute('language');
-     window.location = '/' + language + '/selectaddress';
-  });
-
 </script>
-
 </html>
 
 
