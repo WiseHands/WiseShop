@@ -25400,7 +25400,6 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   static get properties() {
     return {
-      language: String,
       cart: {
         type: Object,
         value: {
@@ -25497,7 +25496,6 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     this._generateRequest('GET', url);
 
-    console.log('get current language', language);
     this.addEventListener('update-quantity', event => {
       console.log("/api/cart/update-quantity =>", event.detail);
       let params = `?uuid=${event.detail.itemUuid}&quantity=${event.detail.quantity}${this.addCartIdParamIfAvailable(false)}`;
@@ -25558,7 +25556,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       return;
     }
 
-    if (this.total < this.cart.configuration.payment.minimumPaymentForOrder) {
+    if (this.total <= this.cart.configuration.payment.minimumPaymentForOrder) {
       const message = `Мінімальна сума замовлення становить ${this.cart.configuration.payment.minimumPaymentForOrder} ${this.currencyLabel}`;
       this.set('errorMessage', message);
       return;
@@ -25594,8 +25592,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       } else if (!isValid) {
         this.errorMessage = `Перевірте заповнену інформацію`;
       } else {
-        const language = document.querySelector('html').getAttribute('language');
-        this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/${language}/selectaddress">карті</a>.`;
+        this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/selectaddress">карті</a>.`;
       }
     }
   }
@@ -25732,8 +25729,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       this.cart = await this.updateCartWithAddressLocation(location);
       return this.cart;
     } catch (e) {
-      const language = document.querySelector('html').getAttribute('language');
-      this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/${language}/selectaddress">карті</a>.`;
+      this.errorMessage = `Нажаль ми не змогли знайти Вашу адресу, виберіть її на <a href="${this.hostname}/selectaddress">карті</a>`;
     }
   }
 
