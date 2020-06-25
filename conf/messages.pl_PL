@@ -1,6 +1,16 @@
 ﻿# You can specialize this file for each language.
 # For example, for French create a messages.fr file
-#
+# label for some element like button
+button.find.label = Znajdować
+button.next.label = Następny
+
+# translation for pages
+page.select.address.find.location = Znajdź miejsce na mapie w obszarze dostawy i kliknij je. Następnie kliknij „NASTĘPNY”.
+page.select.address.out.delivery = Ta lokalizacja jest poza dostawą
+page.select.address.placeholder.city = Miasto
+page.select.address.placeholder.street = Ulica
+page.select.address.placeholder.house = Dom
+
 shopping.cart.basket.empty.label = Koszyk jest pusty
 shopping.cart.start.shopping.label = Zacznij kupować
 

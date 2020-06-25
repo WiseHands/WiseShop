@@ -1,5 +1,4 @@
 #{set shop:shop /}
-#{set language:language /}
 <style>
     .center-container {
         display: flex;
@@ -62,7 +61,7 @@
     }
 </style>
 <!DOCTYPE html>
-<html language="${language}" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -102,9 +101,9 @@
 #{shop-header /}
 
 <div class="center-container">
-    <h3>&{'page.select.address.find.address'}</h3>
+    <h3>&{'page.select.address.find.location'}</h3>
     <div id="error-message" class="error-message">
-        <p>&{'page.select.address.not.find.address'}</p>
+        <p>&{''}</p>
     </div>
     <div class="address-container">
         <!--<p>Адреса:</p>-->
@@ -116,18 +115,18 @@
                placeholder="&{'page.select.address.placeholder.street'}">
         <input type="text"
                id="building"
-               placeholder="&{'page.select.address.placeholder.house'}">
+               placeholder="№ &{'page.select.address.placeholder.house'}">
         <div class="load-button">
-            <input id="check-address-button" type="button" value="&{'button.find.label'}">
+            <input id="check-address-button" type="button" value="&{button.find.label}">
         </div>
     </div>
     <div class="load-button">
-        <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="&{'button.next.label'}">
+        <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="&{button.next.label}">
     </div>
     <div id="googleMap" class="coogle-map-container" data-wow-delay="0.1s"></div>
     <div class="find-address-container">
         <div class="load-button">
-            <input id="find-address-button" type="button" onclick="findOwnlocation()" value="&{'button.find.label'}">
+            <input id="find-address-button" type="button" onclick="findOwnlocation()" value="&{button.find.label}">
         </div>
     </div>
 
