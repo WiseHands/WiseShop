@@ -22,10 +22,12 @@
     <div class="admin-column">
         <div class="admin-card">
             <h4>{{'editProduct.general' | translate}}</h4>
-            <p>{{'settings.work24/7' | translate}}</p>
-            <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling"
-                   ng-model="activeShop.alwaysOpen"/>
-            <label for="filled-in-box">{{'settings.alwaysOpen' | translate}}</label>
+            <div ng-hide="activeShop.isTemporaryClosed">
+                <p>{{'settings.work24/7' | translate}}</p>
+                <input id="filled-in-box" type="checkbox" class="filled-in checkBoxStyling"
+                       ng-model="activeShop.alwaysOpen"/>
+                <label for="filled-in-box">{{'settings.alwaysOpen' | translate}}</label>
+            </div>
             <p>{{'settings.isTemporary' | translate}}</p>
             <input id="shopClosedbox" type="checkbox" class="filled-in checkBoxStyling"
                    ng-model="activeShop.isTemporaryClosed"/>
@@ -54,20 +56,23 @@
                     <input id="mondayStartingTime" type="text" placeholder="00:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.monStartTime" is-required="{{workDay.monOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.monOpen">
                     <p>{{'hourssetting.end' | translate}}</p>
                     <input id="mondayClosingTime" type="text" placeholder="24:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.monEndTime" is-required="{{workDay.monOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.monOpen"
                            id="tableDefaultCheck1">
-                    <label class="custom-control-label" for="tableDefaultCheck1">{{'hourssetting.closed' | translate}}</label>
+                    <label class="custom-control-label" for="tableDefaultCheck1">{{'hourssetting.closed' |
+                        translate}}</label>
                 </div>
             </div>
             <div class="admin-card">
@@ -77,7 +82,8 @@
                     <input id="tuesdayStartingTime" type="text" placeholder="00:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.tueStartTime" is-required="{{workDay.tueOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.tueOpen">
@@ -85,13 +91,15 @@
                     <input id="tuesdayClosingTime" type="text" placeholder="24:00" ng-change="validateHhMm(this)"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.tueEndTime" is-required="{{workDay.tueOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.tueOpen"
                            id="tableDefaultCheck2">
-                    <label class="custom-control-label" for="tableDefaultCheck2">{{'hourssetting.closed' | translate}}</label>
+                    <label class="custom-control-label" for="tableDefaultCheck2">{{'hourssetting.closed' |
+                        translate}}</label>
                 </div>
             </div>
             <div class="admin-card">
@@ -101,7 +109,8 @@
                     <input id="wednesdayStartingTime" type="text" placeholder="00:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.wedStartTime" is-required="{{workDay.wedOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.wedOpen">
@@ -109,13 +118,15 @@
                     <input id="wednesdayClosingTime" type="text" placeholder="24:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.wedEndTime" is-required="{{workDay.wedOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.wedOpen"
                            id="tableDefaultCheck3">
-                    <label class="custom-control-label" for="tableDefaultCheck3">{{'hourssetting.closed' | translate}}</label>
+                    <label class="custom-control-label" for="tableDefaultCheck3">{{'hourssetting.closed' |
+                        translate}}</label>
                 </div>
             </div>
             <div class="admin-card">
@@ -125,7 +136,8 @@
                     <input id="thursdayStartingTime" type="text" placeholder="00:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.thuStartTime" is-required="{{workDay.thuOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.thuOpen">
@@ -133,13 +145,15 @@
                     <input id="thursdayClosingTime" type="text" placeholder="24:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.thuEndTime" is-required="{{workDay.thuOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.thuOpen"
                            id="tableDefaultCheck4">
-                    <label class="custom-control-label" for="tableDefaultCheck4">{{'hourssetting.closed' | translate}}</label>
+                    <label class="custom-control-label" for="tableDefaultCheck4">{{'hourssetting.closed' |
+                        translate}}</label>
                 </div>
             </div>
             <div class="admin-card">
@@ -149,7 +163,8 @@
                     <input id="fridayStartingTime" type="text" placeholder="00:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.friStartTime" is-required="{{workDay.friOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.friOpen">
@@ -157,13 +172,15 @@
                     <input id="fridayClosingTime" type="text" placeholder="24:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.friEndTime" is-required="{{workDay.friOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.friOpen"
                            id="tableDefaultCheck5">
-                    <label class="custom-control-label" for="tableDefaultCheck5">{{'hourssetting.closed' | translate}}</label>
+                    <label class="custom-control-label" for="tableDefaultCheck5">{{'hourssetting.closed' |
+                        translate}}</label>
                 </div>
             </div>
             <div class="admin-card">
@@ -173,7 +190,8 @@
                     <input id="saturdayStartingTime" type="text" placeholder="00:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.satStartTime" is-required="{{workDay.satOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.satOpen">
@@ -181,13 +199,15 @@
                     <input id="saturdayClosingTime" type="text" placeholder="24:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.satEndTime" is-required="{{workDay.satOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.satOpen"
                            id="tableDefaultCheck6">
-                    <label class="custom-control-label" for="tableDefaultCheck6">{{'hourssetting.closed' | translate}}</label>
+                    <label class="custom-control-label" for="tableDefaultCheck6">{{'hourssetting.closed' |
+                        translate}}</label>
                 </div>
             </div>
             <div class="admin-card">
@@ -197,7 +217,8 @@
                     <input id="sundayStartingTime" type="text" placeholder="00:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.sunStartTime" is-required="{{workDay.sunOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="whours-input-time" ng-hide="workDay.sunOpen">
@@ -205,13 +226,15 @@
                     <input id="sundayClosingTime" type="text" placeholder="24:00"
                            ng-blur="validateTimeInput($event)"
                            ng-model="workDay.sunEndTime" is-required="{{workDay.sunOpen}}">
-                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' | translate}}</p>
+                    <p class="invalid-time-format-error-message" hidden>{{'hourssetting.invalidTimeErrorMessage' |
+                        translate}}</p>
 
                 </div>
                 <div class="custom-control custom-checkbox close-shop-checkbox">
                     <input type="checkbox" class="filled-in checkBoxStyling" ng-model="workDay.sunOpen"
                            id="tableDefaultCheck7">
-                    <label class="custom-control-label" for="tableDefaultCheck7">{{'hourssetting.closed' | translate}}</label>
+                    <label class="custom-control-label" for="tableDefaultCheck7">{{'hourssetting.closed' |
+                        translate}}</label>
                 </div>
             </div>
         </div>
