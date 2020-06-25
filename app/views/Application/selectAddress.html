@@ -61,7 +61,7 @@
     }
 </style>
 <!DOCTYPE html>
-<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
+<html language="${language}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -117,16 +117,16 @@
                id="building"
                placeholder="№ &{'page.select.address.placeholder.house'}">
         <div class="load-button">
-            <input id="check-address-button" type="button" value="&{button.find.label}">
+            <input id="check-address-button" type="button" value="&{'button.find.label'}">
         </div>
     </div>
     <div class="load-button">
-        <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="&{button.next.label}">
+        <input id="next-page-button" type="button" onclick="nextButtonClickListener()" value="&{'button.next.label'}">
     </div>
     <div id="googleMap" class="coogle-map-container" data-wow-delay="0.1s"></div>
     <div class="find-address-container">
         <div class="load-button">
-            <input id="find-address-button" type="button" onclick="findOwnlocation()" value="&{button.find.label}">
+            <input id="find-address-button" type="button" onclick="findOwnlocation()" value="&{'button.find.label'}">
         </div>
     </div>
 
@@ -309,7 +309,7 @@
                 }).then(function (response) {
                     return response.json();
                 }).then(function (data) {
-                    window.location ='/shoppingcart';
+                    window.location ='/${language}/shoppingcart';
                 });
             }
 
