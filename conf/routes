@@ -268,7 +268,7 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
-*       {client}/done                                   Application.done
+*       {client}/{language}/done                        Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
 *       {client}/main                                   Application.main

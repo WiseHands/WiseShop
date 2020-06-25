@@ -3,7 +3,7 @@
 # label for some element like button
 button.find.label = Find
 button.next.label = Next
-
+title.add.product.to.basket.label = Add to basket
 # translation for pages
 page.select.address.find.location = Find a place on the map in the delivery area and click on it. Then click "NEXT".
 page.select.address.out.delivery = This location is outside the delivery

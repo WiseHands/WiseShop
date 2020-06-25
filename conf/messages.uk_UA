@@ -3,6 +3,8 @@
 # label for some element like button
 button.find.label = Знайти
 button.next.label = Далі
+title.add.product.to.basket.label = Додати до кошика
+
 # translation for pages
 page.select.address.find.location = Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ".
 page.select.address.out.delivery = Дана локація знаходиться за межами доставки

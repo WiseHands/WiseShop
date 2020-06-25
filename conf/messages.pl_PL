@@ -3,6 +3,7 @@
 # label for some element like button
 button.find.label = Znajdować
 button.next.label = Następny
+title.add.product.to.basket.label = Dodaj do koszyka
 
 # translation for pages
 page.select.address.find.location = Znajdź miejsce na mapie w obszarze dostawy i kliknij je. Następnie kliknij „NASTĘPNY”.
