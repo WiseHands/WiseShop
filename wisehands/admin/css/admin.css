@@ -2113,6 +2113,16 @@ ul.admin-breadcrumb li a:hover {
     width: 30px;
 }
 
+.add-category-row {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.add-category-row .input-field label {
+    left: 0;
+    top: 1.5rem;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;

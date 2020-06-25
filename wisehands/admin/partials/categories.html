@@ -62,19 +62,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="row">
-                    <div class="input-field col-md-12">
+                <div class="add-category-row row">
+                    <div class="input-field">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <input id="categoryName" type="text" ng-model="thisCategory.name" required>
                         <label class="active" for="categoryName">{{'categories.categoryName' | translate}}</label>
                     </div>
-                    <div class="input-field col-md-12">
+                    <div class="input-field">
                         <input id="categorySortOrder" type="number"  ng-model="thisCategory.sortOrder" />
                         <label class="active" for="categorySortOrder">{{'displayOrder' | translate}}</label>
                     </div>
-                    <div class="input-field col-md-12 modal-category-label">
+                    <div class="input-field modal-category-label">
                         <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="thisCategory.isHidden" />
                         <label  for="filled-in-box">{{'category.ishidden' | translate}}</label>
                     </div>
@@ -91,19 +91,19 @@
         <div class="modal-content">
             <div class="modal-body">
                 <form name="categoryForm" ng-submit="createCategory()">
-                    <div class="row">
-                        <div class="input-field col-md-12">
+                    <div class="add-category-row row">
+                        <div class="input-field">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <input id="password" type="text" ng-model="newCategory.name" required>
                             <label for="password">{{'categories.categoryName' | translate}}</label>
                         </div>
-                        <div class="input-field col-md-12">
+                        <div class="input-field">
                             <input id="editCategorySortOrder" type="number"  ng-model="newCategory.sortOrder" />
                             <label class="active" for="editCategorySortOrder">{{'displayOrder' | translate}}</label>
                         </div>
-                        <div class="input-field col-md-12">
+                        <div class="input-field">
                             <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box2" ng-model="newCategory.isHidden" />
                             <label for="filled-in-box2">{{'is.hidden' | translate}}</label>
                         </div>
