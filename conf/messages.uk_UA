@@ -9,6 +9,9 @@ page.product.buy = Купити
 page.product.add.to.basket = Товар додано в кошик
 page.product.about.product = Про товар
 page.product.reviews = Відгуки
+page.product.no.reviews = Клієнт не залишив коментаря
+page.product.no.reviews = Відгуки відсутні
+
 footer.payment.label = Приймаємо
 footer.be.in.touch.label = Будьте в курсі
 footer.be.in.touch.news = Дізнавайтесь про найцікавіші новини, знижки та акції
@@ -35,6 +38,7 @@ balance.transaction.low.shop.balance = Баланс магазину менше 
 shop.balance = Баланс магазину
 shop.balance.currency = ₴
 shop.not.found = Магазин не знайдено...
+shop.missing.products = Товари відсутні
 shop.login = Логін
 new.order = Нове замовлення
 order.is.processing = Замовлення (%s, %s) обробляється

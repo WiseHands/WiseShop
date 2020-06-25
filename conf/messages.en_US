@@ -9,6 +9,9 @@ page.product.buy = Buy
 page.product.add.to.basket = Product added to cart
 page.product.about.product = About product
 page.product.reviews = Reviews
+page.product.no.reviews.from.client = The client did not leave a comment
+page.product.no.reviews = No reviews
+
 footer.payment.label = Accept
 footer.be.in.touch.label = Be in Touch
 footer.be.in.touch.news = Find out about the most interesting news, discounts and promotions
@@ -29,10 +32,12 @@ feedback.email.title = Leave feedback for your order from %s
 feedback.main.label = Hello %s.
 feedback.email.text = Help us become better, please leave your feedback for an order.
 feedback.write.feedback = Write reviews
+
 balance.transaction.low.shop.balance = The balance of the store is less than 100 dollars, please top up your account
 shop.balance = Shop balance
 shop.balance.currency = $
 shop.not.found = The requested Shop is not available. Contact administrator
+shop.missing.products = There are no products
 shop.login = Login
 new.order = New Order
 order.is.processing = Order (%s, %s) is being processed

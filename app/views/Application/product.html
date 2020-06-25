@@ -478,7 +478,7 @@
     <div class="product-info">
         <ul class="menu-breadcrumb">
             <li><a href="/">&{'page.product.main.label'}</a></li>
-            <li><a href="/category/${product.category.uuid}">${product.category.name}</a></li>
+            <li><a href="/${language}/category/${product.category.uuid}">${product.category.name}</a></li>
         </ul>
         <h2>${product.name}</h2>
         <p class="text-justify">${product.description}</p>
@@ -565,7 +565,7 @@
             <div class="shop-review-item-text">
                 <p time="${_review.feedbackTime}"></p>
                 #{if _review.review} <p>${_review.review}</p> #{/if}
-                #{else} <p>Клієнт не залишив коментаря</p> #{/else}
+                #{else} <p>&{'page.product.no.reviews.from.client'}</p> #{/else}
                 <div class="reply-for-review">
                     #{if _review.review && _review.comment}
                         <h4>${shop.shopName}</h4>
@@ -579,7 +579,7 @@
             }
         }%
     #{/if}
-    #{else} <p>Відгуки відсутні</p> #{/else}
+    #{else} <p>&{'page.product.no.reviews'}</p> #{/else}
 </div>
 
 

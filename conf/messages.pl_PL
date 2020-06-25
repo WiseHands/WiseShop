@@ -9,6 +9,9 @@ page.product.buy = Kupić
 page.product.add.to.basket = Produkt dodany do koszyka
 page.product.about.product = O produkcie
 page.product.reviews = Opinie
+page.product.no.reviews = Klient nie zostawił komentarza
+page.product.no.reviews = Brak recenzji
+
 footer.payment.label = Akceptujemy
 footer.be.in.touch.label = Być w Kontakcie
 footer.be.in.touch.news = Dowiedz się o najciekawszych nowościach, rabatach i promocjach
@@ -35,6 +38,7 @@ balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, 
 shop.balance = Saldo sklepowe
 shop.balance.currency = zł
 shop.not.found = Sklep nie jest dostępny. Skontaktuj się z administratorem
+shop.missing.products = Brak produktów
 shop.login = Zaloguj sie
 new.order = Nowe zamówienie
 order.is.processing = Zamówienie (%s, %s) obrabia się

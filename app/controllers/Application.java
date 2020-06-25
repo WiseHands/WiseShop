@@ -133,6 +133,12 @@ public class Application extends Controller {
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
 
+        String language = setlanguageForShop();
+
+        renderTemplate("Application/shop.html", shop, products, language);
+    }
+
+    private static String setlanguageForShop() {
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String language = "";
         if (acceptLanguage != null){
@@ -143,11 +149,10 @@ public class Application extends Controller {
             String[] strings = languageFromAccept.split("-");
             language = strings[0];
 
-            System.out.println("Accept-Language:" + language);
         }
 
         Lang.change(language);
-        renderTemplate("Application/shop.html", shop, products, language);
+        return language;
     }
 
 
@@ -156,8 +161,6 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-
-
 
         if (client.equals("wisehands.me")){
             String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
@@ -171,8 +174,6 @@ public class Application extends Controller {
             String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
             renderTemplate("Application/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
         }
-
-
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         if (acceptLanguage != null){
@@ -245,8 +246,8 @@ public class Application extends Controller {
 
         ShopNetworkDTO network = shop.getNetwork();
         network.retrieveShopList();
-
-        render(shop, network);
+        String language = setlanguageForShop();
+        render(shop, network, language);
     }
 
     public static void allProductsInShop(String client) {
@@ -286,7 +287,9 @@ public class Application extends Controller {
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
-        render(shop, page, pageList);
+        String language = setlanguageForShop();
+
+        render(shop, page, pageList, language);
     }
 
     public static void category(String client, String uuid){
@@ -302,8 +305,9 @@ public class Application extends Controller {
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
+        String language = setlanguageForShop();
 
-        render(shop, category, productList);
+        render(shop, category, productList, language);
     }
 
     public static void product(String client, String uuid){
@@ -321,8 +325,9 @@ public class Application extends Controller {
         System.out.println("product.feedbackList => " + product.feedbackList);
         List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
         product.additions = additionList;
+        String language = setlanguageForShop();
 
-        render(product, category, shop);
+        render(product, category, shop, language);
     }
 
     private static List<FeedbackDTO> getFeedbackListFromDB(ProductDTO product) {
@@ -384,7 +389,8 @@ public class Application extends Controller {
             delivery.orderMessage = "Замовлення успішно завершене. Очікуйте, з вами зв'яжуться.";
             delivery = delivery.save();
         }
-        render(delivery);
+        String language = setlanguageForShop();
+        render(delivery, language);
     }
 
     public static void fail(String client) {
