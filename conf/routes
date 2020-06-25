@@ -268,7 +268,7 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
-*       {client}/language/done                          Application.done
+*       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
 *       {client}/main                                   Application.main
@@ -283,7 +283,7 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/wizard                                 Application.uaWizard
 *       {client}/{uuid}/feedback                        Application.orderFeedback
 # end removing /ua
-*       {client}/language/server-error                  Application.serverError
+*       {client}/server-error                           Application.serverError
 *       {client}/dashboard                              Application.userDashboard
 
 *       {client}/termsofservice                         Application.termsofservice

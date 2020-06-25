@@ -1,15 +1,6 @@
 ﻿# You can specialize this file for each language.
 # For example, for French create a messages.fr file
-# label for buttons bellow
-button.find.label = Odnaleźć
-button.next.label = Następny
-# translation for page bellow
-page.select.address.find.address = Znajdź miejsce na mapie w obszarze dostawy i kliknij je. Następnie kliknij „NASTĘPNY”.
-page.select.address.not.find.address = Ta lokalizacja jest niedostępna
-page.select.address.placeholder.city = Miasto
-page.select.address.placeholder.street = Ulica
-page.select.address.placeholder.house = № domu
-
+#
 shopping.cart.basket.empty.label = Koszyk jest pusty
 shopping.cart.start.shopping.label = Zacznij kupować
 
@@ -46,12 +37,13 @@ feedback.main.label = Witaj %s.
 feedback.email.text =  Pomóż nam stać najlepszym, proszę zostawić swoją recenzję na temat zamówienia.
 feedback.write.feedback = Zostawić swoją recenzję
 
-balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, doładuj swoje konto
 shop.balance = Saldo sklepowe
 shop.balance.currency = zł
 shop.not.found = Sklep nie jest dostępny. Skontaktuj się z administratorem
 shop.missing.products = Brak produktów
 shop.login = Zaloguj sie
+
+balance.transaction.low.shop.balance = Saldo sklepu to mniej niż 100 złotych, doładuj swoje konto
 new.order = Nowe zamówienie
 order.is.processing = Zamówienie (%s, %s) obrabia się
 new.order.total = Nowe zamówienie %s Razem %s
@@ -60,7 +52,6 @@ payment.error.total = Błąd Płatności %s Razem %s
 payment.done = Płatność zakończona
 payment.done.total = Płatność zakończona %s Razem %s
 gotomain = Przejdź na stronę główną
-go.to.back = Plecy
 order.fail = Błąd Płatności
 new.shop.created = Utworzony nowy sklep: %s
 verification.code = Twój kod potwierdzenia %s

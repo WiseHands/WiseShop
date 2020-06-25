@@ -1,16 +1,6 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
-# label for buttons bellow
-button.find.label = Знайти
-button.next.label = Далі
-# translation for page bellow
-
-page.select.address.find.address = Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ".
-page.select.address.not.find.address = Дана локація знаходитеся за межами доставки
-page.select.address.placeholder.city = Місто
-page.select.address.placeholder.street = Вулиця
-page.select.address.placeholder.house = № будинку
-
+#
 shopping.cart.basket.empty.label = Ваш кошик порожній
 shopping.cart.start.shopping.label = РОЗПОЧАТИ ПОКУПКИ
 
@@ -39,6 +29,7 @@ footer.working.schedule.thursday = ЧТ
 footer.working.schedule.friday = ПТ
 footer.working.schedule.saturday = СБ
 footer.working.schedule.sunday = НД
+
 feedback.email.notification.to.client.leave.feedback = [%s] %s, залиште будь ласка відгук про ваше замовлення
 feedback.email.notification.to.admin.about.new.feedback = [%s] Клієнт %s залишив відгук про замовлення
 feedback.main.label = Привіт %s.
@@ -47,6 +38,7 @@ feedback.email.text = Допоможіть нам стати кращими, з�
 feedback.write.feedback = Написати відгук
 feedback.email.answer = Ми відповіли на Ваш відгук
 feedback.email.revise = Переглянути
+
 balance.transaction.low.shop.balance = Баланс магазину менше 100 грн, поповніть будь ласка рахунок
 shop.balance = Баланс магазину
 shop.balance.currency = ₴
@@ -61,7 +53,6 @@ payment.error.total = Помилка Оплати %s Сума %s
 payment.done = Оплата Прийнята
 payment.done.total = Оплата Прийнята %s Сума %s
 gotomain = Перейти на головну
-go.to.back = Назад
 order.fail = Помилка оплати
 new.shop.created = Створено новий магазин: %s
 verification.code = Ваш код підтвердження %s

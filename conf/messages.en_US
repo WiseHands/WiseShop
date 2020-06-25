@@ -1,15 +1,6 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
-# label for buttons bellow
-button.find.label = Find
-button.next.label = Next
-# translation for page bellow
-page.select.address.find.address = Find a place on the map in the delivery area and click on it. Then click "NEXT".
-page.select.address.not.find.address = This location is out of delivery
-page.select.address.placeholder.city = City
-page.select.address.placeholder.street = Street
-page.select.address.placeholder.house = № house
-
+#
 shopping.cart.basket.empty.label = Basket is empty
 shopping.cart.start.shopping.label = Start buying
 
@@ -38,6 +29,7 @@ footer.working.schedule.thursday = Thu
 footer.working.schedule.friday = Fri
 footer.working.schedule.saturday = Sat
 footer.working.schedule.sunday = Sun
+
 feedback.email.notification.to.client.leave.feedback = [%s] %s, please leave a review about your order
 feedback.email.notification.to.admin.about.new.feedback = [%s] Customer %s leave a review about order
 feedback.email.title = Leave feedback for your order from %s
@@ -45,12 +37,13 @@ feedback.main.label = Hello %s.
 feedback.email.text = Help us become better, please leave your feedback for an order.
 feedback.write.feedback = Write reviews
 
-balance.transaction.low.shop.balance = The balance of the store is less than 100 dollars, please top up your account
 shop.balance = Shop balance
 shop.balance.currency = $
 shop.not.found = The requested Shop is not available. Contact administrator
 shop.missing.products = There are no products
 shop.login = Login
+
+balance.transaction.low.shop.balance = The balance of the store is less than 100 dollars, please top up your account
 new.order = New Order
 order.is.processing = Order (%s, %s) is being processed
 new.order.total = New order %s Total %s
@@ -59,7 +52,6 @@ payment.error.total = Payment Error %s Total %s
 payment.done = Payment Done
 payment.done.total = Payment Done %s Total %s
 gotomain = Go to Main Page
-go.to.back = Back
 order.fail = Payment has failed
 new.shop.created = New shop created: %s
 verification.code = Your verification code %s

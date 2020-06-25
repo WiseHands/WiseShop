@@ -1,7 +1,6 @@
 
 #{set shop:shop /}
 #{set pageList:pageList /}
-#{set language:language /}
 <style>
     .category-block {
         ;
@@ -70,7 +69,7 @@
 
 </style>
 <!DOCTYPE html>
-<html language="${language}" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -152,7 +151,7 @@
 
                                     <div class="card-block text-xs-center">
                                         <div class="fixed-height2">
-                                            <h4 class="card-title productNameTruncate h4-responsive"><a href="/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                                            <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
                                         </div>
                                         <div class="fixed-height">
                                             <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
