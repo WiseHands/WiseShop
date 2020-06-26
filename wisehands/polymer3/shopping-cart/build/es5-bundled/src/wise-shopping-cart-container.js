@@ -25659,7 +25659,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (detail && detail.value && detail.value.button) {
       const container = document.createElement('div');
-      container.innerHTML = e.detail.value.button;
+      container.innerHTML = detail.value.button;
       const form = container.querySelector('form');
       document.querySelector('.form-container').append(form);
       form.submit();
