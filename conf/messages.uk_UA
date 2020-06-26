@@ -8,6 +8,18 @@ button.back.label = Назад
 title.add.product.to.basket.label = Додати до кошика
 
 # translation for pages
+# shopping cart container
+delivery.type.label= Тип доставки
+payment.type.label= Тип оплати
+customer.label= Замовник:
+customer.name.label = Ім'я
+customer.phone.label = Телефон
+customer.email.label = Email
+customer.comment.label = Коментар
+amount.products.label= Товарів на суму:
+delivery.label= Доставка:
+general.payment.label= РАЗОМ:
+
 page.select.address.find.location = Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ".
 page.select.address.out.delivery = Дана локація знаходиться за межами доставки
 page.select.address.placeholder.city = Місто

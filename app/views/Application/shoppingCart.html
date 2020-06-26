@@ -44,8 +44,13 @@
 #{get-cart /}
 #{shop-header /}
 #{verbatim}
-<wise-shopping-cart-container language="${language}" currency-label="UAH" basket-empty-label="&{'shopping.cart.basket.empty.label'}"
-                              start-shopping-label="&{'shopping.cart.start.shopping.label'}"></wise-shopping-cart-container>
+<wise-shopping-cart-container language="${language}" currency-label="UAH" start-shopping-label="&{'shopping.cart.start.shopping.label'}" basket-empty-label="&{'shopping.cart.basket.empty.label'}"
+                              delivery-type-label="&{'delivery.type.label'}" payment-type-label="&{'payment.type.label'}" customer-label="&{'customer.label'}"
+                              customer-name-label="&{'customer.name.label'}" customer-phone-label="&{'customer.phone.label'}" customer-email-label="&{'customer.email.label'}"
+                              customer-comment-label="&{'customer.comment.label'}"
+                              amount-products-label="&{'amount.products.label'}" delivery-label="&{'delivery.label'}" general-payment-label="&{'general.payment.label'}"
+                              button-next-label="&{'button.next.label'}">
+</wise-shopping-cart-container>
 
 #{if shop.faceBookPixelApiKey}
 <script>

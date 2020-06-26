@@ -4,10 +4,21 @@
 button.find.label = Znajdować
 button.next.label = Następny
 button.back.label = Nazad
-
 title.add.product.to.basket.label = Dodaj do koszyka
 
 # translation for pages
+# shopping cart container
+delivery.type.label= Typ dostawy
+payment.type.label= Typ płatności
+customer.label= Informacja dla klientow
+customer.name.label = Imię
+customer.phone.label = Telefon
+customer.email.label = Email
+customer.comment.label = Komentarz
+amount.products.label= Ilość:
+delivery.label= Płatność za dostawę:
+general.payment.label= Płatność:
+
 page.select.address.find.location = Znajdź miejsce na mapie w obszarze dostawy i kliknij je. Następnie kliknij „NASTĘPNY”.
 page.select.address.out.delivery = Ta lokalizacja jest poza dostawą
 page.select.address.placeholder.city = Miasto

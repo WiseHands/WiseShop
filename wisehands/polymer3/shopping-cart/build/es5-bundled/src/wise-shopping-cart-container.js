@@ -25268,14 +25268,15 @@ class WiseShoppingCartContainer extends PolymerElement {
                 <div class="cart-container">
                     <div class="cart">
                         <div class="shopping-cart-container">
-                            <wise-shopping-cart currency-label="[[currencyLabel]]"
-                                                cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]" start-shopping-label="[[startShoppingLabel]]"></wise-shopping-cart>
+                            <wise-shopping-cart currency-label="[[currencyLabel]]"cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]"
+                                                start-shopping-label="[[startShoppingLabel]]">
+                            </wise-shopping-cart>
                         </div>
                         <div hidden="[[!areThereItems(cart.items)]]" class="order-details-container">
                             <div class="order-details">
 
                                 <paper-card>
-                                    <h3>Тип доставки:</h3>
+                                    <h3>[[deliveryTypeLabel]]</h3>
                                     <paper-radio-group id="deliveryType" selected="[[cart.deliveryType]]"
                                                        on-selected-changed="_onDeliveryTypeChange">
                                         <template is="dom-if"
@@ -25294,7 +25295,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </paper-card>
 
                                 <paper-card>
-                                    <h3>Тип оплати:</h3>
+                                    <h3>[[paymentTypeLabel]]</h3>
                                     <paper-radio-group id="paymentType" selected="[[cart.paymentType]]"
                                                        on-selected-changed="_onPaymentTypeChange">
                                         <template is="dom-if" if="[[cart.configuration.payment.creditCard.isActivePayByCreditCard]]">
@@ -25310,22 +25311,22 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </paper-card>
 
                                 <paper-card>
-                                    <h3>Замовник:</h3>
+                                    <h3>[[customerLabel]]:</h3>
                                     <paper-input pattern=".*\\S.*" id="clientName"
                                                  label="[[changeClientName(cart.configuration.additionalConfiguration.labelForCustomerName)]]" required
                                                  error-message="Заповніть, будь ласка, це поле"
                                                  value="[[cart.client.name]]"
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
-                                    <paper-input id="clientPhone" pattern="^\\d{12}$" label="Телефон" required
+                                    <paper-input id="clientPhone" pattern="^\\d{12}$" label="[[customerPhoneLabel]]" required
                                                  error-message="Заповніть, будь ласка, це поле"
                                                  value="[[cart.client.phone]]" on-blur="_validateAndSendClientInfo">
                                         <span slot="prefix">+</span>
                                     </paper-input>
-                                    <paper-input id="clientEmail" type="email" label="Email"
+                                    <paper-input id="clientEmail" type="email" label="[[customerEmailLabel]]"
                                                  error-message="Заповніть, будь ласка, це поле"
                                                  value="[[cart.client.email]]" required
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
-                                    <paper-input id="clientComments" label="Коментар" value="[[cart.client.comments]]"
+                                    <paper-input id="clientComments" label="[[customerCommentLabel]]" value="[[cart.client.comments]]"
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
                                 </paper-card>
                                 <template is="dom-if" if="[[_isAddressCardVisible(cart.deliveryType)]]">
@@ -25377,13 +25378,13 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </template>
                                 <span class="error-span" inner-h-t-m-l="[[errorMessage]]"></span>
                                 <div class="total-container">
-                                    <h3>Товарів на суму: [[_computeProductsTotal(cart.items)]] [[currencyLabel]]</h3>
-                                    <h3>Доставка: [[deliveryPrice]] [[currencyLabel]]</h3>
+                                    <h3>[[amountProductsLabel]] [[_computeProductsTotal(cart.items)]] [[currencyLabel]]</h3>
+                                    <h3>[[deliveryLabel]] [[deliveryPrice]] [[currencyLabel]]</h3>
                                     <h3 hidden="[[!cart.configuration.payment.creditCard.clientPaysProcessingCommission]]">
                                         Комісія онлайн оплати: [[_calculatePaymentOnlineCommission(total, cart.paymentType, cart.configuration.payment.creditCard)]] [[currencyLabel]]
                                     </h3>
-                                    <h1>РАЗОМ: [[total]] [[currencyLabel]]</h1>
-                                    <paper-button hidden="[[isMakeOrderRequestRunning]]" disabled=[[!cart.items.length]] on-tap="_proceed">NEXT</paper-button>
+                                    <h1>[[generalPaymentLabel]] [[total]] [[currencyLabel]]</h1>
+                                    <paper-button hidden="[[isMakeOrderRequestRunning]]" disabled=[[!cart.items.length]] on-tap="_proceed">[[buttonNextLabel]]</paper-button>
                                     <paper-spinner active="{{isMakeOrderRequestRunning}}"></paper-spinner>
                                 </div>
                             </div>
@@ -25420,16 +25421,23 @@ class WiseShoppingCartContainer extends PolymerElement {
         type: Number,
         computed: '_calculateTotal(cart)'
       },
+      buttonNextLabel: String,
+      deliveryTypeLabel: String,
+      paymentTypeLabel: String,
+      customerLabel: String,
+      amountProductsLabel: String,
+      deliveryLabel: String,
+      generalPaymentLabel: String,
+      customerNameLabel: String,
+      customerPhoneLabel: String,
+      customerEmailLabel: String,
+      customerCommentLabel: String,
       currencyLabel: {
         type: String,
         value: 'USD'
       },
-      basketEmptyLabel: {
-        type: String
-      },
-      startShoppingLabel: {
-        type: String
-      },
+      basketEmptyLabel: String,
+      startShoppingLabel: String,
       courierLabel: String,
       isMakeOrderRequestRunning: {
         type: Boolean,
