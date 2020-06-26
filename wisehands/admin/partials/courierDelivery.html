@@ -48,7 +48,7 @@
         <div class=" input-field">
             <p>{{'delivery.freeDeliveryPrice' | translate}} ({{'products.currency' | translate}})</p>
             <input id="freeDelivery" type="number" ng-model="delivery.courierFreeDeliveryLimit" min="0" required>
-            <p class="error-message" ng-show="showFreDeliveryPriceValidationError"> Minimum order amount for free shipping can't be less than
+            <p class="error-message" ng-show="showFreeDeliveryPriceValidationError"> Minimum order amount for free shipping can't be less than
                 zero</p>
         </div>
         <div class="delivery-message input-field">
