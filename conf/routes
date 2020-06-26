@@ -321,6 +321,11 @@ GET	/google3d064e8f1e55f5ab.html	            staticFile:google3d064e8f1e55f5ab.h
 GET     {client}/sitemap                        SitemapController.sitemap(format:'xml')
 GET     {client}/manifest                       Application.manifestAdmin
 
+GET     {client}/page/{uuid}                 Application.pageOld
+GET     {client}/category/{uuid}             Application.categoryOld
+GET     {client}/product/{uuid}              Application.productOld
+
+
 GET     {client}/{language}/shop                        Application.shop
 GET     {client}/{language}/page/{uuid}                 Application.page
 GET     {client}/{language}/category/{uuid}             Application.category

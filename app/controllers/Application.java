@@ -266,6 +266,11 @@ public class Application extends Controller {
         render(shop, language);
     }
 
+    public static void pageOld(String client, String uuid) {
+        String language = setlanguageForShop();
+        redirect("/" + language + "/page/" + uuid, false);
+    }
+
     public static void page(String client, String uuid) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -277,6 +282,13 @@ public class Application extends Controller {
         String language = setlanguageForShop();
         render(shop, page, pageList, language);
     }
+
+
+    public static void categoryOld(String client, String uuid) {
+        String language = setlanguageForShop();
+        redirect("/" + language + "/category/" + uuid, false);
+    }
+
 
     public static void category(String client, String uuid){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -291,6 +303,11 @@ public class Application extends Controller {
         shop.pagesList = pageList;
         String language = setlanguageForShop();
         render(shop, category, productList, language);
+    }
+
+    public static void productOld(String client, String uuid) {
+        String language = setlanguageForShop();
+        redirect("/" + language + "/product/" + uuid, false);
     }
 
     public static void product(String client, String uuid){
