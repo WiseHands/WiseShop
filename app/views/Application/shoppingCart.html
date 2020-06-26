@@ -1,4 +1,5 @@
 #{set shop:shop /}
+#{set language:language /}
 <style>
     wise-shopping-cart-container {
         padding: 1rem;
@@ -17,7 +18,7 @@
     }
 </style>
 <!DOCTYPE html>
-<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
+<html language="${language}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
@@ -43,7 +44,8 @@
 #{get-cart /}
 #{shop-header /}
 #{verbatim}
-<wise-shopping-cart-container currency-label="UAH" basket-empty-label="Ваш кошик порожній" start-shopping-label="РОЗПОЧАТИ ПОКУПКИ"></wise-shopping-cart-container>
+<wise-shopping-cart-container language="${language}" currency-label="UAH" basket-empty-label="&{'shopping.cart.basket.empty.label'}"
+                              start-shopping-label="&{'shopping.cart.start.shopping.label'}"></wise-shopping-cart-container>
 
 #{if shop.faceBookPixelApiKey}
 <script>
@@ -66,6 +68,7 @@
 <div class="form-container"></div>
 
 <script>
+
   let shoppingCartState = {};
   store.subscribe(() => {
     shoppingCartState = store.getState();
@@ -83,7 +86,8 @@
         path = item.productId;
       }
     });
-    window.location = '/product/' + path;
+    const language = document.querySelector('html').getAttribute('language');
+    window.location = '/'+language+'/product/' + path;
 
   });
   document.addEventListener('shopping-cart-api-response', function (e) {
@@ -103,17 +107,18 @@
       document.querySelector('.form-container').append(form);
       form.submit();
     } else {
-        window.location = '/done';
+      const language = document.querySelector('html').getAttribute('language');
+      window.location = '/' + language + '/done';
     }
   });
 
   document.addEventListener('order-processing-error', function (e) {
-        console.log('order-processing-error', e);
-        window.location = '/server-error';
+     console.log('order-processing-error', e);
+     const language = document.querySelector('html').getAttribute('language');
+     window.location = '/' + language + '/server-error';
   });
 
 </script>
-
 </html>
 
 

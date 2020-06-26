@@ -25316,10 +25316,10 @@ class WiseShoppingCartContainer extends PolymerElement {
                                                  error-message="Заповніть, будь ласка, це поле"
                                                  value="[[cart.client.name]]"
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
-                                    <paper-input id="clientPhone" pattern="^\\d{9}$" label="Телефон" required
+                                    <paper-input id="clientPhone" pattern="^\\d{12}$" label="Телефон" required
                                                  error-message="Заповніть, будь ласка, це поле"
                                                  value="[[cart.client.phone]]" on-blur="_validateAndSendClientInfo">
-                                        <span slot="prefix">+380</span>
+                                        <span slot="prefix">+</span>
                                     </paper-input>
                                     <paper-input id="clientEmail" type="email" label="Email"
                                                  error-message="Заповніть, будь ласка, це поле"
@@ -25333,7 +25333,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                                         <h3>Адреса:</h3>
                                         <div hidden="[[!_isCourierDeliveryType(cart.deliveryType)]]">
                                             <span class="info-span" hidden="[[!cart.client.address.isAddressSetFromMapView]]">
-                                                Вказати місцезнаходження на <a href="/selectaddress">карті</a>.</span>
+                                                Вказати місцезнаходження на <a href="/[[language]]/selectaddress">карті</a>.</span>
                                             <paper-input id="street" pattern=".*\\S.*" label="Вулиця"
                                                          disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          value="{{cart.client.address.street}}" required
@@ -25400,6 +25400,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   static get properties() {
     return {
+      language: String,
       cart: {
         type: Object,
         value: {
@@ -25496,6 +25497,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     this._generateRequest('GET', url);
 
+    console.log('get current language', language);
     this.addEventListener('update-quantity', event => {
       console.log("/api/cart/update-quantity =>", event.detail);
       let params = `?uuid=${event.detail.itemUuid}&quantity=${event.detail.quantity}${this.addCartIdParamIfAvailable(false)}`;
@@ -25556,7 +25558,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       return;
     }
 
-    if (this.total <= this.cart.configuration.payment.minimumPaymentForOrder) {
+    if (this.total < this.cart.configuration.payment.minimumPaymentForOrder) {
       const message = `Мінімальна сума замовлення становить ${this.cart.configuration.payment.minimumPaymentForOrder} ${this.currencyLabel}`;
       this.set('errorMessage', message);
       return;
@@ -25592,7 +25594,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       } else if (!isValid) {
         this.errorMessage = `Перевірте заповнену інформацію`;
       } else {
-        this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/selectaddress">карті</a>.`;
+        this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/${this.language}/selectaddress">карті</a>.`;
       }
     }
   }
@@ -25729,7 +25731,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       this.cart = await this.updateCartWithAddressLocation(location);
       return this.cart;
     } catch (e) {
-      this.errorMessage = `Нажаль ми не змогли знайти Вашу адресу, виберіть її на <a href="${this.hostname}/selectaddress">карті</a>`;
+      this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/${this.language}/selectaddress">карті</a>.`;
     }
   }
 
