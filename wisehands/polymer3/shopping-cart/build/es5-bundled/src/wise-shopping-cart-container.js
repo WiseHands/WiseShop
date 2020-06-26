@@ -25644,16 +25644,27 @@ class WiseShoppingCartContainer extends PolymerElement {
     const isSuccessful = status >= 200 && status <= 300;
 
     if (isSuccessful) {
-      this.dispatchEvent(new CustomEvent('order-created', {
-        bubbles: true,
-        composed: true,
-        detail: detail
-      }));
+      console.log('order successfully created');
+      this.onOrderCreated(detail);
     } else {
       this.dispatchEvent(new CustomEvent('order-processing-error', {
         bubbles: true,
         composed: true
       }));
+    }
+  }
+
+  onOrderCreated(detail) {
+    console.log('order-created for credit card payment');
+
+    if (detail && detail.value && detail.value.button) {
+      const container = document.createElement('div');
+      container.innerHTML = e.detail.value.button;
+      const form = container.querySelector('form');
+      document.querySelector('.form-container').append(form);
+      form.submit();
+    } else {
+      window.location = '/done';
     }
   }
 

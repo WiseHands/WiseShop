@@ -7,8 +7,8 @@ button.back.label = Back
 title.add.product.to.basket.label = Add to basket
 # translation for pages
 # shopping cart container
-delivery.type.label = Delivery type
-payment.type.label = Payment type
+delivery.type.label = Delivery
+payment.type.label = Payment
 customer.label = Customer
 customer.name.label = Name
 customer.phone.label = Phone
