@@ -8,8 +8,8 @@ title.add.product.to.basket.label = Dodaj do koszyka
 
 # translation for pages
 # shopping cart container
-delivery.type.label= Typ dostawy
-payment.type.label= Typ płatności
+delivery.type.label= Dostawka
+payment.type.label= Płatności
 customer.label= Informacja dla klientow
 customer.name.label = Imię
 customer.phone.label = Telefon
