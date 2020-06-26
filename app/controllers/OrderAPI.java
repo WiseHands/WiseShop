@@ -117,7 +117,20 @@ public class OrderAPI extends AuthController {
         String agent = request.headers.get("user-agent").value();
         String ip = _getUserIp();
 
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String language = "";
+        if (acceptLanguage != null){
+            String acceptLanguageValue = acceptLanguage.value();
+            List<Locale.LanguageRange> languageList = Locale.LanguageRange.parse(acceptLanguageValue);
+
+            String languageFromAccept = languageList.get(0).getRange();
+            String[] strings = languageFromAccept.split("-");
+            language = strings[0];
+
+        }
+
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
+        order.clientLanguage = language;
 
         OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
         order.items = orderItemListResult.orderItemList;

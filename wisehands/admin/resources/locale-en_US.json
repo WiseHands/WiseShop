@@ -52,6 +52,8 @@
   "singleOrder.FullName": "Full Name",
   "singleOrder.Phone": "Phone",
   "singleOrder.Email": "Email",
+  "singleOrder.ClientLanguage": "Client Language",
+  "singleOrder.Language": "English",
   "singleOrder.deliveryType": "Type",
   "singleOrder.deliveryTypeSelfPickUp": "Self PickUp",
   "singleOrder.deliveryTypeCourier": "Courier",

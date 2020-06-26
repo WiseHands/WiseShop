@@ -6,6 +6,35 @@ button.next.label = Next
 button.back.label = Back
 title.add.product.to.basket.label = Add to basket
 # translation for pages
+# shopping cart container
+delivery.type.label = Delivery type
+payment.type.label = Payment type
+customer.label = Customer
+customer.name.label = Name
+customer.phone.label = Phone
+customer.email.label = Email
+customer.comment.label = Comment
+amount.products.label = Amount:
+delivery.label = Delivery Price:
+general.payment.label = Total:
+error.message.please.write.label = Please fill in this field
+error.message.please.choose.delivery.label = Please choose delivery type
+error.message.please.choose.payment.label = Please choose payment type
+error.message.please.minimum.delivery.label = Minimum payment amount is
+error.message.fill.info = Please check filled information
+address.general.label = Address
+address.entrance.label = Entrance
+address.entrance.code.label = Entrance Code
+address.floor.label = Floor
+address.apartment.label = Apartment
+map.choose.your.place.label = Specify location on
+map.label = map
+map.error.message = Sorry, your address is not in the delivery area. Find the address on
+
+
+
+# end shopping cart container
+
 page.select.address.find.location = Find a place on the map in the delivery area and click on it. Then click "NEXT".
 page.select.address.out.delivery = This location is outside the delivery
 page.select.address.placeholder.city = City
@@ -13,7 +42,8 @@ page.select.address.placeholder.street = Street
 page.select.address.placeholder.house = House
 
 shopping.cart.basket.empty.label = Basket is empty
-shopping.cart.start.shopping.label = Start buying
+shopping.cart.start.shopping.label = Start shopping
+
 
 page.product.main.label = Main
 page.product.additions.label = Additions

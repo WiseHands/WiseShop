@@ -69,6 +69,8 @@
   "singleOrder.paymentStatePaid": "Płatne",
   "singleOrder.paymentStateError": "Płatność nieudana",
   "singleOrder.Platform": "Platforma",
+  "singleOrder.ClientLanguage": "Język klienta",
+  "singleOrder.Language": "Polskie",
   "singleOrder.SmsSentToCustomer": "SMS wysłany do klientaу",
   "singleOrder.SmsSentToManager": "SMS wysłany do menedżera",
   "singleOrder.ErrorReasonSentToManager": "Błąd wysyłania SMS do menedżera",
