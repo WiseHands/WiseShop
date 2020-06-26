@@ -27,6 +27,10 @@ address.entrance.label = Wejście
 address.entrance.code.label = Kod wejścia
 address.floor.label = Piętro
 address.apartment.label = Apartament
+map.choose.your.place.label = Określ lokalizację na mapie
+map.label = mapie
+map.error.message = Przepraszamy, twój adres nie znajduje się w obszarze dostawy. Znajdź adres na
+# end shopping cart container
 
 page.select.address.find.location = Znajdź miejsce na mapie w obszarze dostawy i kliknij je. Następnie kliknij „NASTĘPNY”.
 page.select.address.out.delivery = Ta lokalizacja jest poza dostawą
@@ -35,7 +39,7 @@ page.select.address.placeholder.street = Ulica
 page.select.address.placeholder.house = Dom
 
 shopping.cart.basket.empty.label = Koszyk jest pusty
-shopping.cart.start.shopping.label = Zacznij kupować
+shopping.cart.start.shopping.label = Zacznij zakupy
 
 page.product.main.label = Główny
 page.product.additions.label = Wzbogacenie

@@ -62,6 +62,10 @@
                               address-floor-label="&{'address.floor.label'}"
                               address-apartment-label="&{'address.apartment.label'}"
 
+                              map-label="&{'map.label'}"
+                              map-choose-your-place-label="&{'map.shoose.your.place.label'}"
+                              map-error-message="&{'map.error.message'}"
+
 >
 </wise-shopping-cart-container>
 
@@ -92,10 +96,6 @@
     shoppingCartState = store.getState();
   });
 
-
-  document.addEventListener('start-shopping', function (e) {
-    window.location = '/';
-  });
   document.addEventListener('open-product', function (e) {
     console.log(shoppingCartState.items);
     let path = '';
