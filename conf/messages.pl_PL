@@ -18,6 +18,10 @@ customer.comment.label = Komentarz
 amount.products.label= Ilość:
 delivery.label= Płatność za dostawę:
 general.payment.label= Płatność:
+error.message.please.write.label = Proszę wypełnić to pole
+error.message.please.choose.delivery.label = Proszę wybrać rodzaj dostawy
+error.message.please.choose.payment.label = Wybierz typ płatności
+error.message.please.minimum.delivery.label = Minimalna kwota płatności to
 
 page.select.address.find.location = Znajdź miejsce na mapie w obszarze dostawy i kliknij je. Następnie kliknij „NASTĘPNY”.
 page.select.address.out.delivery = Ta lokalizacja jest poza dostawą

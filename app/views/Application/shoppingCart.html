@@ -47,9 +47,14 @@
 <wise-shopping-cart-container language="${language}" currency-label="UAH" start-shopping-label="&{'shopping.cart.start.shopping.label'}" basket-empty-label="&{'shopping.cart.basket.empty.label'}"
                               delivery-type-label="&{'delivery.type.label'}" payment-type-label="&{'payment.type.label'}" customer-label="&{'customer.label'}"
                               customer-name-label="&{'customer.name.label'}" customer-phone-label="&{'customer.phone.label'}" customer-email-label="&{'customer.email.label'}"
-                              customer-comment-label="&{'customer.comment.label'}"
-                              amount-products-label="&{'amount.products.label'}" delivery-label="&{'delivery.label'}" general-payment-label="&{'general.payment.label'}"
-                              button-next-label="&{'button.next.label'}">
+                              customer-comment-label="&{'customer.comment.label'}" amount-products-label="&{'amount.products.label'}" delivery-label="&{'delivery.label'}" general-payment-label="&{'general.payment.label'}"
+                              button-next-label="&{'button.next.label'}" error-message-please-write-label="&{'error.message.please.write.label'}"
+
+                              error-message-please-choose-delivery-label="&{'error.message.please.choose.delivery.label'}"
+                              error-message-please-choose-payment-label="&{'error.message.please.choose.payment.label'}"
+                              error-message-please-minimum-delivery-label="&{'error.message.please.minimum.delivery.label'}"
+
+>
 </wise-shopping-cart-container>
 
 #{if shop.faceBookPixelApiKey}
@@ -112,15 +117,13 @@
       document.querySelector('.form-container').append(form);
       form.submit();
     } else {
-      const language = document.querySelector('html').getAttribute('language');
-      window.location = '/' + language + '/done';
+      window.location = '/done';
     }
   });
 
   document.addEventListener('order-processing-error', function (e) {
      console.log('order-processing-error', e);
-     const language = document.querySelector('html').getAttribute('language');
-     window.location = '/' + language + '/server-error';
+     window.location = /server-error';
   });
 
 </script>

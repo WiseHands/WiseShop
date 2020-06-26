@@ -25311,19 +25311,19 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </paper-card>
 
                                 <paper-card>
-                                    <h3>[[customerLabel]]:</h3>
+                                    <h3>[[customerLabel]]</h3>
                                     <paper-input pattern=".*\\S.*" id="clientName"
                                                  label="[[changeClientName(cart.configuration.additionalConfiguration.labelForCustomerName)]]" required
-                                                 error-message="Заповніть, будь ласка, це поле"
+                                                 error-message="[[errorMessagePleaseWriteLabel]]"
                                                  value="[[cart.client.name]]"
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
                                     <paper-input id="clientPhone" pattern="^\\d{12}$" label="[[customerPhoneLabel]]" required
-                                                 error-message="Заповніть, будь ласка, це поле"
+                                                 error-message="[[errorMessagePleaseWriteLabel]]"
                                                  value="[[cart.client.phone]]" on-blur="_validateAndSendClientInfo">
                                         <span slot="prefix">+</span>
                                     </paper-input>
                                     <paper-input id="clientEmail" type="email" label="[[customerEmailLabel]]"
-                                                 error-message="Заповніть, будь ласка, це поле"
+                                                 error-message="[[errorMessagePleaseWriteLabel]]"
                                                  value="[[cart.client.email]]" required
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
                                     <paper-input id="clientComments" label="[[customerCommentLabel]]" value="[[cart.client.comments]]"
@@ -25338,12 +25338,12 @@ class WiseShoppingCartContainer extends PolymerElement {
                                             <paper-input id="street" pattern=".*\\S.*" label="Вулиця"
                                                          disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          value="{{cart.client.address.street}}" required
-                                                         error-message="Заповніть, будь ласка, це поле"
+                                                         error-message="[[errorMessagePleaseWriteLabel]]"
                                                          on-blur="_validateAndGeocodeAddress"></paper-input>
                                             <paper-input id="building" pattern=".*\\S.*"
                                                          disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          label="Будинок" value="{{cart.client.address.building}}"
-                                                         required error-message="Заповніть, будь ласка, це поле"
+                                                         required error-message="[[errorMessagePleaseWriteLabel]]"
                                                          on-blur="_validateAndGeocodeAddress"></paper-input>
                                             <paper-input id="entrance" label="Під'їзд"
                                                          value="[[cart.client.address.entrance]]"
@@ -25364,12 +25364,12 @@ class WiseShoppingCartContainer extends PolymerElement {
                                                          value="[[cart.client.postDepartamentInfo.city]]"
                                                          pattern=".*\\S.*"
                                                          label="Місто" required
-                                                         error-message="Заповніть, будь ласка, це поле"
+                                                         error-message="[[errorMessagePleaseWriteLabel]]"
                                                          on-blur="_validateAndSendClientPostInfo"></paper-input>
                                             <paper-input id="clientPostDepartmentNumber"
                                                          value="[[cart.client.postDepartamentInfo.postDepartmentNumber]]"
                                                          class="department-number" pattern="^[0-9]*$" label="Відділення"
-                                                         required error-message="Заповніть, будь ласка, це поле"
+                                                         required error-message="[[errorMessagePleaseWriteLabel]]"
                                                          on-blur="_validateAndSendClientPostInfo">
                                                 <span slot="prefix">№</span>
                                             </paper-input>
@@ -25421,6 +25421,10 @@ class WiseShoppingCartContainer extends PolymerElement {
         type: Number,
         computed: '_calculateTotal(cart)'
       },
+      errorMessagePleaseWriteLabel: String,
+      errorMessagePleaseChooseDeliveryLabel: String,
+      errorMessagePleaseChoosePaymentLabel: String,
+      errorMessagePleaseMinimumDeliveryLabel: String,
       buttonNextLabel: String,
       deliveryTypeLabel: String,
       paymentTypeLabel: String,
@@ -25557,17 +25561,17 @@ class WiseShoppingCartContainer extends PolymerElement {
     let validInputs = 0;
 
     if (!deliveryType.selected) {
-      this.set('errorMessage', 'Вкажіть, будь ласка, тип доставки');
+      this.set('errorMessage', this.errorMessagePleaseChooseDeliveryLabel);
       return;
     }
 
     if (!paymentType.selected) {
-      this.set('errorMessage', 'Вкажіть, будь ласка, тип оплати');
+      this.set('errorMessage', this.errorMessagePleaseChoosePaymentLabel);
       return;
     }
 
     if (this.total < this.cart.configuration.payment.minimumPaymentForOrder) {
-      const message = `Мінімальна сума замовлення становить ${this.cart.configuration.payment.minimumPaymentForOrder} ${this.currencyLabel}`;
+      const message = `${this.errorMessagePleaseMinimumDeliveryLabel} ${this.cart.configuration.payment.minimumPaymentForOrder} ${this.currencyLabel}`;
       this.set('errorMessage', message);
       return;
     }
