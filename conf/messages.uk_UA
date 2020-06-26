@@ -23,6 +23,11 @@ error.message.please.write.label = Заповніть, будь ласка, це
 error.message.please.chose.delivery.label = Вкажіть, будь ласка, тип доставки
 error.message.please.chose.payment.label = Вкажіть, будь ласка, тип оплати
 error.message.please.minimum.delivery.label = Мінімальна сума замовлення становить
+address.general.label = Адреса
+address.entrance.label = Під'їзд
+address.entrance.code.label = Код під'їзду
+address.floor.label = Поверх
+address.apartment.label = квартира
 
 page.select.address.find.location = Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ".
 page.select.address.out.delivery = Дана локація знаходиться за межами доставки

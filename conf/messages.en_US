@@ -21,8 +21,11 @@ error.message.please.write.label = Please fill in this field
 error.message.please.choose.delivery.label = Please choose delivery type
 error.message.please.choose.payment.label = Please choose payment type
 error.message.please.minimum.delivery.label = Minimum payment amount is
-
-
+address.general.label = Address
+address.entrance.label = Entrance
+address.entrance.code.label = Entrance Code
+address.floor.label = Floor
+address.apartment.label = Apartment
 
 page.select.address.find.location = Find a place on the map in the delivery area and click on it. Then click "NEXT".
 page.select.address.out.delivery = This location is outside the delivery
