@@ -40,9 +40,8 @@ angular.module('WiseHands')
       const isFreeDeliveryPriceMoreThanOrEqualZero = $scope.delivery.courierFreeDeliveryLimit >= 0;
       const isValid = isCourierPriceMoreThanOrEqualZero && isFreeDeliveryPriceMoreThanOrEqualZero;
       $scope.showCouriePriceValidationError = !isCourierPriceMoreThanOrEqualZero;
-      $scope.showFreDeliveryPricePriceValidationError = !isFreeDeliveryPriceMoreThanOrEqualZero;
+      $scope.showFreDeliveryPriceValidationError = !isFreeDeliveryPriceMoreThanOrEqualZero;
       return isValid;
-
     }
 
     sideNavInit.sideNav();
