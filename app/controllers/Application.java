@@ -149,7 +149,9 @@ public class Application extends Controller {
 
         }
 
-        System.out.println("DEBUG set langage to " + language);
+        if(language == "ru") {
+            language = "uk";
+        }
         Lang.change(language);
         return language;
     }
@@ -185,8 +187,7 @@ public class Application extends Controller {
             System.out.println("Accept-Language:" + language);
 
 
-            System.out.println("DEBUG redirect to /" + language);
-            redirect("/" + language, false);
+            redirect("https://" + client + "/" + language, false);
         }
 
     }
@@ -271,7 +272,7 @@ public class Application extends Controller {
 
     public static void pageOld(String client, String uuid) {
         String language = setlanguageForShop();
-        redirect("/" + language + "/page/" + uuid, false);
+        redirect("https://" + client + "/" + language + "/page/" + uuid, false);
     }
 
     public static void page(String client, String uuid) {
@@ -289,7 +290,7 @@ public class Application extends Controller {
 
     public static void categoryOld(String client, String uuid) {
         String language = setlanguageForShop();
-        redirect("/" + language + "/category/" + uuid, false);
+        redirect("https://" + client + "/" + language + "/category/" + uuid, false);
     }
 
 
@@ -310,7 +311,7 @@ public class Application extends Controller {
 
     public static void productOld(String client, String uuid) {
         String language = setlanguageForShop();
-        redirect("/" + language + "/product/" + uuid, false);
+        redirect("https://" + client + "/" + language + "/product/" + uuid, false);
     }
 
     public static void product(String client, String uuid){
