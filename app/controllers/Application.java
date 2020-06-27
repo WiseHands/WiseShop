@@ -132,6 +132,7 @@ public class Application extends Controller {
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
         String language = setlanguageForShop();
+        System.out.println("DEBUG renderTemplate Application/shop.html");
         renderTemplate("Application/shop.html", shop, products, language);
     }
 
@@ -148,6 +149,7 @@ public class Application extends Controller {
 
         }
 
+        System.out.println("DEBUG set langage to " + language);
         Lang.change(language);
         return language;
     }
@@ -183,6 +185,7 @@ public class Application extends Controller {
             System.out.println("Accept-Language:" + language);
 
 
+            System.out.println("DEBUG redirect to /" + language);
             redirect("/" + language, false);
         }
 
