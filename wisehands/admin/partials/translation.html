@@ -13,7 +13,7 @@
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
-                   ng-click="setDeliveryOptions()">
+                   ng-click="setTranslation()">
                 </i>
             </a>
         </div>
@@ -30,7 +30,7 @@
             <p>{{'translationPage.toUkrainian' | translate}}</p>
         </div>
         <div class="delivery-message input-field">
-            <textarea id="translateToUkrainian" class="materialize-textarea" ng-model="delivery.newPostText"></textarea>
+            <textarea id="uk" class="materialize-textarea" ng-model="delivery.newPostText"></textarea>
         </div>
     </div>
     <div class="admin-card noSidePadding"
@@ -40,7 +40,7 @@
             <p>{{'translationPage.toEnglish' | translate}}</p>
         </div>
         <div class="delivery-message input-field">
-            <textarea id="translateToEnglish" class="materialize-textarea" ng-model="delivery.newPostText"
+            <textarea id="eu" class="materialize-textarea" ng-model="delivery.newPostText"
                       rows="1"></textarea>
         </div>
     </div>

@@ -6,7 +6,7 @@ angular.module('WiseHands')
 
       $http({
           method: 'GET',
-          url: '/translation',
+          url: '/api/translation',
 
       })
           .then(function successCallback(response) {
