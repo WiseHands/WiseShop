@@ -27,32 +27,30 @@
        ng-hide="loading">
         <h4>{{'translationPage.ukrainian' | translate}}</h4>
         <div class="input-field">
-            <p>translate to Ukraine</p>
+            <p>{{'translationPage.toUkrainian' | translate}}</p>
         </div>
         <div class="delivery-message input-field">
-            <!--<p>{{'delivery.messageText' | translate}}</p>-->
-            <textarea id="translateUkrainian" class="materialize-textarea" ng-model="delivery.newPostText"></textarea>
+            <textarea id="translateToUkrainian" class="materialize-textarea" ng-model="delivery.newPostText"></textarea>
         </div>
     </div>
     <div class="admin-card noSidePadding"
          ng-hide="loading">
         <h4>{{'translationPage.english' | translate}}</h4>
         <div class="input-field">
-            <p>translate to English</p>
+            <p>{{'translationPage.toEnglish' | translate}}</p>
         </div>
         <div class="delivery-message input-field">
-            <!--<p>{{'delivery.messageText' | translate}}</p>-->
-            <textarea id="translateEnglish" class="materialize-textarea" ng-model="delivery.newPostText" rows="1"></textarea>
+            <textarea id="translateToEnglish" class="materialize-textarea" ng-model="delivery.newPostText"
+                      rows="1"></textarea>
         </div>
     </div>
     <!--<div class="admin-card noSidePadding"-->
          <!--ng-hide="loading">-->
         <!--<h4>{{'translationPage.polish' | translate}}</h4>-->
         <!--<div class="input-field">-->
-            <!--<p>translate to Polish</p>-->
+        <!--<p>{{'translationPage.toEnglish' | translate}}</p>-->
         <!--</div>-->
         <!--<div class="delivery-message input-field">-->
-            <!--&lt;!&ndash;<p>{{'delivery.messageText' | translate}}</p>&ndash;&gt;-->
             <!--<textarea id="translatePolish" class="materialize-textarea" ng-model="delivery.newPostText"-->
                       <!--rows="1"></textarea>-->
         <!--</div>-->

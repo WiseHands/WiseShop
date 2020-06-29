@@ -16,7 +16,7 @@ angular.module('WiseHands')
               $scope.loading = false;
           });
 
-      $scope.setTranslation = function(){
+      $scope.redirectToTranslation = function(){
           $window.location.href = `#/translation${$scope.translationUuid}`;
           console.log("get info about translationDTO");
       };
