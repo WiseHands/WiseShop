@@ -50,6 +50,10 @@ public class DeliveryDTO extends GenericModel {
     public String newPostText;
 
     @Expose
+    @OneToOne
+    public TranslationBucketDTO newPostTranslationBucket;
+
+    @Expose
     @Column(length=1024)
     public String orderMessage;
 
