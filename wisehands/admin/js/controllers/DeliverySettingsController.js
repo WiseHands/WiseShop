@@ -1,6 +1,12 @@
 angular.module('WiseHands')
-  .controller('DeliverySettingsController', ['$scope', '$http', '$location', 'sideNavInit', 'signout', function ($scope, $http, $location, sideNavInit, signout) {
+  .controller('DeliverySettingsController', ['$scope', '$http', '$location', 'sideNavInit', '$window', function ($scope, $http, $location, sideNavInit, $window) {
     $scope.loading = true;
+
+
+      $scope.setTranslation = function(){
+          $window.location.href = `#/translation`;
+      };
+
 
     $http({
       method: 'GET',
