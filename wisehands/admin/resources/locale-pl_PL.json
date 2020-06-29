@@ -1,5 +1,8 @@
 ﻿{
   "translationPage.title": "Translacja",
+  "translationPage.ukrainian": "Ukraiński",
+  "translationPage.english": "Angielski",
+  "translationPage.polish": "Polskie",
   "editPage.title": "Strona",
   "editPage.addPhoto": "Add page logo",
   "addNewPage.title": "Tworzenie nowej strony",
@@ -231,7 +234,7 @@
   "delivery.courierEnabled": "Pozwól klientowi wybrać kuriera jako opcję dostawy",
   "delivery.newPostEnabled": "Pozwól klientowi wybrać usługa dostawy jako opcję dostawy",
   "delivery.selfTakeEnabled": "Pozwól klientowi  na odbiór osobisty",
-  "delivery.messageText": "Tekst, który klient widzi w koszyku dla tej opcji dostawy",
+  "delivery.messageText": "Tekst, który klient widzi w koszyku dla tej opcji dostawy:",
   "delivery.deliveryPrice": "Cena dostawy",
   "delivery.freeDeliveryPrice": "Minimalna kwota zamówienia za bezpłatną wysyłkę",
   "delivery.minimumOrderTotalAmount": "Minimal order total amount",

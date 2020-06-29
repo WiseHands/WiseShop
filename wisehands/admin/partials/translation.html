@@ -9,7 +9,7 @@
             </a>
 
             <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'translation.title' | translate}}</h5>
+                <h5 class="white-text">{{'translationPage.title' | translate}}</h5>
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
@@ -23,15 +23,38 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <form class="admin-card noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
-        <h4>{{'editProduct.general' | translate}}</h4>
+    <div class="admin-card noSidePadding"
+       ng-hide="loading">
+        <h4>{{'translationPage.ukrainian' | translate}}</h4>
         <div class="input-field">
-            <input type="checkbox" class="filled-in pull-left checkBoxStyling" id="filled-in-box" ng-model="delivery.isNewPostAvailable" />
-            <label for="filled-in-box">{{'delivery.newPostEnabled' | translate}}</label>
+            <p>translate to Ukraine</p>
         </div>
         <div class="delivery-message input-field">
-            <p>{{'delivery.messageText' | translate}}</p>
-            <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.newPostText" rows="1"></textarea>
+            <!--<p>{{'delivery.messageText' | translate}}</p>-->
+            <textarea id="translateUkrainian" class="materialize-textarea" ng-model="delivery.newPostText"></textarea>
         </div>
-    </form>
+    </div>
+    <div class="admin-card noSidePadding"
+         ng-hide="loading">
+        <h4>{{'translationPage.english' | translate}}</h4>
+        <div class="input-field">
+            <p>translate to English</p>
+        </div>
+        <div class="delivery-message input-field">
+            <!--<p>{{'delivery.messageText' | translate}}</p>-->
+            <textarea id="translateEnglish" class="materialize-textarea" ng-model="delivery.newPostText" rows="1"></textarea>
+        </div>
+    </div>
+    <!--<div class="admin-card noSidePadding"-->
+         <!--ng-hide="loading">-->
+        <!--<h4>{{'translationPage.polish' | translate}}</h4>-->
+        <!--<div class="input-field">-->
+            <!--<p>translate to Polish</p>-->
+        <!--</div>-->
+        <!--<div class="delivery-message input-field">-->
+            <!--&lt;!&ndash;<p>{{'delivery.messageText' | translate}}</p>&ndash;&gt;-->
+            <!--<textarea id="translatePolish" class="materialize-textarea" ng-model="delivery.newPostText"-->
+                      <!--rows="1"></textarea>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>

@@ -2128,6 +2128,9 @@ ul.admin-breadcrumb li a:hover {
     justify-content: space-between;
     align-items: center;
 }
+.delivery-message-label{
+    font-weight: 400;
+}
 
 @media screen and (min-width: 1500px) {
     .admin-container {

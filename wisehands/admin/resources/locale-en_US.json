@@ -1,5 +1,8 @@
 {
   "translationPage.title": "Translation",
+  "translationPage.ukrainian": "Ukrainian",
+  "translationPage.english": "English",
+  "translationPage.polish": "Polish",
   "editPage.title": "Page",
   "editPage.addPhoto": "Add page logo",
   "addNewPage.title": "New Page",
@@ -230,7 +233,7 @@
   "delivery.courierEnabled": "Allow customer to choose courier as a delivery option",
   "delivery.newPostEnabled": "Allow customer to choose Nova Poshta as a delivery option",
   "delivery.selfTakeEnabled": "Allow customer to self take",
-  "delivery.messageText": "Text which customer sees in shopping cart for this delivery option",
+  "delivery.messageText": "Text which customer sees in shopping cart for this delivery option:",
   "delivery.deliveryPrice": "Delivery price",
   "delivery.freeDeliveryPrice": "The minimum order amount for free shipping",
   "delivery.minimumOrderTotalAmount": "Minimal order total amount",

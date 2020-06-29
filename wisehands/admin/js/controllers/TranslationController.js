@@ -1,6 +1,6 @@
 angular.module('WiseHands')
   .controller('TranslationController', ['$scope', '$http', '$location', 'sideNavInit', 'signout', function ($scope, $http, $location, sideNavInit, signout) {
-    $scope.loading = true;
+    // $scope.loading = true;
 
     $scope.setTranslation = function(){
         $window.location.href = `#/translation`;

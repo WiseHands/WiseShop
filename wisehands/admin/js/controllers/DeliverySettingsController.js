@@ -5,6 +5,7 @@ angular.module('WiseHands')
       // TODO get info about translationDTO
       $scope.setTranslation = function(){
           $window.location.href = `#/translation`;
+          console.log("get info about translationDTO");
       };
 
 
