@@ -236,7 +236,7 @@
   "delivery.courierEnabled": "Надати клієнту можливість вибрати кур'єра як спосіб доставки",
   "delivery.newPostEnabled": "Надати клієнту можливість вибрати Нову Пошту як спосіб доставки",
   "delivery.selfTakeEnabled": "Надати клієнту можливість самовивозу",
-  "delivery.messageText": "Текст, який клієнт бачить у кошику для цього варіанту доставки:",
+  "delivery.messageText": "Текст, який клієнт бачить у кошику для цього варіанту доставки",
   "delivery.deliveryPrice": "Ціна доставки",
   "delivery.freeDeliveryPrice": "Мінімальна сума замовлення для безкоштовної доставки",
   "delivery.minimumOrderTotalAmount": "Сума мінімального замовлення",

@@ -260,6 +260,8 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
+GET     {client}/translation                            TranslationBucketAPI.checkTranslation
+
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
@@ -305,9 +307,6 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/hire-mobile-developers                 Application.hireMobileDevelopers
 *       {client}/hire-ios-developers                    Application.hireIosDevelopers
 *       {client}/hire-android-developers                Application.hireAndroidDevelopers
-
-
-
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

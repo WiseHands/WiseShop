@@ -3,8 +3,21 @@ angular.module('WiseHands')
     $scope.loading = true;
 
       // TODO get info about translationDTO
+
+      $http({
+          method: 'GET',
+          url: '/translation',
+
+      })
+          .then(function successCallback(response) {
+              $scope.loading = false;
+              $scope.translationUuid = response.data.newPostTranslationBucket.uuid;
+          }, function errorCallback(response) {
+              $scope.loading = false;
+          });
+
       $scope.setTranslation = function(){
-          $window.location.href = `#/translation`;
+          $window.location.href = `#/translation${$scope.translationUuid}`;
           console.log("get info about translationDTO");
       };
 
