@@ -2,7 +2,7 @@ angular.module('WiseHands')
   .controller('DeliverySettingsController', ['$scope', '$http', '$location', 'sideNavInit', '$window', function ($scope, $http, $location, sideNavInit, $window) {
     $scope.loading = true;
 
-
+      // TODO get info about translationDTO
       $scope.setTranslation = function(){
           $window.location.href = `#/translation`;
       };

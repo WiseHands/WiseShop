@@ -2123,6 +2123,12 @@ ul.admin-breadcrumb li a:hover {
     top: 1.5rem;
 }
 
+.delivery-edit-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
