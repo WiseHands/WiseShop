@@ -19,7 +19,7 @@ angular.module('WiseHands')
               setContent($scope.content);
               console.log("$scope.delivery => ", $scope.translationUuid);
 
-          }, (errorCallback) => $scope.loading = false);
+          },errorCallback = (errorCallback) => $scope.loading = false);
 
     setContent = (translationContent) =>{
         textInUkrainian.value = translationContent[0].content;
