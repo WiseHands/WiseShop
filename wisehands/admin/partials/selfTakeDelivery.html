@@ -30,8 +30,11 @@
             <label for="filled-in-box">{{'delivery.selfTakeEnabled' | translate}}</label>
         </div>
         <div class="delivery-message input-field">
-            <p>{{'delivery.messageText' | translate}}</p>
-            <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.selfTakeText"></textarea>
+            <div class="delivery-edit-message">
+                <p>{{'delivery.messageText' | translate}}</p>
+                <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                        ng-click="redirectToTranslation()"><i class="material-icons">mode_edit</i></button>
+            </div>
         </div>
     </form>
 </div>

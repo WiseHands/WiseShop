@@ -10,10 +10,9 @@ angular.module('WiseHands')
       .then((response) => {
         $scope.loading = false;
         $scope.delivery = response.data;
-        $scope.translationUuid = response.data.newPostTranslationBucket.uuid;
       }, (error) => $scope.loading = false );
 
-    $scope.redirectToTranslation = () => $window.location.href = `#/translation/${$scope.translationUuid}`;
+    $scope.redirectToTranslation = () => $window.location.href = `#/translation`;
 
     $scope.setDeliveryOptions = () => {
       if (!validate()) return;

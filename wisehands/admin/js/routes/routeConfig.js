@@ -228,10 +228,10 @@
                         activetab: 'productlist'
 
                     }).
-                when('/translation/:uuid',{
+                when('/translation',{
                     templateUrl:'wisehands/admin/partials/translation.html',
                     controller:'TranslationController',
-                    activetab: 'productlist'
+                    activetab: 'delivery'
 
                 }).
                     otherwise({

@@ -11,11 +11,13 @@ angular.module('WiseHands')
       })
           .then((response) => {
               $scope.loading = false;
-              $scope.delivery = response.data;
-              $scope.uuid= $scope.delivery.newPostTranslationBucket.translationList;
-              $scope.content = $scope.delivery.newPostTranslationBucket.translationList;
+              $scope.data = response.data;
+              $scope.uuid= $scope.data.newPostTranslationBucket.translationList;
+              $scope.content = $scope.data.newPostTranslationBucket.translationList;
+              $scope.translationUuid = response.data.newPostTranslationBucket.uuid;
+
               setContent($scope.content);
-              console.log("$scope.delivery => ", $scope.delivery);
+              console.log("$scope.delivery => ", $scope.translationUuid);
 
           }, (errorCallback) => $scope.loading = false);
 
