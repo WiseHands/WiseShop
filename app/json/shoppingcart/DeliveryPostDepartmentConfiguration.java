@@ -14,10 +14,10 @@ public class DeliveryPostDepartmentConfiguration {
     @Expose
     TranslationBucketDTO translationBucket;
 
-    public DeliveryPostDepartmentConfiguration(String label, Boolean isPostDepartmentActive, TranslationBucketDTO translationBucke){
+    public DeliveryPostDepartmentConfiguration(String label, Boolean isPostDepartmentActive, TranslationBucketDTO translationBucket){
         this.label = label;
         this.isPostDepartmentActive = isPostDepartmentActive;
-        this.translationBucket = translationBucke;
+        this.translationBucket = translationBucket;
     }
 
 }

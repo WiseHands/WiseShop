@@ -116,22 +116,22 @@
                     }).
                     when('/delivery/newPost',{
                         templateUrl:'wisehands/admin/partials/newPostDelivery.html',
-                        controller:'DeliverySettingsController',
+                        controller:'NewPostDeliveryController',
                         activetab: 'delivery'
                     }).
                     when('/delivery/courier',{
                         templateUrl:'wisehands/admin/partials/courierDelivery.html',
-                        controller:'DeliverySettingsController',
-                        activetab: 'delivery'
-                    }).
-                     when('/deliveryboundaries',{
-                        templateUrl:'wisehands/admin/partials/deliveryBoundaries.html',
-                        controller:'DeliveryBounderController',
+                        controller:'CourierDeliveryController',
                         activetab: 'delivery'
                     }).
                     when('/delivery/selfTake',{
                         templateUrl:'wisehands/admin/partials/selfTakeDelivery.html',
-                        controller:'DeliverySettingsController',
+                        controller:'SelfTakeDeliveryController',
+                        activetab: 'delivery'
+                    }).
+                    when('/deliveryboundaries',{
+                        templateUrl:'wisehands/admin/partials/deliveryBoundaries.html',
+                        controller:'DeliveryBounderController',
                         activetab: 'delivery'
                     }).
                     when('/settings',{
