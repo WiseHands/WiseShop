@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-  .controller('DeliverySettingsController', ['$scope', '$http', '$location', 'sideNavInit', 'signout', function ($scope, $http, $location, sideNavInit, signout) {
+  .controller('DeliverySettingsController', ['$scope', '$http', '$location', 'sideNavInit', '$window', function ($scope, $http, $location, sideNavInit, $window) {
     $scope.loading = true;
 
     $http({
@@ -7,14 +7,15 @@ angular.module('WiseHands')
       url: '/delivery',
 
     })
-      .then(function successCallback(response) {
+      .then((response) => {
         $scope.loading = false;
         $scope.delivery = response.data;
-      }, function errorCallback(response) {
-        $scope.loading = false;
-      });
+        $scope.translationUuid = response.data.newPostTranslationBucket.uuid;
+      }, (error) => $scope.loading = false );
 
-    $scope.setDeliveryOptions = function () {
+    $scope.redirectToTranslation = () => $window.location.href = `#/translation/${$scope.translationUuid}`;
+
+    $scope.setDeliveryOptions = () => {
       if (!validate()) return;
       $scope.loading = true;
       $http({
@@ -35,14 +36,14 @@ angular.module('WiseHands')
 
     };
 
-    function validate() {
+    validate = () => {
       const isCourierPriceMoreThanOrEqualZero = $scope.delivery.courierPrice >= 0;
       const isFreeDeliveryPriceMoreThanOrEqualZero = $scope.delivery.courierFreeDeliveryLimit >= 0;
       const isValid = isCourierPriceMoreThanOrEqualZero && isFreeDeliveryPriceMoreThanOrEqualZero;
       $scope.showCouriePriceValidationError = !isCourierPriceMoreThanOrEqualZero;
       $scope.showFreeDeliveryPriceValidationError = !isFreeDeliveryPriceMoreThanOrEqualZero;
       return isValid;
-    }
+    };
 
     sideNavInit.sideNav();
 

@@ -25285,7 +25285,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                                         </template>
                                         <template is="dom-if"
                                                   if="[[cart.configuration.delivery.postDepartment.isPostDepartmentActive]]">
-                                            <paper-radio-button name="POSTSERVICE">[[cart.configuration.delivery.postDepartment.label]]</paper-radio-button>
+                                            <paper-radio-button name="POSTSERVICE">[[_translatePostDepartmentLabel(cart.configuration.delivery.postDepartment.translationBucket)]]</paper-radio-button>
                                         </template>
                                         <template is="dom-if"
                                                   if="[[cart.configuration.delivery.selfTake.isSelfTakeActive]]">
@@ -25491,6 +25491,17 @@ class WiseShoppingCartContainer extends PolymerElement {
     return label;
   }
 
+  _translatePostDepartmentLabel(postInfo) {
+    let label = '';
+    postInfo.translationList.forEach(item => {
+      if (item.language === this.language) {
+        console.log(this.language);
+        label = item.content;
+      }
+    });
+    return label;
+  }
+
   addCartIdParamIfAvailable(isFirst) {
     let param = '';
 
@@ -25519,7 +25530,6 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     this._generateRequest('GET', url);
 
-    console.log('get current language', language);
     this.addEventListener('update-quantity', event => {
       console.log("/api/cart/update-quantity =>", event.detail);
       let params = `?uuid=${event.detail.itemUuid}&quantity=${event.detail.quantity}${this.addCartIdParamIfAvailable(false)}`;
@@ -25644,27 +25654,16 @@ class WiseShoppingCartContainer extends PolymerElement {
     const isSuccessful = status >= 200 && status <= 300;
 
     if (isSuccessful) {
-      console.log('order successfully created');
-      this.onOrderCreated(detail);
+      this.dispatchEvent(new CustomEvent('order-created', {
+        bubbles: true,
+        composed: true,
+        detail: detail
+      }));
     } else {
       this.dispatchEvent(new CustomEvent('order-processing-error', {
         bubbles: true,
         composed: true
       }));
-    }
-  }
-
-  onOrderCreated(detail) {
-    console.log('order-created for credit card payment');
-
-    if (detail && detail.value && detail.value.button) {
-      const container = document.createElement('div');
-      container.innerHTML = detail.value.button;
-      const form = container.querySelector('form');
-      document.querySelector('.form-container').append(form);
-      form.submit();
-    } else {
-      window.location = '/done';
     }
   }
 

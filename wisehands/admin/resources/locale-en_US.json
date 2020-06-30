@@ -1,4 +1,11 @@
 {
+  "translationPage.title": "Translation",
+  "translationPage.ukrainian": "Ukrainian",
+  "translationPage.english": "English",
+  "translationPage.polish": "Polish",
+  "translationPage.toUkrainian": "Text in Ukrainian",
+  "translationPage.toEnglish": "Text in English",
+  "translationPage.toPolish": "Text in Polish",
   "editPage.title": "Page",
   "editPage.addPhoto": "Add page logo",
   "addNewPage.title": "New Page",

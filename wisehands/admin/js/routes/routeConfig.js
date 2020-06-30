@@ -228,6 +228,12 @@
                         activetab: 'productlist'
 
                     }).
+                when('/translation/:uuid',{
+                    templateUrl:'wisehands/admin/partials/translation.html',
+                    controller:'TranslationController',
+                    activetab: 'productlist'
+
+                }).
                     otherwise({
                         redirectTo:'/'
                     });

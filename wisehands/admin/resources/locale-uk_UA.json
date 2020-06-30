@@ -1,4 +1,11 @@
 {
+  "translationPage.title": "Переклад",
+  "translationPage.ukrainian": "Українська",
+  "translationPage.english": "Англійська",
+  "translationPage.polish": "Польська",
+  "translationPage.toUkrainian": "Текст українською мовою",
+  "translationPage.toEnglish": "Текст англійською мовою",
+  "translationPage.toPolish": "Текст польською мовою",
   "editPage.title": "Cторінка",
   "editPage.addPhoto": "Додати лого сторінки",
   "addNewPage.title": "Нова сторінка",
