@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-  .controller('TranslationController', ['$scope', '$http', '$location', 'sideNavInit', '$routeParams', function ($scope, $http, $location, sideNavInit, $routeParams) {
+  .controller('NewPostTranslationController', ['$scope', '$http', '$location', 'sideNavInit', '$routeParams', function ($scope, $http, $location, sideNavInit, $routeParams) {
     // $scope.loading = true;
       const textInUkrainian = document.querySelector('#uk');
       const textInEnglish = document.querySelector('#en');

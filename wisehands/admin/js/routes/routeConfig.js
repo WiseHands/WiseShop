@@ -129,6 +129,21 @@
                         controller:'SelfTakeDeliveryController',
                         activetab: 'delivery'
                     }).
+                    when('/translation/newPost',{
+                        templateUrl:'wisehands/admin/partials/newPostTranslation.html',
+                        controller:'NewPostTranslationController',
+                        activetab: 'delivery'
+                    }).
+                    when('/translation/courier',{
+                        templateUrl:'wisehands/admin/partials/courierTranslation.html',
+                        controller:'CourierTranslationController',
+                        activetab: 'delivery'
+                    }).
+                    when('/translation/selfTake',{
+                        templateUrl:'wisehands/admin/partials/selfTakeTranslation.html',
+                        controller:'SelfTakeTranslationController',
+                        activetab: 'delivery'
+                    }).
                     when('/deliveryboundaries',{
                         templateUrl:'wisehands/admin/partials/deliveryBoundaries.html',
                         controller:'DeliveryBounderController',
@@ -228,12 +243,6 @@
                         activetab: 'productlist'
 
                     }).
-                when('/translation',{
-                    templateUrl:'wisehands/admin/partials/translation.html',
-                    controller:'TranslationController',
-                    activetab: 'delivery'
-
-                }).
                     otherwise({
                         redirectTo:'/'
                     });

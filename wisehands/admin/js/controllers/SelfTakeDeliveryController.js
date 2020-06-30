@@ -12,7 +12,7 @@ angular.module('WiseHands')
         $scope.delivery = response.data;
       }, (error) => $scope.loading = false );
 
-    $scope.redirectToTranslation = () => $window.location.href = `#/translation`;
+    $scope.redirectToTranslation = () => $window.location.href = `#/translation/selfTake`;
 
     $scope.setDeliveryOptions = () => {
       if (!validate()) return;
