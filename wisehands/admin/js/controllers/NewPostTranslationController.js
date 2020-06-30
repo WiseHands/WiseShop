@@ -28,7 +28,7 @@ angular.module('WiseHands')
 
     $scope.setTranslation = () => {
         const data = {
-            translationUuid: $routeParams.uuid,
+            translationUuid: $scope.translationUuid,
             translationList: [
                 {
                   uuid: $scope.uuid[0].uuid,
