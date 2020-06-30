@@ -12,9 +12,9 @@ angular.module('WiseHands')
           .then((response) => {
               $scope.loading = false;
               $scope.data = response.data;
-              $scope.uuid= $scope.data.newPostTranslationBucket.translationList;
-              $scope.content = $scope.data.newPostTranslationBucket.translationList;
-              $scope.translationUuid = response.data.newPostTranslationBucket.uuid;
+              $scope.uuid= $scope.data.selfTakeTranslationBucket.translationList;
+              $scope.content = $scope.data.selfTakeTranslationBucket.translationList;
+              $scope.translationUuid = response.data.selfTakeTranslationBucket.uuid;
 
               setContent($scope.content);
               console.log("$scope.delivery => ", $scope.translationUuid);

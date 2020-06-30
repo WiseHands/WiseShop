@@ -79,6 +79,9 @@ public class DeliveryAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         DeliveryDTO delivery = shop.delivery;
+        UserDashBoardAPI.setTranslationForPostDepartmentLabel(delivery);
+        UserDashBoardAPI.setTranslationForCourierDeliveryLabel(delivery);
+        UserDashBoardAPI.setTranslationForSelfTakeLabel(delivery);
         renderJSON(json(delivery));
     }
 

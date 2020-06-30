@@ -80,7 +80,7 @@ public class UserDashBoardAPI extends AuthController{
 
     }
 
-    private static void setTranslationForSelfTakeLabel(DeliveryDTO delivery) {
+    public static void setTranslationForSelfTakeLabel(DeliveryDTO delivery) {
         if (delivery.selfTakeTranslationBucket == null){
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
             TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовивіз");
@@ -94,7 +94,7 @@ public class UserDashBoardAPI extends AuthController{
         }
     }
 
-    private static void setTranslationForCourierDeliveryLabel(DeliveryDTO delivery) {
+    public static void setTranslationForCourierDeliveryLabel(DeliveryDTO delivery) {
         if (delivery.courierTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
             TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка кур'єром");
@@ -108,7 +108,7 @@ public class UserDashBoardAPI extends AuthController{
         }
     }
 
-    private static void setTranslationForPostDepartmentLabel(DeliveryDTO delivery) {
+    public static void setTranslationForPostDepartmentLabel(DeliveryDTO delivery) {
         if (delivery.newPostTranslationBucket == null){
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
             TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка поштою");

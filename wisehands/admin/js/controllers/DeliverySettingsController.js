@@ -5,7 +5,6 @@ angular.module('WiseHands')
     $http({
       method: 'GET',
       url: '/delivery',
-
     })
       .then((response) => {
         $scope.loading = false;
