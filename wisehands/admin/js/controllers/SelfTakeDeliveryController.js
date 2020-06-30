@@ -10,7 +10,7 @@ angular.module('WiseHands')
       .then((response) => {
         $scope.loading = false;
         $scope.delivery = response.data;
-      }, (error) => $scope.loading = false );
+      },errorCallback = (error) => $scope.loading = false );
 
     $scope.redirectToTranslation = () => $window.location.href = `#/translation/selfTake`;
 
