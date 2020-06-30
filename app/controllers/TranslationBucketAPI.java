@@ -18,20 +18,6 @@ import java.util.List;
 
 public class TranslationBucketAPI extends AuthController {
 
-    public static void checkTranslation(String client) throws Exception {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        if (shop.delivery.newPostTranslationBucket == null){
-            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            translationBucket.save();
-            shop.delivery.newPostTranslationBucket = translationBucket;
-            shop.delivery.save();
-        }
-        renderJSON(json(shop.delivery));
-    }
-
     public static void savePostTranslation(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -40,20 +26,30 @@ public class TranslationBucketAPI extends AuthController {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-
+        System.out.println("jsonBody => " + jsonBody);
         String uuid = (String) jsonBody.get("translationUuid");
         TranslationBucketDTO translation = TranslationBucketDTO.findById(uuid);
 
-        JSONArray translationList = (JSONArray) jsonBody.get("translationList");
-
-        for(int i = 0; i < translationList.size(); i++){
-            JSONObject object = (JSONObject) translationList.get(i);
+        JSONArray parseTranslationList = (JSONArray) jsonBody.get("translationList");
+        List<TranslationItemDTO>  translationItemList = new ArrayList<TranslationItemDTO>();
+        for(int i = 0; i < parseTranslationList.size(); i++){
+            JSONObject object = (JSONObject) parseTranslationList.get(i);
+            String _uuid = (String) object.get("uuid");
             String language = (String) object.get("language");
             String content = (String) object.get("content");
-            TranslationItemDTO translationItem = new TranslationItemDTO(language, content);
+            TranslationItemDTO translationItem = null;
+            if(_uuid == null) {
+                translationItem = new TranslationItemDTO(language, content);
+            } else {
+                translationItem = TranslationItemDTO.findById(_uuid);
+                translationItem.language = language;
+                translationItem.content = content;
+            }
+
             translationItem.save();
-            translation.addTranslationItem(translationItem);
+            translationItemList.add(translationItem);
         }
+        translation.translationList = translationItemList;
         translation.save();
         renderJSON(json(translation));
     }

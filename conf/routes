@@ -260,7 +260,6 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
-GET     {client}/api/translation                            TranslationBucketAPI.checkTranslation
 PUT     {client}/api/translation/save                       TranslationBucketAPI.savePostTranslation
 
 *       {client}/done                                   Application.done

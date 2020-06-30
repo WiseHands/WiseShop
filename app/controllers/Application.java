@@ -185,9 +185,16 @@ public class Application extends Controller {
             String language = strings[0];
 
             System.out.println("Accept-Language:" + language);
+            String protocol = "";
+            String port = "";
+            if(isDevEnv){
+                protocol = "http://";
+                port = ":3334";
+            } else {
+                protocol = "https://";
+            }
 
-
-            redirect("https://" + client + "/" + language, false);
+            redirect( protocol + client + port + "/" + language, false);
         }
 
     }

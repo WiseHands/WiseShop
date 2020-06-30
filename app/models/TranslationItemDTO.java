@@ -25,6 +25,8 @@ public class TranslationItemDTO extends GenericModel {
    @ManyToOne
    public TranslationBucketDTO translationBucket;
 
+   public TranslationItemDTO(){}
+
    public TranslationItemDTO(String language, String content){
        this.language = language;
        this.content = content;

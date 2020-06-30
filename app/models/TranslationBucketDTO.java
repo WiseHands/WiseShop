@@ -19,8 +19,8 @@ public class TranslationBucketDTO extends GenericModel {
          
     @Expose
     @OneToMany
-    List<TranslationItemDTO> translationList;
-    
+    public List<TranslationItemDTO> translationList;
+
     @OneToOne
     public DeliveryDTO delivery;
 
@@ -32,4 +32,8 @@ public class TranslationBucketDTO extends GenericModel {
     }
     
     public TranslationBucketDTO(){}
+
+    public TranslationBucketDTO(List<TranslationItemDTO> translationList) {
+        this.translationList = translationList;
+    }
 }
