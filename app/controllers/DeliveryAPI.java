@@ -81,9 +81,9 @@ public class DeliveryAPI extends AuthController {
         DeliveryDTO delivery = shop.delivery;
         if (delivery.newPostTranslationBucket == null){
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка поштою");
             translationItemUk.save();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Delivery via post");
             translationItemEn.save();
             translationBucket.addTranslationItem(translationItemUk);
             translationBucket.addTranslationItem(translationItemEn);
