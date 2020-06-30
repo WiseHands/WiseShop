@@ -25,7 +25,6 @@ angular.module('WiseHands')
       })
         .then(function successCallback(response) {
           $scope.loading = false;
-          $location.path('/delivery');
           showInfoMsg("SAVED");
         }, function errorCallback(response) {
           $scope.loading = false;
