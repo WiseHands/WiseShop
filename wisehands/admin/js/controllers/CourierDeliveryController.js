@@ -1,17 +1,18 @@
 angular.module('WiseHands')
-  .controller('DeliverySettingsController', ['$scope', '$http', '$location', 'sideNavInit', '$window', function ($scope, $http, $location, sideNavInit, $window) {
+  .controller('CourierDeliveryController', ['$scope', '$http', '$location', 'sideNavInit', '$window', function ($scope, $http, $location, sideNavInit, $window) {
     $scope.loading = true;
 
     $http({
       method: 'GET',
       url: '/delivery',
+
     })
       .then((response) => {
         $scope.loading = false;
         $scope.delivery = response.data;
       }, (error) => $scope.loading = false );
 
-    $scope.redirectToTranslation = () => $window.location.href = `#/translation`;
+    $scope.redirectToTranslation = () => $window.location.href = `#/translation/courier`;
 
     $scope.setDeliveryOptions = () => {
       if (!validate()) return;

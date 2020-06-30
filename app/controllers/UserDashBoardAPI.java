@@ -49,6 +49,11 @@ public class UserDashBoardAPI extends AuthController{
                 user.wizard.postDepartment, "Post Service",
                 courierDeliveryPrice, courierFreeDeliveryPrice
         );
+        setTranslationForCourierDeliveryLabel(delivery);
+        setTranslationForSelfTakeLabel(delivery);
+        setTranslationForPostDepartmentLabel(delivery);
+
+
         ContactDTO contact = new ContactDTO(user.phone, user.email, user.wizard.shopDescription,
                 user.wizard.cityName, user.wizard.streetName, user.wizard.buildingNumber,
                 user.wizard.facebookLink, user.wizard.instagramLink, user.wizard.youtubeLink
@@ -73,6 +78,48 @@ public class UserDashBoardAPI extends AuthController{
         shop.save();
         renderJSON(json(shop));
 
+    }
+
+    public static void setTranslationForSelfTakeLabel(DeliveryDTO delivery) {
+        if (delivery.selfTakeTranslationBucket == null){
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовивіз");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "SelfTake");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.selfTakeTranslationBucket = translationBucket;
+        }
+    }
+
+    public static void setTranslationForCourierDeliveryLabel(DeliveryDTO delivery) {
+        if (delivery.courierTextTranslationBucket == null){
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка кур'єром");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Courier delivery");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.courierTextTranslationBucket = translationBucket;
+        }
+    }
+
+    public static void setTranslationForPostDepartmentLabel(DeliveryDTO delivery) {
+        if (delivery.newPostTranslationBucket == null){
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка поштою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Delivery via post");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.newPostTranslationBucket = translationBucket;
+        }
     }
 
     public static void getUserInfo() throws Exception {
