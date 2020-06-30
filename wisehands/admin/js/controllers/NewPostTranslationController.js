@@ -52,9 +52,12 @@ angular.module('WiseHands')
             data: data
         })
             .then((response) => {
-               $scope.loading = false;
-               console.log("response.data from DB ", response.data);
-            }, (errorCallback) => $scope.loading = false);
+                $scope.loading = false;
+                showInfoMsg("SAVED");
+            }, (errorCallback) => {
+                showWarningMsg("ERROR");
+                $scope.loading = false
+            });
 
     };
     sideNavInit.sideNav();

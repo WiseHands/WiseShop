@@ -79,10 +79,53 @@ public class DeliveryAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         DeliveryDTO delivery = shop.delivery;
-        UserDashBoardAPI.setTranslationForPostDepartmentLabel(delivery);
-        UserDashBoardAPI.setTranslationForCourierDeliveryLabel(delivery);
-        UserDashBoardAPI.setTranslationForSelfTakeLabel(delivery);
+        setNewPostDefaultLabel(delivery);
+        setCourierDefaultLabel(delivery);
+        setSelfTakeDefaultLabel(delivery);
+
         renderJSON(json(delivery));
+    }
+
+    private static void setSelfTakeDefaultLabel(DeliveryDTO delivery) {
+        if (delivery.selfTakeTranslationBucket == null){
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовивіз");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "SelfTake");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.selfTakeTranslationBucket = translationBucket;
+        }
+    }
+
+    private static void setCourierDefaultLabel(DeliveryDTO delivery) {
+        if (delivery.courierTextTranslationBucket == null){
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка кур'єром");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Courier delivery");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.courierTextTranslationBucket = translationBucket;
+        }
+    }
+
+    private static void setNewPostDefaultLabel(DeliveryDTO delivery) {
+        if (delivery.newPostTranslationBucket == null){
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка поштою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Delivery via post");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.newPostTranslationBucket = translationBucket;
+        }
     }
 
     public static void updateCourierPolygonData(String client) throws Exception {
