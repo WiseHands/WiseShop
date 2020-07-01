@@ -25598,6 +25598,19 @@ class WiseShoppingCartContainer extends PolymerElement {
       console.log('start-shopping', e);
       window.location = '/';
     });
+    this.addEventListener('order-created', function (e) {
+      console.log('order-created for credit card payment', e);
+
+      if (e.detail && e.detail.value && e.detail.value.button) {
+        const container = document.createElement('div');
+        container.innerHTML = e.detail.value.button;
+        const form = container.querySelector('form');
+        document.querySelector('.form-container').append(form);
+        form.submit();
+      } else {
+        window.location = '/done';
+      }
+    });
   }
 
   areThereItems(items) {
