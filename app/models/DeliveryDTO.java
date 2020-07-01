@@ -23,10 +23,6 @@ public class DeliveryDTO extends GenericModel {
     public String courierText;
 
     @Expose
-    @OneToOne
-    public TranslationBucketDTO courierTextTranslationBucket;
-
-    @Expose
     public Double courierPrice;
 
     @Expose
@@ -48,8 +44,16 @@ public class DeliveryDTO extends GenericModel {
     public String selfTakeText;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     public TranslationBucketDTO selfTakeTranslationBucket;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO courierTextTranslationBucket;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO newPostTranslationBucket;
 
     @Expose
     public boolean isNewPostAvailable;
@@ -57,9 +61,6 @@ public class DeliveryDTO extends GenericModel {
     @Expose
     public String newPostText;
 
-    @Expose
-    @OneToOne
-    public TranslationBucketDTO newPostTranslationBucket;
 
     @Expose
     @Column(length=1024)

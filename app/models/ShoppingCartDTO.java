@@ -112,11 +112,14 @@ public class ShoppingCartDTO extends GenericModel {
 
         DeliveryCourierConfiguration courier =
                 new DeliveryCourierConfiguration(shop.delivery.courierText, shop.delivery.isCourierAvailable,
-                        shop.delivery.courierFreeDeliveryLimit, shop.delivery.courierPrice, shop.delivery.courierTextTranslationBucket);
+                        shop.delivery.courierFreeDeliveryLimit, shop.delivery.courierPrice,
+                        shop.delivery.courierTextTranslationBucket);
         DeliverySelfTakeConfiguration selfTake =
-                new DeliverySelfTakeConfiguration(shop.delivery.selfTakeText, shop.delivery.isSelfTakeAvailable, shop.delivery.selfTakeTranslationBucket);
+                new DeliverySelfTakeConfiguration(shop.delivery.selfTakeText, shop.delivery.isSelfTakeAvailable,
+                        shop.delivery.selfTakeTranslationBucket);
         DeliveryPostDepartmentConfiguration postDepartment =
-                new DeliveryPostDepartmentConfiguration(shop.delivery.newPostText, shop.delivery.isNewPostAvailable, shop.delivery.newPostTranslationBucket);
+                new DeliveryPostDepartmentConfiguration(shop.delivery.newPostText, shop.delivery.isNewPostAvailable,
+                        shop.delivery.newPostTranslationBucket);
         DeliveryConfiguration delivery = new DeliveryConfiguration(courier, postDepartment, selfTake);
 
         PaymentCashConfiguration cash =
