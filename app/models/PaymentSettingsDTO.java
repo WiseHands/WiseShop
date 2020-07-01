@@ -28,7 +28,15 @@ public class PaymentSettingsDTO extends GenericModel {
     public String manualPaymentTitle;
 
     @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO manualPaymentTitleTranslationBucket;
+
+    @Expose
     public String onlinePaymentTitle;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO onlinePaymentTitleTranslationBucket;
 
     @Expose
     public String buttonPaymentTitle;

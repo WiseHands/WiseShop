@@ -149,6 +149,21 @@
                         controller:'DeliveryBounderController',
                         activetab: 'delivery'
                     }).
+                    when('/payment',{
+                        templateUrl:'wisehands/admin/partials/payment.html',
+                        controller:'PaymentController',
+                        activetab: 'payment'
+                    }).
+                    when('/translation/cash',{
+                        templateUrl:'wisehands/admin/partials/paymentCashTranslation.html',
+                        controller:'PaymentCashTranslationController',
+                        activetab: 'payment'
+                    }).
+                    when('/translation/cart',{
+                        templateUrl:'wisehands/admin/partials/paymentOnlineTranslation.html',
+                        controller:'PaymentOnlineTranslationController',
+                        activetab: 'payment'
+                    }).
                     when('/settings',{
                         templateUrl:'wisehands/admin/partials/settings.html',
                         controller:'SettingsController',
@@ -183,11 +198,6 @@
                         templateUrl:'wisehands/admin/partials/categories.html',
                         controller:'CategoriesController',
                         activetab: 'productlist'
-                    }).
-                    when('/payment',{
-                        templateUrl:'wisehands/admin/partials/payment.html',
-                        controller:'PaymentController',
-                        activetab: 'payment'
                     }).
                     when('/discounts',{
                         templateUrl:'wisehands/admin/partials/discounts.html',

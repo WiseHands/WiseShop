@@ -63,6 +63,10 @@ public class UserDashBoardAPI extends AuthController{
                 (double) 0, "Готівкою", "Карткою", ""
         );
 
+        setTranslationForCashPaymentLabel(paymentSettings);
+        setTranslationForOnlinePaymentLabel(paymentSettings);
+        paymentSettings.save();
+
         BalanceDTO balance = new BalanceDTO();
         VisualSettingsDTO visualSettings = new VisualSettingsDTO();
 
@@ -78,6 +82,36 @@ public class UserDashBoardAPI extends AuthController{
         shop.save();
         renderJSON(json(shop));
 
+    }
+
+    private static void setTranslationForCashPaymentLabel(PaymentSettingsDTO payment) {
+        if (payment.manualPaymentTitleTranslationBucket == null){
+            System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Готівкою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "By Cash");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            payment.manualPaymentTitleTranslationBucket = translationBucket;
+        }
+    }
+
+    private static void setTranslationForOnlinePaymentLabel(PaymentSettingsDTO payment) {
+        if (payment.onlinePaymentTitleTranslationBucket == null){
+            System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Карткою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "By Credit Cart");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            payment.onlinePaymentTitleTranslationBucket = translationBucket;
+        }
     }
 
     private static void setTranslationForSelfTakeLabel(DeliveryDTO delivery) {

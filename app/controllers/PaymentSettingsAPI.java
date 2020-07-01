@@ -1,8 +1,6 @@
 package controllers;
 
-import models.DeliveryDTO;
-import models.PaymentSettingsDTO;
-import models.ShopDTO;
+import models.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -17,7 +15,42 @@ public class PaymentSettingsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        renderJSON(json(shop.paymentSettings));
+        PaymentSettingsDTO payment = shop.paymentSettings;
+        setTranslationForCashPaymentLabel(payment);
+        setTranslationForOnlinePaymentLabel(payment);
+        renderJSON(json(payment));
+    }
+
+    private static void setTranslationForCashPaymentLabel(PaymentSettingsDTO payment) {
+        if (payment.manualPaymentTitleTranslationBucket == null){
+            System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Готівкою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "By Cash");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            payment.manualPaymentTitleTranslationBucket = translationBucket;
+            payment.save();
+        }
+    }
+
+    private static void setTranslationForOnlinePaymentLabel(PaymentSettingsDTO payment) {
+        if (payment.onlinePaymentTitleTranslationBucket == null){
+            System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Карткою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "By Credit Cart");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            payment.onlinePaymentTitleTranslationBucket = translationBucket;
+            payment.save();
+        }
     }
 
     public static void updateCashPayment(String client) throws Exception {
