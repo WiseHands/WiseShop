@@ -91,9 +91,9 @@ public class DeliveryAPI extends AuthController {
     private static void setSelfTakeDefaultLabel(DeliveryDTO delivery) {
         if (delivery.selfTakeTranslationBucket == null){
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовивіз");
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовиніс");
             translationItemUk.save();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "SelfTake");
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Self Pick Up");
             translationItemEn.save();
             translationBucket.addTranslationItem(translationItemUk);
             translationBucket.addTranslationItem(translationItemEn);
@@ -106,9 +106,9 @@ public class DeliveryAPI extends AuthController {
     private static void setCourierDefaultLabel(DeliveryDTO delivery) {
         if (delivery.courierTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка кур'єром");
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Доставка кур'єром");
             translationItemUk.save();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Courier delivery");
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Courier");
             translationItemEn.save();
             translationBucket.addTranslationItem(translationItemUk);
             translationBucket.addTranslationItem(translationItemEn);
@@ -122,9 +122,9 @@ public class DeliveryAPI extends AuthController {
     private static void setNewPostDefaultLabel(DeliveryDTO delivery) {
         if (delivery.newPostTranslationBucket == null){
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка поштою");
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Доставка Новою Поштою");
             translationItemUk.save();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Delivery via post");
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Nova Poshta Delivery");
             translationItemEn.save();
             translationBucket.addTranslationItem(translationItemUk);
             translationBucket.addTranslationItem(translationItemEn);

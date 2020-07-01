@@ -118,9 +118,9 @@ public class UserDashBoardAPI extends AuthController{
         if (delivery.selfTakeTranslationBucket == null){
             System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовивіз");
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовиніс");
             translationItemUk.save();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "SelfTake");
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Self Pick Up");
             translationItemEn.save();
             translationBucket.addTranslationItem(translationItemUk);
             translationBucket.addTranslationItem(translationItemEn);
@@ -133,9 +133,9 @@ public class UserDashBoardAPI extends AuthController{
         if (delivery.courierTextTranslationBucket == null){
             System.out.println("delivery.courierTextTranslationBucket is null and will be creating NEW");
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка кур'єром");
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Доставка кур'єром");
             translationItemUk.save();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Courier delivery");
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Courier");
             translationItemEn.save();
             translationBucket.addTranslationItem(translationItemUk);
             translationBucket.addTranslationItem(translationItemEn);
@@ -148,9 +148,9 @@ public class UserDashBoardAPI extends AuthController{
         if (delivery.newPostTranslationBucket == null){
             System.out.println("delivery.newPostTranslationBucket is null and will be creating NEW");
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка поштою");
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Доставка Новою Поштою");
             translationItemUk.save();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Delivery via post");
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Nova Poshta Delivery");
             translationItemEn.save();
             translationBucket.addTranslationItem(translationItemUk);
             translationBucket.addTranslationItem(translationItemEn);
