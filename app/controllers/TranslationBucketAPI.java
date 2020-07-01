@@ -44,7 +44,6 @@ public class TranslationBucketAPI extends AuthController {
                 translationItem.language = language;
                 translationItem.content = content;
             }
-
             translationItem.save();
         }
         translation.save();

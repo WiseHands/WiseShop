@@ -99,6 +99,7 @@ public class DeliveryAPI extends AuthController {
             translationBucket.addTranslationItem(translationItemEn);
             translationBucket.save();
             delivery.selfTakeTranslationBucket = translationBucket;
+            delivery.save();
         }
     }
 
@@ -113,6 +114,8 @@ public class DeliveryAPI extends AuthController {
             translationBucket.addTranslationItem(translationItemEn);
             translationBucket.save();
             delivery.courierTextTranslationBucket = translationBucket;
+            delivery.save();
+
         }
     }
 
@@ -127,6 +130,8 @@ public class DeliveryAPI extends AuthController {
             translationBucket.addTranslationItem(translationItemEn);
             translationBucket.save();
             delivery.newPostTranslationBucket = translationBucket;
+            delivery.save();
+
         }
     }
 
