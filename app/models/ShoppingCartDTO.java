@@ -123,9 +123,11 @@ public class ShoppingCartDTO extends GenericModel {
         DeliveryConfiguration delivery = new DeliveryConfiguration(courier, postDepartment, selfTake);
 
         PaymentCashConfiguration cash =
-                new PaymentCashConfiguration(shop.paymentSettings.manualPaymentTitle, shop.paymentSettings.manualPaymentEnabled);
+                new PaymentCashConfiguration(shop.paymentSettings.manualPaymentTitle, shop.paymentSettings.manualPaymentEnabled,
+                        shop.paymentSettings.manualPaymentTitleTranslationBucket);
         PaymentCreditCardConfiguration creditCard =
-                new PaymentCreditCardConfiguration(shop.paymentSettings.onlinePaymentTitle, shop.paymentSettings.onlinePaymentEnabled, shop.paymentSettings.clientPaysProcessingCommission);
+                new PaymentCreditCardConfiguration(shop.paymentSettings.onlinePaymentTitle, shop.paymentSettings.onlinePaymentEnabled, shop.paymentSettings.clientPaysProcessingCommission,
+                        shop.paymentSettings.onlinePaymentTitleTranslationBucket);
         PaymentConfiguration payment = new PaymentConfiguration(cash, creditCard, shop.paymentSettings.minimumPayment);
 
         AdditionalConfiguration additionalConfiguration = new AdditionalConfiguration(shop.labelNameForBuyerNameFieldInShoppingCart);

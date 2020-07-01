@@ -1,6 +1,7 @@
 package json.shoppingcart;
 
 import com.google.gson.annotations.Expose;
+import models.TranslationBucketDTO;
 
 public class PaymentCreditCardConfiguration {
 
@@ -18,10 +19,14 @@ public class PaymentCreditCardConfiguration {
     @Expose
     Boolean clientPaysProcessingCommission;
 
-    public PaymentCreditCardConfiguration(String label, Boolean isActivePayByCreditCard, Boolean clientPaysProcessingCommission){
+    @Expose
+    TranslationBucketDTO translationBucket;
+
+    public PaymentCreditCardConfiguration(String label, Boolean isActivePayByCreditCard, Boolean clientPaysProcessingCommission, TranslationBucketDTO translationBucket){
         this.label = label;
         this.isActivePayByCreditCard = isActivePayByCreditCard;
         this.clientPaysProcessingCommission = clientPaysProcessingCommission;
+        this.translationBucket = translationBucket;
     }
 
 }

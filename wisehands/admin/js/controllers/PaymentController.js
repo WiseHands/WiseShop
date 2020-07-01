@@ -9,6 +9,7 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 $scope.payment = response.data;
                 $scope.loading = false;
+                console.log("$scope.payment", $scope.payment);
             }, function errorCallback(data) {
                 console.log(data);
                 $scope.loading = false;

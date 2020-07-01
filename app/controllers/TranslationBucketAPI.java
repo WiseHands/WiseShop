@@ -18,7 +18,7 @@ import java.util.List;
 
 public class TranslationBucketAPI extends AuthController {
 
-    public static void savePostTranslation(String client) throws Exception {
+    public static void saveTranslationForDeliveryAndPaymentType(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();

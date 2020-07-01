@@ -223,6 +223,7 @@
   "payment.online": "Pozwól klientowi zapłacić online. Umożliwi to klientowi wybranie online jako opcji płatności",
   "payment.cashDiscription": "Tekst, który zobaczy klient przy płatności gotówką.",
   "payment.onlineDiscription": "Tekst, który klient zobaczy podczas płatności online.",
+  "payment.messageText": "Tekst, który klient widzi w koszyku dla tej płatności dostawy",
   "payment.coupons": "Kupony",
   "payment.discount": "Zniżka, %",
   "payment.minPayment": "Minimalna płatność za zamówienie",
