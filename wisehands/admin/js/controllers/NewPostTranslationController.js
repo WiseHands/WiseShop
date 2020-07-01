@@ -17,7 +17,7 @@ angular.module('WiseHands')
               $scope.translationUuid = response.data.newPostTranslationBucket.uuid;
 
               setContent($scope.content);
-              console.log("$scope.delivery => ", $scope.translationUuid);
+              console.log("NewPost.translationUuid => ", $scope.translationUuid, $scope.data);
 
           },errorCallback =  (errorCallback) => $scope.loading = false);
 
