@@ -82,6 +82,7 @@ public class UserDashBoardAPI extends AuthController{
 
     private static void setTranslationForSelfTakeLabel(DeliveryDTO delivery) {
         if (delivery.selfTakeTranslationBucket == null){
+            System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
             TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовивіз");
             translationItemUk.save();
@@ -96,6 +97,7 @@ public class UserDashBoardAPI extends AuthController{
 
     private static void setTranslationForCourierDeliveryLabel(DeliveryDTO delivery) {
         if (delivery.courierTextTranslationBucket == null){
+            System.out.println("delivery.courierTextTranslationBucket is null and will be creating NEW");
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
             TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка кур'єром");
             translationItemUk.save();
@@ -110,6 +112,7 @@ public class UserDashBoardAPI extends AuthController{
 
     private static void setTranslationForPostDepartmentLabel(DeliveryDTO delivery) {
         if (delivery.newPostTranslationBucket == null){
+            System.out.println("delivery.newPostTranslationBucket is null and will be creating NEW");
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
             TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Відправка поштою");
             translationItemUk.save();
