@@ -29,7 +29,7 @@ public class TranslationBucketAPI extends AuthController {
         System.out.println("jsonBody => " + jsonBody);
         String uuid = (String) jsonBody.get("translationUuid");
         TranslationBucketDTO translation = TranslationBucketDTO.findById(uuid);
-
+        System.out.println("uuid for translation bucket object " + uuid);
         JSONArray parseTranslationList = (JSONArray) jsonBody.get("translationList");
         for(int i = 0; i < parseTranslationList.size(); i++){
             JSONObject object = (JSONObject) parseTranslationList.get(i);
