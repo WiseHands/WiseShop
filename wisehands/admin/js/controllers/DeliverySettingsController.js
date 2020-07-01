@@ -9,7 +9,7 @@ angular.module('WiseHands')
       .then((response) => {
         $scope.loading = false;
         $scope.delivery = response.data;
-        console.log("/delivery in deliverySetting => ", $scope.data);
+        console.log("/delivery in deliverySetting => ", $scope.delivery);
 
       },errorCallback = (error) => $scope.loading = false );
 
