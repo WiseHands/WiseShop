@@ -52,7 +52,7 @@ public class UserDashBoardAPI extends AuthController{
         setTranslationForCourierDeliveryLabel(delivery);
         setTranslationForSelfTakeLabel(delivery);
         setTranslationForPostDepartmentLabel(delivery);
-
+        delivery.save();
 
         ContactDTO contact = new ContactDTO(user.phone, user.email, user.wizard.shopDescription,
                 user.wizard.cityName, user.wizard.streetName, user.wizard.buildingNumber,
