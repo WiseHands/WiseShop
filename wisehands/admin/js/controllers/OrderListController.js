@@ -173,9 +173,9 @@
                     }
                 } else if (order.feedbackRequestState === "REQUEST_NOT_SEND") {
                     if (locale === 'en_US') {
-                        return 'feedback request not sent';
+                        return 'Feedback request not sent';
                     } else if (locale === 'uk_UA') {
-                        return 'запит на відгук не відправлений';
+                        return 'Запит на відгук не відправлений';
                     }
                 }
             };
