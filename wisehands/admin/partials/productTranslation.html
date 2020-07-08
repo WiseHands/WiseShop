@@ -3,13 +3,13 @@
         <div class="row vcentering">
             <a class="col-xs-2 noPaddingLeft"
                type="button"
-               href="#/payment">
+               href="#/product/details/{{product.uuid}}">
                 <i class="fa fa-arrow-circle-left whiteColor pull-left">
                 </i>
             </a>
 
             <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'translationPage.title' | translate}}</h5>
+                <h5 class="white-text">{{'translationPage.productTitle' | translate}}</h5>
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
@@ -23,15 +23,21 @@
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <div class="admin-card noSidePadding"
-       ng-hide="loading">
+    <div class="admin-card noSidePadding" ng-hide="loading">
         <h4>{{'translationPage.ukrainian' | translate}}</h4>
         <div class="input-field">
-            <p>{{'translationPage.toUkrainian' | translate}}</p>
+            <p>{{'translationPage.toUkrainianProductName' | translate}}</p>
         </div>
         <div class="delivery-message input-field">
-            <textarea id="uk" class="materialize-textarea"></textarea>
+            <textarea id="ukProductName" class="materialize-textarea">{{product.name}}</textarea>
         </div>
+        <div class="input-field">
+            <p>{{'translationPage.toUkrainianProductDescription' | translate}}</p>
+        </div>
+        <div class="delivery-message input-field">
+            <textarea id="ukProductDescription" class="materialize-textarea">{{product.description}}</textarea>
+        </div>
+
     </div>
     <div class="admin-card noSidePadding"
          ng-hide="loading">

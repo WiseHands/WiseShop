@@ -1,28 +1,27 @@
 angular.module('WiseHands')
-    .controller('ProductTranslationController', ['$scope', '$http', 'signout', 'sideNavInit', '$window',
-        function ($scope, $http, signout, sideNavInit, $window) {
+    .controller('ProductTranslationController', ['$scope', '$http', 'signout', 'sideNavInit', '$routeParams',
+        function ($scope, $http, signout, sideNavInit, $routeParams) {
             $scope.loading = true;
 
             $http({
                 method: 'GET',
-                url: '/payment/detail',
+                url: '/api/product/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {
-                    $scope.payment = response.data;
                     $scope.loading = false;
-                }, function errorCallback(data) {
-                    console.log(data);
+                    $scope.product = response.data;
+                }, function errorCallback(error) {
                     $scope.loading = false;
+                    console.log(error);
                 });
 
-            $scope.redirectToTranslation = () => $window.location.href = `#/translation/cart`;
 
-            $scope.saveOnlinePaymentOptions = function () {
+            $scope.setTranslation = function () {
                 $scope.loading = true;
                 $http({
                     method: 'PUT',
                     url: '/payment/update/online/setting',
-                    data: $scope.payment,
+                    data: $scope.data,
                 })
                     .then(function successCallback(response) {
                         $scope.payment = response.data;

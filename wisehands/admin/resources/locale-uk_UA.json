@@ -1,5 +1,8 @@
 {
+  "translationPage.toUkrainianProductName": "Текст українською мовою для назви продукту",
+  "translationPage.toUkrainianProductDescription": "Текст українською мовою для опису продукту",
   "translationPage.title": "Переклад",
+  "translationPage.productTitle": "Переклад для продукту",
   "translationPage.ukrainian": "Українська",
   "translationPage.english": "Англійська",
   "translationPage.polish": "Польська",
@@ -189,7 +192,7 @@
   "productDetails.reviews": "Відгуки",
   "productDetails.customersReviews": "Відгуки клієнтів про товар",
   "productDetails.viewCustomersReviews": "Переглянути",
-  "productDetails.translate": "Przekładać",
+  "productDetails.translate": "Перекласти",
   "productReviews.byDate": "По даті",
   "productReviews.byRating": "По рейтингу",
   "productReviews.reviewDisplayed": "Відгук відображається",

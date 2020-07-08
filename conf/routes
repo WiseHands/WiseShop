@@ -261,6 +261,7 @@ PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.updat
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
 PUT     {client}/api/translation/save                   TranslationBucketAPI.saveTranslationForDeliveryAndPaymentType
+PUT     {client}/api/product-translation/save           TranslationBucketAPI.saveTranslationForProduct
 
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail

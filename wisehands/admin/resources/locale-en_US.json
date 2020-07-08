@@ -1,5 +1,8 @@
 {
+  "translationPage.toUkrainianProductName": "Text in Ukrainian for product name",
+  "translationPage.toUkrainianProductDescription": "Text in Ukrainian for product description",
   "translationPage.title": "Translation",
+  "translationPage.productTitle": "Translation for product",
   "translationPage.ukrainian": "Ukrainian",
   "translationPage.english": "English",
   "translationPage.polish": "Polish",
