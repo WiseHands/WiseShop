@@ -22,6 +22,8 @@ error.message.please.write.label = Proszę wypełnić to pole
 error.message.please.choose.delivery.label = Proszę wybrać rodzaj dostawy
 error.message.please.choose.payment.label = Wybierz typ płatności
 error.message.please.minimum.delivery.label = Minimalna kwota płatności to
+error.message.fill.info = Sprawdź wypełnione informacje
+
 address.general.label = Adres
 address.entrance.label = Wejście
 address.entrance.code.label = Kod wejścia

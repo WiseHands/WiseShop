@@ -25855,7 +25855,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       this.cart = await this.updateCartWithAddressLocation(location);
       return this.cart;
     } catch (e) {
-      this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/${this.language}/selectaddress">карті</a>.`;
+      this.errorMessage = `${this.mapErrorMessage} <a href="${this.hostname}/${this.language}/selectaddress">${this.mapLabel}</a>.`;
     }
   }
 
