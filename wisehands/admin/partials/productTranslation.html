@@ -13,7 +13,7 @@
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
-                   ng-click="setTranslation()">
+                   ng-click="saveTranslation(product)">
                 </i>
             </a>
         </div>
@@ -26,28 +26,19 @@
     <div class="admin-card noSidePadding" ng-hide="loading">
         <h4>{{'translationPage.ukrainian' | translate}}</h4>
         <div class="input-field">
-            <p>{{'translationPage.toUkrainianProductName' | translate}}</p>
+            <p>{{'translationPage.toUkrainian' | translate}}</p>
         </div>
         <div class="delivery-message input-field">
-            <textarea id="ukProductName" class="materialize-textarea">{{product.name}}</textarea>
+            <textarea id="uk" class="materialize-textarea"></textarea>
         </div>
-        <div class="input-field">
-            <p>{{'translationPage.toUkrainianProductDescription' | translate}}</p>
-        </div>
-        <div class="delivery-message input-field">
-            <textarea id="ukProductDescription" class="materialize-textarea">{{product.description}}</textarea>
-        </div>
-
     </div>
-    <div class="admin-card noSidePadding"
-         ng-hide="loading">
+    <div class="admin-card noSidePadding" ng-hide="loading">
         <h4>{{'translationPage.english' | translate}}</h4>
         <div class="input-field">
             <p>{{'translationPage.toEnglish' | translate}}</p>
         </div>
         <div class="delivery-message input-field">
-            <textarea id="en" class="materialize-textarea"
-                      rows="1"></textarea>
+            <textarea id="en" class="materialize-textarea"></textarea>
         </div>
     </div>
     <!--<div class="admin-card noSidePadding"-->

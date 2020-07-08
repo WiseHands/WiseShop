@@ -1,6 +1,8 @@
 {
   "translationPage.toUkrainianProductName": "Текст українською мовою для назви продукту",
   "translationPage.toUkrainianProductDescription": "Текст українською мовою для опису продукту",
+  "translationPage.toEnglishProductName": "Текст англійською мовою для назви продукту",
+  "translationPage.toEnglishProductDescription": "Текст англійською мовою для опису продукту",
   "translationPage.title": "Переклад",
   "translationPage.productTitle": "Переклад для продукту",
   "translationPage.ukrainian": "Українська",
