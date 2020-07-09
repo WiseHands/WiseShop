@@ -18,6 +18,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.jamonapi.MonitorFactory.iterator;
 
 
 public class Application extends Controller {
@@ -133,11 +134,13 @@ public class Application extends Controller {
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
         String language = setlanguageForShop();
-        for(ProductDTO product : products){
+        for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
-            products.add(product);
+            productList.add(product);
         }
+        products = productList;
         System.out.println("DEBUG renderTemplate Application/shop.html");
         renderTemplate("Application/shop.html", shop, products, language);
     }
