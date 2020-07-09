@@ -18,44 +18,50 @@ import java.util.List;
 
 public class TranslationBucketAPI extends AuthController {
 
+    private static TranslationBucketDTO createTranslationBucket() {
+        TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+        createUkTranslationItemForBucket(translationBucket);
+        createEnTranslationItemForBucket(translationBucket);
+        return translationBucket;
+    }
+
+    private static void createUkTranslationItemForBucket(TranslationBucketDTO translationBucket) {
+        TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "");
+        translationItemUk.save();
+        translationBucket.addTranslationItem(translationItemUk);
+        translationBucket.save();
+    }
+
+    private static void createEnTranslationItemForBucket(TranslationBucketDTO translationBucket) {
+        TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "");
+        translationItemEn.save();
+        translationBucket.addTranslationItem(translationItemEn);
+        translationBucket.save();
+    }
+
     public static void createTranslationBucketForProductName() throws Exception {
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);
-        TranslationBucketDTO translationBucket = null;
+        TranslationBucketDTO translationBucket = createTranslationBucket();
         if (product.productNameTextTranslationBucket == null){
-            translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO();
-            translationItemUk.save();
-            translationItemEn.save();
-            translationBucket.addTranslationItem(translationItemUk);
-            translationBucket.addTranslationItem(translationItemEn);
-            translationBucket.save();
             product.productNameTextTranslationBucket = translationBucket;
             product.save();
-        } else if (product.productNameTextTranslationBucket != null){
+        } else {
             translationBucket = product.productNameTextTranslationBucket;
         }
         System.out.println(json(translationBucket));
         renderJSON(json(translationBucket));
     }
 
+
     public static void createTranslationBucketForProductDescription() throws Exception {
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);
-        TranslationBucketDTO translationBucket = null;
+        TranslationBucketDTO translationBucket = createTranslationBucket();
         if (product.productDescriptionTextTranslationBucket == null){
-            translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO();
-            translationItemUk.save();
-            translationItemEn.save();
-            translationBucket.addTranslationItem(translationItemUk);
-            translationBucket.addTranslationItem(translationItemEn);
-            translationBucket.save();
             product.productDescriptionTextTranslationBucket = translationBucket;
             product.save();
-        } else if (product.productDescriptionTextTranslationBucket != null){
+        } else {
             translationBucket = product.productDescriptionTextTranslationBucket;
         }
         System.out.println(json(translationBucket));

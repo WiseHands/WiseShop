@@ -24,37 +24,46 @@ angular.module('WiseHands')
                 });
 
             setContentForProductLabel = (product) => {
-                const isTranslationForProductName = $scope.translationUuid === product.productNameTextTranslationBucket.uuid;
-                const engNameLabel = product.productNameTextTranslationBucket.translationList[1].content;
-                if (isTranslationForProductName){
-                    textInUkrainian.value = product.name;
-                    textInEnglish.value = engNameLabel;
+                let productNameTextTranslationBucket = '';
+                let englishNameLabel = '';
+                if(product.productNameTextTranslationBucket){
+                    productNameTextTranslationBucket = product.productNameTextTranslationBucket.uuid;
+                    englishNameLabel = product.productNameTextTranslationBucket.translationList[1].content;
                 }
 
-                const productDescriptionTextTranslationBucket = '';
-                const engDescriptionLabel = '';
+                let isTranslationForProductName = $scope.translationUuid === productNameTextTranslationBucket;
+                if (isTranslationForProductName){
+                    textInUkrainian.value = product.name;
+                    textInEnglish.value = englishNameLabel;
+                }
+
+                let productDescriptionTextTranslationBucket = '';
+                let englishDescriptionLabel = '';
                 if (product.productDescriptionTextTranslationBucket){
                     productDescriptionTextTranslationBucket = product.productDescriptionTextTranslationBucket.uuid;
-                    engDescriptionLabel = product.productDescriptionTextTranslationBucket.translationList[1].content;
+                    englishDescriptionLabel = product.productDescriptionTextTranslationBucket.translationList[1].content;
                 }
-                const isTranslationForDescription = $scope.translationUuid === productDescriptionTextTranslationBucket;
+                let  isTranslationForDescription = $scope.translationUuid === productDescriptionTextTranslationBucket;
                 if (isTranslationForDescription){
                     textInUkrainian.value = product.description;
-                    textInEnglish.value = engDescriptionLabel;
+                    textInEnglish.value = englishDescriptionLabel;
                 }
             };
 
             $scope.saveTranslation = function (product) {
-                const isTranslationForProductName = $scope.translationUuid === product.productNameTextTranslationBucket.uuid;
+                let nameTranslationBucketUuid = '';
+                if (product.productNameTextTranslationBucket !== "undefined"){}
+                    nameTranslationBucketUuid = product.productNameTextTranslationBucket.uuid;
+                let isTranslationForProductName = $scope.translationUuid === nameTranslationBucketUuid;
                 if (isTranslationForProductName){
                     $scope.ukUuid = product.productNameTextTranslationBucket.translationList[0].uuid;
                     $scope.enUuid = product.productNameTextTranslationBucket.translationList[1].uuid;
                 }
-                const descriptionTranslationBucketUuid = '';
+                let descriptionTranslationBucketUuid = '';
                 if (product.productDescriptionTextTranslationBucket){
                     descriptionTranslationBucketUuid = product.productDescriptionTextTranslationBucket.uuid;
                 }
-                const isTranslationForDescription = $scope.translationUuid === descriptionTranslationBucketUuid;
+                let isTranslationForDescription = $scope.translationUuid === descriptionTranslationBucketUuid;
                 if (isTranslationForDescription){
                     $scope.ukUuid = product.productDescriptionTextTranslationBucket.translationList[0].uuid;
                     $scope.enUuid = product.productDescriptionTextTranslationBucket.translationList[1].uuid;
