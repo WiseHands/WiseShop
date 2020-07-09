@@ -1,5 +1,10 @@
 {
+  "translationPage.toUkrainianProductName": "Text in Ukrainian for product name",
+  "translationPage.toUkrainianProductDescription": "Text in Ukrainian for product description",
+  "translationPage.toEnglishProductName": "Text in English for product name",
+  "translationPage.toEnglishProductDescription": "Text in English for product description",
   "translationPage.title": "Translation",
+  "translationPage.productTitle": "Translation for product",
   "translationPage.ukrainian": "Ukrainian",
   "translationPage.english": "English",
   "translationPage.polish": "Polish",
@@ -187,6 +192,7 @@
   "productDetails.reviews": "Reviews",
   "productDetails.customersReviews": "Customer reviews about the product",
   "productDetails.viewCustomersReviews": "View",
+  "productDetails.translate": "Translate",
   "productReviews.byDate": "By date",
   "productReviews.byRating": "By rating",
   "productReviews.reviewDisplayed": "Review is displayed",

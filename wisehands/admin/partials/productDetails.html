@@ -21,6 +21,8 @@
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
                     <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>{{'productDetails.edit' | translate}}</p></a>
+                    <a class="col-xs-12 text-left"
+                       href="#/translation/products/{{product.uuid}}"><p>{{'productDetails.translate' | translate}}</p></a>
                     <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
                 </div>
             </a>
@@ -36,17 +38,31 @@
             <div class="admin-column">
                 <div class="admin-card">
                     <h4>{{'editProduct.general' | translate}}</h4>
-                    <label for="name">{{'addNewProduct.productName' | translate}}</label>
-                    <h5 id="name" class="product-title">{{product.name}}</h5>
+                    <div class="translation-flex-row">
+                        <div class="translation-flex-column">
+                            <label for="name">{{'addNewProduct.productName' | translate}}</label>
+                            <h5 id="name" class="product-title">{{product.name}}</h5>
+                        </div>
+                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                                ng-click="redirectToTranslationForProductName()"><i class="material-icons">mode_edit</i>
+                        </button>
+                    </div>
+
                     <label for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</label>
                     <h5 id="price">{{product.price}}</h5>
-                    <label for="price">{{'productDetails.category' | translate}}</label>
-                    <h5 id="price">{{product.categoryName}}</h5>
+                    <label for="category">{{'productDetails.category' | translate}}</label>
+                    <h5 id="category">{{product.categoryName}}</h5>
                 </div>
                 <div class="admin-card">
                     <h4>{{'addNewProduct.productDescription' | translate}}</h4>
-                    <div id="home">
-                        <p>{{product.description}}</p>
+                    <div class="translation-flex-row">
+                        <div id="home">
+                            <p>{{product.description}}</p>
+                        </div>
+                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                                ng-click="redirectToTranslationForProductDescription()"><i class="material-icons">
+                            mode_edit</i>
+                        </button>
                     </div>
                     <div id="menu1">
                         <div ng-repeat="property in product.properties">

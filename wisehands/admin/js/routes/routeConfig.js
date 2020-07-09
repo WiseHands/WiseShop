@@ -164,6 +164,12 @@
                         controller:'PaymentOnlineTranslationController',
                         activetab: 'payment'
                     }).
+                    when('/translation/products/:productUuid/:translationUuid',{
+
+                        templateUrl:'wisehands/admin/partials/productTranslation.html',
+                        controller:'ProductTranslationController',
+                        activetab: 'payment'
+                    }).
                     when('/settings',{
                         templateUrl:'wisehands/admin/partials/settings.html',
                         controller:'SettingsController',

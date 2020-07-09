@@ -76,6 +76,14 @@ public class ProductDTO extends GenericModel {
     @OneToMany(cascade = CascadeType.ALL)
     public List<FeedbackDTO> feedbackList;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO productNameTextTranslationBucket;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO productDescriptionTextTranslationBucket;
+
     public void addFeedback(FeedbackDTO orderFeedback) {
         if(this.feedbackList == null) {
             this.feedbackList = new ArrayList<FeedbackDTO>();

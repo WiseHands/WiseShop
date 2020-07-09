@@ -11,12 +11,12 @@ import play.i18n.Messages;
 import play.mvc.*;
 
 import models.*;
+import services.translaiton.Translation;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 
 public class Application extends Controller {
 
@@ -131,7 +131,13 @@ public class Application extends Controller {
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
         String language = setlanguageForShop();
+        for (ProductDTO product : products) {
+            product = Translation.setTranslationForProduct(language, product);
+            productList.add(product);
+        }
+        products = productList;
         System.out.println("DEBUG renderTemplate Application/shop.html");
         renderTemplate("Application/shop.html", shop, products, language);
     }
@@ -291,6 +297,7 @@ public class Application extends Controller {
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
         String language = setlanguageForShop();
+
         render(shop, page, pageList, language);
     }
 
@@ -337,6 +344,7 @@ public class Application extends Controller {
         List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
         product.additions = additionList;
         String language = setlanguageForShop();
+        Translation.setTranslationForProduct(language, product);
         render(product, category, shop, language);
     }
 

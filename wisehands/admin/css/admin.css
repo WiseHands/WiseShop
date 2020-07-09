@@ -2131,6 +2131,14 @@ ul.admin-breadcrumb li a:hover {
 .delivery-message-label{
     font-weight: 400;
 }
+.translation-flex-row{
+    display: flex;
+    justify-content: space-between;
+}
+.translation-flex-column{
+    display: flex;
+    flex-direction: column;
+}
 
 @media screen and (min-width: 1500px) {
     .admin-container {

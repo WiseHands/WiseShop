@@ -1,5 +1,10 @@
 ﻿{
+  "translationPage.toEnglishProductName": "Tekst w języku angielskim dla nazwy produktu",
+  "translationPage.toEnglishProductDescription": "Tekst w języku angielskim do opisu produktu",
+  "translationPage.toUkrainianProductName": "Tekst w języku ukraińskim jako nazwa produktu",
+  "translationPage.toUkrainianProductDescription": "Tekst po ukraińsku do opisu produktu",
   "translationPage.title": "Translacja",
+  "translationPage.productTitle": "Tłumaczenie produktu",
   "translationPage.ukrainian": "Ukraiński",
   "translationPage.english": "Angielski",
   "translationPage.polish": "Polskie",
@@ -191,6 +196,7 @@
   "productDetails.reviews": "Opinie",
   "productDetails.customersReviews": "Opinie klientów o produkcie",
   "productDetails.viewCustomersReviews": "Przejrzeć",
+  "productDetails.translate": "Przekładać",
   "productReviews.byDate": "Według daty",
   "productReviews.byRating": "Według oceny",
   "productReviews.reviewDisplayed": "Opinię jest wyświetlana",
