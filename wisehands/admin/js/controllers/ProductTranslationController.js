@@ -30,8 +30,14 @@ angular.module('WiseHands')
                     textInUkrainian.value = product.name;
                     textInEnglish.value = engNameLabel;
                 }
-                const isTranslationForDescription = $scope.translationUuid === product.productDescriptionTextTranslationBucket.uuid;
-                const engDescriptionLabel = product.productDescriptionTextTranslationBucket.translationList[1].content;
+
+                const productDescriptionTextTranslationBucket = '';
+                const engDescriptionLabel = '';
+                if (product.productDescriptionTextTranslationBucket){
+                    productDescriptionTextTranslationBucket = product.productDescriptionTextTranslationBucket.uuid;
+                    engDescriptionLabel = product.productDescriptionTextTranslationBucket.translationList[1].content;
+                }
+                const isTranslationForDescription = $scope.translationUuid === productDescriptionTextTranslationBucket;
                 if (isTranslationForDescription){
                     textInUkrainian.value = product.description;
                     textInEnglish.value = engDescriptionLabel;
@@ -44,7 +50,11 @@ angular.module('WiseHands')
                     $scope.ukUuid = product.productNameTextTranslationBucket.translationList[0].uuid;
                     $scope.enUuid = product.productNameTextTranslationBucket.translationList[1].uuid;
                 }
-                const isTranslationForDescription = $scope.translationUuid === product.productDescriptionTextTranslationBucket.uuid;
+                const descriptionTranslationBucketUuid = '';
+                if (product.productDescriptionTextTranslationBucket){
+                    descriptionTranslationBucketUuid = product.productDescriptionTextTranslationBucket.uuid;
+                }
+                const isTranslationForDescription = $scope.translationUuid === descriptionTranslationBucketUuid;
                 if (isTranslationForDescription){
                     $scope.ukUuid = product.productDescriptionTextTranslationBucket.translationList[0].uuid;
                     $scope.enUuid = product.productDescriptionTextTranslationBucket.translationList[1].uuid;
