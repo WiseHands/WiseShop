@@ -18,9 +18,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.jamonapi.MonitorFactory.iterator;
-
-
 public class Application extends Controller {
 
     public static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));

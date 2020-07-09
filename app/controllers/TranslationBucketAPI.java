@@ -42,30 +42,24 @@ public class TranslationBucketAPI extends AuthController {
     public static void createTranslationBucketForProductName() throws Exception {
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);
-        TranslationBucketDTO translationBucket = createTranslationBucket();
         if (product.productNameTextTranslationBucket == null){
+            TranslationBucketDTO translationBucket = createTranslationBucket();
             product.productNameTextTranslationBucket = translationBucket;
             product.save();
-        } else {
-            translationBucket = product.productNameTextTranslationBucket;
         }
-        System.out.println(json(translationBucket));
-        renderJSON(json(translationBucket));
+        renderJSON(json(product.productNameTextTranslationBucket));
     }
 
 
     public static void createTranslationBucketForProductDescription() throws Exception {
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);
-        TranslationBucketDTO translationBucket = createTranslationBucket();
         if (product.productDescriptionTextTranslationBucket == null){
+            TranslationBucketDTO translationBucket = createTranslationBucket();
             product.productDescriptionTextTranslationBucket = translationBucket;
             product.save();
-        } else {
-            translationBucket = product.productDescriptionTextTranslationBucket;
         }
-        System.out.println(json(translationBucket));
-        renderJSON(json(translationBucket));
+        renderJSON(json(product.productDescriptionTextTranslationBucket ));
     }
 
     public static void saveTranslationForProduct(String client) throws Exception {
