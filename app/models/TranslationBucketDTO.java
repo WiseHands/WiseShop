@@ -18,7 +18,7 @@ public class TranslationBucketDTO extends GenericModel {
     public String uuid;
          
     @Expose
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public List<TranslationItemDTO> translationList;
 
     @OneToOne
