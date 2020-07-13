@@ -1,5 +1,4 @@
 #{set shop:shop /}
-#{set language:language /}
 <!DOCTYPE html>
 <style>
     .product-center-container {
@@ -9,12 +8,14 @@
         display: flex;
         padding: 1rem 0.5rem;
     }
+
     .product-photo {
         max-width: 40%;
         position: relative;
         margin-right: 1rem;
         overflow: hidden;
     }
+
     .product-price-on-photo {
         position: absolute;
         top: 20px;
@@ -23,10 +24,12 @@
         padding: 0.5rem;
         color: #fff;
     }
+
     .product-photo img {
         max-width: 100%;
         margin: 0 auto;
     }
+
     .product-info {
         display: flex;
         flex-flow: column wrap;
@@ -34,28 +37,34 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     .product-info h2, .product-info p, .add-items-title p {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     ul.menu-breadcrumb {
         padding: 0 16px 10px 0;
         margin-bottom: 0;
         list-style: none;
     }
+
     ul.menu-breadcrumb li {
         display: inline;
         font-size: 18px;
     }
+
     ul.menu-breadcrumb li + li:before {
         padding: 8px;
         color: black;
         content: "/\00a0";
     }
+
     ul.menu-breadcrumb li a {
         color: #000;
         text-decoration: none;
     }
+
     ul.menu-breadcrumb li a:hover {
         color: #000;
         text-decoration: underline;
@@ -81,12 +90,10 @@
         justify-content: space-between;
         margin-bottom: 0.5rem;
     }
-
     .add-components-main a {
         color: inherit;
-
+        
     }
-
     .add-components i {
         padding: 1rem;
     }
@@ -151,11 +158,9 @@
         justify-content: center;
         margin-top: 1rem;
     }
-
     .additions h3 {
         padding-left: 1rem;
     }
-
     .additions-block {
         display: flex;
         flex-flow: row wrap;
@@ -181,7 +186,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
     .add-item-price {
         display: flex;
         justify-content: center;
@@ -191,11 +195,9 @@
         color: #fff;
         margin-bottom: 0;
     }
-
     i.fa-close {
-        font-size: 20px
+        font-size:20px
     }
-
     .cart-float {
         display: none;
         position: fixed;
@@ -207,33 +209,24 @@
         z-index: 300;
         transition: visibility 0.5s, opacity 1s linear;;
     }
-
     .cart-float-text {
         display: flex;
         align-items: baseline;
         padding: 1rem;
         justify-content: center;
     }
-
     .cart-float-text p {
         font-size: 1.1rem;
         font-weight: 300;
         margin-bottom: 0;
     }
-
     .cart-float-text i {
         font-size: 1.5rem;
         padding-left: 0.5rem;
     }
-
     .shop-product-tabs {
-        padding: 0;
+        padding-bottom: 0;
     }
-
-    .product-tab[active] {
-        background-color: #fff;
-    }
-
     .product-tab {
         max-width: 250px;
         width: 100%;
@@ -246,68 +239,36 @@
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
     }
-
+    .active-tab {
+        background-color: #fff;
+    }
     .product-tab p {
         margin: 0;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-
     .shop-all-reviews {
         max-width: 900px;
         margin: 0 auto;
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        padding: 1rem;
+        padding: 1rem 0.5rem;
     }
-
-    .shop-all-reviews:not([active]) {
-        display: none;
-    }
-
     .shop-review-item {
         display: flex;
     }
-
     .shop-review-item-info {
         flex: 0 1 20%;
     }
-
-    .shop-review-item-info p {
-        font-size: 1.5rem;
-        font-weight: 400;
-    }
-
-    .shop-review-item-text {
+    .shop-review-item-text{
         flex: 0 1 80%;
         margin-left: 1rem;
     }
-
-    .shop-review-item-text p:first-child {
-        color: #777;
-        font-size: 0.9rem;
-    }
-
     #reviews {
         display: none;
     }
-
-    i.fa-star, i.fa-star-o {
-        font-size: 24px;
-        color: #000
-    }
-
-    .reply-for-review {
-        margin-left: 1rem;
-    }
-
-    .reply-for-review h4 {
-        font-size: 14px;
-        font-weight: 300;
-    }
-
     @media screen and (min-width: 1500px) {
         .product-center-container, .cart-float, .shop-all-reviews {
             max-width: 1300px;
@@ -319,60 +280,34 @@
             flex-flow: column wrap;
             padding-top: 0;
         }
-
         .product-photo {
             max-width: 100%;
             margin-right: 0;
             margin-top: 0.5rem;
         }
-
         .product-photo img {
             width: 100%;
             height: auto;
         }
-
         .product-info {
             width: 100%;
             padding: 0.5rem;
             margin: 1rem 0;
         }
-
         .product-info h2, .product-info p {
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         .price-buy-block {
             flex-direction: column;
         }
-
         .buy-button {
             width: 100%;
             margin: 0 auto;
         }
-
         .additions-block {
             justify-content: space-around;
-        }
-
-        .feedback-stars {
-            width: 100px;
-        }
-
-        i.fa-star, i.fa-star-o {
-            font-size: 18px;
-        }
-
-        .shop-product-tabs {
-            display: flex;
-            flex-flow: row;
-        }
-
-        .product-tab {
-            max-width: 100%;
-            padding: 0.5rem;
-            width: auto;
         }
     }
 
@@ -430,25 +365,25 @@
   }
 
   function buyStart(uuid) {
-    if (!window.IS_SHOP_OPENED) {
-      if (window.MESSAGE) {
-        toastr.warning(MESSAGE);
-      }
-      return;
+    if(!window.IS_SHOP_OPENED) {
+        if(window.MESSAGE) {
+            toastr.warning(MESSAGE);
+        }
+        return;
     }
     console.log("here uuid: ", uuid, additionList);
     fetch('/api/cart?uuid=' + uuid + '&additionList=' + JSON.stringify(additionList), {
       method: 'POST'
     }).then(function (response) {
-      if (response.ok) {
-        #{verbatim}
-        #{if shop.faceBookPixelApiKey}
-        fbq('track', 'AddToCart', {content_ids: [uuid]});
-        #{/if}
-        #{/verbatim}
-        document.querySelector(".cart-float").style.display = 'block';
-        setTimeout(setDelayShowCart, 2000);
-      }
+        if(response.ok) {
+            #{verbatim}
+                #{if shop.faceBookPixelApiKey}
+                    fbq('track', 'AddToCart', {content_ids: [uuid]});
+                #{/if}
+            #{/verbatim}
+            document.querySelector(".cart-float").style.display = 'block';
+            setTimeout(setDelayShowCart, 2000);
+        }
       return response.json();
     }).then(function (data) {
       store.dispatch({type: 'SHOPPINGCART', payload: data});
@@ -468,39 +403,39 @@
     </div>
     <div class="product-info">
         <ul class="menu-breadcrumb">
-            <li><a href="/">&{'page.product.main.label'}</a></li>
-            <li><a href="/${language}/category/${product.category.uuid}">${product.category.name}</a></li>
+            <li><a href="/">Головна</a></li>
+            <li><a href="/category/${product.category.uuid}">${product.category.name}</a></li>
         </ul>
         <h2>${product.name}</h2>
         <p class="text-justify">${product.description}</p>
         #{if product.additions}
-        <div class="add-components" hidden>
-            <div class="add-components-main">
-                <a href="#additions">
-                    <div class="add-button">
-                        <i class="fa fa-plus-square" style="font-size:24px"></i>
-                        <p>&{'page.product.additions.label'}</p>
+            <div class="add-components" hidden>
+                <div class="add-components-main">
+                    <a href="#additions">
+                        <div class="add-button">
+                            <i class="fa fa-plus-square" style="font-size:24px"></i>
+                            <p>Додатки</p>
+                        </div>
+                    </a>
+                    <div class="add-price">
+                        <p>вартість додатків:</p>
+                        <span class="additions-total-price"></span>
                     </div>
-                </a>
-                <div class="add-price">
-                    <p>&{'page.product.additions.cost'}</p>
-                    <span class="additions-total-price"></span>
+                </div>
+                <div class="add-items">
                 </div>
             </div>
-            <div class="add-items">
-            </div>
-        </div>
         #{/if}
         <div class="price-buy-block">
-            <span class="product-price" price="${product.formatDecimal()}">
-                <span>&{'page.product.price'}</span>
+            <span class="product-price" price="${product.formatDecimal()}" UAH>
+                <span>Вартість:</span>
                 <span class="total-span"></span>
             </span>
-            <button class="buy-button" onClick="buyStart('${product.uuid}')">&{'page.product.buy'}</button>
+            <button class="buy-button" onClick="buyStart('${product.uuid}')">Купити</button>
         </div>
         #{if product.additions}
         <section class="additions">
-            <h3 id="additions" class="addition-header">&{'page.product.additions.label'}</h3>
+            <h3 id="additions" class="addition-header">Додатки</h3>
 
             <div class="additions-block">
                 %{
@@ -524,118 +459,92 @@
     </div>
     <div class="cart-float">
         <div class="cart-float-text">
-            <p>&{'page.product.add.to.basket'}</p>
+            <p>Товар додано в кошик</p>
             <i class="fa fa-check-circle"></i>
         </div>
     </div>
 </main>
 <div class="shop-product-tabs product-center-container">
-    <button class="product-tab" active onclick="openTab(event)">&{'page.product.about.product'}</button>
-    <button class="product-tab" onclick="openTab(event)">&{'page.product.reviews'}</button>
+    <button class="tablink product-tab active-tab" onclick="openTab(event,'about')">Про товар</button>
+    <button class="tablink product-tab " onclick="openTab(event,'reviews')">Відгуки</button>
 </div>
-<div active class="shop-all-reviews w3-container w3-border item-tab">
-
-    <p>${product.description}</p>
+<div id="about" class="shop-all-reviews w3-container w3-border item-tab">
+    <h2>Lorem ipsum dolor sit amet</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
 </div>
-<div class="shop-all-reviews w3-container w3-border item-tab">
-    #{if product.feedbackList}
-        %{
-            for(_review in product.feedbackList) {
-        }%
-        <div class="shop-review-item">
-            <div class="shop-review-item-info">
-                <p>${_review.customerName}</p>
-                <div feedback-rate="${_review.quality}" class="feedback-stars">
-                    <i class="fa"></i>
-                    <i class="fa"></i>
-                    <i class="fa"></i>
-                    <i class="fa"></i>
-                    <i class="fa"></i>
-                </div>
-            </div>
-            <div class="shop-review-item-text">
-                <p time="${_review.feedbackTime}"></p>
-                #{if _review.review} <p>${_review.review}</p> #{/if}
-                #{else} <p>&{'page.product.no.reviews.from.client'}</p> #{/else}
-                <div class="reply-for-review">
-                    #{if _review.review && _review.comment}
-                        <h4>${shop.shopName}</h4>
-                        <p>${_review.comment}</p>
-                    #{/if}
-                </div>
+<div id="reviews" class="shop-all-reviews w3-container w3-border item-tab" >
+    %{
+    for(_review in product.feedbackList) {
+    }%
+    <div class="shop-review-item">
+        <div class="shop-review-item-info">
+            <p>${_review.customerName}</p>
+            <p>${_review.quality}</p>
+            <div class="feedback-stars">
+                <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                <i ng-class="review.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                <i ng-class="review.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
+                <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa" style="font-size:24px; color: #000"></i>
             </div>
         </div>
-        <hr>
-        %{
-            }
-        }%
-    #{/if}
-    #{else} <p>&{'page.product.no.reviews'}</p> #{/else}
+        <div class="shop-review-item-text">
+            <p time="${_review.feedbackTime}"></p>
+            <p>${_review.review}</p>
+              <p>${_review.feedbackComment}</p>
+        </div>
+    </div>
+    <hr>
+    %{
+    }
+    }%
 </div>
 
 
 #{if shop.faceBookPixelApiKey}
-<script>
-  console.log('present faceBookPixelApiKey');
-  !function (f, b, e, v, n, t, s) {
-    if (f.fbq) return;
-    n = f.fbq = function () {
-      n.callMethod ?
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-    };
-    if (!f._fbq) f._fbq = n;
-    n.push = n;
-    n.loaded = !0;
-    n.version = '2.0';
-    n.queue = [];
-    t = b.createElement(e);
-    t.async = !0;
-    t.src = v;
-    s = b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t, s)
-  }(window, document, 'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '${shop.faceBookPixelApiKey}');
-  fbq('track', 'PageView');
-</script>
+    <script>
+        console.log('present faceBookPixelApiKey');
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '${shop.faceBookPixelApiKey}');
+        fbq('track', 'PageView');
+    </script>
 #{/if}
 #{/verbatim}
 </body>
 </html>
 
 <script>
-  (() => {
-    const orderTimeList = document.querySelectorAll('[time]');
-    orderTimeList.forEach(item => {
-      const orderTimeSpanList = Number(item.getAttribute('time'));
-      item.innerText = moment(orderTimeSpanList).format('DD MMMM YYYY, HH:mm:ss');
-    })
-  })();
+    function openTab(evt, tabName) {
+        var i, x, tablinks;
+        x = document.getElementsByClassName("item-tab");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active-tab", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active-tab";
+    }
+</script>
 
-  (() => {
-    const feedbackStars = document.querySelectorAll('.feedback-stars');
-    feedbackStars.forEach(item => setFeedbackRate(item))
-  })();
+<script>
+    (() => {
+        const orderTimeList = document.querySelectorAll('[time]');
+        orderTimeList.forEach(item => {
+            const orderTimeSpanList = Number(item.getAttribute('time'));
+            item.innerText = moment(orderTimeSpanList).format('DD MMMM YYYY, HH:mm:ss');
+        })
+    })();
 
-  function setFeedbackRate(feedbackStarsContainer) {
-    const stars = feedbackStarsContainer.querySelectorAll('i');
-    const feedbackRate = feedbackStarsContainer.getAttribute('feedback-rate');
-    stars.forEach((star, index) => {
-      const isStarInFeedbackRateRange = index + 1 <= feedbackRate;
-      const starRateClass = isStarInFeedbackRateRange ? 'fa-star' : 'fa-star-o';
-      star.classList.add(starRateClass);
-    });
-  }
-
-  function openTab(event) {
-    const activeTabs = document.querySelectorAll('[active]');
-    activeTabs.forEach(tab => tab.removeAttribute('active'));
-    event.currentTarget.setAttribute('active', true);
-    const tabs = document.querySelectorAll('.shop-product-tabs button');
-    const activeTabIndex = [...tabs].findIndex(tab => tab.getAttribute('active'));
-    const tabsContents = document.querySelectorAll('.shop-all-reviews');
-    tabsContents[activeTabIndex].setAttribute('active', true);
-  }
 
   const chosenAdditionsContainer = document.querySelector('.add-items');
   const additionContainerToHide = document.querySelector('.add-components');
@@ -661,14 +570,14 @@
     } else {
       const incrementedClickedAddition = Number(createdAddition.getAttribute('counter')) + 1;
       additionList.forEach(item => {
-        if (item.uuid === _addition.uuid) {
-          item.quantity = incrementedClickedAddition;
-        }
+          if (item.uuid === _addition.uuid){
+              item.quantity = incrementedClickedAddition;
+          }
       });
       createdAddition.setAttribute('counter', incrementedClickedAddition);
       createdAddition.getElementsByTagName('p')[0].innerText = _addition.title + '(' + incrementedClickedAddition + ')';
     }
-    console.log('additionList.push(setSendAddition)', additionList);
+      console.log('additionList.push(setSendAddition)', additionList);
     _setAdditionsTotalPrice();
     _calculateTotal(Number(_addition.price));
   }
@@ -683,7 +592,7 @@
       + _addition.title + '</p>';
     additionDiv.setAttribute('counter', 1);
     additionDiv.setAttribute('price', _addition.price);
-    const removeIcon = additionDiv.getElementsByTagName('i')[0];
+    const removeIcon =  additionDiv.getElementsByTagName('i')[0];
     removeIcon.addEventListener('click', () => {
       _removeAddition(additionId, Number(_addition.price))
     });
@@ -698,17 +607,17 @@
     _calculateTotal(amountToSubstract);
     chosenAdditionsContainer.removeChild(additionElementToRemove);
     const additionNodesLength = document.querySelectorAll('.add-items-title').length;
-    if (additionNodesLength === 0) {
-      additionContainerToHide.setAttribute('hidden', true);
+    if (additionNodesLength === 0){
+        additionContainerToHide.setAttribute('hidden', true);
     }
     _setAdditionsTotalPrice();
-    for (let i = 0; i < additionList.length; i++) {
-      let obj = additionList[i];
-      if (obj.uuid === id) {
-        additionList.splice(i, 1);
+      for (let i = 0; i < additionList.length; i++) {
+          let obj = additionList[i];
+          if (obj.uuid === id) {
+              additionList.splice(i, 1);
+          }
       }
-    }
-    console.log("remove item additionList", additionList);
+     console.log("remove item additionList", additionList);
   }
 
   function _calculateTotal(additionPrice) {
@@ -721,7 +630,7 @@
   }
 
   function _setAdditionsTotalPrice() {
-    if (!additionsTotalPriceContainer) return;
+    if(!additionsTotalPriceContainer) return;
     let additionsTotalPrice = 0;
     const selectedAdditions = document.querySelectorAll('.add-items-title');
     selectedAdditions.forEach(addition => {

@@ -48,7 +48,7 @@ public class FeedbackDTO extends GenericModel {
     public OrderDTO order;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     public FeedbackCommentDTO feedbackComment;
 
     @OneToOne

@@ -26,6 +26,8 @@ angular.module('WiseHands')
     })
       .then(response => {
         const product = response.data;
+              console.log(product);
+
         parseProductData(product);
         const activeShop = localStorage.getItem('activeShop');
         const mainImageIndex = $scope.product.images.findIndex(item => item.uuid === product.mainImage.uuid);

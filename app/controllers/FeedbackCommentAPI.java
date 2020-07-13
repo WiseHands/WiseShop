@@ -34,7 +34,6 @@ public class FeedbackCommentAPI extends AuthController{
 
         FeedbackDTO feedback = FeedbackDTO.findById(feedbackUuid);
         FeedbackCommentDTO feedbackComment = new FeedbackCommentDTO(comment);
-        feedbackComment.save();
         feedback.feedbackComment = feedbackComment;
         feedback.showReview = true;
         feedback.save();

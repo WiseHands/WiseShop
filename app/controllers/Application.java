@@ -314,12 +314,17 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         CategoryDTO category = CategoryDTO.findById(uuid);
-        List<ProductDTO> productList;
+        List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
-        productList = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
+        products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
         String language = setlanguageForShop();
+        for (ProductDTO product : products) {
+            product = Translation.setTranslationForProduct(language, product);
+            productList.add(product);
+        }
         render(shop, category, productList, language);
     }
 
@@ -338,7 +343,6 @@ public class Application extends Controller {
 
         ProductDTO product = ProductDTO.findById(uuid);
         CategoryDTO category = product.category;
-
         product.feedbackList = getFeedbackListFromDB(product);
         System.out.println("product.feedbackList => " + product.feedbackList);
         List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
