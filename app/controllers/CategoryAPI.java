@@ -33,6 +33,11 @@ public class CategoryAPI extends AuthController {
         renderJSON(json(products));
     }
 
+    public static void one(String client, String uuid) throws Exception {
+        System.out.println(uuid);
+        CategoryDTO category = CategoryDTO.findById(uuid);
+        renderJSON(json(category));
+    }
 
     public static void create(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

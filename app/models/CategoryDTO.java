@@ -36,6 +36,10 @@ public class CategoryDTO extends GenericModel {
     @OneToOne
     public ShopDTO shop;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO categoryNameTextTranslationBucket;
+
     public CategoryDTO(ShopDTO shop, String name, String description) {
         if(products == null) {
             products = new ArrayList<ProductDTO>();

@@ -233,6 +233,7 @@ POST    {client}/payment-verification                   BalanceAPI.balancePaymen
 
 GET	    {client}/api/category				            CategoryAPI.all
 GET	    {client}/api/category/{uuid}			        CategoryAPI.details
+GET	    {client}/api/category/details/{uuid}			CategoryAPI.one
 POST	{client}/api/category        			        CategoryAPI.create
 PUT 	{client}/api/category/{uuid}/name/{name}	    CategoryAPI.update
 DELETE 	{client}/api/category/{uuid}		        	CategoryAPI.delete
@@ -260,10 +261,11 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
-PUT     {client}/api/translation/save                   TranslationBucketAPI.saveTranslationForDeliveryAndPaymentType
-PUT     {client}/api/translation/product/save           TranslationBucketAPI.saveTranslationForProduct
 GET     {client}/api/get/translation/name/{uuid}             TranslationBucketAPI.createTranslationBucketForProductName
 GET     {client}/api/get/translation/description/{uuid}      TranslationBucketAPI.createTranslationBucketForProductDescription
+GET     {client}/api/get/translation/category/{uuid}         TranslationBucketAPI.createTranslationBucketForCategory
+PUT     {client}/api/translation/save                        TranslationBucketAPI.saveTranslation
+
 
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
