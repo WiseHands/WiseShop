@@ -162,20 +162,18 @@ public class Application extends Controller {
     }
 
     private static String selectSupportedLanguage(String language, ArrayList<String> supportedLanguages) {
-        System.out.println("language need one more value for save choose language => " + language);
-        for(String supportLanguage: supportedLanguages){
-            if(language.equals(supportLanguage)){
-               return supportLanguage;
+        String supportLanguage = null;
+        for(String _language: supportedLanguages){
+            if(language.equals(_language)){
+               supportLanguage = _language;
             } else {
-               language = "en";
+                supportLanguage = "en";
             }
-            System.out.println("supportLanguage => " + supportLanguage);
-            System.out.println("language => " + language);
         }
         if(language.equals("ru")){
-            language = "uk";
+            supportLanguage = "uk";
         }
-        return language;
+        return supportLanguage;
     }
 
     private static ArrayList<String> createSupportLanguagesList() {
