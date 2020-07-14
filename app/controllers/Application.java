@@ -155,7 +155,10 @@ public class Application extends Controller {
 
         }
 
-        if(language == "ru") {
+        if(language.equals("ru")) {
+            language = "uk";
+        }
+        if(language.equals("")){
             language = "uk";
         }
         Lang.change(language);
