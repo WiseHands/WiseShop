@@ -1956,7 +1956,6 @@ ul.admin-breadcrumb li a:hover {
 
 .sortorder.reverse:after {
     content: '\25bc';
-/
 }
 
 .admin-reply-in-review {
@@ -2138,6 +2137,10 @@ ul.admin-breadcrumb li a:hover {
 .translation-flex-column{
     display: flex;
     flex-direction: column;
+}
+.flex-baseline{
+    display: flex;
+    align-items: center;
 }
 
 @media screen and (min-width: 1500px) {

@@ -1,11 +1,27 @@
 package services.translaiton;
 
+import models.CategoryDTO;
 import models.ProductDTO;
 import models.TranslationItemDTO;
 
 import java.util.List;
 
 public class Translation {
+
+    public static CategoryDTO setTranslationForCategory(String language, CategoryDTO category){
+        if(category.categoryNameTextTranslationBucket != null){
+            List<TranslationItemDTO> translationNameList = category.categoryNameTextTranslationBucket.translationList;
+            for(TranslationItemDTO item : translationNameList){
+                if (item.language == null){
+                    item.language = language;
+                }
+                if (item.language.equals(language)){
+                    category.name = item.content;
+                }
+            }
+        }
+        return category;
+    }
 
     public static ProductDTO setTranslationForProduct(String language, ProductDTO product){
         if(product.productNameTextTranslationBucket != null){

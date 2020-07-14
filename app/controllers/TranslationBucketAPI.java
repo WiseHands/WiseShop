@@ -39,6 +39,17 @@ public class TranslationBucketAPI extends AuthController {
         translationBucket.save();
     }
 
+    public static void createTranslationBucketForCategory() throws Exception {
+        String productUuid = request.params.get("uuid");
+        CategoryDTO category = CategoryDTO.findById(productUuid);
+        if (category.categoryNameTextTranslationBucket == null){
+            TranslationBucketDTO translationBucket = createTranslationBucket();
+            category.categoryNameTextTranslationBucket = translationBucket;
+            category.save();
+        }
+        renderJSON(json(category.categoryNameTextTranslationBucket));
+    }
+
     public static void createTranslationBucketForProductName() throws Exception {
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);
@@ -49,7 +60,6 @@ public class TranslationBucketAPI extends AuthController {
         }
         renderJSON(json(product.productNameTextTranslationBucket));
     }
-
 
     public static void createTranslationBucketForProductDescription() throws Exception {
         String productUuid = request.params.get("uuid");
@@ -62,7 +72,7 @@ public class TranslationBucketAPI extends AuthController {
         renderJSON(json(product.productDescriptionTextTranslationBucket ));
     }
 
-    public static void saveTranslationForProduct(String client) throws Exception {
+    public static void saveTranslation(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -74,7 +84,7 @@ public class TranslationBucketAPI extends AuthController {
 
         String uuid = (String) jsonBody.get("translationUuid");
         TranslationBucketDTO translation = TranslationBucketDTO.findById(uuid);
-        System.out.println("uuid for translation bucket object " + uuid);
+
         JSONArray parseTranslationList = (JSONArray) jsonBody.get("translationList");
         for(int i = 0; i < parseTranslationList.size(); i++){
             JSONObject object = (JSONObject) parseTranslationList.get(i);
@@ -94,39 +104,6 @@ public class TranslationBucketAPI extends AuthController {
         translation.save();
         renderJSON(json(translation));
     }
-
-    public static void saveTranslationForDeliveryAndPaymentType(String client) throws Exception {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-
-        JSONParser parser = new JSONParser();
-        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        System.out.println("jsonBody => " + jsonBody);
-        String uuid = (String) jsonBody.get("translationUuid");
-        TranslationBucketDTO translation = TranslationBucketDTO.findById(uuid);
-        System.out.println("uuid for translation bucket object " + uuid);
-        JSONArray parseTranslationList = (JSONArray) jsonBody.get("translationList");
-        for(int i = 0; i < parseTranslationList.size(); i++){
-            JSONObject object = (JSONObject) parseTranslationList.get(i);
-            String _uuid = (String) object.get("uuid");
-            String language = (String) object.get("language");
-            String content = (String) object.get("content");
-            TranslationItemDTO translationItem = null;
-            if(_uuid == null) {
-                translationItem = new TranslationItemDTO(language, content);
-            } else {
-                translationItem = TranslationItemDTO.findById(_uuid);
-                translationItem.language = language;
-                translationItem.content = content;
-            }
-            translationItem.save();
-        }
-        translation.save();
-        renderJSON(json(translation));
-    }
-
 
 
 }

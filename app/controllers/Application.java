@@ -155,7 +155,10 @@ public class Application extends Controller {
 
         }
 
-        if(language == "ru") {
+        if(language.equals("ru")) {
+            language = "uk";
+        }
+        if(language.equals("")){
             language = "uk";
         }
         Lang.change(language);
@@ -313,13 +316,19 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        String language = setlanguageForShop();
         CategoryDTO category = CategoryDTO.findById(uuid);
-        List<ProductDTO> productList;
+        category = Translation.setTranslationForCategory(language, category);
+        List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
-        productList = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
+        products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
-        String language = setlanguageForShop();
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
+        for (ProductDTO product : products) {
+            product = Translation.setTranslationForProduct(language, product);
+            productList.add(product);
+        }
         render(shop, category, productList, language);
     }
 
@@ -338,7 +347,6 @@ public class Application extends Controller {
 
         ProductDTO product = ProductDTO.findById(uuid);
         CategoryDTO category = product.category;
-
         product.feedbackList = getFeedbackListFromDB(product);
         System.out.println("product.feedbackList => " + product.feedbackList);
         List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
