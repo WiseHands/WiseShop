@@ -1,5 +1,5 @@
 #{set pageList:pageList /}
-
+#{set language:language /}
 <style>
     .null-style {
         margin: 0;
@@ -138,7 +138,6 @@
     }
 </style>
 
-
 <div  id="overlay-mobile" class="overlay-hidden-animation null-style">
 <div class="sidebar-mobile sibebar-swipe-off">
     <a class="link" href="/">
@@ -157,7 +156,7 @@
             %{
                 for(_category in shop.getActiveCategories()) {
                 }%
-                    <a class="link" href="/category/${_category.uuid}">
+                    <a class="link" href="/${language}/category/${_category.uuid}">
                         <li>${_category.name}</li>
                     </a>
                 %{
