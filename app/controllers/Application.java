@@ -154,15 +154,36 @@ public class Application extends Controller {
             language = strings[0];
 
         }
-
-        if(language.equals("ru")) {
-            language = "uk";
-        }
-        if(language.equals("")){
-            language = "uk";
-        }
+        ArrayList<String> supportLanguages = createSupportLanguagesList();
+        language = selectSupportedLanguage(language, supportLanguages);
+        System.out.println("language => " + language);
         Lang.change(language);
         return language;
+    }
+
+    private static String selectSupportedLanguage(String language, ArrayList<String> supportedLanguages) {
+        System.out.println("language need one more value for save choose language => " + language);
+        for(String supportLanguage: supportedLanguages){
+            if(language.equals(supportLanguage)){
+               return supportLanguage;
+            } else {
+               language = "en";
+            }
+            System.out.println("supportLanguage => " + supportLanguage);
+            System.out.println("language => " + language);
+        }
+        if(language.equals("ru")){
+            language = "uk";
+        }
+        return language;
+    }
+
+    private static ArrayList<String> createSupportLanguagesList() {
+        ArrayList<String> supportList = new ArrayList<String>();
+        supportList.add("uk");
+        supportList.add("en");
+        supportList.add("pl");
+        return supportList;
     }
 
     public static void languageChooser(String client) {
