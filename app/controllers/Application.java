@@ -133,13 +133,16 @@ public class Application extends Controller {
         shop.pagesList = pageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
         String language = setlanguageForShop();
+
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             productList.add(product);
         }
         products = productList;
+
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
         System.out.println("DEBUG renderTemplate Application/shop.html");
-        renderTemplate("Application/shop.html", shop, products, language);
+        renderTemplate("Application/shop.html", shop, products, language, categories);
     }
 
     private static String setlanguageForShop() {
@@ -315,10 +318,11 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        String language = setlanguageForShop();
+
         PageConstructorDTO page = PageConstructorDTO.findById(uuid);
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
-        String language = setlanguageForShop();
 
         render(shop, page, pageList, language);
     }
@@ -337,7 +341,7 @@ public class Application extends Controller {
         }
         String language = setlanguageForShop();
         CategoryDTO category = CategoryDTO.findById(uuid);
-        category = Translation.setTranslationForCategory(language, category);
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
@@ -348,7 +352,7 @@ public class Application extends Controller {
             product = Translation.setTranslationForProduct(language, product);
             productList.add(product);
         }
-        render(shop, category, productList, language);
+        render(shop, category, categories, productList, language);
     }
 
     public static void productOld(String client, String uuid) {
@@ -361,18 +365,18 @@ public class Application extends Controller {
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        String language = setlanguageForShop();
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
-
         ProductDTO product = ProductDTO.findById(uuid);
         CategoryDTO category = product.category;
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
         product.feedbackList = getFeedbackListFromDB(product);
         System.out.println("product.feedbackList => " + product.feedbackList);
         List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
         product.additions = additionList;
-        String language = setlanguageForShop();
         Translation.setTranslationForProduct(language, product);
-        render(product, category, shop, language);
+        render(product, category, categories, shop, language);
     }
 
     private static List<FeedbackDTO> getFeedbackListFromDB(ProductDTO product) {
@@ -516,10 +520,12 @@ public class Application extends Controller {
         String language = setlanguageForShop();
             render(language);
     }
+
     public static void uaContract(String client){
         String language = setlanguageForShop();
         render(language);
     }
+
     public static void privacy(String client){
         String language = setlanguageForShop();
         render();
@@ -529,10 +535,12 @@ public class Application extends Controller {
         String language = setlanguageForShop();
         renderTemplate("Application/uaNewWizard.html", language);
     }
+
     public static void serverError(String client){
         String language = setlanguageForShop();
         render(language);
     }
+
     public static void userDashboard(String client) {
         renderTemplate("wstore/userDashboard.html");
     }
@@ -540,15 +548,19 @@ public class Application extends Controller {
     public static void termsofservice(String client){
         renderTemplate("WiseHands/termsofservice.html");
     }
+
     public static void privacypolicy(String client){
         renderTemplate("WiseHands/privacypolicy.html");
     }
+
     public static void cookiespolicy(String client){
         renderTemplate("WiseHands/cookiespolicy.html");
     }
+
     public static void refunds(String client){
         renderTemplate("WiseHands/refunds.html");
     }
+
     public static void hireFrontendDevelopers(String client){
         renderTemplate("WiseHands/Services/hireFrontendDevelopers.html");
     }
@@ -576,6 +588,7 @@ public class Application extends Controller {
     public static void hireGoDevelopers(String client){
         renderTemplate("WiseHands/Services/hireGoDevelopers.html");
     }
+
     public static void hireJavaDevelopers(String client){
         renderTemplate("WiseHands/Services/hireJavaDevelopers.html");
     }
@@ -594,13 +607,10 @@ public class Application extends Controller {
     public static void hireAzureDevelopers(String client){
         renderTemplate("WiseHands/Services/hireAzureDevelopers.html");
     }
-    public static void hireKubernetesDevelopers(String client){
-        renderTemplate("WiseHands/Services/hireKubernetesDevelopers.html");
-    }
+    public static void hireKubernetesDevelopers(String client){renderTemplate("WiseHands/Services/hireKubernetesDevelopers.html");}
     public static void hireIosDevelopers(String client){
         renderTemplate("WiseHands/Services/hireIosDevelopers.html");
     }
-    public static void hireAndroidDevelopers(String client){
-        renderTemplate("WiseHands/Services/hireAndroidDevelopers.html");
-    }
+
+    public static void hireAndroidDevelopers(String client){renderTemplate("WiseHands/Services/hireAndroidDevelopers.html");}
 }

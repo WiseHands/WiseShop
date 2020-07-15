@@ -3,6 +3,7 @@ package models;
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
+import services.translaiton.Translation;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -176,6 +177,13 @@ public class ShopDTO extends GenericModel {
         return  this.network;
     }
 
+    public List<CategoryDTO> getActiveCategories(String language) {
+        return this.categoryList.stream()
+                .filter(category -> !category.isHidden)
+                .map(category -> Translation.setTranslationForCategory(language, category))
+                .collect(Collectors.toList());
+    }
+
     public ShopDTO(){
 
     }
@@ -214,9 +222,5 @@ public class ShopDTO extends GenericModel {
         this.isTemporaryClosed = false;
     }
 
-    public List<CategoryDTO> getActiveCategories() {
-        return this.categoryList.stream()
-                .filter(category -> !category.isHidden)
-                .collect(Collectors.toList());
-    }
+
 }
