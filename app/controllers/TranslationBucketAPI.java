@@ -39,16 +39,28 @@ public class TranslationBucketAPI extends AuthController {
         translationBucket.save();
     }
 
-    public static void createTranslationBucketForCategory() throws Exception {
-        String productUuid = request.params.get("uuid");
-        CategoryDTO category = CategoryDTO.findById(productUuid);
-        if (category.categoryNameTextTranslationBucket == null){
+    public static void createTranslationBucketForPage() throws Exception {
+        String pageUuid = request.params.get("uuid");
+        System.out.println(pageUuid);
+        PageConstructorDTO page = PageConstructorDTO.findById(pageUuid);
+        if (page.pageTitleTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = createTranslationBucket();
-            category.categoryNameTextTranslationBucket = translationBucket;
-            category.save();
+            page.pageTitleTextTranslationBucket = translationBucket;
+            page.save();
         }
-        renderJSON(json(category.categoryNameTextTranslationBucket));
+        renderJSON(json(page.pageTitleTextTranslationBucket));
     }
+
+    public static void createTranslationBucketForCategory() throws Exception {
+            String productUuid = request.params.get("uuid");
+            CategoryDTO category = CategoryDTO.findById(productUuid);
+            if (category.categoryNameTextTranslationBucket == null){
+                TranslationBucketDTO translationBucket = createTranslationBucket();
+                category.categoryNameTextTranslationBucket = translationBucket;
+                category.save();
+            }
+            renderJSON(json(category.categoryNameTextTranslationBucket));
+        }
 
     public static void createTranslationBucketForProductName() throws Exception {
         String productUuid = request.params.get("uuid");

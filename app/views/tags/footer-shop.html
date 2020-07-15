@@ -1,3 +1,5 @@
+#{set language:language /}
+
 <style>
     footer {
         display: flex;
@@ -350,12 +352,12 @@
         return response.json();
     }).then(function (data) {
         const language = document.querySelector('footer').getAttribute('language');
-        document.getElementById("page").innerHTML = data[0].title;
-        document.getElementById("page1").innerHTML = data[1].title;
-        document.getElementById("page2").innerHTML = data[2].title;
-        document.getElementById("page3").innerHTML = data[3].title;
-        document.getElementById("page4").innerHTML = data[4].title;
-        document.getElementById("page5").innerHTML = data[5].title;
+        document.getElementById("page").innerHTML = setTranslation(data[0]);
+        document.getElementById("page1").innerHTML = setTranslation(data[1]);
+        document.getElementById("page2").innerHTML = setTranslation(data[2]);
+        document.getElementById("page3").innerHTML = setTranslation(data[3]);
+        document.getElementById("page4").innerHTML = setTranslation(data[4]);
+        document.getElementById("page5").innerHTML = setTranslation(data[5]);
 
         document.getElementById("link").href = '/'+ language + data[0].url + data[0].uuid;
         document.getElementById("link1").href = '/'+ language + data[1].url + data[1].uuid;
@@ -365,6 +367,28 @@
         document.getElementById("link5").href = '/'+ language + data[5].url + data[5].uuid;
     });
 
+    function setTranslation(data){
+        let label = '';
+        const language = document.querySelector('html').getAttribute('language');
+        console.log("language", language);
+        if (data.pageTitleTextTranslationBucket){
+            const bucketList = data.pageTitleTextTranslationBucket.translationList
+            bucketList.forEach(function(item){
+                if(item.language === language){
+                    label = item.content
+                }
+            });
+                    console.log("label", label);
+
+        } else {
+            label = data.title;
+                                console.log("label", label);
+
+        }
+                            console.log("label", label);
+
+        return label;
+    }
 
     fetch('/contact/details', {
         method: 'GET',

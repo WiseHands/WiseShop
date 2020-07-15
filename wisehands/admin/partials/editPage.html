@@ -21,9 +21,10 @@
 </div>
 <div class="admin-container">
     <div class="input-field col-md-12 z-index-3 mt-30">
-        <div class="col-sm-6">
+        <div class="col-sm-6 flex-baseline">
             <p class="mb-0">{{'addNewPage.setTitle' | translate}}</p>
-            <input id="setTitle" type="text" ng-model="title">
+            <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" ng-click="redirectToTranslationPage(pageUuid)"><i class="material-icons">mode_edit</i></button>
+
         </div>
         <!--<div class="col-sm-6">-->
             <!--<p class="mb-0">{{'addNewPage.setUrl' | translate}}</p>-->

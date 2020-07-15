@@ -20,8 +20,10 @@ angular.module('WiseHands')
                         if (response.data === null){ return }
                         $scope.loading = false;
                         $scope.translationObject = response.data;
-                        setContentForCategoryLabel($scope.translationObject);
-                        setContentForProductLabel($scope.translationObject);
+                        console.log('$scope.translationObject',$scope.translationObject);
+                        setContentForCategoryLabels($scope.translationObject);
+                        setContentForProductLabels($scope.translationObject);
+                        setContentForPageLabels($scope.translationObject);
                     }, (error) => {
                         $scope.loading = false;
                         console.log(error);
@@ -30,8 +32,32 @@ angular.module('WiseHands')
 
             getRequest(`/api/category/details/${$scope.translationObjectUuid}`);
             getRequest(`/api/product/${$scope.translationObjectUuid}`);
+            getRequest(`/pageconstructor/${$scope.translationObjectUuid}`);
 
-            setContentForCategoryLabel = (category) => {
+            setContentForPageLabels = (page) => {
+                if (!page) { return }
+                let pageTitleTextTranslationBucket = '';
+                let englishNameLabel = '';
+                let ukrainianNameLabel = '';
+                if(page.pageTitleTextTranslationBucket){
+                    pageTitleTextTranslationBucket = page.pageTitleTextTranslationBucket.uuid;
+                    ukrainianNameLabel = page.pageTitleTextTranslationBucket.translationList[0].content;
+                    englishNameLabel = page.pageTitleTextTranslationBucket.translationList[1].content;
+                }
+
+                let isTranslationForCategory = $scope.translationBucketUuid === pageTitleTextTranslationBucket;
+                if (isTranslationForCategory){
+                    if(ukrainianNameLabel === ""){
+                        textInUkrainian.value = page.title;
+                    } else {
+                        textInUkrainian.value = ukrainianNameLabel;
+                    }
+                    textInEnglish.value = englishNameLabel;
+                }
+
+            };
+
+            setContentForCategoryLabels = (category) => {
                 if (!category) { return }
                 let categoryNameTextTranslationBucket = '';
                 let englishNameLabel = '';
@@ -54,7 +80,7 @@ angular.module('WiseHands')
 
             };
 
-            setContentForProductLabel = (product) => {
+            setContentForProductLabels = (product) => {
                 if (!product){ return }
                 let productNameTextTranslationBucket = '';
                 let englishNameLabel = '';
@@ -95,6 +121,7 @@ angular.module('WiseHands')
             $scope.saveTranslation = () => {
                 saveTranslationForProduct($scope.translationObject);
                 saveTranslationForCategory($scope.translationObject);
+                saveTranslationForPage($scope.translationObject);
                 const data = {
                     translationUuid: $scope.translationBucketUuid,
                     translationList: [
@@ -148,6 +175,19 @@ angular.module('WiseHands')
                 }
             }
 
+            saveTranslationForPage = (page) => {
+                if (!page){ return }
+                let translationBucketUuid = '';
+                if (!!page.pageTitleTextTranslationBucket){
+                    translationBucketUuid = page.pageTitleTextTranslationBucket.uuid;
+                }
+                let isTranslationForPage = $scope.translationBucketUuid === translationBucketUuid;
+                if (isTranslationForPage){
+                    $scope.ukUuid = page.pageTitleTextTranslationBucket.translationList[0].uuid;
+                    $scope.enUuid = page.pageTitleTextTranslationBucket.translationList[1].uuid;
+                }
+            }
+
             sendData = (data) => {
                 $scope.loading = true;
                 $http({
@@ -164,6 +204,11 @@ angular.module('WiseHands')
                         showWarningMsg("ERROR");
                     });
             }
+
+            $scope.goBack = () => {
+                        window.history.back();
+            }
+
             sideNavInit.sideNav();
         }]);
 

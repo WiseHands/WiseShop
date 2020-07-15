@@ -11,7 +11,6 @@ import java.util.List;
 public class PageConstructorAPI extends AuthController {
 
     public static void details(String client, String uuid) throws Exception {
-
         PageConstructorDTO pageConstructorDTO = PageConstructorDTO.findById(uuid);
         renderJSON(json(pageConstructorDTO));
     }
