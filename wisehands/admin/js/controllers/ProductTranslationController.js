@@ -138,7 +138,7 @@ angular.module('WiseHands')
             saveTranslationForCategory = (category) => {
                 if (!category){ return }
                 let translationBucketUuid = '';
-                if (category.categoryNameTextTranslationBucket){
+                if (!!category.categoryNameTextTranslationBucket){
                     translationBucketUuid = category.categoryNameTextTranslationBucket.uuid;
                 }
                 let isTranslationForProductName = $scope.translationBucketUuid === translationBucketUuid;
