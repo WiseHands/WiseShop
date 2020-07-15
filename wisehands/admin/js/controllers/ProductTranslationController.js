@@ -21,8 +21,9 @@ angular.module('WiseHands')
                         $scope.loading = false;
                         $scope.translationObject = response.data;
                         console.log('$scope.translationObject',$scope.translationObject);
-                        setContentForCategoryLabel($scope.translationObject);
-                        setContentForProductLabel($scope.translationObject);
+                        setContentForCategoryLabels($scope.translationObject);
+                        setContentForProductLabels($scope.translationObject);
+                        setContentForPageLabels($scope.translationObject);
                     }, (error) => {
                         $scope.loading = false;
                         console.log(error);
@@ -33,7 +34,30 @@ angular.module('WiseHands')
             getRequest(`/api/product/${$scope.translationObjectUuid}`);
             getRequest(`/pageconstructor/${$scope.translationObjectUuid}`);
 
-            setContentForCategoryLabel = (category) => {
+            setContentForPageLabels = (page) => {
+                if (!page) { return }
+                let pageTitleTextTranslationBucket = '';
+                let englishNameLabel = '';
+                let ukrainianNameLabel = '';
+                if(page.pageTitleTextTranslationBucket){
+                    pageTitleTextTranslationBucket = page.pageTitleTextTranslationBucket.uuid;
+                    ukrainianNameLabel = page.pageTitleTextTranslationBucket.translationList[0].content;
+                    englishNameLabel = page.pageTitleTextTranslationBucket.translationList[1].content;
+                }
+
+                let isTranslationForCategory = $scope.translationBucketUuid === pageTitleTextTranslationBucket;
+                if (isTranslationForCategory){
+                    if(ukrainianNameLabel === ""){
+                        textInUkrainian.value = page.title;
+                    } else {
+                        textInUkrainian.value = ukrainianNameLabel;
+                    }
+                    textInEnglish.value = englishNameLabel;
+                }
+
+            };
+
+            setContentForCategoryLabels = (category) => {
                 if (!category) { return }
                 let categoryNameTextTranslationBucket = '';
                 let englishNameLabel = '';
@@ -56,7 +80,7 @@ angular.module('WiseHands')
 
             };
 
-            setContentForProductLabel = (product) => {
+            setContentForProductLabels = (product) => {
                 if (!product){ return }
                 let productNameTextTranslationBucket = '';
                 let englishNameLabel = '';
