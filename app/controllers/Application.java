@@ -113,10 +113,9 @@ public class Application extends Controller {
         if (xforwardedHeader != null){
             ip = xforwardedHeader.value();
         }
-
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
-
+        String language = setlanguageForShop();
         if (shop.isTemporaryClosed) {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
@@ -130,9 +129,11 @@ public class Application extends Controller {
         products = ProductDTO.find(query, shop, false, true).fetch();
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        shop.pagesList = pageList;
+        for(PageConstructorDTO page: pageList){
+            page = Translation.setTranslationForPage(language, page);
+            shop.pagesList.add(page);
+        }
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
-        String language = setlanguageForShop();
 
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);

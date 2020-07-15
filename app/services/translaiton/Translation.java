@@ -1,6 +1,7 @@
 package services.translaiton;
 
 import models.CategoryDTO;
+import models.PageConstructorDTO;
 import models.ProductDTO;
 import models.TranslationItemDTO;
 
@@ -47,5 +48,20 @@ public class Translation {
             }
         }
         return product;
+    }
+
+    public static PageConstructorDTO setTranslationForPage(String language, PageConstructorDTO page) {
+        if(page.pageTitleTextTranslationBucket != null){
+            List<TranslationItemDTO> translationNameList = page.pageTitleTextTranslationBucket.translationList;
+            for(TranslationItemDTO item : translationNameList){
+                if (item.language == null){
+                    item.language = language;
+                }
+                if (item.language.equals(language)){
+                    page.title = item.content;
+                }
+            }
+        }
+        return page;
     }
 }
