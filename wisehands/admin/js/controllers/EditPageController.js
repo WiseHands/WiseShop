@@ -1,7 +1,8 @@
 angular.module('WiseHands')
-    .controller('EditPageController', ['$scope', '$http', 'signout', '$routeParams', 'sideNavInit',
-                function ($scope, $http, signout, $routeParams, sideNavInit) {
+    .controller('EditPageController', ['$scope', '$http', 'signout', '$routeParams', 'sideNavInit', '$window',
+                function ($scope, $http, signout, $routeParams, sideNavInit, $window) {
         $scope.loading = true;
+        $scope.pageUuid = $routeParams.uuid;
         sideNavInit.sideNav();
 
         $http({
@@ -19,6 +20,20 @@ angular.module('WiseHands')
                 console.log("POST $scope.settings", response);
                 $scope.loading = false;
         });
+
+        $scope.redirectToTranslationPage = function (pageUuid) {
+                $http({
+                    method: 'GET',
+                    url: '/api/get/translation/page/' + pageUuid
+                })
+                    .then(function successCallback(response) {
+                        const translationBucket = response.data;
+                        $window.location.href = `#/translation/products/${pageUuid}/${translationBucket.uuid}`;
+                    }, function errorCallback(error) {
+                        $scope.loading = false;
+                        console.log(error);
+                    });
+                }
 
 //         var imageLoader = document.getElementById('imageLoader');
 //         imageLoader.addEventListener('change', handleImage, false);

@@ -20,6 +20,7 @@ angular.module('WiseHands')
                         if (response.data === null){ return }
                         $scope.loading = false;
                         $scope.translationObject = response.data;
+                        console.log('$scope.translationObject',$scope.translationObject);
                         setContentForCategoryLabel($scope.translationObject);
                         setContentForProductLabel($scope.translationObject);
                     }, (error) => {
@@ -30,6 +31,7 @@ angular.module('WiseHands')
 
             getRequest(`/api/category/details/${$scope.translationObjectUuid}`);
             getRequest(`/api/product/${$scope.translationObjectUuid}`);
+            getRequest(`/pageconstructor/${$scope.translationObjectUuid}`);
 
             setContentForCategoryLabel = (category) => {
                 if (!category) { return }

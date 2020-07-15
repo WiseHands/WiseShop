@@ -27,6 +27,9 @@ public class TranslationBucketDTO extends GenericModel {
     @OneToOne
     public ProductDTO product;
 
+    @OneToOne
+    public PageConstructorDTO pageConstructor;
+
     public void addTranslationItem(TranslationItemDTO translationItem) {
         if(this.translationList == null) {
             this.translationList = new ArrayList<TranslationItemDTO>();
