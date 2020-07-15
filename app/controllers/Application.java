@@ -129,10 +129,13 @@ public class Application extends Controller {
         products = ProductDTO.find(query, shop, false, true).fetch();
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        for(PageConstructorDTO page: pageList){
-            page = Translation.setTranslationForPage(language, page);
-            shop.pagesList.add(page);
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+
         }
+        shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
         for (ProductDTO product : products) {
@@ -347,7 +350,13 @@ public class Application extends Controller {
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        shop.pagesList = pageList;
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+
+        }
+        shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
@@ -368,7 +377,13 @@ public class Application extends Controller {
         }
         String language = setlanguageForShop();
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        shop.pagesList = pageList;
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+
+        }
+        shop.pagesList = translationPageList;
         ProductDTO product = ProductDTO.findById(uuid);
         CategoryDTO category = product.category;
         List<CategoryDTO> categories = shop.getActiveCategories(language);
