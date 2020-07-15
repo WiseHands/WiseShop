@@ -164,6 +164,11 @@ angular.module('WiseHands')
                         showWarningMsg("ERROR");
                     });
             }
+
+            $scope.goBack = () => {
+                        window.history.back();
+            }
+
             sideNavInit.sideNav();
         }]);
 
