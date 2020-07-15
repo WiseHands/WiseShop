@@ -1,5 +1,6 @@
 #{set pageList:pageList /}
 #{set language:language /}
+#{set categories:categories /}
 <style>
     .null-style {
         margin: 0;
@@ -154,7 +155,7 @@
         </button>
         <ul class="sub-menu">
             %{
-                for(_category in shop.getActiveCategories()) {
+                for(_category in categories) {
                 }%
                     <a class="link" href="/${language}/category/${_category.uuid}">
                         <li>${_category.name}</li>
