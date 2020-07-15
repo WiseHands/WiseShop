@@ -121,6 +121,7 @@ angular.module('WiseHands')
             $scope.saveTranslation = () => {
                 saveTranslationForProduct($scope.translationObject);
                 saveTranslationForCategory($scope.translationObject);
+                saveTranslationForPage($scope.translationObject);
                 const data = {
                     translationUuid: $scope.translationBucketUuid,
                     translationList: [
@@ -171,6 +172,19 @@ angular.module('WiseHands')
                 if (isTranslationForProductName){
                     $scope.ukUuid = category.categoryNameTextTranslationBucket.translationList[0].uuid;
                     $scope.enUuid = category.categoryNameTextTranslationBucket.translationList[1].uuid;
+                }
+            }
+
+            saveTranslationForPage = (page) => {
+                if (!page){ return }
+                let translationBucketUuid = '';
+                if (!!page.pageTitleTextTranslationBucket){
+                    translationBucketUuid = page.pageTitleTextTranslationBucket.uuid;
+                }
+                let isTranslationForPage = $scope.translationBucketUuid === translationBucketUuid;
+                if (isTranslationForPage){
+                    $scope.ukUuid = page.pageTitleTextTranslationBucket.translationList[0].uuid;
+                    $scope.enUuid = page.pageTitleTextTranslationBucket.translationList[1].uuid;
                 }
             }
 
