@@ -6,6 +6,8 @@ button.next.label = Next
 button.back.label = Back
 title.add.product.to.basket.label = Add to basket
 # translation for pages
+# mobile-sidebar in tags
+mobile.sidebar.title.categories = Products
 # shopping cart container
 delivery.type.label = Delivery
 payment.type.label = Payment
