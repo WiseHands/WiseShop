@@ -173,13 +173,16 @@ public class Application extends Controller {
         for(String _language: supportedLanguages){
             if(language.equals(_language)){
                supportLanguage = _language;
-            } else {
-                supportLanguage = "en";
             }
+        }
+        if (supportLanguage == null) {
+            supportLanguage = "en";
         }
         if(language.equals("ru")){
             supportLanguage = "uk";
         }
+        System.out.println("get language => " + language);
+        System.out.println("get supportLanguage => " + supportLanguage);
         return supportLanguage;
     }
 
