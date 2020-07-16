@@ -62,6 +62,18 @@ public class Translation {
                 }
             }
         }
+        if(page.pageBodyTextTranslationBucket != null){
+            List<TranslationItemDTO> translationList = page.pageBodyTextTranslationBucket.translationList;
+            for(TranslationItemDTO item : translationList){
+                if (item.language == null){
+                    item.language = language;
+                }
+                if (item.language.equals(language)){
+                    page.body = item.content;
+                }
+            }
+        }
         return page;
     }
+
 }
