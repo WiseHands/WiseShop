@@ -325,10 +325,11 @@ public class Application extends Controller {
         String language = setlanguageForShop();
 
         PageConstructorDTO page = PageConstructorDTO.findById(uuid);
+        page = Translation.setTranslationForPage(language, page);
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
-
-        render(shop, page, pageList, language);
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
+        render(shop, page, pageList, language, categories);
     }
 
 

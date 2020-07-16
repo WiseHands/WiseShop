@@ -20,6 +20,8 @@ public class TranslationItemDTO extends GenericModel {
    public String language;
 
    @Expose
+   @Lob
+   @Column(length = 300000)
    public String content;
 
    @ManyToOne

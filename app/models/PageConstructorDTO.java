@@ -36,6 +36,10 @@ public class PageConstructorDTO  extends GenericModel {
     @OneToOne(cascade=CascadeType.ALL)
     public TranslationBucketDTO pageTitleTextTranslationBucket;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO pageBodyTextTranslationBucket;
+
     public String getBody() {
         return body;
     }
