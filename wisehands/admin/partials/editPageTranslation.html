@@ -20,24 +20,18 @@
     <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
 </div>
 <div class="admin-container">
-    <div class="container-fluid">
-        <div class="col-sm-6 flex-baseline">
-            <p class="mb-0">{{'addNewPage.setTitle' | translate}}</p>
-            <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" ng-click="redirectToTranslationTitlePage(pageUuid)"><i class="material-icons">mode_edit</i></button>
 
-        </div>
-        <!--<div class="col-sm-6">-->
-            <!--<p class="mb-0">{{'addNewPage.setUrl' | translate}}</p>-->
-            <!--<input id="setUrl" type="text" ng-model="url">-->
-        <!--</div>-->
-    </div>
     <div class="container-fluid">
-        <div class="col-sm-6 flex-baseline flex-baseline">
+        <div class="col-xs-12 input-field ">
             <p>{{'addNewPage.setBody' | translate}}</p>
-            <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" ng-click="redirectToTranslationBodyPage(pageUuid)"><i class="material-icons">mode_edit</i></button>
-
+            <textarea class="editor-for-page" id="uk" name="editor"></textarea>
         </div>
+    </div><div class="container-fluid">
+    <div class="col-xs-12 input-field ">
+        <p>{{'addNewPage.setBody' | translate}}</p>
+        <textarea class="editor-for-page" id="en" name="editor"></textarea>
     </div>
+</div>
 </div>
 <!--<div class="file-field input-field col-xs-12 white-text">-->
     <!--<button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" ng-click="loadImage()">-->

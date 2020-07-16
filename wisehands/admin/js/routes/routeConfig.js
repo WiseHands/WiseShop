@@ -54,6 +54,11 @@
                         controller:'EditPageController',
                         activetab: 'newpage'
                     }).
+                    when('/translation/pageconstructor/:objectUuid/:translationUuid',{
+                        templateUrl:'wisehands/admin/partials/editPageTranslation.html',
+                        controller:'EditPageTranslationController',
+                        activetab: 'newpage'
+                    }).
                     when('/products',{
                         templateUrl:'wisehands/admin/partials/products.html',
                         controller:'ProductListController',
