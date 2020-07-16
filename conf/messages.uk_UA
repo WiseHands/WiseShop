@@ -4,10 +4,12 @@
 button.find.label = Знайти
 button.next.label = Далі
 button.back.label = Назад
-
 title.add.product.to.basket.label = Додати до кошика
 
 # translation for pages
+
+# mobile-sidebar in tags
+mobile.sidebar.title.categories = Продукти
 # shopping cart container
 delivery.type.label= Тип доставки
 payment.type.label= Тип оплати
