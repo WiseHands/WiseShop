@@ -265,6 +265,7 @@ GET     {client}/api/get/translation/name/{uuid}             TranslationBucketAP
 GET     {client}/api/get/translation/description/{uuid}      TranslationBucketAPI.createTranslationBucketForProductDescription
 GET     {client}/api/get/translation/category/{uuid}         TranslationBucketAPI.createTranslationBucketForCategory
 GET     {client}/api/get/translation/page/{uuid}             TranslationBucketAPI.createTranslationBucketForPage
+GET     {client}/api/get/translation/body/page/{uuid}        TranslationBucketAPI.createTranslationBucketForBodyPage
 PUT     {client}/api/translation/save                        TranslationBucketAPI.saveTranslation
 
 

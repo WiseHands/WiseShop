@@ -50,6 +50,17 @@ public class TranslationBucketAPI extends AuthController {
         }
         renderJSON(json(page.pageTitleTextTranslationBucket));
     }
+    public static void createTranslationBucketForBodyPage() throws Exception {
+        String pageUuid = request.params.get("uuid");
+        System.out.println(pageUuid);
+        PageConstructorDTO page = PageConstructorDTO.findById(pageUuid);
+        if (page.pageBodyTextTranslationBucket == null){
+            TranslationBucketDTO translationBucket = createTranslationBucket();
+            page.pageBodyTextTranslationBucket = translationBucket;
+            page.save();
+        }
+        renderJSON(json(page.pageBodyTextTranslationBucket));
+    }
 
     public static void createTranslationBucketForCategory() throws Exception {
             String productUuid = request.params.get("uuid");

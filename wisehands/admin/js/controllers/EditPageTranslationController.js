@@ -2,24 +2,58 @@ angular.module('WiseHands')
     .controller('EditPageTranslationController', ['$scope', '$http', 'signout', '$routeParams', 'sideNavInit', '$window',
                 function ($scope, $http, signout, $routeParams, sideNavInit, $window) {
         $scope.loading = true;
-        $scope.translationObjectUuid = $routeParams.objectUuid;
-        $scope.translationBucketUuid = $routeParams.translationUuid;
         sideNavInit.sideNav();
 
-        $http({
-            method: 'GET',
-            url: '/pageconstructor/' + $scope.translationObjectUuid
-        }).then(function successCallback(response) {
-                console.log("POST $scope.settings", response.data);
-                CKEDITOR.replace('uk');
-                CKEDITOR.instances["uk"].setData(response.data.body);
+        $scope.translationObjectUuid = $routeParams.objectUuid;
+        $scope.translationBucketUuid = $routeParams.translationUuid;
 
-                console.log("POST $scope.settings", response.data);
-                $scope.loading = false;
-            }, function errorCallback(response) {
-                console.log("POST $scope.settings", response);
-                $scope.loading = false;
-        });
+        console.log('$scope.objectForTranslation', $scope.translationObjectUuid);
+        console.log('$scope.translationBucket', $scope.translationBucketUuid);
+
+        getRequest = (url) => {
+            $http({
+                method: 'GET',
+                url: url
+            })
+                .then((response) => {
+                    if (response.data === null){ return }
+                    $scope.loading = false;
+                    $scope.translationObject = response.data;
+                    console.log('$scope.translationObject',$scope.translationObject);
+                    setContentForBodyPage($scope.translationObject);
+                }, (error) => {
+                    $scope.loading = false;
+                    console.log(error);
+                });
+        };
+
+        getRequest(`/pageconstructor/${$scope.translationObjectUuid}`);
+
+        setContentForBodyPage = (page) => {
+            if (!page) { return }
+            let pageBodyTextTranslationBucket = '';
+            let englishNameLabel = '';
+            let ukrainianNameLabel = '';
+            if(page.pageBodyTextTranslationBucket){
+                pageBodyTextTranslationBucket = page.pageBodyTextTranslationBucket.uuid;
+                ukrainianNameLabel = page.pageBodyTextTranslationBucket.translationList[0].content;
+                englishNameLabel = page.pageBodyTextTranslationBucket.translationList[1].content;
+            }
+
+            let isTranslationForCategory = $scope.translationBucketUuid === pageBodyTextTranslationBucket;
+            if (isTranslationForCategory){
+                if(ukrainianNameLabel === ""){
+                   CKEDITOR.replace('uk');
+                   CKEDITOR.instances["uk"].setData(page.body);
+                } else {
+                    CKEDITOR.replace('uk');
+                    CKEDITOR.instances["uk"].setData(ukrainianNameLabel);
+                }
+                CKEDITOR.replace('en');
+                CKEDITOR.instances["en"].setData(ukrainianNameLabel);
+            }
+
+        };
 
 
 

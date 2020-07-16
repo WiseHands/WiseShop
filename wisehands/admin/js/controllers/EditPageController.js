@@ -22,7 +22,7 @@ angular.module('WiseHands')
         $scope.redirectToTranslationBodyPage = function (pageUuid) {
                 $http({
                     method: 'GET',
-                    url: '/api/get/translation/page/' + pageUuid
+                    url: '/api/get/translation/body/page/' + pageUuid
                 })
                     .then(function successCallback(response) {
                         const translationBucket = response.data;
