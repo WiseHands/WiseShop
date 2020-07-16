@@ -50,44 +50,72 @@ angular.module('WiseHands')
                     CKEDITOR.instances["uk"].setData(ukrainianNameLabel);
                 }
                 CKEDITOR.replace('en');
-                CKEDITOR.instances["en"].setData(ukrainianNameLabel);
+                CKEDITOR.instances["en"].setData(englishNameLabel);
             }
 
         };
 
-
-
-        $scope.loadImage = function () {
+        $scope.loadImage = () => {
             $('#imageLoader').click();
         };
 
-        $scope.saveThisPage = function () {
+        $scope.saveThisPage = () => {
             $scope.loading = true;
+            saveTranslationForPage($scope.translationObject);
 
-            showInfoMsg("SAVED");
-            let htmlData = CKEDITOR.instances["editor"].getData();
-            let requestBody = {
-                title: $scope.title,
-                url: $scope.url,
-                body: htmlData
+            const data = {
+                translationUuid: $scope.translationBucketUuid,
+                translationList: [
+                    {
+                        uuid: $scope.ukUuid,
+                        language: 'uk',
+                        content: CKEDITOR.instances["uk"].getData()
+                    },
+                    {
+                        uuid: $scope.enUuid,
+                        language: 'en',
+                        content: CKEDITOR.instances["en"].getData()
+                    }
+                ]
             };
+            console.log(' save translationObject', data);
 
-            $http({
-                method: 'PUT',
-                url: '/pageconstructor/' + $routeParams.uuid,
-                data: requestBody
-            })
-                .then(function successCallback(response) {
-                    console.log("PUT $scope.settings", response.data);
-                    $scope.loading = false;
-                    showInfoMsg("SAVED");
-                }, function errorCallback(response) {
-                    showWarningMsg("UNKNOWN ERROR");
-                    console.log("PUT $scope.settings", response);
-                    $scope.loading = false;
-                });
+            sendData(data);
         };
 
+        saveTranslationForPage = (page) => {
+            if (!page){ return }
+            let translationBucketUuid = '';
+            if (!!page.pageBodyTextTranslationBucket){
+                translationBucketUuid = page.pageBodyTextTranslationBucket.uuid;
+            }
+            let isTranslationForPage = $scope.translationBucketUuid === translationBucketUuid;
+            if (isTranslationForPage){
+                $scope.ukUuid = page.pageBodyTextTranslationBucket.translationList[0].uuid;
+                $scope.enUuid = page.pageBodyTextTranslationBucket.translationList[1].uuid;
+            }
+        }
+
+        sendData = (data) => {
+            $scope.loading = true;
+            $http({
+                method: 'PUT',
+                url: '/api/translation/save',
+                data: data,
+            })
+                .then((response) => {
+                    $scope.response = response.data;
+                    $scope.loading = false;
+                    showInfoMsg("SAVED");
+                }, (errorCallback) => {
+                    $scope.loading = false;
+                    showWarningMsg("ERROR");
+                });
+        }
+
+        $scope.goBack = () => {
+                    window.history.back();
+        }
 
     }]);
 
