@@ -11,6 +11,7 @@ import play.i18n.Messages;
 import play.mvc.*;
 
 import models.*;
+import services.translaiton.LanguageForShop;
 import services.translaiton.Translation;
 
 import java.io.IOException;
@@ -43,7 +44,6 @@ public class Application extends Controller {
 
         }
 
-
     public static void allowCors(){
         ok();
     }
@@ -63,15 +63,16 @@ public class Application extends Controller {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
         String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
         String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-        String language = setLanguageForShop();
-        renderTemplate("Application/uaSignin.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId, language);
+        renderTemplate("Application/uaSignin.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
     }
 
     public static void uaShopLocation(String client) {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
         String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
         String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         renderTemplate("Application/uaShopLocation.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId, language);
     }
 
@@ -83,7 +84,11 @@ public class Application extends Controller {
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
         String currency = Messages.get("shop.balance.currency");
-        String language = setLanguageForShop();
+
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+
         renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language);
     }
 
@@ -91,8 +96,7 @@ public class Application extends Controller {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
         String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
         String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-        String language = setLanguageForShop();
-        renderTemplate("Application/uaSignup.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId, language);
+        renderTemplate("Application/uaSignup.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
     }
 
     public static void wisehands(String client) {
@@ -102,7 +106,42 @@ public class Application extends Controller {
         renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
     }
 
-    public static void index(String client) {
+
+    public static void languageChooser(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        if (client.equals("wisehands.me")){
+            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+            renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+        }
+        if (client.equals("wstore.pro")){
+            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+            renderTemplate("Application/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+        }
+
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String protocol = "";
+        String port = "";
+        if(isDevEnv){
+            protocol = "http://";
+            port = ":3334";
+        } else {
+            protocol = "https://";
+        }
+
+        redirect( protocol + client + port + "/" + languageFromHeader, false);
+
+    }
+
+    public static void index(String client, String language) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -115,7 +154,11 @@ public class Application extends Controller {
         }
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
-        String language = setLanguageForShop();
+
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+
         if (shop.isTemporaryClosed) {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
@@ -149,98 +192,7 @@ public class Application extends Controller {
         renderTemplate("Application/shop.html", shop, products, language, categories);
     }
 
-    private static String setLanguageForShop() {
-        Http.Header acceptLanguage = request.headers.get("accept-language");
-        String language = "";
-        if (acceptLanguage != null){
-            String acceptLanguageValue = acceptLanguage.value();
-            List<Locale.LanguageRange> languageList = Locale.LanguageRange.parse(acceptLanguageValue);
-
-            String languageFromAccept = languageList.get(0).getRange();
-            String[] strings = languageFromAccept.split("-");
-            language = strings[0];
-
-        }
-        ArrayList<String> supportLanguages = createSupportLanguagesList();
-        language = selectSupportedLanguage(language, supportLanguages);
-        System.out.println("setlanguageForShop => " + language);
-        Lang.change(language);
-        return language;
-    }
-
-    private static String selectSupportedLanguage(String language, ArrayList<String> supportedLanguages) {
-        String supportLanguage = null;
-        for(String _language: supportedLanguages){
-            if(language.equals(_language)){
-               supportLanguage = _language;
-            }
-        }
-        if (supportLanguage == null) {
-            supportLanguage = "en";
-        }
-        if(language.equals("ru")){
-            supportLanguage = "uk";
-        }
-        System.out.println("get language => " + language);
-        System.out.println("get supportLanguage => " + supportLanguage);
-        return supportLanguage;
-    }
-
-    private static ArrayList<String> createSupportLanguagesList() {
-        ArrayList<String> supportList = new ArrayList<String>();
-        supportList.add("uk");
-        supportList.add("en");
-        return supportList;
-    }
-
-    public static void languageChooser(String client) {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-
-        if (client.equals("wisehands.me")){
-            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
-            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
-            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-            renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
-        }
-        if (client.equals("wstore.pro")){
-            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
-            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
-            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-            renderTemplate("Application/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
-        }
-
-        String language = setLanguageForShop();
-        String protocol = "";
-        String port = "";
-        if(isDevEnv){
-            protocol = "http://";
-            port = ":3334";
-        } else {
-            protocol = "https://";
-        }
-
-        redirect( protocol + client + port + "/" + language, false);
-
-    }
-
-    private static void generateCookieIfNotPresent(ShopDTO shop) {
-        String agent = request.headers.get("user-agent").value();
-
-        Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
-        if(userTokenCookie == null) {
-            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
-            shoppingCart.shopUuid = shop.uuid;
-            shoppingCart.save();
-
-            String token = generateTokenForCookie(shoppingCart.uuid, agent);
-            response.setCookie("JWT_TOKEN", token);
-        }
-    }
-
-    public static void shop(String client) {
+    public static void shop(String client, String language) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -253,7 +205,12 @@ public class Application extends Controller {
         }
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
-        String language = setLanguageForShop();
+
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        System.out.println("language from params " + language);
+        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+        System.out.println("setLanguageForShop " + language);
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         render(shop, pageList, language);
     }
@@ -263,7 +220,10 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        System.out.println("footer-shop language => " + language);
         renderTemplate("tags/footer-shop.html", shop, language);
     }
 
@@ -274,7 +234,9 @@ public class Application extends Controller {
         }
         ShopNetworkDTO network = shop.getNetwork();
         network.retrieveShopList();
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         render(shop, network, language);
     }
 
@@ -291,7 +253,9 @@ public class Application extends Controller {
         }
         String agent = request.headers.get("user-agent").value();
         System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         render(shop, language);
     }
 
@@ -300,21 +264,27 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        String language = setLanguageForShop();
-        render(shop, language);
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        render(shop, languageForShop);
     }
 
     public static void pageOld(String client, String uuid) {
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         redirect("https://" + client + "/" + language + "/page/" + uuid, false);
     }
 
-    public static void page(String client, String uuid) {
+    public static void page(String client, String uuid, String language) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
 
         PageConstructorDTO page = PageConstructorDTO.findById(uuid);
         page = Translation.setTranslationForPage(language, page);
@@ -326,17 +296,21 @@ public class Application extends Controller {
 
 
     public static void categoryOld(String client, String uuid) {
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         redirect("https://" + client + "/" + language + "/category/" + uuid, false);
     }
 
 
-    public static void category(String client, String uuid){
+    public static void category(String client, String uuid, String language){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         List<ProductDTO> products;
@@ -359,16 +333,20 @@ public class Application extends Controller {
     }
 
     public static void productOld(String client, String uuid) {
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         redirect("https://" + client + "/" + language + "/product/" + uuid, false);
     }
 
-    public static void product(String client, String uuid){
+    public static void product(String client, String uuid, String language){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        String language = setLanguageForShop();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
@@ -386,6 +364,21 @@ public class Application extends Controller {
         product.additions = additionList;
         Translation.setTranslationForProduct(language, product);
         render(product, category, categories, shop, language);
+    }
+
+
+    private static void generateCookieIfNotPresent(ShopDTO shop) {
+        String agent = request.headers.get("user-agent").value();
+
+        Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
+        if(userTokenCookie == null) {
+            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
+            shoppingCart.shopUuid = shop.uuid;
+            shoppingCart.save();
+
+            String token = generateTokenForCookie(shoppingCart.uuid, agent);
+            response.setCookie("JWT_TOKEN", token);
+        }
     }
 
     private static List<FeedbackDTO> getFeedbackListFromDB(ProductDTO product) {
@@ -431,8 +424,10 @@ public class Application extends Controller {
         }
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
-        String language = setLanguageForShop();
-        render(shop, language);
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        render(shop, languageForShop);
     }
 
     public static void done(String client) {
@@ -446,13 +441,17 @@ public class Application extends Controller {
             delivery.orderMessage = "Замовлення успішно завершене. Очікуйте, з вами зв'яжуться.";
             delivery = delivery.save();
         }
-        String language = setLanguageForShop();
-        render(delivery, language);
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        render(delivery, languageForShop);
     }
 
     public static void fail(String client) {
-        String language = setLanguageForShop();
-        render(language);
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        render(languageForShop);
     }
 
     public static void admin(String client) {
@@ -526,28 +525,38 @@ public class Application extends Controller {
     }
 
     public static void landing(String client){
-        String language = setLanguageForShop();
-            render(language);
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        render(languageForShop);
     }
 
     public static void uaContract(String client){
-        String language = setLanguageForShop();
-        render(language);
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        render(languageForShop);
     }
 
     public static void privacy(String client){
-        String language = setLanguageForShop();
-        render();
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        render(languageForShop);
     }
 
     public static void uaWizard(String client){
-        String language = setLanguageForShop();
-        renderTemplate("Application/uaNewWizard.html", language);
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        renderTemplate("Application/uaNewWizard.html", languageForShop);
     }
 
     public static void serverError(String client){
-        String language = setLanguageForShop();
-        render(language);
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        render(languageForShop);
     }
 
     public static void userDashboard(String client) {
