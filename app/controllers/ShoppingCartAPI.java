@@ -53,7 +53,17 @@ public class ShoppingCartAPI extends AuthController {
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
             response.setCookie("userToken", token);
         }
-        renderJSON(json(shoppingCart));
+        String jsonShoppingCart = "";
+        try {
+            jsonShoppingCart = json(shoppingCart);
+        } catch (Exception e){
+            shoppingCart = _createCart(shop);
+            String agent = request.headers.get("user-agent").value();
+            String token = generateTokenForCookie(shoppingCart.uuid, agent);
+            response.setCookie("userToken", token);
+            jsonShoppingCart = json(shoppingCart);
+        }
+        renderJSON(jsonShoppingCart);
     }
 
     public static ShoppingCartDTO _createCart(ShopDTO shop) {
