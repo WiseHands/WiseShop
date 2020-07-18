@@ -25,21 +25,30 @@ public class SitemapController extends  AuthController {
 
         List<CategoryDTO> categories = CategoryDTO.find("byShop", shop).fetch();
         for (CategoryDTO category : categories) {
-            String url = "/#!/category/" + category.uuid;
+            String url = "/en/category/" + category.uuid;
+            webPage = WebPage.builder().name(url).changeFreqDaily().build();
+            sitemap.addPage(webPage);
+            String url = "/uk/category/" + category.uuid;
             webPage = WebPage.builder().name(url).changeFreqDaily().build();
             sitemap.addPage(webPage);
         }
 
         List<ProductDTO> products = ProductDTO.find("byShop", shop).fetch();
         for (ProductDTO product : products) {
-            String url = "/#!/product/" + product.uuid;
+            String url = "/en/product/" + product.uuid;
+            webPage = WebPage.builder().name(url).changeFreqDaily().build();
+            sitemap.addPage(webPage);
+            String url = "/uk/product/" + product.uuid;
             webPage = WebPage.builder().name(url).changeFreqDaily().build();
             sitemap.addPage(webPage);
         }
 
         List<PageConstructorDTO> pages = PageConstructorDTO.find("byShop", shop).fetch();
         for (PageConstructorDTO page : pages) {
-            String url = "/#!/pages/" + page.uuid;
+            String url = "/en/page/" + page.uuid;
+            webPage = WebPage.builder().name(url).changeFreqDaily().build();
+            sitemap.addPage(webPage);
+            String url = "/uk/page/" + page.uuid;
             webPage = WebPage.builder().name(url).changeFreqDaily().build();
             sitemap.addPage(webPage);
         }
