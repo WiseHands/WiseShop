@@ -417,7 +417,7 @@ public class Application extends Controller {
         return formattedQuery;
     }
 
-    public static void shoppingCart(String client, String uuid){
+    public static void shoppingCart(String client, String uuid, String language){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -426,7 +426,7 @@ public class Application extends Controller {
         shop.pagesList = pageList;
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        String languageForShop = LanguageForShop.setLanguageForShop(language, languageFromHeader);
         render(shop, languageForShop);
     }
 

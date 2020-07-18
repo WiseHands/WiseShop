@@ -23,7 +23,7 @@ public class LanguageForShop {
         if (languageFromParams == null){
             mainLanguage = languageFromHeaders;
         }
-        if (!(languageFromParams.equals(languageFromHeaders))){
+        if (languageFromParams != null && !(languageFromParams.equals(languageFromHeaders))){
             mainLanguage = languageFromParams;
         }
         return mainLanguage;
