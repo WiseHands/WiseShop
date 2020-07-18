@@ -28,7 +28,7 @@ public class SitemapController extends  AuthController {
             String url = "/en/category/" + category.uuid;
             webPage = WebPage.builder().name(url).changeFreqDaily().build();
             sitemap.addPage(webPage);
-            String url = "/uk/category/" + category.uuid;
+            url = "/uk/category/" + category.uuid;
             webPage = WebPage.builder().name(url).changeFreqDaily().build();
             sitemap.addPage(webPage);
         }
@@ -38,7 +38,7 @@ public class SitemapController extends  AuthController {
             String url = "/en/product/" + product.uuid;
             webPage = WebPage.builder().name(url).changeFreqDaily().build();
             sitemap.addPage(webPage);
-            String url = "/uk/product/" + product.uuid;
+            url = "/uk/product/" + product.uuid;
             webPage = WebPage.builder().name(url).changeFreqDaily().build();
             sitemap.addPage(webPage);
         }
@@ -48,7 +48,7 @@ public class SitemapController extends  AuthController {
             String url = "/en/page/" + page.uuid;
             webPage = WebPage.builder().name(url).changeFreqDaily().build();
             sitemap.addPage(webPage);
-            String url = "/uk/page/" + page.uuid;
+            url = "/uk/page/" + page.uuid;
             webPage = WebPage.builder().name(url).changeFreqDaily().build();
             sitemap.addPage(webPage);
         }
