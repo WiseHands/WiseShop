@@ -2,6 +2,11 @@ angular.module('WiseHands')
     .controller('EditPageController', ['$scope', '$http', 'signout', '$routeParams', 'sideNavInit', '$window',
                 function ($scope, $http, signout, $routeParams, sideNavInit, $window) {
         $scope.pageUuid = $routeParams.uuid;
+
+        $scope.goBack = () => {
+            window.history.back();
+        }
+
         sideNavInit.sideNav();
 
 
