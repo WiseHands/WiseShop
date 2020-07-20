@@ -10,6 +10,7 @@ title.add.product.to.basket.label = Додати до кошика
 
 # mobile-sidebar in tags
 mobile.sidebar.title.categories = Продукти
+mobile.sidebar.link.main.page = Головна
 # shopping cart container
 delivery.type.label= Тип доставки
 payment.type.label= Тип оплати

@@ -8,6 +8,7 @@ title.add.product.to.basket.label = Add to basket
 # translation for pages
 # mobile-sidebar in tags
 mobile.sidebar.title.categories = Products
+mobile.sidebar.link.main.page = Main
 # shopping cart container
 delivery.type.label = Delivery
 payment.type.label = Payment
@@ -58,7 +59,7 @@ page.product.reviews = Reviews
 page.product.no.reviews.from.client = The client did not leave a comment
 page.product.no.reviews = No reviews
 
-footer.payment.label = Accept
+footer.payment.label = Accepting
 footer.be.in.touch.label = Be in Touch
 footer.be.in.touch.news = Find out about the most interesting news, discounts and promotions
 footer.be.in.touch.newsletter = You have been added to the newsletter

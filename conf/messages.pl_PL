@@ -9,6 +9,7 @@ title.add.product.to.basket.label = Dodaj do koszyka
 # translation for pages
 # mobile-sidebar in tags
 mobile.sidebar.title.categories = Produkty
+mobile.sidebar.link.main.page = Main
 # shopping cart container
 delivery.type.label= Dostawka
 payment.type.label= Płatności
