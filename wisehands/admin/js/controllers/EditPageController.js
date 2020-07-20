@@ -17,7 +17,7 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         const translationBucket = response.data;
-                        $window.location.href = `#/translation/products/${pageUuid}/${translationBucket.uuid}`;
+                        $window.location.href = `#/translation/${pageUuid}/${translationBucket.uuid}`;
                     }, function errorCallback(error) {
                         $scope.loading = false;
                         console.log(error);

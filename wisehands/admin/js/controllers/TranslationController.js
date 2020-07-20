@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('ProductTranslationController', ['$scope', '$http', 'signout', 'sideNavInit', '$routeParams',
+    .controller('TranslationController', ['$scope', '$http', 'signout', 'sideNavInit', '$routeParams',
         function ($scope, $http, signout, sideNavInit, $routeParams) {
             $scope.loading = true;
 
