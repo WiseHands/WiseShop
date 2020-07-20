@@ -24,6 +24,7 @@ angular.module('WiseHands')
                         setContentForCategoryLabels($scope.translationObject);
                         setContentForProductLabels($scope.translationObject);
                         setContentForPageLabels($scope.translationObject);
+                        setContentForContactLabels($scope.translationObject);
                     }, (error) => {
                         $scope.loading = false;
                         console.log(error);
@@ -33,6 +34,7 @@ angular.module('WiseHands')
             getRequest(`/api/category/details/${$scope.translationObjectUuid}`);
             getRequest(`/api/product/${$scope.translationObjectUuid}`);
             getRequest(`/pageconstructor/${$scope.translationObjectUuid}`);
+            getRequest(`/contact/details`);
 
             setContentForPageLabels = (page) => {
                 if (!page) { return }
@@ -118,8 +120,47 @@ angular.module('WiseHands')
                 }
             };
 
+            setContentForContactLabels = (contacts) => {
+                if (!contacts){ return }
+                let addressCityTextTranslationBucket = '';
+                let englishAddressCityLabel = '';
+                let ukrainianAddressCityLabel = '';
+                if(contacts.addressCityTextTranslationBucket){
+                    addressCityTextTranslationBucket = contacts.addressCityTextTranslationBucket.uuid;
+                    ukrainianAddressCityLabel = contacts.addressCityTextTranslationBucket.translationList[0].content;
+                    englishAddressCityLabel = contacts.addressCityTextTranslationBucket.translationList[1].content;
+                }
+                let isTranslationForContactsCity = $scope.translationBucketUuid === addressCityTextTranslationBucket;
+                if (isTranslationForContactsCity){
+                    if(ukrainianAddressCityLabel === ""){
+                        textInUkrainian.value = contacts.addressCity;
+                    } else {
+                        textInUkrainian.value = ukrainianAddressCityLabel;
+                    }
+                    textInEnglish.value = englishAddressCityLabel;
+                }
+                let addressStreetTextTranslationBucket = '';
+                let englishAddressStreetLabel = '';
+                let ukrainianAddressStreetLabel = '';
+                if (contacts.addressStreetTextTranslationBucket){
+                    addressStreetTextTranslationBucket = contacts.addressStreetTextTranslationBucket.uuid;
+                    ukrainianAddressStreetLabel = contacts.addressStreetTextTranslationBucket.translationList[0].content;
+                    englishAddressStreetLabel = contacts.addressStreetTextTranslationBucket.translationList[1].content;
+                }
+                let  isTranslationForAddressStreet = $scope.translationBucketUuid === addressStreetTextTranslationBucket;
+                if (isTranslationForAddressStreet){
+                    if(ukrainianAddressStreetLabel === ""){
+                        textInUkrainian.value = contacts.addressStreet;
+                    } else {
+                        textInUkrainian.value = ukrainianAddressStreetLabel;
+                    }
+                    textInEnglish.value = englishAddressStreetLabel;
+                }
+            };
+
             $scope.saveTranslation = () => {
                 saveTranslationForProduct($scope.translationObject);
+                saveTranslationForContacts($scope.translationObject);
                 saveTranslationForCategory($scope.translationObject);
                 saveTranslationForPage($scope.translationObject);
                 const data = {
@@ -159,6 +200,28 @@ angular.module('WiseHands')
                 if (isTranslationForDescription){
                     $scope.ukUuid = product.productDescriptionTextTranslationBucket.translationList[0].uuid;
                     $scope.enUuid = product.productDescriptionTextTranslationBucket.translationList[1].uuid;
+                }
+            }
+
+            saveTranslationForContacts = (contacts) => {
+                if (!contacts){ return }
+                let translationCityBucketUuid = '';
+                if (contacts.addressCityTextTranslationBucket){
+                    translationCityBucketUuid = contacts.addressCityTextTranslationBucket.uuid;
+                }
+                let isTranslationForContactsCity = $scope.translationBucketUuid === translationCityBucketUuid;
+                if (isTranslationForContactsCity){
+                    $scope.ukUuid = contacts.addressCityTextTranslationBucket.translationList[0].uuid;
+                    $scope.enUuid = contacts.addressCityTextTranslationBucket.translationList[1].uuid;
+                }
+                let addressStreetTranslationBucketUuid = '';
+                if (contacts.addressStreetTextTranslationBucket){
+                    addressStreetTranslationBucketUuid = contacts.addressStreetTextTranslationBucket.uuid;
+                }
+                let isTranslationForContactsStreet = $scope.translationBucketUuid === addressStreetTranslationBucketUuid;
+                if (isTranslationForContactsStreet){
+                    $scope.ukUuid = contacts.addressStreetTextTranslationBucket.translationList[0].uuid;
+                    $scope.enUuid = contacts.addressStreetTextTranslationBucket.translationList[1].uuid;
                 }
             }
 

@@ -14,6 +14,20 @@ angular.module('WiseHands')
                 $scope.loading = false;
             });
 
+        $scope.redirectToTranslationForContactStreet = () => {
+                $http({
+                    method: 'GET',
+                    url: `/api/get/translation/contact/street/${$scope.contacts.uuid}`
+                })
+                    .then((response) => {
+                        const translation = response.data;
+                        $window.location.href = `#/translation/${$scope.contacts.uuid}/${translation.uuid}`;
+                    }, (errorCallback) => {
+                        $scope.loading = false;
+                        console.log(error);
+                    });
+        }
+
         $scope.redirectToTranslationForContactCity = () => {
                 $http({
                     method: 'GET',
