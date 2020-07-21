@@ -167,6 +167,7 @@ DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
 GET     {client}/shops                                	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
+GET     {client}/shop/details/{uuid}                    ShopAPI.shopLabelsForTranslation
 
 PUT     {client}/shop/update/working-hours              ShopAPI.updateWorkingHoursForShop
 
@@ -208,6 +209,7 @@ PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
 *       {client}/success                                OrderAPI.success
 
 GET     {client}/contact/details                        ContactAPI.details
+GET     {client}/contact/details/{uuid}                 ContactAPI.getContactForTranslation
 PUT     {client}/contact                                ContactAPI.update
 POST    {client}/mail/send                              ContactAPI.sendMailToUs
 
@@ -261,11 +263,14 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
+GET     {client}/api/get/translation/shop/name/{uuid}        TranslationBucketAPI.createTranslationBucketForShopName
 GET     {client}/api/get/translation/name/{uuid}             TranslationBucketAPI.createTranslationBucketForProductName
 GET     {client}/api/get/translation/description/{uuid}      TranslationBucketAPI.createTranslationBucketForProductDescription
 GET     {client}/api/get/translation/category/{uuid}         TranslationBucketAPI.createTranslationBucketForCategory
 GET     {client}/api/get/translation/page/{uuid}             TranslationBucketAPI.createTranslationBucketForPage
 GET     {client}/api/get/translation/body/page/{uuid}        TranslationBucketAPI.createTranslationBucketForBodyPage
+GET     {client}/api/get/translation/contact/city/{uuid}     TranslationBucketAPI.createTranslationBucketForContactCity
+GET     {client}/api/get/translation/contact/street/{uuid}   TranslationBucketAPI.createTranslationBucketForContactStreet
 PUT     {client}/api/translation/save                        TranslationBucketAPI.saveTranslation
 
 

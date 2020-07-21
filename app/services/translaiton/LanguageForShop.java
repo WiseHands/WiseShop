@@ -13,7 +13,6 @@ public class LanguageForShop {
         String mainLanguage = checkMainLanguage(languageFromParams, languageFromHeaders);
         ArrayList<String> supportLanguages = createSupportLanguagesList();
         mainLanguage = selectSupportedLanguage(mainLanguage, supportLanguages);
-        System.out.println("setlanguageForShop => " + mainLanguage);
         Lang.change(mainLanguage);
         return mainLanguage;
     }
@@ -22,10 +21,12 @@ public class LanguageForShop {
         String mainLanguage = "";
         if (languageFromParams == null){
             mainLanguage = languageFromHeaders;
-        }
-        if (languageFromParams != null && !(languageFromParams.equals(languageFromHeaders))){
+        } else if (languageFromParams.equals(languageFromHeaders)){
+            mainLanguage = languageFromHeaders;
+        } else {
             mainLanguage = languageFromParams;
         }
+        System.out.println("mainLanguage => " + mainLanguage);
         return mainLanguage;
     }
 
@@ -49,7 +50,6 @@ public class LanguageForShop {
         if(language.equals("ru")){
             supportLanguage = "uk";
         }
-        System.out.println("get language => " + language);
         System.out.println("get supportLanguage => " + supportLanguage);
         return supportLanguage;
     }

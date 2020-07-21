@@ -133,10 +133,10 @@
         <div class="header-left-part">
             <div class="shop-icon">
                 <a href="/${language}">
-                    #{if !shop.visualSettingsDTO.shopLogo }
+                    #{if !shop.visualSettingsDTO.shopLogo}
                         <img src="/wisehands/assets/images/wiseblack.png">
                     #{/if}
-                    #{if shop.visualSettingsDTO.shopLogo }
+                    #{if shop.visualSettingsDTO.shopLogo}
                         <img src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">
                     #{/if}
                 </a>
@@ -161,10 +161,8 @@
             #{/if}
             <a href="/${language}/shoppingcart">
                 <div id="shoppingCartCounter" class="fa-stack header-cart">
-
-                        <i class="fa fa-stack-2x fa-inverse"></i>
-                        <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
-
+                    <i class="fa fa-stack-2x fa-inverse"></i>
+                    <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
                 </div>
             </a>
         </div>

@@ -25,7 +25,15 @@ public class ContactDTO extends GenericModel {
     public String addressCity;
 
     @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO addressCityTextTranslationBucket;
+
+    @Expose
     public String addressStreet;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO addressStreetTextTranslationBucket;
 
     @Expose
     public String addressNumberHouse;

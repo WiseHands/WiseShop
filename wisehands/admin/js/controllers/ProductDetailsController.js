@@ -21,7 +21,7 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         const translation = response.data;
-                        $window.location.href = `#/translation/products/${$routeParams.uuid}/${translation.uuid}`;
+                        $window.location.href = `#/translation/${$routeParams.uuid}/${translation.uuid}`;
                     }, function errorCallback(error) {
                         $scope.loading = false;
                         console.log(error);
@@ -35,7 +35,7 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         const translation = response.data;
-                        $window.location.href = `#/translation/products/${$routeParams.uuid}/${translation.uuid}`;
+                        $window.location.href = `#/translation/${$routeParams.uuid}/${translation.uuid}`;
                     }, function errorCallback(error) {
                         $scope.loading = false;
                         console.log(error);

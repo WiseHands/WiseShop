@@ -30,6 +30,12 @@ public class TranslationBucketDTO extends GenericModel {
     @OneToOne
     public PageConstructorDTO pageConstructor;
 
+    @OneToOne
+    public ContactDTO contact;
+
+    @OneToOne
+    public ShopDTO shop;
+
     public void addTranslationItem(TranslationItemDTO translationItem) {
         if(this.translationList == null) {
             this.translationList = new ArrayList<TranslationItemDTO>();

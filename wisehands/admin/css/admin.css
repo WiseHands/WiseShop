@@ -2133,6 +2133,7 @@ ul.admin-breadcrumb li a:hover {
 .translation-flex-row{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .translation-flex-column{
     display: flex;

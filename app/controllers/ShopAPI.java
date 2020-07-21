@@ -90,6 +90,19 @@ public class ShopAPI extends AuthController {
 
     }
 
+    public static void shopLabelsForTranslation(String client, String uuid) throws Exception { // /shop/details/public
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        JSONObject json = new JSONObject();
+        json.put("shopName", shop.shopName);
+        json.put("uuid", shop.uuid);
+        json.put("shopNameTextTranslationBucket", shop.shopNameTextTranslationBucket);
+
+        renderJSON(json(json));
+    }
+
     public static void publicInfo(String client) throws Exception { // /shop/details/public
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -144,6 +157,7 @@ public class ShopAPI extends AuthController {
             couponsEnabled = false;
         }
         json.put("couponsEnabled", couponsEnabled);
+
 
         renderJSON(json(json));
     }

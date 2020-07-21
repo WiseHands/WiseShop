@@ -370,7 +370,6 @@
     function setTranslation(data){
         let label = '';
         const language = document.querySelector('html').getAttribute('language');
-        console.log("language", language);
         if (data.pageTitleTextTranslationBucket){
             const bucketList = data.pageTitleTextTranslationBucket.translationList
             bucketList.forEach(function(item){
@@ -378,15 +377,9 @@
                     label = item.content
                 }
             });
-                    console.log("label", label);
-
         } else {
             label = data.title;
-                                console.log("label", label);
-
         }
-                            console.log("label", label);
-
         return label;
     }
 
@@ -421,9 +414,38 @@
         }
         document.getElementById('email').innerHTML = data.email;
         document.getElementById('phone').innerHTML = data.phone;
-        document.getElementById('address').innerHTML = data.addressCity + ', ' + data.addressStreet + ', ' + data.addressNumberHouse;
+        document.getElementById('address').innerHTML = setTranslationForAddress(data)
     });
 
+    function setTranslationForAddress(data){
+    console.log('setTranslationForAddress', data);
+        const language = document.querySelector('html').getAttribute('language');
+
+        let addressCity = '';
+        let addressStreet = '';
+        if (data.addressCityTextTranslationBucket){
+            const bucketList = data.addressCityTextTranslationBucket.translationList
+            bucketList.forEach(function(item){
+                if(item.language === language){
+                    addressCity = item.content
+                }
+            });
+        } else {
+            addressCity = data.addressCity;
+        }
+        if (data.addressStreetTextTranslationBucket){
+            const bucketList = data.addressStreetTextTranslationBucket.translationList
+            bucketList.forEach(function(item){
+                if(item.language === language){
+                    addressStreet = item.content
+                }
+            });
+        } else {
+            addressStreet = data.addressStreet;
+        }
+
+        return addressCity + ', ' + addressStreet + ', ' + data.addressNumberHouse;
+    }
 
     fetch('/shop/details/public', {
         method: 'GET',

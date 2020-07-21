@@ -1,13 +1,25 @@
 package services.translaiton;
 
-import models.CategoryDTO;
-import models.PageConstructorDTO;
-import models.ProductDTO;
-import models.TranslationItemDTO;
+import models.*;
 
 import java.util.List;
 
 public class Translation {
+
+    public static ShopDTO setTranslationForShop(String language, ShopDTO shop){
+        if(shop.shopNameTextTranslationBucket != null){
+            List<TranslationItemDTO> translationNameList = shop.shopNameTextTranslationBucket.translationList;
+            for(TranslationItemDTO item : translationNameList){
+                if (item.language == null){
+                    item.language = language;
+                }
+                if (item.language.equals(language)){
+                    shop.shopName = item.content;
+                }
+            }
+        }
+        return shop;
+    }
 
     public static CategoryDTO setTranslationForCategory(String language, CategoryDTO category){
         if(category.categoryNameTextTranslationBucket != null){
@@ -23,6 +35,7 @@ public class Translation {
         }
         return category;
     }
+
 
     public static ProductDTO setTranslationForProduct(String language, ProductDTO product){
         if(product.productNameTextTranslationBucket != null){

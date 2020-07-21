@@ -2,6 +2,11 @@ angular.module('WiseHands')
     .controller('EditPageController', ['$scope', '$http', 'signout', '$routeParams', 'sideNavInit', '$window',
                 function ($scope, $http, signout, $routeParams, sideNavInit, $window) {
         $scope.pageUuid = $routeParams.uuid;
+
+        $scope.goBack = () => {
+            window.history.back();
+        }
+
         sideNavInit.sideNav();
 
 
@@ -12,7 +17,7 @@ angular.module('WiseHands')
                 })
                     .then(function successCallback(response) {
                         const translationBucket = response.data;
-                        $window.location.href = `#/translation/products/${pageUuid}/${translationBucket.uuid}`;
+                        $window.location.href = `#/translation/${pageUuid}/${translationBucket.uuid}`;
                     }, function errorCallback(error) {
                         $scope.loading = false;
                         console.log(error);
