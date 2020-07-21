@@ -188,6 +188,7 @@ public class Application extends Controller {
         products = productList;
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
+        Translation.setTranslationForShop(language, shop);
         System.out.println("DEBUG renderTemplate Application/shop.html");
         renderTemplate("Application/shop.html", shop, products, language, categories);
     }
@@ -212,6 +213,7 @@ public class Application extends Controller {
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
         System.out.println("setLanguageForShop " + language);
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        Translation.setTranslationForShop(language, shop);
         render(shop, pageList, language);
     }
 
@@ -224,6 +226,7 @@ public class Application extends Controller {
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         System.out.println("footer-shop language => " + language);
+        Translation.setTranslationForShop(language, shop);
         renderTemplate("tags/footer-shop.html", shop, language);
     }
 
@@ -329,6 +332,7 @@ public class Application extends Controller {
             product = Translation.setTranslationForProduct(language, product);
             productList.add(product);
         }
+        Translation.setTranslationForShop(language, shop);
         render(shop, category, categories, productList, language);
     }
 
@@ -363,6 +367,7 @@ public class Application extends Controller {
         List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
         product.additions = additionList;
         Translation.setTranslationForProduct(language, product);
+        Translation.setTranslationForShop(language, shop);
         render(product, category, categories, shop, language);
     }
 

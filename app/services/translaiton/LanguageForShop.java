@@ -13,7 +13,7 @@ public class LanguageForShop {
         String mainLanguage = checkMainLanguage(languageFromParams, languageFromHeaders);
         ArrayList<String> supportLanguages = createSupportLanguagesList();
         mainLanguage = selectSupportedLanguage(mainLanguage, supportLanguages);
-        System.out.println("setlanguageForShop => " + mainLanguage);
+        System.out.println("mainLanguage => " + mainLanguage);
         Lang.change(mainLanguage);
         return mainLanguage;
     }
