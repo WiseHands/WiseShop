@@ -19,8 +19,8 @@ public class LanguageForShop {
 
     private static String checkMainLanguage(String languageFromParams, String languageFromHeaders) {
         String mainLanguage = "";
-        if (languageFromParams != null){
-            mainLanguage = languageFromParams;
+        if (languageFromParams == null){
+            mainLanguage = languageFromHeaders;
         } else if (languageFromParams.equals(languageFromHeaders)){
             mainLanguage = languageFromHeaders;
         } else {
