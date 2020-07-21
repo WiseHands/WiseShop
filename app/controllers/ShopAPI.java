@@ -91,13 +91,10 @@ public class ShopAPI extends AuthController {
     }
 
     public static void shopLabelsForTranslation(String client, String uuid) throws Exception { // /shop/details/public
-        System.out.println("shop.shopName " + uuid);
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        System.out.println("shop " + shop);
-        System.out.println("shop.shopName " + shop.shopName);
         JSONObject json = new JSONObject();
         json.put("shopName", shop.shopName);
         json.put("uuid", shop.uuid);
