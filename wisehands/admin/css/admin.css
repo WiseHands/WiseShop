@@ -1601,6 +1601,11 @@ input {
 
 .details-product-block .admin-card h5 {
     margin: 0 0 1.3rem 0;
+    word-break: break-word;
+}
+
+.edit-btn {
+    min-width: 37px;
 }
 
 .details-product-col h5, .details-product-col p, .details-product-col label {
