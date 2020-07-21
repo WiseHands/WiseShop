@@ -51,6 +51,14 @@ public class ContactAPI extends AuthController {
         renderJSON(json(shop.contact));
     }
 
+    public static void getContactForTranslation(String client, String uuid) throws Exception {
+        System.out.println("uuid like params => " + uuid);
+        String response = request.params.get("uuid");
+        System.out.println("uuid request => " + uuid);
+        ContactDTO contact = ContactDTO.findById(uuid);
+        renderJSON(json(contact));
+    }
+
 
     public static void update(String client) throws Exception {
 

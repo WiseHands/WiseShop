@@ -20,7 +20,7 @@ angular.module('WiseHands')
                         if (response.data === null){ return }
                         $scope.loading = false;
                         $scope.translationObject = response.data;
-                        console.log('$scope.translationObject',$scope.translationObject);
+                        console.log('getRequest',$scope.translationObject);
                         setContentForCategoryLabels($scope.translationObject);
                         setContentForProductLabels($scope.translationObject);
                         setContentForPageLabels($scope.translationObject);
@@ -34,10 +34,11 @@ angular.module('WiseHands')
             getRequest(`/api/category/details/${$scope.translationObjectUuid}`);
             getRequest(`/api/product/${$scope.translationObjectUuid}`);
             getRequest(`/pageconstructor/${$scope.translationObjectUuid}`);
-            getRequest(`/contact/details`);
+            getRequest(`/contact/details/${$scope.translationObjectUuid}`);
 
             setContentForPageLabels = (page) => {
                 if (!page) { return }
+                console.log('setContentForPageLabels', $scope.translationObject);
                 let pageTitleTextTranslationBucket = '';
                 let englishNameLabel = '';
                 let ukrainianNameLabel = '';
@@ -61,6 +62,8 @@ angular.module('WiseHands')
 
             setContentForCategoryLabels = (category) => {
                 if (!category) { return }
+                console.log('setContentForCategoryLabels', category);
+
                 let categoryNameTextTranslationBucket = '';
                 let englishNameLabel = '';
                 let ukrainianNameLabel = '';
@@ -84,6 +87,7 @@ angular.module('WiseHands')
 
             setContentForProductLabels = (product) => {
                 if (!product){ return }
+                console.log('setContentForProductLabels', product);
                 let productNameTextTranslationBucket = '';
                 let englishNameLabel = '';
                 let ukrainianNameLabel = '';
@@ -122,6 +126,7 @@ angular.module('WiseHands')
 
             setContentForContactLabels = (contacts) => {
                 if (!contacts){ return }
+                console.log('setContentForContactLabels', contacts);
                 let addressCityTextTranslationBucket = '';
                 let englishAddressCityLabel = '';
                 let ukrainianAddressCityLabel = '';

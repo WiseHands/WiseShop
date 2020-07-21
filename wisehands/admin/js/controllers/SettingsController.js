@@ -36,6 +36,21 @@ angular.module('WiseHands')
       });
     };
 
+    $scope.redirectToTranslationForShopName = () => {
+        $http({
+            method: 'GET',
+            url: '/api/get/translation/name/' + $routeParams.uuid
+        })
+            .then((successCallback) => {
+                const translation = response.data;
+                $window.location.href = `#/translation/${$routeParams.uuid}/${translation.uuid}`;
+            }, (errorCallback) =>{
+                $scope.loading = false;
+                console.log(error);
+            });
+
+    }
+
     function setLogoSrc(logoSrc) {
       $scope.logoSrc = logoSrc ? `/public/shop_logo/${activeShop}/${logoSrc}` : '';
     }
