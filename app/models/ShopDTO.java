@@ -164,6 +164,10 @@ public class ShopDTO extends GenericModel {
     @OneToOne
     public CoinAccountDTO coinAccount;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO shopNameTextTranslationBucket;
+
     @Transient
     private ShopNetworkDTO network;
 

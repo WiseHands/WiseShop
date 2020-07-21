@@ -167,6 +167,7 @@ DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
 GET     {client}/shops                                	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
+GET     {client}/shop/details/{uuid}                    ShopAPI.shopLabelsForTranslation
 
 PUT     {client}/shop/update/working-hours              ShopAPI.updateWorkingHoursForShop
 
@@ -262,6 +263,7 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
+GET     {client}/api/get/translation/shop/name/{uuid}        TranslationBucketAPI.createTranslationBucketForShopName
 GET     {client}/api/get/translation/name/{uuid}             TranslationBucketAPI.createTranslationBucketForProductName
 GET     {client}/api/get/translation/description/{uuid}      TranslationBucketAPI.createTranslationBucketForProductDescription
 GET     {client}/api/get/translation/category/{uuid}         TranslationBucketAPI.createTranslationBucketForCategory

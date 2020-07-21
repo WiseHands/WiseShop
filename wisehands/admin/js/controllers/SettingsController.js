@@ -1,6 +1,6 @@
 
 angular.module('WiseHands')
-  .controller('SettingsController', ['$scope', '$http', 'signout', 'sideNavInit', function ($scope, $http, signout, sideNavInit) {
+  .controller('SettingsController', ['$scope', '$http', 'signout', 'sideNavInit', '$window', function ($scope, $http, signout, sideNavInit, $window) {
     $scope.loading = true;
     const activeShop = localStorage.getItem('activeShop');
 
@@ -10,6 +10,7 @@ angular.module('WiseHands')
     })
       .then(response => {
         $scope.loading = false;
+        $scope.shopUuid = response.data.uuid;
         $scope.shopStyling = response.data.visualSettingsDTO;
         setFaviconSrc($scope.shopStyling.shopFavicon);
         setLogoSrc($scope.shopStyling.shopLogo);
@@ -39,11 +40,11 @@ angular.module('WiseHands')
     $scope.redirectToTranslationForShopName = () => {
         $http({
             method: 'GET',
-            url: '/api/get/translation/name/' + $routeParams.uuid
+            url: `/api/get/translation/shop/name/${$scope.shopUuid}`
         })
             .then((successCallback) => {
-                const translation = response.data;
-                $window.location.href = `#/translation/${$routeParams.uuid}/${translation.uuid}`;
+                const translation = successCallback.data;
+                $window.location.href = `#/translation/${$scope.shopUuid}/${translation.uuid}`;
             }, (errorCallback) =>{
                 $scope.loading = false;
                 console.log(error);
