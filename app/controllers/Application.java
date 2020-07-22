@@ -293,7 +293,12 @@ public class Application extends Controller {
         PageConstructorDTO page = PageConstructorDTO.findById(uuid);
         page = Translation.setTranslationForPage(language, page);
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        shop.pagesList = pageList;
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+        }
+        shop.pagesList = translationPageList;
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
         System.out.println("page language " + language);
