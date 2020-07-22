@@ -169,23 +169,23 @@
 
 #{setup-redux /}
 #{get-cart /}
-<body>
-    #{verbatim}
-        #{shop-header /}
-        <div class="data-container" id="data-bg">
-                <div id="title-container">
-                    <div class="gradient-block">
-                        <p class="titleContainer titleContainer-mob">
-                            ${page.title}
-                        </p>
-                    </div>
-               </div>
+#{shop-header /}
 
-            <div id="bodyContainer" style="padding: 10px">
-                ${page.body}
-            </div>
+<body>
+#{verbatim}
+    <div class="data-container" id="data-bg">
+            <div id="title-container">
+                <div class="gradient-block">
+                    <p class="titleContainer titleContainer-mob">
+                        ${page.title}
+                    </p>
+                </div>
+           </div>
+
+        <div id="bodyContainer" style="padding: 10px">
+            ${page.body}
         </div>
-    #{/verbatim}
+    </div>
     <script>
         const backGroundImageIndex = Math.floor(Math.random() * 10) + 1;
         const style = "url('/wisehands/assets/images/pages-bg/pagebg" +backGroundImageIndex+ ".jpg')";
@@ -206,6 +206,7 @@
         fbq('track', 'PageView');
     </script>
     #{/if}
+#{/verbatim}
 </body>
 </html>
 

@@ -1,7 +1,6 @@
 #{set pageList:pageList /}
 #{set language:language /}
 #{set categories:categories /}
-
 <style>
     header {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
@@ -157,7 +156,6 @@
 
     }
 </style>
-
 #{mobile-sidebar /}
 <header>
     <div class="header">
@@ -234,12 +232,11 @@
             document.getElementById('admin-icon').style.display = 'block';
         }
     });
+
     changeLanguage = (language) => {
       const currentLocation = location.pathname;
       let languagePath = currentLocation.substr(1,2);
       newLocation = currentLocation.replace(languagePath, language)
       window.location = newLocation;
-      console.log('changeLanguage ', language, currentLocation.substr(1,2))
-
     }
 </script>

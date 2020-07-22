@@ -287,6 +287,7 @@ public class Application extends Controller {
         }
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        System.out.println("page language from params " + language);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
 
         PageConstructorDTO page = PageConstructorDTO.findById(uuid);
@@ -294,6 +295,8 @@ public class Application extends Controller {
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
         List<CategoryDTO> categories = shop.getActiveCategories(language);
+        Translation.setTranslationForShop(language, shop);
+        System.out.println("page language " + language);
         render(shop, page, pageList, language, categories);
     }
 
