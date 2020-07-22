@@ -185,8 +185,8 @@
             <div class="select-lang">
                 <button class="dropbtn">${language}</button>
                 <div class="lang-list">
-                    <a href="/en">English</a>
-                    <a href="/uk">Українська</a>
+                    <a onclick="changeLanguage('en')">English</a>
+                    <a onclick="changeLanguage('uk')">Українська</a>
                 </div>
             </div>
             <div id="admin-icon" class="header-cart">
@@ -233,5 +233,13 @@
         if(token) {
             document.getElementById('admin-icon').style.display = 'block';
         }
-    })
+    });
+    changeLanguage = (language) => {
+      const currentLocation = location.pathname;
+      let languagePath = currentLocation.substr(1,2);
+      newLocation = currentLocation.replace(languagePath, language)
+      window.location = newLocation;
+      console.log('changeLanguage ', language, currentLocation.substr(1,2))
+
+    }
 </script>
