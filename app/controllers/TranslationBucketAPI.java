@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import org.json.JSONTokener;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -38,40 +39,44 @@ public class TranslationBucketAPI extends AuthController {
         translationBucket.addTranslationItem(translationItemEn);
         translationBucket.save();
     }
-    public static void createTranslationBucketForShopName(String uuid) throws Exception {
-        ShopDTO shop = ShopDTO.findById(uuid);
-        if (shop.shopNameTextTranslationBucket == null){
-            TranslationBucketDTO translationBucket = createTranslationBucket();
-            shop.shopNameTextTranslationBucket = translationBucket;
-            shop.save();
-        }
-        renderJSON(json(shop.shopNameTextTranslationBucket));
-    }
 
-    public static void createTranslationBucketForContactCity() throws Exception {
-        String contactUuid = request.params.get("uuid");
-        ContactDTO contact = ContactDTO.findById(contactUuid);
-        if (contact.addressCityTextTranslationBucket == null){
+    public static void createTranslationBucketForProductName() throws Exception {
+        String productUuid = request.params.get("uuid");
+        System.out.println("createTranslationBucketForProductDescription " + productUuid);
+        ProductDTO product = ProductDTO.findById(productUuid);
+        if (product.productNameTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = createTranslationBucket();
-            contact.addressCityTextTranslationBucket = translationBucket;
-            contact.save();
+            product.productNameTextTranslationBucket = translationBucket;
+            product.save();
         }
-        renderJSON(json(contact.addressCityTextTranslationBucket));
+        renderJSON(json(product.productNameTextTranslationBucket));
     }
-
-    public static void createTranslationBucketForContactStreet() throws Exception {
-        String contactUuid = request.params.get("uuid");
-        ContactDTO contact = ContactDTO.findById(contactUuid);
-        if (contact.addressStreetTextTranslationBucket == null){
+    public static void createTranslationBucketForProductDescription() throws Exception {
+        String productUuid = request.params.get("uuid");
+        System.out.println("createTranslationBucketForProductDescription " + productUuid);
+        ProductDTO product = ProductDTO.findById(productUuid);
+        if (product.productDescriptionTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = createTranslationBucket();
-            contact.addressStreetTextTranslationBucket = translationBucket;
-            contact.save();
+            product.productDescriptionTextTranslationBucket = translationBucket;
+            product.save();
         }
-        renderJSON(json(contact.addressStreetTextTranslationBucket));
+        renderJSON(json(product.productDescriptionTextTranslationBucket ));
+    }
+    public static void createTranslationBucketForCategory() throws Exception {
+        String categoryUuid = request.params.get("uuid");
+        System.out.println("createTranslationBucketForCategory" + categoryUuid);
+
+        CategoryDTO category = CategoryDTO.findById(categoryUuid);
+        if (category.categoryNameTextTranslationBucket == null){
+            TranslationBucketDTO translationBucket = createTranslationBucket();
+            category.categoryNameTextTranslationBucket = translationBucket;
+            category.save();
+        }
+        renderJSON(json(category.categoryNameTextTranslationBucket));
     }
     public static void createTranslationBucketForPage() throws Exception {
         String pageUuid = request.params.get("uuid");
-        System.out.println(pageUuid);
+        System.out.println("createTranslationBucketForPage" + pageUuid);
         PageConstructorDTO page = PageConstructorDTO.findById(pageUuid);
         if (page.pageTitleTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = createTranslationBucket();
@@ -82,7 +87,8 @@ public class TranslationBucketAPI extends AuthController {
     }
     public static void createTranslationBucketForBodyPage() throws Exception {
         String pageUuid = request.params.get("uuid");
-        System.out.println(pageUuid);
+        System.out.println("createTranslationBucketForBodyPage " + pageUuid);
+
         PageConstructorDTO page = PageConstructorDTO.findById(pageUuid);
         if (page.pageBodyTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = createTranslationBucket();
@@ -91,38 +97,39 @@ public class TranslationBucketAPI extends AuthController {
         }
         renderJSON(json(page.pageBodyTextTranslationBucket));
     }
+    public static void createTranslationBucketForContactCity() throws Exception {
+        String contactUuid = request.params.get("uuid");
+        System.out.println("createTranslationBucketForContactCity " + contactUuid);
 
-    public static void createTranslationBucketForCategory() throws Exception {
-            String categoryUuid = request.params.get("uuid");
-            CategoryDTO category = CategoryDTO.findById(categoryUuid);
-            if (category.categoryNameTextTranslationBucket == null){
-                TranslationBucketDTO translationBucket = createTranslationBucket();
-                category.categoryNameTextTranslationBucket = translationBucket;
-                category.save();
-            }
-            renderJSON(json(category.categoryNameTextTranslationBucket));
-        }
-
-    public static void createTranslationBucketForProductName() throws Exception {
-        String productUuid = request.params.get("uuid");
-        ProductDTO product = ProductDTO.findById(productUuid);
-        if (product.productNameTextTranslationBucket == null){
+        ContactDTO contact = ContactDTO.findById(contactUuid);
+        if (contact.addressCityTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = createTranslationBucket();
-            product.productNameTextTranslationBucket = translationBucket;
-            product.save();
+            contact.addressCityTextTranslationBucket = translationBucket;
+            contact.save();
         }
-        renderJSON(json(product.productNameTextTranslationBucket));
+        renderJSON(json(contact.addressCityTextTranslationBucket));
     }
-
-    public static void createTranslationBucketForProductDescription() throws Exception {
-        String productUuid = request.params.get("uuid");
-        ProductDTO product = ProductDTO.findById(productUuid);
-        if (product.productDescriptionTextTranslationBucket == null){
+    public static void createTranslationBucketForContactStreet() throws Exception {
+        String contactUuid = request.params.get("uuid");
+        System.out.println("createTranslationBucketForContactStreet " + contactUuid);
+        ContactDTO contact = ContactDTO.findById(contactUuid);
+        if (contact.addressStreetTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = createTranslationBucket();
-            product.productDescriptionTextTranslationBucket = translationBucket;
-            product.save();
+            contact.addressStreetTextTranslationBucket = translationBucket;
+            contact.save();
         }
-        renderJSON(json(product.productDescriptionTextTranslationBucket ));
+        renderJSON(json(contact.addressStreetTextTranslationBucket));
+    }
+    public static void createTranslationBucketForShopName(String uuid) throws Exception {
+        String pageUuid = request.params.get("uuid");
+        System.out.println("createTranslationBucketForShopName " + pageUuid);
+        ShopDTO shop = ShopDTO.findById(uuid);
+        if (shop.shopNameTextTranslationBucket == null){
+            TranslationBucketDTO translationBucket = createTranslationBucket();
+            shop.shopNameTextTranslationBucket = translationBucket;
+            shop.save();
+        }
+        renderJSON(json(shop.shopNameTextTranslationBucket));
     }
 
     public static void saveTranslation(String client) throws Exception {
@@ -133,7 +140,7 @@ public class TranslationBucketAPI extends AuthController {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        System.out.println("jsonBody => " + jsonBody);
+        System.out.println("jsonBody for saving translation => " + jsonBody);
 
         String uuid = (String) jsonBody.get("translationUuid");
         TranslationBucketDTO translation = TranslationBucketDTO.findById(uuid);
