@@ -83,12 +83,19 @@ public class Application extends Controller {
         }
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
-        String currency = Messages.get("shop.balance.currency");
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        List<OrderItemDTO> orderItemList = order.items;
+        for(OrderItemDTO _orderItem: orderItemList){
+            ProductDTO product = ProductDTO.findById(_orderItem.productUuid);
+            product = Translation.setTranslationForProduct(language, product);
+            _orderItem.name = product.name;
+            _orderItem.description = product.description;
+        }
 
+        String currency = "UAH";
         renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language);
     }
 
@@ -463,6 +470,13 @@ public class Application extends Controller {
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        String orderMessage = Messages.get("page.done.delivery.order.message");
+        System.out.println("orderMessage " + orderMessage);
+        if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
+            delivery.orderMessage = orderMessage;
+            delivery = delivery.save();
+        }
+
         render(delivery, languageForShop);
     }
 

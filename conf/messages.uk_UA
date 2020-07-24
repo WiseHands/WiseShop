@@ -7,6 +7,17 @@ button.back.label = Назад
 title.add.product.to.basket.label = Додати до кошика
 
 # translation for pages
+page.done.delivery.order.message = Замовлення успішно завершене. Очікуйте, з вами зв'яжуться.
+page.order.feedback.rate.label = Оцініть товар
+page.order.feedback.write.feedback.label = Залишіть відгук тут
+page.order.feedback.feedback.about.order.label = Відгук про замовлення
+page.order.feedback.send.feedback.label = ВІДПРАВИТИ ВІДГУК
+page.order.feedback.thank.feedback.label = Дякуємо за Ваш відгук
+page.order.feedback.error.feedback.label = Помилка відправки відгука
+page.order.feedback.thank.order.label = дякуємо за замовлення!
+page.order.feedback.leave.order.label = Залиште, будь ласка, відгук
+
+
 
 # mobile-sidebar in tags
 mobile.sidebar.title.categories = Продукти

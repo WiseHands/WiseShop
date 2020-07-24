@@ -9,6 +9,7 @@ title.add.product.to.basket.label = Add to basket
 # mobile-sidebar in tags
 mobile.sidebar.title.categories = Products
 mobile.sidebar.link.main.page = Main
+
 # shopping cart container
 delivery.type.label = Delivery
 payment.type.label = Payment
@@ -34,19 +35,30 @@ map.choose.your.place.label = Specify location on
 map.label = map
 map.error.message = Sorry, your address is not in the delivery area. Find the address on
 
-
+shopping.cart.basket.empty.label = Basket is empty
+shopping.cart.start.shopping.label = Start shopping
 
 # end shopping cart container
+# html page translation
+page.done.delivery.order.message = The order completed successfully. Expect to be contacted.
+page.order.feedback.rate.label = Rate the product
+page.order.feedback.write.feedback.label = Leave a review here
+page.order.feedback.feedback.about.order.label = Feedback of the order
+page.order.feedback.send.feedback.label = SEND FEEDBACK
+page.order.feedback.thank.feedback.label = Thank you for your feedback
+page.order.feedback.error.feedback.label = Error sending feedback
+page.order.feedback.thank.order.label = thank for order!
+page.order.feedback.leave.feedback.label = Please, leave feedback
+
+
+
+
 
 page.select.address.find.location = Find a place on the map in the delivery area and click on it. Then click "NEXT".
 page.select.address.out.delivery = This location is outside the delivery
 page.select.address.placeholder.city = City
 page.select.address.placeholder.street = Street
 page.select.address.placeholder.house = House
-
-shopping.cart.basket.empty.label = Basket is empty
-shopping.cart.start.shopping.label = Start shopping
-
 
 page.product.main.label = Main
 page.product.additions.label = Additions
@@ -87,6 +99,7 @@ shop.not.found = The requested Shop is not available. Contact administrator
 shop.missing.products = There are no products
 shop.login = Login
 
+# other translation
 balance.transaction.low.shop.balance = The balance of the store is less than 100 dollars, please top up your account
 new.order = New Order
 order.is.processing = Order (%s, %s) is being processed
