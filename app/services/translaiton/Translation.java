@@ -13,7 +13,7 @@ public class Translation {
                 if (item.language == null){
                     item.language = language;
                 }
-                if (item.language.equals(language)){
+                if (item.language.equals(language) && !item.content.equals("")){
                     shop.shopName = item.content;
                 }
             }
@@ -28,7 +28,7 @@ public class Translation {
                 if (item.language == null){
                     item.language = language;
                 }
-                if (item.language.equals(language)){
+                if (item.language.equals(language) && !item.content.equals("")){
                     category.name = item.content;
                 }
             }
@@ -44,7 +44,7 @@ public class Translation {
                 if (item.language == null){
                     item.language = language;
                 }
-                if (item.language.equals(language)){
+                if (item.language.equals(language) && !item.content.equals("")){
                     product.name = item.content;
                 }
             }
@@ -55,7 +55,7 @@ public class Translation {
                 if (item.language == null){
                     item.language = language;
                 }
-                if (item.language.equals(language)){
+                if (item.language.equals(language) && !item.content.equals("")){
                     product.description = item.content;
                 }
             }
@@ -70,7 +70,7 @@ public class Translation {
                 if (item.language == null){
                     item.language = language;
                 }
-                if (item.language.equals(language)){
+                if (item.language.equals(language) && !item.content.equals("")){
                     page.title = item.content;
                 }
             }
@@ -81,7 +81,7 @@ public class Translation {
                 if (item.language == null){
                     item.language = language;
                 }
-                if (item.language.equals(language)){
+                if (item.language.equals(language) && !item.content.equals("")){
                     page.body = item.content;
                 }
             }
