@@ -65,6 +65,7 @@
   "singleOrder.Canceled": "Odwołany",
   "singleOrder.Delete": "Usunąć",
   "singleOrder.requestFeedback": "Wyślij prośbę",
+  "singleOrder.requestNotSendingFeedback" : "Żądanie odpowiedzi nie zostało jeszcze wysłane do klienta",
   "singleOrder.pendingRequestFeedback": "Oczekuje na opinię",
   "singleOrder.noRequestFeedback": "Brak odpowiedzi",
   "singleOrder.FullName": "Pełne imię i nazwisko",
