@@ -453,6 +453,7 @@ public class Application extends Controller {
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+        Translation.setTranslationForShop(language, shop);
         render(shop, language);
     }
 

@@ -21,8 +21,8 @@ angular.module('WiseHands')
                         $scope.loading = false;
                         $scope.translationObject = response.data;
                         console.log('getRequest',$scope.translationObject);
-                        setContentForCategoryLabels($scope.translationObject);
                         setContentForProductLabels($scope.translationObject);
+                        setContentForCategoryLabels($scope.translationObject);
                         setContentForPageLabels($scope.translationObject);
                         setContentForContactLabels($scope.translationObject);
                         setContentForShopLabels($scope.translationObject);
@@ -32,85 +32,11 @@ angular.module('WiseHands')
                     });
             };
 
-            getRequest(`/api/category/details/${$scope.translationObjectUuid}`);
             getRequest(`/api/product/${$scope.translationObjectUuid}`);
+            getRequest(`/api/category/details/${$scope.translationObjectUuid}`);
             getRequest(`/pageconstructor/${$scope.translationObjectUuid}`);
             getRequest(`/contact/details/${$scope.translationObjectUuid}`);
-            getRequest(`/shop/details/${$scope.translationObjectUuid}`);
-
-            setContentForShopLabels = (shop) => {
-                if (!shop) { return }
-                console.log('setContentForShopLabels', shop);
-
-                let shopNameTextTranslationBucket = '';
-                let englishNameLabel = '';
-                let ukrainianNameLabel = '';
-                if(shop.shopNameTextTranslationBucket){
-                    shopNameTextTranslationBucket = shop.shopNameTextTranslationBucket.uuid;
-                    ukrainianNameLabel = shop.shopNameTextTranslationBucket.translationList[0].content;
-                    englishNameLabel = shop.shopNameTextTranslationBucket.translationList[1].content;
-                }
-
-                let isTranslationForShop = $scope.translationBucketUuid === shopNameTextTranslationBucket;
-                if (isTranslationForShop){
-                    if(ukrainianNameLabel === ""){
-                        textInUkrainian.value = shop.shopName;
-                    } else {
-                        textInUkrainian.value = ukrainianNameLabel;
-                    }
-                    textInEnglish.value = englishNameLabel;
-                }
-
-            };
-
-            setContentForPageLabels = (page) => {
-                if (!page) { return }
-                console.log('setContentForPageLabels', $scope.translationObject);
-                let pageTitleTextTranslationBucket = '';
-                let englishNameLabel = '';
-                let ukrainianNameLabel = '';
-                if(page.pageTitleTextTranslationBucket){
-                    pageTitleTextTranslationBucket = page.pageTitleTextTranslationBucket.uuid;
-                    ukrainianNameLabel = page.pageTitleTextTranslationBucket.translationList[0].content;
-                    englishNameLabel = page.pageTitleTextTranslationBucket.translationList[1].content;
-                }
-
-                let isTranslationForCategory = $scope.translationBucketUuid === pageTitleTextTranslationBucket;
-                if (isTranslationForCategory){
-                    if(ukrainianNameLabel === ""){
-                        textInUkrainian.value = page.title;
-                    } else {
-                        textInUkrainian.value = ukrainianNameLabel;
-                    }
-                    textInEnglish.value = englishNameLabel;
-                }
-
-            };
-
-            setContentForCategoryLabels = (category) => {
-                if (!category) { return }
-                console.log('setContentForCategoryLabels', category);
-
-                let categoryNameTextTranslationBucket = '';
-                let englishNameLabel = '';
-                let ukrainianNameLabel = '';
-                if(category.categoryNameTextTranslationBucket){
-                    categoryNameTextTranslationBucket = category.categoryNameTextTranslationBucket.uuid;
-                    ukrainianNameLabel = category.categoryNameTextTranslationBucket.translationList[0].content;
-                    englishNameLabel = category.categoryNameTextTranslationBucket.translationList[1].content;
-                }
-
-                let isTranslationForCategory = $scope.translationBucketUuid === categoryNameTextTranslationBucket;
-                if (isTranslationForCategory){
-                    if(ukrainianNameLabel === ""){
-                        textInUkrainian.value = category.name;
-                    } else {
-                        textInUkrainian.value = ukrainianNameLabel;
-                    }
-                    textInEnglish.value = englishNameLabel;
-                }
-
-            };
+            getRequest(`/shop/translate/${$scope.translationObjectUuid}`);
 
             setContentForProductLabels = (product) => {
                 if (!product){ return }
@@ -149,6 +75,55 @@ angular.module('WiseHands')
                     }
                     textInEnglish.value = englishDescriptionLabel;
                 }
+            };
+
+            setContentForCategoryLabels = (category) => {
+                if (!category) { return }
+                console.log('setContentForCategoryLabels', category);
+
+                let categoryNameTextTranslationBucket = '';
+                let englishNameLabel = '';
+                let ukrainianNameLabel = '';
+                if(category.categoryNameTextTranslationBucket){
+                    categoryNameTextTranslationBucket = category.categoryNameTextTranslationBucket.uuid;
+                    ukrainianNameLabel = category.categoryNameTextTranslationBucket.translationList[0].content;
+                    englishNameLabel = category.categoryNameTextTranslationBucket.translationList[1].content;
+                }
+
+                let isTranslationForCategory = $scope.translationBucketUuid === categoryNameTextTranslationBucket;
+                if (isTranslationForCategory){
+                    if(ukrainianNameLabel === ""){
+                        textInUkrainian.value = category.name;
+                    } else {
+                        textInUkrainian.value = ukrainianNameLabel;
+                    }
+                    textInEnglish.value = englishNameLabel;
+                }
+
+            };
+
+            setContentForPageLabels = (page) => {
+                if (!page) { return }
+                console.log('setContentForPageLabels', $scope.translationObject);
+                let pageTitleTextTranslationBucket = '';
+                let englishNameLabel = '';
+                let ukrainianNameLabel = '';
+                if(page.pageTitleTextTranslationBucket){
+                    pageTitleTextTranslationBucket = page.pageTitleTextTranslationBucket.uuid;
+                    ukrainianNameLabel = page.pageTitleTextTranslationBucket.translationList[0].content;
+                    englishNameLabel = page.pageTitleTextTranslationBucket.translationList[1].content;
+                }
+
+                let isTranslationForCategory = $scope.translationBucketUuid === pageTitleTextTranslationBucket;
+                if (isTranslationForCategory){
+                    if(ukrainianNameLabel === ""){
+                        textInUkrainian.value = page.title;
+                    } else {
+                        textInUkrainian.value = ukrainianNameLabel;
+                    }
+                    textInEnglish.value = englishNameLabel;
+                }
+
             };
 
             setContentForContactLabels = (contacts) => {
@@ -190,12 +165,37 @@ angular.module('WiseHands')
                 }
             };
 
+            setContentForShopLabels = (shop) => {
+                if (!shop) { return }
+                console.log('setContentForShopLabels', shop);
+
+                let shopNameTextTranslationBucket = '';
+                let englishNameLabel = '';
+                let ukrainianNameLabel = '';
+                if(shop.shopNameTextTranslationBucket){
+                    shopNameTextTranslationBucket = shop.shopNameTextTranslationBucket.uuid;
+                    ukrainianNameLabel = shop.shopNameTextTranslationBucket.translationList[0].content;
+                    englishNameLabel = shop.shopNameTextTranslationBucket.translationList[1].content;
+                }
+
+                let isTranslationForShop = $scope.translationBucketUuid === shopNameTextTranslationBucket;
+                if (isTranslationForShop){
+                    if(ukrainianNameLabel === ""){
+                        textInUkrainian.value = shop.shopName;
+                    } else {
+                        textInUkrainian.value = ukrainianNameLabel;
+                    }
+                    textInEnglish.value = englishNameLabel;
+                }
+
+            };
+
             $scope.saveTranslation = () => {
                 saveTranslationForProduct($scope.translationObject);
-                saveTranslationForContacts($scope.translationObject);
                 saveTranslationForCategory($scope.translationObject);
-                saveTranslationForShop($scope.translationObject);
                 saveTranslationForPage($scope.translationObject);
+                saveTranslationForContacts($scope.translationObject);
+                saveTranslationForShop($scope.translationObject);
                 const data = {
                     translationUuid: $scope.translationBucketUuid,
                     translationList: [
@@ -236,6 +236,32 @@ angular.module('WiseHands')
                 }
             }
 
+            saveTranslationForCategory = (category) => {
+                if (!category){ return }
+                let translationBucketUuid = '';
+                if (!!category.categoryNameTextTranslationBucket){
+                    translationBucketUuid = category.categoryNameTextTranslationBucket.uuid;
+                }
+                let isTranslationForProductName = $scope.translationBucketUuid === translationBucketUuid;
+                if (isTranslationForProductName){
+                    $scope.ukUuid = category.categoryNameTextTranslationBucket.translationList[0].uuid;
+                    $scope.enUuid = category.categoryNameTextTranslationBucket.translationList[1].uuid;
+                }
+            }
+
+            saveTranslationForPage = (page) => {
+                if (!page){ return }
+                let translationBucketUuid = '';
+                if (!!page.pageTitleTextTranslationBucket){
+                    translationBucketUuid = page.pageTitleTextTranslationBucket.uuid;
+                }
+                let isTranslationForPage = $scope.translationBucketUuid === translationBucketUuid;
+                if (isTranslationForPage){
+                    $scope.ukUuid = page.pageTitleTextTranslationBucket.translationList[0].uuid;
+                    $scope.enUuid = page.pageTitleTextTranslationBucket.translationList[1].uuid;
+                }
+            }
+
             saveTranslationForContacts = (contacts) => {
                 if (!contacts){ return }
                 let translationCityBucketUuid = '';
@@ -258,19 +284,6 @@ angular.module('WiseHands')
                 }
             }
 
-            saveTranslationForCategory = (category) => {
-                if (!category){ return }
-                let translationBucketUuid = '';
-                if (!!category.categoryNameTextTranslationBucket){
-                    translationBucketUuid = category.categoryNameTextTranslationBucket.uuid;
-                }
-                let isTranslationForProductName = $scope.translationBucketUuid === translationBucketUuid;
-                if (isTranslationForProductName){
-                    $scope.ukUuid = category.categoryNameTextTranslationBucket.translationList[0].uuid;
-                    $scope.enUuid = category.categoryNameTextTranslationBucket.translationList[1].uuid;
-                }
-            }
-
             saveTranslationForShop = (shop) => {
                 if (!shop){ return }
                 let shopNameTextTranslationBucket = '';
@@ -281,19 +294,6 @@ angular.module('WiseHands')
                 if (isTranslationForShopName){
                     $scope.ukUuid = shop.shopNameTextTranslationBucket.translationList[0].uuid;
                     $scope.enUuid = shop.shopNameTextTranslationBucket.translationList[1].uuid;
-                }
-            }
-
-            saveTranslationForPage = (page) => {
-                if (!page){ return }
-                let translationBucketUuid = '';
-                if (!!page.pageTitleTextTranslationBucket){
-                    translationBucketUuid = page.pageTitleTextTranslationBucket.uuid;
-                }
-                let isTranslationForPage = $scope.translationBucketUuid === translationBucketUuid;
-                if (isTranslationForPage){
-                    $scope.ukUuid = page.pageTitleTextTranslationBucket.translationList[0].uuid;
-                    $scope.enUuid = page.pageTitleTextTranslationBucket.translationList[1].uuid;
                 }
             }
 
@@ -315,7 +315,7 @@ angular.module('WiseHands')
             }
 
             $scope.goBack = () => {
-                        window.history.back();
+                window.history.back();
             }
 
             sideNavInit.sideNav();
