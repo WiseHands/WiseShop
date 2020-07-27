@@ -167,7 +167,7 @@ DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
 GET     {client}/shops                                	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
-GET     {client}/shop/details/{uuid}                    ShopAPI.shopLabelsForTranslation
+GET     {client}/shop/translate/{uuid}                  ShopAPI.shopLabelsForTranslation
 
 PUT     {client}/shop/update/working-hours              ShopAPI.updateWorkingHoursForShop
 

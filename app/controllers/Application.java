@@ -83,12 +83,19 @@ public class Application extends Controller {
         }
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
-        String currency = Messages.get("shop.balance.currency");
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        List<OrderItemDTO> orderItemList = order.items;
+        for(OrderItemDTO _orderItem: orderItemList){
+            ProductDTO product = ProductDTO.findById(_orderItem.productUuid);
+            product = Translation.setTranslationForProduct(language, product);
+            _orderItem.name = product.name;
+            _orderItem.description = product.description;
+        }
 
+        String currency = "UAH";
         renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language);
     }
 
@@ -436,10 +443,17 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+        }
+        shop.pagesList = translationPageList;
         shop.pagesList = pageList;
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+        Translation.setTranslationForShop(language, shop);
         render(shop, language);
     }
 
@@ -457,6 +471,13 @@ public class Application extends Controller {
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        String orderMessage = Messages.get("page.done.delivery.order.message");
+        System.out.println("orderMessage " + orderMessage);
+        if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
+            delivery.orderMessage = orderMessage;
+            delivery = delivery.save();
+        }
+
         render(delivery, languageForShop);
     }
 

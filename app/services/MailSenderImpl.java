@@ -46,6 +46,7 @@ public class MailSenderImpl implements MailSender {
             map.put("total", order.total);
 
             Lang.change(shop.locale);
+
             String labelName = Messages.get("mail.label.name");
             map.put("labelName", labelName);
             String labelPhone = Messages.get("mail.label.phone");
@@ -109,7 +110,7 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
-    public void sendEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String status) throws Exception {
+    public void sendEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String status, String clientLanguage) throws Exception {
         HtmlEmail email = new HtmlEmail();
         email.setHostName(shop.domain);
         email.setFrom("wisehandsme@gmail.com");
@@ -127,7 +128,8 @@ public class MailSenderImpl implements MailSender {
         }
         map.put("shopDomain", path);
 
-        Lang.change(shop.locale);
+        Lang.change(clientLanguage);// set user language
+
         String hiClient = Messages.get("feedback.main.label", order.name);
         map.put("hiClient", hiClient);
 

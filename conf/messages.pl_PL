@@ -7,6 +7,20 @@ button.back.label = Nazad
 title.add.product.to.basket.label = Dodaj do koszyka
 
 # translation for pages
+page.done.delivery.order.message = Zamówienie zostało zrealizowane pomyślnie. Spodziewaj się kontaktu.
+page.order.feedback.rate.label = Oceń produkt
+page.order.feedback.write.feedback.label = Zostaw recenzję tutaj
+page.order.feedback.feedback.about.order.label = Przegląd zamówienia
+page.order.feedback.send.feedback.label = Wyślij opinię
+page.order.feedback.thank.feedback.label = Dziękujemy za twoją opinię
+page.order.feedback.error.feedback.label = Błąd podczas wysyłania opinii
+page.order.feedback.thank.order.label = dziękuję za zamówienie!
+page.order.feedback.leave.order.label = Prosimy o przesłanie opinii
+
+
+
+
+
 # mobile-sidebar in tags
 mobile.sidebar.title.categories = Produkty
 mobile.sidebar.link.main.page = Main

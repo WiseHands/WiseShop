@@ -50,6 +50,7 @@
   "orderList.postservice": "Post service",
   "orderList.more": "More",
   "singleOrder.AmountTools" : "Amount tools: ",
+  "singleOrder.requestNotSendingFeedback" : "A response request has not yet been sent to the customer",
   "singleOrder.titleCustomer" : "Customer",
   "singleOrder.titleOrder" : "Products",
   "singleOrder.titleDelivery" : "Delivery",
