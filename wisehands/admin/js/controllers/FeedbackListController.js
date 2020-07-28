@@ -2,19 +2,6 @@ angular.module('WiseHands')
   .controller('FeedbackListController', ['$http', '$scope', '$routeParams', '$window', function ($http, $scope, $routeParams, $window) {
     $scope.loading = true;
 
-    $http({
-      method: 'GET',
-      url: '/shop/details'
-    })
-      .then(response => {
-        $scope.shop = response.data;
-        $scope.loading = false;
-      }, () => $scope.loading = false);
-
-    $scope.getUrl = function () {
-      $window.location.href = `/product/${$routeParams.uuid}`;
-    };
-
     $scope.goBack = () => {
       window.history.back();
     };
@@ -22,26 +9,26 @@ angular.module('WiseHands')
 
     $http({
       method: 'GET',
-      url: `/api/product/${$routeParams.uuid}`
+      url: `/api/feedback/full/list `
     })
       .then(response => {
-        const product = response.data;
-              console.log(product);
+       $scope.loading = false;
+        const feedbackList = response.data;
+              console.log(feedbackList);
 
-        parseProductData(product);
-        const activeShop = localStorage.getItem('activeShop');
-        const mainImageIndex = $scope.product.images.findIndex(item => item.uuid === product.mainImage.uuid);
-        $scope.productImageUrl = `public/product_images/${activeShop}/${product.images[mainImageIndex].filename}`;
-        $scope.loading = false;
+        parseProductData(feedbackList);
+
       }, error => {
         $scope.loading = false;
         console.log(error);
       });
 
-    function parseProductData(product) {
-      product.feedbackList.map(item => {
-        item.parsedFeedbackTime = moment(item.feedbackTime).format('DD MMMM YYYY HH:mm:ss');
-        return item;
+    function parseProductData(_feedbackList) {
+      _feedbackList.forEach(item => {
+          item.feedbackList.map(_item => {
+            _item.parsedFeedbackTime = moment(item.feedbackTime).format('DD MMMM YYYY HH:mm:ss');
+            return _item;
+          })
       });
       $scope.product = product;
     }

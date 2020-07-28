@@ -94,6 +94,7 @@ GET         {client}/api/pricing-plan/get-shop               PricingPlanAPI.getS
 
 POST        {client}/api/feedback/save                  OrderFeedbackAPI.createFeedback
 GET         {client}/api/feedback/get/list/{uuid}       OrderFeedbackAPI.getFeedbackListForProduct
+GET         {client}/api/feedback/full/list             OrderFeedbackAPI.getFeedbackListForShop
 PUT         {client}/api/feedback/show/{uuid}           OrderFeedbackAPI.showReview
 PUT         {client}/api/feedback/hide/{uuid}           OrderFeedbackAPI.hideReview
 GET         {client}/api/feedback...                    OrderFeedbackAPI.getFeedbackListForShop

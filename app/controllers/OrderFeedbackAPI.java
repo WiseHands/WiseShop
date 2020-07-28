@@ -132,11 +132,15 @@ public class OrderFeedbackAPI extends AuthController{
        renderJSON(json(feedbackList));
     }
 
-    public static void getFeedbackListForShop(){
-        String shopUuid = request.params.get("uuid");
-        ShopDTO shop = ShopDTO.findById(shopUuid);
-        List<ProductDTO> productList = shop.productList;
-        renderJSON(json(productList));
+    public static void getFeedbackListForShop(String client){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        List<FeedbackDTO> feedbackList;
+        String query = "select f from FeedbackDTO where shop_uuid = ?1";
+        feedbackList = FeedbackDTO.find(query, shop.uuid).fetch();
+        renderJSON(json(feedbackList));
     }
 
 
