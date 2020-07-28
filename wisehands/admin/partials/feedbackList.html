@@ -1,0 +1,134 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               ng-click="goBack()">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'productDetails.reviews' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
+               id="dropdownMenu1"
+               type="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+                <i class="fa fa-edit whiteColor pull-right">
+                </i>
+                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
+                    <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>
+                        {{'productDetails.edit' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal"
+                       data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="row text-center">
+    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+             show="loading"></spinner>
+</div>
+<div ng-hide="loading">
+    <div class="admin-container product-reviews-block">
+        <div class="admin-column">
+            <div class="sort-reviews">
+                <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
+                    <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
+                          ng-class="{reverse: reverse}"></span>
+                </p>
+                <p ng-click="sortBy('quality')">{{'productReviews.byRating' | translate}}
+                    <span class="sortorder" ng-show="sortByProperty === 'quality'" ng-class="{reverse: reverse}"></span>
+                </p>
+            </div>
+            <div class="admin-card" ng-repeat="review in product.feedbackList | orderBy:sortByProperty:reverse"
+                 ng-show="review.quality > 0">
+                <div class="review-item">
+                    <div class="review-info">
+                        <div>
+                            <h5>{{review.customerName}}</h5>
+                            <div class="feedback-stars">
+                                <i ng-class="review.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                                <i ng-class="review.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"
+                                   style="font-size:24px; color: #000"></i>
+                            </div>
+                            <i ng-show="review.showReview">{{'productReviews.reviewDisplayed' | translate}}</i>
+                            <i ng-show="!review.showReview">{{'productReviews.reviewNotDisplayed' | translate}}</i>
+                        </div>
+                        <div ng-click="showOrHideFeedback(this)" class="show-review">
+                            <p ng-show="!review.showReview">
+                                <span><i class="fa fa-eye" style="font-size: 18px"></i></span>
+                                {{'productReviews.showReview' | translate}}
+                            </p>
+                            <p ng-show="review.showReview">
+                                <span><i class="fa fa-eye-slash" style="font-size: 18px"></i></span>
+                                {{'productReviews.hideReview' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        <p class="review-feedbacktime">{{review.parsedFeedbackTime}}</p>
+                        <p>{{review.review}}</p>
+                        <p ng-show="!review.review">{{'productReviews.customerDidNotLeaveComment' | translate}}</p>
+                        <div ng-show="review.showReview" class="admin-reply-in-review">
+                            <h4 ng-show="review.showReview && review.feedbackComment.comment">{{shop.shopName}}</h4>
+                            <p>{{review.feedbackComment.comment}}</p>
+                        </div>
+                        <div class="reply-for-review" ng-show="!review.showReview && review.review">
+                            <textarea ng-model="review.feedbackComment.comment"
+                                      placeholder="{{'productReviews.respondToReview' | translate}}"></textarea>
+                            <a class="text-left" data-toggle="modal" ng-click="setFeedbackItemContext(this)"
+                               data-target="#sendReply">
+                                <p>{{'productReviews.sendReplyForComment' | translate}}</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="admin-column">
+            <div class="admin-card link-to-product" ng-click="getUrl()">
+                <!-- link here  -->
+                <div class="review-product-info">
+                    <img ng-src="{{productImageUrl}}"
+                         alt="image">
+                </div>
+                <h4>{{product.name}} {{product.price}} {{'orderList.Currency' | translate}}</h4>
+                <img class="external-link-img" src="wisehands/assets/images/dashboard/link.png">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="sendReply" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center ">
+                    <p><i>{{'productReviews.warningMessageReplyForComment' | translate}}</i></p>
+                    <div class="modal-send-reply">
+                        <a ng-click="saveComment()" data-dismiss="modal">{{'productReviews.sendReplyForComment' | translate}}</a>
+                        <a data-dismiss="modal" aria-label="Close">{{'productReviews.cancelReplyForComment' | translate}}</a>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner"
+                             img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
