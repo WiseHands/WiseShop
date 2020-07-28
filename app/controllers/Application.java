@@ -140,6 +140,7 @@ public class Application extends Controller {
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        System.out.println("languageFromHeader" + languageFromHeader);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
 
         if (shop.isTemporaryClosed) {
@@ -656,10 +657,16 @@ public class Application extends Controller {
     public static void hireAzureDevelopers(String client){
         renderTemplate("WiseHands/Services/hireAzureDevelopers.html");
     }
-    public static void hireKubernetesDevelopers(String client){renderTemplate("WiseHands/Services/hireKubernetesDevelopers.html");}
+    public static void hireKubernetesDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireKubernetesDevelopers.html");}
     public static void hireIosDevelopers(String client){
         renderTemplate("WiseHands/Services/hireIosDevelopers.html");
     }
 
-    public static void hireAndroidDevelopers(String client){renderTemplate("WiseHands/Services/hireAndroidDevelopers.html");}
+    public static void hireAndroidDevelopers(String client){
+        renderTemplate("WiseHands/Services/hireAndroidDevelopers.html");
+    }
+    public static void shopLanding(String client){
+        renderTemplate("app/views/shopLanding/shopLanding.html");
+    }
 }
