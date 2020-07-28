@@ -337,7 +337,7 @@ GET     {client}/category/{uuid}             Application.categoryOld
 GET     {client}/product/{uuid}              Application.productOld
 
 
-GET     {client}/{language}/shop                        Application.shop
+GET     {client}/{language}/shop                        Application.index
 GET     {client}/{language}/page/{uuid}                 Application.page
 GET     {client}/{language}/category/{uuid}             Application.category
 GET     {client}/{language}/product/{uuid}              Application.product

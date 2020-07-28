@@ -59,6 +59,13 @@ public class Application extends Controller {
 
     }
 
+    public static void uaSignup(String client) {
+        String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+        String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+        String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+        renderTemplate("Application/uaSignup.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+    }
+
     public static void uaSignin(String client) {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
         String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
@@ -76,43 +83,12 @@ public class Application extends Controller {
         renderTemplate("Application/uaShopLocation.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId, language);
     }
 
-    public static void orderFeedback(String client, String uuid) {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
-        boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
-
-        Http.Header acceptLanguage = request.headers.get("accept-language");
-        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
-        List<OrderItemDTO> orderItemList = order.items;
-        for(OrderItemDTO _orderItem: orderItemList){
-            ProductDTO product = ProductDTO.findById(_orderItem.productUuid);
-            product = Translation.setTranslationForProduct(language, product);
-            _orderItem.name = product.name;
-            _orderItem.description = product.description;
-        }
-
-        String currency = "UAH";
-        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language);
-    }
-
-    public static void uaSignup(String client) {
-        String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
-        String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
-        String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-        renderTemplate("Application/uaSignup.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
-    }
-
     public static void wisehands(String client) {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
         String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
         String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
         renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
     }
-
 
     public static void languageChooser(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -197,6 +173,7 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
         System.out.println("DEBUG renderTemplate Application/shop.html");
+
         renderTemplate("Application/shop.html", shop, products, language, categories);
     }
 
@@ -437,6 +414,29 @@ public class Application extends Controller {
         return formattedQuery;
     }
 
+    public static void orderFeedback(String client, String uuid) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
+
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        List<OrderItemDTO> orderItemList = order.items;
+        for(OrderItemDTO _orderItem: orderItemList){
+            ProductDTO product = ProductDTO.findById(_orderItem.productUuid);
+            product = Translation.setTranslationForProduct(language, product);
+            _orderItem.name = product.name;
+            _orderItem.description = product.description;
+        }
+
+        String currency = "UAH";
+        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language);
+    }
+
     public static void shoppingCart(String client, String uuid, String language){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
@@ -464,10 +464,7 @@ public class Application extends Controller {
         }
 
         DeliveryDTO delivery = shop.delivery;
-        if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
-            delivery.orderMessage = "Замовлення успішно завершене. Очікуйте, з вами зв'яжуться.";
-            delivery = delivery.save();
-        }
+
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
