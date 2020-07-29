@@ -175,7 +175,7 @@
                     #{/if}
                 </a>
             </div>
-            <a class="shop-name-link" href="/${language}/shop">
+            <a class="shop-name-link" href="/${language}/shopLanding">
                 <h3>${shop.shopName}</h3>
             </a>
         </div>
@@ -235,9 +235,6 @@
     });
 
     changeLanguage = (language) => {
-      const currentLocation = location.pathname;
-      let languagePath = currentLocation.substr(1,2);
-      newLocation = currentLocation.replace(languagePath, language)
-      window.location = newLocation;
+      window.location = window.location.origin + '/' + language + '/shop';
     }
 </script>

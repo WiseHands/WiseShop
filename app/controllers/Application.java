@@ -120,7 +120,7 @@ public class Application extends Controller {
             protocol = "https://";
         }
 
-        redirect( protocol + client + port + "/" + languageFromHeader, false);
+        redirect( protocol + client + port + "/" + languageFromHeader + "/shopLanding", false);
 
     }
 
