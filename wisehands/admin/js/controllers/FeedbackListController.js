@@ -6,31 +6,27 @@ angular.module('WiseHands')
       window.history.back();
     };
 
-
     $http({
       method: 'GET',
       url: `/api/feedback/full/list `
     })
       .then(response => {
        $scope.loading = false;
-        const feedbackList = response.data;
-              console.log(feedbackList);
-
-        parseProductData(feedbackList);
+       const feedbackList = response.data;
+       console.log(feedbackList);
+       parseProductData(feedbackList);
 
       }, error => {
         $scope.loading = false;
         console.log(error);
       });
 
-    function parseProductData(_feedbackList) {
-      _feedbackList.forEach(item => {
-          item.feedbackList.map(_item => {
-            _item.parsedFeedbackTime = moment(item.feedbackTime).format('DD MMMM YYYY HH:mm:ss');
-            return _item;
-          })
-      });
-      $scope.product = product;
+    function parseProductData(feedbackList) {
+       feedbackList.map(item => {
+          item.parsedFeedbackTime = moment(item.feedbackTime).format('DD MMMM YYYY HH:mm:ss');
+          return item;
+       })
+      $scope.feedbackList = feedbackList;
     }
 
     $scope.sortByProperty = 'feedbackTime';

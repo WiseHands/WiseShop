@@ -138,8 +138,9 @@ public class OrderFeedbackAPI extends AuthController{
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         List<FeedbackDTO> feedbackList;
-        String query = "select f from FeedbackDTO where shop_uuid = ?1";
+        String query = "select f from FeedbackDTO f WHERE productUuid IN (SELECT uuid FROM ProductDTO where shop_uuid = ?1) order by f.feedbackTime asc";
         feedbackList = FeedbackDTO.find(query, shop.uuid).fetch();
+        System.out.println("feedbackList " + feedbackList.size());
         renderJSON(json(feedbackList));
     }
 

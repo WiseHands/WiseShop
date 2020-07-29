@@ -30,7 +30,7 @@
                     <span class="sortorder" ng-show="sortByProperty === 'quality'" ng-class="{reverse: reverse}"></span>
                 </p>
             </div>
-            <div class="admin-card" ng-repeat="review in product.feedbackList | orderBy:sortByProperty:reverse"
+            <div class="admin-card" ng-repeat="review in feedbackList | orderBy:sortByProperty:reverse"
                  ng-show="review.quality > 0">
                 <div class="review-item">
                     <div class="review-info">
