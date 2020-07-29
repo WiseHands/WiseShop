@@ -190,8 +190,7 @@
     .header-nav a {
         display: inline-block;
     }
-    a.nav-hover
-    {
+    a.nav-hover    {
         position: relative;
         text-decoration: none;
         padding: 10px 5px;
@@ -214,6 +213,44 @@
     a.nav-hover:hover:before {
         visibility: visible;
         transform: scaleX(1);
+    }
+    .select-lang {
+        position: relative;
+        display: inline-block;
+        padding-right: 0.5rem;
+    }
+    .dropbtn {
+        background-color: #fff;
+        color: #20313b;
+        padding: 5px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+    .lang-list {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 110px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        right: 0.5rem;
+    }
+    .lang-list a {
+        color: 20313b;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+    }
+    .lang-list a:hover {
+        background-color: #fff;
+    }
+    .select-lang:hover .lang-list {
+        display: block;
+    }
+    .lang-list a.nav-hover    {
+        margin: 0;
     }
     .main {
         display: flex;
@@ -893,6 +930,13 @@
                     <a href="/" class="nav-hover animate__animated animate__fadeInUp">Головна</a>
                     <a href="/${language}/shop" class="nav-hover animate__animated animate__fadeInUp">Замовити</a>
                     <a  href="#footer-contact" class="nav-hover animate__animated animate__fadeInUp">Контакти</a>
+                    <div class="select-lang">
+                        <button class="dropbtn">${language}</button>
+                        <div class="lang-list">
+                            <a onclick="changeLanguage('en')" class="nav-hover">English</a>
+                            <a onclick="changeLanguage('uk')" class="nav-hover">Українська</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -942,7 +986,7 @@
                         <p>Готуємо різноманітні страви американської та азіатської кухні під ретельним наглядом шеф-кухаря Лі Хуей</p>
                     </div>
                     <div class="info-img">
-                        <img src="../../../wisehands/services/images/americano1.jpg" alt="image">
+                        <img src="../../../wisehands/services/images/americano8.jpg" alt="image">
                         <div class="info-quote wow zoomIn">
                             <div class="info-quote-icon">
                                 <i class='fa fa-quote-left' style='font-size:14px'></i>
@@ -1238,6 +1282,10 @@
         xDown = null;
         yDown = null;
     };
+
+    changeLanguage = (language) => {
+        window.location = window.location.origin + '/' + language;
+    }
 </script>
 
 
