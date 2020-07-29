@@ -120,11 +120,12 @@ public class Application extends Controller {
             protocol = "https://";
         }
 
-        redirect( protocol + client + port + "/" + languageFromHeader + "/shopLanding", false);
+        redirect( protocol + client + port + "/" + languageFromHeader, false);
 
     }
 
     public static void index(String client, String language) {
+        System.out.println("client info " + client);
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -173,12 +174,17 @@ public class Application extends Controller {
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
-        System.out.println("DEBUG renderTemplate Application/shop.html");
 
+        if(client.equals("localhost")){
+            renderTemplate("app/views/shopLanding/shopLanding.html", language);
+        }
+
+        System.out.println("DEBUG renderTemplate Application/shop.html");
         renderTemplate("Application/shop.html", shop, products, language, categories);
     }
 
     public static void shop(String client, String language) {
+        System.out.println("client info " + client);
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -190,16 +196,45 @@ public class Application extends Controller {
             ip = xforwardedHeader.value();
         }
         String agent = request.headers.get("user-agent").value();
-        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened SHOP " + shop.shopName + " at " + dateFormat.format(date));
+        System.out.println("User with ip " + ip + " and user-agent " + agent + " opened shop " + shop.shopName + " at " + dateFormat.format(date));
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        System.out.println("language from params " + language);
+        System.out.println("languageFromHeader" + languageFromHeader);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
-        System.out.println("setLanguageForShop " + language);
+
+        if (shop.isTemporaryClosed) {
+            renderTemplate("Application/temporaryClosed.html", shop);
+        }
+        CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
+        if (coinAccount != null && coinAccount.balance < 0) {
+            renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
+        }
+        generateCookieIfNotPresent(shop);
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true).fetch();
+
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+
+        }
+        shop.pagesList = translationPageList;
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
+
+        for (ProductDTO product : products) {
+            product = Translation.setTranslationForProduct(language, product);
+            productList.add(product);
+        }
+        products = productList;
+
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
-        render(shop, pageList, language);
+
+        renderTemplate("Application/shop.html", shop, products, language, categories);
     }
 
     public static void footerShop(String client){
