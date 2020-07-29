@@ -175,7 +175,7 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        if(client.equals("americano.lviv.ua")){
+        if(client.equals("localhost")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 
@@ -233,7 +233,7 @@ public class Application extends Controller {
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
-
+        System.out.println("32/10 " + 32/10 + "32%10" +32%10);
         renderTemplate("Application/shop.html", shop, products, language, categories);
     }
 
