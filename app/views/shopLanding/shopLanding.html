@@ -190,6 +190,10 @@
     .header-nav a {
         display: inline-block;
     }
+    .header-nav .shop-link {
+        color: #b99f78;
+        font-weight: 600;
+    }
     a.nav-hover    {
         position: relative;
         text-decoration: none;
@@ -723,6 +727,15 @@
         flex: 0 1 20%;
         padding: 20px;
     }
+    .footer-item:nth-child(1) {
+        flex: 0 1 25%;
+    }
+    .footer-item:nth-child(2) {
+        margin-left: 20px;
+    }
+    .footer-item:nth-child(3) {
+        flex: 0 1 15%;
+    }
     .footer-item p {
         line-height: 2;
     }
@@ -739,6 +752,10 @@
     .footer-item h3 {
         font-size: 18px;
         font-weight: 600;
+    }
+    .footer-schedule span {
+        display: inline-block;
+        width: 38px;
     }
     .footer-icons-block {
         display: flex;
@@ -928,7 +945,7 @@
                 </div>
                 <div class="header-nav">
                     <a href="/" class="nav-hover animate__animated animate__fadeInUp">&{'mobile.sidebar.link.main.page'}</a>
-                    <a href="/${language}/shop" class="nav-hover animate__animated animate__fadeInUp">&{'landing.page.make.order.title'}</a>
+                    <a href="/${language}/shop" class="nav-hover shop-link animate__animated animate__fadeInUp">&{'landing.page.make.order.title'}</a>
                     <a  href="#footer-contact" class="nav-hover animate__animated animate__fadeInUp">&{'landing.page.contact.title'}</a>
                     <div class="select-lang">
                         <button class="dropbtn">${language}</button>
@@ -1166,15 +1183,15 @@
                     <h2>&{'landing.page.shop.name.title'}</h2>
                     <p>&{'landing.page.about.shop.cooking.from'}</p>
                 </div>
-                <div class="footer-item wow fadeInUp" data-wow-delay="0.2s">
+                <div class="footer-item footer-schedule wow fadeInUp" data-wow-delay="0.2s">
                     <h3>&{'footer.working.schedule.label'}</h3>
-                    <p>&{'footer.working.schedule.monday'} 11:00 - 21:45</p>
-                    <p>&{'footer.working.schedule.tuesday'} 11:00 - 21:45</p>
-                    <p>&{'footer.working.schedule.wednesday'} 11:00 - 21:45</p>
-                    <p>&{'footer.working.schedule.thursday'} 11:00 - 21:45</p>
-                    <p>&{'footer.working.schedule.friday'} 11:00 - 21:45</p>
-                    <p>&{'footer.working.schedule.saturday'} 12:00 - 21:45</p>
-                    <p>&{'footer.working.schedule.sunday'} 12:00 - 21:45</p>
+                    <p><span>&{'footer.working.schedule.monday'}</span>11:00 - 21:45</p>
+                    <p><span>&{'footer.working.schedule.tuesday'}</span>11:00 - 21:45</p>
+                    <p><span>&{'footer.working.schedule.wednesday'}</span>11:00 - 21:45</p>
+                    <p><span>&{'footer.working.schedule.thursday'}</span>11:00 - 21:45</p>
+                    <p><span>&{'footer.working.schedule.friday'}</span>11:00 - 21:45</p>
+                    <p><span>&{'footer.working.schedule.saturday'}</span>12:00 - 21:45</p>
+                    <p><span>&{'footer.working.schedule.sunday'}</span>12:00 - 21:45</p>
                 </div>
                 <div class="footer-item wow fadeInUp" data-wow-delay="0.3s">
                     <h3>&{'landing.page.about.shop.info'}</h3>
@@ -1188,13 +1205,13 @@
                 <div class="footer-item wow fadeInUp" data-wow-delay="0.4s">
                     <h3>&{'landing.page.about.shop.follow'}</h3>
                     <div class="footer-icons-block">
-                        <a href="" id="linkfacebook">
+                        <a href="https://www.facebook.com/americano.lviv/" id="linkfacebook">
                             <i class="fa fa-facebook" style="font-size:34px"></i>
                         </a>
-                        <a href="" id="linkinstagram">
+                        <a href="https://www.instagram.com/americano.lviv/?hl=uk" id="linkinstagram">
                             <i class="fa fa-instagram" style="font-size:36px"></i>
                         </a>
-                        <a href="" id="linkyoutube">
+                        <a href="https://www.youtube.com/watch?v=uaeLge1AXH8" id="linkyoutube">
                             <i class="fa fa-youtube-play" style="font-size:36px"></i>
                         </a>
                     </div>

@@ -175,7 +175,7 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        if(client.equals("localhost")){
+        if(client.equals("soprano.localhost")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 
