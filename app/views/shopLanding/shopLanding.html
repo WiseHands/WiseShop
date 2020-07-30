@@ -185,7 +185,13 @@
         color: #b99f78;
     }
     .header-nav {
+        display: flex;
+        align-items: baseline;
         margin-right: 100px;
+        line-height: 1;
+    }
+    .header-links {
+        line-height: 1;
     }
     .header-nav a {
         display: inline-block;
@@ -867,7 +873,10 @@
         }
     }
     @media screen and (max-width: 768px) {
-        .header-nav {
+        .header-row {
+            align-items: center;
+        }
+        .header-links {
             display: none;
         }
         .shop-stat-text-info {
@@ -944,10 +953,12 @@
                     <h2 class="animate__animated animate__fadeInLeft">&{'landing.page.shop.name.title'}</h2>
                 </div>
                 <div class="header-nav">
-                    <a href="/" class="nav-hover animate__animated animate__fadeInUp">&{'mobile.sidebar.link.main.page'}</a>
-                    <a href="/${language}/shop" class="nav-hover shop-link animate__animated animate__fadeInUp">&{'landing.page.make.order.title'}</a>
-                    <a  href="#footer-contact" class="nav-hover animate__animated animate__fadeInUp">&{'landing.page.contact.title'}</a>
-                    <div class="select-lang">
+                    <div class="header-links">
+                        <a href="/" class="nav-hover animate__animated animate__fadeInUp">&{'mobile.sidebar.link.main.page'}</a>
+                        <a href="/${language}/shop" class="nav-hover shop-link animate__animated animate__fadeInUp">&{'landing.page.make.order.title'}</a>
+                        <a  href="#footer-contact" class="nav-hover animate__animated animate__fadeInUp">&{'landing.page.contact.title'}</a>
+                    </div>
+                    <div class="select-lang animate__animated animate__fadeInUp">
                         <button class="dropbtn">${language}</button>
                         <div class="lang-list">
                             <a onclick="changeLanguage('en')" class="nav-hover">English</a>
