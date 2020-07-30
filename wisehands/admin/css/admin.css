@@ -2149,6 +2149,15 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
 }
 
+.admin-feedback-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.admin-feedback-list .admin-card {
+    flex: 0 1 46%;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
@@ -2219,6 +2228,11 @@ ul.admin-breadcrumb li a:hover {
     .product-feedback-text {
         margin-left: 65px;
     }
+
+    .admin-feedback-list .admin-card {
+        flex: 0 1 100%;
+    }
+
 
 }
 
