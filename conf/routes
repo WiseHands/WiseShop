@@ -279,6 +279,7 @@ PUT     {client}/api/translation/save                        TranslationBucketAP
 *       {client}/login                                  Application.login
 *       {client}/main                                   Application.main
 *       {client}/landing                                Application.landing
+#       {client}/{language}/shopLanding                 Application.shopLanding
 
 # remove /ua from below paths
 *       {client}/contract                               Application.uaContract
@@ -336,7 +337,7 @@ GET     {client}/page/{uuid}                 Application.pageOld
 GET     {client}/category/{uuid}             Application.categoryOld
 GET     {client}/product/{uuid}              Application.productOld
 
-
+GET     {client}/{language}                             Application.index
 GET     {client}/{language}/shop                        Application.shop
 GET     {client}/{language}/page/{uuid}                 Application.page
 GET     {client}/{language}/category/{uuid}             Application.category
@@ -345,7 +346,6 @@ GET     {client}/{language}/shoppingcart                Application.shoppingCart
 GET     {client}/{language}/products/all                Application.allProductsInShop
 GET     {client}/{language}/selectaddress               Application.selectAddress
 GET     {client}/{language}/shop/network                Application.shopNetworks
-GET     {client}/{language}                             Application.index
 
 
 # Catch all

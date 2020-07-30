@@ -5,7 +5,48 @@ button.find.label = Find
 button.next.label = Next
 button.back.label = Back
 title.add.product.to.basket.label = Add to basket
+
 # translation for pages
+
+#landing page for americano
+landing.page.shop.name.title = Americano
+landing.page.make.order.title = Order
+landing.page.contact.title = Contacts
+landing.page.about.shop.type = Restaurant & Cafe
+landing.page.about.shop.kitchen = American and Asian fusion cuisine
+landing.page.about.shop.cooking.from = We have the best burgers east of New York and the most delicious Peking duck west of Beijing! Come taste it!
+landing.page.about.shop.opened = Open to You since 2013
+landing.page.about.shop.make.cooking = We prepare a variety of American and Asian dishes under the careful supervision of Chef Li
+landing.page.about.shop.tasty.dish = Delicious food is a separate holiday in life
+landing.page.about.dish.for.all = In Americano - dishes for every taste
+landing.page.about.popular.dishes = The most popular dishes among our customers
+landing.page.about.shop.cooking.burgers = Burgers
+landing.page.about.shop.chinese.dishes = Chinese hot poultry dishes
+landing.page.about.shop.cooking.salads = Salads
+landing.page.about.shop.all.dishes = All dishes
+landing.page.about.shop.chill.space = Cozy space and delicious food
+landing.page.about.shop.all.space = Terrace, summer playground, main hall and for the holders of our card - VIP hall
+landing.page.about.shop.wooden.desks= tables
+landing.page.about.shop.summer.desks = tables of a summer place
+landing.page.about.shop.vip.desks = VIP-hall tables
+landing.page.about.shop.reserve.desks = Reserve
+landing.page.about.shop.what.eat = Tell me what you eat and I will tell you who you are
+landing.page.about.shop.feedback = Customer feedback
+landing.page.about.shop.customer.feedback.o.k = We tasted this wonderful dish today! Cafe "Americano", you, as always, are unsurpassed in cooking Chinese delicacies !!!))) The duck was just divine! Asparagus in crispy breadcrumbs - definitely a masterpiece! Chinese mushroom and seaweed salads are light and taste great! Well, a compliment from the chef - caramelized pancakes, which resembled a beautiful baklava - it was such a pleasant and unexpected surprise! Thank you very much for a wonderful evening! A low bow to talented chefs! 😍😍😍
+landing.page.about.shop.feedback.o.k = Oksana Kulish
+landing.page.about.shop.feedback.o.k.time = January 22, 2019
+landing.page.about.shop.customer.feedback.i.i = Were yesterday with my husband and child in Americano. Got my present, namely burgers, noodles and drinks) 😁 additionally ordered another burger, all dishes are just incredibly tasty😉, polite waiters. We liked it, we'll come again! P.S. son also appreciated your aquariums with turtles.
+landing.page.about.shop.feedback.i.i = Iruska Ivantsiv
+landing.page.about.shop.feedback.i.i.time = May 4, 2020
+landing.page.about.shop.info = Information
+landing.page.about.shop.payment = Payment
+landing.page.about.shop.delivery = Delivery
+landing.page.about.shop.return = Return
+landing.page.about.shop.about.us = About us
+landing.page.about.shop.public.contract = Public contract
+landing.page.about.shop.follow = Follow
+landing.page.about.shop.address = Lviv, Ostap Nyzhankivsky, 4
+
 # mobile-sidebar in tags
 mobile.sidebar.title.categories = Products
 mobile.sidebar.link.main.page = Main
