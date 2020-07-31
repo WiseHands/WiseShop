@@ -935,9 +935,9 @@
                     </div>
                 </a>
                 <div class="sidebar-panel">
-                    <a class="link" id="feLink" href="/">&{'mobile.sidebar.link.main.page'}</a>
-                    <a class="link" id="beLink" href="/${language}/shop">&{'landing.page.make.order.title'}</a>
-                    <a class="link" id="contactLink" href="#footer-contact">&{'landing.page.contact.title'}</a>
+                    <a class="link"  href="/">&{'mobile.sidebar.link.main.page'}</a>
+                    <a class="link"  href="/${language}/shop">&{'landing.page.make.order.title'}</a>
+                    <a class="link" id="sidebar-contact" href="#footer-contact">&{'landing.page.contact.title'}</a>
                 </div>
             </div>
         </div>
@@ -1246,6 +1246,13 @@
     function showMenu() {
         document.querySelector("#overlay-mobile").style.display = 'block';
         document.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
+    }
+
+    document.getElementById("sidebar-contact").addEventListener("click", hideSidebar);
+    document.getElementById("overlay-mobile").addEventListener("click", hideSidebar);
+
+    function hideSidebar() {
+        document.querySelector("#overlay-mobile").style.display = 'none';
     }
 
     function setDisplayNoneToSidebarOverlay() {
