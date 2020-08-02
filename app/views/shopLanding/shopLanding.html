@@ -285,6 +285,7 @@
         display: flex;
         flex-direction: column;
         max-width: 150px;
+        padding: 10px;
     }
     .sidebar-contact  p {
         font-family: 'Muli', sans-serif;
@@ -299,9 +300,20 @@
         justify-content: center;
         flex: 0 1 240px;
     }
-    .sidebar-email p, .sidebar-phone p {
+    .sidebar-email a, .sidebar-phone a {
         transform: rotate(-90deg);
         color: #20313b;
+        display: flex;
+        align-items: center;
+    }
+    .sidebar-email i, .sidebar-phone i {
+        padding-right: 5px;
+    }
+    .sidebar-email i {
+        font-size: 20px;
+    }
+    .sidebar-phone i {
+        font-size: 24px;
     }
     .sidebar-social {
         display: flex;
@@ -978,7 +990,7 @@
                     <div class="select-lang animate__animated animate__fadeInUp">
                         <button class="dropbtn">${language}</button>
                         <div class="lang-list">
-                            <a onclick="changeLanguage('en')" class="nav-hover">English</a>
+                            <a onclick="changeLanguage('en')" class="nav-hover">English<img src="../../../wisehands/services/images/united-kingdom-flag-icon-32.png" alt="image"></a>
                             <a onclick="changeLanguage('uk')" class="nav-hover">Українська</a>
                         </div>
                     </div>
@@ -989,11 +1001,13 @@
             <div class="sidebar-contact animate__animated animate__fadeInUp">
                 <div class="sidebar-email">
                     <a href="mailto:americano.ua@gmail.com">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
                         <p>americano.ua@gmail.com</p>
                     </a>
                 </div>
                 <div class="sidebar-phone">
                     <a href="tel:+380639331331">
+                        <i class="fa fa-mobile" aria-hidden="true"></i>
                         <p>+380639331331</p>
                     </a>
                 </div>
@@ -1337,6 +1351,7 @@
     changeLanguage = (language) => {
         window.location = window.location.origin + '/' + language;
     }
+
 </script>
 
 
