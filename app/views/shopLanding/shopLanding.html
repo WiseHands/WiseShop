@@ -1368,13 +1368,15 @@
     setFlagToLanguage = () => {
         const setFlag = document.querySelector('#set-flag');
         const languageInPathName = window.location.pathname;
-        if (languageInPathName === '/uk') {
+        const language = languageInPathName.slice(1)
+        if (language === 'uk') {
             setFlag.src = "../../../wisehands/services/images/icons8-ukraine-48.png";
         }
-        if (languageInPathName === '/en') {
+        if (language === 'en') {
             setFlag.src = "../../../wisehands/services/images/icons8-great-britain-48.png";
         }
     };
+    
     setFlagToLanguage();
 
 </script>
