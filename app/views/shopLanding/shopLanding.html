@@ -250,10 +250,16 @@
     .dropbtn {
         background-color: #fff;
         color: #20313b;
-        padding: 5px;
+        padding: 5px 5px 5px 15px;
         font-size: 16px;
         border: none;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    .dropbtn img {
+        width: 36px;
+        padding-left: 5px;
     }
     .lang-list {
         display: none;
@@ -993,7 +999,7 @@
                         <a  href="#footer-contact" class="nav-hover wow fadeInUp">&{'landing.page.contact.title'}</a>
                     </div>
                     <div class="select-lang wow fadeInUp">
-                        <button class="dropbtn">${language}</button>
+                        <button class="dropbtn">${language}<img src="" alt="flag" id="set-flag"></button>
                         <div class="lang-list">
                             <a onclick="changeLanguage('en')" class="nav-hover">English</a>
                             <a onclick="changeLanguage('uk')" class="nav-hover">Українська</a>
@@ -1357,7 +1363,19 @@
 
     changeLanguage = (language) => {
         window.location = window.location.origin + '/' + language;
-    }
+    };
+
+    setFlagToLanguage = () => {
+        const setFlag = document.querySelector('#set-flag');
+        const languageInPathName = window.location.pathname;
+        if (languageInPathName === '/uk') {
+            setFlag.src = "../../../wisehands/services/images/icons8-ukraine-48.png";
+        }
+        if (languageInPathName === '/en') {
+            setFlag.src = "../../../wisehands/services/images/icons8-great-britain-48.png";
+        }
+    };
+    setFlagToLanguage();
 
 </script>
 
