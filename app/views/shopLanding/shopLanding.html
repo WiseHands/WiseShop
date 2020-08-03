@@ -35,6 +35,8 @@
         /*font-family: 'Source Sans Pro', sans-serif;*/
         /*font-family: 'Muli', sans-serif;*/
         font-family: 'Nanum Gothic', sans-serif;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform : translate3d(0, 0, 0);
     }
     h1, h3 {
         font-family: 'Playfair Display', serif;
@@ -205,6 +207,9 @@
     }
     .header-links {
         line-height: 1;
+    }
+    .shop-link {
+        color: #b99f78;
     }
     .header-nav a {
         display: inline-block;
@@ -979,15 +984,15 @@
             </div>
             <div class="header-row">
                 <div class="header-store-name">
-                    <h2 class="animate__animated animate__fadeInLeft">&{'landing.page.shop.name.title'}</h2>
+                    <h2 class="wow fadeInLeft">&{'landing.page.shop.name.title'}</h2>
                 </div>
                 <div class="header-nav">
                     <div class="header-links">
-                        <a href="/" class="nav-hover animate__animated animate__fadeInUp">&{'mobile.sidebar.link.main.page'}</a>
-                        <a href="/${language}/shop" class="nav-hover shop-link animate__animated animate__fadeInUp">&{'landing.page.make.order.title'}</a>
-                        <a  href="#footer-contact" class="nav-hover animate__animated animate__fadeInUp">&{'landing.page.contact.title'}</a>
+                        <a href="/" class="nav-hover wow fadeInUp">&{'mobile.sidebar.link.main.page'}</a>
+                        <a href="/${language}/shop" class="nav-hover shop-link wow fadeInUp">&{'landing.page.make.order.title'}</a>
+                        <a  href="#footer-contact" class="nav-hover wow fadeInUp">&{'landing.page.contact.title'}</a>
                     </div>
-                    <div class="select-lang animate__animated animate__fadeInUp">
+                    <div class="select-lang wow fadeInUp">
                         <button class="dropbtn">${language}</button>
                         <div class="lang-list">
                             <a onclick="changeLanguage('en')" class="nav-hover">English</a>
@@ -998,7 +1003,7 @@
             </div>
         </header>
         <div class="main">
-            <div class="sidebar-contact animate__animated animate__fadeInUp">
+            <div class="sidebar-contact wow fadeInUp">
                 <div class="sidebar-email">
                     <a href="mailto:americano.ua@gmail.com">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -1028,19 +1033,21 @@
                     <div class="about-container ">
                         <div class="about-img">
                             <img class="animate__animated animate__fadeInBottomRight" src="../../../wisehands/services/images/americano2.jpg" alt="image">
-                            <div class="about-img-btn animate__animated  animate__zoomIn">
-                                <i class='fa fa-arrow-down'></i>
+                            <div class="about-img-btn wow zoomIn">
+                                <a href="/${language}/shop">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="about-text animate__animated animate__fadeInRight">
+                        <div class="about-text wow fadeInRight">
                             <p>&{'landing.page.about.shop.type'}</p>
                             <h1>&{'landing.page.about.shop.kitchen'}</h1>
                             <p>&{'landing.page.about.shop.cooking.from'}</p>
                         </div>
                     </div>
                 </section>
-                <section class="info animate__animated animate__fadeInUp">
-                    <div class="info-text animate__animated animate__fadeInUp">
+                <section class="info wow fadeInUp">
+                    <div class="info-text wow fadeInUp">
                         <h3>&{'landing.page.about.shop.opened'}</h3>
                         <p>&{'landing.page.about.shop.make.cooking'}</p>
                     </div>
@@ -1057,59 +1064,59 @@
             </div>
         </div>
         <section class="popular-products">
-            <div class="popular-products-text animate__animated ">
+            <div class="popular-products-text">
                 <h3 class="wow fadeInRight">&{'landing.page.about.dish.for.all'}</h3>
                 <p class="wow fadeInRight">&{'landing.page.about.popular.dishes'}</p>
             </div>
             <div class="popular-products-gallery">
                 <a href="https://americano.lviv.ua/uk/category/db608b985f648de3015fc9dfb2ec01b9">
-                    <div class="popular-products-gallery-item wow zoomIn" data-wow-delay="0.1s">
+                    <div class="popular-products-gallery-item wow zoomIn" >
                         <img src="../../../wisehands/services/images/prod3.jpg" alt="image">
                         <div class="gallery-image-overlay">
                             <div class="gallery-image-overlay-text">
                                 <p>&{'landing.page.about.shop.cooking.burgers'}</p>
                             </div>
                         </div>
-                        <div class="pop-prod-btn animate__animated animate__zoomIn">
+                        <div class="pop-prod-btn wow zoomIn">
                             <i class='fa fa-arrow-right'></i>
                         </div>
                     </div>
                 </a>
                 <a href="https://americano.lviv.ua/uk/category/db608b985fd0c031015fef2abae700d5">
-                    <div class="popular-products-gallery-item wow zoomIn" data-wow-delay="0.3s">
+                    <div class="popular-products-gallery-item wow zoomIn" >
                         <img src="../../../wisehands/services/images/prod1.jpg" alt="image">
                         <div class="gallery-image-overlay">
                             <div class="gallery-image-overlay-text">
                                 <p>&{'landing.page.about.shop.chinese.dishes'}</p>
                             </div>
                         </div>
-                        <div class="pop-prod-btn animate__animated animate__zoomIn">
+                        <div class="pop-prod-btn wow zoomIn">
                             <i class='fa fa-arrow-right'></i>
                         </div>
                     </div>
                 </a>
                 <a href="https://americano.lviv.ua/uk/category/db608b985fd0c0310160369432b102c8">
-                    <div class="popular-products-gallery-item wow zoomIn" data-wow-delay="0.2s">
+                    <div class="popular-products-gallery-item wow zoomIn" >
                         <img src="../../../wisehands/services/images/prod2.jpg" alt="image">
                         <div class="gallery-image-overlay">
                             <div class="gallery-image-overlay-text">
                                 <p>&{'landing.page.about.shop.cooking.salads'}</p>
                             </div>
                         </div>
-                        <div class="pop-prod-btn animate__animated animate__zoomIn">
+                        <div class="pop-prod-btn  wow zoomIn">
                             <i class='fa fa-arrow-right'></i>
                         </div>
                     </div>
                 </a>
                 <a href="https://americano.lviv.ua/uk">
-                    <div class="popular-products-gallery-item wow zoomIn" data-wow-delay="0.4s">
+                    <div class="popular-products-gallery-item wow zoomIn" >
                         <img src="../../../wisehands/services/images/prod4.jpg" alt="image">
                         <div class="gallery-image-overlay">
                             <div class="gallery-image-overlay-text">
                                 <p>&{'landing.page.about.shop.all.dishes'}</p>
                             </div>
                         </div>
-                        <div class="pop-prod-btn animate__animated animate__zoomIn">
+                        <div class="pop-prod-btn wow zoomIn">
                             <i class='fa fa-arrow-right'></i>
                         </div>
                     </div>
@@ -1131,15 +1138,15 @@
                     <h3 class="wow fadeInRight">&{'landing.page.about.shop.chill.space'}</h3>
                     <p class="wow fadeInRight">&{'landing.page.about.shop.all.space'}</p>
                     <div class="shop-stat-text-info">
-                        <div class="shop-stat-text-info-item wow fadeInRight" data-wow-delay="0.1s">
+                        <div class="shop-stat-text-info-item wow fadeInRight">
                             <h4>13</h4>
                             <p>&{'landing.page.about.shop.wooden.desks'}</p>
                         </div>
-                        <div class="shop-stat-text-info-item wow fadeInRight" data-wow-delay="0.2s">
+                        <div class="shop-stat-text-info-item wow fadeInRight">
                             <h4>6</h4>
                             <p>&{'landing.page.about.shop.summer.desks'}</p>
                         </div>
-                        <div class="shop-stat-text-info-item wow fadeInRight" data-wow-delay="0.3s">
+                        <div class="shop-stat-text-info-item wow fadeInRight">
                             <h4>5</h4>
                             <p>&{'landing.page.about.shop.vip.desks'}</p>
                         </div>
@@ -1151,19 +1158,19 @@
             </div>
             <div class="shop-gallery">
                 <div class="shop-gallery-item1">
-                    <div class="shop-gallery-item1-image wow zoomIn" data-wow-delay="0.1s">
+                    <div class="shop-gallery-item1-image wow zoomIn">
                         <img src="../wisehands/services/images/americano7.jpg" alt="image">
                     </div>
-                    <div class="shop-gallery-item1-image wow zoomIn" data-wow-delay="0.2s">
+                    <div class="shop-gallery-item1-image wow zoomIn">
                         <img src="../wisehands/services/images/americano4.jpg" alt="image">
                     </div>
                     <div class="shop-gallery-decor-lines"></div>
                 </div>
-                <div class="shop-gallery-item2 wow zoomIn" data-wow-delay="0.3s">
+                <div class="shop-gallery-item2 wow zoomIn">
                     <img src="../wisehands/services/images/americano6.jpg" alt="image">
                 </div>
                 <div class="shop-gallery-item3">
-                    <img class="wow zoomIn" data-wow-delay="0.4s" src="../wisehands/services/images/americano5.jpg" alt="image">
+                    <img class="wow zoomIn" src="../wisehands/services/images/americano5.jpg" alt="image">
                     <div class="info-quote wow zoomIn">
                         <div class="info-quote-icon">
                             <i class='fa fa-quote-left' style='font-size:14px'></i>
@@ -1187,11 +1194,11 @@
                     <div class="lines"></div>
                     <div class="lines"></div>
                 </div>
-                <div class="review-item review1 wow fadeInRight" data-wow-delay="0.1s">
+                <div class="review-item review1 wow fadeInRight">
                     <div class="info-quote-icon">
                         <i class='fa fa-quote-left' style='font-size:14px'></i>
                     </div>
-                    <div class="review-item-text wow fadeInRight" data-wow-delay="0.3s">
+                    <div class="review-item-text wow fadeInRight">
                         <p>&{'landing.page.about.shop.customer.feedback.o.k'}</p>
                     </div>
                     <div class="review-item-author">
@@ -1202,11 +1209,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="review-item review2 wow fadeInRight" data-wow-delay="0.2s">
+                <div class="review-item review2 wow fadeInRight">
                     <div class="info-quote-icon">
                         <i class='fa fa-quote-left' style='font-size:14px'></i>
                     </div>
-                    <div class="review-item-text wow fadeInRight" data-wow-delay="0.4s">
+                    <div class="review-item-text wow fadeInRight">
                         <p>&{'landing.page.about.shop.customer.feedback.i.i'}</p>
                     </div>
                     <div class="review-item-author">
