@@ -200,7 +200,7 @@
     }
     .header-nav {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         margin-right: 100px;
         line-height: 1;
         z-index: 500;
@@ -250,7 +250,7 @@
     .dropbtn {
         background-color: #fff;
         color: #20313b;
-        padding: 5px 5px 5px 15px;
+        padding: 5px;
         font-size: 16px;
         border: none;
         cursor: pointer;
@@ -258,22 +258,21 @@
         align-items: center;
     }
     .dropbtn img {
-        width: 36px;
-        padding-left: 5px;
+        width: 32px;
     }
     .lang-list {
         display: none;
         position: absolute;
         background-color: #fff;
-        min-width: 110px;
+        min-width: 120px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         right: 0.5rem;
     }
     .lang-list a {
         color: 20313b;
-        padding: 12px 16px;
+        padding: 12px 8px;
         text-decoration: none;
-        display: block;
+        display: flex;
         cursor: pointer;
     }
     .lang-list a:hover {
@@ -284,6 +283,10 @@
     }
     .lang-list a.nav-hover    {
         margin: 0;
+    }
+    .lang-list img {
+        width: 16px;
+        margin-right: 5px;
     }
     .main {
         display: flex;
@@ -763,7 +766,6 @@
         display: flex;
         justify-content: space-between;
         color: #20313b;
-
     }
     .footer-item {
         flex: 0 1 20%;
@@ -795,9 +797,14 @@
         font-size: 18px;
         font-weight: 600;
     }
+    .schedule-item {
+        display: flex;
+        align-items: center;
+    }
     .footer-schedule span {
         display: inline-block;
         width: 38px;
+        padding-right: 5px;
     }
     .footer-icons-block {
         display: flex;
@@ -807,6 +814,8 @@
         color: #20313b;
         padding-right: 15px;
         text-decoration: none;
+        height: 32px;
+        display: flex;
     }
     .footer-phone {
         display: flex;
@@ -955,6 +964,9 @@
         .review-item {
             padding: 40px 20px;
         }
+        .footer-item:nth-child(2) {
+            margin-left: 0;
+        }
     }
 
 </style>
@@ -999,10 +1011,10 @@
                         <a  href="#footer-contact" class="nav-hover wow fadeInUp">&{'landing.page.contact.title'}</a>
                     </div>
                     <div class="select-lang wow fadeInUp">
-                        <button class="dropbtn">${language}<img src="" alt="flag" id="set-flag"></button>
+                        <button class="dropbtn"><img src="" alt="flag" id="set-flag"></button>
                         <div class="lang-list">
-                            <a onclick="changeLanguage('en')" class="nav-hover">English</a>
-                            <a onclick="changeLanguage('uk')" class="nav-hover">Українська</a>
+                            <a onclick="changeLanguage('en')" class="nav-hover"><img src = "../../../wisehands/services/images/icons8-great-britain-48.png" alt="flag">English</a>
+                            <a onclick="changeLanguage('uk')" class="nav-hover"><img src = "../../../wisehands/services/images/icons8-ukraine-48.png" alt="flag">Українська</a>
                         </div>
                     </div>
                 </div>
@@ -1240,22 +1252,48 @@
                 </div>
                 <div class="footer-item footer-schedule wow fadeInUp" data-wow-delay="0.2s">
                     <h3>&{'footer.working.schedule.label'}</h3>
-                    <p><span>&{'footer.working.schedule.monday'}</span>11:00 - 21:45</p>
-                    <p><span>&{'footer.working.schedule.tuesday'}</span>11:00 - 21:45</p>
-                    <p><span>&{'footer.working.schedule.wednesday'}</span>11:00 - 21:45</p>
-                    <p><span>&{'footer.working.schedule.thursday'}</span>11:00 - 21:45</p>
-                    <p><span>&{'footer.working.schedule.friday'}</span>11:00 - 21:45</p>
-                    <p><span>&{'footer.working.schedule.saturday'}</span>12:00 - 21:45</p>
-                    <p><span>&{'footer.working.schedule.sunday'}</span>12:00 - 21:45</p>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.monday'}</span><p id="mon"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.tuesday'}</span><p id="tue"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.wednesday'}</span><p id="wed"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.thursday'}</span><p id="thu"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.friday'}</span><p id="fri"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.saturday'}</span><p id="sat"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.sunday'}</span><p id="sun"></p>
+                    </div>
                 </div>
                 <div class="footer-item wow fadeInUp" data-wow-delay="0.3s">
                     <h3>&{'landing.page.about.shop.info'}</h3>
-                    <p>&{'landing.page.about.shop.payment'}</p>
-                    <p>&{'landing.page.about.shop.delivery'}</p>
-                    <p>&{'landing.page.about.shop.return'}</p>
-                    <p>&{'landing.page.contact.title'}</p>
-                    <p>&{'landing.page.about.shop.about.us'}</p>
-                    <p>&{'landing.page.about.shop.public.contract'}</p>
+                    <a id="link" href="">
+                        <p id="page"></p>
+                    </a>
+                    <a id="link1" href="">
+                        <p id="page1"></p>
+                    </a>
+                    <a  id="link2" href="">
+                        <p id="page2"></p>
+                    </a>
+                    <a id="link3" href="">
+                        <p id="page3"></p>
+                    </a>
+                    <a id="link4" href="">
+                        <p id="page4"></p>
+                    </a>
+                    <a id="link5" href="">
+                        <p id="page5"></p>
+                    </a>
                 </div>
                 <div class="footer-item wow fadeInUp" data-wow-delay="0.4s">
                     <h3>&{'landing.page.about.shop.follow'}</h3>
@@ -1378,6 +1416,93 @@
     };
     
     setFlagToLanguage();
+
+    fetch('/pageconstructor', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        const language = document.querySelector('footer').getAttribute('language');
+        document.getElementById("page").innerHTML = setTranslation(data[0]);
+        document.getElementById("page1").innerHTML = setTranslation(data[1]);
+        document.getElementById("page2").innerHTML = setTranslation(data[2]);
+        document.getElementById("page3").innerHTML = setTranslation(data[3]);
+        document.getElementById("page4").innerHTML = setTranslation(data[4]);
+        document.getElementById("page5").innerHTML = setTranslation(data[5]);
+
+        document.getElementById("link").href = '/'+ language + data[0].url + data[0].uuid;
+        document.getElementById("link1").href = '/'+ language + data[1].url + data[1].uuid;
+        document.getElementById("link2").href = '/'+ language + data[2].url + data[2].uuid;
+        document.getElementById("link3").href = '/'+ language + data[3].url + data[3].uuid;
+        document.getElementById("link4").href = '/'+ language + data[4].url + data[4].uuid;
+        document.getElementById("link5").href = '/'+ language + data[5].url + data[5].uuid;
+    });
+
+    function setTranslation(data){
+        let label = '';
+        const language = document.querySelector('html').getAttribute('language');
+        console.log('language' , language  );
+        if (data.pageTitleTextTranslationBucket){
+            const bucketList = data.pageTitleTextTranslationBucket.translationList;
+            bucketList.forEach(function(item){
+                if(item.language === language){
+                    label = item.content
+                }
+            });
+        } else {
+            label = data.title;
+        }
+        return label;
+    }
+
+    fetch('/shop/details/public', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        if (data.monOpen === true) {
+            document.getElementById('mon').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('mon').innerHTML = data.monStartTime + " - " + data.monEndTime;
+        }
+        if (data.tueOpen === true) {
+            document.getElementById('tue').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('tue').innerHTML = data.tueStartTime + " - " + data.tueEndTime;
+        }
+        if (data.wedOpen === true) {
+            document.getElementById('wed').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('wed').innerHTML = data.wedStartTime + " - " + data.wedEndTime;
+        }
+        if (data.thuOpen === true) {
+            document.getElementById('thu').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('thu').innerHTML = data.thuStartTime + " - " + data.thuEndTime;
+        }
+        if (data.friOpen === true) {
+            document.getElementById('fri').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('fri').innerHTML = data.friStartTime + " - " + data.friEndTime;
+        }
+        if (data.satOpen === true) {
+            document.getElementById('sat').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('sat').innerHTML = data.satStartTime + " - " + data.satEndTime;
+        }
+        if (data.sunOpen === true) {
+            document.getElementById('sun').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('sun').innerHTML = data.sunStartTime + " - " + data.sunEndTime;
+        }
+    });
+
 
 </script>
 
