@@ -1,0 +1,42 @@
+{
+  "entrypoint": "src\\index.html",
+  "shell": "src\\wise-shopping-cart-container.js",
+  "fragments": [],
+  "sources": [
+    "package.json",
+    "images/**/*",
+    "src/index.html",
+    "src/wise-shopping-cart-container.js"
+  ],
+  "extraDependencies": [
+    "bower_components/webcomponentsjs/*.js",
+    "node_modules/@webcomponents/webcomponentsjs/*.js",
+    "node_modules/@webcomponents/webcomponentsjs/bundles/**"
+  ],
+  "builds": [
+    {
+      "name": "es5-bundled",
+      "js": {
+        "minify": true,
+        "compile": "es5",
+        "transformModulesToAmd": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "bundle": true,
+      "addServiceWorker": true,
+      "addPushManifest": false,
+      "preset": "es5-bundled"
+    }
+  ],
+  "lint": {
+    "rules": [
+      "polymer-3"
+    ]
+  },
+  "moduleResolution": "node"
+}
