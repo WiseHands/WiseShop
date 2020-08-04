@@ -9,6 +9,7 @@ title.add.product.to.basket.label = Add to basket
 # translation for pages
 
 #landing page for americano
+landing.page.shop.title = Restaurant & Cafe "Americano"
 landing.page.shop.name.title = Americano
 landing.page.make.order.title = Order
 landing.page.contact.title = Contacts
