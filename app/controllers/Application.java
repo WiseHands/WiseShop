@@ -175,7 +175,7 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        if(client.equals("americano.lviv.ua")){
+        if(client.equals("localhost")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 
@@ -701,7 +701,9 @@ public class Application extends Controller {
     public static void hireAndroidDevelopers(String client){
         renderTemplate("WiseHands/Services/hireAndroidDevelopers.html");
     }
-    public static void shopLanding(String client){
-        renderTemplate("app/views/shopLanding/shopLanding.html");
+    public static void shopLanding(){
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        renderTemplate("app/views/shopLanding/shopLanding.html", language);
     }
 }
