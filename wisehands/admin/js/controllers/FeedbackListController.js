@@ -6,79 +6,97 @@ angular.module('WiseHands')
       window.history.back();
     };
 
+
     $http({
       method: 'GET',
-      url: `/api/feedback/full/list `
+      url: `/sudo/orders`
     })
       .then(response => {
        $scope.loading = false;
        const feedbackList = response.data;
        console.log(feedbackList);
-       parseProductData(feedbackList);
+//       parseProductData(feedbackList);
+    }, error => {
+            $scope.loading = false;
+            console.log(error);
+    });
 
-      }, error => {
-        $scope.loading = false;
-        console.log(error);
-      });
 
-    function parseProductData(feedbackList) {
-       feedbackList.map(item => {
-          item.parsedFeedbackTime = moment(item.feedbackTime).format('DD MMMM YYYY HH:mm:ss');
-          return item;
-       })
-      $scope.feedbackList = feedbackList;
-    }
 
-    $scope.sortByProperty = 'feedbackTime';
-    $scope.reverse = true;
-    $scope.sortBy = sortByProperty => {
-      $scope.reverse = ($scope.sortByProperty === sortByProperty) ? !$scope.reverse : false;
-      $scope.sortByProperty = sortByProperty;
-    };
 
-    $scope.showOrHideFeedback = event => {
-      const review = event.review;
-      const url = review.showReview ? `/api/feedback/hide/${review.uuid}` : `/api/feedback/show/${review.uuid}`;
-      sendParamsToFeedbackAPI(url, review);
-    };
-
-    $scope.setFeedbackItemContext = event => $scope.clickedFeedbackItem = event;
-
-    $scope.saveComment = () => {
-      $('#sendReply').modal('hide');
-      const review = $scope.clickedFeedbackItem.review;
-      const uuid = review.uuid;
-      const customerName = review.customerName;
-      const customerMail = review.customerMail;
-      const comment = review.feedbackComment.comment || '';
-      const bodyParams = {
-        feedbackUuid: uuid,
-        comment: comment,
-        productUuid: $routeParams.uuid,
-        customerName: customerName,
-        customerMail: customerMail
-      };
-      const url = `/api/comment/save`;
-      sendParamsToCommentFeedbackAPI(url, bodyParams);
-    };
-
-    function sendParamsToCommentFeedbackAPI(url, bodyParams) {
-      $http({
-        method: 'POST',
-        url: url,
-        data: bodyParams
-      }).then(response => {
-        const data = response.data;
-        const clickedItem = $scope.product.feedbackList.find(item => item.uuid === data.uuid);
-        clickedItem.showReview = data.showReview;
-      })
-    }
-
-    function sendParamsToFeedbackAPI(url, review) {
-      $http({
-        method: 'PUT',
-        url: url
-      }).then(response => review.showReview = response.data.showReview)
-    }
+//    $http({
+//      method: 'GET',
+//      url: `/api/feedback/full/list `
+//    })
+//      .then(response => {
+//       $scope.loading = false;
+//       const feedbackList = response.data;
+//       console.log(feedbackList);
+//       parseProductData(feedbackList);
+//
+//      }, error => {
+//        $scope.loading = false;
+//        console.log(error);
+//      });
+//
+//    function parseProductData(feedbackList) {
+//       feedbackList.map(item => {
+//          item.parsedFeedbackTime = moment(item.feedbackTime).format('DD MMMM YYYY HH:mm:ss');
+//          return item;
+//       })
+//      $scope.feedbackList = feedbackList;
+//    }
+//
+//    $scope.sortByProperty = 'feedbackTime';
+//    $scope.reverse = true;
+//    $scope.sortBy = sortByProperty => {
+//      $scope.reverse = ($scope.sortByProperty === sortByProperty) ? !$scope.reverse : false;
+//      $scope.sortByProperty = sortByProperty;
+//    };
+//
+//    $scope.showOrHideFeedback = event => {
+//      const review = event.review;
+//      const url = review.showReview ? `/api/feedback/hide/${review.uuid}` : `/api/feedback/show/${review.uuid}`;
+//      sendParamsToFeedbackAPI(url, review);
+//    };
+//
+//    $scope.setFeedbackItemContext = event => $scope.clickedFeedbackItem = event;
+//
+//    $scope.saveComment = () => {
+//      $('#sendReply').modal('hide');
+//      const review = $scope.clickedFeedbackItem.review;
+//      const uuid = review.uuid;
+//      const customerName = review.customerName;
+//      const customerMail = review.customerMail;
+//      const comment = review.feedbackComment.comment || '';
+//      const bodyParams = {
+//        feedbackUuid: uuid,
+//        comment: comment,
+//        productUuid: $routeParams.uuid,
+//        customerName: customerName,
+//        customerMail: customerMail
+//      };
+//      const url = `/api/comment/save`;
+//      sendParamsToCommentFeedbackAPI(url, bodyParams);
+//    };
+//
+//    function sendParamsToCommentFeedbackAPI(url, bodyParams) {
+//      $http({
+//        method: 'POST',
+//        url: url,
+//        data: bodyParams
+//      }).then(response => {
+//        const data = response.data;
+//        const clickedItem = $scope.product.feedbackList.find(item => item.uuid === data.uuid);
+//        clickedItem.showReview = data.showReview;
+//      })
+//    }
+//
+//    function sendParamsToFeedbackAPI(url, review) {
+//      $http({
+//        method: 'PUT',
+//        url: url
+//      }).then(response => review.showReview = response.data.showReview)
+//    }
 
   }]);

@@ -304,7 +304,6 @@ public class OrderAPI extends AuthController {
 
     public static void all(String client) throws Exception {
         checkSudoAuthentification();
-
         List<OrderDTO> orders = OrderDTO.findAll();
         renderJSON(json(orders));
     }
