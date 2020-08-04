@@ -1314,11 +1314,11 @@
                 </div>
                 <div class="footer-item wow fadeInUp" id="footer-contact" data-wow-delay="0.5s">
                     <h3>&{'landing.page.contact.title'}</h3>
-                    <a href="mailto:americano.ua@gmail.com"><p>americano.ua@gmail.com</p></a>
-                    <a><p>&{'landing.page.about.shop.address'}</p></a>
+                    <a href="mailto:americano.ua@gmail.com"><p id="email"></p></a>
+                    <a><p id="address"></p></a>
                     <a href="tel:+380630386173" class="footer-phone">
                         <i class="fa fa-mobile-phone" style="font-size:2.3rem"></i>
-                        <p>+380 93 92 41 777 </p>
+                        <p id="phone">+</p>
                     </a>
                 </div>
             </div>
@@ -1506,6 +1506,53 @@
         }
     });
 
+    fetch('/contact/details', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        document.querySelector('#email').innerHTML = data.email;
+        document.querySelector('#phone').innerHTML = data.phone;
+        document.querySelector('#address').innerHTML = setTranslationForAddress(data)
+    });
+
+    function setTranslationForAddress(data){
+        console.log('setTranslationForAddress', data);
+        const language = document.querySelector('html').getAttribute('language');
+
+        let addressCity = '';
+        let addressStreet = '';
+        if (data.addressCityTextTranslationBucket){
+            const bucketList = data.addressCityTextTranslationBucket.translationList
+            bucketList.forEach(function(item){
+                if(item.language === language){
+                    addressCity = item.content
+                    if (addressCity === ''){
+                      addressCity = data.addressCity;
+                    }
+                }
+            });
+        } else {
+            addressCity = data.addressCity;
+        }
+        if (data.addressStreetTextTranslationBucket){
+            const bucketList = data.addressStreetTextTranslationBucket.translationList
+            bucketList.forEach(function(item){
+                if(item.language === language){
+                    addressStreet = item.content
+                    if (addressStreet === ''){
+                      addressStreet = data.addressStreet;
+                    }
+                }
+            });
+        } else {
+            addressStreet = data.addressStreet;
+        }
+        return addressCity + ', ' + addressStreet + ', ' + data.addressNumberHouse;
+    }
 
 </script>
 
