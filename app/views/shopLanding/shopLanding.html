@@ -921,6 +921,9 @@
         .footer-item {
             flex: 0 1 50%;
         }
+        .footer-item:nth-child(5) {
+            flex: 0 1 100%;
+        }
     }
     @media screen and (max-width: 768px) {
         .header-row {
@@ -1000,8 +1003,8 @@
             </div>
         </div>
         <header>
-            <div class="header-menu animate__animated  animate__slideInLeft">
-                <div class="menu-icon" id="mobile-menu">
+            <div class="header-menu animate__animated  animate__slideInLeft" id="mobile-menu">
+                <div class="menu-icon" >
                     <div></div>
                     <div></div>
                     <div></div>
@@ -1057,14 +1060,14 @@
                 <section class="about">
                     <div class="about-container ">
                         <div class="about-img">
-                            <img class="animate__animated animate__fadeInBottomRight" src="../../../wisehands/services/images/americano2.jpg" alt="image">
+                            <img class="wow fadeInUp" src="../../../wisehands/services/images/americano2.jpg" alt="image">
                             <div class="about-img-btn wow zoomIn">
                                 <a href="/${language}/shop">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
-                        <div class="about-text wow fadeInRight">
+                        <div class="about-text wow fadeInUp">
                             <p>&{'landing.page.about.shop.type'}</p>
                             <h1>&{'landing.page.about.shop.kitchen'}</h1>
                             <p>&{'landing.page.about.shop.cooking.from'}</p>
@@ -1072,13 +1075,13 @@
                     </div>
                 </section>
                 <section class="info wow fadeInUp">
-                    <div class="info-text wow fadeInUp">
+                    <div class="info-text ">
                         <h3>&{'landing.page.about.shop.opened'}</h3>
                         <p>&{'landing.page.about.shop.make.cooking'}</p>
                     </div>
                     <div class="info-img">
                         <img src="../../../wisehands/services/images/americano8.jpg" alt="image">
-                        <div class="info-quote wow zoomIn">
+                        <div class="info-quote ">
                             <div class="info-quote-icon">
                                 <i class='fa fa-quote-left' style='font-size:14px'></i>
                             </div>
@@ -1090,11 +1093,11 @@
         </div>
         <section class="popular-products">
             <div class="popular-products-text">
-                <h3 class="wow fadeInRight">&{'landing.page.about.dish.for.all'}</h3>
-                <p class="wow fadeInRight">&{'landing.page.about.popular.dishes'}</p>
+                <h3 class="wow fadeInUp">&{'landing.page.about.dish.for.all'}</h3>
+                <p class="wow fadeInUp">&{'landing.page.about.popular.dishes'}</p>
             </div>
             <div class="popular-products-gallery">
-                <a href="https://americano.lviv.ua/uk/category/db608b985f648de3015fc9dfb2ec01b9">
+                <a href="/${language}/category/db608b985f648de3015fc9dfb2ec01b9">
                     <div class="popular-products-gallery-item wow zoomIn" >
                         <img src="../../../wisehands/services/images/prod3.jpg" alt="image">
                         <div class="gallery-image-overlay">
@@ -1107,7 +1110,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="https://americano.lviv.ua/uk/category/db608b985fd0c031015fef2abae700d5">
+                <a href="/${language}/category/db608b985fd0c031015fef2abae700d5">
                     <div class="popular-products-gallery-item wow zoomIn" >
                         <img src="../../../wisehands/services/images/prod1.jpg" alt="image">
                         <div class="gallery-image-overlay">
@@ -1120,7 +1123,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="https://americano.lviv.ua/uk/category/db608b985fd0c0310160369432b102c8">
+                <a href="/${language}/category/db608b985fd0c0310160369432b102c8">
                     <div class="popular-products-gallery-item wow zoomIn" >
                         <img src="../../../wisehands/services/images/prod2.jpg" alt="image">
                         <div class="gallery-image-overlay">
@@ -1133,7 +1136,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="https://americano.lviv.ua/uk">
+                <a href="/${language}/shop">
                     <div class="popular-products-gallery-item wow zoomIn" >
                         <img src="../../../wisehands/services/images/prod4.jpg" alt="image">
                         <div class="gallery-image-overlay">
@@ -1150,34 +1153,34 @@
         </section>
         <section class="shop-benefits">
             <div class="shop-stat">
-                <div class="shop-stat-img">
+                <div class="shop-stat-img wow  fadeInUp">
                     <div class="shop-stat-bg-block"></div>
-                    <div class="shop-stat-img-block wow  fadeInLeft">
+                    <div class="shop-stat-img-block ">
                         <img src="../../../wisehands/services/images/americano3.jpg" alt="image">
                         <!--<video src="../wisehands/services/images/americano.mp4" width="600px" height="600px" controls></video>-->
                         <!--<iframe src="https://www.facebook.com/americano.lviv/videos/912997852428020"></iframe>-->
                         <div class="decor-lines"></div>
                     </div>
                 </div>
-                <div class="shop-stat-text">
-                    <h3 class="wow fadeInRight">&{'landing.page.about.shop.chill.space'}</h3>
-                    <p class="wow fadeInRight">&{'landing.page.about.shop.all.space'}</p>
-                    <div class="shop-stat-text-info">
-                        <div class="shop-stat-text-info-item wow fadeInRight">
+                <div class="shop-stat-text wow fadeInUp">
+                    <h3>&{'landing.page.about.shop.chill.space'}</h3>
+                    <p>&{'landing.page.about.shop.all.space'}</p>
+                    <div class="shop-stat-text-info wow fadeInUp">
+                        <div class="shop-stat-text-info-item">
                             <h4>13</h4>
                             <p>&{'landing.page.about.shop.wooden.desks'}</p>
                         </div>
-                        <div class="shop-stat-text-info-item wow fadeInRight">
+                        <div class="shop-stat-text-info-item">
                             <h4>6</h4>
                             <p>&{'landing.page.about.shop.summer.desks'}</p>
                         </div>
-                        <div class="shop-stat-text-info-item wow fadeInRight">
+                        <div class="shop-stat-text-info-item">
                             <h4>5</h4>
                             <p>&{'landing.page.about.shop.vip.desks'}</p>
                         </div>
                     </div>
                     <a href="tel:+380639331331">
-                        <p class="link-to-shop wow fadeInRight">&{'landing.page.about.shop.reserve.desks'}</p>
+                        <p class="link-to-shop">&{'landing.page.about.shop.reserve.desks'}</p>
                     </a>
                 </div>
             </div>
@@ -1219,11 +1222,11 @@
                     <div class="lines"></div>
                     <div class="lines"></div>
                 </div>
-                <div class="review-item review1 wow fadeInRight">
+                <div class="review-item review1 wow fadeInUp">
                     <div class="info-quote-icon">
                         <i class='fa fa-quote-left' style='font-size:14px'></i>
                     </div>
-                    <div class="review-item-text wow fadeInRight">
+                    <div class="review-item-text">
                         <p>&{'landing.page.about.shop.customer.feedback.o.k'}</p>
                     </div>
                     <div class="review-item-author">
@@ -1234,11 +1237,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="review-item review2 wow fadeInRight">
+                <div class="review-item review2 wow fadeInUp">
                     <div class="info-quote-icon">
                         <i class='fa fa-quote-left' style='font-size:14px'></i>
                     </div>
-                    <div class="review-item-text wow fadeInRight">
+                    <div class="review-item-text">
                         <p>&{'landing.page.about.shop.customer.feedback.i.i'}</p>
                     </div>
                     <div class="review-item-author">
