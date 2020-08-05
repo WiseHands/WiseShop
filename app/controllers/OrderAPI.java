@@ -107,7 +107,8 @@ public class OrderAPI extends AuthController {
         return result;
     }
 
-    public static void create(String client) throws Exception {
+    public static void create(String client, String chosenLanguage) throws Exception {
+        System.out.println("chosenLanguage => " + chosenLanguage);
         ShopDTO shop = _getShop(client);
         _applyLocale(shop);
 
@@ -118,19 +119,20 @@ public class OrderAPI extends AuthController {
         String ip = _getUserIp();
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
-        String language = "";
+        String clientLanguage = "";
         if (acceptLanguage != null){
             String acceptLanguageValue = acceptLanguage.value();
             List<Locale.LanguageRange> languageList = Locale.LanguageRange.parse(acceptLanguageValue);
 
             String languageFromAccept = languageList.get(0).getRange();
             String[] strings = languageFromAccept.split("-");
-            language = strings[0];
+            clientLanguage = strings[0];
 
         }
 
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
-        order.clientLanguage = language;
+        order.clientLanguage = clientLanguage;
+        order.chosenClientLanguage = chosenLanguage;
 
         OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
         order.items = orderItemListResult.orderItemList;
@@ -387,9 +389,12 @@ public class OrderAPI extends AuthController {
         order.feedbackRequestState = FeedbackRequestState.PENDING_REQUEST;
         order.save();
 
+        Lang.change(order.clientLanguage);
+        System.out.println("order.clientLanguage => "+ order.clientLanguage);
+        String titleForMail = Messages.get("feedback.email.notification.to.client.leave.feedback", shop.shopName, order.name);
+
         try {
-            mailSender.sendEmailForFeedbackToOrder(shop, order,
-                    Messages.get("feedback.email.notification.to.client.leave.feedback", shop.shopName, order.name), order.clientLanguage);
+            mailSender.sendEmailForFeedbackToOrder(shop, order, titleForMail , order.clientLanguage);
             JsonResponse jsonHandle = new JsonResponse(420, "feedback was sent");
             renderJSON(json(jsonHandle));
         } catch (Exception e) {

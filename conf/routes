@@ -200,7 +200,7 @@ PUT     {client}/liqpaypayment                          PaymentSystemsAPI.update
 GET     {client}/orders                                 OrderAPI.list
 GET     {client}/order/{uuid}                           OrderAPI.details
 OPTIONS {client}/order                                  ShoppingCartAPI.allowCors
-POST    {client}/order                                  OrderAPI.create
+POST    {client}/order/{chosenLanguage}                 OrderAPI.create
 DELETE  {client}/order/{uuid}                           OrderAPI.delete
 PUT     {client}/order/{uuid}/cancelled                 OrderAPI.markCancelled
 PUT     {client}/order/{uuid}/shipped                   OrderAPI.markShipped

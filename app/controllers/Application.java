@@ -335,6 +335,7 @@ public class Application extends Controller {
 
 
     public static void category(String client, String uuid, String language){
+
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -503,7 +504,7 @@ public class Application extends Controller {
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         String orderMessage = Messages.get("page.done.delivery.order.message");
         System.out.println("orderMessage " + orderMessage);
         if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
@@ -511,7 +512,7 @@ public class Application extends Controller {
             delivery = delivery.save();
         }
 
-        render(delivery, languageForShop);
+        render(delivery, language);
     }
 
     public static void fail(String client) {

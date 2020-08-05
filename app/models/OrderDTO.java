@@ -95,6 +95,9 @@ public class OrderDTO extends GenericModel {
     public String clientLanguage;
 
     @Expose
+    public String chosenClientLanguage;
+
+    @Expose
     @Enumerated(EnumType.STRING)
     public OrderState state;
 

@@ -25645,7 +25645,7 @@ class WiseShoppingCartContainer extends PolymerElement {
     });
     this.addEventListener('start-shopping', function (e) {
       console.log('start-shopping', e);
-      window.location = '/';
+      window.location = `/${this.language}/shop`;
     });
     this.addEventListener('order-created', function (e) {
       console.log('order-created for credit card payment', e);
@@ -25743,7 +25743,7 @@ class WiseShoppingCartContainer extends PolymerElement {
   _makeOrderRequest() {
     if (this.isMakeOrderRequestRunning) return;
     const ajax = this.$.makeOrderAjax;
-    ajax.url = `${this.hostname}/order${this.addCartIdParamIfAvailable(true)}`;
+    ajax.url = `${this.hostname}/order/${this.language}${this.addCartIdParamIfAvailable(true)}`;
     ajax.method = 'POST';
     this.isMakeOrderRequestRunning = true;
     ajax.generateRequest();

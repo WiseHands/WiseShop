@@ -126,6 +126,7 @@ footer.working.schedule.friday = ПТ
 footer.working.schedule.saturday = СБ
 footer.working.schedule.sunday = НД
 
+feedback.page.title = Відгук
 feedback.email.notification.to.client.leave.feedback = [%s] %s, залиште будь ласка відгук про ваше замовлення
 feedback.email.notification.to.admin.about.new.feedback = [%s] Клієнт %s залишив відгук про замовлення
 feedback.main.label = Привіт %s.
