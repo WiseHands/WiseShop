@@ -198,11 +198,16 @@
     .header-row {
         display: flex;
         justify-content: space-between;
-        flex: 1 0 auto;
+        flex: 1 1 auto;
     }
     .header-store-name {
         padding-left: 60px;
         color: #b99f78;
+    }
+    .header-store-name h2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .header-nav {
         display: flex;
@@ -927,6 +932,9 @@
         .footer-item {
             flex: 0 1 50%;
         }
+        .footer-item:nth-child(1) {
+            flex: 0 1 50%;
+        }
         .footer-item:nth-child(5) {
             flex: 0 1 100%;
         }
@@ -939,7 +947,7 @@
             display: none;
         }
         .header-store-name {
-            padding-left: 30px;
+            padding-left: 20px;
         }
         .shop-stat-text-info {
             flex-direction: column;
