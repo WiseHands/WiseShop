@@ -235,6 +235,8 @@
     });
 
     changeLanguage = (language) => {
-      window.location = window.location.origin + '/' + language + '/shop';
+      const url = window.location.pathname;
+      const newUrl = url.slice(3)
+      window.location = window.location.origin + '/' + language + newUrl;
     }
 </script>
