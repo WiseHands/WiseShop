@@ -110,17 +110,19 @@ public class Application extends Controller {
         }
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
-        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String protocol = "";
-        String port = "";
-        if(isDevEnv){
-            protocol = "http://";
-            port = ":3334";
-        } else {
-            protocol = "https://";
-        }
+        String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        Lang.change(language);
+        System.out.println("LanguageForShop " + language);
+//        String protocol = "";
+//        String port = "";
+//        if(isDevEnv){
+//            protocol = "http://";
+//            port = ":3334";
+//        } else {
+//            protocol = "https://";
+//        }
 
-        redirect( protocol + client + port + "/" + languageFromHeader, false);
+        renderTemplate("app/views/shopLanding/shopLanding.html", language);
 
     }
 
@@ -175,7 +177,7 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        if(client.equals("americano.lviv.ua")){
+        if(client.equals("localhost")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 

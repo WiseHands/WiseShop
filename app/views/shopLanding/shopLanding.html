@@ -1433,8 +1433,7 @@
 
     setFlagToLanguage = () => {
         const setFlag = document.querySelector('#set-flag');
-        const languageInPathName = window.location.pathname;
-        const language = languageInPathName.slice(1)
+        const language = document.querySelector('html').getAttribute('language');
         if (language === 'uk') {
             setFlag.src = "../../../wisehands/services/images/icons8-ukraine-48.png";
         }
