@@ -2158,6 +2158,12 @@ ul.admin-breadcrumb li a:hover {
     flex: 0 1 46%;
 }
 
+.admin-feedback-list .order-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
