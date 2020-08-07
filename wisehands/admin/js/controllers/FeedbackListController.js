@@ -23,7 +23,9 @@ angular.module('WiseHands')
 
     parseOrderTime = (orderList) => {
        orderList.map(item => {
-          item.time = moment(item.time).format('DD MMM YYYY HH:mm');
+          if (item.orderFeedback) {
+            item.orderFeedback.feedbackTime = moment(item.orderFeedback.feedbackTime).format('DD MMM YYYY HH:mm');
+          }
           return item;
        })
       $scope.orderList = orderList;

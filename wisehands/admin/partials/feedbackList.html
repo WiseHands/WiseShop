@@ -21,8 +21,8 @@
 <div ng-hide="loading">
     <div class="admin-container admin-column">
         <div class="sort-reviews">
-            <p ng-click="sortBy('time')">{{'productReviews.byDate' | translate}}
-                <span class="sortorder" ng-show="sortByProperty === 'time'"
+            <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
+                <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
                       ng-class="{reverse: reverse}"></span>
             </p>
             <p ng-click="sortBy('quality')">{{'productReviews.byRating' | translate}}
@@ -50,7 +50,7 @@
                 </div>
                 <div class="admin-order-card-row">
                     <h5>{{'singleOrder.Date' | translate}}: </h5>
-                    <p>{{order.time}}</p>
+                    <p>{{order.orderFeedback.feedbackTime}}</p>
                 </div>
                 <div class="feedback-to-all-order" ng-show="order.orderFeedback.generalReview">
                     <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
