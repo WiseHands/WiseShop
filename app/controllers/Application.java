@@ -44,11 +44,21 @@ public class Application extends Controller {
 
         }
 
+    private static String returnUrlForDev(ShopDTO shop) {
+        String domain = shop.domain;
+        if(isDevEnv) {
+            domain = domain + ":3334";
+        }
+        return "https://%s" + domain;
+    }
+
+
     public static void allowCors(){
         ok();
     }
 
     public static void login(String client) {
+
         if(client.equals("wisehands.me") || isDevEnv) {
             String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
             String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
@@ -58,6 +68,8 @@ public class Application extends Controller {
         redirect("https://wisehands.me/login", true);
 
     }
+
+
 
     public static void uaSignup(String client) {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
@@ -113,14 +125,6 @@ public class Application extends Controller {
         String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         Lang.change(language);
         System.out.println("LanguageForShop " + language);
-//        String protocol = "";
-//        String port = "";
-//        if(isDevEnv){
-//            protocol = "http://";
-//            port = ":3334";
-//        } else {
-//            protocol = "https://";
-//        }
 
         renderTemplate("app/views/shopLanding/shopLanding.html", language);
 
