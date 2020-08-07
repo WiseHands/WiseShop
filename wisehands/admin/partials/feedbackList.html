@@ -44,10 +44,10 @@
                         <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
                     </div>
                 </div>
-                <div class="admin-order-card-row">
-                    <h5>{{'singleOrder.FullName' | translate}}: </h5>
-                    <p>{{order.name}}</p>
-                </div>
+                <a href="#/details/{{order.uuid}}" class="admin-order-card-row">
+                   <h5>{{'singleOrder.FullName' | translate}}: </h5>
+                   <p>{{order.name}}</p>
+                </a>
                 <div class="admin-order-card-row">
                     <h5>{{'singleOrder.Date' | translate}}: </h5>
                     <p>{{order.orderFeedback.feedbackTime}}</p>
