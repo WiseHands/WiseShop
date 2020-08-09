@@ -44,6 +44,15 @@ public class Application extends Controller {
 
         }
 
+    private static String returnUrlForDev(ShopDTO shop) {
+        String domain = shop.domain;
+        if(isDevEnv) {
+            domain = domain + ":3334";
+        }
+        return "https://%s" + domain;
+    }
+
+
     public static void allowCors(){
         ok();
     }
@@ -110,17 +119,11 @@ public class Application extends Controller {
         }
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
-        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String protocol = "";
-        String port = "";
-        if(isDevEnv){
-            protocol = "http://";
-            port = ":3334";
-        } else {
-            protocol = "https://";
-        }
+                String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+                Lang.change(language);
+                System.out.println("LanguageForShop " + language);
 
-        redirect( protocol + client + port + "/" + languageFromHeader, false);
+                renderTemplate("app/views/shopLanding/shopLanding.html", language);
 
     }
 
@@ -503,7 +506,7 @@ public class Application extends Controller {
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         String orderMessage = Messages.get("page.done.delivery.order.message");
         System.out.println("orderMessage " + orderMessage);
         if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
@@ -511,7 +514,7 @@ public class Application extends Controller {
             delivery = delivery.save();
         }
 
-        render(delivery, languageForShop);
+        render(delivery, language);
     }
 
     public static void fail(String client) {
