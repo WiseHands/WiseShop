@@ -44,21 +44,11 @@ public class Application extends Controller {
 
         }
 
-    private static String returnUrlForDev(ShopDTO shop) {
-        String domain = shop.domain;
-        if(isDevEnv) {
-            domain = domain + ":3334";
-        }
-        return "https://%s" + domain;
-    }
-
-
     public static void allowCors(){
         ok();
     }
 
     public static void login(String client) {
-
         if(client.equals("wisehands.me") || isDevEnv) {
             String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
             String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
@@ -68,8 +58,6 @@ public class Application extends Controller {
         redirect("https://wisehands.me/login", true);
 
     }
-
-
 
     public static void uaSignup(String client) {
         String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
@@ -122,11 +110,17 @@ public class Application extends Controller {
         }
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
-        String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        Lang.change(language);
-        System.out.println("LanguageForShop " + language);
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String protocol = "";
+        String port = "";
+        if(isDevEnv){
+            protocol = "http://";
+            port = ":3334";
+        } else {
+            protocol = "https://";
+        }
 
-        renderTemplate("app/views/shopLanding/shopLanding.html", language);
+        redirect( protocol + client + port + "/" + languageFromHeader, false);
 
     }
 
@@ -181,7 +175,7 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        if(client.equals("localhost")){
+        if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 
@@ -341,7 +335,6 @@ public class Application extends Controller {
 
 
     public static void category(String client, String uuid, String language){
-
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -510,7 +503,7 @@ public class Application extends Controller {
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         String orderMessage = Messages.get("page.done.delivery.order.message");
         System.out.println("orderMessage " + orderMessage);
         if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
@@ -518,7 +511,7 @@ public class Application extends Controller {
             delivery = delivery.save();
         }
 
-        render(delivery, language);
+        render(delivery, languageForShop);
     }
 
     public static void fail(String client) {
