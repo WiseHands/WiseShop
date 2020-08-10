@@ -123,7 +123,10 @@ public class Application extends Controller {
                 Lang.change(language);
                 System.out.println("LanguageForShop " + language);
 
-                renderTemplate("app/views/shopLanding/shopLanding.html", language);
+        if(client.equals("americano.lviv.ua")){
+            renderTemplate("app/views/shopLanding/shopLanding.html", language);
+        }
+        Application.index(client, language);
 
     }
 
