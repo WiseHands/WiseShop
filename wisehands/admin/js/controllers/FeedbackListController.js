@@ -9,7 +9,7 @@ angular.module('WiseHands')
 
     $http({
       method: 'GET',
-      url: `/sudo/orders`
+      url: `/api/feedback/orders`
     })
       .then(response => {
        $scope.loading = false;

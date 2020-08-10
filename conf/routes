@@ -97,7 +97,7 @@ GET         {client}/api/feedback/get/list/{uuid}       OrderFeedbackAPI.getFeed
 GET         {client}/api/feedback/full/list             OrderFeedbackAPI.getFeedbackListForShop
 PUT         {client}/api/feedback/show/{uuid}           OrderFeedbackAPI.showReview
 PUT         {client}/api/feedback/hide/{uuid}           OrderFeedbackAPI.hideReview
-GET         {client}/api/feedback...                    OrderFeedbackAPI.getFeedbackListForShop
+GET         {client}/api/feedback/orders                OrderFeedbackAPI.getOrderListWhereFeedbackRequestSent
 
 POST        {client}/api/comment/save                   FeedbackCommentAPI.createComment
 
