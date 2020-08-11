@@ -150,7 +150,7 @@ public class OrderFeedbackAPI extends AuthController{
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         List<OrderDTO> orderList;
-        String query = "select o from OrderDTO o where o.feedbackRequestState = 'REQUEST_SENT' and shop_uuid = ?1";
+        String query = "select o from OrderDTO o where o.feedbackRequestState = 'REQUEST_SENT' and shop_uuid = ?1 order by o.time asc";
         orderList = OrderDTO.find(query, shop.uuid).fetch();
         renderJSON(json(orderList));
     }

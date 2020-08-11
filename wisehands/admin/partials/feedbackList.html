@@ -19,7 +19,10 @@
              show="loading"></spinner>
 </div>
 <div ng-hide="loading">
-    <div class="admin-container admin-column">
+    <div class="admin-card" ng-show="!orderList">
+        <p>{{'productReviews.noReviews' | translate}}</p>
+    </div>
+    <div class="admin-container admin-column" ng-show="orderList">
         <div class="sort-reviews">
             <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
                 <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"

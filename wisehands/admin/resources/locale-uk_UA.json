@@ -205,6 +205,7 @@
   "productReviews.hideReview": "Приховати",
   "productReviews.customerDidNotLeaveComment": "Клієнт не залишив коментар",
   "productReviews.sendReplyForComment": "Відправити відповідь",
+  "productReviews.noReviews": "Відгуки відсутні",
   "productReviews.respondToReview": "Відповісти на відгук",
   "productReviews.warningMessageReplyForComment": "Даний відгук з Вашим коментарем буде відображений на сайті",
   "productReviews.cancelReplyForComment": "Скасувати",
