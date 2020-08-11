@@ -132,12 +132,30 @@ public class OrderFeedbackAPI extends AuthController{
        renderJSON(json(feedbackList));
     }
 
-    public static void getFeedbackListForShop(){
-        String shopUuid = request.params.get("uuid");
-        ShopDTO shop = ShopDTO.findById(shopUuid);
-        List<ProductDTO> productList = shop.productList;
-        renderJSON(json(productList));
+    public static void getFeedbackListForShop(String client){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        List<FeedbackDTO> feedbackList;
+        String query = "select f from FeedbackDTO f WHERE productUuid IN (SELECT uuid FROM ProductDTO where shop_uuid = ?1) order by f.feedbackTime asc";
+        feedbackList = FeedbackDTO.find(query, shop.uuid).fetch();
+        System.out.println("feedbackList " + feedbackList.size());
+        renderJSON(json(feedbackList));
     }
+
+    public static void getOrderListWhereFeedbackRequestSent(String client){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        List<OrderDTO> orderList;
+        String query = "select o from OrderDTO o where o.feedbackRequestState = 'REQUEST_SENT' and shop_uuid = ?1";
+        orderList = OrderDTO.find(query, shop.uuid).fetch();
+        renderJSON(json(orderList));
+    }
+
+
 
 
 }

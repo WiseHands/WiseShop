@@ -1,0 +1,121 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               ng-click="goBack()">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'productDetails.reviews' | translate}}</h5>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="row text-center">
+    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+             show="loading"></spinner>
+</div>
+<div ng-hide="loading">
+    <div class="admin-container admin-column">
+        <div class="sort-reviews">
+            <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
+                <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
+                      ng-class="{reverse: reverse}"></span>
+            </p>
+            <p ng-click="sortBy('quality')">{{'productReviews.byRating' | translate}}
+                <span class="sortorder" ng-show="sortByProperty === 'quality'" ng-class="{reverse: reverse}"></span>
+            </p>
+        </div>
+        <div class="admin-feedback-list">
+            <div class="admin-card product-feedback-container" ng-repeat="order in orderList | orderBy:sortByProperty:reverse"
+                 ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
+                <div class="admin-order-card-row">
+                    <h4>{{'singleOrder.feedback' | translate}}</h4>
+
+                    <div class="feedback-stars" ng-show="order.orderFeedback">
+                        <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                        <i ng-class="order.orderFeedback.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                        <i ng-class="order.orderFeedback.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                        <i ng-class="order.orderFeedback.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                        <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                    </div>
+                </div>
+                <a href="#/details/{{order.uuid}}" class="admin-order-card-row">
+                   <h5>{{'singleOrder.FullName' | translate}}: </h5>
+                   <p>{{order.name}}</p>
+                </a>
+                <div class="admin-order-card-row">
+                    <h5>{{'singleOrder.Date' | translate}}: </h5>
+                    <p>{{order.orderFeedback.feedbackTime}}</p>
+                </div>
+                <div class="feedback-to-all-order" ng-show="order.orderFeedback.generalReview">
+                    <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
+                    <p>{{order.orderFeedback.generalReview}}</p>
+                </div>
+                <div class="feedback-to-all-order" ng-show="order.orderFeedback && !order.orderFeedback.generalReview">
+                    <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
+                    <p>{{'singleOrder.generalFeedback' | translate}}</p>
+                </div>
+                <div ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
+                    <div  class="feedback-container" ng-repeat="item in order.items">
+                        <div class="product-feedback-info">
+                            <a class="feedback-order-details-image" ng-if="item.productUuid"
+                               href="#/productreviews/{{item.productUuid}}">
+                                <img src="{{item.imagePath}}">
+                                <p>{{item.name}}</p>
+                            </a>
+                            <div class="feedback-stars">
+                                <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                            </div>
+
+                        </div>
+                        <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
+                            <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
+                            <p>{{item.feedbackToOrderItem.review}}</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'REQUEST_NOT_SEND'">
+                    <p>{{'singleOrder.requestNotSendingFeedback' | translate}}</p>
+                    <a class="text-left" data-toggle="modal" data-target="#feedbackToOrder"
+                       ng-click="requestOrderFeedback()"><p>{{'singleOrder.requestFeedback' | translate}}</p>
+                    </a>
+                </div>
+                <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'PENDING_REQUEST'">
+                    <p>{{'singleOrder.pendingRequestFeedback' | translate}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="sendReply" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center ">
+                    <p><i>{{'productReviews.warningMessageReplyForComment' | translate}}</i></p>
+                    <div class="modal-send-reply">
+                        <a ng-click="saveComment()" data-dismiss="modal">{{'productReviews.sendReplyForComment' | translate}}</a>
+                        <a data-dismiss="modal" aria-label="Close">{{'productReviews.cancelReplyForComment' | translate}}</a>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner"
+                             img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

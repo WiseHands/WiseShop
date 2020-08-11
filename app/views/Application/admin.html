@@ -44,6 +44,7 @@
     <ul class="collapsible collapsible-accordion inner">
         <li ng-class="{active: $route.current.activetab == 'orderlist'}"><a href="#/" class="waves-effect waves-light"><i class="fa fa-tasks"></i> {{'sideNav.Orders' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'productlist'}"><a href="#/products" class="waves-effect waves-light"><i class="fa fa-cart-plus"></i> {{'sideNav.Products' | translate}}</a></li>
+        <li ng-class="{active: $route.current.activetab == 'feedback'}"><a href="#/feedback" class="waves-effect waves-light"><i class="fa fa-comment-o"></i> {{'sideNav.Feedback' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'pageconstructors'}"><a href="#/pageconstructor" class="waves-effect waves-light"><i class="fa fa-files-o"></i> {{'sideNav.Pages' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'delivery'}"><a href="#/delivery" class="waves-effect waves-light"><i class="fa fa-fighter-jet"></i> {{'sideNav.Delivery' | translate}}</a></li>
         <li ng-class="{active: $route.current.activetab == 'payment'}"><a href="#/payment" class="waves-effect waves-light"><i class="fa fa-money"></i> {{'sideNav.Payment' | translate}}</a></li>
@@ -90,6 +91,7 @@
 <script src="wisehands/admin/js/routes/routeConfig.js"></script>
 
 <script src="wisehands/admin/js/controllers/EditPageTranslationController.js"></script>
+<script src="wisehands/admin/js/controllers/FeedbackListController.js"></script>
 <script src="wisehands/admin/js/controllers/TranslationController.js"></script>
 <script src="wisehands/admin/js/controllers/PaymentOnlineTranslationController.js"></script>
 <script src="wisehands/admin/js/controllers/PaymentCashTranslationController.js"></script>
