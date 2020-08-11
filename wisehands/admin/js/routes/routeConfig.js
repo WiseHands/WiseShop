@@ -129,6 +129,11 @@
                         controller:'DeliveryBounderController',
                         activetab: 'delivery'
                     }).
+                    when('/shop/location',{
+                        templateUrl:'wisehands/admin/partials/shopLocation.html',
+                        controller:'ShopLocationController',
+                        activetab: 'contacts'
+                    }).
                     when('/delivery/selfTake',{
                         templateUrl:'wisehands/admin/partials/selfTakeDelivery.html',
                         controller:'DeliverySettingsController',

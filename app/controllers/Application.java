@@ -236,9 +236,7 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-
         PageConstructorDTO page = PageConstructorDTO.findById(uuid);
-
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         shop.pagesList = pageList;
         render(shop, page, pageList);
@@ -250,8 +248,8 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         CategoryDTO category = CategoryDTO.findById(uuid);
-
         List<ProductDTO> productList;
+
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
         productList = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
 

@@ -1,0 +1,44 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="#/delivery/courier">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'courierDelivery.deliveryBoundaries' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                       ng-click="_saveDeliveryBoundaries()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<main class="admin-container ">
+    <ul class="admin-breadcrumb">
+        <li><a href="#/delivery">{{'delivery.delivery' | translate}}</a></li>
+        <li><a href="#/delivery/courier">{{'delivery.courier' | translate}} </a></li>
+        <li>{{'courierDelivery.deliveryBoundaries' | translate}}</li>
+    </ul>
+    <div class="delivery-boundaries">
+        <div class="admin-column">
+            <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 500px"></div>
+        </div>
+        <div class="admin-column">
+            <div class="admin-card">
+                <h4>{{'deliveryBoundaries.instructionStep1' | translate}}</h4>
+                <ul>
+                    <li>{{'deliveryBoundaries.instructionStep21' | translate}}<img src="../wisehands/assets/images/logoimages/drawshape.png">{{'deliveryBoundaries.instructionStep22' | translate}}</li>
+                    <li>{{'deliveryBoundaries.instructionStep3' | translate}}<span class="save-button-delivery-bounderies"  ng-click="_saveDeliveryBoundaries()">{{'addNewProduct.save' | translate}}</span></li>
+                </ul>
+                <p>{{'deliveryBoundaries.instructionNote' | translate}}</p>
+            </div>
+        </div>
+    </div>
+</main>
