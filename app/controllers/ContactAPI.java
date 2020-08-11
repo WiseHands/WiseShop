@@ -51,6 +51,11 @@ public class ContactAPI extends AuthController {
         renderJSON(json(shop.contact));
     }
 
+    public static void getContactForTranslation(String client, String uuid) throws Exception {
+        ContactDTO contact = ContactDTO.findById(uuid);
+        renderJSON(json(contact));
+    }
+
 
     public static void update(String client) throws Exception {
 

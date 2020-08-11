@@ -1,3 +1,9 @@
+<style>
+    .error-message {
+        color: red;
+    }
+</style>
+
 <nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
     <div class="container-fluid">
         <div class="row vcentering">
@@ -21,26 +27,36 @@
 </nav>
 <div class="admin-container courier-block noSidePadding">
     <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+                 show="loading"></spinner>
     </div>
-    <form class="admin-card admin" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
+    <form class="admin-card admin" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm"
+          ng-hide="loading">
         <h4>{{'editProduct.general' | translate}}</h4>
         <div class="input-field">
-            <input type="checkbox" class="filled-in pull-left checkBoxStyling" id="filled-in-box" ng-model="delivery.isCourierAvailable" />
+            <input type="checkbox" class="filled-in pull-left checkBoxStyling" id="filled-in-box"
+                   ng-model="delivery.isCourierAvailable"/>
             <label for="filled-in-box">{{'delivery.courierEnabled' | translate}}</label>
         </div>
         <div class=" input-field">
             <p>{{'delivery.deliveryPrice' | translate}} ({{'products.currency' | translate}})</p>
-            <input id="deliveryPrice" type="number" ng-model="delivery.courierPrice" />
+            <input id="deliveryPrice" type="number" ng-model="delivery.courierPrice"/>
+            <p class="error-message" ng-show="showCouriePriceValidationError"> Delivery price can't be less than
+                zero</p>
         </div>
 
         <div class=" input-field">
             <p>{{'delivery.freeDeliveryPrice' | translate}} ({{'products.currency' | translate}})</p>
-            <input id="freeDelivery" type="number" ng-model="delivery.courierFreeDeliveryLimit">
+            <input id="freeDelivery" type="number" ng-model="delivery.courierFreeDeliveryLimit" min="0" required>
+            <p class="error-message" ng-show="showFreeDeliveryPriceValidationError"> Minimum order amount for free shipping can't be less than
+                zero</p>
         </div>
         <div class="delivery-message input-field">
-            <p>{{'delivery.messageText' | translate}}</p>
-            <textarea id="textarea1" class="materialize-textarea" ng-model="delivery.courierText"></textarea>
+            <div class="delivery-edit-message">
+                <p>{{'delivery.messageText' | translate}}</p>
+                <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                        ng-click="redirectToTranslation()"><i class="material-icons">mode_edit</i></button>
+            </div>
         </div>
         <div>
             <a href="#/deliveryboundaries">

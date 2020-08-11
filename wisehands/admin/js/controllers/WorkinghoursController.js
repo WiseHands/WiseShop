@@ -32,11 +32,17 @@ angular.module('WiseHands')
 
       $scope.updateShopWorkingState = () => {
         const isShopAlwaysOpenedOrCurrentlyClosed = $scope.activeShop.isTemporaryClosed || $scope.activeShop.alwaysOpen;
-        if (!isShopAlwaysOpenedOrCurrentlyClosed && validateTimeInputs()) {
-          updateWorkingHours();
-          updateShopDetails();
+        if (isShopAlwaysOpenedOrCurrentlyClosed) {
+          updateSettings();
+        } else if (validateTimeInputs()) {
+          updateSettings();
         }
       };
+
+      function updateSettings() {
+        updateWorkingHours();
+        updateShopDetails();
+      }
 
       function validateTimeInputs() {
         const timeInputsContainer = document.querySelector('#inputTimeContainer');

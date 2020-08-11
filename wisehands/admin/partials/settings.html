@@ -1,4 +1,4 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+ц<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
     <div class="container-fluid">
         <div class="row vcentering">
             <div class="col-xs-2 noPaddingLeft">
@@ -23,6 +23,12 @@
              show="loading"></spinner>
 </div>
 <div class="admin-container">
+    <div class="admin-card translation-flex-row">
+        <h4>Shop Name</h4>
+        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                ng-click="redirectToTranslationForShopName()"><i class="material-icons">mode_edit</i>
+        </button>
+    </div>
     <form class="settings-block noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading">
         <div class="admin-column">
             <div class="admin-card">
@@ -77,7 +83,7 @@
 
         <div class="admin-card settings-footer-switch input-field col-sm-12">
             <h4>{{'settings.footer' | translate}}</h4>
-            <p>Щоб показувати на сайті внизу сторінки інфорамцію про Ваш магазин (графік роботи, посилання на сторінки, зворотній зв'язок, контактні дані і т.д.) відмітьте поле внизу</p>
+            <p>{{'settings.loadFooter' | translate}}</p>
             <input id="filled-in-isFooterOn" type="checkbox" class="filled-in checkBoxStyling"
                    ng-model="shopStyling.isFooterOn"/>
             <label for="filled-in-isFooterOn">{{'settings.isFooterOn' | translate}}</label>

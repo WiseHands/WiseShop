@@ -44,26 +44,21 @@ public class ShopAPI extends AuthController {
     }
 
     public static void all(String client) throws Exception {
-
         checkSudoAuthentification();
-
         List<ShopDTO> shops = ShopDTO.findAll();
         renderJSON(json(shops));
     }
 
     public static void one(String client, String uuid) throws Exception { // /shop/details
         checkSudoAuthentification();
-
         ShopDTO shop = ShopDTO.findById(uuid);
         renderJSON(json(shop));
     }
 
     public static void deleteOne(String client, String uuid) throws Exception { // /shop/details
         checkSudoAuthentification();
-
         //PRODUCT WILL NEVER BE DELETED
         ok();
-
     }
 
     public static void list(String client) throws Exception {
@@ -72,7 +67,6 @@ public class ShopAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         checkAuthentification(shop);
-
         String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user.shopList));
@@ -85,9 +79,21 @@ public class ShopAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         checkAuthentification(shop);
-
         renderJSON(json(shop));
+    }
 
+    public static void shopLabelsForTranslation(String client, String uuid) throws Exception { // /shop/details/public
+        String shopUuid = request.params.get("uuid");
+        System.out.println("shopUuid " + shopUuid);
+        ShopDTO shop = ShopDTO.findById(shopUuid);
+        if (shop == null){
+            renderJSON(json(null));
+        }
+        JSONObject json = new JSONObject();
+        json.put("shopName", shop.shopName);
+        json.put("uuid", shop.uuid);
+        json.put("shopNameTextTranslationBucket", shop.shopNameTextTranslationBucket);
+        renderJSON(json(json));
     }
 
     public static void publicInfo(String client) throws Exception { // /shop/details/public
@@ -95,7 +101,6 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-
         JSONObject json = new JSONObject();
         json.put("shopName", shop.shopName);
         json.put("uuid", shop.uuid);
@@ -109,12 +114,9 @@ public class ShopAPI extends AuthController {
         json.put("buttonPaymentTitle", shop.paymentSettings.buttonPaymentTitle);
         json.put("minimumPayment", shop.paymentSettings.minimumPayment);
         json.put("freeDeliveryLimit", shop.paymentSettings.freeDeliveryLimit);
-
         json.put("deliveryPolygon", shop.delivery.courierPolygonData);
         json.put("googleStaticMapsApiKey", shop.googleStaticMapsApiKey);
-
         json.put("visualSetting", shop.visualSettingsDTO);
-
         json.put("monStartTime", shop.monStartTime);
         json.put("monEndTime", shop.monEndTime);
         json.put("monOpen", shop.monOpen);
@@ -144,7 +146,6 @@ public class ShopAPI extends AuthController {
             couponsEnabled = false;
         }
         json.put("couponsEnabled", couponsEnabled);
-
         renderJSON(json(json));
     }
 

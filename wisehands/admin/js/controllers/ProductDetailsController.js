@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', 'signout', function($http, $scope, $routeParams, signout) {
+    .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', '$window', 'signout', function($http, $scope, $routeParams, $window, signout) {
             $scope.uuid = $routeParams.uuid;
             $scope.loading = true;
             $http({
@@ -14,11 +14,41 @@ angular.module('WiseHands')
                     console.log(error);
                 });
 
+            $scope.redirectToTranslationForProductName = function(){
+                $http({
+                    method: 'GET',
+                    url: '/api/get/translation/name/' + $routeParams.uuid
+                })
+                    .then(function successCallback(response) {
+                        const translation = response.data;
+                        $window.location.href = `#/translation/${$routeParams.uuid}/${translation.uuid}`;
+                    }, function errorCallback(error) {
+                        $scope.loading = false;
+                        console.log(error);
+                    });
+            }
+
+            $scope.redirectToTranslationForProductDescription = function(){
+                $http({
+                    method: 'GET',
+                    url: '/api/get/translation/description/' + $routeParams.uuid
+                })
+                    .then(function successCallback(response) {
+                        const translation = response.data;
+                        $window.location.href = `#/translation/${$routeParams.uuid}/${translation.uuid}`;
+                    }, function errorCallback(error) {
+                        $scope.loading = false;
+                        console.log(error);
+                    });
+            }
+
+
             $http({
                 method: 'GET',
                 url: '/api/product/' + $routeParams.uuid
             })
                 .then(function successCallback(response) {
+                    console.log("poduct details ", response.data)
                     $scope.loading = false;
                     $scope.product = response.data;
                     $scope.activeShop = localStorage.getItem('activeShop');

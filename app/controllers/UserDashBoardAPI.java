@@ -49,6 +49,11 @@ public class UserDashBoardAPI extends AuthController{
                 user.wizard.postDepartment, "Post Service",
                 courierDeliveryPrice, courierFreeDeliveryPrice
         );
+        setTranslationForCourierDeliveryLabel(delivery);
+        setTranslationForSelfTakeLabel(delivery);
+        setTranslationForPostDepartmentLabel(delivery);
+        delivery.save();
+
         ContactDTO contact = new ContactDTO(user.phone, user.email, user.wizard.shopDescription,
                 user.wizard.cityName, user.wizard.streetName, user.wizard.buildingNumber,
                 user.wizard.facebookLink, user.wizard.instagramLink, user.wizard.youtubeLink
@@ -57,6 +62,10 @@ public class UserDashBoardAPI extends AuthController{
         PaymentSettingsDTO paymentSettings = new PaymentSettingsDTO(user.wizard.payCash, user.wizard.payOnline,
                 (double) 0, "Готівкою", "Карткою", ""
         );
+
+        setTranslationForCashPaymentLabel(paymentSettings);
+        setTranslationForOnlinePaymentLabel(paymentSettings);
+        paymentSettings.save();
 
         BalanceDTO balance = new BalanceDTO();
         VisualSettingsDTO visualSettings = new VisualSettingsDTO();
@@ -73,6 +82,81 @@ public class UserDashBoardAPI extends AuthController{
         shop.save();
         renderJSON(json(shop));
 
+    }
+
+    private static void setTranslationForCashPaymentLabel(PaymentSettingsDTO payment) {
+        if (payment.manualPaymentTitleTranslationBucket == null){
+            System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Готівкою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "By Cash");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            payment.manualPaymentTitleTranslationBucket = translationBucket;
+        }
+    }
+
+    private static void setTranslationForOnlinePaymentLabel(PaymentSettingsDTO payment) {
+        if (payment.onlinePaymentTitleTranslationBucket == null){
+            System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Карткою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "By Credit Cart");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            payment.onlinePaymentTitleTranslationBucket = translationBucket;
+        }
+    }
+
+    private static void setTranslationForSelfTakeLabel(DeliveryDTO delivery) {
+        if (delivery.selfTakeTranslationBucket == null){
+            System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовиніс");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Self Pick Up");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.selfTakeTranslationBucket = translationBucket;
+        }
+    }
+
+    private static void setTranslationForCourierDeliveryLabel(DeliveryDTO delivery) {
+        if (delivery.courierTextTranslationBucket == null){
+            System.out.println("delivery.courierTextTranslationBucket is null and will be creating NEW");
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Доставка кур'єром");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Courier");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.courierTextTranslationBucket = translationBucket;
+        }
+    }
+
+    private static void setTranslationForPostDepartmentLabel(DeliveryDTO delivery) {
+        if (delivery.newPostTranslationBucket == null){
+            System.out.println("delivery.newPostTranslationBucket is null and will be creating NEW");
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Доставка Новою Поштою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Nova Poshta Delivery");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.newPostTranslationBucket = translationBucket;
+        }
     }
 
     public static void getUserInfo() throws Exception {

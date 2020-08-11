@@ -1,9 +1,12 @@
 <nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
     <div class="container-fluid">
         <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               ng-click="goBack()">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
 
             <div class="col-xs-8 text-center">
                 <h5 class="white-text">{{'editPage.title' | translate}}</h5>
@@ -20,10 +23,11 @@
     <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
 </div>
 <div class="admin-container">
-    <div class="input-field col-md-12 z-index-3 mt-30">
-        <div class="col-sm-6">
+    <div class="container-fluid">
+        <div class="col-sm-6 flex-baseline">
             <p class="mb-0">{{'addNewPage.setTitle' | translate}}</p>
-            <input id="setTitle" type="text" ng-model="title">
+            <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" ng-click="redirectToTranslationTitlePage(pageUuid)"><i class="material-icons">mode_edit</i></button>
+
         </div>
         <!--<div class="col-sm-6">-->
             <!--<p class="mb-0">{{'addNewPage.setUrl' | translate}}</p>-->
@@ -31,9 +35,10 @@
         <!--</div>-->
     </div>
     <div class="container-fluid">
-        <div class="col-xs-12 input-field ">
+        <div class="col-sm-6 flex-baseline flex-baseline">
             <p>{{'addNewPage.setBody' | translate}}</p>
-            <textarea class="editor-for-page" id="editor" name="editor"></textarea>
+            <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" ng-click="redirectToTranslationBodyPage(pageUuid)"><i class="material-icons">mode_edit</i></button>
+
         </div>
     </div>
 </div>

@@ -53,7 +53,17 @@ public class ShoppingCartAPI extends AuthController {
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
             response.setCookie("userToken", token);
         }
-        renderJSON(json(shoppingCart));
+        String jsonShoppingCart = "";
+        try {
+            jsonShoppingCart = json(shoppingCart);
+        } catch (Exception e){
+            shoppingCart = _createCart(shop);
+            String agent = request.headers.get("user-agent").value();
+            String token = generateTokenForCookie(shoppingCart.uuid, agent);
+            response.setCookie("userToken", token);
+            jsonShoppingCart = json(shoppingCart);
+        }
+        renderJSON(jsonShoppingCart);
     }
 
     public static ShoppingCartDTO _createCart(ShopDTO shop) {
@@ -78,8 +88,8 @@ public class ShoppingCartAPI extends AuthController {
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
-        LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop, additionOrderDTOList);
-
+        LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop, additionOrderDTOList, product.productNameTextTranslationBucket);
+        lineItem.save();
         boolean foundMatch = false;
 
         //1. Find Line Item

@@ -1,6 +1,7 @@
-
 #{set shop:shop /}
 #{set pageList:pageList /}
+#{set language:language /}
+#{set categories:categories /}
 <style>
     .category-block {
         ;
@@ -69,7 +70,7 @@
 
 </style>
 <!DOCTYPE html>
-<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml" language="${language}">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -142,7 +143,7 @@
                         }%
                             <div class="category-item-card">
                                 <div class="card inline">
-                                    <a href="/product/${_product.uuid}">
+                                    <a href="/${language}/product/${_product.uuid}">
                                         <div class="noselect view overlay hm-white-slight z-depth-1">
                                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="">
                                             <div class="mask"></div>
@@ -151,14 +152,17 @@
 
                                     <div class="card-block text-xs-center">
                                         <div class="fixed-height2">
-                                            <h4 class="card-title productNameTruncate h4-responsive"><a href="/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                                            <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
                                         </div>
                                         <div class="fixed-height">
                                             <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                                         </div>
                                         <div class="card-footer">
-                                            <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.oldPrice}</span></span>
-                                            <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top" title="{{'shopView.addToCart' | translate}}"><i class="fa fa-shopping-cart"></i></a></span>
+                                            <span class="left">${_product.formatDecimal()} UAH </span>
+                                            <span class="right" onclick="buyStart('${_product.uuid}')"><a
+                                                    data-toggle="tooltip" data-placement="top"
+                                                    title="&{'title.add.product.to.basket.label'}">
+                                                <i class="fa fa-shopping-cart"></i></a></span>
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +174,7 @@
 
             <div class="cart-float">
                 <div class="cart-float-text">
-                    <p>Товар додано в кошик</p>
+                    <p>&{'page.product.add.to.basket'}</p>
                     <i class="fa fa-check-circle"></i>
                 </div>
             </div>

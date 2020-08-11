@@ -55,17 +55,17 @@
             <div class="admin-column">
                 <div class="admin-card">
                     <h4>{{'contacts.address' | translate}}</h4>
-                    <div class="input-field">
+                    <div class="translation-flex-row">
                         <p>{{'contacts.city' | translate}}</p>
-                        <input id="addressCity" type="text" ng-model="contacts.addressCity" placeholder="{{'contacts.cityEg' | translate}}">
+                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                                ng-click="redirectToTranslationForContactCity()"><i class="material-icons">mode_edit</i>
+                        </button>
                     </div>
-                    <div class="input-field">
+                    <div class="translation-flex-row">
                         <p>{{'contacts.street' | translate}}</p>
-                        <input id="addressStreet" type="text" ng-model="contacts.addressStreet" placeholder="{{'contacts.streetEg' | translate}}">
-                    </div>
-                    <div class="input-field">
-                        <p>{{'contacts.numberHouse' | translate}}</p>
-                        <input id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse" placeholder="{{'contacts.numberHouseEg' | translate}}">
+                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                                ng-click="redirectToTranslationForContactStreet()"><i class="material-icons">mode_edit</i>
+                        </button>
                     </div>
                 </div>
                 <div class="admin-card">

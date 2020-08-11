@@ -1,10 +1,11 @@
+#{set language:language /}
 <!DOCTYPE html>
-<html lang="en">
+<html language="${language}">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-    <title>Відгук</title>
+    <title>&{'landing.page.shop.title'}</title>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment-with-locales.min.js"
             type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -569,10 +570,10 @@
 #{verbatim}
 #{if isSendRequest}
 <div id="feedback-request-state">
-    <p>Ваш відгук було надіслано</p>
+    <p>&{'page.order.feedback.leave.order.label'}</p>
         <a href="/">
             <div class="button-send-feedback-container">
-                Перейти на головну сторінку
+                &{'gotomain'}
             </div>
         </a>
 </div>
@@ -580,8 +581,8 @@
 #{else}
 <div class="main-container">
     <div class="title-container">
-        <p>${order.name}, дякуємо за замовлення!</p>
-        <p>Залиште, будь ласка, відгук </p>
+        <p>${order.name}, &{'page.order.feedback.thank.order.label'}</p>
+        <p>&{'feedback.email.text'}</p>
         <p class="feedback-date-price"><span time="${order.time}" id="order-time"></span> <span price="${order.total}"></span><span>${currency}</span></p>
     </div>
     <div class="order-feedback-container">
@@ -595,7 +596,7 @@
             <div uuid="${_orderItem.productUuid}" class="feedback-item border">
                 <h5>${_orderItem.name}</h5>
                 <p><span price="${_orderItem.price}"></span> ${currency}</p>
-                <p>Оцініть товар</p>
+                <p>&{'page.order.feedback.rate.label'}</p>
                 <div class="feedback-stars">
                     <i onclick="onStarClicked(this)" star-rate="1" class="fa fa-star-o"
                        style="font-size:24px; color: #000"></i>
@@ -608,7 +609,7 @@
                     <i onclick="onStarClicked(this)" star-rate="5" class="fa fa-star-o"
                        style="font-size:24px; color: #000"></i>
                 </div>
-                <textarea feedback-message-uuid="${_orderItem.productUuid}" value="" placeholder="Залишіть відгук тут"></textarea>
+                <textarea feedback-message-uuid="${_orderItem.productUuid}" value="" placeholder="&{'page.order.feedback.write.feedback.label'}"></textarea>
             </div>
         </div>
         %{
@@ -616,7 +617,7 @@
         }%
     </div>
     <div class="delivery-feedback-container border">
-        <h5>Відгук про замовлення</h5>
+        <h5>&{'page.order.feedback.feedback.about.order.label'}</h5>
         <div class="feedback-stars">
             <i onclick="onStarClicked(this)" star-rate="1" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
             <i onclick="onStarClicked(this)" star-rate="2" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
@@ -624,10 +625,10 @@
             <i onclick="onStarClicked(this)" star-rate="4" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
             <i onclick="onStarClicked(this)" star-rate="5" class="fa fa-star-o" style="font-size:24px; color: #000"></i>
         </div>
-        <textarea id="deliveryFeedbackDescription" value="" placeholder="Залиште відгук тут"></textarea>
+        <textarea id="deliveryFeedbackDescription" value="" placeholder="&{'page.order.feedback.write.feedback.label'}"></textarea>
     </div>
     <div onclick="sendFeedback('${order.uuid}')" class="button-send-feedback-container">
-        <p>ВІДПРАВИТИ ВІДГУК</p>
+        <p>&{'page.order.feedback.send.feedback.label'}</p>
     </div>
 
 </div>
@@ -650,15 +651,15 @@
     </div>
 </div>
 <div id="feedback-success">
-    <p>Дякуємо за Ваш відгук</p>
+    <p>&{'page.order.feedback.thank.feedback.label'}</p>
     <a href="/">
         <div class="button-send-feedback-container">
-            Перейти на головну сторінку
+            &{'gotomain'}
         </div>
     </a>
 </div>
 <div id="feedback-error">
-    <p>Помилка відправки відгука</p>
+    <p>&{'page.order.feedback.error.feedback.labe'}</p>
 </div>
 #{/verbatim}
 </body>
@@ -682,7 +683,8 @@
     (() => {
         const orderTimeSpan = document.querySelector('[time]');
         const orderTimeValue = Number(orderTimeSpan.getAttribute('time'));
-        orderTimeSpan.innerText = moment(orderTimeValue).locale('uk').format('DD MMMM YYYY, HH:mm:ss');
+        const language = document.querySelector('html').getAttribute('language');
+        orderTimeSpan.innerText = moment(orderTimeValue).locale(language).format('DD MMMM YYYY, HH:mm:ss');
     })();
 
   function onStarClicked(event) {

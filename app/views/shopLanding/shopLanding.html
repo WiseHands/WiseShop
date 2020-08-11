@@ -1,0 +1,1585 @@
+#{set shop:shop /}
+#{set language:language /}
+<!DOCTYPE html>
+<html language="${language}">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+            <title>&{'landing.page.shop.title'}</title>
+
+
+
+    <link href="/wisehands/mainpage/css/reset.css" rel="stylesheet"/>
+    <link href="/wisehands/mainpage/css/animate.css" rel="stylesheet"/>
+    <link href="/wisehands/mainpage/css/animate.min.css" rel="stylesheet"/>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+    <script src="/wisehands/mainpage/js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+
+    <link rel="icon"
+          type="image/png"
+          href="wisehands/assets/images/favicon.png">
+</head>
+
+<style>
+    body {
+        min-width: 320px;
+        /*font-family: 'Source Sans Pro', sans-serif;*/
+        /*font-family: 'Muli', sans-serif;*/
+        font-family: 'Nanum Gothic', sans-serif;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform : translate3d(0, 0, 0);
+    }
+    h1, h3 {
+        font-family: 'Playfair Display', serif;
+        letter-spacing: 2px;
+    }
+    h3 {
+        font-size: 40px;
+        line-height: 1.1;
+    }
+    .container {
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+    #overlay-mobile {
+        display: none;
+        background-color: rgba(0,0,0,0);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 400;
+        padding: 0;
+        margin: 0;
+    }
+    .sidebar-mobile {
+        width: 25vw;
+        height: 100%;
+        background-color: rgba(255,255,255,1);
+        opacity: 1;
+        animation: sidebarmove 0.3s linear;
+        position: fixed;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        min-width: 300px;
+    }
+
+    @keyframes sidebarmove {
+        from {
+            opacity: 0;
+            transform: translate3d(-100%, 0, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+    .sibebar-swipe-off {
+        width: 0%;
+        height: 100%;
+        background-color: rgba(255,255,255,1);
+        opacity: 1;
+        transition-delay: 0.3s;
+        animation: sidebarswipeoff 0.3s linear;
+    }
+    @keyframes sidebarswipeoff {
+        from {
+            transform: translate3d(0, 0, 0);
+        }
+
+        to {
+            visibility: hidden;
+            transform: translate3d(-100%, 0, 0);
+        }
+    }
+    .sidebar-logo {
+        display: flex;
+        align-items: center;
+        height: 150px;
+        padding: 0.5rem;
+    }
+    .sidebar-logo img {
+        width: 60px;
+        height: 33px;
+        margin: 0 0.7rem 0 2rem;
+    }
+    .sidebar-mobile a {
+        text-decoration: none;
+    }
+    .sidebar-logo p {
+        font-family: 'Playfair Display', serif ;
+        font-size: 2rem;
+        margin: 0 0 0 40px;
+        color: #20313b;
+    }
+    .sidebar-panel {
+        display: flex;
+        flex-direction: column;
+        line-height: 2;
+        padding: 0 40px;
+        font-size: 1.2rem;
+    }
+    .sidebar-panel a {
+        font-size: 16px;
+        cursor: pointer;
+        color: #888;
+        line-height: 2.5;
+        padding: 8px 0;
+        border-radius: 10px;
+        /*border-bottom: 1px solid #888;*/
+        min-width: 200px;
+        margin: 5px 0;
+    }
+    .sidebar-panel a:hover {
+        color: #20313b;
+        background-color: #f4f6f8;
+    }
+    .sidebar-panel a:focus {
+        color: #20313b;
+        background-color: #b99f78;
+    }
+    .sidebar-panel i {
+        font-size: 20px;
+        padding: 0 10px;
+    }
+    header {
+        height: 150px;
+        display: flex;
+        align-items: center;
+    }
+    .header-menu {
+        height: 150px;
+        width: 150px;
+        background-color: #20313b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .menu-icon {
+        cursor: pointer;
+        width: 20px;
+        height: 12px;
+        position: relative;
+    }
+    .menu-icon div {
+        height: 2px;
+        background: #fff;
+        transition: 0.6s ease;
+        position: absolute;
+    }
+    .menu-icon div:nth-child(1) {
+        width: 17px;
+        top: 0;
+    }
+    .menu-icon div:nth-child(2) {
+        width: 20px;
+        top: 5px;
+    }
+    .menu-icon div:nth-child(3) {
+        width: 14px;
+        top: 10px;
+    }
+    .menu-icon:hover div {
+        width: 20px;
+    }
+    .header-row {
+        display: flex;
+        justify-content: space-between;
+        flex: 1 1 auto;
+    }
+    .header-store-name {
+        padding-left: 60px;
+        color: #b99f78;
+    }
+    .header-store-name h2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .header-nav {
+        display: flex;
+        align-items: center;
+        margin-right: 100px;
+        line-height: 1;
+        z-index: 500;
+    }
+    .header-links {
+        display: flex;
+        line-height: 1;
+    }
+    .shop-link {
+        color: #b99f78;
+    }
+    .header-nav a {
+        display: inline-block;
+    }
+    .header-nav .shop-link {
+        color: #b99f78;
+        font-weight: 600;
+    }
+    a.nav-hover    {
+        position: relative;
+        text-decoration: none;
+        padding: 10px 5px;
+        margin: 0 15px;
+        color: #20313b;
+    }
+
+    a.nav-hover:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #b99f78;
+        visibility: hidden;
+        transform: scaleX(0);
+        transition: all 0.3s ease-in-out;
+    }
+    a.nav-hover:hover:before {
+        visibility: visible;
+        transform: scaleX(1);
+    }
+    .select-lang {
+        position: relative;
+        display: inline-block;
+        padding-right: 0.5rem;
+    }
+    .dropbtn {
+        background-color: #fff;
+        color: #20313b;
+        padding: 5px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    .dropbtn img {
+        width: 32px;
+    }
+    .lang-list {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        width: max-content;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        right: 0.5rem;
+    }
+    .lang-list a {
+        color: 20313b;
+        padding: 12px 8px;
+        text-decoration: none;
+        display: flex;
+        cursor: pointer;
+    }
+    .lang-list a:hover {
+        background-color: #fff;
+    }
+    .select-lang:hover .lang-list {
+        display: block;
+    }
+    .lang-list a.nav-hover    {
+        margin: 0;
+    }
+    .lang-list img {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+    }
+    .main {
+        display: flex;
+    }
+    .about {
+        display: flex;
+    }
+    .sidebar-contact {
+        flex: 0 0 150px;
+        display: flex;
+        flex-direction: column;
+        max-width: 150px;
+        padding: 10px;
+    }
+    .sidebar-contact  p {
+        font-family: 'Muli', sans-serif;
+        font-size: 18px;
+    }
+    .sidebar-contact a {
+        text-decoration: none;
+    }
+    .sidebar-email, .sidebar-phone {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 1 240px;
+    }
+    .sidebar-email a, .sidebar-phone a {
+        transform: rotate(-90deg);
+        color: #20313b;
+        display: flex;
+        align-items: center;
+    }
+    .sidebar-email i, .sidebar-phone i {
+        padding-right: 5px;
+    }
+    .sidebar-email i {
+        font-size: 20px;
+    }
+    .sidebar-phone i {
+        font-size: 24px;
+    }
+    .sidebar-social {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .sidebar-social i {
+        color: #20313b;
+        margin-bottom: 1rem;
+    }
+    .about-container {
+        display: flex;
+        max-height: 55vh;
+        overflow: hidden;
+    }
+    .about-img {
+        flex: 0 1 45%;
+        position: relative;
+        min-width: 470px;
+    }
+    .about-img img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    .about-img-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 130px;
+        height: 130px;
+        background-color: #b99f78;
+        display: flex;
+    }
+    .about-img-btn i {
+        color: #fff;
+        font-size: 32px;
+        transition: transform 0.2s;
+        width: 100%;
+        align-self: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .about-img-btn i:hover {
+        transform: scale(1.3);
+    }
+    .about-text {
+        flex: 0 1 55%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #20313b;
+        padding:  0 110px;
+    }
+    .about-text h1 {
+        font-size: 60px;
+        line-height: 1.2;
+        padding: 20px 0;
+        color: #20313b;
+    }
+    .info {
+        background-color: #20313b;
+        height: auto;
+        display: flex;
+    }
+    .info-text {
+        flex: 0 1 45%;
+        padding: 80px 110px;
+        display: flex;
+        flex-direction: column;
+    }
+    .info-text h3 {
+        color: #fff;
+    }
+    .info-text p {
+        padding-top: 40px;
+        color: #fff;
+    }
+    .info-img {
+        flex: 0 1 55%;
+        padding-left: 110px;
+        position: relative;
+    }
+    .info-img img {
+        max-width: 550px;
+        width: 100%;
+        padding: 75px 110px 0 0;
+        object-fit: cover;
+    }
+    .info-quote {
+        position: absolute;
+        bottom: -40px;
+        left: 0;
+        width: 230px;
+        height: 140px;
+        background-color: #fbfbfb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    .info-quote-icon {
+        position: absolute;
+        top: -20px;
+        background-color: #fff;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    .info-quote-icon i {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #b99f78;
+    }
+    .popular-products {
+        display: flex;
+        flex-direction: column;
+    }
+    .popular-products-text {
+        padding: 130px 100px 60px 270px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .popular-products-text h3, .reviews-title h3, .shop-stat-text h3 {
+        color: #20313b;
+    }
+    .popular-products-text h3 , .popular-products-text p {
+        max-width: 460px;
+    }
+    .popular-products-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .popular-products-gallery-item {
+        /*flex: 0 1 calc(25% - 20px);*/
+        margin: 10px;
+        object-fit: cover;
+        position: relative;
+        cursor: pointer;
+    }
+    .popular-products-gallery-item img {
+        max-height: 270px;
+    }
+    .gallery-image-overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        transition: .5s ease;
+        background-color: #444;
+    }
+    .popular-products-gallery-item:hover .gallery-image-overlay {
+        opacity: 0.8;
+        /*animation: fadeInBottomRight 0.5s;*/
+
+    }
+    /*@keyframes fadeInBottomRight {*/
+        /*0% {opacity:0;-webkit-transform:translate3d(100%,100%,0);transform:translate3d(100%,100%,0)}*/
+        /*to {opacity:0.8;-webkit-transform:translateZ(0);transform:translateZ(0)}*/
+    /*}*/
+
+    .popular-products-gallery-item:hover .pop-prod-btn {
+        display: block;
+    }
+    .gallery-image-overlay-text {
+        color: #fff;
+        font-size: 20px;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        -webkit-transform: translate(-10%, -10%);
+        -ms-transform: translate(-10%, -10%);
+        transform: translate(-20%, -20%);
+        text-align: center;
+    }
+    .pop-prod-btn {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 80px;
+        height: 80px;
+        background-color: #b99f78;
+    }
+    .pop-prod-btn i {
+        color: #fff;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .shop-benefits {
+        display: flex;
+        flex-direction: column;
+        padding-top: 120px;
+        position: relative;
+    }
+    .shop-stat {
+        display: flex;
+    }
+    .shop-stat-img,  .shop-stat-text {
+        flex: 0 1 50%;
+    }
+    .shop-stat-img {
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+    }
+    .shop-stat-text {
+        padding: 0 110px;
+    }
+    .shop-stat-text a{
+        text-decoration: none;
+    }
+    .shop-stat-img-block {
+        max-width: 600px;
+        width: 100%;
+        object-fit: cover;
+        z-index: 200;
+        position: relative;
+    }
+    .shop-stat-text h3 {
+        padding: 80px 0 65px;
+    }
+    .shop-stat-text-info {
+        display: flex;
+        justify-content: space-between;
+        padding: 50px 0;
+    }
+    .shop-stat-text-info-item {
+        display: flex;
+        align-items: center;
+        padding-right: 10px;
+    }
+    .shop-stat-text-info-item h4 {
+        font-size: 40px;
+        padding-right: 10px;
+    }
+    .shop-stat-text-info-item p {
+        font-weight: 600;
+    }
+    .link-to-shop {
+        font-size: 14px;
+        font-weight: 600;
+        color: #b99f78;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-bottom: 2px solid #b99f78;
+        width: max-content;
+    }
+    .shop-stat-bg-block {
+        position: absolute;
+        top: 150px;
+        left: 0;
+        background-color:#20313b;
+        max-width: 600px;
+        width: 100%;
+        height: 700px;
+        z-index: 100;
+    }
+    .decor-lines {
+        position: absolute;
+        bottom: -25px;
+        left: -25px;
+        background-image: repeating-linear-gradient(135deg, transparent, transparent 14px, rgba(255,255,255,.5) 10px, rgba(255,255,255,.5) 16px);
+        width: 100px;
+        height: 100px;
+        z-index: -1;
+    }
+    .shop-gallery {
+        display: flex;
+        height: 600px;
+        z-index: 200;
+        margin-top: 120px;
+    }
+    .shop-gallery img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .shop-gallery-item1 {
+        flex: 0 1 27%;
+        padding-right: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .shop-gallery-item1-image {
+        height: calc(50% - 15px);
+        overflow: hidden;
+    }
+    .shop-gallery-item1-image:last-child {
+        position: relative;
+    }
+    .shop-gallery-decor-lines {
+        position: absolute;
+        bottom: -25px;
+        left: 0;
+        background-image: repeating-linear-gradient(135deg, transparent, transparent 14px, rgba(255,255,255,.5) 10px, rgba(255,255,255,.5) 16px);
+        width: 100px;
+        height: 100px;
+        z-index: 100;
+    }
+    .shop-gallery-item2 {
+        flex: 0 1 27%;
+        padding-right: 30px;
+    }
+    .shop-gallery-item2 img {
+        height: 100%;
+        object-fit: cover;
+    }
+    .shop-gallery-item3 {
+        flex: 0 1 56%;
+        position: relative;
+    }
+    .shop-gallery-item3 .info-quote   {
+        bottom: -70px;
+        left: 50%;
+        width: 230px;
+        height: 140px;
+        background-color: #20313b;
+        color: #fff;
+        transform: translate(-50%);
+    }
+    .reviews {
+        margin: 170px;
+        max-width: 100%;
+        color: #fff;
+    }
+    .reviews-title {
+        text-align: center;
+        padding: 20px 0 50px 0;
+    }
+    .reviews-gallery {
+        display: flex;
+        height: min-350px;
+        max-width: 1500px;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+    }
+    .review-item {
+        padding: 70px 60px 30px 60px;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        position: relative;
+    }
+    .review-item .info-quote-icon {
+        position: absolute;
+        top: -20px;
+        background-color: #b99f78;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    .review-item .info-quote-icon i {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+    }
+    .review1 {
+        flex: 0 1 58%;
+        background-color: #20313b;
+        margin-right: 40px;
+    }
+    .review2 {
+        flex: 0 1 42%;
+        background-color: #20313b;
+    }
+    .review-item-text {
+        line-height: 1.8;
+    }
+    .review-item-author {
+        display: flex;
+        align-items: center;
+        padding-top: 10px;
+    }
+    .review-item-author img {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+    .review-item-author-info h5 {
+        font-size: 22px;
+        font-weight: 100;
+        margin: 5px 0;
+    }
+    .review-item-author-info p {
+        font-size: 14px;
+        color: #888;
+    }
+    .reviews .decor-lines {
+        position: absolute;
+        bottom: -25px;
+        left: -25px;
+        background-color: #fff;
+        background: repeating-linear-gradient(135deg, transparent, #fff 18px, #999 2px, #999 20px);
+        /*background-image: repeating-linear-gradient(135deg, transparent, transparent 14px, rgba(255,255,255,.5) 10px, rgba(255,255,255,.5) 16px);*/
+
+        width: 100px;
+        height: 100px;
+        z-index: -1;
+    }
+    .lines-block {
+        position: absolute;
+        bottom: -25px;
+        left: -25px;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+    }
+    .lines {
+        width: 200px;
+        border-bottom: 2px solid #888;
+        margin-bottom: 15px;
+        transform: rotate(135deg);
+    }
+    .footer-row {
+        max-width: 1540px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        color: #20313b;
+    }
+    .footer-item {
+        flex: 0 1 20%;
+        padding: 20px;
+    }
+    .footer-item:nth-child(1) {
+        flex: 0 1 25%;
+    }
+    .footer-item:nth-child(2) {
+        margin-left: 20px;
+    }
+    .footer-item:nth-child(4) {
+        flex: 0 1 15%;
+    }
+    .footer-item p {
+        line-height: 2;
+    }
+    .footer-item:first-child {
+        line-height: 1.8;
+    }
+    .footer-item h2, .footer-item h3 {
+        min-height: 60px;
+    }
+    .footer-item h2 {
+        font-size: 26px;
+        color: #b99f78;
+    }
+    .footer-item h3 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .schedule-item {
+        display: flex;
+        align-items: center;
+    }
+    .footer-schedule span {
+        display: inline-block;
+        width: 38px;
+        margin-right: 5px;
+    }
+    .footer-icons-block {
+        display: flex;
+    }
+    .footer-item a {
+        cursor: pointer;
+        color: #20313b;
+        padding-right: 15px;
+        text-decoration: none;
+        height: 32px;
+        display: flex;
+    }
+    .footer-item:nth-child(5) a {
+        height: auto;
+    }
+    .footer-phone {
+        display: flex;
+        align-items: center;
+    }
+    .footer-phone i {
+        padding-right: 5px;
+    }
+    @media screen and (max-width: 1300px) {
+        .about-img {
+            min-width: 300px;
+        }
+        .about-text, .shop-stat-text {
+            padding: 0 50px;
+        }
+        .about-text h1 {
+            font-size: 36px;
+        }
+        .about-img-btn {
+            width: 100px;
+            height: 100px;
+        }
+        h3 {
+            font-size: 30px;
+        }
+        .footer-row {
+            flex-wrap: wrap;
+        }
+    }
+    @media screen and (max-width: 960px) {
+        header, .sidebar-logo {
+            height: 100px;
+        }
+        .header-menu {
+            width: 100px;
+            min-width: 100px;
+            height: 100px;
+        }
+        .header-nav {
+            margin-right: 10px;
+        }
+
+        .sidebar-contact {
+            display: none;
+        }
+        .about-container, .shop-stat, .reviews-gallery {
+            flex-direction: column;
+            max-height: 100%;
+        }
+        .about-img img {
+            width: 100%;
+            max-height: 400px;
+        }
+        .about-text, .shop-stat-text {
+            padding: 20px;
+        }
+        .info {
+            flex-direction: column-reverse;
+        }
+        .info-img {
+            padding-left: 0;
+        }
+        .info-img img {
+            padding: 0;
+            max-width: 100%;
+            max-height: 400px;
+        }
+        .popular-products-text {
+            padding: 40px;
+        }
+        .shop-stat-img {
+            justify-content: center;
+        }
+        .shop-stat-bg-block {
+            display: none;
+        }
+        .shop-stat-img-block  {
+            max-width: 100%;
+        }
+        .shop-stat-img-block img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+        .shop-gallery-item1, .shop-gallery-item2 {
+            display: none;
+        }
+        .shop-gallery-item3 {
+            flex: 1;
+        }
+        .reviews {
+            margin: 100px 20px;
+        }
+        .review1 {
+            margin: 0 0 30px 0;
+            flex: 0 1 90%;
+        }
+        .footer-item {
+            flex: 0 1 50%;
+        }
+        .footer-item:nth-child(1) {
+            flex: 0 1 50%;
+        }
+        .footer-item:nth-child(5) {
+            flex: 0 1 100%;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .header-row {
+            align-items: center;
+        }
+        .header-links {
+            display: none;
+        }
+        .header-store-name {
+            padding-left: 20px;
+        }
+        .shop-stat-text-info {
+            flex-direction: column;
+            padding: 20px 0;
+        }
+        .shop-stat-text h3 {
+            padding: 20px 0;
+        }
+        .shop-stat-text-info-item h4 {
+            font-size: 30px;
+            padding-right: 5px;
+        }
+        .shop-stat-text-info-item p {
+            line-height: 1.4;
+        }
+        .shop-gallery {
+            margin-top: 20px;
+        }
+        .info-text {
+            padding: 80px 20px 20px 20px;
+        }
+        .info-text p {
+            padding-top: 20px;
+        }
+        .popular-products-text {
+            flex-direction: column;
+            padding: 20px;
+        }
+        .popular-products-text h3 {
+            padding-bottom: 20px;
+        }
+        .popular-products-gallery-item {
+            margin: 0 10px 10px 10px;
+        }
+        .shop-benefits {
+            padding-top: 40px;
+        }
+        .review-item {
+            padding: 40px 20px;
+        }
+        .footer-item:nth-child(2) {
+            margin-left: 0;
+        }
+    }
+
+</style>
+
+
+<body>
+<div  id="overlay-mobile" class="null-style">
+    <div class="sidebar-mobile sibebar-swipe-off">
+        <a class="link" href="/">
+            <div class="sidebar-logo">
+                <!--<img src="../../../wisehands/services/images/americano-logo.jpg" alt="image">-->
+                <p>&{'landing.page.shop.name.title'}</p>
+            </div>
+        </a>
+        <div class="sidebar-panel">
+            <a class="link"  href="/${language}"><i class="fa fa-home" aria-hidden="true"></i>
+                &{'mobile.sidebar.link.main.page'}</a>
+            <a class="link"  href="/${language}/shop"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                &{'landing.page.make.order.title'}</a>
+            <a class="link" id="sidebar-contact" href="#footer-contact"><i class="fa fa-address-book" aria-hidden="true"></i>
+                &{'landing.page.contact.title'}</a>
+        </div>
+    </div>
+</div>
+    <div class="container">
+
+        <header>
+            <div class="header-menu animate__animated  animate__slideInLeft" id="mobile-menu">
+                <div class="menu-icon" >
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="header-row">
+                <div class="header-store-name">
+                    <h2 class="wow fadeInLeft">&{'landing.page.shop.name.title'}</h2>
+                </div>
+                <div class="header-nav">
+                    <div class="header-links">
+                        <a href="/${language}" class="nav-hover wow fadeInUp">&{'mobile.sidebar.link.main.page'}</a>
+                        <a href="/${language}/shop" class="nav-hover shop-link wow fadeInUp">&{'landing.page.make.order.title'}</a>
+                        <a  href="#footer-contact" class="nav-hover wow fadeInUp">&{'landing.page.contact.title'}</a>
+                    </div>
+                    <div class="select-lang wow fadeInUp">
+                        <button class="dropbtn"><img src="" alt="flag" id="set-flag"></button>
+                        <div class="lang-list">
+                            <a onclick="changeLanguage('en')" class="nav-hover"><img src = "../../../wisehands/services/images/icons8-great-britain-48.png" alt="flag">English</a>
+                            <a onclick="changeLanguage('uk')" class="nav-hover"><img src = "../../../wisehands/services/images/icons8-ukraine-48.png" alt="flag">Українська</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="main">
+            <div class="sidebar-contact wow fadeInUp">
+                <div class="sidebar-email">
+                    <a href="mailto:americano.ua@gmail.com">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <p>americano.ua@gmail.com</p>
+                    </a>
+                </div>
+                <div class="sidebar-phone">
+                    <a href="tel:+380639331331">
+                        <i class="fa fa-mobile" aria-hidden="true"></i>
+                        <p>+380639331331</p>
+                    </a>
+                </div>
+                <div class="sidebar-social">
+                    <a href="https://www.facebook.com/americano.lviv/" id="linkfacebook" target="_blank">
+                        <i class="fa fa-facebook" style="font-size:24px"></i>
+                    </a>
+                    <a href="https://www.instagram.com/americano.lviv/?hl=uk" id="linkinstagram" target="_blank">
+                        <i class="fa fa-instagram" style="font-size:24px"></i>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=uaeLge1AXH8" id="linkyoutube" target="_blank">
+                        <i class="fa fa-youtube-play" style="font-size:22px"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="about-info">
+                <section class="about">
+                    <div class="about-container ">
+                        <div class="about-img">
+                            <img class="wow fadeInUp" src="../../../wisehands/services/images/americano2.jpg" alt="image">
+                            <a href="/${language}/shop">
+                                <div class="about-img-btn wow zoomIn">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="about-text wow fadeInUp">
+                            <p>&{'landing.page.about.shop.type'}</p>
+                            <h1>&{'landing.page.about.shop.kitchen'}</h1>
+                            <p>&{'landing.page.about.shop.cooking.from'}</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="info wow fadeInUp">
+                    <div class="info-text ">
+                        <h3>&{'landing.page.about.shop.opened'}</h3>
+                        <p>&{'landing.page.about.shop.make.cooking'}</p>
+                    </div>
+                    <div class="info-img">
+                        <img src="../../../wisehands/services/images/americano8.jpg" alt="image">
+                        <div class="info-quote ">
+                            <div class="info-quote-icon">
+                                <i class='fa fa-quote-left' style='font-size:14px'></i>
+                            </div>
+                            <p>&{'landing.page.about.shop.tasty.dish'}</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <section class="popular-products">
+            <div class="popular-products-text">
+                <h3 class="wow fadeInUp">&{'landing.page.about.dish.for.all'}</h3>
+                <p class="wow fadeInUp">&{'landing.page.about.popular.dishes'}</p>
+            </div>
+            <div class="popular-products-gallery">
+                <a href="/${language}/category/db608b985f648de3015fc9dfb2ec01b9">
+                    <div class="popular-products-gallery-item wow zoomIn" >
+                        <img src="../../../wisehands/services/images/prod3.jpg" alt="image">
+                        <div class="gallery-image-overlay">
+                            <div class="gallery-image-overlay-text">
+                                <p>&{'landing.page.about.shop.cooking.burgers'}</p>
+                            </div>
+                        </div>
+                        <div class="pop-prod-btn wow zoomIn">
+                            <i class='fa fa-arrow-right'></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="/${language}/category/db608b985fd0c031015fef2abae700d5">
+                    <div class="popular-products-gallery-item wow zoomIn" >
+                        <img src="../../../wisehands/services/images/prod4.jpg" alt="image">
+                        <div class="gallery-image-overlay">
+                            <div class="gallery-image-overlay-text">
+                                <p>&{'landing.page.about.shop.chinese.dishes'}</p>
+                            </div>
+                        </div>
+                        <div class="pop-prod-btn wow zoomIn">
+                            <i class='fa fa-arrow-right'></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="/${language}/category/db608b985fd0c0310160369432b102c8">
+                    <div class="popular-products-gallery-item wow zoomIn" >
+                        <img src="../../../wisehands/services/images/prod2.jpg" alt="image">
+                        <div class="gallery-image-overlay">
+                            <div class="gallery-image-overlay-text">
+                                <p>&{'landing.page.about.shop.cooking.salads'}</p>
+                            </div>
+                        </div>
+                        <div class="pop-prod-btn  wow zoomIn">
+                            <i class='fa fa-arrow-right'></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="/${language}/shop">
+                    <div class="popular-products-gallery-item wow zoomIn" >
+                        <img src="../../../wisehands/services/images/prod1.jpg" alt="image">
+                        <div class="gallery-image-overlay">
+                            <div class="gallery-image-overlay-text">
+                                <p>&{'landing.page.about.shop.all.dishes'}</p>
+                            </div>
+                        </div>
+                        <div class="pop-prod-btn wow zoomIn">
+                            <i class='fa fa-arrow-right'></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <section class="shop-benefits">
+            <div class="shop-stat">
+                <div class="shop-stat-img wow  fadeInUp">
+                    <div class="shop-stat-bg-block"></div>
+                    <div class="shop-stat-img-block ">
+                        <img src="../../../wisehands/services/images/americano3.jpg" alt="image">
+                        <!--<video src="../wisehands/services/images/americano.mp4" width="600px" height="600px" controls></video>-->
+                        <!--<iframe src="https://www.facebook.com/americano.lviv/videos/912997852428020"></iframe>-->
+                        <div class="decor-lines"></div>
+                    </div>
+                </div>
+                <div class="shop-stat-text wow fadeInUp">
+                    <h3>&{'landing.page.about.shop.chill.space'}</h3>
+                    <p>&{'landing.page.about.shop.all.space'}</p>
+                    <div class="shop-stat-text-info wow fadeInUp">
+                        <div class="shop-stat-text-info-item">
+                            <h4>13</h4>
+                            <p>&{'landing.page.about.shop.wooden.desks'}</p>
+                        </div>
+                        <div class="shop-stat-text-info-item">
+                            <h4>6</h4>
+                            <p>&{'landing.page.about.shop.summer.desks'}</p>
+                        </div>
+                        <div class="shop-stat-text-info-item">
+                            <h4>5</h4>
+                            <p>&{'landing.page.about.shop.vip.desks'}</p>
+                        </div>
+                    </div>
+                    <a href="tel:+380639331331">
+                        <p class="link-to-shop">&{'landing.page.about.shop.reserve.desks'}</p>
+                    </a>
+                </div>
+            </div>
+            <div class="shop-gallery">
+                <div class="shop-gallery-item1">
+                    <div class="shop-gallery-item1-image wow zoomIn">
+                        <img src="../wisehands/services/images/americano7.jpg" alt="image">
+                    </div>
+                    <div class="shop-gallery-item1-image wow zoomIn">
+                        <img src="../wisehands/services/images/americano4.jpg" alt="image">
+                    </div>
+                    <div class="shop-gallery-decor-lines"></div>
+                </div>
+                <div class="shop-gallery-item2 wow zoomIn">
+                    <img src="../wisehands/services/images/americano6.jpg" alt="image">
+                </div>
+                <div class="shop-gallery-item3">
+                    <img class="wow zoomIn" src="../wisehands/services/images/americano5.jpg" alt="image">
+                    <div class="info-quote wow zoomIn">
+                        <div class="info-quote-icon">
+                            <i class='fa fa-quote-left' style='font-size:14px'></i>
+                        </div>
+                        <p>&{'landing.page.about.shop.what.eat'}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reviews">
+            <div class="reviews-title">
+                <h3 class="wow fadeInUp">&{'landing.page.about.shop.feedback'}</h3>
+            </div>
+            <div class="reviews-gallery">
+                <div class="lines-block">
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                </div>
+                <div class="review-item review1 wow fadeInUp">
+                    <div class="info-quote-icon">
+                        <i class='fa fa-quote-left' style='font-size:14px'></i>
+                    </div>
+                    <div class="review-item-text">
+                        <p>&{'landing.page.about.shop.customer.feedback.o.k'}</p>
+                    </div>
+                    <div class="review-item-author">
+                        <img src="../../../wisehands/services/images/customer1.jpg" alt="image">
+                        <div class="review-item-author-info">
+                            <h5>&{'landing.page.about.shop.feedback.o.k'}</h5>
+                            <p>&{'landing.page.about.shop.feedback.o.k.time'}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-item review2 wow fadeInUp">
+                    <div class="info-quote-icon">
+                        <i class='fa fa-quote-left' style='font-size:14px'></i>
+                    </div>
+                    <div class="review-item-text">
+                        <p>&{'landing.page.about.shop.customer.feedback.i.i'}</p>
+                    </div>
+                    <div class="review-item-author">
+                        <img src="../../../wisehands/services/images/customer2.jpg" alt="image">
+                        <div class="review-item-author-info">
+                            <h5>&{'landing.page.about.shop.feedback.i.i'}</h5>
+                            <p>&{'landing.page.about.shop.feedback.i.i.time'}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-row">
+                <div class="footer-item wow fadeInUp" data-wow-delay="0.1s">
+                    <h2>&{'landing.page.shop.name.title'}</h2>
+                    <p>&{'landing.page.about.shop.cooking.from'}</p>
+                </div>
+                <div class="footer-item footer-schedule wow fadeInUp" data-wow-delay="0.2s">
+                    <h3>&{'footer.working.schedule.label'}</h3>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.monday'}</span><p id="mon"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.tuesday'}</span><p id="tue"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.wednesday'}</span><p id="wed"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.thursday'}</span><p id="thu"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.friday'}</span><p id="fri"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.saturday'}</span><p id="sat"></p>
+                    </div>
+                    <div class="schedule-item">
+                        <span>&{'footer.working.schedule.sunday'}</span><p id="sun"></p>
+                    </div>
+                </div>
+                <div class="footer-item wow fadeInUp" data-wow-delay="0.3s">
+                    <h3>&{'landing.page.about.shop.info'}</h3>
+                    <a id="link" href="">
+                        <p id="page"></p>
+                    </a>
+                    <a id="link1" href="">
+                        <p id="page1"></p>
+                    </a>
+                    <a  id="link2" href="">
+                        <p id="page2"></p>
+                    </a>
+                    <a id="link3" href="">
+                        <p id="page3"></p>
+                    </a>
+                    <a id="link4" href="">
+                        <p id="page4"></p>
+                    </a>
+                    <a id="link5" href="">
+                        <p id="page5"></p>
+                    </a>
+                </div>
+                <div class="footer-item wow fadeInUp" data-wow-delay="0.4s">
+                    <h3>&{'landing.page.about.shop.follow'}</h3>
+                    <div class="footer-icons-block">
+                        <a href="https://www.facebook.com/americano.lviv/" id="linkfacebook" target="_blank">
+                            <i class="fa fa-facebook" style="font-size:34px"></i>
+                        </a>
+                        <a href="https://www.instagram.com/americano.lviv/?hl=uk" id="linkinstagram" target="_blank">
+                            <i class="fa fa-instagram" style="font-size:36px"></i>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=uaeLge1AXH8" id="linkyoutube" target="_blank">
+                            <i class="fa fa-youtube-play" style="font-size:36px"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-item wow fadeInUp" id="footer-contact" data-wow-delay="0.5s">
+                    <h3>&{'landing.page.contact.title'}</h3>
+                    <a href="mailto:americano.ua@gmail.com"><p id="email"></p></a>
+                    <a><p id="address"></p></a>
+                    <a href="tel:+380639331331" class="footer-phone">
+                        <i class="fa fa-mobile-phone" style="font-size:2.3rem"></i>
+                        <p id="phone">+</p>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+<script>
+    document.getElementById("mobile-menu").addEventListener("click", showMenu);
+    function showMenu() {
+        document.querySelector("#overlay-mobile").style.display = 'block';
+        document.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
+    }
+
+    document.getElementById("sidebar-contact").addEventListener("click", hideSidebar);
+    document.getElementById("overlay-mobile").addEventListener("click", hideSidebar);
+
+    function hideSidebar() {
+        document.querySelector("#overlay-mobile").style.display = 'none';
+    }
+
+    function setDisplayNoneToSidebarOverlay() {
+        document.querySelector("#overlay-mobile").style.display = 'none';
+    }
+
+    document.getElementById("overlay-mobile").addEventListener("click", closeMenu);
+    function closeMenu() {
+        document.querySelector(".sidebar-mobile").classList.add('sibebar-swipe-off');
+        setTimeout(setDisplayNoneToSidebarOverlay, 300);
+    }
+
+    document.querySelector(".sidebar-mobile").addEventListener("click", showSidebar);
+    function showSidebar(e) {
+        e.stopPropagation();
+    }
+
+    document.querySelector(".sidebar-mobile").addEventListener('touchstart', handleTouchStart, false);
+    document.querySelector(".sidebar-mobile").addEventListener('touchmove', handleTouchMove, false);
+
+    var xDown = null;
+    var yDown = null;
+
+    function getTouches(evt) {
+        return evt.touches ||             // browser API
+                evt.originalEvent.touches; // jQuery
+    }
+
+    function handleTouchStart(evt) {
+        const firstTouch = getTouches(evt)[0];
+        xDown = firstTouch.clientX;
+        yDown = firstTouch.clientY;
+    };
+
+    function handleTouchMove(evt) {
+        if ( ! xDown || ! yDown ) {
+            return;
+        }
+
+        var xUp = evt.touches[0].clientX;
+        var yUp = evt.touches[0].clientY;
+
+        var xDiff = xDown - xUp;
+        var yDiff = yDown - yUp;
+
+        if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+            if ( xDiff > 0 ) {
+                /* left swipe */
+                console.log('left swipe:', yDiff);
+                closeMenu()
+            } else {
+                /* right swipe */
+            }
+        } else {
+            if ( yDiff > 0 ) {
+                /* up swipe */
+            } else {
+                /* down swipe */
+            }
+        }
+        /* reset values */
+        xDown = null;
+        yDown = null;
+    };
+
+    changeLanguage = (language) => {
+        window.location = window.location.origin + '/' + language;
+    };
+
+    setFlagToLanguage = () => {
+        const setFlag = document.querySelector('#set-flag');
+        const language = document.querySelector('html').getAttribute('language');
+        if (language === 'uk') {
+            setFlag.src = "../../../wisehands/services/images/icons8-ukraine-48.png";
+        }
+        if (language === 'en') {
+            setFlag.src = "../../../wisehands/services/images/icons8-great-britain-48.png";
+        }
+    };
+    
+    setFlagToLanguage();
+
+    fetch('/pageconstructor', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        const language = document.querySelector('html').getAttribute('language');
+        document.getElementById("page").innerHTML = setTranslation(data[0]);
+        document.getElementById("page1").innerHTML = setTranslation(data[1]);
+        document.getElementById("page2").innerHTML = setTranslation(data[2]);
+        document.getElementById("page3").innerHTML = setTranslation(data[3]);
+        document.getElementById("page4").innerHTML = setTranslation(data[4]);
+        document.getElementById("page5").innerHTML = setTranslation(data[5]);
+
+        document.getElementById("link").href = '/'+ language + data[0].url + data[0].uuid;
+        document.getElementById("link1").href = '/'+ language + data[1].url + data[1].uuid;
+        document.getElementById("link2").href = '/'+ language + data[2].url + data[2].uuid;
+        document.getElementById("link3").href = '/'+ language + data[3].url + data[3].uuid;
+        document.getElementById("link4").href = '/'+ language + data[4].url + data[4].uuid;
+        document.getElementById("link5").href = '/'+ language + data[5].url + data[5].uuid;
+    });
+
+    function setTranslation(data){
+        let label = '';
+        const language = document.querySelector('html').getAttribute('language');
+        console.log('language' , language  );
+        if (data.pageTitleTextTranslationBucket){
+            const bucketList = data.pageTitleTextTranslationBucket.translationList;
+            bucketList.forEach(function(item){
+                if(item.language === language){
+                    label = item.content
+                }
+            });
+        } else {
+            label = data.title;
+        }
+        return label;
+    }
+
+    fetch('/shop/details/public', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        if (data.monOpen === true) {
+            document.getElementById('mon').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('mon').innerHTML = data.monStartTime + " - " + data.monEndTime;
+        }
+        if (data.tueOpen === true) {
+            document.getElementById('tue').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('tue').innerHTML = data.tueStartTime + " - " + data.tueEndTime;
+        }
+        if (data.wedOpen === true) {
+            document.getElementById('wed').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('wed').innerHTML = data.wedStartTime + " - " + data.wedEndTime;
+        }
+        if (data.thuOpen === true) {
+            document.getElementById('thu').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('thu').innerHTML = data.thuStartTime + " - " + data.thuEndTime;
+        }
+        if (data.friOpen === true) {
+            document.getElementById('fri').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('fri').innerHTML = data.friStartTime + " - " + data.friEndTime;
+        }
+        if (data.satOpen === true) {
+            document.getElementById('sat').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('sat').innerHTML = data.satStartTime + " - " + data.satEndTime;
+        }
+        if (data.sunOpen === true) {
+            document.getElementById('sun').innerHTML = 'Зачинено';
+        } else {
+            document.getElementById('sun').innerHTML = data.sunStartTime + " - " + data.sunEndTime;
+        }
+    });
+
+    fetch('/contact/details', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        document.querySelector('#email').innerHTML = data.email;
+        document.querySelector('#phone').innerHTML = data.phone;
+        document.querySelector('#address').innerHTML = setTranslationForAddress(data)
+    });
+
+    function setTranslationForAddress(data){
+        console.log('setTranslationForAddress', data);
+        const language = document.querySelector('html').getAttribute('language');
+
+        let addressCity = '';
+        let addressStreet = '';
+        if (data.addressCityTextTranslationBucket){
+            const bucketList = data.addressCityTextTranslationBucket.translationList
+            bucketList.forEach(function(item){
+                if(item.language === language){
+                    addressCity = item.content
+                    if (addressCity === ''){
+                      addressCity = data.addressCity;
+                    }
+                }
+            });
+        } else {
+            addressCity = data.addressCity;
+        }
+        if (data.addressStreetTextTranslationBucket){
+            const bucketList = data.addressStreetTextTranslationBucket.translationList
+            bucketList.forEach(function(item){
+                if(item.language === language){
+                    addressStreet = item.content
+                    if (addressStreet === ''){
+                      addressStreet = data.addressStreet;
+                    }
+                }
+            });
+        } else {
+            addressStreet = data.addressStreet;
+        }
+        return addressCity + ', ' + addressStreet + ', ' + data.addressNumberHouse;
+    }
+
+</script>
+
+
+</body>
+</html>

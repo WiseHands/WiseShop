@@ -1,6 +1,132 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
-#
+# label for some element like button
+button.find.label = Знайти
+button.next.label = Далі
+button.back.label = Назад
+title.add.product.to.basket.label = Додати до кошика
+
+# translation for pages
+
+#landing page for americano 😋 Заходьте посмакувати! 😉
+landing.page.shop.title = Ресторан & кафе "Амерікано"
+landing.page.shop.name.title = Амерікано
+landing.page.make.order.title = Замовити
+landing.page.contact.title = Контакти
+landing.page.about.shop.type = Ресторан&Кафе
+landing.page.about.shop.kitchen = Американська та азіатська ф'южн кухня
+landing.page.about.shop.cooking.from = У нас найкращі бургери на схід від Нью-Йорку і найсмачніша качка по-пекінськи на захід від Пекіну! Заходьте посмакувати!
+landing.page.about.shop.opened = Відкриті для Вас з 2013 року
+landing.page.about.shop.make.cooking = Готуємо різноманітні страви американської та азіатської кухні під ретельним наглядом шеф-кухаря Лі
+landing.page.about.shop.tasty.dish = Смачна страва - окреме свято в житті
+landing.page.about.dish.for.all = В Амерікано – страви на будь-який смак
+landing.page.about.popular.dishes = Найпопулярніші страви серед наших клієнтів
+landing.page.about.shop.cooking.burgers = Бургери
+landing.page.about.shop.chinese.dishes = Китайські гарячі страви з птиці
+landing.page.about.shop.cooking.salads = Салати
+landing.page.about.shop.all.dishes = Всі страви
+landing.page.about.shop.chill.space = Затишний простір і смачні страви
+landing.page.about.shop.all.space = Тераса, літній майданчик, основний зал і для володарів нашої карточки - VIP зал
+landing.page.about.shop.wooden.desks= столиків
+landing.page.about.shop.summer.desks = столиків літнього майнданчика
+landing.page.about.shop.vip.desks = столиків VIP-залу
+landing.page.about.shop.reserve.desks = Зарезервувати
+landing.page.about.shop.what.eat = Скажи мені що ти їси, і я скажу тобі хто ти
+landing.page.about.shop.feedback = Відгуки клієнтів
+landing.page.about.shop.customer.feedback.o.k = Ми сьогодні смакували цією прекрасною стравою! Кафе "Амерікано", ви, як завжди, неперевершені в приготуванні китайських смаколиків!!!))) Качка була просто божественною! Спаржа в хрумкотливій паніровці- безперечно, шедевр! Салати з китайських грибів і морської капусти- легкі та чудові своїм смаком! Ну,а комплімент від кухаря- карамелізовані млинці,які нагадували прекрасну пахлаву - це був такий приємний і несподіваний сюрприз! Величезне дякуємо за чудовий вечір! Низький уклін талановитим кухарям!😍😍😍
+landing.page.about.shop.feedback.o.k = Оксана Куліш
+landing.page.about.shop.feedback.o.k.time = 22 січня 2019 р.
+landing.page.about.shop.customer.feedback.i.i = Були вчора з чоловіком і дитиною в Американо. Отримала свій виграш, а саме бургери, локшину і напої)😁 додатково замовили ще один бургер, усі страви просто неймовірно смачніі😉, дуже ввічливі офіціанти. Нам сподобалось, прийдемо ще! P.S. син також зацінив ваші акваріуми з черепахами.
+landing.page.about.shop.feedback.i.i = Іруська Іванців
+landing.page.about.shop.feedback.i.i.time = 4 травня 2019 р.
+landing.page.about.shop.info = Інформація
+landing.page.about.shop.payment = Оплата
+landing.page.about.shop.delivery = Доставка
+landing.page.about.shop.return = Повернення
+landing.page.about.shop.about.us = Про нас
+landing.page.about.shop.public.contract = Публічний договір
+landing.page.about.shop.follow = Слідкувати
+landing.page.about.shop.address = Львів, Остапа Нижанківського, 4
+
+
+
+page.done.delivery.order.message = Замовлення успішно завершене. Очікуйте, з вами зв'яжуться.
+page.order.feedback.rate.label = Оцініть товар
+page.order.feedback.write.feedback.label = Залишіть відгук тут
+page.order.feedback.feedback.about.order.label = Відгук про замовлення
+page.order.feedback.send.feedback.label = ВІДПРАВИТИ ВІДГУК
+page.order.feedback.thank.feedback.label = Дякуємо за Ваш відгук
+page.order.feedback.error.feedback.label = Помилка відправки відгука
+page.order.feedback.thank.order.label = дякуємо за замовлення!
+page.order.feedback.leave.order.label = Залиште, будь ласка, відгук
+
+
+
+# mobile-sidebar in tags
+mobile.sidebar.title.categories = Продукти
+mobile.sidebar.link.main.page = Головна
+# shopping cart container
+delivery.type.label= Тип доставки
+payment.type.label= Тип оплати
+customer.label= Замовник:
+customer.name.label = Ім'я
+customer.phone.label = Телефон
+customer.email.label = Email
+customer.comment.label = Коментар
+amount.products.label= Товарів на суму:
+delivery.label= Доставка:
+general.payment.label= РАЗОМ:
+error.message.please.write.label = Заповніть, будь ласка, це поле
+error.message.please.chose.delivery.label = Вкажіть, будь ласка, тип доставки
+error.message.please.chose.payment.label = Вкажіть, будь ласка, тип оплати
+error.message.please.minimum.delivery.label = Мінімальна сума замовлення становить
+error.message.fill.info = Перевірте заповнену інформацію
+address.general.label = Адреса
+address.entrance.label = Під'їзд
+address.entrance.code.label = Код під'їзду
+address.floor.label = Поверх
+address.apartment.label = квартира
+
+map.choose.your.place.label = Вкажіть місцезнаходження на
+map.label = карті
+map.error.message = Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на
+
+page.select.address.find.location = Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ".
+page.select.address.out.delivery = Дана локація знаходиться за межами доставки
+page.select.address.placeholder.city = Місто
+page.select.address.placeholder.street = Вулиця
+page.select.address.placeholder.house = № будинку
+
+shopping.cart.basket.empty.label = Ваш кошик порожній
+shopping.cart.start.shopping.label = РОЗПОЧАТИ ПОКУПКИ
+
+page.product.main.label = Головна
+page.product.additions.label = Додатки
+page.product.additions.cost = Вартість додатків:
+page.product.price = Вартість:
+page.product.buy = Купити
+page.product.add.to.basket = Товар додано в кошик
+page.product.about.product = Про товар
+page.product.reviews = Відгуки
+page.product.no.reviews = Клієнт не залишив коментаря
+page.product.no.reviews = Відгуки відсутні
+
+footer.payment.label = Приймаємо
+footer.be.in.touch.label = Будьте в курсі
+footer.be.in.touch.news = Дізнавайтесь про найцікавіші новини, знижки та акції
+footer.be.in.touch.newsletter = Вас додано до розсилки
+footer.be.in.touch.enter.email = Введіть email
+footer.information.label = Інформація
+footer.working.schedule.label = Графік Роботи
+footer.working.schedule.monday = ПН
+footer.working.schedule.tuesday = ВТ
+footer.working.schedule.wednesday = СР
+footer.working.schedule.thursday = ЧТ
+footer.working.schedule.friday = ПТ
+footer.working.schedule.saturday = СБ
+footer.working.schedule.sunday = НД
+
+feedback.page.title = Відгук
 feedback.email.notification.to.client.leave.feedback = [%s] %s, залиште будь ласка відгук про ваше замовлення
 feedback.email.notification.to.admin.about.new.feedback = [%s] Клієнт %s залишив відгук про замовлення
 feedback.main.label = Привіт %s.
@@ -9,10 +135,12 @@ feedback.email.text = Допоможіть нам стати кращими, з�
 feedback.write.feedback = Написати відгук
 feedback.email.answer = Ми відповіли на Ваш відгук
 feedback.email.revise = Переглянути
+
 balance.transaction.low.shop.balance = Баланс магазину менше 100 грн, поповніть будь ласка рахунок
 shop.balance = Баланс магазину
 shop.balance.currency = ₴
 shop.not.found = Магазин не знайдено...
+shop.missing.products = Товари відсутні
 shop.login = Логін
 new.order = Нове замовлення
 order.is.processing = Замовлення (%s, %s) обробляється

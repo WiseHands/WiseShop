@@ -1,0 +1,58 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="#/payment">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'translationPage.title' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="setTranslation()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="admin-container noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <div class="admin-card noSidePadding"
+       ng-hide="loading">
+        <h4>{{'translationPage.ukrainian' | translate}}</h4>
+        <div class="input-field">
+            <p>{{'translationPage.toUkrainian' | translate}}</p>
+        </div>
+        <div class="delivery-message input-field">
+            <textarea id="uk" class="materialize-textarea"></textarea>
+        </div>
+    </div>
+    <div class="admin-card noSidePadding"
+         ng-hide="loading">
+        <h4>{{'translationPage.english' | translate}}</h4>
+        <div class="input-field">
+            <p>{{'translationPage.toEnglish' | translate}}</p>
+        </div>
+        <div class="delivery-message input-field">
+            <textarea id="en" class="materialize-textarea"
+                      rows="1"></textarea>
+        </div>
+    </div>
+    <!--<div class="admin-card noSidePadding"-->
+         <!--ng-hide="loading">-->
+        <!--<h4>{{'translationPage.polish' | translate}}</h4>-->
+        <!--<div class="input-field">-->
+        <!--<p>{{'translationPage.toEnglish' | translate}}</p>-->
+        <!--</div>-->
+        <!--<div class="delivery-message input-field">-->
+            <!--<textarea id="translatePolish" class="materialize-textarea" ng-model="delivery.newPostText"-->
+                      <!--rows="1"></textarea>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>

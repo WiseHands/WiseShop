@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('CategoriesController', ['$scope', '$http', 'sideNavInit', 'signout', function ($scope, $http, sideNavInit, signout) {
+    .controller('CategoriesController', ['$scope', '$http', 'sideNavInit', 'signout', '$window', function ($scope, $http, sideNavInit, signout, $window) {
         $scope.loading = true;
 
         $http({
@@ -13,12 +13,24 @@ angular.module('WiseHands')
                 $scope.loading = false;
                 console.log(error);
             });
-        
+
+        $scope.redirectToTranslationPage = function (category) {
+        $http({
+            method: 'GET',
+            url: '/api/get/translation/category/' + category.uuid
+        })
+            .then(function successCallback(response) {
+                const translationBucket = response.data;
+                $window.location.href = `#/translation/${category.uuid}/${translationBucket.uuid}`;
+            }, function errorCallback(error) {
+                $scope.loading = false;
+                console.log(error);
+            });
+        }
         $scope.getCategory = function (category) {
             $scope.thisCategory = category;
             $scope.succesfullDelete = false;
             $scope.deleteButton = true;
-
         };
         $scope.hideModal = function () {
             $('#categoryModal').modal('hide');

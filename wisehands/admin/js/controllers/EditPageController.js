@@ -1,24 +1,42 @@
 angular.module('WiseHands')
-    .controller('EditPageController', ['$scope', '$http', 'signout', '$routeParams', 'sideNavInit',
-                function ($scope, $http, signout, $routeParams, sideNavInit) {
-        $scope.loading = true;
+    .controller('EditPageController', ['$scope', '$http', 'signout', '$routeParams', 'sideNavInit', '$window',
+                function ($scope, $http, signout, $routeParams, sideNavInit, $window) {
+        $scope.pageUuid = $routeParams.uuid;
+
+        $scope.goBack = () => {
+            window.history.back();
+        }
+
         sideNavInit.sideNav();
 
-        $http({
-            method: 'GET',
-            url: '/pageconstructor/' + $routeParams.uuid
-        }).then(function successCallback(response) {
-                $scope.title = response.data.title;
-                $scope.url = response.data.url;
-                CKEDITOR.replace('editor');
-                CKEDITOR.instances["editor"].setData(response.data.body);
 
-                console.log("POST $scope.settings", response.data);
-                $scope.loading = false;
-            }, function errorCallback(response) {
-                console.log("POST $scope.settings", response);
-                $scope.loading = false;
-        });
+        $scope.redirectToTranslationTitlePage = function (pageUuid) {
+                $http({
+                    method: 'GET',
+                    url: '/api/get/translation/page/' + pageUuid
+                })
+                    .then(function successCallback(response) {
+                        const translationBucket = response.data;
+                        $window.location.href = `#/translation/${pageUuid}/${translationBucket.uuid}`;
+                    }, function errorCallback(error) {
+                        $scope.loading = false;
+                        console.log(error);
+                    });
+        };
+
+        $scope.redirectToTranslationBodyPage = function (pageUuid) {
+                $http({
+                    method: 'GET',
+                    url: '/api/get/translation/body/page/' + pageUuid
+                })
+                    .then(function successCallback(response) {
+                        const translationBucket = response.data;
+                        $window.location.href = `#/translation/pageconstructor/${pageUuid}/${translationBucket.uuid}`;
+                    }, function errorCallback(error) {
+                        $scope.loading = false;
+                        console.log(error);
+                    });
+        }
 
 //         var imageLoader = document.getElementById('imageLoader');
 //         imageLoader.addEventListener('change', handleImage, false);

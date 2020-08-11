@@ -3,6 +3,8 @@ package controllers;
 import com.google.gson.Gson;
 import models.DeliveryDTO;
 import models.ShopDTO;
+import models.TranslationBucketDTO;
+import models.TranslationItemDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -77,7 +79,60 @@ public class DeliveryAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         DeliveryDTO delivery = shop.delivery;
+        setNewPostDefaultLabel(delivery);
+        setCourierDefaultLabel(delivery);
+        setSelfTakeDefaultLabel(delivery);
+        System.out.println("json(delivery) \n" + json(delivery.courierTextTranslationBucket) + "\n"
+                + json(delivery.newPostTranslationBucket)  + "\n"
+                + json(delivery.selfTakeTranslationBucket));
         renderJSON(json(delivery));
+    }
+
+    private static void setSelfTakeDefaultLabel(DeliveryDTO delivery) {
+        if (delivery.selfTakeTranslationBucket == null){
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовиніс");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Self Pick Up");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.selfTakeTranslationBucket = translationBucket;
+            delivery.save();
+        }
+    }
+
+    private static void setCourierDefaultLabel(DeliveryDTO delivery) {
+        if (delivery.courierTextTranslationBucket == null){
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Доставка кур'єром");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Courier");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.courierTextTranslationBucket = translationBucket;
+            delivery.save();
+
+        }
+    }
+
+    private static void setNewPostDefaultLabel(DeliveryDTO delivery) {
+        if (delivery.newPostTranslationBucket == null){
+            TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Доставка Новою Поштою");
+            translationItemUk.save();
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Nova Poshta Delivery");
+            translationItemEn.save();
+            translationBucket.addTranslationItem(translationItemUk);
+            translationBucket.addTranslationItem(translationItemEn);
+            translationBucket.save();
+            delivery.newPostTranslationBucket = translationBucket;
+            delivery.save();
+
+        }
     }
 
     public static void updateCourierPolygonData(String client) throws Exception {

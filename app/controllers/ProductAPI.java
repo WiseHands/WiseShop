@@ -112,21 +112,15 @@ public class ProductAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-
         List<ProductDTO> products;
-
 
         products = ProductDTO.find(
                 "select p from ProductDTO p, CategoryDTO c " +
                         "where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc", shop, false
         ).fetch();
 
-
-
-
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(products);
-
         renderJSON(json);
     }
 

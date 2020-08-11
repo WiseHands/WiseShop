@@ -44,10 +44,23 @@ public class DeliveryDTO extends GenericModel {
     public String selfTakeText;
 
     @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO selfTakeTranslationBucket;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO courierTextTranslationBucket;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO newPostTranslationBucket;
+
+    @Expose
     public boolean isNewPostAvailable;
 
     @Expose
     public String newPostText;
+
 
     @Expose
     @Column(length=1024)

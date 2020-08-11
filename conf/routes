@@ -3,16 +3,8 @@
 # ~~~~
 
 # Home page
-GET     {client}/                                       Application.index
+GET     {client}/                                       Application.languageChooser
 GET     {client}/wisehands                              Application.wisehands
-GET     {client}/shop                                   Application.shop
-GET     {client}/page/{uuid}                            Application.page
-GET     {client}/category/{uuid}                        Application.category
-GET     {client}/product/{uuid}                         Application.product
-GET     {client}/shoppingcart                           Application.shoppingCart
-GET     {client}/products/all                           Application.allProductsInShop
-GET     {client}/selectaddress                          Application.selectAddress
-GET     {client}/shop/network                           Application.shopNetworks
 
 GET     {client}/admin                                  Application.admin
 GET     {client}/superadmin                             Application.superAdmin
@@ -102,9 +94,10 @@ GET         {client}/api/pricing-plan/get-shop               PricingPlanAPI.getS
 
 POST        {client}/api/feedback/save                  OrderFeedbackAPI.createFeedback
 GET         {client}/api/feedback/get/list/{uuid}       OrderFeedbackAPI.getFeedbackListForProduct
+GET         {client}/api/feedback/full/list             OrderFeedbackAPI.getFeedbackListForShop
 PUT         {client}/api/feedback/show/{uuid}           OrderFeedbackAPI.showReview
 PUT         {client}/api/feedback/hide/{uuid}           OrderFeedbackAPI.hideReview
-GET         {client}/api/feedback...                    OrderFeedbackAPI.getFeedbackListForShop
+GET         {client}/api/feedback/orders                OrderFeedbackAPI.getOrderListWhereFeedbackRequestSent
 
 POST        {client}/api/comment/save                   FeedbackCommentAPI.createComment
 
@@ -175,6 +168,7 @@ DELETE  {client}/sudo/shop/{uuid}                       ShopAPI.deleteOne
 GET     {client}/shops                                	ShopAPI.list
 GET     {client}/shop/details                           ShopAPI.details
 GET     {client}/shop/details/public                    ShopAPI.publicInfo
+GET     {client}/shop/translate/{uuid}                  ShopAPI.shopLabelsForTranslation
 
 PUT     {client}/shop/update/working-hours              ShopAPI.updateWorkingHoursForShop
 
@@ -207,7 +201,7 @@ PUT     {client}/liqpaypayment                          PaymentSystemsAPI.update
 GET     {client}/orders                                 OrderAPI.list
 GET     {client}/order/{uuid}                           OrderAPI.details
 OPTIONS {client}/order                                  ShoppingCartAPI.allowCors
-POST    {client}/order                                  OrderAPI.create
+POST    {client}/order/{chosenLanguage}                 OrderAPI.create
 DELETE  {client}/order/{uuid}                           OrderAPI.delete
 PUT     {client}/order/{uuid}/cancelled                 OrderAPI.markCancelled
 PUT     {client}/order/{uuid}/shipped                   OrderAPI.markShipped
@@ -216,6 +210,7 @@ PUT     {client}/order/{uuid}/manually-payed            OrderAPI.manuallyPayed
 *       {client}/success                                OrderAPI.success
 
 GET     {client}/contact/details                        ContactAPI.details
+GET     {client}/contact/details/{uuid}                 ContactAPI.getContactForTranslation
 PUT     {client}/contact                                ContactAPI.update
 POST    {client}/mail/send                              ContactAPI.sendMailToUs
 
@@ -241,6 +236,7 @@ POST    {client}/payment-verification                   BalanceAPI.balancePaymen
 
 GET	    {client}/api/category				            CategoryAPI.all
 GET	    {client}/api/category/{uuid}			        CategoryAPI.details
+GET	    {client}/api/category/details/{uuid}			CategoryAPI.one
 POST	{client}/api/category        			        CategoryAPI.create
 PUT 	{client}/api/category/{uuid}/name/{name}	    CategoryAPI.update
 DELETE 	{client}/api/category/{uuid}		        	CategoryAPI.delete
@@ -268,11 +264,23 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
+GET     {client}/api/get/translation/shop/name/{uuid}        TranslationBucketAPI.createTranslationBucketForShopName
+GET     {client}/api/get/translation/name/{uuid}             TranslationBucketAPI.createTranslationBucketForProductName
+GET     {client}/api/get/translation/description/{uuid}      TranslationBucketAPI.createTranslationBucketForProductDescription
+GET     {client}/api/get/translation/category/{uuid}         TranslationBucketAPI.createTranslationBucketForCategory
+GET     {client}/api/get/translation/page/{uuid}             TranslationBucketAPI.createTranslationBucketForPage
+GET     {client}/api/get/translation/body/page/{uuid}        TranslationBucketAPI.createTranslationBucketForBodyPage
+GET     {client}/api/get/translation/contact/city/{uuid}     TranslationBucketAPI.createTranslationBucketForContactCity
+GET     {client}/api/get/translation/contact/street/{uuid}   TranslationBucketAPI.createTranslationBucketForContactStreet
+PUT     {client}/api/translation/save                        TranslationBucketAPI.saveTranslation
+
+
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
 *       {client}/main                                   Application.main
 *       {client}/landing                                Application.landing
+#       {client}/{language}/shopLanding                 Application.shopLanding
 
 # remove /ua from below paths
 *       {client}/contract                               Application.uaContract
@@ -314,9 +322,6 @@ DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delet
 *       {client}/hire-ios-developers                    Application.hireIosDevelopers
 *       {client}/hire-android-developers                Application.hireAndroidDevelopers
 
-
-
-
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
@@ -328,6 +333,20 @@ GET	/google3d064e8f1e55f5ab.html	            staticFile:google3d064e8f1e55f5ab.h
 # GET     {client}/sitemap                        Application.sitemap(format:'xml')
 GET     {client}/sitemap                        SitemapController.sitemap(format:'xml')
 GET     {client}/manifest                       Application.manifestAdmin
+
+GET     {client}/page/{uuid}                 Application.pageOld
+GET     {client}/category/{uuid}             Application.categoryOld
+GET     {client}/product/{uuid}              Application.productOld
+
+GET     {client}/{language}                             Application.index
+GET     {client}/{language}/shop                        Application.shop
+GET     {client}/{language}/page/{uuid}                 Application.page
+GET     {client}/{language}/category/{uuid}             Application.category
+GET     {client}/{language}/product/{uuid}              Application.product
+GET     {client}/{language}/shoppingcart                Application.shoppingCart
+GET     {client}/{language}/products/all                Application.allProductsInShop
+GET     {client}/{language}/selectaddress               Application.selectAddress
+GET     {client}/{language}/shop/network                Application.shopNetworks
 
 
 # Catch all

@@ -1,5 +1,6 @@
+#{set language:language /}
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html   xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -63,15 +64,17 @@
     }
 </style>
 <body>
+#{verbatim}
 <div class="done-main">
     <div class="done-img wow fadeInUp">
         <img src="../../../wisehands/landing/images/successful.jpg">
     </div>
     <div class="done-text wow fadeInUp" data-wow-delay="0.5s">
-        <p>${delivery.orderMessage}</p>
+        <p>&{'page.done.delivery.order.message'}</p>
     </div>
-    <a href="/" class="wow fadeInUp" data-wow-delay="0.5s"><button type="button">Перейти на головну</button></a>
+    <a href="/${language}/shop" class="wow fadeInUp" data-wow-delay="0.5s"><button type="button">&{'gotomain'}</button></a>
 </div>
+#{/verbatim}
 <script src="wisehands/assets/js/jquery-2.2.3.min.js"></script>
 <script src="wisehands/assets/bootstrap3/js/bootstrap.min.js"></script>
 </body>

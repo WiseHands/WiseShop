@@ -24853,7 +24853,7 @@ class WiseShoppingCartItem extends PolymerElement {
         </div>
         <div class="total-container">
             <div class="product-info-container">
-                <h3 on-click="_openProductPageByUuid">[[cartItem.name]]</h3>
+                <h3 on-click="_openProductPageByUuid">[[_translateProductName(cartItem)]]</h3>
                 <h4> 
                     <template is="dom-repeat" items="[[cartItem.additionList]]">                
                         [[item.title]]<span hidden="[[!hasMoreThanOneQuantity(item)]]">([[item.quantity]])</span>
@@ -24886,6 +24886,24 @@ class WiseShoppingCartItem extends PolymerElement {
         type: String
       }
     };
+  }
+
+  _translateProductName(product) {
+    const language = document.querySelector('html').getAttribute('language');
+    let label = '';
+
+    if (product.translationBucket) {
+      let translationList = product.translationBucket.translationList;
+      translationList.forEach(item => {
+        if (item.language === language) {
+          label = item.content;
+        }
+      });
+    } else {
+      label = product.name;
+    }
+
+    return label;
   }
 
   _calculateTotalPrice(quantity, productPrice, additionList) {
@@ -25268,92 +25286,93 @@ class WiseShoppingCartContainer extends PolymerElement {
                 <div class="cart-container">
                     <div class="cart">
                         <div class="shopping-cart-container">
-                            <wise-shopping-cart currency-label="[[currencyLabel]]"
-                                                cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]" start-shopping-label="[[startShoppingLabel]]"></wise-shopping-cart>
+                            <wise-shopping-cart currency-label="[[currencyLabel]]" cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]"
+                                                start-shopping-label="[[startShoppingLabel]]">
+                            </wise-shopping-cart>
                         </div>
                         <div hidden="[[!areThereItems(cart.items)]]" class="order-details-container">
                             <div class="order-details">
 
                                 <paper-card>
-                                    <h3>Тип доставки:</h3>
+                                    <h3>[[deliveryTypeLabel]]</h3>
                                     <paper-radio-group id="deliveryType" selected="[[cart.deliveryType]]"
                                                        on-selected-changed="_onDeliveryTypeChange">
                                         <template is="dom-if"
                                                   if="[[cart.configuration.delivery.courier.isCourierActive]]">
-                                            <paper-radio-button name="COURIER">[[cart.configuration.delivery.courier.label]] [[_computeCourierLabel(cart.configuration.delivery.courier)]]</paper-radio-button>
+                                            <paper-radio-button name="COURIER">[[_translateCourierLabel(cart.configuration.delivery.courier)]] [[_computeCourierLabel(cart.configuration.delivery.courier)]]</paper-radio-button>
                                         </template>
                                         <template is="dom-if"
                                                   if="[[cart.configuration.delivery.postDepartment.isPostDepartmentActive]]">
-                                            <paper-radio-button name="POSTSERVICE">[[cart.configuration.delivery.postDepartment.label]]</paper-radio-button>
+                                            <paper-radio-button name="POSTSERVICE">[[_translatePostDepartmentLabel(cart.configuration.delivery.postDepartment)]]</paper-radio-button>
                                         </template>
                                         <template is="dom-if"
                                                   if="[[cart.configuration.delivery.selfTake.isSelfTakeActive]]">
-                                            <paper-radio-button name="SELFTAKE">[[cart.configuration.delivery.selfTake.label]]</paper-radio-button>
+                                            <paper-radio-button name="SELFTAKE">[[_translateSelfTakeLabel(cart.configuration.delivery.selfTake)]]</paper-radio-button>
                                         </template>
                                     </paper-radio-group>
                                 </paper-card>
 
                                 <paper-card>
-                                    <h3>Тип оплати:</h3>
+                                    <h3>[[paymentTypeLabel]]</h3>
                                     <paper-radio-group id="paymentType" selected="[[cart.paymentType]]"
                                                        on-selected-changed="_onPaymentTypeChange">
                                         <template is="dom-if" if="[[cart.configuration.payment.creditCard.isActivePayByCreditCard]]">
-                                            <paper-radio-button name="CREDITCARD" title="Платіжна система liqpay бере комісію за опрацювання оплати, ось чому ви бачите додану вартість - це комісія платіжної системи">
+                                            <paper-radio-button name="CREDITCARD" >
                                                 [[_computeLabel(cart.configuration.payment.creditCard)]]
                                             </paper-radio-button>
                                         </template>
                                         <template is="dom-if"
                                                   if="[[cart.configuration.payment.cash.isActivePayByCash]]">
-                                            <paper-radio-button name="CASHONDELIVERY">[[cart.configuration.payment.cash.label]]</paper-radio-button>
+                                            <paper-radio-button name="CASHONDELIVERY">[[_translateCashLabel(cart.configuration.payment.cash)]]</paper-radio-button>
                                         </template>
                                     </paper-radio-group>
                                 </paper-card>
 
                                 <paper-card>
-                                    <h3>Замовник:</h3>
+                                    <h3>[[customerLabel]]</h3>
                                     <paper-input pattern=".*\\S.*" id="clientName"
                                                  label="[[changeClientName(cart.configuration.additionalConfiguration.labelForCustomerName)]]" required
-                                                 error-message="Заповніть, будь ласка, це поле"
+                                                 error-message="[[errorMessagePleaseWriteLabel]]"
                                                  value="[[cart.client.name]]"
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
-                                    <paper-input id="clientPhone" pattern="^\\d{9}$" label="Телефон" required
-                                                 error-message="Заповніть, будь ласка, це поле"
+                                    <paper-input id="clientPhone" pattern="^\\d{12}$" label="[[customerPhoneLabel]]" required
+                                                 error-message="[[errorMessagePleaseWriteLabel]]"
                                                  value="[[cart.client.phone]]" on-blur="_validateAndSendClientInfo">
-                                        <span slot="prefix">+380</span>
+                                        <span slot="prefix">+</span>
                                     </paper-input>
-                                    <paper-input id="clientEmail" type="email" label="Email"
-                                                 error-message="Заповніть, будь ласка, це поле"
+                                    <paper-input id="clientEmail" type="email" label="[[customerEmailLabel]]"
+                                                 error-message="[[errorMessagePleaseWriteLabel]]"
                                                  value="[[cart.client.email]]" required
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
-                                    <paper-input id="clientComments" label="Коментар" value="[[cart.client.comments]]"
+                                    <paper-input id="clientComments" label="[[customerCommentLabel]]" value="[[cart.client.comments]]"
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
                                 </paper-card>
                                 <template is="dom-if" if="[[_isAddressCardVisible(cart.deliveryType)]]">
                                     <paper-card>
-                                        <h3>Адреса:</h3>
+                                        <h3>[[addressGeneralLabel]]</h3>
                                         <div hidden="[[!_isCourierDeliveryType(cart.deliveryType)]]">
                                             <span class="info-span" hidden="[[!cart.client.address.isAddressSetFromMapView]]">
-                                                Вказати місцезнаходження на <a href="/selectaddress">карті</a>.</span>
-                                            <paper-input id="street" pattern=".*\\S.*" label="Вулиця"
+                                                [[mapChooseYourPlaceLabel]] <a href="/[[language]]/selectaddress">[[mapLabel]]</a>.</span>
+                                            <paper-input id="street" pattern=".*\\S.*" label="[[pageSelectAddressPlaceholderStreet]]"
                                                          disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          value="{{cart.client.address.street}}" required
-                                                         error-message="Заповніть, будь ласка, це поле"
+                                                         error-message="[[errorMessagePleaseWriteLabel]]"
                                                          on-blur="_validateAndGeocodeAddress"></paper-input>
                                             <paper-input id="building" pattern=".*\\S.*"
                                                          disabled="[[cart.client.address.isAddressSetFromMapView]]"
-                                                         label="Будинок" value="{{cart.client.address.building}}"
-                                                         required error-message="Заповніть, будь ласка, це поле"
+                                                         label="[[pageSelectAddressPlaceholderHouse]]" value="{{cart.client.address.building}}"
+                                                         required error-message="[[errorMessagePleaseWriteLabel]]"
                                                          on-blur="_validateAndGeocodeAddress"></paper-input>
-                                            <paper-input id="entrance" label="Під'їзд"
+                                            <paper-input id="entrance" label="[[addressEntranceLabel]]"
                                                          value="[[cart.client.address.entrance]]"
                                                          on-blur="_validateAndSendClientAddressInfo"></paper-input>
-                                            <paper-input id="entranceCode" label="Код до під'їзду"
+                                            <paper-input id="entranceCode" label="[[addressEntranceCodeLabel]]"
                                                          value="[[cart.client.address.entranceCode]]"
                                                          on-blur="_validateAndSendClientAddressInfo"></paper-input>
-                                            <paper-input id="floor" label="Поверх"
+                                            <paper-input id="floor" label="[[addressFloorLabel]]"
                                                          value="[[cart.client.address.floor]]"
                                                          on-blur="_validateAndSendClientAddressInfo"></paper-input>
-                                            <paper-input id="apartment" label="Квартира"
+                                            <paper-input id="apartment" label="[[addressApartmentLabel]]"
                                                          value="[[cart.client.address.apartment]]"
                                                          on-blur="_validateAndSendClientAddressInfo"></paper-input>
                                         </div>
@@ -25363,12 +25382,12 @@ class WiseShoppingCartContainer extends PolymerElement {
                                                          value="[[cart.client.postDepartamentInfo.city]]"
                                                          pattern=".*\\S.*"
                                                          label="Місто" required
-                                                         error-message="Заповніть, будь ласка, це поле"
+                                                         error-message="[[errorMessagePleaseWriteLabel]]"
                                                          on-blur="_validateAndSendClientPostInfo"></paper-input>
                                             <paper-input id="clientPostDepartmentNumber"
                                                          value="[[cart.client.postDepartamentInfo.postDepartmentNumber]]"
                                                          class="department-number" pattern="^[0-9]*$" label="Відділення"
-                                                         required error-message="Заповніть, будь ласка, це поле"
+                                                         required error-message="[[errorMessagePleaseWriteLabel]]"
                                                          on-blur="_validateAndSendClientPostInfo">
                                                 <span slot="prefix">№</span>
                                             </paper-input>
@@ -25377,13 +25396,13 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </template>
                                 <span class="error-span" inner-h-t-m-l="[[errorMessage]]"></span>
                                 <div class="total-container">
-                                    <h3>Товарів на суму: [[_computeProductsTotal(cart.items)]] [[currencyLabel]]</h3>
-                                    <h3>Доставка: [[deliveryPrice]] [[currencyLabel]]</h3>
+                                    <h3>[[amountProductsLabel]] [[_computeProductsTotal(cart.items)]] [[currencyLabel]]</h3>
+                                    <h3>[[deliveryLabel]] [[deliveryPrice]] [[currencyLabel]]</h3>
                                     <h3 hidden="[[!cart.configuration.payment.creditCard.clientPaysProcessingCommission]]">
                                         Комісія онлайн оплати: [[_calculatePaymentOnlineCommission(total, cart.paymentType, cart.configuration.payment.creditCard)]] [[currencyLabel]]
                                     </h3>
-                                    <h1>РАЗОМ: [[total]] [[currencyLabel]]</h1>
-                                    <paper-button hidden="[[isMakeOrderRequestRunning]]" disabled=[[!cart.items.length]] on-tap="_proceed">NEXT</paper-button>
+                                    <h1>[[generalPaymentLabel]] [[total]] [[currencyLabel]]</h1>
+                                    <paper-button hidden="[[isMakeOrderRequestRunning]]" disabled=[[!cart.items.length]] on-tap="_proceed">[[buttonNextLabel]]</paper-button>
                                     <paper-spinner active="{{isMakeOrderRequestRunning}}"></paper-spinner>
                                 </div>
                             </div>
@@ -25400,6 +25419,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   static get properties() {
     return {
+      language: String,
       cart: {
         type: Object,
         value: {
@@ -25419,17 +25439,39 @@ class WiseShoppingCartContainer extends PolymerElement {
         type: Number,
         computed: '_calculateTotal(cart)'
       },
+      errorMessagePleaseWriteLabel: String,
+      errorMessagePleaseChooseDeliveryLabel: String,
+      errorMessagePleaseChoosePaymentLabel: String,
+      errorMessagePleaseMinimumDeliveryLabel: String,
+      errorMessageFillInfo: String,
+      buttonNextLabel: String,
+      deliveryTypeLabel: String,
+      paymentTypeLabel: String,
+      customerLabel: String,
+      amountProductsLabel: String,
+      deliveryLabel: String,
+      generalPaymentLabel: String,
+      customerNameLabel: String,
+      customerPhoneLabel: String,
+      customerEmailLabel: String,
+      customerCommentLabel: String,
+      addressGeneralLabel: String,
+      pageSelectAddressPlaceholderStreet: String,
+      pageSelectAddressPlaceholderHouse: String,
+      addressEntranceLabel: String,
+      addressEntranceCodeLabel: String,
+      addressFloorLabel: String,
+      addressApartmentLabel: String,
+      mapChooseYourPlaceLabel: String,
+      mapLabel: String,
+      mapErrorMessage: String,
+      basketEmptyLabel: String,
+      startShoppingLabel: String,
+      courierLabel: String,
       currencyLabel: {
         type: String,
         value: 'USD'
       },
-      basketEmptyLabel: {
-        type: String
-      },
-      startShoppingLabel: {
-        type: String
-      },
-      courierLabel: String,
       isMakeOrderRequestRunning: {
         type: Boolean,
         value: false
@@ -25446,15 +25488,29 @@ class WiseShoppingCartContainer extends PolymerElement {
       return labelForCustomerName;
     }
 
-    return `Ім'я`;
+    return this.customerNameLabel;
   }
 
-  _computeLabel(paymentInfo) {
-    if (paymentInfo.clientPaysProcessingCommission) {
+  _computeLabel(creditCardInfo) {
+    if (creditCardInfo.clientPaysProcessingCommission) {
       return `${paymentInfo.label} (+${paymentInfo.paymentComission * 100} %)`;
     }
 
-    return paymentInfo.label;
+    let label = '';
+
+    if (creditCardInfo.translationBucket) {
+      console.log("postInfo.translationBucket ", creditCardInfo.translationBucket);
+      creditCardInfo.translationBucket.translationList.forEach(item => {
+        if (item.language === this.language) {
+          console.log(this.language);
+          label = item.content;
+        }
+      });
+    } else {
+      label = creditCardInfo.label;
+    }
+
+    return label;
   }
 
   _computeCourierLabel(courierInfo) {
@@ -25462,6 +25518,77 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (this.total < courierInfo.minimumPaymentForFreeDelivery) {
       label = ` ( + ${courierInfo.deliveryPrice} ${this.currencyLabel})`;
+    }
+
+    return label;
+  }
+
+  _translateCashLabel(cashInfo) {
+    let label = '';
+
+    if (cashInfo.translationBucket) {
+      console.log("postInfo.translationBucket ", cashInfo.translationBucket);
+      cashInfo.translationBucket.translationList.forEach(item => {
+        if (item.language === this.language) {
+          console.log(this.language);
+          label = item.content;
+        }
+      });
+    } else {
+      label = cashInfo.label;
+    }
+
+    return label;
+  }
+
+  _translatePostDepartmentLabel(postInfo) {
+    let label = '';
+
+    if (postInfo.translationBucket) {
+      console.log("postInfo.translationBucket ", postInfo.translationBucket);
+      postInfo.translationBucket.translationList.forEach(item => {
+        if (item.language === this.language) {
+          console.log(this.language);
+          label = item.content;
+        }
+      });
+    } else {
+      label = postInfo.label;
+    }
+
+    return label;
+  }
+
+  _translateSelfTakeLabel(selfTakeInfo) {
+    let label = '';
+    console.log("selfTakeInfo.translationBucket ", selfTakeInfo.translationBucket);
+
+    if (selfTakeInfo.translationBucket) {
+      selfTakeInfo.translationBucket.translationList.forEach(item => {
+        if (item.language === this.language) {
+          console.log(this.language);
+          label = item.content;
+        }
+      });
+    } else {
+      label = selfTakeInfo.label;
+    }
+
+    return label;
+  }
+
+  _translateCourierLabel(courierInfo) {
+    let label = '';
+
+    if (courierInfo.translationBucket) {
+      console.log("courierInfo.translationBucket ", courierInfo.translationBucket);
+      courierInfo.translationBucket.translationList.forEach(item => {
+        if (item.language === this.language) {
+          label = item.content;
+        }
+      });
+    } else {
+      label = courierInfo.label;
     }
 
     return label;
@@ -25484,7 +25611,6 @@ class WiseShoppingCartContainer extends PolymerElement {
       param += `cartId=${this.cartId}`;
     }
 
-    console.log(`addCartIdParamIfAvailable ${param}`);
     return param;
   }
 
@@ -25517,6 +25643,23 @@ class WiseShoppingCartContainer extends PolymerElement {
 
       this._generateRequest('DELETE', this._generateRequestUrl('/api/cart', params));
     });
+    this.addEventListener('start-shopping', function (e) {
+      console.log('start-shopping', e);
+      window.location = `/${this.language}/shop`;
+    });
+    this.addEventListener('order-created', function (e) {
+      console.log('order-created for credit card payment', e);
+
+      if (e.detail && e.detail.value && e.detail.value.button) {
+        const container = document.createElement('div');
+        container.innerHTML = e.detail.value.button;
+        const form = container.querySelector('form');
+        document.querySelector('.form-container').append(form);
+        form.submit();
+      } else {
+        window.location = '/done';
+      }
+    });
   }
 
   areThereItems(items) {
@@ -25547,17 +25690,17 @@ class WiseShoppingCartContainer extends PolymerElement {
     let validInputs = 0;
 
     if (!deliveryType.selected) {
-      this.set('errorMessage', 'Вкажіть, будь ласка, тип доставки');
+      this.set('errorMessage', this.errorMessagePleaseChooseDeliveryLabel);
       return;
     }
 
     if (!paymentType.selected) {
-      this.set('errorMessage', 'Вкажіть, будь ласка, тип оплати');
+      this.set('errorMessage', this.errorMessagePleaseChoosePaymentLabel);
       return;
     }
 
-    if (this.total <= this.cart.configuration.payment.minimumPaymentForOrder) {
-      const message = `Мінімальна сума замовлення становить ${this.cart.configuration.payment.minimumPaymentForOrder} ${this.currencyLabel}`;
+    if (this.total < this.cart.configuration.payment.minimumPaymentForOrder) {
+      const message = `${this.errorMessagePleaseMinimumDeliveryLabel} ${this.cart.configuration.payment.minimumPaymentForOrder} ${this.currencyLabel}`;
       this.set('errorMessage', message);
       return;
     }
@@ -25590,9 +25733,9 @@ class WiseShoppingCartContainer extends PolymerElement {
       if (isValid && (isAddressSetFromMapView || isAddressInsideDeliveryBoundaries)) {
         this._makeOrderRequest();
       } else if (!isValid) {
-        this.errorMessage = `Перевірте заповнену інформацію`;
+        this.errorMessage = `${this.errorMessageFillInfo}`;
       } else {
-        this.errorMessage = `Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на <a href="${this.hostname}/selectaddress">карті</a>.`;
+        this.errorMessage = `${this.mapErrorMessage} <a href="${this.hostname}/${this.language}/selectaddress">${this.mapLabel}</a>.`;
       }
     }
   }
@@ -25600,7 +25743,7 @@ class WiseShoppingCartContainer extends PolymerElement {
   _makeOrderRequest() {
     if (this.isMakeOrderRequestRunning) return;
     const ajax = this.$.makeOrderAjax;
-    ajax.url = `${this.hostname}/order${this.addCartIdParamIfAvailable(true)}`;
+    ajax.url = `${this.hostname}/order/${this.language}${this.addCartIdParamIfAvailable(true)}`;
     ajax.method = 'POST';
     this.isMakeOrderRequestRunning = true;
     ajax.generateRequest();
@@ -25729,7 +25872,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       this.cart = await this.updateCartWithAddressLocation(location);
       return this.cart;
     } catch (e) {
-      this.errorMessage = `Нажаль ми не змогли знайти Вашу адресу, виберіть її на <a href="${this.hostname}/selectaddress">карті</a>`;
+      this.errorMessage = `${this.mapErrorMessage} <a href="${this.hostname}/${this.language}/selectaddress">${this.mapLabel}</a>.`;
     }
   }
 

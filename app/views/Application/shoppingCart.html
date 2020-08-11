@@ -1,4 +1,5 @@
 #{set shop:shop /}
+#{set language:language /}
 <style>
     wise-shopping-cart-container {
         padding: 1rem;
@@ -17,7 +18,7 @@
     }
 </style>
 <!DOCTYPE html>
-<html lang="${shop.locale}" xmlns="http://www.w3.org/1999/xhtml">
+<html language="${language}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
@@ -43,7 +44,32 @@
 #{get-cart /}
 #{shop-header /}
 #{verbatim}
-<wise-shopping-cart-container currency-label="UAH" basket-empty-label="Ваш кошик порожній" start-shopping-label="РОЗПОЧАТИ ПОКУПКИ"></wise-shopping-cart-container>
+<wise-shopping-cart-container language="${language}" currency-label="UAH" start-shopping-label="&{'shopping.cart.start.shopping.label'}" basket-empty-label="&{'shopping.cart.basket.empty.label'}"
+                              delivery-type-label="&{'delivery.type.label'}" payment-type-label="&{'payment.type.label'}" customer-label="&{'customer.label'}"
+                              customer-name-label="&{'customer.name.label'}" customer-phone-label="&{'customer.phone.label'}" customer-email-label="&{'customer.email.label'}"
+                              customer-comment-label="&{'customer.comment.label'}" amount-products-label="&{'amount.products.label'}" delivery-label="&{'delivery.label'}" general-payment-label="&{'general.payment.label'}"
+                              button-next-label="&{'button.next.label'}" error-message-please-write-label="&{'error.message.please.write.label'}"
+
+                              error-message-please-choose-delivery-label="&{'error.message.please.choose.delivery.label'}"
+                              error-message-please-choose-payment-label="&{'error.message.please.choose.payment.label'}"
+                              error-message-please-minimum-delivery-label="&{'error.message.please.minimum.delivery.label'}"
+                              error-message-fill-info="&{'error.message.fill.info'}"
+
+
+                              page-select-address-placeholder-street="&{'page.select.address.placeholder.street'}"
+                              page-select-address-placeholder-house="&{'page.select.address.placeholder.house'}"
+                              address-general-label="&{'address.general.label'}"
+                              address-entrance-label="&{'address.entrance.label'}"
+                              address-entrance-code-label="&{'address.entrance.code.label'}"
+                              address-floor-label="&{'address.floor.label'}"
+                              address-apartment-label="&{'address.apartment.label'}"
+
+                              map-label="&{'map.label'}"
+                              map-choose-your-place-label="&{'map.choose.your.place.label'}"
+                              map-error-message="&{'map.error.message'}"
+
+>
+</wise-shopping-cart-container>
 
 #{if shop.faceBookPixelApiKey}
 <script>
@@ -66,15 +92,12 @@
 <div class="form-container"></div>
 
 <script>
+
   let shoppingCartState = {};
   store.subscribe(() => {
     shoppingCartState = store.getState();
   });
 
-
-  document.addEventListener('start-shopping', function (e) {
-    window.location = '/';
-  });
   document.addEventListener('open-product', function (e) {
     console.log(shoppingCartState.items);
     let path = '';
@@ -83,37 +106,25 @@
         path = item.productId;
       }
     });
-    window.location = '/product/' + path;
+    const language = document.querySelector('html').getAttribute('language');
+    window.location = '/'+language+'/product/' + path;
 
   });
   document.addEventListener('shopping-cart-api-response', function (e) {
     store.dispatch({type: 'SHOPPINGCART', payload: e.detail});
   });
+
   document.addEventListener('proceed-with-shopping-cart', function (e) {
     store.dispatch({type: 'SHOPPINGCART', payload: e.detail});
     console.log("SHOPPINGCART", e.detail);
   });
 
-  document.addEventListener('order-created', function (e) {
-    console.log('order-created for credit card payment', e);
-    if (e.detail && e.detail.value && e.detail.value.button) {
-      const container = document.createElement('div');
-      container.innerHTML = e.detail.value.button;
-      const form = container.querySelector('form');
-      document.querySelector('.form-container').append(form);
-      form.submit();
-    } else {
-        window.location = '/done';
-    }
-  });
-
   document.addEventListener('order-processing-error', function (e) {
-        console.log('order-processing-error', e);
-        window.location = '/server-error';
+     console.log('order-processing-error', e);
+     window.location = '/server-error';
   });
 
 </script>
-
 </html>
 
 

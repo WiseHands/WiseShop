@@ -64,6 +64,10 @@
                             <h5>{{'singleOrder.Platform' | translate}}: </h5>
                             <p>{{userAgent}}</p>
                         </div>
+                        <div class="admin-order-card-row">
+                            <h5>{{'singleOrder.ClientLanguage' | translate}}: </h5>
+                            <p>{{order.chosenClientLanguage}}</p>
+                        </div>
                     </div>
                     <div class="admin-card">
                         <h4>{{'singleOrder.titleDelivery' | translate}}</h4>
@@ -221,8 +225,7 @@
                                     <div class="product-feedback-info">
                                         <a class="feedback-order-details-image" ng-if="item.productUuid"
                                            href="#/productreviews/{{item.productUuid}}">
-                                            <!--<img src="{{item.imagePath}}">-->
-                                            <img src="\wisehands\assets\images\delivey-img\coruier.svg">
+                                            <img src="{{item.imagePath}}">
                                             <p>{{item.name}}</p>
                                         </a>
                                         <div class="feedback-stars">
@@ -235,14 +238,14 @@
 
                                     </div>
                                     <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
-                                        <h6>Коментар</h6>
+                                        <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
                                         <p>{{item.feedbackToOrderItem.review}}</p>
                                     </div>
                                 </div>
 
                         </div>
                         <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'REQUEST_NOT_SEND'">
-                            <p>Запит на відгук ще не відправлений клієнту</p>
+                            <p>{{'singleOrder.requestNotSendingFeedback' | translate}}</p>
                             <a class="text-left" data-toggle="modal" data-target="#feedbackToOrder"
                                ng-click="requestOrderFeedback()"><p>{{'singleOrder.requestFeedback' | translate}}</p>
                             </a>

@@ -1,16 +1,150 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
-#
-feedback.email.title = Leave feedback for your order from %s
+# label for some element like button
+button.find.label = Find
+button.next.label = Next
+button.back.label = Back
+title.add.product.to.basket.label = Add to basket
 
+# translation for pages
+
+#landing page for americano
+landing.page.shop.title = Restaurant & Cafe "Americano"
+landing.page.shop.name.title = Americano
+landing.page.make.order.title = Order
+landing.page.contact.title = Contacts
+landing.page.about.shop.type = Restaurant & Cafe
+landing.page.about.shop.kitchen = American and Asian fusion cuisine
+landing.page.about.shop.cooking.from = We have the best burgers east of New York and the most delicious Peking duck west of Beijing! Come taste it!
+landing.page.about.shop.opened = Open to You since 2013
+landing.page.about.shop.make.cooking = We prepare a variety of American and Asian dishes under the careful supervision of Chef Li
+landing.page.about.shop.tasty.dish = Delicious food is a separate holiday in life
+landing.page.about.dish.for.all = In Americano - dishes for every taste
+landing.page.about.popular.dishes = The most popular dishes among our customers
+landing.page.about.shop.cooking.burgers = Burgers
+landing.page.about.shop.chinese.dishes = Chinese hot poultry dishes
+landing.page.about.shop.cooking.salads = Salads
+landing.page.about.shop.all.dishes = All dishes
+landing.page.about.shop.chill.space = Cozy space and delicious food
+landing.page.about.shop.all.space = Terrace, summer playground, main hall and for the holders of our card - VIP hall
+landing.page.about.shop.wooden.desks= tables
+landing.page.about.shop.summer.desks = tables of a summer place
+landing.page.about.shop.vip.desks = VIP-hall tables
+landing.page.about.shop.reserve.desks = Reserve
+landing.page.about.shop.what.eat = Tell me what you eat and I will tell you who you are
+landing.page.about.shop.feedback = Customer feedback
+landing.page.about.shop.customer.feedback.o.k = We tasted this wonderful dish today! Cafe "Americano", you, as always, are unsurpassed in cooking Chinese delicacies !!!))) The duck was just divine! Asparagus in crispy breadcrumbs - definitely a masterpiece! Chinese mushroom and seaweed salads are light and taste great! Well, a compliment from the chef - caramelized pancakes, which resembled a beautiful baklava - it was such a pleasant and unexpected surprise! Thank you very much for a wonderful evening! A low bow to talented chefs! 😍😍😍
+landing.page.about.shop.feedback.o.k = Oksana Kulish
+landing.page.about.shop.feedback.o.k.time = January 22, 2019
+landing.page.about.shop.customer.feedback.i.i = Were yesterday with my husband and child in Americano. Got my present, namely burgers, noodles and drinks) 😁 additionally ordered another burger, all dishes are just incredibly tasty😉, polite waiters. We liked it, we'll come again! P.S. son also appreciated your aquariums with turtles.
+landing.page.about.shop.feedback.i.i = Iruska Ivantsiv
+landing.page.about.shop.feedback.i.i.time = May 4, 2020
+landing.page.about.shop.info = Information
+landing.page.about.shop.payment = Payment
+landing.page.about.shop.delivery = Delivery
+landing.page.about.shop.return = Return
+landing.page.about.shop.about.us = About us
+landing.page.about.shop.public.contract = Public contract
+landing.page.about.shop.follow = Follow
+landing.page.about.shop.address = Lviv, Ostap Nyzhankivsky, 4
+
+# mobile-sidebar in tags
+mobile.sidebar.title.categories = Products
+mobile.sidebar.link.main.page = Main
+
+# shopping cart container
+delivery.type.label = Delivery
+payment.type.label = Payment
+customer.label = Customer
+customer.name.label = Name
+customer.phone.label = Phone
+customer.email.label = Email
+customer.comment.label = Comment
+amount.products.label = Amount:
+delivery.label = Delivery Price:
+general.payment.label = Total:
+error.message.please.write.label = Please fill in this field
+error.message.please.choose.delivery.label = Please choose delivery type
+error.message.please.choose.payment.label = Please choose payment type
+error.message.please.minimum.delivery.label = Minimum payment amount is
+error.message.fill.info = Please check filled information
+address.general.label = Address
+address.entrance.label = Entrance
+address.entrance.code.label = Entrance Code
+address.floor.label = Floor
+address.apartment.label = Apartment
+map.choose.your.place.label = Specify location on
+map.label = map
+map.error.message = Sorry, your address is not in the delivery area. Find the address on
+
+shopping.cart.basket.empty.label = Basket is empty
+shopping.cart.start.shopping.label = Start shopping
+
+# end shopping cart container
+# html page translation
+page.done.delivery.order.message = The order completed successfully. Expect to be contacted.
+page.order.feedback.rate.label = Rate the product
+page.order.feedback.write.feedback.label = Leave a review here
+page.order.feedback.feedback.about.order.label = Feedback of the order
+page.order.feedback.send.feedback.label = SEND FEEDBACK
+page.order.feedback.thank.feedback.label = Thanks you for your feedback
+page.order.feedback.error.feedback.label = Error sending feedback
+page.order.feedback.thank.order.label = thanks for order!
+page.order.feedback.leave.feedback.label = Please, leave feedback
+
+
+
+
+
+page.select.address.find.location = Find a place on the map in the delivery area and click on it. Then click "NEXT".
+page.select.address.out.delivery = This location is outside the delivery
+page.select.address.placeholder.city = City
+page.select.address.placeholder.street = Street
+page.select.address.placeholder.house = House
+
+page.product.main.label = Main
+page.product.additions.label = Additions
+page.product.additions.price = Additions price
+page.product.price = Price:
+page.product.buy = Buy
+page.product.add.to.basket = Product added to cart
+page.product.about.product = About product
+page.product.reviews = Reviews
+page.product.no.reviews.from.client = The client did not leave a comment
+page.product.no.reviews = No reviews
+
+footer.payment.label = Accepting
+footer.be.in.touch.label = Be in Touch
+footer.be.in.touch.news = Find out about the most interesting news, discounts and promotions
+footer.be.in.touch.newsletter = You have been added to the newsletter
+footer.be.in.touch.enter.email = Enter your e-mail
+footer.information.label = Information
+footer.working.schedule.label = Working Schedule
+footer.working.schedule.monday = Mon
+footer.working.schedule.tuesday = Tue
+footer.working.schedule.wednesday = Wed
+footer.working.schedule.thursday = Thu
+footer.working.schedule.friday = Fri
+footer.working.schedule.saturday = Sat
+footer.working.schedule.sunday = Sun
+
+
+feedback.page.title = Feedback
+feedback.email.notification.to.client.leave.feedback = [%s] %s, please leave a review about your order
+feedback.email.notification.to.admin.about.new.feedback = [%s] Customer %s leave a review about order
+feedback.email.title = Leave feedback for your order from %s
 feedback.main.label = Hello %s.
 feedback.email.text = Help us become better, please leave your feedback for an order.
 feedback.write.feedback = Write reviews
-balance.transaction.low.shop.balance = The balance of the store is less than 100 dollars, please top up your account
+
 shop.balance = Shop balance
 shop.balance.currency = $
 shop.not.found = The requested Shop is not available. Contact administrator
+shop.missing.products = There are no products
 shop.login = Login
+
+# other translation
+balance.transaction.low.shop.balance = The balance of the store is less than 100 dollars, please top up your account
 new.order = New Order
 order.is.processing = Order (%s, %s) is being processed
 new.order.total = New order %s Total %s

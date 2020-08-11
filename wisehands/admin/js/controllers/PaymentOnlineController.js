@@ -1,6 +1,6 @@
 angular.module('WiseHands')
-    .controller('PaymentOnlineController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared',
-        function ($scope, $http, signout, sideNavInit, shared) {
+    .controller('PaymentOnlineController', ['$scope', '$http', 'signout', 'sideNavInit', '$window',
+        function ($scope, $http, signout, sideNavInit, $window) {
             $scope.loading = true;
 
             $http({
@@ -14,6 +14,8 @@ angular.module('WiseHands')
                     console.log(data);
                     $scope.loading = false;
                 });
+
+            $scope.redirectToTranslation = () => $window.location.href = `#/translation/cart`;
 
             $scope.saveOnlinePaymentOptions = function () {
                 $scope.loading = true;

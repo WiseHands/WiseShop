@@ -54,10 +54,20 @@
                         controller:'EditPageController',
                         activetab: 'newpage'
                     }).
+                    when('/translation/pageconstructor/:objectUuid/:translationUuid',{
+                        templateUrl:'wisehands/admin/partials/editPageTranslation.html',
+                        controller:'EditPageTranslationController',
+                        activetab: 'newpage'
+                    }).
                     when('/products',{
                         templateUrl:'wisehands/admin/partials/products.html',
                         controller:'ProductListController',
                         activetab: 'productlist'
+                    }).
+                    when('/feedback',{
+                        templateUrl:'wisehands/admin/partials/feedbackList.html',
+                        controller:'FeedbackListController',
+                        activetab: 'feedback'
                     }).
                     when('/products/new',{
                         templateUrl:'wisehands/admin/partials/addNewProduct.html',
@@ -116,28 +126,58 @@
                     }).
                     when('/delivery/newPost',{
                         templateUrl:'wisehands/admin/partials/newPostDelivery.html',
-                        controller:'DeliverySettingsController',
+                        controller:'NewPostDeliveryController',
                         activetab: 'delivery'
                     }).
                     when('/delivery/courier',{
                         templateUrl:'wisehands/admin/partials/courierDelivery.html',
-                        controller:'DeliverySettingsController',
+                        controller:'CourierDeliveryController',
                         activetab: 'delivery'
                     }).
-                     when('/deliveryboundaries',{
+                    when('/delivery/selfTake',{
+                        templateUrl:'wisehands/admin/partials/selfTakeDelivery.html',
+                        controller:'SelfTakeDeliveryController',
+                        activetab: 'delivery'
+                    }).
+                    when('/translation/newPost',{
+                        templateUrl:'wisehands/admin/partials/newPostTranslation.html',
+                        controller:'NewPostTranslationController',
+                        activetab: 'delivery'
+                    }).
+                    when('/translation/courier',{
+                        templateUrl:'wisehands/admin/partials/courierTranslation.html',
+                        controller:'CourierTranslationController',
+                        activetab: 'delivery'
+                    }).
+                    when('/translation/selfTake',{
+                        templateUrl:'wisehands/admin/partials/selfTakeTranslation.html',
+                        controller:'SelfTakeTranslationController',
+                        activetab: 'delivery'
+                    }).
+                    when('/deliveryboundaries',{
                         templateUrl:'wisehands/admin/partials/deliveryBoundaries.html',
                         controller:'DeliveryBounderController',
                         activetab: 'delivery'
                     }).
-                    when('/shop/location',{
-                        templateUrl:'wisehands/admin/partials/shopLocation.html',
-                        controller:'ShopLocationController',
-                        activetab: 'contacts'
+                    when('/payment',{
+                        templateUrl:'wisehands/admin/partials/payment.html',
+                        controller:'PaymentController',
+                        activetab: 'payment'
                     }).
-                    when('/delivery/selfTake',{
-                        templateUrl:'wisehands/admin/partials/selfTakeDelivery.html',
-                        controller:'DeliverySettingsController',
-                        activetab: 'delivery'
+                    when('/translation/cash',{
+                        templateUrl:'wisehands/admin/partials/paymentCashTranslation.html',
+                        controller:'PaymentCashTranslationController',
+                        activetab: 'payment'
+                    }).
+                    when('/translation/cart',{
+                        templateUrl:'wisehands/admin/partials/paymentOnlineTranslation.html',
+                        controller:'PaymentOnlineTranslationController',
+                        activetab: 'payment'
+                    }).
+                    when('/translation/:objectUuid/:translationUuid',{
+                        templateUrl:'wisehands/admin/partials/translation.html',
+                        controller:'TranslationController',
+                        activetab: 'payment'
                     }).
                     when('/settings',{
                         templateUrl:'wisehands/admin/partials/settings.html',
@@ -173,11 +213,6 @@
                         templateUrl:'wisehands/admin/partials/categories.html',
                         controller:'CategoriesController',
                         activetab: 'productlist'
-                    }).
-                    when('/payment',{
-                        templateUrl:'wisehands/admin/partials/payment.html',
-                        controller:'PaymentController',
-                        activetab: 'payment'
                     }).
                     when('/discounts',{
                         templateUrl:'wisehands/admin/partials/discounts.html',

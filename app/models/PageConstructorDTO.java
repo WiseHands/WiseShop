@@ -32,6 +32,14 @@ public class PageConstructorDTO  extends GenericModel {
     @ManyToOne
     public ShopDTO shop;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO pageTitleTextTranslationBucket;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO pageBodyTextTranslationBucket;
+
     public String getBody() {
         return body;
     }

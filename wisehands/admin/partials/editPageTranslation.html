@@ -1,0 +1,45 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'editPage.title' | translate}}</h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="saveThisPage()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="row text-center">
+    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+</div>
+<div class="admin-container">
+
+    <div class="container-fluid">
+        <div class="col-xs-12 input-field ">
+            <p>{{'translationPage.toUkrainian' | translate}}</p>
+            <textarea class="editor-for-page" id="uk" name="uk"></textarea>
+        </div>
+    </div><div class="container-fluid">
+    <div class="col-xs-12 input-field ">
+        <p>{{'translationPage.toEnglish' | translate}}</p>
+        <textarea class="editor-for-page" id="en" name="en"></textarea>
+    </div>
+</div>
+</div>
+<!--<div class="file-field input-field col-xs-12 white-text">-->
+    <!--<button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" ng-click="loadImage()">-->
+        <!--<span>{{'editPage.addPhoto' | translate}}</span>-->
+    <!--</button>-->
+    <!--<input type="file" name="imageLoader" id="imageLoader" fileread="uploadme"/>-->
+<!--</div>-->
+<!--<div class="flex-row">-->
+    <!--<img src="{uploadme}" class="img-setting">-->
+<!--</div>-->
+<!--<canvas id="imageCanvas" class="productImage"></canvas>-->
