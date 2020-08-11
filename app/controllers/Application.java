@@ -184,7 +184,6 @@ public class Application extends Controller {
         for(PageConstructorDTO _page: pageList){
             _page = Translation.setTranslationForPage(language, _page);
             translationPageList.add(_page);
-
         }
         shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();

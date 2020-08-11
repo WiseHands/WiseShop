@@ -2163,6 +2163,9 @@ ul.admin-breadcrumb li a:hover {
     flex-direction: row;
     align-items: center;
 }
+.admin-feedback-list a {
+    color: black;
+}
 
 @media screen and (min-width: 1500px) {
     .admin-container {
