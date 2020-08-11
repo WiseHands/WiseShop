@@ -44,12 +44,16 @@ public class Application extends Controller {
 
         }
 
-    private static String returnUrlForDev(ShopDTO shop) {
-        String domain = shop.domain;
-        if(isDevEnv) {
-            domain = domain + ":3334";
+    private static String returnUrlForDev(String client, String language) {
+        String protocol = "";
+        String port = "";
+        if(isDevEnv){
+            protocol = "http://";
+            port = ":3334";
+        } else {
+            protocol = "https://";
         }
-        return "https://%s" + domain;
+        return protocol + client + port + "/" + language;
     }
 
 
@@ -126,7 +130,7 @@ public class Application extends Controller {
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-        Application.index(client, language);
+        redirect(returnUrlForDev(client, language) , false);
 
     }
 
