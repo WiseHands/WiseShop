@@ -24,13 +24,19 @@
     <div class="admin-column">
         <div class="admin-card">
             <h5>{{'shopLocation.markShop' | translate}}</h5>
-                <ul>
-                    <div class="text-row"> <p>Місто: </p> <input id="addressCity"></input> </div>
-                    <div class="text-row"> <p>Вулиця: </p> <input id="addressStreet"></input> </div>
-                    <div class="text-row"> <p>№ будівлі: </p> <input id="addressNumberHouse"></input> </div>
-                    <span ng-click="_saveDeliveryBoundaries()"> {{'addNewProduct.save' | translate}}</span>
-                </ul>
-
+            <div class="input-field">
+                <p>{{'contacts.city' | translate}}:</p>
+                <input class="form-control validate" id="addressCity" type="text" ng-model="contacts.phone">
+            </div>
+            <div class="input-field">
+                <p>{{'contacts.street' | translate}}</p>
+                <input class="form-control validate" id="addressStreet" type="text" ng-model="contacts.phone">
+            </div>
+            <div class="input-field">
+                <p>{{'contacts.numberHouse' | translate}}</p>
+                <input class="form-control validate" id="addressNumberHouse" type="text" ng-model="contacts.phone">
+            </div>
+            <span ng-click="_saveDeliveryBoundaries()"> {{'addNewProduct.save' | translate}}</span>
         </div>
     </div>
     <div class="admin-column">
