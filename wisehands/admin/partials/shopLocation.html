@@ -3,13 +3,13 @@
         <div class="row vcentering">
             <a class="col-xs-2 noPaddingLeft"
                type="button"
-               href="#/delivery/courier">
+               ng-click="goBack()">
                 <i class="fa fa-arrow-circle-left whiteColor pull-left">
                 </i>
             </a>
 
             <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'courierDelivery.deliveryBoundaries' | translate}}</h5>
+                <h5 class="white-text">{{'shopLocation.title' | translate}}</h5>
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
@@ -21,24 +21,19 @@
 </nav>
 
 <main class="admin-container ">
-    <ul class="admin-breadcrumb">
-        <li><a href="#/delivery">{{'delivery.delivery' | translate}}</a></li>
-        <li><a href="#/delivery/courier">{{'delivery.courier' | translate}} </a></li>
-        <li>{{'courierDelivery.deliveryBoundaries' | translate}}</li>
-    </ul>
-    <div class="delivery-boundaries">
-        <div class="admin-column">
-            <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 500px"></div>
-        </div>
-        <div class="admin-column">
-            <div class="admin-card">
-                <h4>{{'deliveryBoundaries.instructionStep1' | translate}}</h4>
+    <div class="admin-column">
+        <div class="admin-card">
+            <h5>{{'shopLocation.markShop' | translate}}</h5>
                 <ul>
-                    <li>{{'deliveryBoundaries.instructionStep21' | translate}}<img src="../wisehands/assets/images/logoimages/drawshape.png">{{'deliveryBoundaries.instructionStep22' | translate}}</li>
-                    <li>{{'deliveryBoundaries.instructionStep3' | translate}}<span class="save-button-delivery-bounderies"  ng-click="_saveDeliveryBoundaries()">{{'addNewProduct.save' | translate}}</span></li>
+                    <div class="text-row"> <p>Місто: </p> <input id="addressCity"></input> </div>
+                    <div class="text-row"> <p>Вулиця: </p> <input id="addressStreet"></input> </div>
+                    <div class="text-row"> <p>№ будівлі: </p> <input id="addressNumberHouse"></input> </div>
+                    <span ng-click="_saveDeliveryBoundaries()"> {{'addNewProduct.save' | translate}}</span>
                 </ul>
-                <p>{{'deliveryBoundaries.instructionNote' | translate}}</p>
-            </div>
+
         </div>
+    </div>
+    <div class="admin-column">
+        <div id="googleMap" class="z-depth-1-half map-container wow fadeInUp" data-wow-delay="0.1s" style="height: 500px"></div>
     </div>
 </main>

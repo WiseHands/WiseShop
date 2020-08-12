@@ -1,4 +1,7 @@
 ﻿{
+  "shopLocation.title": "Lokalizacja sklepu",
+  "shopLocation.markShop": "Zaznacz adres sklepu na mapie lub zapisz aktualny adres",
+
   "translationPage.toEnglishProductName": "Tekst w języku angielskim dla nazwy produktu",
   "translationPage.toEnglishProductDescription": "Tekst w języku angielskim do opisu produktu",
   "translationPage.toUkrainianProductName": "Tekst w języku ukraińskim jako nazwa produktu",

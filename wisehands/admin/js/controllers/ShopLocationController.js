@@ -1,6 +1,10 @@
 angular.module('WiseHands')
   .controller('ShopLocationController', ['$scope', '$http', function ($scope, $http) {
 
+    $scope.goBack = () => {
+      window.history.back();
+    };
+
     $http({
       method: 'GET',
       url: '/shop/details'
