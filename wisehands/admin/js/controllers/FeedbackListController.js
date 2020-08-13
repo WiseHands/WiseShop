@@ -31,7 +31,7 @@ angular.module('WiseHands')
       $scope.orderList = orderList;
     }
 
-    $scope.sortByProperty = 'time';
+    $scope.sortByProperty = 'feedbackTime';
     $scope.reverse = true;
     $scope.sortBy = (sortByProperty) => {
       $scope.reverse = ($scope.sortByProperty === sortByProperty) ? !$scope.reverse : false;
