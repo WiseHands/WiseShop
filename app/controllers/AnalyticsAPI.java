@@ -27,14 +27,12 @@ public class AnalyticsAPI extends AuthController {
         checkAuthentification(shop);
 
         // calculate amount of days
-        int oneDayInMillis = 24*60*60*1000;
         long diffInMillis = toDateInMillis - fromDateInMillis;
+        int oneDayInMillis = 24*60*60*1000;
 
         long diffInDays = diffInMillis / oneDayInMillis;
-
-
-        int oneDay = 1;
         int days = Math.round(diffInDays);
+        System.out.println("fromDateToDate => " + fromDateInMillis + "to" + toDateInMillis + "\n analytic for days => " + days);
 
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
@@ -47,15 +45,16 @@ public class AnalyticsAPI extends AuthController {
 
         List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, days);
         json.put("popularProducts", popularProductsList);
+        System.out.println("popularProductsList => " +  popularProductsList);
 
         BigInteger paidByCash = PaymentTypeService.getNumberOfPaymentsByCash(shop, days);
-
         BigInteger paidByCard = PaymentTypeService.getNumberOfPaymentsByCard(shop, days);
 
         JSONObject paymentCountByType = new JSONObject();
         paymentCountByType.put("paidByCard", paidByCard);
         paymentCountByType.put("paidByCash", paidByCash);
         json.put("paymentCountByType", paymentCountByType);
+        System.out.println("paymentCountByType => " +  paymentCountByType.toJSONString());
 
         List<FrequentBuyer> frequentBuyerList = FrequentBuyersService.getFrequentBuyerList(shop, days);
         json.put("frequentBuyers", frequentBuyerList);

@@ -6,40 +6,37 @@ angular.module('WiseHands')
             let fromDateInput = document.getElementById("fromDateForAnalytics");
             let toDateInput = document.getElementById("toDateForAnalytics");
 
-            $scope.getMainAnalyticsData = function (days) {
-                let format = "YYYY-MM-DD";
-
+            $scope.getMainAnalyticsData = (days) => {
                 const currentDate = new Date();
                 const to = convertDateToMilissecondsWithoutTimezoneOffset(currentDate);
-
-                fromDateInput.value = moment(to).format(format);
 
                 let oneDayInMillis = 24*60*60*1000;
                 let from = to - parseInt(days) * oneDayInMillis;
 
+                let format = "YYYY-MM-DD";
+                fromDateInput.value = moment(to).format(format);
                 toDateInput.value = moment(from).format(format);
 
                 $scope.calculateDayRange(from, to);
             };
 
-            function convertDateToMilissecondsWithoutTimezoneOffset(date) {
+            convertDateToMilissecondsWithoutTimezoneOffset = (date) => {
                 let myDate = new Date(date);
                 let offset = myDate.getTimezoneOffset() * 60 * 1000;
 
                 let withOffset = myDate.getTime();
                 let withoutOffset = withOffset - offset;
-                console.log(withOffset);
-                console.log(withoutOffset);
+
                 return withoutOffset;
             }
 
-            $scope.performRequestInGivenRange = function () {
+            $scope.performRequestInGivenRange = () => {
                 let fromDate = convertDateToMilissecondsWithoutTimezoneOffset(fromDateInput.value);
                 let toDate = convertDateToMilissecondsWithoutTimezoneOffset(toDateInput.value);
                 $scope.calculateDayRange(fromDate, toDate);
             };
 
-            $scope.calculateDayRange = function(from, to){
+            $scope.calculateDayRange = (from, to) => {
                 let fromDate = from;
                 let toDate = to;
                 console.log('fromDate.value for calculateDayRange: ', fromDate);
@@ -53,17 +50,17 @@ angular.module('WiseHands')
                     '/to/' +
                     toDate
                 })
-                    .then(function successCallback(response) {
+                    .then(successCallback = (response) => {
                       console.log(response.data);
                       $scope.analytics = response.data;
 
                       $scope.popularProducts = response.data.popularProducts;
                       $scope.frequentBuyers = response.data.frequentBuyers;
 
-                        let arrayTime = $scope.analytics.chartData;
+                      let arrayTime = $scope.analytics.chartData;
 
-                        toDateInput.value = arrayTime[arrayTime.length - 1].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
-                        fromDateInput.value = arrayTime[0].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+                      toDateInput.value = arrayTime[arrayTime.length - 1].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+                      fromDateInput.value = arrayTime[0].day.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
 
                       $scope.loading = false;
 
@@ -84,18 +81,18 @@ angular.module('WiseHands')
                           data
                       ];
 
-                    }, function errorCallback(response) {
+                    }, errorCallback = (response) =>{
                         $scope.status = 'Щось пішло не так...';
                     });
 
             };
 
             let week = 7;
-
             const currentDate = new Date();
             const formattedCurrentDate = convertDateToMilissecondsWithoutTimezoneOffset(currentDate);
             const pastWeekDate = currentDate.setDate(currentDate.getDate()- week);
             const formattedPassWeekDate = convertDateToMilissecondsWithoutTimezoneOffset(pastWeekDate);
+
             $scope.calculateDayRange(formattedPassWeekDate, formattedCurrentDate);
 
             sideNavInit.sideNav();
