@@ -465,7 +465,9 @@ public class Application extends Controller {
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
         Translation.setTranslationForShop(language, shop);
-        render(shop, language);
+
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
+        render(shop, language, categories);
     }
 
     public static void done(String client) {
