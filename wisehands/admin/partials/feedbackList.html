@@ -1,12 +1,9 @@
 <nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
     <div class="container-fluid">
         <div class="row vcentering">
-            <a class="col-xs-2 noPaddingLeft"
-               type="button"
-               ng-click="goBack()">
-                <i class="fa fa-arrow-circle-left whiteColor pull-left">
-                </i>
-            </a>
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
 
             <div class="col-xs-8 text-center">
                 <h5 class="white-text">{{'productDetails.reviews' | translate}}</h5>
