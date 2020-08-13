@@ -2141,9 +2141,15 @@ ul.admin-breadcrumb li a:hover {
     justify-content: space-between;
     align-items: center;
 }
+
+.delivery-edit-message button {
+    min-width: 37px;
+}
+
 .delivery-message-label{
     font-weight: 400;
 }
+
 .translation-flex-row{
     display: flex;
     justify-content: space-between;
