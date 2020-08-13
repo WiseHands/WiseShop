@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-  .controller('FeedbackListController', ['$http', '$scope', '$routeParams', '$window', function ($http, $scope, $routeParams, $window) {
+  .controller('FeedbackListController', ['$http', '$scope', 'sideNavInit', '$routeParams', '$window', function ($http, $scope, sideNavInit, $routeParams, $window) {
     $scope.loading = true;
 
     $scope.goBack = () => {
@@ -38,4 +38,5 @@ angular.module('WiseHands')
       $scope.sortByProperty = sortByProperty;
     };
 
+    sideNavInit.sideNav();
 }]);
