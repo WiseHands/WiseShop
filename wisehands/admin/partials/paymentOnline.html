@@ -29,19 +29,22 @@
             <div class="delivery-edit-message">
                 <p>{{'payment.messageText' | translate}}</p>
                 <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
-                        ng-click="redirectToTranslation()"><i class="material-icons">mode_edit</i></button>
+                        ng-click="redirectToTranslation()"><i class="material-icons">mode_edit</i>
+                </button>
             </div>
         </div>
     </div>
     <div class="admin-card">
-            <h4>{{'payment.systemPay' | translate}}</h4>
+        <h4>{{'payment.systemPay' | translate}}</h4>
+        <div class="delivery-edit-message">
+            <h5 class="">LiqPay</h5>
+                <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right">
             <a href="#/liqpaypayment">
-                <div class="payment-system text-center">
-                    <div class="card-panel secondaryColor darken-3 hoverable">
-                        <h5 class="white-text">LiqPay</h5>
-                    </div>
-                </div>
+                <i class="material-icons">mode_edit</i>
             </a>
+                </button>
+
+        </div>
     </div>
 
 </div>
