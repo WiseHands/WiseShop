@@ -9,7 +9,7 @@ angular.module('WiseHands')
             .then((response) => {
                 $scope.loading = false;
                 $scope.contacts = response.data;
-                console.log("$scope.contacts", $scope.contacts.uuid);
+                console.log("$scope.contacts", $scope.contacts);
             }, (errorCallback) => {
                 $scope.loading = false;
             });

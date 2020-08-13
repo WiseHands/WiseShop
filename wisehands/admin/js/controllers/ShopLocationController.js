@@ -12,21 +12,24 @@ angular.module('WiseHands')
     })
       .then(response => {
       $scope.contacts = response.data;
-      const shopLocation = response.data.shopLocation;
-      console.log("setAddressFromResponse", $scope.contacts);
-      initMap(shopLocation);
+      console.log("/contact/details", $scope.contacts);
+      initMap(response.data.shopLocation);
     }, error => {
       $scope.status = 'Щось пішло не так...';
       console.log(error);
     });
 
     initMap = (shopCoordinates) => {
-      let latitude = Number(shopCoordinates.latitude);
-      let longitude = Number(shopCoordinates.longitude);
-      if ((!!latitude && !!longitude) || (latitude === 0 && longitude === 0)){
-         latitude = 49.8433513;
-         longitude =24.0315123;
+      let marker, latitude, longitude;
+      let isPresentShopCoordinates
+      if(shopCoordinates === undefined){
+        isPresentShopCoordinates = false;
+      } else {
+        isPresentShopCoordinates = true;
+        latitude = Number(shopCoordinates.latitude);
+        longitude = Number(shopCoordinates.longitude);
       }
+
       let shopLocation = new google.maps.LatLng(latitude, longitude);
       let mapOptions = {
          streetViewControl: false,
@@ -34,7 +37,11 @@ angular.module('WiseHands')
          zoom: 17
       };
       let map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
-      let marker = new google.maps.Marker({position: shopLocation, map: map});
+      if (!isPresentShopCoordinates){
+        marker = new google.maps.Marker();
+      } else {
+        marker = new google.maps.Marker({position: shopLocation, map: map});
+      }
       map.addListener('click', function(event) {
         $scope.pointLocation = event.latLng
         if (marker) marker.setMap(null);
