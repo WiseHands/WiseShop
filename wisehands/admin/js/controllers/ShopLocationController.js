@@ -5,91 +5,88 @@ angular.module('WiseHands')
       window.history.back();
     };
 
+
     $http({
       method: 'GET',
-      url: '/shop/details'
+      url: '/contact/details'
     })
       .then(response => {
-        if (response.data.delivery.courierPolygonData) $scope.courierPolygonData = JSON.parse(response.data.delivery.courierPolygonData);
-        _getContactDetails();
-      }, error => {
-        $scope.status = 'Щось пішло не так з координатами.';
-        console.log(error);
-      });
+      $scope.contacts = response.data;
+      const shopLocation = response.data.shopLocation;
+      console.log("setAddressFromResponse", $scope.contacts);
+      initMap(shopLocation);
+    }, error => {
+      $scope.status = 'Щось пішло не так...';
+      console.log(error);
+    });
 
-    function _getContactDetails() {
-      $http({
-        method: 'GET',
-        url: '/contact/details'
-      })
-        .then(response => {
-          const contacts = response.data;
-          if (contacts.latLng) _initMap(contacts.latLng);
-        }, error => {
-          $scope.status = 'Щось пішло не так...';
-          console.log(error);
+    initMap = (shopCoordinates) => {
+      let latitude = Number(shopCoordinates.latitude);
+      let longitude = Number(shopCoordinates.longitude);
+      if ((!!latitude && !!longitude) || (latitude === 0 && longitude === 0)){
+         latitude = 49.8433513;
+         longitude =24.0315123;
+      }
+      let shopLocation = new google.maps.LatLng(latitude, longitude);
+      let mapOptions = {
+         streetViewControl: false,
+         center: shopLocation,
+         zoom: 17
+      };
+      let map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+      let marker = new google.maps.Marker({position: shopLocation, map: map});
+      map.addListener('click', function(event) {
+          $scope.pointLocation = event.latLng
+          if (marker) marker.setMap(null);
+          marker = new google.maps.Marker(
+            { position: $scope.pointLocation,
+               map: map }
+            );
+          geocodePointLocation($scope.pointLocation);
+          console.log('click on map', event.latLng);
         });
     }
 
-    function _initMap(latLng) {
-      const cords = latLng.split(',');
-      const lat = cords[0];
-      const lng = cords[1];
-      const var_location = new google.maps.LatLng(lat, lng);
-      $scope.var_map_options = {
-        streetViewControl: false,
-        center: var_location,
-        zoom: 10
+    geocodePointLocation = (location) => {
+      let geocoder = new google.maps.Geocoder();
+      geocoder.geocode({
+        'location': location
+        }, function(results, status) {
+          if (status === 'OK') {
+              if (results[0]) {
+                  addressCity.value = results[0].address_components[2].long_name;
+                  addressStreet.value = results[0].address_components[1].long_name;
+                  addressNumberHouse.value = results[0].address_components[0].long_name;
+              } else {
+                    console.log('no address');
+              }
+            } else {
+                console.log('finded address ', status);
+            }
+        });
+    }
+
+    $scope.saveShopLocation = () => {
+      console.log('pointLocation from map', $scope.pointLocation.lat(), $scope.pointLocation.lng());
+      console.log('pointLocation from map', addressCity.value, addressStreet.value,addressNumberHouse.value);
+      objectBody = {
+        addressCity: addressCity.value,
+        addressStreet: addressStreet.value,
+        addressNumberHouse: addressNumberHouse.value,
+        shopLocation: {
+          latitude: $scope.pointLocation.lat(),
+          longitude: $scope.pointLocation.lng()
+        }
       };
-      $scope.map = new google.maps.Map(document.getElementById('googleMap'), $scope.var_map_options);
-      const var_marker = new google.maps.Marker({
-        position: var_location,
-        map: $scope.map
-      });
-      var_marker.setMap($scope.map);
-      $scope.map.data.setControls(['Polygon']);
-      $scope.map.data.setStyle({
-        editable: true,
-        draggable: true
-      });
-
-      _bindDataLayerListeners($scope.map.data);
-      const deleteAreaButton = _createDeleteDeliveryBoundariesButton($scope.map);
-      $scope.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(deleteAreaButton);
-      _loadPolygon($scope.map, $scope.courierPolygonData);
-    }
-
-    function _bindDataLayerListeners(dataLayer) {
-      dataLayer.addListener('addfeature', _disablePolygonEditing);
-      dataLayer.addListener('removefeature', _enablePolygonEditing);
-    }
-
-    function _loadPolygon(map, data) {
-      if (Object.keys(data).length) map.data.addGeoJson(data);
-    }
-
-    function _disablePolygonEditing() {
-      $scope.map.data.setControls(null);
-      $scope.map.data.setDrawingMode(null);
-    }
-
-    function _enablePolygonEditing() {
-      $scope.map.data.setControls(['Polygon']);
-    }
-
-    $scope._saveDeliveryBoundaries = () => {
-      $scope.map.data.toGeoJson(json => {
-        const objjson = JSON.parse(JSON.stringify(json));
-        const isPolygonPresentOnMap = !!objjson.features.length;
-        isPolygonPresentOnMap ? _savePolygon(objjson) : _deletePolygon();
-      });
+      console.log('objectBody for update contacts', objectBody);
+      _saveNewAddress(objectBody);
     };
 
-    function _savePolygon(polygon) {
+    _saveNewAddress = (objectBody) => {
       $http({
-        method: 'POST',
-        url: '/courier/polygon',
-        data: polygon,
+        method: 'PUT',
+        url: '/contact',
+        data: objectBody,
       }).then(_showSaveToaster(),
         error => {
           $scope.status = 'Щось пішло не так...';
@@ -97,19 +94,7 @@ angular.module('WiseHands')
         });
     }
 
-    function _deletePolygon() {
-      $http({
-        method: 'DELETE',
-        url: '/courier/polygon',
-        data: {}
-      }).then(_showSaveToaster(),
-        error => {
-          $scope.status = 'Щось пішло не так...';
-          console.log(error);
-        });
-    }
-
-    function _showSaveToaster() {
+    _showSaveToaster = () => {
       toastr.clear();
       toastr.options = {
         'positionClass': 'toast-bottom-right',
@@ -118,19 +103,5 @@ angular.module('WiseHands')
       toastr.info('Saved successfully');
     }
 
-    function _createDeleteDeliveryBoundariesButton(map) {
-      const deleteAreaButton = document.createElement('div');
-      deleteAreaButton.classList.add('delete-area-button');
-      deleteAreaButton.index = 1;
-      deleteAreaButton.title = 'Click to delete the area';
-      const deleteAreaButtonText = document.createElement('span');
-      deleteAreaButtonText.innerText = 'Delete area';
-      deleteAreaButton.appendChild(deleteAreaButtonText);
-      deleteAreaButton.addEventListener('click', () => {
-        map.data.forEach(property => {
-          map.data.remove(property);
-        });
-      });
-      return deleteAreaButton;
-    }
+
   }]);
