@@ -1487,11 +1487,15 @@ input {
 }
 
 .admin-card .delivery-message {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
 }
 
 .delivery-message textarea {
     padding: 0.5rem 0;
+    overflow-y: hidden;
+    resize: none;
+    min-height: 1rem;
+    height: 1.5rem;
 }
 
 .payment-list {
@@ -2117,14 +2121,19 @@ ul.admin-breadcrumb li a:hover {
     width: 30px;
 }
 
-.add-category-row {
+.add-category-block {
     width: 90%;
     margin: 0 auto;
 }
 
-.add-category-row .input-field label {
+.add-category-block .input-field label {
     left: 0;
     top: 1.5rem;
+}
+
+.add-category-row {
+    display: flex;
+    justify-content: space-between;
 }
 
 .delivery-edit-message {

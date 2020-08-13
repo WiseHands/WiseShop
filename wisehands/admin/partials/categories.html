@@ -65,7 +65,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="add-category-row row">
+                <div class="add-category-block row">
                     <div class="input-field">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -77,12 +77,16 @@
                         <input id="categorySortOrder" type="number"  ng-model="thisCategory.sortOrder" />
                         <label class="active" for="categorySortOrder">{{'displayOrder' | translate}}</label>
                     </div>
-                    <div class="input-field modal-category-label">
-                        <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="thisCategory.isHidden" />
-                        <label  for="filled-in-box">{{'category.ishidden' | translate}}</label>
-                    </div>
+                        <div class="input-field  modal-category-label">
+                            <div class="add-category-row">
+
+                            <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="thisCategory.isHidden" />
+                            <label  for="filled-in-box">{{'category.ishidden' | translate}}</label>
+                            <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>
+                            </div>
+                        </div>
+
                     <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                    <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>
 <!--                    <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="deleteCategory()">{{'categories.delete' | translate}}</button>-->
                 </div>
             </div>
@@ -94,7 +98,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <form name="categoryForm" ng-submit="createCategory()">
-                    <div class="add-category-row row">
+                    <div class="add-category-block row">
                         <div class="input-field">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
