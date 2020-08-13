@@ -23,20 +23,7 @@
 <main class="admin-container ">
     <div class="admin-column">
         <div class="admin-card">
-            <h5>{{'shopLocation.markShop' | translate}}</h5>
-            <div class="input-field">
-                <p>{{'contacts.city' | translate}}:</p>
-                <input class="form-control validate" id="addressCity" type="text" ng-model="contacts.addressCity">
-            </div>
-            <div class="input-field">
-                <p>{{'contacts.street' | translate}}</p>
-                <input class="form-control validate" id="addressStreet" type="text" ng-model="contacts.addressStreet">
-            </div>
-            <div class="input-field">
-                <p>{{'contacts.numberHouse' | translate}}</p>
-                <input class="form-control validate" id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse">
-            </div>
-            <span ng-click="saveShopLocation()"> {{'addNewProduct.save' | translate}}</span>
+            <h5 class="shop-location-title">{{'shopLocation.markShop' | translate}}</h5>
         </div>
     </div>
     <div class="admin-column">

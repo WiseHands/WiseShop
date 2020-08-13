@@ -36,43 +36,18 @@ angular.module('WiseHands')
       let map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
       let marker = new google.maps.Marker({position: shopLocation, map: map});
       map.addListener('click', function(event) {
-          $scope.pointLocation = event.latLng
-          if (marker) marker.setMap(null);
-          marker = new google.maps.Marker(
-            { position: $scope.pointLocation,
-               map: map }
-            );
-          geocodePointLocation($scope.pointLocation);
-          console.log('click on map', event.latLng);
-        });
-    }
-
-    geocodePointLocation = (location) => {
-      let geocoder = new google.maps.Geocoder();
-      geocoder.geocode({
-        'location': location
-        }, function(results, status) {
-          if (status === 'OK') {
-              if (results[0]) {
-                  addressCity.value = results[0].address_components[2].long_name;
-                  addressStreet.value = results[0].address_components[1].long_name;
-                  addressNumberHouse.value = results[0].address_components[0].long_name;
-              } else {
-                    console.log('no address');
-              }
-            } else {
-                console.log('finded address ', status);
-            }
-        });
+        $scope.pointLocation = event.latLng
+        if (marker) marker.setMap(null);
+        marker = new google.maps.Marker(
+          { position: $scope.pointLocation,
+             map: map }
+          );
+      });
     }
 
     $scope.saveShopLocation = () => {
       console.log('pointLocation from map', $scope.pointLocation.lat(), $scope.pointLocation.lng());
-      console.log('pointLocation from map', addressCity.value, addressStreet.value,addressNumberHouse.value);
       objectBody = {
-        addressCity: addressCity.value,
-        addressStreet: addressStreet.value,
-        addressNumberHouse: addressNumberHouse.value,
         shopLocation: {
           latitude: $scope.pointLocation.lat(),
           longitude: $scope.pointLocation.lng()
