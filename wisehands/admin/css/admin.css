@@ -1548,6 +1548,7 @@ input {
 
 .payment-block-online .admin-card {
     flex: 1 1 50%;
+    height: fit-content;
 }
 
 .payment-block-online .card-panel {
