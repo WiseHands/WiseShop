@@ -1,4 +1,7 @@
 {
+  "shopLocation.title": "Shop location",
+  "shopLocation.markShop": "Mark the store address on the map and save it",
+
   "translationPage.toUkrainianProductName": "Text in Ukrainian for product name",
   "translationPage.toUkrainianProductDescription": "Text in Ukrainian for product description",
   "translationPage.toEnglishProductName": "Text in English for product name",
@@ -280,6 +283,7 @@
   "contacts.linkinstagram": "Link to Instagram",
   "contacts.linkyoutube": "Link to Youtube",
   "contacts.gps": "GPS location",
+  "contacts.setGps": "Set GPS",
   "users.users": "Users",
   "users.newUser": "New user",
   "users.newUserExist": "User with such e-mail already exists",

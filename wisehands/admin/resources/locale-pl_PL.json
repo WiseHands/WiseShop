@@ -1,4 +1,7 @@
 ﻿{
+  "shopLocation.title": "Lokalizacja sklepu",
+  "shopLocation.markShop": "Zaznacz adres sklepu na mapie i zapisz to",
+
   "translationPage.toEnglishProductName": "Tekst w języku angielskim dla nazwy produktu",
   "translationPage.toEnglishProductDescription": "Tekst w języku angielskim do opisu produktu",
   "translationPage.toUkrainianProductName": "Tekst w języku ukraińskim jako nazwa produktu",
@@ -281,6 +284,7 @@
   "contacts.linkinstagram": "Link do Instagram",
   "contacts.linkyoutube": "Link do Youtube",
   "contacts.gps": "Lokalizacja GPS",
+  "contacts.setGps": "Ustaw współrzędne",
   "users.users": "Użytkownicy",
   "users.newUser": "Nowy użytkownik",
   "users.newUserExist": "Użytkownik z takim e-mailem już istnieje",

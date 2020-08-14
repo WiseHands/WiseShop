@@ -24,14 +24,11 @@ public class PaymentSystemsAPI  extends AuthController {
     }
 
     public static void updateLiqpayPayment(String client) throws Exception{
-
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         checkAuthentification(shop);
-
-
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -43,10 +40,5 @@ public class PaymentSystemsAPI  extends AuthController {
         shop.paymentSettings.clientPaysProcessingCommission = clientPaysProcessingCommission;
         shop = shop.save();
         renderJSON(json(shop));
-
-
     }
-
-
-
 }
