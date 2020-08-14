@@ -2179,9 +2179,18 @@ ul.admin-breadcrumb li a:hover {
     flex-direction: row;
     align-items: center;
 }
+
 .admin-feedback-list a {
     color: black;
 }
+
+.admin-contacts-card-gps h4 {
+    padding: 1rem;
+}
+.admin-contacts-card-gps {
+    padding: 0;
+}
+
 .shop-location-title {
     text-align: center;
 }
