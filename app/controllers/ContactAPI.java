@@ -105,10 +105,19 @@ public class ContactAPI extends AuthController {
             shop.contact.shopLocation.latitude = shopLatitude;
             shop.contact.shopLocation.longitude = shopLongitude;
         }
-        contact.email = email;
-        contact.phone = phone;
-        contact.addressCity = addressCity;
-        contact.addressStreet = addressStreet;
+        if(email != null){
+            contact.email = email;
+        }
+        if(phone != null){
+            contact.phone = phone;
+        }
+        if(addressCity != null){
+            contact.addressCity = addressCity;
+        }
+        if(addressStreet != null){
+            contact.addressStreet = addressStreet;
+        }
+
         contact.addressNumberHouse = addressNumberHouse;
         contact.description = description;
         contact.latLng = String.valueOf(shopLatitude) + "," + String.valueOf(shopLongitude);
@@ -122,7 +131,6 @@ public class ContactAPI extends AuthController {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         System.out.println("User " + loggedInUser.name + " updated contact information for  " + shop.shopName + " at " + dateFormat.format(date));
-
 
         renderJSON(json(contact));
     }

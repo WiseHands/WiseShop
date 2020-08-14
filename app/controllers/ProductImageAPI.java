@@ -125,5 +125,4 @@ public class ProductImageAPI extends AuthController {
         renderJSON(json);
     }
 
-
 }

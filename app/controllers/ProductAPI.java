@@ -19,7 +19,6 @@ public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
     private  static final int PAGE_SIZE = 6;
 
-
     public static void create(String client, String name, String description,
                               Double price, File fake, Integer mainPhotoIndex,
                               String category,
@@ -63,7 +62,6 @@ public class ProductAPI extends AuthController {
             propertyNew.productUuid = product.uuid;
             propertyNew.shopUuid = shop.uuid;
 
-
             List<PropertyTagDTO> tagsListNew = new ArrayList<PropertyTagDTO>();
             for(PropertyTagDTO tag : property.tags) {
                 PropertyTagDTO tagNew = new PropertyTagDTO();
@@ -103,7 +101,6 @@ public class ProductAPI extends AuthController {
         ProductDTO productDTO = ProductDTO.findById(uuid);
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(productDTO);
-
         renderJSON(json);
     }
 
@@ -146,8 +143,6 @@ public class ProductAPI extends AuthController {
             }
         }
 
-
-
         ProductDTO product = (ProductDTO) ProductDTO.findById(uuid);
 
         if(photo != null) {
@@ -163,7 +158,6 @@ public class ProductAPI extends AuthController {
 
             product.fileName = shop.domain + "/" + photo.getFileName();
         }
-
 
         if (name != null){
             product.name = name;
@@ -185,12 +179,9 @@ public class ProductAPI extends AuthController {
         product.save();
 
         String json = gson.toJson(product);
-
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         System.out.println("User " + loggedInUser.name + " updated product " + product.name + " at " + dateFormat.format(date));
-
-
         renderJSON(json);
     }
 
@@ -230,10 +221,7 @@ public class ProductAPI extends AuthController {
         CategoryDTO category  = product.category;
         category.products.remove(product);
         category.save();
-
-
         product.delete();
-
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
