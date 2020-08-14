@@ -70,8 +70,20 @@
                 </div>
                 <div class="admin-card">
                     <h4>{{'contacts.gps' | translate}}</h4>
-                    <div ng-show="">
-                      <a href="#/shop/location"> <p>{{'contacts.setGps' | translate}}</p> </a>
+                    <div ng-show="!contacts.shopLocation">
+                        <a href="#/shop/location"> <p>{{'contacts.setGps' | translate}}</p> </a>
+                    </div>
+                    <div class="view overlay hm-white-slight z-depth-1" ng-show="contacts.shopLocation">
+                        <a href="#/shop/location">
+
+                            <img
+                                    ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&center={{shopLocation.latitude}},{{shopLocation.longitude}}&size=600x300&maptype=roadmap&markers=color:red|label:C|{{shopLocation.latitude}},{{shopLocation.longitude}}&key={{activeShop.googleStaticMapsApiKey}}"
+                                    class="img-responsive"
+                                    alt="">
+
+                        </a>
+
+
                     </div>
                 </div>
             </div>

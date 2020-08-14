@@ -4,11 +4,23 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
+            url: '/shop/details',
+        })
+            .then((response) => {
+                $scope.activeShop = response.data;
+                console.log("$scope.activeShop", $scope.activeShop);
+                $scope.loading = false;
+            }, errorCallback = (response) => {
+            });
+
+        $http({
+            method: 'GET',
             url: '/contact/details'
         })
             .then((response) => {
                 $scope.loading = false;
                 $scope.contacts = response.data;
+                $scope.shopLocation = response.data.shopLocation;
                 console.log("$scope.contacts", $scope.contacts);
             }, (errorCallback) => {
                 $scope.loading = false;
