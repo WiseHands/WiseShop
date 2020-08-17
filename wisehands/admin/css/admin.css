@@ -2151,6 +2151,9 @@ ul.admin-breadcrumb li a:hover {
 .translation-flex-row .flex-row p {
     padding-right: 10px;
 }
+.translation-flex-row .flex-row h4 {
+    padding-right: 10px;
+}
 
 .admin-feedback-list {
     display: flex;
