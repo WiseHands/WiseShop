@@ -23,6 +23,8 @@ angular.module('WiseHands')
       let isPresentShopCoordinates
       if(shopCoordinates === undefined){
         isPresentShopCoordinates = false;
+        latitude = 49.843237;
+        longitude = 24.031530;
       } else {
         isPresentShopCoordinates = true;
         latitude = Number(shopCoordinates.latitude);
