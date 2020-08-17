@@ -8,8 +8,10 @@ angular.module('WiseHands')
         })
             .then((response) => {
                 $scope.activeShop = response.data;
-                console.log("$scope.activeShop", $scope.activeShop);
+                console.log("/shop/details", $scope.activeShop);
                 $scope.loading = false;
+                const locale = $scope.activeShop.locale;
+                $scope.language = locale.slice(0, 2);
             }, errorCallback = (response) => {
             });
 
@@ -21,10 +23,40 @@ angular.module('WiseHands')
                 $scope.loading = false;
                 $scope.contacts = response.data;
                 $scope.shopLocation = response.data.shopLocation;
-                console.log("$scope.contacts", $scope.contacts);
+                setAddressForTextLabel($scope.contacts);
+                console.log("/contact/details", $scope.contacts);
             }, (errorCallback) => {
                 $scope.loading = false;
             });
+
+        setAddressForTextLabel = (contacts) => {
+            const cityLabel = document.querySelector('#city');
+            const streetLabel = document.querySelector('#street');
+            cityLabel.innerText = '';
+            streetLabel.innerText = '';
+            if (contacts.addressCity){
+               cityLabel.innerText = contacts.addressCity;
+            }
+            if (contacts.addressStreet){
+                streetLabel.innerText = contacts.addressStreet;
+            }
+            if(contacts.addressCityTextTranslationBucket){
+                const translationList = contacts.addressCityTextTranslationBucket.translationList;
+                translationList.forEach(item => {
+                    if(item.language === $scope.language){
+                        cityLabel.innerText = item.content;
+                    }
+                })
+            }
+            if(contacts.addressStreetTextTranslationBucket){
+                const translationList = contacts.addressStreetTextTranslationBucket.translationList;
+                translationList.forEach(item => {
+                    if(item.language === $scope.language){
+                        streetLabel.innerText = item.content;
+                    }
+                })
+            }
+        }
 
         $scope.redirectToTranslationForContactStreet = () => {
                 $http({

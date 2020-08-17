@@ -2148,6 +2148,9 @@ ul.admin-breadcrumb li a:hover {
     display: flex;
     align-items: center;
 }
+.translation-flex-row .flex-row p {
+    padding-right: 10px;
+}
 
 .admin-feedback-list {
     display: flex;

@@ -197,6 +197,7 @@ angular.module('WiseHands')
                 saveTranslationForContacts($scope.translationObject);
                 saveTranslationForShop($scope.translationObject);
                 const data = {
+                    objectUuid: $scope.translationObjectUuid,
                     translationUuid: $scope.translationBucketUuid,
                     translationList: [
                         {

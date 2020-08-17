@@ -162,7 +162,17 @@ public class TranslationBucketAPI extends AuthController {
             translationItem.save();
         }
         translation.save();
+        setShopContact((String) jsonBody.get("objectUuid"), shop);
         renderJSON(json(translation));
+    }
+
+    private static void setShopContact(String objectUuid, ShopDTO shop) {
+        System.out.println("shop locale => " + shop.locale);
+        ContactDTO contact = ContactDTO.findById(objectUuid);
+        if (contact != null){
+            System.out.println("setShopContact");
+        }
+
     }
 
 

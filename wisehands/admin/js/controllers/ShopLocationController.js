@@ -5,18 +5,17 @@ angular.module('WiseHands')
       window.history.back();
     };
 
-
     $http({
       method: 'GET',
       url: '/contact/details'
     })
       .then(response => {
       $scope.contacts = response.data;
-      console.log("/contact/details", $scope.contacts);
-      initMap(response.data.shopLocation);
+        console.log("/contact/details", $scope.contacts);
+        initMap(response.data.shopLocation);
     }, error => {
-      $scope.status = 'Щось пішло не так...';
-      console.log(error);
+        $scope.status = 'Щось пішло не так...';
+        console.log(error);
     });
 
     initMap = (shopCoordinates) => {
