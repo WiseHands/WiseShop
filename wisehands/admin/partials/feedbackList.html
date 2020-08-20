@@ -33,7 +33,11 @@
             <div class="admin-card product-feedback-container" ng-repeat="order in orderList | orderBy:sortByProperty:reverse"
                  ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
                 <div class="admin-order-card-row">
-                    <h4>{{'singleOrder.feedback' | translate}}</h4>
+                    <h4>{{'singleOrder.feedback' | translate}}
+                        <a href="#/details/{{order.uuid}}">
+                            <i class="fa fa-external-link" style="font-size:28px"></i>
+                        </a>
+                    </h4>
 
                     <div class="feedback-stars" ng-show="order.orderFeedback">
                         <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
@@ -43,10 +47,10 @@
                         <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
                     </div>
                 </div>
-                <a href="#/details/{{order.uuid}}" class="admin-order-card-row">
+                <div class="admin-order-card-row">
                    <h5>{{'singleOrder.FullName' | translate}}: </h5>
                    <p>{{order.name}}</p>
-                </a>
+                </div>
                 <div class="admin-order-card-row">
                     <h5>{{'singleOrder.Date' | translate}}: </h5>
                     <p>{{order.orderFeedback.feedbackTime}}</p>
@@ -55,7 +59,7 @@
                     <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
                     <p>{{order.orderFeedback.generalReview}}</p>
                 </div>
-                <div class="feedback-to-all-order" ng-show="order.orderFeedback && !order.orderFeedback.generalReview">
+                <div class="feedback-to-all-order" ng-hide="order.orderFeedback">
                     <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
                     <p>{{'singleOrder.generalFeedback' | translate}}</p>
                 </div>
