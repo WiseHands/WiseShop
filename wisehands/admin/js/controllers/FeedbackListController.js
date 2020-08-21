@@ -38,5 +38,29 @@ angular.module('WiseHands')
       $scope.sortByProperty = sortByProperty;
     };
 
+    $scope.showFeedback = (event) => {
+      console.log("showFeedback", item.order);
+      /api/feedback/hide/${review.uuid}
+    };
+
+    $scope.removeFeedback = (event) => {
+      console.log("removeFeedback", event.order);
+      bodyParams = {
+        uuid : event.order.uuid,
+        isFeedbackDeleted : true
+      }
+      $http({
+        method: 'DELETE',
+        url: `/api/feedback/delete/${event.order.uuid}`,
+        data: bodyParams
+      }).then(response => {
+        const data = response.data;
+        const clickedItem = $scope.product.feedbackList.find(item => item.uuid === data.uuid);
+        clickedItem.showReview = data.showReview;
+      })
+    }
+
+
+
     sideNavInit.sideNav();
 }]);

@@ -62,31 +62,29 @@
                     <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
                     <p>{{'singleOrder.generalFeedback' | translate}}</p>
                 </div>
-                <div ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
-                    <div  class="feedback-container" ng-repeat="item in order.items">
-                        <div class="product-feedback-info">
-                            <a class="feedback-order-details-image" ng-if="item.productUuid"
-                               href="#/productreviews/{{item.productUuid}}">
-                                <img src="{{item.imagePath}}">
-                                <p>{{item.name}}</p>
-                            </a>
-                            <div class="feedback-stars">
-                                <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                            </div>
+                <div  class="feedback-container" ng-repeat="item in order.items">
+                    <div class="product-feedback-info">
+                        <a class="feedback-order-details-image" ng-if="item.productUuid"
+                           href="#/productreviews/{{item.productUuid}}">
+                            <img src="{{item.imagePath}}">
+                            <p>{{item.name}}</p>
+                        </a>
+                        <div class="feedback-stars">
+                            <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                            <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                            <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                            <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                            <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                        </div>
 
-                        </div>
-                        <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
-                            <h6>{{'singleOrder.feedbackComment' | translate}}:</h6>
-                            <p>{{item.feedbackToOrderItem.review}}</p>
-                        </div>
+                    </div>
+                    <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
+                        <h6>{{'singleOrder.feedbackComment' | translate}}:</h6>
+                        <p>{{item.feedbackToOrderItem.review}}</p>
                     </div>
                 </div>
                 <div class="show-remove-feedback-container">
-                    <div ng-click="showOrHideFeedback(this)" class="show-review">
+                    <div ng-click="showFeedback(this)" class="show-review">
                         <p ng-show="!review.showReview">
                             <span><i class="fa fa-eye"></i></span>
                             {{'productReviews.showReview' | translate}}

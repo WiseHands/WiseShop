@@ -155,6 +155,16 @@ public class OrderFeedbackAPI extends AuthController{
         renderJSON(json(orderList));
     }
 
+    public static void deleteFeedbackFromOrder(String client){
+        String orderUuid = request.params.get("uuid");
+        System.out.println();
+        OrderDTO order = OrderDTO.findById(orderUuid);
+        order.feedbackRequestState = null;
+        order.save();
+//        System.out.println("hideReview => " + feedback.showReview);
+//        renderJSON(json(feedback));
+    }
+
 
 
 
