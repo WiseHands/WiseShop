@@ -2287,6 +2287,9 @@ ul.admin-breadcrumb li a:hover {
         flex: 0 1 100%;
     }
 
+    .admin-contacts-card-gps {
+        padding: 0;
+    }
 
 }
 
