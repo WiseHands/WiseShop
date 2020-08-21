@@ -139,6 +139,15 @@
                             <h6 class="grey-text" ng-show="item.yesterdayString">{{'orderList.yesterday' | translate}}</h6>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <p ng-show="item.paymentType === 'CASHONDELIVERY'" class="np-order-card">{{'singleOrder.paymentTypeCash' | translate}}</p>
+                        <p ng-show="item.paymentType === 'CREDITCARD'" class="np-order-card">{{'singleOrder.paymentTypeOnline' | translate}}
+                            <i ng-show="item.paymentState === 'PENDING'">{{'singleOrder.paymentStatePending' | translate}}</i>
+                            <i ng-show="item.paymentState === 'PAYED'">{{'singleOrder.paymentStatePaid' | translate}}</i>
+                            <i ng-show="item.paymentState === 'PAYMENT_ERROR'">{{'singleOrder.paymentStateError' | translate}}</i>
+                        </p>
+                    </div>
                     <div class="row">
                         <p ng-show="item.deliveryType === 'COURIER'" class="truncate np-order-card">
                             {{'orderList.courier' | translate}} <i>{{item.clientAddressStreetName}}, {{item.clientAddressBuildingNumber}}</i></p>
