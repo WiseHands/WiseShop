@@ -52,7 +52,7 @@
                     <p>{{order.orderFeedback.feedbackTime}}</p>
                 </div>
                 <div class="feedback-to-all-order" ng-show="order.orderFeedback.generalReview">
-                    <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
+                    <h6>{{'singleOrder.feedbackComment' | translate}}:</h6>
                     <p>{{order.orderFeedback.generalReview}}</p>
                 </div>
                 <div class="feedback-to-all-order" ng-show="order.orderFeedback && !order.orderFeedback.generalReview">
@@ -77,7 +77,7 @@
 
                         </div>
                         <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
-                            <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
+                            <h6>{{'singleOrder.feedbackComment' | translate}}:</h6>
                             <p>{{item.feedbackToOrderItem.review}}</p>
                         </div>
                     </div>
