@@ -56,13 +56,19 @@
                 <div class="admin-card">
                     <h4>{{'contacts.address' | translate}}</h4>
                     <div class="translation-flex-row">
-                        <p>{{'contacts.city' | translate}}</p>
+                        <div class="flex-row">
+                            <p>{{'contacts.city' | translate}}:</p>
+                            <p id="city"></p>
+                        </div>
                         <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
                                 ng-click="redirectToTranslationForContactCity()"><i class="material-icons">mode_edit</i>
                         </button>
                     </div>
                     <div class="translation-flex-row">
-                        <p>{{'contacts.street' | translate}}</p>
+                        <div class="flex-row">
+                            <p>{{'contacts.street' | translate}}:</p>
+                            <p id="street"></p>
+                        </div>
                         <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
                                 ng-click="redirectToTranslationForContactStreet()"><i class="material-icons">mode_edit</i>
                         </button>
@@ -75,15 +81,11 @@
                     </div>
                     <div class="view overlay hm-white-slight z-depth-1" ng-show="contacts.shopLocation">
                         <a href="#/shop/location">
-
                             <img
-                                    ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&center={{shopLocation.latitude}},{{shopLocation.longitude}}&size=600x300&maptype=roadmap&markers=color:red|label:C|{{shopLocation.latitude}},{{shopLocation.longitude}}&key={{activeShop.googleStaticMapsApiKey}}"
-                                    class="img-responsive"
-                                    alt="">
-
+                                ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&center={{shopLocation.latitude}},{{shopLocation.longitude}}&size=600x300&maptype=roadmap&markers=color:red|label:S|{{shopLocation.latitude}},{{shopLocation.longitude}}&key={{activeShop.googleStaticMapsApiKey}}"
+                                class="img-responsive"
+                                alt="">
                         </a>
-
-
                     </div>
                 </div>
             </div>

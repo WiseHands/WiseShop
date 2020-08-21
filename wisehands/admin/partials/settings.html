@@ -24,7 +24,10 @@
 </div>
 <div class="admin-container">
     <div class="admin-card translation-flex-row">
-        <h4>Shop Name</h4>
+        <div class="flex-row">
+           <h4>{{'settings.shopName' | translate}}: </h4>
+           <h4 id="shopName"></h4>
+        </div>
         <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
                 ng-click="redirectToTranslationForShopName()"><i class="material-icons">mode_edit</i>
         </button>

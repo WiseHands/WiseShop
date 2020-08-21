@@ -74,9 +74,7 @@ public class ContactAPI extends AuthController {
 
         String email = (String) jsonBody.get("email");
         String phone = (String) jsonBody.get("phone");
-        String description = (String) jsonBody.get("description");
-        String addressCity = (String) jsonBody.get("addressCity");
-        String addressStreet = (String) jsonBody.get("addressStreet");
+
         String addressNumberHouse = (String) jsonBody.get("addressNumberHouse");
 
         String linkfacebook = (String) jsonBody.get("linkfacebook");
@@ -111,15 +109,8 @@ public class ContactAPI extends AuthController {
         if(phone != null){
             contact.phone = phone;
         }
-        if(addressCity != null){
-            contact.addressCity = addressCity;
-        }
-        if(addressStreet != null){
-            contact.addressStreet = addressStreet;
-        }
 
         contact.addressNumberHouse = addressNumberHouse;
-        contact.description = description;
         contact.latLng = String.valueOf(shopLatitude) + "," + String.valueOf(shopLongitude);
         System.out.println("contact.latLng " + contact.latLng);
         contact.linkfacebook = linkfacebook;

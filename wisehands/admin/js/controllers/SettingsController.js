@@ -12,12 +12,34 @@ angular.module('WiseHands')
         $scope.loading = false;
         $scope.shopUuid = response.data.uuid;
         $scope.shopStyling = response.data.visualSettingsDTO;
+        setShopNameLabel(response.data);
         setFaviconSrc($scope.shopStyling.shopFavicon);
         setLogoSrc($scope.shopStyling.shopLogo);
       }, error => {
         $scope.loading = false;
         console.log(error);
       });
+
+    setShopNameLabel = (shop) => {
+      const locale = shop.locale;
+      const language = locale.slice(0,2);
+      console.log('language', language)
+      const shopNameLabel = document.querySelector('#shopName');
+      shopNameLabel.innerText = '';
+      if (shop.shopName){
+           shopNameLabel.innerText = shop.shopName;
+      }
+
+      if(shop.shopNameTextTranslationBucket){
+          const translationList = shop.shopNameTextTranslationBucket.translationList;
+          translationList.forEach(item => {
+              if(item.language === language){
+                  shopNameLabel.innerText = item.content;
+                  console.log('item.content', item.content)
+              }
+          })
+      }
+    }
 
     $scope.updateShopStyling = () => {
       $scope.loading = true;
