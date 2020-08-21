@@ -214,6 +214,8 @@
   "productReviews.warningMessageReplyForComment": "Ta recenzja z Twoim komentarzem zostanie wyświetlona na stronie",
   "productReviews.cancelReplyForComment": "Anuluj",
   "productReviews.noReviews": "Opinię net",
+  "productReviews.removeReviews": "Remove",
+
   "editProduct.general": "Wspólne",
   "editProduct.edit": "Edytuj produkt",
   "editProduct.property": "Właściwość",

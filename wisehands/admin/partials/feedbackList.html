@@ -85,16 +85,25 @@
                         </div>
                     </div>
                 </div>
-                <div ng-click="showOrHideFeedback(this)" class="show-review">
-                    <p ng-show="!review.showReview">
-                        <span><i class="fa fa-eye show-review-icon-eye"></i></span>
-                        {{'productReviews.showReview' | translate}}
-                    </p>
-                    <p ng-show="review.showReview">
-                        <span><i class="fa fa-eye-slash show-review-icon-eye"></i></span>
-                        {{'productReviews.hideReview' | translate}}
-                    </p>
+                <div class="show-remove-feedback-container">
+                    <div ng-click="showOrHideFeedback(this)" class="show-review">
+                        <p ng-show="!review.showReview">
+                            <span><i class="fa fa-eye"></i></span>
+                            {{'productReviews.showReview' | translate}}
+                        </p>
+                        <p ng-show="review.showReview">
+                            <span><i class="fa fa-eye-slash"></i></span>
+                            {{'productReviews.hideReview' | translate}}
+                        </p>
+                    </div>
+                    <div class="remove-feedback-button" ng-click="removeFeedback(this)">
+                        <p>
+                            <span><i class="fa fa-trash"></i></span>
+                            {{'productReviews.removeReviews' | translate}}
+                        </p>
+                    </div>
                 </div>
+
             </div>
         </div>
 
