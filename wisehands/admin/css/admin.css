@@ -2193,7 +2193,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .admin-feedback-list .feedback-stars {
-    min-width: auto;
+    min-width: 107px;
 }
 
 .admin-contacts-card-gps h4 {
