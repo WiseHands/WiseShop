@@ -1936,7 +1936,9 @@ ul.admin-breadcrumb li a:hover {
 .show-review i {
     margin-right: 0.5rem;
 }
-
+.show-review-icon-eye {
+    font-size: 18px;
+}
 .reply-for-review {
 }
 
