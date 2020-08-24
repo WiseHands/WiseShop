@@ -28,7 +28,7 @@ public class WizardDTO extends GenericModel {
     public String streetName;
 
     @Expose
-    public String buildingNumber;
+    public Long buildingNumber;
 
     @Expose
     @Lob
