@@ -149,14 +149,31 @@ public class OrderFeedbackAPI extends AuthController{
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        List <OrderDTO> orderList = getOrderListWhereFeedbackRequestSent(shop);
+        List <OrderDTO> orderList = getOrderListWhereFeedbackSent(shop);
         renderJSON(json(orderList));
     }
-    public static List<OrderDTO> getOrderListWhereFeedbackRequestSent(ShopDTO shop){
+    public static List<OrderDTO> getOrderListWhereFeedbackSent(ShopDTO shop){
         List<OrderDTO> orderList;
         String query = "select o from OrderDTO o where o.feedbackRequestState = 'REQUEST_SENT' and shop_uuid = ?1 order by o.time asc";
         orderList = OrderDTO.find(query, shop.uuid).fetch();
         return orderList;
+    }
+
+    public static void showFeedbackFromOrder(String client){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        String orderUuid = request.params.get("uuid");
+        System.out.println("orderUuid " + orderUuid);
+        OrderDTO order = OrderDTO.findById(orderUuid);
+        order.orderFeedback.showReview = true;
+        for(OrderItemDTO item: order.items){
+            item.feedbackToOrderItem.showReview = true;
+        }
+        order.save();
+        List <OrderDTO> orderList = getOrderListWhereFeedbackSent(shop);
+        renderJSON(json(orderList));
     }
 
     public static void deleteFeedbackFromOrder(String client){
@@ -168,13 +185,12 @@ public class OrderFeedbackAPI extends AuthController{
         System.out.println();
         OrderDTO order = OrderDTO.findById(orderUuid);
         order.feedbackRequestState = null;
-        // get all feedback for this products and set showReview = false
         order.orderFeedback.showReview = false;
         for(OrderItemDTO item: order.items){
             item.feedbackToOrderItem.showReview = false;
         }
         order.save();
-        List <OrderDTO> orderList = getOrderListWhereFeedbackRequestSent(shop);
+        List <OrderDTO> orderList = getOrderListWhereFeedbackSent(shop);
         renderJSON(json(orderList));
     }
 

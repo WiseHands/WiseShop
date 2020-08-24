@@ -39,19 +39,20 @@ angular.module('WiseHands')
     };
 
     $scope.showFeedback = (event) => {
-      console.log("showFeedback", item.order);
+      console.log("showFeedback", event.order);
+      $http({
+        method: 'PUT',
+        url: `/api/feedback/show/all/${event.order.uuid}`
+      }).then(response => {
+        $scope.orderList = response.data;
+      })
     };
 
     $scope.removeFeedback = (event) => {
       console.log("removeFeedback", event.order);
-      bodyParams = {
-        uuid : event.order.uuid,
-        isFeedbackDeleted : true
-      }
       $http({
         method: 'DELETE',
-        url: `/api/feedback/delete/${event.order.uuid}`,
-        data: bodyParams
+        url: `/api/feedback/delete/${event.order.uuid}`
       }).then(response => {
         $scope.orderList = response.data;
       })
