@@ -73,6 +73,10 @@
                                 ng-click="redirectToTranslationForContactStreet()"><i class="material-icons">mode_edit</i>
                         </button>
                     </div>
+                    <div class="input-field">
+                        <p>{{'contacts.numberHouse' | translate}}:</p>
+                        <input id="addressNumberHouse" type="number" ng-model="contacts.addressNumberHouse" placeholder="">
+                    </div>
                 </div>
                 <div class="admin-card admin-contacts-card-gps">
                     <h4>{{'contacts.gps' | translate}}</h4>
