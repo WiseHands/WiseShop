@@ -21,7 +21,6 @@ public class FeedbackCommentAPI extends AuthController{
 
     static MailSender mailSender = new MailSenderImpl();
 
-
     public static void createComment(String client) throws Exception{
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

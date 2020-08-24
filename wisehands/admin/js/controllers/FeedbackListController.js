@@ -40,7 +40,6 @@ angular.module('WiseHands')
 
     $scope.showFeedback = (event) => {
       console.log("showFeedback", item.order);
-      /api/feedback/hide/${review.uuid}
     };
 
     $scope.removeFeedback = (event) => {
@@ -54,9 +53,7 @@ angular.module('WiseHands')
         url: `/api/feedback/delete/${event.order.uuid}`,
         data: bodyParams
       }).then(response => {
-        const data = response.data;
-        const clickedItem = $scope.product.feedbackList.find(item => item.uuid === data.uuid);
-        clickedItem.showReview = data.showReview;
+        $scope.orderList = response.data;
       })
     }
 
