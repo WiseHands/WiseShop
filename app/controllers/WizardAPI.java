@@ -96,7 +96,7 @@ public class WizardAPI extends AuthController {
     public static void setShopContactInfo() throws Exception{
         String cityName = request.params.get("cityName");
         String streetName = request.params.get("streetName");
-        Long buildingNumber = Long.valueOf(request.params.get("buildingNumber"));
+        String buildingNumber = request.params.get("buildingNumber");
 
         System.out.println("setShopContactInfo\n" + cityName + "\n" + streetName + "\n" + buildingNumber);
 

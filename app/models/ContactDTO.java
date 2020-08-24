@@ -36,7 +36,7 @@ public class ContactDTO extends GenericModel {
     public TranslationBucketDTO addressStreetTextTranslationBucket;
 
     @Expose
-    public Long addressNumberHouse;
+    public String addressNumberHouse;
 
     @Expose
     public String latLng;
@@ -68,7 +68,7 @@ public class ContactDTO extends GenericModel {
     }
 
     public ContactDTO(String phone, String email, String description,
-                      String addressCity, String addressStreet, Long addressNumberHouse,
+                      String addressCity, String addressStreet, String addressNumberHouse,
                       String linkfacebook, String linkinstagram, String linkyoutube) {
         this.phone = phone;
         this.email = email;

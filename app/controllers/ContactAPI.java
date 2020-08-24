@@ -75,7 +75,7 @@ public class ContactAPI extends AuthController {
         String email = (String) jsonBody.get("email");
         String phone = (String) jsonBody.get("phone");
 
-        Long addressNumberHouse = (Long) jsonBody.get("addressNumberHouse");
+        String addressNumberHouse = (String) jsonBody.get("addressNumberHouse");
         System.out.println("number house => " + addressNumberHouse);
 
         String linkfacebook = (String) jsonBody.get("linkfacebook");
