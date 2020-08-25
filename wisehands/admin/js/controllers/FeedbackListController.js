@@ -48,15 +48,25 @@ angular.module('WiseHands')
       })
     };
 
-    $scope.removeFeedback = (event) => {
-      console.log("removeFeedback", event.order);
-      $http({
-        method: 'DELETE',
-        url: `/api/feedback/delete/${event.order.uuid}`
-      }).then(response => {
-        $scope.orderList = response.data;
-      })
-    }
+// data-toggle="modal" data-target="#removeFeedback"
+    $scope.hideModal = () => {
+        $('#removeFeedback').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+    };
+    $scope.deleteButton = true;
+    $scope.removeFeedback = (event) =>{
+        console.log('$scope.getUuid', event);
+        $scope.deleteButton = false;
+        $scope.modalSpinner = true;
+        $http({
+                method: 'DELETE',
+                url: `/api/feedback/delete/${event.order.uuid}`
+              }).then(response => {
+                $scope.orderList = response.data;
+              });
+
+    };
 
 
 
