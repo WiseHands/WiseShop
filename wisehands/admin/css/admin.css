@@ -2145,7 +2145,7 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
 }
 
-.delivery-edit-message button {
+.delivery-edit-message button, .translation-flex-row button {
     min-width: 37px;
 }
 
@@ -2153,24 +2153,33 @@ ul.admin-breadcrumb li a:hover {
     font-weight: 400;
 }
 
-.translation-flex-row{
+.translation-flex-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .translation-flex-column{
     display: flex;
     flex-direction: column;
 }
+
 .flex-baseline{
     display: flex;
     align-items: center;
 }
+
+.translation-flex-row .flex-row {
+    align-items: baseline;
+}
+
 .translation-flex-row .flex-row p {
     padding-right: 10px;
 }
+
 .translation-flex-row .flex-row h4 {
     padding-right: 10px;
+    word-break: break-word;
 }
 
 .admin-feedback-list {
@@ -2271,6 +2280,19 @@ ul.admin-breadcrumb li a:hover {
     .admin-card .upload-info-text {
         height: auto;
     }
+
+    .translation-flex-row {
+        display: block;
+    }
+
+    .translation-flex-row .flex-row {
+        align-items: center;
+    }
+
+    /*.admin-card h4 {*/
+        /*font-size: 1.8rem;*/
+        /*font-weight: 400;*/
+    /*}*/
 
     .order-details-image img, .feedback-order-details-image img {
         min-width: 60px;
