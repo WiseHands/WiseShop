@@ -1,4 +1,7 @@
 {
+  "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
+  "feedbackList.showMessage": "All feedback displayed",
+
   "shopLocation.title": "Shop location",
   "shopLocation.markShop": "Mark the store address on the map and save it",
 
@@ -210,6 +213,7 @@
   "productReviews.warningMessageReplyForComment": "This review with your comment will be displayed on the site",
   "productReviews.cancelReplyForComment": "Cancel",
   "productReviews.noReviews": "No reviews",
+  "productReviews.removeReviews": "Remove",
   "shopDetails.deleteMessage1": "Do you really want to delete this shop?",
   "shopDetails.deleteMessage2": "Shop deleted.",
   "editProduct.general": "General",

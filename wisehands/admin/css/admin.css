@@ -1936,7 +1936,26 @@ ul.admin-breadcrumb li a:hover {
 .show-review i {
     margin-right: 0.5rem;
 }
-
+.show-review-icon-eye {
+    font-size: 18px;
+}
+.show-review {
+    cursor: pointer;
+}
+.show-remove-feedback-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+.remove-feedback-button{
+    cursor: pointer;
+}
+.remove-feedback-button p{
+    font-size: 1.1rem;
+    margin: 1rem 0 0 1rem;
+    color: #039be5;
+}
 .reply-for-review {
 }
 
