@@ -56,22 +56,22 @@
                 <div class="admin-card">
                     <h4>{{'contacts.address' | translate}}</h4>
                     <div class="translation-flex-row">
+                        <p>{{'contacts.city' | translate}}:</p>
                         <div class="flex-row">
-                            <p>{{'contacts.city' | translate}}:</p>
                             <p id="city"></p>
+                            <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                                    ng-click="redirectToTranslationForContactCity()"><i class="material-icons">mode_edit</i>
+                            </button>
                         </div>
-                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
-                                ng-click="redirectToTranslationForContactCity()"><i class="material-icons">mode_edit</i>
-                        </button>
                     </div>
                     <div class="translation-flex-row">
+                        <p>{{'contacts.street' | translate}}:</p>
                         <div class="flex-row">
-                            <p>{{'contacts.street' | translate}}:</p>
                             <p id="street"></p>
+                            <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                                    ng-click="redirectToTranslationForContactStreet()"><i class="material-icons">mode_edit</i>
+                            </button>
                         </div>
-                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
-                                ng-click="redirectToTranslationForContactStreet()"><i class="material-icons">mode_edit</i>
-                        </button>
                     </div>
                     <div class="input-field">
                         <p>{{'contacts.numberHouse' | translate}}:</p>

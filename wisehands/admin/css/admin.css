@@ -2189,7 +2189,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .translation-flex-row .flex-row {
-    align-items: baseline;
+    align-items: center;
 }
 
 .translation-flex-row .flex-row p {
@@ -2208,6 +2208,7 @@ ul.admin-breadcrumb li a:hover {
 
 .admin-feedback-list .admin-card {
     flex: 0 1 46%;
+    height: fit-content;
 }
 
 .admin-feedback-list .order-info {
@@ -2330,6 +2331,10 @@ ul.admin-breadcrumb li a:hover {
 
     .admin-contacts-card-gps {
         padding: 0;
+    }
+
+    #contactsForm .translation-flex-row {
+        display: flex;
     }
 
 }
