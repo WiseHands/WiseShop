@@ -48,31 +48,58 @@ angular.module('WiseHands')
       })
     };
 
-// data-toggle="modal" data-target="#removeFeedback"
+
     $scope.hideModal = () => {
+      $('#removeFeedback').modal('hide');
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+    };
+
+    $scope.modalForShowFeedback = (event) =>{
+      console.log('removeFeedback', event);
+      $scope.deleteButton = false;
+      $scope.succesfullDelete = true;
+      $('#removeFeedback').modal('show');
+      $scope.showingUuid = event.order.uuid;
+      console.log('showFeedback $scope.uuid = ', $scope.showingUuid);
+    };
+
+    $scope.showFeedback = () => {
+      $scope.deleteButton = false;
+      $scope.succesfullDelete = false;
+      $scope.modalSpinner = true;
+      $http({
+        method: 'PUT',
+        url: `/api/feedback/show/all/${$scope.showingUuid}`
+      }).then(response => {
+        $scope.orderList = response.data;
+        $scope.modalSpinner = false;
         $('#removeFeedback').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
+      });
+    }
+
+    $scope.modalForRemoveFeedback = (event) =>{
+      console.log('removeFeedback', event);
+      $scope.deleteButton = true;
+      $scope.succesfullDelete = false;
+      $('#removeFeedback').modal('show');
+      $scope.removeUuid = event.order.uuid;
+      console.log('removeFeedback $scope.uuid = ', $scope.removeUuid);
     };
 
-    $scope.deleteButton = true;
-    $scope.removeFeedback = (event) =>{
-        console.log('removeFeedback', event);
-        $scope.deleteButton = false;
-        $scope.modalSpinner = true;
-    $('#removeFeedback').modal('show');
 
-//        $http({
-//                method: 'DELETE',
-//                url: `/api/feedback/delete/${event.order.uuid}`
-//              }).then(response => {
-//                $scope.orderList = response.data;
-//                  $scope.modalSpinner = false;
-//                  $scope.succesfullDelete = true;
-//              });
-
-    };
-
+    $scope.removeFeedback = () => {
+      $scope.deleteButton = false;
+      $scope.modalSpinner = true;
+      $http({
+        method: 'DELETE',
+        url: `/api/feedback/delete/${$scope.removeUuid}`
+      }).then(response => {
+        $scope.orderList = response.data;
+        $scope.modalSpinner = false;
+        $('#removeFeedback').modal('hide');
+      });
+    }
 
 
     sideNavInit.sideNav();
