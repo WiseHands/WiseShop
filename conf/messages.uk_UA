@@ -108,8 +108,8 @@ page.product.buy = Купити
 page.product.add.to.basket = Товар додано в кошик
 page.product.about.product = Про товар
 page.product.reviews = Відгуки
-page.product.no.reviews = Клієнт не залишив коментаря
 page.product.no.reviews = Відгуки відсутні
+page.product.no.reviews.from.client = Клієнт не залишив коментаря
 
 footer.payment.label = Приймаємо
 footer.be.in.touch.label = Будьте в курсі
