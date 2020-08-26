@@ -1,4 +1,7 @@
 {
+  "feedbackList.deleteMessage": "Видалити усі відгуки",
+  "feedbackList.showMessage": "Усі відгуки відображені",
+
   "shopLocation.title": "Магазин на карті",
   "shopLocation.markShop": "Позначте магазин на карті і збережіть його",
   "translationPage.toUkrainianProductName": "Текст українською мовою для назви продукту",
