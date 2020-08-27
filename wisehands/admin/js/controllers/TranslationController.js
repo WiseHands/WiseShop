@@ -212,6 +212,7 @@ angular.module('WiseHands')
                         }
                     ]
                 };
+                console.log('sendData to create transl bucket => ', data);
                 sendData(data);
             };
 

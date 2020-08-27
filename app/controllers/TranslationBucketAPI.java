@@ -162,7 +162,6 @@ public class TranslationBucketAPI extends AuthController {
             translationItem.save();
         }
         translation.save();
-        setShopContact((String) jsonBody.get("objectUuid"), shop);
         renderJSON(json(translation));
     }
 
