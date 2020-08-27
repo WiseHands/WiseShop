@@ -124,14 +124,36 @@ public class Application extends Controller {
         }
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
-                String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-                Lang.change(language);
-                System.out.println("LanguageForShop " + language);
+        String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        Lang.change(language);
+        System.out.println("LanguageForShop " + language);
+
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true).fetch();
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+        }
+        shop.pagesList = translationPageList;
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
+
+        for (ProductDTO product : products) {
+            product = Translation.setTranslationForProduct(language, product);
+            productList.add(product);
+        }
+        products = productList;
+
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
+        Translation.setTranslationForShop(language, shop);
 
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-        redirect(returnUrlForDev(client, language) , false);
+        renderTemplate("Application/shop.html", shop, products, language, categories);
 
     }
 
