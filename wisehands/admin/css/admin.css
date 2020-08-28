@@ -1822,7 +1822,9 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .feedback-to-all-order p {
-    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: ;
     line-height: 1.2;
     text-align: left;
 }
@@ -2207,14 +2209,19 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .admin-feedback-list .admin-card {
-    flex: 0 1 46%;
+    width: calc(50% - 30px);
     height: fit-content;
+    max-width: 100%;
 }
 
 .admin-feedback-list .order-info {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.admin-feedback-list  .feedback-to-all-order p {
+    white-space: nowrap;
 }
 
 .admin-feedback-list a {
