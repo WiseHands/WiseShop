@@ -110,6 +110,58 @@ angular.module('WiseHands')
           });
       };
 
+        $scope.showFeedback = () => {
+            $http({
+                method: 'PUT',
+                url: `/api/feedback/show/all/${$routeParams.uuid}`
+            }).then(response => {
+                console.log('response for order', response.data);
+
+            })
+        };
+
+        $scope.modalForShowFeedback = () =>{
+            $scope.deleteButton = false;
+            $scope.succesfullDelete = true;
+            $('#removeFeedback').modal('show');
+        };
+
+        $scope.showFeedback = () => {
+            $scope.deleteButton = false;
+            $scope.succesfullDelete = false;
+            $scope.modalSpinner = true;
+            $http({
+                method: 'PUT',
+                url: `/api/feedback/show/all/${$routeParams.uuid}`
+            }).then(response => {
+                console.log('response for order', response.data);
+
+                $scope.modalSpinner = false;
+                $('#removeFeedback').modal('hide');
+            });
+        };
+
+        $scope.modalForRemoveFeedback = () =>{
+            $scope.deleteButton = true;
+            $scope.succesfullDelete = false;
+            $('#removeFeedback').modal('show');
+        };
+
+
+        $scope.removeFeedback = () => {
+            $scope.deleteButton = false;
+            $scope.modalSpinner = true;
+            $http({
+                method: 'DELETE',
+                url: `/api/feedback/delete/${$routeParams.uuid}`
+            }).then(response => {
+                console.log('response for order', response.data);
+                $scope.modalSpinner = false;
+                $('#removeFeedback').modal('hide');
+            });
+        };
+
+
       $scope.goBack = () => {
         window.history.back();
       }
