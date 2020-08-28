@@ -58,45 +58,24 @@
                     <h6>{{'singleOrder.feedbackComment' | translate}}:</h6>
                     <p>{{order.orderFeedback.generalReview}}</p>
                 </div>
-                <div class="feedback-to-all-order" ng-hide="order.orderFeedback">
+                <div class="feedback-to-all-order" ng-show="!order.orderFeedback.generalReview">
                     <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
                     <p>{{'singleOrder.generalFeedback' | translate}}</p>
                 </div>
-                <div  class="feedback-container" ng-repeat="item in order.items">
-                    <div class="product-feedback-info">
-                        <a class="feedback-order-details-image" ng-if="item.productUuid"
-                           href="#/productreviews/{{item.productUuid}}">
-                            <img src="{{item.imagePath}}">
-                            <p>{{item.name}}</p>
-                        </a>
-                        <div class="feedback-stars">
-                            <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                            <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                            <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                            <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                            <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                        </div>
-
-                    </div>
-                    <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
-                        <h6>{{'singleOrder.feedbackComment' | translate}}:</h6>
-                        <p>{{item.feedbackToOrderItem.review}}</p>
-                    </div>
-                </div>
-                <div class="show-remove-feedback-container">
-                    <div ng-click="modalForShowFeedback(this)" class="show-review">
-                        <p>
-                            <span><i class="fa fa-eye"></i></span>
-                            {{'productReviews.showReview' | translate}}
-                        </p>
-                    </div>
-                    <div class="remove-feedback-button" ng-click="modalForRemoveFeedback(this)">
-                        <p>
-                            <span><i class="fa fa-trash"></i></span>
-                            {{'productReviews.removeReviews' | translate}}
-                        </p>
-                    </div>
-                </div>
+                <!--<div class="show-remove-feedback-container">-->
+                    <!--<div ng-click="modalForShowFeedback(this)" class="show-review">-->
+                        <!--<p>-->
+                            <!--<span><i class="fa fa-eye"></i></span>-->
+                            <!--{{'productReviews.showReview' | translate}}-->
+                        <!--</p>-->
+                    <!--</div>-->
+                    <!--<div class="remove-feedback-button" ng-click="modalForRemoveFeedback(this)">-->
+                        <!--<p>-->
+                            <!--<span><i class="fa fa-trash"></i></span>-->
+                            <!--{{'productReviews.removeReviews' | translate}}-->
+                        <!--</p>-->
+                    <!--</div>-->
+                <!--</div>-->
 
             </div>
         </div>
