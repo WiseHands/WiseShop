@@ -2180,7 +2180,20 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
 }
 
-.translation-flex-column{
+.translation-flex-row p {
+    margin-right: 5px;
+}
+
+.translation-flex-row .input-field {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.translation-flex-row input[type=text] {
+    padding: 0 0 0 5px;
+}
+
+.translation-flex-column {
     display: flex;
     flex-direction: column;
 }
