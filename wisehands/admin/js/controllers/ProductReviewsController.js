@@ -26,8 +26,7 @@ angular.module('WiseHands')
     })
       .then(response => {
         const product = response.data;
-              console.log(product);
-
+        console.log(product);
         parseProductData(product);
         const activeShop = localStorage.getItem('activeShop');
         const mainImageIndex = $scope.product.images.findIndex(item => item.uuid === product.mainImage.uuid);
@@ -58,6 +57,13 @@ angular.module('WiseHands')
       const url = review.showReview ? `/api/feedback/hide/${review.uuid}` : `/api/feedback/show/${review.uuid}`;
       sendParamsToFeedbackAPI(url, review);
     };
+
+    function sendParamsToFeedbackAPI(url, review) {
+      $http({
+        method: 'PUT',
+        url: url
+      }).then(response => review.showReview = response.data.showReview)
+    }
 
     $scope.setFeedbackItemContext = event => $scope.clickedFeedbackItem = event;
 
@@ -91,11 +97,6 @@ angular.module('WiseHands')
       })
     }
 
-    function sendParamsToFeedbackAPI(url, review) {
-      $http({
-        method: 'PUT',
-        url: url
-      }).then(response => review.showReview = response.data.showReview)
-    }
+
 
   }]);

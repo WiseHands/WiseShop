@@ -1,6 +1,7 @@
 ﻿{
   "feedbackList.deleteMessage": "Czy na pewno chcesz usunąć tę opinię?",
-  "feedbackList.showMessage": "Wyświetlane są wszystkie opinie",
+  "feedbackList.showFeedbackMessage": "Wyświetlane są wszystkie opinie",
+  "feedbackList.hideFeedbackMessage": "Усі відгуки приховані",
 
   "shopLocation.title": "Lokalizacja sklepu",
   "shopLocation.markShop": "Zaznacz adres sklepu na mapie i zapisz to",

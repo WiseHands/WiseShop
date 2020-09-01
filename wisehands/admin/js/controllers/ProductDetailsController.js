@@ -67,6 +67,7 @@ angular.module('WiseHands')
         $scope.select= function(index) {
         $scope.selected = index;
         };
+
         $scope.hideModal = function () {
             $('#deleteProduct').modal('hide');
             $('body').removeClass('modal-open');

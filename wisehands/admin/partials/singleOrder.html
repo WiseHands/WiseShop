@@ -221,33 +221,37 @@
                             <p>{{'singleOrder.generalFeedback' | translate}}</p>
                         </div>
                         <div ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
-                                <div  class="feedback-container" ng-repeat="item in order.items">
-                                    <div class="product-feedback-info">
-                                        <a class="feedback-order-details-image" ng-if="item.productUuid"
-                                           href="#/productreviews/{{item.productUuid}}">
-                                            <img src="{{item.imagePath}}">
-                                            <p>{{item.name}}</p>
-                                        </a>
-                                        <div class="feedback-stars">
-                                            <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                            <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                            <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                            <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                            <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                        </div>
+                            <div  class="feedback-container" ng-repeat="item in order.items">
+                                <div class="product-feedback-info">
+                                    <a class="feedback-order-details-image" ng-if="item.productUuid"
+                                       href="#/productreviews/{{item.productUuid}}">
+                                        <img src="{{item.imagePath}}">
+                                        <p>{{item.name}}</p>
+                                    </a>
+                                    <div class="feedback-stars">
+                                        <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                        <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                        <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                        <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                        <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                    </div>
 
-                                    </div>
-                                    <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
-                                        <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
-                                        <p>{{item.feedbackToOrderItem.review}}</p>
-                                    </div>
                                 </div>
+                                <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
+                                    <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
+                                    <p>{{item.feedbackToOrderItem.review}}</p>
+                                </div>
+                            </div>
                             <div class="show-remove-feedback-container">
-                                <div ng-click="modalForShowFeedback(this)" class="show-review">
-                                    <p>
-                                        <span><i class="fa fa-eye"></i></span>
-                                        {{'productReviews.showReview' | translate}}
-                                    </p>
+                                <div ng-click="modalForShowHideFeedback(this)" class="show-review">
+                                        <p ng-show="!order.orderFeedback.showReview">
+                                            <span><i class="fa fa-eye" style="font-size: 18px"></i></span>
+                                            {{'productReviews.showReview' | translate}}
+                                        </p>
+                                        <p ng-show="order.orderFeedback.showReview">
+                                            <span><i class="fa fa-eye-slash" style="font-size: 18px"></i></span>
+                                            {{'productReviews.hideReview' | translate}}
+                                        </p>
                                 </div>
                                 <div class="remove-feedback-button" ng-click="modalForRemoveFeedback(this)">
                                     <p>
@@ -330,7 +334,8 @@
                 </button>
                 <div class="col-xs-12 text-center">
                     <p ng-show="deleteButton"><i>{{'feedbackList.deleteMessage' | translate}}</i></p>
-                    <p ng-show="succesfullDelete"><i>{{'feedbackList.showMessage' | translate}}</i></p>
+                    <p ng-show="successfulShow"><i>{{'feedbackList.showFeedbackMessage' | translate}}</i></p>
+                    <p ng-show="successfulHide"><i>{{'feedbackList.hideFeedbackMessage' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
@@ -339,7 +344,10 @@
                     <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="removeFeedback()" ng-show="deleteButton">Видалити</button>
                 </div>
                 <div class="col-xs-offset-4 col-xs-4 noUnderline">
-                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-click="showFeedback()" ng-show="succesfullDelete">Ok</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-click="sendFeedbackForShowingOrHidingIt()" ng-show="successfulShow">Ok</button>
+                </div>
+                <div class="col-xs-offset-4 col-xs-4 noUnderline">
+                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-click="sendFeedbackForShowingOrHidingIt()" ng-show="successfulHide">Ok</button>
                 </div>
             </div>
         </div>

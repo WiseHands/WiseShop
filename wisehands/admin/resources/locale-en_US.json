@@ -1,6 +1,7 @@
 {
   "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
-  "feedbackList.showMessage": "All feedback displayed",
+  "feedbackList.showFeedbackMessage": "All feedback displayed",
+  "feedbackList.hideFeedbackMessage": "All feedback hidden",
 
   "shopLocation.title": "Shop location",
   "shopLocation.markShop": "Mark the store address on the map and save it",

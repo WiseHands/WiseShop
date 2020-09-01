@@ -4,7 +4,10 @@ import com.google.gson.annotations.Expose;
 import enums.FeedbackRequestState;
 import enums.OrderState;
 import enums.PaymentState;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
@@ -114,7 +117,7 @@ public class OrderDTO extends GenericModel {
     public List<OrderItemDTO> items;
 
     @Expose
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.PERSIST)
     public FeedbackDTO orderFeedback;
 
     @ManyToOne

@@ -5,6 +5,7 @@ import models.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import play.i18n.Messages;
 import services.MailSender;
@@ -47,7 +48,7 @@ public class OrderFeedbackAPI extends AuthController{
         String description = (String) parseDeliveryFeedback.get("description");
         String quality = (String) parseDeliveryFeedback.get("quality");
         FeedbackDTO orderFeedback = new FeedbackDTO(quality, description, time);
-
+        orderFeedback.showReview = false;
         order.orderFeedback = orderFeedback;
         order.feedbackRequestState = FeedbackRequestState.REQUEST_SENT;
         order.save();
@@ -82,7 +83,6 @@ public class OrderFeedbackAPI extends AuthController{
             feedback.save();
         }
     }
-
 
     public static void getOrderFeedback(){
         String orderUuid = request.params.get("uuid");
@@ -126,6 +126,7 @@ public class OrderFeedbackAPI extends AuthController{
        renderJSON(json(feedbackList));
     }
 
+//    TODO change query for feedback where feedback.showReview = true;
     public static void getFeedbackListForShop(String client){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -146,6 +147,7 @@ public class OrderFeedbackAPI extends AuthController{
         List <OrderDTO> orderList = getOrderListWhereFeedbackSent(shop);
         renderJSON(json(orderList));
     }
+
     public static List<OrderDTO> getOrderListWhereFeedbackSent(ShopDTO shop){
         List<OrderDTO> orderList;
         String query = "select o from OrderDTO o where o.feedbackRequestState = 'REQUEST_SENT' and shop_uuid = ?1 order by o.time asc";
@@ -153,13 +155,12 @@ public class OrderFeedbackAPI extends AuthController{
         return orderList;
     }
 
-    public static void showFeedbackFromOrder(String client){
+    public static void showFeedbackFromOrder(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         String orderUuid = request.params.get("uuid");
-        System.out.println("showFeedbackFromOrder " + orderUuid);
         OrderDTO order = OrderDTO.findById(orderUuid);
         order.orderFeedback.showReview = true;
         for(OrderItemDTO item: order.items){
@@ -167,9 +168,36 @@ public class OrderFeedbackAPI extends AuthController{
             System.out.println("item.feedbackToOrderItem.showReview = " + item.feedbackToOrderItem.showReview);
         }
         order.save();
+        Boolean isSingleOrder = Boolean.valueOf(request.params.get("isSingle"));
+        if(isSingleOrder){
+            renderJSON(json(order));
+        }
+
         List <OrderDTO> orderList = getOrderListWhereFeedbackSent(shop);
         renderJSON(json(orderList));
     }
+
+    public static void hideFeedbackFromOrder(String client){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        String orderUuid = request.params.get("uuid");
+        Boolean isSingle = Boolean.valueOf(request.params.get("isSingle"));
+
+        OrderDTO order = OrderDTO.findById(orderUuid);
+        order.orderFeedback.showReview = false;
+        for(OrderItemDTO item: order.items){
+            item.feedbackToOrderItem.showReview = false;
+        }
+        order.save();
+        if(isSingle){
+            renderJSON(json(order));
+        }
+        List <OrderDTO> orderList = getOrderListWhereFeedbackSent(shop);
+        renderJSON(json(orderList));
+    }
+
 
     public static void deleteFeedbackFromOrder(String client){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -177,16 +205,24 @@ public class OrderFeedbackAPI extends AuthController{
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         String orderUuid = request.params.get("uuid");
+        Boolean isSingle = Boolean.valueOf(request.params.get("isSingle"));
         System.out.println("deleteFeedbackFromOrder " + orderUuid);
+
         OrderDTO order = OrderDTO.findById(orderUuid);
         order.feedbackRequestState = null;
-        order.orderFeedback.showReview = false;
+        order.orderFeedback.delete();
+        System.out.println("feedback.delete();");
         for(OrderItemDTO item: order.items){
-            item.feedbackToOrderItem.showReview = false;
+            item.feedbackToOrderItem.delete();
         }
         order.save();
+        if(isSingle){
+            System.out.println("deleteFeedbackFromOrder " + orderUuid + "\n" + isSingle);
+            renderJSON(json(order));
+        }
         List <OrderDTO> orderList = getOrderListWhereFeedbackSent(shop);
         renderJSON(json(orderList));
+
     }
 
 

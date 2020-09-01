@@ -110,32 +110,33 @@ angular.module('WiseHands')
           });
       };
 
-        $scope.showFeedback = () => {
-            $http({
-                method: 'PUT',
-                url: `/api/feedback/show/all/${$routeParams.uuid}`
-            }).then(response => {
-                console.log('response for order', response.data);
+      $scope.modalForShowHideFeedback = event =>{
+         $scope.deleteButton = false;
+         $scope.orderFeedback = event.order.orderFeedback
+         console.log($scope.orderFeedback.showReview);
+         if($scope.orderFeedback.showReview){
+            $scope.successfulHide = true;
+         } else {
+            $scope.successfulShow = true;
+         }
+//         $scope.orderFeedback.showReview ? $scope.successfulShow = true : $scope.successfulHide = false;
+         $('#removeFeedback').modal('show');
+      };
 
-            })
-        };
-
-        $scope.modalForShowFeedback = () =>{
+        $scope.sendFeedbackForShowingOrHidingIt = () => {
             $scope.deleteButton = false;
-            $scope.succesfullDelete = true;
-            $('#removeFeedback').modal('show');
-        };
-
-        $scope.showFeedback = () => {
-            $scope.deleteButton = false;
-            $scope.succesfullDelete = false;
+            $scope.successfulShow = false;
+            $scope.successfulHide = false;
             $scope.modalSpinner = true;
+
+            const url = $scope.orderFeedback.showReview ? `/api/feedback/hide/all/${$routeParams.uuid}/true` : `/api/feedback/show/all/${$routeParams.uuid}/true`;
             $http({
                 method: 'PUT',
-                url: `/api/feedback/show/all/${$routeParams.uuid}`
+                url: url,
+                data: {showReview: $scope.orderFeedback.showReview}
             }).then(response => {
-                console.log('response for order', response.data);
-
+                console.log('response sendFeedbackForShowingOrHidingIt', response.data);
+                $scope.orderFeedback.showReview = response.data.orderFeedback.showReview;
                 $scope.modalSpinner = false;
                 $('#removeFeedback').modal('hide');
             });
@@ -143,24 +144,23 @@ angular.module('WiseHands')
 
         $scope.modalForRemoveFeedback = () =>{
             $scope.deleteButton = true;
-            $scope.succesfullDelete = false;
+            $scope.successfulShow = false;
+            $scope.successfulHide = false;
             $('#removeFeedback').modal('show');
         };
-
 
         $scope.removeFeedback = () => {
             $scope.deleteButton = false;
             $scope.modalSpinner = true;
             $http({
                 method: 'DELETE',
-                url: `/api/feedback/delete/${$routeParams.uuid}`
+                url: `/api/feedback/delete/${$routeParams.uuid}/true`
             }).then(response => {
                 console.log('response for order', response.data);
                 $scope.modalSpinner = false;
                 $('#removeFeedback').modal('hide');
             });
         };
-
 
       $scope.goBack = () => {
         window.history.back();
