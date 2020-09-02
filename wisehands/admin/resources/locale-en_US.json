@@ -1,6 +1,6 @@
 {
   "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
-  "feedbackList.showFeedbackMessage": "All feedback displayed",
+  "feedbackList.showFeedbackMessage": "All feedback displayed to customer",
   "feedbackList.hideFeedbackMessage": "All feedback hidden",
 
   "shopLocation.title": "Shop location",
