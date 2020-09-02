@@ -205,6 +205,24 @@ public class OrderFeedbackAPI extends AuthController{
         renderJSON(json(order));
     }
 
+    public static void restoreFeedbackForOrder(String client){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        String orderUuid = request.params.get("uuid");
+
+        OrderDTO order = OrderDTO.findById(orderUuid);
+        order.feedbackRequestState = FeedbackRequestState.REQUEST_SENT;
+        order.orderFeedback.isFeedbackDeleted = true;
+        for(OrderItemDTO item: order.items){
+            item.feedbackToOrderItem.isFeedbackDeleted = false;
+            item.feedbackToOrderItem.showReview = false;
+        }
+        order.save();
+        renderJSON(json(order));
+    }
+
 
 
 

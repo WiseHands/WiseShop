@@ -2,6 +2,7 @@
   "feedbackList.deleteMessage": "Видалити даний відгук",
   "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті",
   "feedbackList.hideFeedbackMessage": "Приховати даний відгук на сайті",
+  "feedbackList.restoreFeedbackMessage": "Відгук відновлено",
 
   "shopLocation.title": "Магазин на карті",
   "shopLocation.markShop": "Позначте магазин на карті і збережіть його",
@@ -77,6 +78,7 @@
   "singleOrder.noRequestFeedback": "Відгук відсутній",
   "singleOrder.pendingRequestFeedback": "Очікується відгук",
   "singleOrder.deletedRequestFeedback": "Відгук видалений",
+  "singleOrder.restoreFeedback": "Відновити",
   "singleOrder.Delete": "Видалити",
   "singleOrder.FullName": "Ім'я",
   "singleOrder.Phone": "Номер телефону",

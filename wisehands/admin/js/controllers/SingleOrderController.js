@@ -122,6 +122,7 @@ angular.module('WiseHands')
             $scope.deleteButton = false;
             $scope.successfulShow = false;
             $scope.successfulHide = false;
+            $scope.successfulRestore = false;
             $scope.modalSpinner = true;
 
             const url = $scope.orderFeedback.showReview ? `/api/feedback/hide/all/${$routeParams.uuid}` : `/api/feedback/show/all/${$routeParams.uuid}`;
@@ -141,6 +142,8 @@ angular.module('WiseHands')
             $scope.deleteButton = true;
             $scope.successfulShow = false;
             $scope.successfulHide = false;
+            $scope.successfulRestore = false;
+
             $('#removeFeedback').modal('show');
         };
 
@@ -157,6 +160,27 @@ angular.module('WiseHands')
                 $('#removeFeedback').modal('hide');
             });
         };
+
+        $scope.modalForRestoreFeedback = (event) => {
+          $scope.deleteButton = false;
+          $scope.successfulShow = false;
+          $scope.successfulHide = false;
+          $scope.successfulRestore = true;
+          console.log("here", event)
+          $('#removeFeedback').modal('show');
+        }
+
+         $scope.restoreFeedback = () => {
+           $http({
+               method: 'PUT',
+               url: `/api/feedback/restore/${$routeParams.uuid}`
+           }).then(response => {
+               console.log('response sendFeedbackForShowingOrHidingIt', response.data);
+               $scope.order = response.data;
+               $scope.modalSpinner = false;
+               $('#removeFeedback').modal('hide');
+           });
+         };
 
       $scope.goBack = () => {
         window.history.back();

@@ -2,6 +2,7 @@
   "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
   "feedbackList.showFeedbackMessage": "Show feedback on website",
   "feedbackList.hideFeedbackMessage": "Hide feedback on website",
+  "feedbackList.restoreFeedbackMessage": "Feedback restored",
 
   "shopLocation.title": "Shop location",
   "shopLocation.markShop": "Mark the store address on the map and save it",
@@ -69,6 +70,7 @@
   "singleOrder.pendingRequestFeedback": "Request Feedback is Pending",
   "singleOrder.noRequestFeedback": "No response",
   "singleOrder.deletedRequestFeedback": "Feedback was removed",
+  "singleOrder.restoreFeedback": "Restore",
   "singleOrder.Delete": "Delete",
   "singleOrder.FullName": "Full Name",
   "singleOrder.Phone": "Phone",

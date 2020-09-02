@@ -100,6 +100,7 @@ PUT         {client}/api/feedback/hide/{uuid}                OrderFeedbackAPI.hi
 DELETE      {client}/api/feedback/delete/{uuid}              OrderFeedbackAPI.deleteFeedbackFromOrder
 PUT         {client}/api/feedback/show/all/{uuid}            OrderFeedbackAPI.showFeedbackFromOrder
 PUT         {client}/api/feedback/hide/all/{uuid}            OrderFeedbackAPI.hideFeedbackFromOrder
+PUT         {client}/api/feedback/restore/{uuid}             OrderFeedbackAPI.restoreFeedbackForOrder
 GET         {client}/api/feedback/orders                     OrderFeedbackAPI.getOrderListWhereFeedbackRequestSent
 
 POST        {client}/api/comment/save                   FeedbackCommentAPI.createComment

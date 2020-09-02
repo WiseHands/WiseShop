@@ -2,6 +2,8 @@
   "feedbackList.deleteMessage": "Czy na pewno chcesz usunąć tę opinię?",
   "feedbackList.showFeedbackMessage": "Wyświetlane są wszystkie opinie",
   "feedbackList.hideFeedbackMessage": "Wszystkie recenzje są ukryte",
+  "feedbackList.restoreFeedbackMessage": "Feedback restored",
+
 
   "shopLocation.title": "Lokalizacja sklepu",
   "shopLocation.markShop": "Zaznacz adres sklepu na mapie i zapisz to",
@@ -74,7 +76,8 @@
   "singleOrder.requestFeedback": "Wyślij prośbę",
   "singleOrder.requestNotSendingFeedback" : "Żądanie odpowiedzi nie zostało jeszcze wysłane do klienta",
   "singleOrder.pendingRequestFeedback": "Oczekuje na opinię",
-  "singleOrder.deletedRequestFeedback": "Відгук видалений",
+  "singleOrder.deletedRequestFeedback": "Oczekuje na opinię",
+  "singleOrder.restoreFeedback": "Restore",
   "singleOrder.noRequestFeedback": "Brak odpowiedzi",
   "singleOrder.FullName": "Pełne imię i nazwisko",
   "singleOrder.Phone": "Numer telefonu",
