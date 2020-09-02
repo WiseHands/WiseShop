@@ -46,7 +46,7 @@
                 </p>
             </div>
             <div class="admin-card" ng-repeat="review in product.feedbackList | orderBy:sortByProperty:reverse"
-                 ng-show="review.quality > 0">
+                 ng-show="review.quality > 0 && !review.isFeedbackDeleted">
                 <div class="review-item">
                     <div class="review-info">
                         <div>

@@ -117,7 +117,7 @@ public class OrderDTO extends GenericModel {
     public List<OrderItemDTO> items;
 
     @Expose
-    @OneToOne(cascade=CascadeType.REMOVE)
+    @OneToOne(cascade=CascadeType.ALL)
     public FeedbackDTO orderFeedback;
 
     @ManyToOne

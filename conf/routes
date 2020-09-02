@@ -97,9 +97,9 @@ GET         {client}/api/feedback/get/list/{uuid}            OrderFeedbackAPI.ge
 GET         {client}/api/feedback/full/list                  OrderFeedbackAPI.getFeedbackListForShop
 PUT         {client}/api/feedback/show/{uuid}                OrderFeedbackAPI.showReview
 PUT         {client}/api/feedback/hide/{uuid}                OrderFeedbackAPI.hideReview
-DELETE      {client}/api/feedback/delete/{uuid}/{isSingle}   OrderFeedbackAPI.deleteFeedbackFromOrder
-PUT         {client}/api/feedback/show/all/{uuid}/{isSingle} OrderFeedbackAPI.showFeedbackFromOrder
-PUT         {client}/api/feedback/hide/all/{uuid}/{isSingle} OrderFeedbackAPI.hideFeedbackFromOrder
+DELETE      {client}/api/feedback/delete/{uuid}              OrderFeedbackAPI.deleteFeedbackFromOrder
+PUT         {client}/api/feedback/show/all/{uuid}            OrderFeedbackAPI.showFeedbackFromOrder
+PUT         {client}/api/feedback/hide/all/{uuid}            OrderFeedbackAPI.hideFeedbackFromOrder
 GET         {client}/api/feedback/orders                     OrderFeedbackAPI.getOrderListWhereFeedbackRequestSent
 
 POST        {client}/api/comment/save                   FeedbackCommentAPI.createComment

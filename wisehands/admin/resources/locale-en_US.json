@@ -1,7 +1,7 @@
 {
   "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
-  "feedbackList.showFeedbackMessage": "All feedback displayed to customer",
-  "feedbackList.hideFeedbackMessage": "All feedback hidden",
+  "feedbackList.showFeedbackMessage": "Show feedback on website",
+  "feedbackList.hideFeedbackMessage": "Hide feedback on website",
 
   "shopLocation.title": "Shop location",
   "shopLocation.markShop": "Mark the store address on the map and save it",
@@ -68,6 +68,7 @@
   "singleOrder.requestFeedback": "Send Request",
   "singleOrder.pendingRequestFeedback": "Request Feedback is Pending",
   "singleOrder.noRequestFeedback": "No response",
+  "singleOrder.deletedRequestFeedback": "Feedback was removed",
   "singleOrder.Delete": "Delete",
   "singleOrder.FullName": "Full Name",
   "singleOrder.Phone": "Phone",
@@ -206,8 +207,8 @@
   "productReviews.byRating": "By rating",
   "productReviews.reviewDisplayed": "Review is displayed",
   "productReviews.reviewNotDisplayed": "Review is not displayed",
-  "productReviews.showReview": "Show",
-  "productReviews.hideReview": "Hide",
+  "productReviews.showReview": "Show to clients",
+  "productReviews.hideReview": "Hide from clients",
   "productReviews.customerDidNotLeaveComment": "The customer did not leave a comment",
   "productReviews.sendReplyForComment": "Submit a reply",
   "productReviews.respondToReview": "Respond to feedback",

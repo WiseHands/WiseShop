@@ -74,6 +74,7 @@
   "singleOrder.requestFeedback": "Wyślij prośbę",
   "singleOrder.requestNotSendingFeedback" : "Żądanie odpowiedzi nie zostało jeszcze wysłane do klienta",
   "singleOrder.pendingRequestFeedback": "Oczekuje na opinię",
+  "singleOrder.deletedRequestFeedback": "Відгук видалений",
   "singleOrder.noRequestFeedback": "Brak odpowiedzi",
   "singleOrder.FullName": "Pełne imię i nazwisko",
   "singleOrder.Phone": "Numer telefonu",

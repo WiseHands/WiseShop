@@ -124,7 +124,7 @@ angular.module('WiseHands')
             $scope.successfulHide = false;
             $scope.modalSpinner = true;
 
-            const url = $scope.orderFeedback.showReview ? `/api/feedback/hide/all/${$routeParams.uuid}/true` : `/api/feedback/show/all/${$routeParams.uuid}/true`;
+            const url = $scope.orderFeedback.showReview ? `/api/feedback/hide/all/${$routeParams.uuid}` : `/api/feedback/show/all/${$routeParams.uuid}`;
             $http({
                 method: 'PUT',
                 url: url,
@@ -149,10 +149,11 @@ angular.module('WiseHands')
             $scope.modalSpinner = true;
             $http({
                 method: 'DELETE',
-                url: `/api/feedback/delete/${$routeParams.uuid}/true`
+                url: `/api/feedback/delete/${$routeParams.uuid}`
             }).then(response => {
                 console.log('response for order', response.data);
                 $scope.modalSpinner = false;
+                $scope.order = response.data;
                 $('#removeFeedback').modal('hide');
             });
         };

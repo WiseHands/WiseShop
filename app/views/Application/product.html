@@ -544,29 +544,31 @@
     %{
         for(_review in product.feedbackList) {
     }%
-    <div class="shop-review-item">
-        <div class="shop-review-item-info">
-            <p>${_review.customerName}</p>
-            <div feedback-rate="${_review.quality}" class="feedback-stars">
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
+    #{if _review.isFeedbackDeleted == false}
+        <div class="shop-review-item">
+            <div class="shop-review-item-info">
+                <p>${_review.customerName}</p>
+                <div feedback-rate="${_review.quality}" class="feedback-stars">
+                    <i class="fa"></i>
+                    <i class="fa"></i>
+                    <i class="fa"></i>
+                    <i class="fa"></i>
+                    <i class="fa"></i>
+                </div>
+            </div>
+            <div class="shop-review-item-text">
+                <p time="${_review.feedbackTime}"></p>
+                #{if _review.review} <p>${_review.review}</p> #{/if}
+                #{else} <p>&{'page.product.no.reviews.from.client'}</p> #{/else}
+                <div class="reply-for-review">
+                    #{if _review.review && _review.comment}
+                    <h4>${shop.shopName}</h4>
+                    <p>${_review.comment}</p>
+                    #{/if}
+                </div>
             </div>
         </div>
-        <div class="shop-review-item-text">
-            <p time="${_review.feedbackTime}"></p>
-            #{if _review.review} <p>${_review.review}</p> #{/if}
-            #{else} <p>&{'page.product.no.reviews.from.client'}</p> #{/else}
-            <div class="reply-for-review">
-                #{if _review.review && _review.comment}
-                <h4>${shop.shopName}</h4>
-                <p>${_review.comment}</p>
-                #{/if}
-            </div>
-        </div>
-    </div>
+    #{/if}
     <hr>
     %{
     }

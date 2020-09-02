@@ -44,17 +44,20 @@ public class FeedbackDTO extends GenericModel {
     @Expose
     public boolean showReview;
 
-    @OneToOne(cascade=CascadeType.REMOVE)
+    @Expose
+    public boolean isFeedbackDeleted;
+
+    @OneToOne
     public OrderDTO order;
 
     @Expose
     @OneToOne
     public FeedbackCommentDTO feedbackComment;
 
-    @OneToOne(cascade=CascadeType.REMOVE)
+    @OneToOne
     public OrderItemDTO orderItem;
 
-    @ManyToOne(cascade=CascadeType.REMOVE)
+    @ManyToOne
     public ProductDTO product;
 
     public FeedbackDTO(String quality, long feedbackTime, String review) {

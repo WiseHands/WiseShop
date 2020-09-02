@@ -203,23 +203,26 @@
                         </div>
                     </div>
                     <div class="admin-card product-feedback-container">
-                        <div class="admin-order-card-row">
-                            <h4>{{'singleOrder.feedback' | translate}}</h4>
-                            <div class="feedback-stars" ng-show="order.orderFeedback">
-                                <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                <i ng-class="order.orderFeedback.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                <i ng-class="order.orderFeedback.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                <i ng-class="order.orderFeedback.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
-                                <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                        <div ng-show="!order.orderFeedback.isFeedbackDeleted">
+                            <div class="admin-order-card-row">
+                                <h4>{{'singleOrder.feedback' | translate}}</h4>
+                                <div class="feedback-stars" ng-show="order.orderFeedback">
+                                    <i ng-class="order.orderFeedback.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                    <i ng-class="order.orderFeedback.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                    <i ng-class="order.orderFeedback.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                    <i ng-class="order.orderFeedback.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                    <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                </div>
+                            </div>
+
+                            <div class="feedback-to-all-order" ng-show="order.orderFeedback.generalReview">
+                                <p>{{order.orderFeedback.generalReview}}</p>
+                            </div>
+                            <div class="feedback-to-all-order" ng-show="order.orderFeedback && !order.orderFeedback.generalReview">
+                                <p>{{'singleOrder.generalFeedback' | translate}}</p>
                             </div>
                         </div>
 
-                        <div class="feedback-to-all-order" ng-show="order.orderFeedback.generalReview">
-                            <p>{{order.orderFeedback.generalReview}}</p>
-                        </div>
-                        <div class="feedback-to-all-order" ng-show="order.orderFeedback && !order.orderFeedback.generalReview">
-                            <p>{{'singleOrder.generalFeedback' | translate}}</p>
-                        </div>
                         <div ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
                             <div  class="feedback-container" ng-repeat="item in order.items">
                                 <div class="product-feedback-info">
@@ -269,6 +272,9 @@
                         </div>
                         <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'PENDING_REQUEST'">
                             <p>{{'singleOrder.pendingRequestFeedback' | translate}}</p>
+                        </div>
+                        <div class="show-feedback-request" ng-show="order.feedbackRequestState === 'DELETED'">
+                            <p>{{'singleOrder.deletedRequestFeedback' | translate}}</p>
                         </div>
                     </div>
                 </div>
