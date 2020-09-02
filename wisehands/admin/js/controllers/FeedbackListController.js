@@ -55,30 +55,43 @@ angular.module('WiseHands')
       $('.modal-backdrop').remove();
     };
 
-    $scope.modalForShowFeedback = (event) =>{
-      console.log('removeFeedback', event);
+    $scope.modalForShowHideFeedback = event =>{
       $scope.deleteButton = false;
-      $scope.succesfullDelete = true;
+      $scope.orderUuid = event.order.uuid;
+      $scope.orderFeedback = event.order.orderFeedback
+      console.log(event);
+      $scope.orderFeedback.showReview ? $scope.successfulHide = true : $scope.successfulShow = true;
       $('#removeFeedback').modal('show');
-      $scope.showingUuid = event.order.uuid;
-      console.log('showFeedback $scope.uuid = ', $scope.showingUuid);
     };
 
-    $scope.showFeedback = () => {
+    $scope.sendFeedbackForShowingOrHidingIt = () => {
       $scope.deleteButton = false;
-      $scope.succesfullDelete = false;
+      $scope.successfulShow = false;
+      $scope.successfulHide = false;
       $scope.modalSpinner = true;
+
+      const url = $scope.orderFeedback.showReview ? `/api/feedback/hide/all/${$scope.orderUuid}/false` : `/api/feedback/show/all/${$scope.orderUuid}/false`;
       $http({
         method: 'PUT',
-        url: `/api/feedback/show/all/${$scope.showingUuid}`
+        url: url,
+        data: {showReview: $scope.orderFeedback.showReview}
       }).then(response => {
-        $scope.orderList = response.data;
+        console.log('response sendFeedbackForShowingOrHidingIt', response.data);
+        showingHidingAnimation(response.data);
         $scope.modalSpinner = false;
         $('#removeFeedback').modal('hide');
       });
-    }
+    };
 
-    $scope.modalForRemoveFeedback = (event) =>{
+    showingHidingAnimation = (orderList) => {
+      orderList.forEach(order => {
+        if(order.uuid === $scope.orderUuid){
+          $scope.orderFeedback.showReview = order.orderFeedback.showReview;
+        }
+      });
+    };
+
+    $scope.modalForRemoveFeedback = (event) => {
       console.log('removeFeedback', event);
       $scope.deleteButton = true;
       $scope.succesfullDelete = false;

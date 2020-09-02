@@ -114,12 +114,7 @@ angular.module('WiseHands')
          $scope.deleteButton = false;
          $scope.orderFeedback = event.order.orderFeedback
          console.log($scope.orderFeedback.showReview);
-         if($scope.orderFeedback.showReview){
-            $scope.successfulHide = true;
-         } else {
-            $scope.successfulShow = true;
-         }
-//         $scope.orderFeedback.showReview ? $scope.successfulShow = true : $scope.successfulHide = false;
+         $scope.orderFeedback.showReview ? $scope.successfulHide = true : $scope.successfulShow = true;
          $('#removeFeedback').modal('show');
       };
 

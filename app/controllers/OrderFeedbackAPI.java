@@ -210,7 +210,8 @@ public class OrderFeedbackAPI extends AuthController{
 
         OrderDTO order = OrderDTO.findById(orderUuid);
         order.feedbackRequestState = null;
-        order.orderFeedback.delete();
+        FeedbackDTO feedback = FeedbackDTO.findById(order.orderFeedback.uuid);
+        feedback.delete();
         System.out.println("feedback.delete();");
         for(OrderItemDTO item: order.items){
             item.feedbackToOrderItem.delete();

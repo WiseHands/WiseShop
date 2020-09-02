@@ -63,10 +63,14 @@
                     <p>{{'singleOrder.generalFeedback' | translate}}</p>
                 </div>
                 <div class="show-remove-feedback-container">
-                    <div ng-click="modalForShowFeedback(this)" class="show-review">
-                        <p>
-                            <span><i class="fa fa-eye"></i></span>
+                    <div ng-click="modalForShowHideFeedback(this)" class="show-review">
+                        <p ng-show="!order.orderFeedback.showReview">
+                            <span><i class="fa fa-eye" style="font-size: 18px"></i></span>
                             {{'productReviews.showReview' | translate}}
+                        </p>
+                        <p ng-show="order.orderFeedback.showReview">
+                            <span><i class="fa fa-eye-slash" style="font-size: 18px"></i></span>
+                            {{'productReviews.hideReview' | translate}}
                         </p>
                     </div>
                     <div class="remove-feedback-button" ng-click="modalForRemoveFeedback(this)">
@@ -91,7 +95,8 @@
                 </button>
                 <div class="col-xs-12 text-center">
                     <p ng-show="deleteButton"><i>{{'feedbackList.deleteMessage' | translate}}</i></p>
-                    <p ng-show="succesfullDelete"><i>{{'feedbackList.showMessage' | translate}}</i></p>
+                    <p ng-show="successfulShow"><i>{{'feedbackList.showFeedbackMessage' | translate}}</i></p>
+                    <p ng-show="successfulHide"><i>{{'feedbackList.hideFeedbackMessage' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
@@ -100,7 +105,10 @@
                     <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="removeFeedback()" ng-show="deleteButton">Видалити</button>
                 </div>
                 <div class="col-xs-offset-4 col-xs-4 noUnderline">
-                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-click="showFeedback()" ng-show="succesfullDelete">Ok</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-click="sendFeedbackForShowingOrHidingIt()" ng-show="successfulShow">Ok</button>
+                </div>
+                <div class="col-xs-offset-4 col-xs-4 noUnderline">
+                    <button type="button" class="btn secondaryColor btn-sm btn-block" ng-click="sendFeedbackForShowingOrHidingIt()" ng-show="successfulHide">Ok</button>
                 </div>
             </div>
         </div>
