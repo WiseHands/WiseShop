@@ -54,7 +54,7 @@ public class Application extends Controller {
         } else {
             protocol = "https://";
         }
-        return protocol + client + port + "/" + language;
+        return protocol + client + port + "/" + language + "/shop";
     }
 
 
@@ -153,7 +153,10 @@ public class Application extends Controller {
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-        renderTemplate("Application/shop.html", shop, products, language, categories);
+        System.out.println("url => " + returnUrlForDev(client, language));
+        redirect(returnUrlForDev(client, language) , false);
+
+//        renderTemplate("Application/shop.html", shop, products, language, categories);
 
     }
 
@@ -163,6 +166,7 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        generateCookieIfNotPresent(shop);
         Date date = new Date();
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";
@@ -184,7 +188,7 @@ public class Application extends Controller {
         if (coinAccount != null && coinAccount.balance < 0) {
             renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
         }
-        generateCookieIfNotPresent(shop);
+
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
@@ -216,12 +220,14 @@ public class Application extends Controller {
     }
 
     public static void shop(String client, String language) {
-        System.out.println("client info " + client);
+        Date date = new Date();
+
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        Date date = new Date();
+        generateCookieIfNotPresent(shop);
+
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";
         if (xforwardedHeader != null){
@@ -238,11 +244,12 @@ public class Application extends Controller {
         if (shop.isTemporaryClosed) {
             renderTemplate("Application/temporaryClosed.html", shop);
         }
+
         CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
         if (coinAccount != null && coinAccount.balance < 0) {
             renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
         }
-        generateCookieIfNotPresent(shop);
+
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
@@ -408,24 +415,27 @@ public class Application extends Controller {
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
             _page = Translation.setTranslationForPage(language, _page);
             translationPageList.add(_page);
-
         }
         shop.pagesList = translationPageList;
+
         ProductDTO product = ProductDTO.findById(uuid);
         CategoryDTO category = product.category;
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         product.feedbackList = DataBaseQueries.getFeedbackList(product);
-        System.out.println("product.feedbackList => " + product.feedbackList);
+
         List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
         product.additions = additionList;
+
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
         render(product, category, categories, shop, language);
@@ -446,6 +456,26 @@ public class Application extends Controller {
         }
     }
 
+    public static String generateTokenForCookie(String shoppingCartId, String userAgent) {
+        String token = "";
+        try {
+            String encodingSecret = Play.configuration.getProperty("jwt.secret");
+            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
+
+            long nowMillis = System.currentTimeMillis();
+            Date now = new Date(nowMillis);
+
+            token = JWT.create()
+                    .withIssuedAt(now)
+                    .withSubject(shoppingCartId)
+                    .withClaim("userAgent", userAgent)
+                    .withIssuer("wisehands")
+                    .sign(algorithm);
+        } catch (JWTCreationException exception){
+            //Invalid Signing configuration / Couldn't convert Claims.
+        }
+        return token;
+    }
 
     public static void orderFeedback(String client, String uuid) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -567,27 +597,6 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         render(shop);
-    }
-
-    public static String generateTokenForCookie(String shoppingCartId, String userAgent) {
-        String token = "";
-        try {
-            String encodingSecret = Play.configuration.getProperty("jwt.secret");
-            Algorithm algorithm = Algorithm.HMAC256(encodingSecret);
-
-            long nowMillis = System.currentTimeMillis();
-            Date now = new Date(nowMillis);
-
-            token = JWT.create()
-                    .withIssuedAt(now)
-                    .withSubject(shoppingCartId)
-                    .withClaim("userAgent", userAgent)
-                    .withIssuer("wisehands")
-                    .sign(algorithm);
-        } catch (JWTCreationException exception){
-            //Invalid Signing configuration / Couldn't convert Claims.
-        }
-        return token;
     }
 
     public static void landing(String client){

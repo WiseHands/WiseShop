@@ -88,8 +88,13 @@ public class ShoppingCartAPI extends AuthController {
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
-        LineItem lineItem = new LineItem(product.uuid, product.name, product.mainImage.filename, quantity, product.price, shop, additionOrderDTOList, product.productNameTextTranslationBucket);
+
+        LineItem lineItem = new LineItem(
+                product.uuid, product.name, product.mainImage.filename,
+                quantity, product.price, shop, additionOrderDTOList,
+                product.productNameTextTranslationBucket);
         lineItem.save();
+
         boolean foundMatch = false;
 
         //1. Find Line Item
@@ -105,9 +110,10 @@ public class ShoppingCartAPI extends AuthController {
         }
 
         if(!foundMatch) {
-            shoppingCart.items.add(lineItem);
+          System.out.println("shoppingCart.items => " + shoppingCart.items);
+          shoppingCart.items.add(lineItem);
         }
-
+        System.out.println("shoppingCart.items => " + shoppingCart.items);
         shoppingCart.save();
         renderJSON(json(shoppingCart));
     }
@@ -189,7 +195,6 @@ public class ShoppingCartAPI extends AuthController {
         shoppingCart.items.remove(lineItemToRemove);
         shoppingCart.save();
 
-
         renderJSON(json(shoppingCart));
     }
 
@@ -231,7 +236,6 @@ public class ShoppingCartAPI extends AuthController {
         lineItem.quantity += 1;
         lineItem.save();
 
-
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
         renderJSON(json(shoppingCart));
     }
@@ -257,7 +261,6 @@ public class ShoppingCartAPI extends AuthController {
             lineItem.save();
             renderJSON(json(shoppingCart));
         }
-
     }
 
     public static void selectDeliveryType(String client) {
