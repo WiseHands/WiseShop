@@ -273,6 +273,12 @@
                         activetab: 'productlist'
 
                     }).
+                    when('/qrcontroller',{
+                        templateUrl:'wisehands/admin/partials/pageQR.html',
+                        controller:'PageQRController',
+                        activetab: 'qr'
+
+                    }).
                     otherwise({
                         redirectTo:'/'
                     });
