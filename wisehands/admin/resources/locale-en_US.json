@@ -1,4 +1,7 @@
 {
+  "pageQR.title": "QR code page",
+  "pageQR.titleInfo": "Click plus to create a QR code for the menu",
+
   "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
   "feedbackList.showFeedbackMessage": "Show feedback on website",
   "feedbackList.hideFeedbackMessage": "Hide feedback on website",

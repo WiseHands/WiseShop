@@ -1,4 +1,7 @@
 {
+  "pageQR.title": "QR сторінка",
+  "pageQR.titleInfo": "Натисніть плюс щоб створити QR код для меню",
+
   "feedbackList.deleteMessage": "Видалити даний відгук",
   "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті",
   "feedbackList.hideFeedbackMessage": "Приховати даний відгук на сайті",

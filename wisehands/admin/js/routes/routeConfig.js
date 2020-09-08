@@ -274,9 +274,21 @@
 
                     }).
                     when('/qrcontroller',{
-                        templateUrl:'wisehands/admin/partials/pageQR.html',
-                        controller:'PageQRController',
+                        templateUrl:'wisehands/admin/partials/qrPage.html',
+                        controller:'QrPageController',
                         activetab: 'qr'
+
+                    }).
+                    when('/qrnewcode',{
+                        templateUrl:'wisehands/admin/partials/qrNewCode.html',
+                        controller:'QrNewCodeController',
+                        activetab: 'qr'
+
+                    }).
+                    when('/qrdetail/:uuid',{
+                        templateUrl:'wisehands/admin/partials/qrDetail.html',
+                        controller:'QrDetailController',
+                        activetab: 'qre'
 
                     }).
                     otherwise({

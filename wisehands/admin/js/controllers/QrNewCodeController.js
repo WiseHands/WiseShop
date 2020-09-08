@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('PageQRController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared',
+    .controller('QrNewCodeController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared',
         function ($scope, $http, signout, sideNavInit, shared) {
 
 

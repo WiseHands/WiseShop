@@ -2261,6 +2261,18 @@ ul.admin-breadcrumb li a:hover {
     text-align: center;
 }
 
+.qr-code-block{
+    align-items: center;
+}
+
+.qr-code-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 150px;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;

@@ -1,0 +1,37 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    Create new qr code
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="saveQrCode()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <div class="admin-card">
+        <div class="input-field m-left">
+            <input id="product_name" type="text" required>
+            <label for="product_name">{{'addNewProduct.productName' | translate}}</label>
+        </div>
+        <div class="input-field m-left">
+            <input id="product_price" type="number" required>
+            <label for="product_price">{{'addNewProduct.productPrice' | translate}}</label>
+        </div>
+
+        <label for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</label>
+        <h5 id="price">{{product.price}}</h5>
+        <label for="category">{{'productDetails.category' | translate}}</label>
+        <h5 id="category">{{product.categoryName}}</h5>
+    </div>
+</div>

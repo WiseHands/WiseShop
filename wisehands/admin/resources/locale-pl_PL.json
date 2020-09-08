@@ -1,4 +1,7 @@
 ﻿{
+  "pageQR.title": "QR code page",
+  "pageQR.titleInfo": "Натисність плюс щоб створити QR код для меню",
+
   "feedbackList.deleteMessage": "Czy na pewno chcesz usunąć tę opinię?",
   "feedbackList.showFeedbackMessage": "Wyświetlane są wszystkie opinie",
   "feedbackList.hideFeedbackMessage": "Wszystkie recenzje są ukryte",

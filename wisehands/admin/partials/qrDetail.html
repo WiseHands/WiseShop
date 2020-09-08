@@ -1,0 +1,47 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'networkShopListEdit.add' | translate}}{{ networkName}}
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="addShopToNetwork()">
+                </i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- add card with shop info -->
+<div class="container-fluid noSidePadding cardTopPadding">
+    <div class="flex-row" ng-show="isShopInNetwork">
+        <h4 class="text-center" style="margin: 15px 0 0 10px">{{'networkShopListEdit.isShop' | translate}}{{ networkName}}</h4>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="shop in networkShopsList" style="width: auto !important;">
+        <div class="card card-product hoverable">
+            <!--<a href="#/networkshoplist" >-->
+            <div class="flex-card-part-title flex-row" style="margin: 10px; justify-content: space-between">
+                <div class="flex-card-part column" style="margin: 10px;">
+                    <h5 class="truncate shopCardInfo" style="font-size: medium; font-weight: 400; margin: 5px 0px 5px;">{{shop.shopName}}</h5>
+                    <h6 class="grey-text normal-400" style="margin-bottom: 0px;">{{shop.contact.address}}</h6>
+                </div>
+                <div class="flex-checkbox">
+                    <input id="shopNetworkCheck-{{$index}}" type="checkbox" class="filled-in checkBoxStyling" ng-model="shop.selected"/>
+                    <label for="shopNetworkCheck-{{$index}}"></label>
+                </div>
+            </div>
+            <div class="view overlay hm-white-slight z-depth-1 card-maps">
+                <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{getLat(shop)}},{{getLng(shop)}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{getLat(shop)}},{{getLng(shop)}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive">
+
+            </div>
+        </div>
+    </div>
+
+</div>
