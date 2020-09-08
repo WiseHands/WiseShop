@@ -18,20 +18,30 @@
     </div>
 </nav>
 
-<div>
+<div class="flex-row">
     <div class="admin-card">
         <div class="input-field m-left">
-            <input id="product_name" type="text" required>
-            <label for="product_name">{{'addNewProduct.productName' | translate}}</label>
+            <input id="table_name" type="text" required >
+            <label for="table_name">{{'addNewProduct.productName' | translate}}</label>
         </div>
         <div class="input-field m-left">
-            <input id="product_price" type="number" required>
-            <label for="product_price">{{'addNewProduct.productPrice' | translate}}</label>
+            <input id="table_area" type="text" required>
+            <label for="table_area">{{'addNewProduct.productName' | translate}}</label>
         </div>
+        <div class="input-field m-left">
+            <input id="table_number" type="number" required>
+            <label for="table_number">{{'addNewProduct.productPrice' | translate}}</label>
+        </div>
+        <div class="input-field m-left">
+            <input id="table_discount" type="number" required>
+            <label for="table_discount">{{'addNewProduct.productPrice' | translate}}</label>
+        </div>
+        <button class="save-button" ng-click="createQrCode()">
+            {{'addNewProduct.save' | translate}}
+        </button>
 
-        <label for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</label>
-        <h5 id="price">{{product.price}}</h5>
-        <label for="category">{{'productDetails.category' | translate}}</label>
-        <h5 id="category">{{product.categoryName}}</h5>
+    </div>
+    <div class="admin-card">
+        <img id="qr-code"></img>
     </div>
 </div>
