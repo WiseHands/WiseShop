@@ -1,6 +1,7 @@
 {
-  "pageQR.title": "QR code page",
-  "pageQR.titleInfo": "Click plus to create a QR code for the menu",
+  "pageQR.title": "QR Menu",
+  "pageQR.titleInfo": "QR Menu allows you to create unique QR-code per table. Visitors can scan it and make an order. Below is the list of available QR-codes. Click plus to create a QR-code menu",
+  "pageQR.qrInfo": "QR Code",
 
   "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
   "feedbackList.showFeedbackMessage": "Show feedback on website",
@@ -119,7 +120,7 @@
   "sideNav.Analytics": "Analytics",
   "sideNav.Products": "Products",
   "sideNav.Feedback": "Feedback",
-  "sideNav.QR": "QR code",
+  "sideNav.QR": "QR Menu",
   "sideNav.Payment": "Payment",
   "sideNav.Discounts": "Discounts",
   "sideNav.Delivery": "Delivery",

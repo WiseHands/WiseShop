@@ -274,8 +274,8 @@
 
                     }).
                     when('/qrcontroller',{
-                        templateUrl:'wisehands/admin/partials/qrPage.html',
-                        controller:'QrPageController',
+                        templateUrl:'wisehands/admin/partials/qrMenu.html',
+                        controller:'QrMenuController',
                         activetab: 'qr'
 
                     }).

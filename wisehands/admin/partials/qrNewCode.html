@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    Create new qr code
+                    {{'pageQR.qrInfo' | translate}}
                 </h5>
             </div>
             <a class="col-xs-2 noRightPadding">
@@ -41,7 +41,7 @@
         </button>
 
     </div>
-    <div class="admin-card">
+    <div class="admin-card" ng-show="isQrPresent">
         <img id="qr-code"></img>
     </div>
 </div>

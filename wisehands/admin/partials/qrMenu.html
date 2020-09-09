@@ -26,20 +26,14 @@
             {{'pageQR.titleInfo' | translate}}
         </h5>
     </div>
-    <div class="admin-feedback-list">
+    <div ng-show="!isQRListPresent">
+        <p>No QR-code</p>
+    </div>
+    <div class="admin-feedback-list" ng-show="isQRListPresent" ng-repeat="qr in shop.qrList">
         <div class="admin-card product-feedback-container">
             <div class="flex-column">
                 <a href="#/qrdetail/1" >
-                    <p>Table</p>
-                    <p>Table Number</p>
-                </a>
-            </div>
-        </div>
-        <div class="admin-card product-feedback-container">
-            <div class="flex-column">
-                <a href="#/qrdetail/2" >
-                    <p>Table</p>
-                    <p>Table Number</p>
+                    <p>qr.name</p>
                 </a>
             </div>
         </div>
