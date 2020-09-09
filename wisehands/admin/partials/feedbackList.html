@@ -20,16 +20,16 @@
         <p>{{'productReviews.noReviews' | translate}}</p>
     </div>
     <div class="admin-container admin-column" ng-show="orderList">
-        <!--<div class="sort-reviews">-->
-            <!--<p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}-->
-                <!--<span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"-->
-                      <!--ng-class="{reverse: reverse}"></span>-->
-            <!--</p>-->
+        <div class="sort-reviews">
+            <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
+                <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
+                      ng-class="{reverse: reverse}"></span>
+            </p>
             <!--<p ng-click="sortBy('quality')">{{'productReviews.byRating' | translate}}-->
                 <!--<span class="sortorder" ng-show="sortByProperty === 'quality'"-->
                       <!--ng-class="{reverse: reverse}"></span>-->
             <!--</p>-->
-        <!--</div>-->
+        </div>
         <div class="admin-feedback-list">
             <div class="admin-card product-feedback-container" ng-repeat="order in orderList | orderBy:sortByProperty:reverse">
                 <div class="admin-order-card-row">
