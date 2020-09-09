@@ -2,6 +2,8 @@
   "pageQR.title": "QR Menu",
   "pageQR.titleInfo": "QR Menu allows you to create unique QR-code per table. Visitors can scan it and make an order. Below is the list of available QR-codes. Click plus to create a QR-code menu",
   "pageQR.qrInfo": "QR Code",
+  "pageQR.qrName": "QR name",
+  "pageQR.create": "Create QR",
 
   "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
   "feedbackList.showFeedbackMessage": "Show feedback on website",

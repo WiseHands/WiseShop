@@ -11,37 +11,26 @@
             </div>
             <a class="col-xs-2 noRightPadding">
                 <i class="fa fa-save whiteColor pull-right"
-                   ng-click="saveQrCode()">
+                   ng-click="saveQRCode()">
                 </i>
             </a>
         </div>
     </div>
 </nav>
 
-<div class="flex-row">
-    <div class="admin-card">
+<div class="flex-column-container qr-container">
+    <div class="admin-card qr-create-new-container">
         <div class="input-field m-left">
-            <input id="table_name" type="text" required >
-            <label for="table_name">{{'addNewProduct.productName' | translate}}</label>
+            <input id="qr_name" type="text" required >
+            <label for="qr_name">{{'pageQR.qrName' | translate}}</label>
         </div>
-        <div class="input-field m-left">
-            <input id="table_area" type="text" required>
-            <label for="table_area">{{'addNewProduct.productName' | translate}}</label>
+        <img id="qr-code">
+        <div>
+            <button class="save-button" ng-click="createQrCode()">
+                {{'pageQR.create' | translate}}
+            </button>
         </div>
-        <div class="input-field m-left">
-            <input id="table_number" type="number" required>
-            <label for="table_number">{{'addNewProduct.productPrice' | translate}}</label>
-        </div>
-        <div class="input-field m-left">
-            <input id="table_discount" type="number" required>
-            <label for="table_discount">{{'addNewProduct.productPrice' | translate}}</label>
-        </div>
-        <button class="save-button" ng-click="createQrCode()">
-            {{'addNewProduct.save' | translate}}
-        </button>
+    </div>
 
-    </div>
-    <div class="admin-card" ng-show="isQrPresent">
-        <img id="qr-code"></img>
-    </div>
 </div>
+

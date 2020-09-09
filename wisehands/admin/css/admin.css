@@ -2261,16 +2261,22 @@ ul.admin-breadcrumb li a:hover {
     text-align: center;
 }
 
-.qr-code-block{
+.qr-code-block {
     align-items: center;
 }
 
-.qr-code-card{
+.qr-code-card {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 150px;
     width: 150px;
+}
+.qr-container {
+    align-items: center;
+}
+.qr-create-new-container {
+    align-items: center;
 }
 
 @media screen and (min-width: 1500px) {
