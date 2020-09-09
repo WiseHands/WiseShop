@@ -3,6 +3,8 @@ angular.module('WiseHands')
         function ($scope, $http, signout, sideNavInit, shared) {
         $scope.loading = true;
 
+        let qr_name = document.querySelector('#qr_name');
+
         $http({
             method: 'GET',
             url: '/shop/details',
@@ -17,47 +19,45 @@ angular.module('WiseHands')
         });
 
         createDefaultQRForShop = (shop) => {
-        console.log('shop name => ', shop.shopName)
-         $scope.isQrPresent = true;
+            console.log('shop name => ', shop.shopName)
             let qr = new QRious({
                  element: document.getElementById('qr-code'),
                  size: 200,
-                 value: shop.shopName
-            });
-        }
-
-        function generateQRCode() {
-            var qrtext = document.getElementById("qr-text").value;
-
-            alert(qrtext);
-            qr.set({
-                foreground: 'black',
-                size: 200,
-                value: qrtext
+                 value: 'https://' + shop.domain + '/shop'
             });
         }
 
         $scope.createQrCode = () => {
-             let qr_name = document.querySelector('#qr_name').value;
-             let url = generateUrl();
-             console.log('url => ', url);
+
+             let url = _generateUrlForQr(qr_name.value);
              let qr = new QRious({
                  element: document.getElementById('qr-code'),
                  size: 200,
                  value: url
              });
 
-             console.log('qr = ', qr);
+             console.log('url => ', url);
+             console.log('qr = ', qr.toDataURL());
         }
 
-        generateUrl = () => {
+        _generateUrlForQr = (name) => {
             let domain;
             if ($scope.shop.domain === 'localhost'){
                 domain = $scope.shop.domain + ':3334'
             } else {
                 domain = $scope.shop.domain;
             }
-           return 'https://' + domain + '/menu'
+           return 'https://' + domain + '/menu?qrName='+ name;
+        }
+
+        generateUrlForSaveQr = (name) => {
+            let domain;
+            if ($scope.shop.domain === 'localhost'){
+                domain = $scope.shop.domain + ':3334'
+            } else {
+                domain = $scope.shop.domain;
+            }
+           return 'https://' + domain + '/menu?qrName='+ name +'&qr=' + qr.toDataURL();
         }
 
         $scope.saveQRCode = () => {
