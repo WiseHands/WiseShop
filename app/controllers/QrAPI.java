@@ -22,7 +22,10 @@ public class QrAPI extends AuthController {
         }
 
         JSONParser parser = new JSONParser();
-        QrDTO qr = new QrDTO((String) parser.parse(params.get("body")));
+        JSONObject jsonObject = (JSONObject) parser.parse(params.get("body"));
+        String name = (String) jsonObject.get("name");
+        System.out.println("name " + jsonObject);
+        QrDTO qr = new QrDTO(name);
         qr.save();
         List<QrDTO> qrList;
         if(shop.qrList == null){

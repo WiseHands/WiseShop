@@ -49,19 +49,10 @@ angular.module('WiseHands')
            return 'https://' + domain + '/menu?qrName='+ name;
         }
 
-        generateUrlForSaveQr = (name) => {
-            let domain;
-            if ($scope.shop.domain === 'localhost'){
-                domain = $scope.shop.domain + ':3334'
-            } else {
-                domain = $scope.shop.domain;
-            }
-           return 'https://' + domain + '/menu?qrName='+ name +'&qr=' + $scope.qr.toDataURL();
-        }
-
         $scope.saveQRCode = () => {
             console.log("qr_name.value.toString()", qr_name.value)
-            let qr = JSON.stringify(qr_name.value)
+            let url = _generateUrlForQr(qr_name.value);
+            let qr = JSON.stringify({name: qr_name.value, url: url})
             $http({
                 method: "PUT",
                 url: `/api/qr/create`,
