@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Нове замовлення</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap" rel="stylesheet">
+
+    <style>
+        /* -------------------------------------
+            GLOBAL RESETS
+        ------------------------------------- */
+        img {
+            border: none;
+            -ms-interpolation-mode: bicubic;
+            max-width: 100%; }
+        body {
+            background-color: #f6f6f6;
+            font-family: sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-size: 14px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%; }
+        table {
+            border-collapse: separate;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+            width: 100%; }
+        table td {
+            font-family: sans-serif;
+            font-size: 14px;
+            vertical-align: top; }
+        /* -------------------------------------
+            BODY & CONTAINER
+        ------------------------------------- */
+        .body {
+            /*background-color: #f6f6f6;*/
+            width: 100%; }
+        /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+        .container {
+            display: block;
+            margin: 0 auto;
+            /* makes it centered */
+            max-width: 580px;
+            min-width: 320px;
+            padding: 10px;
+        }
+        /* This should also be a block element, so that it will fill 100% of the .container */
+        .content {
+            box-sizing: border-box;
+            display: block;
+            Margin: 0 auto;
+            max-width: 580px;
+            padding: 10px; }
+        /* -------------------------------------
+            HEADER, FOOTER, MAIN
+        ------------------------------------- */
+        .main {
+            background: #ffffff;
+            width: 100%; }
+        .wrapper {
+            box-sizing: border-box;
+            padding: 20px; }
+        .content-block {
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+        .footer {
+            clear: both;
+            Margin-top: 10px;
+            text-align: center;
+            width: 100%; }
+        .footer td,
+        .footer p,
+        .footer span,
+        .footer a {
+            color: #999999;
+            font-size: 12px;
+            text-align: center; }
+        /* -------------------------------------
+            TYPOGRAPHY
+        ------------------------------------- */
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: #000000;
+            font-family: sans-serif;
+            font-weight: 400;
+            line-height: 1.4;
+            margin: 0;
+            margin-bottom: 15px;
+            word-break: break-all;
+            overflow: hidden;
+            text-overflow: ellipsis;}
+        h1 {
+            font-size: 35px;
+            font-weight: 300;
+            text-align: center;
+            text-transform: capitalize; }
+        p,
+        ul,
+        ol {
+            font-family: sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0;
+            margin-bottom: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            }
+        p li,
+        ul li,
+        ol li {
+            list-style-position: inside;
+            margin-left: 5px; }
+        a {
+            color: #3498db;
+            text-decoration: underline; }
+        /* -------------------------------------
+            BUTTONS
+        ------------------------------------- */
+        .btn {
+            box-sizing: border-box;
+            width: 100%; }
+        .btn > tbody > tr > td {
+            padding-bottom: 15px; }
+        .btn table {
+            width: auto; }
+        .btn table td {
+            background-color: #ffffff;
+            text-align: center; }
+        .btn a {
+            background-color: #ffffff;
+            border: solid 1px #3498db;
+            box-sizing: border-box;
+            color: #3498db;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+            padding: 12px 25px;
+            text-decoration: none;
+            text-transform: capitalize; }
+        .btn-primary table td {
+            background-color: #3498db; }
+        .btn-primary a {
+            background-color: #3498db;
+            border-color: #3498db;
+            color: #ffffff; }
+        /* -------------------------------------
+            OTHER STYLES THAT MIGHT BE USEFUL
+        ------------------------------------- */
+        .last {
+            margin-bottom: 0; }
+        .first {
+            margin-top: 0; }
+        .align-center {
+            text-align: center; }
+        .align-right {
+            text-align: right; }
+        .align-left {
+            text-align: left; }
+        .clear {
+            clear: both; }
+        .mt0 {
+            margin-top: 0; }
+        .mb0 {
+            margin-bottom: 0; }
+        .preheader {
+            color: transparent;
+            display: none;
+            height: 0;
+            max-height: 0;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            mso-hide: all;
+            visibility: hidden;
+            width: 0; }
+        .powered-by a {
+            text-decoration: none; }
+        hr {
+            border: 0;
+            border-bottom: 1px solid #f6f6f6;
+            Margin: 20px 0; }
+        /* -------------------------------------
+            RESPONSIVE AND MOBILE FRIENDLY STYLES
+        ------------------------------------- */
+        @media only screen and (max-width: 620px) {
+            .body h1 {
+                font-size: 28px !important;
+                margin-bottom: 10px !important; }
+            .body p,
+            .body ul,
+            .body ol,
+            .body td,
+            .body span,
+            .body a {
+                font-size: 16px; /*!important;*/ }
+            .body .wrapper,
+            .body .article {
+                padding: 10px !important; }
+            .body .content {
+                padding: 0 !important; }
+            .body .container {
+                padding: 0;
+                padding-top: 5px !important;
+                width: 100% !important; }
+            .body .main {
+                border-left-width: 0 !important;
+                border-right-width: 0 !important; }
+            .body .btn table {
+                width: 100% !important; }
+            .body .btn a {
+                width: 100% !important; }
+            .body .img-responsive {
+                height: auto !important;
+                max-width: 100% !important;
+                width: auto !important; }
+        }      /* -------------------------------------
+            PRESERVE THESE STYLES IN THE HEAD
+        ------------------------------------- */
+        @media all {
+            .ExternalClass {
+                width: 100%; }
+            .ExternalClass,
+            .ExternalClass p,
+            .ExternalClass span,
+            .ExternalClass font,
+            .ExternalClass td,
+            .ExternalClass div {
+                line-height: 100%; }
+            .apple-link a {
+                color: inherit !important;
+                font-family: inherit !important;
+                font-size: inherit !important;
+                font-weight: inherit !important;
+                line-height: inherit !important;
+                text-decoration: none !important; }
+            .btn-primary table td:hover {
+                background-color: #34495e !important; }
+            .btn-primary a:hover {
+                background-color: #34495e !important;
+                border-color: #34495e !important; } }
+        .maintitle {font-size: 28px}
+        .total {font-size: 24px}
+        @media only screen and (max-width: 620px) {
+            .maintitle {font-size: 20px !important;}
+            .total {font-size: 20px !important;}
+        }
+
+        .store-logo h2 {
+            font-size: 30px;
+            font-family: 'Playfair Display', serif;
+        }
+        .store-logo img {
+            width: 150px;
+        }
+        .store-logo a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+        .store-logo p {
+            font-size: 18px;
+            padding-right: 5px;
+            margin: 0;
+            color: #3498db;
+        }
+        .store-logo p:hover {
+            text-decoration: underline;
+        }
+        .email-card {
+            margin: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+            padding: 1rem;
+        }
+        .email-card-row{
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+        .email-card-row h3 {
+            margin-bottom: 15px;
+        }
+        .items-title, .item-row {
+            display: flex;
+        }
+        .item-info {
+            flex: 0 1 60%;
+            display: flex;
+            align-items: center;
+        }
+        .item-info h2 {
+            margin-bottom: 10px;
+        }
+        .item-quantity {
+            flex: 0 0 15%;
+            padding-left: 5px;
+        }
+        .item-price {
+            flex: 0 1 25%;
+        }
+        .item-photo img {
+            min-width: 100px;
+            max-width: 100px;
+            padding-right: 10px;
+            object-fit: cover;
+        }
+        .footer-email {
+            padding: 20px;
+        }
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+        }
+        .footer-icons a {
+            color: #000;
+            padding: 0 15px;
+        }
+        .footer-email .email-card-row {
+            margin-top: 15px;
+            justify-content: space-around;
+        }
+        .footer-email .email-card-row a {
+            cursor: pointer;
+            color: #000;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="store-logo align-center">
+        <img src="C:\wisehands.me\wisehands\services\images\americano-logo.jpg" alt="store-logo">
+        <h2>Нове замовлення!</h2>
+        <div>
+                <a href="#/details/{{order.uuid}}">
+                    <p>Переглянути</p>
+                    <i class="fa fa-external-link" style="font-size:28px"></i>
+                </a>
+        </div>
+    </div>
+    <div class="header-nav">
+
+    </div>
+    <div class="order-details email-card">
+        <h2 class="align-left">Деталі замовлення</h2>
+        <div class="email-card-row">
+            <h3>Ім'я:</h3>
+            <p>Ольга</p>
+        </div>
+        <div class="email-card-row">
+            <h3>Номер телефону:</h3>
+            <p>+380953254165</p>
+        </div>
+        <div class="email-card-row">
+            <h3>Дата:</h3>
+            <p>2020-09-01 15:38</p>
+        </div>
+        <div class="email-card-row">
+            <h3>Email:</h3>
+            <p>email@gmail.com</p>
+        </div>
+        <div class="email-card-row">
+            <h3>Коментар:</h3>
+            <p>доставити до 18 год</p>
+        </div>
+        <div class="email-card-row">
+            <h3>Сума:</h3>
+            <h2>865 грн</h2>
+        </div>
+    </div>
+    <div class="email-card">
+        <h2>Доставка</h2>
+        <div class="email-card-row">
+            <h3>Тип:</h3>
+            <p>Кур'єр</p>
+        </div>
+        <div class="email-card-row">
+            <h3>Адреса:</h3>
+            <p>Наукова, 5</p>
+        </div>
+        <div class="email-card-row">
+            <h3>Під'їзд:</h3>
+            <p>2</p>
+        </div>
+        <div class="email-card-row">
+            <h3>Код до підїзду:</h3>
+            <p>138</p>
+        </div>
+        <div class="email-card-row">
+            <h3>Поверх:</h3>
+            <p>7</p>
+        </div>
+        <div class="email-card-row">
+            <h3>№ квартири:</h3>
+            <p>36</p>
+        </div>
+    </div>
+    <div class="email-card">
+        <h2>Оплата</h2>
+        <div class="email-card-row">
+            <h3>Тип:</h3>
+            <p>Готівка</p>
+        </div>
+    </div>
+    <div class="order-items email-card">
+        <h2 class="align-left">Товари:</h2>
+        <div class="items-title">
+            <div class="item-info">
+                <p>Товар</p>
+            </div>
+            <div class="item-quantity">
+                <p>Кількість</p>
+            </div>
+            <div class="item-price align-right">
+                <p>Ціна</p>
+            </div>
+        </div>
+
+        <div class="items-list">
+            <div class="item-row">
+                <div class="item-info">
+                    <div class="item-photo">
+                        <img src="../../wisehands/services/images/prod3.jpg" alt="product-logo">
+                    </div>
+                    <div class="item-name">
+                        <h2>Бургер</h2>
+                    </div>
+                </div>
+                <div class="item-quantity">
+                    <h3>1</h3>
+                </div>
+                <div class="item-price align-right">
+                    <h3>186 грн</h3>
+                </div>
+            </div>
+            <div class="item-row">
+                <div class="item-info">
+                    <div class="item-photo">
+                        <img src="../../wisehands/services/images/prod1.jpg">
+                    </div>
+                    <div class="item-name">
+                        <h2>Курка Гумбао</h2>
+                    </div>
+                </div>
+                <div class="item-quantity">
+                    <h3>1</h3>
+                </div>
+                <div class="item-price align-right">
+                    <h3>152 грн</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="footer-email ">
+        <div class="footer-icons">
+            <a href="https://www.facebook.com/americano.lviv/" id="linkfacebook" target="_blank">
+                <i class="fa fa-facebook" style="font-size:34px"></i>
+            </a>
+            <a href="https://www.instagram.com/americano.lviv/?hl=uk" id="linkinstagram" target="_blank">
+                <i class="fa fa-instagram" style="font-size:36px"></i>
+            </a>
+            <a href="https://www.youtube.com/watch?v=uaeLge1AXH8" id="linkyoutube" target="_blank">
+                <i class="fa fa-youtube-play" style="font-size:36px"></i>
+            </a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
