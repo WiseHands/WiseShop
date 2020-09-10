@@ -60,12 +60,12 @@ angular.module('WiseHands')
         }
 
         $scope.saveQRCode = () => {
-            let qr = JSON.stringify($scope.qr.toDataURL());
-            console.log('qr = ', qr);
+            console.log("qr_name.value.toString()", qr_name.value)
+            let qr = JSON.stringify(qr_name.value)
             $http({
                 method: "PUT",
-                url: `/api/qr/save/qr`,
-                data: qr,
+                url: `/api/qr/create`,
+                data: qr
             }).then(response => {
                 console.log(response);
             }, error => {

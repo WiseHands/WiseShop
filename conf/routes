@@ -66,8 +66,8 @@ PUT         {client}/api/cart/post/info                     ShoppingCartAPI.setP
 OPTIONS     {client}/api/cart/post/info                     ShoppingCartAPI.allowCors
 
 # ******************** QrAPI
-PUT         {client}/api/qr/save/{qr}                       QrAPI.save
-GET         {client}/api/qr/list                            Qr.getQRList
+PUT         {client}/api/qr/create                          QrAPI.create
+GET         {client}/api/qr/list                            QrAPI.list
 
 # ******************** UserDashBoardAPI
 GET         {client}/api/dashboard/shops                    UserDashBoardAPI.getShopList

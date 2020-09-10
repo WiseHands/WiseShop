@@ -4,13 +4,9 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/shop/details',
+            url: 'api/qr/list',
         })
            .then((response) =>{
-              $scope.shop = response.data;
-              if(!$scope.shop.qrList){
-               console.log("$scope.shop.qrList", false);
-              }
                console.log("$scope.shop", response);
            }, (error) => {
                console.log(error);
