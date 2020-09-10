@@ -1,6 +1,9 @@
 {
   "pageQR.title": "QR сторінка",
   "pageQR.titleInfo": "Натисніть плюс щоб створити QR код для меню",
+  "pageQR.qrInfo": "QR код",
+  "pageQR.qrName": "QR ім'я",
+  "pageQR.create": "Створити QR",
 
   "feedbackList.deleteMessage": "Видалити даний відгук",
   "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті",

@@ -1,12 +1,14 @@
 ﻿{
   "pageQR.title": "QR code page",
   "pageQR.titleInfo": "Натисність плюс щоб створити QR код для меню",
+  "pageQR.qrInfo": "QR Code",
+  "pageQR.qrName": "QR name",
+  "pageQR.create": "Create QR",
 
   "feedbackList.deleteMessage": "Czy na pewno chcesz usunąć tę opinię?",
   "feedbackList.showFeedbackMessage": "Wyświetlane są wszystkie opinie",
   "feedbackList.hideFeedbackMessage": "Wszystkie recenzje są ukryte",
   "feedbackList.restoreFeedbackMessage": "Feedback restored",
-
 
   "shopLocation.title": "Lokalizacja sklepu",
   "shopLocation.markShop": "Zaznacz adres sklepu na mapie i zapisz to",

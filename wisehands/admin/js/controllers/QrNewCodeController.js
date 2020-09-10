@@ -28,16 +28,15 @@ angular.module('WiseHands')
         }
 
         $scope.createQrCode = () => {
-
              let url = _generateUrlForQr(qr_name.value);
-             let qr = new QRious({
+             $scope.qr = new QRious({
                  element: document.getElementById('qr-code'),
                  size: 200,
                  value: url
              });
 
              console.log('url => ', url);
-             console.log('qr = ', qr.toDataURL());
+             console.log('qr = ', $scope.qr.toDataURL());
         }
 
         _generateUrlForQr = (name) => {
@@ -57,11 +56,21 @@ angular.module('WiseHands')
             } else {
                 domain = $scope.shop.domain;
             }
-           return 'https://' + domain + '/menu?qrName='+ name +'&qr=' + qr.toDataURL();
+           return 'https://' + domain + '/menu?qrName='+ name +'&qr=' + $scope.qr.toDataURL();
         }
 
         $scope.saveQRCode = () => {
-
+            let qr = JSON.stringify($scope.qr.toDataURL());
+            console.log('qr = ', qr);
+            $http({
+                method: "PUT",
+                url: `/api/qr/save/qr`,
+                data: qr,
+            }).then(response => {
+                console.log(response);
+            }, error => {
+                console.log(error);
+            });
         }
 
         sideNavInit.sideNav();

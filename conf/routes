@@ -22,6 +22,7 @@ GET     {client}/sudo/users                            	UserAPI.list
 GET     {client}/sudo/user/{uuid}                       UserAPI.one
 DELETE  {client}/sudo/user/{uuid}                       UserAPI.delete
 
+# wizard api for creating shop
 GET     {client}/api/wizard/get-wizard-info             WizardAPI.getWizardInfo
 POST    {client}/api/wizard/shop-contact-info           WizardAPI.setShopContactInfo
 POST    {client}/api/wizard/check-domain-name           WizardAPI.checkDomainNameAvailability
@@ -31,6 +32,7 @@ POST    {client}/api/wizard/social-info                 WizardAPI.setSocialNetwo
 POST    {client}/api/sign-up                            WizardAPI.signUp
 POST    {client}/api/sign-in                            WizardAPI.signIn
 
+# ******************** ShoppingCartAPI
 OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
 POST        {client}/api/cart                               ShoppingCartAPI.addProduct
 
@@ -38,7 +40,6 @@ GET         {client}/api/cart                               ShoppingCartAPI.getC
 
 DELETE      {client}/api/cart                               ShoppingCartAPI.deleteProduct
 OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
-
 
 POST        {client}/api/cart/update-quantity               ShoppingCartAPI.updateQuantityProduct
 OPTIONS     {client}/api/cart/update-quantity               ShoppingCartAPI.allowCors
@@ -64,6 +65,11 @@ OPTIONS     {client}/api/cart/address/info                  ShoppingCartAPI.allo
 PUT         {client}/api/cart/post/info                     ShoppingCartAPI.setPostDepartmentInfo
 OPTIONS     {client}/api/cart/post/info                     ShoppingCartAPI.allowCors
 
+# ******************** QrAPI
+PUT         {client}/api/qr/save/{qr}                       QrAPI.save
+GET         {client}/api/qr/list                            Qr.getQRList
+
+# ******************** UserDashBoardAPI
 GET         {client}/api/dashboard/shops                    UserDashBoardAPI.getShopList
 OPTIONS     {client}/api/dashboard/shops                    UserDashBoardAPI.allowCors
 POST        {client}/api/dashboard/shop/create              UserDashBoardAPI.createShop
@@ -92,6 +98,12 @@ DELETE      {client}/api/pricing-plan/delete                 PricingPlanAPI.dele
 POST        {client}/api/pricing-plan/set-plan-to-shop       PricingPlanAPI.setPricingPlanToThisShop
 GET         {client}/api/pricing-plan/get-shop               PricingPlanAPI.getShopByUuid
 
+GET          {client}/payment/detail                         PaymentSettingsAPI.details
+PUT          {client}/payment/minimal                        PaymentSettingsAPI.setMinimalPayment
+PUT          {client}/payment/update/cash/setting            PaymentSettingsAPI.updateCashPayment
+PUT          {client}/payment/update/online/setting          PaymentSettingsAPI.updateOnlinePayment
+
+
 POST        {client}/api/feedback/save                       OrderFeedbackAPI.createFeedback
 GET         {client}/api/feedback/get/list/{uuid}            OrderFeedbackAPI.getFeedbackListForProduct
 GET         {client}/api/feedback/full/list                  OrderFeedbackAPI.getFeedbackListForShop
@@ -109,14 +121,8 @@ GET     {client}/sudo/orders                            OrderAPI.all
 GET     {client}/sudo/order/{uuid}                      OrderAPI.one
 DELETE  {client}/sudo/order/{uuid}                      OrderAPI.sudoDelete
 
-GET     {client}/payment/detail                         PaymentSettingsAPI.details
-PUT     {client}/payment/minimal                        PaymentSettingsAPI.setMinimalPayment
-PUT     {client}/payment/update/cash/setting            PaymentSettingsAPI.updateCashPayment
-PUT     {client}/payment/update/online/setting          PaymentSettingsAPI.updateOnlinePayment
-
 GET     {client}/additional-setting/detail              AdditionalSettingAPI.details
 PUT     {client}/additional-setting/update              AdditionalSettingAPI.create
-
 
 GET     {client}/visualsettings                         VisualSettingsAPI.details
 PUT     {client}/visualsettings                         VisualSettingsAPI.update
