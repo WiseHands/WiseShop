@@ -13,16 +13,16 @@
         <tr>
             <td align="center">
                 <table cellpadding="0" cellspacing="0" border="0" width="600"  style="max-width: 600px; background: #">
-                    <tr>
+<!--                    <tr>
                         <img src="../../wisehands/services/images/americano-logo.jpg" alt="store-logo" border="0" width="150px" height="81.61px">
-                    </tr>
+                    </tr>-->
                     <tr>
-                        <td colspan="2" align="center" style="width: 100%; font-size: 30px">Нове замовлення!</td>
+                        <td colspan="2" align="center" style="width: 100%; font-size: 30px">{{labelNewOrder}}</td>
                    </tr>
                    <tr>
                        <td align="right" style="width: 50%; padding-right: 5px">
                            <a style="text-decoration: none" href="#/details/{{order.uuid}}">
-                               <p style="color: #3498db; font-size: 18px;">Переглянути</p>
+                               <p style="color: #3498db; font-size: 18px;">{{labelDetails}}</p>
                            </a>
                        </td>
                        <td style="width: 50%; padding-left: 5px">
@@ -41,8 +41,8 @@
                         <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">Деталі замовлення</th>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 15px">Номер телефону:</td>
-                        <td style="padding: 10px 15px; text-align: right">+380953254165</td>
+                        <td style="padding: 10px 15px">{{labelPhone}}:</td>
+                        <td style="padding: 10px 15px; text-align: right">{{phone}}</td>
                     </tr>
                     <tr>
                         <td style="padding: 10px 15px">Дата:</td>
@@ -57,12 +57,16 @@
                         <td style="padding: 10px 15px; text-align: right">доставити до 18 год</td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 15px">Сума:</td>
-                        <td style="padding: 10px 15px; text-align: right">865 грн</td>
+                        <td style="padding: 10px 15px">{{labelTotal}}:</td>
+                        <td style="padding: 10px 15px; text-align: right">{{total}}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 15px">Ім'я:</td>
-                        <td style="padding: 10px 15px; text-align: right">Ольга</td>
+                        <td style="padding: 10px 15px">{{labelName}}:</td>
+                        <td style="padding: 10px 15px; text-align: right">{{name}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 15px">{{labelComment}}:</td>
+                        <td style="padding: 10px 15px; text-align: right">{{comment}}</td>
                     </tr>
                 </table>
                 <table cellpadding="0" cellspacing="0" border="0" width="600"  style="max-width: 600px; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
@@ -70,12 +74,12 @@
                         <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">Доставка</th>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 15px">Тип:</td>
-                        <td style="padding: 10px 15px; text-align: right">Кур'єр</td>
+                        <td style="padding: 10px 15px">{{labelDelivery}}:</td>
+                        <td style="padding: 10px 15px; text-align: right">{{deliveryType}}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 15px">Адреса:</td>
-                        <td style="padding: 10px 15px; text-align: right">Наукова, 5</td>
+                        <td style="padding: 10px 15px">{{labelAddress}}:</td>
+                        <td style="padding: 10px 15px; text-align: right">{{address}}</td>
                     </tr>
                     <tr>
                         <td style="padding: 10px 15px">Під'їзд:</td>
