@@ -2269,8 +2269,19 @@ ul.admin-breadcrumb li a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 150px;
-    width: 150px;
+}
+.qr-code-card a {
+    color: #000;
+}
+.qr-code-card .flex-column {
+    margin-left: 0 !important;
+    align-items: center;
+}
+.qr-code-card .admin-card {
+    padding-top: 0;
+}
+.qr-code-card .admin-card .flex-column p {
+    padding: 5px;
 }
 .qr-container {
     align-items: center;
@@ -2279,10 +2290,8 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
 }
 .qr-list-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+   display: flex;
+   flex-wrap: wrap;
 }
 
 @media screen and (min-width: 1500px) {
