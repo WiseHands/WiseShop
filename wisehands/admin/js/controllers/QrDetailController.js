@@ -24,7 +24,7 @@ angular.module('WiseHands')
         });
 
         showQR = (qrCode) =>{
-           let url = _generateUrlForQr(qrCode.name);
+           let url = _generateUrlForQr(qrCode.uuid);
            new QRious({
              element: document.getElementById('qr-code'),
              size: 200,
@@ -42,14 +42,14 @@ angular.module('WiseHands')
              });
         }
 
-        _generateUrlForQr = (name) => {
+        _generateUrlForQr = (uuid) => {
             let domain;
             if ($scope.shop.domain === 'localhost'){
                 domain = $scope.shop.domain + ':3334'
             } else {
                 domain = $scope.shop.domain;
             }
-           return 'https://' + domain + '/menu?qrName='+ name;
+           return 'https://' + domain + '/menu?uuid='+ uuid;
         }
 
         $scope.saveQRCode = () => {

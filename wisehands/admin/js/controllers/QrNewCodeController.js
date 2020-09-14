@@ -39,6 +39,7 @@ angular.module('WiseHands')
                 value: url
             });
         }
+
         _generateUrlForQr = (uuid) => {
             let domain;
             if ($scope.shop.domain === 'localhost'){
