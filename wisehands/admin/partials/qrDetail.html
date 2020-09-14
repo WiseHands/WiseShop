@@ -27,16 +27,11 @@
 </nav>
 <div class="flex-column-container qr-container">
     <div class="admin-card qr-create-new-container">
-        <div class="input-field m-left">
-            <p>{{'pageQR.qrName' | translate}}</p>
-            <input id="qr_name" type="text" ng-model="qr.name" required >
+        <div class="input-field m-left qr-text-detail">
+            <p>{{'pageQR.qrName' | translate}}:</p>
+            <p>{{qr.name}}</p>
         </div>
-        <img id="qr-code">
-        <div>
-            <button class="save-button" ng-click="createQrCode()">
-                {{'pageQR.create' | translate}}
-            </button>
-        </div>
+        <img class="qr-img" id="qr-code">
     </div>
 
 </div>

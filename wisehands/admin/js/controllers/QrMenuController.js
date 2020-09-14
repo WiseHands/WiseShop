@@ -1,18 +1,6 @@
 angular.module('WiseHands')
-    .controller('QrMenuController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared',
-        function ($scope, $http, signout, sideNavInit, shared) {
-
-        $http({
-            method: 'GET',
-            url: '/shop/details',
-        })
-           .then((response) =>{
-              $scope.shop = response.data;
-               console.log("$scope.shop", response);
-           }, (error) => {
-               console.log(error);
-               $scope.loading = false;
-        });
+    .controller('QrMenuController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$window',
+        function ($scope, $http, signout, sideNavInit, shared, $window) {
 
         $http({
             method: 'GET',
@@ -28,11 +16,11 @@ angular.module('WiseHands')
         });
 
          _generateUrlForQr = (uuid) => {
-            let domain;
-            if ($scope.shop.domain === 'localhost'){
-                domain = $scope.shop.domain + ':3334'
+            let domain, hostname = $window.location.hostname;
+            if (hostname === 'localhost'){
+                domain = hostname + ':3334'
             } else {
-                domain = $scope.shop.domain;
+                domain = hostname;
             }
            return 'https://' + domain + '/menu?uuid=' + uuid;
          }

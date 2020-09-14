@@ -2306,6 +2306,15 @@ ul.admin-breadcrumb li a:hover {
 .qr-create-new-container img {
     padding: 10px;
 }
+.qr-text-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px !important;
+}
+.qr-img {
+   padding: 0 !important;
+}
 .qr-button {
     padding: 0.5rem
 }
