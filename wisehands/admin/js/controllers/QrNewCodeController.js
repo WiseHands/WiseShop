@@ -17,50 +17,36 @@ angular.module('WiseHands')
                $scope.loading = false;
         });
 
-        createDefaultQRForShop = (shop) => {
-            console.log('shop name => ', shop.shopName)
-            let qr = new QRious({
-                 element: document.getElementById('qr-code'),
-                 size: 200,
-                 value: 'https://' + shop.domain + '/shop'
+        $scope.createQrCode = () => {
+            let qr = JSON.stringify({name: qr_name.value})
+            $http({
+                method: "PUT",
+                url: `/api/qr/create`,
+                data: qr
+            }).then(response => {
+                showQR(response.data.uuid);
+                console.log(response);
+            }, error => {
+                console.log(error);
             });
         }
 
-        $scope.createQrCode = () => {
-             let url = _generateUrlForQr(qr_name.value);
-             $scope.qr = new QRious({
-                 element: document.getElementById('qr-code'),
-                 size: 200,
-                 value: url
-             });
-
-             console.log('url => ', url);
-             console.log('qr = ', $scope.qr.toDataURL());
+        showQR = (uuid) => {
+            let url = _generateUrlForQr(uuid);
+            new QRious({
+                element: document.getElementById('qr-code'),
+                size: 200,
+                value: url
+            });
         }
-
-        _generateUrlForQr = (name) => {
+        _generateUrlForQr = (uuid) => {
             let domain;
             if ($scope.shop.domain === 'localhost'){
                 domain = $scope.shop.domain + ':3334'
             } else {
                 domain = $scope.shop.domain;
             }
-           return 'https://' + domain + '/menu?qrName='+ name;
-        }
-
-        $scope.saveQRCode = () => {
-            console.log("qr_name.value.toString()", qr_name.value)
-            let url = _generateUrlForQr(qr_name.value);
-            let qr = JSON.stringify({name: qr_name.value, url: url})
-            $http({
-                method: "PUT",
-                url: `/api/qr/create`,
-                data: qr
-            }).then(response => {
-                console.log(response);
-            }, error => {
-                console.log(error);
-            });
+           return 'https://' + domain + '/menu?uuid=' + uuid;
         }
 
         sideNavInit.sideNav();

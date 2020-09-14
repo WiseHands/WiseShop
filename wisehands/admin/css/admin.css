@@ -2303,6 +2303,9 @@ ul.admin-breadcrumb li a:hover {
 .qr-create-new-container {
     align-items: center;
 }
+.qr-create-new-container img {
+    padding: 10px;
+}
 .qr-button {
     padding: 0.5rem
 }
