@@ -11,6 +11,8 @@ import play.libs.Mail;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -39,6 +41,10 @@ public class MailSenderImpl implements MailSender {
             String templateString = readAllBytesJava7("app/emails/email_test_table.html");
             Template template = Template.parse(templateString);
             Map<String, Object> map = new HashMap<String, Object>();
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM,yyyy HH:mm");
+            Date resultDate = new Date(order.time);
+
             map.put("name", order.name);
             map.put("phone", order.phone);
             map.put("email", order.email);
@@ -46,7 +52,7 @@ public class MailSenderImpl implements MailSender {
             map.put("address", order.clientCity);
             map.put("total", order.total);
             map.put("uuid", order.uuid);
-            map.put("time", order.time.toString());
+            map.put("time", simpleDateFormat.format(resultDate));
             map.put("comment", order.comment);
             map.put("orderItems", order.items);
 
@@ -74,7 +80,7 @@ public class MailSenderImpl implements MailSender {
             map.put("labelComment", labelComment);
             String labelOrderDetails = Messages.get("mail.label.orderDetails");
             map.put("labelOrderDetails", labelOrderDetails);
-            String labelOrderDate = Messages.get("mail.label.orderDate");
+            String labelOrderDate = Messages.get("mail.label.labelOrderDate");
             map.put("labelOrderDate", labelOrderDate);
             String labelOrderDelivery = Messages.get("mail.label.labelOrderDelivery");
             map.put("labelOrderDelivery", labelOrderDelivery);
