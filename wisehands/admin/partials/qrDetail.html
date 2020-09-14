@@ -19,7 +19,7 @@
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
                     <a class="col-xs-12 text-left" ng-click="saveQRCode()" ><p> {{'qrDetails.save' | translate}}</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteQR"><p> {{'qrDetails.delete' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeQR"><p> {{'qrDetails.delete' | translate}}</p></a>
                 </div>
             </a>
         </div>
@@ -39,4 +39,24 @@
         </div>
     </div>
 
+</div>
+<div class="modal fade" id="removeQR" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center">
+                    <p ng-show="deleteButton"><i>{{'qrDetails.deleteMessage' | translate}}</i></p>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <div class="col-xs-offset-2 col-xs-8">
+                    <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="removeQr()" ng-show="deleteButton">{{'singleOrder.Delete' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

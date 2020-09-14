@@ -2276,8 +2276,8 @@ ul.admin-breadcrumb li a:hover {
     font-size: 20px;
     padding: 0 25px 0 20px;
 }
-.qr-title-text p {
-    font-size: 18px;
+.qr-title-text p{
+    font-size: 1.5em;
 }
 .qr-code-card {
     display: flex;
@@ -2303,7 +2303,11 @@ ul.admin-breadcrumb li a:hover {
 .qr-create-new-container {
     align-items: center;
 }
+.qr-button {
+    padding: 0.5rem
+}
 .qr-list-container {
+    align-self: start;
    display: flex;
    flex-wrap: wrap;
 }

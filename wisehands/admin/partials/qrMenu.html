@@ -30,8 +30,8 @@
     <div ng-show="!qrList">
         <p>No QR-code</p>
     </div>
-    <div class="qr-list-container">
-        <div class="qr-code-card" ng-show="qrList" ng-repeat="qr in qrList" on-finish-render="ngRepeatFinished">
+    <div class="qr-list-container" ng-show="qrList">
+        <div class="qr-code-card" ng-repeat="qr in qrList | filter: qr.isQrDeleted === 0" on-finish-render="ngRepeatFinished">
             <a href="#/qrdetail/{{qr.uuid}}" >
                 <div class="admin-card product-feedback-container">
                     <div class="flex-column">

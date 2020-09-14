@@ -149,7 +149,7 @@ public class ShopDTO extends GenericModel {
     @OneToMany(orphanRemoval=true)
     public List<ProductDTO> productList;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(orphanRemoval=true)
     public List<QrDTO> qrList;
 
     @OneToMany(orphanRemoval=true)

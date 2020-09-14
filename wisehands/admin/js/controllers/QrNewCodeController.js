@@ -12,7 +12,6 @@ angular.module('WiseHands')
            .then((response) =>{
               $scope.shop = response.data;
                console.log("$scope.shop", response);
-               createDefaultQRForShop(response.data);
            }, (error) => {
                console.log(error);
                $scope.loading = false;

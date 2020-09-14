@@ -25,11 +25,9 @@
             <label for="qr_name">{{'pageQR.qrName' | translate}}</label>
         </div>
         <img id="qr-code">
-        <div>
-            <button class="save-button" ng-click="createQrCode()">
-                {{'pageQR.create' | translate}}
-            </button>
-        </div>
+        <button class="save-button qr-button" ng-click="createQrCode()">
+            {{'pageQR.create' | translate}}
+        </button>
     </div>
 
 </div>

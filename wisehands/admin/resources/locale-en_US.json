@@ -7,6 +7,7 @@
   "qrDetails.title": "QR Detail",
   "qrDetails.save": "Save",
   "qrDetails.delete": "Delete",
+  "qrDetails.deleteMessage": "Delete this QR",
 
   "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
   "feedbackList.showFeedbackMessage": "Show feedback on website",

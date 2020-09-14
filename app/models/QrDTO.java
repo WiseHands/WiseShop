@@ -4,10 +4,7 @@ import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class QrDTO extends GenericModel {
@@ -21,8 +18,12 @@ public class QrDTO extends GenericModel {
     @Expose
     public String name;
 
+    @Expose
+    public boolean isQrDeleted;
+
     public QrDTO(String name) {
         this.name = name;
+        this.isQrDeleted = false;
     }
 
     @ManyToOne

@@ -1,6 +1,6 @@
 angular.module('WiseHands')
-    .controller('QrDetailController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$routeParams',
-        function ($scope, $http, signout, sideNavInit, shared, $routeParams) {
+    .controller('QrDetailController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$routeParams', '$location',
+        function ($scope, $http, signout, sideNavInit, shared, $routeParams, $location) {
 
         $http({
             method: 'GET',
@@ -53,7 +53,6 @@ angular.module('WiseHands')
         }
 
         $scope.saveQRCode = () => {
-            console.log("qr_name.value.toString()", $scope.qr);
             let qr = JSON.stringify($scope.qr);
             $http({
                 method: "PUT",
@@ -61,6 +60,22 @@ angular.module('WiseHands')
                 data: qr
             }).then(response => {
                 console.log(response);
+            }, error => {
+                console.log(error);
+            });
+        }
+
+        $scope.deleteButton = true;
+
+        $scope.removeQr = () => {
+        console.log('removeQr');
+            $http({
+                method: "DELETE",
+                url: `/api/qr/delete/${$scope.qr.uuid}`,
+            }).then(response => {
+                if(response.status === 200){
+                     $location.path('/qrcontroller');
+                }
             }, error => {
                 console.log(error);
             });

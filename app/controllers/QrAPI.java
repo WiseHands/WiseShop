@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import models.OrderDTO;
 import models.ProductDTO;
 import models.QrDTO;
 import models.ShopDTO;
@@ -42,11 +43,8 @@ public class QrAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         List<QrDTO> qrList = shop.qrList;
-
         System.out.println("qrList => " + qrList);
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(qrList);
-        renderJSON(json);
+        renderJSON(json(qrList));
     }
 
     public static void info(String client) {
@@ -63,5 +61,12 @@ public class QrAPI extends AuthController {
         qr.name = name;
         qr.save();
         renderJSON(json(qr));
+    }
+
+    public static void delete(String client) {
+        System.out.println("delete");
+        QrDTO qr = QrDTO.findById(request.params.get("uuid"));
+        qr.isQrDeleted = true;
+        ok();
     }
 }
