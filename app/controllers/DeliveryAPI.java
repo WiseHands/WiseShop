@@ -84,9 +84,9 @@ public class DeliveryAPI extends AuthController {
     private static void setSelfTakeDefaultLabel(DeliveryDTO delivery) {
         if (delivery.selfTakeTranslationBucket == null){
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовиніс");
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовивіз");
             translationItemUk.save();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Self Pick Up");
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Self Pickup");
             translationItemEn.save();
             translationBucket.addTranslationItem(translationItemUk);
             translationBucket.addTranslationItem(translationItemEn);

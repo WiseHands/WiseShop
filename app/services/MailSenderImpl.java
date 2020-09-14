@@ -36,14 +36,19 @@ public class MailSenderImpl implements MailSender {
             email.addTo(shop.contact.email);
             email.setSubject(status);
 
-            String templateString = readAllBytesJava7("app/emails/email_form.html");
+            String templateString = readAllBytesJava7("app/emails/email_test_table.html");
             Template template = Template.parse(templateString);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("name", order.name);
             map.put("phone", order.phone);
+            map.put("email", order.email);
             map.put("deliveryType", order.deliveryType);
             map.put("address", order.clientCity);
             map.put("total", order.total);
+            map.put("uuid", order.uuid);
+            map.put("time", order.time.toString());
+            map.put("comment", order.comment);
+            map.put("orderItems", order.items);
 
             Lang.change(shop.locale);
 
@@ -51,6 +56,8 @@ public class MailSenderImpl implements MailSender {
             map.put("labelName", labelName);
             String labelPhone = Messages.get("mail.label.phone");
             map.put("labelPhone", labelPhone);
+            String labelEmail = Messages.get("mail.label.email");
+            map.put("labelEmail", labelEmail);
             String labelDelivery = Messages.get("mail.label.delivery");
             map.put("labelDelivery", labelDelivery);
             String labelAddress = Messages.get("mail.label.address");
@@ -65,8 +72,19 @@ public class MailSenderImpl implements MailSender {
             map.put("orderLink", orderLink);
             String labelComment = Messages.get("mail.label.comment");
             map.put("labelComment", labelComment);
-            map.put("comment", order.comment);
+            String labelOrderDetails = Messages.get("mail.label.orderDetails");
+            map.put("labelOrderDetails", labelOrderDetails);
+            String labelOrderDate = Messages.get("mail.label.orderDate");
+            map.put("labelOrderDate", labelOrderDate);
+            String labelOrderDelivery = Messages.get("mail.label.labelOrderDelivery");
+            map.put("labelOrderDelivery", labelOrderDelivery);
 
+            String selfPickupDeliveryType = Messages.get("mail.label.selfPickupDeliveryType");
+            map.put("selfPickupDeliveryType", selfPickupDeliveryType);
+            String courierDeliveryType = Messages.get("mail.label.courierDeliveryType");
+            map.put("courierDeliveryType", courierDeliveryType);
+            String postServiceDeliveryType = Messages.get("mail.label.postServiceDeliveryType");
+            map.put("postServiceDeliveryType", postServiceDeliveryType);
 
         String rendered = template.render(map);
 
