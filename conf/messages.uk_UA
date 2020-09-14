@@ -178,6 +178,7 @@ mail.label.labelOrderDelivery = Доставка
 mail.label.selfPickupDeliveryType = Самовивіз
 mail.label.courierDeliveryType = Кур\'єр
 mail.label.postServiceDeliveryType = Поштова служба
+mail.label.labelOrderEntrance = Під\'їзд
 
 create.shop.courier.delivery.text = Викликати кур’єра по Львову – %s грн або безкоштовно (якщо розмір замовлення перевищує %s грн.)
 create.shop.selfpickup.delivery.text = Самовивіз

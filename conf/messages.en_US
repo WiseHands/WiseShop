@@ -178,9 +178,10 @@ mail.label.comment = Comment
 mail.label.orderDetails = Order details
 mail.label.labelOrderDate = Date
 mail.label.labelOrderDelivery = Delivery
-mail.label.selfPickupDeliveryType = Odbiór osobisty
-mail.label.courierDeliveryType = Kurier
-mail.label.postServiceDeliveryType = Usługa pocztowa
+mail.label.selfPickupDeliveryType = Self pickup
+mail.label.courierDeliveryType = Courier
+mail.label.postServiceDeliveryType = Post service
+mail.label.labelOrderEntrance = Entrance
 
 create.shop.courier.delivery.text = Call a courier - %s or free of charge (if the order size exceeds %s USD).
 create.shop.selfpickup.delivery.text = Self pickup
