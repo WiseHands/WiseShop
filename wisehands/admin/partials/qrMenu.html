@@ -21,17 +21,18 @@
 
 <!-- add card with shop info ng-repeat="qrCode in qrCodeList" -->
 <div class="admin-container admin-column qr-code-block">
-    <div class="flex-row">
-        <h5>
-            {{'pageQR.titleInfo' | translate}}
-        </h5>
+    <div class="qr-title-container">
+        <img src="\wisehands\assets\images\qr_code.svg">
+        <div class="qr-title-text">
+            <p> {{'pageQR.titleInfo' | translate}} </p>
+        </div>
     </div>
     <div ng-show="!qrList">
         <p>No QR-code</p>
     </div>
     <div class="qr-list-container">
         <div class="qr-code-card" ng-show="qrList" ng-repeat="qr in qrList" on-finish-render="ngRepeatFinished">
-            <a href="#/qrdetail/1" >
+            <a href="#/qrdetail/{{qr.uuid}}" >
                 <div class="admin-card product-feedback-container">
                     <div class="flex-column">
                         <p>{{qr.name}}</p>

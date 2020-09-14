@@ -24,7 +24,7 @@ public class QrAPI extends AuthController {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(params.get("body"));
         String name = (String) jsonObject.get("name");
-        System.out.println("name " + jsonObject);
+
         QrDTO qr = new QrDTO(name);
         qr.save();
         List<QrDTO> qrList;
@@ -47,5 +47,21 @@ public class QrAPI extends AuthController {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(qrList);
         renderJSON(json);
+    }
+
+    public static void info(String client) {
+        renderJSON(json(QrDTO.findById(request.params.get("uuid"))));
+    }
+
+    public static void save(String client) throws ParseException{
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(params.get("body"));
+        String uuid = (String) jsonObject.get("uuid");
+        String name = (String) jsonObject.get("name");
+        System.out.println(uuid + "\n" + name);
+        QrDTO qr = QrDTO.findById(uuid);
+        qr.name = name;
+        qr.save();
+        renderJSON(json(qr));
     }
 }

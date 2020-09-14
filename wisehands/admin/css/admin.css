@@ -2264,7 +2264,21 @@ ul.admin-breadcrumb li a:hover {
 .qr-code-block {
     align-items: center;
 }
-
+.qr-title-container {
+    display: flex;
+    margin: 15px;
+}
+.qr-title-container img {
+    margin-top: 10px;
+    width: 400px;
+}
+.qr-title-text {
+    font-size: 20px;
+    padding: 0 25px 0 20px;
+}
+.qr-title-text p {
+    font-size: 18px;
+}
 .qr-code-card {
     display: flex;
     justify-content: center;
@@ -2388,6 +2402,16 @@ ul.admin-breadcrumb li a:hover {
 
     #contactsForm .translation-flex-row {
         display: flex;
+    }
+
+    .qr-title-container {
+        flex-direction: column;
+    }
+    .qr-title-text {
+        padding: 10px;
+    }
+    .qr-title-text p {
+        margin-bottom: 0;
     }
 
 }

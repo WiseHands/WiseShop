@@ -4,6 +4,9 @@
   "pageQR.qrInfo": "QR код",
   "pageQR.qrName": "QR ім'я",
   "pageQR.create": "Створити QR",
+  "qrDetails.title": "Деталі QR",
+  "qrDetails.save": "Зберегти",
+  "qrDetails.delete": "Видалити",
 
   "feedbackList.deleteMessage": "Видалити даний відгук",
   "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті",

@@ -67,6 +67,8 @@ OPTIONS     {client}/api/cart/post/info                     ShoppingCartAPI.allo
 
 # ******************** QrAPI
 PUT         {client}/api/qr/create                          QrAPI.create
+PUT         {client}/api/qr/save                            QrAPI.save
+GET         {client}/api/qr/info/{uuid}                     QrAPI.info
 GET         {client}/api/qr/list                            QrAPI.list
 
 # ******************** UserDashBoardAPI

@@ -4,6 +4,9 @@
   "pageQR.qrInfo": "QR Code",
   "pageQR.qrName": "QR name",
   "pageQR.create": "Create QR",
+  "qrDetails.title": "QR Detail",
+  "qrDetails.save": "Save",
+  "qrDetails.delete": "Delete",
 
   "feedbackList.deleteMessage": "Czy na pewno chcesz usunąć tę opinię?",
   "feedbackList.showFeedbackMessage": "Wyświetlane są wszystkie opinie",
