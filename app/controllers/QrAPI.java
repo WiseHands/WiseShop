@@ -37,6 +37,18 @@ public class QrAPI extends AuthController {
         renderJSON(json(qr));
     }
 
+    public static void edit(String client) throws ParseException {
+
+        JSONParser parser = new JSONParser();
+        JSONObject parseObject = (JSONObject) parser.parse(params.get("body"));
+        String name = (String) parseObject.get("name");
+
+        QrDTO qr = QrDTO.findById(parseObject.get("uuid"));
+        qr.name = name;
+        qr.save();
+        renderJSON(json(qr));
+    }
+
     public static void list(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

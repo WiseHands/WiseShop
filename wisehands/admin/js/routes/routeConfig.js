@@ -291,6 +291,12 @@
                         activetab: 'qre'
 
                     }).
+                    when('/qredit/:uuid',{
+                        templateUrl:'wisehands/admin/partials/qrEditCode.html',
+                        controller:'QrEditCodeController',
+                        activetab: 'qre'
+
+                    }).
                     otherwise({
                         redirectTo:'/'
                     });

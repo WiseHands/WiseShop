@@ -67,6 +67,7 @@ OPTIONS     {client}/api/cart/post/info                     ShoppingCartAPI.allo
 
 # ******************** QrAPI
 PUT         {client}/api/qr/create                          QrAPI.create
+PUT         {client}/api/qr/edit/{uuid}                     QrAPI.edit
 PUT         {client}/api/qr/save                            QrAPI.save
 DELETE      {client}/api/qr/delete/{uuid}                   QrAPI.delete
 GET         {client}/api/qr/info/{uuid}                     QrAPI.info

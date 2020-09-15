@@ -1,0 +1,29 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'qrEdit.title' | translate}}
+                </h5>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="flex-column-container qr-container">
+    <div class="admin-card qr-create-new-container">
+        <div class="input-field m-left">
+            <p>{{'pageQR.qrName' | translate}}</p>
+            <input ng-model="qr.name" type="text" required >
+        </div>
+        <img id="qr-code">
+        <button class="save-button qr-button" ng-click="editQrCode()">
+            {{'qrEdit.title' | translate}}
+        </button>
+    </div>
+
+</div>
+

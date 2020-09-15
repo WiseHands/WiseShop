@@ -9,6 +9,7 @@ angular.module('WiseHands')
            .then((response) =>{
                if (response.data){
                   $scope.qrList = response.data;
+                  console.log($scope.qrList);
                }
            }, (error) => {
                console.log(error);
@@ -28,7 +29,7 @@ angular.module('WiseHands')
         setQrCode = (qrList) => {
             qrList.forEach((item) => {
                 let url = _generateUrlForQr(item.uuid);
-                let qr = new QRious({
+                new QRious({
                     element: document.getElementById(item.uuid),
                     size: 150,
                     value: url
@@ -36,8 +37,7 @@ angular.module('WiseHands')
             });
         }
 
-
-        $scope.$on('ngRepeatFinished', () => { setQrCode($scope.qrList); });
+        $scope.$on('ngRepeatFinished', () => setQrCode($scope.qrList));
 
         sideNavInit.sideNav();
     }]);

@@ -26,6 +26,6 @@ public class QrDTO extends GenericModel {
         this.isQrDeleted = false;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     public ShopDTO shop;
 }

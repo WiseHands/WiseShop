@@ -7,6 +7,7 @@
   "qrDetails.title": "Деталі QR",
   "qrDetails.save": "Зберегти",
   "qrDetails.delete": "Видалити",
+  "qrEdit.title": "Редагувати QR",
 
   "feedbackList.deleteMessage": "Видалити даний відгук",
   "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті",

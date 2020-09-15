@@ -15,6 +15,10 @@ angular.module('WiseHands')
             console.log(error);
         });
 
+        $scope.redirectToEdit = () => {
+            $window.location.href = `#/qredit/${$routeParams.uuid}`;
+        }
+
         showQR = (qrCode) =>{
            let url = _generateUrlForQr(qrCode.uuid);
            new QRious({
