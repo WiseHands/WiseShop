@@ -7,7 +7,6 @@ import play.Play;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.libs.Mail;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,19 +41,25 @@ public class MailSenderImpl implements MailSender {
         Template template = Template.parse(templateString);
         Map<String, Object> map = new HashMap<String, Object>();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM,yyyy HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date resultDate = new Date(order.time);
 
         map.put("name", order.name);
         map.put("phone", order.phone);
         map.put("email", order.email);
         map.put("deliveryType", order.deliveryType);
+        map.put("paymentType", order.paymentType);
         map.put("address", order.clientCity);
+        map.put("clientPostDepartmentNumber", order.clientPostDepartmentNumber);
         map.put("total", order.total);
         map.put("uuid", order.uuid);
         map.put("time", simpleDateFormat.format(resultDate));
         map.put("comment", order.comment);
         map.put("orderItems", order.items);
+        map.put("clientAddressApartmentEntrance", order.clientAddressApartmentEntrance);
+        map.put("clientAddressApartmentEntranceCode", order.clientAddressApartmentEntranceCode);
+        map.put("clientAddressApartmentFloor", order.clientAddressApartmentFloor);
+        map.put("clientAddressApartmentNumber", order.clientAddressApartmentNumber);
 
         Lang.change(shop.locale);
 
@@ -86,6 +91,26 @@ public class MailSenderImpl implements MailSender {
         map.put("labelOrderDelivery", labelOrderDelivery);
         String labelOrderEntrance = Messages.get("mail.label.labelOrderEntrance");
         map.put("labelOrderEntrance", labelOrderEntrance);
+        String labelOrderEntranceCode = Messages.get("mail.label.labelOrderEntranceCode");
+        map.put("labelOrderEntranceCode", labelOrderEntranceCode);
+        String labelOrderApartmentFloor = Messages.get("mail.label.labelOrderApartmentFloor");
+        map.put("labelOrderApartmentFloor", labelOrderApartmentFloor);
+        String labelOrderApartmentNumber = Messages.get("mail.label.labelOrderApartmentNumber");
+        map.put("labelOrderApartmentNumber", labelOrderApartmentNumber);
+        String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
+        map.put("labelOrderPayment", labelOrderPayment);
+        String labelPaymentType = Messages.get("mail.label.labelPaymentType");
+        map.put("labelPaymentType", labelPaymentType);
+        String labelProduct = Messages.get("mail.label.labelProduct");
+        map.put("labelProduct", labelProduct);
+        String labelProducts = Messages.get("mail.label.labelProducts");
+        map.put("labelProducts", labelProducts);
+        String labelQuantity = Messages.get("mail.label.labelQuantity");
+        map.put("labelQuantity", labelQuantity);
+        String labelPrice = Messages.get("mail.label.labelPrice");
+        map.put("labelPrice", labelPrice);
+        String labelClientPostDepartmentNumber = Messages.get("mail.label.labelClientPostDepartmentNumber");
+        map.put("labelClientPostDepartmentNumber", labelClientPostDepartmentNumber);
 
         String selfPickupDeliveryType = Messages.get("mail.label.selfPickupDeliveryType");
         map.put("selfPickupDeliveryType", selfPickupDeliveryType);
@@ -93,6 +118,11 @@ public class MailSenderImpl implements MailSender {
         map.put("courierDeliveryType", courierDeliveryType);
         String postServiceDeliveryType = Messages.get("mail.label.postServiceDeliveryType");
         map.put("postServiceDeliveryType", postServiceDeliveryType);
+
+        String cashOnDeliveryPaymentType = Messages.get("mail.label.cashOnDeliveryPaymentType");
+        map.put("cashOnDeliveryPaymentType", cashOnDeliveryPaymentType);
+        String creditCardDeliveryPaymentType = Messages.get("mail.label.creditCardDeliveryPaymentType");
+        map.put("creditCardDeliveryPaymentType", creditCardDeliveryPaymentType);
 
         String rendered = template.render(map);
 
