@@ -2301,7 +2301,8 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
 }
 .qr-create-new-container {
-    align-items: center;
+    width: fit-content;
+    align-self: center;
 }
 .qr-create-new-container img {
     padding: 10px;
@@ -2323,6 +2324,10 @@ ul.admin-breadcrumb li a:hover {
    display: flex;
    flex-wrap: wrap;
 }
+.qr-breadcrumb {
+    margin: 1rem;
+}
+
 
 @media screen and (min-width: 1500px) {
     .admin-container {
@@ -2423,11 +2428,25 @@ ul.admin-breadcrumb li a:hover {
     .qr-title-container {
         flex-direction: column;
     }
+    .qr-title-container img {
+        align-self: center;
+        width: 270px;
+    }
     .qr-title-text {
-        padding: 10px;
+        padding: 10px 10px 0 10px;
     }
     .qr-title-text p {
         margin-bottom: 0;
+        font-size: 1.2em;
+        line-height: 1.7;
+        padding-bottom: 0;
+    }
+
+    .qr-create-new-container {
+        margin-top: 0;
+    }
+    .qr-create-new-container, .qr-button {
+        width: 100%;
     }
 
 }

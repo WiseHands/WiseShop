@@ -13,7 +13,17 @@
     </div>
 </nav>
 
-<div class="flex-column-container qr-container">
+<div class="admin-container admin-column">
+    <ul class="admin-breadcrumb qr-breadcrumb">
+        <li><a href="#/qrcontroller">QrMenu</a></li>
+        <li><a href="#/qrnewcode">Create</a></li>
+    </ul>
+    <div class="qr-title-container">
+        <img src="\wisehands\assets\images\qr_code.svg">
+        <div class="qr-title-text">
+            <p> {{'pageQR.titleInfo' | translate}} </p>
+        </div>
+    </div>
     <div class="admin-card qr-create-new-container">
         <div class="input-field m-left">
             <input id="qr_name" type="text" required >

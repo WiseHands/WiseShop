@@ -69,6 +69,7 @@ angular.module('WiseHands')
                 method: "DELETE",
                 url: `/api/qr/delete/${$scope.qr.uuid}`,
             }).then(response => {
+                $('#removeQR').modal('hide');
                 if(response.status === 200){
                      $location.path('/qrcontroller');
                 }

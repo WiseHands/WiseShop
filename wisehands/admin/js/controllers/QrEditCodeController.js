@@ -14,19 +14,6 @@ angular.module('WiseHands')
             console.log(error);
         });
 
-        $scope.editQrCode = () => {
-            $http({
-                method: "PUT",
-                url: `/api/qr/edit/${$routeParams.uuid}`,
-                data: JSON.stringify($scope.qr)
-            }).then(response => {
-                showQR(response.data.uuid);
-                console.log(response);
-            }, error => {
-                console.log(error);
-            });
-        }
-
         showQR = (uuid) => {
             let url = _generateUrlForQr(uuid);
             console.log("url => ", url);
@@ -46,6 +33,19 @@ angular.module('WiseHands')
                 domain = hostname;
             }
            return 'https://' + domain + '/menu?uuid=' + uuid;
+        }
+
+        $scope.editQrCode = () => {
+            $http({
+                method: "PUT",
+                url: `/api/qr/edit/${$routeParams.uuid}`,
+                data: JSON.stringify($scope.qr)
+            }).then(response => {
+                $window.location.href = `#/qrcontroller`;
+                console.log(response);
+            }, error => {
+                console.log(error);
+            });
         }
 
         sideNavInit.sideNav();

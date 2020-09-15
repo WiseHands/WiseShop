@@ -76,9 +76,19 @@ public class QrAPI extends AuthController {
     }
 
     public static void delete(String client) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
         System.out.println("delete");
         QrDTO qr = QrDTO.findById(request.params.get("uuid"));
-        qr.isQrDeleted = true;
+        for(QrDTO _qr: shop.qrList){
+            if(_qr.uuid.equals(qr.uuid)){
+                _qr.isQrDeleted = true;
+                _qr.save();
+            }
+        }
+        shop.save();
         ok();
     }
 }
