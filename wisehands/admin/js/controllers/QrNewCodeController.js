@@ -12,32 +12,10 @@ angular.module('WiseHands')
                 url: `/api/qr/create`,
                 data: qr
             }).then(response => {
-                showQR(response.data.uuid);
-                console.log(response);
+                $window.location.href = `#/qrdetail/${response.data.uuid}`
             }, error => {
                 console.log(error);
             });
-        }
-
-        showQR = (uuid) => {
-            let url = _generateUrlForQr(uuid);
-            console.log("url => ", url);
-            new QRious({
-                element: document.getElementById('qr-code'),
-                size: 200,
-                value: url
-            });
-            $window.location.href = `#/qrdetail/${uuid}`;
-        }
-
-        _generateUrlForQr = (uuid) => {
-            let domain, hostname = $window.location;
-            if (hostname === 'localhost'){
-                domain = hostname + ':3334'
-            } else {
-                domain = hostname;
-            }
-           return 'https://' + domain + '/menu?uuid=' + uuid;
         }
 
         sideNavInit.sideNav();

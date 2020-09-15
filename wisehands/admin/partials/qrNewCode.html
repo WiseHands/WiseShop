@@ -20,20 +20,25 @@
     </ul>
     <div class="qr-title-container">
         <img src="\wisehands\assets\images\qr_code.svg">
-        <div class="qr-title-text">
-            <p> {{'pageQR.titleInfo' | translate}} </p>
+        <div class="flex-column">
+            <div class="qr-title-text">
+                <p> {{'pageQR.titleInfo' | translate}} </p>
+            </div>
+            <div class="qr-create-new-container">
+                <div class="input-field qr-input">
+                    <input id="qr_name" type="text" required >
+                    <label for="qr_name">{{'pageQR.qrName' | translate}}</label>
+                </div>
+                <div class="qr-button">
+                    <button class="save-button" ng-click="createQrCode()">
+                        {{'pageQR.create' | translate}}
+                    </button>
+                </div>
+            </div>
         </div>
+
     </div>
-    <div class="admin-card qr-create-new-container">
-        <div class="input-field m-left">
-            <input id="qr_name" type="text" required >
-            <label for="qr_name">{{'pageQR.qrName' | translate}}</label>
-        </div>
-        <img id="qr-code">
-        <button class="save-button qr-button" ng-click="createQrCode()">
-            {{'pageQR.create' | translate}}
-        </button>
-    </div>
+
 
 </div>
 

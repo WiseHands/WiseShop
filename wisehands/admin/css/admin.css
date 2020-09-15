@@ -2301,12 +2301,12 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
 }
 .qr-create-new-container {
-    width: fit-content;
-    align-self: center;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
-.qr-create-new-container img {
-    padding: 10px;
-}
+
 .qr-text-detail {
     display: flex;
     flex-direction: row;
@@ -2316,8 +2316,15 @@ ul.admin-breadcrumb li a:hover {
 .qr-img {
    padding: 0 !important;
 }
+.qr-input {
+    width: 70%;
+}
 .qr-button {
+    width: 30%
     padding: 0.5rem
+}
+.qr-button button {
+    width: fit-content;
 }
 .qr-list-container {
     align-self: start;
@@ -2445,7 +2452,7 @@ ul.admin-breadcrumb li a:hover {
     .qr-create-new-container {
         margin-top: 0;
     }
-    .qr-create-new-container, .qr-button {
+    .qr-create-new-container {
         width: 100%;
     }
 
