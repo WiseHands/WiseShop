@@ -38,7 +38,7 @@ public class MailSenderImpl implements MailSender {
         email.addTo(shop.contact.email);
         email.setSubject(status);
 
-        String templateString = readAllBytesJava7("app/emails/email_test_table.html");
+        String templateString = readAllBytesJava7("app/emails/email_form.html");
         Template template = Template.parse(templateString);
         Map<String, Object> map = new HashMap<String, Object>();
 
