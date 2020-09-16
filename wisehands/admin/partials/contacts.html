@@ -58,7 +58,7 @@
                     <div class="translation-flex-row">
                         <p>{{'contacts.city' | translate}}:</p>
                         <div class="flex-row">
-                            <p id="city"></p>
+                            <p id="city" class="text-align-right"></p>
                             <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
                                     ng-click="redirectToTranslationForContactCity()"><i class="material-icons">mode_edit</i>
                             </button>
@@ -67,7 +67,7 @@
                     <div class="translation-flex-row">
                         <p>{{'contacts.street' | translate}}:</p>
                         <div class="flex-row">
-                            <p id="street"></p>
+                            <p id="street" class="text-align-right"></p>
                             <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
                                     ng-click="redirectToTranslationForContactStreet()"><i class="material-icons">mode_edit</i>
                             </button>
@@ -76,7 +76,7 @@
                     <div class="translation-flex-row">
                         <p>{{'contacts.numberHouse' | translate}}:</p>
                         <div class="input-field">
-                            <input id="addressNumberHouse" type="text" ng-model="contacts.addressNumberHouse" placeholder="">
+                            <input id="addressNumberHouse" class="text-align-right" type="text" ng-model="contacts.addressNumberHouse" placeholder="">
                         </div>
                     </div>
                 </div>
