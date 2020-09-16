@@ -2272,20 +2272,30 @@ ul.admin-breadcrumb li a:hover {
       word-wrap: break-word;
       hyphens: auto;
 }
-.qr-detail-container {
-    display: flex;
-}
+
 .qr-title-container {
     display: flex;
     align-items: center;
     margin: 15px;
 }
+.qr-detail-info {
+    flex-direction: column;
+    padding: 0 15px;
+}
+.qr-detail-info p{
+    font-size: 1.5em;
+    line-height: 1.8;
+}
+
 .qr-name-text {
     display: flex;
     justify-content: center;
 }
 .qr-name-text p {
     font-weight: 400;
+    padding: 0 10px;
+    margin: 0;
+    font-size: 1.8em;
 }
 .img-present-qr {
     margin-top: 10px;
@@ -2474,7 +2484,7 @@ ul.admin-breadcrumb li a:hover {
     .qr-title-container {
         flex-direction: column;
     }
-    .qr-title-container img {
+    .img-present-qr {
         align-self: center;
         width: 270px;
     }
@@ -2499,7 +2509,7 @@ ul.admin-breadcrumb li a:hover {
     .qr-button {
         width: -webkit-fill-available;
     }
-    .m-l-r {
+    .m-l-r, .qr-detail-info {
         padding: 0;
     }
 }
