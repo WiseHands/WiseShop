@@ -198,7 +198,6 @@ td, th {
     display: flex;
     flex-direction: column;
     align-items: start;
-    margin-left: 10px !important;
 }
 
 .flex-column h5 {
@@ -2265,6 +2264,7 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
 }
 .pdd-rem{
+    height: fit-content;
     padding: 0.8rem;
 }
 .break {
@@ -2277,17 +2277,25 @@ ul.admin-breadcrumb li a:hover {
 }
 .qr-title-container {
     display: flex;
+    align-items: center;
     margin: 15px;
+}
+.qr-name-text {
+    display: flex;
+    justify-content: center;
+}
+.qr-name-text p {
+    font-weight: 400;
 }
 .img-present-qr {
     margin-top: 10px;
     width: 400px;
 }
-.qr-title-text {
+.qr-create-text {
     font-size: 20px;
-    padding: 0 25px 0 20px;
+    padding: 0px;
 }
-.qr-title-text p{
+.qr-create-text p{
     font-size: 1.5em;
 }
 
@@ -2312,10 +2320,11 @@ ul.admin-breadcrumb li a:hover {
 .qr-container {
     align-items: center;
 }
+
 .qr-new-container {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
 }
 .qr-row-bet {
     width: -webkit-fill-available;
@@ -2324,10 +2333,10 @@ ul.admin-breadcrumb li a:hover {
     padding: 0 20px;
 }
 .qr-column {
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
 }
-.qr-column .qr-title-text {
+.qr-column .qr-create-text {
     padding-bottom: 20px;
 }
 .qr-text-detail {
@@ -2347,15 +2356,9 @@ ul.admin-breadcrumb li a:hover {
 }
 .qr-input {
     width: 70%;
-    padding-bottom: 8px;
 }
 .qr-input p{
     margin-bottom: 0;
-}
-.qr-button {
-    width: max-content;
-    padding: 0.5rem
-
 }
 .qr-button button {
     padding: 1rem;
@@ -2367,7 +2370,10 @@ ul.admin-breadcrumb li a:hover {
    flex-wrap: wrap;
 }
 .qr-breadcrumb {
-    margin: 1rem;
+    margin: 15px;
+}
+.m-l-r {
+    padding: 0 20px;
 }
 
 @media screen and (min-width: 1500px) {
@@ -2472,10 +2478,10 @@ ul.admin-breadcrumb li a:hover {
         align-self: center;
         width: 270px;
     }
-    .qr-title-text {
-        padding: 10px 10px 0 10px;
+    .qr-row-bet {
+        padding: 0;
     }
-    .qr-title-text p {
+    .qr-create-text p {
         margin-bottom: 0;
         font-size: 1.2em;
         line-height: 1.7;
@@ -2489,6 +2495,12 @@ ul.admin-breadcrumb li a:hover {
     }
     .qr-input, .qr-button button {
         width: 100%
+    }
+    .qr-button {
+        width: -webkit-fill-available;
+    }
+    .m-l-r {
+        padding: 0;
     }
 }
 

@@ -20,15 +20,14 @@
     </ul>
     <div class="qr-title-container">
         <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
-        <div class="flex-column">
-            <div class="qr-title-text">
+        <div class="qr-column m-l-r">
+            <div class="qr-create-text">
                 <p> {{'createQR.info' | translate}} </p>
-
             </div>
-            <div class="qr-new-container qr-row-bet">
+            <div class="qr-new-container">
                 <div class="input-field qr-input">
-                    <input id="qr_name" type="text" required >
-                    <label for="qr_name">{{'pageQR.qrName' | translate}}</label>
+                    <input id="qr_name" type="text" required>
+                    <label id="qr_label" for="qr_name">{{'pageQR.qrName' | translate}}</label>
                 </div>
                 <div class="qr-button">
                     <button class="save-button" ng-click="createQrCode()">

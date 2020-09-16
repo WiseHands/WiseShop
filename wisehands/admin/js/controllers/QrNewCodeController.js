@@ -3,10 +3,17 @@ angular.module('WiseHands')
         function ($scope, $http, signout, sideNavInit, shared, $window) {
         $scope.loading = true;
 
-        let qr_name = document.querySelector('#qr_name');
+        let qr_input_name = document.querySelector('#qr_name');
+        let qr_label_name = document.querySelector('#qr_label');
 
         $scope.createQrCode = () => {
-            let qr = JSON.stringify({name: qr_name.value})
+            console.log('createQrCode input is empty', !qr_input_name.value);
+            if(!qr_input_name.value){
+                qr_input_name.style.borderBottom = '1px solid red';
+                qr_label_name.style.color = 'red';
+                return
+            }
+            let qr = JSON.stringify({name: qr_input_name.value})
             $http({
                 method: "PUT",
                 url: `/api/qr/create`,
