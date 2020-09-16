@@ -17,19 +17,19 @@
         <li><a href="#/qrcontroller">QrMenu</a></li>
         <li><a href="#/qrdetail/{{qr.uuid}}">{{qr.name}}</a></li>
     </ul>
-    <div class="qr-title-container">
+    <div class="qr-title-container qr-edit">
         <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
-        <div class="qr-column">
-            <div class="qr-title-text">
+        <div class="qr-column  m-l-r">
+            <div class="qr-detail-info">
                 <p> {{'qrEdit.titleInfo' | translate}} </p>
             </div>
-            <div class="qr-new-container qr-row-bet">
+            <div class="qr-new-container">
                 <div class="input-field qr-input">
                     <p>{{'pageQR.qrName' | translate}}:</p>
                     <input ng-model="qr.name" type="text" required >
                 </div>
                 <div class="qr-button">
-                    <button class="save-button" ng-click="createQrCode()">
+                    <button class="save-button" ng-click="editQrCode()">
                         {{'pageQR.create' | translate}}
                     </button>
                 </div>

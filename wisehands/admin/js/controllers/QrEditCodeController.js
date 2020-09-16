@@ -19,7 +19,7 @@ angular.module('WiseHands')
             console.log("url => ", url);
             new QRious({
                 element: document.getElementById('img-qr-code'),
-                size: 200,
+                size: 175,
                 value: url
             });
         }

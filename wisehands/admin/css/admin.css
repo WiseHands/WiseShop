@@ -2376,8 +2376,8 @@ ul.admin-breadcrumb li a:hover {
 }
 .qr-list-container {
     align-self: start;
-   display: flex;
-   flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 .qr-breadcrumb {
     margin: 15px;
@@ -2385,7 +2385,9 @@ ul.admin-breadcrumb li a:hover {
 .m-l-r {
     padding: 0 20px;
 }
-
+.qr-edit {
+    justify-content: space-between;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
@@ -2501,7 +2503,6 @@ ul.admin-breadcrumb li a:hover {
     .qr-new-container {
         flex-direction: column;
         margin-top: 0;
-        width: 100%;
     }
     .qr-input, .qr-button button {
         width: 100%
