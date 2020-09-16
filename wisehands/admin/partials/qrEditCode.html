@@ -12,23 +12,33 @@
         </div>
     </div>
 </nav>
-
-<div class="flex-column-container qr-container">
+<div class="admin-container admin-column">
     <ul class="admin-breadcrumb qr-breadcrumb">
         <li><a href="#/qrcontroller">QrMenu</a></li>
-        <li><a href="#/delivery/courier">QrDetail</a></li>
-        <li>QrEdit</li>
+        <li><a href="#/qrdetail/{{qr.uuid}}">{{qr.name}}</a></li>
     </ul>
-    <div class="admin-card qr-create-new-container">
-        <div class="input-field m-left">
-            <p>{{'pageQR.qrName' | translate}}</p>
-            <input ng-model="qr.name" type="text" required >
+    <div class="qr-title-container">
+        <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
+        <div class="qr-column">
+            <div class="qr-title-text">
+                <p> {{'qrEdit.titleInfo' | translate}} </p>
+            </div>
+            <div class="qr-new-container qr-row-bet">
+                <div class="input-field qr-input">
+                    <p>{{'pageQR.qrName' | translate}}:</p>
+                    <input ng-model="qr.name" type="text" required >
+                </div>
+                <div class="qr-button">
+                    <button class="save-button" ng-click="createQrCode()">
+                        {{'pageQR.create' | translate}}
+                    </button>
+                </div>
+            </div>
         </div>
-        <img id="qr-code">
-        <button class="save-button qr-button" ng-click="editQrCode()">
-            {{'qrEdit.title' | translate}}
-        </button>
+        <div class="admin-card qr-new-container qr-column">
+            <img id="img-qr-code">
+        </div>
     </div>
-
 </div>
+
 

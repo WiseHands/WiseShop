@@ -2264,11 +2264,22 @@ ul.admin-breadcrumb li a:hover {
 .qr-code-block {
     align-items: center;
 }
+.pdd-rem{
+    padding: 0.8rem;
+}
+.break {
+    overflow-wrap: break-word;
+      word-wrap: break-word;
+      hyphens: auto;
+}
+.qr-detail-container {
+    display: flex;
+}
 .qr-title-container {
     display: flex;
     margin: 15px;
 }
-.qr-title-container img {
+.img-present-qr {
     margin-top: 10px;
     width: 400px;
 }
@@ -2279,6 +2290,7 @@ ul.admin-breadcrumb li a:hover {
 .qr-title-text p{
     font-size: 1.5em;
 }
+
 .qr-code-card {
     display: flex;
     justify-content: center;
@@ -2300,30 +2312,53 @@ ul.admin-breadcrumb li a:hover {
 .qr-container {
     align-items: center;
 }
-.qr-create-new-container {
-    width: 100%;
+.qr-new-container {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
 }
-
+.qr-row-bet {
+    width: -webkit-fill-available;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 0 20px;
+}
+.qr-column {
+    flex-direction: column;
+    align-items: stretch;
+}
+.qr-column .qr-title-text {
+    padding-bottom: 20px;
+}
 .qr-text-detail {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 10px !important;
 }
-.qr-img {
-   padding: 0 !important;
+.qr-edit-text{
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+    margin-bottom: 5px;
+}
+.img-qr-code {
+    width: auto;
+    margin: 5px;
 }
 .qr-input {
     width: 70%;
+    padding-bottom: 8px;
+}
+.qr-input p{
+    margin-bottom: 0;
 }
 .qr-button {
-    width: 30%
+    width: max-content;
     padding: 0.5rem
+
 }
 .qr-button button {
+    padding: 1rem;
     width: fit-content;
 }
 .qr-list-container {
@@ -2335,13 +2370,11 @@ ul.admin-breadcrumb li a:hover {
     margin: 1rem;
 }
 
-
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
     }
 }
-
 @media screen and (max-width: 768px) {
     .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block, .working-hours-block, .settings-block {
         flex-direction: column;
@@ -2449,13 +2482,14 @@ ul.admin-breadcrumb li a:hover {
         padding-bottom: 0;
     }
 
-    .qr-create-new-container {
+    .qr-new-container {
+        flex-direction: column;
         margin-top: 0;
-    }
-    .qr-create-new-container {
         width: 100%;
     }
-
+    .qr-input, .qr-button button {
+        width: 100%
+    }
 }
 
 @media screen and (max-width: 900px) {

@@ -8,6 +8,10 @@
   "qrDetails.save": "Зберегти",
   "qrDetails.delete": "Видалити",
   "qrEdit.title": "Редагувати QR",
+  "qrDetails.edit": "Редагувати",
+  "qrDetails.deleteMessage": "Видалити цей QR-код?",
+  "qrEdit.titleInfo": "For edit QR change name",
+  "createQR.info": "Щоб створити QR код - введіть ім'я. Для прикладу це може бути комбінація столу і номеру або назви кімнати (столик#1, vip-зал).",
 
   "feedbackList.deleteMessage": "Видалити даний відгук",
   "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті",
