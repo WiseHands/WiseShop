@@ -150,9 +150,6 @@ public class ShopDTO extends GenericModel {
     public List<ProductDTO> productList;
 
     @OneToMany(orphanRemoval=true)
-    public List<QrDTO> qrList;
-
-    @OneToMany(orphanRemoval=true)
     public List<CategoryDTO> categoryList;
 
     @Expose

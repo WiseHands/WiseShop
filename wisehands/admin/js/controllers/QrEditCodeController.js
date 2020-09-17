@@ -3,6 +3,9 @@ angular.module('WiseHands')
         function ($scope, $http, signout, sideNavInit, shared, $window, $routeParams) {
         $scope.loading = true;
 
+        let qr_input_name = document.querySelector('#qr_name');
+        let qr_label_name = document.querySelector('#qr_label');
+
         $http({
             method: 'GET',
             url: `/api/qr/info/${$routeParams.uuid}`
@@ -36,6 +39,12 @@ angular.module('WiseHands')
         }
 
         $scope.editQrCode = () => {
+            if(!qr_input_name.value){
+
+                qr_input_name.style.borderBottom = '1px solid red';
+                qr_label_name.style.color = 'red';
+                return
+            }
             $http({
                 method: "PUT",
                 url: `/api/qr/edit/${$routeParams.uuid}`,

@@ -27,8 +27,8 @@
             <p> {{'pageQR.titleInfo' | translate}} </p>
         </div>
     </div>
-    <div ng-show="!qrList">
-        <p>No QR-code</p>
+    <div ng-show="qrList.length === 0">
+        <p>{{'pageQR.noQR' | translate}}</p>
     </div>
     <div class="qr-list-container" ng-show="qrList">
         <div class="qr-code-card" ng-repeat="qr in qrList | filter: qr.isQrDeleted === false" on-finish-render="ngRepeatFinished">

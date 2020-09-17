@@ -1,9 +1,10 @@
 {
-  "pageQR.title": "QR сторінка",
-  "pageQR.titleInfo": "Натисніть плюс щоб створити QR код для меню",
+  "pageQR.title": "QR Меню",
+  "pageQR.titleInfo": "QR меню дозволяє вам створити унікальні QR коди на кожен стіл. Відвідувачі зможуть просканувати QR коди та створити замовлення. Нище список створених QR кодів. Натисніть плюс щоб створити QR меню",
   "pageQR.qrInfo": "QR код",
-  "pageQR.qrName": "QR ім'я",
+  "pageQR.qrName": "QR",
   "pageQR.create": "Створити QR",
+  "pageQR.noQR": "Немає QR кодів.",
   "qrDetails.title": "Деталі QR",
   "qrDetails.save": "Зберегти",
   "qrDetails.delete": "Видалити",

@@ -26,14 +26,8 @@ public class QrAPI extends AuthController {
         JSONObject jsonObject = (JSONObject) parser.parse(params.get("body"));
         String name = (String) jsonObject.get("name");
 
-        QrDTO qr = new QrDTO(name);
+        QrDTO qr = new QrDTO(name, shop.uuid);
         qr.save();
-        List<QrDTO> qrList;
-        if(shop.qrList == null){
-            qrList = new ArrayList<QrDTO>();
-        }
-        shop.qrList.add(qr);
-        shop.save();
         renderJSON(json(qr));
     }
 
@@ -54,7 +48,10 @@ public class QrAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        List<QrDTO> qrList = shop.qrList;
+        List<QrDTO> qrList;
+        String query = "select q from QrDTO q where q.isQrDeleted = 0 and q.shopUuid = ?1";
+        qrList = QrDTO.find(query, shop.uuid).fetch();
+
         System.out.println("qrList => " + qrList);
         renderJSON(json(qrList));
     }
@@ -82,13 +79,8 @@ public class QrAPI extends AuthController {
         }
         System.out.println("delete");
         QrDTO qr = QrDTO.findById(request.params.get("uuid"));
-        for(QrDTO _qr: shop.qrList){
-            if(_qr.uuid.equals(qr.uuid)){
-                _qr.isQrDeleted = true;
-                _qr.save();
-            }
-        }
-        shop.save();
+        qr.isQrDeleted = true;
+        qr.save();
         ok();
     }
 }

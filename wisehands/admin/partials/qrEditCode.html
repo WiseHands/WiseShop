@@ -25,8 +25,8 @@
             </div>
             <div class="qr-new-container">
                 <div class="input-field qr-input">
-                    <p>{{'pageQR.qrName' | translate}}:</p>
-                    <input ng-model="qr.name" type="text" required >
+                    <p id="qr_label">{{'pageQR.qrName' | translate}}:</p>
+                    <input id="qr_name" ng-model="qr.name" type="text" required >
                 </div>
                 <div class="qr-button">
                     <button class="save-button" ng-click="editQrCode()">

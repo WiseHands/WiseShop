@@ -4,6 +4,7 @@
   "pageQR.qrInfo": "Create QR",
   "pageQR.qrName": "QR name",
   "pageQR.create": "Create QR",
+  "pageQR.noQR": "No QR codes",
   "createQR.info": "To create QR code - enter a name. For example it can be combination of table number and room name (table#3, main hole).",
   "qrDetails.title": "Details",
   "qrDetails.titleInfo": "Here is your QR code. You can print it and put onto the table. Visitors can scan it and make an order. In order details you will see the name of QR code.",
