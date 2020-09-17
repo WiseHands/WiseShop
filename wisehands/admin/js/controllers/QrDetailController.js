@@ -28,16 +28,6 @@ angular.module('WiseHands')
            });
         }
 
-        $scope.createQrCode = () => {
-            console.log('$scope.qr.name', $scope.qr.name);
-             let url = _generateUrlForQr($scope.qr.name);
-             new QRious({
-                 element: document.getElementById('qr-code'),
-                 size: 175,
-                 value: url
-             });
-        }
-
         _generateUrlForQr = (uuid) => {
             let domain, hostname = $window.location.hostname;
             if (hostname === 'localhost'){
@@ -45,26 +35,12 @@ angular.module('WiseHands')
             } else {
                 domain = hostname;
             }
-           return 'https://' + domain + '/menu?uuid='+ uuid;
-        }
-
-        $scope.saveQRCode = () => {
-            let qr = JSON.stringify($scope.qr);
-            $http({
-                method: "PUT",
-                url: `/api/qr/save`,
-                data: qr
-            }).then(response => {
-                console.log(response);
-            }, error => {
-                console.log(error);
-            });
+           return 'https://' + domain + '/?qr_uuid='+ uuid;
         }
 
         $scope.deleteButton = true;
 
         $scope.removeQr = () => {
-        console.log('removeQr');
             $http({
                 method: "DELETE",
                 url: `/api/qr/delete/${$scope.qr.uuid}`,
@@ -76,6 +52,13 @@ angular.module('WiseHands')
             }, error => {
                 console.log(error);
             });
+        }
+
+        $scope.downloadQrCode = () => {
+            let a = document.createElement("a"); //Create <a>
+            a.href = document.querySelector('#qr-code').src; //Image Base64 Goes here
+            a.download = `${$scope.qr.name}.png`; //File name Here
+            a.click();
         }
 
         sideNavInit.sideNav();

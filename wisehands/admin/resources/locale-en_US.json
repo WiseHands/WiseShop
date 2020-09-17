@@ -12,6 +12,8 @@
   "qrDetails.edit": "Edit",
   "qrDetails.delete": "Delete",
   "qrDetails.deleteMessage": "Are you sure to delete qr code?",
+  "qrDetails.download": "Download",
+
   "qrEdit.titleInfo": "To change QR code name, enter new name bellow",
   "qrEdit.title": "Edit QR",
   "qrBreadCrumb.menu": "QR Menu",

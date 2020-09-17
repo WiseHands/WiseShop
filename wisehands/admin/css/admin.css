@@ -2276,7 +2276,7 @@ ul.admin-breadcrumb li a:hover {
 .qr-title-container {
     display: flex;
     align-items: center;
-    margin: 15px;
+    margin: 15px 15px 0 15px;
 }
 .qr-detail-info {
     flex-direction: column;
@@ -2305,10 +2305,6 @@ ul.admin-breadcrumb li a:hover {
     font-size: 20px;
     padding: 0px;
 }
-.qr-create-text p{
-    font-size: 1.5em;
-}
-
 .qr-code-card {
     display: flex;
     justify-content: center;
@@ -2389,6 +2385,19 @@ ul.admin-breadcrumb li a:hover {
 }
 .qr-edit {
     justify-content: space-between;
+}
+.qr-download-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.qr-download-text {
+    font-size: 1.2rem;
+}
+.qr-download-text:hover {
+    cursor: pointer;
+    color: #23527c;
 }
 @media screen and (min-width: 1500px) {
     .admin-container {
