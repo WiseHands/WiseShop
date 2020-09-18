@@ -172,13 +172,14 @@
                             <tr>
                                 <td colspan="2" align="center" style="width: 100%; font-size: 30px">{{labelOrder}} {{labelNumber}}{{orderNumber}}</td>
                             </tr>
-                            <tr>
+                            <!-- TODO: fix login redirect -->
+<!--                            <tr>
                                 <td align="center" style="width: 100%; padding-right: 5px">
                                     <a style="text-decoration: none" href="{{orderLink}}">
                                         <p style="color: #3498db; font-size: 18px;">{{labelDetails}}</p>
                                     </a>
                                 </td>
-                            </tr>
+                            </tr>-->
                         </table>
 
                     </td>
@@ -250,6 +251,10 @@
                             <tr>
                                 <td style="padding: 10px 15px">{{labelClientAddressStreetName}}:</td>
                                 <td style="padding: 10px 15px; text-align: right">{{clientAddressStreetName}}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 15px">{{labelClientAddressBuildingNumber}}:</td>
+                                <td style="padding: 10px 15px; text-align: right">{{clientAddressBuildingNumber}}</td>
                             </tr>
                             <tr>
                                 <td style="padding: 10px 15px">{{labelOrderEntrance}}:</td>

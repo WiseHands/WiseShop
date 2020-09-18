@@ -595,6 +595,7 @@ public class OrderAPI extends AuthController {
         map.put("time", simpleDateFormat.format(resultDate));
         map.put("comment", order.comment);
         map.put("orderItems", order.items);
+        map.put("clientAddressBuildingNumber", order.clientAddressBuildingNumber);
         map.put("clientAddressApartmentEntrance", order.clientAddressApartmentEntrance);
         map.put("clientAddressApartmentEntranceCode", order.clientAddressApartmentEntranceCode);
         map.put("clientAddressApartmentFloor", order.clientAddressApartmentFloor);
@@ -658,6 +659,8 @@ public class OrderAPI extends AuthController {
         map.put("labelOrder", labelOrder);
         String labelNumber = Messages.get("mail.label.number");
         map.put("labelNumber", labelNumber);
+        String labelClientAddressBuildingNumber = Messages.get("mail.label.ClientAddressBuildingNumber");
+        map.put("labelClientAddressBuildingNumber", labelClientAddressBuildingNumber);
 
         String selfPickupDeliveryType = Messages.get("mail.label.selfPickupDeliveryType");
         map.put("selfPickupDeliveryType", selfPickupDeliveryType);

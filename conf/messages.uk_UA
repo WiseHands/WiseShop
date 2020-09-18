@@ -195,6 +195,7 @@ mail.label.labelClientPostDepartmentNumber = Номер поштового ві�
 mail.label.clientAddressCity = Місто
 mail.label.clientAddressStreetName = Вулиця
 mail.label.number = №
+mail.label.ClientAddressBuildingNumber = Номер будинку
 
 create.shop.courier.delivery.text = Викликати кур’єра по Львову – %s грн або безкоштовно (якщо розмір замовлення перевищує %s грн.)
 create.shop.selfpickup.delivery.text = Самовивіз
