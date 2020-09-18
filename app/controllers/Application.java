@@ -328,8 +328,9 @@ public class Application extends Controller {
         }
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
-        render(shop, languageForShop);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        System.out.println("LanguageForShop" + language);
+        render(shop, language);
     }
 
     public static void pageOld(String client, String uuid) {
