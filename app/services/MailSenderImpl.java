@@ -27,7 +27,7 @@ public class MailSenderImpl implements MailSender {
     static Session getMailSession;
     static MimeMessage generateMailMessage;
 
-    public void sendEmail(ShopDTO shop, OrderDTO order, String status) throws Exception {
+    public void sendEmail(ShopDTO shop, OrderDTO order, String status, String htmlContent) throws Exception {
         //System.out.println("MailSenderImpl " + isDevEnv + status + shop.contact.email);
 //        if (!isDevEnv) {
         HtmlEmail email = new HtmlEmail();
@@ -37,96 +37,7 @@ public class MailSenderImpl implements MailSender {
         email.addTo(shop.contact.email);
         email.setSubject(status);
 
-        String templateString = readAllBytesJava7("app/emails/email_form.html");
-        Template template = Template.parse(templateString);
-        Map<String, Object> map = new HashMap<String, Object>();
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-        Date resultDate = new Date(order.time);
-
-        map.put("name", order.name);
-        map.put("phone", order.phone);
-        map.put("email", order.email);
-        map.put("deliveryType", order.deliveryType);
-        map.put("paymentType", order.paymentType);
-        map.put("address", order.clientCity);
-        map.put("clientPostDepartmentNumber", order.clientPostDepartmentNumber);
-        map.put("total", order.total);
-        map.put("uuid", order.uuid);
-        map.put("time", simpleDateFormat.format(resultDate));
-        map.put("comment", order.comment);
-        map.put("orderItems", order.items);
-        map.put("clientAddressApartmentEntrance", order.clientAddressApartmentEntrance);
-        map.put("clientAddressApartmentEntranceCode", order.clientAddressApartmentEntranceCode);
-        map.put("clientAddressApartmentFloor", order.clientAddressApartmentFloor);
-        map.put("clientAddressApartmentNumber", order.clientAddressApartmentNumber);
-
-        Lang.change(shop.locale);
-
-        String labelName = Messages.get("mail.label.name");
-        map.put("labelName", labelName);
-        String labelPhone = Messages.get("mail.label.phone");
-        map.put("labelPhone", labelPhone);
-        String labelEmail = Messages.get("mail.label.email");
-        map.put("labelEmail", labelEmail);
-        String labelDelivery = Messages.get("mail.label.delivery");
-        map.put("labelDelivery", labelDelivery);
-        String labelAddress = Messages.get("mail.label.address");
-        map.put("labelAddress", labelAddress);
-        String labelTotal = Messages.get("mail.label.total");
-        map.put("labelTotal", labelTotal);
-        String labelNewOrder = Messages.get("mail.label.neworder");
-        map.put("labelNewOrder", labelNewOrder);
-        String labelDetails = Messages.get("mail.label.details");
-        map.put("labelDetails", labelDetails);
-        String orderLink = String.format("https://%s/admin#/details/%s", shop.domain, order.uuid);
-        map.put("orderLink", orderLink);
-        String labelComment = Messages.get("mail.label.comment");
-        map.put("labelComment", labelComment);
-        String labelOrderDetails = Messages.get("mail.label.orderDetails");
-        map.put("labelOrderDetails", labelOrderDetails);
-        String labelOrderDate = Messages.get("mail.label.labelOrderDate");
-        map.put("labelOrderDate", labelOrderDate);
-        String labelOrderDelivery = Messages.get("mail.label.labelOrderDelivery");
-        map.put("labelOrderDelivery", labelOrderDelivery);
-        String labelOrderEntrance = Messages.get("mail.label.labelOrderEntrance");
-        map.put("labelOrderEntrance", labelOrderEntrance);
-        String labelOrderEntranceCode = Messages.get("mail.label.labelOrderEntranceCode");
-        map.put("labelOrderEntranceCode", labelOrderEntranceCode);
-        String labelOrderApartmentFloor = Messages.get("mail.label.labelOrderApartmentFloor");
-        map.put("labelOrderApartmentFloor", labelOrderApartmentFloor);
-        String labelOrderApartmentNumber = Messages.get("mail.label.labelOrderApartmentNumber");
-        map.put("labelOrderApartmentNumber", labelOrderApartmentNumber);
-        String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
-        map.put("labelOrderPayment", labelOrderPayment);
-        String labelPaymentType = Messages.get("mail.label.labelPaymentType");
-        map.put("labelPaymentType", labelPaymentType);
-        String labelProduct = Messages.get("mail.label.labelProduct");
-        map.put("labelProduct", labelProduct);
-        String labelProducts = Messages.get("mail.label.labelProducts");
-        map.put("labelProducts", labelProducts);
-        String labelQuantity = Messages.get("mail.label.labelQuantity");
-        map.put("labelQuantity", labelQuantity);
-        String labelPrice = Messages.get("mail.label.labelPrice");
-        map.put("labelPrice", labelPrice);
-        String labelClientPostDepartmentNumber = Messages.get("mail.label.labelClientPostDepartmentNumber");
-        map.put("labelClientPostDepartmentNumber", labelClientPostDepartmentNumber);
-
-        String selfPickupDeliveryType = Messages.get("mail.label.selfPickupDeliveryType");
-        map.put("selfPickupDeliveryType", selfPickupDeliveryType);
-        String courierDeliveryType = Messages.get("mail.label.courierDeliveryType");
-        map.put("courierDeliveryType", courierDeliveryType);
-        String postServiceDeliveryType = Messages.get("mail.label.postServiceDeliveryType");
-        map.put("postServiceDeliveryType", postServiceDeliveryType);
-
-        String cashOnDeliveryPaymentType = Messages.get("mail.label.cashOnDeliveryPaymentType");
-        map.put("cashOnDeliveryPaymentType", cashOnDeliveryPaymentType);
-        String creditCardDeliveryPaymentType = Messages.get("mail.label.creditCardDeliveryPaymentType");
-        map.put("creditCardDeliveryPaymentType", creditCardDeliveryPaymentType);
-
-        String rendered = template.render(map);
-
-        email.setHtmlMsg(rendered);
+        email.setHtmlMsg(htmlContent);
         email.setCharset("utf-8");
         Mail.send(email);
     }
@@ -274,7 +185,7 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
-    private static String readAllBytesJava7(String filePath)
+    public static String readAllBytesJava7(String filePath)
     {
         String content = "";
         try

@@ -173,6 +173,7 @@ mail.label.delivery = Delivery
 mail.label.address = Address
 mail.label.total = Total
 mail.label.neworder = New Order
+mail.label.order = Order
 mail.label.details = Details
 mail.label.comment = Comment
 mail.label.orderDetails = Order details
@@ -194,6 +195,9 @@ mail.label.labelProduct = Product
 mail.label.labelQuantity = Quantity
 mail.label.labelPrice = Price
 mail.label.labelClientPostDepartmentNumber = Post department number
+mail.label.clientAddressCity = City
+mail.label.clientAddressStreetName = Street
+mail.label.number = #
 
 create.shop.courier.delivery.text = Call a courier - %s or free of charge (if the order size exceeds %s USD).
 create.shop.selfpickup.delivery.text = Self pickup

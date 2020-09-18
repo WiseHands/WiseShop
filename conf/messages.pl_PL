@@ -129,6 +129,7 @@ mail.label.delivery = Dostawa
 mail.label.address = Adres
 mail.label.total = Całkowity
 mail.label.neworder = Nowe zamówienie
+mail.label.order = Zamówienie
 mail.label.details = Detale
 mail.label.comment = Komentarz
 mail.label.orderDetails = Szczegóły zamówienia
@@ -150,6 +151,9 @@ mail.label.labelProduct = Produkt
 mail.label.labelQuantity = Ilość
 mail.label.labelPrice = Cena
 mail.label.labelClientPostDepartmentNumber = Numer działu pocztowego
+mail.label.clientAddressCity = Miasto
+mail.label.clientAddressStreetName = Ulica
+mail.label.number = #
 
 create.shop.courier.delivery.text = Zadzwoń do kuriera - %s lub bezpłatnie (jeśli wielkość zamówienia przekracza %s PLN).
 create.shop.selfpickup.delivery.text = Odbiór własny

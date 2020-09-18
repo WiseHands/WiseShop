@@ -170,6 +170,7 @@ mail.label.delivery = Доставка
 mail.label.address = Адреса
 mail.label.total = Сума
 mail.label.neworder = Нове Замовлення
+mail.label.order = Замовлення
 mail.label.details = Подробиці
 mail.label.comment = Коментар
 mail.label.orderDetails = Деталі замовлення
@@ -191,6 +192,9 @@ mail.label.labelProduct = Товар
 mail.label.labelQuantity = Кількість
 mail.label.labelPrice = Ціна
 mail.label.labelClientPostDepartmentNumber = Номер поштового відділення
+mail.label.clientAddressCity = Місто
+mail.label.clientAddressStreetName = Вулиця
+mail.label.number = №
 
 create.shop.courier.delivery.text = Викликати кур’єра по Львову – %s грн або безкоштовно (якщо розмір замовлення перевищує %s грн.)
 create.shop.selfpickup.delivery.text = Самовивіз

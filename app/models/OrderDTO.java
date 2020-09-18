@@ -22,6 +22,12 @@ public class OrderDTO extends GenericModel {
     @Expose
     public String uuid;
 
+    @Id
+    @GenericGenerator(name="gen",strategy="increment")
+    @GeneratedValue(generator="gen")
+    @Column(name = "orderId", unique = true, nullable = false)
+    public Long id;
+
     @Expose
     public String name;
 

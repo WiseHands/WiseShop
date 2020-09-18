@@ -4,6 +4,7 @@ import enums.*;
 import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
 import json.shoppingcart.PaymentCreditCardConfiguration;
+import liqp.Template;
 import models.*;
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONObject;
@@ -198,7 +199,9 @@ public class OrderAPI extends AuthController {
         JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
         try {
-            mailSender.sendEmail(shop, order, Messages.get("new.order"));
+            String htmlContent = generateHtmlEmailForNewOrder(shop, order);
+            String status = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + order.id;
+            mailSender.sendEmail(shop, order, status, htmlContent);
         } catch (Exception e) {
             System.out.println("OrderAPI create mail error" + e.getCause() + e.getStackTrace());
         }
@@ -492,7 +495,8 @@ public class OrderAPI extends AuthController {
                     smsSender.sendSms(user.phone, smsText);
                 }
                 smsSender.sendSms(order.phone, smsText);
-                mailSender.sendEmail(shop, order, Messages.get("payment.error"));
+                String htmlContent = generateHtmlEmailForOrderPaymentError(shop, order);
+                mailSender.sendEmail(shop, order, status, htmlContent);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -520,8 +524,8 @@ public class OrderAPI extends AuthController {
                 String smsText = Messages.get("payment.done.total", order.name, order.total);
                 smsSender.sendSms(order.phone, smsText);
                 smsSender.sendSms(shop.contact.phone, smsText);
-
-                mailSender.sendEmail(shop, order, Messages.get("payment.done"));
+                String htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order);
+                mailSender.sendEmail(shop, order, status, htmlContent);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -536,6 +540,139 @@ public class OrderAPI extends AuthController {
         }
 
 
+    }
+    private static String generateHtmlEmailForOrderPaymentError(ShopDTO shop, OrderDTO order) {
+        String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_error.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        Date resultDate = new Date(order.time);
+
+        Lang.change(shop.locale);
+
+        String paymentError = Messages.get("payment.error");
+        map.put("paymentError", paymentError);
+
+        String rendered = template.render(map);
+        return rendered;
+    }
+    private static String generateHtmlEmailForOrderPaymentDone(ShopDTO shop, OrderDTO order) {
+        String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_done.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        Date resultDate = new Date(order.time);
+
+        Lang.change(shop.locale);
+
+        String paymentDone = Messages.get("payment.done");
+        map.put("paymentDone", paymentDone);
+
+        String rendered = template.render(map);
+        return rendered;
+    }
+    private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order) {
+        String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_form.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        Date resultDate = new Date(order.time);
+
+        map.put("orderNumber", order.id);
+        map.put("name", order.name);
+        map.put("phone", order.phone);
+        map.put("email", order.email);
+        map.put("deliveryType", order.deliveryType);
+        map.put("paymentType", order.paymentType);
+        map.put("clientAddressCity", order.clientCity);
+        map.put("clientAddressStreetName", order.clientAddressStreetName);
+        map.put("clientPostDepartmentNumber", order.clientPostDepartmentNumber);
+        map.put("total", order.total);
+        map.put("uuid", order.uuid);
+        map.put("time", simpleDateFormat.format(resultDate));
+        map.put("comment", order.comment);
+        map.put("orderItems", order.items);
+        map.put("clientAddressApartmentEntrance", order.clientAddressApartmentEntrance);
+        map.put("clientAddressApartmentEntranceCode", order.clientAddressApartmentEntranceCode);
+        map.put("clientAddressApartmentFloor", order.clientAddressApartmentFloor);
+        map.put("clientAddressApartmentNumber", order.clientAddressApartmentNumber);
+
+        Lang.change(shop.locale);
+
+        String labelName = Messages.get("mail.label.name");
+        map.put("labelName", labelName);
+        String labelPhone = Messages.get("mail.label.phone");
+        map.put("labelPhone", labelPhone);
+        String labelEmail = Messages.get("mail.label.email");
+        map.put("labelEmail", labelEmail);
+        String labelDelivery = Messages.get("mail.label.delivery");
+        map.put("labelDelivery", labelDelivery);
+        String labelAddress = Messages.get("mail.label.address");
+        map.put("labelAddress", labelAddress);
+        String labelTotal = Messages.get("mail.label.total");
+        map.put("labelTotal", labelTotal);
+        String labelNewOrder = Messages.get("mail.label.neworder");
+        map.put("labelNewOrder", labelNewOrder);
+        String labelDetails = Messages.get("mail.label.details");
+        map.put("labelDetails", labelDetails);
+        String orderLink = String.format("https://%s/admin#/details/%s", shop.domain, order.uuid);
+        map.put("orderLink", orderLink);
+        String labelComment = Messages.get("mail.label.comment");
+        map.put("labelComment", labelComment);
+        String labelOrderDetails = Messages.get("mail.label.orderDetails");
+        map.put("labelOrderDetails", labelOrderDetails);
+        String labelOrderDate = Messages.get("mail.label.labelOrderDate");
+        map.put("labelOrderDate", labelOrderDate);
+        String labelOrderDelivery = Messages.get("mail.label.labelOrderDelivery");
+        map.put("labelOrderDelivery", labelOrderDelivery);
+        String labelOrderEntrance = Messages.get("mail.label.labelOrderEntrance");
+        map.put("labelOrderEntrance", labelOrderEntrance);
+        String labelOrderEntranceCode = Messages.get("mail.label.labelOrderEntranceCode");
+        map.put("labelOrderEntranceCode", labelOrderEntranceCode);
+        String labelOrderApartmentFloor = Messages.get("mail.label.labelOrderApartmentFloor");
+        map.put("labelOrderApartmentFloor", labelOrderApartmentFloor);
+        String labelOrderApartmentNumber = Messages.get("mail.label.labelOrderApartmentNumber");
+        map.put("labelOrderApartmentNumber", labelOrderApartmentNumber);
+        String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
+        map.put("labelOrderPayment", labelOrderPayment);
+        String labelPaymentType = Messages.get("mail.label.labelPaymentType");
+        map.put("labelPaymentType", labelPaymentType);
+        String labelProduct = Messages.get("mail.label.labelProduct");
+        map.put("labelProduct", labelProduct);
+        String labelProducts = Messages.get("mail.label.labelProducts");
+        map.put("labelProducts", labelProducts);
+        String labelQuantity = Messages.get("mail.label.labelQuantity");
+        map.put("labelQuantity", labelQuantity);
+        String labelPrice = Messages.get("mail.label.labelPrice");
+        map.put("labelPrice", labelPrice);
+        String labelClientPostDepartmentNumber = Messages.get("mail.label.labelClientPostDepartmentNumber");
+        map.put("labelClientPostDepartmentNumber", labelClientPostDepartmentNumber);
+        String labelClientAddressCity = Messages.get("mail.label.clientAddressCity");
+        map.put("labelClientAddressCity", labelClientAddressCity);
+        String labelClientAddressStreetName = Messages.get("mail.label.clientAddressStreetName");
+        map.put("labelClientAddressStreetName", labelClientAddressStreetName);
+        String labelOrder = Messages.get("mail.label.order");
+        map.put("labelOrder", labelOrder);
+        String labelNumber = Messages.get("mail.label.number");
+        map.put("labelNumber", labelNumber);
+
+        String selfPickupDeliveryType = Messages.get("mail.label.selfPickupDeliveryType");
+        map.put("selfPickupDeliveryType", selfPickupDeliveryType);
+        String courierDeliveryType = Messages.get("mail.label.courierDeliveryType");
+        map.put("courierDeliveryType", courierDeliveryType);
+        String postServiceDeliveryType = Messages.get("mail.label.postServiceDeliveryType");
+        map.put("postServiceDeliveryType", postServiceDeliveryType);
+
+        String cashOnDeliveryPaymentType = Messages.get("mail.label.cashOnDeliveryPaymentType");
+        map.put("cashOnDeliveryPaymentType", cashOnDeliveryPaymentType);
+        String creditCardDeliveryPaymentType = Messages.get("mail.label.creditCardDeliveryPaymentType");
+        map.put("creditCardDeliveryPaymentType", creditCardDeliveryPaymentType);
+
+        String rendered = template.render(map);
+        return rendered;
     }
 
     final void updateOrder(String uuid) {

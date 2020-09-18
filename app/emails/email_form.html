@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Нове замовлення</title>
+    <title>{{labelOrder}} {{labelNumber}}{{orderNumber}}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap" rel="stylesheet">
 
@@ -170,11 +170,11 @@
                                                 <img src="../../wisehands/services/images/americano-logo.jpg" alt="store-logo" border="0" width="150px" height="81.61px">
                                             </tr>-->
                             <tr>
-                                <td colspan="2" align="center" style="width: 100%; font-size: 30px">{{labelNewOrder}}</td>
+                                <td colspan="2" align="center" style="width: 100%; font-size: 30px">{{labelOrder}} {{labelNumber}}{{orderNumber}}</td>
                             </tr>
                             <tr>
                                 <td align="center" style="width: 100%; padding-right: 5px">
-                                    <a style="text-decoration: none" href="#/details/{{order.uuid}}">
+                                    <a style="text-decoration: none" href="{{orderLink}}">
                                         <p style="color: #3498db; font-size: 18px;">{{labelDetails}}</p>
                                     </a>
                                 </td>
@@ -238,8 +238,8 @@
                             </tr>
                             {% if deliveryType == "POSTSERVICE" %}
                             <tr>
-                                <td style="padding: 10px 15px">{{labelAddress}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{address}}</td>
+                                <td style="padding: 10px 15px">{{labelClientAddressCity}}:</td>
+                                <td style="padding: 10px 15px; text-align: right">{{clientAddressCity}}</td>
                             </tr>
                             <tr>
                                 <td style="padding: 10px 15px">{{labelClientPostDepartmentNumber}}:</td>
@@ -248,8 +248,8 @@
                             {% endif %}
                             {% if deliveryType == "COURIER" %}
                             <tr>
-                                <td style="padding: 10px 15px">{{labelAddress}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{address}}</td>
+                                <td style="padding: 10px 15px">{{labelClientAddressStreetName}}:</td>
+                                <td style="padding: 10px 15px; text-align: right">{{clientAddressStreetName}}</td>
                             </tr>
                             <tr>
                                 <td style="padding: 10px 15px">{{labelOrderEntrance}}:</td>
