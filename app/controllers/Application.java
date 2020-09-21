@@ -123,6 +123,8 @@ public class Application extends Controller {
             renderTemplate("Application/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
         }
 
+        generateCookieIfNotPresent(shop);
+
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         Lang.change(language);
@@ -154,9 +156,8 @@ public class Application extends Controller {
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
         System.out.println("url => " + returnUrlForDev(client, language));
-        redirect(returnUrlForDev(client, language) , false);
 
-//        renderTemplate("Application/shop.html", shop, products, language, categories);
+        renderTemplate("Application/shop.html", shop, products, language, categories);
 
     }
 
