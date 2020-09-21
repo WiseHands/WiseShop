@@ -11,10 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
@@ -27,15 +24,14 @@ public class MailSenderImpl implements MailSender {
     static Session getMailSession;
     static MimeMessage generateMailMessage;
 
-    public void sendEmail(ShopDTO shop, OrderDTO order, String status, String htmlContent) throws Exception {
-        //System.out.println("MailSenderImpl " + isDevEnv + status + shop.contact.email);
-//        if (!isDevEnv) {
+    public void sendEmail(List<String> emailList, String subject, String htmlContent, String hostname) throws Exception {
         HtmlEmail email = new HtmlEmail();
-        email.setHostName(shop.domain);
+        email.setHostName(hostname);
         email.setFrom("wisehandsme@gmail.com");
-        //System.out.println("AddTo: " + shop.contact.email);
-        email.addTo(shop.contact.email);
-        email.setSubject(status);
+        for(String emailId : emailList) {
+            email.addTo(emailId);
+        }
+        email.setSubject(subject);
 
         email.setHtmlMsg(htmlContent);
         email.setCharset("utf-8");

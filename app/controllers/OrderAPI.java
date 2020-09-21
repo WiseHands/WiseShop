@@ -201,8 +201,11 @@ public class OrderAPI extends AuthController {
         try {
             String htmlContent = generateHtmlEmailForNewOrder(shop, order);
             int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
-            String status = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-            mailSender.sendEmail(shop, order, status, htmlContent);
+            String subject = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+            List<String> emailList = new ArrayList<>();
+            emailList.add(shop.contact.email);
+            emailList.add(order.email);
+            mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
         } catch (Exception e) {
             System.out.println("OrderAPI create mail error" + e.getCause() + e.getStackTrace());
         }
@@ -499,7 +502,9 @@ public class OrderAPI extends AuthController {
                 smsSender.sendSms(order.phone, smsText);
                 String htmlContent = generateHtmlEmailForOrderPaymentError(shop, order);
                 String subject = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-                mailSender.sendEmail(shop, order, subject, htmlContent);
+                List<String> emailList = new ArrayList<>();
+                emailList.add(shop.contact.email);
+                mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
 
                 System.out.println(subject);
 
@@ -531,8 +536,9 @@ public class OrderAPI extends AuthController {
                 smsSender.sendSms(shop.contact.phone, smsText);
                 String htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order);
                 String subject = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-                mailSender.sendEmail(shop, order, subject, htmlContent);
-                System.out.println(subject);
+                List<String> emailList = new ArrayList<>();
+                emailList.add(shop.contact.email);
+                mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
