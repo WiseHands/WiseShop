@@ -500,6 +500,7 @@ public class OrderAPI extends AuthController {
                 String htmlContent = generateHtmlEmailForOrderPaymentError(shop, order);
                 String subject = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
                 mailSender.sendEmail(shop, order, subject, htmlContent);
+
                 System.out.println(subject);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -561,6 +562,11 @@ public class OrderAPI extends AuthController {
         map.put("paymentError", paymentError);
         map.put("shopName", shop.shopName);
 
+        String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
+        map.put("labelOrderPayment", labelOrderPayment);
+        String labelPaymentStatus = Messages.get("mail.label.paymentStatus");
+        map.put("labelPaymentStatus", labelPaymentStatus);
+
 
         String rendered = template.render(map);
         return rendered;
@@ -578,6 +584,11 @@ public class OrderAPI extends AuthController {
         String paymentDone = Messages.get("payment.done");
         map.put("paymentDone", paymentDone);
         map.put("shopName", shop.shopName);
+
+        String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
+        map.put("labelOrderPayment", labelOrderPayment);
+        String labelPaymentStatus = Messages.get("mail.label.paymentStatus");
+        map.put("labelPaymentStatus", labelPaymentStatus);
 
         String rendered = template.render(map);
         return rendered;
