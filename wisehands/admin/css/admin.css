@@ -2265,6 +2265,10 @@ ul.admin-breadcrumb li a:hover {
     margin-right: 0;
 }
 
+.address-order-container .admin-order-card-row p {
+    word-break: break-word;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
