@@ -8,330 +8,689 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap" rel="stylesheet">
 
 </head>
-<body style="margin: 0; padding: 0;">
 
-<!--<table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: #fff; min-width: 320px; line-height: normal;">-->
-<!--    <tr>-->
-<!--        <td align="center" valign="top">-->
-<!--            <table cellpadding="0" cellspacing="0" border="0" width="600" class="table700" style="max-width: 600px; min-width: 320px; background: #ffffff;">-->
-<!--                <tr>-->
-<!--                    <td align="center" valign="top">-->
-<!--                        <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="margin: 15px">-->
-<!--                            &lt;!&ndash;                    <tr>-->
-<!--                                                <img src="../../wisehands/services/images/americano-logo.jpg" alt="store-logo" border="0" width="150px" height="81.61px">-->
-<!--                                            </tr>&ndash;&gt;-->
-<!--                            <tr>-->
-<!--                                <td colspan="2" align="center" style="width: 100%; font-size: 30px">{{labelNewOrder}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td align="center" style="width: 100%; padding-right: 5px">-->
-<!--                                    <a style="text-decoration: none" href="#/details/{{order.uuid}}">-->
-<!--                                        <p style="color: #3498db; font-size: 18px;">{{labelDetails}}</p>-->
-<!--                                    </a>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                        </table>-->
-<!--                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">-->
-<!--                            <tr>-->
-<!--                                <th style="padding: 10px 15px; font-size: 21px;   font-weight: 400" colspan="2">{{labelOrderDetails}}</th>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px; width: 100%">{{labelPhone}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right;  width: 100%">+{{phone}}qqqqqqqqqqqqq</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelOrderDate}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{time}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelEmail}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{email}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelTotal}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{total}} грн</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelName}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{name}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelComment}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{comment}}</td>-->
-<!--                            </tr>-->
-<!--                        </table>-->
-<!--                        <table cellpadding="0" cellspacing="0" border="0"   style="width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">-->
-<!--                            <tr>-->
-<!--                                <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderDelivery}}</th>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px; ">{{labelDelivery}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right;  width: 100%;">-->
-<!--                                    {% if deliveryType == "SELFTAKE" %}-->
-<!--                                    {{selfPickupDeliveryType}}-->
-<!--                                    {% endif %}-->
-<!--                                    {% if deliveryType == "COURIER" %}-->
-<!--                                    {{courierDeliveryType}}-->
-<!--                                    {% endif %}-->
-<!--                                    {% if deliveryType == "POSTSERVICE" %}-->
-<!--                                    {{postServiceDeliveryType}}-->
-<!--                                    {% endif %}-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                            {% if deliveryType == "POSTSERVICE" %}-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelAddress}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{address}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelClientPostDepartmentNumber}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{clientPostDepartmentNumber}}</td>-->
-<!--                            </tr>-->
-<!--                            {% endif %}-->
-<!--                            {% if deliveryType == "COURIER" %}-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelAddress}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{address}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelOrderEntrance}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentEntrance}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelOrderEntranceCode}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right; word-break: break-word;">{{clientAddressApartmentEntranceCode}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelOrderApartmentFloor}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentFloor}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px">{{labelOrderApartmentNumber}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentNumber}}</td>-->
-<!--                            </tr>-->
-<!--                            {% endif %}-->
-<!--                        </table>-->
-<!--                        <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">-->
-<!--                            <tr>-->
-<!--                                <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderPayment}}</th>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px; width: 100%">{{labelPaymentType}}:</td>-->
-<!--                                <td style="padding: 10px 15px; text-align: right">-->
-<!--                                    {% if paymentType == "CASHONDELIVERY" %}-->
-<!--                                    {{cashOnDeliveryPaymentType}}-->
-<!--                                    {% endif %}-->
-<!--                                    {% if paymentType == "CREDITCARD" %}-->
-<!--                                    {{creditCardDeliveryPaymentType}}-->
-<!--                                    {% endif %}-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                        </table>-->
-<!--                        <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="background: #f6f6f6; margin:  15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">-->
-<!--                            <tr>-->
-<!--                                <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="3">{{labelProducts}}</th>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 10px 15px; width: 60%">{{labelProduct}}</td>-->
-<!--                                <td style="padding: 10px 15px; width: 15%">{{labelQuantity}}</td>-->
-<!--                                <td style="padding: 10px 15px; width: 25%; text-align: right">{{labelPrice}}</td>-->
-<!--                            </tr>-->
-<!--                            {% for item in orderItems %}-->
-<!--                            <tr>-->
-<!--                                <td style="padding: 15px">-->
-<!--                                    <table cellpadding="0" cellspacing="0" border="0">-->
-<!--                                        <td>           <img src="{{item.imagePath}}" alt="product-logo" alt="item-photo" border="0" width="100px" height="75px">-->
-<!--                                        </td>-->
-<!--                                        <th style="padding-left: 15px;  text-align: left">{{item.name}}</th>-->
-<!--                                    </table>-->
+<style>
+    /* -------------------------------------
+        GLOBAL RESETS
+    ------------------------------------- */
+    img {
+        border: none;
+        -ms-interpolation-mode: bicubic;
+        max-width: 100%; }
+    body {
+        background-color: #ffffff;
+        font-family: sans-serif;
+        -webkit-font-smoothing: antialiased;
+        font-size: 14px;
+        line-height: 1.4;
+        margin: 0;
+        padding: 0;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%; }
+    table {
+        border-collapse: separate;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+        width: 100%; }
+    table td {
+        font-family: sans-serif;
+        font-size: 14px;
+        vertical-align: top; }
+    /* -------------------------------------
+        BODY & CONTAINER
+    ------------------------------------- */
+    .body {
+        /*background-color: #f6f6f6;*/
+        width: 100%; }
+    /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+    .container {
+        display: block;
+        margin: 0 auto;
+        /* makes it centered */
+        max-width: 580px;
+        min-width: 320px;
+        padding: 10px;
+    }
+    /* This should also be a block element, so that it will fill 100% of the .container */
+    .content {
+        box-sizing: border-box;
+        display: block;
+        Margin: 0 auto;
+        max-width: 580px;
+        padding: 10px; }
+    /* -------------------------------------
+        HEADER, FOOTER, MAIN
+    ------------------------------------- */
+    .main {
+        background: #ffffff;
+        width: 100%; }
+    .wrapper {
+        box-sizing: border-box;
+        padding: 20px; }
+    .content-block {
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .footer {
+        clear: both;
+        Margin-top: 10px;
+        text-align: center;
+        width: 100%; }
+    .footer td,
+    .footer p,
+    .footer span,
+    .footer a {
+        color: #999999;
+        font-size: 12px;
+        text-align: center; }
+    /* -------------------------------------
+        TYPOGRAPHY
+    ------------------------------------- */
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: #000000;
+        font-family: sans-serif;
+        font-weight: 400;
+        line-height: 1.4;
+        margin: 0;
+        margin-bottom: 15px;
+        word-break: break-all;
+        overflow: hidden;
+        text-overflow: ellipsis;}
+    h1 {
+        font-size: 35px;
+        font-weight: 300;
+        text-align: center;
+        text-transform: capitalize; }
+    p,
+    ul,
+    ol {
+        font-family: sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        margin: 0;
+        margin-bottom: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    p li,
+    ul li,
+    ol li {
+        list-style-position: inside;
+        margin-left: 5px; }
+    a {
+        color: #3498db;
+        text-decoration: underline; }
+    /* -------------------------------------
+        BUTTONS
+    ------------------------------------- */
+    .btn {
+        box-sizing: border-box;
+        width: 100%; }
+    .btn > tbody > tr > td {
+        padding-bottom: 15px; }
+    .btn table {
+        width: auto; }
+    .btn table td {
+        background-color: #ffffff;
+        text-align: center; }
+    .btn a {
+        background-color: #ffffff;
+        border: solid 1px #3498db;
+        box-sizing: border-box;
+        color: #3498db;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0;
+        padding: 12px 25px;
+        text-decoration: none;
+        text-transform: capitalize; }
+    .btn-primary table td {
+        background-color: #3498db; }
+    .btn-primary a {
+        background-color: #3498db;
+        border-color: #3498db;
+        color: #ffffff; }
+    /* -------------------------------------
+        OTHER STYLES THAT MIGHT BE USEFUL
+    ------------------------------------- */
+    .last {
+        margin-bottom: 0; }
+    .first {
+        margin-top: 0; }
+    .align-center {
+        text-align: center; }
+    .align-right {
+        text-align: right; }
+    .align-left {
+        text-align: left; }
+    .clear {
+        clear: both; }
+    .mt0 {
+        margin-top: 0; }
+    .mb0 {
+        margin-bottom: 0; }
+    .preheader {
+        color: transparent;
+        display: none;
+        height: 0;
+        max-height: 0;
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+        mso-hide: all;
+        visibility: hidden;
+        width: 0; }
+    .powered-by a {
+        text-decoration: none; }
+    hr {
+        border: 0;
+        border-bottom: 1px solid #f6f6f6;
+        Margin: 20px 0; }
+    /* -------------------------------------
+        RESPONSIVE AND MOBILE FRIENDLY STYLES
+    ------------------------------------- */
+    @media only screen and (max-width: 620px) {
+        .body h1 {
+            font-size: 28px !important;
+            margin-bottom: 10px !important; }
+        .body p,
+        .body ul,
+        .body ol,
+        .body td,
+        .body span,
+        .body a {
+            font-size: 16px; /*!important;*/ }
+        .body .wrapper,
+        .body .article {
+            padding: 10px !important; }
+        .body .content {
+            padding: 0 !important; }
+        .body .container {
+            padding: 0;
+            padding-top: 5px !important;
+            width: 100% !important; }
+        .body .main {
+            border-left-width: 0 !important;
+            border-right-width: 0 !important; }
+        .body .btn table {
+            width: 100% !important; }
+        .body .btn a {
+            width: 100% !important; }
+        .body .img-responsive {
+            height: auto !important;
+            max-width: 100% !important;
+            width: auto !important; }
+    }      /* -------------------------------------
+            PRESERVE THESE STYLES IN THE HEAD
+        ------------------------------------- */
+    @media all {
+        .ExternalClass {
+            width: 100%; }
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass span,
+        .ExternalClass font,
+        .ExternalClass td,
+        .ExternalClass div {
+            line-height: 100%; }
+        .apple-link a {
+            color: inherit !important;
+            font-family: inherit !important;
+            font-size: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+            text-decoration: none !important; }
+        .btn-primary table td:hover {
+            background-color: #34495e !important; }
+        .btn-primary a:hover {
+            background-color: #34495e !important;
+            border-color: #34495e !important; } }
+    .maintitle {font-size: 28px}
+    .total {font-size: 24px}
+    @media only screen and (max-width: 620px) {
+        .maintitle {font-size: 20px !important;}
+        .total {font-size: 20px !important;}
+    }
 
-<!--                                </td>-->
-<!--                                <td>{{item.quantity}}</td>-->
-<!--                                <td style="padding: 15px; text-align: right">{{item.price}} грн</td>-->
-<!--                            </tr>-->
-<!--                            {% endfor %}-->
-<!--                        </table>-->
+    .store-logo h2 {
+        font-size: 30px;
+        font-family: 'Playfair Display', serif;
+    }
+    .store-logo img {
+        width: 150px;
+    }
+    .store-logo a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+    .store-logo p {
+        font-size: 18px;
+        padding-right: 5px;
+        margin: 0;
+        color: #3498db;
+    }
+    .store-logo p:hover {
+        text-decoration: underline;
+    }
+    .email-card {
+        margin: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        padding: 1rem;
+    }
+    .email-card-row{
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+    }
+    .email-card-row h3 {
+        margin-bottom: 15px;
+    }
+    .items-title, .item-row {
+        display: flex;
+    }
+    .item-info {
+        flex: 0 1 60%;
+        display: flex;
+        align-items: center;
+    }
+    .item-info h2 {
+        margin-bottom: 10px;
+    }
+    .item-quantity {
+        flex: 0 0 15%;
+        padding-left: 5px;
+    }
+    .item-price {
+        flex: 0 1 25%;
+    }
+    .item-photo img {
+        min-width: 100px;
+        max-width: 100px;
+        padding-right: 10px;
+        object-fit: cover;
+    }
+    .footer-email {
+        padding: 20px;
+    }
+    .footer-icons {
+        display: flex;
+        justify-content: center;
+    }
+    .footer-icons a {
+        color: #000;
+        padding: 0 15px;
+    }
+    .footer-email .email-card-row {
+        margin-top: 15px;
+        justify-content: space-around;
+    }
+    .footer-email .email-card-row a {
+        cursor: pointer;
+        color: #000;
+    }
 
-<!--                    </td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--</table>-->
+</style>
 
-<div style="max-width: 600px; background-color: #ffffff; margin: 0 auto" >
-    <tr>
-        <td align="center" valign="top">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                    <td align="center" valign="top">
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="margin: 15px">
-                            <!--                    <tr>
-                                                <img src="../../wisehands/services/images/americano-logo.jpg" alt="store-logo" border="0" width="150px" height="81.61px">
-                                            </tr>-->
-                            <tr>
-                                <td colspan="2" align="center" style="width: 100%; font-size: 30px">{{labelOrder}} {{labelNumber}}{{orderNumber}}</td>
-                            </tr>
-                            <!-- TODO: fix login redirect -->
-<!--                            <tr>
-                                <td align="center" style="width: 100%; padding-right: 5px">
-                                    <a style="text-decoration: none" href="{{orderLink}}">
-                                        <p style="color: #3498db; font-size: 18px;">{{labelDetails}}</p>
-                                    </a>
-                                </td>
-                            </tr>-->
-                        </table>
+<body>
 
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center" valign="top">
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
-                            <tr>
-                                <th style="padding: 10px 15px; font-size: 21px;   font-weight: 400" colspan="2">{{labelOrderDetails}}</th>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px; width: 100%">{{labelPhone}}:</td>
-                                <td style="padding: 10px 15px; text-align: right;  width: 100%">+{{phone}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelOrderDate}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{time}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelEmail}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{email}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelTotal}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{total}} грн</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelName}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{name}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelComment}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{comment}}</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center" valign="top">
-                        <table cellpadding="0" cellspacing="0" border="0"   style="width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
-                            <tr>
-                                <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderDelivery}}</th>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px;  width: 100%">{{labelDelivery}}:</td>
-                                <td style="padding: 10px 15px; text-align: right;  width: 100%">
-                                    {% if deliveryType == "SELFTAKE" %}
-                                    {{selfPickupDeliveryType}}
-                                    {% endif %}
-                                    {% if deliveryType == "COURIER" %}
-                                    {{courierDeliveryType}}
-                                    {% endif %}
-                                    {% if deliveryType == "POSTSERVICE" %}
-                                    {{postServiceDeliveryType}}
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% if deliveryType == "POSTSERVICE" %}
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelClientAddressCity}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{clientAddressCity}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelClientPostDepartmentNumber}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{clientPostDepartmentNumber}}</td>
-                            </tr>
-                            {% endif %}
-                            {% if deliveryType == "COURIER" %}
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelClientAddressStreetName}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{clientAddressStreetName}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelClientAddressBuildingNumber}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{clientAddressBuildingNumber}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelOrderEntrance}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentEntrance}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelOrderEntranceCode}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentEntranceCode}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelOrderApartmentFloor}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentFloor}}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px">{{labelOrderApartmentNumber}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentNumber}}</td>
-                            </tr>
-                            {% endif %}
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center" valign="top">
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
-                            <tr>
-                                <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderPayment}}</th>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px; width: 100%">{{labelPaymentType}}:</td>
-                                <td style="padding: 10px 15px; text-align: right">
-                                    {% if paymentType == "CASHONDELIVERY" %}
-                                    {{cashOnDeliveryPaymentType}}
-                                    {% endif %}
-                                    {% if paymentType == "CREDITCARD" %}
-                                    {{creditCardDeliveryPaymentType}}
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center" valign="top">
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="background: #f6f6f6; margin:  15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
-                            <tr>
-                                <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="3">{{labelProducts}}</th>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px; width: 60%">{{labelProduct}}</td>
-                                <td style="padding: 10px 15px; width: 15%">{{labelQuantity}}</td>
-                                <td style="padding: 10px 15px; width: 25%; text-align: right">{{labelPrice}}</td>
-                            </tr>
-                            {% for item in orderItems %}
-                            <tr>
-                                <td style="padding: 15px">
-                                    <table cellpadding="0" cellspacing="0" border="0">
-                                        <td>           <img src="{{item.imagePath}}" alt="product-logo" alt="item-photo" border="0" width="100px" height="75px">
-                                        </td>
-                                        <th style="padding-left: 15px;  text-align: left">{{item.name}}</th>
-                                    </table>
+<div class="container">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: #f5f5f5; min-width: 320px; font-size: 14px; line-height: normal;">
+        <tr>
+            <td align="center" valign="top">
+                <table cellpadding="0" cellspacing="0" border="0" width="700" class="table700" style="max-width: 700px; min-width: 320px; background: #ffffff;">
+                    <tr>
+                        <td align="center" valign="top" width="100%">
+                            <table cellpadding="0" cellspacing="0" border="0"   style="width: 95%; padding: 15px">
+                                <!--                    <tr>
+                                                    <img src="../../wisehands/services/images/americano-logo.jpg" alt="store-logo" border="0" width="150px" height="81.61px">
+                                                </tr>-->
+                                <tr>
+                                    <td colspan="2" align="center" style="width: 100%; font-size: 30px">{{labelOrder}} {{labelNumber}}{{orderNumber}}</td>
+                                </tr>
+                                <!--<tr>-->
+                                    <!--<td align="center" style="padding-right: 5px">-->
+                                        <!--<a style="text-decoration: none" href="{{orderLink}}">-->
+                                            <!--<p style="color: #3498db; font-size: 18px;">{{labelDetails}}</p>-->
+                                        <!--</a>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            </table>
+                            <div style="height: 15px; line-height: 15px; font-size: 7px;">&nbsp;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top" width="100%">
+                            <table cellpadding="0" cellspacing="0" border="0" style="width: 95%;  background: #f6f6f6; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
+                                <tr>
+                                    <th style="padding: 10px 15px; font-size: 21px;   font-weight: 400" colspan="2">{{labelOrderDetails}}</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px; width: 100%">{{labelPhone}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">+{{phone}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelOrderDate}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{time}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelEmail}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{email}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelTotal}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{total}} грн</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelName}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{name}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelComment}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{comment}}</td>
+                                </tr>
+                            </table>
+                            <div style="height: 15px; line-height: 15px; font-size: 7px;">&nbsp;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top" width="100%">
+                            <table cellpadding="0" cellspacing="0" border="0"  style="width: 95%; background: #f6f6f6; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
+                                <tr>
+                                    <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderDelivery}}</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px; ">{{labelDelivery}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right;  width: 100%;">
+                                        {% if deliveryType == "SELFTAKE" %}
+                                        {{selfPickupDeliveryType}}
+                                        {% endif %}
+                                        {% if deliveryType == "COURIER" %}
+                                        {{courierDeliveryType}}
+                                        {% endif %}
+                                        {% if deliveryType == "POSTSERVICE" %}
+                                        {{postServiceDeliveryType}}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% if deliveryType == "POSTSERVICE" %}
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelClientAddressCity}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{clientAddressCity}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelClientPostDepartmentNumber}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{clientPostDepartmentNumber}}</td>
+                                </tr>
+                                {% endif %}
 
-                                </td>
-                                <td>{{item.quantity}}</td>
-                                <td style="padding: 15px; text-align: right">{{item.price}} грн</td>
-                            </tr>
-                            {% endfor %}
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td align="center">
-        </td>
-    </tr>
+                                {% if deliveryType == "COURIER" %}
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelClientAddressStreetName}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{clientAddressStreetName}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px; word-break: break-word;">{{labelClientAddressBuildingNumber}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{clientAddressBuildingNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelOrderEntrance}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentEntrance}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelOrderEntranceCode}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right; word-break: break-word;">{{clientAddressApartmentEntranceCode}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelOrderApartmentFloor}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentFloor}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px">{{labelOrderApartmentNumber}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentNumber}}</td>
+                                </tr>
+                                {% endif %}
+
+                            </table>
+                            <div style="height: 15px; line-height: 15px; font-size: 7px;">&nbsp;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top" width="100%">
+                            <table cellpadding="0" cellspacing="0" border="0" style="width: 95%; background: #f6f6f6; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
+                                <tr>
+                                    <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderPayment}}</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px; width: 100%">{{labelPaymentType}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right">
+                                        {% if paymentType == "CASHONDELIVERY" %}
+                                        {{cashOnDeliveryPaymentType}}
+                                        {% endif %}
+                                        {% if paymentType == "CREDITCARD" %}
+                                        {{creditCardDeliveryPaymentType}}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="height: 15px; line-height: 15px; font-size: 7px;">&nbsp;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top" width="100%">
+                            <table cellpadding="0" cellspacing="0" border="0"  style="width: 95%; background: #f6f6f6; padding:  15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
+                                <tr>
+                                    <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="3">{{labelProducts}}</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 15px; width: 60%">{{labelProduct}}</td>
+                                    <td style="padding: 10px 15px; width: 15%">{{labelQuantity}}</td>
+                                    <td style="padding: 10px 15px; width: 25%; text-align: right">{{labelPrice}}</td>
+                                </tr>
+                                {% for item in orderItems %}
+                                <tr>
+                                    <td style="padding: 15px">
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                            <td>
+                                                <img src="{{item.imagePath}}" alt="product-logo" border="0" width="100px" height="75px">
+                                            </td>
+                                            <th style="padding-left: 15px;  text-align: left">{{item.name}}</th>
+                                        </table>
+                                    </td>
+                                    <td>{{item.quantity}}</td>
+                                    <td style="padding: 15px; text-align: right">{{item.price}} грн</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            <div style="height: 15px; line-height: 15px; font-size: 7px;">&nbsp;</div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </div>
+<!--<div style="max-width: 600px; background-color: #ffffff; margin: 0 auto" >-->
+    <!--<tr>-->
+        <!--<td align="center" valign="top">-->
+            <!--<table border="0" cellpadding="0" cellspacing="0" width="600">-->
+                <!--<tr>-->
+                    <!--<td align="center" valign="top">-->
+                        <!--<table cellpadding="0" cellspacing="0" border="0" width="100%"  style="margin: 15px">-->
+                            <!--&lt;!&ndash;                    <tr>-->
+                                                <!--<img src="../../wisehands/services/images/americano-logo.jpg" alt="store-logo" border="0" width="150px" height="81.61px">-->
+                                            <!--</tr>&ndash;&gt;-->
+                            <!--<tr>-->
+                                <!--<td colspan="2" align="center" style="width: 100%; font-size: 30px">{{labelOrder}} {{labelNumber}}{{orderNumber}}</td>-->
+                            <!--</tr>-->
+                            <!--&lt;!&ndash; TODO: fix login redirect &ndash;&gt;-->
+<!--&lt;!&ndash;                            <tr>-->
+                                <!--<td align="center" style="width: 100%; padding-right: 5px">-->
+                                    <!--<a style="text-decoration: none" href="{{orderLink}}">-->
+                                        <!--<p style="color: #3498db; font-size: 18px;">{{labelDetails}}</p>-->
+                                    <!--</a>-->
+                                <!--</td>-->
+                            <!--</tr>&ndash;&gt;-->
+                        <!--</table>-->
+
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td align="center" valign="top">-->
+                        <!--<table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">-->
+                            <!--<tr>-->
+                                <!--<th style="padding: 10px 15px; font-size: 21px;   font-weight: 400" colspan="2">{{labelOrderDetails}}</th>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px; width: 100%;">{{labelPhone}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">+{{phone}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelOrderDate}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{time}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelEmail}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{email}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelTotal}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{total}} грн</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelName}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{name}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelComment}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{comment}}</td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td align="center" valign="top">-->
+                        <!--<table cellpadding="0" cellspacing="0" border="0"   style="width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">-->
+                            <!--<tr>-->
+                                <!--<th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderDelivery}}</th>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px;  width: 100%">{{labelDelivery}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">-->
+                                    <!--{% if deliveryType == "SELFTAKE" %}-->
+                                    <!--{{selfPickupDeliveryType}}-->
+                                    <!--{% endif %}-->
+                                    <!--{% if deliveryType == "COURIER" %}-->
+                                    <!--{{courierDeliveryType}}-->
+                                    <!--{% endif %}-->
+                                    <!--{% if deliveryType == "POSTSERVICE" %}-->
+                                    <!--{{postServiceDeliveryType}}-->
+                                    <!--{% endif %}-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--{% if deliveryType == "POSTSERVICE" %}-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelClientAddressCity}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{clientAddressCity}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelClientPostDepartmentNumber}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{clientPostDepartmentNumber}}</td>-->
+                            <!--</tr>-->
+                            <!--{% endif %}-->
+                            <!--{% if deliveryType == "COURIER" %}-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelClientAddressStreetName}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{clientAddressStreetName}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelClientAddressBuildingNumber}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{clientAddressBuildingNumber}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelOrderEntrance}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentEntrance}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelOrderEntranceCode}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentEntranceCode}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelOrderApartmentFloor}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentFloor}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px">{{labelOrderApartmentNumber}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">{{clientAddressApartmentNumber}}</td>-->
+                            <!--</tr>-->
+                            <!--{% endif %}-->
+                        <!--</table>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td align="center" valign="top">-->
+                        <!--<table cellpadding="0" cellspacing="0" border="0" width="100%"  style="width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">-->
+                            <!--<tr>-->
+                                <!--<th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderPayment}}</th>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px; width: 100%">{{labelPaymentType}}:</td>-->
+                                <!--<td style="padding: 10px 15px; text-align: right">-->
+                                    <!--{% if paymentType == "CASHONDELIVERY" %}-->
+                                    <!--{{cashOnDeliveryPaymentType}}-->
+                                    <!--{% endif %}-->
+                                    <!--{% if paymentType == "CREDITCARD" %}-->
+                                    <!--{{creditCardDeliveryPaymentType}}-->
+                                    <!--{% endif %}-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td align="center" valign="top">-->
+                        <!--<table cellpadding="0" cellspacing="0" border="0" width="100%"  style="background: #f6f6f6; margin:  15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">-->
+                            <!--<tr>-->
+                                <!--<th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="3">{{labelProducts}}</th>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 10px 15px; width: 60%">{{labelProduct}}</td>-->
+                                <!--<td style="padding: 10px 15px; width: 15%">{{labelQuantity}}</td>-->
+                                <!--<td style="padding: 10px 15px; width: 25%; text-align: right">{{labelPrice}}</td>-->
+                            <!--</tr>-->
+                            <!--{% for item in orderItems %}-->
+                            <!--<tr>-->
+                                <!--<td style="padding: 15px">-->
+                                    <!--<table cellpadding="0" cellspacing="0" border="0">-->
+                                        <!--<td>           <img src="{{item.imagePath}}" alt="product-logo" alt="item-photo" border="0" width="100px" height="75px">-->
+                                        <!--</td>-->
+                                        <!--<th style="padding-left: 15px;  text-align: left">{{item.name}}</th>-->
+                                    <!--</table>-->
+
+                                <!--</td>-->
+                                <!--<td>{{item.quantity}}</td>-->
+                                <!--<td style="padding: 15px; text-align: right">{{item.price}} грн</td>-->
+                            <!--</tr>-->
+                            <!--{% endfor %}-->
+                        <!--</table>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td align="center">-->
+        <!--</td>-->
+    <!--</tr>-->
+<!--</div>-->
 
 </body>
 </html>
