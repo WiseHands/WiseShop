@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{{paymentError}}</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{{labelOrder}} {{labelNumber}}{{orderNumber}} | {{shopName}}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap" rel="stylesheet">
+
 </head>
-<body>
-{{paymentError}}
+<body style="margin: 0; padding: 0;">
+<div style="max-width: 600px; background-color: #ffffff; margin: 0 auto" >
+    <tr>
+        <td align="center" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td align="center" valign="top">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="width: 100%; background: #f6f6f6; margin: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
+                            <tr>
+                                <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderPayment}}</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 15px; width: 100%">{{labelPaymentType}}:</td>
+                                <td style="padding: 10px 15px; text-align: right">
+                                    {{paymentError}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</div>
 </body>
 </html>

@@ -155,6 +155,7 @@ mail.label.clientAddressCity = Miasto
 mail.label.clientAddressStreetName = Ulica
 mail.label.number = #
 mail.label.ClientAddressBuildingNumber = Numer budynku
+mail.label.paymentStatus = Status
 
 create.shop.courier.delivery.text = Zadzwoń do kuriera - %s lub bezpłatnie (jeśli wielkość zamówienia przekracza %s PLN).
 create.shop.selfpickup.delivery.text = Odbiór własny

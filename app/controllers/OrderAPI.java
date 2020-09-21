@@ -200,7 +200,8 @@ public class OrderAPI extends AuthController {
         new SendSmsJob(order, shop).now();
         try {
             String htmlContent = generateHtmlEmailForNewOrder(shop, order);
-            String status = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + order.id;
+            int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+            String status = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
             mailSender.sendEmail(shop, order, status, htmlContent);
         } catch (Exception e) {
             System.out.println("OrderAPI create mail error" + e.getCause() + e.getStackTrace());
@@ -484,6 +485,7 @@ public class OrderAPI extends AuthController {
             if(order == null) {
                 ok();
             }
+            int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
 
             String status = String.valueOf(jsonObject.get("status"));
             if (status.equals("failure") || status.equals("wait_accept")){
@@ -496,7 +498,9 @@ public class OrderAPI extends AuthController {
                 }
                 smsSender.sendSms(order.phone, smsText);
                 String htmlContent = generateHtmlEmailForOrderPaymentError(shop, order);
-                mailSender.sendEmail(shop, order, status, htmlContent);
+                String subject = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+                mailSender.sendEmail(shop, order, subject, htmlContent);
+                System.out.println(subject);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -525,7 +529,9 @@ public class OrderAPI extends AuthController {
                 smsSender.sendSms(order.phone, smsText);
                 smsSender.sendSms(shop.contact.phone, smsText);
                 String htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order);
-                mailSender.sendEmail(shop, order, status, htmlContent);
+                String subject = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+                mailSender.sendEmail(shop, order, subject, htmlContent);
+                System.out.println(subject);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -553,6 +559,8 @@ public class OrderAPI extends AuthController {
 
         String paymentError = Messages.get("payment.error");
         map.put("paymentError", paymentError);
+        map.put("shopName", shop.shopName);
+
 
         String rendered = template.render(map);
         return rendered;
@@ -569,6 +577,7 @@ public class OrderAPI extends AuthController {
 
         String paymentDone = Messages.get("payment.done");
         map.put("paymentDone", paymentDone);
+        map.put("shopName", shop.shopName);
 
         String rendered = template.render(map);
         return rendered;
@@ -581,7 +590,10 @@ public class OrderAPI extends AuthController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date resultDate = new Date(order.time);
 
-        map.put("orderNumber", order.id);
+        int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+
+        map.put("orderNumber", orderListSize);
+        map.put("shopName", shop.shopName);
         map.put("name", order.name);
         map.put("phone", order.phone);
         map.put("email", order.email);
