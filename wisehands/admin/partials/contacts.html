@@ -82,8 +82,10 @@
                 </div>
                 <div class="admin-card admin-contacts-card-gps">
                     <h4>{{'contacts.gps' | translate}}</h4>
-                    <div ng-show="!contacts.shopLocation">
-                        <a href="#/shop/location"> <p>{{'contacts.setGps' | translate}}</p> </a>
+                    <div class="admin-contacts-card-no-gps" ng-show="!contacts.shopLocation">
+                        <a href="#/shop/location">
+                            <p>{{'contacts.setGps' | translate}}</p>
+                        </a>
                     </div>
                     <div class="view overlay hm-white-slight z-depth-1" ng-show="contacts.shopLocation">
                         <a href="#/shop/location">

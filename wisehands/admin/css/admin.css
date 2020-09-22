@@ -2257,6 +2257,10 @@ ul.admin-breadcrumb li a:hover {
     width: 100%;
 }
 
+.admin-card .admin-contacts-card-no-gps p {
+    padding: 1rem;
+}
+
 .shop-location-title {
     text-align: center;
 }
