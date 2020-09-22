@@ -155,8 +155,6 @@ public class Application extends Controller {
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-        System.out.println("url => " + returnUrlForDev(client, language));
-
         renderTemplate("Application/shop.html", shop, products, language, categories);
 
     }
@@ -446,7 +444,7 @@ public class Application extends Controller {
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {
         String agent = request.headers.get("user-agent").value();
-
+        System.out.println("generateCookieIfNotPresent => " + shop.shopName);
         Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
         if(userTokenCookie == null) {
             ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
