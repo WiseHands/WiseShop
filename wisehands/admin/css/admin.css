@@ -2146,7 +2146,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .add-category-block {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
 
@@ -2156,8 +2156,15 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .add-category-row {
-    display: flex;
-    justify-content: space-between;
+    display: block;
+}
+
+.add-category-block  .add-category-row .input-field label {
+    padding-left: 25px;
+}
+
+.add-category-row button {
+    margin-right: 0;
 }
 
 .delivery-edit-message {
