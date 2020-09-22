@@ -25293,7 +25293,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                         <div hidden="[[!areThereItems(cart.items)]]" class="order-details-container">
                             <div class="order-details">
 
-                                <paper-card>
+                                <paper-card hidden=[[isQrPresent]]>
                                     <h3>[[deliveryTypeLabel]]</h3>
                                     <paper-radio-group id="deliveryType" selected="[[cart.deliveryType]]"
                                                        on-selected-changed="_onDeliveryTypeChange">
@@ -25468,6 +25468,11 @@ class WiseShoppingCartContainer extends PolymerElement {
       basketEmptyLabel: String,
       startShoppingLabel: String,
       courierLabel: String,
+      qrUuid: String,
+      isQrPresent: {
+        type: Boolean,
+        value: false
+      },
       currencyLabel: {
         type: String,
         value: 'USD'
@@ -25616,6 +25621,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   ready() {
     super.ready();
+    this.hideDeliveryTypeIfQrPresent();
     const params = this.addCartIdParamIfAvailable(true);
 
     const url = this._generateRequestUrl('/api/cart', params);
@@ -25662,6 +25668,16 @@ class WiseShoppingCartContainer extends PolymerElement {
     });
   }
 
+  hideDeliveryTypeIfQrPresent() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    if (urlParams.get('qr_uuid')) {
+      this.qrUuid = urlParams.get('qr_uuid');
+      this.isQrPresent = true;
+    }
+  }
+
   areThereItems(items) {
     return items.length !== 0;
   }
@@ -25689,9 +25705,11 @@ class WiseShoppingCartContainer extends PolymerElement {
     const requiredInputs = Array.from(this.shadowRoot.querySelectorAll('paper-input[required]')).filter(input => input.offsetWidth > 0 && input.offsetHeight > 0);
     let validInputs = 0;
 
-    if (!deliveryType.selected) {
-      this.set('errorMessage', this.errorMessagePleaseChooseDeliveryLabel);
-      return;
+    if (!this.isQrPresent) {
+      if (!deliveryType.selected) {
+        this.set('errorMessage', this.errorMessagePleaseChooseDeliveryLabel);
+        return;
+      }
     }
 
     if (!paymentType.selected) {
@@ -25743,7 +25761,7 @@ class WiseShoppingCartContainer extends PolymerElement {
   _makeOrderRequest() {
     if (this.isMakeOrderRequestRunning) return;
     const ajax = this.$.makeOrderAjax;
-    ajax.url = `${this.hostname}/order/${this.language}${this.addCartIdParamIfAvailable(true)}`;
+    ajax.url = `${this.hostname}/order${this.addCartIdParamIfAvailable(true)}`;
     ajax.method = 'POST';
     this.isMakeOrderRequestRunning = true;
     ajax.generateRequest();
