@@ -123,6 +123,8 @@ public class Application extends Controller {
             renderTemplate("Application/landing.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
         }
 
+        generateCookieIfNotPresent(shop);
+
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         Lang.change(language);
@@ -150,13 +152,16 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
+        String qr_uuid = null;
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
+
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-        System.out.println("url => " + returnUrlForDev(client, language));
-        redirect(returnUrlForDev(client, language) , false);
 
-//        renderTemplate("Application/shop.html", shop, products, language, categories);
+        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
 
     }
 
@@ -519,6 +524,7 @@ public class Application extends Controller {
         Translation.setTranslationForShop(language, shop);
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
+
         render(shop, language, categories);
     }
 

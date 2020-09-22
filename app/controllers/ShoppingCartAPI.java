@@ -88,7 +88,6 @@ public class ShoppingCartAPI extends AuthController {
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
 
-
         LineItem lineItem = new LineItem(
                 product.uuid, product.name, product.mainImage.filename,
                 quantity, product.price, shop, additionOrderDTOList,

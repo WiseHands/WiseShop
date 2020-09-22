@@ -1,6 +1,7 @@
 #{set pageList:pageList /}
 #{set language:language /}
 #{set categories:categories /}
+#{set qr_uuid:qr_uuid /}
 <style>
     header {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
@@ -179,7 +180,6 @@
                 <h3>${shop.shopName}</h3>
             </a>
         </div>
-        <!--SHOP NETWORK-->
         <div class="header-right-part">
             <div class="select-lang">
                 <button class="dropbtn">${language}</button>
@@ -200,7 +200,7 @@
                 </a>
             </div>
             #{/if}
-            <a href="/${language}/shoppingcart">
+            <a href="/${language}/shoppingcart?qr_uuid=${qr_uuid}">
                 <div id="shoppingCartCounter" class="fa-stack header-cart">
                     <i class="fa fa-stack-2x fa-inverse"></i>
                     <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
