@@ -122,4 +122,17 @@ public class ProductDTO extends GenericModel {
             return String.format("%10.2f", number); // dj_segfault
         }
     }
+
+    public String formatDecimalOldPrice() {
+        Double number = this.oldPrice;
+        if (number != null) {
+            float epsilon = 0.004f; // 4 tenths of a cent
+            if (Math.abs(Math.round(number) - number) < epsilon) {
+                return String.format("%10.0f", number) + " " + "UAH"; // sdb
+            } else {
+                return String.format("%10.2f", number) + " " + "UAH"; // dj_segfault
+            }
+        }
+        return "";
+    }
 }
