@@ -133,7 +133,7 @@
   "singleOrder.feedback" : "Feedback",
   "singleOrder.generalFeedback" : "The customer did not leave a general comment about the order",
   "singleOrder.feedbackComment" : "Comment",
-  "singleOrder.qrCodeName" : "QR name",
+  "singleOrder.qrCodeName" : "QR",
   "sideNav.Orders": "Orders",
   "sideNav.Analytics": "Analytics",
   "sideNav.Products": "Products",
