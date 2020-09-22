@@ -138,14 +138,24 @@ public class OrderAPI extends AuthController {
         order.items = orderItemListResult.orderItemList;
 
         DeliveryDTO delivery = shop.delivery;
-        if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)){
-            if (orderItemListResult.total < delivery.courierFreeDeliveryLimit){
-                orderItemListResult.total += delivery.courierPrice;
+        System.out.println("delivery => " + shoppingCart.deliveryType);
+        if(shoppingCart.deliveryType != null){
+            if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)){
+                if (orderItemListResult.total < delivery.courierFreeDeliveryLimit){
+                    orderItemListResult.total += delivery.courierPrice;
+                }
             }
         }
 
         order.total = orderItemListResult.total;
         order.paymentState = PaymentState.PENDING;
+
+        String qrUuid = request.params.get("qr_uuid");
+        QrDTO qr = null;
+        if(qrUuid != null){
+            qr = QrDTO.findById(qrUuid);
+        }
+        order.qrName = qr.name;
         order = order.save();
 
         if (shop.pricingPlan != null){

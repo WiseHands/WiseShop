@@ -25622,6 +25622,7 @@ class WiseShoppingCartContainer extends PolymerElement {
   ready() {
     super.ready();
     this.hideDeliveryTypeIfQrPresent();
+    console.log("qrUuid =>", this.qrUuid);
     const params = this.addCartIdParamIfAvailable(true);
 
     const url = this._generateRequestUrl('/api/cart', params);
@@ -25761,7 +25762,7 @@ class WiseShoppingCartContainer extends PolymerElement {
   _makeOrderRequest() {
     if (this.isMakeOrderRequestRunning) return;
     const ajax = this.$.makeOrderAjax;
-    ajax.url = `${this.hostname}/order${this.addCartIdParamIfAvailable(true)}`;
+    ajax.url = `${this.hostname}/order/${this.language}?qr_uuid=${this.qrUuid}`;
     ajax.method = 'POST';
     this.isMakeOrderRequestRunning = true;
     ajax.generateRequest();

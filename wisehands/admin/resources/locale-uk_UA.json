@@ -140,6 +140,7 @@
   "singleOrder.feedback" : "Відгук",
   "singleOrder.generalFeedback" : "Клієнт не залишив загальний коментар про замовлення",
   "singleOrder.feedbackComment" : "Коментар",
+  "singleOrder.qrCodeName" : "QR ім'я",
   "sideNav.Orders": "Замовлення",
   "sideNav.Analytics": "Аналітика",
   "sideNav.Products": "Товари",

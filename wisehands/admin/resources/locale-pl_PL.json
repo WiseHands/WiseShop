@@ -128,6 +128,8 @@
   "singleOrder.feedback" : "Odpowiedź",
   "singleOrder.generalFeedback" : "Klient nie zostawił komentarza na temat zamówienia",
   "singleOrder.feedbackComment" : "Komentarz",
+  "singleOrder.qrCodeName" : "QR name",
+
   "sideNav.Orders": "Zamówienia",
   "sideNav.Analytics": "Analityka",
   "sideNav.Products": "Produkty",

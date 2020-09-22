@@ -22,6 +22,12 @@ public class OrderDTO extends GenericModel {
     @Expose
     public String uuid;
 
+    @Id
+    @GenericGenerator(name="gen",strategy="increment")
+    @GeneratedValue(generator="gen")
+    @Column(name = "orderId", unique = true, nullable = false)
+    public Long id;
+
     @Expose
     public String name;
 
@@ -123,6 +129,9 @@ public class OrderDTO extends GenericModel {
     @ManyToOne
     public ShopDTO shop;
 
+    @Expose
+    public String qrName;
+
     public OrderDTO(ShoppingCartDTO cart, ShopDTO shop, String userAgent, String ip) {
         this.name = cart.clientName;
         this.phone = cart.clientPhone;
@@ -134,7 +143,9 @@ public class OrderDTO extends GenericModel {
         this.clientAddressApartmentEntranceCode = cart.clientAddressApartmentEntranceCode;
         this.clientAddressApartmentFloor = cart.clientAddressApartmentFloor;
         this.clientAddressApartmentNumber = cart.clientAddressApartmentNumber;
-        this.deliveryType = cart.deliveryType.name();
+        if(cart.deliveryType != null){
+            this.deliveryType = cart.deliveryType.name();
+        }
         this.paymentType = cart.paymentType.name();
         this.clientPostDepartmentNumber = cart.clientPostDepartmentNumber;
         this.time = System.currentTimeMillis();
