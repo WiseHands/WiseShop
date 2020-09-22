@@ -5,6 +5,7 @@ import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
 import json.shoppingcart.PaymentCreditCardConfiguration;
 import liqp.Template;
+import liqp.filters.Filter;
 import models.*;
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONObject;
@@ -17,6 +18,7 @@ import responses.JsonResponse;
 import services.*;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -201,7 +203,7 @@ public class OrderAPI extends AuthController {
         try {
             String htmlContent = generateHtmlEmailForNewOrder(shop, order);
             int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
-            String subject = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+            String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
             List<String> emailList = new ArrayList<>();
             emailList.add(shop.contact.email);
             emailList.add(order.email);
@@ -501,7 +503,7 @@ public class OrderAPI extends AuthController {
                 }
                 smsSender.sendSms(order.phone, smsText);
                 String htmlContent = generateHtmlEmailForOrderPaymentError(shop, order);
-                String subject = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
                 List<String> emailList = new ArrayList<>();
                 emailList.add(shop.contact.email);
                 mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
@@ -535,7 +537,7 @@ public class OrderAPI extends AuthController {
                 smsSender.sendSms(order.phone, smsText);
                 smsSender.sendSms(shop.contact.phone, smsText);
                 String htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order);
-                String subject = Messages.get("new.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
                 List<String> emailList = new ArrayList<>();
                 emailList.add(shop.contact.email);
                 mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
@@ -600,6 +602,17 @@ public class OrderAPI extends AuthController {
         return rendered;
     }
     private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order) {
+
+        Filter.registerFilter(new Filter("total"){
+            @Override
+            public Object apply(Object value, Object... params) {
+
+                DecimalFormat format = new DecimalFormat("0.##");
+
+                return format.format(value);
+            }
+        });
+
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_form.html");
         Template template = Template.parse(templateString);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -608,6 +621,9 @@ public class OrderAPI extends AuthController {
         Date resultDate = new Date(order.time);
 
         int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+
+        DecimalFormat format = new DecimalFormat("0.##");
+        String total = format.format(order.total);
 
         map.put("orderNumber", orderListSize);
         map.put("shopName", shop.shopName);
@@ -619,7 +635,7 @@ public class OrderAPI extends AuthController {
         map.put("clientAddressCity", order.clientCity);
         map.put("clientAddressStreetName", order.clientAddressStreetName);
         map.put("clientPostDepartmentNumber", order.clientPostDepartmentNumber);
-        map.put("total", order.total);
+        map.put("total", total);
         map.put("uuid", order.uuid);
         map.put("time", simpleDateFormat.format(resultDate));
         map.put("comment", order.comment);
