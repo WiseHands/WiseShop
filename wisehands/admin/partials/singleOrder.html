@@ -73,7 +73,7 @@
                             <p>{{order.qrName}}</p>
                         </div>
                     </div>
-                    <div class="admin-card">
+                    <div class="admin-card" ng-show="!order.qrName">
                         <h4>{{'singleOrder.titleDelivery' | translate}}</h4>
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.deliveryType' | translate}}: </h5>

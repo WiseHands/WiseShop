@@ -2399,6 +2399,11 @@ ul.admin-breadcrumb li a:hover {
     cursor: pointer;
     color: #23527c;
 }
+.qr-name-in-order {
+    padding: 80px;
+    height: 202px;
+    align-items: baseline;
+}
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
