@@ -506,6 +506,7 @@ public class OrderAPI extends AuthController {
                 String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
                 List<String> emailList = new ArrayList<>();
                 emailList.add(shop.contact.email);
+                emailList.add(order.email);
                 mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
 
                 System.out.println(subject);
@@ -540,6 +541,7 @@ public class OrderAPI extends AuthController {
                 String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
                 List<String> emailList = new ArrayList<>();
                 emailList.add(shop.contact.email);
+                emailList.add(order.email);
                 mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
