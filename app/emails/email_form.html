@@ -408,8 +408,8 @@
                                     <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderDelivery}}</th>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px 15px; ">{{labelDelivery}}:</td>
-                                    <td style="padding: 10px 15px; text-align: right;  width: 100%;">
+                                    <td style="padding: 10px 15px; width: 100%">{{labelDelivery}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right;">
                                         {% if deliveryType == "SELFTAKE" %}
                                         {{selfPickupDeliveryType}}
                                         {% endif %}
@@ -467,11 +467,11 @@
                         <td align="center" valign="top" width="100%">
                             <table cellpadding="0" cellspacing="0" border="0" style="width: 95%; background: #f6f6f6; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
                                 <tr>
-                                    <th style="padding: 10px 15px; font-size: 21px; font-weight: 400" colspan="2">{{labelOrderPayment}}</th>
+                                    <th style="padding: 10px 15px; font-size: 21px; width: 100%; font-weight: 400" colspan="2">{{labelOrderPayment}}</th>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px 15px; width: 50%">{{labelPaymentType}}:</td>
-                                    <td style="padding: 10px 15px; text-align: right; width: 50%">
+                                    <td style="padding: 10px 15px; width: 100%">{{labelPaymentType}}:</td>
+                                    <td style="padding: 10px 15px; text-align: right;">
                                         {% if paymentType == "CASHONDELIVERY" %}
                                         {{cashOnDeliveryPaymentType}}
                                         {% endif %}
