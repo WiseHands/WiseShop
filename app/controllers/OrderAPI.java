@@ -151,11 +151,11 @@ public class OrderAPI extends AuthController {
         order.paymentState = PaymentState.PENDING;
 
         String qrUuid = request.params.get("qr_uuid");
-        QrDTO qr = null;
-        if(qrUuid != null){
-            qr = QrDTO.findById(qrUuid);
+
+        if(!qrUuid.equals("undefined")){
+            QrDTO qr = QrDTO.findById(qrUuid);
+            order.qrName = qr.name;
         }
-        order.qrName = qr.name;
         order = order.save();
 
         if (shop.pricingPlan != null){
