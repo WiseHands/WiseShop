@@ -399,10 +399,10 @@ public class OrderAPI extends AuthController {
 
         Lang.change(order.clientLanguage);
         System.out.println("order.clientLanguage => "+ order.clientLanguage);
-        String titleForMail = Messages.get("feedback.email.notification.to.client.leave.feedback", shop.shopName, order.name);
-
+        int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+        String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
         try {
-            mailSender.sendEmailForFeedbackToOrder(shop, order, titleForMail , order.clientLanguage);
+            mailSender.sendEmailForFeedbackToOrder(shop, order, subject , order.clientLanguage);
             JsonResponse jsonHandle = new JsonResponse(420, "feedback was sent");
             renderJSON(json(jsonHandle));
         } catch (Exception e) {
