@@ -4,84 +4,87 @@
             <div class="col-xs-2 noPaddingLeft">
                 <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
             </div>
-            <form class="col-xs-8 waves-effect waves-light">
-                <input class="form-control noMarginForSearchInput" type="text" placeholder="{{'orderList.Search' | translate}}" ng-model="query">
-            </form>
+            <div class="col-xs-8 white-text text-center">
+                <h5>{{'orderList.orders' | translate}}</h5>
+            </div>
+            <!--<form class="col-xs-8 waves-effect waves-light">-->
+                <!--<input class="form-control noMarginForSearchInput" type="text" placeholder="{{'orderList.Search' | translate}}" ng-model="query">-->
+            <!--</form>-->
             <!--<a class="col-xs-2"-->
                <!--ng-click="isSortingActive=!isSortingActive; setSortOption()"-->
                <!--ng-show="isSortingActive">-->
                 <!--<i class="fa fa-sort-amount-desc pull-right whiteColor"></i>-->
             <!--</a>-->
-            <a class="col-xs-2"
-               ng-click="isSortingActive=!isSortingActive; setSortOption()"
-               ng-hide="isSortingActive">
-                <i class="fa fa-sort-amount-asc pull-right whiteColor"></i>
-            </a>
-            <a class="col-xs-2 noRightPadding"
-               type="button"
-               data-toggle="collapse"
-               data-target="#filterOptions"
-               aria-expanded="false"
-               aria-controls="filterOptions">
-                <i class="fa fa-filter pull-right" ng-style="{ 'color': isFilterOn() }">
-                </i>
-            </a>
+            <!--<a class="col-xs-2"-->
+               <!--ng-click="isSortingActive=!isSortingActive; setSortOption()"-->
+               <!--ng-hide="isSortingActive">-->
+                <!--<i class="fa fa-sort-amount-asc pull-right whiteColor"></i>-->
+            <!--</a>-->
+            <!--<a class="col-xs-2 noRightPadding"-->
+               <!--type="button"-->
+               <!--data-toggle="collapse"-->
+               <!--data-target="#filterOptions"-->
+               <!--aria-expanded="false"-->
+               <!--aria-controls="filterOptions">-->
+                <!--<i class="fa fa-filter pull-right" ng-style="{ 'color': isFilterOn() }">-->
+                <!--</i>-->
+            <!--</a>-->
         </div>
-        <div class="container-fluid">
-            <div class="collapse row" id="filterOptions">
-                <div class="filter-option-all">
-                    <div class="filter-option-item">
-                        <input type="checkbox"
-                               class="filled-in"
-                               id="checkbox1"
-                               ng-click="orderStateFilter('NEW')"
-                               ng-checked="isOptionChecked('NEW')">
-                        <label class="white-text whiteCheckBox" for="checkbox1">{{'orderList.New' | translate}}</label>
-                    </div>
-                    <div class="filter-option-item">
-                        <input type="checkbox"
-                               class="filled-in"
-                               id="checkbox2"
-                               ng-click="orderStateFilter('PAYED')"
-                               ng-checked="isOptionChecked('PAYED')">
-                        <label class="white-text whiteCheckBox" for="checkbox2">{{'orderList.Paid' | translate}}</label>
-                    </div>
-                    <div class="filter-option-item">
-                        <input type="checkbox"
-                               class="filled-in"
-                               id="checkbox3"
-                               ng-click="orderStateFilter('MANUALLY_PAYED')"
-                               ng-checked="isOptionChecked('MANUALLY_PAYED')">
-                        <label class="white-text whiteCheckBox" for="checkbox3">{{'orderList.Postpay' | translate}}</label>
-                    </div>
-                    <div class="filter-option-item">
-                        <input type="checkbox"
-                               class="filled-in"
-                               id="checkbox4"
-                               ng-click="orderStateFilter('CANCELLED')"
-                               ng-checked="isOptionChecked('CANCELLED')">
-                        <label class="white-text whiteCheckBox" for="checkbox4">{{'orderList.Canceled' | translate}}</label>
-                    </div>
-                    <div class="filter-option-item">
-                        <input type="checkbox"
-                               class="filled-in"
-                               id="checkbox5"
-                               ng-click="orderStateFilter('SHIPPED')"
-                               ng-checked="isOptionChecked('SHIPPED')">
-                        <label class="white-text whiteCheckBox" for="checkbox5">{{'orderList.Shipped' | translate}}</label>
-                    </div>
-                    <div class="filter-option-item">
-                        <input type="checkbox"
-                               class="filled-in"
-                               id="checkbox6"
-                               ng-click="orderStateFilter('PAYMENT_ERROR')"
-                               ng-checked="isOptionChecked('PAYMENT_ERROR')">
-                        <label class="white-text whiteCheckBox" for="checkbox6">{{'orderList.Error' | translate}}</label>
-                    </div>
-                </div>
+        <!--<div class="container-fluid">-->
+            <!--<div class="collapse row" id="filterOptions">-->
+                <!--<div class="filter-option-all">-->
+                    <!--<div class="filter-option-item">-->
+                        <!--<input type="checkbox"-->
+                               <!--class="filled-in"-->
+                               <!--id="checkbox1"-->
+                               <!--ng-click="orderStateFilter('NEW')"-->
+                               <!--ng-checked="isOptionChecked('NEW')">-->
+                        <!--<label class="white-text whiteCheckBox" for="checkbox1">{{'orderList.New' | translate}}</label>-->
+                    <!--</div>-->
+                    <!--<div class="filter-option-item">-->
+                        <!--<input type="checkbox"-->
+                               <!--class="filled-in"-->
+                               <!--id="checkbox2"-->
+                               <!--ng-click="orderStateFilter('PAYED')"-->
+                               <!--ng-checked="isOptionChecked('PAYED')">-->
+                        <!--<label class="white-text whiteCheckBox" for="checkbox2">{{'orderList.Paid' | translate}}</label>-->
+                    <!--</div>-->
+                    <!--<div class="filter-option-item">-->
+                        <!--<input type="checkbox"-->
+                               <!--class="filled-in"-->
+                               <!--id="checkbox3"-->
+                               <!--ng-click="orderStateFilter('MANUALLY_PAYED')"-->
+                               <!--ng-checked="isOptionChecked('MANUALLY_PAYED')">-->
+                        <!--<label class="white-text whiteCheckBox" for="checkbox3">{{'orderList.Postpay' | translate}}</label>-->
+                    <!--</div>-->
+                    <!--<div class="filter-option-item">-->
+                        <!--<input type="checkbox"-->
+                               <!--class="filled-in"-->
+                               <!--id="checkbox4"-->
+                               <!--ng-click="orderStateFilter('CANCELLED')"-->
+                               <!--ng-checked="isOptionChecked('CANCELLED')">-->
+                        <!--<label class="white-text whiteCheckBox" for="checkbox4">{{'orderList.Canceled' | translate}}</label>-->
+                    <!--</div>-->
+                    <!--<div class="filter-option-item">-->
+                        <!--<input type="checkbox"-->
+                               <!--class="filled-in"-->
+                               <!--id="checkbox5"-->
+                               <!--ng-click="orderStateFilter('SHIPPED')"-->
+                               <!--ng-checked="isOptionChecked('SHIPPED')">-->
+                        <!--<label class="white-text whiteCheckBox" for="checkbox5">{{'orderList.Shipped' | translate}}</label>-->
+                    <!--</div>-->
+                    <!--<div class="filter-option-item">-->
+                        <!--<input type="checkbox"-->
+                               <!--class="filled-in"-->
+                               <!--id="checkbox6"-->
+                               <!--ng-click="orderStateFilter('PAYMENT_ERROR')"-->
+                               <!--ng-checked="isOptionChecked('PAYMENT_ERROR')">-->
+                        <!--<label class="white-text whiteCheckBox" for="checkbox6">{{'orderList.Error' | translate}}</label>-->
+                    <!--</div>-->
+                <!--</div>-->
 
-         </div>
-     </div>
+         <!--</div>-->
+     <!--</div>-->
     </div>
 </nav>
 <ul class="collection visible-xs-block">
@@ -98,7 +101,7 @@
                     <p class="secondaryOrderFont">{{item.phone}}</p>
                 </div>
                 <div class="col-xs-2">
-                    <b class="material-icons pull-right materialIcon">{{orderState(item)}}</b>
+                    <b class="material-icons pull-right materialIcon">{{orderPaymentType(item)}}</b>
                 </div>
             </div>
         </a>
@@ -159,15 +162,6 @@
                             {{'orderList.postservice' | translate}}<i>{{item.clientCity}}, {{item.clientPostDepartmentNumber}}</i></p>
                         <p ng-show="item.deliveryType === 'SELFTAKE'">{{'orderList.selftake' | translate}}</p>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <ul class="list-inline">
-                        <li>{{orderStateString(item)}}</li>
-
-                        <!--<span ng-show="item.feedbackRequestState === 'REQUEST_SENT'"> відгук отриманий</span>-->
-                        <!--<span ng-show="item.feedbackRequestState === 'PENDING_REQUEST'"> відгук очікується</span>-->
-                        <!--<span ng-show="item.feedbackRequestState === 'REQUEST_NOT_SEND'">запит на відгук не відправлений</span>-->
-                    </ul>
                 </div>
             </div>
         </a>

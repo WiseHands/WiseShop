@@ -118,9 +118,9 @@ public class UserDashBoardAPI extends AuthController{
         if (delivery.selfTakeTranslationBucket == null){
             System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
-            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовиніс");
+            TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Самовивіз");
             translationItemUk.save();
-            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Self Pick Up");
+            TranslationItemDTO translationItemEn = new TranslationItemDTO("en", "Self Pickup");
             translationItemEn.save();
             translationBucket.addTranslationItem(translationItemUk);
             translationBucket.addTranslationItem(translationItemEn);

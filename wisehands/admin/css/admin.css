@@ -2145,7 +2145,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .add-category-block {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
 
@@ -2155,8 +2155,15 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .add-category-row {
-    display: flex;
-    justify-content: space-between;
+    display: block;
+}
+
+.add-category-block  .add-category-row .input-field label {
+    padding-left: 25px;
+}
+
+.add-category-row button {
+    margin-right: 0;
 }
 
 .delivery-edit-message {
@@ -2254,6 +2261,10 @@ ul.admin-breadcrumb li a:hover {
 
 .admin-contacts-card-gps img {
     width: 100%;
+}
+
+.admin-card .admin-contacts-card-no-gps p {
+    padding: 1rem;
 }
 
 .shop-location-title {
@@ -2404,6 +2415,15 @@ ul.admin-breadcrumb li a:hover {
     height: 202px;
     align-items: baseline;
 }
+
+#contactsForm .translation-flex-row button {
+    margin-right: 0;
+}
+
+.address-order-container .admin-order-card-row p {
+    word-break: break-word;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;

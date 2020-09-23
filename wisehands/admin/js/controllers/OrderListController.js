@@ -141,21 +141,14 @@
                     });
             };
 
-            $scope.orderState = function(item){
-                if (item.state === "NEW"){
-                    return 'flash_on';
-                } else if (item.state === "PAYED") {
-                    return 'credit_card';
-                } else if (item.state === "CANCELLED") {
-                    return 'highlight_off';
-                } else if (item.state === "SHIPPED") {
-                    return 'flight_land';
-                } else if (item.state === "MANUALLY_PAYED") {
+            $scope.orderPaymentType = function (item) {
+                if (item.paymentType === "CASHONDELIVERY") {
                     return 'attach_money';
-                } else if (item.state === "PAYMENT_ERROR") {
-                    return 'error_outline';
+                } else if (item.paymentType === "CREDITCARD") {
+                    return 'credit_card';
                 }
             };
+
             $scope.orderFeedbackState = function (order) {
                 if (!order) return;
 

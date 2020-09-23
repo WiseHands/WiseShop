@@ -25,10 +25,10 @@
                 <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
                       ng-class="{reverse: reverse}"></span>
             </p>
-            <p ng-click="sortBy('quality')">{{'productReviews.byRating' | translate}}
-                <span class="sortorder" ng-show="sortByProperty === 'quality'"
-                      ng-class="{reverse: reverse}"></span>
-            </p>
+            <!--<p ng-click="sortBy('quality')">{{'productReviews.byRating' | translate}}-->
+                <!--<span class="sortorder" ng-show="sortByProperty === 'quality'"-->
+                      <!--ng-class="{reverse: reverse}"></span>-->
+            <!--</p>-->
         </div>
         <div class="admin-feedback-list">
             <div class="admin-card product-feedback-container" ng-repeat="order in orderList | orderBy:sortByProperty:reverse">

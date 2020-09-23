@@ -162,7 +162,6 @@ public class Application extends Controller {
         }
 
         renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
-
     }
 
     public static void index(String client, String language) {
@@ -333,8 +332,9 @@ public class Application extends Controller {
         }
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String languageForShop = LanguageForShop.setLanguageForShop(null, languageFromHeader);
-        render(shop, languageForShop);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        System.out.println("LanguageForShop" + language);
+        render(shop, language);
     }
 
     public static void pageOld(String client, String uuid) {
@@ -449,14 +449,15 @@ public class Application extends Controller {
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {
         String agent = request.headers.get("user-agent").value();
-
+        System.out.println("generateCookieIfNotPresent => " + shop.shopName);
         Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
         if(userTokenCookie == null) {
             ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
             shoppingCart.shopUuid = shop.uuid;
             shoppingCart.save();
-
+            System.out.println("prepare to generateTokenForCookie => " + agent);
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
+            System.out.println("generateTokenForCookie => " + token);
             response.setCookie("JWT_TOKEN", token);
         }
     }

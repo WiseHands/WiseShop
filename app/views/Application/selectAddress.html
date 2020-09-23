@@ -1,4 +1,5 @@
 #{set shop:shop /}
+#{set language:language /}
 <style>
     .center-container {
         display: flex;
@@ -287,8 +288,11 @@
 
         });
     }
+    let language = document.querySelector('html').getAttribute('language');
 
     function nextButtonClickListener(){
+        console.log("language", language);
+
         if (marker){
             let lat = marker.getPosition().lat();
             let lng = marker.getPosition().lng();

@@ -7,13 +7,11 @@ import play.Play;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.libs.Mail;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
@@ -26,53 +24,18 @@ public class MailSenderImpl implements MailSender {
     static Session getMailSession;
     static MimeMessage generateMailMessage;
 
-    public void sendEmail(ShopDTO shop, OrderDTO order, String status) throws Exception {
-        //System.out.println("MailSenderImpl " + isDevEnv + status + shop.contact.email);
-//        if (!isDevEnv) {
-            HtmlEmail email = new HtmlEmail();
-            email.setHostName(shop.domain);
-            email.setFrom("wisehandsme@gmail.com");
-            //System.out.println("AddTo: " + shop.contact.email);
-            email.addTo(shop.contact.email);
-            email.setSubject(status);
+    public void sendEmail(List<String> emailList, String subject, String htmlContent, String hostname) throws Exception {
+        HtmlEmail email = new HtmlEmail();
+        email.setHostName(hostname);
+        email.setFrom("wisehandsme@gmail.com");
+        for(String emailId : emailList) {
+            email.addTo(emailId);
+        }
+        email.setSubject(subject);
 
-            String templateString = readAllBytesJava7("app/emails/email_form.html");
-            Template template = Template.parse(templateString);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("name", order.name);
-            map.put("phone", order.phone);
-            map.put("deliveryType", order.deliveryType);
-            map.put("address", order.clientCity);
-            map.put("total", order.total);
-
-            Lang.change(shop.locale);
-
-            String labelName = Messages.get("mail.label.name");
-            map.put("labelName", labelName);
-            String labelPhone = Messages.get("mail.label.phone");
-            map.put("labelPhone", labelPhone);
-            String labelDelivery = Messages.get("mail.label.delivery");
-            map.put("labelDelivery", labelDelivery);
-            String labelAddress = Messages.get("mail.label.address");
-            map.put("labelAddress", labelAddress);
-            String labelTotal = Messages.get("mail.label.total");
-            map.put("labelTotal", labelTotal);
-            String labelNewOrder = Messages.get("mail.label.neworder");
-            map.put("labelNewOrder", labelNewOrder);
-            String labelDetails = Messages.get("mail.label.details");
-            map.put("labelDetails", labelDetails);
-            String orderLink = String.format("https://%s/admin#/details/%s", shop.domain, order.uuid);
-            map.put("orderLink", orderLink);
-            String labelComment = Messages.get("mail.label.comment");
-            map.put("labelComment", labelComment);
-            map.put("comment", order.comment);
-
-
-        String rendered = template.render(map);
-
-            email.setHtmlMsg(rendered);
-            email.setCharset("utf-8");
-            Mail.send(email);
+        email.setHtmlMsg(htmlContent);
+        email.setCharset("utf-8");
+        Mail.send(email);
     }
 
     public void sendEmailLowShopBalance(ShopDTO shop, String status) throws Exception {
@@ -218,7 +181,7 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
-    private static String readAllBytesJava7(String filePath)
+    public static String readAllBytesJava7(String filePath)
     {
         String content = "";
         try
