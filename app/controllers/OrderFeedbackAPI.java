@@ -36,7 +36,7 @@ public class OrderFeedbackAPI extends AuthController{
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
 
         String orderUuid = (String) jsonBody.get("orderUuid");
-        OrderDTO order = OrderDTO.findById(orderUuid);
+        OrderDTO order = OrderDTO.find("byUuid", orderUuid).first();
 
         mailSender.sendNotificationToAdminAboutFeedback(shop, order, Messages.get("feedback.email.notification.to.admin.about.new.feedback", shop.shopName, order.name));
 
