@@ -450,8 +450,9 @@ public class Application extends Controller {
             ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
             shoppingCart.shopUuid = shop.uuid;
             shoppingCart.save();
-
+            System.out.println("prepare to generateTokenForCookie => " + agent);
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
+            System.out.println("generateTokenForCookie => " + token);
             response.setCookie("JWT_TOKEN", token);
         }
     }
