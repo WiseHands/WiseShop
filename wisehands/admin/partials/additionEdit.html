@@ -6,28 +6,58 @@
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
-                    {{'qrEdit.title' | translate}}
+                    {{'additionEdit.title' | translate}}
                 </h5>
             </div>
+            <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
+               id="dropdownMenu1"
+               type="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+                <i class="fa fa-edit whiteColor pull-right">
+                </i>
+                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
+                    <a class="col-xs-12 text-left" ng-click="redirectToEdit()" ><p> {{'qrDetails.edit' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeQR"><p> {{'qrDetails.delete' | translate}}</p></a>
+                </div>
+            </a>
         </div>
     </div>
 </nav>
 <div class="admin-container admin-column">
     <ul class="admin-breadcrumb qr-breadcrumb">
-        <li><a href="#/qrcontroller">QrMenu</a></li>
-        <li><a href="#/qrdetail/{{qr.uuid}}">{{qr.name}}</a></li>
+        <li><a href="#/addition">{{'additionBreadCrumb.menu' | translate}}</a></li>
+        <li><a href="#/additionedit/{{addition.uuid}}">{{addition.title}}</a></li>
     </ul>
     <div class="qr-title-container qr-edit">
         <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
         <div class="qr-column  m-l-r">
             <div class="qr-detail-info">
-                <p> {{'qrEdit.titleInfo' | translate}} </p>
+                <p> {{'additionEdit.titleInfo' | translate}} </p>
             </div>
             <div class="qr-new-container">
-                <div class="input-field qr-input">
-                    <p id="qr_label">{{'pageQR.qrName' | translate}}:</p>
-                    <input id="qr_name" ng-model="qr.name" type="text" required >
+                <div class="addition-column">
+                    <div class="input-field">
+                        <p id="title_label">{{'editProduct.additionTitle' | translate}}</p>
+                        <input id="addition_title" type="text" ng-model="addition.title" required>
+                    </div>
+                    <div class="input-field">
+                        <p id="price_label">{{'editProduct.additionPrice' | translate}}</p>
+                        <input id="addition_price" type="text" ng-model="addition.price" required>
+                    </div>
                 </div>
+                <div class="carousel-inner add-option-image addition-image" role="listbox" ng-click="uploadOptionImage()">
+                    <div class="item active loaded-photo">
+                        <img id="property_img" src="{{propertyImageSrc}}" alt="">
+                    </div>
+                    <p class="add-option-image-text">{{'additionNew.addPhoto' | translate}}</p>
+                    <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
+                    <input id="imageLoader"
+                           class="input-file hiddenFileInput"
+                           type="file"/>
+                </div>
+                <canvas id="imageCanvas" class="productImage"></canvas>
                 <div class="qr-button">
                     <button class="save-button" ng-click="editQrCode()">
                         {{'qrDetails.edit' | translate}}
@@ -35,10 +65,27 @@
                 </div>
             </div>
         </div>
-        <div class="admin-card qr-new-container qr-column">
-            <img id="img-qr-code">
+
+    </div>
+</div>
+<div class="modal fade" id="removeQR" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center">
+                    <p ng-show="deleteButton"><i>{{'qrDetails.deleteMessage' | translate}}</i></p>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <div class="col-xs-offset-2 col-xs-8">
+                    <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="removeQr()" ng-show="deleteButton">{{'singleOrder.Delete' | translate}}</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 

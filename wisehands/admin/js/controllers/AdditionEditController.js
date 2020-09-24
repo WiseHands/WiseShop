@@ -8,11 +8,10 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: `/api/qr/info/${$routeParams.uuid}`
+            url: `/api/addition/info/${$routeParams.uuid}`
         }).then(response => {
             console.log(response.data);
-            $scope.qr = response.data;
-            showQR($scope.qr.uuid);
+            $scope.addition = response.data;
         }, error => {
             console.log(error);
         });
@@ -20,7 +19,6 @@ angular.module('WiseHands')
 
         $scope.editQrCode = () => {
             if(!qr_input_name.value){
-
                 qr_input_name.style.borderBottom = '1px solid red';
                 qr_label_name.style.color = 'red';
                 return

@@ -31,16 +31,14 @@
         <p>{{'additionMenu.noAddition' | translate}}</p>
     </div>
     <div class="qr-list-container" ng-show="additionList">
-        <div class="qr-code-card" ng-repeat="addition in additionList | filter: addition.isDeleted === false" on-finish-render="ngRepeatFinished">
+        <div ng-repeat="addition in additionList | filter: addition.isDeleted === false" on-finish-render="ngRepeatFinished">
             <a href="#/additionedit/{{addition.uuid}}" >
-                <div class="admin-card product-feedback-container">
-                    <div class="flex-column">
-                        <p>{{addition.title}}</p>
-                        <p>{{addition.price}}</p>
-                    </div>
+                <div class="admin-card addition-item">
+                    <img class="addition-img" src="{{addition.imagePath}}">
+                    <p>{{addition.title}}</p>
+                    <p>{{addition.price}}</p>
                 </div>
             </a>
-
         </div>
     </div>
 

@@ -6,6 +6,8 @@
   "additionNew.info": "Для створення додатку введіть ім'я, ціну, виберіть картинку",
   "additionNew.create": "Створити",
   "additionNew.addPhoto": "Фото",
+  "additionEdit.title": "Редагування додатку",
+  "additionEdit.titleInfo": "Відкорегуйте та збрежіть додаток",
   "additionBreadCrumb.menu": "Меню",
 
   "pageQR.title": "QR Меню",

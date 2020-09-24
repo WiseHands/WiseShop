@@ -2435,6 +2435,26 @@ ul.admin-breadcrumb li a:hover {
 .addition-create-text{
     padding-bottom: 0;
 }
+.addition-item {
+    width: 175px;
+    height: 175px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.addition-item p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+    line-height: 1.8;
+}
+.addition-img {
+    max-width: 100px;
+    width: 100%;
+}
 
 @media screen and (min-width: 1500px) {
     .admin-container {

@@ -69,6 +69,10 @@ public class AdditionAPI extends AuthController {
         renderJSON(json(addition));
     }
 
+    public static void info(String client) {
+        renderJSON(json(AdditionDTO.findById(request.params.get("uuid"))));
+    }
+
     public static void additionList (String client) throws Exception{
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
