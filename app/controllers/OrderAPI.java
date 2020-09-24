@@ -397,12 +397,15 @@ public class OrderAPI extends AuthController {
         order.feedbackRequestState = FeedbackRequestState.PENDING_REQUEST;
         order.save();
 
-        Lang.change(order.clientLanguage);
-        System.out.println("order.clientLanguage => "+ order.clientLanguage);
+        Lang.change(order.chosenClientLanguage);
+        System.out.println("order.chosenClientLanguage => "+ order.chosenClientLanguage);
         int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
         String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+        List<String> emailList = new ArrayList<>();
+        emailList.add(shop.contact.email);
+        emailList.add(order.email);
         try {
-            mailSender.sendEmailForFeedbackToOrder(shop, order, subject , order.clientLanguage);
+            mailSender.sendEmailForFeedbackToOrder(emailList, shop, order, subject , order.chosenClientLanguage);
             JsonResponse jsonHandle = new JsonResponse(420, "feedback was sent");
             renderJSON(json(jsonHandle));
         } catch (Exception e) {

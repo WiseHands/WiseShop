@@ -73,12 +73,14 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
-    public void sendEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String status, String clientLanguage) throws Exception {
+    public void sendEmailForFeedbackToOrder(List<String> emailList, ShopDTO shop, OrderDTO order, String subject, String clientLanguage) throws Exception {
         HtmlEmail email = new HtmlEmail();
         email.setHostName(shop.domain);
         email.setFrom("wisehandsme@gmail.com");
-        email.addTo(order.email);
-        email.setSubject(status);
+        for(String emailId : emailList) {
+            email.addTo(emailId);
+        }
+        email.setSubject(subject);
 
         String templateString = readAllBytesJava7("app/emails/email_feedback_to_order.html");
         Template template = Template.parse(templateString);
