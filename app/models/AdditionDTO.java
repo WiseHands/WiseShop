@@ -24,6 +24,12 @@ public class AdditionDTO extends GenericModel {
     @Expose
     public String imagePath;
 
+    @Expose
+    public String shopUuid;
+
+    @Expose
+    public boolean isDeleted;
+
     public String getTitle() {
         return title;
     }

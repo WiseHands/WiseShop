@@ -4,6 +4,8 @@
   "additionMenu.noAddition": "Додатки відсутні",
   "additionNew.title": "Створення додатку",
   "additionNew.info": "Для створення додатку введіть ім'я, ціну, виберіть картинку",
+  "additionNew.create": "Створити",
+  "additionNew.addPhoto": "Фото",
   "additionBreadCrumb.menu": "Меню",
 
   "pageQR.title": "QR Меню",

@@ -25,7 +25,7 @@ angular.module('WiseHands')
                 size: 175,
                 value: url
             });
-        }
+        };
 
         _generateUrlForQr = (uuid) => {
             let domain, hostname = $window.location.hostname;
@@ -36,7 +36,7 @@ angular.module('WiseHands')
                 domain = hostname;
             }
            return 'https://' + domain + '/?qr_uuid='+ uuid;
-        }
+        };
 
         $scope.editQrCode = () => {
             if(!qr_input_name.value){
@@ -55,7 +55,7 @@ angular.module('WiseHands')
             }, error => {
                 console.log(error);
             });
-        }
+        };
 
         sideNavInit.sideNav();
     }]);

@@ -43,7 +43,48 @@ public class AdditionAPI extends AuthController {
 
     }
 
-    public static void getAll (String client, String productUuid) throws Exception{
+
+    public static void createAddition(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        System.out.println("jsonBody for addition => " + jsonBody);
+        String title = (String) jsonBody.get("title");
+        String imagePath = (String) jsonBody.get("filepath");
+        Double price = Double.parseDouble(String.valueOf(jsonBody.get("price")));
+
+        AdditionDTO addition = new AdditionDTO();
+        addition.title = title;
+        addition.price = price;
+        addition.imagePath = imagePath;
+        addition.shopUuid = shop.uuid;
+        addition.isDeleted = false;
+        addition.save();
+
+        renderJSON(json(addition));
+    }
+
+    public static void additionList (String client) throws Exception{
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        List<AdditionDTO> additionList;
+        String query = "select a from AdditionDTO a where a.isDeleted = 0 and a.shopUuid = ?1";
+        additionList = AdditionDTO.find(query, shop.uuid).fetch();
+
+        renderJSON(json(additionList));
+    }
+
+
+    public static void getAllForProduct (String client, String productUuid) throws Exception{
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();

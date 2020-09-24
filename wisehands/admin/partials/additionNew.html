@@ -21,17 +21,35 @@
     <div class="qr-title-container">
         <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
         <div class="qr-column m-l-r">
-            <div class="qr-create-text">
+            <div class="addition-create-text">
                 <p> {{'additionNew.info' | translate}} </p>
             </div>
             <div class="qr-new-container">
-                <div class="input-field qr-input">
-                    <input id="qr_name" type="text" required>
-                    <label id="qr_label" for="qr_name">{{'pageQR.qrName' | translate}}</label>
+                <div class="addition-column">
+                    <div class="input-field">
+                        <input id="addition_title" type="text" ng-model="addition.title" required>
+                        <label id="title_label" for="addition_title">{{'editProduct.additionTitle' |
+                            translate}}</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="addition_price" type="text" ng-model="addition.price" required>
+                        <label id="price_label" for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
+                    </div>
                 </div>
+                <div class="carousel-inner add-option-image addition-image" role="listbox" ng-click="uploadOptionImage()">
+                    <div class="item active loaded-photo">
+                        <img id="property_img" src="{{propertyImageSrc}}" alt="">
+                    </div>
+                    <p class="add-option-image-text">{{'additionNew.addPhoto' | translate}}</p>
+                    <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
+                    <input id="imageLoader"
+                           class="input-file hiddenFileInput"
+                           type="file"/>
+                </div>
+                <canvas id="imageCanvas" class="productImage"></canvas>
                 <div class="qr-button">
-                    <button class="save-button" ng-click="createQrCode()">
-                        {{'pageQR.create' | translate}}
+                    <button class="save-button" ng-click="createAddition()">
+                        {{'additionNew.create' | translate}}
                     </button>
                 </div>
             </div>

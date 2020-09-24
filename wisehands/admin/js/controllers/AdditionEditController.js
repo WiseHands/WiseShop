@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('AdditionEditCodeController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$window', '$routeParams',
+    .controller('AdditionEditController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$window', '$routeParams',
         function ($scope, $http, signout, sideNavInit, shared, $window, $routeParams) {
         $scope.loading = true;
 
@@ -17,26 +17,6 @@ angular.module('WiseHands')
             console.log(error);
         });
 
-        showQR = (uuid) => {
-            let url = _generateUrlForQr(uuid);
-            console.log("url => ", url);
-            new QRious({
-                element: document.getElementById('img-qr-code'),
-                size: 175,
-                value: url
-            });
-        }
-
-        _generateUrlForQr = (uuid) => {
-            let domain, hostname = $window.location.hostname;
-            console.log('hostname', hostname);
-            if (hostname === 'localhost'){
-                domain = hostname + ':3334'
-            } else {
-                domain = hostname;
-            }
-           return 'https://' + domain + '/?qr_uuid='+ uuid;
-        }
 
         $scope.editQrCode = () => {
             if(!qr_input_name.value){
@@ -55,7 +35,7 @@ angular.module('WiseHands')
             }, error => {
                 console.log(error);
             });
-        }
+        };
 
         sideNavInit.sideNav();
     }]);

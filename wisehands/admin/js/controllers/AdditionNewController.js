@@ -3,27 +3,86 @@ angular.module('WiseHands')
         function ($scope, $http, signout, sideNavInit, shared, $window) {
         $scope.loading = true;
 
-        let qr_input_name = document.querySelector('#qr_name');
-        let qr_label_name = document.querySelector('#qr_label');
+        let title_input = document.querySelector("#addition_title");
+        let title_label = document.querySelector("#title_label");
 
-        $scope.createQrCode = () => {
-            console.log('createQrCode input is empty', !qr_input_name.value);
-            if(!qr_input_name.value){
-                qr_input_name.style.borderBottom = '1px solid red';
-                qr_label_name.style.color = 'red';
+        let price_input = document.querySelector("#addition_price");
+        let price_label = document.querySelector("#price_label");
+
+        $scope.uploadOptionImage = () => { $('#imageLoader').click(); };
+
+        let imageLoader = document.getElementById('imageLoader');
+        imageLoader.addEventListener('change', handleImage, false);
+
+        function handleImage(e) {
+            let file  = e.target.files[0];
+            let reader = new FileReader();
+            reader.onloadend = (event) => {
+                const propertyImage = document.querySelector("#property_img");
+                propertyImage.setAttribute('src', event.target.result);
+            };
+            if (file && file.type.match('image.*')) {
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        };
+
+        $scope.createAddition = () => {
+            if(!title_input.value || !price_input.value){
+                title_input.style.borderBottom = '1px solid red';
+                title_label.style.color = 'red';
+
+                price_input.style.borderBottom = '1px solid red';
+                price_label.style.color = 'red';
                 return
             }
-            let qr = JSON.stringify({name: qr_input_name.value})
+
+            console.log("createAddition", $scope.addition);
+
+            if (!document.getElementById("imageLoader").value) {
+                document.querySelector(".error-text").style.display = "block";
+                return;
+            }
+            if (!$scope.addition) {
+                toastr.error(emptyTagWarning);
+            } else {
+                const photo = document.getElementById("imageLoader").files[0];
+                $scope.loading = true;
+                let photoFd = new FormData();
+                photoFd.append('logo', photo);
+                $http.post('/upload-file', photoFd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                    }
+                })
+                    .success(function(response){
+                        $scope.loading = false;
+                        $scope.addition.filepath = response.filepath;
+                        sendAddition();
+                    })
+                    .error(function(response){
+                        $scope.loading = false;
+                        console.log(response);
+                    });
+
+            }
+        };
+
+        sendAddition = () => {
             $http({
-                method: "PUT",
-                url: `/api/qr/create`,
-                data: qr
-            }).then(response => {
-                $window.location.href = `#/qrdetail/${response.data.uuid}`
-            }, error => {
-                console.log(error);
-            });
-        }
+                method: 'POST',
+                url: '/api/addition/new',
+                data: $scope.addition
+            })
+                .then(function successCallback(response) {
+                    console.log("$scope.addition", response.data);
+                    $window.location.href = `#/additionedit/${response.data.uuid}`
+                    $scope.loading = false;
+                }, function errorCallback(response) {
+                    $scope.loading = false;
+                    console.log("$scope.addition", response);
+                });
+        };
 
         sideNavInit.sideNav();
     }]);

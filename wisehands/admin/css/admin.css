@@ -2424,6 +2424,18 @@ ul.admin-breadcrumb li a:hover {
     word-break: break-word;
 }
 
+.addition-column {
+    flex-direction: column;
+    width: -webkit-fill-available;
+    padding-right: 10px;
+}
+.addition-image {
+    min-height: 80px;
+}
+.addition-create-text{
+    padding-bottom: 0;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;

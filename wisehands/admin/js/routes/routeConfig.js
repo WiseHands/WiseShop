@@ -307,12 +307,12 @@
                         controller:'AdditionNewController',
                         activetab: 'addition'
                     }).
-                    when('/additiondetail',{
+                    when('/additiondetail/:uuid',{
                         templateUrl:'wisehands/admin/partials/additionDetail.html',
                         controller:'AdditionDetailController',
                         activetab: 'addition'
                     }).
-                    when('/additionedit',{
+                    when('/additionedit/:uuid',{
                         templateUrl:'wisehands/admin/partials/additionEdit.html',
                         controller:'AdditionEditController',
                         activetab: 'addition'
