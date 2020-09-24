@@ -2145,6 +2145,12 @@ ul.admin-breadcrumb li a:hover {
     width: 30px;
 }
 
+.category-panel h4 {
+    font-size: 1.7rem;
+    padding: 0 1rem;
+    word-break: break-word;
+}
+
 .add-category-block {
     width: 95%;
     margin: 0 auto;
