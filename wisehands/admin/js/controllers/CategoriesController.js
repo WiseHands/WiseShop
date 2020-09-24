@@ -4,29 +4,58 @@ angular.module('WiseHands')
 
         $http({
             method: 'GET',
-            url: '/api/category'
+            url: '/shop/details'
         })
             .then(function successCallback(response) {
-                $scope.categories = response.data;
+                $scope.language = (response.data.locale).slice(0, 2);
                 $scope.loading = false;
             }, function errorCallback(error) {
                 $scope.loading = false;
                 console.log(error);
             });
 
-        $scope.redirectToTranslationPage = function (category) {
         $http({
             method: 'GET',
-            url: '/api/get/translation/category/' + category.uuid
+            url: '/api/category'
         })
             .then(function successCallback(response) {
-                const translationBucket = response.data;
-                $window.location.href = `#/translation/${category.uuid}/${translationBucket.uuid}`;
+                $scope.categories = response.data;
+                setCategoryName($scope.categories);
+                $scope.loading = false;
             }, function errorCallback(error) {
                 $scope.loading = false;
                 console.log(error);
             });
-        }
+
+        setCategoryName = (categories) => {
+            console.log('$scope.categories', categories);
+            categories.forEach(category => {
+                category.categoryNameTextTranslationBucket.translationList.forEach(item => {
+                   if (item.language === $scope.language) {
+                       category.name = item.content;
+                   }
+                });
+            }) ;
+        };
+
+        $scope.$on('ngRepeatFinished', () => setCategoryName($scope.categories));
+
+        $scope.redirectToTranslationPage = function (category) {
+            console.log('redirectToTranslationPage', category.thisCategory);
+            let _category = category.thisCategory;
+        $http({
+            method: 'GET',
+            url: '/api/get/translation/category/' + _category.uuid
+        })
+            .then(function successCallback(response) {
+                $('#categoryModal').modal('hide');
+                const translationBucket = response.data;
+                $window.location.href = `#/translation/${_category.uuid}/${translationBucket.uuid}`;
+            }, function errorCallback(error) {
+                $scope.loading = false;
+                console.log(error);
+            });
+        };
         $scope.getCategory = function (category) {
             $scope.thisCategory = category;
             $scope.succesfullDelete = false;
