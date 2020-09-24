@@ -1,4 +1,9 @@
 {
+  "additionMenu.title": "Addition",
+  "additionMenu.titleInfo": "For creating addition push plus",
+  "additionMenu.noAddition": "No additions",
+  "additionNew.title": "Create addition",
+
   "pageQR.title": "QR Menu",
   "pageQR.titleInfo": "QR Menu allows you to create unique QR-code per table.\n Visitors can scan it and make an order.\n Below is the list of available QR-codes.\n Click plus to create a QR-code menu",
   "pageQR.qrInfo": "Create QR",
@@ -138,6 +143,7 @@
   "sideNav.Orders": "Orders",
   "sideNav.Analytics": "Analytics",
   "sideNav.Products": "Products",
+  "sideNav.Addition": "Addition",
   "sideNav.Feedback": "Feedback",
   "sideNav.QR": "QR Menu",
   "sideNav.Payment": "Payment",

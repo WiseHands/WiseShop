@@ -1,4 +1,11 @@
 {
+  "additionMenu.title": "Додатки",
+  "additionMenu.titleInfo": "Для створення додаткової ціни для товару, яка буде враховуватися при доставці чи наявності додаткової упаковки, натисніть плюс",
+  "additionMenu.noAddition": "Додатки відсутні",
+  "additionNew.title": "Створення додатку",
+  "additionNew.info": "Для створення додатку введіть ім'я, ціну, виберіть картинку",
+  "additionBreadCrumb.menu": "Меню",
+
   "pageQR.title": "QR Меню",
   "pageQR.titleInfo": "QR меню дозволяє вам створити унікальні QR коди на кожен стіл. Відвідувачі зможуть просканувати QR коди та створити замовлення. Нище список створених QR кодів. Натисніть плюс щоб створити QR меню",
   "pageQR.qrInfo": "QR код",
@@ -145,6 +152,7 @@
   "sideNav.Orders": "Замовлення",
   "sideNav.Analytics": "Аналітика",
   "sideNav.Products": "Товари",
+  "sideNav.Addition": "Додатки",
   "sideNav.Feedback": "Відгуки",
   "sideNav.QR": "QR коди",
   "sideNav.Payment": "Оплата",

@@ -297,6 +297,26 @@
                         activetab: 'qre'
 
                     }).
+                    when('/addition',{
+                        templateUrl:'wisehands/admin/partials/additionMenu.html',
+                        controller:'AdditionMenuController',
+                        activetab: 'addition'
+                    }).
+                    when('/newaddition',{
+                        templateUrl:'wisehands/admin/partials/additionNew.html',
+                        controller:'AdditionNewController',
+                        activetab: 'addition'
+                    }).
+                    when('/additiondetail',{
+                        templateUrl:'wisehands/admin/partials/additionDetail.html',
+                        controller:'AdditionDetailController',
+                        activetab: 'addition'
+                    }).
+                    when('/additionedit',{
+                        templateUrl:'wisehands/admin/partials/additionEdit.html',
+                        controller:'AdditionEditController',
+                        activetab: 'addition'
+                    }).
                     otherwise({
                         redirectTo:'/'
                     });

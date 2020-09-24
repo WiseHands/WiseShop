@@ -1,0 +1,50 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'additionMenu.title' | translate}}
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding"
+              type="button"
+              href="#/newaddition">
+               <i class="fa fa-plus-circle pull-right whiteColor">
+               </i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- add card with shop info ng-repeat="qrCode in qrCodeList" -->
+<div class="admin-container admin-column qr-code-block">
+    <div class="qr-title-container">
+        <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
+        <div class="qr-title-text">
+            <p> {{'additionMenu.titleInfo' | translate}} </p>
+        </div>
+    </div>
+    <div ng-show="additionList.length === 0">
+        <p>{{'additionMenu.noAddition' | translate}}</p>
+    </div>
+    <div class="qr-list-container" ng-show="additionList">
+        <div class="qr-code-card" ng-repeat="addition in additionList | filter: addition.isDeleted === false" on-finish-render="ngRepeatFinished">
+            <a href="#/additiondetail/{{addition.uuid}}" >
+                <div class="admin-card product-feedback-container">
+                    <div class="flex-column">
+                        <p>{{addition.name}}</p>
+                        <p>{{addition.price}}</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+
+
+
+</div>

@@ -65,6 +65,10 @@ OPTIONS     {client}/api/cart/address/info                  ShoppingCartAPI.allo
 PUT         {client}/api/cart/post/info                     ShoppingCartAPI.setPostDepartmentInfo
 OPTIONS     {client}/api/cart/post/info                     ShoppingCartAPI.allowCors
 
+# ******************** AdditionAPI
+#PUT         {client}/api/qr/create                          AdditionAPI.create
+#GET         {client}api/addition/list                       AdditionAPI.list
+
 # ******************** QrAPI
 PUT         {client}/api/qr/create                          QrAPI.create
 PUT         {client}/api/qr/edit/{uuid}                     QrAPI.edit

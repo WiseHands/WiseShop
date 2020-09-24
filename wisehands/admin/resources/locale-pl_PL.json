@@ -1,4 +1,10 @@
 ﻿{
+  "additionMenu.title": "Dodanie",
+  "additionMenu.titleInfo": "Для створення додаткової ціни для товару, яка буде враховуватися при доставці чи наявності додаткової упаковки, натисніть плюс",
+  "additionMenu.noAddition": "Додатки відсутні",
+  "additionNew.title": "Create addition",
+
+
   "pageQR.title": "QR code page",
   "pageQR.titleInfo": "Натисність плюс щоб створити QR код для меню",
   "pageQR.qrInfo": "QR Code",
@@ -134,6 +140,7 @@
   "sideNav.Orders": "Zamówienia",
   "sideNav.Analytics": "Analityka",
   "sideNav.Products": "Produkty",
+  "sideNav.Addition": "Dodatku",
   "sideNav.Feedback": "Opinie",
   "sideNav.QR": "QR kodu",
   "sideNav.Payment": "Płatność",

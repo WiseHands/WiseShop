@@ -1,0 +1,41 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'additionNew.title' | translate}}
+                </h5>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="admin-container admin-column">
+    <ul class="admin-breadcrumb qr-breadcrumb">
+        <li><a href="#/addition">{{'additionBreadCrumb.menu' | translate}}</a></li>
+        <li><a href="#/newaddition">{{'qrBreadCrumb.create' | translate}}</a></li>
+    </ul>
+    <div class="qr-title-container">
+        <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
+        <div class="qr-column m-l-r">
+            <div class="qr-create-text">
+                <p> {{'additionNew.info' | translate}} </p>
+            </div>
+            <div class="qr-new-container">
+                <div class="input-field qr-input">
+                    <input id="qr_name" type="text" required>
+                    <label id="qr_label" for="qr_name">{{'pageQR.qrName' | translate}}</label>
+                </div>
+                <div class="qr-button">
+                    <button class="save-button" ng-click="createQrCode()">
+                        {{'pageQR.create' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
