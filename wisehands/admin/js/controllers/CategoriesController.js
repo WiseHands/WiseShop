@@ -30,11 +30,13 @@ angular.module('WiseHands')
         setCategoryName = (categories) => {
             console.log('$scope.categories', categories);
             categories.forEach(category => {
-                category.categoryNameTextTranslationBucket.translationList.forEach(item => {
-                   if (item.language === $scope.language) {
-                       category.name = item.content;
-                   }
-                });
+                if (category.categoryNameTextTranslationBucket) {
+                    category.categoryNameTextTranslationBucket.translationList.forEach(item => {
+                        if (item.language === $scope.language) {
+                            category.name = item.content;
+                        }
+                    });
+                }
             }) ;
         };
 

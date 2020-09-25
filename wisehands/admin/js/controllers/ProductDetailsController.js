@@ -2,6 +2,19 @@ angular.module('WiseHands')
     .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', '$window', 'signout', function($http, $scope, $routeParams, $window, signout) {
         $scope.uuid = $routeParams.uuid;
         $scope.loading = true;
+
+        $http({
+            method: 'GET',
+            url: '/shop/details'
+        })
+            .then(function successCallback(response) {
+                $scope.language = (response.data.locale).slice(0, 2);
+                $scope.loading = false;
+            }, function errorCallback(error) {
+                $scope.loading = false;
+                console.log(error);
+            });
+
         $http({
             method: 'GET',
             url: '/addition/get-all/' + $routeParams.uuid
@@ -51,6 +64,7 @@ angular.module('WiseHands')
                 console.log("poduct details ", response.data)
                 $scope.loading = false;
                 $scope.product = response.data;
+                setProductName($scope.product);
                 $scope.activeShop = localStorage.getItem('activeShop');
                 $scope.product.images.forEach(function(image, index){
                     if(image.uuid === $scope.product.mainImage.uuid){
@@ -62,6 +76,24 @@ angular.module('WiseHands')
                 $scope.loading = false;
                 console.log(error);
             });
+
+        setProductName = (product) => {
+            console.log('$scope.product', product);
+            if (product.productNameTextTranslationBucket) {
+                product.productNameTextTranslationBucket.translationList.forEach(item => {
+                    if (item.language === $scope.language) {
+                        product.name = item.content;
+                    }
+                });
+            }
+            if ( product.productDescriptionTextTranslationBucket) {
+                product.productDescriptionTextTranslationBucket.translationList.forEach(item => {
+                    if (item.language === $scope.language) {
+                        product.description = item.content;
+                    }
+                });
+            }
+        };
 
 
         $scope.select= function(index) {
