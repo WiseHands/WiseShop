@@ -73,45 +73,6 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
-    public void sendEmailForFeedbackToOrder(List<String> emailList, ShopDTO shop, OrderDTO order, String subject, String clientLanguage) throws Exception {
-        HtmlEmail email = new HtmlEmail();
-        email.setHostName(shop.domain);
-        email.setFrom("wisehandsme@gmail.com");
-        for(String emailId : emailList) {
-            email.addTo(emailId);
-        }
-        email.setSubject(subject);
-
-        String templateString = readAllBytesJava7("app/emails/email_feedback_to_order.html");
-        Template template = Template.parse(templateString);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("shopName", shop.shopName);
-        map.put("orderUuid", order.uuid);
-        String path = shop.domain;
-        if(isDevEnv) {
-            path = path + ":3334";
-        }
-        map.put("shopDomain", path);
-
-        Lang.change(clientLanguage);// set user language
-
-        String hiClient = Messages.get("feedback.main.label", order.name);
-        map.put("hiClient", hiClient);
-
-        String helpUs = Messages.get("feedback.email.text", shop.shopName);
-        map.put("helpUs", helpUs);
-
-        String writeFeedback = Messages.get("feedback.write.feedback");
-        map.put("writeFeedback", writeFeedback);
-
-        String rendered = template.render(map);
-
-        email.setHtmlMsg(rendered);
-        email.setCharset("utf-8");
-        Mail.send(email);
-    }
-
-
     public void sendEmailCommentForFeedback(ShopDTO shop, String customerMail, String customerName, ProductDTO product, String status) throws Exception {
         HtmlEmail email = new HtmlEmail();
 

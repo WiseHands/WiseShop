@@ -10,6 +10,7 @@ import models.*;
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.Play;
 import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
@@ -25,6 +26,7 @@ import java.util.*;
 import static util.ShoppingCartUtil._getCartUuid;
 
 public class OrderAPI extends AuthController {
+    private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
     private static final String CLASSSNAME = "OrderAPI";
     private  static final Double WISEHANDS_COMISSION = -0.0725;
     private  static final int PAGE_SIZE = 12;
@@ -201,13 +203,19 @@ public class OrderAPI extends AuthController {
         JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
         try {
-            String htmlContent = generateHtmlEmailForNewOrder(shop, order);
+            String htmlContentForAdmin = generateHtmlEmailForNewOrder(shop, order, shop.locale);
             int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
-            String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-            List<String> emailList = new ArrayList<>();
-            emailList.add(shop.contact.email);
-            emailList.add(order.email);
-            mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
+            String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+            List<String> adminEmailList = new ArrayList<>();
+            adminEmailList.add(shop.contact.email);
+            mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
+
+            String htmlContentForClient = generateHtmlEmailForNewOrder(shop, order, order.chosenClientLanguage);
+            String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+            List<String> clientEmailList = new ArrayList<>();
+            clientEmailList.add(order.email);
+            mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
+
         } catch (Exception e) {
             System.out.println("OrderAPI create mail error" + e.getCause() + e.getStackTrace());
         }
@@ -400,12 +408,14 @@ public class OrderAPI extends AuthController {
         Lang.change(order.chosenClientLanguage);
         System.out.println("order.chosenClientLanguage => "+ order.chosenClientLanguage);
         int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
-        String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-        List<String> emailList = new ArrayList<>();
-        emailList.add(shop.contact.email);
-        emailList.add(order.email);
         try {
-            mailSender.sendEmailForFeedbackToOrder(emailList, shop, order, subject , order.chosenClientLanguage);
+
+            String htmlContentForClient = generateHtmlEmailForFeedbackToOrder(shop, order, order.chosenClientLanguage);
+            String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+            List<String> clientEmailList = new ArrayList<>();
+            clientEmailList.add(order.email);
+            mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
+
             JsonResponse jsonHandle = new JsonResponse(420, "feedback was sent");
             renderJSON(json(jsonHandle));
         } catch (Exception e) {
@@ -606,7 +616,34 @@ public class OrderAPI extends AuthController {
         String rendered = template.render(map);
         return rendered;
     }
-    private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order) {
+    private static String generateHtmlEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String changeLanguage) {
+        String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_feedback_to_order.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("shopName", shop.shopName);
+        map.put("orderUuid", order.uuid);
+        String path = shop.domain;
+        if(isDevEnv) {
+            path = path + ":3334";
+        }
+        map.put("shopDomain", path);
+
+        Lang.change(changeLanguage);// set user language
+
+        String hiClient = Messages.get("feedback.main.label", order.name);
+        map.put("hiClient", hiClient);
+
+        String helpUs = Messages.get("feedback.email.text", shop.shopName);
+        map.put("helpUs", helpUs);
+
+        String writeFeedback = Messages.get("feedback.write.feedback");
+        map.put("writeFeedback", writeFeedback);
+
+        String rendered = template.render(map);
+        return rendered;
+
+    }
+    private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order, String changeLanguage) {
 
         Filter.registerFilter(new Filter("total"){
             @Override
@@ -651,7 +688,7 @@ public class OrderAPI extends AuthController {
         map.put("clientAddressApartmentFloor", order.clientAddressApartmentFloor);
         map.put("clientAddressApartmentNumber", order.clientAddressApartmentNumber);
 
-        Lang.change(shop.locale);
+        Lang.change(changeLanguage);
 
         String labelName = Messages.get("mail.label.name");
         map.put("labelName", labelName);
