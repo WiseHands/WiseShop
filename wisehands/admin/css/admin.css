@@ -2354,7 +2354,10 @@ ul.admin-breadcrumb li a:hover {
         align-items: center;
     }
 
-    /*.admin-card h4 {*/
+    .category-panel .translation-flex-row {
+        display: flex;
+    }
+        /*.admin-card h4 {*/
         /*font-size: 1.8rem;*/
         /*font-weight: 400;*/
     /*}*/
