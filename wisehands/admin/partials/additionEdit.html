@@ -18,7 +18,6 @@
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="redirectToEdit()" ><p> {{'qrDetails.edit' | translate}}</p></a>
                     <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeQR"><p> {{'qrDetails.delete' | translate}}</p></a>
                 </div>
             </a>
@@ -30,34 +29,29 @@
         <li><a href="#/addition">{{'additionBreadCrumb.menu' | translate}}</a></li>
         <li><a href="#/additionedit/{{addition.uuid}}">{{addition.title}}</a></li>
     </ul>
-    <div class="qr-title-container qr-edit">
+    <div class="addition-edit-container">
         <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
         <div class="qr-column  m-l-r">
             <div class="qr-detail-info">
                 <p> {{'additionEdit.titleInfo' | translate}} </p>
             </div>
-            <div class="qr-new-container">
+            <div class="addition-new-container">
                 <div class="addition-column">
                     <div class="input-field">
-                        <p id="title_label">{{'editProduct.additionTitle' | translate}}</p>
                         <input id="addition_title" type="text" ng-model="addition.title" required>
+                        <label id="title_label" for="addition_title">{{'editProduct.additionTitle' | translate}}</label>
                     </div>
                     <div class="input-field">
-                        <p id="price_label">{{'editProduct.additionPrice' | translate}}</p>
                         <input id="addition_price" type="text" ng-model="addition.price" required>
+                        <label id="price_label" for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
                     </div>
                 </div>
-                <div class="carousel-inner add-option-image addition-image" role="listbox" ng-click="uploadOptionImage()">
-                    <div class="item active loaded-photo">
-                        <img id="property_img" src="{{propertyImageSrc}}" alt="">
-                    </div>
-                    <p class="add-option-image-text">{{'additionNew.addPhoto' | translate}}</p>
+                <div class="carousel-inner addition-image" role="listbox" ng-click="uploadOptionImage()">
+                    <p class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</p>
                     <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
-                    <input id="imageLoader"
-                           class="input-file hiddenFileInput"
-                           type="file"/>
+                    <input id="imageLoader" class="input-file hiddenFileInput" type="file"/>
                 </div>
-                <canvas id="imageCanvas" class="productImage"></canvas>
+                <p>{{'additionNew.fileName' | translate}}: {{addition.fileName}}</p>
                 <div class="qr-button">
                     <button class="save-button" ng-click="editQrCode()">
                         {{'qrDetails.edit' | translate}}

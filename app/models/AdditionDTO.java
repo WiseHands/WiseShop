@@ -25,6 +25,9 @@ public class AdditionDTO extends GenericModel {
     public String imagePath;
 
     @Expose
+    public String fileName;
+
+    @Expose
     public String shopUuid;
 
     @Expose

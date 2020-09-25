@@ -43,7 +43,6 @@ public class AdditionAPI extends AuthController {
 
     }
 
-
     public static void createAddition(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -56,11 +55,13 @@ public class AdditionAPI extends AuthController {
         System.out.println("jsonBody for addition => " + jsonBody);
         String title = (String) jsonBody.get("title");
         String imagePath = (String) jsonBody.get("filepath");
+        String fileName = (String) jsonBody.get("fileName");
         Double price = Double.parseDouble(String.valueOf(jsonBody.get("price")));
 
         AdditionDTO addition = new AdditionDTO();
         addition.title = title;
         addition.price = price;
+        addition.fileName = fileName;
         addition.imagePath = imagePath;
         addition.shopUuid = shop.uuid;
         addition.isDeleted = false;
