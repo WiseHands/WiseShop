@@ -24,7 +24,7 @@
             <div class="addition-create-text">
                 <p> {{'additionNew.info' | translate}} </p>
             </div>
-            <div class="qr-new-container">
+            <div class="addition-new-container">
                 <div class="addition-column">
                     <div class="input-field">
                         <input id="addition_title" type="text" ng-model="addition.title" required>
@@ -37,16 +37,12 @@
                     </div>
                 </div>
                 <div class="carousel-inner add-option-image addition-image" role="listbox" ng-click="uploadOptionImage()">
-                    <div class="item active loaded-photo">
-                        <img id="property_img" src="{{propertyImageSrc}}" alt="">
-                    </div>
-                    <p class="add-option-image-text">{{'additionNew.addPhoto' | translate}}</p>
+                    <p class="addition-image-text">{{'additionNew.addPhoto' | translate}}</p>
                     <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
-                    <input id="imageLoader"
-                           class="input-file hiddenFileInput"
-                           type="file"/>
+                    <input id="imageLoader" class="input-file hiddenFileInput" type="file"/>
                 </div>
-                <canvas id="imageCanvas" class="productImage"></canvas>
+                <p ng-show="fileName">{{'additionNew.fileName' | translate}}:</p>
+                <p id="imageName"></p>
                 <div class="qr-button">
                     <button class="save-button" ng-click="createAddition()">
                         {{'additionNew.create' | translate}}

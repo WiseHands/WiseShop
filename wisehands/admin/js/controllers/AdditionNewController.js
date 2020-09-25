@@ -2,8 +2,10 @@ angular.module('WiseHands')
     .controller('AdditionNewController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$window',
         function ($scope, $http, signout, sideNavInit, shared, $window) {
         $scope.loading = true;
+        $scope.fileName = false;
 
-        let title_input = document.querySelector("#addition_title");
+
+            let title_input = document.querySelector("#addition_title");
         let title_label = document.querySelector("#title_label");
 
         let price_input = document.querySelector("#addition_price");
@@ -16,15 +18,20 @@ angular.module('WiseHands')
 
         function handleImage(e) {
             let file  = e.target.files[0];
+            let fileName = file.name;
+            console.log('handleImage', fileName);
             let reader = new FileReader();
+            $scope.fileName = true;
+
             reader.onloadend = (event) => {
-                const propertyImage = document.querySelector("#property_img");
-                propertyImage.setAttribute('src', event.target.result);
+
+                const imageName = document.querySelector("#imageName");
+                imageName.innerText = fileName;
             };
             if (file && file.type.match('image.*')) {
                 reader.readAsDataURL(e.target.files[0]);
             }
-        };
+        }
 
         $scope.createAddition = () => {
             if(!title_input.value || !price_input.value){

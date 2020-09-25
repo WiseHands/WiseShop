@@ -2423,11 +2423,17 @@ ul.admin-breadcrumb li a:hover {
 .address-order-container .admin-order-card-row p {
     word-break: break-word;
 }
-
+.addition-new-container {
+    flex-direction: column;
+    width: -webkit-fill-available;
+}
 .addition-column {
     flex-direction: column;
     width: -webkit-fill-available;
     padding-right: 10px;
+}
+.addition-image-text {
+    padding-top: 15px;
 }
 .addition-image {
     min-height: 80px;

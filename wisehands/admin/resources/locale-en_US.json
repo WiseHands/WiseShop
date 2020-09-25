@@ -6,6 +6,7 @@
   "additionNew.info": "Enter name, price and choose an image to create addition",
   "additionNew.create": "Create",
   "additionNew.addPhoto": "Photo",
+  "additionNew.fileName": "File name",
   "additionEdit.title": "Editing addition",
   "additionEdit.titleInfo": "Edit and save current addition",
   "additionBreadCrumb.menu": "Menu",
