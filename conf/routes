@@ -265,7 +265,6 @@ DELETE  {client}/addition/{uuid}                        AdditionAPI.delete
 
 POST    {client}/api/addition/new                       AdditionAPI.createAddition
 GET     {client}/api/addition/list                      AdditionAPI.additionList
-GET     {client}/api/addition/info/{uuid}               AdditionAPI.info
 
 
 POST	{client}/upload-file            			    FileAPI.upload

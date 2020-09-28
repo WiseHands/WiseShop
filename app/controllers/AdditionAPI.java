@@ -109,7 +109,6 @@ public class AdditionAPI extends AuthController {
         checkAuthentification(shop);
 
         AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
-        addition = addition.save();
         renderJSON(json(addition));
     }
 
@@ -122,6 +121,7 @@ public class AdditionAPI extends AuthController {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        System.out.println("update addition => " + jsonBody);
 
         String title = (String) jsonBody.get("title");
         String imagePath = (String) jsonBody.get("imagePath");
@@ -132,7 +132,7 @@ public class AdditionAPI extends AuthController {
         addition.imagePath = imagePath;
         addition.price = price;
 
-        addition = addition.save();
+        addition.save();
         renderJSON(json(addition));
     }
 
@@ -141,12 +141,13 @@ public class AdditionAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+        System.out.println("delete addition => " + uuid);
         checkAuthentification(shop);
-
         AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
-        addition.delete();
+        addition.isDeleted = true;
+        addition.save();
+        renderJSON(json(addition));
 
-        ok();
     }
 
 

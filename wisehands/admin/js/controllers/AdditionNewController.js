@@ -5,7 +5,7 @@ angular.module('WiseHands')
         $scope.fileName = false;
 
 
-            let title_input = document.querySelector("#addition_title");
+        let title_input = document.querySelector("#addition_title");
         let title_label = document.querySelector("#title_label");
 
         let price_input = document.querySelector("#addition_price");

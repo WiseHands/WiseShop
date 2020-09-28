@@ -18,8 +18,7 @@
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="redirectToEdit()" ><p> {{'qrDetails.edit' | translate}}</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeQR"><p> {{'qrDetails.delete' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeAddition"><p> {{'qrDetails.delete' | translate}}</p></a>
                 </div>
             </a>
         </div>
@@ -59,7 +58,7 @@
                 </div>
                 <canvas id="imageCanvas" class="productImage"></canvas>
                 <div class="qr-button">
-                    <button class="save-button" ng-click="editQrCode()">
+                    <button class="save-button" ng-click="editAddition()">
                         {{'qrDetails.edit' | translate}}
                     </button>
                 </div>
@@ -68,7 +67,7 @@
 
     </div>
 </div>
-<div class="modal fade" id="removeQR" tabindex="-1" role="dialog">
+<div class="modal fade" id="removeAddition" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
