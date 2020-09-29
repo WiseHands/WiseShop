@@ -564,7 +564,6 @@ public class OrderAPI extends AuthController {
                 String htmlContentForClient = generateHtmlEmailForOrderPaymentDone(shop, order, order.chosenClientLanguage);
                 String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
                 List<String> clientEmailList = new ArrayList<>();
-                clientEmailList.add(shop.contact.email);
                 clientEmailList.add(order.email);
                 mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
 
