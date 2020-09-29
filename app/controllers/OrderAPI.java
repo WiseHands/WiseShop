@@ -203,8 +203,8 @@ public class OrderAPI extends AuthController {
         JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
         try {
-            String htmlContentForAdmin = generateHtmlEmailForNewOrder(shop, order, shop.locale);
             int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+            String htmlContentForAdmin = generateHtmlEmailForNewOrder(shop, order, shop.locale);
             String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
             List<String> adminEmailList = new ArrayList<>();
             adminEmailList.add(shop.contact.email);
@@ -515,14 +515,18 @@ public class OrderAPI extends AuthController {
                     smsSender.sendSms(user.phone, smsText);
                 }
                 smsSender.sendSms(order.phone, smsText);
-                String htmlContent = generateHtmlEmailForOrderPaymentError(shop, order);
-                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-                List<String> emailList = new ArrayList<>();
-                emailList.add(shop.contact.email);
-                emailList.add(order.email);
-                mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
 
-                System.out.println(subject);
+                String htmlContentForAdmin = generateHtmlEmailForOrderPaymentError(shop, order, shop.locale);
+                String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+                List<String> adminEmailList = new ArrayList<>();
+                adminEmailList.add(shop.contact.email);
+                mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
+
+                String htmlContentForClient = generateHtmlEmailForOrderPaymentError(shop, order, order.chosenClientLanguage);
+                String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+                List<String> clientEmailList = new ArrayList<>();
+                clientEmailList.add(order.email);
+                mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -550,12 +554,19 @@ public class OrderAPI extends AuthController {
                 String smsText = Messages.get("payment.done.total", order.name, order.total);
                 smsSender.sendSms(order.phone, smsText);
                 smsSender.sendSms(shop.contact.phone, smsText);
-                String htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order);
-                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-                List<String> emailList = new ArrayList<>();
-                emailList.add(shop.contact.email);
-                emailList.add(order.email);
-                mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
+
+                String htmlContentForAdmin = generateHtmlEmailForOrderPaymentDone(shop, order, shop.locale);
+                String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+                List<String> adminEmailList = new ArrayList<>();
+                adminEmailList.add(shop.contact.email);
+                mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
+
+                String htmlContentForClient = generateHtmlEmailForOrderPaymentDone(shop, order, order.chosenClientLanguage);
+                String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+                List<String> clientEmailList = new ArrayList<>();
+                clientEmailList.add(shop.contact.email);
+                clientEmailList.add(order.email);
+                mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -571,7 +582,7 @@ public class OrderAPI extends AuthController {
 
 
     }
-    private static String generateHtmlEmailForOrderPaymentError(ShopDTO shop, OrderDTO order) {
+    private static String generateHtmlEmailForOrderPaymentError(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_error.html");
         Template template = Template.parse(templateString);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -585,16 +596,17 @@ public class OrderAPI extends AuthController {
         map.put("paymentError", paymentError);
         map.put("shopName", shop.shopName);
 
+        Lang.change(changeLanguage);
+
         String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
         map.put("labelOrderPayment", labelOrderPayment);
         String labelPaymentStatus = Messages.get("mail.label.paymentStatus");
         map.put("labelPaymentStatus", labelPaymentStatus);
 
-
         String rendered = template.render(map);
         return rendered;
     }
-    private static String generateHtmlEmailForOrderPaymentDone(ShopDTO shop, OrderDTO order) {
+    private static String generateHtmlEmailForOrderPaymentDone(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_done.html");
         Template template = Template.parse(templateString);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -607,6 +619,8 @@ public class OrderAPI extends AuthController {
         String paymentDone = Messages.get("payment.done");
         map.put("paymentDone", paymentDone);
         map.put("shopName", shop.shopName);
+
+        Lang.change(changeLanguage);
 
         String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
         map.put("labelOrderPayment", labelOrderPayment);
