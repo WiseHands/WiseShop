@@ -114,6 +114,7 @@
   "singleOrder.generalFeedback" : "The customer did not leave a general comment about the order",
   "singleOrder.feedbackComment" : "Comment",
   "sideNav.Orders": "Orders",
+  "sideNav.categories": "Categories",
   "sideNav.Analytics": "Analytics",
   "sideNav.Products": "Products",
   "sideNav.Feedback": "Feedback",
