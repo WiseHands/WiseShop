@@ -4,9 +4,12 @@
             <div class="col-xs-2 noPaddingLeft">
                 <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
             </div>
-            <form class="col-xs-8 waves-effect waves-light">
-                <input class="form-control noMarginForSearchInput" type="text" placeholder="{{'products.search' | translate}}" ng-model="query">
-            </form>
+            <div class="col-xs-8 text-center">
+                <h5 class="white-text">{{'sideNav.Products' | translate}}</h5>
+            </div>
+            <!--<form class="col-xs-8 waves-effect waves-light">-->
+                <!--<input class="form-control noMarginForSearchInput" type="text" placeholder="{{'products.search' | translate}}" ng-model="query">-->
+            <!--</form>-->
             <a class="col-xs-2 noRightPadding"
                type="button"
                href="#/products/new">
@@ -22,14 +25,6 @@
     <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
     <div class="spinner-block">
         <spinner class="center-spinner" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
-    </div>
-    <div ng-hide="loading" class="btn-group btn-group-justified col-xs-12" role="group" aria-label="...">
-        <div class="btn-group" role="group">
-            <button type="button" class="btn white-text disabled">{{'products.products' | translate}}</button>
-        </div>
-        <div class="btn-group" role="group">
-            <a href="#/categories" type="button" class="btn secondaryColor white-text">{{'products.categories' | translate}}</a>
-        </div>
     </div>
     <div class="all-products-item" ng-repeat="product in products | filter:search | orderBy:'sortOrder'" on-finish-render="ngRepeatFinished">
         <a href="#/product/details/{{product.uuid}}">
