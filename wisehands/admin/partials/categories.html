@@ -32,7 +32,6 @@
                         <span class="badge lightseagreen">{{category.products.length}}</span>
                     </div>
                     <div class="category-edit-buttons">
-                        <button class="add-category-delete-btn btn-floating btn-xsmall waves-effect waves-light  pull-right" data-toggle="modal" data-target="#deleteCategory" ng-click="getCategory(category)"><i class="material-icons">delete_forever</i></button>
                         <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" data-toggle="modal" data-target="#categoryModal" ng-click="getCategory(category)"><i class="material-icons">mode_edit</i></button>
                     </div>
                 </a>
@@ -80,7 +79,8 @@
                             <div class="add-category-row">
                                 <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="thisCategory.isHidden" />
                                 <label  for="filled-in-box">{{'category.ishidden' | translate}}</label>
-                                <!--<button class="add-category-delete-btn btn-floating btn-xsmall waves-effect waves-light  pull-right" data-toggle="modal" data-target="#deleteCategory" ng-click="getCategory(category)"><i class="material-icons">delete_forever</i></button>-->
+                                <button class="add-category-delete-btn btn-floating btn-xsmall waves-effect waves-light  pull-right" data-toggle="modal" data-target="#deleteCategory"
+                                        ng-click="showDeleteModal(this)"><i class="material-icons">delete_forever</i></button>
                                 <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>
                             </div>
                         </div>

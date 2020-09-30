@@ -59,6 +59,7 @@ angular.module('WiseHands')
             });
         };
         $scope.getCategory = function (category) {
+            console.log('getCategory', category);
             $scope.thisCategory = category;
             $scope.succesfullDelete = false;
             $scope.deleteButton = true;
@@ -114,7 +115,15 @@ angular.module('WiseHands')
                 });
         };
 
+        $scope.showDeleteModal = function (category) {
+            console.log('showDeleteModal', category.thisCategory);
+            $scope.succesfullDelete = false;
+            $scope.deleteButton = true;
+            $scope.hideModal();
+        };
+
         $scope.deleteCategory = function () {
+            console.log('deleteCategory' , $scope.thisCategory);
             $scope.deleteButton = false;
             $scope.modalSpinner = true;
             $http({
