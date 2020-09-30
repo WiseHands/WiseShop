@@ -87,10 +87,10 @@ page.order.feedback.rate.label = Rate the product
 page.order.feedback.write.feedback.label = Leave a review here
 page.order.feedback.feedback.about.order.label = Feedback of the order
 page.order.feedback.send.feedback.label = SEND FEEDBACK
-page.order.feedback.thank.feedback.label = Thanks you for your feedback
+page.order.feedback.thank.feedback.label = Thank you for your feedback!
 page.order.feedback.error.feedback.label = Error sending feedback
-page.order.feedback.thank.order.label = thanks for order!
-page.order.feedback.leave.feedback.label = Please, leave feedback
+page.order.feedback.thank.order.label = Thank you for your order!
+page.order.feedback.leave.order.label = Please, leave feedback
 
 
 

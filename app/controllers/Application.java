@@ -485,6 +485,8 @@ public class Application extends Controller {
         }
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
+        boolean isFeedbackPersist = order.orderFeedback.uuid != null;
+        String shopName = shop.shopName;
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
@@ -498,7 +500,7 @@ public class Application extends Controller {
         }
 
         String currency = "UAH";
-        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language);
+        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language, isFeedbackPersist, shopName);
     }
 
     public static void shoppingCart(String client, String uuid, String language){
