@@ -2172,6 +2172,10 @@ ul.admin-breadcrumb li a:hover {
     margin-right: 0;
 }
 
+.add-category-delete-btn, .add-category-delete-btn:focus {
+    background-color: #b52020;
+}
+
 .delivery-edit-message {
     display: flex;
     justify-content: space-between;
