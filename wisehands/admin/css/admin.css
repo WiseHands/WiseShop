@@ -2289,6 +2289,7 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
     margin: 15px 15px 0 15px;
 }
+
 .qr-detail-info {
     flex-direction: column;
     padding: 0 15px;
@@ -2423,6 +2424,13 @@ ul.admin-breadcrumb li a:hover {
 .address-order-container .admin-order-card-row p {
     word-break: break-word;
 }
+.items-center{
+    align-items: center;
+}
+.addition-container {
+    width: 100%;
+    padding: 1rem;
+}
 .addition-new-container {
     flex-direction: column;
     width: -webkit-fill-available;
@@ -2436,7 +2444,6 @@ ul.admin-breadcrumb li a:hover {
     padding-top: 15px;
 }
 .addition-image {
-    min-height: 80px;
 }
 .addition-create-text{
     padding-bottom: 0;
@@ -2460,6 +2467,9 @@ ul.admin-breadcrumb li a:hover {
 .addition-img {
     max-width: 100px;
     width: 100%;
+}
+.additions-title {
+    font-size: 1.7rem;
 }
 
 @media screen and (min-width: 1500px) {

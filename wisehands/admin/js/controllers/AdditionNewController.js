@@ -5,16 +5,36 @@ angular.module('WiseHands')
         $scope.fileName = false;
 
 
-        let title_input = document.querySelector("#addition_title");
-        let title_label = document.querySelector("#title_label");
+        let additionName = document.querySelector("#addition_name");
+        let title_label = document.querySelector("#nema_label");
 
-        let price_input = document.querySelector("#addition_price");
+        let additionPrice = document.querySelector("#addition_price");
         let price_label = document.querySelector("#price_label");
+        let image_text = document.querySelector("#image_text");
 
         $scope.uploadOptionImage = () => { $('#imageLoader').click(); };
 
         let imageLoader = document.getElementById('imageLoader');
         imageLoader.addEventListener('change', handleImage, false);
+
+        additionName.addEventListener('blur', handleNameInput, false);
+
+        function handleNameInput(e) {
+            if (e.target.value){
+                name_label.style.color = 'black';
+                additionName.style.borderBottom = '1px solid black';
+            }
+        }
+
+        additionPrice.addEventListener('blur', handlePriceInput, false);
+        function handlePriceInput(e) {
+            if (e.target.value){
+                price_label.style.color = 'black';
+                additionPrice.style.borderBottom = '1px solid black';
+            }
+        }
+
+
 
         function handleImage(e) {
             let file  = e.target.files[0];
@@ -24,9 +44,9 @@ angular.module('WiseHands')
             $scope.fileName = true;
 
             reader.onloadend = (event) => {
-
                 const imageName = document.querySelector("#imageName");
                 imageName.innerText = fileName;
+                image_text.style.color = '#039be5';
             };
             if (file && file.type.match('image.*')) {
                 reader.readAsDataURL(e.target.files[0]);
@@ -34,12 +54,14 @@ angular.module('WiseHands')
         }
 
         $scope.createAddition = () => {
-            if(!title_input.value || !price_input.value){
-                title_input.style.borderBottom = '1px solid red';
-                title_label.style.color = 'red';
 
-                price_input.style.borderBottom = '1px solid red';
+            if(!additionName.value || !additionPrice.value || !imageLoader.value){
+                additionName.style.borderBottom = '1px solid red';
+                name_label.style.color = 'red';
+
+                additionPrice.style.borderBottom = '1px solid red';
                 price_label.style.color = 'red';
+                image_text.style.color = 'red';
                 return
             }
 
