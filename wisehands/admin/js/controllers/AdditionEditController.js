@@ -3,12 +3,6 @@ angular.module('WiseHands')
         function ($scope, $http, signout, sideNavInit, shared, $window, $routeParams) {
         $scope.loading = true;
 
-       let title_input = document.querySelector("#addition_title");
-       let title_label = document.querySelector("#title_label");
-
-       let price_input = document.querySelector("#addition_price");
-       let price_label = document.querySelector("#price_label");
-
         $http({
             method: 'GET',
             url: `/addition/${$routeParams.uuid}`
@@ -20,13 +14,33 @@ angular.module('WiseHands')
         });
 
 
+        let additionName = document.querySelector("#addition_name");
+        let title_label = document.querySelector("#nema_label");
 
+        let additionPrice = document.querySelector("#addition_price");
+        let price_label = document.querySelector("#price_label");
+        let image_text = document.querySelector("#image_text");
+
+        additionName.addEventListener('blur', handleNameInput, false);
+        function handleNameInput(e) {
+            if (e.target.value){
+                name_label.style.color = 'black';
+                additionName.style.borderBottom = '1px solid black';
+            }
+        }
+
+        additionPrice.addEventListener('blur', handlePriceInput, false);
+        function handlePriceInput(e) {
+            if (e.target.value){
+                price_label.style.color = 'black';
+                additionPrice.style.borderBottom = '1px solid black';
+            }
+        }
 
         $scope.uploadOptionImage = () => { $('#imageLoader').click(); };
 
         let imageLoader = document.getElementById('imageLoader');
         imageLoader.addEventListener('change', handleImage, false);
-
         function handleImage(e) {
             let file  = e.target.files[0];
             let fileName = file.name;
@@ -45,7 +59,7 @@ angular.module('WiseHands')
         }
 
         $scope.editAddition = () => {
-            if(!title_input.value || !price_input.value){
+            if(!additionName.value || !additionPrice.value){
                 title_input.style.borderBottom = '1px solid red';
                 title_label.style.color = 'red';
 
@@ -56,34 +70,34 @@ angular.module('WiseHands')
             sendAddition();
             console.log("createAddition", $scope.addition);
 
-//            if (!document.getElementById("imageLoader").value) {
-//                document.querySelector(".error-text").style.display = "block";
-//                return;
-//            }
-//            if (!$scope.addition) {
-//                toastr.error(emptyTagWarning);
-//            } else {
-//                const photo = document.getElementById("imageLoader").files[0];
-//                $scope.loading = true;
-//                let photoFd = new FormData();
-//                photoFd.append('logo', photo);
-//                $http.post('/upload-file', photoFd, {
-//                    transformRequest: angular.identity,
-//                    headers: {
-//                        'Content-Type': undefined,
-//                    }
-//                })
-//                    .success(function(response){
-//                        $scope.loading = false;
-//                        $scope.addition.filepath = response.filepath;
-//
-//                    })
-//                    .error(function(response){
-//                        $scope.loading = false;
-//                        console.log(response);
-//                    });
-//
-//            }
+            if (!document.getElementById("imageLoader").value) {
+                document.querySelector(".error-text").style.display = "block";
+                return;
+            }
+            if (!$scope.addition) {
+                toastr.error(emptyTagWarning);
+            } else {
+                const photo = document.getElementById("imageLoader").files[0];
+                $scope.loading = true;
+                let photoFd = new FormData();
+                photoFd.append('logo', photo);
+                $http.post('/upload-file', photoFd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                    }
+                })
+                    .success(function(response){
+                        $scope.loading = false;
+                        $scope.addition.filepath = response.filepath;
+
+                    })
+                    .error(function(response){
+                        $scope.loading = false;
+                        console.log(response);
+                    });
+
+            }
         };
 
         sendAddition = () => {

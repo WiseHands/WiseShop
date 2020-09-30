@@ -2,8 +2,6 @@ angular.module('WiseHands')
     .controller('AdditionNewController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$window',
         function ($scope, $http, signout, sideNavInit, shared, $window) {
         $scope.loading = true;
-        $scope.fileName = false;
-
 
         let additionName = document.querySelector("#addition_name");
         let title_label = document.querySelector("#nema_label");
@@ -12,13 +10,7 @@ angular.module('WiseHands')
         let price_label = document.querySelector("#price_label");
         let image_text = document.querySelector("#image_text");
 
-        $scope.uploadOptionImage = () => { $('#imageLoader').click(); };
-
-        let imageLoader = document.getElementById('imageLoader');
-        imageLoader.addEventListener('change', handleImage, false);
-
         additionName.addEventListener('blur', handleNameInput, false);
-
         function handleNameInput(e) {
             if (e.target.value){
                 name_label.style.color = 'black';
@@ -34,8 +26,10 @@ angular.module('WiseHands')
             }
         }
 
+        $scope.uploadOptionImage = () => { $('#imageLoader').click(); };
 
-
+        let imageLoader = document.getElementById('imageLoader');
+        imageLoader.addEventListener('change', handleImage, false);
         function handleImage(e) {
             let file  = e.target.files[0];
             let fileName = file.name;
@@ -64,11 +58,9 @@ angular.module('WiseHands')
                 image_text.style.color = 'red';
                 return
             }
+            if (!imageLoader.value) {
+                image_text.style.color = 'red';
 
-            console.log("createAddition", $scope.addition);
-
-            if (!document.getElementById("imageLoader").value) {
-                document.querySelector(".error-text").style.display = "block";
                 return;
             }
             if (!$scope.addition) {

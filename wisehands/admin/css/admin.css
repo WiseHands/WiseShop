@@ -2427,7 +2427,7 @@ ul.admin-breadcrumb li a:hover {
 .items-center{
     align-items: center;
 }
-.addition-container {
+.addition-container .addition-edit-container {
     width: 100%;
     padding: 1rem;
 }
@@ -2470,6 +2470,19 @@ ul.admin-breadcrumb li a:hover {
 }
 .additions-title {
     font-size: 1.7rem;
+}
+.addition-edit-container {
+    display: flex;
+    align-items: center;
+}
+.addition-edit-column {
+    flex-direction: column;
+    padding: 1rem;
+}
+.addition-edit-text p {
+    text-align: center;
+    font-size: 1.7rem;
+    margin: 0;
 }
 
 @media screen and (min-width: 1500px) {
@@ -2599,6 +2612,12 @@ ul.admin-breadcrumb li a:hover {
     }
     .m-l-r, .qr-detail-info {
         padding: 0;
+    }
+    .addition-edit-container {
+        flex-direction: column;
+    }
+    .addition-edit-column {
+        width: -webkit-fill-available;
     }
 }
 

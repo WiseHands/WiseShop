@@ -298,7 +298,7 @@
 
                     }).
                     when('/addition',{
-                        templateUrl:'wisehands/admin/partials/additionMenu.html',
+                        templateUrl:'wisehands/admin/partials/additions.html',
                         controller:'AdditionMenuController',
                         activetab: 'addition'
                     }).
