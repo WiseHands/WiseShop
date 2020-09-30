@@ -2441,9 +2441,8 @@ ul.admin-breadcrumb li a:hover {
     padding-right: 10px;
 }
 .addition-image-text {
+    align-self: center;
     padding-top: 15px;
-}
-.addition-image {
 }
 .addition-create-text{
     padding-bottom: 0;
@@ -2455,6 +2454,7 @@ ul.admin-breadcrumb li a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 0;
 }
 .addition-item p {
     white-space: nowrap;
@@ -2465,7 +2465,6 @@ ul.admin-breadcrumb li a:hover {
     line-height: 1.8;
 }
 .addition-img {
-    max-width: 100px;
     width: 100%;
 }
 .additions-title {
@@ -2476,7 +2475,7 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
 }
 .addition-edit-column {
-    flex-direction: column;
+    flex: 1;
     padding: 1rem;
 }
 .addition-edit-text p {
@@ -2616,8 +2615,11 @@ ul.admin-breadcrumb li a:hover {
     .addition-edit-container {
         flex-direction: column;
     }
-    .addition-edit-column {
+    .addition-edit-column{
         width: -webkit-fill-available;
+    }
+    .addition-edit-button button {
+            width: 100%;
     }
 }
 

@@ -41,6 +41,8 @@ angular.module('WiseHands')
                 const imageName = document.querySelector("#imageName");
                 imageName.innerText = fileName;
                 image_text.style.color = '#039be5';
+                setBlackStyleValidation();
+
             };
             if (file && file.type.match('image.*')) {
                 reader.readAsDataURL(e.target.files[0]);
@@ -50,17 +52,11 @@ angular.module('WiseHands')
         $scope.createAddition = () => {
 
             if(!additionName.value || !additionPrice.value || !imageLoader.value){
-                additionName.style.borderBottom = '1px solid red';
-                name_label.style.color = 'red';
-
-                additionPrice.style.borderBottom = '1px solid red';
-                price_label.style.color = 'red';
-                image_text.style.color = 'red';
+                setErrorStyleValidation();
                 return
             }
             if (!imageLoader.value) {
                 image_text.style.color = 'red';
-
                 return;
             }
             if (!$scope.addition) {
@@ -97,13 +93,28 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     console.log("$scope.addition", response.data);
-                    $window.location.href = `#/additionedit/${response.data.uuid}`
+                    $window.location.href = `#/addition`
                     $scope.loading = false;
                 }, function errorCallback(response) {
                     $scope.loading = false;
                     console.log("$scope.addition", response);
                 });
         };
+
+        setBlackStyleValidation = () => {
+            price_label.style.color = 'black';
+            additionPrice.style.borderBottom = '1px solid black';
+            name_label.style.color = 'black';
+            additionName.style.borderBottom = '1px solid black';
+        }
+
+        setErrorStyleValidation = () => {
+            additionName.style.borderBottom = '1px solid red';
+            name_label.style.color = 'red';
+            additionPrice.style.borderBottom = '1px solid red';
+            price_label.style.color = 'red';
+            image_text.style.color = 'red';
+        }
 
         sideNavInit.sideNav();
     }]);

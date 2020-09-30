@@ -31,7 +31,7 @@
         <li><a href="#/additionedit/{{addition.uuid}}">{{addition.title}}</a></li>
     </ul>
     <div class="addition-edit-container">
-        <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
+        <img class="img-present-qr" src="\wisehands\assets\images\additions.svg">
         <div class="addition-edit-column">
             <div class="addition-edit-text">
                 <p> {{'additionEdit.titleInfo' | translate}} </p>
@@ -56,7 +56,7 @@
                 </div>
                 <p ng-show="fileName">{{'additionNew.fileName' | translate}}:</p>
                 <p id="imageName"></p>
-                <div class="qr-button">
+                <div class="addition-edit-button">
                     <button class="save-button" ng-click="editAddition()">
                         {{'additionEdit.edit' | translate}}
                     </button>
@@ -75,7 +75,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="col-xs-12 text-center">
-                    <p ng-show="deleteButton"><i>{{'qrDetails.deleteMessage' | translate}}</i></p>
+                    <p ng-show="deleteButton"><i>{{'additionEdit.deleteMessage' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
