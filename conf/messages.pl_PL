@@ -91,7 +91,7 @@ feedback.email.notification.to.client.leave.feedback = [%s] %s, proszę zostawi�
 feedback.email.notification.to.admin.about.new.feedback = [%s] Klient %s wystawia opinię na temat zamówienia
 feedback.email.title = informacje zwrotne do twojego zamówienia od %s
 feedback.main.label = Witaj %s.
-feedback.email.text =  Pomóż nam stać najlepszym, proszę zostawić swoją recenzję na temat zamówienia.
+feedback.email.text =  Pomóż nam stać najlepszym, proszę zostawić swoją recenzję.
 feedback.write.feedback = Zostawić swoją recenzję
 
 shop.balance = Saldo sklepowe
