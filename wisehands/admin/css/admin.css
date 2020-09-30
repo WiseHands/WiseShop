@@ -1843,7 +1843,6 @@ ul.admin-breadcrumb li a:hover {
 .review-product-info img {
     max-width: 100%;
     object-fit: cover;
-    height: 300px;
 }
 
 .review-product-info h5 {
@@ -2388,6 +2387,10 @@ ul.admin-breadcrumb li a:hover {
 
     #contactsForm .translation-flex-row {
         display: flex;
+    }
+    .review-product-info img {
+        height: 350px;
+        width: 100%;
     }
 
 }
