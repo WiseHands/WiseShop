@@ -1843,6 +1843,7 @@ ul.admin-breadcrumb li a:hover {
 .review-product-info img {
     max-width: 100%;
     object-fit: cover;
+    height: 300px;
 }
 
 .review-product-info h5 {
