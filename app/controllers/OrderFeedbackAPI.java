@@ -162,7 +162,7 @@ public class OrderFeedbackAPI extends AuthController{
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         String orderUuid = request.params.get("uuid");
-        OrderDTO order = OrderDTO.findById(orderUuid);
+        OrderDTO order = OrderDTO.find("byUuid", orderUuid).first();
         order.orderFeedback.showReview = true;
         for(OrderItemDTO item: order.items){
             item.feedbackToOrderItem.showReview = true;

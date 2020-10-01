@@ -1,7 +1,7 @@
 ﻿{
   "feedbackList.deleteMessage": "Czy na pewno chcesz usunąć tę opinię?",
-  "feedbackList.showFeedbackMessage": "Wyświetlane są wszystkie opinie",
-  "feedbackList.hideFeedbackMessage": "Wszystkie recenzje są ukryte",
+  "feedbackList.showFeedbackMessage": "Wyświetlane są wszystkie opinie?",
+  "feedbackList.hideFeedbackMessage": "Wszystkie recenzje są ukryte?",
   "feedbackList.restoreFeedbackMessage": "Feedback restored",
 
 

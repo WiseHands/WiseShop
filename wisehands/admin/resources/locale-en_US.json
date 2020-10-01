@@ -1,7 +1,7 @@
 {
   "feedbackList.deleteMessage": "Do you really want to delete this feedback?",
-  "feedbackList.showFeedbackMessage": "Show feedback on website",
-  "feedbackList.hideFeedbackMessage": "Hide feedback on website",
+  "feedbackList.showFeedbackMessage": "Show feedback on website?",
+  "feedbackList.hideFeedbackMessage": "Hide feedback on website?",
   "feedbackList.restoreFeedbackMessage": "Feedback restored",
 
   "shopLocation.title": "Shop location",

@@ -1,7 +1,7 @@
 {
   "feedbackList.deleteMessage": "Видалити даний відгук",
-  "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті",
-  "feedbackList.hideFeedbackMessage": "Приховати даний відгук на сайті",
+  "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті?",
+  "feedbackList.hideFeedbackMessage": "Приховати даний відгук на сайті?",
   "feedbackList.restoreFeedbackMessage": "Відгук відновлено",
 
   "shopLocation.title": "Магазин на карті",
