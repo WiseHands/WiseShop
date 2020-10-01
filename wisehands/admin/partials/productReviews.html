@@ -98,14 +98,16 @@
             </div>
         </div>
         <div class="admin-column">
-            <div class="admin-card link-to-product" ng-click="getUrl()">
+            <div class="admin-card review-product-info" ng-click="getUrl()">
                 <!-- link here  -->
-                <div class="review-product-info">
+                <div class="review-product-image">
                     <img ng-src="{{productImageUrl}}"
                          alt="image">
                 </div>
-                <h4>{{product.name}} {{product.price}} {{'orderList.Currency' | translate}}</h4>
-                <img class="external-link-img" src="wisehands/assets/images/dashboard/link.png">
+                <div class="review-product-text">
+                    <h4>{{product.name}}<span><i class="fa fa-external-link" style="font-size:24px"></i></span></h4>
+                    <h4>{{product.price}} {{'orderList.Currency' | translate}}</h4>
+                </div>
             </div>
         </div>
     </div>

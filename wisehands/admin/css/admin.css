@@ -1836,17 +1836,22 @@ ul.admin-breadcrumb li a:hover {
     margin: 1rem 0;
 }
 
-.review-product-info {
+.review-product-image {
     display: flex;
 }
 
-.review-product-info img {
-    max-width: 100%;
+.review-product-image img {
+    width: 150px;
+    height: 150px;
     object-fit: cover;
 }
 
-.review-product-info h5 {
+.review-product-image h5 {
     margin-left: 1rem;
+}
+
+.review-product-text i {
+    padding: 0 1rem;
 }
 
 .review-item {
@@ -2128,16 +2133,19 @@ ul.admin-breadcrumb li a:hover {
     color: #fff;
 }
 
-.link-to-product h4 {
+.review-product-info {
+    display: flex;
+}
+
+.review-product-info h4 {
+    padding: 0 1rem;
+    font-size: 1.4rem;
+    font-weight: 400;
     word-break: break-word;
 }
 
-.link-to-product:hover{
+.review-product-info:hover{
     cursor: pointer;
-}
-
-.external-link-img {
-    width: 30px;
 }
 
 .category-panel h4 {
@@ -2333,6 +2341,11 @@ ul.admin-breadcrumb li a:hover {
         flex-direction: column-reverse;
     }
 
+    .review-product-image img {
+        width: 100px;
+        height: 100px;
+    }
+
     .upload-favicon, .upload-logo {
         height: auto;
     }
@@ -2382,10 +2395,6 @@ ul.admin-breadcrumb li a:hover {
 
     #contactsForm .translation-flex-row {
         display: flex;
-    }
-    .review-product-info img {
-        height: 350px;
-        width: 100%;
     }
 
 }
