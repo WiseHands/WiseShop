@@ -2006,11 +2006,6 @@ ul.admin-breadcrumb li a:hover {
     margin-bottom: 0.5rem;
 }
 
-.product-feedback-container {
-    display: flex;
-    flex-direction: column;
-}
-
 .feedback-admin-item {
     display: flex;
     flex-direction: column;
