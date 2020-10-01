@@ -307,15 +307,15 @@
                         controller:'AdditionNewController',
                         activetab: 'addition'
                     }).
-                    when('/additiondetail/:uuid',{
-                        templateUrl:'wisehands/admin/partials/additionDetail.html',
-                        controller:'AdditionDetailController',
-                        activetab: 'addition'
-                    }).
                     when('/additionedit/:uuid',{
                         templateUrl:'wisehands/admin/partials/additionEdit.html',
                         controller:'AdditionEditController',
                         activetab: 'addition'
+                    }).
+                    when('/chooseadditions/:productUuid',{
+                        templateUrl:'wisehands/admin/partials/chooseAdditions.html',
+                        controller:'ChooseAdditionsController',
+                        activetab: 'productList'
                     }).
                     otherwise({
                         redirectTo:'/'

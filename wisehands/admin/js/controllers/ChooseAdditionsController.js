@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('AdditionDetailController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$routeParams', '$location', '$window',
+    .controller('ChooseAdditionsController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$routeParams', '$location', '$window',
         function ($scope, $http, signout, sideNavInit, shared, $routeParams, $location, $window) {
 
         console.log('location => ', $location);
@@ -16,7 +16,7 @@ angular.module('WiseHands')
         });
 
         $scope.redirectToEdit = () => {
-            $window.location.href = `#/qredit/${$routeParams.uuid}`;
+            $window.location.href = `#/qredit/${$routeParams.productUuid}`;
         }
 
         showQR = (qrCode) =>{
