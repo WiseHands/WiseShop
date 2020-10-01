@@ -312,9 +312,9 @@
                         controller:'AdditionEditController',
                         activetab: 'addition'
                     }).
-                    when('/chooseadditions/:productUuid',{
-                        templateUrl:'wisehands/admin/partials/chooseAdditions.html',
-                        controller:'ChooseAdditionsController',
+                    when('/selectadditions/:productUuid',{
+                        templateUrl:'wisehands/admin/partials/selectAdditions.html',
+                        controller:'SelectAdditionsController',
                         activetab: 'productList'
                     }).
                     otherwise({

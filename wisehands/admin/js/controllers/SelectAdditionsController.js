@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .controller('ChooseAdditionsController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$routeParams', '$location', '$window',
+    .controller('SelectAdditionsController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$routeParams', '$location', '$window',
         function ($scope, $http, signout, sideNavInit, shared, $routeParams, $location, $window) {
 
         console.log('location => ', $location);
