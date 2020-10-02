@@ -134,6 +134,8 @@ feedback.email.notification.to.client.leave.feedback = [%s] %s, please leave a r
 feedback.email.notification.to.admin.about.new.feedback = [%s] Customer %s leave a review about order
 feedback.email.title = Leave feedback for your order from %s
 feedback.main.label = Hello %s.
+feedback.email.feedback = Customer %s leave a review about order.
+feedback.email.revise = Review
 feedback.email.text = Help us become better, please leave your feedback.
 feedback.write.feedback = Write review
 

@@ -110,7 +110,7 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
-    public void sendNotificationToAdminAboutFeedback(ShopDTO shop, OrderDTO order, String status) throws Exception {
+/*    public void sendNotificationToAdminAboutFeedback(ShopDTO shop, OrderDTO order, String status) throws Exception {
         HtmlEmail email = new HtmlEmail();
 
         email.setHostName(shop.domain);
@@ -142,7 +142,7 @@ public class MailSenderImpl implements MailSender {
         email.setHtmlMsg(rendered);
         email.setCharset("utf-8");
         Mail.send(email);
-    }
+    }*/
 
     public static String readAllBytesJava7(String filePath)
     {

@@ -91,6 +91,8 @@ feedback.email.notification.to.client.leave.feedback = [%s] %s, proszę zostawi�
 feedback.email.notification.to.admin.about.new.feedback = [%s] Klient %s wystawia opinię na temat zamówienia
 feedback.email.title = informacje zwrotne do twojego zamówienia od %s
 feedback.main.label = Witaj %s.
+feedback.email.feedback = Klient %s zostawia opinię o zamówieniu.
+feedback.email.revise = Przejrzeć
 feedback.email.text =  Pomóż nam stać najlepszym, proszę zostawić swoją recenzję.
 feedback.write.feedback = Zostawić swoją recenzję
 
@@ -106,7 +108,7 @@ order.is.processing = Zamówienie (%s, %s) obrabia się
 new.order.total = Nowe zamówienie %s Razem %s
 payment.error = Błąd Płatności
 payment.error.total = Błąd Płatności %s Razem %s
-payment.done = Płatność zakończona
+payment.done = Płatność Zakończona
 payment.done.total = Płatność zakończona %s Razem %s
 gotomain = Przejdź na stronę główną
 order.fail = Błąd Płatności
