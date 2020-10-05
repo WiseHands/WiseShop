@@ -1,4 +1,9 @@
 {
+  "selectAdditions.title": "Додатки",
+  "selectAdditions.selectedAdditionsTitle": "Вибрані додатки:",
+  "selectAdditions.noSelectedAdditions": "Не має вибраних додатків",
+  "selectAdditions.availableAddition": "Доступні додатки:",
+
   "additionMenu.title": "Додатки",
   "additionMenu.titleInfo": "Для створення додаткової ціни для товару, яка буде враховуватися при доставці чи наявності додаткової упаковки, натисніть плюс",
   "additionMenu.noAddition": "Додатки відсутні",
@@ -10,6 +15,11 @@
   "additionEdit.title": "Редагування додатку",
   "additionEdit.titleInfo": "Відкорегуйте та збрежіть додаток",
   "additionBreadCrumb.menu": "Меню",
+  "additionEdit.editPhoto": "Завантажте фото",
+  "additionEdit.edit": "Редагувати",
+  "additionEdit.deleteMessage": "Ви дійсно хочете видалити додаток",
+  "additionBreadCrumb.admin": "Адмін",
+  "additionBreadCrumb.additions": "Додатки",
 
   "pageQR.title": "QR Меню",
   "pageQR.titleInfo": "QR меню дозволяє вам створити унікальні QR коди на кожен стіл. Відвідувачі зможуть просканувати QR коди та створити замовлення. Нище список створених QR кодів. Натисніть плюс щоб створити QR меню",

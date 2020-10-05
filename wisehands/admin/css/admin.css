@@ -2483,6 +2483,11 @@ ul.admin-breadcrumb li a:hover {
     font-size: 1.7rem;
     margin: 0;
 }
+.selected-additions-title {
+     font-size: 1.7rem;
+     margin: 0;
+     padding-top: 10px;
+}
 
 @media screen and (min-width: 1500px) {
     .admin-container {

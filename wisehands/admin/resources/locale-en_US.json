@@ -1,4 +1,9 @@
 {
+  "selectAdditions.title": "Additions",
+  "selectAdditions.selectedAdditionsTitle": " Selected Additions:",
+  "selectAdditions.noSelectedAdditions": "Choose applicable additions:",
+  "selectAdditions.availableAddition": "Available additions:",
+
   "additionMenu.title": "Additions",
   "additionMenu.titleInfo": "Add additional item to product (for example if applied to pizza it can be arugula or tomatos)",
   "additionMenu.noAddition": "No additions",
@@ -15,8 +20,6 @@
   "additionBreadCrumb.menu": "Menu",
   "additionBreadCrumb.admin": "Admin",
   "additionBreadCrumb.additions": "Additions",
-
-
 
   "pageQR.title": "QR Menu",
   "pageQR.titleInfo": "QR Menu allows you to create unique QR-code per table.\n Visitors can scan it and make an order.\n Below is the list of available QR-codes.\n Click plus to create a QR-code menu",
