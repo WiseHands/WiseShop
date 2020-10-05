@@ -25525,6 +25525,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   _translateCashLabel(cashInfo) {
     let label = '';
+      console.log("postInfo.translationBucket ", cashInfo.translationBucket);
 
     if (cashInfo.translationBucket) {
       console.log("postInfo.translationBucket ", cashInfo.translationBucket);
@@ -25924,7 +25925,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (targetElement.validate() && targetElement.value) {
       const params = `?${targetElement.id}=${targetElement.value}${this.addCartIdParamIfAvailable(false)}`;
-
+      console.log('_validateAndSendClientPostInfo => ', params);
       this._generateRequest('PUT', this._generateRequestUrl('/api/cart/post/info', params));
     }
   }

@@ -441,6 +441,8 @@ public class ShoppingCartAPI extends AuthController {
          String clientCity = request.params.get("clientCity");
          String clientPostDepartmentNumber = request.params.get("clientPostDepartmentNumber");
 
+         System.out.println("setPostDepartmentInfo => " + "clientCity: " + clientCity + " " + "clientPostDepartmentNumber: " + clientPostDepartmentNumber);
+
          String cartId = _getCartUuid(request);
          ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
          if (clientCity != null) {

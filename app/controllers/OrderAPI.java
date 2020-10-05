@@ -113,7 +113,7 @@ public class OrderAPI extends AuthController {
     }
 
     public static void create(String client, String chosenLanguage) throws Exception {
-        System.out.println("chosenLanguage => " + chosenLanguage);
+        System.out.println("chosenClientLanguage when order created => " + chosenLanguage);
         ShopDTO shop = _getShop(client);
         _applyLocale(shop);
 
@@ -197,6 +197,8 @@ public class OrderAPI extends AuthController {
         }
         order.feedbackRequestState = FeedbackRequestState.REQUEST_NOT_SEND;
         order = order.save();
+        System.out.println("clientPostDepartmentNumber in order creating" + order.clientPostDepartmentNumber);
+
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
         clearShoppingCart(shoppingCart);
