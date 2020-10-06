@@ -23,15 +23,14 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static util.ShoppingCartUtil._getCartUuid;
 
 public class OrderAPI extends AuthController {
     private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
     private static final String CLASSSNAME = "OrderAPI";
-    private  static final Double WISEHANDS_COMISSION = -0.0725;
-    private  static final int PAGE_SIZE = 12;
+    private static final Double WISEHANDS_COMISSION = -0.0725;
+    private static final int PAGE_SIZE = 12;
 
     private class DeliveryType {
         private static final String COURIER = "COURIER";
