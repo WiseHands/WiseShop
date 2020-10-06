@@ -2237,6 +2237,10 @@ ul.admin-breadcrumb li a:hover {
     flex-wrap: wrap;
 }
 
+.admin-feedback-item-mob {
+    display: none;
+}
+
 .admin-feedback-list .admin-card {
     width: calc(50% - 30px);
     height: fit-content;
@@ -2391,6 +2395,14 @@ ul.admin-breadcrumb li a:hover {
 
     #contactsForm .translation-flex-row {
         display: flex;
+    }
+
+    .admin-feedback-item {
+        display: none;
+    }
+
+    .admin-feedback-item-mob {
+        display: block;
     }
 
 }
