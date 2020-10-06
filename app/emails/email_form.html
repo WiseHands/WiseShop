@@ -502,7 +502,9 @@
                                             <td>
                                                 <img src="{{item.imagePath}}" alt="product-logo" border="0" width="100px" height="75px">
                                             </td>
-                                            <th style="padding-left: 15px;  text-align: left">{{item.name}}</th>
+                                            {% for product in orderProductTranslationItemList %}
+                                            <th style="padding-left: 15px;  text-align: left">{{product.content}}</th>
+                                            {% endfor %}
                                         </table>
                                     </td>
                                     <td style="text-align: center">{{item.quantity}}</td>

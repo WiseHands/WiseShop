@@ -22,6 +22,8 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static util.ShoppingCartUtil._getCartUuid;
 
@@ -682,6 +684,22 @@ public class OrderAPI extends AuthController {
         DecimalFormat format = new DecimalFormat("0.##");
         String total = format.format(order.total);
 
+        List<TranslationBucketDTO> orderProductItemList = new ArrayList<>();
+        for (OrderItemDTO item : order.items) {
+            ProductDTO product = ProductDTO.find("byUuid", item.productUuid).first();
+            orderProductItemList.add(product.productNameTextTranslationBucket);
+        }
+
+        List<TranslationItemDTO> orderProductTranslationItemList = new ArrayList<>();
+        for (TranslationBucketDTO orderProduct : orderProductItemList) {
+            if (changeLanguage.equals("uk_UA")) {
+                orderProductTranslationItemList.addAll(orderProduct.translationList.stream().filter(language -> language.language.equals("uk")).collect(Collectors.toList()));
+            } else {
+                orderProductTranslationItemList.addAll(orderProduct.translationList.stream().filter(language -> language.language.equals("en")).collect(Collectors.toList()));
+            }
+        }
+
+        map.put("orderProductTranslationItemList", orderProductTranslationItemList);
         map.put("orderNumber", orderListSize);
         map.put("shopName", shop.shopName);
         map.put("name", order.name);
