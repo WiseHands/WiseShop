@@ -218,9 +218,6 @@
                             <div class="feedback-to-all-order" ng-show="order.orderFeedback.generalReview">
                                 <p>{{order.orderFeedback.generalReview}}</p>
                             </div>
-                            <div class="feedback-to-all-order" ng-show="order.orderFeedback && !order.orderFeedback.generalReview">
-                                <p>{{'singleOrder.generalFeedback' | translate}}</p>
-                            </div>
                         </div>
 
                         <div ng-show="order.feedbackRequestState === 'REQUEST_SENT'">
