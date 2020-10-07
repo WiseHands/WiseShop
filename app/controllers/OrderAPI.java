@@ -1,5 +1,6 @@
 package controllers;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import enums.*;
 import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
@@ -10,6 +11,7 @@ import models.*;
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import play.Play;
 import play.db.jpa.JPA;
 import play.i18n.Lang;
@@ -114,11 +116,19 @@ public class OrderAPI extends AuthController {
 
     public static void create(String client, String chosenLanguage) throws Exception {
         System.out.println("chosenClientLanguage when order created => " + chosenLanguage);
+
+
+        String jsonCart = request.params.get("cart");
+
+        System.out.println("create order with body -> " + jsonCart);
+
         ShopDTO shop = _getShop(client);
         _applyLocale(shop);
 
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = (ShoppingCartDTO) ShoppingCartDTO.find("byUuid", cartId).fetch().get(0);
+
+        validationShoppingCart(jsonCart, shoppingCart);
 
         String agent = request.headers.get("user-agent").value();
         String ip = _getUserIp();
@@ -134,6 +144,7 @@ public class OrderAPI extends AuthController {
             clientLanguage = strings[0];
 
         }
+
 
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
         order.clientLanguage = clientLanguage;
@@ -247,6 +258,64 @@ public class OrderAPI extends AuthController {
             json.put("status", "ok");
             renderJSON(json);
         }
+    }
+
+    private static void validationShoppingCart(String jsonCart, ShoppingCartDTO shoppingCart) throws ParseException {
+        if (jsonCart == null || shoppingCart == null) {
+            return;
+        }
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(jsonCart);
+        Set<String> keys = jsonBody.keySet();
+        for (String fieldName : keys) {
+            switch (fieldName) {
+                case "clientName":
+                    if (shoppingCart.clientName == null) {
+                        shoppingCart.clientName = (String) jsonBody.get("clientName");
+                        shoppingCart.save();
+                    }
+                case "clientEmail":
+                    if (shoppingCart.clientEmail == null) {
+                        shoppingCart.clientEmail = (String) jsonBody.get("clientEmail");
+                        shoppingCart.save();
+                    }
+                case "clientPhone":
+                    if (shoppingCart.clientPhone == null) {
+                        shoppingCart.clientPhone = (String) jsonBody.get("clientPhone");
+                        shoppingCart.save();
+                    }
+                case "clientCity":
+                    if (shoppingCart.clientCity == null) {
+                        shoppingCart.clientCity = (String) jsonBody.get("clientCity");
+                        shoppingCart.save();
+                    }
+                case "clientPostDepartmentNumber":
+                    if (shoppingCart.clientPostDepartmentNumber == null) {
+                        shoppingCart.clientPostDepartmentNumber = (String) jsonBody.get("clientPostDepartmentNumber");
+                        shoppingCart.save();
+                    }
+                case "deliveryType":
+                    if (shoppingCart.deliveryType == null) {
+                        shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.valueOf((String) jsonBody.get("deliveryType"));
+                        shoppingCart.save();
+                    }
+                case "paymentType":
+                    if (shoppingCart.paymentType == null) {
+                        shoppingCart.paymentType = ShoppingCartDTO.PaymentType.valueOf((String) jsonBody.get("paymentType"));
+                        shoppingCart.save();
+                    }
+            }
+        }
+//        ArrayList<String> list = new ArrayList<String>(map.keySet());
+        System.out.println("validationShoppingCart jsonBody => " + keys);
+        System.out.println(shoppingCart.clientPostDepartmentNumber + " " +
+                shoppingCart.clientCity + " " +
+                shoppingCart.clientName + " " +
+                shoppingCart.clientEmail + " " +
+                shoppingCart.clientPhone + " " +
+                shoppingCart.clientComments + " " +
+                shoppingCart.deliveryType.name() + " " +
+                shoppingCart.paymentType.name());
     }
 
     private static void sendMessageIfLowBalance(ShopDTO shop) throws Exception {
