@@ -220,6 +220,7 @@
   "productReviews.cancelReplyForComment": "Cancel",
   "productReviews.noReviews": "No reviews",
   "productReviews.removeReviews": "Remove",
+  "productReviews.noComments": "There are no reviews for this product",
   "shopDetails.deleteMessage1": "Do you really want to delete this shop?",
   "shopDetails.deleteMessage2": "Shop deleted.",
   "editProduct.general": "General",
