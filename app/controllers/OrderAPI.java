@@ -1,5 +1,6 @@
 package controllers;
 
+import emails.MailOrder;
 import enums.*;
 import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
@@ -113,6 +114,11 @@ public class OrderAPI extends AuthController {
         return result;
     }
 
+    private static String getLanguagePartWithoutLocale(String language) {
+        String[] strings = language.split("_");
+        return strings[0];
+    }
+
     public static void create(String client, String chosenLanguage) throws Exception {
         System.out.println("chosenClientLanguage when order created => " + chosenLanguage);
         ShopDTO shop = _getShop(client);
@@ -205,23 +211,23 @@ public class OrderAPI extends AuthController {
         clearShoppingCart(shoppingCart);
         JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
-        try {
+
             int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
-            String htmlContentForAdmin = generateHtmlEmailForNewOrder(shop, order, shop.locale);
+            String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
+            String htmlContentForAdmin = generateHtmlEmailForNewOrder(shop, order, parsedLanguage);
             String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
             List<String> adminEmailList = new ArrayList<>();
             adminEmailList.add(shop.contact.email);
             mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
 
-            String htmlContentForClient = generateHtmlEmailForNewOrder(shop, order, order.chosenClientLanguage);
+            parsedLanguage = getLanguagePartWithoutLocale(order.clientLanguage);
+            String htmlContentForClient = generateHtmlEmailForNewOrder(shop, order, parsedLanguage);
             String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
             List<String> clientEmailList = new ArrayList<>();
             clientEmailList.add(order.email);
             mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
 
-        } catch (Exception e) {
-            System.out.println("OrderAPI create mail error" + e.getCause() + e.getStackTrace());
-        }
+
 
         JSONObject json = new JSONObject();
         Boolean isOrderPaidByCreditCart = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
@@ -659,7 +665,7 @@ public class OrderAPI extends AuthController {
         return rendered;
 
     }
-    private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order, String changeLanguage) {
+    private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order, String language) {
 
         Filter.registerFilter(new Filter("total"){
             @Override
@@ -675,52 +681,29 @@ public class OrderAPI extends AuthController {
         Template template = Template.parse(templateString);
         Map<String, Object> map = new HashMap<String, Object>();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-        Date resultDate = new Date(order.time);
+        MailOrder mailOrder = new MailOrder(order, shop, getLanguagePartWithoutLocale(language));
 
-        int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+        map.put("orderNumber", mailOrder.orderNumber);
+        map.put("shopName", mailOrder.shopName);
+        map.put("phone", mailOrder.phone);
+        map.put("email", mailOrder.email);
+        map.put("deliveryType", mailOrder.deliveryType);
+        map.put("paymentType", mailOrder.paymentType);
+        map.put("clientAddressCity", mailOrder.clientAddressCity);
+        map.put("clientAddressStreetName", mailOrder.clientAddressStreetName);
+        map.put("clientPostDepartmentNumber", mailOrder.clientPostDepartmentNumber);
+        map.put("total", mailOrder.total);
+        map.put("uuid", mailOrder.uuid);
+        map.put("time", mailOrder.time);
+        map.put("comment", mailOrder.comment);
+        map.put("orderItems", mailOrder.orderItemList);
+        map.put("clientAddressBuildingNumber", mailOrder.clientAddressBuildingNumber);
+        map.put("clientAddressApartmentEntrance", mailOrder.clientAddressApartmentEntrance);
+        map.put("clientAddressApartmentEntranceCode", mailOrder.clientAddressApartmentEntranceCode);
+        map.put("clientAddressApartmentFloor", mailOrder.clientAddressApartmentFloor);
+        map.put("clientAddressApartmentNumber", mailOrder.clientAddressApartmentNumber);
 
-        DecimalFormat format = new DecimalFormat("0.##");
-        String total = format.format(order.total);
-
-        List<TranslationBucketDTO> orderProductItemList = new ArrayList<>();
-        for (OrderItemDTO item : order.items) {
-            ProductDTO product = ProductDTO.find("byUuid", item.productUuid).first();
-            orderProductItemList.add(product.productNameTextTranslationBucket);
-        }
-
-        List<TranslationItemDTO> orderProductTranslationItemList = new ArrayList<>();
-        for (TranslationBucketDTO orderProduct : orderProductItemList) {
-            if (changeLanguage.equals("uk_UA")) {
-                orderProductTranslationItemList.addAll(orderProduct.translationList.stream().filter(language -> language.language.equals("uk")).collect(Collectors.toList()));
-            } else {
-                orderProductTranslationItemList.addAll(orderProduct.translationList.stream().filter(language -> language.language.equals("en")).collect(Collectors.toList()));
-            }
-        }
-
-        map.put("orderProductTranslationItemList", orderProductTranslationItemList);
-        map.put("orderNumber", orderListSize);
-        map.put("shopName", shop.shopName);
-        map.put("name", order.name);
-        map.put("phone", order.phone);
-        map.put("email", order.email);
-        map.put("deliveryType", order.deliveryType);
-        map.put("paymentType", order.paymentType);
-        map.put("clientAddressCity", order.clientCity);
-        map.put("clientAddressStreetName", order.clientAddressStreetName);
-        map.put("clientPostDepartmentNumber", order.clientPostDepartmentNumber);
-        map.put("total", total);
-        map.put("uuid", order.uuid);
-        map.put("time", simpleDateFormat.format(resultDate));
-        map.put("comment", order.comment);
-        map.put("orderItems", order.items);
-        map.put("clientAddressBuildingNumber", order.clientAddressBuildingNumber);
-        map.put("clientAddressApartmentEntrance", order.clientAddressApartmentEntrance);
-        map.put("clientAddressApartmentEntranceCode", order.clientAddressApartmentEntranceCode);
-        map.put("clientAddressApartmentFloor", order.clientAddressApartmentFloor);
-        map.put("clientAddressApartmentNumber", order.clientAddressApartmentNumber);
-
-        Lang.change(changeLanguage);
+        Lang.change(language);
 
         String labelName = Messages.get("mail.label.name");
         map.put("labelName", labelName);
