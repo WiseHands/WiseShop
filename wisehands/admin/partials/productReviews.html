@@ -34,9 +34,38 @@
              show="loading"></spinner>
 </div>
 <div ng-hide="loading">
+    <div class="sort-reviews admin-container"  ng-hide="product.feedbackList.length === 0">
+        <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
+            <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
+                  ng-class="{reverse: reverse}"></span>
+        </p>
+        <p ng-click="sortBy('quality')">{{'productReviews.byRating' | translate}}
+            <span class="sortorder" ng-show="sortByProperty === 'quality'" ng-class="{reverse: reverse}"></span>
+        </p>
+    </div>
     <div class="admin-container product-reviews-block">
         <div class="admin-column">
-            <div class="sort-reviews">
+            <div class="admin-card review-product-info" ng-click="getUrl()">
+                <!-- link here  -->
+                <div class="review-product-image">
+                    <img ng-src="{{productImageUrl}}"
+                         alt="image">
+                </div>
+                <div class="review-product-text">
+                    <h4>{{product.name}}
+                        <span>
+                            <i class="fa fa-external-link" style="font-size:24px"></i>
+                        </span>
+                    </h4>
+                    <h4>{{product.price}} {{'orderList.Currency' | translate}}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="admin-column product-reviews-column">
+            <div class="productreviews-nocomments" ng-show="product.feedbackList.length === 0">
+                <p>{{'productReviews.noComments' | translate}}</p>
+            </div>
+            <div class="sort-reviews-mobile admin-container"  ng-hide="product.feedbackList.length === 0">
                 <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
                     <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
                           ng-class="{reverse: reverse}"></span>
@@ -94,23 +123,6 @@
                             </a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="admin-column">
-            <div class="admin-card review-product-info" ng-click="getUrl()">
-                <!-- link here  -->
-                <div class="review-product-image">
-                    <img ng-src="{{productImageUrl}}"
-                         alt="image">
-                </div>
-                <div class="review-product-text">
-                    <h4>{{product.name}}
-                        <span>
-                            <i class="fa fa-external-link" style="font-size:24px"></i>
-                        </span>
-                    </h4>
-                    <h4>{{product.price}} {{'orderList.Currency' | translate}}</h4>
                 </div>
             </div>
         </div>
