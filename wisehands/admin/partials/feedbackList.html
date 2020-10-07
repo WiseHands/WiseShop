@@ -85,6 +85,10 @@
                 </div>
 
                 <div id="collapse{{$index}}" class="panel-collapse collapse">
+                    <div class="admin-order-card-row admin-order-card-row-comment">
+                        <h5 ng-show="order.comment">{{'singleOrder.Comments' | translate}}:</h5>
+                        <p>{{order.comment}}</p>
+                    </div>
                     <div  class="feedback-container" ng-repeat="item in order.items">
                         <div class="product-feedback-info">
                             <a class="feedback-order-details-image" ng-if="item.productUuid"
@@ -99,7 +103,6 @@
                                 <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
                                 <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
                             </div>
-
                         </div>
                         <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
                             <h6>{{'singleOrder.feedbackComment' | translate}}</h6>

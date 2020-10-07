@@ -1363,6 +1363,12 @@ input {
 
 .admin-order-card-row-comment {
     justify-content: flex-start;
+    align-items: baseline;
+}
+
+.admin-order-card-row-comment p {
+    font-style: italic;
+    color: #777;
 }
 
 .admin-order-card-row-comment h5 {
@@ -1970,7 +1976,7 @@ ul.admin-breadcrumb li a:hover {
 .sort-reviews {
     display: flex;
     justify-content: flex-end;
-    margin: 1rem 1rem 0 1rem;
+    padding: 1rem 1rem 0 0;
 }
 
 .sort-reviews p {
@@ -2007,6 +2013,14 @@ ul.admin-breadcrumb li a:hover {
     margin-bottom: 0.5rem;
 }
 
+.productreviews-nocomments {
+    padding: 1rem;
+}
+
+.productreviews-nocomments p {
+    font-size: 1.5rem;
+}
+
 .feedback-admin-item {
     display: flex;
     flex-direction: column;
@@ -2034,8 +2048,10 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .product-feedback-text p {
+    font-style: italic;
     font-size: 1rem;
     word-break: break-word;
+    color: #777;
 }
 
 .product-feedback-text h6 {
