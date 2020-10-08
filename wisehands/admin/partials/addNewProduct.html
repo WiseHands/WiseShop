@@ -51,6 +51,27 @@
                     <label for="textarea1">{{'addNewProduct.productDescription' | translate}}</label>
                 </div>
             </div>
+            <div class="admin-card">
+                <h4>{{'translationPage.title' | translate}}</h4>
+                <h5>{{'translationPage.ukrainian' | translate}}</h5>
+                <div class="input-field m-left">
+                    <input id="nameUk" type="text" ng-model="product.nameUk" required>
+                    <label for="nameUk">{{'addNewProduct.productName' | translate}}</label>
+                </div>
+                <div class="input-field m-left">
+                    <textarea id="descriptionUk" class="materialize-textarea" ng-model="product.descriptionUk" required></textarea>
+                    <label for="descriptionUk">{{'addNewProduct.productDescription' | translate}}</label>
+                </div>
+                <h5>{{'translationPage.english' | translate}}</h5>
+                <div class="input-field m-left">
+                    <input id="nameEn" type="text" ng-model="product.nameEn" required>
+                    <label for="nameEn">{{'addNewProduct.productName' | translate}}</label>
+                </div>
+                <div class="input-field m-left">
+                    <textarea id="descriptionEn" class="materialize-textarea" ng-model="product.descriptionEn" required></textarea>
+                    <label for="descriptionEn">{{'addNewProduct.productDescription' | translate}}</label>
+                </div>
+            </div>
             <div class="add-product-select-category">
                 <div class="input-field">
                     <h4 class="m-left">{{'addNewProduct.category' | translate}}</h4>

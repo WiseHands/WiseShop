@@ -229,6 +229,10 @@ angular.module('WiseHands')
             fd.append('isActive', $scope.product.isActive);
             fd.append('oldPrice', $scope.product.oldPrice);
             fd.append('sortOrder', $scope.product.sortOrder);
+            fd.append('nameUk', $scope.product.nameUk);
+            fd.append('descriptionUk', $scope.product.descriptionUk);
+            fd.append('nameEn', $scope.product.nameEn);
+            fd.append('descriptionEn', $scope.product.descriptionEn);
 
             $http.post('/api/product', fd, {
                     transformRequest: angular.identity,
