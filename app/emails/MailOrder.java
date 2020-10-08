@@ -55,6 +55,7 @@ public class MailOrder {
         this.uuid = order.uuid;
         this.comment = order.comment;
         this.orderItems = order.items;
+        this.clientName = order.name;
         this.clientAddressBuildingNumber = order.clientAddressBuildingNumber;
         this.clientAddressApartmentEntrance = order.clientAddressApartmentEntrance;
         this.clientAddressApartmentEntranceCode = order.clientAddressApartmentEntranceCode;
@@ -76,6 +77,7 @@ public class MailOrder {
         mailOrderItem.name = translationItemDTO.content;
         mailOrderItem.price = item.price;
         mailOrderItem.quantity = item.quantity;
+        mailOrderItem.imagePath = item.imagePath;
         return mailOrderItem;
     }
 }

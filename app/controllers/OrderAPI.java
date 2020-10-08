@@ -679,11 +679,12 @@ public class OrderAPI extends AuthController {
 
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_form.html");
         Template template = Template.parse(templateString);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         MailOrder mailOrder = new MailOrder(order, shop, getLanguagePartWithoutLocale(language));
 
         map.put("orderNumber", mailOrder.orderNumber);
+        map.put("name", mailOrder.clientName);
         map.put("shopName", mailOrder.shopName);
         map.put("phone", mailOrder.phone);
         map.put("email", mailOrder.email);
