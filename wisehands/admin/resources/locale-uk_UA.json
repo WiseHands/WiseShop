@@ -376,6 +376,6 @@
   "additionSetting.exampleChangeOrderDone": "Замовлення успішно завершене. Очікуйте, з вами зв'яжуться.",
   "additionalSetting.showAmountTools": "Показувати кількість приборів для товарів",
   "addproperty.product": "Товар",
-  "addproperty.option": "Додаток"
-
+  "addproperty.option": "Додаток",
+  "feedbackList.linkToOrder" : "Перейти до замовлення"
 }

@@ -2068,6 +2068,19 @@ ul.admin-breadcrumb li a:hover {
     font-weight: 400;
 }
 
+.link-to-order-btn {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.admin-feedback-item-mob .link-to-order-btn a {
+    color: #039be5;
+}
+
+.admin-feedback-item-mob .link-to-order-btn a:hover {
+    color: ##23527c;
+}
+
 .admin-card-logo {
     display: flex;
     flex-direction: column;

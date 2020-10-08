@@ -371,6 +371,7 @@
   "additionSetting.exampleChangeName": "By default, the element is named \"Name\"",
   "additionalSetting.showAmountTools": "Display the number of appliances for goods",
   "addproperty.product": "Product",
-  "addproperty.option": "Option"
+  "addproperty.option": "Option",
+  "feedbackList.linkToOrder" : "Перейти до замовлення"
 
 }
