@@ -25689,6 +25689,9 @@ class WiseShoppingCartContainer extends PolymerElement {
     const isCourierDeliverySelected = this.cart.deliveryType === 'COURIER';
 
     if (isValid && !isCourierDeliverySelected) {
+      const postDepartmentNumber = this.shadowRoot.getElementById('clientPostDepartmentNumber');
+      console.log("postDepartmentNumber => ", postDepartmentNumber.value);
+      this.cart.client.postDepartamentInfo.postDepartmentNumber = postDepartmentNumber.value;
 
       const cart = {
             deliveryType : this.cart.deliveryType,
@@ -25729,7 +25732,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (this.isMakeOrderRequestRunning) return;
     const ajax = this.$.makeOrderAjax;
-    ajax.url = `${this.hostname}/order/${this.language}?cart=${JSON.stringify(cart)}`;
+    ajax.url = `${this.hostname}/order/${this.language}?cart=${JSON.stringify(cart)}${this.addCartIdParamIfAvailable(false)}`;
     ajax.method = 'POST';
     this.isMakeOrderRequestRunning = true;
     ajax.generateRequest();
