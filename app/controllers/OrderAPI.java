@@ -125,7 +125,7 @@ public class OrderAPI extends AuthController {
 
 
         String jsonCart = "";
-        if (request.params.get("cart") != null) {
+        if (!request.params.get("cart").isEmpty()) {
             jsonCart = request.params.get("cart");
         }
 
