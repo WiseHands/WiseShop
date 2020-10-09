@@ -25704,7 +25704,7 @@ class WiseShoppingCartContainer extends PolymerElement {
             clientPostDepartmentNumber : this.cart.client.postDepartamentInfo.postDepartmentNumber
       }
       console.log("get cart before make order after validation => ", cart);
-      this._makeOrderRequest(cart);
+      this._makeOrderRequest(JSON.stringify(cart));
     }
 
     if (isCourierDeliverySelected) {
@@ -25719,7 +25719,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       const isAddressInsideDeliveryBoundaries = cart.client.address.isAddressInsideDeliveryBoundaries;
 
       if (isValid && (isAddressSetFromMapView || isAddressInsideDeliveryBoundaries)) {
-        this._makeOrderRequest();
+        this._makeOrderRequest(null);
       } else if (!isValid) {
         this.errorMessage = `${this.errorMessageFillInfo}`;
       } else {
@@ -25732,7 +25732,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (this.isMakeOrderRequestRunning) return;
     const ajax = this.$.makeOrderAjax;
-    ajax.url = `${this.hostname}/order/${this.language}?cart=${JSON.stringify(cart)}${this.addCartIdParamIfAvailable(false)}`;
+    ajax.url = `${this.hostname}/order/${this.language}?cart=${cart}${this.addCartIdParamIfAvailable(false)}`;
     ajax.method = 'POST';
     this.isMakeOrderRequestRunning = true;
     ajax.generateRequest();
