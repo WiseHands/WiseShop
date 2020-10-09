@@ -275,6 +275,9 @@ public class OrderAPI extends AuthController {
         }
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(jsonCart);
+        if (jsonBody == null) {
+            return;
+        }
         Set<String> keys = jsonBody.keySet();
         for (String fieldName : keys) {
             switch (fieldName) {
