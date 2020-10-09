@@ -25691,7 +25691,7 @@ class WiseShoppingCartContainer extends PolymerElement {
     if (isValid && !isCourierDeliverySelected) {
       const postDepartmentNumber = this.shadowRoot.getElementById('clientPostDepartmentNumber');
 
-      if (postDepartmentNumber.value) {
+      if (postDepartmentNumber) {
         this.cart.client.postDepartamentInfo.postDepartmentNumber = postDepartmentNumber.value;
       }
 
