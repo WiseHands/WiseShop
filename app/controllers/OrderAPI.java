@@ -244,6 +244,7 @@ public class OrderAPI extends AuthController {
         JSONObject json = new JSONObject();
         Boolean isOrderPaidByCreditCart = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
         if(isOrderPaidByCreditCart) {
+
             try {
                 String payButton = liqPay.payButton(order, shop);
 
@@ -269,7 +270,7 @@ public class OrderAPI extends AuthController {
     }
 
     private static void validationShoppingCart(String jsonCart, ShoppingCartDTO shoppingCart) throws ParseException {
-        if (jsonCart == null || shoppingCart == null) {
+        if (jsonCart.isEmpty() || shoppingCart == null) {
             return;
         }
         JSONParser parser = new JSONParser();
