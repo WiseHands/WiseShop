@@ -202,6 +202,7 @@ mail.label.clientAddressStreetName = Street
 mail.label.number = #
 mail.label.ClientAddressBuildingNumber = Building number
 mail.label.paymentStatus = Status
+mail.label.currency.uah = uah
 
 create.shop.courier.delivery.text = Call a courier - %s or free of charge (if the order size exceeds %s USD).
 create.shop.selfpickup.delivery.text = Self pickup

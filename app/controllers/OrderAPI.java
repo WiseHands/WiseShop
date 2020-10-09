@@ -665,13 +665,11 @@ public class OrderAPI extends AuthController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date resultDate = new Date(order.time);
 
-        Lang.change(shop.locale);
+        Lang.change(changeLanguage);
 
         String paymentError = Messages.get("payment.error");
         map.put("paymentError", paymentError);
         map.put("shopName", shop.shopName);
-
-        Lang.change(changeLanguage);
 
         String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
         map.put("labelOrderPayment", labelOrderPayment);
@@ -689,13 +687,11 @@ public class OrderAPI extends AuthController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date resultDate = new Date(order.time);
 
-        Lang.change(shop.locale);
+        Lang.change(changeLanguage);
 
         String paymentDone = Messages.get("payment.done");
         map.put("paymentDone", paymentDone);
         map.put("shopName", shop.shopName);
-
-        Lang.change(changeLanguage);
 
         String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
         map.put("labelOrderPayment", labelOrderPayment);
@@ -843,6 +839,9 @@ public class OrderAPI extends AuthController {
         map.put("cashOnDeliveryPaymentType", cashOnDeliveryPaymentType);
         String creditCardDeliveryPaymentType = Messages.get("mail.label.creditCardDeliveryPaymentType");
         map.put("creditCardDeliveryPaymentType", creditCardDeliveryPaymentType);
+
+        String labelCurrencyUah = Messages.get("mail.label.currency.uah");
+        map.put("labelCurrencyUah", labelCurrencyUah);
 
         String rendered = template.render(map);
         return rendered;
