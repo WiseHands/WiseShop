@@ -208,7 +208,6 @@ public class OrderAPI extends AuthController {
         }
         order.feedbackRequestState = FeedbackRequestState.REQUEST_NOT_SEND;
         order = order.save();
-        System.out.println("clientPostDepartmentNumber in order creating" + order.clientPostDepartmentNumber);
 
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
@@ -308,14 +307,7 @@ public class OrderAPI extends AuthController {
         }
 //        ArrayList<String> list = new ArrayList<String>(map.keySet());
         System.out.println("validationShoppingCart jsonBody => " + keys);
-        System.out.println(shoppingCart.clientPostDepartmentNumber + " " +
-                shoppingCart.clientCity + " " +
-                shoppingCart.clientName + " " +
-                shoppingCart.clientEmail + " " +
-                shoppingCart.clientPhone + " " +
-                shoppingCart.clientComments + " " +
-                shoppingCart.deliveryType.name() + " " +
-                shoppingCart.paymentType.name());
+
     }
 
     private static void sendMessageIfLowBalance(ShopDTO shop) throws Exception {
