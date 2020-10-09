@@ -124,7 +124,10 @@ public class OrderAPI extends AuthController {
         System.out.println("chosenClientLanguage when order created => " + chosenLanguage);
 
 
-        String jsonCart = request.params.get("cart");
+        String jsonCart = "";
+        if (request.params.get("cart") != null) {
+            jsonCart = request.params.get("cart");
+        }
 
         System.out.println("create order with body -> " + jsonCart);
 
