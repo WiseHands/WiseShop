@@ -227,14 +227,21 @@ public class OrderAPI extends AuthController {
             int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
             String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
             String htmlContentForAdmin = generateHtmlEmailForNewOrder(shop, order, parsedLanguage);
-            String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+            List<TranslationItemDTO> translationList = shop.shopNameTextTranslationBucket.translationList;
+            String adminFinalParsedLanguage = parsedLanguage;
+            TranslationItemDTO adminTranslationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(adminFinalParsedLanguage)).collect(Collectors.toList()).get(0);
+            String adminShopName = adminTranslationItemDTO.content;
+            String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + adminShopName;
             List<String> adminEmailList = new ArrayList<>();
             adminEmailList.add(shop.contact.email);
             mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
 
             parsedLanguage = getLanguagePartWithoutLocale(order.clientLanguage);
+            String clientFinalParsedLanguage = parsedLanguage;
+            TranslationItemDTO clientTranslationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(clientFinalParsedLanguage)).collect(Collectors.toList()).get(0);
+            String clientShopName = clientTranslationItemDTO.content;
             String htmlContentForClient = generateHtmlEmailForNewOrder(shop, order, parsedLanguage);
-            String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+            String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + clientShopName;
             List<String> clientEmailList = new ArrayList<>();
             clientEmailList.add(order.email);
             mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
