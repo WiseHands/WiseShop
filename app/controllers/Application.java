@@ -453,7 +453,8 @@ public class Application extends Controller {
             System.out.println("prepare to generateTokenForCookie => " + agent);
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
             System.out.println("generateTokenForCookie => " + token);
-            response.setCookie("JWT_TOKEN", token);
+            String duration = "30mn";
+            response.setCookie("JWT_TOKEN", token, duration);
         }
     }
 
