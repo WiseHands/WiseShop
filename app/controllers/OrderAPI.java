@@ -342,8 +342,8 @@ public class OrderAPI extends AuthController {
         }
         for (UserDTO user : shop.userList) {
             smsSender.sendSms(user.phone, Messages.get("balance.transaction.low.shop.balance"));
-            mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
         }
+        mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
     }
 
     static void clearShoppingCart(ShoppingCartDTO shoppingCart){
