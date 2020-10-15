@@ -203,3 +203,4 @@ create.shop.courier.delivery.text = Викликати кур’єра по Ль
 create.shop.selfpickup.delivery.text = Самовивіз
 create.shop.postservice.delivery.text = Замовити доставку до найближчого відділення Нової Пошти у Вашому місті.
 server.error = Помилка сервера
+go.to.back = На головну

@@ -208,3 +208,4 @@ create.shop.courier.delivery.text = Call a courier - %s or free of charge (if th
 create.shop.selfpickup.delivery.text = Self pickup
 create.shop.postservice.delivery.text = Order delivery to the nearest new post office in your city.
 server.error = Internal Server Error
+go.to.back = Go to main

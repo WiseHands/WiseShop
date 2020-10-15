@@ -164,3 +164,4 @@ create.shop.courier.delivery.text = Zadzwoń do kuriera - %s lub bezpłatnie (je
 create.shop.selfpickup.delivery.text = Odbiór własny
 create.shop.postservice.delivery.text = Zamów dostawę do najbliższego nowego urzędu pocztowego w Twoim mieście.
 server.error = Błąd serwera
+go.to.back = Idź do main
