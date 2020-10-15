@@ -123,11 +123,10 @@ public class OrderAPI extends AuthController {
     private static String getTranslatedShopName(ShopDTO shop, String language) {
         List<TranslationItemDTO> translationList = shop.shopNameTextTranslationBucket.translationList;
         TranslationItemDTO adminTranslationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(language)).collect(Collectors.toList()).get(0);
-        if (!translationList.isEmpty()) {
+        if (!translationList.isEmpty() && !adminTranslationItemDTO.content.isEmpty()) {
             return adminTranslationItemDTO.content;
-        } else {
-            return shop.shopName;
         }
+        return shop.shopName;
     }
 
     public static void create(String client, String chosenLanguage) throws Exception {
