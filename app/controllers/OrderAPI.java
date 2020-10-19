@@ -242,7 +242,7 @@ public class OrderAPI extends AuthController {
         adminEmailList.add(shop.contact.email);
         mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
 
-        parsedLanguage = getLanguagePartWithoutLocale(order.clientLanguage);
+        parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
         String htmlContentForClient = generateHtmlEmailForNewOrder(shop, order, parsedLanguage);
         shopName = getTranslatedShopName(shop, parsedLanguage);
         String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
