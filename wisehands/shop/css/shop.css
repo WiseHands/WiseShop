@@ -247,21 +247,6 @@
     text-align: left;
     /*margin-right: -1em;*/
 }
-.productDescriptionTruncate:before, .productNameTruncate:before {
-    content: '...';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-}
-.productDescriptionTruncate:after, .productNameTruncate:after {
-    content: '';
-    position: absolute;
-    right: 0;
-    width: 1em;
-    height: 1em;
-    margin-top: 0.2em;
-    background: white;
-}
 
 .headerCentering:before {
     content: "";
