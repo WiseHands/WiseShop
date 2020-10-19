@@ -187,8 +187,11 @@
                 <p>&{'shop.missing.products'}</p>
             </div>
         #{/if}
-
-        <div class="all-cards">
+    <div class="view-block">
+        <i id="list-view" class="fa fa-list" aria-hidden="true"></i>
+        <i id="grid-view" class="fa fa-th" aria-hidden="true"></i>
+    </div>
+        <div class="all-items grid-view">
             %{
                for(_product in products) {
             }%
@@ -199,14 +202,14 @@
                                  <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
                             </a>
                         </div>
-                        <div class="card-block text-xs-center">
-                            <div class="fixed-height2">
+                        <div class="item-card-info text-xs-center">
+                            <div class="item-card-title">
                                 <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
                             </div>
-                            <div class="fixed-height">
+                            <div class="item-card-text">
                                 <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                             </div>
-                            <div class="card-footer">
+                            <div class="item-card-action">
                                 <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</span></span>
                                 <span class="right" onclick="buyStart('${_product.uuid}'), displayCookies(jwt)"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
                             </div>
@@ -224,6 +227,41 @@
                 </div>
             </div>
         </div>
+
+        <div class="all-items list-view">
+        %{
+        for(_product in products) {
+        }%
+        <div class="item-card-list item-shadow">
+            <div class="item-card-list-img noselect hm-white-slight" >
+                <a href="/${language}/product/${_product.uuid}">
+                    <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
+                </a>
+            </div>
+            <div class="item-card-list-content">
+                <div class="item-card-list-info">
+                    <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                    <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
+                </div>
+                <div class="item-card-list-action ">
+                    <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</span></span>
+                    <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
+                </div>
+            </div>
+        </div>
+
+
+        %{
+        }
+        }%
+
+        <div class="cart-float">
+            <div class="cart-float-text">
+                <p>&{'page.product.add.to.basket'}</p>
+                <i class="fa fa-check-circle"></i>
+            </div>
+        </div>
+    </div>
 
         <!--<div class="load-button">-->
             <!--<a href="/products/all">-->
@@ -245,6 +283,20 @@
             fbq('track', 'PageView');
         </script>
     #{/if}
+
+    <script>
+        document.getElementById("list-view").addEventListener("click", showList );
+            function showList() {
+                document.querySelector(".grid-view").style.display = 'none';
+                document.querySelector(".list-view").style.display = 'flex';
+
+            }
+        document.getElementById("grid-view").addEventListener("click", showGrid );
+        function showGrid() {
+            document.querySelector(".list-view").style.display = 'none';
+            document.querySelector(".grid-view").style.display = 'flex';
+        }
+    </script>
 
     #{/verbatim}
 </body>
