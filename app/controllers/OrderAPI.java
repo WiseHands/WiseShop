@@ -344,9 +344,10 @@ public class OrderAPI extends AuthController {
         if (shop.locale.equals("pl_PL")){
             Lang.change("pl_PL");
         }
-        for (UserDTO user : shop.userList) {
+/*        for (UserDTO user : shop.userList) {
             smsSender.sendSms(user.phone, Messages.get("balance.transaction.low.shop.balance"));
-        }
+        }*/
+        smsSender.sendSms(shop.userList.get(0).phone, Messages.get("balance.transaction.low.shop.balance"));
         mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
     }
 
