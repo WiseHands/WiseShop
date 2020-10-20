@@ -87,7 +87,6 @@ public class AdditionAPI extends AuthController {
         renderJSON(json(additionList));
     }
 
-
     public static void getAllForProduct (String client, String productUuid) throws Exception{
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -149,6 +148,21 @@ public class AdditionAPI extends AuthController {
         renderJSON(json(addition));
 
     }
+
+    public static void addAdditionToProduct (String client, String productId, String additionId) throws Exception{
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        ProductDTO product = ProductDTO.find("byUuid", productId).first();
+        AdditionDTO addition = AdditionDTO.find("byUuid", additionId).first();
+        product.addAddition(addition);
+        product.save();
+        renderJSON(json(product));
+    }
+
 
 
 }

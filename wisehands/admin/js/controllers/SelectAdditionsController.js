@@ -27,6 +27,22 @@ angular.module('WiseHands')
                 console.log(error);
             });
 
+        $scope.selectedAddition = (additionId) => {
+            console.log("additionId =>" , `/api/product/${$routeParams.productUuid}/${additionId}`);
+            $scope.selectedAdditionId = additionId;
+            $http({
+                method: 'PUT',
+                url: `/api/addition/add/${$routeParams.productUuid}/${additionId}`
+            }).then(response => {
+                console.log('product addition/add', response);
+                $scope.product = response.data;
+                $scope.productAdditions = response.data.additions;
+
+            }, error => {
+                console.log(error);
+            });
+        }
+
         sideNavInit.sideNav();
     }]);
 

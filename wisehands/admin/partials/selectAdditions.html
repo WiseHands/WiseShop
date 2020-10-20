@@ -30,17 +30,21 @@
             <label for="category">{{'productDetails.category' | translate}}</label>
             <h5 id="category">{{product.categoryName}}</h5>
         </div>
+        <div>
+            <p ng-show="productAdditions.length === 0">No additions</p>
+        </div>
     </div>
     <h4>{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
     <div class="qr-list-container" ng-show="availableAdditions">
-        <div ng-repeat="addition in availableAdditions | filter: availableAdditions.isDeleted === false" on-finish-render="ngRepeatFinished">
-            <a href="#/additionedit/{{addition.uuid}}" >
-                <div class="admin-card addition-item">
-                    <img class="addition-img" src="{{addition.imagePath}}">
-                    <p>{{addition.title}}</p>
-                    <p>{{addition.price}}</p>
-                </div>
-            </a>
+        <div ng-repeat="addition in availableAdditions | filter: availableAdditions.isDeleted === false"
+             ng-class="{selected: addition.uuid === selectedAdditionId}"
+             on-finish-render="ngRepeatFinished">
+            <div class="admin-card addition-item"
+                 ng-click="selectedAddition(addition.uuid)">
+                <img class="addition-img" src="{{addition.imagePath}}">
+                <p>{{addition.title}}</p>
+                <p>{{addition.price}}</p>
+            </div>
         </div>
     </div>
 
