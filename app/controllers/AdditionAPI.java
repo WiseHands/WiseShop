@@ -156,11 +156,27 @@ public class AdditionAPI extends AuthController {
         }
         checkAuthentification(shop);
 
-        ProductDTO product = ProductDTO.find("byUuid", productId).first();
         AdditionDTO addition = AdditionDTO.find("byUuid", additionId).first();
-        product.addAddition(addition);
-        product.save();
-        renderJSON(json(product));
+        addition.productUuid = productId;
+        addition.isSelected = true;
+        addition.save();
+        System.out.println("addition => " + addition.isSelected);
+        renderJSON(json(addition));
+    }
+
+    public static void removeAdditionFromProduct (String client, String productId, String additionId) throws Exception{
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        AdditionDTO addition = AdditionDTO.find("byUuid", additionId).first();
+        addition.productUuid = productId;
+        addition.isSelected = false;
+        addition.save();
+        System.out.println("addition => " + addition.isSelected);
+        renderJSON(json(addition));
     }
 
 

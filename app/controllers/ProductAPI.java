@@ -99,6 +99,10 @@ public class ProductAPI extends AuthController {
 
     public static void details(String client, String uuid) throws Exception {
         ProductDTO productDTO = ProductDTO.findById(uuid);
+
+        String query = "select a from AdditionDTO a where a.isSelected = 1 and a.productUuid = ?1";
+        productDTO.additions = AdditionDTO.find(query, productDTO.uuid).fetch();
+
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(productDTO);
         renderJSON(json);

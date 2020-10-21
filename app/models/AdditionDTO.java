@@ -16,6 +16,9 @@ public class AdditionDTO extends GenericModel {
     public String uuid;
 
     @Expose
+    public String productUuid;
+
+    @Expose
     public String title;
 
     @Expose
@@ -29,6 +32,9 @@ public class AdditionDTO extends GenericModel {
 
     @Expose
     public boolean isDeleted;
+
+    @Expose
+    public boolean isSelected = false;
 
     public String getTitle() {
         return title;

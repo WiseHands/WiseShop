@@ -438,8 +438,8 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         product.feedbackList = DataBaseQueries.getFeedbackList(product);
 
-        List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
-        product.additions = additionList;
+        String query = "select a from AdditionDTO a where a.isSelected = 1 and a.productUuid = ?1";
+        product.additions = AdditionDTO.find(query, product.uuid).fetch();
 
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);

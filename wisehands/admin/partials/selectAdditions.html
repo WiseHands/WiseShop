@@ -37,10 +37,10 @@
     <h4>{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
     <div class="qr-list-container" ng-show="availableAdditions">
         <div ng-repeat="addition in availableAdditions | filter: availableAdditions.isDeleted === false"
-             ng-class="{selected: addition.uuid === selectedAdditionId}"
+             ng-class="{selected: addition.isSelected}"
              on-finish-render="ngRepeatFinished">
             <div class="admin-card addition-item"
-                 ng-click="selectedAddition(addition.uuid)">
+                 ng-click="selectedAddition(this)">
                 <img class="addition-img" src="{{addition.imagePath}}">
                 <p>{{addition.title}}</p>
                 <p>{{addition.price}}</p>
