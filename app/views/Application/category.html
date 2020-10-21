@@ -228,10 +228,12 @@
                     </a>
                 </div>
                 <div class="item-card-list-content">
-                    <div class="item-card-list-info">
-                        <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
-                        <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
-                    </div>
+                    <a href="/${language}/product/${_product.uuid}">
+                        <div class="item-card-list-info">
+                            <h4 class="card-title productNameTruncate h4-responsive"><strong>${_product.name}</strong></h4>
+                            <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
+                        </div>
+                    </a>
                     <div class="item-card-list-action ">
                         <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</span></span>
                         <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
