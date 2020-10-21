@@ -648,16 +648,18 @@ public class OrderAPI extends AuthController {
                 smsSender.sendSms(shop.contact.phone, smsText);
                 smsSender.sendSms(order.phone, smsText);
 
-                String htmlContentForAdmin = generateHtmlEmailForOrderPaymentDone(shop, order, shop.locale);
-                String shopName = getTranslatedShopName(shop, shop.locale);
+                String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
+                String shopName = getTranslatedShopName(shop, parsedLanguage);
                 String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                String htmlContentForAdmin = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
                 List<String> adminEmailList = new ArrayList<>();
                 adminEmailList.add(shop.contact.email);
                 mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
 
-                String htmlContentForClient = generateHtmlEmailForOrderPaymentDone(shop, order, order.chosenClientLanguage);
-                shopName = getTranslatedShopName(shop, order.chosenClientLanguage);
+                parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
+                shopName = getTranslatedShopName(shop, parsedLanguage);
                 String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                String htmlContentForClient = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
                 List<String> clientEmailList = new ArrayList<>();
                 clientEmailList.add(order.email);
                 mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
