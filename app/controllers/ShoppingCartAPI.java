@@ -51,7 +51,7 @@ public class ShoppingCartAPI extends AuthController {
             shoppingCart = _createCart(shop);
             String agent = request.headers.get("user-agent").value();
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
-            response.setCookie("userToken", token);
+            response.setCookie("JWT_TOKEN", token);
         }
         String jsonShoppingCart = "";
         try {
@@ -60,7 +60,7 @@ public class ShoppingCartAPI extends AuthController {
             shoppingCart = _createCart(shop);
             String agent = request.headers.get("user-agent").value();
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
-            response.setCookie("userToken", token);
+            response.setCookie("JWT_TOKEN", token);
             jsonShoppingCart = json(shoppingCart);
         }
         renderJSON(jsonShoppingCart);

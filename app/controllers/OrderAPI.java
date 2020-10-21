@@ -347,7 +347,7 @@ public class OrderAPI extends AuthController {
 /*        for (UserDTO user : shop.userList) {
             smsSender.sendSms(user.phone, Messages.get("balance.transaction.low.shop.balance"));
         }*/
-        smsSender.sendSms(shop.userList.get(0).phone, Messages.get("balance.transaction.low.shop.balance"));
+        smsSender.sendSms(shop.contact.phone, Messages.get("balance.transaction.low.shop.balance"));
         mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
     }
 
@@ -599,9 +599,10 @@ public class OrderAPI extends AuthController {
                 order.paymentState = PaymentState.PAYMENT_ERROR;
                 order = order.save();
                 String smsText = Messages.get("payment.error.total", order.name, order.total);
-                for (UserDTO user : shop.userList) {
+/*                for (UserDTO user : shop.userList) {
                     smsSender.sendSms(user.phone, smsText);
-                }
+                }*/
+                smsSender.sendSms(shop.contact.phone, smsText);
                 smsSender.sendSms(order.phone, smsText);
 
                 String htmlContentForAdmin = generateHtmlEmailForOrderPaymentError(shop, order, shop.locale);
@@ -642,8 +643,8 @@ public class OrderAPI extends AuthController {
 
 
                 String smsText = Messages.get("payment.done.total", order.name, order.total);
-                smsSender.sendSms(order.phone, smsText);
                 smsSender.sendSms(shop.contact.phone, smsText);
+                smsSender.sendSms(order.phone, smsText);
 
                 String htmlContentForAdmin = generateHtmlEmailForOrderPaymentDone(shop, order, shop.locale);
                 String shopName = getTranslatedShopName(shop, shop.locale);
