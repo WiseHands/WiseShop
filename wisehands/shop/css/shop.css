@@ -97,7 +97,8 @@
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
-    height: 30px;
+    height: 100%;
+    align-items: flex-start;
 }
 .item-card-action {
     flex: 1;
@@ -106,8 +107,15 @@
     align-items: center;
     justify-content: space-between;
 }
+.item-card-list-action-price {
+    display: flex;
+    flex-direction: column;
+}
+.item-card-list-action p {
+    margin: 0 0.5rem 0 0;
+}
 .item-card-list-action i, .item-card-action i {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: #9e9e9e;
 }
 .flex-row{
@@ -547,9 +555,14 @@ main {
         align-items: center;
         justify-content: space-between;
         padding: 5px 5px 5px 0;
+        height: 30px;
     }
     .item-card-list-action i, .item-card-action i {
-        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .item-card-list-action-price {
+        align-items: center;
+        flex-direction: row;
     }
     .grid-view-mob {
         flex-direction: row;
