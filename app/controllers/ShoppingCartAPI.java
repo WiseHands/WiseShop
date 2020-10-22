@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import play.Play;
 import play.mvc.Before;
+import play.mvc.Http;
 import util.PolygonUtil;
 
 import java.text.DateFormat;
@@ -73,8 +74,27 @@ public class ShoppingCartAPI extends AuthController {
         return shoppingCart;
     }
 
+    private static void generateCookieIfNotPresent(ShopDTO shop) {
+        String agent = request.headers.get("user-agent").value();
+        System.out.println("generateCookieIfNotPresent => " + shop.shopName);
+        Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
+        System.out.println(userTokenCookie);
+        if(userTokenCookie == null) {
+            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
+            shoppingCart.shopUuid = shop.uuid;
+            shoppingCart.save();
+            System.out.println("prepare to generateTokenForCookie => " + agent);
+            String token = generateTokenForCookie(shoppingCart.uuid, agent);
+            System.out.println("generateTokenForCookie => " + token);
+            String duration = "30mn";
+            response.setCookie("JWT_TOKEN", token, duration);
+        }
+    }
+
     public static void addProduct(String client) throws ParseException {
         ShopDTO shop = _getShop(client);
+
+        generateCookieIfNotPresent(shop);
 
         String stringAdditionList = request.params.get("additionList");
         List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop);
