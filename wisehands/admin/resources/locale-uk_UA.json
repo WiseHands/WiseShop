@@ -270,6 +270,9 @@
   "shopDetails.deleteMessage2": "Магазин видалений.",
 
   "editProduct.selectAdditions": "Виберіть додаток для продукту",
+  "editProduct.additionQuantity": "Кількість",
+  "editProduct.isDefault": "Для всіх товарів",
+
   "editProduct.general": "Основне",
   "editProduct.edit": "Редагувати продукт",
   "editProduct.property": "Додаток",

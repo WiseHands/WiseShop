@@ -4,7 +4,7 @@ angular.module('WiseHands')
         $scope.loading = true;
 
         let additionName = document.querySelector("#addition_name");
-        let title_label = document.querySelector("#nema_label");
+        let additionLabel = document.querySelector("#nema_label");
 
         let additionPrice = document.querySelector("#addition_price");
         let price_label = document.querySelector("#price_label");

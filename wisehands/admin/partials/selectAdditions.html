@@ -11,41 +11,51 @@
             </div>
             <div class="col-xs-2 noRightPadding">
                 <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
-                        ng-click="saveSelectedAdditions()" >
+                        ng-click="saveS()" >
                 </button>
             </div>
         </div>
     </div>
 </nav>
-<div class="admin-container admin-column">
-    <div class="product-details">
+<div class="admin-container addition-for-product">
+    <div class="admin-column">
         <div class="admin-card">
-            <h4>{{'editProduct.general' | translate}}</h4>
-            <label for="name">{{'addNewProduct.productName' | translate}}</label>
+            <div class="addition-title-img">
+                <h4>{{'editProduct.general' | translate}}</h4>
+                <img class="addition-product-img" src="/public/product_images/{{activeShop}}/{{product.mainImage.filename}}" class="img-responsive z-depth-1 hoverable">
+            </div>
+            <p for="name">{{'addNewProduct.productName' | translate}}</p>
             <h5 id="name" class="product-title">{{product.name}}</h5>
-            <label for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</label>
+            <p for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</p>
             <h5 id="price">{{product.price}}</h5>
-            <label for="description">{{'addNewProduct.productDescription' | translate}}</label>
+            <p for="description">{{'addNewProduct.productDescription' | translate}}</p>
             <h5 id="description">{{product.description}}</h5>
-            <label for="category">{{'productDetails.category' | translate}}</label>
+            <p for="category">{{'productDetails.category' | translate}}</p>
             <h5 id="category">{{product.categoryName}}</h5>
         </div>
-        <div>
-            <p ng-show="productAdditions.length === 0">No additions</p>
-        </div>
     </div>
-    <h4>{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
-    <div class="qr-list-container" ng-show="availableAdditions">
-        <div ng-repeat="addition in availableAdditions | filter: availableAdditions.isDeleted === false"
-             ng-class="{selected: addition.isSelected}"
-             on-finish-render="ngRepeatFinished">
-            <div class="admin-card addition-item"
-                 ng-click="selectedAddition(this)">
-                <img class="addition-img" src="{{addition.imagePath}}">
-                <p>{{addition.title}}</p>
-                <p>{{addition.price}}</p>
+    <div class="admin-column">
+        <p class="addition-no-selected" ng-show="productAdditions.length === 0">No selected additions for this product</p>
+        <h4>{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
+        <div class="qr-list-container" ng-show="availableAdditions">
+            <div ng-repeat="addition in availableAdditions | filter: availableAdditions.isDeleted === false"
+                 ng-class="{additionSelected: addition.isSelected}"
+                 on-finish-render="ngRepeatFinished">
+                <div class="admin-card selected-addition-item"
+                     ng-click="selectedAddition(this)">
+                    <img class="addition-img" src="{{addition.imagePath}}">
+                    <div class="selected-addition-info">
+                        <p>{{addition.title}}</p>
+                        <p>{{addition.price}}</p>
+                    </div>
+                    <input type="checkbox" class="filled-in checkBoxStyling"
+                           id="additionDefault" ng-click="selectedDefaultAddition()"
+                           ng-checked="addition.isDefault" ng-model="addition.isDefault"/>
+                    <label for="additionDefault">{{'editProduct.isDefault' | translate}}</label>
+                </div>
             </div>
         </div>
     </div>
+
 
 </div>

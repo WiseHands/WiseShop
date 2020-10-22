@@ -267,7 +267,10 @@
   "productReviews.removeReviews": "Remove",
   "shopDetails.deleteMessage1": "Do you really want to delete this shop?",
   "shopDetails.deleteMessage2": "Shop deleted.",
+
   "editProduct.selectAdditions": "Select special addition",
+  "editProduct.additionQuantity": "Quantity",
+  "editProduct.isDefault": "Default for product",
   "editProduct.general": "General",
   "editProduct.edit": "Edit product",
   "editProduct.property": "Property",

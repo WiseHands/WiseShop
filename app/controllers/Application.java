@@ -171,6 +171,7 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         generateCookieIfNotPresent(shop);
+
         Date date = new Date();
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";
@@ -437,7 +438,7 @@ public class Application extends Controller {
         CategoryDTO category = product.category;
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         product.feedbackList = DataBaseQueries.getFeedbackList(product);
-
+// TODO a.isDefault = 1 get addition and add to additions
         String query = "select a from AdditionDTO a where a.isSelected = 1 and a.productUuid = ?1";
         product.additions = AdditionDTO.find(query, product.uuid).fetch();
 

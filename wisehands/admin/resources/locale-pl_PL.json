@@ -271,6 +271,9 @@
   "productReviews.removeReviews": "Remove",
 
   "editProduct.selectAdditions": "Select special addition",
+  "editProduct.additionQuantity": "Quantity",
+  "editProduct.isDefault": "Select for all products in shop",
+
   "editProduct.general": "Wspólne",
   "editProduct.edit": "Edytuj produkt",
   "editProduct.property": "Właściwość",

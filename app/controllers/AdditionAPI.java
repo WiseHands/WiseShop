@@ -149,7 +149,9 @@ public class AdditionAPI extends AuthController {
 
     }
 
-    public static void addAdditionToProduct (String client, String productId, String additionId) throws Exception{
+    public static void addAdditionToProduct (String client,
+                                             String productId, String additionId,
+                                             Boolean isDefault) throws Exception{
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -159,8 +161,9 @@ public class AdditionAPI extends AuthController {
         AdditionDTO addition = AdditionDTO.find("byUuid", additionId).first();
         addition.productUuid = productId;
         addition.isSelected = true;
+        addition.isDefault = isDefault;
         addition.save();
-        System.out.println("addition => " + addition.isSelected);
+        System.out.println("addition => " + addition.isDefault);
         renderJSON(json(addition));
     }
 

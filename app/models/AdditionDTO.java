@@ -34,6 +34,9 @@ public class AdditionDTO extends GenericModel {
     public boolean isDeleted;
 
     @Expose
+    public boolean isDefault;
+
+    @Expose
     public boolean isSelected = false;
 
     public String getTitle() {
