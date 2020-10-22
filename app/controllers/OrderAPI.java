@@ -579,6 +579,8 @@ public class OrderAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
+        int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+
         String liqpayResponse = new String(Base64.decodeBase64(data));
         System.out.println(liqpayResponse);
         JSONParser parser = new JSONParser();
@@ -591,7 +593,7 @@ public class OrderAPI extends AuthController {
             if(order == null) {
                 ok();
             }
-            int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+            //int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
 
             String status = String.valueOf(jsonObject.get("status"));
             if (status.equals("failure") || status.equals("wait_accept")){
@@ -607,19 +609,19 @@ public class OrderAPI extends AuthController {
 
                 String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
                 String shopName = getTranslatedShopName(shop, parsedLanguage);
-                String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
-                String htmlContentForAdmin = generateHtmlEmailForOrderPaymentError(shop, order, parsedLanguage);
+                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                String htmlContent = generateHtmlEmailForOrderPaymentError(shop, order, parsedLanguage);
                 List<String> adminEmailList = new ArrayList<>();
                 adminEmailList.add(shop.contact.email);
-                mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
+                mailSender.sendEmail(adminEmailList, subject, htmlContent, shop.domain);
 
                 parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
                 shopName = getTranslatedShopName(shop, parsedLanguage);
-                String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
-                String htmlContentForClient = generateHtmlEmailForOrderPaymentError(shop, order, parsedLanguage);
+                subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                htmlContent = generateHtmlEmailForOrderPaymentError(shop, order, parsedLanguage);
                 List<String> clientEmailList = new ArrayList<>();
                 clientEmailList.add(order.email);
-                mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
+                mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -650,19 +652,19 @@ public class OrderAPI extends AuthController {
 
                 String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
                 String shopName = getTranslatedShopName(shop, parsedLanguage);
-                String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
-                String htmlContentForAdmin = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
+                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                String htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
                 List<String> adminEmailList = new ArrayList<>();
                 adminEmailList.add(shop.contact.email);
-                mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
+                mailSender.sendEmail(adminEmailList, subject, htmlContent, shop.domain);
 
                 parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
                 shopName = getTranslatedShopName(shop, parsedLanguage);
-                String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
-                String htmlContentForClient = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
+                subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
                 List<String> clientEmailList = new ArrayList<>();
                 clientEmailList.add(order.email);
-                mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
+                mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
