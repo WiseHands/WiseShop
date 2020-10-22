@@ -613,7 +613,7 @@ public class OrderAPI extends AuthController {
                 adminEmailList.add(shop.contact.email);
                 mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
 
-                parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
+                parsedLanguage = getLanguagePartWithoutLocale(order.clientLanguage);
                 shopName = getTranslatedShopName(shop, parsedLanguage);
                 String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
                 String htmlContentForClient = generateHtmlEmailForOrderPaymentError(shop, order, parsedLanguage);
@@ -656,7 +656,7 @@ public class OrderAPI extends AuthController {
                 adminEmailList.add(shop.contact.email);
                 mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
 
-                parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
+                parsedLanguage = getLanguagePartWithoutLocale(order.clientLanguage);
                 shopName = getTranslatedShopName(shop, parsedLanguage);
                 String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
                 String htmlContentForClient = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
