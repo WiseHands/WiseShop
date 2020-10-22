@@ -1,7 +1,7 @@
 package services.querying;
 
+import models.AdditionDTO;
 import models.FeedbackDTO;
-import models.OrderDTO;
 import models.ProductDTO;
 import play.db.jpa.JPA;
 
@@ -47,6 +47,19 @@ public class DataBaseQueries {
                 query,
                 product.uuid);
         return formattedQuery;
+    }
+
+    public static AdditionDTO checkIsAdditionDefaultToProduct(ProductDTO product) {
+
+        String additionIsDefaultQuery = "select a from AdditionDTO a where a.isDefault = 1 and a.productUuid = ?1";
+        List<AdditionDTO> additionList = AdditionDTO.find(additionIsDefaultQuery, product.uuid).fetch();
+        if (additionList != null && !additionList.isEmpty()){
+            AdditionDTO addition = additionList.get(0);
+            return addition;
+        } else {
+            return null;
+        }
+
     }
 
 }

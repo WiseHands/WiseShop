@@ -271,7 +271,7 @@
 
   "editProduct.selectAdditions": "Виберіть додаток для продукту",
   "editProduct.additionQuantity": "Кількість",
-  "editProduct.isDefault": "Для всіх товарів",
+  "editProduct.isDefault": "Вибрано за замовчуванням (окрім сканування через QR код)",
 
   "editProduct.general": "Основне",
   "editProduct.edit": "Редагувати продукт",

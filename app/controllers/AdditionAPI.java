@@ -163,7 +163,11 @@ public class AdditionAPI extends AuthController {
         addition.isSelected = true;
         addition.isDefault = isDefault;
         addition.save();
-        System.out.println("addition => " + addition.isDefault);
+        if (addition.isDefault) {
+            ProductDTO product = ProductDTO.find("byUuid", productId).first();
+            product.price += addition.price;
+            product.save();
+        }
         renderJSON(json(addition));
     }
 

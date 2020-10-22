@@ -46,7 +46,7 @@ angular.module('WiseHands')
             console.log("selectedAddition =>" , event.$index);
             const addition = event.addition;
             addition.isSelected ? addition.isSelected = false : addition.isSelected = true;
-            const url = addition.isSelected ? `/api/addition/add/${$routeParams.productUuid}/${addition.uuid}/${true}` : `/api/addition/remove/${$routeParams.productUuid}/${addition.uuid}`;
+            const url = addition.isSelected ? `/api/addition/add/${$routeParams.productUuid}/${addition.uuid}/${false}` : `/api/addition/remove/${$routeParams.productUuid}/${addition.uuid}`;
 
             $http({
                 method: 'PUT',
