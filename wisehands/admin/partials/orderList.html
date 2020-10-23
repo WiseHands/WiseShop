@@ -1,15 +1,19 @@
 <nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
     <div class="container-fluid">
         <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
+            <div class="col-xs-1 noPaddingLeft">
                 <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
             </div>
-            <div class="col-xs-7 white-text text-center">
+            <div class="col-xs-10 white-text text-center" ng-hide="searchField">
                 <h5>{{'orderList.orders' | translate}}</h5>
             </div>
-            <form class="col-xs-3 waves-effect waves-light">
+            <form class="col-xs-10 waves-effect waves-light" ng-show="searchField">
                 <input class="search-orders form-control noMarginForSearchInput" type="text" placeholder="{{'orderList.Search' | translate}}" ng-model="query">
             </form>
+            <i ng-click="toggle()" ng-hide="searchField" class="search-orders col-xs-1 fa fa-search" aria-hidden="true" ng-model="query"></i>
+            <i ng-click="toggle()" ng-show="searchField" class="search-orders col-xs-1 fa fa-search" aria-hidden="true" ng-model="query" style="color: #039be5"></i>
+
+
             <!--<a class="col-xs-2"-->
                <!--ng-click="isSortingActive=!isSortingActive; setSortOption()"-->
                <!--ng-show="isSortingActive">-->

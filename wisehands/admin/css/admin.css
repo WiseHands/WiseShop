@@ -2332,8 +2332,13 @@ ul.admin-breadcrumb li a:hover {
     word-break: break-word;
 }
 
-.search-orders:focus {
+.search-orders {
+    color: #fff;
+    margin-right: 10px;
+}
 
+.search-orders:hover {
+    cursor: pointer;
 }
 
 @media screen and (min-width: 1500px) {

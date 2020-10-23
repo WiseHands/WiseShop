@@ -260,8 +260,13 @@
                 var lowerCaseName = item.name.toLowerCase();
                 var total = item.total.toString();
                 return lowerCaseName.indexOf(searcText) != -1 || total.indexOf(searcText) !== -1;
-
             };
+
+            $scope.searchField = false;
+            $scope.toggle = function() {
+                $scope.searchField = !$scope.searchField;
+            };
+
             $scope.setSortOption = function () {
                 shared.setSortOptions($scope.isSortingActive);
             };
@@ -273,6 +278,8 @@
                     return 'white';
                 }
             };
+
+
             sideNavInit.sideNav();
 
         }]);
