@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <div class="row vcentering">
             <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i
+                        class="fa fa-bars"></i></a>
             </div>
             <div class="col-xs-8 text-center white-text">
                 <h5>
@@ -11,7 +12,7 @@
             </div>
             <div class="col-xs-2 noRightPadding">
                 <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
-                        ng-click="saveS()" >
+                        ng-click="saveS()">
                 </button>
             </div>
         </div>
@@ -22,7 +23,9 @@
         <div class="admin-card">
             <div class="addition-title-img">
                 <h4>{{'editProduct.general' | translate}}</h4>
-                <img class="addition-product-img" src="/public/product_images/{{activeShop}}/{{product.mainImage.filename}}" class="img-responsive z-depth-1 hoverable">
+                <img class="addition-product-img"
+                     src="/public/product_images/{{activeShop}}/{{product.mainImage.filename}}"
+                     class="img-responsive z-depth-1 hoverable">
             </div>
             <p for="name">{{'addNewProduct.productName' | translate}}</p>
             <h5 id="name" class="product-title">{{product.name}}</h5>
@@ -35,7 +38,8 @@
         </div>
     </div>
     <div class="admin-column">
-        <p class="addition-no-selected" ng-show="availableAdditions.length === 0">No selected additions for this product</p>
+        <p class="addition-no-selected" ng-show="availableAdditions.length === 0">No selected additions for this
+            product</p>
         <h4>{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
         <div class="qr-list-container" ng-show="availableAdditions">
             <div ng-repeat="addition in availableAdditions | filter: availableAdditions.isDeleted === false"
@@ -48,9 +52,9 @@
                         <p>{{addition.title}}</p>
                         <p>{{addition.price}}</p>
                     </div>
-                    <div class="selected-addition-checkbox">
+                    <div class="selected-addition-checkbox" ng-click="selectedDefaultAddition($event, this)">
                         <input type="checkbox" class="filled-in checkBoxStyling"
-                               id="{{addition.uuid}}" ng-checked="addition.isDefault" ng-click="selectedDefaultAddition(this)"/>
+                               id="{{addition.uuid}}" ng-model="addition.isDefault"/>
                         <label for="{{addition.uuid}}">{{'editProduct.isDefault' | translate}}</label>
                     </div>
 
