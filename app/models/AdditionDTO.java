@@ -39,6 +39,9 @@ public class AdditionDTO extends GenericModel {
     @Expose
     public boolean isSelected = false;
 
+    @Expose
+    public String availableAdditionUuid;
+
     public String getTitle() {
         return title;
     }

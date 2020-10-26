@@ -2,16 +2,11 @@ package controllers;
 
 import models.AdditionDTO;
 import models.ProductDTO;
-import models.ProductImage;
 import models.ShopDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import play.data.Upload;
 
-import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class AdditionAPI extends AuthController {
 
@@ -158,17 +153,22 @@ public class AdditionAPI extends AuthController {
         }
         checkAuthentification(shop);
 
-        AdditionDTO addition = AdditionDTO.find("byUuid", additionId).first();
-        addition.productUuid = productId;
-        addition.isSelected = true;
-        addition.isDefault = isDefault;
-        addition.save();
-        if (addition.isDefault) {
-            ProductDTO product = ProductDTO.find("byUuid", productId).first();
-            product.price += addition.price;
-            product.save();
+        AdditionDTO selectedAddition = new AdditionDTO();
+        selectedAddition.availableAdditionUuid = additionId;
+        selectedAddition.productUuid = productId;
+        selectedAddition.isSelected = true;
+        if (isDefault) {
+            selectedAddition.isDefault = isDefault;
         }
-        renderJSON(json(addition));
+        selectedAddition.save();
+        System.out.println("addAdditionToProduct addition.isDefault=> " + selectedAddition.isDefault);
+        ProductDTO product = ProductDTO.find("byUuid", productId).first();
+        if (selectedAddition.isDefault) {
+            product.price += selectedAddition.price;
+            product.defaultAdditionUuid = additionId;
+        }
+        product.save();
+        renderJSON(json(selectedAddition));
     }
 
     public static void removeAdditionFromProduct (String client, String productId, String additionId) throws Exception{
@@ -181,8 +181,7 @@ public class AdditionAPI extends AuthController {
         AdditionDTO addition = AdditionDTO.find("byUuid", additionId).first();
         addition.productUuid = productId;
         addition.isSelected = false;
-        addition.save();
-        System.out.println("addition => " + addition.isSelected);
+        System.out.println("removeAdditionFromProduct => " + addition.isSelected);
         renderJSON(json(addition));
     }
 

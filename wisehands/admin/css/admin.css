@@ -2453,7 +2453,7 @@ ul.admin-breadcrumb li a:hover {
 .addition-create-text{
     padding-bottom: 0;
 }
-.addition-item, .selected-addition-item {
+.addition-item {
     width: 175px;
     height: 175px;
     display: flex;
@@ -2461,6 +2461,16 @@ ul.admin-breadcrumb li a:hover {
     align-items: center;
     justify-content: center;
     padding: 0;
+}
+.selected-addition-item {
+    width: 175px;
+    height: 175px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+.selected-addition-checkbox {
+    margin-left: 10px;
 }
 .addition-item p {
     white-space: nowrap;
@@ -2503,6 +2513,9 @@ ul.admin-breadcrumb li a:hover {
 .selected-addition-info {
     display: flex;
     justify-content: space-between;
+}
+.selected-addition-info p {
+    margin: 0px 10px 0 10px;
 }
 .addition-for-product h4 {
     margin-left: 12px;

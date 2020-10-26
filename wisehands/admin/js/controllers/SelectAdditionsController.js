@@ -25,28 +25,32 @@ angular.module('WiseHands')
             .then(function successCallback(response) {
                 $scope.availableAdditions = response.data;
                 console.log("/addition/get-all/" , $scope.availableAdditions);
+                showSelectedAddition($scope.availableAdditions);
             }, function errorCallback(error) {
                 $scope.loading = false;
                 console.log(error);
             });
 
-//        isAdditionDefault.addEventListener('change', handleSelected, true);
-//        function handleSelected(e) {
-//            console.log("addition is default =>" , e);
-////            if ($event.target.checked === true) {
-////               // Handle your code
-////               }
-//        }
+        showSelectedAddition = () => {
+            console.log('show selected addition => ', $scope.availableAdditions, $scope.productAdditions);
+            $scope.productAdditions.forEach( _productAddition => {
+                checkAddition(_productAddition);
+            })
+        }
+
+        checkAddition = (_productAddition) => {
+           console.log('_availableAddition => ', _productAddition);
+        }
 
         $scope.selectedDefaultAddition = (event) => {
-             console.log("selectedDefaultAddition =>" , event);
+             console.log("selectedDefaultAddition (checkbox) =>" , event);
         }
 
         $scope.selectedAddition = (event) => {
             console.log("selectedAddition =>" , event.$index);
             const addition = event.addition;
             addition.isSelected ? addition.isSelected = false : addition.isSelected = true;
-            const url = addition.isSelected ? `/api/addition/add/${$routeParams.productUuid}/${addition.uuid}/${false}` : `/api/addition/remove/${$routeParams.productUuid}/${addition.uuid}`;
+            const url = addition.isSelected ? `/api/addition/add/${$routeParams.productUuid}/${addition.uuid}/${addition.isDefault}` : `/api/addition/remove/${$routeParams.productUuid}/${addition.uuid}`;
 
             $http({
                 method: 'PUT',
@@ -54,7 +58,7 @@ angular.module('WiseHands')
             }).then(response => {
                 console.log('product addition/add/remove', response);
                 addition.isSelected = response.data.isSelected;
-                addition.isSelected ? $scope.productAdditions.push(response.data) : $scope.productAdditions.length === 1 ? $scope.productAdditions = [] : $scope.productAdditions.splice(event.$index, 1);
+                //addition.isSelected ? $scope.productAdditions.push(response.data) : $scope.productAdditions.length === 1 ? $scope.productAdditions = [] : $scope.productAdditions.splice(event.$index, 1);
             }, error => {
                 console.log(error);
             });

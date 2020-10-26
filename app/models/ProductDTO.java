@@ -69,7 +69,10 @@ public class ProductDTO extends GenericModel {
     public List<ProductImage> images;
 
     @Expose
-    @OneToMany(cascade = CascadeType.ALL)
+    public String defaultAdditionUuid;
+
+    @Expose
+    @OneToMany
     public List<AdditionDTO> additions;
 
     @Expose
@@ -91,7 +94,7 @@ public class ProductDTO extends GenericModel {
         this.feedbackList.add(orderFeedback);
     }
 
-    public void addAddition(AdditionDTO addition) {
+    public void addSelectedAddition(AdditionDTO addition) {
         if(this.additions == null) {
             this.additions = new ArrayList<AdditionDTO>();
         }
