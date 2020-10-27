@@ -8,16 +8,27 @@ angular.module('WiseHands')
       }).then(response => {
           $scope.activeShop = localStorage.getItem('activeShop');
           $scope.product = response.data;
+          _getAvailableAdditions();
         }, error => console.log(error)
       );
 
-      $http({
-        method: 'GET',
-        url: '/api/addition/list'
-      })
-        .then(response => $scope.availableAdditions = response.data,
+      function _getAvailableAdditions() {
+        $http({
+          method: 'GET',
+          url: '/api/addition/list'
+        }).then(response => _setAvailableAdditions(response.data, $scope.product.additions),
           error => console.log(error)
         );
+      }
+
+      function _setAvailableAdditions(availableAdditions, additions) {
+        const parsedAdditions = [];
+        availableAdditions.forEach(availableAddition => {
+          const match = additions.find(item => item.availableAdditionUuid === availableAddition.uuid);
+          parsedAdditions.push(Object.assign(availableAddition, match));
+        });
+        $scope.availableAdditions = parsedAdditions;
+      }
 
       $scope.selectedDefaultAddition = (event, {addition}) => {
         event.stopPropagation();

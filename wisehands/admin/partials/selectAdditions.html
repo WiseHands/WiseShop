@@ -42,7 +42,7 @@
             product</p>
         <h4>{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
         <div class="qr-list-container" ng-show="availableAdditions">
-            <div ng-repeat="addition in availableAdditions | filter: availableAdditions.isDeleted === false"
+            <div ng-repeat="addition in availableAdditions"
                  ng-class="{additionSelected: addition.isSelected}"
                  on-finish-render="ngRepeatFinished">
                 <div class="admin-card selected-addition-item"
