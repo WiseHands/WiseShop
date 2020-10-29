@@ -1,21 +1,17 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-
-            <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'userprofile.myProfile' | translate}}</h5>
-            </div>
-            <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-save whiteColor pull-right"
-                   ng-click="updateUserInfo()">
-                </i>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+    </div>
+    <div class="nav-title">
+        <h5>{{'userprofile.myProfile' | translate}}</h5>
+    </div>
+    <div class="admin-nav-save-btn">
+        <i class="fa fa-save whiteColor pull-right"
+           ng-click="updateUserInfo()">
+        </i>
     </div>
 </nav>
+
 <div class="admin-container noSidePadding">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>

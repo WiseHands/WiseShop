@@ -1,16 +1,13 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-
-            <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'productDetails.reviews' | translate}}</h5>
-            </div>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
     </div>
+    <div class="nav-title">
+        <h5>{{'productDetails.reviews' | translate}}</h5>
+    </div>
+    <div class="admin-nav-block-btn "></div>
 </nav>
+
 <div class="row text-center">
     <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
              show="loading"></spinner>

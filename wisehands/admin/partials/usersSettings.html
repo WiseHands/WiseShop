@@ -1,25 +1,19 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-            <div class="col-xs-8 text-center white-text">
-                <h5>
-                    {{'users.users' | translate}}
-                </h5>
-            </div>
-            <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-plus-circle whiteColor pull-right"
-                   aria-haspopup="true"
-                   aria-expanded="false"
-                   data-toggle="modal"
-                   data-target="#createNewUserModal">
-                </i>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
     </div>
+    <div class="nav-title">
+        <h5>{{'users.users' | translate}}</h5>
+    </div>
+    <a class="admin-nav-add-btn"
+       type="button"
+       data-toggle="modal"
+       data-target="#createNewUserModal">
+        <i class="fa fa-plus-circle pull-right whiteColor">
+        </i>
+    </a>
 </nav>
+
 
 <div class=" all-user-settings">
     <div class="text-center">

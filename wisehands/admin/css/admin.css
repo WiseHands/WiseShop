@@ -1,3 +1,61 @@
+.admin-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: #132935;
+    height: 69.125px;
+    z-index: 111;
+}
+
+.nav-menu {
+    padding-left: 1rem;
+}
+
+.nav-menu a {
+}
+
+.nav-menu i {
+    color: #fff;
+    font-size: 2.4rem;
+}
+
+.nav-title {
+    color: #fff;
+}
+
+.nav-title h5 {
+    margin: 0;
+}
+
+.admin-nav form {
+    width: 85%;
+}
+.nav-search-btn {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.nav-search-btn:hover {
+    cursor: pointer;
+}
+
+.admin-nav-block-btn {
+    display: flex;
+    align-items: center;
+}
+
+.admin-nav-add-btn, .admin-nav-back-btn, .admin-nav-save-btn, .admin-nav-edit-btn {
+    font-size: 2rem;
+    margin: 0 1rem;
+}
+
+.admin-nav-add-btn:hover, .admin-nav-back-btn:hover, .admin-nav-save-btn:hover, .admin-nav-edit-btn:hover {
+    cursor: pointer;
+}
+
 .flex-column-container {
     display: flex;
     flex-direction: column
@@ -364,7 +422,6 @@ input[type=date]::-webkit-inner-spin-button {
 }
 
 body {
-    margin-top: 4.7em;
 }
 
 .hiddenFileInput {
@@ -2332,15 +2389,6 @@ ul.admin-breadcrumb li a:hover {
     word-break: break-word;
 }
 
-.search-orders {
-    color: #fff;
-    margin-right: 10px;
-}
-
-.search-orders:hover {
-    cursor: pointer;
-}
-
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
@@ -2348,6 +2396,9 @@ ul.admin-breadcrumb li a:hover {
 }
 
 @media screen and (max-width: 768px) {
+    .admin-nav form {
+        width: 70%;
+    }
     .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block, .working-hours-block, .settings-block {
         flex-direction: column;
     }
