@@ -5,7 +5,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import enums.FeedbackRequestState;
 import play.Play;
-import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.*;
@@ -453,8 +452,10 @@ public class Application extends Controller {
             System.out.println("prepare to generateTokenForCookie => " + agent);
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
             System.out.println("generateTokenForCookie => " + token);
-            String duration = "30mn";
-            response.setCookie("JWT_TOKEN", token, duration);
+            //String duration = "30mn";
+            //response.setCookie("JWT_TOKEN", token, duration);
+            Integer maxAge = 1800;
+            response.setCookie("JWT_TOKEN", token, shop.domain, "/", maxAge, false);
         }
     }
 

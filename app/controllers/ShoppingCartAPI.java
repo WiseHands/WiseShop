@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.gson.JsonObject;
 import json.shoppingcart.LineItem;
 import models.*;
 import org.json.simple.JSONArray;
@@ -52,7 +53,7 @@ public class ShoppingCartAPI extends AuthController {
             shoppingCart = _createCart(shop);
             String agent = request.headers.get("user-agent").value();
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
-            response.setCookie("JWT_TOKEN", token);
+            response.setCookie("JWT_TOKEN", token, shop.domain, "/", 1800, false);
         }
         String jsonShoppingCart = "";
         try {
@@ -61,7 +62,7 @@ public class ShoppingCartAPI extends AuthController {
             shoppingCart = _createCart(shop);
             String agent = request.headers.get("user-agent").value();
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
-            response.setCookie("JWT_TOKEN", token);
+            response.setCookie("JWT_TOKEN", token, shop.domain, "/", 1800, false);
             jsonShoppingCart = json(shoppingCart);
         }
         renderJSON(jsonShoppingCart);
@@ -74,27 +75,38 @@ public class ShoppingCartAPI extends AuthController {
         return shoppingCart;
     }
 
-    private static void generateCookieIfNotPresent(ShopDTO shop) {
-        String agent = request.headers.get("user-agent").value();
-        System.out.println("generateCookieIfNotPresent => " + shop.shopName);
-        Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
-        System.out.println(userTokenCookie);
-        if(userTokenCookie == null) {
-            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
-            shoppingCart.shopUuid = shop.uuid;
-            shoppingCart.save();
-            System.out.println("prepare to generateTokenForCookie => " + agent);
-            String token = generateTokenForCookie(shoppingCart.uuid, agent);
-            System.out.println("generateTokenForCookie => " + token);
-            String duration = "30mn";
-            response.setCookie("JWT_TOKEN", token, duration);
-        }
-    }
-
     public static void addProduct(String client) throws ParseException {
         ShopDTO shop = _getShop(client);
 
-        generateCookieIfNotPresent(shop);
+        String cartId = _getCartUuid(request);
+        System.out.println("cartId => " + cartId);
+
+        Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
+        System.out.println("userTokenCookie => " + userTokenCookie);
+
+        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
+        if (shoppingCart == null || userTokenCookie == null) {
+            shoppingCart = _createCart(shop);
+            if (shoppingCart.items == null) {
+                shoppingCart.items = new ArrayList<>();
+            }
+            cartId = shoppingCart.uuid;
+            String agent = request.headers.get("user-agent").value();
+            String token = generateTokenForCookie(cartId, agent);
+            System.out.println("generateTokenForCookie => " + token);
+            Integer maxAge = 1800;
+            response.setCookie("JWT_TOKEN", token, shop.domain, "/", maxAge, false);
+
+            JsonObject jsonJwt = new JsonObject();
+            jsonJwt.addProperty("JWT_TOKEN", token);
+            jsonJwt.addProperty("value", shop.domain);
+            jsonJwt.addProperty("path", "/");
+            jsonJwt.addProperty("max-age", maxAge);
+            jsonJwt.addProperty("secure", false);
+            System.out.println("jsonJwt " + jsonJwt);
+        }
+
+        System.out.println("shoppingCart: " + shoppingCart);
 
         String stringAdditionList = request.params.get("additionList");
         List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop);
@@ -105,10 +117,6 @@ public class ShoppingCartAPI extends AuthController {
         String quantityParam = request.params.get("quantity");
         int quantity = _getProductQuantity(quantityParam);
 
-        String cartId = _getCartUuid(request);
-        ShoppingCartDTO shoppingCart = ShoppingCartDTO.find("byUuid", cartId).first();
-
-
         LineItem lineItem = new LineItem(
                 product.uuid, product.name, product.mainImage.filename,
                 quantity, product.price, shop, additionOrderDTOList,
@@ -116,6 +124,8 @@ public class ShoppingCartAPI extends AuthController {
         lineItem.save();
 
         boolean foundMatch = false;
+
+        System.out.println("shoppingCart.items: => " + shoppingCart.items);
 
         //1. Find Line Item
         for (LineItem _lineItem : shoppingCart.items) {

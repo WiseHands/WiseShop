@@ -589,14 +589,13 @@ public class OrderAPI extends AuthController {
         try {
             String orderId = String.valueOf(jsonObject.get("order_id"));
 
-            OrderDTO order = OrderDTO.find("byUuid",orderId).first();
-            if(order == null) {
+            OrderDTO order = OrderDTO.find("byUuid", orderId).first();
+            if (order == null) {
                 ok();
             }
-            //int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
 
             String status = String.valueOf(jsonObject.get("status"));
-            if (status.equals("failure") || status.equals("wait_accept")){
+            if (status.equals("failure") || status.equals("wait_accept")) {
                 order.state = OrderState.PAYMENT_ERROR;
                 order.paymentState = PaymentState.PAYMENT_ERROR;
                 order = order.save();
