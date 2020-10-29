@@ -16,15 +16,17 @@ angular.module('WiseHands')
         $http({
           method: 'GET',
           url: '/api/addition/list'
-        }).then(response => _setAvailableAdditions(response.data, $scope.product.additions),
+        }).then(response => _setAvailableAdditions(response.data, $scope.product.selectedAddition),
           error => console.log(error)
         );
       }
 
-      function _setAvailableAdditions(availableAdditions, additions) {
+      function _setAvailableAdditions(availableAdditions, selectedAddition) {
+        console.log("availableAdditions => ", availableAdditions);
+        console.log("selectedAddition => ", selectedAddition);
         const parsedAdditions = [];
         availableAdditions.forEach(availableAddition => {
-          const match = additions.find(item => item.availableAdditionUuid === availableAddition.uuid);
+          const match = selectedAddition.find(item => item.addition.uuid === availableAddition.uuid);
           parsedAdditions.push(Object.assign(availableAddition, match));
         });
         $scope.availableAdditions = parsedAdditions;
@@ -33,20 +35,26 @@ angular.module('WiseHands')
       $scope.selectedDefaultAddition = (event, {addition}) => {
         event.stopPropagation();
         addition.isSelected = addition.isDefault;
+        const url = `/api/addition/set/default/${$routeParams.productUuid}/${addition.uuid}/${addition.isDefault}`;
+        sentSelectedAddition(url, addition);
+        console.log("sentSelectedAddition is default => ", url);
       };
 
       $scope.selectedAddition = ({addition}) => {
         addition.isSelected = !addition.isSelected;
         if (addition.isDefault) addition.isDefault = !addition.isDefault;
-        const url = addition.isSelected ? `/api/addition/add/${$routeParams.productUuid}/${addition.uuid}/${addition.isDefault}` : `/api/addition/remove/${$routeParams.productUuid}/${addition.uuid}`;
+        const url = addition.isSelected ? `/api/addition/add/${$routeParams.productUuid}/${addition.uuid}` : `/api/addition/remove/${addition.uuid}`;
+        sentSelectedAddition(url, addition);
+      };
 
+      let sentSelectedAddition = (url, addition) => {
+        console.log("sentSelectedAddition is selected => ", url);
         $http({
           method: 'PUT',
           url: url
         }).then(response => addition.isSelected = response.data.isSelected,
-          error => console.log(error)
-        )
-        ;
+            error => console.log(error)
+        );
       };
 
       sideNavInit.sideNav();

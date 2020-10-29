@@ -38,9 +38,7 @@
         </div>
     </div>
     <div class="admin-column">
-        <p class="addition-no-selected" ng-show="availableAdditions.length === 0">No selected additions for this
-            product</p>
-        <h4>{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
+        <h4 class="addition-no-selected">{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
         <div class="qr-list-container" ng-show="availableAdditions">
             <div ng-repeat="addition in availableAdditions"
                  ng-class="{additionSelected: addition.isSelected}"

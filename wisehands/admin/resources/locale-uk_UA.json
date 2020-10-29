@@ -1,7 +1,7 @@
 {
   "selectAdditions.title": "Додатки",
   "selectAdditions.selectedAdditionsTitle": "Вибрані додатки:",
-  "selectAdditions.noSelectedAdditions": "Не має вибраних додатків",
+  "selectAdditions.noSelectedAdditions": "Виберіть один із додатків",
   "selectAdditions.availableAddition": "Доступні додатки:",
 
   "additionMenu.title": "Додатки",

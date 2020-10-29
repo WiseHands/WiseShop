@@ -2,6 +2,7 @@ package controllers;
 
 import models.AdditionDTO;
 import models.ProductDTO;
+import models.SelectedAdditionDTO;
 import models.ShopDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,33 +12,6 @@ import java.util.List;
 public class AdditionAPI extends AuthController {
 
     public static final String USERIMAGESPATH = "public/product_images/";
-
-    public static void create(String client, String productUuid) throws Exception {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        checkAuthentification(shop);
-
-        JSONParser parser = new JSONParser();
-        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        String title = (String) jsonBody.get("title");
-        String imagePath = (String) jsonBody.get("filepath");
-        Double price = Double.parseDouble(String.valueOf(jsonBody.get("price")));
-
-        ProductDTO productDTO = ProductDTO.findById(productUuid);
-
-        AdditionDTO addition = new AdditionDTO();
-        addition.title = title;
-        addition.price = price;
-        addition.product = productDTO;
-        addition.imagePath = imagePath;
-
-        addition.save();
-        renderJSON(json(addition));
-
-    }
-
 
     public static void createAddition(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -144,45 +118,66 @@ public class AdditionAPI extends AuthController {
 
     }
 
-    public static void addAdditionToProduct (String client,
-                                             String productId, String additionId,
-                                             Boolean isDefault) throws Exception{
+    public static void addAdditionToProduct (String client, String productId, String additionId) throws Exception{
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         checkAuthentification(shop);
-
-        AdditionDTO selectedAddition = new AdditionDTO();
-        selectedAddition.availableAdditionUuid = additionId;
+        AdditionDTO availableAddition = AdditionDTO.find("byUuid", additionId).first();
+        SelectedAdditionDTO selectedAddition;
+        SelectedAdditionDTO selectedAdditionQuery = SelectedAdditionDTO.find("byAddition_uuid", additionId).first();
+        if (selectedAdditionQuery == null) {
+            selectedAddition = new SelectedAdditionDTO();
+        } else {
+            selectedAddition = selectedAdditionQuery;
+        }
+        selectedAddition.addition = availableAddition;
         selectedAddition.productUuid = productId;
         selectedAddition.isSelected = true;
-        if (isDefault) {
-            selectedAddition.isDefault = isDefault;
-        }
+        System.out.println("addAdditionToProduct => " + selectedAddition.isSelected);
         selectedAddition.save();
-        System.out.println("addAdditionToProduct addition.isDefault=> " + selectedAddition.isDefault);
-        ProductDTO product = ProductDTO.find("byUuid", productId).first();
-        if (selectedAddition.isDefault) {
-            product.price += selectedAddition.price;
-            product.defaultAdditionUuid = additionId;
-        }
-        product.save();
+
         renderJSON(json(selectedAddition));
     }
 
-    public static void removeAdditionFromProduct (String client, String productId, String additionId) throws Exception{
+    public static void removeAdditionFromProduct (String client, String additionId) throws Exception{
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+        System.out.println("removeAdditionFromProduct => " + additionId);
+
+        SelectedAdditionDTO selectedAddition = SelectedAdditionDTO.find("byUuid", additionId).first();
+        selectedAddition.isSelected = false;
+        selectedAddition.save();
+        System.out.println("removeAdditionFromProduct => " + selectedAddition.isSelected);
+
+        renderJSON(json(selectedAddition));
+    }
+
+    public static void setDefaultAdditionToProduct (String client, String productId, String additionId, Boolean isDefault) throws Exception{
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         checkAuthentification(shop);
 
-        AdditionDTO addition = AdditionDTO.find("byUuid", additionId).first();
-        addition.productUuid = productId;
-        addition.isSelected = false;
-        System.out.println("removeAdditionFromProduct => " + addition.isSelected);
-        renderJSON(json(addition));
+        SelectedAdditionDTO selectedAddition = SelectedAdditionDTO.find("byAddition_uuid", additionId).first();
+        System.out.println("selectedAddition.addition.price => "+ selectedAddition.addition.price);
+        selectedAddition.isDefault = isDefault;
+        ProductDTO product = ProductDTO.find("byUuid", productId).first();
+        if (selectedAddition.isDefault) {
+            product.price += selectedAddition.addition.price;
+            product.defaultAdditionUuid = selectedAddition.uuid;
+        } else {
+            product.price -= selectedAddition.addition.price;
+        }
+        product.save();
+        selectedAddition.save();
+        System.out.println("setDefaultAdditionToProduct => " + selectedAddition.isDefault);
+        renderJSON(json(selectedAddition));
     }
 
 

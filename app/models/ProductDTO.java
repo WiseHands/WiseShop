@@ -73,7 +73,7 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     @OneToMany
-    public List<AdditionDTO> additions;
+    public List<SelectedAdditionDTO> selectedAddition;
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)
@@ -92,13 +92,6 @@ public class ProductDTO extends GenericModel {
             this.feedbackList = new ArrayList<FeedbackDTO>();
         }
         this.feedbackList.add(orderFeedback);
-    }
-
-    public void addSelectedAddition(AdditionDTO addition) {
-        if(this.additions == null) {
-            this.additions = new ArrayList<AdditionDTO>();
-        }
-        this.additions.add(addition);
     }
 
     public ProductDTO(String name, String description, Double price, List<ProductImage> images, ShopDTO shop, Integer wholesaleCount, Double wholesalePrice) {
