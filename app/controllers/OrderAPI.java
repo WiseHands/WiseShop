@@ -613,6 +613,7 @@ public class OrderAPI extends AuthController {
                 List<String> adminEmailList = new ArrayList<>();
                 adminEmailList.add(shop.contact.email);
                 mailSender.sendEmail(adminEmailList, subject, htmlContent, shop.domain);
+                System.out.println("liqpay message about payment error was sent to: " + shop.contact.email);
 
                 parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
                 shopName = getTranslatedShopName(shop, parsedLanguage);
@@ -621,6 +622,7 @@ public class OrderAPI extends AuthController {
                 List<String> clientEmailList = new ArrayList<>();
                 clientEmailList.add(order.email);
                 mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
+                System.out.println("liqpay message about payment error was sent to: " + order.email);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -656,6 +658,7 @@ public class OrderAPI extends AuthController {
                 List<String> adminEmailList = new ArrayList<>();
                 adminEmailList.add(shop.contact.email);
                 mailSender.sendEmail(adminEmailList, subject, htmlContent, shop.domain);
+                System.out.println("liqpay message about success payment was sent to: " + shop.contact.email);
 
                 parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
                 shopName = getTranslatedShopName(shop, parsedLanguage);
@@ -664,6 +667,7 @@ public class OrderAPI extends AuthController {
                 List<String> clientEmailList = new ArrayList<>();
                 clientEmailList.add(order.email);
                 mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
+                System.out.println("liqpay message about success payment was sent to: " + order.email);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();

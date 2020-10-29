@@ -443,7 +443,9 @@ public class Application extends Controller {
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {
         String agent = request.headers.get("user-agent").value();
-        System.out.println("generateCookieIfNotPresent => " + shop.shopName);
+        if (!shop.shopName.isEmpty()) {
+            System.out.println("generateCookieIfNotPresent => " + shop.shopName);
+        }
         Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
         if(userTokenCookie == null) {
             ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
