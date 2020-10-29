@@ -49,16 +49,15 @@
         color: #fff;
         border: 2px solid #fff;
     }
-    .cart-float {
+    .cart-float, .cart-float-list {
         display: none;
         position: fixed;
         bottom: 0;
-        max-width: 900px;
         width: 100%;
         background-color: #e4e9e9;
-        border-top: 5px solid #333;
+        border-top: 2px solid #333;
         z-index: 300;
-        transition: visibility 0s, opacity 0.5s linear;;
+        transition: visibility 0s, opacity 0.5s linear;
     }
     .cart-float-text {
         display: flex;
@@ -139,6 +138,7 @@
     <script>
         function setDelayShowCart() {
             document.querySelector(".cart-float").style.display = 'none';
+            document.querySelector(".cart-float-list").style.display = 'none';
         }
         function buyStart(uuid) {
             if(!window.IS_SHOP_OPENED) {
@@ -158,6 +158,7 @@
                         #{/if}
                     #{/verbatim}
                     document.querySelector(".cart-float").style.display = 'block';
+                    document.querySelector(".cart-float-list").style.display = 'block';
                     setTimeout(setDelayShowCart, 2000);
                 }
                 return response.json();
@@ -183,44 +184,44 @@
         <i id="list-view" class="fa fa-list" aria-hidden="true"></i>
         <i id="grid-view" class="fa fa-th" aria-hidden="true"></i>
     </div>
-        <div class="all-items grid-view">
-            %{
-               for(_product in products) {
-            }%
-                <div class="item-card">
-                    <div class="card inline">
-                        <div class="noselect hm-white-slight z-depth-1" >
-                            <a href="/${language}/product/${_product.uuid}">
-                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
-                            </a>
+    <div class="all-items grid-view">
+        %{
+           for(_product in products) {
+        }%
+            <div class="item-card">
+                <div class="card inline">
+                    <div class="noselect hm-white-slight z-depth-1" >
+                        <a href="/${language}/product/${_product.uuid}">
+                             <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
+                        </a>
+                    </div>
+                    <div class="item-card-info text-xs-center">
+                        <div class="item-card-title">
+                            <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
                         </div>
-                        <div class="item-card-info text-xs-center">
-                            <div class="item-card-title">
-                                <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
-                            </div>
-                            <div class="item-card-text">
-                                <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
-                            </div>
-                            <div class="item-card-action">
-                                <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</span></span>
-                                <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
-                            </div>
+                        <div class="item-card-text">
+                            <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
+                        </div>
+                        <div class="item-card-action">
+                            <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</span></span>
+                            <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
                         </div>
                     </div>
                 </div>
-            %{
-                }
-            }%
-
-            <div class="cart-float">
-                <div class="cart-float-text">
-                    <p>&{'page.product.add.to.basket'}</p>
-                    <i class="fa fa-check-circle"></i>
-                </div>
             </div>
-        </div>
+        %{
+            }
+        }%
 
-        <div class="all-items list-view">
+
+    </div>
+    <div class="cart-float">
+        <div class="cart-float-text">
+            <p>&{'page.product.add.to.basket'}</p>
+            <i class="fa fa-check-circle"></i>
+        </div>
+    </div>
+    <div class="all-items list-view">
         %{
         for(_product in products) {
         }%
@@ -245,20 +246,18 @@
                 </div>
             </div>
         </div>
-
-
         %{
         }
         }%
 
-        <div class="cart-float">
-            <div class="cart-float-text">
-                <p>&{'page.product.add.to.basket'}</p>
-                <i class="fa fa-check-circle"></i>
-            </div>
+
+    </div>
+    <div class="cart-float-list">
+        <div class="cart-float-text">
+            <p>&{'page.product.add.to.basket'}</p>
+            <i class="fa fa-check-circle"></i>
         </div>
     </div>
-
         <!--<div class="load-button">-->
             <!--<a href="/products/all">-->
                 <!--<input class="button-show-all" type="button" value="show all">-->
@@ -288,9 +287,9 @@
 
             }
         document.getElementById("grid-view").addEventListener("click", showGrid );
-        function showGrid() {
-            document.querySelector(".list-view").style.display = 'none';
-            document.querySelector(".grid-view").style.display = 'flex';
+            function showGrid() {
+                document.querySelector(".list-view").style.display = 'none';
+                document.querySelector(".grid-view").style.display = 'flex';
         }
     </script>
 
