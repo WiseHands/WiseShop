@@ -440,7 +440,7 @@ public class Application extends Controller {
         product.feedbackList = DataBaseQueries.getFeedbackList(product);
 
         String additionsListQuery = "select a from AdditionDTO a where a.isSelected = 1 and a.productUuid = ?1";
-        product.additions = AdditionDTO.find(additionsListQuery, product.uuid).fetch();
+        product.selectedAddition = AdditionDTO.find(additionsListQuery, product.uuid).fetch();
 
         AdditionDTO defaultAddition = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
         Translation.setTranslationForProduct(language, product);

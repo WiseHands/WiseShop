@@ -3,31 +3,27 @@ angular.module('WiseHands')
     function ($scope, $http, sideNavInit, $routeParams) {
 
       $http({
-        method: 'GET',
         url: `/api/product/${$routeParams.productUuid}`
-      }).then(response => {
+      }).then(({data}) => {
           $scope.activeShop = localStorage.getItem('activeShop');
-          $scope.product = response.data;
-          _getAvailableAdditions();
+          $scope.product = data;
+          _getAvailableAdditions(data.selectedAddition);
         }, error => console.log(error)
       );
 
-      function _getAvailableAdditions() {
+      function _getAvailableAdditions(selectedAddition) {
         $http({
-          method: 'GET',
           url: '/api/addition/list'
-        }).then(response => _setAvailableAdditions(response.data, $scope.product.selectedAddition),
+        }).then(({data}) => _setAvailableAdditions(data, selectedAddition),
           error => console.log(error)
         );
       }
 
       function _setAvailableAdditions(availableAdditions, selectedAddition) {
-        console.log("availableAdditions => ", availableAdditions);
-        console.log("selectedAddition => ", selectedAddition);
         const parsedAdditions = [];
         availableAdditions.forEach(availableAddition => {
           const match = selectedAddition.find(item => item.addition.uuid === availableAddition.uuid);
-          parsedAdditions.push(Object.assign(availableAddition, match));
+          parsedAdditions.push({...availableAddition, ...match});
         });
         $scope.availableAdditions = parsedAdditions;
       }
@@ -37,7 +33,6 @@ angular.module('WiseHands')
         addition.isSelected = addition.isDefault;
         const url = `/api/addition/set/default/${$routeParams.productUuid}/${addition.uuid}/${addition.isDefault}`;
         sentSelectedAddition(url, addition);
-        console.log("sentSelectedAddition is default => ", url);
       };
 
       $scope.selectedAddition = ({addition}) => {
@@ -47,12 +42,11 @@ angular.module('WiseHands')
         sentSelectedAddition(url, addition);
       };
 
-      let sentSelectedAddition = (url, addition) => {
-        console.log("sentSelectedAddition is selected => ", url);
+       const sentSelectedAddition = (url, addition) => {
         $http({
           method: 'PUT',
           url: url
-        }).then(response => addition.isSelected = response.data.isSelected,
+        }).then(({data}) => addition.isSelected = data.isSelected,
             error => console.log(error)
         );
       };
