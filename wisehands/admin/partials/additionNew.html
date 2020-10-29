@@ -15,11 +15,12 @@
 
 <div class="admin-container admin-column">
     <ul class="admin-breadcrumb qr-breadcrumb">
-        <li><a href="#/addition">{{'additionBreadCrumb.menu' | translate}}</a></li>
+        <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
+        <li><a href="#/addition">{{'additionBreadCrumb.additions' | translate}}</a></li>
         <li><a href="#/newaddition">{{'qrBreadCrumb.create' | translate}}</a></li>
     </ul>
     <div class="qr-title-container">
-        <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
+        <img class="img-present-qr" src="\wisehands\assets\images\additions.svg">
         <div class="qr-column m-l-r">
             <div class="addition-create-text">
                 <p> {{'additionNew.info' | translate}} </p>
@@ -27,8 +28,8 @@
             <div class="addition-new-container">
                 <div class="addition-column">
                     <div class="input-field">
-                        <input id="addition_title" type="text" ng-model="addition.title" required>
-                        <label id="title_label" for="addition_title">{{'editProduct.additionTitle' |
+                        <input id="addition_name" type="text" ng-model="addition.title" required>
+                        <label id="name_label" for="addition_name">{{'editProduct.additionTitle' |
                             translate}}</label>
                     </div>
                     <div class="input-field">
@@ -36,9 +37,10 @@
                         <label id="price_label" for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
                     </div>
                 </div>
-                <div class="carousel-inner add-option-image addition-image" role="listbox" ng-click="uploadOptionImage()">
-                    <p class="addition-image-text">{{'additionNew.addPhoto' | translate}}</p>
-                    <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
+                <div class="addition-image" role="listbox" ng-click="uploadOptionImage()">
+                    <a>
+                        <p id="image_text" class="addition-image-text">{{'additionNew.addPhoto' | translate}}</p>
+                    </a>
                     <input id="imageLoader" class="input-file hiddenFileInput" type="file"/>
                 </div>
                 <p ng-show="fileName">{{'additionNew.fileName' | translate}}:</p>

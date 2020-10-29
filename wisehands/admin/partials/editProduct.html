@@ -67,25 +67,10 @@
 
                 <div class="admin-card">
                     <h4>{{'addNewProduct.additional' | translate}}</h4>
-                    <div class="noPaddingMobile" ng-repeat="property in properties">
-                        <div class=" border-bottom0 vcentering propertyFlexPanel">
-                            <h5 class=" border-bottom0  ">{{property.title}}</h5>
-                            <a href="#/product/{{product.uuid}}/editProperty/{{property.uuid}}">
-                                <button class=" btn-floating btn-xsmall waves-effect waves-light secondaryColor"><i class="material-icons">mode_edit</i></button>
-                            </a>
-                        </div>
-                        <!-- property.tags ??? -->
-                        <div ng-repeat="propertyOption in property.tags">
-                            <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box-{{propertyOption.value}}" ng-model="propertyOption.selected" />
-                            <label for="filled-in-box-{{propertyOption.value}}">{{propertyOption.value}}(+{{propertyOption.additionalPrice}})</label>
-                        </div>
-                    </div>
-                    <div class="addition-options noPaddingMobile addition-product">
-                        <p class="">{{'editProduct.addAddition' | translate}}</p>
-                        <a class="pull-right" href="#/category/{{product.categoryUuid}}/addproperty/{{product.uuid}}">
-                            <button class="btn-floating btn-xsmall waves-effect waves-light secondaryColor"><i class="material-icons">add</i></button>
-                        </a>
-                    </div>
+                    <a class="href-params" href="#/selectadditions/{{product.uuid}}">
+                        <p>{{'editProduct.selectAdditions' | translate}}</p>
+                    </a>
+
                 </div>
             </div>
 

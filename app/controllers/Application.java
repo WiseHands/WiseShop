@@ -171,6 +171,7 @@ public class Application extends Controller {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         generateCookieIfNotPresent(shop);
+
         Date date = new Date();
         Http.Header xforwardedHeader = request.headers.get("x-forwarded-for");
         String ip = "";
@@ -438,13 +439,16 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         product.feedbackList = DataBaseQueries.getFeedbackList(product);
 
-        List<AdditionDTO> additionList = AdditionDTO.find("byProduct", product).fetch();
-        product.additions = additionList;
+        String additionsListQuery = "select a from AdditionDTO a where a.isSelected = 1 and a.productUuid = ?1";
+        product.additions = AdditionDTO.find(additionsListQuery, product.uuid).fetch();
 
+        AdditionDTO defaultAddition = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
-        render(product, category, categories, shop, language);
+        render(product, category, categories, shop, language, defaultAddition);
     }
+
+
 
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {

@@ -69,8 +69,11 @@ public class ProductDTO extends GenericModel {
     public List<ProductImage> images;
 
     @Expose
+    public String defaultAdditionUuid;
+
+    @Expose
     @OneToMany
-    public List<AdditionDTO> additions;
+    public List<SelectedAdditionDTO> selectedAddition;
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)

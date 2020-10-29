@@ -298,7 +298,7 @@
 
                     }).
                     when('/addition',{
-                        templateUrl:'wisehands/admin/partials/additionMenu.html',
+                        templateUrl:'wisehands/admin/partials/additions.html',
                         controller:'AdditionMenuController',
                         activetab: 'addition'
                     }).
@@ -307,15 +307,15 @@
                         controller:'AdditionNewController',
                         activetab: 'addition'
                     }).
-                    when('/additiondetail/:uuid',{
-                        templateUrl:'wisehands/admin/partials/additionDetail.html',
-                        controller:'AdditionDetailController',
-                        activetab: 'addition'
-                    }).
                     when('/additionedit/:uuid',{
                         templateUrl:'wisehands/admin/partials/additionEdit.html',
                         controller:'AdditionEditController',
                         activetab: 'addition'
+                    }).
+                    when('/selectadditions/:productUuid',{
+                        templateUrl:'wisehands/admin/partials/selectAdditions.html',
+                        controller:'SelectAdditionsController',
+                        activetab: 'productList'
                     }).
                     otherwise({
                         redirectTo:'/'

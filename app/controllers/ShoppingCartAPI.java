@@ -95,7 +95,7 @@ public class ShoppingCartAPI extends AuthController {
         lineItem.save();
 
         boolean foundMatch = false;
-
+        System.out.println("shoppingCart.items => " + shoppingCart.items);
         //1. Find Line Item
         for (LineItem _lineItem : shoppingCart.items) {
             if (productUuid.equals(_lineItem.productId)) {

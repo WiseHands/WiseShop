@@ -18,7 +18,7 @@
                 <i class="fa fa-edit whiteColor pull-right">
                 </i>
                 <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeQR"><p> {{'qrDetails.delete' | translate}}</p></a>
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeAddition"><p> {{'qrDetails.delete' | translate}}</p></a>
                 </div>
             </a>
         </div>
@@ -26,13 +26,15 @@
 </nav>
 <div class="admin-container admin-column">
     <ul class="admin-breadcrumb qr-breadcrumb">
-        <li><a href="#/addition">{{'additionBreadCrumb.menu' | translate}}</a></li>
+        <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
+        <li><a href="#/addition">{{'additionBreadCrumb.additions' | translate}}</a></li>
         <li><a href="#/additionedit/{{addition.uuid}}">{{addition.title}}</a></li>
     </ul>
     <div class="addition-edit-container">
-        <img class="img-present-qr" src="\wisehands\assets\images\qr_code.svg">
-        <div class="qr-column  m-l-r">
-            <div class="qr-detail-info">
+
+        <img class="img-present-qr" src="\wisehands\assets\images\additions.svg">
+        <div class="addition-edit-column">
+            <div class="addition-edit-text">
                 <p> {{'additionEdit.titleInfo' | translate}} </p>
             </div>
             <div class="addition-new-container">
@@ -40,29 +42,34 @@
                     <div class="input-field">
                         <input id="addition_title" type="text" ng-model="addition.title" required>
                         <label id="title_label" for="addition_title">{{'editProduct.additionTitle' | translate}}</label>
+
                     </div>
                     <div class="input-field">
                         <input id="addition_price" type="text" ng-model="addition.price" required>
                         <label id="price_label" for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
                     </div>
                 </div>
-                <div class="carousel-inner addition-image" role="listbox" ng-click="uploadOptionImage()">
-                    <p class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</p>
-                    <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
+
+                <div class="addition-image" role="listbox" ng-click="uploadOptionImage()">
+                    <a>
+                        <p id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</p>
+                    </a>
                     <input id="imageLoader" class="input-file hiddenFileInput" type="file"/>
                 </div>
-                <p>{{'additionNew.fileName' | translate}}: {{addition.fileName}}</p>
-                <div class="qr-button">
-                    <button class="save-button" ng-click="editQrCode()">
-                        {{'qrDetails.edit' | translate}}
+                <p ng-show="fileName">{{'additionNew.fileName' | translate}}:</p>
+                <p id="imageName"></p>
+                <div class="addition-edit-button">
+                    <button class="save-button" ng-click="editAddition()">
+                        {{'additionEdit.edit' | translate}}
                     </button>
                 </div>
             </div>
+
         </div>
 
     </div>
 </div>
-<div class="modal fade" id="removeQR" tabindex="-1" role="dialog">
+<div class="modal fade" id="removeAddition" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -70,7 +77,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="col-xs-12 text-center">
-                    <p ng-show="deleteButton"><i>{{'qrDetails.deleteMessage' | translate}}</i></p>
+                    <p ng-show="deleteButton"><i>{{'additionEdit.deleteMessage' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
                     <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>

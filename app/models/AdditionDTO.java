@@ -33,6 +33,9 @@ public class AdditionDTO extends GenericModel {
     @Expose
     public boolean isDeleted;
 
+    @OneToOne
+    public SelectedAdditionDTO selectedAddition;
+
     public String getTitle() {
         return title;
     }
@@ -44,9 +47,6 @@ public class AdditionDTO extends GenericModel {
     public String getImagePath() {
         return imagePath;
     }
-
-    @ManyToOne
-    public ProductDTO product;
 
     public String formatDecimal() {
         Double number = this.price;

@@ -1,4 +1,9 @@
 {
+  "selectAdditions.title": "Додатки",
+  "selectAdditions.selectedAdditionsTitle": "Вибрані додатки:",
+  "selectAdditions.noSelectedAdditions": "Виберіть один із додатків",
+  "selectAdditions.availableAddition": "Доступні додатки:",
+
   "additionMenu.title": "Додатки",
   "additionMenu.titleInfo": "Для створення додаткової ціни для товару, яка буде враховуватися при доставці чи наявності додаткової упаковки, натисніть плюс",
   "additionMenu.noAddition": "Додатки відсутні",
@@ -11,6 +16,11 @@
   "additionEdit.title": "Редагування додатку",
   "additionEdit.titleInfo": "Відкорегуйте та збрежіть додаток",
   "additionBreadCrumb.menu": "Меню",
+  "additionEdit.editPhoto": "Завантажте фото",
+  "additionEdit.edit": "Редагувати",
+  "additionEdit.deleteMessage": "Ви дійсно хочете видалити додаток",
+  "additionBreadCrumb.admin": "Адмін",
+  "additionBreadCrumb.additions": "Додатки",
 
   "pageQR.title": "QR Меню",
   "pageQR.titleInfo": "QR меню дозволяє вам створити унікальні QR коди на кожен стіл. Відвідувачі зможуть просканувати QR коди та створити замовлення. Нище список створених QR кодів. Натисніть плюс щоб створити QR меню",
@@ -207,7 +217,7 @@
   "addNewProduct.productDescription": "Опис",
   "addNewProduct.showMoreButton": "Показати більше",
   "addNewProduct.showLessButton": "Показати менше",
-  "addNewProduct.additional": "Додатки",
+  "addNewProduct.additional": "Додаток",
   "addNewProduct.add": "Додати товар",
   "addNewProduct.showInShop": "Показувати клієнтам товар в магазині",
   "addNewProduct.isShowInShop": "Товар показується клієнтам",
@@ -259,6 +269,11 @@
   "productReviews.removeReviews": "Видалити",
   "shopDetails.deleteMessage1": "Ви дійсно хочете видалити даний магазин?",
   "shopDetails.deleteMessage2": "Магазин видалений.",
+
+  "editProduct.selectAdditions": "Виберіть додаток для продукту",
+  "editProduct.additionQuantity": "Кількість",
+  "editProduct.isDefault": "Вибрано за замовчуванням (окрім сканування через QR код)",
+
   "editProduct.general": "Основне",
   "editProduct.edit": "Редагувати продукт",
   "editProduct.property": "Додаток",

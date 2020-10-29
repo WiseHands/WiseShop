@@ -265,7 +265,10 @@ DELETE  {client}/addition/{uuid}                        AdditionAPI.delete
 
 POST    {client}/api/addition/new                       AdditionAPI.createAddition
 GET     {client}/api/addition/list                      AdditionAPI.additionList
-GET     {client}/api/addition/info/{uuid}               AdditionAPI.info
+
+PUT     {client}/api/addition/set/default/{productId}/{additionId}/{isDefault}        AdditionAPI.setDefaultAdditionToProduct
+PUT     {client}/api/addition/add/{productId}/{additionId}                            AdditionAPI.addAdditionToProduct
+PUT     {client}/api/addition/remove/{additionId}                                     AdditionAPI.removeAdditionFromProduct
 
 
 POST	{client}/upload-file            			    FileAPI.upload
