@@ -2,6 +2,8 @@ angular.module('WiseHands')
   .controller('SelectAdditionsController', ['$scope', '$http', 'sideNavInit', '$routeParams',
     function ($scope, $http, sideNavInit, $routeParams) {
 
+      const selectedAdditions = [];
+
       $http({
         url: `/api/product/${$routeParams.productUuid}`
       }).then(({data}) => {
@@ -11,18 +13,18 @@ angular.module('WiseHands')
         }, error => console.log(error)
       );
 
-      const _getAvailableAdditions = additions => {
+      const _getAvailableAdditions = selectedAddition => {
         $http({
           url: '/api/addition/list'
-        }).then(({data}) => _setAvailableAdditions(data, additions),
+        }).then(({data}) => _setAvailableAdditions(data, selectedAddition),
           error => console.log(error)
         );
       };
 
-      const  _setAvailableAdditions = (availableAdditions, additions) => {
+      const _setAvailableAdditions = (availableAdditions, selectedAddition) => {
         const parsedAdditions = [];
         availableAdditions.forEach(availableAddition => {
-          const match = additions.find(item => item.addition.uuid === availableAddition.uuid);
+          const match = selectedAddition.find(item => item.addition.uuid === availableAddition.uuid);
           parsedAdditions.push({...availableAddition, ...match});
         });
         $scope.availableAdditions = parsedAdditions;
@@ -31,24 +33,35 @@ angular.module('WiseHands')
       $scope.selectDefaultAddition = (event, {addition}) => {
         event.stopPropagation();
         addition.isSelected = addition.isDefault;
-        const url = `/api/addition/set/default/${$routeParams.productUuid}/${addition.uuid}/${addition.isDefault}`;
-        sendSelectedAddition(url, addition);
+        addition.productUuid = $routeParams.productUuid;
+        if (selectedAdditions.length === 0) {
+            selectedAdditions.push(addition);
+        }
+        console.log("selectedDefaultAddition", addition);
       };
 
       $scope.selectAddition = ({addition}) => {
         addition.isSelected = !addition.isSelected;
-        if (addition.isDefault) addition.isDefault = !addition.isDefault;
-        const url = addition.isSelected ? `/api/addition/add/${$routeParams.productUuid}/${addition.uuid}` : `/api/addition/remove/${addition.uuid}`;
-        sendSelectedAddition(url, addition);
+        addition.productUuid = $routeParams.productUuid;
+        selectedAdditions.push(addition);
+        console.log("selectAddition", addition);
+
       };
 
-       const sendSelectedAddition = (url, addition) => {
+      const sendSelectedAddition = (url, selectedAdditions) => {
         $http({
           method: 'PUT',
-          url: url
-        }).then(({data}) => addition.isSelected = data.isSelected,
+          url: url,
+          data: selectedAdditions
+        }).then(({data}) => console.log(data),
             error => console.log(error)
         );
+      };
+
+      $scope.saveSelectedAdditions = () => {
+        console.log('saveSelectedAdditions => ', JSON.stringify(selectedAdditions));
+        const url = `/api/addition/save/all`;
+        sendSelectedAddition(url, JSON.stringify(selectedAdditions));
       };
 
       sideNavInit.sideNav();

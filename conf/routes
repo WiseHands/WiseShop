@@ -269,6 +269,7 @@ GET     {client}/api/addition/list                      AdditionAPI.additionList
 PUT     {client}/api/addition/set/default/{productId}/{additionId}/{isDefault}        AdditionAPI.setDefaultAdditionToProduct
 PUT     {client}/api/addition/add/{productId}/{additionId}                            AdditionAPI.addAdditionToProduct
 PUT     {client}/api/addition/remove/{additionId}                                     AdditionAPI.removeAdditionFromProduct
+PUT     {client}/api/addition/save/all                                                AdditionAPI.saveAllSelectedAdditions
 
 
 POST	{client}/upload-file            			    FileAPI.upload

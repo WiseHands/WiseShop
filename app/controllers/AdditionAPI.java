@@ -4,6 +4,7 @@ import models.AdditionDTO;
 import models.ProductDTO;
 import models.SelectedAdditionDTO;
 import models.ShopDTO;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -179,6 +180,20 @@ public class AdditionAPI extends AuthController {
         selectedAddition.save();
         System.out.println("setDefaultAdditionToProduct => " + selectedAddition.isDefault);
         renderJSON(json(selectedAddition));
+    }
+
+    public static void saveAllSelectedAdditions (String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray = (JSONArray) parser.parse(params.get("body"));
+        JSONObject object = (JSONObject) jsonArray.get(0);
+        System.out.println("get one addition => " + object.get("productUuid"));
+
+
     }
 
 

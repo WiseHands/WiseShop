@@ -22,7 +22,7 @@ public class SelectedAdditionDTO extends GenericModel {
     public boolean isDeleted;
 
     @Expose
-    public boolean isDefault;
+    public boolean isDefault = false    ;
 
     @Expose
     public boolean isSelected = false;
