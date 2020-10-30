@@ -11,38 +11,38 @@ angular.module('WiseHands')
         }, error => console.log(error)
       );
 
-      const _getAvailableAdditions = selectedAddition => {
+      const _getAvailableAdditions = additions => {
         $http({
           url: '/api/addition/list'
-        }).then(({data}) => _setAvailableAdditions(data, selectedAddition),
+        }).then(({data}) => _setAvailableAdditions(data, additions),
           error => console.log(error)
         );
       };
 
-      const  _setAvailableAdditions = (availableAdditions, selectedAddition) => {
+      const  _setAvailableAdditions = (availableAdditions, additions) => {
         const parsedAdditions = [];
         availableAdditions.forEach(availableAddition => {
-          const match = selectedAddition.find(item => item.addition.uuid === availableAddition.uuid);
+          const match = additions.find(item => item.addition.uuid === availableAddition.uuid);
           parsedAdditions.push({...availableAddition, ...match});
         });
         $scope.availableAdditions = parsedAdditions;
       };
 
-      $scope.selectedDefaultAddition = (event, {addition}) => {
+      $scope.selectDefaultAddition = (event, {addition}) => {
         event.stopPropagation();
         addition.isSelected = addition.isDefault;
         const url = `/api/addition/set/default/${$routeParams.productUuid}/${addition.uuid}/${addition.isDefault}`;
-        sentSelectedAddition(url, addition);
+        sendSelectedAddition(url, addition);
       };
 
-      $scope.selectedAddition = ({addition}) => {
+      $scope.selectAddition = ({addition}) => {
         addition.isSelected = !addition.isSelected;
         if (addition.isDefault) addition.isDefault = !addition.isDefault;
         const url = addition.isSelected ? `/api/addition/add/${$routeParams.productUuid}/${addition.uuid}` : `/api/addition/remove/${addition.uuid}`;
-        sentSelectedAddition(url, addition);
+        sendSelectedAddition(url, addition);
       };
 
-       const sentSelectedAddition = (url, addition) => {
+       const sendSelectedAddition = (url, addition) => {
         $http({
           method: 'PUT',
           url: url

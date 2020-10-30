@@ -44,13 +44,13 @@
                  ng-class="{additionSelected: addition.isSelected}"
                  on-finish-render="ngRepeatFinished">
                 <div class="admin-card selected-addition-item"
-                     ng-click="selectedAddition(this)">
+                     ng-click="selectAddition(this)">
                     <img class="addition-img" src="{{addition.imagePath}}">
                     <div class="selected-addition-info">
                         <p>{{addition.title}}</p>
                         <p>{{addition.price}}</p>
                     </div>
-                    <div class="selected-addition-checkbox" ng-click="selectedDefaultAddition($event, this)">
+                    <div class="selected-addition-checkbox" ng-click="selectDefaultAddition($event, this)">
                         <input type="checkbox" class="filled-in checkBoxStyling"
                                id="{{addition.uuid}}" ng-model="addition.isDefault"/>
                         <label for="{{addition.uuid}}">{{'editProduct.isDefault' | translate}}</label>
