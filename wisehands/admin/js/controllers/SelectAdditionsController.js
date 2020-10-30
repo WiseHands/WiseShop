@@ -11,22 +11,22 @@ angular.module('WiseHands')
         }, error => console.log(error)
       );
 
-      function _getAvailableAdditions(selectedAddition) {
+      const _getAvailableAdditions = selectedAddition => {
         $http({
           url: '/api/addition/list'
         }).then(({data}) => _setAvailableAdditions(data, selectedAddition),
           error => console.log(error)
         );
-      }
+      };
 
-      function _setAvailableAdditions(availableAdditions, selectedAddition) {
+      const  _setAvailableAdditions = (availableAdditions, selectedAddition) => {
         const parsedAdditions = [];
         availableAdditions.forEach(availableAddition => {
           const match = selectedAddition.find(item => item.addition.uuid === availableAddition.uuid);
           parsedAdditions.push({...availableAddition, ...match});
         });
         $scope.availableAdditions = parsedAdditions;
-      }
+      };
 
       $scope.selectedDefaultAddition = (event, {addition}) => {
         event.stopPropagation();
