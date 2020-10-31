@@ -39,10 +39,7 @@ angular.module('WiseHands')
 			};
 			
 			$scope.saveAdditions = () => {
-				const parsedAdditions = $scope.availableAdditions.map(item => {
-					item.productUuid = productUuid;
-					return item;
-				});
+				const parsedAdditions = $scope.availableAdditions.map(item => Object.assign(item, {productUuid: productUuid}));
 				$http({
 					method: 'PUT',
 					url: '/api/addition/save/all',
