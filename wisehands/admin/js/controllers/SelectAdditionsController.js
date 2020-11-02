@@ -24,8 +24,7 @@ angular.module('WiseHands')
 				const parsedAdditions = [];
 				availableAdditions.forEach(availableAddition => {
 					const match = additions.find(item => item.addition.uuid === availableAddition.uuid);
-					if (match) match.uuid = availableAddition.uuid;
-					parsedAdditions.push({...availableAddition, ...match});
+					parsedAdditions.push({...match, ...availableAddition});
 				});
 				$scope.availableAdditions = parsedAdditions;
 			};
