@@ -15,7 +15,7 @@ angular.module('WiseHands')
 			const _getAvailableAdditions = additions => {
 				$http({
 					url: '/api/addition/list'
-				}).then(({data}) => _setAvailableAdditions(data, additions),
+				}).then(({data: availableAdditions}) => _setAvailableAdditions(availableAdditions, additions),
 					error => console.log(error)
 				);
 			};
@@ -24,6 +24,7 @@ angular.module('WiseHands')
 				const parsedAdditions = [];
 				availableAdditions.forEach(availableAddition => {
 					const match = additions.find(item => item.addition.uuid === availableAddition.uuid);
+					if (match) match.uuid = availableAddition.uuid;
 					parsedAdditions.push({...availableAddition, ...match});
 				});
 				$scope.availableAdditions = parsedAdditions;

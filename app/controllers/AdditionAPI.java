@@ -120,82 +120,60 @@ public class AdditionAPI extends AuthController {
 
     }
 
-    public static void addAdditionToProduct (String client, String productId, String additionId) throws Exception{
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        checkAuthentification(shop);
-        AdditionDTO availableAddition = AdditionDTO.find("byUuid", additionId).first();
-        SelectedAdditionDTO selectedAddition;
-        SelectedAdditionDTO selectedAdditionQuery = SelectedAdditionDTO.find("byAddition_uuid", additionId).first();
-        if (selectedAdditionQuery == null) {
-            selectedAddition = new SelectedAdditionDTO();
-        } else {
-            selectedAddition = selectedAdditionQuery;
-        }
-        selectedAddition.addition = availableAddition;
-        selectedAddition.productUuid = productId;
-        selectedAddition.isSelected = true;
-        System.out.println("addAdditionToProduct => " + selectedAddition.isSelected);
-        selectedAddition.save();
-
-        renderJSON(json(selectedAddition));
-    }
-
-    public static void removeAdditionFromProduct (String client, String additionId) throws Exception{
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        checkAuthentification(shop);
-        System.out.println("removeAdditionFromProduct => " + additionId);
-
-        SelectedAdditionDTO selectedAddition = SelectedAdditionDTO.find("byUuid", additionId).first();
-        selectedAddition.isSelected = false;
-        selectedAddition.save();
-        System.out.println("removeAdditionFromProduct => " + selectedAddition.isSelected);
-
-        renderJSON(json(selectedAddition));
-    }
-
-    public static void setDefaultAdditionToProduct (String client, String productId, String additionId, Boolean isDefault) throws Exception{
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        checkAuthentification(shop);
-
-        SelectedAdditionDTO selectedAddition = SelectedAdditionDTO.find("byAddition_uuid", additionId).first();
-        System.out.println("selectedAddition.addition.price => "+ selectedAddition.addition.price);
-        selectedAddition.isDefault = isDefault;
-        ProductDTO product = ProductDTO.find("byUuid", productId).first();
-        if (selectedAddition.isDefault) {
-            product.price += selectedAddition.addition.price;
-            product.defaultAdditionUuid = selectedAddition.uuid;
-        } else {
-            product.price -= selectedAddition.addition.price;
-        }
-        product.save();
-        selectedAddition.save();
-        System.out.println("setDefaultAdditionToProduct => " + selectedAddition.isDefault);
-        renderJSON(json(selectedAddition));
-    }
-
     public static void saveAllSelectedAdditions (String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         checkAuthentification(shop);
+
         JSONParser parser = new JSONParser();
         JSONArray jsonArray = (JSONArray) parser.parse(params.get("body"));
-        JSONObject object = (JSONObject) jsonArray.get(0);
-        System.out.println("get one addition => " + object.get("productUuid"));
 
-
+        for(int i = 0; i < jsonArray.size(); i++){
+            JSONObject object = (JSONObject) jsonArray.get(i);
+            assignAdditionToProduct(object);
+        }
     }
 
+    private static void assignAdditionToProduct (JSONObject additionObject){
+        boolean isSelected = false;
+        String availableAdditionId = null, productUuid = null;
+        if (additionObject.get("uuid") != null) {
+            availableAdditionId = (String) additionObject.get("uuid");
+        }
+        if (additionObject.get("productUuid") != null) {
+            productUuid = (String) additionObject.get("productUuid");
+        }
+        if (additionObject.get("isSelected") != null){
+            isSelected = (boolean) additionObject.get("isSelected");
+        }
 
+        AdditionDTO availableAddition = AdditionDTO.find("byUuid", availableAdditionId).first();
+        SelectedAdditionDTO selectedAddition;
+        SelectedAdditionDTO selectedAdditionQuery = SelectedAdditionDTO.find("byAddition_uuid", availableAdditionId).first();
+        if (selectedAdditionQuery == null) {
+            selectedAddition = new SelectedAdditionDTO();
+        } else {
+            selectedAddition = selectedAdditionQuery;
+        }
+        selectedAddition.addition = availableAddition;
+        selectedAddition.productUuid = productUuid;
+        selectedAddition.isSelected = isSelected;
+
+        ProductDTO product = ProductDTO.find("byUuid", selectedAddition.productUuid).first();
+        if (additionObject.get("isDefault") != null) {
+            boolean isAdditionDefaultSelected = (boolean) additionObject.get("isDefault");
+            if (isAdditionDefaultSelected) {
+                selectedAddition.isDefault = isAdditionDefaultSelected;
+                product.price += availableAddition.price;
+                product.defaultAdditionUuid = selectedAddition.uuid;
+            } else {
+                product.price -= availableAddition.price;
+            }
+        }
+        product.save();
+        selectedAddition.save();
+    }
 
 }
