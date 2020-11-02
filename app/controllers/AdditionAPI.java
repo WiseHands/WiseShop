@@ -169,6 +169,7 @@ public class AdditionAPI extends AuthController {
                 product.price += availableAddition.price;
                 product.defaultAdditionUuid = selectedAddition.uuid;
             } else {
+                selectedAddition.isDefault = isAdditionDefaultSelected;
                 product.price -= availableAddition.price;
             }
         }
