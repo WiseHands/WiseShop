@@ -180,10 +180,14 @@
                 <p>&{'shop.missing.products'}</p>
             </div>
         #{/if}
-    <div class="view-block">
-        <i id="list-view" class="fa fa-list" aria-hidden="true"></i>
-        <i id="grid-view" class="fa fa-th" aria-hidden="true"></i>
-    </div>
+        #{if products.size() > 0 }
+            <div class="view-block">
+                <i id="list-view" class="fa fa-list" aria-hidden="true"></i>
+                <i id="grid-view" class="fa fa-th" aria-hidden="true"></i>
+            </div>
+        #{/if}
+
+
     <div class="all-items grid-view">
         %{
            for(_product in products) {
