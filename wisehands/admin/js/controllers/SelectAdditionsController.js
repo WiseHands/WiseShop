@@ -8,7 +8,7 @@ angular.module('WiseHands')
 			}).then(({data}) => {
 					$scope.activeShop = localStorage.getItem('activeShop');
 					$scope.product = data;
-					_getAvailableAdditions(data.selectedAddition);
+					_getAvailableAdditions(data.selectedAdditions);
 				}, error => console.log(error)
 			);
 			
@@ -40,6 +40,7 @@ angular.module('WiseHands')
 			
 			$scope.saveAdditions = () => {
 				const parsedAdditions = $scope.availableAdditions.map(item => Object.assign(item, {productUuid: productUuid}));
+				
 				$http({
 					method: 'PUT',
 					url: '/api/addition/save/all',

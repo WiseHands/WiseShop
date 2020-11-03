@@ -310,6 +310,14 @@
         font-weight: 300;
     }
 
+    [is-hidden="false"] {
+      display: block;
+    }
+
+    [is-hidden="true"] {
+      display: none;
+    }
+
     @media screen and (min-width: 1500px) {
         .product-center-container, .cart-float, .shop-all-reviews {
             max-width: 1300px;
@@ -475,24 +483,33 @@
         </ul>
         <h2>${product.name}</h2>
         <p class="text-justify">${product.description}</p>
-        #{if product.additions}
-        <div class="add-components" hidden>
-            <div class="add-components-main">
-                <a href="#additions">
-                    <div class="add-button">
-                        <i class="fa fa-plus-square" style="font-size:24px"></i>
-                        <p>&{'page.product.additions.label'}</p>
-                    </div>
-                </a>
-                <div class="add-price">
-                    <p>&{'page.product.price'}</p>
-                    <span class="additions-total-price"></span>
+
+          <div class="add-components" is-hidden="${defaultAdditions.isEmpty()}">
+
+              <div class="add-components-main">
+                  <a href="#additions">
+                      <div class="add-button">
+                          <i class="fa fa-plus-square" style="font-size:24px"></i>
+                          <p>&{'page.product.additions.label'}</p>
+                      </div>
+                  </a>
+                  <div class="add-price">
+                      <p>&{'page.product.price'}</p>
+                      <span class="additions-total-price"></span>
+                  </div>
+              </div>
+              <div class="add-items">
+                %{
+                for(defaultAddition in defaultAdditions) {
+                }%
+                <div class="add-items-title">
+                  <p>${defaultAddition.addition.title}</p>
                 </div>
-            </div>
-            <div class="add-items">
-            </div>
-        </div>
-        #{/if}
+                %{
+                  }
+                }%
+              </div>
+          </div>
         <div class="price-buy-block">
             <span class="product-price" price="${product.formatDecimal()}">
                 <span>&{'page.product.price'}</span>
@@ -500,23 +517,23 @@
             </span>
             <button class="buy-button" onClick="buyStart('${product.uuid}')">&{'page.product.buy'}</button>
         </div>
-        #{if product.additions}
+        #{if product.selectedAdditions}
         <section class="additions">
             <h3 id="additions" class="addition-header">&{'page.product.additions.label'}</h3>
 
             <div class="additions-block">
                 %{
-                for(_addition in product.additions) {
+                for(_selectedAddition in product.selectedAdditions) {
                 }%
                 <div class="add-item" onclick="_addItem({
-                    title: '${_addition.title}',
-                    uuid: '${_addition.uuid}',
-                    price: '${_addition.price}',
-                    isDefault: '${_addition.isDefault}'
+                    title: '${_selectedAddition.addition.title}',
+                    uuid: '${_selectedAddition.addition.uuid}',
+                    price: '${_selectedAddition.addition.price}',
+                    isDefault: '${_selectedAddition.isDefault}'
                 })">
-                    <img src="${_addition.imagePath}">
-                    <p id="add-item-title">${_addition.title}</p>
-                    <p class="add-item-price">${_addition.formatDecimal()} UAH</p>
+                    <img src="${_selectedAddition.addition.imagePath}">
+                    <p id="add-item-title">${_selectedAddition.addition.title}</p>
+                    <p class="add-item-price">${_selectedAddition.addition.formatDecimal()} UAH</p>
                 </div>
                 %{
                 }
@@ -571,7 +588,7 @@
     #{/if}
     <hr>
     %{
-    }
+       }
     }%
     #{/if}
     #{else} <p>&{'page.product.no.reviews'}</p> #{/else}
@@ -625,19 +642,6 @@
   let additionList = [];
 
   (() => {
-
-    #{verbatim}
-        #{if defaultAddition}
-            _addItem({ title: '${defaultAddition.title}',
-               uuid: '${defaultAddition.uuid}',
-               price: '${defaultAddition.price}',
-               isDefault: '${defaultAddition.isDefault}'});
-        #{/if}
-    #{/verbatim}
-
-  })();
-
-  (() => {
     const feedbackStars = document.querySelectorAll('.feedback-stars');
     feedbackStars.forEach(item => setFeedbackRate(item))
   })();
@@ -666,7 +670,7 @@
   _setTotal(totalPrice);
 
   function _addItem(_addition) {
-    additionContainerToHide.removeAttribute("hidden");
+    additionContainerToHide.removeAttribute('is-hidden');
     const createdAddition = document.getElementById(_addition.uuid);
     let setSendAddition = {
       uuid: _addition.uuid,
@@ -700,6 +704,7 @@
       + _addition.title + '</p>';
     additionDiv.setAttribute('counter', 1);
     additionDiv.setAttribute('price', _addition.price);
+
     const removeIcon = additionDiv.getElementsByTagName('i')[0];
     removeIcon.addEventListener('click', () => {
       _removeAddition(additionId, Number(_addition.price))
@@ -715,9 +720,8 @@
     _calculateTotal(amountToSubstract);
     chosenAdditionsContainer.removeChild(additionElementToRemove);
     const additionNodesLength = document.querySelectorAll('.add-items-title').length;
-    if (additionNodesLength === 0) {
-      additionContainerToHide.setAttribute('hidden', true);
-    }
+    if (additionNodesLength === 0) additionContainerToHide.setAttribute('is-hidden', true);
+
     _setAdditionsTotalPrice();
     for (let i = 0; i < additionList.length; i++) {
       let obj = additionList[i];

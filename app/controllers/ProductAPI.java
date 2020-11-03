@@ -101,7 +101,7 @@ public class ProductAPI extends AuthController {
         ProductDTO productDTO = ProductDTO.findById(uuid);
 
         String query = "select a from SelectedAdditionDTO a where a.isSelected = 1 and a.productUuid = ?1";
-        productDTO.selectedAddition = AdditionDTO.find(query, productDTO.uuid).fetch();
+        productDTO.selectedAdditions = AdditionDTO.find(query, productDTO.uuid).fetch();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(productDTO);

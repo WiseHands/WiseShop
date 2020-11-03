@@ -138,7 +138,7 @@ public class AdditionAPI extends AuthController {
 
     private static void assignAdditionToProduct (JSONObject additionObject){
         boolean isSelected = false;
-        String availableAdditionId = null, productUuid = null;
+        String availableAdditionId = "", productUuid = "";
         if (additionObject.get("uuid") != null) {
             availableAdditionId = (String) additionObject.get("uuid");
         }
@@ -163,6 +163,7 @@ public class AdditionAPI extends AuthController {
 
         ProductDTO product = ProductDTO.find("byUuid", selectedAddition.productUuid).first();
         if (additionObject.get("isDefault") != null) {
+            System.out.println("isAdditionDefaultSelected => " + (boolean) additionObject.get("isDefault"));
             boolean isAdditionDefaultSelected = (boolean) additionObject.get("isDefault");
             if (isAdditionDefaultSelected) {
                 selectedAddition.isDefault = isAdditionDefaultSelected;

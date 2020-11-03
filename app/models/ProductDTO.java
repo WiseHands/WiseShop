@@ -73,7 +73,7 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     @OneToMany
-    public List<SelectedAdditionDTO> selectedAddition;
+    public List<SelectedAdditionDTO> selectedAdditions;
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)

@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import enums.FeedbackRequestState;
+import org.json.simple.JSONArray;
 import play.Play;
 import play.db.jpa.JPA;
 import play.i18n.Lang;
@@ -370,14 +371,12 @@ public class Application extends Controller {
         render(shop, page, pageList, language, categories);
     }
 
-
     public static void categoryOld(String client, String uuid) {
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         redirect("https://" + client + "/" + language + "/category/" + uuid, false);
     }
-
 
     public static void category(String client, String uuid, String language){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -439,16 +438,17 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         product.feedbackList = DataBaseQueries.getFeedbackList(product);
 
-        String additionsListQuery = "select a from AdditionDTO a where a.isSelected = 1 and a.productUuid = ?1";
-        product.selectedAddition = AdditionDTO.find(additionsListQuery, product.uuid).fetch();
+        String additionsListQuery = "select s from SelectedAdditionDTO s where s.isSelected = 1 and s.productUuid = ?1";
+        product.selectedAdditions = SelectedAdditionDTO.find(additionsListQuery, product.uuid).fetch();
 
-        AdditionDTO defaultAddition = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
+        List<SelectedAdditionDTO> defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
+        System.out.println("SelectedAdditionDTO => " + defaultAdditions);
+
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
-        render(product, category, categories, shop, language, defaultAddition);
+
+        render(product, category, categories, shop, language, defaultAdditions);
     }
-
-
 
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {
