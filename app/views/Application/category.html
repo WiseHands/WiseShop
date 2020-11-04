@@ -324,12 +324,16 @@
         function showList() {
             document.querySelector(".grid-view").style.display = 'none';
             document.querySelector(".list-view").style.display = 'flex';
+            document.querySelector("#list-view").style.color = '#000';
+            document.querySelector("#grid-view").style.color = '#929292';
 
         }
         document.getElementById("grid-view").addEventListener("click", showGrid );
         function showGrid() {
             document.querySelector(".list-view").style.display = 'none';
             document.querySelector(".grid-view").style.display = 'flex';
+            document.querySelector("#grid-view").style.color = '#000';
+            document.querySelector("#list-view").style.color = '#929292';
         }
     </script>
 

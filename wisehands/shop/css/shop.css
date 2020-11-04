@@ -40,6 +40,9 @@
 .list-view {
     display: none;
 }
+#grid-view {
+    color: #000;
+}
 .item-card {
     flex-basis: calc(33.3% - 1rem);
     margin: 0 0.5rem;
@@ -499,6 +502,12 @@ main {
     }
     .list-view {
         display: flex;
+    }
+    #grid-view {
+        color: #929292;
+    }
+    #list-view {
+        color: #000;
     }
     .all-items {
         padding-top: 0;
