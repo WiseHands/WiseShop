@@ -34,7 +34,7 @@ public class OrderAPI extends AuthController {
     private static final Double WISEHANDS_COMISSION = -0.0725;
     private static final int PAGE_SIZE = 12;
 
-    private class DeliveryType {
+    private static class DeliveryType {
         private static final String COURIER = "COURIER";
     }
 
@@ -77,6 +77,26 @@ public class OrderAPI extends AuthController {
         }
     }
 
+    private static void productParamsInitialization(OrderDTO order, OrderItemDTO orderItem, ProductDTO product, LineItem lineItem, int quantity) {
+        orderItem.productUuid = product.uuid;
+        orderItem.name = product.name;
+        orderItem.description = product.description;
+        orderItem.price = product.price;
+        orderItem.fileName = product.fileName;
+        orderItem.quantity = quantity;
+        orderItem.orderUuid = order.uuid;
+        orderItem.imagePath = lineItem.imagePath;
+    }
+
+    private static void createAddition(List<AdditionOrderDTO> additionList, AdditionLineItemDTO addition, Double totalCost) {
+        AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
+        additionOrderDTO.title = addition.title;
+        additionOrderDTO.price = addition.price;
+        additionOrderDTO.quantity = addition.quantity;
+        totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
+        additionList.add(additionOrderDTO);
+    }
+
     private static OrderItemListResult _parseOrderItemsList(List<LineItem> items, OrderDTO order) {
         List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
         Double totalCost = Double.parseDouble("0");
@@ -86,26 +106,13 @@ public class OrderAPI extends AuthController {
             ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
             int quantity = lineItem.quantity;
 
-            orderItem.productUuid = product.uuid;
-            orderItem.name = product.name;
-            orderItem.description = product.description;
-            orderItem.price = product.price;
-            orderItem.fileName = product.fileName;
-            orderItem.quantity = quantity;
-            orderItem.orderUuid = order.uuid;
-            orderItem.imagePath = lineItem.imagePath;
+            productParamsInitialization(order, orderItem, product, lineItem, quantity);
 
             List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
             for(AdditionLineItemDTO addition : lineItem.additionList){
-                AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
-                additionOrderDTO.title = addition.title;
-                additionOrderDTO.price = addition.price;
-                additionOrderDTO.quantity = addition.quantity;
-                totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
-                additionList.add(additionOrderDTO);
+                createAddition(additionList, addition, totalCost);
             }
             orderItem.additionsList = additionList;
-
 
             orderItemList.add(orderItem);
             totalCost += product.price * orderItem.quantity;
