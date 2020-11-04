@@ -45,12 +45,28 @@ angular.module('WiseHands')
 					method: 'PUT',
 					url: '/api/addition/save/all',
 					data: parsedAdditions
-				}).then({},
-					error => console.log(error)
+				}).then(response => {showInfoMsg('SAVED')},
+					error => {showWarningMsg('EROOR')}
 				);
 			};
 			
 			sideNavInit.sideNav();
 		}]);
 
+showWarningMsg = (msg) => {
+	toastr.clear();
+	toastr.options = {
+		"positionClass": "toast-bottom-right",
+		"preventDuplicates": true
+	};
+	toastr.warning(msg);
+}
+showInfoMsg = (msg) => {
+	toastr.clear();
+	toastr.options = {
+		"positionClass": "toast-bottom-right",
+		"preventDuplicates": true
+	};
+	toastr.info(msg);
+}
 

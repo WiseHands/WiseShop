@@ -441,13 +441,20 @@ public class Application extends Controller {
         String additionsListQuery = "select s from SelectedAdditionDTO s where s.isSelected = 1 and s.isDefault = 0 and s.productUuid = ?1";
         product.selectedAdditions = SelectedAdditionDTO.find(additionsListQuery, product.uuid).fetch();
 
+        int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+        if (totalPriceForDefaultAdditions != 0) {
+            product.price += totalPriceForDefaultAdditions;
+        }
+
         List<SelectedAdditionDTO> defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
         System.out.println("SelectedAdditionDTO => " + defaultAdditions);
+
+        product.defaultAdditions = defaultAdditions;
 
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
 
-        render(product, category, categories, shop, language, defaultAdditions);
+        render(product, category, categories, shop, language, defaultAdditions, totalPriceForDefaultAdditions);
     }
 
 

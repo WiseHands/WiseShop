@@ -161,20 +161,10 @@ public class AdditionAPI extends AuthController {
         selectedAddition.productUuid = productUuid;
         selectedAddition.isSelected = isSelected;
 
-        ProductDTO product = ProductDTO.find("byUuid", selectedAddition.productUuid).first();
         if (additionObject.get("isDefault") != null) {
             System.out.println("isAdditionDefaultSelected => " + (boolean) additionObject.get("isDefault"));
-            boolean isAdditionDefaultSelected = (boolean) additionObject.get("isDefault");
-            if (isAdditionDefaultSelected) {
-                selectedAddition.isDefault = isAdditionDefaultSelected;
-                product.price += availableAddition.price;
-                product.defaultAdditionUuid = selectedAddition.uuid;
-            } else {
-                selectedAddition.isDefault = isAdditionDefaultSelected;
-                product.price -= availableAddition.price;
-            }
+            selectedAddition.isDefault = (boolean) additionObject.get("isDefault");
         }
-        product.save();
         selectedAddition.save();
     }
 

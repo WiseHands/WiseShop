@@ -27,6 +27,12 @@ public class ProductDTO extends GenericModel {
     public Double price;
 
     @Expose
+    public Double oldPrice;
+
+    @Expose
+    public Double priceWithDefaultAdditions;
+
+    @Expose
     public String fileName;
 
     @ManyToOne
@@ -43,9 +49,6 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     public Integer sortOrder;
-
-    @Expose
-    public Double oldPrice;
 
     @Expose
     public Boolean isActive;
@@ -69,11 +72,12 @@ public class ProductDTO extends GenericModel {
     public List<ProductImage> images;
 
     @Expose
-    public String defaultAdditionUuid;
+    @OneToMany
+    public List<SelectedAdditionDTO> selectedAdditions;
 
     @Expose
     @OneToMany
-    public List<SelectedAdditionDTO> selectedAdditions;
+    public List<SelectedAdditionDTO> defaultAdditions;
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)

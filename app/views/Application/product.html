@@ -446,15 +446,24 @@
       }
       return;
     }
-    console.log("here uuid: ", uuid, additionList);
+    const defaultAdditions = document.querySelectorAll('[default-id]');
+    defaultAdditions.forEach(item => {
+	    const defaultId = item.getAttribute('default-id');
+	    additionList.push({
+        quantity: 1,
+        uuid: defaultId
+      });
+
+    });
+
     fetch('/api/cart?uuid=' + uuid + '&additionList=' + JSON.stringify(additionList), {
       method: 'POST'
     }).then(function (response) {
       if (response.ok) {
         #{verbatim}
-        #{if shop.faceBookPixelApiKey}
-        fbq('track', 'AddToCart', {content_ids: [uuid]});
-        #{/if}
+          #{if shop.faceBookPixelApiKey}
+            fbq('track', 'AddToCart', {content_ids: [uuid]});
+          #{/if}
         #{/verbatim}
         document.querySelector(".cart-float").style.display = 'block';
         setTimeout(setDelayShowCart, 2000);
@@ -495,14 +504,14 @@
                   </a>
                   <div class="add-price">
                       <p>&{'page.product.price'}</p>
-                      <span class="additions-total-price"></span>
+                        <span class="additions-total-price" total="${totalPriceForDefaultAdditions}"></span>
                   </div>
               </div>
               <div class="add-items">
                 %{
                 for(defaultAddition in defaultAdditions) {
                 }%
-                <div class="add-items-title">
+                <div class="add-items-title" default-id="${defaultAddition.addition.uuid}">
                   <p>${defaultAddition.addition.title}</p>
                 </div>
                 %{
@@ -746,7 +755,8 @@
 
   function _setAdditionsTotalPrice() {
     if (!additionsTotalPriceContainer) return;
-    let additionsTotalPrice = 0;
+    let additionsTotalPrice = Number(additionsTotalPriceContainer.getAttribute('total'));
+    console.log('additionsTotalPrice => ', additionsTotalPrice);
     const selectedAdditions = document.querySelectorAll('.add-items-title');
     selectedAdditions.forEach(addition => {
       const counter = addition.getAttribute('counter');
