@@ -199,8 +199,11 @@
                             <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                         </div>
                         <div class="item-card-action">
-                            <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</span></span>
-                            <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
+                            <div class="item-card-action-price">
+                                <p class="current-price">${_product.formatDecimal()}<span class="currency">uah</span></p>
+                                <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
+                            </div>
+                            <span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
                         </div>
                     </div>
                 </div>
@@ -236,9 +239,10 @@
                         </div>
                     <div class="item-card-list-action">
                         <div class="item-card-list-action-price">
-                            <p class="left">${_product.formatDecimal()} UAH <p class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p></p>
+                            <p class="current-price">${_product.formatDecimal()}<span class="currency">uah</span></p>
+                            <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
                         </div>
-                        <span class="right" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
+                        <span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
                     </div>
                 </div>
             </div>
