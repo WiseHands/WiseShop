@@ -30,7 +30,9 @@
       <p for="name">{{'addNewProduct.productName' | translate}}</p>
       <h5 id="name" class="product-title">{{product.name}}</h5>
       <p for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</p>
-      <h5 id="price">{{product.price}}</h5>
+      <h5 id="price">{{product.price}} {{product.priceWithAdditions > 0 ? ('+ ') + (product.priceWithAdditions) +
+        (' ') + ('selectAdditions.additionsPrice' | translate) : ''}}</h5>
+
       <p for="description">{{'addNewProduct.productDescription' | translate}}</p>
       <h5 id="description">{{product.description}}</h5>
       <p for="category">{{'productDetails.category' | translate}}</p>

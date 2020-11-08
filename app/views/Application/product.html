@@ -446,15 +446,7 @@
       }
       return;
     }
-    const defaultAdditions = document.querySelectorAll('[default-id]');
-    defaultAdditions.forEach(item => {
-	    const defaultId = item.getAttribute('default-id');
-	    additionList.push({
-        quantity: 1,
-        uuid: defaultId
-      });
 
-    });
 
     fetch('/api/cart?uuid=' + uuid + '&additionList=' + JSON.stringify(additionList), {
       method: 'POST'
@@ -511,7 +503,7 @@
                 %{
                 for(defaultAddition in defaultAdditions) {
                 }%
-                <div class="add-items-title" default-id="${defaultAddition.addition.uuid}">
+                <div class="add-items-title">
                   <p>${defaultAddition.addition.title}</p>
                 </div>
                 %{

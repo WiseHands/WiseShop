@@ -47,7 +47,8 @@
                     </div>
 
                     <label for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</label>
-                    <h5 id="price">{{product.price}}</h5>
+                    <h5 id="price">{{product.price}} {{product.priceWithAdditions > 0 ? ('+ ') + (product.priceWithAdditions) +
+                      (' ') + ('selectAdditions.additionsPrice' | translate) : ''}}</h5>
                     <label for="category">{{'productDetails.category' | translate}}</label>
                     <h5 id="category">{{product.categoryName}}</h5>
                 </div>

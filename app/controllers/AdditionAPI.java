@@ -7,6 +7,7 @@ import models.ShopDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import services.querying.DataBaseQueries;
 
 import java.util.List;
 
@@ -117,7 +118,6 @@ public class AdditionAPI extends AuthController {
         addition.isDeleted = true;
         addition.save();
         renderJSON(json(addition));
-
     }
 
     public static void saveAllSelectedAdditions (String client) throws Exception {
@@ -134,10 +134,17 @@ public class AdditionAPI extends AuthController {
             JSONObject object = (JSONObject) jsonArray.get(i);
             assignAdditionToProduct(object);
         }
+        renderProduct(jsonArray);
+    }
+
+    private static void renderProduct(JSONArray jsonArray) {
+        JSONObject object = (JSONObject) jsonArray.get(0);
+        String productUuid = (String) object.get("productUuid");
+        ProductDTO product = ProductDTO.findById(productUuid);
+        renderJSON(json(product));
     }
 
     private static void assignAdditionToProduct (JSONObject additionObject){
-        boolean isSelected = false;
         String availableAdditionId = "", productUuid = "";
         if (additionObject.get("uuid") != null) {
             availableAdditionId = (String) additionObject.get("uuid");
@@ -145,13 +152,14 @@ public class AdditionAPI extends AuthController {
         if (additionObject.get("productUuid") != null) {
             productUuid = (String) additionObject.get("productUuid");
         }
+        boolean isSelected = false;
         if (additionObject.get("isSelected") != null){
             isSelected = (boolean) additionObject.get("isSelected");
         }
 
         AdditionDTO availableAddition = AdditionDTO.find("byUuid", availableAdditionId).first();
         SelectedAdditionDTO selectedAddition;
-        SelectedAdditionDTO selectedAdditionQuery = SelectedAdditionDTO.find("byAddition_uuid", availableAdditionId).first();
+        SelectedAdditionDTO selectedAdditionQuery = SelectedAdditionDTO.find("byProductUuidAndAddition_uuid", productUuid, availableAdditionId).first();
         if (selectedAdditionQuery == null) {
             selectedAddition = new SelectedAdditionDTO();
         } else {
@@ -165,7 +173,14 @@ public class AdditionAPI extends AuthController {
             System.out.println("isAdditionDefaultSelected => " + (boolean) additionObject.get("isDefault"));
             selectedAddition.isDefault = (boolean) additionObject.get("isDefault");
         }
-        selectedAddition.save();
+        if (selectedAddition.isSelected) {
+            selectedAddition.save();
+        }
+
+        ProductDTO product = ProductDTO.find("byUuid", productUuid).first();
+        int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+        product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+        product.save();
     }
 
 }

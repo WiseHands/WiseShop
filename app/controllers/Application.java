@@ -4,9 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import enums.FeedbackRequestState;
-import org.json.simple.JSONArray;
 import play.Play;
-import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.*;
@@ -442,13 +440,8 @@ public class Application extends Controller {
         product.selectedAdditions = SelectedAdditionDTO.find(additionsListQuery, product.uuid).fetch();
 
         int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-        if (totalPriceForDefaultAdditions != 0) {
-            product.price += totalPriceForDefaultAdditions;
-        }
 
         List<SelectedAdditionDTO> defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
-        System.out.println("SelectedAdditionDTO => " + defaultAdditions);
-
         product.defaultAdditions = defaultAdditions;
 
         Translation.setTranslationForProduct(language, product);

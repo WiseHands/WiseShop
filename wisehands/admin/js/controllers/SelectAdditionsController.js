@@ -45,7 +45,9 @@ angular.module('WiseHands')
 					method: 'PUT',
 					url: '/api/addition/save/all',
 					data: parsedAdditions
-				}).then(response => {showInfoMsg('SAVED')},
+				}).then(response => {
+					$scope.product = response.data;
+					showInfoMsg('SAVED')},
 					error => {showWarningMsg('EROOR')}
 				);
 			};

@@ -59,6 +59,18 @@ public class DataBaseQueries {
         } else {
             return additionList;
         }
+    }
+
+    public static List<String> getDefaultAdditionsUuid(ProductDTO product) {
+        List<String> additionList = new ArrayList<>();
+        String query = "select addition_uuid from SelectedAdditionDTO where isDefault = 1 and productUuid = '%s'";
+        String additionsUuidQuery = formatQueryString(query, product);
+        additionList = JPA.em().createNativeQuery(additionsUuidQuery).getResultList();
+        if (additionList.isEmpty()){
+            return additionList;
+        } else {
+            return additionList;
+        }
 
     }
 

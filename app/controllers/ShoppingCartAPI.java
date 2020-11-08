@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import play.Play;
 import play.mvc.Before;
+import services.querying.DataBaseQueries;
 import util.PolygonUtil;
 
 import java.text.DateFormat;
@@ -76,11 +77,12 @@ public class ShoppingCartAPI extends AuthController {
     public static void addProduct(String client) throws ParseException {
         ShopDTO shop = _getShop(client);
 
-        String stringAdditionList = request.params.get("additionList");
-        List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop);
-
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);
+
+        List<SelectedAdditionDTO> defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
+        String stringAdditionList = request.params.get("additionList");
+        List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop, defaultAdditions);
 
         String quantityParam = request.params.get("quantity");
         int quantity = _getProductQuantity(quantityParam);
@@ -133,7 +135,7 @@ public class ShoppingCartAPI extends AuthController {
         return shop;
     }
 
-    private static List<AdditionLineItemDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop){
+    private static List<AdditionLineItemDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop, List<SelectedAdditionDTO> defaultAdditions){
         if (stringAdditionList == null){
             stringAdditionList = "[]";
         }
@@ -161,6 +163,17 @@ public class ShoppingCartAPI extends AuthController {
             additionOrderDTO.quantity = (Long) object.get("quantity");
             additionOrderDTO.save();
             additionOrderDTOList.add(additionOrderDTO);
+        }
+        for(SelectedAdditionDTO selectedAddition: defaultAdditions){
+            AdditionDTO additionDTO = AdditionDTO.findById(selectedAddition.addition.uuid);
+            AdditionLineItemDTO additionOrderDTO = new AdditionLineItemDTO();
+            additionOrderDTO.title = additionDTO.getTitle();
+            additionOrderDTO.price = additionDTO.getPrice();
+            additionOrderDTO.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
+            additionOrderDTO.quantity = 1L;
+            additionOrderDTO.save();
+            additionOrderDTOList.add(additionOrderDTO);
+
         }
         return additionOrderDTOList;
     }

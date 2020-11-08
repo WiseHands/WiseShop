@@ -3,6 +3,8 @@
   "selectAdditions.selectedAdditionsTitle": " Selected Additions:",
   "selectAdditions.noSelectedAdditions": "No selected Additions:",
   "selectAdditions.availableAddition": "Available additions:",
+  "selectAdditions.additionsPrice": "(additions)",
+
 
   "additionMenu.title": "Additions",
   "additionMenu.titleInfo": "Add additional item to product (for example if applied to pizza it can be arugula or tomatos)",

@@ -3,6 +3,7 @@
   "selectAdditions.selectedAdditionsTitle": "Вибрані додатки:",
   "selectAdditions.noSelectedAdditions": "Виберіть один із додатків",
   "selectAdditions.availableAddition": "Доступні додатки:",
+  "selectAdditions.additionsPrice": "(додатки)",
 
   "additionMenu.title": "Додатки",
   "additionMenu.titleInfo": "Для створення додаткової ціни для товару, яка буде враховуватися при доставці чи наявності додаткової упаковки, натисніть плюс",
