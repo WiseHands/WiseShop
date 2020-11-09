@@ -33,8 +33,13 @@ public class AdditionDTO extends GenericModel {
     @Expose
     public boolean isDeleted;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.REMOVE)
     public SelectedAdditionDTO selectedAddition;
+
+//    public void removeSelectedAddition(SelectedAdditionDTO removeAddition) {
+//        selectedAddition.remove(removeAddition);
+//
+//    }
 
     public String getTitle() {
         return title;

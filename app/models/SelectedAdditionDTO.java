@@ -28,7 +28,7 @@ public class SelectedAdditionDTO extends GenericModel {
     public boolean isSelected = false;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade=CascadeType.REMOVE)
     public AdditionDTO addition;
 
 }

@@ -7,8 +7,10 @@ import models.ShopDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import play.db.jpa.JPA;
 import services.querying.DataBaseQueries;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 public class AdditionAPI extends AuthController {
@@ -114,10 +116,13 @@ public class AdditionAPI extends AuthController {
         }
         System.out.println("delete addition => " + uuid);
         checkAuthentification(shop);
+        SelectedAdditionDTO selectedAddition = SelectedAdditionDTO.find("byAddition_uuid", uuid).first();
+        selectedAddition.addition.delete();
+        selectedAddition.delete();
+
         AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
-        addition.isDeleted = true;
-        addition.save();
-        renderJSON(json(addition));
+        addition.delete();
+        ok();
     }
 
     public static void saveAllSelectedAdditions (String client) throws Exception {

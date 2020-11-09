@@ -2587,6 +2587,11 @@ ul.admin-breadcrumb li a:hover {
 .addition-column .input-field label {
 	left: 0;
 }
+.img-present-addition {
+	margin-top: 42px;
+	width: 400px;
+}
+
 .addition-image {
 	display: flex;
 	align-items: center;
@@ -2743,6 +2748,14 @@ ul.admin-breadcrumb li a:hover {
 	.addition-edit-button button {
 		width: 100%;
 	}
+	
+	.img-present-addition {
+		margin: 10px;
+		width: 370px;
+	}
+	
+	
+	
 }
 
 @media screen and (max-width: 900px) {
