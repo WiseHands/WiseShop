@@ -117,11 +117,12 @@ public class AdditionAPI extends AuthController {
         System.out.println("delete addition => " + uuid);
         checkAuthentification(shop);
         SelectedAdditionDTO selectedAddition = SelectedAdditionDTO.find("byAddition_uuid", uuid).first();
-        selectedAddition.addition.delete();
-        selectedAddition.delete();
-
         AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
-        addition.delete();
+        if (selectedAddition != null) {
+            selectedAddition.delete();
+        } else {
+            addition.delete();
+        }
         ok();
     }
 
