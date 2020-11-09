@@ -39,7 +39,7 @@
       <h5 id="category">{{product.categoryName}}</h5>
     </div>
   </div>
-  <div class="admin-column">
+  <div class="admin-column" ng-show="availableAdditions != 0">
     <h4 class="addition-no-selected">{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
     <div class="qr-list-container" ng-show="availableAdditions">
       <div ng-repeat="addition in availableAdditions"
