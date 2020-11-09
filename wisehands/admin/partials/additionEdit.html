@@ -40,27 +40,30 @@
             <div class="addition-new-container">
                 <div class="addition-column">
                     <div class="input-field">
-                        <input id="addition_title" type="text" ng-model="addition.title" required>
-                        <label id="title_label" for="addition_title">{{'editProduct.additionTitle' | translate}}</label>
+                        <input id="addition_name" type="text" ng-model="addition.title" required>
+                        <label id="title_label" for="addition_name" class="active">{{'editProduct.additionTitle' |
+                          translate}}</label>
 
                     </div>
                     <div class="input-field">
                         <input id="addition_price" type="text" ng-model="addition.price" required>
-                        <label id="price_label" for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
+                        <label id="price_label" for="addition_price"
+                               class="active">{{'editProduct.additionPrice' |
+                          translate}}</label>
                     </div>
                 </div>
 
-                <div class="addition-image" role="listbox" ng-click="uploadOptionImage()">
+                <div class="addition-image material-icons" role="listbox" ng-click="uploadOptionImage()">
+                  attach_file
                     <a>
                         <p id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</p>
                     </a>
                     <input id="imageLoader" class="input-file hiddenFileInput" type="file"/>
                 </div>
-                <p ng-show="fileName">{{'additionNew.fileName' | translate}}:</p>
                 <p id="imageName"></p>
                 <div class="addition-edit-button">
                     <button class="save-button" ng-click="editAddition()">
-                        {{'additionEdit.edit' | translate}}
+                        {{'qrDetails.save' | translate}}
                     </button>
                 </div>
             </div>

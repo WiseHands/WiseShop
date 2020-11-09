@@ -170,7 +170,6 @@ public class AdditionAPI extends AuthController {
         selectedAddition.isSelected = isSelected;
 
         if (additionObject.get("isDefault") != null) {
-            System.out.println("isAdditionDefaultSelected => " + (boolean) additionObject.get("isDefault"));
             selectedAddition.isDefault = (boolean) additionObject.get("isDefault");
         }
         if (selectedAddition.isSelected) {

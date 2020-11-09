@@ -2488,7 +2488,6 @@ ul.admin-breadcrumb li a:hover {
 
 .addition-image-text {
 	align-self: center;
-	padding-top: 15px;
 }
 
 .addition-create-text {
@@ -2581,6 +2580,20 @@ ul.admin-breadcrumb li a:hover {
 
 .href-params:hover {
 	color: #23527c;
+}
+.addition-column .input-field {
+	padding-bottom: 15px;
+}
+.addition-column .input-field label {
+	left: 0;
+}
+.addition-image {
+	display: flex;
+	align-items: center;
+	color: #9e9e9e;
+}
+.addition-edit-button {
+	padding-top: 10px;
 }
 
 @media screen and (min-width: 1500px) {

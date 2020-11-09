@@ -46,10 +46,8 @@ angular.module('WiseHands')
             let fileName = file.name;
             console.log('handleImage', fileName);
             let reader = new FileReader();
-            $scope.fileName = true;
 
             reader.onloadend = (event) => {
-
                 const imageName = document.querySelector("#imageName");
                 imageName.innerText = fileName;
             };
@@ -108,7 +106,7 @@ angular.module('WiseHands')
             })
                 .then(function successCallback(response) {
                     console.log("$scope.addition", response.data);
-                    $window.location.href = `#/addition`
+                    $window.location.href = `#/addition`;
                     $scope.loading = false;
                 }, function errorCallback(response) {
                     $scope.loading = false;
