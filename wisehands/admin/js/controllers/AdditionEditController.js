@@ -24,16 +24,16 @@ angular.module('WiseHands')
         additionName.addEventListener('blur', handleNameInput, false);
         function handleNameInput(e) {
             if (e.target.value){
-                name_label.style.color = 'black';
-                additionName.style.borderBottom = '1px solid black';
+/*                name_label.style.color = 'black';
+                additionName.style.borderBottom = '1px solid black';*/
             }
         }
 
         additionPrice.addEventListener('blur', handlePriceInput, false);
         function handlePriceInput(e) {
             if (e.target.value){
-                price_label.style.color = 'black';
-                additionPrice.style.borderBottom = '1px solid black';
+/*                price_label.style.color = 'black';
+                additionPrice.style.borderBottom = '1px solid black';*/
             }
         }
 

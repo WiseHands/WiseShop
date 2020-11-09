@@ -2487,7 +2487,9 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .addition-image-text {
+    margin: 0;
 	align-self: center;
+	font-family: 'Roboto';
 }
 
 .addition-create-text {
@@ -2596,6 +2598,7 @@ ul.admin-breadcrumb li a:hover {
 	display: flex;
 	align-items: center;
 	color: #9e9e9e;
+	cursor: pointer;
 }
 .addition-edit-button {
 	padding-top: 10px;
