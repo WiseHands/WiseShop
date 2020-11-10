@@ -69,9 +69,9 @@ public class AdditionAPI extends AuthController {
         checkAuthentification(shop);
 
         ProductDTO productDTO = ProductDTO.findById(productUuid);
-        List<Object> additionList = AdditionDTO.find("byProduct", productDTO).fetch();
+/*        List<Object> additionList = AdditionDTO.find("byProduct", productDTO).fetch();*/
 
-        renderJSON(json(additionList));
+        renderJSON(json(productDTO));
     }
 
     public static void details(String client, String uuid) throws Exception {

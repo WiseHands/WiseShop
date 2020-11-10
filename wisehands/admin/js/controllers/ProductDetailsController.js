@@ -2,17 +2,6 @@ angular.module('WiseHands')
     .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', '$window', 'signout', function($http, $scope, $routeParams, $window, signout) {
         $scope.uuid = $routeParams.uuid;
         $scope.loading = true;
-        $http({
-            method: 'GET',
-            url: '/addition/get-all/' + $routeParams.uuid
-        })
-            .then(function successCallback(response) {
-                $scope.properties = response.data;
-                console.log("/addition/get-all/" , response.data);
-            }, function errorCallback(error) {
-                $scope.loading = false;
-                console.log(error);
-            });
 
         $scope.redirectToTranslationForProductName = function(){
             $http({

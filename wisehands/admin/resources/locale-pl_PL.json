@@ -5,7 +5,6 @@
   "selectAdditions.availableAddition": "Available additions:",
   "selectAdditions.additionsPrice": "(additions)",
 
-
   "additionMenu.title": "Additions",
   "additionMenu.titleInfo": "Add additional item to product (for example if applied to pizza it can be arugula or tomatos)",
   "additionMenu.noAddition": "No additions",
@@ -288,7 +287,7 @@
   "editProduct.additionTitle": "Nazwa opcji",
   "editProduct.additionPrice": "Cena opcji",
   "editProduct.additionImage": "Obraz opciji",
-  "editProduct.additionAddPhoto": "Dodaj obraz opcji (rozmiar 450px szerokości i 300px wysokości)",
+  "editProduct.additionAddPhoto": "Dodaj obraz",
   "payment.payment": "Płatność",
   "payment.paymentTypeCash": "Gotówką",
   "payment.paymentTypeOnline": "Online",

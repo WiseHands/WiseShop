@@ -24,16 +24,14 @@ angular.module('WiseHands')
         additionName.addEventListener('blur', handleNameInput, false);
         function handleNameInput(e) {
             if (e.target.value){
-/*                name_label.style.color = 'black';
-                additionName.style.borderBottom = '1px solid black';*/
+                additionName.style.borderBottom = '1px solid black';
             }
         }
 
         additionPrice.addEventListener('blur', handlePriceInput, false);
         function handlePriceInput(e) {
             if (e.target.value){
-/*                price_label.style.color = 'black';
-                additionPrice.style.borderBottom = '1px solid black';*/
+                additionPrice.style.borderBottom = '1px solid black';
             }
         }
 
@@ -57,21 +55,23 @@ angular.module('WiseHands')
         }
 
         $scope.editAddition = () => {
-            if(!additionName.value || !additionPrice.value){
-                title_input.style.borderBottom = '1px solid red';
-                title_label.style.color = 'red';
+            if(!additionName.value){
+                additionName.style.borderBottom = '1px solid red';
 
-                price_input.style.borderBottom = '1px solid red';
-                price_label.style.color = 'red';
-                return
+                return;
+            }
+            if(!additionPrice.value){
+                additionPrice.style.borderBottom = '1px solid red';
+
+                return;
             }
             sendAddition();
             console.log("createAddition", $scope.addition);
 
-            if (!document.getElementById("imageLoader").value) {
+/*            if (!document.getElementById("imageLoader").value) {
                 document.querySelector(".error-text").style.display = "block";
                 return;
-            }
+            }*/
             if (!$scope.addition) {
                 toastr.error(emptyTagWarning);
             } else {

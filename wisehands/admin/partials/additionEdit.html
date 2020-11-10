@@ -34,7 +34,7 @@
 
         <img class="img-present-addition" src="\wisehands\assets\images\additions.svg">
         <div class="addition-edit-column">
-            <div class="addition-edit-text">
+            <div class="addition-create-text">
                 <p> {{'additionEdit.titleInfo' | translate}} </p>
             </div>
             <div class="addition-new-container">
@@ -53,9 +53,9 @@
                     </div>
                 </div>
 
-                <div class="addition-image material-icons" role="listbox" ng-click="uploadOptionImage()">
+                <div class="addition-image material-icons" role="listbox">
                   attach_file
-                    <a>
+                    <a ng-click="uploadOptionImage()">
                         <p id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</p>
                     </a>
                     <input id="imageLoader" class="input-file hiddenFileInput" type="file"/>

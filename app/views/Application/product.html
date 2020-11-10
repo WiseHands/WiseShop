@@ -103,10 +103,13 @@
         flex-wrap: wrap;
     }
 
-    .add-items-title {
+    .add-items-title, .default-add-items-title {
         display: flex;
         align-items: flex-end;
         flex-wrap: wrap;
+    }
+    .default-add-items-title {
+        padding: 1rem 0 0 1rem;
     }
 
     .add-price {
@@ -503,7 +506,7 @@
                 %{
                 for(defaultAddition in defaultAdditions) {
                 }%
-                <div class="add-items-title">
+                <div class="default-add-items-title">
                   <p>${defaultAddition.addition.title}</p>
                 </div>
                 %{
