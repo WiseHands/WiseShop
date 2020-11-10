@@ -506,7 +506,7 @@
                 %{
                 for(defaultAddition in defaultAdditions) {
                 }%
-                <div class="default-add-items-title">
+                <div class="default-add-items-title" is-default="${defaultAddition.isDefault}">
                   <p>${defaultAddition.addition.title}</p>
                 </div>
                 %{
@@ -724,7 +724,14 @@
     _calculateTotal(amountToSubstract);
     chosenAdditionsContainer.removeChild(additionElementToRemove);
     const additionNodesLength = document.querySelectorAll('.add-items-title').length;
-    if (additionNodesLength === 0) additionContainerToHide.setAttribute('is-hidden', true);
+    const defaultAdditionsList = document.querySelectorAll('[is-default]');
+    const isDefaultAddition = defaultAdditionsList[0].attributes[1].value;
+
+    if (isDefaultAddition && additionNodesLength === 0) {
+        additionContainerToHide.setAttribute('is-hidden', false)
+    } else if (additionNodesLength === 0) {
+        additionContainerToHide.setAttribute('is-hidden', true)
+    };
 
     _setAdditionsTotalPrice();
     for (let i = 0; i < additionList.length; i++) {
