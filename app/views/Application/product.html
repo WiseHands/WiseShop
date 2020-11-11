@@ -423,7 +423,7 @@
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
-    <script defer src="wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>
+<!--    <script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>-->
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 
     <script src="/wisehands/shop/js/services/WokingHoursService.js"></script>
@@ -720,7 +720,7 @@
     const additionElementToRemove = document.getElementById(id);
     const counter = Number(additionElementToRemove.getAttribute('counter'));
     const amountToSubstract = -counter * price;
-    _calculateTotal(amountToSubstract);
+    _calculateTotal({price : amountToSubstract});
     chosenAdditionsContainer.removeChild(additionElementToRemove);
     const additionNodesLength = document.querySelectorAll('.add-items-title').length;
     const defaultAdditionsList = document.querySelectorAll('[is-default]');
@@ -730,9 +730,11 @@
         const isDefaultAddition = defaultAdditionsList[0].attributes[1].value;
         if (isDefaultAddition && additionNodesLength === 0) {
             additionContainerToHide.setAttribute('is-hidden', false)
-        } else if (additionNodesLength === 0) {
-            additionContainerToHide.setAttribute('is-hidden', true)
         };
+    };
+
+    if (additionNodesLength === 0 && defaultAdditionsList.length === 0) {
+        additionContainerToHide.setAttribute('is-hidden', true)
     };
 
     _setAdditionsTotalPrice();
@@ -746,11 +748,13 @@
   }
 
   function _calculateTotal(addition) {
-    if (addition.isDefault === "false") {
+    if (addition.isDefault === "true") {
       totalPrice += Number(addition.price);
       _setTotal(totalPrice);
+    } else {
+       totalPrice += Number(addition.price);
+       _setTotal(totalPrice);
     }
-    _setTotal(totalPrice);
   }
 
   function _setTotal(total) {
