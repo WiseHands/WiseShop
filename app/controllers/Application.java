@@ -722,4 +722,7 @@ public class Application extends Controller {
         String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         renderTemplate("app/views/shopLanding/shopLanding.html", language);
     }
+    public static void qrCode(String client){
+        renderTemplate("Application/qrCode.html");
+    }
 }

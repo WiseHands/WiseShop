@@ -106,6 +106,7 @@
      <!--&lt;!&ndash;</div>&ndash;&gt;-->
     <!--</div>-->
 <!--</nav>-->
+
 <ul class="collection visible-xs-block">
     <li class="collection-item" ng-if="item.state !== 'DELETED'" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
         <a href ="#/details/{{item.uuid}}">
@@ -120,7 +121,16 @@
                     <p class="secondaryOrderFont">{{item.phone}}</p>
                 </div>
                 <div class="col-xs-2">
-                    <b class="material-icons pull-right materialIcon">{{orderPaymentType(item)}}</b>
+                    <p ng-show="item.paymentType === 'CASHONDELIVERY'"  class="material-icons"><i class="fa fa-dollar" aria-hidden="true" style="color: #4caf50; font-size: 20px"></i></p>
+                    <p ng-show="item.paymentType === 'CREDITCARD'"  class="material-icons">
+                        <i ng-show="item.paymentState === 'PENDING'" class="fa fa-credit-card" aria-hidden="true" style="color: #808080; font-size: 20px"></i>
+                        <i ng-show="item.paymentState === 'PAYED'" class="fa fa-credit-card" aria-hidden="true" style="color: #8bc34a; font-size: 20px"></i>
+                        <i ng-show="item.paymentState === 'PAYMENT_ERROR'" class="fa fa-credit-card" aria-hidden="true" style="color: #f44336; font-size: 20px"></i>
+                    </p>
+
+                    <!--<p ng-show="item.paymentType === 'CASHONDELIVERY'" >{{'singleOrder.paymentTypeCash' | translate}}</p>-->
+
+                        <!--<b class="material-icons  materialIcon">{{orderPaymentType(item)}}</b>-->
                 </div>
             </div>
         </a>
@@ -161,7 +171,6 @@
                             <h6 class="grey-text" ng-show="item.yesterdayString">{{'orderList.yesterday' | translate}}</h6>
                         </div>
                     </div>
-
                     <div class="row">
                         <p ng-show="item.paymentType === 'CASHONDELIVERY'" class="np-order-card">{{'singleOrder.paymentTypeCash' | translate}}</p>
                         <p ng-show="item.paymentType === 'CREDITCARD'" class="np-order-card">{{'singleOrder.paymentTypeOnline' | translate}}
