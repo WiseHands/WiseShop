@@ -2,7 +2,7 @@ angular.module('WiseHands')
 	.controller('SelectAdditionsController', ['$scope', '$http', 'sideNavInit', '$routeParams',
 		function ($scope, $http, sideNavInit, $routeParams) {
 			const productUuid = $routeParams.productUuid;
-			
+
 			$http({
 				url: `/api/product/${productUuid}`
 			}).then(({data}) => {
@@ -11,45 +11,52 @@ angular.module('WiseHands')
 					_getAvailableAdditions(data.selectedAdditions);
 				}, error => console.log(error)
 			);
-			
-			const _getAvailableAdditions = additions => {
+
+			const _getAvailableAdditions = dataSelectedAdditions => {
 				$http({
 					url: '/api/addition/list'
-				}).then(({data: availableAdditions}) => _setAvailableAdditions(availableAdditions, additions),
+				}).then(({data: availableAdditions}) => _setAvailableAdditions(availableAdditions, dataSelectedAdditions),
 					error => console.log(error)
 				);
 			};
-			
-			const _setAvailableAdditions = (availableAdditions, additions) => {
+
+			const _setAvailableAdditions = (availableAdditions, dataSelectedAdditions) => {
 				const parsedAdditions = [];
 				availableAdditions.forEach(availableAddition => {
-					const match = additions.find(item => item.addition.uuid === availableAddition.uuid);
+					const match = dataSelectedAdditions.find(item => item.addition.uuid === availableAddition.uuid);
 					parsedAdditions.push({...match, ...availableAddition});
 				});
 				$scope.availableAdditions = parsedAdditions;
 			};
-			
+
 			$scope.selectDefaultAddition = (event, {addition}) => {
 				event.stopPropagation();
 				addition.isSelected = addition.isDefault;
+				addition.productUuid = productUuid;
+
 			};
-			
+
 			$scope.selectAddition = ({addition}) => {
 				addition.isSelected = !addition.isSelected;
+				addition.productUuid = productUuid;
 			};
-			
+
 			$scope.saveAdditions = () => {
-				const parsedAdditions = $scope.availableAdditions.map(item => Object.assign(item, {productUuid: productUuid}));
-				
-				$http({
-					method: 'PUT',
-					url: '/api/addition/save/all',
-					data: parsedAdditions
-				}).then(response => {
-					$scope.product = response.data;
-					showInfoMsg('SAVED')},
-					error => {showWarningMsg('EROOR')}
-				);
+			    let selectAdditions = $scope.availableAdditions.filter( (item) => item.productUuid);
+			    if (selectAdditions.length > 0) {
+				    $http({
+					    method: 'PUT',
+					    url: '/api/addition/save/all',
+					    data: selectAdditions
+				    }).then(response => {
+					    $scope.product = response.data;
+					    showInfoMsg('SAVED')},
+					    error => {showWarningMsg('EROOR')}
+				    );
+			    } else {
+			        showInfoMsg('SAVED');
+			    }
+
 			};
 			
 			sideNavInit.sideNav();

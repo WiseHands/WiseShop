@@ -178,9 +178,7 @@ public class AdditionAPI extends AuthController {
         if (additionObject.get("isDefault") != null) {
             selectedAddition.isDefault = (boolean) additionObject.get("isDefault");
         }
-        if (selectedAddition.isSelected) {
-            selectedAddition.save();
-        }
+        selectedAddition.save();
 
         ProductDTO product = ProductDTO.find("byUuid", productUuid).first();
         int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);

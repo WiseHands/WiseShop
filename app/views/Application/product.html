@@ -73,7 +73,7 @@
         flex-direction: column;
         justify-content: space-between;
         border: 1px solid #9e9e9e;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
     }
 
     .add-components-main {
@@ -81,7 +81,6 @@
         align-items: flex-end;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin-bottom: 0.5rem;
     }
 
     .add-components-main a {
@@ -725,12 +724,15 @@
     chosenAdditionsContainer.removeChild(additionElementToRemove);
     const additionNodesLength = document.querySelectorAll('.add-items-title').length;
     const defaultAdditionsList = document.querySelectorAll('[is-default]');
-    const isDefaultAddition = defaultAdditionsList[0].attributes[1].value;
+    const selectedAdditions = document.querySelectorAll('.add-items');
 
-    if (isDefaultAddition && additionNodesLength === 0) {
-        additionContainerToHide.setAttribute('is-hidden', false)
-    } else if (additionNodesLength === 0) {
-        additionContainerToHide.setAttribute('is-hidden', true)
+    if (defaultAdditionsList.length != 0) {
+        const isDefaultAddition = defaultAdditionsList[0].attributes[1].value;
+        if (isDefaultAddition && additionNodesLength === 0) {
+            additionContainerToHide.setAttribute('is-hidden', false)
+        } else if (additionNodesLength === 0) {
+            additionContainerToHide.setAttribute('is-hidden', true)
+        };
     };
 
     _setAdditionsTotalPrice();
