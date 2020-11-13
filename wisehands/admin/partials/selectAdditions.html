@@ -46,7 +46,7 @@
            on-finish-render="ngRepeatFinished">
         <div class="admin-card selected-addition-item hoverable"
              ng-click="selectAddition(this)" ng-class="{additionSelected: addition.isSelected}">
-          <span class="material-icons check-circle" ng-class="{'check-hidden': addition.isSelected === false}">
+          <span class="material-icons check-circle" ng-class="{'check-visible': addition.isSelected === true}">
               check_circle
           </span>
           <img class="addition-img" src="{{addition.imagePath}}">
