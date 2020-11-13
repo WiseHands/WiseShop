@@ -23,7 +23,7 @@ angular.module('WiseHands')
            let url = _generateUrlForQr(qrCode.uuid);
            new QRious({
              element: document.getElementById('qr-code'),
-             size: 200,
+             size: 600,
              value: url
            });
         }

@@ -2397,7 +2397,8 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .img-qr-code {
-	width: auto;
+    width: 200px;
+    height: auto;
 	margin: 5px;
 }
 
