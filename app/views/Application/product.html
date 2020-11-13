@@ -64,7 +64,6 @@
     }
 
     .product-info h2 {
-        font-size: 2.1rem;
         font-weight: 500;
     }
 
@@ -104,9 +103,11 @@
 
     .add-items-title, .default-add-items-title {
         display: flex;
-        align-items: flex-end;
+        align-items: baseline;
+        align-self: center;
         flex-wrap: wrap;
     }
+
     .default-add-items-title {
         padding: 1rem 0 0 1rem;
     }
@@ -156,9 +157,9 @@
         margin-top: 1rem;
     }
 
-    .additions h3 {
+    /*.additions h3 {
         padding-left: 1rem;
-    }
+    }*/
 
     .additions-block {
         display: flex;
@@ -173,6 +174,15 @@
         height: 170px;
         margin: 0.5rem;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    }
+
+    .hoverable:hover {
+        transition: box-shadow .25s;
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+    }
+
+    .defaultItem {
+        opacity: 50%;
     }
 
     .add-item img {
@@ -388,9 +398,9 @@
         }
     }
 
-    .addition-header {
+    /*.addition-header {
         text-align: center;
-    }
+    }*/
 
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -520,15 +530,27 @@
             </span>
             <button class="buy-button" onClick="buyStart('${product.uuid}')">&{'page.product.buy'}</button>
         </div>
-        #{if product.selectedAdditions}
+        #{if product.selectedAdditions || product.defaultAdditions}
         <section class="additions">
             <h3 id="additions" class="addition-header">&{'page.product.additions.label'}</h3>
 
             <div class="additions-block">
                 %{
+                for(defaultAddition in defaultAdditions) {
+                }%
+                <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}">
+                    <img src="${defaultAddition.addition.imagePath}">
+                    <p>${defaultAddition.addition.title}</p>
+                    <p class="add-item-price">${defaultAddition.addition.formatDecimal()} UAH</p>
+                </div>
+                %{
+                }
+                }%
+
+                %{
                 for(_selectedAddition in product.selectedAdditions) {
                 }%
-                <div class="add-item" onclick="_addItem({
+                <div class="add-item hoverable" onclick="_addItem({
                     title: '${_selectedAddition.addition.title}',
                     uuid: '${_selectedAddition.addition.uuid}',
                     price: '${_selectedAddition.addition.price}',

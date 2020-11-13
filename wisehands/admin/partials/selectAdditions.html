@@ -43,10 +43,9 @@
     <h4 class="addition-no-selected">{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
     <div class="qr-list-container" ng-show="availableAdditions">
       <div ng-repeat="addition in availableAdditions"
-           ng-class="{additionSelected: addition.isSelected}"
            on-finish-render="ngRepeatFinished">
-        <div class="admin-card selected-addition-item"
-             ng-click="selectAddition(this)">
+        <div class="admin-card selected-addition-item hoverable"
+             ng-click="selectAddition(this)" ng-class="{additionSelected: addition.isSelected}">
           <img class="addition-img" src="{{addition.imagePath}}">
           <div class="selected-addition-info">
             <p>{{addition.title}}</p>
