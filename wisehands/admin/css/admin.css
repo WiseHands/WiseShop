@@ -2283,7 +2283,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .qr-code-block {
-	align-items: center;
+/*	align-items: center;*/
 }
 
 .pdd-rem {
@@ -2510,6 +2510,7 @@ ul.admin-breadcrumb li a:hover {
 	display: flex;
 	flex-direction: column;
 	padding: 0;
+	cursor: pointer;
 }
 
 .selected-addition-checkbox {
@@ -2530,7 +2531,15 @@ ul.admin-breadcrumb li a:hover {
     height: 100px;
     object-fit: cover;
     align-self: center;
-    margin-top: inherit;
+}
+
+.check-circle {
+    text-align: right;
+    padding: .5rem;
+}
+
+.check-hidden {
+    visibility: hidden;
 }
 
 .additions-title {
@@ -2605,6 +2614,12 @@ ul.admin-breadcrumb li a:hover {
 	}
 }
 
+@media screen and (max-width: 1024px) {
+	.qr-title-container {
+		flex-direction: column;
+	}
+}
+
 @media screen and (max-width: 768px) {
 	.add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block, .working-hours-block, .settings-block {
 		flex-direction: column;
@@ -2629,9 +2644,13 @@ ul.admin-breadcrumb li a:hover {
 	}
 	
 	.admin-card {
-		max-width: 95%;
+/*		max-width: 95%;
 		margin: 1rem;
-		padding: 1rem;
+		padding: 1rem;*/
+	}
+
+	.qr-list-container {
+	    justify-content: center;
 	}
 	
 	.delivery-list, .payment-list {
@@ -2694,8 +2713,8 @@ ul.admin-breadcrumb li a:hover {
 		display: flex;
 	}
 	
-	.qr-title-container {
-		flex-direction: column;
+	.qr-detail-info p, .qr-title-text p {
+	    text-align: center;
 	}
 	
 	.img-present-qr {
