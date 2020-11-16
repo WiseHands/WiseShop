@@ -202,13 +202,7 @@
                                 <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                             </div>
                             <div class="card-footer">
-                                #{if (!qr_uuid) }
                                 <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</span></span>
-                                #{/if}
-
-                                #{else}
-                                <span class="left">${_product.price} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</span></span>
-                                #{/else}
                                 <span class="right"
                                       onclick="buyStart({uuid: '${_product.uuid}'})">
                                       <a data-toggle="tooltip" data-placement="top">

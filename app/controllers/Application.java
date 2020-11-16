@@ -133,7 +133,6 @@ public class Application extends Controller {
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }
-/*        System.out.println();*/
 
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
@@ -151,6 +150,14 @@ public class Application extends Controller {
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             productList.add(product);
+            if (qr_uuid != null) {
+                String additionsListQuery = "select s from SelectedAdditionDTO s where s.isSelected = 1 and s.isDefault = 0 and s.productUuid = ?1";
+                product.selectedAdditions = SelectedAdditionDTO.find(additionsListQuery, product.uuid).fetch();
+                product.defaultAdditions = new ArrayList<>();
+                product.priceWithAdditions = 0.0;
+                System.out.println("product.name " + product.name);
+                System.out.println("product.defaultAdditions " + product.defaultAdditions);
+            }
         }
         products = productList;
 
