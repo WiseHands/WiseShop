@@ -133,6 +133,7 @@ public class Application extends Controller {
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }
+/*        System.out.println();*/
 
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
