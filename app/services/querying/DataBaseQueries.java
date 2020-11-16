@@ -88,4 +88,10 @@ public class DataBaseQueries {
         }
     }
 
+    public static ProductDTO hideDefaultAddition(ProductDTO product) {
+        product.defaultAdditions = new ArrayList<>();
+        product.priceWithAdditions = 0.0;
+        return product;
+    }
+
 }

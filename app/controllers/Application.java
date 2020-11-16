@@ -42,7 +42,7 @@ public class Application extends Controller {
             }
             redirect("https://wisehands.me/login", true);
 
-        }
+    }
 
     private static String returnUrlForDev(String client, String language) {
         String protocol = "";
@@ -150,14 +150,10 @@ public class Application extends Controller {
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             productList.add(product);
-            if (qr_uuid != null) {
-                String additionsListQuery = "select s from SelectedAdditionDTO s where s.isSelected = 1 and s.isDefault = 0 and s.productUuid = ?1";
-                product.selectedAdditions = SelectedAdditionDTO.find(additionsListQuery, product.uuid).fetch();
-                product.defaultAdditions = new ArrayList<>();
-                product.priceWithAdditions = 0.0;
-                System.out.println("product.name " + product.name);
-                System.out.println("product.defaultAdditions " + product.defaultAdditions);
+            if (qr_uuid != null){
+                DataBaseQueries.hideDefaultAddition(product);
             }
+
         }
         products = productList;
 
@@ -167,7 +163,7 @@ public class Application extends Controller {
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-
+        System.out.println("qrUuid => " + qr_uuid);
         renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
     }
 
@@ -288,6 +284,96 @@ public class Application extends Controller {
         renderTemplate("Application/shop.html", shop, products, language, categories);
     }
 
+    public static void categoryOld(String client, String uuid) {
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        redirect("https://" + client + "/" + language + "/category/" + uuid, false);
+    }
+
+    public static void category(String client, String uuid, String language){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+        CategoryDTO category = CategoryDTO.findById(uuid);
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+
+        }
+        shop.pagesList = translationPageList;
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
+        for (ProductDTO product : products) {
+            product = Translation.setTranslationForProduct(language, product);
+            productList.add(product);
+        }
+        Translation.setTranslationForShop(language, shop);
+        render(shop, category, categories, productList, language);
+    }
+
+    public static void productOld(String client, String uuid) {
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        redirect("https://" + client + "/" + language + "/product/" + uuid, false);
+    }
+
+    public static void product(String client, String uuid, String language){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null){
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+
+
+        String qrUuid = null;
+        if (request.params.get("qr_uuid") != null){
+            qrUuid = request.params.get("qr_uuid");
+        }
+        System.out.println("qrUuid from product page => " + qrUuid);
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+        }
+        shop.pagesList = translationPageList;
+
+        ProductDTO product = ProductDTO.findById(uuid);
+        CategoryDTO category = product.category;
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
+        product.feedbackList = DataBaseQueries.getFeedbackList(product);
+
+        String additionsListQuery = "select s from SelectedAdditionDTO s where s.isSelected = 1 and s.isDefault = 0 and s.productUuid = ?1";
+        product.selectedAdditions = SelectedAdditionDTO.find(additionsListQuery, product.uuid).fetch();
+
+        int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+
+        List<SelectedAdditionDTO> defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
+        product.defaultAdditions = defaultAdditions;
+
+        Translation.setTranslationForProduct(language, product);
+        Translation.setTranslationForShop(language, shop);
+
+        render(product, category, categories, shop, language, defaultAdditions, totalPriceForDefaultAdditions);
+    }
+
+
+
     public static void footerShop(String client){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -376,88 +462,6 @@ public class Application extends Controller {
         System.out.println("page language " + language);
         render(shop, page, pageList, language, categories);
     }
-
-    public static void categoryOld(String client, String uuid) {
-        Http.Header acceptLanguage = request.headers.get("accept-language");
-        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
-        redirect("https://" + client + "/" + language + "/category/" + uuid, false);
-    }
-
-    public static void category(String client, String uuid, String language){
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        Http.Header acceptLanguage = request.headers.get("accept-language");
-        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
-        CategoryDTO category = CategoryDTO.findById(uuid);
-        List<CategoryDTO> categories = shop.getActiveCategories(language);
-        List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
-        products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
-        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
-        for(PageConstructorDTO _page: pageList){
-            _page = Translation.setTranslationForPage(language, _page);
-            translationPageList.add(_page);
-
-        }
-        shop.pagesList = translationPageList;
-        List<ProductDTO> productList = new ArrayList<ProductDTO>();
-        for (ProductDTO product : products) {
-            product = Translation.setTranslationForProduct(language, product);
-            productList.add(product);
-        }
-        Translation.setTranslationForShop(language, shop);
-        render(shop, category, categories, productList, language);
-    }
-
-    public static void productOld(String client, String uuid) {
-        Http.Header acceptLanguage = request.headers.get("accept-language");
-        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
-        redirect("https://" + client + "/" + language + "/product/" + uuid, false);
-    }
-
-    public static void product(String client, String uuid, String language){
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null){
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-
-        Http.Header acceptLanguage = request.headers.get("accept-language");
-        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
-
-        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
-        for(PageConstructorDTO _page: pageList){
-            _page = Translation.setTranslationForPage(language, _page);
-            translationPageList.add(_page);
-        }
-        shop.pagesList = translationPageList;
-
-        ProductDTO product = ProductDTO.findById(uuid);
-        CategoryDTO category = product.category;
-        List<CategoryDTO> categories = shop.getActiveCategories(language);
-        product.feedbackList = DataBaseQueries.getFeedbackList(product);
-
-        String additionsListQuery = "select s from SelectedAdditionDTO s where s.isSelected = 1 and s.isDefault = 0 and s.productUuid = ?1";
-        product.selectedAdditions = SelectedAdditionDTO.find(additionsListQuery, product.uuid).fetch();
-
-        int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-
-        List<SelectedAdditionDTO> defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
-        product.defaultAdditions = defaultAdditions;
-
-        Translation.setTranslationForProduct(language, product);
-        Translation.setTranslationForShop(language, shop);
-
-        render(product, category, categories, shop, language, defaultAdditions, totalPriceForDefaultAdditions);
-    }
-
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {
         String agent = request.headers.get("user-agent").value();

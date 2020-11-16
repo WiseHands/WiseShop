@@ -80,8 +80,6 @@ public class QrAPI extends AuthController {
         System.out.println("delete");
         QrDTO qr = QrDTO.findById(request.params.get("uuid"));
         qr.delete();
-        //qr.isQrDeleted = true;
-        //qr.save();
         ok();
     }
 }
