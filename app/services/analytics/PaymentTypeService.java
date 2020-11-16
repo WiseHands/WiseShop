@@ -33,6 +33,7 @@ public class PaymentTypeService {
                 paymentType,
                 OrderState.DELETED,
                 OrderState.PAYMENT_ERROR,
+                OrderState.PAYMENT_WAIT_ACCEPT,
                 OrderState.CANCELLED);
         BigInteger numberOfOrders = (BigInteger) JPA.em().createNativeQuery(stringQueryForByCash).getSingleResult();
         return numberOfOrders;

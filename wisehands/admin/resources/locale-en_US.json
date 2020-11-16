@@ -89,6 +89,7 @@
   "singleOrder.paymentStatePending": "Pending",
   "singleOrder.paymentStatePaid": "Paid",
   "singleOrder.paymentStateError": "Error",
+  "singleOrder.paymentStateWaitAccept": "Payment successful. Waiting for shop verification",
   "singleOrder.Platform": "Platform",
   "singleOrder.SmsSentToCustomer": "SMS sent to customer",
   "singleOrder.SmsSentToManager": "SMS sent to manager",

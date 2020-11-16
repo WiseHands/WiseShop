@@ -602,7 +602,7 @@ public class OrderAPI extends AuthController {
             }
 
             String status = String.valueOf(jsonObject.get("status"));
-            if (status.equals("failure") || status.equals("wait_accept")) {
+            if (status.equals("failure")) {
                 order.state = OrderState.PAYMENT_ERROR;
                 order.paymentState = PaymentState.PAYMENT_ERROR;
                 order = order.save();
@@ -636,7 +636,7 @@ public class OrderAPI extends AuthController {
                 System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
 
                 ok();
-            } else {
+            } else if (status.equals("success")) {
                 order.state = OrderState.PAYED;
                 order.paymentState = PaymentState.PAYED;
                 order = order.save();
@@ -675,6 +675,53 @@ public class OrderAPI extends AuthController {
                 clientEmailList.add(order.email);
                 mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
                 System.out.println("liqpay message about success payment was sent to: " + order.email);
+
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
+
+                ok();
+            } else if (status.equals("wait_accept")) {
+                order.state = OrderState.PAYMENT_WAIT_ACCEPT;
+                order.paymentState = PaymentState.PAYMENT_WAIT_ACCEPT;
+                order = order.save();
+
+                Double amount = order.total * WISEHANDS_COMISSION;
+                BalanceDTO balance = shop.balance;
+
+                BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
+
+                tx.state = OrderState.PAYMENT_WAIT_ACCEPT;
+                tx.save();
+
+                balance.balance += tx.amount;
+                balance.addTransaction(tx);
+                balance.save();
+
+
+                String smsTextToAdmin = Messages.get("payment.done.wait.accept.total", order.name, order.total);
+                String smsText = Messages.get("payment.done.total", order.name, order.total);
+
+                smsSender.sendSms(shop.contact.phone, smsTextToAdmin);
+                smsSender.sendSms(order.phone, smsText);
+
+                String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
+                String shopName = getTranslatedShopName(shop, parsedLanguage);
+                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                String htmlContent = generateHtmlEmailForOrderPaymentWaitAccept(shop, order, parsedLanguage);
+                List<String> adminEmailList = new ArrayList<>();
+                adminEmailList.add(shop.contact.email);
+                mailSender.sendEmail(adminEmailList, subject, htmlContent, shop.domain);
+                System.out.println("LiqPay message about payment status was sent to: " + shop.contact.email);
+
+                parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
+                shopName = getTranslatedShopName(shop, parsedLanguage);
+                subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
+                List<String> clientEmailList = new ArrayList<>();
+                clientEmailList.add(order.email);
+                mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
+                System.out.println("LiqPay message about payment status was sent to: " + order.email);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -724,6 +771,28 @@ public class OrderAPI extends AuthController {
 
         String paymentDone = Messages.get("payment.done");
         map.put("paymentDone", paymentDone);
+        map.put("shopName", shop.shopName);
+
+        String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
+        map.put("labelOrderPayment", labelOrderPayment);
+        String labelPaymentStatus = Messages.get("mail.label.paymentStatus");
+        map.put("labelPaymentStatus", labelPaymentStatus);
+
+        String rendered = template.render(map);
+        return rendered;
+    }
+    private static String generateHtmlEmailForOrderPaymentWaitAccept(ShopDTO shop, OrderDTO order, String changeLanguage) {
+        String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_wait_accept.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        Date resultDate = new Date(order.time);
+
+        Lang.change(changeLanguage);
+
+        String paymentDoneWaitAccept = Messages.get("payment.done.wait.accept");
+        map.put("paymentDoneWaitAccept", paymentDoneWaitAccept);
         map.put("shopName", shop.shopName);
 
         String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");

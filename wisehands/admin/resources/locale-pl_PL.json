@@ -93,6 +93,7 @@
   "singleOrder.paymentStatePending": "W oczekiwaniu",
   "singleOrder.paymentStatePaid": "Płatne",
   "singleOrder.paymentStateError": "Płatność nieudana",
+  "singleOrder.paymentStateWaitAccept": "Płatność zakończona powodzeniem. Czekam na weryfikację sklepu",
   "singleOrder.Platform": "Platforma",
   "singleOrder.ClientLanguage": "Język klienta",
   "singleOrder.Language": "Polskie",

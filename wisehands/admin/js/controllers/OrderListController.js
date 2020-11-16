@@ -212,6 +212,12 @@
                     } else if (locale === 'uk_UA') {
                         return 'Помилка оплати';
                     }
+                } else if (order.state === "PAYMENT_WAIT_ACCEPT") {
+                      if (locale === 'en_US'){
+                          return 'Payment successful. Waiting for shop verification';
+                      } else if (locale === 'uk_UA') {
+                          return 'Оплачено. Магазин не пройшов перевірку';
+                      }
                 } else if (order.state === "DELETED") {
                     if (locale === 'en_US'){
                         return 'Deleted';

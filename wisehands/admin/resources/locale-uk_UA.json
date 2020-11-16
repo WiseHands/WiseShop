@@ -94,6 +94,7 @@
   "singleOrder.paymentStatePending": "Очікується оплата",
   "singleOrder.paymentStatePaid": "Оплачено",
   "singleOrder.paymentStateError": "Помилка оплати",
+  "singleOrder.paymentStateWaitAccept": "Оплачено. Магазин не пройшов перевірку",
   "singleOrder.Platform": "Платформа",
   "singleOrder.ClientLanguage": "Мова клієнта",
   "singleOrder.Language": "Українська",

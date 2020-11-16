@@ -126,6 +126,7 @@
                         <i ng-show="item.paymentState === 'PENDING'" class="fa fa-credit-card" aria-hidden="true" style="color: #808080; font-size: 20px"></i>
                         <i ng-show="item.paymentState === 'PAYED'" class="fa fa-credit-card" aria-hidden="true" style="color: #8bc34a; font-size: 20px"></i>
                         <i ng-show="item.paymentState === 'PAYMENT_ERROR'" class="fa fa-credit-card" aria-hidden="true" style="color: #f44336; font-size: 20px"></i>
+                        <i ng-show="item.paymentState === 'PAYMENT_WAIT_ACCEPT'" class="fa fa-credit-card" aria-hidden="true" style="color: #f44336; font-size: 20px"></i>
                     </p>
 
                     <!--<p ng-show="item.paymentType === 'CASHONDELIVERY'" >{{'singleOrder.paymentTypeCash' | translate}}</p>-->
@@ -177,6 +178,7 @@
                             <i ng-show="item.paymentState === 'PENDING'">{{'singleOrder.paymentStatePending' | translate}}</i>
                             <i ng-show="item.paymentState === 'PAYED'">{{'singleOrder.paymentStatePaid' | translate}}</i>
                             <i ng-show="item.paymentState === 'PAYMENT_ERROR'">{{'singleOrder.paymentStateError' | translate}}</i>
+                            <i ng-show="item.paymentState === 'PAYMENT_WAIT_ACCEPT'">{{'singleOrder.paymentStateWaitAccept' | translate}}</i>
                         </p>
                     </div>
                     <div class="row">

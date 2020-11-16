@@ -150,6 +150,9 @@
                             <div ng-show="order.paymentState === 'PAYMENT_ERROR'">
                                 <p>{{'singleOrder.paymentStateError' | translate}}</p>
                             </div>
+                            <div ng-show="order.paymentState === 'PAYMENT_WAIT_ACCEPT'">
+                                <p>{{'singleOrder.paymentStateWaitAccept' | translate}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
