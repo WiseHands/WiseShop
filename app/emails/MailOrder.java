@@ -1,5 +1,6 @@
 package emails;
 
+import controllers.OrderAPI;
 import models.*;
 
 import java.text.DecimalFormat;
@@ -36,9 +37,9 @@ public class MailOrder {
 
     public MailOrder(OrderDTO order, ShopDTO shop, String language) {
         this.language = language;
-        List<TranslationItemDTO> translationList = shop.shopNameTextTranslationBucket.translationList;
-        TranslationItemDTO translationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(this.language)).collect(Collectors.toList()).get(0);
-        this.shopName = translationItemDTO.content;
+        /*List<TranslationItemDTO> translationList = shop.shopNameTextTranslationBucket.translationList;
+        TranslationItemDTO translationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(this.language)).collect(Collectors.toList()).get(0);*/
+        this.shopName = OrderAPI.getTranslatedShopName(shop, language);
         this.orderNumber = OrderDTO.find("byShop", shop).fetch().size();
         this.phone = order.phone;
         Date resultDate = new Date(order.time);
