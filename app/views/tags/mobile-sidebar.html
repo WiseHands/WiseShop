@@ -1,6 +1,8 @@
 #{set pageList:pageList /}
 #{set language:language /}
 #{set categories:categories /}
+#{set qr_uuid:qr_uuid /}
+
 <style>
     .null-style {
         margin: 0;
@@ -151,7 +153,12 @@
 
 <div  id="overlay-mobile" class="overlay-hidden-animation null-style">
 <div class="sidebar-mobile sibebar-swipe-off">
-    <a class="link" href="/${language}">
+    #{if qr_uuid }
+        <a class="link" href="/?qr_uuid=${qr_uuid}">
+    #{/if}
+    #{else}
+        <a class="link" href="/">
+    #{/else}
         <div class="sidebar-logo" title="${shop.shopName}">
 <!--            <img src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">-->
             <h3>${shop.shopName}</h3>
@@ -167,9 +174,16 @@
             %{
                 for(_category in categories) {
                 }%
+
+                #{if qr_uuid }
+                    <a class="link" href="/${language}/category/${_category.uuid}?qr_uuid=${qr_uuid}">
+                        <li>${_category.name}</li>
+                    </a>
+                #{/if} #{else}
                     <a class="link" href="/${language}/category/${_category.uuid}">
                         <li>${_category.name}</li>
                     </a>
+                #{/else}
                 %{
                 }
             }%

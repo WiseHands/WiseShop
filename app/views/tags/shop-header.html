@@ -257,6 +257,11 @@
     changeLanguage = (object) => {
       const url = window.location.pathname;
       const newUrl = url.slice(3)
-      window.location = window.location.origin + '/' + object.language + newUrl + '?qr_uuid=' + object.qrUuid;
+      if (object.qrUuid){
+        window.location = window.location.origin + '/' + object.language + newUrl + '?qr_uuid=' + object.qrUuid;
+      } else {
+        window.location = window.location.origin + '/' + object.language + newUrl;
+      }
+
     }
 </script>

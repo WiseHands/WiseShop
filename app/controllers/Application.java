@@ -34,14 +34,13 @@ public class Application extends Controller {
     }
 
     public static void main(String client) {
-            if(client.equals("wisehands.me") || isDevEnv) {
-                String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
-                String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
-                String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
-                renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
-            }
-            redirect("https://wisehands.me/login", true);
-
+        if(client.equals("wisehands.me") || isDevEnv) {
+            String googleOauthClientId = Play.configuration.getProperty("google.oauthweb.client.id");
+            String googleMapsApiKey = Play.configuration.getProperty("google.maps.api.key");
+            String googleAnalyticsId = Play.configuration.getProperty("google.analytics.id");
+            renderTemplate("WiseHands/index.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
+        }
+        redirect("https://wisehands.me/login", true);
     }
 
     private static String returnUrlForDev(String client, String language) {
@@ -56,7 +55,6 @@ public class Application extends Controller {
         return protocol + client + port + "/" + language + "/shop";
     }
 
-
     public static void allowCors(){
         ok();
     }
@@ -69,7 +67,6 @@ public class Application extends Controller {
             renderTemplate("WiseHands/login.html", googleOauthClientId, googleMapsApiKey, googleAnalyticsId);
         }
         redirect("https://wisehands.me/login", true);
-
     }
 
     public static void uaSignup(String client) {
@@ -333,8 +330,8 @@ public class Application extends Controller {
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }
-
-        render(shop, category, categories, productList, language, qr_uuid);
+        System.out.println("request.params => " + qr_uuid);
+        renderTemplate("Application/category.html", shop, category, categories, productList, language, qr_uuid);
     }
 
     public static void productOld(String client, String uuid) {
