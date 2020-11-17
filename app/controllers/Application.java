@@ -129,11 +129,6 @@ public class Application extends Controller {
         Lang.change(language);
         System.out.println("LanguageForShop " + language);
 
-        String qr_uuid = null;
-        if (request.params.get("qr_uuid") != null){
-            qr_uuid = request.params.get("qr_uuid");
-        }
-
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
@@ -146,6 +141,11 @@ public class Application extends Controller {
         }
         shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
+
+        String qr_uuid = null;
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
 
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
@@ -361,18 +361,35 @@ public class Application extends Controller {
         String additionsListQuery = "select s from SelectedAdditionDTO s where s.isSelected = 1 and s.isDefault = 0 and s.productUuid = ?1";
         product.selectedAdditions = SelectedAdditionDTO.find(additionsListQuery, product.uuid).fetch();
 
-        int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-
-        List<SelectedAdditionDTO> defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
-        product.defaultAdditions = defaultAdditions;
+        String qr_uuid = null;
+        int totalPriceForDefaultAdditions = 0;
+        List<SelectedAdditionDTO> defaultAdditions = new ArrayList<>();
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+            DataBaseQueries.hideDefaultAddition(product);
+        } else {
+            totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+            defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
+            product.defaultAdditions = defaultAdditions;
+        }
 
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
 
-        render(product, category, categories, shop, language, defaultAdditions, totalPriceForDefaultAdditions);
+        render(product, category, categories, shop, language, defaultAdditions, totalPriceForDefaultAdditions, qr_uuid);
     }
 
-
+    public static void shopHeader(String client){
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        String qr_uuid = null;
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
+        renderTemplate("tags/footer-shop.html", shop, qr_uuid);
+    }
 
     public static void footerShop(String client){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
