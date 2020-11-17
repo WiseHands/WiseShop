@@ -363,6 +363,7 @@ public class Application extends Controller {
         }
         if(qr_uuid == null || qr_uuid.isEmpty()){
             totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+            product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
             product.defaultAdditions = defaultAdditions;
         }

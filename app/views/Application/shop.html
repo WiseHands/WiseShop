@@ -149,9 +149,8 @@
                 }
                 return;
             }
-            let additionList = [];
 
-            fetch('/api/cart?uuid=' + product.uuid, {
+            fetch('/api/cart?uuid=' + product.uuid + '&qr_uuid=' + product.qrUuid, {
                 method: 'POST'
             }).then(function (response) {
                 if(response.ok) {
@@ -204,7 +203,7 @@
                             <div class="card-footer">
                                 <span class="left">${_product.formatDecimal()} UAH <span class="discount" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</span></span>
                                 <span class="right"
-                                      onclick="buyStart({uuid: '${_product.uuid}'})">
+                                      onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})">
                                       <a data-toggle="tooltip" data-placement="top">
                                           <i class="fa fa-shopping-cart"></i>
                                       </a>
