@@ -338,13 +338,6 @@ public class Application extends Controller {
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
 
-
-        String qrUuid = null;
-        if (request.params.get("qr_uuid") != null){
-            qrUuid = request.params.get("qr_uuid");
-        }
-        System.out.println("qrUuid from product page => " + qrUuid);
-
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
@@ -558,9 +551,14 @@ public class Application extends Controller {
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
         Translation.setTranslationForShop(language, shop);
 
+        String qr_uuid = null;
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
+
         List<CategoryDTO> categories = shop.getActiveCategories(language);
 
-        render(shop, language, categories);
+        render(shop, language, categories, qr_uuid);
     }
 
     public static void done(String client) {

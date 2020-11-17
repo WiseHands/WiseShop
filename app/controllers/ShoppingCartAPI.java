@@ -79,8 +79,13 @@ public class ShoppingCartAPI extends AuthController {
 
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);
+        String qrUuid = request.params.get("qr_uuid");
 
         List<SelectedAdditionDTO> defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
+        if (qrUuid == null || !qrUuid.isEmpty()) {
+            defaultAdditions = new ArrayList<>();
+        }
+
         String stringAdditionList = request.params.get("additionList");
         List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop, defaultAdditions);
 

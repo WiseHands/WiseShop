@@ -1,6 +1,7 @@
 #{set shop:shop /}
 #{set language:language /}
 #{set categories:categories /}
+#{set qr_uuid:qr_uuid /}
 <style>
     wise-shopping-cart-container {
         padding: 1rem;
@@ -19,7 +20,7 @@
     }
 </style>
 <!DOCTYPE html>
-<html language="${language}" xmlns="http://www.w3.org/1999/xhtml">
+<html language="${language}" qr-uuid="${qr_uuid}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
@@ -102,9 +103,13 @@
   document.addEventListener('open-product', function (e) {
     console.log(shoppingCartState.items);
     let path = '';
+    const qrUuid = document.querySelector('html').getAttribute('qr-uuid');
     shoppingCartState.items.forEach(item => {
       if (item.uuid === e.detail) {
         path = item.productId;
+        if (qrUuid) {
+          path += '?qr_uuid=' + qrUuid;
+        }
       }
     });
     const language = document.querySelector('html').getAttribute('language');
