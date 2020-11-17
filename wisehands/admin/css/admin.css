@@ -1674,6 +1674,22 @@ input {
     flex: 1 1 50%;
 }
 
+.edit-product-image {
+    cursor: pointer;
+    position: relative;
+}
+
+.edit-product-image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 0.5rem;
+    text-align: center;
+}
+
 .details-product-block .admin-card h5 {
     margin: 0 0 1.3rem 0;
     word-break: break-word;

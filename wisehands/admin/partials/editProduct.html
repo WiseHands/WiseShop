@@ -91,8 +91,9 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner z-depth-1 hoverable" role="listbox">
                                 <!-- First slide -->
-                                <div class="item active">
-                                    <img src="{{productImages[product.mainPhoto].dataURL}}" alt="slide1" ng-click="uploadNewProductImage()">
+                                <div class="edit-product-image item active" ng-click="uploadNewProductImage()">
+                                    <img src="{{productImages[product.mainPhoto].dataURL}}" alt="slide1" >
+                                    <p class="edit-product-image-text">{{'addNewProduct.addPhoto' | translate}}</p>
                                 </div>
                                 <canvas class="img-responsive center-block landscapeImageScale" id="editCanvas" ng-click="uploadNewProductImage()" style="display: none"></canvas>
                                 <input id="imageLoader"
