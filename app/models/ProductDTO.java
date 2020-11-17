@@ -146,14 +146,4 @@ public class ProductDTO extends GenericModel {
         return "";
     }
 
-/*    public String generateProductHref(String language, String uuid, String qr_uuid) {
-        String href = "";
-        if (qr_uuid != null || !qr_uuid.isEmpty()) {
-            href = "/%s/product/%s?qr_uuid=%s";
-        } else {
-            href = "/%s/product/%s";
-        }
-        String formatString = String.format(href, language, uuid, qr_uuid);
-        return formatString;
-    }*/
 }

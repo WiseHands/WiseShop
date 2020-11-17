@@ -142,7 +142,7 @@ public class Application extends Controller {
         shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
-        String qr_uuid = null;
+        String qr_uuid = "";
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }
@@ -219,12 +219,17 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
+        String qr_uuid = "";
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
+
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 
         System.out.println("DEBUG renderTemplate Application/shop.html");
-        renderTemplate("Application/shop.html", shop, products, language, categories);
+        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
     }
 
     public static void shop(String client, String language) {
@@ -281,7 +286,12 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        renderTemplate("Application/shop.html", shop, products, language, categories);
+        String qr_uuid = "";
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
+
+        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
     }
 
     public static void categoryOld(String client, String uuid) {
@@ -318,7 +328,13 @@ public class Application extends Controller {
             productList.add(product);
         }
         Translation.setTranslationForShop(language, shop);
-        render(shop, category, categories, productList, language);
+
+        String qr_uuid = "";
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
+
+        render(shop, category, categories, productList, language, qr_uuid);
     }
 
     public static void productOld(String client, String uuid) {
@@ -379,7 +395,7 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        String qr_uuid = null;
+        String qr_uuid = "";
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }

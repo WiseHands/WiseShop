@@ -167,7 +167,12 @@
 
         <div class="header-left-part">
             <div class="shop-icon">
-                <a href="/${language}">
+                #{if qr_uuid }
+                    <a href="/${language}?qr_uuid=${qr_uuid}">
+                #{/if}
+                #{else}
+                    <a href="/${language}">
+                #{/else}
                     #{if !shop.visualSettingsDTO.shopLogo}
                         <img src="/wisehands/assets/images/wiseblack.png">
                     #{/if}
@@ -176,7 +181,12 @@
                     #{/if}
                 </a>
             </div>
-            <a class="shop-name-link" href="/">
+            #{if qr_uuid }
+                <a class="shop-name-link" href="/?qr_uuid=${qr_uuid}">
+            #{/if}
+            #{else}
+                <a class="shop-name-link" href="/">
+            #{/else}
                 <h3>${shop.shopName}</h3>
             </a>
         </div>
@@ -184,8 +194,8 @@
             <div class="select-lang">
                 <button class="dropbtn">${language}</button>
                 <div class="lang-list">
-                    <a onclick="changeLanguage('en')">English</a>
-                    <a onclick="changeLanguage('uk')">Українська</a>
+                    <a onclick="changeLanguage({language:'en', qrUuid: '${qr_uuid}'})">English</a>
+                    <a onclick="changeLanguage({language:'uk', qrUuid: '${qr_uuid}'})">Українська</a>
                 </div>
             </div>
             <div id="admin-icon" class="header-cart">
@@ -244,9 +254,9 @@
         }
     });
 
-    changeLanguage = (language) => {
+    changeLanguage = (object) => {
       const url = window.location.pathname;
       const newUrl = url.slice(3)
-      window.location = window.location.origin + '/' + language + newUrl;
+      window.location = window.location.origin + '/' + object.language + newUrl + '?qr_uuid=' + object.qrUuid;
     }
 </script>
