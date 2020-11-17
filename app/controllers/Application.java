@@ -367,7 +367,8 @@ public class Application extends Controller {
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
             DataBaseQueries.hideDefaultAddition(product);
-        } else {
+        }
+        if(qr_uuid == null || qr_uuid.isEmpty()){
             totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
             product.defaultAdditions = defaultAdditions;
