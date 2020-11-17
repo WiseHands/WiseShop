@@ -200,12 +200,22 @@
                 </a>
             </div>
             #{/if}
+            #{if qr_uuid }
             <a href="/${language}/shoppingcart?qr_uuid=${qr_uuid}">
                 <div id="shoppingCartCounter" class="fa-stack header-cart">
                     <i class="fa fa-stack-2x fa-inverse"></i>
                     <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
                 </div>
             </a>
+            #{/if}
+            #{else}
+            <a href="/${language}/shoppingcart">
+                <div id="shoppingCartCounter" class="fa-stack header-cart">
+                    <i class="fa fa-stack-2x fa-inverse"></i>
+                    <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
+                </div>
+            </a>
+            #{/else}
         </div>
     </div>
 </header>
