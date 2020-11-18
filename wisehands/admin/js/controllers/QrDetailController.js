@@ -35,7 +35,7 @@ angular.module('WiseHands')
             } else {
                 domain = hostname;
             }
-           return 'https://' + domain + '/?qr_uuid='+ uuid;
+           return 'https://' + domain + '?qr_uuid='+ uuid;
         }
 
         $scope.deleteButton = true;

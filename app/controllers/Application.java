@@ -147,12 +147,17 @@ public class Application extends Controller {
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             productList.add(product);
-            if (qr_uuid != null){
+            if(qr_uuid == null || qr_uuid.isEmpty()){
+                int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+            } else {
                 DataBaseQueries.hideDefaultAddition(product);
             }
 
         }
         products = productList;
+
+        System.out.println("request.params qr_uuid.isEmpty() in languageChooser => " + qr_uuid);
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
@@ -160,7 +165,6 @@ public class Application extends Controller {
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-        System.out.println("qrUuid => " + qr_uuid);
         renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
     }
 
@@ -207,19 +211,29 @@ public class Application extends Controller {
         shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
+
+        String qr_uuid = "";
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
+
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             productList.add(product);
+            if(qr_uuid == null || qr_uuid.isEmpty()){
+                int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+            } else {
+                DataBaseQueries.hideDefaultAddition(product);
+            }
         }
         products = productList;
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        String qr_uuid = "";
-        if (request.params.get("qr_uuid") != null){
-            qr_uuid = request.params.get("qr_uuid");
-        }
+        System.out.println("request.params qr_uuid.isEmpty() in Index => " + qr_uuid);
+
 
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
@@ -269,24 +283,32 @@ public class Application extends Controller {
         for(PageConstructorDTO _page: pageList){
             _page = Translation.setTranslationForPage(language, _page);
             translationPageList.add(_page);
-
         }
         shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
+        String qr_uuid = "";
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
+
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             productList.add(product);
+            if(qr_uuid == null || qr_uuid.isEmpty()){
+                int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+            } else {
+                DataBaseQueries.hideDefaultAddition(product);
+            }
         }
         products = productList;
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        String qr_uuid = "";
-        if (request.params.get("qr_uuid") != null){
-            qr_uuid = request.params.get("qr_uuid");
-        }
+        System.out.println("request.params qr_uuid.isEmpty() in Shop => " + qr_uuid);
+
 
         renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
     }
@@ -316,21 +338,29 @@ public class Application extends Controller {
         for(PageConstructorDTO _page: pageList){
             _page = Translation.setTranslationForPage(language, _page);
             translationPageList.add(_page);
-
         }
-        shop.pagesList = translationPageList;
-        List<ProductDTO> productList = new ArrayList<ProductDTO>();
-        for (ProductDTO product : products) {
-            product = Translation.setTranslationForProduct(language, product);
-            productList.add(product);
-        }
-        Translation.setTranslationForShop(language, shop);
 
         String qr_uuid = "";
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }
-        System.out.println("request.params => " + qr_uuid);
+
+        shop.pagesList = translationPageList;
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
+        for (ProductDTO product : products) {
+            product = Translation.setTranslationForProduct(language, product);
+            productList.add(product);
+            if(qr_uuid == null || qr_uuid.isEmpty()){
+                int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+            } else {
+                DataBaseQueries.hideDefaultAddition(product);
+            }
+
+        }
+        Translation.setTranslationForShop(language, shop);
+
+        System.out.println("request.params qr_uuid.isEmpty() in category => " + qr_uuid);
         renderTemplate("Application/category.html", shop, category, categories, productList, language, qr_uuid);
     }
 
@@ -380,6 +410,7 @@ public class Application extends Controller {
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
             product.defaultAdditions = defaultAdditions;
         }
+        System.out.println("request.params qr_uuid.isEmpty() in Product => " + qr_uuid);
 
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
