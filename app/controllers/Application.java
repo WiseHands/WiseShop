@@ -443,11 +443,13 @@ public class Application extends Controller {
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {
         String agent = request.headers.get("user-agent").value();
-        if (!shop.shopName.isEmpty()) {
+        if (shop != null) {
             System.out.println("generateCookieIfNotPresent => " + shop.shopName);
-        } else {
-            System.out.println("generateCookieIfNotPresent => " + shop.domain);
+            if (shop.shopName.isEmpty()) {
+                System.out.println("generateCookieIfNotPresent => " + shop.domain);
+            }
         }
+
         Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
         if(userTokenCookie == null) {
             ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
