@@ -27,8 +27,8 @@
             <p class="additions-title"> {{'additionMenu.titleInfo' | translate}} </p>
         </div>
     </div>
-    <div ng-show="additionList.length === 0">
-        <p>{{'additionMenu.noAddition' | translate}}</p>
+    <div ng-show="additionList.length === 0" class="additions-list-empty">
+        <h3>{{'additionMenu.noAddition' | translate}}</h3>
     </div>
     <div class="qr-list-container" ng-show="additionList">
         <div ng-repeat="addition in additionList | filter: addition.isDeleted === false" on-finish-render="ngRepeatFinished">

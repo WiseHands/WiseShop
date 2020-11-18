@@ -2610,6 +2610,10 @@ ul.admin-breadcrumb li a:hover {
 	padding-top: 10px;
 }
 
+.additions-list-empty h3 {
+    text-align: center;
+}
+
 @media screen and (min-width: 1500px) {
 	.admin-container {
 		max-width: 1300px;
@@ -2772,9 +2776,7 @@ ul.admin-breadcrumb li a:hover {
 		margin: 10px;
 		width: 370px;
 	}
-	
-	
-	
+
 }
 
 @media screen and (max-width: 900px) {

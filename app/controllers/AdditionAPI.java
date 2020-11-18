@@ -7,10 +7,7 @@ import models.ShopDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import play.db.jpa.JPA;
 import services.querying.DataBaseQueries;
-
-import javax.persistence.EntityManager;
 import java.util.List;
 
 public class AdditionAPI extends AuthController {
@@ -116,13 +113,18 @@ public class AdditionAPI extends AuthController {
         }
         System.out.println("delete addition => " + uuid);
         checkAuthentification(shop);
-        SelectedAdditionDTO selectedAddition = SelectedAdditionDTO.find("byAddition_uuid", uuid).first();
+
         AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
-        if (selectedAddition != null) {
-            selectedAddition.delete();
-        } else {
-            addition.delete();
+        List<SelectedAdditionDTO> selectedAdditionList = SelectedAdditionDTO.find("byAddition_uuid", uuid).fetch();
+
+        for (SelectedAdditionDTO selectedAddition : selectedAdditionList) {
+            if (selectedAddition != null) {
+                selectedAddition.addition = null;
+                selectedAddition.delete();
+            }
         }
+
+        addition.delete();
         ok();
     }
 
