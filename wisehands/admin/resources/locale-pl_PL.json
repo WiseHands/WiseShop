@@ -29,7 +29,7 @@
   "pageQR.create": "Create",
   "pageQR.noQR": "No QR codes",
   "qrDetails.title": "Details",
-  "qrDetails.titleInfo": "This is your QR code that you can print out and put on the table. To download this QR code for printing, click \"Download\" below. Visitors will be able to scan the QR code and create an order. In the order details you will see the name of the QR code",
+  "qrDetails.titleInfo": "This is your QR code that you can print out and put on the table. To download for printing, click \"Download\" below. Visitors will be able to scan the QR code and create an order. In the order details you will see the name of the QR code",
   "qrDetails.save": "Save",
   "qrDetails.edit": "Edit",
   "qrDetails.save.button": "Save",
