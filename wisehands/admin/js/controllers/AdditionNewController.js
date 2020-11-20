@@ -4,44 +4,44 @@ angular.module('WiseHands')
         $scope.loading = true;
 
         let additionName = document.querySelector("#addition_name");
-        let additionLabel = document.querySelector("#nema_label");
+        let additionLabel = document.querySelector("#name_label");
 
         let additionPrice = document.querySelector("#addition_price");
-        let price_label = document.querySelector("#price_label");
-        let image_text = document.querySelector("#image_text");
+        let priceLabel = document.querySelector("#price_label");
+
+        let imageText = document.querySelector("#image_text");
 
         additionName.addEventListener('blur', handleNameInput, false);
         function handleNameInput(e) {
             if (e.target.value){
-                additionName.style.borderBottom = '1px solid black';
+                setStyleValidation();
             }
         }
 
         additionPrice.addEventListener('blur', handlePriceInput, false);
         function handlePriceInput(e) {
             if (e.target.value){
-                additionPrice.style.borderBottom = '1px solid black';
+                setStyleValidation();
             }
         }
 
-        $scope.uploadOptionImage = () => { $('#imageLoader').click(); };
-
-        let imageLoader = document.getElementById('imageLoader');
+        const imageLoader = document.getElementById('imageLoader');
         imageLoader.addEventListener('change', handleImage, false);
+
         function handleImage(e) {
             $scope.fileName = true;
             let file  = e.target.files[0];
             let fileName = file.name;
             console.log('handleImage', fileName);
             let reader = new FileReader();
-            $scope.addition.fileName = fileName;
+/*            $scope.addition.fileName = fileName;*/
+            $scope.fileName = fileName;
             reader.onloadend = (event) => {
 
                 const imageName = document.querySelector("#image_text");
                 imageName.innerText = fileName;
-                image_text.style.color = '#039be5';
-                setBlackStyleValidation();
-
+                setStyleValidation();
+                imageName.classList.add("input-image-text");
             };
             if (file && file.type.match('image.*')) {
                 reader.readAsDataURL(e.target.files[0]);
@@ -51,22 +51,20 @@ angular.module('WiseHands')
         $scope.createAddition = () => {
 
             if(!additionName.value){
-                additionName.style.borderBottom = '1px solid red';
+                additionName.className = 'input-error';
+                name_label.className = 'input-label-error';
 
                 return;
             }
             if(!additionPrice.value) {
-                additionPrice.style.borderBottom = '1px solid red';
+                additionPrice.className = 'input-error';
+                priceLabel.className = 'input-label-error';
 
                 return;
             }
             if(!imageLoader.value) {
-                image_text.style.color = 'red';
+                imageText.classList.add("input-label-error");
 
-                return;
-            }
-            if (!imageLoader.value) {
-                image_text.style.color = 'red';
                 return;
             }
             if (!$scope.addition) {
@@ -111,9 +109,22 @@ angular.module('WiseHands')
                 });
         };
 
-        setBlackStyleValidation = () => {
-            additionPrice.style.borderBottom = '1px solid black';
-            additionName.style.borderBottom = '1px solid black';
+        setStyleValidation = () => {
+            if (additionName.classList.contains("input-error")) {
+                additionName.classList.remove("input-error");
+            }
+            if (additionLabel.classList.contains("input-label-error")) {
+                additionLabel.classList.remove("input-label-error");
+            }
+            if (additionPrice.classList.contains("input-error")) {
+                additionPrice.classList.remove("input-error");
+            }
+            if (priceLabel.classList.contains("input-label-error")) {
+                priceLabel.classList.remove("input-label-error");
+            }
+            if (imageText.classList.contains("input-label-error")) {
+                imageText.classList.remove("input-label-error");
+            }
         }
 
         sideNavInit.sideNav();

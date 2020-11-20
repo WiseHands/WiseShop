@@ -2487,9 +2487,11 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .addition-image-text {
+	font-size: 1rem !important;
+    font-family: 'ROBOTO';
+    align-self: center;
+    cursor: pointer;
     margin: 0;
-	align-self: center;
-	font-family: 'Roboto';
 }
 
 .addition-create-text {
@@ -2612,6 +2614,19 @@ ul.admin-breadcrumb li a:hover {
 
 .additions-list-empty h3 {
     text-align: center;
+}
+
+.input-error {
+    border-bottom: 1px solid #b00020 !important;
+    box-shadow: 0 1px 0 0 #b00020 !important;
+}
+
+.input-label-error {
+    color: #b00020 !important;
+}
+
+.input-image-text {
+    color: #039be5;
 }
 
 @media screen and (min-width: 1500px) {

@@ -661,7 +661,7 @@ input:focus {
     outline: none;
 }
 input[invalid=true] {
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #b00020;
 }
 label {
     font-size: 1rem;
