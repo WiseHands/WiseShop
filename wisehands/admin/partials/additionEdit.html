@@ -53,12 +53,13 @@
                     </div>
                 </div>
 
-                <div class="addition-image material-icons" role="listbox">
+                <div id="additionImage" class="addition-image material-icons" role="listbox">
                   attach_file
-                    <a ng-click="uploadOptionImage()">
+<!--                    <a ng-click="uploadOptionImage()">
                         <p id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</p>
-                    </a>
-                    <input id="imageLoader" class="input-file hiddenFileInput" type="file"/>
+                    </a>-->
+                    <label for="imageLoader" id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</label>
+                    <input id="imageLoader" class="input-file hiddenFileInput" type="file" accept="image/*"/>
                 </div>
                 <p id="imageName"></p>
                 <div class="addition-edit-button">

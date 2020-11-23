@@ -9,45 +9,63 @@ angular.module('WiseHands')
         }).then(response => {
             console.log(response.data);
             $scope.addition = response.data;
+
+            let additionSelectedImage = document.createElement("img");
+            additionSelectedImage.className = "selected-image"
+            additionSelectedImage.id = "selectedImage"
+
+            additionSelectedImage.src = response.data.imagePath;
+            imageName.appendChild(additionSelectedImage);
+
+            let selectedImage = document.querySelector("#selectedImage");
+
         }, error => {
-            console.log(error);
+            console.error(error);
         });
 
-
         let additionName = document.querySelector("#addition_name");
-        let title_label = document.querySelector("#nema_label");
+        let additionLabel = document.querySelector("#title_label");
 
         let additionPrice = document.querySelector("#addition_price");
-        let price_label = document.querySelector("#price_label");
-        let image_text = document.querySelector("#image_text");
+        let priceLabel = document.querySelector("#price_label");
+
+        let imageText = document.querySelector("#image_text");
+        let additionImage = document.querySelector("#additionImage");
 
         additionName.addEventListener('blur', handleNameInput, false);
         function handleNameInput(e) {
             if (e.target.value){
-                additionName.style.borderBottom = '1px solid black';
+                setStyleValidation();
             }
         }
 
         additionPrice.addEventListener('blur', handlePriceInput, false);
         function handlePriceInput(e) {
             if (e.target.value){
-                additionPrice.style.borderBottom = '1px solid black';
+                setStyleValidation();
             }
         }
 
-        $scope.uploadOptionImage = () => { $('#imageLoader').click(); };
+/*        $scope.uploadOptionImage = () => {
+            $('#imageLoader').click();
+        };*/
 
-        let imageLoader = document.getElementById('imageLoader');
+        const imageLoader = document.getElementById('imageLoader');
         imageLoader.addEventListener('change', handleImage, false);
+
         function handleImage(e) {
+            $scope.fileName = true;
             let file  = e.target.files[0];
             let fileName = file.name;
             console.log('handleImage', fileName);
             let reader = new FileReader();
+            $scope.fileName = fileName;
 
             reader.onloadend = (event) => {
-                const imageName = document.querySelector("#imageName");
+                const imageName = document.querySelector("#image_text");
                 imageName.innerText = fileName;
+                setStyleValidation();
+                imageName.classList.add("input-image-text");
             };
             if (file && file.type.match('image.*')) {
                 reader.readAsDataURL(e.target.files[0]);
@@ -55,18 +73,27 @@ angular.module('WiseHands')
         }
 
         $scope.editAddition = () => {
+
             if(!additionName.value){
-                additionName.style.borderBottom = '1px solid red';
+                additionName.classList.add("input-error");
+                additionLabel.classList.add("input-label-error");
 
                 return;
             }
             if(!additionPrice.value){
-                additionPrice.style.borderBottom = '1px solid red';
+                additionPrice.classList.add("input-error");
+                priceLabel.classList.add("input-label-error");
 
                 return;
             }
-            sendAddition();
-            console.log("createAddition", $scope.addition);
+            if(!selectedImage.src) {
+                imageText.classList.add("input-label-error");
+                additionImage.classList.add("input-label-error");
+
+                return;
+            }
+
+            console.log("editAddition", $scope.addition);
 
 /*            if (!document.getElementById("imageLoader").value) {
                 document.querySelector(".error-text").style.display = "block";
@@ -87,12 +114,14 @@ angular.module('WiseHands')
                 })
                     .success(function(response){
                         $scope.loading = false;
-                        $scope.addition.filepath = response.filepath;
-
+                        if (response.filepath) {
+                            $scope.addition.imagePath = response.filepath;
+                        }
+                        sendAddition();
                     })
                     .error(function(response){
                         $scope.loading = false;
-                        console.log(response);
+                        console.error(response);
                     });
 
             }
@@ -105,12 +134,12 @@ angular.module('WiseHands')
                 data: $scope.addition
             })
                 .then(function successCallback(response) {
-                    console.log("$scope.addition", response.data);
+                    console.log("$scope.addition after save", response.data);
                     $window.location.href = `#/addition`;
                     $scope.loading = false;
                 }, function errorCallback(response) {
                     $scope.loading = false;
-                    console.log("$scope.addition", response);
+                    console.error("$scope.addition", response);
                 });
         };
 
@@ -127,11 +156,30 @@ angular.module('WiseHands')
                     $scope.loading = false;
                 }
             }, error => {
-                console.log(error);
+                console.error(error);
             });
+        }
+
+        setStyleValidation = () => {
+            if (additionName.classList.contains("input-error")) {
+                additionName.classList.remove("input-error");
+            }
+            if (additionLabel.classList.contains("input-label-error")) {
+                additionLabel.classList.remove("input-label-error");
+            }
+            if (additionPrice.classList.contains("input-error")) {
+                additionPrice.classList.remove("input-error");
+            }
+            if (priceLabel.classList.contains("input-label-error")) {
+                priceLabel.classList.remove("input-label-error");
+            }
+            if (imageText.classList.contains("input-label-error")) {
+                imageText.classList.remove("input-label-error");
+            }
+            if (additionImage.classList.contains("input-label-error")) {
+                additionImage.classList.remove("input-label-error");
+            }
         }
 
         sideNavInit.sideNav();
     }]);
-
-

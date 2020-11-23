@@ -53,7 +53,7 @@ angular.module('WiseHands')
 
             if(!additionName.value){
                 additionName.className = 'input-error';
-                name_label.className = 'input-label-error';
+                additionLabel.className = 'input-label-error';
 
                 return;
             }
@@ -134,5 +134,3 @@ angular.module('WiseHands')
 
         sideNavInit.sideNav();
     }]);
-
-

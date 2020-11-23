@@ -1228,6 +1228,7 @@ input {
 	background-color: #fff;
 	font-size: 1.6rem;
 	width: 200px;
+	color: rgba(0,0,0,.87);
 }
 
 .save-button:hover {
@@ -2612,8 +2613,9 @@ ul.admin-breadcrumb li a:hover {
 	padding-top: 10px;
 }
 
-.additions-list-empty h3 {
-    text-align: center;
+.additions-list-empty h3, .additions-list-empty .qr-button{
+    display: flex;
+    justify-content: center;
 }
 
 .input-error {
@@ -2627,6 +2629,11 @@ ul.admin-breadcrumb li a:hover {
 
 .input-image-text {
     color: #039be5;
+}
+
+.selected-image {
+    width: 25%;
+    margin-top: 1rem;
 }
 
 @media screen and (min-width: 1500px) {
