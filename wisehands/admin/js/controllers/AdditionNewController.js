@@ -10,6 +10,7 @@ angular.module('WiseHands')
         let priceLabel = document.querySelector("#price_label");
 
         let imageText = document.querySelector("#image_text");
+        let additionImage = document.querySelector("#additionImage");
 
         additionName.addEventListener('blur', handleNameInput, false);
         function handleNameInput(e) {
@@ -64,6 +65,7 @@ angular.module('WiseHands')
             }
             if(!imageLoader.value) {
                 imageText.classList.add("input-label-error");
+                additionImage.classList.add("input-label-error");
 
                 return;
             }
@@ -124,6 +126,9 @@ angular.module('WiseHands')
             }
             if (imageText.classList.contains("input-label-error")) {
                 imageText.classList.remove("input-label-error");
+            }
+            if (additionImage.classList.contains("input-label-error")) {
+                additionImage.classList.remove("input-label-error");
             }
         }
 
