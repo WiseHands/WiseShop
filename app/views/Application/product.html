@@ -173,23 +173,43 @@
         justify-content: space-between;
         width: 150px;
         height: 170px;
-        margin: 0.5rem;
+        margin: 1.7rem;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     }
 
     .defaultItem {
-        opacity: 50%;
+        /*opacity: 50%;*/
+        color: #20b2aa;
+	    background: #20b2aa1c;
+    }
+
+    .defaultItem img {
+        height: 40% !important;
     }
 
     .add-item img {
-        max-width: 100%;
-        height: 100px;
+        width: 100%;
+        height: 50%;
+        object-fit: contain;
+        align-self: center;
+    }
+
+    .check-circle {
+        text-align: right;
+        padding: .5rem .5rem 0 0;
     }
 
     .add-item p {
         text-align: center;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .addition-name {
+        padding: 0 .5rem 0 .5rem;
+    }
+
+    .addition-name p {
+        margin: 0;
     }
 
     .add-item-price {
@@ -392,6 +412,10 @@
             padding: 0.5rem;
             width: auto;
         }
+
+        .add-item {
+            margin: 0.7rem;
+        }
     }
 
     /*.addition-header {
@@ -423,6 +447,7 @@
     <link href="/wisehands/assets/mdb_shop/css/mdb.min.css" rel="stylesheet"/>
     <link href="/wisehands/shop/css/autocomplete.css" rel="stylesheet">
     <link href="/wisehands/shop/js/directives/angularSelect/angular-selectbox.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}'
           type='image/x-icon'>
@@ -535,8 +560,13 @@
                 for(defaultAddition in defaultAdditions) {
                 }%
                 <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}">
+                    <span class="material-icons check-circle">
+                        check_circle
+                    </span>
                     <img src="${defaultAddition.addition.imagePath}">
-                    <p>${defaultAddition.addition.title}</p>
+                    <div class="addition-name" title="${defaultAddition.addition.title}">
+                        <p>${defaultAddition.addition.title}</p>
+                    </div>
                     <p class="add-item-price">${defaultAddition.addition.formatDecimal()} UAH</p>
                 </div>
                 %{
@@ -553,7 +583,9 @@
                     isDefault: '${_selectedAddition.isDefault}'
                 })">
                     <img src="${_selectedAddition.addition.imagePath}">
-                    <p id="add-item-title">${_selectedAddition.addition.title}</p>
+                    <div class="addition-name" title="${_selectedAddition.addition.title}">
+                        <p id="add-item-title">${_selectedAddition.addition.title}</p>
+                    </div>
                     <p class="add-item-price">${_selectedAddition.addition.formatDecimal()} UAH</p>
                 </div>
                 %{
