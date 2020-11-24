@@ -108,14 +108,17 @@
     </li>
 </ul>
 <div class="container-fluid admin-all-orders ">
-    <div class="all-order-item hidden-xs" ng-if="item.state !== 'DELETED'" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
+    <div class="all-order-item hidden-xs"
+         ng-if="item.state !== 'DELETED'"
+         ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive"
+         on-finish-render="ngRepeatFinished">
         <a href ="#/details/{{item.uuid}}">
             <div class="card elegant-card hoverable">
                 <div ng-show="item.clientAddressStreetLng && item.deliveryType === 'COURIER'" class="view overlay hm-white-slight z-depth-1">
                     <img
-                            ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&center={{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&size=600x300&maptype=roadmap&markers=color:red|label:C|{{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&key={{activeShop.googleStaticMapsApiKey}}"
-                            class="img-responsive"
-                            alt="">
+                        ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&center={{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&size=600x300&maptype=roadmap&markers=color:red|label:C|{{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&key={{activeShop.googleStaticMapsApiKey}}"
+                        class="img-responsive"
+                        alt="">
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div ng-show="item.deliveryType === 'COURIER' && !item.clientAddressStreetLng" class="view overlay hm-white-slight z-depth-1">
@@ -131,7 +134,7 @@
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div ng-show="item.qrName" class="view overlay hm-white-slight z-depth-1 show-qr-in-order-list">
-                    <img src="/public/shop_logo/{{activeShop.uuid}}/{{activeShop.visualSettingsDTO.shopLogo}}" class="img-responsive" alt="">
+                    <img id="{{item.uuid}}" class="img-responsive" alt="">
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div class="card-content">

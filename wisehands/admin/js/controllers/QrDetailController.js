@@ -8,7 +8,7 @@ angular.module('WiseHands')
             method: 'GET',
             url: `/api/qr/info/${$routeParams.uuid}`
         }).then(response => {
-            console.log(response);
+            console.log('/api/qr/info, ',response);
             $scope.qr = response.data;
             showQR($scope.qr);
         }, error => {

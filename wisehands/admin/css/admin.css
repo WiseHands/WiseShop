@@ -2637,9 +2637,7 @@ ul.admin-breadcrumb li a:hover {
 
 .show-qr-in-order-list {
     text-align: -webkit-center;
-}
-.show-qr-in-order-list img {
-    height: 164px;
+    padding: 10px;
 }
 
 @media screen and (min-width: 1500px) {

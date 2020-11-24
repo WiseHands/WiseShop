@@ -9,7 +9,6 @@ angular.module('WiseHands')
            .then((response) =>{
                if (response.data){
                   $scope.qrList = response.data;
-                  console.log($scope.qrList.length);
                }
            }, (error) => {
                console.log(error);

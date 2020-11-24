@@ -37,7 +37,6 @@
                                     $scope.loading = false;
                                 } else {
                                     $scope.hideMoreButton = false;
-
                                 }
 
                                 $scope.isAllOrdersDeleted = true;
@@ -76,8 +75,17 @@
                     $scope.loading = false;
                 });
 
-
-
+            showQrImgToOrder = (orders) => {
+              orders.forEach((item) =>{
+		            new QRious({
+			            element: document.getElementById(item.uuid),
+			            size: 145,
+			            value: item.qrName
+		            });
+	            });
+            };
+	
+	          $scope.$on('ngRepeatFinished', () => showQrImgToOrder($scope.orders));
 
             $http({
                 method: 'GET',
