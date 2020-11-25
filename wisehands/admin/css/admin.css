@@ -316,6 +316,14 @@ input[type=date]::-webkit-inner-spin-button {
 	padding-right: 15px;
 }
 
+.payment-pending-order-row {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+    width: 60%;
+}
+
 /*Text Truncating*/
 .truncate {
 	white-space: nowrap;
@@ -578,7 +586,7 @@ body {
 .vcentering {
 	display: flex;
 	align-items: center;
-	justify-content: flex-between;
+	overflow: hidden;
 }
 
 #filterOptions {
