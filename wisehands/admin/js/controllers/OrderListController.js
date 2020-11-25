@@ -79,7 +79,7 @@
               orders.forEach((item) =>{
 		            new QRious({
 			            element: document.getElementById(item.uuid),
-			            size: 145,
+			            size: 300,
 			            value: item.qrName
 		            });
 	            });

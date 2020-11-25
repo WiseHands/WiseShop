@@ -2636,8 +2636,13 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .show-qr-in-order-list {
-    text-align: -webkit-center;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.show-qr-in-order-list img {
+    width: 50%;
+    padding: 1rem;
 }
 
 @media screen and (min-width: 1500px) {
