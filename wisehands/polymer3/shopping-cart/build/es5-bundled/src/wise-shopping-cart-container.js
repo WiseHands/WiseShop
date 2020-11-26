@@ -25532,7 +25532,6 @@ class WiseShoppingCartContainer extends PolymerElement {
     let label = '';
 
     if (cashInfo.translationBucket) {
-      console.log("postInfo.translationBucket ", cashInfo.translationBucket);
       cashInfo.translationBucket.translationList.forEach(item => {
         if (item.language === this.language) {
           console.log(this.language);
@@ -25550,7 +25549,6 @@ class WiseShoppingCartContainer extends PolymerElement {
     let label = '';
 
     if (postInfo.translationBucket) {
-      console.log("postInfo.translationBucket ", postInfo.translationBucket);
       postInfo.translationBucket.translationList.forEach(item => {
         if (item.language === this.language) {
           console.log(this.language);
@@ -25566,7 +25564,6 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   _translateSelfTakeLabel(selfTakeInfo) {
     let label = '';
-    console.log("selfTakeInfo.translationBucket ", selfTakeInfo.translationBucket);
 
     if (selfTakeInfo.translationBucket) {
       selfTakeInfo.translationBucket.translationList.forEach(item => {
@@ -25586,7 +25583,6 @@ class WiseShoppingCartContainer extends PolymerElement {
     let label = '';
 
     if (courierInfo.translationBucket) {
-      console.log("courierInfo.translationBucket ", courierInfo.translationBucket);
       courierInfo.translationBucket.translationList.forEach(item => {
         if (item.language === this.language) {
           label = item.content;
@@ -25664,9 +25660,15 @@ class WiseShoppingCartContainer extends PolymerElement {
         document.querySelector('.form-container').append(form);
         form.submit();
       } else {
-        window.location = '/done';
+        const link = this._generateLinkWithQrCode(this.qrUuid, '/done');
+
+        window.location = link;
       }
     });
+  }
+
+  _generateLinkWithQrCode(qrId, url) {
+    return qrId ? `${url}?qr_uuid=${qrId}` : `${url}`;
   }
 
   hideDeliveryTypeIfQrPresent() {
@@ -25762,10 +25764,21 @@ class WiseShoppingCartContainer extends PolymerElement {
   _makeOrderRequest() {
     if (this.isMakeOrderRequestRunning) return;
     const ajax = this.$.makeOrderAjax;
-    ajax.url = `${this.hostname}/order/${this.language}?qr_uuid=${this.qrUuid}`;
+    const url = `${this.hostname}/order/${this.language}`;
+    ajax.url = this._generateLinkWithQrCode(this.qrUuid, url);
     ajax.method = 'POST';
     this.isMakeOrderRequestRunning = true;
     ajax.generateRequest();
+  }
+
+  _generateUrlToOrder(qrId) {
+    console.log("Check QR uuid in SCC => ", qrId);
+
+    if (qrId) {
+      return `${this.hostname}/order/${this.language}?qr_uuid=${qrId}`;
+    } else {
+      return `${this.hostname}/order/${this.language}`;
+    }
   }
 
   _onOrderResponseChanged(event, detail) {

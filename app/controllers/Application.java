@@ -624,7 +624,13 @@ public class Application extends Controller {
             delivery = delivery.save();
         }
 
-        render(delivery, language);
+        String qr_uuid = "";
+        if (request.params.get("qr_uuid") != null){
+            qr_uuid = request.params.get("qr_uuid");
+        }
+
+
+        render(delivery, language, qr_uuid);
     }
 
     public static void fail(String client) {
