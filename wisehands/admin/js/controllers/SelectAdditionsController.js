@@ -37,7 +37,11 @@ angular.module('WiseHands')
 			};
 
 			$scope.selectAddition = ({addition}) => {
-				addition.isSelected = !addition.isSelected;
+			    if (addition.isDefault) {
+			        addition.isSelected = addition.isSelected;
+			    } else {
+			        addition.isSelected = !addition.isSelected;
+			    }
 				addition.productUuid = productUuid;
 			};
 

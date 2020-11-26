@@ -2525,7 +2525,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .selected-addition-checkbox {
-	margin-left: 10px;
+	margin: .5rem;
 }
 
 .addition-item p {
