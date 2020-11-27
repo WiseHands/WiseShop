@@ -73,7 +73,11 @@
     <div class="done-text wow fadeInUp" data-wow-delay="0.5s">
         <p>&{'page.done.delivery.order.message'}</p>
     </div>
-    <a href="/${language}/shop?qr_uuid=${qr_uuid}" class="wow fadeInUp" data-wow-delay="0.5s">
+    #{if qr_uuid }
+        <a href="/${language}/shop?qr_uuid=${qr_uuid}" class="wow fadeInUp" data-wow-delay="0.5s">
+    #{/if} #{else}
+        <a href="/${language}/shop" class="wow fadeInUp" data-wow-delay="0.5s">
+    #{/else}
       <button type="button">&{'gotomain'}</button>
     </a>
 </div>
