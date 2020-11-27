@@ -1,7 +1,9 @@
 ﻿{
   "selectAdditions.title": "Additions",
+  "selectProductAdditions.title": "Additions for product",
   "selectAdditions.selectedAdditionsTitle": " Selected Additions:",
-  "selectAdditions.noSelectedAdditions": "No selected Additions:",
+  "selectAdditions.noSelectedAdditions": "Choose applicable additions:",
+  "selectAdditions.noCreatedAdditions": "No created Additions:",
   "selectAdditions.availableAddition": "Available additions:",
   "selectAdditions.additionsPrice": "(additions)",
 

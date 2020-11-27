@@ -7,7 +7,7 @@
       </div>
       <div class="col-xs-8 text-center white-text">
         <h5>
-          {{'selectAdditions.title' | translate}}
+          {{'selectProductAdditions.title' | translate}}
         </h5>
       </div>
       <div class="col-xs-2 noRightPadding">
@@ -64,6 +64,12 @@
       </div>
     </div>
   </div>
-
-
+  <div class="admin-column" ng-show="availableAdditions == 0">
+    <h4 class="addition-no-selected">{{'selectAdditions.noCreatedAdditions' | translate}}</h4>
+    <div class="qr-button">
+      <a class="save-button ng-binding" type="button" href="#/newaddition">
+        {{'additionNew.create' | translate}}
+      </a>
+    </div>
+  </div>
 </div>

@@ -1,8 +1,10 @@
 {
   "selectAdditions.title": "Additions",
-  "selectAdditions.selectedAdditionsTitle": " Selected Additions:",
-  "selectAdditions.noSelectedAdditions": "Choose applicable additions:",
-  "selectAdditions.availableAddition": "Available additions:",
+  "selectProductAdditions.title": "Additions for product",
+  "selectAdditions.selectedAdditionsTitle": " Selected Additions",
+  "selectAdditions.noSelectedAdditions": "Choose applicable additions",
+  "selectAdditions.noCreatedAdditions": "No created Additions",
+  "selectAdditions.availableAddition": "Available additions",
   "selectAdditions.additionsPrice": "(additions)",
 
   "additionMenu.title": "Additions",
