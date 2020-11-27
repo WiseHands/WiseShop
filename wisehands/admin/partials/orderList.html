@@ -91,7 +91,7 @@
     <li class="collection-item" ng-if="item.state !== 'DELETED'" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
         <a href ="#/details/{{item.uuid}}">
             <div class="row vcentering">
-                <div class="col-xs-3 datePriceContainer">
+                <div class="col-xs-3">
                     <p class="normal-400 black-text">{{'orderList.Currency' | translate}}{{item.total}}</p>
                     <p class="secondaryOrderFont" ng-show="!item.yesterdayString">{{item.properDate}}</p>
                     <p class="secondaryOrderFont" ng-show="item.yesterdayString">{{'orderList.yesterday' | translate}}</p>
