@@ -157,6 +157,12 @@
                 }
             };
 
+            $scope.orderType = function (item) {
+                if (item.qrName) {
+                    return 'qr_code';
+                }
+            }
+
             $scope.orderFeedbackState = function (order) {
                 if (!order) return;
 
