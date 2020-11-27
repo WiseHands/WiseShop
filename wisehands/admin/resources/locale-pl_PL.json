@@ -276,7 +276,8 @@
 
   "editProduct.selectAdditions": "Select special addition",
   "editProduct.additionQuantity": "Quantity",
-  "editProduct.isDefault": "Select for all products in shop",
+  "editProduct.isDefault": "By default *",
+  "editProduct.isDefaultDescription": "* except QR code scan",
 
   "editProduct.general": "Wspólne",
   "editProduct.edit": "Edytuj produkt",

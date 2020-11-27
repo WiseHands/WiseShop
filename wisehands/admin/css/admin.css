@@ -2521,7 +2521,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .selected-addition-item {
-	width: 175px;
+	width: auto;
 	display: flex;
 	flex-direction: column;
 	padding: 0;

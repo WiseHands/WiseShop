@@ -274,7 +274,9 @@
 
   "editProduct.selectAdditions": "Select special addition",
   "editProduct.additionQuantity": "Quantity",
-  "editProduct.isDefault": "Selected by default (except QR code scan)",
+  "editProduct.isDefault": "By default *",
+  "editProduct.isDefaultDescription": "* except QR code scan",
+
   "editProduct.general": "General",
   "editProduct.edit": "Edit product",
   "editProduct.property": "Property",
