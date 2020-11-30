@@ -51,13 +51,13 @@ public class DataBaseQueries {
     }
 
     public static List<SelectedAdditionDTO> checkIsAdditionDefaultToProduct(ProductDTO product) {
-        List<SelectedAdditionDTO> additionList = new ArrayList<>();
+        List<SelectedAdditionDTO> defaultAdditionList = new ArrayList<>();
         String additionIsDefaultQuery = "select a from SelectedAdditionDTO a where a.isDefault = 1 and a.productUuid = ?1";
-        additionList = SelectedAdditionDTO.find(additionIsDefaultQuery, product.uuid).fetch();
-        if (!additionList.isEmpty()){
-            return additionList;
+        defaultAdditionList = SelectedAdditionDTO.find(additionIsDefaultQuery, product.uuid).fetch();
+        if (!defaultAdditionList.isEmpty()){
+            return defaultAdditionList;
         } else {
-            return additionList;
+            return defaultAdditionList;
         }
     }
 
