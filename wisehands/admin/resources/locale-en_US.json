@@ -24,6 +24,8 @@
   "additionBreadCrumb.admin": "Admin",
   "additionBreadCrumb.additions": "Additions",
 
+  "productBreadCrumb.products": "Products",
+
   "pageQR.title": "QR-Menu",
   "pageQR.titleInfo": "QR-code is a unique image that encodes a link to a store page with a specified table number. Visitors will be able to scan QR codes and place an order. There is a list of generated QR codes below. Click \\ \"+ \\\" above to create a new QR code",
   "pageQR.qrInfo": "QR code",

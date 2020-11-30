@@ -34,7 +34,7 @@
     <div class="noSidePadding" ng-hide="loading">
         <div class="details-product-block card-min">
             <div class="admin-column">
-                <div class="admin-card">
+                <div class="admin-card hoverable">
                     <h4>{{'editProduct.general' | translate}}</h4>
                     <div class="translation-flex-row">
                         <div class="translation-flex-column">
@@ -52,7 +52,7 @@
                     <label for="category">{{'productDetails.category' | translate}}</label>
                     <h5 id="category">{{product.categoryName}}</h5>
                 </div>
-                <div class="admin-card">
+                <div class="admin-card hoverable">
                     <h4>{{'addNewProduct.productDescription' | translate}}</h4>
                     <div class="translation-flex-row">
                         <div id="home">
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="admin-card details-product-col">
+                <div class="admin-card hoverable details-product-col">
                     <h4>{{'editProduct.properties' | translate}}</h4>
                     <p ng-show="product.isActive" >{{'addNewProduct.isShowInShop' | translate}}</p>
                     <p ng-show="!product.isActive" >{{'addNewProduct.isNotShowInShop' | translate}}</p>
@@ -84,7 +84,7 @@
                     <p ng-show="product.sortOrder" id="productOrder">{{product.sortOrder}}</p>
 
                 </div>
-                <div class="admin-card">
+                <div class="admin-card hoverable">
                     <h4>{{'productDetails.reviews' | translate}}</h4>
                     <p>{{'productDetails.customersReviews' | translate}}</p>
                     <a href="#/productreviews/{{product.uuid}}">
@@ -94,7 +94,7 @@
             </div>
 
             <div class="admin-column details-product-col">
-                <div class="details-product-col-image card-image waves-effect waves-block waves-light view overlay hm-white-slight noSidePadding">
+                <div class="details-product-col-image card-image hoverable waves-effect waves-block waves-light view overlay hm-white-slight noSidePadding">
                     <div id="car-gall" class="carousel slide carousel-fade carousel-gallery">
                         <!--Main image-->
                         <div class="">
@@ -135,7 +135,7 @@
 
                     </div>
                 </div>
-                <div class="admin-card">
+                <div class="admin-card hoverable">
                     <h4>{{'addNewProduct.additional' | translate}}</h4>
                     <p ng-show="product.selectedAdditions.length === 0">{{'products.noAdditions' | translate}}</p>
                     <a href="#/selectadditions/{{product.uuid}}" ng-hide="product.selectedAdditions.length === 0">

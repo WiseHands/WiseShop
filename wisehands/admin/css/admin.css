@@ -1998,6 +1998,10 @@ ul.admin-breadcrumb li a:hover {
 	color: #039be5;
 }
 
+.no-reviews {
+	text-align: center;
+}
+
 .sortorder:after {
 	content: '\25b2';
 }
@@ -2433,7 +2437,11 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .qr-breadcrumb {
-	margin: 15px;
+	margin: 1rem;
+}
+
+.review-breadcrumb {
+    margin: 1rem;
 }
 
 .m-l-r {
@@ -2762,6 +2770,7 @@ ul.admin-breadcrumb li a:hover {
 	
 	.qr-detail-info p, .qr-title-text p {
 	    text-align: center;
+	    margin-top: .5rem;
 	}
 	
 	.img-present-qr {
@@ -2821,6 +2830,10 @@ ul.admin-breadcrumb li a:hover {
 	.edit-language-to-addition {
 		display: flex;
 	}
+
+	.qr-breadcrumb {
+    	margin: 3rem 0 0 1rem;
+    }
 
 }
 

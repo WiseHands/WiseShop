@@ -33,6 +33,12 @@
     <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
              show="loading"></spinner>
 </div>
+<ul class="admin-breadcrumb review-breadcrumb">
+    <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
+    <li><a href="#/products">{{'productBreadCrumb.products' | translate}}</a></li>
+    <li><a href="#/product/details/{{product.uuid}}">{{product.name}}</a></li>
+    <li><a href="#/productreviews/{{product.uuid}}">{{'productDetails.reviews' | translate}}</a></li>
+</ul>
 <div ng-hide="loading">
     <div class="admin-container product-reviews-block">
         <div class="admin-column">
@@ -45,7 +51,8 @@
                     <span class="sortorder" ng-show="sortByProperty === 'quality'" ng-class="{reverse: reverse}"></span>
                 </p>
             </div>
-            <div class="admin-card" ng-repeat="review in product.feedbackList | orderBy:sortByProperty:reverse"
+            <div class="admin-card hoverable no-reviews" ng-if="product.feedbackList.length < 1">{{'productReviews.noReviews' | translate}}</div>
+            <div class="admin-card hoverable" ng-repeat="review in product.feedbackList | orderBy:sortByProperty:reverse"
                  ng-show="review.quality > 0 && !review.isFeedbackDeleted">
                 <div class="review-item">
                     <div class="review-info">
@@ -98,7 +105,7 @@
             </div>
         </div>
         <div class="admin-column">
-            <div class="admin-card link-to-product" ng-click="getUrl()">
+            <div class="admin-card hoverable link-to-product" ng-click="getUrl()">
                 <!-- link here  -->
                 <div class="review-product-info">
                     <img ng-src="{{productImageUrl}}"

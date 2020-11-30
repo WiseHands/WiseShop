@@ -18,9 +18,15 @@
     </div>
   </div>
 </nav>
+<ul class="admin-breadcrumb">
+  <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
+  <li><a href="#/products">{{'productBreadCrumb.products' | translate}}</a></li>
+  <li><a href="#/product/details/{{product.uuid}}">{{product.name}}</a></li>
+  <li><a href="#/selectadditions/{{product.uuid}}">{{'selectProductAdditions.title' | translate}}</a></li>
+</ul>
 <div class="admin-container addition-for-product">
   <div class="admin-column">
-    <div class="admin-card">
+    <div class="admin-card hoverable">
       <div class="addition-title-img">
         <h4>{{'editProduct.general' | translate}}</h4>
         <img class="addition-product-img"
