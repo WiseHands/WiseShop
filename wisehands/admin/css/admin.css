@@ -2663,6 +2663,10 @@ ul.admin-breadcrumb li a:hover {
     padding: 1rem;
 }
 
+.edit-language-to-addition {
+    display: flex;
+}
+
 @media screen and (min-width: 1500px) {
 	.admin-container {
 		max-width: 1300px;
@@ -2827,10 +2831,6 @@ ul.admin-breadcrumb li a:hover {
 		width: 370px;
 	}
 	
-	.edit-language-to-addition {
-		display: flex;
-	}
-
 	.qr-breadcrumb {
     	margin: 3rem 0 0 1rem;
     }
