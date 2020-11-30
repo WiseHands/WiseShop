@@ -117,6 +117,11 @@ public class AdditionAPI extends AuthController {
         List<SelectedAdditionDTO> selectedAdditionList = SelectedAdditionDTO.find("byAddition_uuid", uuid).fetch();
 
         for (SelectedAdditionDTO selectedAddition : selectedAdditionList) {
+            if(selectedAddition.isDefault){
+                ProductDTO product = ProductDTO.findById(selectedAddition.productUuid);
+                product.priceWithAdditions = product.priceWithAdditions - selectedAddition.addition.price;
+                product.save();
+            }
             if (selectedAddition != null) {
                 selectedAddition.addition = null;
                 selectedAddition.delete();

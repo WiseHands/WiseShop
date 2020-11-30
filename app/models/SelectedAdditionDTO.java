@@ -19,9 +19,6 @@ public class SelectedAdditionDTO extends GenericModel {
     public String productUuid;
 
     @Expose
-    public boolean isDeleted;
-
-    @Expose
     public boolean isDefault = false;
 
     @Expose
