@@ -42,7 +42,7 @@
         <div class="row text-center card-block">
             <div class="admin-all-orders">
                 <div class="admin-all-orders-col">
-                    <div class="admin-card">
+                    <div class="admin-card hoverable">
                         <h4>{{'singleOrder.titleCustomer' | translate}}</h4>
                         <div class="admin-order-card-row" ng-show="order.qrName">
                             <h5>{{'singleOrder.qrCodeName' | translate}}: </h5>
@@ -73,7 +73,7 @@
                             <p>{{order.chosenClientLanguage}}</p>
                         </div>
                     </div>
-                    <div class="admin-card" ng-show="!order.qrName">
+                    <div class="admin-card hoverable" ng-show="!order.qrName">
                         <h4>{{'singleOrder.titleDelivery' | translate}}</h4>
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.deliveryType' | translate}}: </h5>
@@ -133,7 +133,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="admin-card">
+                    <div class="admin-card hoverable">
                         <h4>{{'singleOrder.titlePayment' | translate}}</h4>
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.paymentType' | translate}}:</h5>
@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <div class="admin-all-orders-col">
-                    <div class="admin-card">
+                    <div class="admin-card hoverable">
                         <h4>{{'singleOrder.titleOrder' | translate}}</h4>
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.OrderAmount' | translate}}: </h5>
@@ -206,7 +206,7 @@
                             <p>{{order.comment}}</p>
                         </div>
                     </div>
-                    <div class="admin-card product-feedback-container">
+                    <div class="admin-card hoverable product-feedback-container">
                         <div ng-show="!order.orderFeedback.isFeedbackDeleted">
                             <div class="admin-order-card-row">
                                 <h4>{{'singleOrder.feedback' | translate}}</h4>

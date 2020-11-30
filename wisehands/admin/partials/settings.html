@@ -23,7 +23,7 @@
              show="loading"></spinner>
 </div>
 <div class="admin-container">
-    <div class="admin-card translation-flex-row">
+    <div class="admin-card hoverable translation-flex-row">
            <h4>{{'settings.shopName' | translate}}: </h4>
         <div class="flex-row">
             <h4 id="shopName" class="flex-row"></h4>
@@ -35,7 +35,7 @@
     </div>
     <form class="settings-block noSidePadding" id="shopStyling" name="shopStyling" ng-hide="loading">
         <div class="admin-column">
-            <div class="admin-card">
+            <div class="admin-card hoverable">
                 <div class="upload-info-text">
                     <h4>{{'settings.favicon' | translate}}</h4>
                     <p class="upload-info-text">{{'settings.loadFavicon' | translate}}</p>
@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="admin-column">
-            <div class="admin-card admin-card-logo">
+            <div class="admin-card hoverable admin-card-logo">
                 <div class="upload-info-text">
                     <h4>{{'settings.logotype' | translate}}</h4>
                     <p >{{'settings.loadLogotype' | translate}}</p>
@@ -85,7 +85,7 @@
             </div>
         </div>
 
-        <div class="admin-card settings-footer-switch input-field col-sm-12">
+        <div class="admin-card hoverable settings-footer-switch input-field col-sm-12">
             <h4>{{'settings.footer' | translate}}</h4>
             <p>{{'settings.loadFooter' | translate}}</p>
             <input id="filled-in-isFooterOn" type="checkbox" class="filled-in checkBoxStyling"

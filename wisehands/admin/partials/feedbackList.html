@@ -16,7 +16,7 @@
              show="loading"></spinner>
 </div>
 <div ng-hide="loading">
-    <div class="admin-card" ng-show="!orderList">
+    <div class="admin-card hoverable" ng-show="!orderList">
         <p>{{'productReviews.noReviews' | translate}}</p>
     </div>
     <div class="admin-container admin-column" ng-show="orderList">
@@ -31,7 +31,7 @@
             <!--</p>-->
         </div>
         <div class="admin-feedback-list">
-            <div class="admin-card product-feedback-container" ng-repeat="order in orderList | orderBy:sortByProperty:reverse">
+            <div class="admin-card hoverable product-feedback-container" ng-repeat="order in orderList | orderBy:sortByProperty:reverse">
                 <div class="admin-order-card-row">
                     <h4>{{'singleOrder.feedback' | translate}}
                         <a href="#/details/{{order.uuid}}">

@@ -38,33 +38,34 @@
                 <p> {{'additionEdit.titleInfo' | translate}} </p>
             </div>
             <div class="addition-new-container">
-              <div class="edit-language-to-addition">
-                <div class="addition-column">
-                  <div class="input-field">
-                    <input id="addition_name" type="text" ng-model="addition.title" required>
-                    <label id="title_label" for="addition_name" class="active">
-                      {{'editProduct.additionTitle' | translate}}
-                    </label>
-                  </div>
-                  <div class="input-field">
-                    <input id="addition_price" type="text" ng-model="addition.price" required>
-                    <label id="price_label" for="addition_price"
-                           class="active">{{'editProduct.additionPrice' |
-                      translate}}</label>
-                  </div>
+                <div class="edit-language-to-addition">
+                    <div class="addition-column">
+                        <div class="input-field">
+                            <input id="addition_name" type="text" ng-model="addition.title" required>
+                            <label id="title_label" for="addition_name" class="active">
+                                {{'editProduct.additionTitle' | translate}}
+                            </label>
+                        </div>
+                        <div class="input-field">
+                            <input id="addition_price" type="text" ng-model="addition.price" required>
+                            <label id="price_label" for="addition_price"
+                                   class="active">{{'editProduct.additionPrice' |
+                                translate}}</label>
+                        </div>
+                    </div>
+                    <button class="edit-btn btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                            ng-click="redirectToTranslationPage()"><i class="material-icons">mode_edit</i>
+                    </button>
                 </div>
-                <button class="edit-btn btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
-                        ng-click="redirectToTranslationPage()"><i class="material-icons">mode_edit</i>
-                </button>
-              </div>
 
 
                 <div id="additionImage" class="addition-image material-icons" role="listbox">
-                  attach_file
-<!--                    <a ng-click="uploadOptionImage()">
-                        <p id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</p>
-                    </a>-->
-                    <label for="imageLoader" id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</label>
+                    attach_file
+                    <!--                    <a ng-click="uploadOptionImage()">
+                                            <p id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</p>
+                                        </a>-->
+                    <label for="imageLoader" id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' |
+                        translate}}</label>
                     <input id="imageLoader" class="input-file hiddenFileInput" type="file" accept="image/*"/>
                 </div>
                 <p id="imageName"></p>
@@ -90,10 +91,13 @@
                     <p ng-show="deleteButton"><i>{{'additionEdit.deleteMessage' | translate}}</i></p>
                 </div>
                 <div class="col-xs-9">
-                    <spinner class="col-xs-offset-8" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                    <spinner class="col-xs-offset-8" name="mySpinner"
+                             img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
                 <div class="col-xs-offset-2 col-xs-8">
-                    <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="removeQr()" ng-show="deleteButton">{{'singleOrder.Delete' | translate}}</button>
+                    <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="removeQr()"
+                            ng-show="deleteButton">{{'singleOrder.Delete' | translate}}
+                    </button>
                 </div>
             </div>
         </div>
