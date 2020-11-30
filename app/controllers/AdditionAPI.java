@@ -34,7 +34,6 @@ public class AdditionAPI extends AuthController {
         addition.fileName = fileName;
         addition.imagePath = imagePath;
         addition.shopUuid = shop.uuid;
-        addition.isDeleted = false;
         addition.save();
 
         renderJSON(json(addition));
@@ -52,7 +51,7 @@ public class AdditionAPI extends AuthController {
         checkAuthentification(shop);
 
         List<AdditionDTO> additionList;
-        String query = "select a from AdditionDTO a where a.isDeleted = 0 and a.shopUuid = ?1";
+        String query = "select a from AdditionDTO a where a.shopUuid = ?1";
         additionList = AdditionDTO.find(query, shop.uuid).fetch();
 
         renderJSON(json(additionList));

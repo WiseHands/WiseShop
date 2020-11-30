@@ -28,6 +28,9 @@ public class TranslationBucketDTO extends GenericModel {
     public ProductDTO product;
 
     @OneToOne
+    public AdditionDTO addition;
+
+    @OneToOne
     public PageConstructorDTO pageConstructor;
 
     @OneToOne

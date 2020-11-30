@@ -265,6 +265,7 @@ DELETE  {client}/addition/{uuid}                        AdditionAPI.delete
 
 POST    {client}/api/addition/new                       AdditionAPI.createAddition
 GET     {client}/api/addition/list                      AdditionAPI.additionList
+GET     {client}/api/addition/details/{uuid}            AdditionAPI.details
 
 PUT     {client}/api/addition/set/default/{productId}/{additionId}/{isDefault}        AdditionAPI.setDefaultAdditionToProduct
 PUT     {client}/api/addition/add/{productId}/{additionId}                            AdditionAPI.addAdditionToProduct
@@ -294,6 +295,7 @@ GET     {client}/api/get/translation/page/{uuid}             TranslationBucketAP
 GET     {client}/api/get/translation/body/page/{uuid}        TranslationBucketAPI.createTranslationBucketForBodyPage
 GET     {client}/api/get/translation/contact/city/{uuid}     TranslationBucketAPI.createTranslationBucketForContactCity
 GET     {client}/api/get/translation/contact/street/{uuid}   TranslationBucketAPI.createTranslationBucketForContactStreet
+GET     {client}/api/get/translation/addition/name/{uuid}    TranslationBucketAPI.createTranslationBucketForAdditionName
 PUT     {client}/api/translation/save                        TranslationBucketAPI.saveTranslation
 
 

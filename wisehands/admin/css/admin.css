@@ -2817,6 +2817,10 @@ ul.admin-breadcrumb li a:hover {
 		margin: 10px;
 		width: 370px;
 	}
+	
+	.edit-language-to-addition {
+		display: flex;
+	}
 
 }
 

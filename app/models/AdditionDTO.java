@@ -31,7 +31,8 @@ public class AdditionDTO extends GenericModel {
     public String shopUuid;
 
     @Expose
-    public boolean isDeleted;
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO additionNameTranslationBucket;
 
     public String getTitle() {
         return title;

@@ -38,20 +38,26 @@
                 <p> {{'additionEdit.titleInfo' | translate}} </p>
             </div>
             <div class="addition-new-container">
+              <div class="edit-language-to-addition">
                 <div class="addition-column">
-                    <div class="input-field">
-                        <input id="addition_name" type="text" ng-model="addition.title" required>
-                        <label id="title_label" for="addition_name" class="active">{{'editProduct.additionTitle' |
-                          translate}}</label>
-
-                    </div>
-                    <div class="input-field">
-                        <input id="addition_price" type="text" ng-model="addition.price" required>
-                        <label id="price_label" for="addition_price"
-                               class="active">{{'editProduct.additionPrice' |
-                          translate}}</label>
-                    </div>
+                  <div class="input-field">
+                    <input id="addition_name" type="text" ng-model="addition.title" required>
+                    <label id="title_label" for="addition_name" class="active">
+                      {{'editProduct.additionTitle' | translate}}
+                    </label>
+                  </div>
+                  <div class="input-field">
+                    <input id="addition_price" type="text" ng-model="addition.price" required>
+                    <label id="price_label" for="addition_price"
+                           class="active">{{'editProduct.additionPrice' |
+                      translate}}</label>
+                  </div>
                 </div>
+                <button class="edit-btn btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                        ng-click="redirectToTranslationPage()"><i class="material-icons">mode_edit</i>
+                </button>
+              </div>
+
 
                 <div id="additionImage" class="addition-image material-icons" role="listbox">
                   attach_file

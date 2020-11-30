@@ -158,7 +158,7 @@ angular.module('WiseHands')
             }, error => {
                 console.error(error);
             });
-        }
+        };
 
         setStyleValidation = () => {
             if (additionName.classList.contains("input-error")) {
@@ -179,7 +179,22 @@ angular.module('WiseHands')
             if (additionImage.classList.contains("input-label-error")) {
                 additionImage.classList.remove("input-label-error");
             }
-        }
+        };
+	
+        $scope.redirectToTranslationPage = function(){
+	        $http({
+		        method: 'GET',
+		        url: '/api/get/translation/addition/name/' + $routeParams.uuid
+	        })
+		        .then(function successCallback(response) {
+			        const translation = response.data;
+			        console.log("redirectToTranslationPage => ", translation)
+			        $window.location.href = `#/translation/${$routeParams.uuid}/${translation.uuid}`;
+		        }, function errorCallback(error) {
+			        $scope.loading = false;
+			        console.log(error);
+		        });
+        };
 
         sideNavInit.sideNav();
     }]);

@@ -15,7 +15,7 @@ angular.module('WiseHands')
                     $scope.loading = false;
                     console.log(error);
                 });
-        }
+        };
 
         $scope.redirectToTranslationForProductDescription = function(){
             $http({
@@ -29,7 +29,7 @@ angular.module('WiseHands')
                     $scope.loading = false;
                     console.log(error);
                 });
-        }
+        };
 
 
         $http({
@@ -82,5 +82,5 @@ angular.module('WiseHands')
         };
         $scope.goBack = function () {
             window.history.back();
-        }
+        };
     }]);
