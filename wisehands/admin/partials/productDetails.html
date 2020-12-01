@@ -94,16 +94,16 @@
             </div>
 
             <div class="admin-column details-product-col">
-                <div class="details-product-col-image card-image hoverable waves-effect waves-block waves-light view overlay hm-white-slight noSidePadding">
+                <div class="details-product-col-image card-image waves-effect waves-block waves-light view overlay hm-white-slight noSidePadding">
                     <div id="car-gall" class="carousel slide carousel-fade carousel-gallery">
                         <!--Main image-->
-                        <div class="">
+                        <div class="carousel-gallery-container">
                             <div class="flexContainerForPriceLabels card-label">
                                 <h5><span class="label primaryColor">{{product.price}} {{'products.currency' | translate}}</span></h5>
                                 <h5><span ng-hide="product.oldPrice == null" class="label primaryColor crossedPriceFont"><strike>{{product.oldPrice}} {{'products.currency' | translate}}</strike></span></h5>
                             </div>
                             <!-- Wrapper for slides -->
-                            <div class="carousel-inner z-depth-1 hoverable" role="listbox">
+                            <div class="carousel-inner z-depth-1" role="listbox">
                                 <!-- First slide -->
                                 <div class="item active view hm-black-strong">
                                     <img ng-src="public/product_images/{{activeShop}}/{{product.images[selected].filename}}" alt="slide1">

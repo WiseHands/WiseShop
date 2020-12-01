@@ -1659,6 +1659,10 @@ input {
 	min-width: 150px;
 }
 
+.carousel-gallery-container {
+    margin-bottom: 2rem;
+}
+
 .addition-options p {
 	text-align: left;
 }
@@ -2862,6 +2866,10 @@ ul.admin-breadcrumb li a:hover {
 	
 	.qr-breadcrumb {
     	margin: 3rem 0 0 1rem;
+    }
+
+    .carousel-gallery-container {
+        margin: auto;
     }
 
 }
