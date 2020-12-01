@@ -2598,7 +2598,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .selected-addition-info p {
-	margin: 0px 5px 0 10px;
+	margin: 0 0 0 10px;
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2674,8 +2674,13 @@ ul.admin-breadcrumb li a:hover {
     display: flex;
 }
 
+.addition-name {
+    width: 80%;
+}
+
 .addition-price {
-    width: 2rem;
+    text-align: right;
+    width: 20%;
     margin: 0 .5rem !important;
 }
 
