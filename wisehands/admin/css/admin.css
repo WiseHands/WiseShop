@@ -2449,10 +2449,6 @@ ul.admin-breadcrumb li a:hover {
 	justify-content: flex-start;
 }
 
-.qr-breadcrumb {
-	margin: 1rem;
-}
-
 .review-breadcrumb {
     margin: 1rem;
 }
@@ -2776,7 +2772,7 @@ ul.admin-breadcrumb li a:hover {
 	}
 	
 	.translation-flex-row {
-		display: block;
+		display: flex;
 	}
 	
 	.translation-flex-row .flex-row {
@@ -2869,10 +2865,6 @@ ul.admin-breadcrumb li a:hover {
 		width: 370px;
 	}
 	
-	.qr-breadcrumb {
-    	margin: 3rem 0 0 1rem;
-    }
-
     .carousel-gallery-container {
         margin: auto;
     }
