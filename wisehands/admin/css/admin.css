@@ -1770,6 +1770,10 @@ input {
 	margin: 6rem 0 1rem 1rem;
 }
 
+.admin-breadcrumb:last-of-type {
+    cursor: default;
+}
+
 ul.admin-breadcrumb li {
 	display: inline;
 	font-size: 18px;
@@ -2585,16 +2589,19 @@ ul.admin-breadcrumb li a:hover {
 .addition-no-selected {
 	font-style: italic;
 	text-align: center;
-    margin-bottom: 2rem;
 }
 
 .selected-addition-info {
 	display: flex;
 	justify-content: space-between;
+	width: 190px;
 }
 
 .selected-addition-info p {
-	margin: 0px 10px 0 10px;
+	margin: 0px 5px 0 10px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .addition-for-product h4 {
@@ -2667,6 +2674,19 @@ ul.admin-breadcrumb li a:hover {
     display: flex;
 }
 
+.addition-price {
+    width: 2rem;
+    margin: 0 .5rem !important;
+}
+
+.qr-title-text {
+    margin-left: inherit;
+}
+
+.product-basic {
+    flex: auto;
+}
+
 @media screen and (min-width: 1500px) {
 	.admin-container {
 		max-width: 1300px;
@@ -2711,6 +2731,10 @@ ul.admin-breadcrumb li a:hover {
 	.qr-list-container {
 	    justify-content: center;
 	}
+
+	.qr-list-container p {
+        text-align: center;
+    }
 	
 	.delivery-list, .payment-list {
 		flex-direction: column;
@@ -2771,7 +2795,7 @@ ul.admin-breadcrumb li a:hover {
 	#contactsForm .translation-flex-row {
 		display: flex;
 	}
-	
+
 	.qr-detail-info p, .qr-title-text p {
 	    text-align: center;
 	    margin-top: .5rem;
