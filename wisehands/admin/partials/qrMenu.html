@@ -28,7 +28,7 @@
         </div>
     </div>
     <div ng-show="qrList.length === 0">
-        <p>{{'pageQR.noQR' | translate}}</p>
+        <p class="no-qr-text">{{'pageQR.noQR' | translate}}</p>
     </div>
     <div class="qr-list-container" ng-show="qrList">
         <div class="qr-code-card" ng-repeat="qr in qrList | filter: qr.isQrDeleted === false" on-finish-render="ngRepeatFinished">

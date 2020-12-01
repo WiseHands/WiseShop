@@ -2302,6 +2302,11 @@ ul.admin-breadcrumb li a:hover {
 /*	align-items: center;*/
 }
 
+.no-qr-text, .no-feedback-text {
+    font-size: 2.5em;
+    text-align: center;
+}
+
 .pdd-rem {
 	height: fit-content;
 	padding: 0.8rem;
