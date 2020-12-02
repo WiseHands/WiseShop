@@ -32,8 +32,9 @@ public class AdditionLineItemDTO extends GenericModel {
     public LineItem lineItem;
 
     @Expose
-    @OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
-    public TranslationBucketDTO titleTextTranslationBucket;
+    @Lob
+    @Column(length = 1341655765)
+    public TranslationBucketDTO translationBucket;
 
     @Override
     public boolean equals(Object other) {

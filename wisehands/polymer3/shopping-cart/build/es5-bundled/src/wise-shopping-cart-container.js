@@ -24856,7 +24856,7 @@ class WiseShoppingCartItem extends PolymerElement {
                 <h3 on-click="_openProductPageByUuid">[[_translateProductName(cartItem)]]</h3>
                 <h4> 
                     <template is="dom-repeat" items="[[cartItem.additionList]]">                
-                        [[item.title]]<span hidden="[[!hasMoreThanOneQuantity(item)]]">([[item.quantity]])</span>
+                        [[_translateAdditionTitle(item)]]<span hidden="[[!hasMoreThanOneQuantity(item)]]">([[item.quantity]])</span>
                         <span hidden="[[isLastItem(cartItem.additionList, index)]]">,</span>
                     </template>        
                 </h4>
@@ -24887,6 +24887,23 @@ class WiseShoppingCartItem extends PolymerElement {
       }
     };
   }
+
+  _translateAdditionTitle(item) {
+      const language = document.querySelector('html').getAttribute('language');
+      let label = '';
+
+      if (item.translationBucket) {
+        let translationList = item.translationBucket.translationList;
+        translationList.forEach(item => {
+          if (item.language === language) {
+            label = item.content;
+          }
+        });
+      } else {
+        label = item.title;
+      }
+      return label;
+    }
 
   _translateProductName(product) {
     const language = document.querySelector('html').getAttribute('language');

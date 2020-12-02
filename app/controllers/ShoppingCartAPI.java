@@ -174,7 +174,7 @@ public class ShoppingCartAPI extends AuthController {
             additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
             additionLineItem.quantity = (Long) object.get("quantity");
             if (additionDTO.additionNameTranslationBucket != null){
-                additionLineItem.titleTextTranslationBucket = additionDTO.additionNameTranslationBucket;
+                additionLineItem.translationBucket = additionDTO.additionNameTranslationBucket;
                 additionLineItem.title = translateTitle(languageFromHeader, additionDTO);
             }
             additionLineItem.save();
@@ -188,7 +188,7 @@ public class ShoppingCartAPI extends AuthController {
             additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
             additionLineItem.quantity = 1L;
             if (additionDTO.additionNameTranslationBucket != null){
-                additionLineItem.titleTextTranslationBucket = additionDTO.additionNameTranslationBucket;
+                additionLineItem.translationBucket = additionDTO.additionNameTranslationBucket;
                 additionLineItem.title = translateTitle(languageFromHeader, additionDTO);
             }
 

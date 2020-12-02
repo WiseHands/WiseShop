@@ -188,11 +188,6 @@ public class AdditionAPI extends AuthController {
         selectedAddition.isDefault = isDefault;
         selectedAddition.save();
 
-//        if (!selectedAddition.isSelected) {
-//            selectedAddition.addition = null;
-//            selectedAddition.delete();
-//        }
-
         ProductDTO product = ProductDTO.find("byUuid", productUuid).first();
         int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
         product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
