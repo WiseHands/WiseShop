@@ -39,7 +39,7 @@ public class LineItem extends GenericModel {
 
     @Expose
     @Lob
-    @Column(length = 1341655765)
+    @Column
     public TranslationBucketDTO translationBucket;
 
 

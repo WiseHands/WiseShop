@@ -33,7 +33,7 @@ public class AdditionLineItemDTO extends GenericModel {
 
     @Expose
     @Lob
-    @Column(length = 1341655765)
+    @Column
     public TranslationBucketDTO translationBucket;
 
     @Override
