@@ -412,7 +412,7 @@ body {
 	}
 	
 	.noPaddingLeft {
-		padding-left: 0 !important;
+		padding-left: 1px !important;
 	}
 	
 	.card .card-content {
@@ -1779,8 +1779,11 @@ input {
 }
 
 ul.admin-breadcrumb li {
-	display: inline;
+	display: inline-flex;
+	align-items: center;
+	max-width: 50%;
 	font-size: 18px;
+	white-space: nowrap;
 }
 
 ul.admin-breadcrumb li + li:before {
@@ -1792,6 +1795,8 @@ ul.admin-breadcrumb li + li:before {
 ul.admin-breadcrumb li a {
 	color: #000;
 	text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 ul.admin-breadcrumb li a:hover {
@@ -2695,7 +2700,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .product-basic {
-    flex: auto;
+/*    flex: auto;*/
 }
 
 @media screen and (min-width: 1500px) {
