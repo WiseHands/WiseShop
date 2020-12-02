@@ -5,10 +5,7 @@ import json.shoppingcart.LineItem;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class AdditionLineItemDTO extends GenericModel {
@@ -33,6 +30,10 @@ public class AdditionLineItemDTO extends GenericModel {
 
     @ManyToOne
     public LineItem lineItem;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
+    public TranslationBucketDTO titleTextTranslationBucket;
 
     @Override
     public boolean equals(Object other) {

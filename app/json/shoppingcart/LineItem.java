@@ -38,8 +38,7 @@ public class LineItem extends GenericModel {
     public Double price;
 
     @Expose
-    @Lob
-    @Column(length = 1431655765)
+    @OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
     public TranslationBucketDTO translationBucket;
 
 

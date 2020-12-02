@@ -8,7 +8,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import play.Play;
 import play.mvc.Before;
+import play.mvc.Http;
 import services.querying.DataBaseQueries;
+import services.translaiton.LanguageForShop;
 import util.PolygonUtil;
 
 import java.text.DateFormat;
@@ -82,13 +84,15 @@ public class ShoppingCartAPI extends AuthController {
         ProductDTO product = ProductDTO.findById(productUuid);
 
         List<SelectedAdditionDTO> defaultAdditions = new ArrayList<>();
-
         if(qrUuid == null || qrUuid.isEmpty()){
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
         }
-    
+
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+
         String stringAdditionList = request.params.get("additionList");
-        List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop, defaultAdditions);
+        List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop, defaultAdditions, languageFromHeader);
 
         String quantityParam = request.params.get("quantity");
         int quantity = _getProductQuantity(quantityParam);
@@ -103,7 +107,7 @@ public class ShoppingCartAPI extends AuthController {
         lineItem.save();
 
         boolean foundMatch = false;
-        System.out.println("shoppingCart.items => " + shoppingCart.items);
+        System.out.println("shoppingCart.items before foundMatch => " + shoppingCart.items);
         //1. Find Line Item
         for (LineItem _lineItem : shoppingCart.items) {
             if (productUuid.equals(_lineItem.productId)) {
@@ -141,7 +145,9 @@ public class ShoppingCartAPI extends AuthController {
         return shop;
     }
 
-    private static List<AdditionLineItemDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop, List<SelectedAdditionDTO> defaultAdditions){
+    private static List<AdditionLineItemDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop,
+                                                                         List<SelectedAdditionDTO> defaultAdditions,
+                                                                         String languageFromHeader){
         if (stringAdditionList == null){
             stringAdditionList = "[]";
         }
@@ -159,29 +165,52 @@ public class ShoppingCartAPI extends AuthController {
             additionList.add(additionObject);
         }
 
-        List<AdditionLineItemDTO> additionOrderDTOList = new ArrayList<AdditionLineItemDTO>();
+        List<AdditionLineItemDTO> additionsLineItemList = new ArrayList<AdditionLineItemDTO>();
         for(JSONObject object: additionList){
             AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
-            AdditionLineItemDTO additionOrderDTO = new AdditionLineItemDTO();
-            additionOrderDTO.title = additionDTO.getTitle();
-            additionOrderDTO.price = additionDTO.getPrice();
-            additionOrderDTO.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
-            additionOrderDTO.quantity = (Long) object.get("quantity");
-            additionOrderDTO.save();
-            additionOrderDTOList.add(additionOrderDTO);
+            AdditionLineItemDTO additionLineItem = new AdditionLineItemDTO();
+            additionLineItem.title = additionDTO.getTitle();
+            additionLineItem.price = additionDTO.getPrice();
+            additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
+            additionLineItem.quantity = (Long) object.get("quantity");
+            if (additionDTO.additionNameTranslationBucket != null){
+                additionLineItem.titleTextTranslationBucket = additionDTO.additionNameTranslationBucket;
+                additionLineItem.title = translateTitle(languageFromHeader, additionDTO);
+            }
+            additionLineItem.save();
+            additionsLineItemList.add(additionLineItem);
         }
         for(SelectedAdditionDTO selectedAddition: defaultAdditions){
             AdditionDTO additionDTO = AdditionDTO.findById(selectedAddition.addition.uuid);
-            AdditionLineItemDTO additionOrderDTO = new AdditionLineItemDTO();
-            additionOrderDTO.title = additionDTO.getTitle();
-            additionOrderDTO.price = additionDTO.getPrice();
-            additionOrderDTO.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
-            additionOrderDTO.quantity = 1L;
-            additionOrderDTO.save();
-            additionOrderDTOList.add(additionOrderDTO);
+            AdditionLineItemDTO additionLineItem = new AdditionLineItemDTO();
+            additionLineItem.title = additionDTO.getTitle();
+            additionLineItem.price = additionDTO.getPrice();
+            additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
+            additionLineItem.quantity = 1L;
+            if (additionDTO.additionNameTranslationBucket != null){
+                additionLineItem.titleTextTranslationBucket = additionDTO.additionNameTranslationBucket;
+                additionLineItem.title = translateTitle(languageFromHeader, additionDTO);
+            }
+
+            additionLineItem.save();
+            additionsLineItemList.add(additionLineItem);
 
         }
-        return additionOrderDTOList;
+        return additionsLineItemList;
+    }
+
+    private static String translateTitle(String languageFromHeader, AdditionDTO additionDTO) {
+        String title = "";
+        List<TranslationItemDTO> translationList = additionDTO.additionNameTranslationBucket.translationList;
+        for (TranslationItemDTO translationItem: translationList) {
+            if (translationItem.language.equals(languageFromHeader)) {
+                title = translationItem.content;
+            } else {
+                title = additionDTO.title;
+            }
+
+        }
+        return title;
     }
 
     private static String _getWholePath(String imagePath, ShopDTO shop) {

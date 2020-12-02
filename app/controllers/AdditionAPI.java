@@ -13,6 +13,7 @@ import java.util.List;
 public class AdditionAPI extends AuthController {
 
     public static final String USERIMAGESPATH = "public/product_images/";
+
     public static void createAddition(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -168,6 +169,10 @@ public class AdditionAPI extends AuthController {
         if (additionObject.get("isSelected") != null){
             isSelected = (boolean) additionObject.get("isSelected");
         }
+        boolean isDefault = false;
+        if (additionObject.get("isDefault") != null){
+            isDefault = (boolean) additionObject.get("isDefault");
+        }
 
         AdditionDTO availableAddition = AdditionDTO.find("byUuid", availableAdditionId).first();
         SelectedAdditionDTO selectedAddition;
@@ -180,16 +185,13 @@ public class AdditionAPI extends AuthController {
         selectedAddition.addition = availableAddition;
         selectedAddition.productUuid = productUuid;
         selectedAddition.isSelected = isSelected;
-
-        if (additionObject.get("isDefault") != null) {
-            selectedAddition.isDefault = (boolean) additionObject.get("isDefault");
-        }
+        selectedAddition.isDefault = isDefault;
         selectedAddition.save();
 
-        if (!selectedAddition.isSelected) {
-            selectedAddition.addition = null;
-            selectedAddition.delete();
-        }
+//        if (!selectedAddition.isSelected) {
+//            selectedAddition.addition = null;
+//            selectedAddition.delete();
+//        }
 
         ProductDTO product = ProductDTO.find("byUuid", productUuid).first();
         int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
