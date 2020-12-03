@@ -25517,11 +25517,8 @@ class WiseShoppingCartContainer extends PolymerElement {
     if (creditCardInfo.clientPaysProcessingCommission) {
       return `${paymentInfo.label} (+${paymentInfo.paymentComission * 100} %)`;
     }
-
     let label = '';
-
     if (creditCardInfo.translationBucket) {
-      console.log("postInfo.translationBucket ", creditCardInfo.translationBucket);
       creditCardInfo.translationBucket.translationList.forEach(item => {
         if (item.language === this.language) {
           console.log(this.language);
@@ -25531,23 +25528,19 @@ class WiseShoppingCartContainer extends PolymerElement {
     } else {
       label = creditCardInfo.label;
     }
-
     return label;
   }
 
   _computeCourierLabel(courierInfo) {
     let label = '';
-
     if (this.total < courierInfo.minimumPaymentForFreeDelivery) {
       label = ` ( + ${courierInfo.deliveryPrice} ${this.currencyLabel})`;
     }
-
     return label;
   }
 
   _translateLabel(object) {
     let label = '';
-
     if (object.translationBucket) {
       object.translationBucket.translationList.forEach(item => {
         if (item.language === this.language) {
@@ -25813,18 +25806,15 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   _computeProductsTotal(items) {
     let total = 0;
-    items.forEach(item => total += item.quantity * item.price);
-    total += this._computeAdditionsTotal(items);
+    items.forEach(item => total += item.quantity * (item.price + this._computeAdditionsTotal(item)));
     return total;
   }
 
-  _computeAdditionsTotal(items) {
+  _computeAdditionsTotal(additions) {
     let additionsTotal = 0;
-    items.forEach(item => {
-      item.additionList.forEach(addition => {
+      additions.additionList.forEach(addition => {
         additionsTotal += addition.price * addition.quantity;
       });
-    });
     return additionsTotal;
   }
 
