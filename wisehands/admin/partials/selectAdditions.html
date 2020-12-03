@@ -46,6 +46,30 @@
     </div>
   </div>
   <div class="admin-column" ng-show="availableAdditions != 0">
+    <h4 class="addition-no-selected">How to use additions</h4>
+    <div class="qr-list-container">
+      <div class="admin-card selected-addition-item hoverable"
+           ng-click="selectAdditionHelp(this)" ng-class="{additionSelected: addition.isSelected}">
+          <span class="material-icons check-circle" ng-class="{'check-visible': addition.isSelected}">
+              check_circle
+          </span>
+        <img class="addition-img" src="wisehands/assets/images/main_logo_black.png">
+        <div class="selected-addition-info">
+          <p class="addition-name">addition title</p>
+          <p class="addition-price">15</p>
+        </div>
+        <div class="selected-addition-checkbox" ng-click="selectDefaultAdditionHelp($event, this)">
+          <input type="checkbox" class="filled-in checkBoxStyling"
+                 id="additionUuid" ng-model="addition.isDefault"/>
+          <label for="additionUuid">{{'editProduct.isDefault' | translate}}</label>
+        </div>
+      </div>
+      <div class="addition-help-text">
+        <p ng-show="!addition.isDefault && !addition.isSelected">Nothing is selected help text</p>
+        <p ng-show="addition.isSelected === true && !addition.isDefault">Selected addition help text</p>
+        <p ng-show="addition.isDefault">Selected addition by default help text</p>
+      </div>
+    </div>
     <h4 class="addition-no-selected">{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
     <div class="qr-list-container" ng-show="availableAdditions">
       <div ng-repeat="addition in availableAdditions"

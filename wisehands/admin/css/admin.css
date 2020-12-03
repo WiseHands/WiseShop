@@ -2699,6 +2699,12 @@ ul.admin-breadcrumb li a:hover {
 /*    flex: auto;*/
 }
 
+.addition-help-text {
+    align-self: center;
+    margin-left: 1rem;
+    width: 13em;
+}
+
 @media screen and (min-width: 1500px) {
 	.admin-container {
 		max-width: 1300px;

@@ -45,6 +45,21 @@ angular.module('WiseHands')
 				addition.productUuid = productUuid;
 			};
 
+			$scope.selectDefaultAdditionHelp = (event, {addition}) => {
+				event.stopPropagation();
+				addition.isSelected = addition.isDefault;
+				console.log('addition ', addition);
+			};
+
+			$scope.selectAdditionHelp = ({addition}) => {
+			    if (addition.isDefault) {
+			        addition.isSelected = addition.isSelected;
+			    } else {
+			        addition.isSelected = !addition.isSelected;
+			    }
+			    console.log('addition ', addition);
+			};
+
 			$scope.saveAdditions = () => {
 			    let selectAdditions = $scope.availableAdditions.filter( (item) => item.productUuid);
 			    if (selectAdditions.length > 0) {
@@ -55,7 +70,7 @@ angular.module('WiseHands')
 				    }).then(response => {
 					    $scope.product = response.data;
 					    showInfoMsg('SAVED')},
-					    error => {showWarningMsg('EROOR')}
+					    error => {showWarningMsg('ERROR')}
 				    );
 			    } else {
 			        showInfoMsg('SAVED');
