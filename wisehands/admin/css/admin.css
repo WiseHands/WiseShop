@@ -2552,6 +2552,10 @@ ul.admin-breadcrumb li a:hover {
 	margin: .5rem;
 }
 
+.product-default-info {
+    margin: 1rem 0 0 1rem;
+}
+
 .addition-item p {
 	white-space: nowrap;
 	overflow: hidden;
