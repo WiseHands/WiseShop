@@ -42,7 +42,7 @@
 <div ng-hide="loading">
     <div class="admin-container product-reviews-block">
         <div class="admin-column">
-            <div class="sort-reviews">
+            <div class="sort-reviews" ng-if="product.feedbackList.length > 0">
                 <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
                     <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
                           ng-class="{reverse: reverse}"></span>
@@ -51,7 +51,7 @@
                     <span class="sortorder" ng-show="sortByProperty === 'quality'" ng-class="{reverse: reverse}"></span>
                 </p>
             </div>
-            <div class="admin-card hoverable no-reviews" ng-if="product.feedbackList.length < 1">{{'productReviews.noReviews' | translate}}</div>
+            <p class="no-reviews" ng-if="product.feedbackList.length < 1">{{'productReviews.noReviews' | translate}}</p>
             <div class="admin-card hoverable" ng-repeat="review in product.feedbackList | orderBy:sortByProperty:reverse"
                  ng-show="review.quality > 0 && !review.isFeedbackDeleted">
                 <div class="review-item">

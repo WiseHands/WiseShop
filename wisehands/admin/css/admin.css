@@ -2013,6 +2013,7 @@ ul.admin-breadcrumb li a:hover {
 
 .no-reviews {
 	text-align: center;
+    font-size: 2.5em;
 }
 
 .sortorder:after {
