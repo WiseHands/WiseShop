@@ -719,64 +719,60 @@
   _setAdditionsTotalPrice();
   _setTotal(totalPrice);
 
-  function _addItem(_addition) {
-    const selectedAddition = document.getElementById(_addition.uuid);
+  function setAttributeToSelectedAddition(selectedAddition, price, operand){
+	  selectedAddition.setAttribute('price', price);
+  	const counter = selectedAddition.getAttribute('counter');
 
-    if (selectedAddition.id === _addition.uuid){
-	    setAttributeToSelectedAddition(_addition, selectedAddition);
-    } else {
-	    setAttributeToSelectedAddition(_addition, selectedAddition);
+	  if (counter === 0 && operand < 0){
+		  console.log("counter === 0 && operand < 0", operand)
+	  }
+	  let quantity;
+  	if (counter >= 0 && operand > 0){
+		  quantity = Number(counter + operand);
+      selectedAddition.setAttribute('counter', quantity);
     }
-
-    console.log('additionList.push(setSendAddition)', additionList);
-    _setAdditionsTotalPrice();
-    _calculateTotal(_addition);
+	  additionCounter.innerHTML = quantity.toString();
+	  addAdditionToList(selectedAddition, quantity)
   }
 
-  function setAttributeToSelectedAddition(addition, selectedAddition){
-	  let setSendAddition = {
-		  uuid: addition.uuid,
-		  quantity: 1
-	  };
+  function addAdditionToList(selectedAddition, quantity){
 	  if (additionList.length === 0) {
-		  additionList.push(setSendAddition);
-		  additionCounter.innerHTML = 1;
-		  selectedAddition.setAttribute('counter', 1);
-		  selectedAddition.setAttribute('price', addition.price);
+		  additionList.push({uuid: selectedAddition.id, quantity: 1});
 	  } else {
-		  const incrementedClickedAddition = Number(selectedAddition.getAttribute('counter')) + 1;
+
 		  additionList.forEach(item => {
-			  if (item.uuid === addition.uuid) {
-				  item.quantity = incrementedClickedAddition;
+			  if (item.uuid === selectedAddition.id) {
+				  item.quantity = quantity;
 			  }
 		  });
-		  additionCounter.innerHTML = incrementedClickedAddition.toString();
-		  selectedAddition.setAttribute('counter', incrementedClickedAddition);
 	  }
   }
 
+  function _addItem(addition) {
+	  const selectedAddition = document.getElementById(addition.uuid);
+	  if (selectedAddition.id === addition.uuid){
+		  setAttributeToSelectedAddition(selectedAddition, addition.price, 1);
+	  }
+	  console.log('additionList.push(setSendAddition)', additionList);
+	  _setAdditionsTotalPrice();
+	  _calculateTotal(addition);
+  }
+
   function _removeItem(addition) {
-
-    const additionElementToRemove = document.getElementById(addition.uuid);
-    const subCounter = Number(additionElementToRemove.getAttribute('counter')) - 1;
-	  additionList.forEach(item => {
-		  if (item.uuid === addition.uuid) {
-			  item.quantity = subCounter;
-		  }
-	  });
-	  additionCounter.innerHTML = subCounter.toString();
-	  additionElementToRemove.setAttribute('counter', subCounter);
-
-	  _calculateTotal({price : -addition.price});
+	  const selectedAddition = document.getElementById(addition.uuid);
+	  if (selectedAddition.id === addition.uuid){
+		  setAttributeToSelectedAddition(selectedAddition, addition.price,  -1);
+	  }
 
 	  _setAdditionsTotalPrice();
+	  _calculateTotal({price : -addition.price});
 
-    // for (let i = 0; i < additionList.length; i++) {
-    //   let obj = additionList[i];
-    //   if (obj.uuid === addition.uuid) {
-    //     additionList.splice(i, 1);
-    //   }
-    // }
+    for (let i = 0; i < additionList.length; i++) {
+      let obj = additionList[i];
+      if (obj.uuid === addition.uuid) {
+        additionList.splice(i, 1);
+      }
+    }
     console.log("remove item additionList", additionList);
   }
 
