@@ -226,6 +226,15 @@
         font-size: 20px
     }
 
+    .add-item-count {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .total-additions-price, .total-product-price {
+        display: flex;
+    }
+
     .cart-float {
         display: none;
         position: fixed;
@@ -518,37 +527,20 @@
         <h2>${product.name}</h2>
         <p class="text-justify">${product.description}</p>
 
-          <div class="add-components" is-hidden="${defaultAdditions.isEmpty()}">
 
-              <div class="add-components-main">
-                  <a href="#additions">
-                      <div class="add-button">
-                          <i class="fa fa-plus-square" style="font-size:24px"></i>
-                          <p>&{'page.product.additions.label'}</p>
-                      </div>
-                  </a>
-                  <div class="add-price">
-                      <p>&{'page.product.price'}</p>
-                        <span class="additions-total-price" total="${totalPriceForDefaultAdditions}"></span>
-                  </div>
-              </div>
-              <div class="add-items">
-                %{
-                for(defaultAddition in defaultAdditions) {
-                }%
-                <div class="default-add-items-title" is-default="${defaultAddition.isDefault}">
-                  <p>${defaultAddition.addition.title}</p>
-                </div>
-                %{
-                  }
-                }%
-              </div>
-          </div>
         <div class="price-buy-block">
             <span class="product-price" price="${product.formatDecimal()}">
-                <span>&{'page.product.price'}</span>
-                <span class="total-span"></span>
+                <div class="total-product-price">
+                    <span>&{'page.product.price'}</span>
+                    <span class="total-span"></span>
+                </div>
+                <div class="total-additions-price">
+                    <span>&{'page.product.additions.label'}:</span>
+                    <span class="additions-total-price" total="${totalPriceForDefaultAdditions}"></span>
+                </div>
+
             </span>
+
             <button class="buy-button" onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">&{'page.product.buy'}</button>
         </div>
         #{if product.selectedAdditions || product.defaultAdditions}
@@ -557,39 +549,45 @@
 
             <div class="additions-block">
                 %{
-                for(defaultAddition in defaultAdditions) {
+                  for(defaultAddition in defaultAdditions) {
                 }%
-                <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}">
+                <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}" id="${defaultAddition.addition.uuid}">
                     <span class="material-icons check-circle">
                         check_circle
                     </span>
                     <img src="${defaultAddition.addition.imagePath}">
-                    <div class="addition-name" title="${defaultAddition.addition.title}">
+                    <div class="addition-name">
                         <p>${defaultAddition.addition.title}</p>
                     </div>
                     <p class="add-item-price">${defaultAddition.addition.formatDecimal()} UAH</p>
                 </div>
                 %{
-                }
+                  }
                 }%
 
                 %{
-                for(_selectedAddition in product.selectedAdditions) {
+                    for(_selectedAddition in product.selectedAdditions) {
                 }%
-                <div class="add-item hoverable" onclick="_addItem({
-                    title: '${_selectedAddition.addition.title}',
-                    uuid: '${_selectedAddition.addition.uuid}',
-                    price: '${_selectedAddition.addition.price}',
-                    isDefault: '${_selectedAddition.isDefault}'
-                })">
+                <div class="add-item hoverable" id="${_selectedAddition.addition.uuid}">
                     <img src="${_selectedAddition.addition.imagePath}">
                     <div class="addition-name" title="${_selectedAddition.addition.title}">
                         <p id="add-item-title">${_selectedAddition.addition.title}</p>
                     </div>
+                    <div class="add-item-count" >
+                        <p onclick="_removeItem({
+                                uuid: '${_selectedAddition.addition.uuid}',
+                                price: '${_selectedAddition.addition.price}'})">-</p>
+                        <p id="counter">0</p>
+                        <p  onclick="_addItem({
+                                title: '${_selectedAddition.addition.title}',
+                                uuid: '${_selectedAddition.addition.uuid}',
+                                price: '${_selectedAddition.addition.price}',
+                                isDefault: '${_selectedAddition.isDefault}'})">+</p>
+                    </div>
                     <p class="add-item-price">${_selectedAddition.addition.formatDecimal()} UAH</p>
                 </div>
                 %{
-                }
+                    }
                 }%
             </div>
         </section>
@@ -677,7 +675,8 @@
 </html>
 
 <script>
-  const chosenAdditionsContainer = document.querySelector('.add-items');
+  const chosenAdditionsContainer = document.querySelector('.add-item');
+  const additionCounter = document.querySelector('#counter');
   const additionContainerToHide = document.querySelector('.add-components');
   const productPriceElement = document.querySelector('.product-price');
   let totalPrice = Number(productPriceElement.getAttribute('price'));
@@ -723,45 +722,56 @@
   _setTotal(totalPrice);
 
   function _addItem(_addition) {
-    additionContainerToHide.removeAttribute('is-hidden');
-    const createdAddition = document.getElementById(_addition.uuid);
-    let setSendAddition = {
-      uuid: _addition.uuid,
-      quantity: 1
-    };
-    if (!createdAddition) {
-      additionList.push(setSendAddition);
-      createAdditionDivElement(_addition);
+    const selectedAddition = document.getElementById(_addition.uuid);
+
+    if (selectedAddition.id === _addition.uuid){
+	    setAttributeToSelectedAddition(_addition, selectedAddition);
     } else {
-      const incrementedClickedAddition = Number(createdAddition.getAttribute('counter')) + 1;
-      additionList.forEach(item => {
-        if (item.uuid === _addition.uuid) {
-          item.quantity = incrementedClickedAddition;
-        }
-      });
-      createdAddition.setAttribute('counter', incrementedClickedAddition);
-      createdAddition.getElementsByTagName('p')[0].innerText = _addition.title + '(' + incrementedClickedAddition + ')';
+	    setAttributeToSelectedAddition(_addition, selectedAddition);
     }
+
     console.log('additionList.push(setSendAddition)', additionList);
     _setAdditionsTotalPrice();
     _calculateTotal(_addition);
+  }
+
+  function setAttributeToSelectedAddition(addition, selectedAddition){
+	  let setSendAddition = {
+		  uuid: addition.uuid,
+		  quantity: 1
+	  }
+	  if (additionList.length === 0) {
+		  additionList.push(setSendAddition);
+		  additionCounter.innerHTML = 1;
+		  selectedAddition.setAttribute('counter', 1);
+		  selectedAddition.setAttribute('price', addition.price);
+	  } else {
+		  const incrementedClickedAddition = Number(selectedAddition.getAttribute('counter')) + 1;
+		  additionList.forEach(item => {
+			  if (item.uuid === addition.uuid) {
+				  item.quantity = incrementedClickedAddition;
+			  }
+		  });
+		  additionCounter.innerHTML = incrementedClickedAddition.toString();
+		  selectedAddition.setAttribute('counter', incrementedClickedAddition);
+	  }
   }
 
   function createAdditionDivElement(_addition) {
     const additionId = _addition.uuid;
     const additionDiv = document.createElement('div');
     additionDiv.id = additionId;
-    additionDiv.className = 'add-items-title';
-    additionDiv.innerHTML =
-      '<i class="fa fa-close"></i><p>'
-      + _addition.title + '</p>';
+    // additionDiv.className = 'add-items-title';
+    // additionDiv.innerHTML =
+    //   '<i class="fa fa-close"></i><p>'
+    //   + _addition.title + '</p>';
     additionDiv.setAttribute('counter', 1);
     additionDiv.setAttribute('price', _addition.price);
 
-    const removeIcon = additionDiv.getElementsByTagName('i')[0];
-    removeIcon.addEventListener('click', () => {
-      _removeAddition(additionId, Number(_addition.price))
-    });
+    // const removeIcon = additionDiv.getElementsByTagName('i')[0];
+    // removeIcon.addEventListener('click', () => {
+    //   _removeAddition(additionId, Number(_addition.price))
+    // });
     chosenAdditionsContainer.appendChild(additionDiv);
   }
 
@@ -780,14 +790,15 @@
         const isDefaultAddition = defaultAdditionsList[0].attributes[1].value;
         if (isDefaultAddition && additionNodesLength === 0) {
             additionContainerToHide.setAttribute('is-hidden', false)
-        };
-    };
+        }
+    }
 
     if (additionNodesLength === 0 && defaultAdditionsList.length === 0) {
         additionContainerToHide.setAttribute('is-hidden', true)
-    };
+    }
 
     _setAdditionsTotalPrice();
+
     for (let i = 0; i < additionList.length; i++) {
       let obj = additionList[i];
       if (obj.uuid === id) {
@@ -815,8 +826,9 @@
     if (!additionsTotalPriceContainer) return;
     let additionsTotalPrice = Number(additionsTotalPriceContainer.getAttribute('total'));
     console.log('additionsTotalPrice => ', additionsTotalPrice);
-    const selectedAdditions = document.querySelectorAll('.add-items-title');
+    const selectedAdditions = document.querySelectorAll('.add-item');
     selectedAdditions.forEach(addition => {
+    	console.log("_setAdditionsTotalPrice => ", addition.getAttribute('counter'));
       const counter = addition.getAttribute('counter');
       const additionPrice = Number(addition.getAttribute('price'));
       additionsTotalPrice += counter * additionPrice;
