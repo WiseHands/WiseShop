@@ -769,7 +769,7 @@
 
 	  _calculateTotal({price : -addition.price});
 
-	  _setSubtractAdditionsTotalPrice();
+	  _setAdditionsTotalPrice();
 
     // for (let i = 0; i < additionList.length; i++) {
     //   let obj = additionList[i];
@@ -806,20 +806,6 @@
       additionsTotalPrice += counter * additionPrice;
     });
     additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
-  }
-
-  function _setSubtractAdditionsTotalPrice() {
-	  if (!additionsTotalPriceContainer) return;
-	  let additionsTotalPrice = Number(additionsTotalPriceContainer.getAttribute('total'));
-	  console.log('additionsTotalPrice => ', additionsTotalPrice);
-	  const selectedAdditions = document.querySelectorAll('.add-item');
-	  selectedAdditions.forEach(addition => {
-		  console.log("_setAdditionsTotalPrice => ", addition.getAttribute('counter'));
-		  const counter = addition.getAttribute('counter');
-		  const additionPrice = Number(addition.getAttribute('price'));
-		  additionsTotalPrice -= additionPrice;
-	  });
-	  additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
   }
 
 </script>
