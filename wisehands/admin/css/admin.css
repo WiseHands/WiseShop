@@ -2583,7 +2583,12 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .additions-title {
+    display: inline;
 	font-size: 1.7rem;
+}
+
+.additions-title i {
+    margin: 0 .5rem 0 .5rem;
 }
 
 .addition-edit-container {
