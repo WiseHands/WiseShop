@@ -765,6 +765,7 @@
 		  }
 	  });
 	  additionCounter.innerHTML = subCounter.toString();
+	  additionElementToRemove.setAttribute('counter', subCounter);
 
 	  _calculateTotal({price : -addition.price});
 
@@ -816,7 +817,7 @@
 		  console.log("_setAdditionsTotalPrice => ", addition.getAttribute('counter'));
 		  const counter = addition.getAttribute('counter');
 		  const additionPrice = Number(addition.getAttribute('price'));
-		  additionsTotalPrice -= counter * additionPrice;
+		  additionsTotalPrice -= additionPrice;
 	  });
 	  additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
   }
