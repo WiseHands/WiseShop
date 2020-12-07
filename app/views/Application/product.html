@@ -591,7 +591,7 @@
                         <p onclick="_removeItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}'})">-</p>
-                        <p id="counter">0</p>
+                        <p class="addition-counter">0</p>
                         <p onclick="_addItem({
                                 title: '${_selectedAddition.addition.title}',
                                 uuid: '${_selectedAddition.addition.uuid}',
@@ -689,7 +689,6 @@
 </html>
 
 <script>
-  const additionCounter = document.querySelector('#counter');
   const productPriceElement = document.querySelector('.product-price');
   let totalPrice = Number(productPriceElement.getAttribute('price'));
   const totalSpan = document.querySelector('.total-span');
@@ -739,7 +738,8 @@
     let quantity;
     quantity = counter + operand;
     selectedAddition.setAttribute('counter', quantity);
-    additionCounter.innerHTML = quantity.toString();
+    const counterLabel = selectedAddition.querySelector('.addition-counter');
+    counterLabel.innerHTML = quantity.toString();
     addAdditionToList(selectedAddition, quantity)
   }
 
