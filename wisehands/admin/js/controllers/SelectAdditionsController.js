@@ -1,6 +1,11 @@
 angular.module('WiseHands')
 	.controller('SelectAdditionsController', ['$scope', '$http', 'sideNavInit', '$routeParams',
 		function ($scope, $http, sideNavInit, $routeParams) {
+
+		    $scope.addition = {};
+		    $scope.addition.isSelected = false;
+		    $scope.addition.isDefault = false;
+
 			const productUuid = $routeParams.productUuid;
 
 			$http({
