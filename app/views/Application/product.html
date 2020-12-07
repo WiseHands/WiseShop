@@ -675,9 +675,7 @@
 </html>
 
 <script>
-  const chosenAdditionsContainer = document.querySelector('.add-item');
   const additionCounter = document.querySelector('#counter');
-  const additionContainerToHide = document.querySelector('.add-components');
   const productPriceElement = document.querySelector('.product-price');
   let totalPrice = Number(productPriceElement.getAttribute('price'));
   const totalSpan = document.querySelector('.total-span');
@@ -739,7 +737,7 @@
 	  let setSendAddition = {
 		  uuid: addition.uuid,
 		  quantity: 1
-	  }
+	  };
 	  if (additionList.length === 0) {
 		  additionList.push(setSendAddition);
 		  additionCounter.innerHTML = 1;
@@ -757,54 +755,27 @@
 	  }
   }
 
-  function createAdditionDivElement(_addition) {
-    const additionId = _addition.uuid;
-    const additionDiv = document.createElement('div');
-    additionDiv.id = additionId;
-    // additionDiv.className = 'add-items-title';
-    // additionDiv.innerHTML =
-    //   '<i class="fa fa-close"></i><p>'
-    //   + _addition.title + '</p>';
-    additionDiv.setAttribute('counter', 1);
-    additionDiv.setAttribute('price', _addition.price);
+  function _removeItem(addition) {
 
-    // const removeIcon = additionDiv.getElementsByTagName('i')[0];
-    // removeIcon.addEventListener('click', () => {
-    //   _removeAddition(additionId, Number(_addition.price))
-    // });
-    chosenAdditionsContainer.appendChild(additionDiv);
-  }
+    const additionElementToRemove = document.getElementById(addition.uuid);
+    const subCounter = Number(additionElementToRemove.getAttribute('counter')) - 1;
+	  additionList.forEach(item => {
+		  if (item.uuid === addition.uuid) {
+			  item.quantity = subCounter;
+		  }
+	  });
+	  additionCounter.innerHTML = subCounter.toString();
 
-  function _removeAddition(id, price) {
+	  _calculateTotal({price : -addition.price});
 
-    const additionElementToRemove = document.getElementById(id);
-    const counter = Number(additionElementToRemove.getAttribute('counter'));
-    const amountToSubstract = -counter * price;
-    _calculateTotal({price : amountToSubstract});
-    chosenAdditionsContainer.removeChild(additionElementToRemove);
-    const additionNodesLength = document.querySelectorAll('.add-items-title').length;
-    const defaultAdditionsList = document.querySelectorAll('[is-default]');
-    const selectedAdditions = document.querySelectorAll('.add-items');
+	  _setSubtractAdditionsTotalPrice();
 
-    if (defaultAdditionsList.length != 0) {
-        const isDefaultAddition = defaultAdditionsList[0].attributes[1].value;
-        if (isDefaultAddition && additionNodesLength === 0) {
-            additionContainerToHide.setAttribute('is-hidden', false)
-        }
-    }
-
-    if (additionNodesLength === 0 && defaultAdditionsList.length === 0) {
-        additionContainerToHide.setAttribute('is-hidden', true)
-    }
-
-    _setAdditionsTotalPrice();
-
-    for (let i = 0; i < additionList.length; i++) {
-      let obj = additionList[i];
-      if (obj.uuid === id) {
-        additionList.splice(i, 1);
-      }
-    }
+    // for (let i = 0; i < additionList.length; i++) {
+    //   let obj = additionList[i];
+    //   if (obj.uuid === addition.uuid) {
+    //     additionList.splice(i, 1);
+    //   }
+    // }
     console.log("remove item additionList", additionList);
   }
 
@@ -835,6 +806,21 @@
     });
     additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
   }
+
+  function _setSubtractAdditionsTotalPrice() {
+	  if (!additionsTotalPriceContainer) return;
+	  let additionsTotalPrice = Number(additionsTotalPriceContainer.getAttribute('total'));
+	  console.log('additionsTotalPrice => ', additionsTotalPrice);
+	  const selectedAdditions = document.querySelectorAll('.add-item');
+	  selectedAdditions.forEach(addition => {
+		  console.log("_setAdditionsTotalPrice => ", addition.getAttribute('counter'));
+		  const counter = addition.getAttribute('counter');
+		  const additionPrice = Number(addition.getAttribute('price'));
+		  additionsTotalPrice -= counter * additionPrice;
+	  });
+	  additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
+  }
+
 </script>
 
 
