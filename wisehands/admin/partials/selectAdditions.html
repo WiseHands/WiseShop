@@ -46,8 +46,8 @@
     </div>
   </div>
   <div class="admin-column" ng-show="availableAdditions != 0">
-    <h4 class="addition-no-selected">How to use additions</h4>
-    <div class="qr-list-container">
+    <h4 class="addition-no-selected" data-toggle="collapse" data-target="#collapseAdditionHelp">How to use additions</h4>
+    <div id="collapseAdditionHelp" class="panel-collapse collapse">
       <div class="admin-card selected-addition-item hoverable"
            ng-click="selectAdditionHelp(this)" ng-class="{'additionSelected': addition.isSelected}">
           <span class="material-icons check-circle" ng-class="{'check-visible': addition.isSelected}">
