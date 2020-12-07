@@ -739,7 +739,7 @@
     quantity = counter + operand;
     selectedAddition.setAttribute('counter', quantity);
     const counterLabel = selectedAddition.querySelector('.addition-counter');
-    counterLabel.innerHTML = quantity.toString();
+    counterLabel.innerHTML = quantity;
     addAdditionToList(selectedAddition, quantity)
   }
 
