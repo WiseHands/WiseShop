@@ -2605,6 +2605,7 @@ ul.admin-breadcrumb li a:hover {
 .addition-no-selected {
 	font-style: italic;
 	text-align: center;
+	cursor: pointer;
 }
 
 .selected-addition-info {
