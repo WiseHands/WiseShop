@@ -365,6 +365,10 @@
         display: none;
     }
 
+    [counter='0'] .add-item-count {
+        display: none;
+    }
+
     @media screen and (min-width: 1500px) {
         .product-center-container, .cart-float, .shop-all-reviews {
             max-width: 1300px;
@@ -582,7 +586,10 @@
                 for(_selectedAddition in product.selectedAdditions) {
                 }%
                 <div class="add-item hoverable" id="${_selectedAddition.addition.uuid}"
-                     price="${_selectedAddition.addition.price}" counter="0">
+                     price="${_selectedAddition.addition.price}" counter="0"
+                     onclick="_addItem({
+                                uuid: '${_selectedAddition.addition.uuid}',
+                                price: '${_selectedAddition.addition.price}'})">
                     <img src="${_selectedAddition.addition.imagePath}">
                     <div class="addition-name" title="${_selectedAddition.addition.title}">
                         <p id="add-item-title">${_selectedAddition.addition.title}</p>
@@ -757,6 +764,7 @@
   }
 
   function _addItem(addition) {
+    event.stopPropagation();
     const selectedAddition = document.getElementById(addition.uuid);
     setAttributeToSelectedAddition(selectedAddition, 1);
     console.log('additionList.push(setSendAddition)', additionList);
@@ -765,6 +773,7 @@
   }
 
   function _removeItem(addition) {
+    event.stopPropagation();
     const selectedAddition = document.getElementById(addition.uuid);
     const counter = Number(selectedAddition.getAttribute('counter'));
     if (!counter) return;
