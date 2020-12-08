@@ -6,6 +6,11 @@
   "selectAdditions.noCreatedAdditions": "No created Additions:",
   "selectAdditions.availableAddition": "Available additions:",
   "selectAdditions.additionsPrice": "(additions)",
+  "selectAdditions.additionsHowToUseHeader": "How to use additions",
+  "selectAdditions.additionsHowToUseNothingIsSelected": "Nothing is selected (addition not in use)",
+  "selectAdditions.additionsHowToUseSelectedAddition": "The addition is attached to the product (will be available to the customer to choose from)",
+  "selectAdditions.additionsHowToUseAdditionByDefault": "The addition is attached to the product and marked \"by default\" (will not be available to the customer for change)",
+  "selectAdditions.additionsHowToUseAdditionName": "Addition name",
 
   "additionMenu.title": "Additions",
   "additionMenu.titleInfo": "The addition is a separate option that is attached to the product. All available additions are shown below. To create a new addition, click on the \"+\" above",

@@ -6,6 +6,11 @@
   "selectAdditions.noCreatedAdditions": "Не створено жодного додатку",
   "selectAdditions.availableAddition": "Доступні додатки:",
   "selectAdditions.additionsPrice": "(додатки)",
+  "selectAdditions.additionsHowToUseHeader": "Як користуватися додатками",
+  "selectAdditions.additionsHowToUseNothingIsSelected": "Нічого не вибрано (додаток не використовується)",
+  "selectAdditions.additionsHowToUseSelectedAddition": "Додаток прикріплено до товару (буде доступним клієнту для вибору)",
+  "selectAdditions.additionsHowToUseAdditionByDefault": "Додаток прикріплено до товару і позначено \"за замовчуванням\" (не буде доступним клієнту для зміни)",
+  "selectAdditions.additionsHowToUseAdditionName": "Назва додатку",
 
   "additionMenu.title": "Додатки",
   "additionMenu.titleInfo": "Додаток - це окрема опція яка прикріпляється до товару. Наприклад для товару піца - це можливість додати додатковий соус, сир, зелень чи додаткові прибори, упаковку. Для створення нового додатку, натисніть на ",

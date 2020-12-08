@@ -2553,7 +2553,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .product-default-info {
-    margin: 1rem 0 0 1rem;
+    margin: 1rem 0 1rem 1rem;
 }
 
 .addition-item p {
@@ -2610,7 +2610,25 @@ ul.admin-breadcrumb li a:hover {
 .addition-no-selected {
 	font-style: italic;
 	text-align: center;
-	cursor: pointer;
+}
+
+.how-to-use {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    cursor: pointer;
+    font-style: normal;
+}
+
+.heading[_ngcontent-addition-help] {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+}
+
+.heading[_ngcontent-addition-help] button[_ngcontent-addition-help]:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .selected-addition-info {
@@ -2714,6 +2732,34 @@ ul.admin-breadcrumb li a:hover {
     align-self: center;
     margin-left: 1rem;
     width: 13em;
+}
+
+button[_ngcontent-addition-help] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    transition: box-shadow 365ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    border: 0;
+    background: 0 0;
+}
+
+.heading[_ngcontent-addition-help] button[_ngcontent-addition-help]::before {
+    transition: transform 365ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: rgba(33, 33, 33, 0.5);
+    font-family: "Material Icons";
+    font-size: 20px;
+    content: "keyboard_arrow_up";
+    font-feature-settings: "liga" 1;
+}
+
+.collapsed[_ngcontent-addition-help] button[_ngcontent-addition-help]::before {
+    color: #2979ff;
+    transform: rotate(180deg);
 }
 
 @media screen and (min-width: 1500px) {
