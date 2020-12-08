@@ -185,6 +185,7 @@
         height: 170px;
         margin: 1.7rem;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+
     }
 
     .defaultItem {
@@ -239,6 +240,11 @@
     .add-item-count {
         display: flex;
         justify-content: space-around;
+    }
+
+    .add-item-count p {
+      padding: 0 15px 0 15px;
+      margin: 0;
     }
 
     .total-additions-price, .total-product-price {
@@ -585,7 +591,7 @@
                 %{
                 for(_selectedAddition in product.selectedAdditions) {
                 }%
-                <div class="add-item hoverable" id="${_selectedAddition.addition.uuid}"
+                <div class="add-item hoverable selected" id="${_selectedAddition.addition.uuid}"
                      price="${_selectedAddition.addition.price}" counter="0"
                      onclick="_addItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
@@ -766,8 +772,8 @@
   function _addItem(addition) {
     event.stopPropagation();
     const selectedAddition = document.getElementById(addition.uuid);
+	  selectedAddition.style.backgroundColor = '#20b2aa1c';
     setAttributeToSelectedAddition(selectedAddition, 1);
-    console.log('additionList.push(setSendAddition)', additionList);
     _setAdditionsTotalPrice();
     _calculateTotal(addition);
   }
@@ -787,7 +793,6 @@
         additionList.splice(i, 1);
       }
     }
-    console.log("remove item additionList", additionList);
   }
 
   function _calculateTotal(addition) {
@@ -807,10 +812,8 @@
   function _setAdditionsTotalPrice() {
     if (!additionsTotalPriceContainer) return;
     let additionsTotalPrice = Number(additionsTotalPriceContainer.getAttribute('total'));
-    console.log('additionsTotalPrice => ', additionsTotalPrice);
     const selectedAdditions = document.querySelectorAll('.add-item');
     selectedAdditions.forEach(addition => {
-      console.log("_setAdditionsTotalPrice => ", addition.getAttribute('counter'));
       const counter = addition.getAttribute('counter');
       const additionPrice = Number(addition.getAttribute('price'));
       additionsTotalPrice += counter * additionPrice;
