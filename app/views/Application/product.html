@@ -748,10 +748,12 @@
   function setAttributeToSelectedAddition(selectedAddition, operand) {
     const counter = Number(selectedAddition.getAttribute('counter'));
     if (counter === 0 && operand < 0) return;
+
     let quantity;
     quantity = counter + operand;
     selectedAddition.setAttribute('counter', quantity);
     const counterLabel = selectedAddition.querySelector('.addition-counter');
+	  if (quantity === 0) selectedAddition.style.backgroundColor = 'white';
     counterLabel.innerHTML = quantity;
     addAdditionToList(selectedAddition, quantity)
   }
