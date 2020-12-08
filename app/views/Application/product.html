@@ -8,13 +8,14 @@
     .product-center-container {
         max-width: 900px;
         margin: 0 auto;
-        overflow: hidden;
+        /*overflow: hidden;*/
         display: flex;
         padding: 1rem 0.5rem;
     }
 
     .product-photo {
         max-width: 40%;
+        height: fit-content;
         position: relative;
         margin-right: 1rem;
         overflow: hidden;
@@ -545,7 +546,7 @@
 <body>
 #{verbatim}
 <main class="product-center-container">
-    <div class="product-photo ">
+    <div class="product-photo hoverable">
         <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide">
         <!--            <span class="product-price-on-photo">${product.formatDecimal()} UAH</span>-->
     </div>
