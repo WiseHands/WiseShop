@@ -198,11 +198,13 @@
 
     .defaultItem img {
         height: 40% !important;
+        padding-top: 0 !important;
     }
 
     .add-item img {
         width: 100%;
         height: 50%;
+        padding-top: 1rem;
         object-fit: contain;
         align-self: center;
     }
@@ -241,17 +243,13 @@
 
     .add-item-count {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
         align-items: center;
     }
 
     .add-item-count p {
       padding: 0 15px 0 15px;
       margin: 0;
-    }
-
-    .operand {
-      font-size: 20px
     }
 
     .total-product-price span:first-child, .total-additions-price span:first-child {
@@ -610,15 +608,19 @@
                         <p id="add-item-title">${_selectedAddition.addition.title}</p>
                     </div>
                     <div class="add-item-count">
-                        <p class="operand" onclick="_removeItem({
+                        <span class="material-icons" onclick="_removeItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
-                                price: '${_selectedAddition.addition.price}'})">-</p>
+                                price: '${_selectedAddition.addition.price}'})">
+                            remove_circle_outline
+                        </span>
                         <p class="addition-counter">0</p>
-                        <p class="operand" onclick="_addItem({
+                        <span class="material-icons" onclick="_addItem({
                                 title: '${_selectedAddition.addition.title}',
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}',
-                                isDefault: '${_selectedAddition.isDefault}'})">+</p>
+                                isDefault: '${_selectedAddition.isDefault}'})">
+                            add_circle_outline
+                        </span>
                     </div>
                     <p class="add-item-price">${_selectedAddition.addition.formatDecimal()} UAH</p>
                 </div>
