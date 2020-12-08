@@ -551,8 +551,8 @@
     </div>
     <div class="product-info">
         <ul class="menu-breadcrumb">
-            <li><a href="/${language}">&{'page.product.main.label'}</a></li>
-            <li><a href="/${language}/category/${product.category.uuid}">${product.category.name}</a></li>
+            <li><a href="${mainShopUrl}">&{'page.product.main.label'}</a></li>
+            <li><a href="${urlToCategory}">${product.category.name}</a></li>
         </ul>
         <h2>${product.name}</h2>
         <p class="text-justify">${product.description}</p>
@@ -581,13 +581,11 @@
 
             <div class="additions-block">
                 %{
-                for(defaultAddition in defaultAdditions) {
+                 for(defaultAddition in defaultAdditions) {
                 }%
                 <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}"
-                     id="${defaultAddition.addition.uuid}">
-                    <span class="material-icons check-circle">
-                        check_circle
-                    </span>
+                    id="${defaultAddition.addition.uuid}">
+                    <span class="material-icons check-circle">check_circle</span>
                     <img src="${defaultAddition.addition.imagePath}">
                     <div class="addition-name">
                         <p>${defaultAddition.addition.title}</p>
@@ -595,18 +593,18 @@
                     <p class="add-item-price">${defaultAddition.addition.formatDecimal()} UAH</p>
                 </div>
                 %{
-                }
+                  }
                 }%
 
                 %{
-                for(_selectedAddition in product.selectedAdditions) {
+                  for(_selectedAddition in product.selectedAdditions) {
                 }%
                 <div class="add-item hoverable selected" id="${_selectedAddition.addition.uuid}"
                      price="${_selectedAddition.addition.price}" counter="0"
                      onclick="_addItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}'})">
-                    <img src="${_selectedAddition.addition.imagePath}">
+                  <img src="${_selectedAddition.addition.imagePath}">
                     <div class="addition-name" title="${_selectedAddition.addition.title}">
                         <p id="add-item-title">${_selectedAddition.addition.title}</p>
                     </div>

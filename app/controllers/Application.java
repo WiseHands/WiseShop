@@ -415,7 +415,15 @@ public class Application extends Controller {
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
 
-        render(product, category, categories, shop, language, defaultAdditions, totalPriceForDefaultAdditions, qr_uuid);
+        String mainShopUrl = "/" + language;
+        String urlToCategory = "/" + language + "/category/" + product.category.uuid;
+        if (qr_uuid != null){
+            mainShopUrl += "?qr_uuid=" + qr_uuid;
+            urlToCategory  += "?qr_uuid=" + qr_uuid;
+        }
+
+        render(product, category, categories, shop, language,
+               defaultAdditions, totalPriceForDefaultAdditions, qr_uuid, mainShopUrl, urlToCategory);
     }
 
     public static void shopHeader(String client){
