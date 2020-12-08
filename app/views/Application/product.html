@@ -240,11 +240,16 @@
     .add-item-count {
         display: flex;
         justify-content: space-around;
+        align-items: center;
     }
 
     .add-item-count p {
       padding: 0 15px 0 15px;
       margin: 0;
+    }
+
+    .operand {
+      font-size: 20px
     }
 
     .total-additions-price, .total-product-price {
@@ -601,11 +606,11 @@
                         <p id="add-item-title">${_selectedAddition.addition.title}</p>
                     </div>
                     <div class="add-item-count">
-                        <p onclick="_removeItem({
+                        <p class="operand" onclick="_removeItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}'})">-</p>
                         <p class="addition-counter">0</p>
-                        <p onclick="_addItem({
+                        <p class="operand" onclick="_addItem({
                                 title: '${_selectedAddition.addition.title}',
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}',
@@ -762,12 +767,11 @@
     if (additionList.length === 0) {
       additionList.push({uuid: selectedAddition.id, quantity: 1});
     } else {
-
-      additionList.forEach(item => {
-        if (item.uuid === selectedAddition.id) {
-          item.quantity = quantity;
-        }
-      });
+	    const isAdditionInList = additionList.find(addition => addition.uuid === selectedAddition.id);
+	    if (isAdditionInList === undefined) {
+		    additionList.push({uuid: selectedAddition.id, quantity: quantity});
+      }
+	    additionList.find(addition => addition.uuid === selectedAddition.id).quantity = quantity;
     }
   }
 
