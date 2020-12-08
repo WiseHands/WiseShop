@@ -245,6 +245,7 @@
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+        padding-bottom: .5rem;
     }
 
     .add-item-count p {
@@ -603,7 +604,10 @@
                      onclick="_addItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}'})">
-                  <img src="${_selectedAddition.addition.imagePath}">
+<!--                    <span class="material-icons">
+                        delete_forever
+                    </span>-->
+                    <img src="${_selectedAddition.addition.imagePath}">
                     <div class="addition-name" title="${_selectedAddition.addition.title}">
                         <p id="add-item-title">${_selectedAddition.addition.title}</p>
                     </div>
@@ -611,7 +615,7 @@
                         <span class="material-icons" onclick="_removeItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}'})">
-                            remove_circle_outline
+                            remove_circle
                         </span>
                         <p class="addition-counter">0</p>
                         <span class="material-icons" onclick="_addItem({
@@ -619,7 +623,7 @@
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}',
                                 isDefault: '${_selectedAddition.isDefault}'})">
-                            add_circle_outline
+                            add_circle
                         </span>
                     </div>
                     <p class="add-item-price">${_selectedAddition.addition.formatDecimal()} UAH</p>
