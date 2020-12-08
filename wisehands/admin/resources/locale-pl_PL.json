@@ -13,7 +13,8 @@
   "selectAdditions.additionsHowToUseAdditionName": "Addition name",
 
   "additionMenu.title": "Additions",
-  "additionMenu.titleInfo": "The addition is a separate option that is attached to the product. All available additions are shown below. To create a new addition, click on the \"+\" above",
+  "additionMenu.titleInfo": "The addition is a separate option that is attached to the product. All available additions are shown below. To create a new addition, click on the ",
+  "additionMenu.titleInfo1": " above in top right corner",
   "additionMenu.noAddition": "No additions",
   "additionNew.title": "Addition",
   "additionNew.info": "To create an addition, enter name, price, and select an image",
