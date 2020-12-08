@@ -564,11 +564,12 @@
                     <span>&{'page.product.price'}</span>
                     <span class="total-span"></span>
                 </div>
-                <div class="total-additions-price">
+                #{if product.selectedAdditions || product.defaultAdditions}
+                <div class="total-additions-price" ng-if="additions">
                     <span>&{'page.product.additions.label'}:</span>
                     <span class="additions-total-price" total="${totalPriceForDefaultAdditions}"></span>
                 </div>
-
+                #{/if}
             </span>
 
             <button class="buy-button" onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
