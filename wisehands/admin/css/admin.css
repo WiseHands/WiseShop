@@ -2589,12 +2589,13 @@ ul.admin-breadcrumb li a:hover {
     visibility: visible;
 }
 
-.additions-title {
+.additions-title, .qr-title {
     display: inline;
 	font-size: 1.7rem;
 }
 
-.additions-title i {
+.qr-title-text i {
+    font-size: 1.7rem;
     margin: 0 .5rem 0 .5rem;
 }
 
