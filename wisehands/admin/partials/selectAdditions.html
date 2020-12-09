@@ -75,7 +75,12 @@
           <p ng-show="addition.isSelected && !addition.isDefault">{{'selectAdditions.additionsHowToUseSelectedAddition' | translate}}</p>
           <p ng-show="addition.isDefault">{{'selectAdditions.additionsHowToUseAdditionByDefault' | translate}}</p>
         </div>
+        <span ng-show="!addition.isDefault && !addition.isSelected" class="material-icons helper-icons">
+            touch_app
+            mouse
+        </span>
       </div>
+      <p class="product-default-info">{{'editProduct.isDefaultDescription' | translate}}</p>
     </div>
     <h4 class="addition-no-selected">{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
     <div class="qr-list-container" ng-show="availableAdditions">
@@ -98,7 +103,6 @@
           </div>
         </div>
       </div>
-      <p class="product-default-info">{{'editProduct.isDefaultDescription' | translate}}</p>
     </div>
   </div>
   <div class="admin-column" ng-show="availableAdditions == 0">

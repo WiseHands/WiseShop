@@ -61,6 +61,14 @@ angular.module('WiseHands')
             a.click();
         }
 
+        $scope.printQrCode = () => {
+            let imgContent = document.getElementById('qr-code');
+            let w = window.open();
+            w.document.open();
+            w.document.write('<html><body onload="window.print()">' + '<img src=' +  imgContent.src + ' style="display: block; margin: 0 auto; "></></html>');
+            w.document.close();
+        }
+
         sideNavInit.sideNav();
     }]);
 

@@ -2308,6 +2308,12 @@ ul.admin-breadcrumb li a:hover {
 /*	align-items: center;*/
 }
 
+.qr-actions {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
 .no-qr-text, .no-feedback-text {
     font-size: 2.5em;
     text-align: center;
@@ -2546,6 +2552,7 @@ ul.admin-breadcrumb li a:hover {
 	flex-direction: column;
 	padding: 0;
 	cursor: pointer;
+	height: fit-content;
 }
 
 .selected-addition-checkbox {
@@ -2731,7 +2738,13 @@ ul.admin-breadcrumb li a:hover {
 .addition-help-text {
     align-self: center;
     margin-left: 1rem;
-    width: 13em;
+    width: 40%;
+}
+
+.helper-icons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 button[_ngcontent-addition-help] {

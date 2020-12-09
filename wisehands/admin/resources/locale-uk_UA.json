@@ -7,7 +7,7 @@
   "selectAdditions.availableAddition": "Доступні додатки:",
   "selectAdditions.additionsPrice": "(додатки)",
   "selectAdditions.additionsHowToUseHeader": "Як користуватися додатками",
-  "selectAdditions.additionsHowToUseNothingIsSelected": "Нічого не вибрано (додаток не використовується)",
+  "selectAdditions.additionsHowToUseNothingIsSelected": "Нічого не вибрано, додаток не використовується (доторкніться, або клікніть по картці, щоб побачити підказки)",
   "selectAdditions.additionsHowToUseSelectedAddition": "Додаток прикріплено до товару (буде доступним клієнту для вибору)",
   "selectAdditions.additionsHowToUseAdditionByDefault": "Додаток прикріплено до товару і позначено \"за замовчуванням\" (не буде доступним клієнту для зміни)",
   "selectAdditions.additionsHowToUseAdditionName": "Назва додатку",
@@ -47,6 +47,7 @@
   "qrDetails.save.button": "Зберегти",
   "qrDetails.deleteMessage": "Видалити цей QR-код?",
   "qrDetails.download": "Завантажити",
+  "qrDetails.printQr": "Друкувати",
 
   "qrEdit.titleInfo": "Для редагування QR-коду - змініть його назву",
   "createQR.info": "Щоб створити QR-код - введіть назву. Для прикладу, це може бути комбінація столу і номеру, або назви кімнати (столик №1, VIP-зал)",

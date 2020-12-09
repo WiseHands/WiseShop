@@ -7,7 +7,7 @@
   "selectAdditions.availableAddition": "Available additions:",
   "selectAdditions.additionsPrice": "(additions)",
   "selectAdditions.additionsHowToUseHeader": "How to use additions",
-  "selectAdditions.additionsHowToUseNothingIsSelected": "Nothing is selected (addition not in use)",
+  "selectAdditions.additionsHowToUseNothingIsSelected": "Nothing is selected, addition not in use (tap, or click on the card to see the hints)",
   "selectAdditions.additionsHowToUseSelectedAddition": "The addition is attached to the product (will be available to the customer to choose from)",
   "selectAdditions.additionsHowToUseAdditionByDefault": "The addition is attached to the product and marked \"by default\" (will not be available to the customer for change)",
   "selectAdditions.additionsHowToUseAdditionName": "Addition name",
@@ -46,6 +46,7 @@
   "qrDetails.delete": "Delete",
   "qrDetails.deleteMessage": "Are you sure to delete qr code?",
   "qrDetails.download": "Download",
+  "qrDetails.printQr": "Print",
 
   "qrEdit.titleInfo": "To change QR code name, enter new name below",
   "createQR.info": "To create QR code - enter a name. For example it can be combination of table number and room name (table #3, main hall)",

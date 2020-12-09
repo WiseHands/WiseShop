@@ -44,7 +44,10 @@
             <div class="admin-card">
                 <img class="img-qr-code" id="qr-code">
             </div>
-            <a class="qr-download-text" ng-click="downloadQrCode()">{{'qrDetails.download' | translate}}</a>
+            <div class="qr-actions">
+                <a class="qr-download-text" ng-click="downloadQrCode()">{{'qrDetails.download' | translate}}</a>
+                <a class="qr-download-text" ng-click="printQrCode()">{{'qrDetails.printQr' | translate}}</a>
+            </div>
         </div>
     </div>
 
