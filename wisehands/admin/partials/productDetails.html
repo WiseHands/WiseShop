@@ -137,7 +137,11 @@
                 </div>
                 <div class="admin-card hoverable">
                     <h4>{{'addNewProduct.additional' | translate}}</h4>
-                    <p ng-show="product.selectedAdditions.length === 0">{{'products.noAdditions' | translate}}</p>
+                    <a ng-show="product.selectedAdditions.length === 0"
+                       class="href-params"
+                       href="#/selectadditions/{{product.uuid}}">
+                      <p>{{'editProduct.selectAdditions' | translate}}</p>
+                    </a>
                     <a href="#/selectadditions/{{product.uuid}}" ng-hide="product.selectedAdditions.length === 0">
                         <p>{{'productDetails.viewCustomersReviews' | translate}}</p>
                     </a>

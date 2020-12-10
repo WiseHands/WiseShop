@@ -719,7 +719,8 @@
 
 <script>
   const productPriceElement = document.querySelector('.product-price');
-  let totalPrice = Number(productPriceElement.getAttribute('price'));
+  let totalPrice = productPriceElement.getAttribute('price');
+  totalPrice = Number(totalPrice.replace(',', '.'));
   const totalSpan = document.querySelector('.total-span');
   const additionsTotalPriceContainer = document.querySelector('.additions-total-price');
 
@@ -789,7 +790,7 @@
   function _addItem(addition) {
     event.stopPropagation();
     const selectedAddition = document.getElementById(addition.uuid);
-	  selectedAddition.style.backgroundColor = '#20b2aa1c';
+	 selectedAddition.style.backgroundColor = '#20b2aa1c';
     setAttributeToSelectedAddition(selectedAddition, 1);
     _setAdditionsTotalPrice();
     _calculateTotal(addition);

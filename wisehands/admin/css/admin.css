@@ -2776,6 +2776,10 @@ button[_ngcontent-addition-help] {
     transform: rotate(180deg);
 }
 
+.create-qr-link {
+	color: black;
+}
+
 @media screen and (min-width: 1500px) {
 	.admin-container {
 		max-width: 1300px;
