@@ -16,11 +16,8 @@
              show="loading"></spinner>
 </div>
 <div ng-hide="loading">
-    <div class="admin-card hoverable" ng-show="!orderList">
-        <p>{{'productReviews.noReviews' | translate}}</p>
-    </div>
-    <p class="no-feedback-text" ng-if="orderList.length < 1">{{'productReviews.noReviews' | translate}}</p>
-    <div class="admin-container admin-column" ng-show="orderList">
+    <p class="no-feedback-text" ng-if="orderList.length < 1 || !orderList">{{'productReviews.noReviews' | translate}}</p>
+    <div class="admin-container admin-column" ng-show="orderList.length > 0">
         <div class="sort-reviews" >
             <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
                 <span class="sortorder" ng-show="sortByProperty === 'feedbackTime'"
