@@ -80,6 +80,7 @@ public class OrderDTO extends GenericModel {
     public String clientAddressStreetLng;
 
     @Expose
+    @Lob
     public String userAgent;
 
     @Expose
