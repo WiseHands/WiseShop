@@ -2341,7 +2341,7 @@ ul.admin-breadcrumb li a:hover {
 .qr-title-container {
 	display: flex;
 	align-items: center;
-	margin: 1rem 1rem 0 1rem;
+	margin: 1rem;
 }
 
 .qr-detail-info {
@@ -2736,8 +2736,9 @@ ul.admin-breadcrumb li a:hover {
     margin: 0 .5rem !important;
 }
 
-.qr-title-text {
+.qr-title-text, .additions-title-text {
     margin-left: inherit;
+    margin-top: inherit;
 }
 
 .product-basic {
@@ -2823,10 +2824,8 @@ button[_ngcontent-addition-help] {
 		margin: 1rem auto;
 	}
 	
-	.admin-card {
-/*		max-width: 95%;
-		margin: 1rem;
-		padding: 1rem;*/
+	.admin-card-qr {
+        width: 175px;
 	}
 
 	.qr-list-container {
