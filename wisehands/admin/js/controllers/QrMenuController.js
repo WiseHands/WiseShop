@@ -28,11 +28,25 @@ angular.module('WiseHands')
         setQrCode = (qrList) => {
             qrList.forEach((item) => {
                 let url = _generateUrlForQr(item.uuid);
-                new QRious({
-                    element: document.getElementById(item.uuid),
-                    size: 150,
-                    value: url
-                });
+                let options = {
+                    text: url,
+                    width: 150,
+                    height: 150,
+                    colorDark: "#0e2935",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H,
+                    quietZone: 8,
+                    quietZoneColor: 'transparent',
+                    logo: "wisehands/assets/images/main_logo_black.png",
+                    title: 'wstore.pro',
+                    titleColor: "#0e2935",
+                    titleHeight: 15,
+/*                    titleHeight: 35,*/
+                    titleTop: 5,
+/*                    drawer: 'svg'*/
+                    drawer: 'canvas'
+                };
+                new QRCode(document.getElementById(item.uuid), options);
             });
         }
 

@@ -2602,7 +2602,7 @@ ul.admin-breadcrumb li a:hover {
 	font-size: 1.7rem;
 }
 
-.qr-title-text i {
+.qr-title-text i, .additions-title-text i {
     font-size: 1.7rem;
     margin: 0 .5rem 0 .5rem;
 }
