@@ -16,7 +16,10 @@
              show="loading"></spinner>
 </div>
 <div ng-hide="loading">
-    <p class="no-feedback-text" ng-if="orderList.length < 1 || !orderList">{{'productReviews.noReviews' | translate}}</p>
+    <div ng-if="orderList.length < 1 || !orderList">
+        <img class="no-reviews-illustration" src="wisehands/assets/images/reviews.svg">
+        <p class="no-feedback-text">{{'productReviews.noReviews' | translate}}</p>
+    </div>
     <div class="admin-container admin-column" ng-show="orderList.length > 0">
         <div class="sort-reviews" >
             <p ng-click="sortBy('feedbackTime')">{{'productReviews.byDate' | translate}}
