@@ -2438,7 +2438,7 @@ ul.admin-breadcrumb li a:hover {
 	margin-bottom: 5px;
 }
 
-.img-qr-code {
+.img-qr-code img {
     width: 200px;
     height: auto;
 	margin: 5px;
@@ -2475,7 +2475,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .m-l-r {
-	padding: 0 20px;
+	padding: 20px;
 }
 
 .qr-edit {

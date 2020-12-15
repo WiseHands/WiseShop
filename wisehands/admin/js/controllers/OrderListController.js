@@ -76,12 +76,24 @@
                 });
 
             showQrImgToOrder = (orders) => {
-              orders.forEach((item) =>{
-		            new QRious({
+                orders.forEach((item) =>{
+                    let options = {
+                        text: item.qrName,
+                        width: 300,
+                        height: 300,
+                        colorDark: "#0e2935",
+                        correctLevel: QRCode.CorrectLevel.H,
+                        quietZone: 0,
+                        quietZoneColor: 'transparent',
+                        tooltip: item.qrName,
+                        drawer: 'canvas'
+                    };
+                    new QRCode(document.getElementById(item.uuid), options);
+/*		            new QRious({
 			            element: document.getElementById(item.uuid),
 			            size: 300,
 			            value: item.qrName
-		            });
+		            });*/
 	            });
             };
 	

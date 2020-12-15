@@ -20,11 +20,23 @@ angular.module('WiseHands')
         showQR = (uuid) => {
             let url = _generateUrlForQr(uuid);
             console.log("url => ", url);
-            new QRious({
+            let options = {
+                text: url,
+                width: 175,
+                height: 175,
+                colorDark: "#0e2935",
+                correctLevel: QRCode.CorrectLevel.H,
+                quietZone: 5,
+                quietZoneColor: 'transparent',
+                tooltip: url,
+                drawer: 'canvas'
+            };
+           new QRCode(document.getElementById('img-qr-code'), options);
+/*            new QRious({
                 element: document.getElementById('img-qr-code'),
                 size: 175,
                 value: url
-            });
+            });*/
         };
 
         _generateUrlForQr = (uuid) => {
