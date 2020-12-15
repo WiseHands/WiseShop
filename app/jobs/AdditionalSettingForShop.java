@@ -14,38 +14,38 @@ public class AdditionalSettingForShop {
 
     }
 
-    public void setWorkkingTime(ShopDTO shop){
+    public void setWorkingTime(ShopDTO shop){
 
         if(shop.monStartTime == null) {
-            shop.monStartTime = "1970-01-01T05:00:00.000Z";
-            shop.monEndTime = "1970-01-01T15:00:00.000Z";
+            shop.monStartTime = "04:20";
+            shop.monEndTime = "16:21";
         }
 
         if(shop.tueStartTime == null) {
-            shop.tueStartTime = "1970-01-01T05:00:00.000Z";
-            shop.tueEndTime = "1970-01-01T15:00:00.000Z";
+            shop.tueStartTime = "04:20";
+            shop.tueEndTime = "16:21";
         }
 
         if(shop.wedStartTime == null) {
-            shop.wedStartTime = "1970-01-01T05:00:00.000Z";
-            shop.wedEndTime = "1970-01-01T15:00:00.000Z";
+            shop.wedStartTime = "04:20";
+            shop.wedEndTime = "16:21";
         }
 
         if(shop.thuStartTime == null) {
-            shop.thuStartTime = "1970-01-01T05:00:00.000Z";
-            shop.thuEndTime = "1970-01-01T15:00:00.000Z";
+            shop.thuStartTime = "04:20";
+            shop.thuEndTime = "16:21";
         }
         if(shop.friStartTime == null) {
-            shop.friStartTime = "1970-01-01T05:00:00.000Z";
-            shop.friEndTime = "1970-01-01T15:00:00.000Z";
+            shop.friStartTime = "04:20";
+            shop.friEndTime = "16:21";
         }
         if(shop.satStartTime == null) {
-            shop.satStartTime = "1970-01-01T05:00:00.000Z";
-            shop.satEndTime = "1970-01-01T15:00:00.000Z";
+            shop.satStartTime = "04:20";
+            shop.satEndTime = "16:21";
         }
         if(shop.sunStartTime == null) {
-            shop.sunStartTime = "1970-01-01T05:00:00.000Z";
-            shop.sunEndTime = "1970-01-01T15:00:00.000Z";
+            shop.sunStartTime = "04:20";
+            shop.sunEndTime = "16:21";
         }
     }
 

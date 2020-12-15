@@ -69,7 +69,7 @@ public class ShopServiceImpl implements ShopService{
         shop.googleMapsApiKey = WISEHANDS_MAPS_KEY;
 
         AdditionalSettingForShop additionalSettingForShop = new AdditionalSettingForShop();
-        additionalSettingForShop.setWorkkingTime(shop);
+        additionalSettingForShop.setWorkingTime(shop);
         shop = shop.save();
         additionalSettingForShop.setPageListForFooter(shop);
 

@@ -20,9 +20,6 @@ public class MonthlyFee extends Job {
     public void doJob() throws Exception {
         System.out.println("MonthlyFee job");
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-
-
         Calendar calendar = Calendar.getInstance();   // this takes current date
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
@@ -37,34 +34,16 @@ public class MonthlyFee extends Job {
             List<ShopDTO> shopList = ShopDTO.findAll();
             for (ShopDTO shop : shopList){
                 if (shop.pricingPlan != null){
-                    CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
-                    if(coinAccount == null) {
-                        coinAccount = new CoinAccountDTO(shop);
-                        coinAccount = coinAccount.save();
-                    }
-                    CoinTransactionDTO transaction = new CoinTransactionDTO();
-                    transaction.type = TransactionType.MONTHLY_FEE;
-                    transaction.status = TransactionStatus.OK;
-                    transaction.account = coinAccount;
-                    transaction.amount = -shop.pricingPlan.monthlyFee;
-                    transaction.time = System.currentTimeMillis() / 1000L;
-                    coinAccount.addTransaction(transaction);
-                    coinAccount.balance += transaction.amount;
-                    transaction.transactionBalance = coinAccount.balance;
-                    transaction.save();
-                    coinAccount.save();
-                    System.out.println("paid a monthly fee!!!!!!!!!!!");
+                    setPricingPlan(shop);
                 }
             }
         }
 
     }
 
-    public void getMonthlyFee(ShopDTO shop) {
+    public void setPricingPlan(ShopDTO shop) {
 
         CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
-        Double commissionFee = shop.pricingPlan.commissionFee;
-
         if(coinAccount == null) {
             coinAccount = new CoinAccountDTO(shop);
             coinAccount = coinAccount.save();
@@ -73,12 +52,14 @@ public class MonthlyFee extends Job {
         transaction.type = TransactionType.MONTHLY_FEE;
         transaction.status = TransactionStatus.OK;
         transaction.account = coinAccount;
-        transaction.amount = -commissionFee;
+        transaction.amount = -shop.pricingPlan.monthlyFee;
         transaction.time = System.currentTimeMillis() / 1000L;
-        transaction = transaction.save();
         coinAccount.addTransaction(transaction);
         coinAccount.balance += transaction.amount;
+        transaction.transactionBalance = coinAccount.balance;
+        transaction.save();
         coinAccount.save();
+        System.out.println("paid a monthly fee!!!!!!!!!!!");
 
 
     }
