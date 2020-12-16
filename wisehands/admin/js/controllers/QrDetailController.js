@@ -11,6 +11,7 @@ angular.module('WiseHands')
             console.log('/api/qr/info, ',response);
             $scope.qr = response.data;
             showQR($scope.qr);
+            printQR($scope.qr);
         }, error => {
             console.log(error);
         });
@@ -19,12 +20,12 @@ angular.module('WiseHands')
             $window.location.href = `#/qredit/${$routeParams.uuid}`;
         }
 
-        showQR = (qrCode) =>{
+        showQR = qrCode => {
             let url = _generateUrlForQr(qrCode.uuid);
             let options = {
                 text: url,
-                width: 600,
-                height: 600,
+                width: 200,
+                height: 200,
                 colorDark: "#0e2935",
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H,
@@ -34,21 +35,16 @@ angular.module('WiseHands')
                 logoBackgroundTransparent: false,
                 title: 'wstore.pro',
                 titleColor: "#0e2935",
-                titleFont: "bold 34px Roboto,sans-serif",
-                tooltip: url,
-                titleHeight: 50,
+                titleFont: "bold 16px Roboto,sans-serif",
+                titleHeight: 40,
                 titleTop: 30,
+                tooltip: url,
                 drawer: 'canvas'
             };
-       new QRCode(document.getElementById('qr-code'), options);
-/*           new QRious({
-             element: document.getElementById('qr-code'),
-             size: 600,
-             value: url
-           });*/
+            new QRCode(document.getElementById('qr-code'), options);
         }
 
-        _generateUrlForQr = (uuid) => {
+        _generateUrlForQr = uuid => {
             let domain, hostname = $window.location.hostname;
             if (hostname === 'localhost'){
                 domain = hostname + ':3334'
@@ -75,25 +71,49 @@ angular.module('WiseHands')
         }
 
         $scope.downloadQrCode = () => {
-            let a = document.createElement("a"); //Create <a>
-            a.href = document.querySelector('#qr-code img').src; //Image Base64 Goes here
-            a.download = `${$scope.qr.name}.png`; //File name Here
-            a.click();
+            let downloadLink = document.createElement("a");
+            downloadLink.href = document.querySelector('#qr-code img').src;
+            downloadLink.download = `${$scope.qr.name}.png`;
+            downloadLink.click();
+        }
+
+        printQR = qrCode => {
+        let url = _generateUrlForQr(qrCode.uuid);
+        let options = {
+            text: url,
+            width: 600,
+            height: 600,
+            colorDark: "#0e2935",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H,
+            quietZone: 8,
+            quietZoneColor: 'transparent',
+            logo: "wisehands/assets/images/main_logo_black.png",
+            logoBackgroundTransparent: false,
+            title: 'wstore.pro',
+            titleColor: "#0e2935",
+            titleFont: "bold 34px Roboto,sans-serif",
+            titleHeight: 50,
+            titleTop: 30,
+            tooltip: url,
+            drawer: 'canvas'
+        };
+            new QRCode(document.getElementById('printQr'), options);
         }
 
         $scope.printQrCode = () => {
             function closePrint() {
-                if (w) {
-                    w.close();
+                if (printingWindow) {
+                    printingWindow.close();
                 }
             }
-            let imgContent = document.querySelector('#qr-code img');
-            let w = window.open();
-            w.document.open();
-            w.document.write('<html><body onload="window.print()">' + '<img src=' +  imgContent.src + ' style="display: block; margin: 0 auto; "></></html>');
-            w.document.close();
-            w.onbeforeunload = closePrint;
-            w.onafterprint = closePrint;
+            let imgContent = document.querySelector('#printQr img');
+            let printingWindow = window.open();
+            printingWindow.document.open();
+            printingWindow.document.write('<html><body onload="window.print()">' + '<img src=' +  imgContent.src + ' style="display: block; margin: 0 auto; "></></html>');
+            printingWindow.document.close();
+            printingWindow.onbeforeunload = closePrint;
+            printingWindow.onafterprint = closePrint;
         }
 
         sideNavInit.sideNav();
