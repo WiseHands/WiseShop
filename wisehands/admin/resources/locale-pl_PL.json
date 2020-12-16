@@ -314,6 +314,7 @@
   "payment.coupons": "Kupony",
   "payment.discount": "Zniżka, %",
   "payment.minPayment": "Minimalna płatność za zamówienie",
+  "payment.minPaymentPlaceholder": "Określ minimalną kwotę zamówienia",
   "payment.minOrder": "Minimalna suma zamówienia",
   "payment.couponsIds": "Kupony na zniżki (każdy w nowej linii)",
   "payment.systemPay": "Systemy płatności",

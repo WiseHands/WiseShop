@@ -312,6 +312,7 @@
   "payment.coupons": "Купони",
   "payment.discount": "Відсоток знижки",
   "payment.minPayment": "Мінімальна сума замовлення",
+  "payment.minPaymentPlaceholder": "Вкажіть мінімальну суму замовлення",
   "payment.minOrder": "Сума мін. замовлення",
   "payment.couponsIds": "Купони (кожен з нового рядка)",
   "payment.systemPay": "Сиcтеми оплати",

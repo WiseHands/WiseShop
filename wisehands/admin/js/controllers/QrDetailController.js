@@ -36,8 +36,8 @@ angular.module('WiseHands')
                 title: 'wstore.pro',
                 titleColor: "#0e2935",
                 titleFont: "bold 16px Roboto,sans-serif",
-                titleHeight: 40,
-                titleTop: 30,
+                titleHeight: 20,
+                titleTop: 10,
                 tooltip: url,
                 drawer: 'canvas'
             };
@@ -72,7 +72,7 @@ angular.module('WiseHands')
 
         $scope.downloadQrCode = () => {
             let downloadLink = document.createElement("a");
-            downloadLink.href = document.querySelector('#qr-code img').src;
+            downloadLink.href = document.querySelector('#printQr img').src;
             downloadLink.download = `${$scope.qr.name}.png`;
             downloadLink.click();
         }

@@ -313,6 +313,7 @@
   "payment.coupons": "Coupons",
   "payment.discount": "Discount, %",
   "payment.minPayment": "The minimum payment for an order",
+  "payment.minPaymentPlaceholder": "Specify the minimum order amount",
   "payment.minOrder": "Min. order amount",
   "payment.couponsIds": "Coupons IDs (each from new line)",
   "payment.systemPay": "Payment Systems",
