@@ -21,18 +21,28 @@ public class CurrencyShopDTO extends GenericModel {
     @Expose
     public String currency;
 
+    @OneToOne(cascade=CascadeType.ALL)
+    public ShopDTO shop;
+
     @Expose
     @OneToMany(cascade=CascadeType.ALL)
     List<CurrencyDTO> currencyList;
 
-    @OneToOne(cascade=CascadeType.ALL)
-    public ShopDTO shop;
+    public void addCurrency(CurrencyDTO currency){
+        if (this.currencyList == null){
+            this.currencyList = new ArrayList<CurrencyDTO>();
+        }
+        this.currencyList.add(currency);
+    }
+
 
     public CurrencyShopDTO() {
         if(currencyList == null) {
             currencyList = new ArrayList<CurrencyDTO>();
         }
     }
+
+
 
 
 

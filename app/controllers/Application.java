@@ -3,10 +3,19 @@ package controllers;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import enums.FeedbackRequestState;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import play.Play;
 import play.i18n.Lang;
 import play.i18n.Messages;
+import play.libs.WS;
 import play.mvc.*;
 
 import models.*;
@@ -14,7 +23,9 @@ import services.querying.DataBaseQueries;
 import services.translaiton.LanguageForShop;
 import services.translaiton.Translation;
 
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -439,7 +450,6 @@ public class Application extends Controller {
         Translation.setTranslationForShop(language, shop);
         render(product, category, categories, shop, language);
     }
-
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {
         String agent = request.headers.get("user-agent").value();
