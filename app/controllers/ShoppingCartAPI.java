@@ -176,6 +176,9 @@ public class ShoppingCartAPI extends AuthController {
             if (additionDTO.additionNameTranslationBucket != null){
                 additionLineItem.translationBucket = additionDTO.additionNameTranslationBucket;
                 additionLineItem.title = translateTitle(languageFromHeader, additionDTO);
+                if (additionLineItem.title.isEmpty() || additionLineItem.title == null) {
+                    additionLineItem.title = additionDTO.getTitle();
+                }
             }
             additionLineItem.save();
             additionsLineItemList.add(additionLineItem);
@@ -190,6 +193,9 @@ public class ShoppingCartAPI extends AuthController {
             if (additionDTO.additionNameTranslationBucket != null){
                 additionLineItem.translationBucket = additionDTO.additionNameTranslationBucket;
                 additionLineItem.title = translateTitle(languageFromHeader, additionDTO);
+                if (additionLineItem.title.isEmpty() || additionLineItem.title == null) {
+                    additionLineItem.title = additionDTO.getTitle();
+                }
             }
 
             additionLineItem.save();
@@ -215,10 +221,12 @@ public class ShoppingCartAPI extends AuthController {
 
     private static String _getWholePath(String imagePath, ShopDTO shop) {
         String path = shop.domain;
+        imagePath = String.format("https://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
         if(isDevEnv) {
             path = path + ":3334";
+            imagePath = String.format("http://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
         }
-        return imagePath = String.format("https://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
+        return imagePath;
 
     }
 

@@ -37,16 +37,6 @@ angular.module('WiseHands')
                     correctLevel: QRCode.CorrectLevel.H,
                     quietZone: 8,
                     quietZoneColor: 'transparent',
-/*                    logo: "wisehands/assets/images/main_logo_circle.png",
-                    logoBackgroundTransparent: true,
-                    logoWidth:64,
-                    logoHeight:64,
-                    title: '> wstore.pro <',
-                    titleColor: "#0e2935",*/
-/*                    titleHeight: 15,*/
-/*                    titleHeight: 35,*/
-/*                    titleTop: 5,*/
-/*                    drawer: 'svg'*/
                     drawer: 'canvas'
                 };
                 new QRCode(document.getElementById(item.uuid), options);

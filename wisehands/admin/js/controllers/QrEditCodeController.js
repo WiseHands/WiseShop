@@ -32,11 +32,6 @@ angular.module('WiseHands')
                 drawer: 'canvas'
             };
            new QRCode(document.getElementById('img-qr-code'), options);
-/*            new QRious({
-                element: document.getElementById('img-qr-code'),
-                size: 175,
-                value: url
-            });*/
         };
 
         _generateUrlForQr = (uuid) => {

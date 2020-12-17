@@ -89,11 +89,6 @@
                         drawer: 'canvas'
                     };
                     new QRCode(document.getElementById(item.uuid), options);
-/*		            new QRious({
-			            element: document.getElementById(item.uuid),
-			            size: 300,
-			            value: item.qrName
-		            });*/
 	            });
             };
 	

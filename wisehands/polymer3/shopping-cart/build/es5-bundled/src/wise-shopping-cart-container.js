@@ -24894,9 +24894,12 @@ class WiseShoppingCartItem extends PolymerElement {
 
       if (item.translationBucket) {
         let translationList = item.translationBucket.translationList;
-        translationList.forEach(item => {
-          if (item.language === language) {
-            label = item.content;
+        translationList.forEach(itemTranslation => {
+          if (itemTranslation.language === language && itemTranslation.content != '') {
+            label = itemTranslation.content;
+          }
+          if (itemTranslation.language === language && itemTranslation.content === '') {
+            label = item.title;
           }
         });
       } else {
@@ -24912,8 +24915,11 @@ class WiseShoppingCartItem extends PolymerElement {
     if (product.translationBucket) {
       let translationList = product.translationBucket.translationList;
       translationList.forEach(item => {
-        if (item.language === language) {
+        if (item.language === language && item.content != '') {
           label = item.content;
+        }
+        if (item.language === language && item.content === '') {
+          label = product.name;
         }
       });
     } else {

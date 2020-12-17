@@ -55,7 +55,11 @@ public class LineItem extends GenericModel {
         if(isDevEnv) {
             path = path + ":3334";
         }
-        this.imagePath = String.format("https://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
+        if (!isDevEnv) {
+            this.imagePath = String.format("https://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
+        } else {
+            this.imagePath = String.format("http://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
+        }
         this.quantity = quantity;
         this.price = price;
     }
@@ -68,7 +72,11 @@ public class LineItem extends GenericModel {
         if(isDevEnv) {
             path = path + ":3334";
         }
-        this.imagePath = String.format("https://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
+        if (!isDevEnv) {
+            this.imagePath = String.format("https://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
+        } else {
+            this.imagePath = String.format("http://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
+        }
         this.quantity = quantity;
         this.price = price;
         this.additionList = additionList;
