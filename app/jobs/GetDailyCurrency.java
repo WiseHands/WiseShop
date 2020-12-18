@@ -1,26 +1,19 @@
 package jobs;
 
 
-import com.google.gson.JsonElement;
-
-import com.google.gson.JsonObject;
 import models.CurrencyDTO;
 import models.CurrencyShopDTO;
 import models.ShopDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import play.jobs.Every;
 import play.jobs.Job;
-import play.jobs.On;
 import play.libs.WS;
-import services.translaiton.Translation;
 
 import java.util.List;
 
-//@On("0 0 12 * * ?")
-@Every("1min")
+@Every("6h")
 public class GetDailyCurrency extends Job {
 
     public void doJob() throws Exception {
@@ -45,21 +38,20 @@ public class GetDailyCurrency extends Job {
             currencyShop = new CurrencyShopDTO(shop);
             currencyShop.save();
         }
-
-        for (int i = 0; i < currencyJsonArray.size(); i++) {
-            JSONObject object = (JSONObject) currencyJsonArray.get(i);
-            CurrencyDTO currency = getCurrency(object, currencyShop);
+        for (Object object : currencyJsonArray) {
+            JSONObject jsonObject = (JSONObject) object;
+            CurrencyDTO currency = getCurrency(jsonObject, currencyShop);
             currencyShop.addCurrency(currency);
         }
         currencyShop.save();
     }
 
-    private CurrencyDTO getCurrency(JSONObject object, CurrencyShopDTO currencyShop) {
+    private CurrencyDTO getCurrency(JSONObject jsonObject, CurrencyShopDTO currencyShop) {
 
-        String ccy = (String) object.get("ccy");
-        String baseCurrency = (String) object.get("base_ccy");
-        double buy = Double.parseDouble((String) object.get("buy"));
-        double sale = Double.parseDouble((String) object.get("sale"));
+        String ccy = (String) jsonObject.get("ccy");
+        String baseCurrency = (String) jsonObject.get("base_ccy");
+        double buy = Double.parseDouble((String) jsonObject.get("buy"));
+        double sale = Double.parseDouble((String) jsonObject.get("sale"));
 
         CurrencyDTO currency = CurrencyDTO.find("byCurrencyShop", currencyShop).first();
         if (currency == null) {
