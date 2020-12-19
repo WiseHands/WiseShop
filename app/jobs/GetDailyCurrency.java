@@ -38,6 +38,9 @@ public class GetDailyCurrency extends Job {
             currencyShop = new CurrencyShopDTO(shop);
             currencyShop.save();
         }
+
+        // TODO check array on currency if true - find anr rewrite
+
         for (Object object : currencyJsonArray) {
             JSONObject jsonObject = (JSONObject) object;
             CurrencyDTO currency = getCurrency(jsonObject, currencyShop);
