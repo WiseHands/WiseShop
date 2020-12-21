@@ -193,25 +193,27 @@
            for(_product in products) {
         }%
             <div class="item-card">
-                <div class="card inline">
+                <div class="card inline hoverable">
                     <div class="noselect hm-white-slight z-depth-1" >
                         <a href="/${language}/product/${_product.uuid}">
                              <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
                         </a>
                     </div>
-                    <div class="item-card-info text-xs-center">
+                    <div class="card-block text-xs-center">
                         <div class="item-card-title">
                             <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                            <div class="item-card-action-price card-title">
+                                <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
+                                <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
+                            </div>
                         </div>
+                        <div class="card-footer"></div>
                         <div class="item-card-text">
                             <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                         </div>
                         <div class="item-card-action">
-                            <div class="item-card-action-price">
-                                <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
-                                <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
-                            </div>
-                            <span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
+                            <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart('${_product.uuid}')">&{'page.product.buy'}</button>
+                            <!--<span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>-->
                         </div>
                     </div>
                 </div>
@@ -232,7 +234,7 @@
         %{
         for(_product in products) {
         }%
-        <div class="item-card-list item-shadow">
+        <div class="card item-card-list hoverable">
             <div class="item-card-list-img noselect hm-white-slight" >
                 <a href="/${language}/product/${_product.uuid}">
                     <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
@@ -247,10 +249,11 @@
                     </div>
                 <div class="item-card-list-action">
                     <div class="item-card-list-action-price">
-                        <p class="current-price">${_product.formatDecimal()}<span class="currency">uah</span></p>
+                        <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
                         <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
                     </div>
-                    <span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
+                    <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart('${_product.uuid}')">&{'page.product.buy'}</button>
+                    <!--<span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>-->
                 </div>
             </div>
         </div>

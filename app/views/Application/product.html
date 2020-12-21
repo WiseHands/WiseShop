@@ -123,6 +123,19 @@
         justify-content: space-between;
     }
 
+    .price-buy-block button {
+        border: 2px solid #000;
+        color: #000 !important;
+        margin: auto;
+    }
+
+    .price-buy-block button:hover, .price-buy-block button:focus,
+    .price-buy-block button:active, .price-buy-block button:active:hover {
+        background-color: #000 !important;
+        border-color: #000 !important;
+        color: #fff !important;
+    }
+
     .product-price, .product-price-on-photo {
         padding: 0.5rem 1rem 0.5em 0;
         font-size: 1.3rem;
@@ -134,12 +147,6 @@
 
     .buy-button {
         width: 270px;
-        background-color: #fff;
-        color: #000;
-        border: 2px solid #000;
-        text-transform: uppercase;
-        padding: 0.5rem;
-        cursor: pointer;
     }
 
     .buy-button:hover {
@@ -347,11 +354,11 @@
 
         .price-buy-block {
             flex-direction: column;
+            margin-bottom: inherit;
         }
 
         .buy-button {
             width: 100%;
-            margin: 0 auto;
         }
 
         .additions-block {
@@ -498,7 +505,7 @@
                 <span>&{'page.product.price'}</span>
                 <span class="total-span"></span>
             </span>
-            <button class="buy-button" onClick="buyStart('${product.uuid}')">&{'page.product.buy'}</button>
+            <button class="buy-button btn btn-outline-primary btn-rounded" onClick="buyStart('${product.uuid}')">&{'page.product.buy'}</button>
         </div>
         #{if product.additions}
         <section class="additions">
