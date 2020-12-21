@@ -209,7 +209,7 @@
         display: none;
         position: fixed;
         bottom: 0;
-        max-width: 900px;
+        /*max-width: 900px;*/
         width: 100%;
         background-color: #e4e9e9;
         border-top: 5px solid #333;
@@ -318,7 +318,7 @@
     }
 
     @media screen and (min-width: 1500px) {
-        .product-center-container, .cart-float, .shop-all-reviews {
+        .product-center-container, .shop-all-reviews {
             max-width: 1300px;
         }
     }
@@ -531,13 +531,13 @@
         </section>
         #{/if}
     </div>
-    <div class="cart-float">
-        <div class="cart-float-text">
-            <p>&{'page.product.add.to.basket'}</p>
-            <i class="fa fa-check-circle"></i>
-        </div>
-    </div>
 </main>
+<div class="cart-float">
+    <div class="cart-float-text">
+        <p>&{'page.product.add.to.basket'}</p>
+        <i class="fa fa-check-circle"></i>
+    </div>
+</div>
 <div class="shop-product-tabs product-center-container">
     <button class="product-tab" active onclick="openTab(event)">&{'page.product.about.product'}</button>
     <button class="product-tab" onclick="openTab(event)">&{'page.product.reviews'}</button>
