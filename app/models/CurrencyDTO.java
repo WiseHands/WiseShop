@@ -27,7 +27,7 @@ public class CurrencyDTO extends GenericModel {
     @Expose
     public double sale;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     public CurrencyShopDTO currencyShop;
 
     public CurrencyDTO(String ccy, String base_ccy, double buy, double sale){

@@ -26,7 +26,7 @@ public class CurrencyShopDTO extends GenericModel {
 
     @Expose
     @OneToMany(cascade=CascadeType.ALL)
-    List<CurrencyDTO> currencyList;
+    public List<CurrencyDTO> currencyList;
 
     public void addCurrency(CurrencyDTO currency){
         if (this.currencyList == null){
@@ -37,10 +37,8 @@ public class CurrencyShopDTO extends GenericModel {
 
     public CurrencyShopDTO(ShopDTO shop) {
         this.shop = shop;
-        currency = "USD";
-        if(currencyList == null) {
-            currencyList = new ArrayList<CurrencyDTO>();
-        }
+        this.currency = "USD";
+        this.currencyList = new ArrayList<CurrencyDTO>();
     }
 
 
