@@ -14,7 +14,7 @@ import play.libs.WS;
 import java.util.ArrayList;
 import java.util.List;
 
-@Every("1min")
+@Every("6h")
 public class GetDailyCurrency extends Job {
 
     public void doJob() throws Exception {
@@ -39,29 +39,18 @@ public class GetDailyCurrency extends Job {
             currencyShop = new CurrencyShopDTO(shop);
             currencyShop.save();
         }
-        // TODO check array on currency if true - find and rewrite
         if (currencyShop.currencyList.isEmpty()) {
             for (Object object : currencyJsonArray) {
                 JSONObject jsonObject = (JSONObject) object;
-                CurrencyDTO currency = getCurrency(jsonObject);
-                currency.save();
-                currencyShop.addCurrency(currency);
+                currencyShop.addCurrency(getCurrency(jsonObject));
             }
-            System.out.println("currencyList in job is empty => " + currencyShop.currencyList);
         } else {
-            for (Object object : currencyJsonArray) {
-                JSONObject jsonObject = (JSONObject) object;
-                for (CurrencyDTO _currency : currencyShop.currencyList){
-                    _currency.ccy = (String) jsonObject.get("ccy");
-                    _currency.base_ccy = (String) jsonObject.get("base_ccy");
-                    _currency.buy = Double.parseDouble((String) jsonObject.get("buy"));
-                    _currency.sale  = Double.parseDouble((String) jsonObject.get("sale"));
-                    _currency.save();
-                }
+            for (int i = 0; i < currencyJsonArray.size(); i++) {
+                JSONObject jsonObject = (JSONObject) currencyJsonArray.get(i);
+                updateCurrency(jsonObject, currencyShop.currencyList.get(i));
             }
             System.out.println("currencyList in job is full => " + currencyShop.currencyList);
         }
-
         currencyShop.save();
     }
 
@@ -76,7 +65,7 @@ public class GetDailyCurrency extends Job {
         currency.base_ccy = baseCurrency;
         currency.buy = buy;
         currency.sale = sale;
-
+        currency.save();
         return currency;
 
     }
@@ -89,7 +78,7 @@ public class GetDailyCurrency extends Job {
         double sale = Double.parseDouble((String) jsonObject.get("sale"));
 
         CurrencyDTO currency = new CurrencyDTO(ccy, baseCurrency, buy, sale);
-
+        currency.save();
         return currency;
     }
 
