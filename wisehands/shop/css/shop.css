@@ -54,7 +54,7 @@
     padding: 0.5rem;
 }*/
 .item-card-title {
-    height: 5rem;
+    height: 6rem;
 }
 .item-card-text {
     height: 3.5rem;
@@ -131,6 +131,7 @@
 .item-card-action-price {
     display: flex;
     align-items: baseline;
+    margin-top: auto;
 }
 .item-card-action-price .current-price {
     font-size: 20px;
@@ -281,12 +282,12 @@
 }
 .productNameTruncate {
     line-height: 1.5rem;
-    max-height: 3rem;
+    /*max-height: 3rem;*/
     overflow: hidden;
     text-overflow: ellipsis;
     position: relative;
     text-align: left;
-    /*margin-right: -1em;*/
+    margin-right: -1em;
 }
 
 .headerCentering:before {
@@ -550,7 +551,7 @@ main {
         margin: 0.5rem 0.5rem 0 0.5rem ;
     }
     .item-card-list {
-        height: 150px;
+        height: 160px;
         margin: 0;
         margin-bottom: 0.5rem;
         box-shadow: none;
@@ -559,7 +560,9 @@ main {
         box-shadow: none;
     }
     .item-card-title {
-        height: 6rem;
+        height: 6.9rem;
+        display: flex;
+        flex-direction: column;
     }
     .item-card-list-content {
         flex-direction: column;
@@ -583,8 +586,9 @@ main {
         padding: 0.5rem 0.5rem 0.5rem 0;
     }
     .item-card-list-info h4, .item-card-grid-mob h4 {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 1.2rem;
+        max-height: 2.3rem;
     }
     .item-card-list-info p, .item-card-grid-mob p {
         font-size: 14px;
@@ -617,9 +621,9 @@ main {
         margin: 0;
     }
     .item-card-action-price .discount-price {
-        position: absolute;
+/*        position: absolute;
         top: -12px;
-        left: 0px;
+        left: 0px;*/
     }
     .grid-view-mob {
         flex-direction: row;
@@ -635,8 +639,10 @@ main {
         font-size: 28px;
     }
     .productNameTruncate {
-/*        line-height: 1.2rem;
-        max-height: 2.8rem;*/
+        font-size: 1rem;
+        line-height: 1.2rem;
+        margin-bottom: 0;
+/*        max-height: 2.8rem;*/
     }
     .item-card-list-action button {
         width: auto;
