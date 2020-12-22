@@ -239,6 +239,27 @@
         padding: 0;
     }
 
+    .tabs-container {
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 0 0.5rem;
+    }
+
+    .classic-tabs li a.active {
+        border-bottom: 2px solid #000 !important;
+        color: #000 !important;
+    }
+
+    .classic-tabs li a {
+        color: #9e9e9e !important;
+    }
+
+    .nav-item .nav-link:hover {
+        background-color: #f5f5f5;
+        border-color: transparent;
+    }
+
     .product-tab[active] {
         background-color: #fff;
     }
@@ -299,9 +320,9 @@
         font-size: 0.9rem;
     }
 
-    #reviews {
+    /* #reviews {
         display: none;
-    }
+    }*/
 
     i.fa-star, i.fa-star-o {
         font-size: 24px;
@@ -318,7 +339,7 @@
     }
 
     @media screen and (min-width: 1500px) {
-        .product-center-container, .shop-all-reviews {
+        .product-center-container, .shop-all-reviews, .tabs-container {
             max-width: 1300px;
         }
     }
@@ -382,6 +403,10 @@
             max-width: 100%;
             padding: 0.5rem;
             width: auto;
+        }
+
+        .product-center-container {
+            padding: 0 0.5rem;
         }
     }
 
@@ -538,12 +563,68 @@
         <i class="fa fa-check-circle"></i>
     </div>
 </div>
-<div class="shop-product-tabs product-center-container">
+
+<div class="tabs-container">
+    <div class="tabs-wrapper">
+        <ul class="nav classic-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link waves-effect active" data-toggle="tab" href="#about" role="tab">&{'page.product.about.product'}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect" data-toggle="tab" href="#reviews" role="tab">&{'page.product.reviews'}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content card">
+        <div class="tab-pane fade in active" id="about" role="tabpanel">
+            <p>${product.description}</p>
+        </div>
+        <div class="tab-pane fade" id="reviews" role="tabpanel">
+            #{if product.feedbackList}
+            %{
+            for(_review in product.feedbackList) {
+            }%
+            #{if !_review.isFeedbackDeleted}
+            <div class="shop-review-item">
+                <div class="shop-review-item-info">
+                    <p>${_review.customerName}</p>
+                    <div feedback-rate="${_review.quality}" class="feedback-stars">
+                        <i class="fa"></i>
+                        <i class="fa"></i>
+                        <i class="fa"></i>
+                        <i class="fa"></i>
+                        <i class="fa"></i>
+                    </div>
+                </div>
+                <div class="shop-review-item-text">
+                    <p time="${_review.feedbackTime}"></p>
+                    #{if _review.review} <p>${_review.review}</p> #{/if}
+                    #{else} <p>&{'page.product.no.reviews.from.client'}</p> #{/else}
+                    <div class="reply-for-review">
+                        #{if _review.review && _review.comment}
+                        <h4>${shop.shopName}</h4>
+                        <p>${_review.comment}</p>
+                        #{/if}
+                    </div>
+                </div>
+            </div>
+            #{/if}
+            <hr>
+            %{
+            }
+            }%
+            #{/if}
+            #{else} <p>&{'page.product.no.reviews'}</p> #{/else}
+        </div>
+    </div>
+</div>
+
+<!--<div class="shop-product-tabs product-center-container">
     <button class="product-tab" active onclick="openTab(event)">&{'page.product.about.product'}</button>
     <button class="product-tab" onclick="openTab(event)">&{'page.product.reviews'}</button>
 </div>
 <div active class="shop-all-reviews w3-container w3-border item-tab">
-
     <p>${product.description}</p>
 </div>
 <div class="shop-all-reviews w3-container w3-border item-tab">
@@ -582,7 +663,7 @@
     }%
     #{/if}
     #{else} <p>&{'page.product.no.reviews'}</p> #{/else}
-</div>
+</div>-->
 
 
 #{if shop.faceBookPixelApiKey}

@@ -544,7 +544,7 @@ public class Application extends Controller {
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         String orderMessage = Messages.get("page.done.delivery.order.message");
-        System.out.println("orderMessage " + orderMessage);
+        System.out.println("orderMessage " + delivery.orderMessage);
         if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
             delivery.orderMessage = orderMessage;
             delivery = delivery.save();
