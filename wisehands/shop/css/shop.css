@@ -282,7 +282,7 @@
 }
 .productNameTruncate {
     line-height: 1.5rem;
-    /*max-height: 3rem;*/
+    max-height: 3rem;
     overflow: hidden;
     text-overflow: ellipsis;
     position: relative;
