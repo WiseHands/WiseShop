@@ -548,7 +548,7 @@ main {
     }
     .item-card {
         flex: 0 1 calc(50% - 1rem);
-        margin: 0.5rem 0.5rem 0 0.5rem ;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
     }
     .item-card-list {
         height: 160px;
@@ -560,7 +560,7 @@ main {
         box-shadow: none;
     }
     .item-card-title {
-        height: 6.9rem;
+/*        height: 6.9rem;*/
         display: flex;
         flex-direction: column;
     }
@@ -588,7 +588,9 @@ main {
     .item-card-list-info h4, .item-card-grid-mob h4 {
         font-size: 16px;
         line-height: 1.2rem;
-        max-height: 2.3rem;
+        max-height: 2.35rem;
+        margin-bottom: .5rem;
+        margin-right: auto;
     }
     .item-card-list-info p, .item-card-grid-mob p {
         font-size: 14px;
@@ -642,7 +644,7 @@ main {
         font-size: 1rem;
         line-height: 1.2rem;
         margin-bottom: 0;
-/*        max-height: 2.8rem;*/
+        max-height: 2.5rem;
     }
     .item-card-list-action button {
         width: auto;
