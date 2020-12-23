@@ -1,6 +1,8 @@
 #{set pageList:pageList /}
 #{set language:language /}
 #{set categories:categories /}
+#{set currencyList:currencyList /}
+
 <style>
     header {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
@@ -181,6 +183,16 @@
         </div>
         <!--SHOP NETWORK-->
         <div class="header-right-part">
+            #{if shop.currencyShop}
+              <div class="select-lang">
+                <button class="dropbtn">${shop.currencyShop.currencyFormat()}</button>
+                <div class="lang-list">
+                  <a onclick="changeLanguage('en')">English</a>
+                  <a onclick="changeLanguage('uk')">Українська</a>
+                </div>
+              </div>
+            #{/if}
+
             <div class="select-lang">
                 <button class="dropbtn">${language}</button>
                 <div class="lang-list">

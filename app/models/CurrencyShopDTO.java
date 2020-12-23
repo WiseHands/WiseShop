@@ -3,10 +3,11 @@ package models;
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
+import util.CurrencySign;
 
 import javax.persistence.*;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 @Entity
@@ -40,6 +41,22 @@ public class CurrencyShopDTO extends GenericModel {
         this.currency = "UAH";
         this.currencyList = new ArrayList<CurrencyDTO>();
     }
+
+    public String currencyFormat(){
+        String currencySign = "";
+        String currency = this.currency.toLowerCase();
+        Class classCurrencySign = CurrencySign.class;
+        Field field = null;
+        try {
+            field = classCurrencySign.getDeclaredField(currency);
+            currencySign = field.getName();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return currencySign;
+    }
+
+
 
 
 

@@ -67,7 +67,6 @@ public class Application extends Controller {
         return protocol + client + port + "/" + language + "/shop";
     }
 
-
     public static void allowCors(){
         ok();
     }
@@ -282,7 +281,15 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        renderTemplate("Application/shop.html", shop, products, language, categories);
+        List<CurrencyDTO> currencyList = new ArrayList<CurrencyDTO>();
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (currencyShop != null){
+            currencyList = currencyShop.currencyList;
+            shop.currencyShop = currencyShop;
+        }
+        System.out.println("in shop check currency => " + shop.currencyShop);
+
+        renderTemplate("Application/shop.html", shop, products, language, categories, currencyList);
     }
 
     public static void footerShop(String client){
@@ -374,14 +381,12 @@ public class Application extends Controller {
         render(shop, page, pageList, language, categories);
     }
 
-
     public static void categoryOld(String client, String uuid) {
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         redirect("https://" + client + "/" + language + "/category/" + uuid, false);
     }
-
 
     public static void category(String client, String uuid, String language){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

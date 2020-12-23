@@ -19,8 +19,10 @@ public class GetDailyCurrency extends Job {
 
     public void doJob() throws Exception {
 
-        WS.HttpResponse response = WS.url("https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=12").get();
-        String currencyJson = response.getString();
+        WS.HttpResponse firstCurrencyRespomse = WS.url("https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11").get();
+        // TODO get PZt from second array and add to first array
+        WS.HttpResponse secondCurrencyRespomse = WS.url("https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=12").get();
+        String currencyJson = firstCurrencyRespomse.getString();
         if (!currencyJson.isEmpty()){
             JSONParser parser = new JSONParser();
             JSONArray currencyJsonArray = (JSONArray) parser.parse(currencyJson);
