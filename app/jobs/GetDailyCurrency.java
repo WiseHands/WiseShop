@@ -19,7 +19,7 @@ public class GetDailyCurrency extends Job {
 
     public void doJob() throws Exception {
 
-        WS.HttpResponse response = WS.url("https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11").get();
+        WS.HttpResponse response = WS.url("https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=12").get();
         String currencyJson = response.getString();
         if (!currencyJson.isEmpty()){
             JSONParser parser = new JSONParser();
@@ -33,7 +33,6 @@ public class GetDailyCurrency extends Job {
     }
 
     private void setCurrencyListToShop(ShopDTO shop, JSONArray currencyJsonArray) {
-
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (currencyShop == null){
             currencyShop = new CurrencyShopDTO(shop);

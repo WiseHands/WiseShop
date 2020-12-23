@@ -37,7 +37,7 @@ public class CurrencyShopDTO extends GenericModel {
 
     public CurrencyShopDTO(ShopDTO shop) {
         this.shop = shop;
-        this.currency = "USD";
+        this.currency = "UAH";
         this.currencyList = new ArrayList<CurrencyDTO>();
     }
 

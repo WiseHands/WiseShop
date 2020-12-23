@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-    .directive('ngCurrencySelect', ['LocaleService', function (LocaleService) { 'use strict';
+    .directive('ngTranslateLanguageSelect', ['LocaleService', function (LocaleService) { 'use strict';
 
         return {
             restrict: 'A',
