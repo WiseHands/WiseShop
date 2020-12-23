@@ -75,7 +75,7 @@ address.floor.label = Floor
 address.apartment.label = Apartment
 map.choose.your.place.label = Specify location on
 map.label = map
-map.error.message = Sorry, your address is not in the delivery area. Find the address on
+map.error.message = Unfortunately no such address was found or your address is not in the delivery area. Select it on
 
 shopping.cart.basket.empty.label = Basket is empty
 shopping.cart.start.shopping.label = Start shopping

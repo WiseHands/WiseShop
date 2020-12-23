@@ -89,7 +89,7 @@ address.apartment.label = квартира
 
 map.choose.your.place.label = Вкажіть місцезнаходження на
 map.label = карті
-map.error.message = Нажаль Ваша адреса не у зоні доставки. Знайдіть адресу на
+map.error.message = Таку адресу не знайдено або ваша адреса не у зоні доставки. Виберіть її на
 
 page.select.address.find.location = Знайдіть місце на карті в зоні доставки та клікніть мишкою по ньому. Після цього натисніть кнопку "ДАЛІ".
 page.select.address.out.delivery = Дана локація знаходиться за межами доставки
