@@ -91,7 +91,7 @@ angular.module('WiseHands')
                 }
 
                 $scope.loading = true;
-				var domain = document.domain;
+						var domain = document.domain;
                 var params = {
                     name: $scope.newStore.name,
                     domain: _domain
