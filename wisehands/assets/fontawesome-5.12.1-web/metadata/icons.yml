@@ -4315,7 +4315,7 @@ coins:
   label: Coins
   search:
     terms:
-      - currency
+      - currencyShop
       - dime
       - financial
       - gold
@@ -6395,7 +6395,7 @@ euro-sign:
   label: Euro Sign
   search:
     terms:
-      - currency
+      - currencyShop
       - dollar
       - exchange
       - money
@@ -10138,7 +10138,7 @@ hryvnia:
   label: Hryvnia
   search:
     terms:
-      - currency
+      - currencyShop
       - money
       - ukraine
       - ukrainian
@@ -11356,7 +11356,7 @@ lira-sign:
   label: Turkish Lira Sign
   search:
     terms:
-      - currency
+      - currencyShop
       - money
       - try
       - turkish
@@ -14291,7 +14291,7 @@ pound-sign:
   label: Pound Sign
   search:
     terms:
-      - currency
+      - currencyShop
       - gbp
       - money
   styles:
@@ -15240,7 +15240,7 @@ ruble-sign:
   label: Ruble Sign
   search:
     terms:
-      - currency
+      - currencyShop
       - money
       - rub
   styles:
@@ -15332,7 +15332,7 @@ rupee-sign:
   label: Indian Rupee Sign
   search:
     terms:
-      - currency
+      - currencyShop
       - indian
       - inr
       - money
@@ -15782,7 +15782,7 @@ shekel-sign:
   label: Shekel Sign
   search:
     terms:
-      - currency
+      - currencyShop
       - ils
       - money
   styles:
@@ -18098,7 +18098,7 @@ tenge:
   label: Tenge
   search:
     terms:
-      - currency
+      - currencyShop
       - kazakhstan
       - money
       - price
@@ -20290,7 +20290,7 @@ wallet:
     terms:
       - billfold
       - cash
-      - currency
+      - currencyShop
       - money
   styles:
     - solid
@@ -20684,7 +20684,7 @@ won-sign:
   label: Won Sign
   search:
     terms:
-      - currency
+      - currencyShop
       - krw
       - money
   styles:
@@ -20906,7 +20906,7 @@ yen-sign:
   label: Yen Sign
   search:
     terms:
-      - currency
+      - currencyShop
       - jpy
       - money
   styles:

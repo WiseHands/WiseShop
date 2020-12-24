@@ -161,6 +161,11 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (currencyShop != null){
+            shop.currencyShop = currencyShop;
+        }
+
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
@@ -219,10 +224,8 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        List<CurrencyDTO> currencyList = new ArrayList<CurrencyDTO>();
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (currencyShop != null){
-            currencyList = currencyShop.currencyList;
             shop.currencyShop = currencyShop;
         }
         System.out.println("in shop check currencyShop => " + shop.currencyShop);
@@ -232,7 +235,7 @@ public class Application extends Controller {
         }
 
         System.out.println("DEBUG renderTemplate Application/shop.html");
-        renderTemplate("Application/shop.html", shop, products, language, categories, currencyList);
+        renderTemplate("Application/shop.html", shop, products, language, categories);
     }
 
     public static void shop(String client, String language) {
@@ -423,6 +426,12 @@ public class Application extends Controller {
             productList.add(product);
         }
         Translation.setTranslationForShop(language, shop);
+
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (currencyShop != null){
+            shop.currencyShop = currencyShop;
+        }
+
         render(shop, category, categories, productList, language);
     }
 
@@ -461,6 +470,12 @@ public class Application extends Controller {
 
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
+
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (currencyShop != null){
+            shop.currencyShop = currencyShop;
+        }
+
         render(product, category, categories, shop, language);
     }
 

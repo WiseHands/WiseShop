@@ -187,8 +187,8 @@
               <div class="select-lang">
                 <button class="dropbtn">${shop.currencyShop.currencyFormat()}</button>
                 <div class="lang-list">
-                  <a href="@{Application.shop(language)}">English</a>
-                  <a onclick="changeLanguage('uk')">Українська</a>
+                  <a onclick="changeCurrency('USD', 'en')">Dollar</a>
+                  <a onclick="changeCurrency('UAH', 'uk')">Гривня</a>
                 </div>
               </div>
             #{/if}
@@ -248,7 +248,13 @@
 
     changeLanguage = (language) => {
       const url = window.location.pathname;
-      const newUrl = url.slice(3)
+      const newUrl = url.slice(3);
       window.location = window.location.origin + '/' + language + newUrl;
+    };
+
+    changeCurrency = (currency, language) => {
+	    const url = window.location.pathname;
+	    const newUrl = url.slice(3);
+	    window.location = window.location.origin + '/' + language + newUrl + '?currency=' + currency;
     }
 </script>
