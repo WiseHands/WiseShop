@@ -1,7 +1,6 @@
 #{set pageList:pageList /}
 #{set language:language /}
 #{set categories:categories /}
-#{set currencyList:currencyList /}
 
 <style>
     header {
@@ -185,7 +184,7 @@
         <div class="header-right-part">
             #{if shop.currencyShop}
               <div class="select-lang">
-                <button class="dropbtn">${shop.currencyShop.currencyFormat()}</button>
+                <button class="dropbtn">${shop.currencyShop.currencyFormat(selectedCurrency)}</button>
                 <div class="lang-list">
                   <a onclick="changeCurrency('USD', 'en')">Dollar</a>
                   <a onclick="changeCurrency('UAH', 'uk')">Гривня</a>

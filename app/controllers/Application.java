@@ -162,14 +162,23 @@ public class Application extends Controller {
         Translation.setTranslationForShop(language, shop);
 
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        String selectedCurrency = "";
         if (currencyShop != null){
+            if (request.params.get("currency") != null){
+                selectedCurrency = request.params.get("currency");
+                currencyShop.selectedCurrency = selectedCurrency;
+                currencyShop.save();
+            }
+            if (currencyShop.selectedCurrency != null) {
+                selectedCurrency = currencyShop.selectedCurrency;
+            }
             shop.currencyShop = currencyShop;
         }
 
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-        renderTemplate("Application/shop.html", shop, products, language, categories);
+        renderTemplate("Application/shop.html", shop, products, language, categories, selectedCurrency);
 
     }
 
@@ -225,17 +234,25 @@ public class Application extends Controller {
         Translation.setTranslationForShop(language, shop);
 
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        String selectedCurrency = "";
         if (currencyShop != null){
+            if (request.params.get("currency") != null){
+                selectedCurrency = request.params.get("currency");
+                currencyShop.selectedCurrency = selectedCurrency;
+                currencyShop.save();
+            }
+            if (currencyShop.selectedCurrency != null) {
+                selectedCurrency = currencyShop.selectedCurrency;
+            }
             shop.currencyShop = currencyShop;
         }
-        System.out.println("in shop check currencyShop => " + shop.currencyShop);
 
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 
         System.out.println("DEBUG renderTemplate Application/shop.html");
-        renderTemplate("Application/shop.html", shop, products, language, categories);
+        renderTemplate("Application/shop.html", shop, products, language, categories, selectedCurrency);
     }
 
     public static void shop(String client, String language) {
@@ -294,13 +311,20 @@ public class Application extends Controller {
 
         List<CurrencyDTO> currencyList = new ArrayList<CurrencyDTO>();
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        String selectedCurrency = "";
         if (currencyShop != null){
-            currencyList = currencyShop.currencyList;
+            if (request.params.get("currency") != null){
+                selectedCurrency = request.params.get("currency");
+                currencyShop.selectedCurrency = selectedCurrency;
+                currencyShop.save();
+            }
+            if (currencyShop.selectedCurrency != null) {
+                selectedCurrency = currencyShop.selectedCurrency;
+            }
             shop.currencyShop = currencyShop;
         }
-        System.out.println("in shop check currencyShop => " + shop.currencyShop);
 
-        renderTemplate("Application/shop.html", shop, products, language, categories, currencyList);
+        renderTemplate("Application/shop.html", shop, products, language, categories, currencyList, selectedCurrency);
     }
 
     public static void footerShop(String client){
@@ -428,11 +452,20 @@ public class Application extends Controller {
         Translation.setTranslationForShop(language, shop);
 
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        String selectedCurrency = "";
         if (currencyShop != null){
+            if (request.params.get("currency") != null){
+                selectedCurrency = request.params.get("currency");
+                currencyShop.selectedCurrency = selectedCurrency;
+                currencyShop.save();
+            }
+            if (currencyShop.selectedCurrency != null) {
+                selectedCurrency = currencyShop.selectedCurrency;
+            }
             shop.currencyShop = currencyShop;
         }
 
-        render(shop, category, categories, productList, language);
+        render(shop, category, categories, productList, language, selectedCurrency);
     }
 
     public static void productOld(String client, String uuid) {
@@ -472,11 +505,20 @@ public class Application extends Controller {
         Translation.setTranslationForShop(language, shop);
 
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        String selectedCurrency = "";
         if (currencyShop != null){
+            if (request.params.get("currency") != null){
+                selectedCurrency = request.params.get("currency");
+                currencyShop.selectedCurrency = selectedCurrency;
+                currencyShop.save();
+            }
+            if (currencyShop.selectedCurrency != null) {
+                selectedCurrency = currencyShop.selectedCurrency;
+            }
             shop.currencyShop = currencyShop;
         }
 
-        render(product, category, categories, shop, language);
+        render(product, category, categories, shop, language, selectedCurrency);
     }
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {

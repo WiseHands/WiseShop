@@ -49,8 +49,11 @@ public class CurrencyShopDTO extends GenericModel {
     }
 
     public char currencyFormat(String currencyValue){
-        if (currencyValue == null) {
+        if (currencyValue == null && this.selectedCurrency == null) {
             currencyValue = this.currencyShop;
+        }
+        if (this.selectedCurrency != null) {
+            currencyValue = this.selectedCurrency;
         }
         return new CurrencySign().currencySigns.get(currencyValue);
     }
