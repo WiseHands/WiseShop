@@ -60,7 +60,7 @@ public class MailSenderImpl implements MailSender {
 
         String shopBalanceLabel = Messages.get("shop.balance");
         map.put("shopBalanceLabel", shopBalanceLabel);
-        String currencyLabel = Messages.get("shop.balance.currency");
+        String currencyLabel = Messages.get("shop.balance.currencyShop");
         map.put("currencyLabel", currencyLabel);
 
         String loginLabel = Messages.get("shop.login");

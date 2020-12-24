@@ -39,6 +39,7 @@ public class GetDailyCurrency extends Job {
         if (currencyShop == null){
             currencyShop = new CurrencyShopDTO(shop);
             currencyShop.save();
+            shop.save();
         }
         if (currencyShop.currencyList.isEmpty()) {
             for (Object object : currencyJsonArray) {

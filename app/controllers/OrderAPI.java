@@ -942,7 +942,7 @@ public class OrderAPI extends AuthController {
         String creditCardDeliveryPaymentType = Messages.get("mail.label.creditCardDeliveryPaymentType");
         map.put("creditCardDeliveryPaymentType", creditCardDeliveryPaymentType);
 
-        String labelCurrencyUah = Messages.get("mail.label.currency.uah");
+        String labelCurrencyUah = Messages.get("mail.label.currencyShop.uah");
         map.put("labelCurrencyUah", labelCurrencyUah);
 
         String rendered = template.render(map);

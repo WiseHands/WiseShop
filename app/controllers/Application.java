@@ -219,12 +219,20 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
+        List<CurrencyDTO> currencyList = new ArrayList<CurrencyDTO>();
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (currencyShop != null){
+            currencyList = currencyShop.currencyList;
+            shop.currencyShop = currencyShop;
+        }
+        System.out.println("in shop check currencyShop => " + shop.currencyShop);
+
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 
         System.out.println("DEBUG renderTemplate Application/shop.html");
-        renderTemplate("Application/shop.html", shop, products, language, categories);
+        renderTemplate("Application/shop.html", shop, products, language, categories, currencyList);
     }
 
     public static void shop(String client, String language) {
@@ -287,7 +295,7 @@ public class Application extends Controller {
             currencyList = currencyShop.currencyList;
             shop.currencyShop = currencyShop;
         }
-        System.out.println("in shop check currency => " + shop.currencyShop);
+        System.out.println("in shop check currencyShop => " + shop.currencyShop);
 
         renderTemplate("Application/shop.html", shop, products, language, categories, currencyList);
     }

@@ -6,9 +6,12 @@ import play.db.jpa.GenericModel;
 import util.CurrencySign;
 
 import javax.persistence.*;
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class CurrencyShopDTO extends GenericModel {
@@ -20,7 +23,10 @@ public class CurrencyShopDTO extends GenericModel {
     public String uuid;
 
     @Expose
-    public String currency;
+    public String currencyShop;
+
+    @Expose
+    public String selectedCurrency;
 
     @OneToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
@@ -38,22 +44,15 @@ public class CurrencyShopDTO extends GenericModel {
 
     public CurrencyShopDTO(ShopDTO shop) {
         this.shop = shop;
-        this.currency = "UAH";
+        this.currencyShop = "UAH";
         this.currencyList = new ArrayList<CurrencyDTO>();
     }
 
-    public String currencyFormat(){
-        String currencySign = "";
-        String currency = this.currency.toLowerCase();
-        Class classCurrencySign = CurrencySign.class;
-        Field field = null;
-        try {
-            field = classCurrencySign.getDeclaredField(currency);
-            currencySign = field.getName();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+    public char currencyFormat(String currencyValue){
+        if (currencyValue == null) {
+            currencyValue = this.currencyShop;
         }
-        return currencySign;
+        return new CurrencySign().currencySigns.get(currencyValue);
     }
 
 

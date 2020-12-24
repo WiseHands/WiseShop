@@ -23,7 +23,7 @@ public class LiqPayServiceImpl implements LiqPayService {
         HashMap params = new HashMap();
         params.put("action", "pay");
         params.put("amount", order.total);
-        params.put("currency", "UAH");
+        params.put("currencyShop", "UAH");
         params.put("description", "New Order");
         params.put("order_id", order.uuid);
 
@@ -35,7 +35,7 @@ public class LiqPayServiceImpl implements LiqPayService {
         HashMap params = new HashMap();
         params.put("action", "pay");
         params.put("amount", balanceTransaction.amount);
-        params.put("currency", "UAH");
+        params.put("currencyShop", "UAH");
         params.put("description", "Balance transaction for " + shop.shopName);
         params.put("order_id", balanceTransaction.uuid);
 
