@@ -1,17 +1,37 @@
 package services.querying;
 
-import models.FeedbackDTO;
-import models.OrderDTO;
-import models.ProductDTO;
+import models.*;
 import play.db.jpa.JPA;
+import play.mvc.Http;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseQueries {
 
+    public static double changePriceAccordingToCurrency(ProductDTO product, ShopDTO shop, String selectedCurrency){
 
-//    public static List<OrderDTO> getOrderList
+        String property;
+
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        currencyShop.selectedCurrency = selectedCurrency;
+        currencyShop.save();
+        boolean isSelectedEqualShopCurrency = currencyShop.selectedCurrency.equals(currencyShop.currencyShop);
+        if (isSelectedEqualShopCurrency) {
+            property = "base_ccy";
+        } else {
+            property = "ccy";
+        }
+        shop.currencyShop = currencyShop;
+
+        CurrencyDTO currency = CurrencyDTO.find("select c from CurrencyDTO c where c." + property + " = ?1", selectedCurrency).first();
+        if (currency != null){
+            product.price = product.price / currency.sale;
+        }
+
+        return product.formatPrice();
+    }
+
 
     public static List<FeedbackDTO> getFeedbackList(ProductDTO product) {
         String query = "SELECT customerName, feedbackTime, quality, review, FeedbackCommentDTO.comment FROM FeedbackDTO" +

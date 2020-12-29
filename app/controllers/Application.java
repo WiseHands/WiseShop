@@ -3,19 +3,11 @@ package controllers;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import enums.FeedbackRequestState;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import play.Play;
 import play.i18n.Lang;
 import play.i18n.Messages;
-import play.libs.WS;
 import play.mvc.*;
 
 import models.*;
@@ -23,7 +15,6 @@ import services.querying.DataBaseQueries;
 import services.translaiton.LanguageForShop;
 import services.translaiton.Translation;
 
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
 import java.text.DateFormat;
@@ -504,40 +495,13 @@ public class Application extends Controller {
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
 
-        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
-        String property = "", selectedCurrency = "";
-        if (currencyShop != null){
-            if (request.params.get("currency") != null){
-                selectedCurrency = request.params.get("currency");
-                currencyShop.selectedCurrency = selectedCurrency;
-                currencyShop.save();
-            }
-            if (currencyShop.selectedCurrency != null
-                    && currencyShop.selectedCurrency.equals(currencyShop.currencyShop) ) {
-                property = "base_ccy";
-            } else {
-                property = "ccy";
-            }
-            shop.currencyShop = currencyShop;
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
         }
 
-        // TODO calculate price with selected currency
-        System.out.println("get currency => " + property);
+        product.price = DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
 
-        List<CurrencyDTO> currencyList = CurrencyDTO.find("select c from CurrencyDTO c where c." + property + " = ?1", selectedCurrency).fetch();
-        System.out.println("get selectedCurrency => " + currencyList.size());
-
-        if (currencyList.size() > 1){
-            // TODO find currencyDTO by ccy prop
-// try thr  List<CurrencyDTO> currencyList = CurrencyDTO.find("select c from CurrencyDTO c where c." + property + " = ?1", selectedCurrency).fetch();
-
-            System.out.println("get selectedCurrency => " + currencyList.size());
-        }
-
-        System.out.println("get selectedCurrency => " + selectedCurrency);
-        System.out.println("get currency => " + currencyList.get(0));
-//        CurrencyDTO currencyDTO = currencyList.get(0);
-//        System.out.println("get currency => " + currencyDTO);
 
         render(product, category, categories, shop, language, selectedCurrency);
     }
