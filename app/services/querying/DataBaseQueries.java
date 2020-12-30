@@ -11,23 +11,24 @@ public class DataBaseQueries {
 
     public static double changePriceAccordingToCurrency(ProductDTO product, ShopDTO shop, String selectedCurrency){
 
-        String property;
+        CurrencyDTO currency;
 
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
-        currencyShop.selectedCurrency = selectedCurrency;
-        currencyShop.save();
+        if (!selectedCurrency.isEmpty()) {
+            currencyShop.selectedCurrency = selectedCurrency;
+            currencyShop.save();
+        }
         boolean isSelectedEqualShopCurrency = currencyShop.selectedCurrency.equals(currencyShop.currencyShop);
         if (isSelectedEqualShopCurrency) {
-            property = "base_ccy";
+            currency = CurrencyDTO.find("select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2", currencyShop.currencyShop, currencyShop.selectedCurrency).first();
         } else {
-            property = "ccy";
+            currency = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
+            if (currency != null){
+                product.price = product.price / currency.sale;
+            }
         }
         shop.currencyShop = currencyShop;
 
-        CurrencyDTO currency = CurrencyDTO.find("select c from CurrencyDTO c where c." + property + " = ?1", selectedCurrency).first();
-        if (currency != null){
-            product.price = product.price / currency.sale;
-        }
 
         return product.formatPrice();
     }
