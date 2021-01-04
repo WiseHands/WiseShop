@@ -28,8 +28,6 @@ public class DataBaseQueries {
             }
         }
         shop.currencyShop = currencyShop;
-
-
         return product.formatPrice();
     }
 
