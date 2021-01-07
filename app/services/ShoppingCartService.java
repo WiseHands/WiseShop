@@ -415,6 +415,10 @@ public class ShoppingCartService extends AuthController {
         String stringToParse = shop.delivery.courierPolygonData;
         JSONObject polygonData = (JSONObject) parser.parse(stringToParse);
 
+        if (polygonData == null) {
+            notFound("There is not right coordinates");
+        }
+
         JSONArray polygon = (JSONArray) polygonData.get("features");
         JSONObject features = (JSONObject) polygon.get(0);
         JSONObject geometry = (JSONObject) features.get("geometry");

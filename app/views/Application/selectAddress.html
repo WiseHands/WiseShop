@@ -203,7 +203,10 @@
         return response.json();
     }).then(function (data) {
         let courierPolygonData = JSON.parse(data);
-        arrayCoordinates = courierPolygonData.features[0].geometry.coordinates[0];
+        arrayCoordinates = 41.40338, 2.17403;
+        if (courierPolygonData) {
+            arrayCoordinates = courierPolygonData.features[0].geometry.coordinates[0];
+        }
         console.log("data for polygone", arrayCoordinates);
         console.log("polygon.length", arrayCoordinates.length);
 
