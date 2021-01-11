@@ -495,9 +495,10 @@
         </div>
         #{/if}
         <div class="price-buy-block">
-            <span class="product-price" price="${product.price}">
+            <span class="product-price" price="${shop.currencyShop.formatPrice(product)}">
                 <span>&{'page.product.price'}</span>
                 <span class="total-span"></span>
+                <span>${shop.currencyShop.showCurrency()}</span>
             </span>
             <button class="buy-button" onClick="buyStart('${product.uuid}')">&{'page.product.buy'}</button>
         </div>
@@ -722,7 +723,7 @@
   }
 
   function _setTotal(total) {
-    totalSpan.innerText = total + ' UAH';
+    totalSpan.innerText = total;
   }
 
   function _setAdditionsTotalPrice() {

@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.round;
+
 @Entity
 public class CurrencyShopDTO extends GenericModel {
 
@@ -27,6 +29,9 @@ public class CurrencyShopDTO extends GenericModel {
 
     @Expose
     public String selectedCurrency;
+
+    @Expose
+    public double productPrice = 0;
 
     @OneToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
@@ -55,7 +60,20 @@ public class CurrencyShopDTO extends GenericModel {
         return new CurrencySign().currencySigns.get(currencyValue);
     }
 
+    public String showCurrency(){
+        return this.selectedCurrency.isEmpty() ? this.currencyShop : this.selectedCurrency;
+    }
 
+    public double formatPrice(ProductDTO product) {
+        boolean isSelectedCurrencyEqualShopCurrency = this.selectedCurrency.equals(this.currencyShop);
+        if (this.selectedCurrency.isEmpty()){
+            return product.formatPrice();
+        } else if (isSelectedCurrencyEqualShopCurrency){
+            return product.formatPrice();
+        } else {
+            return round(this.productPrice, 2);
+        }
+    }
 
 
 

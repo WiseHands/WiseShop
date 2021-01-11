@@ -500,7 +500,7 @@ public class Application extends Controller {
             selectedCurrency = request.params.get("currency");
         }
 
-        product.price = DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
+        DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
 
 
         render(product, category, categories, shop, language, selectedCurrency);

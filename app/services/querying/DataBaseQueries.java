@@ -2,33 +2,27 @@ package services.querying;
 
 import models.*;
 import play.db.jpa.JPA;
-import play.mvc.Http;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseQueries {
 
-    public static double changePriceAccordingToCurrency(ProductDTO product, ShopDTO shop, String selectedCurrency){
-
-        CurrencyDTO currency;
+    public static void changePriceAccordingToCurrency(ProductDTO product, ShopDTO shop, String selectedCurrency){
 
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (!selectedCurrency.isEmpty()) {
             currencyShop.selectedCurrency = selectedCurrency;
-            currencyShop.save();
-        }
-        boolean isSelectedEqualShopCurrency = currencyShop.selectedCurrency.equals(currencyShop.currencyShop);
-        if (isSelectedEqualShopCurrency) {
-            currency = CurrencyDTO.find("select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2", currencyShop.currencyShop, currencyShop.selectedCurrency).first();
-        } else {
-            currency = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
-            if (currency != null){
-                product.price = product.price / currency.sale;
+
+            boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.selectedCurrency.equals(currencyShop.currencyShop);
+            if (isSelectedCurrencyNotEqualShopCurrency) {
+                CurrencyDTO currency = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
+                currencyShop.productPrice = product.price / currency.sale;
             }
+            currencyShop.save();
+
         }
         shop.currencyShop = currencyShop;
-        return product.formatPrice();
     }
 
 
