@@ -499,6 +499,10 @@
                 <span>&{'page.product.price'}</span>
                 <span class="total-span"></span>
                 <span>${shop.currencyShop.showCurrency()}</span>
+                #{if !(shop.currencyShop.currencyShop.equals(selectedCurrency))}
+                <span>(${product.formatPrice()} ${shop.currencyShop.currencyShop})</span>
+                #{/if}
+
             </span>
             <button class="buy-button" onClick="buyStart('${product.uuid}')">&{'page.product.buy'}</button>
         </div>
