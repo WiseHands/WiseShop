@@ -25336,10 +25336,10 @@ class WiseShoppingCartContainer extends PolymerElement {
                                                  error-message="[[errorMessagePleaseWriteLabel]]"
                                                  value="[[cart.client.name]]"
                                                  on-blur="_validateAndSendClientInfo"></paper-input>
-                                    <paper-input id="clientPhone" pattern="^\\d{12}$" label="[[customerPhoneLabel]]" required
+                                    <paper-input id="clientPhone" pattern="^\\d{9}$" label="[[customerPhoneLabel]]" required
                                                  error-message="[[errorMessagePleaseWriteLabel]]"
                                                  value="[[cart.client.phone]]" on-blur="_validateAndSendClientInfo">
-                                        <span slot="prefix">+</span>
+                                        <span slot="prefix">+380</span>
                                     </paper-input>
                                     <paper-input id="clientEmail" type="email" label="[[customerEmailLabel]]"
                                                  error-message="[[errorMessagePleaseWriteLabel]]"
