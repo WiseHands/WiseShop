@@ -14,7 +14,7 @@ import play.libs.WS;
 import java.util.ArrayList;
 import java.util.List;
 
-@Every("6h")
+@Every("5min")
 public class GetDailyCurrency extends Job {
 
     public void doJob() throws Exception {
