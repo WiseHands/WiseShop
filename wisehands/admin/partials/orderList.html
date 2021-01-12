@@ -118,7 +118,8 @@
                 </div>
                 <div class="col-xs-7 namePhoneContainer">
                     <p class="truncate normal-400 black-text">{{item.name}}</p>
-                    <p class="secondaryOrderFont">{{item.phone}}</p>
+                    <p class="secondaryOrderFont" ng-show="item.phone.length === 12">+{{item.phone}}</p>
+                    <p class="secondaryOrderFont" ng-show="item.phone.length === 9">+380{{item.phone}}</p>
                 </div>
                 <div class="col-xs-2">
                     <p ng-show="item.paymentType === 'CASHONDELIVERY'"  class="material-icons"><i class="fa fa-dollar" aria-hidden="true" style="color: #4caf50; font-size: 20px"></i></p>
@@ -164,7 +165,8 @@
                     <div class="row vcentering">
                         <div class="col-sm-8 text-left noSidePadding">
                             <h5 class="truncate normal-400">{{item.name}}</h5>
-                            <h6 class="grey-text">{{item.phone}}</h6>
+                            <h6 class="grey-text" ng-show="item.phone.length === 12">+{{item.phone}}</h6>
+                            <h6 class="grey-text" ng-show="item.phone.length === 9">+380{{item.phone}}</h6>
                         </div>
                         <div class="col-sm-4 text-right noSidePadding">
                             <h5 class="normal-400">{{'orderList.Currency' | translate}}{{item.total}}</h5>

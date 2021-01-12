@@ -46,7 +46,8 @@
                         </div>
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.Phone' | translate}}: </h5>
-                            <p>{{order.phone}}</p>
+                            <p ng-show="order.phone.length === 9">+380{{order.phone}}</p>
+                            <p ng-show="order.phone.length === 12">+{{order.phone}}</p>
                         </div>
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.Email' | translate}}:</h5>
