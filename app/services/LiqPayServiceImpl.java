@@ -2,6 +2,7 @@ package services;
 
 import com.liqpay.LiqPay;
 import models.BalanceTransactionDTO;
+import models.CurrencyShopDTO;
 import models.OrderDTO;
 import models.ShopDTO;
 
@@ -20,22 +21,35 @@ public class LiqPayServiceImpl implements LiqPayService {
     }
 
     public String payButton(OrderDTO order, ShopDTO shop){
+        String currency = getCurrencyFromShop(shop);
         HashMap params = new HashMap();
         params.put("action", "pay");
         params.put("amount", order.total);
-        params.put("currencyShop", "UAH");
+        params.put("currencyShop", currency);
         params.put("description", "New Order");
         params.put("order_id", order.uuid);
 
         LiqPay liqpay = new LiqPay(shop.liqpayPublicKey, shop.liqpayPrivateKey);
         return liqpay.cnb_form(params);
-    };
+    }
+
+    private String getCurrencyFromShop(ShopDTO shop) {
+        CurrencyShopDTO currency = CurrencyShopDTO.find("byShop", shop).first();
+        if(currency.selectedCurrency.isEmpty()){
+            return currency.currencyShop;
+        } else {
+            return currency.selectedCurrency;
+        }
+    }
+
+    ;
 
     public String payForService(BalanceTransactionDTO balanceTransaction, ShopDTO shop){
+        String currency = getCurrencyFromShop(shop);
         HashMap params = new HashMap();
         params.put("action", "pay");
         params.put("amount", balanceTransaction.amount);
-        params.put("currencyShop", "UAH");
+        params.put("currencyShop", currency);
         params.put("description", "Balance transaction for " + shop.shopName);
         params.put("order_id", balanceTransaction.uuid);
 

@@ -474,7 +474,6 @@ public class Application extends Controller {
         if (request.params.get("currency") != null){
             selectedCurrency = request.params.get("currency");
         }
-
         DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
 
         render(product, category, categories, shop, language, selectedCurrency);
@@ -573,8 +572,19 @@ public class Application extends Controller {
         if (request.params.get("currency") != null){
             selectedCurrency = request.params.get("currency");
         }
+        if (selectedCurrency.isEmpty()) {
+            selectedCurrency = setSelectedCurrency(shop);
+        }
         render(shop, language, categories, selectedCurrency);
+    }
 
+    private static String setSelectedCurrency(ShopDTO shop) {
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (!currencyShop.selectedCurrency.isEmpty()){
+            return currencyShop.selectedCurrency;
+        } else {
+            return currencyShop.currencyShop;
+        }
     }
 
     public static void done(String client) {
