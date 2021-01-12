@@ -104,6 +104,7 @@ page.product.main.label = Головна
 page.product.additions.label = Додатки
 page.product.additions.cost = Вартість додатків:
 page.product.price = Вартість:
+page.product.changes.price = ціна може дещо відрізнятися через зміну ставок
 page.product.buy = Купити
 page.product.add.to.basket = Товар додано в кошик
 page.product.about.product = Про товар

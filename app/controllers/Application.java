@@ -568,7 +568,13 @@ public class Application extends Controller {
         Translation.setTranslationForShop(language, shop);
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
-        render(shop, language, categories);
+
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+        render(shop, language, categories, selectedCurrency);
+
     }
 
     public static void done(String client) {

@@ -130,6 +130,7 @@
 }
 .currency {
     font-size: 16px;
+    text-transform: lowercase;
 }
 .item-card-list-action p, .item-card-action-price p {
     margin: 0 0.5rem 0 0;

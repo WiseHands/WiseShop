@@ -445,9 +445,9 @@
     }).then(function (response) {
       if (response.ok) {
         #{verbatim}
-        #{if shop.faceBookPixelApiKey}
-        fbq('track', 'AddToCart', {content_ids: [uuid]});
-        #{/if}
+            #{if shop.faceBookPixelApiKey}
+                fbq('track', 'AddToCart', {content_ids: [uuid]});
+            #{/if}
         #{/verbatim}
         document.querySelector(".cart-float").style.display = 'block';
         setTimeout(setDelayShowCart, 2000);
@@ -496,13 +496,17 @@
         #{/if}
         <div class="price-buy-block">
             <span class="product-price" price="${shop.currencyShop.formatPrice(product)}">
-                <span>&{'page.product.price'}</span>
+                <span>&{'page.product.price'}
+                    #{if !(shop.currencyShop.currencyShop.equals(selectedCurrency))}
+                        ~
+                    #{/if}
+                </span>
                 <span class="total-span"></span>
                 <span>${shop.currencyShop.showCurrency()}</span>
                 #{if !(shop.currencyShop.currencyShop.equals(selectedCurrency))}
                 <span>(${product.formatPrice()} ${shop.currencyShop.currencyShop})</span>
+                <p> ~ &{'page.product.changes.price'}</p>
                 #{/if}
-
             </span>
             <button class="buy-button" onClick="buyStart('${product.uuid}')">&{'page.product.buy'}</button>
         </div>

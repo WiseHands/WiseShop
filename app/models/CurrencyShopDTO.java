@@ -61,12 +61,15 @@ public class CurrencyShopDTO extends GenericModel {
     }
 
     public String showCurrency(){
-        return this.selectedCurrency.isEmpty() ? this.currencyShop : this.selectedCurrency;
+        return this.selectedCurrency == null || this.selectedCurrency.isEmpty() ? this.currencyShop : this.selectedCurrency;
     }
 
     public double formatPrice(ProductDTO product) {
-        boolean isSelectedCurrencyEqualShopCurrency = this.selectedCurrency.equals(this.currencyShop);
-        if (this.selectedCurrency.isEmpty()){
+        boolean isSelectedCurrencyEqualShopCurrency = false;
+        if (this.selectedCurrency != null){
+            isSelectedCurrencyEqualShopCurrency = this.selectedCurrency.equals(this.currencyShop);
+        }
+        if (this.selectedCurrency == null || this.selectedCurrency.isEmpty()){
             return product.formatPrice();
         } else if (isSelectedCurrencyEqualShopCurrency){
             return product.formatPrice();
