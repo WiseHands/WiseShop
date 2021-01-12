@@ -24,6 +24,7 @@ first=${row_array[0]}
 #echo "-d ${first}"
 
 # domain config start
+echo "starting to create config file for ${first}"
 conffile=/etc/lighttpd/conf.d/${first}.conf
 redirecturl="https://%0\$0"
 conftext="\$SERVER[\"socket\"] == \":443\" {
@@ -48,7 +49,7 @@ conftext="\$SERVER[\"socket\"] == \":443\" {
 if [ ! -f "$conffile" ]
 then
 echo "config file not found for ${first}"
-/usr/bin/certbot certonly --agree-tos --keep --email $email --webroot -w $w_root -d ${first} --post-hook="/sbin/service lighttpd reload"
+/usr/bin/certbot certonly --agree-tos --keep --email $email --webroot -w $w_root -d ${first}
 cat /etc/letsencrypt/live/${first}/privkey.pem  /etc/letsencrypt/live/${first}/cert.pem > /etc/letsencrypt/live/${first}/ssl.pem
     echo "$conftext" >> "$conffile"
     echo "config successfully created for ${first}"
@@ -57,6 +58,7 @@ else
 fi
 
 done
+
 # restarting web-server to take effect
 /sbin/service lighttpd restart
 echo "script execution time is $SECONDS seconds"
