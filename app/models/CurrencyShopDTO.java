@@ -71,7 +71,7 @@ public class CurrencyShopDTO extends GenericModel {
         } else if (isSelectedCurrencyEqualShopCurrency){
             return product.formatPrice();
         } else {
-            return round(this.productPrice, 2);
+            return round(product.productPriceCurrency, 2);
         }
     }
 

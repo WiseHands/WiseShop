@@ -141,30 +141,22 @@ public class Application extends Controller {
             translationPageList.add(_page);
         }
         shop.pagesList = translationPageList;
+
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
+            DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             productList.add(product);
         }
         products = productList;
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
-
-        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
-        String selectedCurrency = "";
-        if (currencyShop != null){
-            if (request.params.get("currency") != null){
-                selectedCurrency = request.params.get("currency");
-                currencyShop.selectedCurrency = selectedCurrency;
-                currencyShop.save();
-            }
-            if (currencyShop.selectedCurrency != null) {
-                selectedCurrency = currencyShop.selectedCurrency;
-            }
-            shop.currencyShop = currencyShop;
-        }
 
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
@@ -202,10 +194,6 @@ public class Application extends Controller {
             renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
         }
 
-        List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
-        products = ProductDTO.find(query, shop, false, true).fetch();
-
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
@@ -213,30 +201,25 @@ public class Application extends Controller {
             translationPageList.add(_page);
         }
         shop.pagesList = translationPageList;
-        List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true).fetch();
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
+            DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             productList.add(product);
         }
         products = productList;
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
-
-        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
-        String selectedCurrency = "";
-        if (currencyShop != null){
-            if (request.params.get("currency") != null){
-                selectedCurrency = request.params.get("currency");
-                currencyShop.selectedCurrency = selectedCurrency;
-                currencyShop.save();
-            }
-            if (currencyShop.selectedCurrency != null) {
-                selectedCurrency = currencyShop.selectedCurrency;
-            }
-            shop.currencyShop = currencyShop;
-        }
 
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
@@ -277,10 +260,6 @@ public class Application extends Controller {
             renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
         }
 
-        List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
-        products = ProductDTO.find(query, shop, false, true).fetch();
-
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
@@ -289,10 +268,19 @@ public class Application extends Controller {
 
         }
         shop.pagesList = translationPageList;
-        List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true).fetch();
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
+            DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             productList.add(product);
         }
         products = productList;
@@ -300,22 +288,8 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        List<CurrencyDTO> currencyList = new ArrayList<CurrencyDTO>();
-        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
-        String selectedCurrency = "";
-        if (currencyShop != null){
-            if (request.params.get("currency") != null){
-                selectedCurrency = request.params.get("currency");
-                currencyShop.selectedCurrency = selectedCurrency;
-                currencyShop.save();
-            }
-            if (currencyShop.selectedCurrency != null) {
-                selectedCurrency = currencyShop.selectedCurrency;
-            }
-            shop.currencyShop = currencyShop;
-        }
 
-        renderTemplate("Application/shop.html", shop, products, language, categories, currencyList, selectedCurrency);
+        renderTemplate("Application/shop.html", shop, products, language, categories, selectedCurrency);
     }
 
     public static void footerShop(String client){
@@ -419,14 +393,14 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<CategoryDTO> categories = shop.getActiveCategories(language);
-        List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
-        products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
+
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
@@ -435,26 +409,27 @@ public class Application extends Controller {
 
         }
         shop.pagesList = translationPageList;
+
+
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
+
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+
+
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
+            DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             productList.add(product);
         }
         Translation.setTranslationForShop(language, shop);
 
-        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
-        String selectedCurrency = "";
-        if (currencyShop != null){
-            if (request.params.get("currency") != null){
-                selectedCurrency = request.params.get("currency");
-                currencyShop.selectedCurrency = selectedCurrency;
-                currencyShop.save();
-            }
-            if (currencyShop.selectedCurrency != null) {
-                selectedCurrency = currencyShop.selectedCurrency;
-            }
-            shop.currencyShop = currencyShop;
-        }
+
 
         render(shop, category, categories, productList, language, selectedCurrency);
     }
@@ -501,7 +476,6 @@ public class Application extends Controller {
         }
 
         DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
-
 
         render(product, category, categories, shop, language, selectedCurrency);
     }
