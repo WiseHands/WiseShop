@@ -351,6 +351,7 @@
   "deleteproperty.deleteMessage1": "Do you really want to delete this property?",
   "deleteproperty.deleteMessage2": "Property deleted.",
   "directives.language-select.Language": "Language",
+  "directives.currency-select.Currency": "Currency",
   "hourssetting.title": "Hours setting",
   "hourssetting.monday": "Monday",
   "hourssetting.tuesday": "Tuesday",

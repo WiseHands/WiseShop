@@ -125,6 +125,9 @@ public class ShopDTO extends GenericModel {
     public String locale;
 
     @OneToOne(cascade=CascadeType.ALL)
+    public CurrencyShopDTO currencyShop;
+
+    @OneToOne(cascade=CascadeType.ALL)
     public BalanceDTO balance;
 
     @ManyToMany(cascade=CascadeType.ALL)
