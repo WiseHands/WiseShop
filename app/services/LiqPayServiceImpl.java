@@ -30,6 +30,7 @@ public class LiqPayServiceImpl implements LiqPayService {
         params.put("currencyShop", currency);
         params.put("description", "New Order");
         params.put("order_id", order.uuid);
+        // sandbox need for testing
         params.put("sandbox", "1");
 
         LiqPay liqpay = new LiqPay(shop.liqpayPublicKey, shop.liqpayPrivateKey);

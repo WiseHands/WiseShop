@@ -30,9 +30,6 @@ public class CurrencyShopDTO extends GenericModel {
     @Expose
     public String selectedCurrency;
 
-    @Expose
-    public double productPrice = 0;
-
     @OneToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 

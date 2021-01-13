@@ -141,7 +141,6 @@ public class OrderAPI extends AuthController {
     public static void create(String client, String chosenLanguage) throws Exception {
         System.out.println("chosenClientLanguage when order created => " + chosenLanguage);
 
-
         String jsonCart = "";
         if (!request.params.get("cart").isEmpty()) {
             jsonCart = request.params.get("cart");
@@ -832,6 +831,7 @@ public class OrderAPI extends AuthController {
         return rendered;
 
     }
+
     private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order, String language) {
 
         Filter.registerFilter(new Filter("total"){

@@ -575,6 +575,7 @@ public class Application extends Controller {
         if (selectedCurrency.isEmpty()) {
             selectedCurrency = setSelectedCurrency(shop);
         }
+        System.out.println("selectedCurrency in shopping cart => " + selectedCurrency);
         render(shop, language, categories, selectedCurrency);
     }
 

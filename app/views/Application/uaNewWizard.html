@@ -237,11 +237,15 @@
         margin-left: 35px;
     }
 
-    .delivery-payment-container {
+    .delivery-payment-container, .currency-payment-container {
         display: flex;
-        align-items: center
+        align-items: center;
+        padding-bottom: 10px;
     }
 
+    .currency-payment-container {
+        padding-bottom: 0;
+    }
     /* active state */
     input:focus ~ .highlight:before, input:focus ~ .highlight:after {
         width: 50%;
@@ -266,7 +270,10 @@
     .wizard-delivery, .wizard-payment {
         margin-bottom: 1rem;
     }
+    .wizard-delivery p {
+        margin-bottom: .5rem;
 
+    }
     .form-button {
         display: flex;
         justify-content: flex-end;
@@ -797,6 +804,20 @@
                                 <p id="handle-delivery-error"></p>
                             </div>
                         </div>
+                        <p>Виберіть валюту для магазину</p>
+                        <div class="currency-payment-container">
+                            <div>
+                                <input type="checkbox" id="wizardUah" name="courier" value="UAH">
+                                <label for="wizardUah">Гривня</label><br>
+                                <input type="checkbox" id="wizardUsd" name="novaposhta" value="USD">
+                                <label for="wizardUsd">Долар</label><br>
+                                <input type="checkbox" id="wizardEur" name="self" value="EUR">
+                                <label for="wizardEur">Євро</label><br>
+                            </div>
+                            <div>
+                                <p id="handle-currency-error"></p>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -954,6 +975,12 @@
     const wizardСourier = document.getElementById('wizardСourier').checked;
     const wizardPost = document.getElementById('wizardPost').checked;
     const wizardSelftake = document.getElementById('wizardSelftake').checked;
+
+    const uahCurrency = document.getElementById('wizardSelftake').checked;
+    const usdCurrency = document.getElementById('wizardSelftake').checked;
+    const eurCurrency = document.getElementById('wizardSelftake').checked;
+
+
 
     const deliveryVariantsError = document.getElementById('handle-delivery-error');
     const isSelectedDeliveryType = wizardСourier || wizardPost || wizardSelftake;
