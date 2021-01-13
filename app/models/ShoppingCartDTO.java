@@ -53,7 +53,15 @@ public class ShoppingCartDTO extends GenericModel {
 
     public ShoppingCartDTO() { }
 
-    public ShoppingCartDTO(DeliveryType deliveryType, PaymentType paymentType, List<LineItem> items, ShoppingCartClientInfo client, ShoppingCartConfiguration configuration, String clientName, String clientPhone, String clientEmail, String clientComments, String clientAddressStreetName, String clientAddressBuildingNumber, String clientAddressApartmentNumber, String clientAddressApartmentFloor, String clientAddressApartmentEntrance, String clientAddressApartmentEntranceCode, String clientCity, String clientPostDepartmentNumber, String clientAddressStreetLat, String clientAddressStreetLng, Boolean clientAddressGpsPointInsideDeliveryBoundaries) {
+    public ShoppingCartDTO(DeliveryType deliveryType, PaymentType paymentType,
+                           List<LineItem> items, ShoppingCartClientInfo client,
+                           ShoppingCartConfiguration configuration, String clientName,
+                           String clientPhone, String clientEmail, String clientComments,
+                           String clientAddressStreetName, String clientAddressBuildingNumber,
+                           String clientAddressApartmentNumber, String clientAddressApartmentFloor,
+                           String clientAddressApartmentEntrance, String clientAddressApartmentEntranceCode,
+                           String clientCity, String clientPostDepartmentNumber, String clientAddressStreetLat,
+                           String clientAddressStreetLng, Boolean clientAddressGpsPointInsideDeliveryBoundaries) {
         this.deliveryType = deliveryType;
         this.paymentType = paymentType;
         this.items = items;

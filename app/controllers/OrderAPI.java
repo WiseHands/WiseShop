@@ -128,12 +128,14 @@ public class OrderAPI extends AuthController {
     }
 
     public static String getTranslatedShopName(ShopDTO shop, String language) {
-        List<TranslationItemDTO> translationList = shop.shopNameTextTranslationBucket.translationList;
-        TranslationItemDTO adminTranslationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(language)).collect(Collectors.toList()).get(0);
-        if (!translationList.isEmpty() && !adminTranslationItemDTO.content.isEmpty()) {
+        if (shop.shopNameTextTranslationBucket == null) {
+            return shop.shopName;
+        } else {
+            List<TranslationItemDTO> translationList = shop.shopNameTextTranslationBucket.translationList;
+            TranslationItemDTO adminTranslationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(language)).collect(Collectors.toList()).get(0);
             return adminTranslationItemDTO.content;
         }
-        return shop.shopName;
+
     }
 
     public static void create(String client, String chosenLanguage) throws Exception {
@@ -835,9 +837,7 @@ public class OrderAPI extends AuthController {
         Filter.registerFilter(new Filter("total"){
             @Override
             public Object apply(Object value, Object... params) {
-
                 DecimalFormat format = new DecimalFormat("0.##");
-
                 return format.format(value);
             }
         });

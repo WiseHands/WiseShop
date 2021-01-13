@@ -22,7 +22,7 @@ public class LiqPayServiceImpl implements LiqPayService {
 
     public String payButton(OrderDTO order, ShopDTO shop){
         String currency = getCurrencyFromShop(shop);
-        System.out.println("payForService => " + currency);
+        System.out.println("LiqPayService currency => " + currency);
 
         HashMap params = new HashMap();
         params.put("action", "pay");
@@ -30,6 +30,7 @@ public class LiqPayServiceImpl implements LiqPayService {
         params.put("currencyShop", currency);
         params.put("description", "New Order");
         params.put("order_id", order.uuid);
+        params.put("sandbox", "1");
 
         LiqPay liqpay = new LiqPay(shop.liqpayPublicKey, shop.liqpayPrivateKey);
         return liqpay.cnb_form(params);
