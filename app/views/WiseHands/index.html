@@ -525,24 +525,19 @@
 	const shuffledTeamCards = teamCards.sort(() => Math.random() - 0.5);
 	shuffledTeamCards.forEach(card => document.querySelector('.all-team').appendChild(card));
 
-
 	const teamCardsFront = document.querySelectorAll('.card-front');
 	teamCardsFront.forEach(card => {
 		card.addEventListener('mouseenter', ({target: eventTarget}) => {
-			generateGifPath(eventTarget.id).then(data => {
+			generateGifPath(eventTarget.id).then(({responseOkState, gifId}) => {
 					const gifPath = '../../../wisehands/mainpage/images/gifs/' + eventTarget.id + '/' + eventTarget.id + '-';
-					eventTarget.style.backgroundImage = data.responseOkState ? 'url(' + gifPath + data.gifId + '.gif' + ')' : 'url(' + gifPath + '0.gif)';
+					eventTarget.style.backgroundImage = responseOkState ? 'url(' + gifPath + gifId + '.gif' + ')' : 'url(' + gifPath + '0.gif)';
 				}
 			).catch(error => console.log(error)
 			);
 		})
 	});
 
-	teamCardsFront.forEach(card => {
-		card.addEventListener('mouseleave', ({target: eventTarget}) => {
-			eventTarget.style.backgroundImage = '';
-		})
-	});
+	teamCardsFront.forEach(card => card.addEventListener('mouseleave', ({target: eventTarget}) => eventTarget.style.backgroundImage = ''));
 
 	async function generateGifPath(id) {
 		const randomGifNumber = Math.floor(Math.random() * Math.floor(10));
