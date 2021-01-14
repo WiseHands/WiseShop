@@ -248,10 +248,6 @@ public class Application extends Controller {
             renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
         }
 
-        List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
-        products = ProductDTO.find(query, shop, false, true).fetch();
-
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
@@ -261,6 +257,10 @@ public class Application extends Controller {
         }
         shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
+
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true).fetch();
 
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
@@ -319,16 +319,26 @@ public class Application extends Controller {
         render(shop, language);
     }
 
-    public static void selectAddress(String client) {
+    public static void selectAddress(String client, String language) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
         System.out.println("LanguageForShop" + language);
-        render(shop, language);
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+
+        }
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
+        shop.pagesList = translationPageList;
+        render(shop, categories, language);
     }
 
     public static void pageOld(String client, String uuid) {
