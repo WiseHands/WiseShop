@@ -6,12 +6,8 @@ import play.db.jpa.GenericModel;
 import util.CurrencySign;
 
 import javax.persistence.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.codehaus.groovy.runtime.DefaultGroovyMethods.round;
 
@@ -44,13 +40,15 @@ public class CurrencyShopDTO extends GenericModel {
         this.currencyList.add(currency);
     }
 
+    public CurrencyShopDTO() { }
+
     public CurrencyShopDTO(ShopDTO shop) {
         this.shop = shop;
         this.currencyShop = "UAH";
         this.currencyList = new ArrayList<CurrencyDTO>();
     }
 
-    public char currencyFormat(String currencyValue){
+    public char currencyFormat(String currencyValue) {
         if (currencyValue.isEmpty()) {
             currencyValue = this.currencyShop;
         }
@@ -71,7 +69,7 @@ public class CurrencyShopDTO extends GenericModel {
         } else if (isSelectedCurrencyEqualShopCurrency){
             return product.formatPrice();
         } else {
-            return round(product.productPriceCurrency, 2);
+            return round(product.priceInCurrency, 2);
         }
     }
 

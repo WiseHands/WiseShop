@@ -124,6 +124,7 @@ public class ShopDTO extends GenericModel {
     @Expose
     public String locale;
 
+    @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public CurrencyShopDTO currencyShop;
 
@@ -205,7 +206,8 @@ public class ShopDTO extends GenericModel {
                    String liqpayPublicKey,
                    String liqpayPrivateKey,
                    String customDomain,
-                   String locale) {
+                   String locale,
+                   CurrencyShopDTO currencyShop) {
 
         this.userList = users;
 
@@ -227,6 +229,7 @@ public class ShopDTO extends GenericModel {
         this.locale = locale;
         this.alwaysOpen = true;
         this.isTemporaryClosed = false;
+        this.currencyShop = currencyShop;
     }
 
 

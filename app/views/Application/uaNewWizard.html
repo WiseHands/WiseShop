@@ -225,7 +225,7 @@
         right: 50%;
     }
 
-    #handle-delivery-error {
+    #handle-delivery-error, #handle-currency-error {
         color: red;
         margin-bottom: 0;
         margin-left: 60px;
@@ -804,14 +804,14 @@
                                 <p id="handle-delivery-error"></p>
                             </div>
                         </div>
-                        <p>Виберіть валюту для магазину</p>
+                        <p>Виберіть одну валюту для магазину</p>
                         <div class="currency-payment-container">
                             <div>
-                                <input type="checkbox" id="wizardUah" name="courier" value="UAH">
+                                <input type="checkbox" id="wizardUah" name="uah" value="UAH">
                                 <label for="wizardUah">Гривня</label><br>
-                                <input type="checkbox" id="wizardUsd" name="novaposhta" value="USD">
+                                <input type="checkbox" id="wizardUsd" name="usd" value="USD">
                                 <label for="wizardUsd">Долар</label><br>
-                                <input type="checkbox" id="wizardEur" name="self" value="EUR">
+                                <input type="checkbox" id="wizardEur" name="eur" value="EUR">
                                 <label for="wizardEur">Євро</label><br>
                             </div>
                             <div>
@@ -976,23 +976,32 @@
     const wizardPost = document.getElementById('wizardPost').checked;
     const wizardSelftake = document.getElementById('wizardSelftake').checked;
 
-    const uahCurrency = document.getElementById('wizardSelftake').checked;
-    const usdCurrency = document.getElementById('wizardSelftake').checked;
-    const eurCurrency = document.getElementById('wizardSelftake').checked;
+    const uah = document.getElementById('wizardUah').checked;
+    const usd = document.getElementById('wizardUsd').checked;
+    const eur = document.getElementById('wizardEur').checked;
 
 
 
     const deliveryVariantsError = document.getElementById('handle-delivery-error');
-    const isSelectedDeliveryType = wizardСourier || wizardPost || wizardSelftake;
+	  const isSelectedDeliveryType = wizardСourier || wizardPost || wizardSelftake;
 
-    const errorMessage = 'Виберіть один із варіантів';
-    deliveryVariantsError.innerText = isSelectedDeliveryType ? '' : errorMessage;
-    if (!isSelectedDeliveryType) return;
+	  const errorMessage = 'Виберіть один із варіантів';
+	  deliveryVariantsError.innerText = isSelectedDeliveryType ? '' : errorMessage;
+	  if (!isSelectedDeliveryType) return;
+
+	  const currencyVariantsError = document.getElementById('handle-currency-error');
+	  const isSelectedCurrencyType = uah || usd || eur;
+
+	  currencyVariantsError.innerText = isSelectedCurrencyType ? '' : errorMessage;
+	  if (!isSelectedCurrencyType) return;
 
     const toolInfo = {
       courierDelivery: wizardСourier,
       postDepartment: wizardPost,
-      selfTake: wizardSelftake
+      selfTake: wizardSelftake,
+	    uahCurrency: uah,
+	    usdCurrency: usd,
+	    eurCurrency: eur
     };
     console.log('toolInfo', toolInfo);
     const bodyParams = JSON.stringify(toolInfo);

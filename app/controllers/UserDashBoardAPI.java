@@ -70,19 +70,25 @@ public class UserDashBoardAPI extends AuthController{
         BalanceDTO balance = new BalanceDTO();
         VisualSettingsDTO visualSettings = new VisualSettingsDTO();
 
+        CurrencyShopDTO currencyShop = new CurrencyShopDTO();
+        currencyShop.currencyShop = user.wizard.shopCurrency;
+
         ShopDTO shop = new ShopDTO(users, paymentSettings, delivery,
                 contact, balance, visualSettings, user.wizard.shopName,
-                "public liqpay key here", "private liqpay key here", user.wizard.shopDomain, "uk_UA"
-        );
+                "public liqpay key here", "private liqpay key here", user.wizard.shopDomain,
+                "uk_UA", currencyShop);
         shop.googleStaticMapsApiKey = "AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg";
         shop.googleMapsApiKey = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
         visualSettings.shop = shop;
+        currencyShop.shop = shop;
+        currencyShop.save();
 
         _appendDomainToList(user.wizard.shopDomain);
         shop.save();
         renderJSON(json(shop));
 
     }
+
 
     private static void setTranslationForCashPaymentLabel(PaymentSettingsDTO payment) {
         if (payment.manualPaymentTitleTranslationBucket == null){

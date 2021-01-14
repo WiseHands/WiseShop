@@ -439,7 +439,7 @@
       }
       return;
     }
-    console.log("here uuid: ", uuid, additionList);
+    console.log("here product uuid => ", uuid, additionList);
     fetch('/api/cart?uuid=' + uuid + '&additionList=' + JSON.stringify(additionList), {
       method: 'POST'
     }).then(function (response) {

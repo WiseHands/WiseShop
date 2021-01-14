@@ -238,7 +238,7 @@
             </div>
             <div class="all-team">
                 <div class="team-card  wow bounceIn">
-                    <div class="card-front team-1" id="bodya"></div>
+                    <div class="card-front team-1" id="bodya" onmouseenter="_onMouseEnter(event)"></div>
                     <div class="card-about">
                         <div class="card-text">
                             <h4>Bogdan</h4>
@@ -624,17 +624,27 @@
 <!--Hover random gif script-->
 <script>
   const teamCards = document.querySelectorAll('.card-front');
-  teamCards.forEach(card => {
-    card.addEventListener('mouseenter', event => {
-      const eventTarget = event.target;
-      generateGifPath(eventTarget.id).then(data => {
-          const gifPath = '../../../wisehands/mainpage/images/gifs/' + eventTarget.id + '/' + eventTarget.id + '-';
-          eventTarget.style.backgroundImage = data.responseOkState ? 'url(' + gifPath + data.gifId + '.gif' + ')' : 'url(' + gifPath + '0.gif)';
-        }
-      ).catch(error => console.log(error)
-      );
-    })
-  });
+
+  const _onMouseEnter = event => {
+	  const eventTarget = event.target;
+	  generateGifPath(eventTarget.id).then(data => {
+			  const gifPath = '../../../wisehands/mainpage/images/gifs/' + eventTarget.id + '/' + eventTarget.id + '-';
+			  eventTarget.style.backgroundImage = data.responseOkState ? 'url(' + gifPath + data.gifId + '.gif' + ')' : 'url(' + gifPath + '0.gif)';
+		  }
+	  ).catch(error => console.log(error)
+	  );
+  };
+  // teamCards.forEach(card => {
+  //   card.addEventListener('mouseenter', event => {
+  //     const eventTarget = event.target;
+  //     generateGifPath(eventTarget.id).then(data => {
+  //         const gifPath = '../../../wisehands/mainpage/images/gifs/' + eventTarget.id + '/' + eventTarget.id + '-';
+  //         eventTarget.style.backgroundImage = data.responseOkState ? 'url(' + gifPath + data.gifId + '.gif' + ')' : 'url(' + gifPath + '0.gif)';
+  //       }
+  //     ).catch(error => console.log(error)
+  //     );
+  //   })
+  // });
 
   teamCards.forEach(card => {
     card.addEventListener('mouseleave', event => {

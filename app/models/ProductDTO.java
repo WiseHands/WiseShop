@@ -31,6 +31,8 @@ public class ProductDTO extends GenericModel {
     @Expose
     public Double oldPrice;
 
+    @Expose
+    public double priceInCurrency;
 
     @Expose
     public String fileName;
@@ -86,9 +88,6 @@ public class ProductDTO extends GenericModel {
     @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public TranslationBucketDTO productDescriptionTextTranslationBucket;
-
-    @Expose
-    public double productPriceCurrency;
 
     public void addFeedback(FeedbackDTO orderFeedback) {
         if(this.feedbackList == null) {
