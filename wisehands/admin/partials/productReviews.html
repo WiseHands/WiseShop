@@ -1,34 +1,28 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <a class="col-xs-2 noPaddingLeft"
-               type="button"
-               ng-click="goBack()">
-                <i class="fa fa-arrow-circle-left whiteColor pull-left">
-                </i>
-            </a>
-
-            <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'productDetails.reviews' | translate}}</h5>
-            </div>
-            <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
-               id="dropdownMenu1"
-               type="button"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                <i class="fa fa-edit whiteColor pull-right">
-                </i>
-                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>
-                        {{'productDetails.edit' | translate}}</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal"
-                       data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
-                </div>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <a class="admin-nav-back-btn"
+       type="button"
+       ng-click="goBack()">
+        <i class="fa fa-arrow-circle-left whiteColor pull-left"></i>
+    </a>
+    <div class="nav-title">
+        <h5 class="white-text">{{'productDetails.reviews' | translate}}</h5>
+    </div>
+    <a class="admin-nav-edit-btn"
+       id="dropdownMenu1"
+       type="button"
+       data-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+        <i class="fa fa-edit whiteColor pull-right"></i>
+    </a>
+    <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
+        <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>
+            {{'productDetails.edit' | translate}}</p></a>
+        <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal"
+           data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
     </div>
 </nav>
+
 <div class="row text-center">
     <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
              show="loading"></spinner>

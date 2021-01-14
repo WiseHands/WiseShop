@@ -50,7 +50,7 @@ angular.module('WiseHands')
         });
 
         $scope.getUrl = function () {
-            $window.location.href = window.location.protocol + '//' + $scope.activeShop.domain + ':' + window.location.port + '#!/#selectedShop=true';
+            $window.open(window.location.protocol + '//' + $scope.activeShop.domain + ':' + window.location.port + '#!/#selectedShop=true', '_blank');
         };
         $scope.signOut = signout.signOut;
 

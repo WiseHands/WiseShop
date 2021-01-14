@@ -23,7 +23,8 @@ public class ProductAPI extends AuthController {
     public static void create(String client, String name, String description,
                               Double price, File fake, Integer mainPhotoIndex,
                               String category,
-                              Integer sortOrder, Boolean isActive, Double oldPrice, Integer wholesaleCount, Double wholesalePrice) throws Exception {
+                              Integer sortOrder, Boolean isActive, Double oldPrice, Integer wholesaleCount, Double wholesalePrice,
+                              String nameUk, String descriptionUk, String nameEn, String descriptionEn) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -82,6 +83,13 @@ public class ProductAPI extends AuthController {
         }
         product = product.save();
 
+        if (product.productNameTextTranslationBucket == null && product.productDescriptionTextTranslationBucket == null){
+            product.productNameTextTranslationBucket = createTranslationBucket(nameUk, nameEn);
+            product.productDescriptionTextTranslationBucket = createTranslationBucket(descriptionUk, descriptionEn);
+            product.save();
+        }
+        System.out.println("Translation str " + nameUk + descriptionUk + nameEn + descriptionEn);
+
         if (shop.productList == null) {
             shop.productList = new ArrayList<ProductDTO>();
         }
@@ -96,6 +104,27 @@ public class ProductAPI extends AuthController {
         System.out.println("User " + loggedInUser.name + " created new product " + product.name + " at " + dateFormat.format(date));
 
         renderJSON(json);
+    }
+
+    private static TranslationBucketDTO createTranslationBucket(String contentUk, String contentEn) {
+        TranslationBucketDTO translationBucket = new TranslationBucketDTO();
+        createUkTranslationItemForBucket(translationBucket, contentUk);
+        createEnTranslationItemForBucket(translationBucket, contentEn);
+        return translationBucket;
+    }
+
+    private static void createUkTranslationItemForBucket(TranslationBucketDTO translationBucket, String contentUk) {
+        TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", contentUk);
+        translationItemUk.save();
+        translationBucket.addTranslationItem(translationItemUk);
+        translationBucket.save();
+    }
+
+    private static void createEnTranslationItemForBucket(TranslationBucketDTO translationBucket, String contentEn) {
+        TranslationItemDTO translationItemEn = new TranslationItemDTO("en", contentEn);
+        translationItemEn.save();
+        translationBucket.addTranslationItem(translationItemEn);
+        translationBucket.save();
     }
 
     public static void details(String client, String uuid) throws Exception {

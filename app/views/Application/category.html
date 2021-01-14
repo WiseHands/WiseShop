@@ -7,6 +7,39 @@
     .category-block {
         ;
     }
+    .category-nav {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    .category-nav .view-block {
+        margin: 0;
+    }
+    .admin-breadcrumb {
+        margin: 0;
+    }
+    ul.admin-breadcrumb li {
+        display: inline;
+        font-size: 18px;
+    }
+
+    ul.admin-breadcrumb li + li:before {
+        padding: 8px;
+        color: black;
+        content: "/\00a0";
+    }
+
+    ul.admin-breadcrumb li a {
+        color: #000;
+        text-decoration: none;
+        word-break: break-all;
+    }
+
+    ul.admin-breadcrumb li a:hover {
+        color: #000;
+        text-decoration: underline;
+    }
     .all-category-cards {
         max-width: 900px;
         margin: 0 auto;
@@ -22,16 +55,16 @@
         width: 100%;
     }
     .category-name {
-        text-align: center;
+        text-align: left;
         font-size: 1.5rem;
-        padding-top: 1rem;
-        line-height: 1;
+        padding : 0.5rem;
+        line-height: 1.2;
     }
     .cart-float {
         display: none;
         position: fixed;
         bottom: 0;
-        max-width: 900px;
+        /*max-width: 900px;*/
         width: 100%;
         background-color: #e4e9e9;
         border-top: 5px solid #333;
@@ -54,7 +87,7 @@
         padding-left: 0.5rem;
     }
     @media screen and (min-width: 1500px) {
-        .all-category-cards, .cart-float {
+        .all-category-cards, .category-nav {
             max-width: 1300px;
         }
     }
@@ -142,7 +175,101 @@
     #{shop-header /}
 
     <div class="category-block">
-        <div class="category-name">${category.name}</div>
+        <div class="category-nav">
+            <div class="category-name">
+                <ul class="admin-breadcrumb">
+                    <li><a href="#">&{'mobile.sidebar.title.categories'}</a></li>
+                    <li><a href="/${language}/category/${category.uuid}">${category.name}</a></li>
+                </ul>
+            </div>
+            <div class="view-block">
+                <i id="list-view" class="fa fa-list" aria-hidden="true" style="font-size: 30px"></i>
+                <i id="grid-view" class="fa fa-th" aria-hidden="true" style="font-size: 30px"></i>
+            </div>
+        </div>
+        <div class="all-items grid-view">
+            %{
+            for(_product in productList) {
+            }%
+            <div class="item-card">
+                <div class="card inline hoverable">
+                    <div class="noselect hm-white-slight z-depth-1" >
+                        <a href="/${language}/product/${_product.uuid}">
+                            <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
+                        </a>
+                    </div>
+                    <div class="card-block text-xs-center">
+                        <div class="item-card-title">
+                            <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                            <div class="item-card-action-price card-title">
+                                <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
+                                <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
+                            </div>
+                        </div>
+                        <div class="card-footer"></div>
+                        <div class="item-card-text">
+                            <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
+                        </div>
+                        <div class="item-card-action">
+                            <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart('${_product.uuid}')">&{'page.product.buy'}</button>
+                            <!--<span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            %{
+            }
+            }%
+
+        </div>
+
+        <div class="cart-float">
+            <div class="cart-float-text">
+                <p>&{'page.product.add.to.basket'}</p>
+                <i class="fa fa-check-circle"></i>
+            </div>
+        </div>
+
+        <div class="all-items list-view">
+            %{
+            for(_product in productList) {
+            }%
+            <div class="card item-card-list hoverable">
+                <div class="item-card-list-img noselect hm-white-slight" >
+                    <a href="/${language}/product/${_product.uuid}">
+                        <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
+                    </a>
+                </div>
+                <div class="item-card-list-content">
+                    <div class="item-card-list-info">
+                        <a href="/${language}/product/${_product.uuid}">
+                            <h4 class="card-title productNameTruncate h4-responsive"><strong>${_product.name}</strong></h4>
+                            <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
+                        </a>
+                    </div>
+                    <div class="item-card-list-action">
+                        <div class="item-card-list-action-price">
+                            <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
+                            <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart('${_product.uuid}')">&{'page.product.buy'}</button>
+                        <!--<span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>-->
+                    </div>
+                </div>
+            </div>
+
+
+            %{
+            }
+            }%
+
+        </div>
+        <div class="cart-float">
+            <div class="cart-float-text">
+                <p>&{'page.product.add.to.basket'}</p>
+                <i class="fa fa-check-circle"></i>
+            </div>
+        </div>
         <div class="all-category-cards">
             #{verbatim}
                 %{
@@ -179,6 +306,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         %{
                     }
                 }%
@@ -212,6 +340,23 @@
     </script>
     #{/if}
 
+    <script>
+        document.getElementById("list-view").addEventListener("click", showList );
+        function showList() {
+            document.querySelector(".grid-view").style.display = 'none';
+            document.querySelector(".list-view").style.display = 'flex';
+            document.querySelector("#list-view").style.color = '#000';
+            document.querySelector("#grid-view").style.color = '#929292';
+
+        }
+        document.getElementById("grid-view").addEventListener("click", showGrid );
+        function showGrid() {
+            document.querySelector(".list-view").style.display = 'none';
+            document.querySelector(".grid-view").style.display = 'flex';
+            document.querySelector("#grid-view").style.color = '#000';
+            document.querySelector("#list-view").style.color = '#929292';
+        }
+    </script>
 
 
 </body>

@@ -1,34 +1,28 @@
-
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-            <div class="col-xs-8 text-center white-text">
-                <h5>
-                    {{'analytics.analytics' | translate}}
-                </h5>
-            </div>
-            <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
-               id="dropdownMenu1"
-               type="button"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                <i class="fa fa-edit whiteColor pull-right">
-                </i>
-                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('7')" ng-class="{activeAnal: days === ''}"><p>7 {{'analytics.days' | translate}}</p></a>
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('30')" ng-class="{activeAnal: days === '/30'}"><p>30 {{'analytics.days' | translate}}</p></a>
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('90')" ng-class="{activeAnal: days === '/90'}"><p>90 {{'analytics.days' | translate}}</p></a>
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('180')" ng-class="{activeAnal: days === '/180'}"><p>180 {{'analytics.days' | translate}}</p></a>
-                    <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('360')" ng-class="{activeAnal: days === '/360'}"><p>365 {{'analytics.days' | translate}}</p></a>
-                </div>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+    </div>
+    <div class="nav-title">
+        <h5>{{'analytics.analytics' | translate}}</h5>
+    </div>
+    <a class="admin-nav-edit-btn"
+       id="dropdownMenu1"
+       type="button"
+       data-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+        <i class="fa fa-calendar whiteColor pull-right">
+        </i>
+    </a>
+    <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
+        <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('7')" ng-class="{activeAnal: days === ''}"><p>7 {{'analytics.days' | translate}}</p></a>
+        <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('30')" ng-class="{activeAnal: days === '/30'}"><p>30 {{'analytics.days' | translate}}</p></a>
+        <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('90')" ng-class="{activeAnal: days === '/90'}"><p>90 {{'analytics.days' | translate}}</p></a>
+        <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('180')" ng-class="{activeAnal: days === '/180'}"><p>180 {{'analytics.days' | translate}}</p></a>
+        <a class="col-xs-12 text-left" ng-click="getMainAnalyticsData('360')" ng-class="{activeAnal: days === '/360'}"><p>365 {{'analytics.days' | translate}}</p></a>
     </div>
 </nav>
+
 <div class="container-fluid analyticsContainer">
 
     <div class="row text-center">

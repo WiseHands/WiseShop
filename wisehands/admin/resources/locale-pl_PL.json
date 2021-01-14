@@ -56,8 +56,8 @@
   "qrBreadCrumb.create": "Create",
 
   "feedbackList.deleteMessage": "Czy na pewno chcesz usunąć tę opinię?",
-  "feedbackList.showFeedbackMessage": "Wyświetlane są wszystkie opinie",
-  "feedbackList.hideFeedbackMessage": "Wszystkie recenzje są ukryte",
+  "feedbackList.showFeedbackMessage": "Wyświetlane są wszystkie opinie?",
+  "feedbackList.hideFeedbackMessage": "Wszystkie recenzje są ukryte?",
   "feedbackList.restoreFeedbackMessage": "Feedback restored",
 
   "shopLocation.title": "Lokalizacja sklepu",
@@ -148,6 +148,7 @@
   "singleOrder.paymentStatePending": "W oczekiwaniu",
   "singleOrder.paymentStatePaid": "Płatne",
   "singleOrder.paymentStateError": "Płatność nieudana",
+  "singleOrder.paymentStateWaitAccept": "Płatność zakończona powodzeniem. Czekam na weryfikację sklepu",
   "singleOrder.Platform": "Platforma",
   "singleOrder.ClientLanguage": "Język klienta",
   "singleOrder.Language": "Polskie",
@@ -178,6 +179,7 @@
   "singleOrder.qrCodeName" : "QR",
 
   "sideNav.Orders": "Zamówienia",
+  "sideNav.categories": "Kategorie",
   "sideNav.Analytics": "Analityka",
   "sideNav.Products": "Produkty",
   "sideNav.Addition": "Dodatku",
@@ -289,6 +291,7 @@
   "editProduct.isDefault": "By default *",
   "editProduct.isDefaultDescription": "* except QR code scan",
 
+  "productReviews.noComments": "Brak recenzji tego produktu",
   "editProduct.general": "Wspólne",
   "editProduct.edit": "Edytuj produkt",
   "editProduct.property": "Właściwość",

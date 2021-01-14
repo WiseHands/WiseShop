@@ -56,8 +56,8 @@
   "qrBreadCrumb.create": "Створити",
 
   "feedbackList.deleteMessage": "Видалити даний відгук",
-  "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті",
-  "feedbackList.hideFeedbackMessage": "Приховати даний відгук на сайті",
+  "feedbackList.showFeedbackMessage": "Показувати даний відгук на сайті?",
+  "feedbackList.hideFeedbackMessage": "Приховати даний відгук на сайті?",
   "feedbackList.restoreFeedbackMessage": "Відгук відновлено",
 
   "shopLocation.title": "Магазин на карті",
@@ -150,6 +150,7 @@
   "singleOrder.paymentStatePending": "Очікується оплата",
   "singleOrder.paymentStatePaid": "Оплачено",
   "singleOrder.paymentStateError": "Помилка оплати",
+  "singleOrder.paymentStateWaitAccept": "Оплачено. Магазин не пройшов перевірку",
   "singleOrder.Platform": "Платформа",
   "singleOrder.ClientLanguage": "Мова клієнта",
   "singleOrder.Language": "Українська",
@@ -161,7 +162,7 @@
   "singleOrder.OrderAmount": "Сума",
   "singleOrder.OrderState": "Статус замовлення",
   "singleOrder.Date": "Дата",
-  "singleOrder.Comments": "Коментарі",
+  "singleOrder.Comments": "Коментар",
   "singleOrder.Pieces": "шт",
   "singleOrder.DeleteMessage1": "Ви дійсно хочете видалити дане замовлення?",
   "singleOrder.DeleteMessage2": "Замовлення видалене",
@@ -171,7 +172,7 @@
   "singleOrder.clientPostDepartmentNumber": "Номер відділення: ",
   "singleOrder.AmountTools" : "Кількість приборів: ",
   "singleOrder.AddressApartmentEntrance" : "Під'їзд: ",
-  "singleOrder.AddressApartmentEntranceCode" : "Код до підїзду: ",
+  "singleOrder.AddressApartmentEntranceCode" : "Код до під'їзду: ",
   "singleOrder.AddressApartmentFloor" : "Поверх: ",
   "singleOrder.AddressApartmentNumber" : "№ квартири: ",
   "singleOrder.feedback" : "Відгук",
@@ -179,6 +180,7 @@
   "singleOrder.feedbackComment" : "Коментар",
   "singleOrder.qrCodeName" : "QR",
   "sideNav.Orders": "Замовлення",
+  "sideNav.categories": "Категорії",
   "sideNav.Analytics": "Аналітика",
   "sideNav.Products": "Товари",
   "sideNav.Addition": "Додатки",
@@ -279,6 +281,7 @@
   "productReviews.cancelReplyForComment": "Скасувати",
   "productReviews.sendReplyForComment": "Відправити відповідь",
   "productReviews.removeReviews": "Видалити",
+  "productReviews.noComments": "Немає відгуків про даний товар",
   "shopDetails.deleteMessage1": "Ви дійсно хочете видалити даний магазин?",
   "shopDetails.deleteMessage2": "Магазин видалений.",
 
@@ -439,6 +442,6 @@
   "additionSetting.exampleChangeOrderDone": "Замовлення успішно завершене. Очікуйте, з вами зв'яжуться.",
   "additionalSetting.showAmountTools": "Показувати кількість приборів для товарів",
   "addproperty.product": "Товар",
-  "addproperty.option": "Додаток"
-
+  "addproperty.option": "Додаток",
+  "feedbackList.linkToOrder" : "Перейти до замовлення"
 }

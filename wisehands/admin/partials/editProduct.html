@@ -1,24 +1,19 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <a class="col-xs-2 noPaddingLeft"
-               type="button"
-               href="#/product/details/{{product.uuid}}">
-                <i class="fa fa-arrow-circle-left whiteColor pull-left">
-                </i>
-            </a>
-
-            <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'editProduct.edit' | translate}}</h5>
-            </div>
-            <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-save whiteColor pull-right"
-                        ng-click="updateProduct()">
-                </i>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <a class="admin-nav-back-btn"
+       type="button"
+       href="#/product/details/{{product.uuid}}">
+        <i class="fa fa-arrow-circle-left whiteColor pull-left"></i>
+    </a>
+    <div class="nav-title">
+        <h5>{{'editProduct.edit' | translate}}</h5>
     </div>
+    <a class="admin-nav-save-btn">
+        <i class="fa fa-save whiteColor pull-right"
+           ng-click="updateProduct()">
+        </i>
+    </a>
 </nav>
+
 <div class="container-fluid">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
@@ -81,8 +76,9 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner z-depth-1 hoverable" role="listbox">
                                 <!-- First slide -->
-                                <div class="item active">
-                                    <img src="{{productImages[product.mainPhoto].dataURL}}" alt="slide1" ng-click="uploadNewProductImage()">
+                                <div class="edit-product-image item active" ng-click="uploadNewProductImage()">
+                                    <img src="{{productImages[product.mainPhoto].dataURL}}" alt="slide1" >
+                                    <p class="edit-product-image-text">{{'addNewProduct.addPhoto' | translate}}</p>
                                 </div>
                                 <canvas class="img-responsive center-block landscapeImageScale" id="editCanvas" ng-click="uploadNewProductImage()" style="display: none"></canvas>
                                 <input id="imageLoader"

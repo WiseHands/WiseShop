@@ -43,6 +43,8 @@ angular.module('SuperWiseHands')
                     return 'Оплата на місці';
                 } else if (order.state === "PAYMENT_ERROR") {
                     return 'Помилка оплати';
+                } else if (order.state === "PAYMENT_WAIT_ACCEPT") {
+                    return 'Оплачено. Магазин не пройшов перевірку';
                 } else if (order.state === "DELETED") {
                     return 'Видалене';
                 }

@@ -35,6 +35,8 @@ angular.module('SuperWiseHands')
                     return 'rgb(221, 201, 230)';
                 } else if (item.state === "PAYMENT_ERROR") {
                     return 'rgb(255, 171, 145)';
+                } else if (item.state === "PAYMENT_WAIT_ACCEPT") {
+                    return 'rgb(255, 171, 145)';
                 } else if (item.state === "DELETED") {
                     return 'rgba(244, 67, 54, 0.7)';
                 }

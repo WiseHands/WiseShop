@@ -34,28 +34,20 @@
     }
 </style>
 
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-
-
-            <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'pageConstructor.title' | translate}}</h5>
-            </div>
-            <a class="col-xs-2 noRightPadding"
-               type="button"
-               href="#/pageconstructor/new">
-                <i class="fa fa-plus-circle pull-right whiteColor">
-                </i>
-            </a>
-
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
     </div>
+    <div class="nav-title">
+        <h5>{{'pageConstructor.title' | translate}}</h5>
+    </div>
+    <a class="admin-nav-save-btn"
+       type="button"
+       href="#/pageconstructor/new">
+        <i class="fa fa-plus-circle pull-right whiteColor">
+        </i>
+    </a>
 </nav>
-
 
 <div class="pages-list">
     <div class="pages-list-item hoverable" ng-repeat="page in pagesList">

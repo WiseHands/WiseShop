@@ -39,13 +39,18 @@
         display: flex;
         flex-flow: column wrap;
         width: 60%;
-        overflow: hidden;
+        /*overflow: hidden;*/
         text-overflow: ellipsis;
     }
 
     .product-info h2, .product-info p, .add-items-title p {
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .product-info p {
+        width: 100%;
+        white-space: nowrap;
     }
 
     ul.menu-breadcrumb {
@@ -138,6 +143,18 @@
         justify-content: space-between;
     }
 
+    .price-buy-block button {
+        border: 2px solid #000;
+        color: #000 !important;
+    }
+
+    .price-buy-block button:hover, .price-buy-block button:focus,
+    .price-buy-block button:active, .price-buy-block button:active:hover {
+        background-color: #000 !important;
+        border-color: #000 !important;
+        color: #fff !important;
+    }
+
     .product-price, .product-price-on-photo {
         padding: 0.5rem 1rem 0.5em 0;
         font-size: 1.3rem;
@@ -150,12 +167,6 @@
 
     .buy-button {
         width: 270px;
-        background-color: #fff;
-        color: #000;
-        border: 2px solid #000;
-        text-transform: uppercase;
-        padding: 0.5rem;
-        cursor: pointer;
     }
 
     .buy-button:hover {
@@ -269,7 +280,7 @@
         display: none;
         position: fixed;
         bottom: 0;
-        max-width: 900px;
+        /*max-width: 900px;*/
         width: 100%;
         background-color: #e4e9e9;
         border-top: 5px solid #333;
@@ -297,6 +308,27 @@
 
     .shop-product-tabs {
         padding: 0;
+    }
+
+    .tabs-container {
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 0 0.5rem;
+    }
+
+    .classic-tabs li a.active {
+        border-bottom: 2px solid #000 !important;
+        color: #000 !important;
+    }
+
+    .classic-tabs li a {
+        color: #9e9e9e !important;
+    }
+
+    .nav-item .nav-link:hover {
+        background-color: #f5f5f5;
+        border-color: transparent;
     }
 
     .product-tab[active] {
@@ -359,9 +391,9 @@
         font-size: 0.9rem;
     }
 
-    #reviews {
+    /* #reviews {
         display: none;
-    }
+    }*/
 
     i.fa-star, i.fa-star-o {
         font-size: 24px;
@@ -390,7 +422,7 @@
     }
 
     @media screen and (min-width: 1500px) {
-        .product-center-container, .cart-float, .shop-all-reviews {
+        .product-center-container, .shop-all-reviews, .tabs-container {
             max-width: 1300px;
         }
     }
@@ -426,11 +458,11 @@
 
         .price-buy-block {
             flex-direction: column;
+            margin-bottom: inherit;
         }
 
         .buy-button {
             width: 100%;
-            margin: 0 auto;
         }
 
         .additions-block {
@@ -458,6 +490,13 @@
 
         .add-item {
             margin: 0.7rem;
+
+        .product-center-container {
+            padding: 0 0.5rem;
+        }
+
+        .price-buy-block button {
+            margin: auto;
         }
     }
 
@@ -563,6 +602,7 @@
 
 
         <div class="price-buy-block">
+
             <span class="product-price" price="${product.formatDecimal()}">
                 <div class="total-product-price">
                     <span>&{'page.product.price'}</span>
@@ -579,6 +619,7 @@
             <button class="buy-button" onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
                 &{'page.product.buy'}
             </button>
+
         </div>
         #{if product.selectedAdditions || product.defaultAdditions}
         <section class="additions">
@@ -640,14 +681,71 @@
         </section>
         #{/if}
     </div>
-    <div class="cart-float">
-        <div class="cart-float-text">
-            <p>&{'page.product.add.to.basket'}</p>
-            <i class="fa fa-check-circle"></i>
+</main>
+<div class="cart-float">
+    <div class="cart-float-text">
+        <p>&{'page.product.add.to.basket'}</p>
+        <i class="fa fa-check-circle"></i>
+    </div>
+</div>
+
+<div class="tabs-container">
+    <div class="tabs-wrapper">
+        <ul class="nav classic-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link waves-effect active" data-toggle="tab" href="#about" role="tab">&{'page.product.about.product'}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect" data-toggle="tab" href="#reviews" role="tab">&{'page.product.reviews'}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content card">
+        <div class="tab-pane fade in active" id="about" role="tabpanel">
+            <p>${product.description}</p>
+        </div>
+        <div class="tab-pane fade" id="reviews" role="tabpanel">
+            #{if product.feedbackList}
+            %{
+            for(_review in product.feedbackList) {
+            }%
+            #{if !_review.isFeedbackDeleted}
+            <div class="shop-review-item">
+                <div class="shop-review-item-info">
+                    <p>${_review.customerName}</p>
+                    <div feedback-rate="${_review.quality}" class="feedback-stars">
+                        <i class="fa"></i>
+                        <i class="fa"></i>
+                        <i class="fa"></i>
+                        <i class="fa"></i>
+                        <i class="fa"></i>
+                    </div>
+                </div>
+                <div class="shop-review-item-text">
+                    <p time="${_review.feedbackTime}"></p>
+                    #{if _review.review} <p>${_review.review}</p> #{/if}
+                    #{else} <p>&{'page.product.no.reviews.from.client'}</p> #{/else}
+                    <div class="reply-for-review">
+                        #{if _review.review && _review.comment}
+                        <h4>${shop.shopName}</h4>
+                        <p>${_review.comment}</p>
+                        #{/if}
+                    </div>
+                </div>
+            </div>
+            #{/if}
+            <hr>
+            %{
+            }
+            }%
+            #{/if}
+            #{else} <p>&{'page.product.no.reviews'}</p> #{/else}
         </div>
     </div>
-</main>
-<div class="shop-product-tabs product-center-container">
+</div>
+
+<!--<div class="shop-product-tabs product-center-container">
     <button class="product-tab" active onclick="openTab(event)">&{'page.product.about.product'}</button>
     <button class="product-tab" onclick="openTab(event)">&{'page.product.reviews'}</button>
 </div>
@@ -690,7 +788,7 @@
     }%
     #{/if}
     #{else} <p>&{'page.product.no.reviews'}</p> #{/else}
-</div>
+</div>-->
 
 #{if shop.faceBookPixelApiKey}
 <script>

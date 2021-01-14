@@ -48,7 +48,7 @@ address.floor.label = Piętro
 address.apartment.label = Apartament
 map.choose.your.place.label = Określ lokalizację na mapie
 map.label = mapie
-map.error.message = Przepraszamy, twój adres nie znajduje się w obszarze dostawy. Znajdź adres na
+map.error.message = Niestety nie znaleziono takiego adresu lub Twojego adresu nie ma w obszarze dostawy. Wybierz go
 # end shopping cart container
 
 page.select.address.find.location = Znajdź miejsce na mapie w obszarze dostawy i kliknij je. Następnie kliknij „NASTĘPNY”.
@@ -91,7 +91,9 @@ feedback.email.notification.to.client.leave.feedback = [%s] %s, proszę zostawi�
 feedback.email.notification.to.admin.about.new.feedback = [%s] Klient %s wystawia opinię na temat zamówienia
 feedback.email.title = informacje zwrotne do twojego zamówienia od %s
 feedback.main.label = Witaj %s.
-feedback.email.text =  Pomóż nam stać najlepszym, proszę zostawić swoją recenzję na temat zamówienia.
+feedback.email.feedback = Klient %s zostawia opinię o zamówieniu.
+feedback.email.revise = Przejrzeć
+feedback.email.text =  Pomóż nam stać najlepszym, proszę zostawić swoją recenzję.
 feedback.write.feedback = Zostawić swoją recenzję
 
 shop.balance = Saldo sklepowe
@@ -106,8 +108,10 @@ order.is.processing = Zamówienie (%s, %s) obrabia się
 new.order.total = Nowe zamówienie %s Razem %s
 payment.error = Błąd Płatności
 payment.error.total = Błąd Płatności %s Razem %s
-payment.done = Płatność zakończona
+payment.done = Płatność Zakończona
+payment.done.wait.accept = Sklep nie został jeszcze zweryfikowany. Płatność zakończona
 payment.done.total = Płatność zakończona %s Razem %s
+payment.done.wait.accept.total = Sklep nie został jeszcze zweryfikowany. Płatność zakończona %s Razem %s
 gotomain = Przejdź na stronę główną
 order.fail = Błąd Płatności
 new.shop.created = Utworzony nowy sklep: %s
@@ -156,8 +160,10 @@ mail.label.clientAddressStreetName = Ulica
 mail.label.number = #
 mail.label.ClientAddressBuildingNumber = Numer budynku
 mail.label.paymentStatus = Status
+mail.label.currency.uah = uah
 
 create.shop.courier.delivery.text = Zadzwoń do kuriera - %s lub bezpłatnie (jeśli wielkość zamówienia przekracza %s PLN).
 create.shop.selfpickup.delivery.text = Odbiór własny
 create.shop.postservice.delivery.text = Zamów dostawę do najbliższego nowego urzędu pocztowego w Twoim mieście.
 server.error = Błąd serwera
+go.to.back = Idź do main

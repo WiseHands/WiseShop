@@ -1,24 +1,19 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <a class="col-xs-2 noPaddingLeft"
-               type="button"
-               href="#/payment">
-                <i class="fa fa-arrow-circle-left whiteColor pull-left">
-                </i>
-            </a>
-
-            <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'translationPage.title' | translate}}</h5>
-            </div>
-            <a class="col-xs-2 noRightPadding">
-                <i class="fa fa-save whiteColor pull-right"
-                   ng-click="setTranslation()">
-                </i>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <a class="admin-nav-back-btn"
+       type="button"
+       href="#/payment">
+        <i class="fa fa-arrow-circle-left whiteColor pull-left"></i>
+    </a>
+    <div class="nav-title">
+        <h5>{{'translationPage.title' | translate}}</h5>
     </div>
+    <a class="admin-nav-save-btn">
+        <i class="fa fa-save whiteColor pull-right"
+           ng-click="setTranslation()">
+        </i>
+    </a>
 </nav>
+
 <div class="admin-container noSidePadding">
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>

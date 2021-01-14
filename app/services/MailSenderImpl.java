@@ -73,43 +73,6 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
-    public void sendEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String status, String clientLanguage) throws Exception {
-        HtmlEmail email = new HtmlEmail();
-        email.setHostName(shop.domain);
-        email.setFrom("wisehandsme@gmail.com");
-        email.addTo(order.email);
-        email.setSubject(status);
-
-        String templateString = readAllBytesJava7("app/emails/email_feedback_to_order.html");
-        Template template = Template.parse(templateString);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("shopName", shop.shopName);
-        map.put("orderUuid", order.uuid);
-        String path = shop.domain;
-        if(isDevEnv) {
-            path = path + ":3334";
-        }
-        map.put("shopDomain", path);
-
-        Lang.change(clientLanguage);// set user language
-
-        String hiClient = Messages.get("feedback.main.label", order.name);
-        map.put("hiClient", hiClient);
-
-        String helpUs = Messages.get("feedback.email.text", shop.shopName);
-        map.put("helpUs", helpUs);
-
-        String writeFeedback = Messages.get("feedback.write.feedback");
-        map.put("writeFeedback", writeFeedback);
-
-        String rendered = template.render(map);
-
-        email.setHtmlMsg(rendered);
-        email.setCharset("utf-8");
-        Mail.send(email);
-    }
-
-
     public void sendEmailCommentForFeedback(ShopDTO shop, String customerMail, String customerName, ProductDTO product, String status) throws Exception {
         HtmlEmail email = new HtmlEmail();
 
@@ -147,7 +110,7 @@ public class MailSenderImpl implements MailSender {
         Mail.send(email);
     }
 
-    public void sendNotificationToAdminAboutFeedback(ShopDTO shop, OrderDTO order, String status) throws Exception {
+/*    public void sendNotificationToAdminAboutFeedback(ShopDTO shop, OrderDTO order, String status) throws Exception {
         HtmlEmail email = new HtmlEmail();
 
         email.setHostName(shop.domain);
@@ -179,7 +142,7 @@ public class MailSenderImpl implements MailSender {
         email.setHtmlMsg(rendered);
         email.setCharset("utf-8");
         Mail.send(email);
-    }
+    }*/
 
     public static String readAllBytesJava7(String filePath)
     {

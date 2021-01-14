@@ -1,32 +1,28 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <a class="col-xs-2 noPaddingLeft"
-               type="button"
-               href="#/products">
-                <i class="fa fa-arrow-circle-left whiteColor pull-left">
-                </i>
-            </a>
-
-            <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'productDetails.details' | translate}}</h5>
-            </div>
-            <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
-               id="dropdownMenu1"
-               type="button"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                <i class="fa fa-edit whiteColor pull-right">
-                </i>
-                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>{{'productDetails.edit' | translate}}</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
-                </div>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <a class="admin-nav-back-btn"
+       type="button"
+       href="#/products">
+        <i class="fa fa-arrow-circle-left whiteColor pull-left">
+        </i>
+    </a>
+    <div class="nav-title">
+        <h5>{{product.name}}</h5>
+    </div>
+    <a class="admin-nav-edit-btn"
+       id="dropdownMenu1"
+       type="button"
+       data-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+        <i class="fa fa-edit whiteColor pull-right">
+        </i>
+    </a>
+    <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
+        <a class="col-xs-12 text-left" href="#/products/details/{{product.uuid}}/edit"><p>{{'productDetails.edit' | translate}}</p></a>
+        <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#deleteProduct"><p>{{'productDetails.delete' | translate}}</p></a>
     </div>
 </nav>
+
 <div>
     <div class="row text-center">
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
@@ -55,23 +51,14 @@
                 <div class="admin-card hoverable">
                     <h4>{{'addNewProduct.productDescription' | translate}}</h4>
                     <div class="translation-flex-row">
-                        <div id="home">
-                            <p>{{product.description}}</p>
+                        <div class="translation-flex-column">
+                            <label for="description">{{'addNewProduct.productDescription' | translate}}</label>
+                            <h5 id="description" class="product-title">{{product.description}}</h5>
                         </div>
                         <button class="edit-btn btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
                                 ng-click="redirectToTranslationForProductDescription()"><i class="material-icons">
                             translate</i>
                         </button>
-                    </div>
-                    <div id="menu1">
-                        <div ng-repeat="property in product.properties">
-                            <br>
-                            <h5>{{property.name}}</h5>
-                            <p ng-repeat="propertyOption in property.tags">
-                                <input name="group1" type="checkbox" id="cat-11" ng-model="propertyOption.selected" disabled/>
-                                <label for="cat-11">{{propertyOption.value}} <span>(+{{propertyOption.additionalPrice}})</span></label>
-                            </p>
-                        </div>
                     </div>
                 </div>
                 <div class="admin-card hoverable details-product-col">

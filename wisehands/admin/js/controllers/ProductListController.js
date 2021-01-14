@@ -55,6 +55,11 @@ angular.module('WiseHands')
             return lowerCaseName.indexOf(searcText) != -1 || total.indexOf(searcText) !== -1;
 
         };
+
+        $scope.searchField = false;
+        $scope.toggle = function() {
+            $scope.searchField = !$scope.searchField;
+        };
         
         $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
             equalizeHeights(".fixed-height");

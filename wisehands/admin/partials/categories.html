@@ -1,43 +1,33 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-            <a class=" col-xs-offset-9 col-xs-1 noRightPadding"
-               type="button"
-               data-toggle="modal"
-               data-target="#newCategoryModal">
-                <i class="fa fa-plus-circle pull-right whiteColor">
-                </i>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
     </div>
+    <div class="nav-title">
+        <h5>{{'sideNav.categories' | translate}}</h5>
+    </div>
+    <a class="admin-nav-add-btn"
+       type="button"
+       data-toggle="modal"
+       data-target="#newCategoryModal">
+        <i class="fa fa-plus-circle pull-right whiteColor">
+        </i>
+    </a>
 </nav>
 
-<div class="admin-all-products noSidePadding">
+<div class="admin-all-products noSidePadding cardTopPadding ">
     <div class="spinner-block">
         <spinner class="center-spinner" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
     </div>
-    <div class="btn-group btn-group-justified col-xs-12" role="group" aria-label="..." ng-hide="loading">
-        <div class="btn-group" role="group">
-            <a href="#/products" type="button" class="btn secondaryColor">{{'products.products' | translate}}</a>
-        </div>
-        <div class="btn-group" role="group">
-            <a type="button" class="btn white-text disabled">{{'products.categories' | translate}}</a>
-        </div>
-    </div>
     <div class="col-xs-12 col-sm-12 col-md-12" ng-hide="loading">
         <div class="panel-group" id="accordion">
-            <div class="panel panel-default" ng-repeat="category in categories | orderBy:'sortOrder'">
+            <div class="category-panel panel panel-default" ng-repeat="category in categories | orderBy:'sortOrder'" on-finish-render="ngRepeatFinished">
                 <a class="collection-item primaryColor vcentering translation-flex-row">
                     <div class="flex-baseline">
                         <h4 class="white-text col-xs-10" data-toggle="collapse"  data-target="#collapse{{$index}}">{{category.name}} <span class="badge lightseagreen">{{category.products.length}}</span></h4>
                         <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" ng-click="redirectToTranslationPage(category)"><i class="material-icons">translate</i></button>
                     </div>
-                    <div class="col-xs-2">
+                    <div class="category-edit-buttons">
                         <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" data-toggle="modal" data-target="#categoryModal" ng-click="getCategory(category)"><i class="material-icons">mode_edit</i></button>
-                        <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" data-toggle="modal" data-target="#deleteCategory" ng-click="getCategory(category)"><i class="material-icons">delete_forever</i></button>
                     </div>
                 </a>
                 <div id="collapse{{$index}}" class="panel-collapse collapse">
@@ -66,12 +56,15 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="add-category-block row">
-                    <div class="input-field">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <input id="categoryName" type="text" ng-model="thisCategory.name" required>
-                        <label class="active" for="categoryName">{{'categories.categoryName' | translate}}</label>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="">
+                        <label class="active">{{'categories.categoryName' | translate}}</label>
+                        <div class="translation-flex-row">
+                            <p>{{thisCategory.name}}</p>
+                            <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" ng-click="redirectToTranslationPage(this)"><i class="material-icons">mode_edit</i></button>
+                        </div>
                     </div>
                     <div class="input-field">
                         <input id="categorySortOrder" type="number"  ng-model="thisCategory.sortOrder" />
@@ -81,10 +74,11 @@
                             <div class="add-category-row">
                                 <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="thisCategory.isHidden" />
                                 <label  for="filled-in-box">{{'category.ishidden' | translate}}</label>
+                                <button class="add-category-delete-btn btn-floating btn-xsmall waves-effect waves-light  pull-right" data-toggle="modal" data-target="#deleteCategory"
+                                        ng-click="showDeleteModal(this)"><i class="material-icons">delete_forever</i></button>
                                 <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="updateCategory()">{{'categories.save' | translate}}</button>
                             </div>
                         </div>
-
                     <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
 <!--                    <button class="btn secondaryColor pull-right" ng-hide="loading" ng-click="deleteCategory()">{{'categories.delete' | translate}}</button>-->
                 </div>
@@ -92,6 +86,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="newCategoryModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">

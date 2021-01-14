@@ -233,6 +233,12 @@
                     } else if (locale === 'uk_UA') {
                         return 'Помилка оплати';
                     }
+                } else if (order.state === "PAYMENT_WAIT_ACCEPT") {
+                      if (locale === 'en_US'){
+                          return 'Payment successful. Waiting for shop verification';
+                      } else if (locale === 'uk_UA') {
+                          return 'Оплачено. Магазин не пройшов перевірку';
+                      }
                 } else if (order.state === "DELETED") {
                     if (locale === 'en_US'){
                         return 'Deleted';
@@ -281,8 +287,13 @@
                 var lowerCaseName = item.name.toLowerCase();
                 var total = item.total.toString();
                 return lowerCaseName.indexOf(searcText) != -1 || total.indexOf(searcText) !== -1;
-
             };
+
+            $scope.searchField = false;
+            $scope.toggle = function() {
+                $scope.searchField = !$scope.searchField;
+            };
+
             $scope.setSortOption = function () {
                 shared.setSortOptions($scope.isSortingActive);
             };
@@ -294,6 +305,8 @@
                     return 'white';
                 }
             };
+
+
             sideNavInit.sideNav();
 
         }]);

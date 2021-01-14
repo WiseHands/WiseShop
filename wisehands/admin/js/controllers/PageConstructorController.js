@@ -3,6 +3,18 @@ angular.module('WiseHands')
                 function ($scope, $http, signout, $routeParams, sideNavInit) {
         $scope.loading = true;
 
+        $http({
+            method: 'GET',
+            url: '/shop/details'
+        })
+            .then(function successCallback(response) {
+                $scope.language = (response.data.locale).slice(0, 2);
+                $scope.loading = false;
+            }, function errorCallback(error) {
+                $scope.loading = false;
+                console.log(error);
+        });
+
         sideNavInit.sideNav();
                     $scope.loading = false;
 
@@ -19,6 +31,7 @@ angular.module('WiseHands')
                 });
 
                 $scope.pagesList = response.data;
+                setPageName($scope.pagesList);
                 console.log("GET response.data: ", response.data);
                 $scope.loading = false;
             }, function errorCallback(response) {
@@ -27,6 +40,18 @@ angular.module('WiseHands')
                 $scope.loading = false;
             });
 
+            setPageName = (pagesList) => {
+                console.log('$scope.pagesList', pagesList);
+                pagesList.forEach(page => {
+                    if (page.pageTitleTextTranslationBucket) {
+                        page.pageTitleTextTranslationBucket.translationList.forEach(item => {
+                            if (item.language === $scope.language) {
+                                page.title = item.content;
+                            }
+                        });
+                    };
+                }) ;
+            };
 
 
 

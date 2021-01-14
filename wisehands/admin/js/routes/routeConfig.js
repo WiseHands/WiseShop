@@ -217,7 +217,7 @@
                     when('/categories',{
                         templateUrl:'wisehands/admin/partials/categories.html',
                         controller:'CategoriesController',
-                        activetab: 'productlist'
+                        activetab: 'categories'
                     }).
                     when('/discounts',{
                         templateUrl:'wisehands/admin/partials/discounts.html',

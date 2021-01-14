@@ -317,6 +317,8 @@ PUT     {client}/api/translation/save                        TranslationBucketAP
 # end removing /ua
 *       {client}/server-error                           Application.serverError
 *       {client}/dashboard                              Application.userDashboard
+*       {client}/qrCode                                 Application.qrCode
+
 
 *       {client}/termsofservice                         Application.termsofservice
 *       {client}/privacypolicy                          Application.privacypolicy

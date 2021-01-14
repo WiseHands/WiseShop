@@ -21,7 +21,6 @@ public class TranslationItemDTO extends GenericModel {
 
    @Expose
    @Lob
-   @Column(length = 300000)
    public String content;
 
    @ManyToOne

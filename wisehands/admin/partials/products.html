@@ -1,19 +1,22 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-            <form class="col-xs-8 waves-effect waves-light">
-                <input class="form-control noMarginForSearchInput" type="text" placeholder="{{'products.search' | translate}}" ng-model="query">
-            </form>
-            <a class="col-xs-2 noRightPadding"
-               type="button"
-               href="#/products/new">
-                <i class="fa fa-plus-circle pull-right whiteColor">
-                </i>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+    </div>
+    <div class="nav-title" ng-hide="searchField">
+        <h5>{{'sideNav.Products' | translate}}</h5>
+    </div>
+    <form class=" waves-effect waves-light" ng-show="searchField">
+        <input class="search-orders form-control noMarginForSearchInput" type="text" placeholder="{{'orderList.Search' | translate}}" ng-model="query">
+    </form>
+    <div class="admin-nav-block-btn">
+        <i ng-click="toggle()" ng-hide="searchField" class="nav-search-btn  fa fa-search" aria-hidden="true" ng-model="query"></i>
+        <i ng-click="toggle()" ng-show="searchField" class="nav-search-btn  fa fa-search" aria-hidden="true" ng-model="query" style="color: #039be5"></i>
+        <a class="admin-nav-save-btn"
+           type="button"
+           href="#/products/new">
+            <i class="fa fa-plus-circle pull-right whiteColor">
+            </i>
+        </a>
     </div>
 </nav>
 
@@ -22,14 +25,6 @@
     <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
     <div class="spinner-block">
         <spinner class="center-spinner" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" on-loaded="getResource()"></spinner>
-    </div>
-    <div ng-hide="loading" class="btn-group btn-group-justified col-xs-12" role="group" aria-label="...">
-        <div class="btn-group" role="group">
-            <button type="button" class="btn white-text disabled">{{'products.products' | translate}}</button>
-        </div>
-        <div class="btn-group" role="group">
-            <a href="#/categories" type="button" class="btn secondaryColor white-text">{{'products.categories' | translate}}</a>
-        </div>
     </div>
     <div class="all-products-item" ng-repeat="product in products | filter:search | orderBy:'sortOrder'" on-finish-render="ngRepeatFinished">
         <a href="#/product/details/{{product.uuid}}">

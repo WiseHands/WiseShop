@@ -1,16 +1,13 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-
-            <div class="col-xs-8 text-center">
-                <h5 class="white-text">{{'productDetails.reviews' | translate}}</h5>
-            </div>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
     </div>
+    <div class="nav-title">
+        <h5>{{'productDetails.reviews' | translate}}</h5>
+    </div>
+    <div class="admin-nav-block-btn "></div>
 </nav>
+
 <div class="row text-center">
     <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
              show="loading"></spinner>
@@ -27,8 +24,8 @@
                       ng-class="{reverse: reverse}"></span>
             </p>
             <!--<p ng-click="sortBy('quality')">{{'productReviews.byRating' | translate}}-->
-                <!--<span class="sortorder" ng-show="sortByProperty === 'quality'"-->
-                      <!--ng-class="{reverse: reverse}"></span>-->
+            <!--<span class="sortorder" ng-show="sortByProperty === 'quality'"-->
+            <!--ng-class="{reverse: reverse}"></span>-->
             <!--</p>-->
         </div>
         <div class="admin-feedback-list">
@@ -47,13 +44,36 @@
                         <i ng-class="order.orderFeedback.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
                     </div>
                 </div>
-                <div class="admin-order-card-row">
-                   <h5>{{'singleOrder.FullName' | translate}}: </h5>
-                   <p>{{order.name}}</p>
-                </div>
-                <div class="admin-order-card-row">
-                    <h5>{{'singleOrder.Date' | translate}}: </h5>
-                    <p>{{order.orderFeedback.feedbackTime}}</p>
+
+                <div id="collapse{{$index}}" class="panel-collapse collapse">
+                    <div class="admin-order-card-row admin-order-card-row-comment">
+                        <h5 ng-show="order.comment">{{'singleOrder.Comments' | translate}}:</h5>
+                        <p>{{order.comment}}</p>
+                    </div>
+                    <div  class="feedback-container" ng-repeat="item in order.items">
+                        <div class="product-feedback-info">
+                            <a class="feedback-order-details-image" ng-if="item.productUuid"
+                               href="#/productreviews/{{item.productUuid}}">
+                                <img src="{{item.imagePath}}">
+                                <p>{{item.name}}</p>
+                            </a>
+                            <div class="feedback-stars">
+                                <i ng-class="item.feedbackToOrderItem.quality > 0 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="item.feedbackToOrderItem.quality > 1 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="item.feedbackToOrderItem.quality > 2 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="item.feedbackToOrderItem.quality > 3 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                                <i ng-class="item.feedbackToOrderItem.quality > 4 ? 'fa-star' : 'fa-star-o'" class="fa"></i>
+                            </div>
+                        </div>
+                        <div class="product-feedback-text" ng-show="item.feedbackToOrderItem.review">
+                            <h6>{{'singleOrder.feedbackComment' | translate}}</h6>
+                            <p>{{item.feedbackToOrderItem.review}}</p>
+                        </div>
+                    </div>
+                    <div class="link-to-order-btn">
+                        <a href="#/details/{{order.uuid}}">{{'feedbackList.linkToOrder' | translate}}</a>
+                    </div>
+                    <!--</a>-->
                 </div>
             </div>
         </div>

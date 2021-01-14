@@ -274,10 +274,6 @@ public class Application extends Controller {
             renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
         }
 
-        List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
-        products = ProductDTO.find(query, shop, false, true).fetch();
-
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
@@ -291,6 +287,10 @@ public class Application extends Controller {
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }
+
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true).fetch();
 
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
@@ -483,16 +483,26 @@ public class Application extends Controller {
         render(shop, language);
     }
 
-    public static void selectAddress(String client) {
+    public static void selectAddress(String client, String language) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
         System.out.println("LanguageForShop" + language);
-        render(shop, language);
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+
+        }
+        List<CategoryDTO> categories = shop.getActiveCategories(language);
+        shop.pagesList = translationPageList;
+        render(shop, categories, language);
     }
 
     public static void pageOld(String client, String uuid) {
@@ -529,7 +539,13 @@ public class Application extends Controller {
 
     private static void generateCookieIfNotPresent(ShopDTO shop) {
         String agent = request.headers.get("user-agent").value();
-        System.out.println("generateCookieIfNotPresent => " + shop.shopName);
+        if (shop != null) {
+            System.out.println("generateCookieIfNotPresent => " + shop.shopName);
+            if (shop.shopName.isEmpty()) {
+                System.out.println("generateCookieIfNotPresent => " + shop.domain);
+            }
+        }
+
         Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
         if(userTokenCookie == null) {
             ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
@@ -538,7 +554,10 @@ public class Application extends Controller {
             System.out.println("prepare to generateTokenForCookie => " + agent);
             String token = generateTokenForCookie(shoppingCart.uuid, agent);
             System.out.println("generateTokenForCookie => " + token);
-            response.setCookie("JWT_TOKEN", token);
+            //String duration = "30mn";
+            //response.setCookie("JWT_TOKEN", token, duration);
+            Integer maxAge = 1800;
+            response.setCookie("JWT_TOKEN", token, shop.domain, "/", maxAge, false);
         }
     }
 
@@ -570,6 +589,7 @@ public class Application extends Controller {
         }
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
+        String shopName = shop.shopName;
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
@@ -583,7 +603,7 @@ public class Application extends Controller {
         }
 
         String currency = "UAH";
-        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language);
+        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language, shopName);
     }
 
     public static void shoppingCart(String client, String uuid, String language){
@@ -626,7 +646,7 @@ public class Application extends Controller {
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
         String orderMessage = Messages.get("page.done.delivery.order.message");
-        System.out.println("orderMessage " + orderMessage);
+        System.out.println("orderMessage " + delivery.orderMessage);
         if(delivery.orderMessage == null || delivery.orderMessage.equals("")) {
             delivery.orderMessage = orderMessage;
             delivery = delivery.save();
@@ -811,5 +831,8 @@ public class Application extends Controller {
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String language = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         renderTemplate("app/views/shopLanding/shopLanding.html", language);
+    }
+    public static void qrCode(String client){
+        renderTemplate("Application/qrCode.html");
     }
 }

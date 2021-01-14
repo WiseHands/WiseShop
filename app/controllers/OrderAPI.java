@@ -1,5 +1,6 @@
 package controllers;
 
+import emails.MailOrder;
 import enums.*;
 import jobs.SendSmsJob;
 import json.shoppingcart.LineItem;
@@ -10,6 +11,8 @@ import models.*;
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import play.Play;
 import play.db.jpa.JPA;
 import play.i18n.Lang;
 import play.i18n.Messages;
@@ -21,15 +24,17 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static util.ShoppingCartUtil._getCartUuid;
 
 public class OrderAPI extends AuthController {
+    private static final boolean isDevEnv = Boolean.parseBoolean(Play.configuration.getProperty("dev.env"));
     private static final String CLASSSNAME = "OrderAPI";
-    private  static final Double WISEHANDS_COMISSION = -0.0725;
-    private  static final int PAGE_SIZE = 12;
+    private static final Double WISEHANDS_COMISSION = -0.0725;
+    private static final int PAGE_SIZE = 12;
 
-    private class DeliveryType {
+    private static class DeliveryType {
         private static final String COURIER = "COURIER";
     }
 
@@ -72,6 +77,26 @@ public class OrderAPI extends AuthController {
         }
     }
 
+    private static void productParamsInitialization(OrderDTO order, OrderItemDTO orderItem, ProductDTO product, LineItem lineItem, int quantity) {
+        orderItem.productUuid = product.uuid;
+        orderItem.name = product.name;
+        orderItem.description = product.description;
+        orderItem.price = product.price;
+        orderItem.fileName = product.fileName;
+        orderItem.quantity = quantity;
+        orderItem.orderUuid = order.uuid;
+        orderItem.imagePath = lineItem.imagePath;
+    }
+
+    private static void createAddition(List<AdditionOrderDTO> additionList, AdditionLineItemDTO addition, Double totalCost) {
+        AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
+        additionOrderDTO.title = addition.title;
+        additionOrderDTO.price = addition.price;
+        additionOrderDTO.quantity = addition.quantity;
+        totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
+        additionList.add(additionOrderDTO);
+    }
+
     private static OrderItemListResult _parseOrderItemsList(List<LineItem> items, OrderDTO order) {
         List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
         Double totalCost = Double.parseDouble("0");
@@ -81,26 +106,13 @@ public class OrderAPI extends AuthController {
             ProductDTO product = ProductDTO.find("byUuid", lineItem.productId).first();
             int quantity = lineItem.quantity;
 
-            orderItem.productUuid = product.uuid;
-            orderItem.name = product.name;
-            orderItem.description = product.description;
-            orderItem.price = product.price;
-            orderItem.fileName = product.fileName;
-            orderItem.quantity = quantity;
-            orderItem.orderUuid = order.uuid;
-            orderItem.imagePath = lineItem.imagePath;
+            productParamsInitialization(order, orderItem, product, lineItem, quantity);
 
             List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
             for(AdditionLineItemDTO addition : lineItem.additionList){
-                AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
-                additionOrderDTO.title = addition.title;
-                additionOrderDTO.price = addition.price;
-                additionOrderDTO.quantity = addition.quantity;
-                totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
-                additionList.add(additionOrderDTO);
+                createAddition(additionList, addition, totalCost);
             }
             orderItem.additionsList = additionList;
-
 
             orderItemList.add(orderItem);
             totalCost += product.price * orderItem.quantity;
@@ -110,13 +122,34 @@ public class OrderAPI extends AuthController {
         return result;
     }
 
+    private static String getLanguagePartWithoutLocale(String language) {
+        String[] strings = language.split("_");
+        return strings[0];
+    }
+
+    public static String getTranslatedShopName(ShopDTO shop, String language) {
+        List<TranslationItemDTO> translationList = shop.shopNameTextTranslationBucket.translationList;
+        TranslationItemDTO adminTranslationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(language)).collect(Collectors.toList()).get(0);
+        if (!translationList.isEmpty() && !adminTranslationItemDTO.content.isEmpty()) {
+            return adminTranslationItemDTO.content;
+        }
+        return shop.shopName;
+    }
+
     public static void create(String client, String chosenLanguage) throws Exception {
-        System.out.println("chosenLanguage in order creating => " + chosenLanguage);
+        String jsonCart = "";
+        if (!request.params.get("cart").isEmpty()) {
+            jsonCart = request.params.get("cart");
+        }
+
+        System.out.println("create order with body -> " + jsonCart);
         ShopDTO shop = _getShop(client);
         _applyLocale(shop);
 
         String cartId = _getCartUuid(request);
         ShoppingCartDTO shoppingCart = (ShoppingCartDTO) ShoppingCartDTO.find("byUuid", cartId).fetch().get(0);
+
+        validationShoppingCart(jsonCart, shoppingCart);
 
         String agent = request.headers.get("user-agent").value();
         String ip = _getUserIp();
@@ -133,6 +166,7 @@ public class OrderAPI extends AuthController {
             clientLanguage = strings[0];
 
         }
+
 
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
         order.clientLanguage = clientLanguage;
@@ -205,26 +239,36 @@ public class OrderAPI extends AuthController {
         }
         order.feedbackRequestState = FeedbackRequestState.REQUEST_NOT_SEND;
         order = order.save();
+
         System.out.println(CLASSSNAME + " order saved, total: " + order.total);
 
         clearShoppingCart(shoppingCart);
         JPA.em().getTransaction().commit();
         new SendSmsJob(order, shop).now();
-        try {
-            String htmlContent = generateHtmlEmailForNewOrder(shop, order);
-            int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
-            String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-            List<String> emailList = new ArrayList<>();
-            emailList.add(shop.contact.email);
-            emailList.add(order.email);
-            mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
-        } catch (Exception e) {
-            System.out.println("OrderAPI create mail error" + e.getCause() + e.getStackTrace());
-        }
+
+        int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+        String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
+        String htmlContentForAdmin = generateHtmlEmailForNewOrder(shop, order, parsedLanguage);
+        String shopName = getTranslatedShopName(shop, parsedLanguage);
+        String adminSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+        List<String> adminEmailList = new ArrayList<>();
+        adminEmailList.add(shop.contact.email);
+        mailSender.sendEmail(adminEmailList, adminSubject, htmlContentForAdmin, shop.domain);
+
+        parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
+        String htmlContentForClient = generateHtmlEmailForNewOrder(shop, order, parsedLanguage);
+        shopName = getTranslatedShopName(shop, parsedLanguage);
+        String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+        List<String> clientEmailList = new ArrayList<>();
+        clientEmailList.add(order.email);
+        mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
+
+
 
         JSONObject json = new JSONObject();
         Boolean isOrderPaidByCreditCart = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
         if(isOrderPaidByCreditCart) {
+
             try {
                 String payButton = liqPay.payButton(order, shop);
 
@@ -249,6 +293,60 @@ public class OrderAPI extends AuthController {
         }
     }
 
+    private static void validationShoppingCart(String jsonCart, ShoppingCartDTO shoppingCart) throws ParseException {
+        if (jsonCart.isEmpty() || shoppingCart == null) {
+            return;
+        }
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(jsonCart);
+        if (jsonBody == null) {
+            return;
+        }
+        Set<String> keys = jsonBody.keySet();
+        for (String fieldName : keys) {
+            switch (fieldName) {
+                case "clientName":
+                    if (shoppingCart.clientName == null) {
+                        shoppingCart.clientName = (String) jsonBody.get("clientName");
+                        shoppingCart.save();
+                    }
+                case "clientEmail":
+                    if (shoppingCart.clientEmail == null) {
+                        shoppingCart.clientEmail = (String) jsonBody.get("clientEmail");
+                        shoppingCart.save();
+                    }
+                case "clientPhone":
+                    if (shoppingCart.clientPhone == null) {
+                        shoppingCart.clientPhone = (String) jsonBody.get("clientPhone");
+                        shoppingCart.save();
+                    }
+                case "clientCity":
+                    if (shoppingCart.clientCity == null) {
+                        shoppingCart.clientCity = (String) jsonBody.get("clientCity");
+                        shoppingCart.save();
+                    }
+                case "clientPostDepartmentNumber":
+                    if (shoppingCart.clientPostDepartmentNumber == null) {
+                        shoppingCart.clientPostDepartmentNumber = (String) jsonBody.get("clientPostDepartmentNumber");
+                        shoppingCart.save();
+                    }
+                case "deliveryType":
+                    if (shoppingCart.deliveryType == null) {
+                        shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.valueOf((String) jsonBody.get("deliveryType"));
+                        shoppingCart.save();
+                    }
+                case "paymentType":
+                    if (shoppingCart.paymentType == null) {
+                        shoppingCart.paymentType = ShoppingCartDTO.PaymentType.valueOf((String) jsonBody.get("paymentType"));
+                        shoppingCart.save();
+                    }
+            }
+        }
+//        ArrayList<String> list = new ArrayList<String>(map.keySet());
+        System.out.println("validationShoppingCart jsonBody => " + keys);
+
+    }
+
     private static void sendMessageIfLowBalance(ShopDTO shop) throws Exception {
         if (shop.locale.equals("uk_UA")){
             Lang.change("uk_UA");
@@ -259,10 +357,11 @@ public class OrderAPI extends AuthController {
         if (shop.locale.equals("pl_PL")){
             Lang.change("pl_PL");
         }
-        for (UserDTO user : shop.userList) {
+/*        for (UserDTO user : shop.userList) {
             smsSender.sendSms(user.phone, Messages.get("balance.transaction.low.shop.balance"));
-            mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
-        }
+        }*/
+        smsSender.sendSms(shop.contact.phone, Messages.get("balance.transaction.low.shop.balance"));
+        mailSender.sendEmailLowShopBalance(shop, Messages.get("balance.transaction.low.shop.balance"));
     }
 
     static void clearShoppingCart(ShoppingCartDTO shoppingCart){
@@ -407,12 +506,17 @@ public class OrderAPI extends AuthController {
         order.feedbackRequestState = FeedbackRequestState.PENDING_REQUEST;
         order.save();
 
-        Lang.change(order.clientLanguage);
-        System.out.println("order.clientLanguage => "+ order.clientLanguage);
-        String titleForMail = Messages.get("feedback.email.notification.to.client.leave.feedback", shop.shopName, order.name);
-
+        Lang.change(order.chosenClientLanguage);
+        System.out.println("order.chosenClientLanguage => "+ order.chosenClientLanguage);
+        int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
         try {
-            mailSender.sendEmailForFeedbackToOrder(shop, order, titleForMail , order.clientLanguage);
+
+            String htmlContentForClient = generateHtmlEmailForFeedbackToOrder(shop, order, order.chosenClientLanguage);
+            String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
+            List<String> clientEmailList = new ArrayList<>();
+            clientEmailList.add(order.email);
+            mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
+
             JsonResponse jsonHandle = new JsonResponse(420, "feedback was sent");
             renderJSON(json(jsonHandle));
         } catch (Exception e) {
@@ -488,6 +592,8 @@ public class OrderAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
+        int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+
         String liqpayResponse = new String(Base64.decodeBase64(data));
         System.out.println(liqpayResponse);
         JSONParser parser = new JSONParser();
@@ -496,37 +602,47 @@ public class OrderAPI extends AuthController {
         try {
             String orderId = String.valueOf(jsonObject.get("order_id"));
 
-            OrderDTO order = OrderDTO.find("byUuid",orderId).first();
-            if(order == null) {
+            OrderDTO order = OrderDTO.find("byUuid", orderId).first();
+            if (order == null) {
                 ok();
             }
-            int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
 
             String status = String.valueOf(jsonObject.get("status"));
-            if (status.equals("failure") || status.equals("wait_accept")){
+            if (status.equals("failure")) {
                 order.state = OrderState.PAYMENT_ERROR;
                 order.paymentState = PaymentState.PAYMENT_ERROR;
                 order = order.save();
                 String smsText = Messages.get("payment.error.total", order.name, order.total);
-                for (UserDTO user : shop.userList) {
+/*                for (UserDTO user : shop.userList) {
                     smsSender.sendSms(user.phone, smsText);
-                }
+                }*/
+                smsSender.sendSms(shop.contact.phone, smsText);
                 smsSender.sendSms(order.phone, smsText);
-                String htmlContent = generateHtmlEmailForOrderPaymentError(shop, order);
-                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-                List<String> emailList = new ArrayList<>();
-                emailList.add(shop.contact.email);
-                emailList.add(order.email);
-                mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
 
-                System.out.println(subject);
+                String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
+                String shopName = getTranslatedShopName(shop, parsedLanguage);
+                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                String htmlContent = generateHtmlEmailForOrderPaymentError(shop, order, parsedLanguage);
+                List<String> adminEmailList = new ArrayList<>();
+                adminEmailList.add(shop.contact.email);
+                mailSender.sendEmail(adminEmailList, subject, htmlContent, shop.domain);
+                System.out.println("liqpay message about payment error was sent to: " + shop.contact.email);
+
+                parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
+                shopName = getTranslatedShopName(shop, parsedLanguage);
+                subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                htmlContent = generateHtmlEmailForOrderPaymentError(shop, order, parsedLanguage);
+                List<String> clientEmailList = new ArrayList<>();
+                clientEmailList.add(order.email);
+                mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
+                System.out.println("liqpay message about payment error was sent to: " + order.email);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
                 System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
 
                 ok();
-            } else {
+            } else if (status.equals("success")) {
                 order.state = OrderState.PAYED;
                 order.paymentState = PaymentState.PAYED;
                 order = order.save();
@@ -545,14 +661,73 @@ public class OrderAPI extends AuthController {
 
 
                 String smsText = Messages.get("payment.done.total", order.name, order.total);
-                smsSender.sendSms(order.phone, smsText);
                 smsSender.sendSms(shop.contact.phone, smsText);
-                String htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order);
-                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
-                List<String> emailList = new ArrayList<>();
-                emailList.add(shop.contact.email);
-                emailList.add(order.email);
-                mailSender.sendEmail(emailList, subject, htmlContent, shop.domain);
+                smsSender.sendSms(order.phone, smsText);
+
+                String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
+                String shopName = getTranslatedShopName(shop, parsedLanguage);
+                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                String htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
+                List<String> adminEmailList = new ArrayList<>();
+                adminEmailList.add(shop.contact.email);
+                mailSender.sendEmail(adminEmailList, subject, htmlContent, shop.domain);
+                System.out.println("liqpay message about success payment was sent to: " + shop.contact.email);
+
+                parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
+                shopName = getTranslatedShopName(shop, parsedLanguage);
+                subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
+                List<String> clientEmailList = new ArrayList<>();
+                clientEmailList.add(order.email);
+                mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
+                System.out.println("liqpay message about success payment was sent to: " + order.email);
+
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                System.out.println("LiqPay sent response for order " + order.name + " as " + status + " at " + dateFormat.format(date));
+
+                ok();
+            } else if (status.equals("wait_accept")) {
+                order.state = OrderState.PAYMENT_WAIT_ACCEPT;
+                order.paymentState = PaymentState.PAYMENT_WAIT_ACCEPT;
+                order = order.save();
+
+                Double amount = order.total * WISEHANDS_COMISSION;
+                BalanceDTO balance = shop.balance;
+
+                BalanceTransactionDTO tx = new BalanceTransactionDTO(amount, order, balance);
+
+                tx.state = OrderState.PAYMENT_WAIT_ACCEPT;
+                tx.save();
+
+                balance.balance += tx.amount;
+                balance.addTransaction(tx);
+                balance.save();
+
+
+                String smsTextToAdmin = Messages.get("payment.done.wait.accept.total", order.name, order.total);
+                String smsText = Messages.get("payment.done.total", order.name, order.total);
+
+                smsSender.sendSms(shop.contact.phone, smsTextToAdmin);
+                smsSender.sendSms(order.phone, smsText);
+
+                String parsedLanguage = getLanguagePartWithoutLocale(shop.locale);
+                String shopName = getTranslatedShopName(shop, parsedLanguage);
+                String subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                String htmlContent = generateHtmlEmailForOrderPaymentWaitAccept(shop, order, parsedLanguage);
+                List<String> adminEmailList = new ArrayList<>();
+                adminEmailList.add(shop.contact.email);
+                mailSender.sendEmail(adminEmailList, subject, htmlContent, shop.domain);
+                System.out.println("LiqPay message about payment status was sent to: " + shop.contact.email);
+
+                parsedLanguage = getLanguagePartWithoutLocale(order.chosenClientLanguage);
+                shopName = getTranslatedShopName(shop, parsedLanguage);
+                subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
+                htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
+                List<String> clientEmailList = new ArrayList<>();
+                clientEmailList.add(order.email);
+                mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
+                System.out.println("LiqPay message about payment status was sent to: " + order.email);
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -568,7 +743,7 @@ public class OrderAPI extends AuthController {
 
 
     }
-    private static String generateHtmlEmailForOrderPaymentError(ShopDTO shop, OrderDTO order) {
+    private static String generateHtmlEmailForOrderPaymentError(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_error.html");
         Template template = Template.parse(templateString);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -576,7 +751,7 @@ public class OrderAPI extends AuthController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date resultDate = new Date(order.time);
 
-        Lang.change(shop.locale);
+        Lang.change(changeLanguage);
 
         String paymentError = Messages.get("payment.error");
         map.put("paymentError", paymentError);
@@ -587,11 +762,10 @@ public class OrderAPI extends AuthController {
         String labelPaymentStatus = Messages.get("mail.label.paymentStatus");
         map.put("labelPaymentStatus", labelPaymentStatus);
 
-
         String rendered = template.render(map);
         return rendered;
     }
-    private static String generateHtmlEmailForOrderPaymentDone(ShopDTO shop, OrderDTO order) {
+    private static String generateHtmlEmailForOrderPaymentDone(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_done.html");
         Template template = Template.parse(templateString);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -599,7 +773,7 @@ public class OrderAPI extends AuthController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date resultDate = new Date(order.time);
 
-        Lang.change(shop.locale);
+        Lang.change(changeLanguage);
 
         String paymentDone = Messages.get("payment.done");
         map.put("paymentDone", paymentDone);
@@ -613,7 +787,56 @@ public class OrderAPI extends AuthController {
         String rendered = template.render(map);
         return rendered;
     }
-    private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order) {
+    private static String generateHtmlEmailForOrderPaymentWaitAccept(ShopDTO shop, OrderDTO order, String changeLanguage) {
+        String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_wait_accept.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        Date resultDate = new Date(order.time);
+
+        Lang.change(changeLanguage);
+
+        String paymentDoneWaitAccept = Messages.get("payment.done.wait.accept");
+        map.put("paymentDoneWaitAccept", paymentDoneWaitAccept);
+        map.put("shopName", shop.shopName);
+
+        String labelOrderPayment = Messages.get("mail.label.labelOrderPayment");
+        map.put("labelOrderPayment", labelOrderPayment);
+        String labelPaymentStatus = Messages.get("mail.label.paymentStatus");
+        map.put("labelPaymentStatus", labelPaymentStatus);
+
+        String rendered = template.render(map);
+        return rendered;
+    }
+    private static String generateHtmlEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String changeLanguage) {
+        String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_feedback_to_order.html");
+        Template template = Template.parse(templateString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("shopName", shop.shopName);
+        map.put("orderUuid", order.uuid);
+        String path = shop.domain;
+        if(isDevEnv) {
+            path = path + ":3334";
+        }
+        map.put("shopDomain", path);
+
+        Lang.change(changeLanguage);// set user language
+
+        String hiClient = Messages.get("feedback.main.label", order.name);
+        map.put("hiClient", hiClient);
+
+        String helpUs = Messages.get("feedback.email.text", shop.shopName);
+        map.put("helpUs", helpUs);
+
+        String writeFeedback = Messages.get("feedback.write.feedback");
+        map.put("writeFeedback", writeFeedback);
+
+        String rendered = template.render(map);
+        return rendered;
+
+    }
+    private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order, String language) {
 
         Filter.registerFilter(new Filter("total"){
             @Override
@@ -627,38 +850,32 @@ public class OrderAPI extends AuthController {
 
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_form.html");
         Template template = Template.parse(templateString);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-        Date resultDate = new Date(order.time);
+        MailOrder mailOrder = new MailOrder(order, shop, getLanguagePartWithoutLocale(language));
 
-        int orderListSize = OrderDTO.find("byShop", shop).fetch().size();
+        map.put("orderNumber", mailOrder.orderNumber);
+        map.put("name", mailOrder.clientName);
+        map.put("shopName", mailOrder.shopName);
+        map.put("phone", mailOrder.phone);
+        map.put("email", mailOrder.email);
+        map.put("deliveryType", mailOrder.deliveryType);
+        map.put("paymentType", mailOrder.paymentType);
+        map.put("clientAddressCity", mailOrder.clientAddressCity);
+        map.put("clientAddressStreetName", mailOrder.clientAddressStreetName);
+        map.put("clientPostDepartmentNumber", mailOrder.clientPostDepartmentNumber);
+        map.put("total", mailOrder.total);
+        map.put("uuid", mailOrder.uuid);
+        map.put("time", mailOrder.time);
+        map.put("comment", mailOrder.comment);
+        map.put("orderItems", mailOrder.orderItemList);
+        map.put("clientAddressBuildingNumber", mailOrder.clientAddressBuildingNumber);
+        map.put("clientAddressApartmentEntrance", mailOrder.clientAddressApartmentEntrance);
+        map.put("clientAddressApartmentEntranceCode", mailOrder.clientAddressApartmentEntranceCode);
+        map.put("clientAddressApartmentFloor", mailOrder.clientAddressApartmentFloor);
+        map.put("clientAddressApartmentNumber", mailOrder.clientAddressApartmentNumber);
 
-        DecimalFormat format = new DecimalFormat("0.##");
-        String total = format.format(order.total);
-
-        map.put("orderNumber", orderListSize);
-        map.put("shopName", shop.shopName);
-        map.put("name", order.name);
-        map.put("phone", order.phone);
-        map.put("email", order.email);
-        map.put("deliveryType", order.deliveryType);
-        map.put("paymentType", order.paymentType);
-        map.put("clientAddressCity", order.clientCity);
-        map.put("clientAddressStreetName", order.clientAddressStreetName);
-        map.put("clientPostDepartmentNumber", order.clientPostDepartmentNumber);
-        map.put("total", total);
-        map.put("uuid", order.uuid);
-        map.put("time", simpleDateFormat.format(resultDate));
-        map.put("comment", order.comment);
-        map.put("orderItems", order.items);
-        map.put("clientAddressBuildingNumber", order.clientAddressBuildingNumber);
-        map.put("clientAddressApartmentEntrance", order.clientAddressApartmentEntrance);
-        map.put("clientAddressApartmentEntranceCode", order.clientAddressApartmentEntranceCode);
-        map.put("clientAddressApartmentFloor", order.clientAddressApartmentFloor);
-        map.put("clientAddressApartmentNumber", order.clientAddressApartmentNumber);
-
-        Lang.change(shop.locale);
+        Lang.change(language);
 
         String labelName = Messages.get("mail.label.name");
         map.put("labelName", labelName);
@@ -730,6 +947,9 @@ public class OrderAPI extends AuthController {
         map.put("cashOnDeliveryPaymentType", cashOnDeliveryPaymentType);
         String creditCardDeliveryPaymentType = Messages.get("mail.label.creditCardDeliveryPaymentType");
         map.put("creditCardDeliveryPaymentType", creditCardDeliveryPaymentType);
+
+        String labelCurrencyUah = Messages.get("mail.label.currency.uah");
+        map.put("labelCurrencyUah", labelCurrencyUah);
 
         String rendered = template.render(map);
         return rendered;
