@@ -1,0 +1,118 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+  <div class="container-fluid">
+    <div class="row vcentering">
+      <div class="col-xs-2 noPaddingLeft">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i
+          class="fa fa-bars"></i></a>
+      </div>
+      <div class="col-xs-8 text-center white-text">
+        <h5>
+          {{'selectProductAdditions.title' | translate}}
+        </h5>
+      </div>
+      <div class="col-xs-2 noRightPadding">
+        <button class="fa fa-save whiteColor pull-right saveProductButtonStyling"
+                ng-click="saveAdditions()">
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="admin-container addition-for-product">
+  <ul class="admin-breadcrumb">
+    <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
+    <li><a href="#/products">{{'productBreadCrumb.products' | translate}}</a></li>
+    <li><a href="#/product/details/{{product.uuid}}">{{product.name}}</a></li>
+    <li>{{'selectProductAdditions.title' | translate}}</li>
+  </ul>
+</div>
+<div class="admin-container addition-for-product">
+  <div class="admin-column product-basic">
+    <div class="admin-card hoverable">
+      <div class="addition-title-img">
+        <h4>{{'editProduct.general' | translate}}</h4>
+        <img class="addition-product-img"
+             src="/public/product_images/{{activeShop}}/{{product.mainImage.filename}}"
+             class="img-responsive z-depth-1 hoverable">
+      </div>
+      <p for="name">{{'addNewProduct.productName' | translate}}</p>
+      <h5 id="name" class="product-title">{{product.name}}</h5>
+      <p for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</p>
+      <h5 id="price">{{product.price}} {{product.priceWithAdditions > 0 ? ('+ ') + (product.priceWithAdditions) +
+        (' ') + ('selectAdditions.additionsPrice' | translate) : ''}}</h5>
+
+      <p for="description">{{'addNewProduct.productDescription' | translate}}</p>
+      <h5 id="description">{{product.description}}</h5>
+      <p for="category">{{'productDetails.category' | translate}}</p>
+      <h5 id="category">{{product.categoryName}}</h5>
+    </div>
+  </div>
+  <div class="admin-column" ng-show="availableAdditions != 0">
+    <div _ngcontent-addition-help class="content-wrapper collapsed" data-toggle="collapse" data-target="#collapseAdditionHelp">
+      <div _ngcontent-addition-help class="heading">
+        <h5 class="addition-no-selected how-to-use">{{'selectAdditions.additionsHowToUseHeader' | translate}}</h5>
+        <button _ngcontent-addition-help aria-label="Collapse undefined Section"></button>
+      </div>
+    </div>
+    <div id="collapseAdditionHelp" class="panel-collapse collapse">
+      <div class="qr-list-container">
+        <div class="admin-card selected-addition-item hoverable"
+             ng-click="selectAdditionHelp(this)" ng-class="{'additionSelected': addition.isSelected}">
+          <span class="material-icons check-circle" ng-class="{'check-visible': addition.isSelected}">
+              check_circle
+          </span>
+          <img class="addition-img" src="wisehands/assets/images/main_logo_black.png">
+          <div class="selected-addition-info">
+            <p class="addition-name">{{'selectAdditions.additionsHowToUseAdditionName' | translate}}</p>
+            <p class="addition-price">99</p>
+          </div>
+          <div class="selected-addition-checkbox" ng-click="selectDefaultAdditionHelp($event, this)">
+            <input type="checkbox" class="filled-in checkBoxStyling"
+                   id="additionUuid" ng-model="addition.isDefault"/>
+            <label for="additionUuid">{{'editProduct.isDefault' | translate}}</label>
+          </div>
+        </div>
+        <div class="addition-help-text">
+          <p ng-show="!addition.isDefault && !addition.isSelected">{{'selectAdditions.additionsHowToUseNothingIsSelected' | translate}}</p>
+          <p ng-show="addition.isSelected && !addition.isDefault">{{'selectAdditions.additionsHowToUseSelectedAddition' | translate}}</p>
+          <p ng-show="addition.isDefault">{{'selectAdditions.additionsHowToUseAdditionByDefault' | translate}}</p>
+        </div>
+        <span ng-show="!addition.isDefault && !addition.isSelected" class="material-icons helper-icons">
+            touch_app
+            mouse
+        </span>
+      </div>
+      <p class="product-default-info">{{'editProduct.isDefaultDescription' | translate}}</p>
+    </div>
+    <h4 class="addition-no-selected">{{'selectAdditions.noSelectedAdditions' | translate}}</h4>
+    <div class="qr-list-container" ng-show="availableAdditions">
+      <div ng-repeat="addition in availableAdditions"
+           on-finish-render="ngRepeatFinished">
+        <div class="admin-card selected-addition-item hoverable"
+             ng-click="selectAddition(this)" ng-class="{additionSelected: addition.isSelected}">
+          <span class="material-icons check-circle" ng-class="{'check-visible': addition.isSelected === true}">
+              check_circle
+          </span>
+          <img class="addition-img" src="{{addition.imagePath}}">
+          <div class="selected-addition-info">
+            <p title="{{addition.title}}" class="addition-name">{{addition.title}}</p>
+            <p title="{{addition.price}}" class="addition-price">{{addition.price}}</p>
+          </div>
+          <div class="selected-addition-checkbox" ng-click="selectDefaultAddition($event, this)">
+            <input type="checkbox" class="filled-in checkBoxStyling"
+                   id="{{addition.uuid}}" ng-model="addition.isDefault"/>
+            <label for="{{addition.uuid}}">{{'editProduct.isDefault' | translate}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="admin-column" ng-show="availableAdditions == 0">
+    <h4 class="addition-no-selected">{{'selectAdditions.noCreatedAdditions' | translate}}</h4>
+    <div class="qr-button">
+      <a class="save-button ng-binding" type="button" href="#/newaddition">
+        {{'additionNew.create' | translate}}
+      </a>
+    </div>
+  </div>
+</div>

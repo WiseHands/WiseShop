@@ -27,6 +27,12 @@ public class ProductDTO extends GenericModel {
     public Double price;
 
     @Expose
+    public Double oldPrice;
+
+    @Expose
+    public Double priceWithAdditions;
+
+    @Expose
     public String fileName;
 
     @ManyToOne
@@ -43,9 +49,6 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     public Integer sortOrder;
-
-    @Expose
-    public Double oldPrice;
 
     @Expose
     public Boolean isActive;
@@ -70,18 +73,22 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     @OneToMany
-    public List<AdditionDTO> additions;
+    public List<SelectedAdditionDTO> selectedAdditions;
+
+    @Expose
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<SelectedAdditionDTO> defaultAdditions;
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)
     public List<FeedbackDTO> feedbackList;
 
     @Expose
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(orphanRemoval=true)
     public TranslationBucketDTO productNameTextTranslationBucket;
 
     @Expose
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(orphanRemoval=true)
     public TranslationBucketDTO productDescriptionTextTranslationBucket;
 
     public void addFeedback(FeedbackDTO orderFeedback) {
@@ -115,6 +122,9 @@ public class ProductDTO extends GenericModel {
 
     public String formatDecimal() {
         Double number = this.price;
+        if(this.priceWithAdditions != null){
+            number = number + this.priceWithAdditions;
+        }
         float epsilon = 0.004f; // 4 tenths of a cent
         if (Math.abs(Math.round(number) - number) < epsilon) {
             return String.format("%10.0f", number); // sdb
@@ -135,4 +145,5 @@ public class ProductDTO extends GenericModel {
         }
         return "";
     }
+
 }

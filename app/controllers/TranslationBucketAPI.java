@@ -40,6 +40,18 @@ public class TranslationBucketAPI extends AuthController {
         translationBucket.save();
     }
 
+    public static void createTranslationBucketForAdditionName() throws Exception {
+        String additionUuid = request.params.get("uuid");
+        System.out.println("createTranslationBucketForAdditionName => " + additionUuid);
+        AdditionDTO addition = AdditionDTO.findById(additionUuid);
+        if (addition.additionNameTranslationBucket == null){
+            TranslationBucketDTO translationBucket = createTranslationBucket();
+            addition.additionNameTranslationBucket = translationBucket;
+            addition.save();
+        }
+        renderJSON(json(addition.additionNameTranslationBucket));
+    }
+
     public static void createTranslationBucketForProductName() throws Exception {
         String productUuid = request.params.get("uuid");
         System.out.println("createTranslationBucketForProductDescription " + productUuid);
@@ -121,8 +133,6 @@ public class TranslationBucketAPI extends AuthController {
         renderJSON(json(contact.addressStreetTextTranslationBucket));
     }
     public static void createTranslationBucketForShopName(String uuid) throws Exception {
-        String pageUuid = request.params.get("uuid");
-        System.out.println("createTranslationBucketForShopName " + pageUuid);
         ShopDTO shop = ShopDTO.findById(uuid);
         if (shop.shopNameTextTranslationBucket == null){
             TranslationBucketDTO translationBucket = createTranslationBucket();

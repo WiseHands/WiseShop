@@ -1,4 +1,5 @@
 #{set language:language /}
+#{set qr_uuid:qr_uuid /}
 <!DOCTYPE html>
 <html   xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -15,7 +16,7 @@
     <script>
         new WOW().init();
     </script>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
 </head>
 <style>
@@ -72,7 +73,13 @@
     <div class="done-text wow fadeInUp" data-wow-delay="0.5s">
         <p>${delivery.orderMessage}</p>
     </div>
-    <a href="/${language}/shop" class="wow fadeInUp" data-wow-delay="0.5s"><button type="button">&{'gotomain'}</button></a>
+    #{if qr_uuid }
+        <a href="/${language}/shop?qr_uuid=${qr_uuid}" class="wow fadeInUp" data-wow-delay="0.5s">
+    #{/if} #{else}
+        <a href="/${language}/shop" class="wow fadeInUp" data-wow-delay="0.5s">
+    #{/else}
+      <button type="button">&{'gotomain'}</button>
+    </a>
 </div>
 #{/verbatim}
 <script src="wisehands/assets/js/jquery-2.2.3.min.js"></script>

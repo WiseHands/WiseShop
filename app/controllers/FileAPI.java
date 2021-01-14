@@ -26,6 +26,10 @@ public class FileAPI extends AuthController {
 
         List<Upload> photos = (List<Upload>) request.args.get("__UPLOADS");
 
+        if (photos == null) {
+            return;
+        }
+
         Upload photo = photos.get(0);
         String filename = UUID.randomUUID()+".jpg";
 

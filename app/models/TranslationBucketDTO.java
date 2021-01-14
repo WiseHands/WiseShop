@@ -1,6 +1,7 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import json.shoppingcart.LineItem;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
@@ -28,6 +29,9 @@ public class TranslationBucketDTO extends GenericModel {
     public ProductDTO product;
 
     @OneToOne
+    public AdditionDTO addition;
+
+    @OneToOne
     public PageConstructorDTO pageConstructor;
 
     @OneToOne
@@ -35,6 +39,12 @@ public class TranslationBucketDTO extends GenericModel {
 
     @OneToOne
     public ShopDTO shop;
+
+    @OneToOne
+    public LineItem lineItem;
+
+    @OneToOne
+    public AdditionLineItemDTO additionLineItem;
 
     public void addTranslationItem(TranslationItemDTO translationItem) {
         if(this.translationList == null) {

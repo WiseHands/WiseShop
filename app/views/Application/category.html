@@ -2,6 +2,7 @@
 #{set pageList:pageList /}
 #{set language:language /}
 #{set categories:categories /}
+#{set qr_uuid:qr_uuid /}
 <style>
     .category-block {
         ;
@@ -141,14 +142,20 @@
     function setDelayShowCart() {
         document.querySelector(".cart-float").style.display = 'none';
     }
-    function buyStart(uuid) {
+    function buyStart(product) {
         if(!window.IS_SHOP_OPENED) {
             if(window.MESSAGE) {
                 toastr.warning(MESSAGE);
             }
             return;
         }
-        fetch('/api/cart?uuid=' + uuid, {
+        let url;
+        if (product.qrUuid) {
+            url = '/api/cart?uuid=' + product.uuid + '&qr_uuid=' + product.qrUuid;
+        } else {
+            url = '/api/cart?uuid=' + product.uuid;
+        }
+        fetch(url, {
             method: 'POST'
         }).then(function (response) {
             if(response.ok) {
@@ -268,32 +275,38 @@
                 %{
                     for(_product in productList) {
                         }%
-                            <!--<div class="category-item-card">-->
-                                <!--<div class="card inline">-->
-                                    <!--<a href="/${language}/product/${_product.uuid}">-->
-                                        <!--<div class="noselect view overlay hm-white-slight z-depth-1">-->
-                                                <!--<img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="">-->
-                                            <!--<div class="mask"></div>-->
-                                        <!--</div>-->
-                                    <!--</a>-->
+                            <div class="category-item-card">
+                                <div class="card inline">
+                                    #{if qr_uuid}
+                                    %{qrParam = "?qr_uuid="}%
+                                        <a href="/${language}/product/${_product.uuid}${qrParam}${qr_uuid}">
+                                    #{/if} #{else}
+                                        <a href="/${language}/product/${_product.uuid}">
+                                           #{/else}
+                                        <div class="noselect view overlay hm-white-slight z-depth-1">
+                                                <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="">
+                                            <div class="mask"></div>
+                                        </div>
+                                    </a>
 
-                                    <!--<div class="card-block text-xs-center">-->
-                                        <!--<div class="fixed-height2">-->
-                                            <!--<h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>-->
-                                        <!--</div>-->
-                                        <!--<div class="fixed-height">-->
-                                            <!--<p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>-->
-                                        <!--</div>-->
-                                        <!--<div class="card-footer">-->
-                                            <!--<span class="left">${_product.formatDecimal()} UAH </span>-->
-                                            <!--<span class="right" onclick="buyStart('${_product.uuid}')"><a-->
-                                                    <!--data-toggle="tooltip" data-placement="top"-->
-                                                    <!--title="&{'title.add.product.to.basket.label'}">-->
-                                                <!--<i class="fa fa-shopping-cart"></i></a></span>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                                    <div class="card-block text-xs-center">
+                                        <div class="fixed-height2">
+                                            <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                                        </div>
+                                        <div class="fixed-height">
+                                            <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <span class="left">${_product.formatDecimal()} UAH </span>
+                                            <span class="right" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})"><a
+                                                    data-toggle="tooltip" data-placement="top"
+                                                    title="&{'title.add.product.to.basket.label'}">
+                                                <i class="fa fa-shopping-cart"></i></a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         %{
                     }
                 }%

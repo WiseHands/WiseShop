@@ -24856,7 +24856,7 @@ class WiseShoppingCartItem extends PolymerElement {
                 <h3 on-click="_openProductPageByUuid">[[_translateProductName(cartItem)]]</h3>
                 <h4> 
                     <template is="dom-repeat" items="[[cartItem.additionList]]">                
-                        [[item.title]]<span hidden="[[!hasMoreThanOneQuantity(item)]]">([[item.quantity]])</span>
+                        [[_translateAdditionTitle(item)]]<span hidden="[[!hasMoreThanOneQuantity(item)]]">([[item.quantity]])</span>
                         <span hidden="[[isLastItem(cartItem.additionList, index)]]">,</span>
                     </template>        
                 </h4>
@@ -24888,6 +24888,26 @@ class WiseShoppingCartItem extends PolymerElement {
     };
   }
 
+  _translateAdditionTitle(item) {
+      const language = document.querySelector('html').getAttribute('language');
+      let label = '';
+
+      if (item.translationBucket) {
+        let translationList = item.translationBucket.translationList;
+        translationList.forEach(itemTranslation => {
+          if (itemTranslation.language === language && itemTranslation.content != '') {
+            label = itemTranslation.content;
+          }
+          if (itemTranslation.language === language && itemTranslation.content === '') {
+            label = item.title;
+          }
+        });
+      } else {
+        label = item.title;
+      }
+      return label;
+    }
+
   _translateProductName(product) {
     const language = document.querySelector('html').getAttribute('language');
     let label = '';
@@ -24895,8 +24915,11 @@ class WiseShoppingCartItem extends PolymerElement {
     if (product.translationBucket) {
       let translationList = product.translationBucket.translationList;
       translationList.forEach(item => {
-        if (item.language === language) {
+        if (item.language === language && item.content != '') {
           label = item.content;
+        }
+        if (item.language === language && item.content === '') {
+          label = product.name;
         }
       });
     } else {
@@ -25121,6 +25144,7 @@ class WiseShoppingCart extends PolymerElement {
 
   _startBuyingProducts() {
     this.dispatchEvent(new CustomEvent('start-shopping', {
+
       bubbles: true,
       composed: true
     }));
@@ -25294,21 +25318,21 @@ class WiseShoppingCartContainer extends PolymerElement {
                         <div hidden="[[!areThereItems(cart.items)]]" class="order-details-container">
                             <div class="order-details">
 
-                                <paper-card>
+                                <paper-card hidden=[[isQrPresent]]>
                                     <h3>[[deliveryTypeLabel]]</h3>
                                     <paper-radio-group id="deliveryType" selected="[[cart.deliveryType]]"
                                                        on-selected-changed="_onDeliveryTypeChange">
                                         <template is="dom-if"
                                                   if="[[cart.configuration.delivery.courier.isCourierActive]]">
-                                            <paper-radio-button name="COURIER">[[_translateCourierLabel(cart.configuration.delivery.courier)]] [[_computeCourierLabel(cart.configuration.delivery.courier)]]</paper-radio-button>
+                                            <paper-radio-button name="COURIER">[[_translateLabel(cart.configuration.delivery.courier)]] [[_computeCourierLabel(cart.configuration.delivery.courier)]]</paper-radio-button>
                                         </template>
                                         <template is="dom-if"
                                                   if="[[cart.configuration.delivery.postDepartment.isPostDepartmentActive]]">
-                                            <paper-radio-button name="POSTSERVICE">[[_translatePostDepartmentLabel(cart.configuration.delivery.postDepartment)]]</paper-radio-button>
+                                            <paper-radio-button name="POSTSERVICE">[[_translateLabel(cart.configuration.delivery.postDepartment)]]</paper-radio-button>
                                         </template>
                                         <template is="dom-if"
                                                   if="[[cart.configuration.delivery.selfTake.isSelfTakeActive]]">
-                                            <paper-radio-button name="SELFTAKE">[[_translateSelfTakeLabel(cart.configuration.delivery.selfTake)]]</paper-radio-button>
+                                            <paper-radio-button name="SELFTAKE">[[_translateLabel(cart.configuration.delivery.selfTake)]]</paper-radio-button>
                                         </template>
                                     </paper-radio-group>
                                 </paper-card>
@@ -25322,9 +25346,8 @@ class WiseShoppingCartContainer extends PolymerElement {
                                                 [[_computeLabel(cart.configuration.payment.creditCard)]]
                                             </paper-radio-button>
                                         </template>
-                                        <template is="dom-if"
-                                                  if="[[cart.configuration.payment.cash.isActivePayByCash]]">
-                                            <paper-radio-button name="CASHONDELIVERY">[[_translateCashLabel(cart.configuration.payment.cash)]]</paper-radio-button>
+                                        <template is="dom-if" if="[[cart.configuration.payment.cash.isActivePayByCash]]">
+                                            <paper-radio-button name="CASHONDELIVERY">[[_translateLabel(cart.configuration.payment.cash)]]</paper-radio-button>
                                         </template>
                                     </paper-radio-group>
                                 </paper-card>
@@ -25469,6 +25492,11 @@ class WiseShoppingCartContainer extends PolymerElement {
       basketEmptyLabel: String,
       startShoppingLabel: String,
       courierLabel: String,
+      qrUuid: String,
+      isQrPresent: {
+        type: Boolean,
+        value: false
+      },
       currencyLabel: {
         type: String,
         value: 'USD'
@@ -25495,9 +25523,7 @@ class WiseShoppingCartContainer extends PolymerElement {
     if (creditCardInfo.clientPaysProcessingCommission) {
       return `${paymentInfo.label} (+${paymentInfo.paymentComission * 100} %)`;
     }
-
     let label = '';
-
     if (creditCardInfo.translationBucket) {
       creditCardInfo.translationBucket.translationList.forEach(item => {
         if (item.language === this.language) {
@@ -25507,7 +25533,6 @@ class WiseShoppingCartContainer extends PolymerElement {
     } else {
       label = creditCardInfo.label;
     }
-
     return label;
   }
 
@@ -25519,61 +25544,16 @@ class WiseShoppingCartContainer extends PolymerElement {
     return label;
   }
 
-  _translateCashLabel(cashInfo) {
+  _translateLabel(object) {
     let label = '';
-    if (cashInfo.translationBucket) {
-      cashInfo.translationBucket.translationList.forEach(item => {
+    if (object.translationBucket) {
+      object.translationBucket.translationList.forEach(item => {
         if (item.language === this.language) {
           label = item.content;
         }
       });
     } else {
-      label = cashInfo.label;
-    }
-    return label;
-  }
-
-  _translatePostDepartmentLabel(postInfo) {
-    let label = '';
-
-    if (postInfo.translationBucket) {
-      postInfo.translationBucket.translationList.forEach(item => {
-        if (item.language === this.language) {
-          label = item.content;
-        }
-      });
-    } else {
-      label = postInfo.label;
-    }
-
-    return label;
-  }
-
-  _translateSelfTakeLabel(selfTakeInfo) {
-    let label = '';
-    if (selfTakeInfo.translationBucket) {
-      selfTakeInfo.translationBucket.translationList.forEach(item => {
-        if (item.language === this.language) {
-          label = item.content;
-        }
-      });
-    } else {
-      label = selfTakeInfo.label;
-    }
-
-    return label;
-  }
-
-  _translateCourierLabel(courierInfo) {
-    let label = '';
-    if (courierInfo.translationBucket) {
-      courierInfo.translationBucket.translationList.forEach(item => {
-        if (item.language === this.language) {
-          label = item.content;
-        }
-      });
-    } else {
-      label = courierInfo.label;
+      label = object.label;
     }
     return label;
   }
@@ -25596,6 +25576,8 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   ready() {
     super.ready();
+    this.hideDeliveryTypeIfQrPresent();
+    console.log("qrUuid =>", this.qrUuid);
     const params = this.addCartIdParamIfAvailable(true);
     const url = this._generateRequestUrl('/api/cart', params);
     this._generateRequest('GET', url);
@@ -25618,7 +25600,7 @@ class WiseShoppingCartContainer extends PolymerElement {
     });
     this.addEventListener('start-shopping', function (e) {
       console.log('start-shopping', e);
-      window.location = `/${this.language}/shop`;
+      window.location = this._generateLinkWithQrCode(this.qrUuid, `/${this.language}/shop`);
     });
     this.addEventListener('order-created', function (e) {
       console.log('order-created for credit card payment', e);
@@ -25630,9 +25612,25 @@ class WiseShoppingCartContainer extends PolymerElement {
         document.querySelector('.form-container').append(form);
         form.submit();
       } else {
-        window.location = '/done';
+        const link = this._generateLinkWithQrCode(this.qrUuid, '/done');
+
+        window.location = link;
       }
     });
+  }
+
+  _generateLinkWithQrCode(qrId, url) {
+    return qrId ? `${url}?qr_uuid=${qrId}` : `${url}`;
+  }
+
+  hideDeliveryTypeIfQrPresent() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    if (urlParams.get('qr_uuid')) {
+      this.qrUuid = urlParams.get('qr_uuid');
+      this.isQrPresent = true;
+    }
   }
 
   areThereItems(items) {
@@ -25662,9 +25660,11 @@ class WiseShoppingCartContainer extends PolymerElement {
     const requiredInputs = Array.from(this.shadowRoot.querySelectorAll('paper-input[required]')).filter(input => input.offsetWidth > 0 && input.offsetHeight > 0);
     let validInputs = 0;
 
-    if (!deliveryType.selected) {
-      this.set('errorMessage', this.errorMessagePleaseChooseDeliveryLabel);
-      return;
+    if (!this.isQrPresent) {
+      if (!deliveryType.selected) {
+        this.set('errorMessage', this.errorMessagePleaseChooseDeliveryLabel);
+        return;
+      }
     }
 
     if (!paymentType.selected) {
@@ -25734,7 +25734,8 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (this.isMakeOrderRequestRunning) return;
     const ajax = this.$.makeOrderAjax;
-    ajax.url = `${this.hostname}/order/${this.language}?cart=${cart}${this.addCartIdParamIfAvailable(false)}`;
+    const url = `${this.hostname}/order/${this.language}`;
+    ajax.url = this._generateLinkWithQrCode(this.qrUuid, url);
     ajax.method = 'POST';
     this.isMakeOrderRequestRunning = true;
     ajax.generateRequest();
@@ -25816,18 +25817,15 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   _computeProductsTotal(items) {
     let total = 0;
-    items.forEach(item => total += item.quantity * item.price);
-    total += this._computeAdditionsTotal(items);
+    items.forEach(item => total += item.quantity * (item.price + this._computeAdditionsTotal(item)));
     return total;
   }
 
-  _computeAdditionsTotal(items) {
+  _computeAdditionsTotal(additions) {
     let additionsTotal = 0;
-    items.forEach(item => {
-      item.additionList.forEach(addition => {
+      additions.additionList.forEach(addition => {
         additionsTotal += addition.price * addition.quantity;
       });
-    });
     return additionsTotal;
   }
 

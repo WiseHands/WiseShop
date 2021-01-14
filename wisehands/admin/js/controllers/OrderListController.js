@@ -37,7 +37,6 @@
                                     $scope.loading = false;
                                 } else {
                                     $scope.hideMoreButton = false;
-
                                 }
 
                                 $scope.isAllOrdersDeleted = true;
@@ -76,8 +75,24 @@
                     $scope.loading = false;
                 });
 
-
-
+            showQrImgToOrder = (orders) => {
+                orders.forEach((item) =>{
+                    let options = {
+                        text: item.qrName,
+                        width: 300,
+                        height: 300,
+                        colorDark: "#0e2935",
+                        correctLevel: QRCode.CorrectLevel.H,
+                        quietZone: 0,
+                        quietZoneColor: 'transparent',
+                        tooltip: item.qrName,
+                        drawer: 'canvas'
+                    };
+                    new QRCode(document.getElementById(item.uuid), options);
+	            });
+            };
+	
+	          $scope.$on('ngRepeatFinished', () => showQrImgToOrder($scope.orders));
 
             $http({
                 method: 'GET',
@@ -148,6 +163,12 @@
                     return 'credit_card';
                 }
             };
+
+            $scope.orderType = function (item) {
+                if (item.qrName) {
+                    return 'qr_code';
+                }
+            }
 
             $scope.orderFeedbackState = function (order) {
                 if (!order) return;

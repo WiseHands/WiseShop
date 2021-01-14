@@ -2,6 +2,7 @@ package services.translaiton;
 
 import models.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Translation {
@@ -60,7 +61,30 @@ public class Translation {
                 }
             }
         }
+        translateProductAdditions(product.uuid, language);
         return product;
+    }
+
+    private static void translateProductAdditions(String uuid, String language) {
+        List<SelectedAdditionDTO> additionList = new ArrayList<>();
+        String additionListQuery = "select a from SelectedAdditionDTO a where a.productUuid = ?1";
+        additionList = SelectedAdditionDTO.find(additionListQuery, uuid).fetch();
+        if(!additionList.isEmpty()){
+            for(SelectedAdditionDTO selectedAddition : additionList){
+                if (selectedAddition.addition.additionNameTranslationBucket != null){
+                    List<TranslationItemDTO> translationList = selectedAddition.addition.additionNameTranslationBucket.translationList;
+                    for(TranslationItemDTO item : translationList){
+                        if (item.language == null){
+                            item.language = language;
+                        }
+                        if (item.language.equals(language) && !item.content.equals("")){
+                            selectedAddition.addition.title = item.content;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     public static PageConstructorDTO setTranslationForPage(String language, PageConstructorDTO page) {

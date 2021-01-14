@@ -24,6 +24,16 @@ public class AdditionDTO extends GenericModel {
     @Expose
     public String imagePath;
 
+    @Expose
+    public String fileName;
+
+    @Expose
+    public String shopUuid;
+
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public TranslationBucketDTO additionNameTranslationBucket;
+
     public String getTitle() {
         return title;
     }
@@ -35,9 +45,6 @@ public class AdditionDTO extends GenericModel {
     public String getImagePath() {
         return imagePath;
     }
-
-    @ManyToOne
-    public ProductDTO product;
 
     public String formatDecimal() {
         Double number = this.price;

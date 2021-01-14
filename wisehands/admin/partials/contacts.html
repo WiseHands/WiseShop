@@ -19,7 +19,7 @@
     <form class="col-md-12 noSidePadding" id="contactsForm" name="contactsForm" ng-hide="loading">
         <div class="admin-container admin-all-orders ">
             <div class="admin-column">
-                <div class="admin-card">
+                <div class="admin-card hoverable">
                     <h4>{{'editProduct.general' | translate}}</h4>
                     <div class="input-field">
                         <p>{{'contacts.phone' | translate}}</p>
@@ -30,7 +30,7 @@
                         <input id="email" type="email" ng-model="contacts.email" placeholder="your email here">
                     </div>
                 </div>
-                <div class="admin-card">
+                <div class="admin-card hoverable">
                     <h4>{{'contacts.socialNetworks' | translate}}</h4>
                     <div class="input-field">
                         <p>{{'contacts.linkfacebook' | translate}}</p>
@@ -47,14 +47,14 @@
                 </div>
             </div>
             <div class="admin-column">
-                <div class="admin-card">
+                <div class="admin-card hoverable">
                     <h4>{{'contacts.address' | translate}}</h4>
                     <div class="translation-flex-row">
                         <p>{{'contacts.city' | translate}}:</p>
                         <div class="flex-row">
                             <p id="city" class="text-align-right"></p>
                             <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
-                                    ng-click="redirectToTranslationForContactCity()"><i class="material-icons">mode_edit</i>
+                                    ng-click="redirectToTranslationForContactCity()"><i class="material-icons">translate</i>
                             </button>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         <div class="flex-row">
                             <p id="street" class="text-align-right"></p>
                             <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
-                                    ng-click="redirectToTranslationForContactStreet()"><i class="material-icons">mode_edit</i>
+                                    ng-click="redirectToTranslationForContactStreet()"><i class="material-icons">translate</i>
                             </button>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="admin-card admin-contacts-card-gps">
+                <div class="admin-card hoverable admin-contacts-card-gps">
                     <h4>{{'contacts.gps' | translate}}</h4>
                     <div class="admin-contacts-card-no-gps" ng-show="!contacts.shopLocation">
                         <a href="#/shop/location">

@@ -1,0 +1,105 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-9 text-center white-text">
+                <h5>
+                    {{'additionEdit.title' | translate}}
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
+               id="dropdownMenu1"
+               type="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+                <i class="fa fa-edit whiteColor pull-right">
+                </i>
+                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
+                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeAddition"><p> {{'qrDetails.delete' | translate}}</p></a>
+                </div>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="admin-container admin-column">
+    <ul class="admin-breadcrumb">
+        <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
+        <li><a href="#/addition">{{'additionBreadCrumb.additions' | translate}}</a></li>
+        <li>{{addition.title}}</li>
+    </ul>
+    <div class="addition-edit-container">
+        <img class="img-present-addition" src="\wisehands\assets\images\additions.svg">
+        <div class="addition-edit-column">
+            <div class="addition-create-text">
+                <p> {{'additionEdit.titleInfo' | translate}} </p>
+            </div>
+            <div class="addition-new-container">
+                <div class="edit-language-to-addition">
+                    <div class="addition-column">
+                        <div class="input-field">
+                            <input id="addition_name" type="text" ng-model="addition.title" required>
+                            <label id="title_label" for="addition_name" class="active">
+                                {{'editProduct.additionTitle' | translate}}
+                            </label>
+                        </div>
+                        <div class="input-field">
+                            <input id="addition_price" type="text" ng-model="addition.price" required>
+                            <label id="price_label" for="addition_price"
+                                   class="active">{{'editProduct.additionPrice' |
+                                translate}}</label>
+                        </div>
+                    </div>
+                    <button class="edit-btn btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                            ng-click="redirectToTranslationPage()"><i class="material-icons">translate</i>
+                    </button>
+                </div>
+
+
+                <div id="additionImage" class="addition-image material-icons" role="listbox">
+                    attach_file
+                    <!--                    <a ng-click="uploadOptionImage()">
+                                            <p id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' | translate}}</p>
+                                        </a>-->
+                    <label for="imageLoader" id="image_text" class="addition-image-text">{{'additionEdit.editPhoto' |
+                        translate}}</label>
+                    <input id="imageLoader" class="input-file hiddenFileInput" type="file" accept="image/*"/>
+                </div>
+                <p id="imageName"></p>
+                <div class="addition-edit-button">
+                    <button class="save-button" ng-click="editAddition()">
+                        {{'qrDetails.save' | translate}}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="removeAddition" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center">
+                    <p ng-show="deleteButton"><i>{{'additionEdit.deleteMessage' | translate}}</i></p>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner"
+                             img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <div class="col-xs-offset-2 col-xs-8">
+                    <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="removeQr()"
+                            ng-show="deleteButton">{{'singleOrder.Delete' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,6 +1,7 @@
 #{set pageList:pageList /}
 #{set language:language /}
 #{set categories:categories /}
+#{set qr_uuid:qr_uuid /}
 <style>
     header {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
@@ -166,7 +167,12 @@
 
         <div class="header-left-part">
             <div class="shop-icon">
-                <a href="/${language}">
+                #{if qr_uuid }
+                    <a href="/${language}?qr_uuid=${qr_uuid}">
+                #{/if}
+                #{else}
+                    <a href="/${language}">
+                #{/else}
                     #{if !shop.visualSettingsDTO.shopLogo}
                         <img src="/wisehands/assets/images/wiseblack.png">
                     #{/if}
@@ -175,17 +181,21 @@
                     #{/if}
                 </a>
             </div>
-            <a class="shop-name-link" href="/">
+            #{if qr_uuid }
+                <a class="shop-name-link" href="?qr_uuid=${qr_uuid}">
+            #{/if}
+            #{else}
+                <a class="shop-name-link" href="/">
+            #{/else}
                 <h3>${shop.shopName}</h3>
             </a>
         </div>
-        <!--SHOP NETWORK-->
         <div class="header-right-part">
             <div class="select-lang">
                 <button class="dropbtn">${language}</button>
                 <div class="lang-list">
-                    <a onclick="changeLanguage('en')">English</a>
-                    <a onclick="changeLanguage('uk')">Українська</a>
+                    <a onclick="changeLanguage({language:'en', qrUuid: '${qr_uuid}'})">English</a>
+                    <a onclick="changeLanguage({language:'uk', qrUuid: '${qr_uuid}'})">Українська</a>
                 </div>
             </div>
             <div id="admin-icon" class="header-cart">
@@ -200,12 +210,22 @@
                 </a>
             </div>
             #{/if}
+            #{if qr_uuid }
+            <a href="/${language}/shoppingcart?qr_uuid=${qr_uuid}">
+                <div id="shoppingCartCounter" class="fa-stack header-cart">
+                    <i class="fa fa-stack-2x fa-inverse"></i>
+                    <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
+                </div>
+            </a>
+            #{/if}
+            #{else}
             <a href="/${language}/shoppingcart">
                 <div id="shoppingCartCounter" class="fa-stack header-cart">
                     <i class="fa fa-stack-2x fa-inverse"></i>
                     <i class="fa fa-shopping-cart fa-stack-2x red-cart"></i>
                 </div>
             </a>
+            #{/else}
         </div>
     </div>
 </header>
@@ -234,9 +254,14 @@
         }
     });
 
-    changeLanguage = (language) => {
+    changeLanguage = (object) => {
       const url = window.location.pathname;
       const newUrl = url.slice(3)
-      window.location = window.location.origin + '/' + language + newUrl;
+      if (object.qrUuid){
+        window.location = window.location.origin + '/' + object.language + newUrl + '?qr_uuid=' + object.qrUuid;
+      } else {
+        window.location = window.location.origin + '/' + object.language + newUrl;
+      }
+
     }
 </script>

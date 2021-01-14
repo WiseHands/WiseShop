@@ -111,7 +111,7 @@
     <li class="collection-item" ng-if="item.state !== 'DELETED'" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
         <a href ="#/details/{{item.uuid}}">
             <div class="row vcentering">
-                <div class="col-xs-3 datePriceContainer">
+                <div class="col-xs-3">
                     <p class="normal-400 black-text">{{'orderList.Currency' | translate}}{{item.total}}</p>
                     <p class="secondaryOrderFont" ng-show="!item.yesterdayString">{{item.properDate}}</p>
                     <p class="secondaryOrderFont" ng-show="item.yesterdayString">{{'orderList.yesterday' | translate}}</p>
@@ -121,31 +121,27 @@
                     <p class="secondaryOrderFont">{{item.phone}}</p>
                 </div>
                 <div class="col-xs-2">
-                    <p ng-show="item.paymentType === 'CASHONDELIVERY'"  class="material-icons"><i class="fa fa-dollar" aria-hidden="true" style="color: #4caf50; font-size: 20px"></i></p>
-                    <p ng-show="item.paymentType === 'CREDITCARD'"  class="material-icons">
-                        <i ng-show="item.paymentState === 'PENDING'" class="fa fa-credit-card" aria-hidden="true" style="color: #808080; font-size: 20px"></i>
-                        <i ng-show="item.paymentState === 'PAYED'" class="fa fa-credit-card" aria-hidden="true" style="color: #8bc34a; font-size: 20px"></i>
-                        <i ng-show="item.paymentState === 'PAYMENT_ERROR'" class="fa fa-credit-card" aria-hidden="true" style="color: #f44336; font-size: 20px"></i>
-                        <i ng-show="item.paymentState === 'PAYMENT_WAIT_ACCEPT'" class="fa fa-credit-card" aria-hidden="true" style="color: #f44336; font-size: 20px"></i>
-                    </p>
-
-                    <!--<p ng-show="item.paymentType === 'CASHONDELIVERY'" >{{'singleOrder.paymentTypeCash' | translate}}</p>-->
-
-                        <!--<b class="material-icons  materialIcon">{{orderPaymentType(item)}}</b>-->
+                    <b class="material-icons pull-right materialIcon">{{orderType(item)}}</b>
+                </div>
+                <div class="col-xs-2">
+                    <b class="material-icons pull-right materialIcon">{{orderPaymentType(item)}}</b>
                 </div>
             </div>
         </a>
     </li>
 </ul>
 <div class="container-fluid admin-all-orders ">
-    <div class="all-order-item hidden-xs" ng-if="item.state !== 'DELETED'" ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive">
+    <div class="all-order-item hidden-xs"
+         ng-if="item.state !== 'DELETED'"
+         ng-repeat="item in orders | filter:orderFilter | filter:search | orderBy:'time':isSortingActive"
+         on-finish-render="ngRepeatFinished">
         <a href ="#/details/{{item.uuid}}">
             <div class="card elegant-card hoverable">
                 <div ng-show="item.clientAddressStreetLng && item.deliveryType === 'COURIER'" class="view overlay hm-white-slight z-depth-1">
                     <img
-                            ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&center={{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&size=600x300&maptype=roadmap&markers=color:red|label:C|{{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&key={{activeShop.googleStaticMapsApiKey}}"
-                            class="img-responsive"
-                            alt="">
+                        ng-src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&center={{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&size=600x300&maptype=roadmap&markers=color:red|label:C|{{item.clientAddressStreetLat}},{{item.clientAddressStreetLng}}&key={{activeShop.googleStaticMapsApiKey}}"
+                        class="img-responsive"
+                        alt="">
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div ng-show="item.deliveryType === 'COURIER' && !item.clientAddressStreetLng" class="view overlay hm-white-slight z-depth-1">
@@ -158,6 +154,10 @@
                 </div>
                 <div ng-show="item.deliveryType === 'SELFTAKE'" class="view overlay hm-white-slight z-depth-1">
                     <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{shopLatLng}}&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C{{shopLatLng}}&key={{activeShop.googleStaticMapsApiKey}}" class="img-responsive" alt="">
+                    <div class="mask waves-effect activator"></div>
+                </div>
+                <div ng-show="item.qrName" id="{{item.uuid}}" class="view overlay hm-white-slight z-depth-1 show-qr-in-order-list">
+                    <!--<img class="img-responsive" alt="">-->
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div class="card-content">
@@ -175,7 +175,7 @@
                     <div class="row">
                         <p ng-show="item.paymentType === 'CASHONDELIVERY'" class="np-order-card">{{'singleOrder.paymentTypeCash' | translate}}</p>
                         <p ng-show="item.paymentType === 'CREDITCARD'" class="np-order-card">{{'singleOrder.paymentTypeOnline' | translate}}
-                            <i ng-show="item.paymentState === 'PENDING'">{{'singleOrder.paymentStatePending' | translate}}</i>
+                            <i ng-show="item.paymentState === 'PENDING'" class="payment-pending-order-row">{{'singleOrder.paymentStatePending' | translate}}</i>
                             <i ng-show="item.paymentState === 'PAYED'">{{'singleOrder.paymentStatePaid' | translate}}</i>
                             <i ng-show="item.paymentState === 'PAYMENT_ERROR'">{{'singleOrder.paymentStateError' | translate}}</i>
                             <i ng-show="item.paymentState === 'PAYMENT_WAIT_ACCEPT'">{{'singleOrder.paymentStateWaitAccept' | translate}}</i>
@@ -187,6 +187,9 @@
                         <p ng-show="item.deliveryType === 'POSTSERVICE'" class="truncate np-order-card">
                             {{'orderList.postservice' | translate}}<i>{{item.clientCity}}, {{item.clientPostDepartmentNumber}}</i></p>
                         <p ng-show="item.deliveryType === 'SELFTAKE'">{{'orderList.selftake' | translate}}</p>
+                    </div>
+                    <div class="row">
+                        <p ng-show="item.qrName">{{item.qrName}}</p>
                     </div>
                 </div>
             </div>

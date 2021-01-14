@@ -1,19 +1,28 @@
-<nav class="admin-nav" role="navigation">
-    <div class="nav-menu">
-        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-    </div>
-    <div class="nav-title">
-        <h5>{{'payment.paymentTypeCash' | translate}}</h5>
-    </div>
-    <div class="admin-nav-save-btn">
-        <i class="fa fa-save whiteColor pull-right"
-           ng-click="saveCashPaymentOptions()">
-        </i>
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <a class="col-xs-2 noPaddingLeft"
+               type="button"
+               href="#/payment">
+                <i class="fa fa-arrow-circle-left whiteColor pull-left">
+                </i>
+            </a>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'payment.paymentTypeCash' | translate}}
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding">
+                <i class="fa fa-save whiteColor pull-right"
+                   ng-click="saveCashPaymentOptions()">
+                </i>
+            </a>
+        </div>
     </div>
 </nav>
 
 <div class="row payment-block">
-        <div class="admin-card">
+        <div class="admin-card hoverable">
             <h4>{{'editProduct.general' | translate}}</h4>
             <div class="input-field">
                 <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="payment.manualPaymentEnabled" />
@@ -23,7 +32,7 @@
                 <div class="delivery-edit-message">
                     <p>{{'payment.messageText' | translate}}</p>
                     <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
-                            ng-click="redirectToTranslation()"><i class="material-icons">mode_edit</i></button>
+                            ng-click="redirectToTranslation()"><i class="material-icons">translate</i></button>
                 </div>
             </div>
         </div>

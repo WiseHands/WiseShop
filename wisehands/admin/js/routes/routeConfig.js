@@ -273,6 +273,50 @@
                         activetab: 'productlist'
 
                     }).
+                    when('/qrcontroller',{
+                        templateUrl:'wisehands/admin/partials/qrMenu.html',
+                        controller:'QrMenuController',
+                        activetab: 'qr'
+
+                    }).
+                    when('/qrnewcode',{
+                        templateUrl:'wisehands/admin/partials/qrNewCode.html',
+                        controller:'QrNewCodeController',
+                        activetab: 'qr'
+
+                    }).
+                    when('/qrdetail/:uuid',{
+                        templateUrl:'wisehands/admin/partials/qrDetail.html',
+                        controller:'QrDetailController',
+                        activetab: 'qre'
+
+                    }).
+                    when('/qredit/:uuid',{
+                        templateUrl:'wisehands/admin/partials/qrEditCode.html',
+                        controller:'QrEditCodeController',
+                        activetab: 'qre'
+
+                    }).
+                    when('/addition',{
+                        templateUrl:'wisehands/admin/partials/additions.html',
+                        controller:'AdditionMenuController',
+                        activetab: 'addition'
+                    }).
+                    when('/newaddition',{
+                        templateUrl:'wisehands/admin/partials/additionNew.html',
+                        controller:'AdditionNewController',
+                        activetab: 'addition'
+                    }).
+                    when('/additionedit/:uuid',{
+                        templateUrl:'wisehands/admin/partials/additionEdit.html',
+                        controller:'AdditionEditController',
+                        activetab: 'addition'
+                    }).
+                    when('/selectadditions/:productUuid',{
+                        templateUrl:'wisehands/admin/partials/selectAdditions.html',
+                        controller:'SelectAdditionsController',
+                        activetab: 'productList'
+                    }).
                     otherwise({
                         redirectTo:'/'
                     });

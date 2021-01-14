@@ -19,6 +19,7 @@ public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
     private  static final int PAGE_SIZE = 6;
 
+
     public static void create(String client, String name, String description,
                               Double price, File fake, Integer mainPhotoIndex,
                               String category,
@@ -127,7 +128,13 @@ public class ProductAPI extends AuthController {
     }
 
     public static void details(String client, String uuid) throws Exception {
+
         ProductDTO productDTO = ProductDTO.findById(uuid);
+        if (productDTO != null) {
+            String query = "select a from SelectedAdditionDTO a where a.isSelected = 1 and a.productUuid = ?1";
+            productDTO.selectedAdditions = AdditionDTO.find(query, productDTO.uuid).fetch();
+        }
+
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(productDTO);
         renderJSON(json);

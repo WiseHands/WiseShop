@@ -137,16 +137,12 @@ public class OrderAPI extends AuthController {
     }
 
     public static void create(String client, String chosenLanguage) throws Exception {
-        System.out.println("chosenClientLanguage when order created => " + chosenLanguage);
-
-
         String jsonCart = "";
         if (!request.params.get("cart").isEmpty()) {
             jsonCart = request.params.get("cart");
         }
 
         System.out.println("create order with body -> " + jsonCart);
-
         ShopDTO shop = _getShop(client);
         _applyLocale(shop);
 
@@ -159,6 +155,7 @@ public class OrderAPI extends AuthController {
         String ip = _getUserIp();
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
+
         String clientLanguage = "";
         if (acceptLanguage != null){
             String acceptLanguageValue = acceptLanguage.value();
@@ -179,14 +176,24 @@ public class OrderAPI extends AuthController {
         order.items = orderItemListResult.orderItemList;
 
         DeliveryDTO delivery = shop.delivery;
-        if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)){
-            if (orderItemListResult.total < delivery.courierFreeDeliveryLimit){
-                orderItemListResult.total += delivery.courierPrice;
+        System.out.println("deliveryType in order creating => " + shoppingCart.deliveryType);
+        if(shoppingCart.deliveryType != null){
+            if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)){
+                if (orderItemListResult.total < delivery.courierFreeDeliveryLimit){
+                    orderItemListResult.total += delivery.courierPrice;
+                }
             }
         }
 
         order.total = orderItemListResult.total;
         order.paymentState = PaymentState.PENDING;
+
+        String qrUuid = request.params.get("qr_uuid");
+        System.out.println("qrUuid in order => " + qrUuid);
+        if(qrUuid != null && !qrUuid.equals("undefined")){
+            QrDTO qr = QrDTO.findById(qrUuid);
+            if (qr != null) { order.qrName = qr.name; }
+        }
         order = order.save();
 
         if (shop.pricingPlan != null){
@@ -228,7 +235,6 @@ public class OrderAPI extends AuthController {
             json.put("uuid", order.uuid);
             json.put("ok", false);
             json.put("reason", "Total amount is less than minimum order amount");
-
             error(403, json.toString());
         }
         order.feedbackRequestState = FeedbackRequestState.REQUEST_NOT_SEND;

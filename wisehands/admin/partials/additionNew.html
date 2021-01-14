@@ -1,0 +1,55 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'additionNew.title' | translate}}
+                </h5>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="admin-container admin-column">
+    <ul class="admin-breadcrumb qr-breadcrumb">
+        <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
+        <li><a href="#/addition">{{'additionBreadCrumb.additions' | translate}}</a></li>
+        <li>{{'qrBreadCrumb.create' | translate}}</li>
+    </ul>
+    <div class="qr-title-container">
+        <img class="img-present-qr" src="\wisehands\assets\images\additions.svg">
+        <div class="qr-column m-l-r">
+            <div class="addition-create-text">
+                <p> {{'additionNew.info' | translate}} </p>
+            </div>
+            <div class="addition-new-container">
+                <div class="addition-column">
+                    <div class="input-field">
+                        <input id="addition_name" type="text" ng-model="addition.title" required>
+                        <label id="name_label" for="addition_name">{{'editProduct.additionTitle' |
+                            translate}}</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="addition_price" type="text" ng-model="addition.price" required>
+                        <label id="price_label" for="addition_price">{{'editProduct.additionPrice' | translate}}</label>
+                    </div>
+                </div>
+                <div id="additionImage" class="addition-image material-icons" role="listbox">
+                    attach_file
+                    <label for="imageLoader" id="image_text" class="addition-image-text">{{'additionNew.addPhoto' | translate}}</label>
+                    <input id="imageLoader" class="input-file hiddenFileInput" type="file" accept="image/*"/>
+                </div>
+                <!--<p ng-show="fileName">{{'additionNew.fileName' | translate}}:</p>-->
+                <p id="fileName"></p>
+                <div class="qr-button">
+                    <button class="save-button" ng-click="createAddition()">
+                        {{'additionNew.create' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

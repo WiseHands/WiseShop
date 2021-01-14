@@ -63,7 +63,7 @@ page.order.feedback.leave.order.label = Залиште, будь ласка, в�
 
 
 # mobile-sidebar in tags
-mobile.sidebar.title.categories = Продукти
+mobile.sidebar.title.categories = Товари
 mobile.sidebar.link.main.page = Головна
 # shopping cart container
 delivery.type.label= Тип доставки

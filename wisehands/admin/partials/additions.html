@@ -1,0 +1,56 @@
+<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
+    <div class="container-fluid">
+        <div class="row vcentering">
+            <div class="col-xs-2 noPaddingLeft">
+                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="col-xs-8 text-center white-text">
+                <h5>
+                    {{'additionMenu.title' | translate}}
+                </h5>
+            </div>
+            <a class="col-xs-2 noRightPadding"
+              type="button"
+              href="#/newaddition">
+               <i class="fa fa-plus-circle pull-right whiteColor"></i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- add card with shop info ng-repeat="qrCode in qrCodeList" -->
+<div class="admin-container admin-column qr-code-block">
+    <div class="qr-title-container">
+        <img class="img-present-qr" src="\wisehands\assets\images\additions.svg">
+        <div class="additions-title-text">
+            <p class="additions-title">{{'additionMenu.titleInfo' | translate}}</p>
+                <a class="create-qr-link" href="#/newaddition">
+                  <i class="fa fa-plus-circle"></i>
+                </a>
+            <p class="additions-title">{{'additionMenu.titleInfo1' | translate}}</p>
+        </div>
+    </div>
+    <div ng-show="additionList.length === 0" class="additions-list-empty">
+        <h3>{{'additionMenu.noAddition' | translate}}</h3>
+        <div class="qr-button">
+            <a class="save-button ng-binding" type="button" href="#/newaddition">
+                {{'additionNew.create' | translate}}
+            </a>
+        </div>
+    </div>
+    <div class="qr-list-container" ng-show="additionList">
+        <div ng-repeat="addition in additionList" on-finish-render="ngRepeatFinished">
+            <a href="#/additionedit/{{addition.uuid}}" >
+                <div class="admin-card hoverable addition-item">
+                    <img class="addition-img" src="{{addition.imagePath}}">
+                    <p>{{addition.title}}</p>
+                    <p>{{addition.price}}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+
+</div>

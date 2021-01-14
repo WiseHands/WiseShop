@@ -1,8 +1,9 @@
 package services.querying;
 
+import models.AdditionDTO;
 import models.FeedbackDTO;
-import models.OrderDTO;
 import models.ProductDTO;
+import models.SelectedAdditionDTO;
 import play.db.jpa.JPA;
 
 import java.util.ArrayList;
@@ -47,6 +48,50 @@ public class DataBaseQueries {
                 query,
                 product.uuid);
         return formattedQuery;
+    }
+
+    public static List<SelectedAdditionDTO> checkIsAdditionDefaultToProduct(ProductDTO product) {
+        List<SelectedAdditionDTO> defaultAdditionList = new ArrayList<>();
+        String additionIsDefaultQuery = "select a from SelectedAdditionDTO a where a.isDefault = 1 and a.productUuid = ?1";
+        defaultAdditionList = SelectedAdditionDTO.find(additionIsDefaultQuery, product.uuid).fetch();
+        if (!defaultAdditionList.isEmpty()){
+            return defaultAdditionList;
+        } else {
+            return defaultAdditionList;
+        }
+    }
+
+    public static List<String> getDefaultAdditionsUuid(ProductDTO product) {
+        List<String> additionList = new ArrayList<>();
+        String query = "select addition_uuid from SelectedAdditionDTO where isDefault = 1 and productUuid = '%s'";
+        String additionsUuidQuery = formatQueryString(query, product);
+        additionList = JPA.em().createNativeQuery(additionsUuidQuery).getResultList();
+        if (additionList.isEmpty()){
+            return additionList;
+        } else {
+            return additionList;
+        }
+
+    }
+
+    public static int getTotalPriceForDefaultAdditions(String productUuid) {
+        String query = "SELECT sum(price) FROM AdditionDTO WHERE" +
+                " uuid IN (SELECT addition_uuid FROM SelectedAdditionDTO" +
+                " where productUuid='%s' AND isDefault = 1);";
+        String stringQueryFormat = String.format(query, productUuid);
+        Double totalPrice = (Double) JPA.em().createNativeQuery(stringQueryFormat).getSingleResult();
+        if (totalPrice == null)
+            return 0;
+        else {
+            int total = totalPrice.intValue();
+            return total;
+        }
+    }
+
+    public static ProductDTO hideDefaultAddition(ProductDTO product) {
+        product.defaultAdditions = new ArrayList<>();
+        product.priceWithAdditions = 0.0;
+        return product;
     }
 
 }
