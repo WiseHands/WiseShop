@@ -54,7 +54,7 @@ public class LiqPayServiceImpl implements LiqPayService {
     private String getCurrencyFromShop(ShopDTO shop) {
         CurrencyShopDTO currency = CurrencyShopDTO.find("byShop", shop).first();
         if(currency.selectedCurrency.isEmpty()){
-            return currency.currencyShop;
+            return currency.currency;
         } else {
             return currency.selectedCurrency;
         }

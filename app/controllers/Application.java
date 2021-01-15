@@ -584,7 +584,7 @@ public class Application extends Controller {
         if (!currencyShop.selectedCurrency.isEmpty()){
             return currencyShop.selectedCurrency;
         } else {
-            return currencyShop.currencyShop;
+            return currencyShop.currency;
         }
     }
 

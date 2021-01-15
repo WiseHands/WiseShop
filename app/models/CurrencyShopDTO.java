@@ -21,7 +21,7 @@ public class CurrencyShopDTO extends GenericModel {
     public String uuid;
 
     @Expose
-    public String currencyShop;
+    public String currency;
 
     @Expose
     public String selectedCurrency;
@@ -44,25 +44,25 @@ public class CurrencyShopDTO extends GenericModel {
 
     public CurrencyShopDTO(ShopDTO shop) {
         this.shop = shop;
-        this.currencyShop = "UAH";
+        this.currency = "UAH";
         this.currencyList = new ArrayList<CurrencyDTO>();
     }
 
     public char currencyFormat(String currencyValue) {
         if (currencyValue.isEmpty()) {
-            currencyValue = this.currencyShop;
+            currencyValue = this.currency;
         }
         return new CurrencySign().currencySigns.get(currencyValue);
     }
 
     public String showCurrency(){
-        return this.selectedCurrency == null || this.selectedCurrency.isEmpty() ? this.currencyShop : this.selectedCurrency;
+        return this.selectedCurrency == null || this.selectedCurrency.isEmpty() ? this.currency : this.selectedCurrency;
     }
 
     public double formatPrice(ProductDTO product) {
         boolean isSelectedCurrencyEqualShopCurrency = false;
         if (this.selectedCurrency != null){
-            isSelectedCurrencyEqualShopCurrency = this.selectedCurrency.equals(this.currencyShop);
+            isSelectedCurrencyEqualShopCurrency = this.selectedCurrency.equals(this.currency);
         }
         if (this.selectedCurrency == null || this.selectedCurrency.isEmpty()){
             return product.formatPrice();

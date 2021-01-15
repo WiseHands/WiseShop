@@ -206,8 +206,7 @@ public class ShopDTO extends GenericModel {
                    String liqpayPublicKey,
                    String liqpayPrivateKey,
                    String customDomain,
-                   String locale,
-                   CurrencyShopDTO currencyShop) {
+                   String locale) {
 
         this.userList = users;
 
@@ -229,7 +228,6 @@ public class ShopDTO extends GenericModel {
         this.locale = locale;
         this.alwaysOpen = true;
         this.isTemporaryClosed = false;
-        this.currencyShop = currencyShop;
     }
 
 

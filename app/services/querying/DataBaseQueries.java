@@ -14,7 +14,7 @@ public class DataBaseQueries {
         if (!selectedCurrency.isEmpty()) {
             currencyShop.selectedCurrency = selectedCurrency;
 
-            boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.selectedCurrency.equals(currencyShop.currencyShop);
+            boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.selectedCurrency.equals(currencyShop.currency);
             if (isSelectedCurrencyNotEqualShopCurrency) {
                 CurrencyDTO currency = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
                 product.priceInCurrency = product.price / currency.sale;
