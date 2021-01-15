@@ -158,6 +158,15 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (currencyShop == null){
+            currencyShop = new CurrencyShopDTO(shop);
+            currencyShop.save();
+            shop.currencyShop = currencyShop;
+        }
+        shop.currencyShop = currencyShop;
+        System.out.println("CurrencyShopDTO in language chooser  => " + currencyShop);
+
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
@@ -221,11 +230,22 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        System.out.println("CurrencyShopDTO in index => " + currencyShop);
+        if (currencyShop == null){
+            currencyShop = new CurrencyShopDTO(shop);
+            currencyShop.save();
+            shop.currencyShop = currencyShop;
+            shop.save();
+        }
+        shop.currencyShop = currencyShop;
+
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 
         System.out.println("DEBUG renderTemplate Application/shop.html");
+
         renderTemplate("Application/shop.html", shop, products, language, categories, selectedCurrency);
     }
 
@@ -287,6 +307,16 @@ public class Application extends Controller {
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
+
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        System.out.println("CurrencyShopDTO in shop => " + currencyShop);
+        if (currencyShop == null){
+            currencyShop = new CurrencyShopDTO(shop);
+            currencyShop.save();
+            shop.currencyShop = currencyShop;
+            shop.save();
+        }
+        shop.currencyShop = currencyShop;
 
 
         renderTemplate("Application/shop.html", shop, products, language, categories, selectedCurrency);

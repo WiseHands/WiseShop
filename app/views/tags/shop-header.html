@@ -183,7 +183,7 @@
         </div>
         <!--SHOP NETWORK-->
         <div class="header-right-part">
-            #{if shop.currencyShop}
+            #{if shop.currencyShop.currencyList.size() > 0}
               <div class="select-lang">
                 <button class="dropbtn">${shop.currencyShop.currencyFormat(selectedCurrency)}</button>
                 <div class="lang-list">
