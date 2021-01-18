@@ -65,6 +65,18 @@ public class ShoppingCartService extends AuthController {
     public static String addProduct(String client) throws ParseException {
         ShopDTO shop = _getShop(client);
 
+        String qrUuid = request.params.get("qr_uuid");
+        String productUuid = request.params.get("uuid");
+        ProductDTO product = ProductDTO.findById(productUuid);
+
+        List<SelectedAdditionDTO> defaultAdditions = new ArrayList<>();
+        if(qrUuid == null || qrUuid.isEmpty()){
+            defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
+        }
+        
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+
         String cartId = _getCartUuid(request);
         System.out.println("cartId => " + cartId);
 
@@ -91,9 +103,6 @@ public class ShoppingCartService extends AuthController {
         String stringAdditionList = request.params.get("additionList");
         List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop);
 
-        String productUuid = request.params.get("uuid");
-        ProductDTO product = ProductDTO.findById(productUuid);
-
         String quantityParam = request.params.get("quantity");
         int quantity = _getProductQuantity(quantityParam);
 
@@ -105,7 +114,7 @@ public class ShoppingCartService extends AuthController {
 
         boolean foundMatch = false;
 
-        System.out.println("shoppingCart.items: => " + shoppingCart.items);
+        System.out.println("shoppingCart.items before foundMatch => " + shoppingCart.items);
 
         //1. Find Line Item
         for (LineItem _lineItem : shoppingCart.items) {
@@ -136,18 +145,9 @@ public class ShoppingCartService extends AuthController {
         return quantity;
     }
 
-    private static AdditionLineItemDTO getAdditionsAndSave(JSONObject object, ShopDTO shop) {
-        AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
-        AdditionLineItemDTO additionOrderDTO = new AdditionLineItemDTO();
-        additionOrderDTO.title = additionDTO.getTitle();
-        additionOrderDTO.price = additionDTO.getPrice();
-        additionOrderDTO.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
-        additionOrderDTO.quantity = (Long) object.get("quantity");
-        additionOrderDTO.save();
-        return additionOrderDTO;
-    }
-
-    private static List<AdditionLineItemDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop){
+    private static List<AdditionLineItemDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop, 
+                                                                         List<SelectedAdditionDTO> defaultAdditions,
+                                                                         String languageFromHeader){
         if (stringAdditionList == null){
             stringAdditionList = "[]";
         }
@@ -165,20 +165,69 @@ public class ShoppingCartService extends AuthController {
             additionList.add(additionObject);
         }
 
-        List<AdditionLineItemDTO> additionOrderDTOList = new ArrayList<AdditionLineItemDTO>();
-        for(JSONObject object : additionList) {
-            additionOrderDTOList.add(getAdditionsAndSave(object, shop));
+        List<AdditionLineItemDTO> additionsLineItemList = new ArrayList<AdditionLineItemDTO>();
+        for(JSONObject object: additionList){
+            AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
+            AdditionLineItemDTO additionLineItem = new AdditionLineItemDTO();
+            additionLineItem.title = additionDTO.getTitle();
+            additionLineItem.price = additionDTO.getPrice();
+            additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
+            additionLineItem.quantity = (Long) object.get("quantity");
+            if (additionDTO.additionNameTranslationBucket != null){
+                additionLineItem.translationBucket = additionDTO.additionNameTranslationBucket;
+                additionLineItem.title = translateTitle(languageFromHeader, additionDTO);
+                if (additionLineItem.title.isEmpty() || additionLineItem.title == null) {
+                    additionLineItem.title = additionDTO.getTitle();
+                }
+            }
+            additionLineItem.save();
+            additionsLineItemList.add(additionLineItem);
+        }
+        for(SelectedAdditionDTO selectedAddition: defaultAdditions){
+            AdditionDTO additionDTO = AdditionDTO.findById(selectedAddition.addition.uuid);
+            AdditionLineItemDTO additionLineItem = new AdditionLineItemDTO();
+            additionLineItem.title = additionDTO.getTitle();
+            additionLineItem.price = additionDTO.getPrice();
+            additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
+            additionLineItem.quantity = 1L;
+            if (additionDTO.additionNameTranslationBucket != null){
+                additionLineItem.translationBucket = additionDTO.additionNameTranslationBucket;
+                additionLineItem.title = translateTitle(languageFromHeader, additionDTO);
+                if (additionLineItem.title.isEmpty() || additionLineItem.title == null) {
+                    additionLineItem.title = additionDTO.getTitle();
+                }
+            }
+
+            additionLineItem.save();
+            additionsLineItemList.add(additionLineItem);
+
         }
 
-        return additionOrderDTOList;
+        return additionsLineItemList;
     }
+    
+    private static String translateTitle(String languageFromHeader, AdditionDTO additionDTO) {
+        String title = "";
+        List<TranslationItemDTO> translationList = additionDTO.additionNameTranslationBucket.translationList;
+        for (TranslationItemDTO translationItem: translationList) {
+            if (translationItem.language.equals(languageFromHeader)) {
+                title = translationItem.content;
+            } else {
+                title = additionDTO.title;
+            }
+
+        }
+        return title;
+    }
+    
     private static String _getWholePath(String imagePath, ShopDTO shop) {
         String path = shop.domain;
+        imagePath = String.format("https://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
         if(isDevEnv) {
             path = path + ":3334";
+            imagePath = String.format("http://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
         }
-        return imagePath = String.format("https://%s/public/product_images/%s/%s", path, shop.uuid, imagePath);
-
+        return imagePath;
     }
 
     public static String deleteProduct(String client) {
