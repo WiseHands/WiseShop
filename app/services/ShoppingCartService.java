@@ -103,8 +103,7 @@ public class ShoppingCartService extends AuthController {
         System.out.println("shoppingCart: " + shoppingCart);
 
         String stringAdditionList = request.params.get("additionList");
-        List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop);
-
+        List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop, defaultAdditions, languageFromHeader);
         String quantityParam = request.params.get("quantity");
         int quantity = _getProductQuantity(quantityParam);
 
