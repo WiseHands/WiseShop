@@ -29,17 +29,18 @@ angular.module('WiseHands')
 			    });
 		    
 		    $scope.changeCurrency = function (currency) {
-			    var currentLocale = '';
 			    console.log("changeCurrency => ", currency);
-			    // $http({
-				   //  method: 'PUT',
-				   //  url: '/shop/' + currentLocale
-			    // })
-				   //  .success(function (response) {
-				   //  }).
-			    // error(function (response) {
-				   //  console.log(response);
-			    // });
+			    $http({
+				    method: 'PUT',
+				    url: '/currency/shop/' + currency
+			    })
+				    .success(function (response) {
+					    console.log("changeCurrency response => ", response);
+					    // $scope.shopCurrency = response.currencyShop.currency;
+				    }).
+			    error(function (response) {
+				    console.log(response);
+			    });
 		    };
 	    }]
     };
