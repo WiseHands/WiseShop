@@ -13,15 +13,21 @@ public class DataBaseQueries {
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (!selectedCurrency.isEmpty()) {
             currencyShop.selectedCurrency = selectedCurrency;
-
             boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.selectedCurrency.equals(currencyShop.currency);
             if (isSelectedCurrencyNotEqualShopCurrency) {
                 CurrencyDTO currency = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
-                product.priceInCurrency = product.price / currency.sale;
-                product.save();
+                if (currency != null) {
+                    product.priceInCurrency = product.price / currency.sale;
+                    product.save();
+                } else {
+                    currency = CurrencyDTO.find("select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2", selectedCurrency, currencyShop.currency).first();
+                    product.priceInCurrency = product.price * currency.sale;
+                    System.out.println("currency in dollar => " + product.price +"*"+ currency.sale);
+                    product.save();
+                }
+
             }
             currencyShop.save();
-
         }
         shop.currencyShop = currencyShop;
     }

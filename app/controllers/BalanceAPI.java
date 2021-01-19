@@ -16,6 +16,7 @@ public class BalanceAPI extends AuthController {
     static LiqPayService liqPay = LiqPayServiceImpl.getInstance();
 
     public static void setCurrencyToShop(String client, String currency) throws Exception {
+
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -26,11 +27,7 @@ public class BalanceAPI extends AuthController {
             shop.currencyShop.currency = currency;
             shop.currencyShop.save();
         }
-//        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
-//        if (!currency.isEmpty()){
-//            currencyShop.currency = currency;
-//            currencyShop.save();
-//        }
+
         renderJSON(json(shop));
     }
 

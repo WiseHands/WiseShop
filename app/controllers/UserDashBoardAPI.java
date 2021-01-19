@@ -1,5 +1,6 @@
 package controllers;
 
+import jobs.GetDailyCurrency;
 import models.*;
 import play.mvc.Before;
 
