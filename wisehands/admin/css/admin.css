@@ -32,6 +32,7 @@
 .admin-nav form {
     width: 85%;
 }
+
 .nav-search-btn {
     font-size: 1.8rem;
     color: #fff;
@@ -1925,7 +1926,7 @@ ul.admin-breadcrumb li a:hover {
 .feedback-to-all-order p {
 	overflow: hidden;
 	text-overflow: ellipsis;
-	word-break: ;
+	word-break: normal;
 	line-height: 1.2;
 	text-align: left;
 }
@@ -2178,7 +2179,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .admin-feedback-item-mob .link-to-order-btn a:hover {
-    color: ##23527c;
+    color: #23527c;
 }
 
 .admin-card-logo {
@@ -2277,6 +2278,8 @@ ul.admin-breadcrumb li a:hover {
 
 .external-link-img {
 	width: 30px;
+}
+
 .review-product-info {
     display: flex;
 }
@@ -2655,6 +2658,8 @@ ul.admin-breadcrumb li a:hover {
      flex-direction: column;
  }
 
+}
+
 .addition-new-container {
 	flex-direction: column;
 	width: -webkit-fill-available;
@@ -2768,7 +2773,7 @@ ul.admin-breadcrumb li a:hover {
 
 .addition-product-img {
 	width: 150px;
-	height: 150px
+	height: 150px;
 	object-fit: cover;
 }
 
