@@ -43,16 +43,14 @@ angular.module('WiseHands')
         $scope.$on('ngRepeatFinished', () => setCategoryName($scope.categories));
 
         $scope.redirectToTranslationPage = function (category) {
-            console.log('redirectToTranslationPage', category.thisCategory);
-            let _category = category.thisCategory;
         $http({
             method: 'GET',
-            url: '/api/get/translation/category/' + _category.uuid
+            url: '/api/get/translation/category/' + category.uuid
         })
             .then(function successCallback(response) {
                 $('#categoryModal').modal('hide');
                 const translationBucket = response.data;
-                $window.location.href = `#/translation/${_category.uuid}/${translationBucket.uuid}`;
+                $window.location.href = `#/translation/${category.uuid}/${translationBucket.uuid}`;
             }, function errorCallback(error) {
                 $scope.loading = false;
                 console.log(error);
