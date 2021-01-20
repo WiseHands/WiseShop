@@ -56,7 +56,7 @@ public class CurrencyShopDTO extends GenericModel {
     }
 
     public String showCurrency(){
-        return this.selectedCurrency.isEmpty() ? this.currency : this.selectedCurrency;
+        return this.selectedCurrency == null || this.selectedCurrency.isEmpty() ? this.currency : this.selectedCurrency;
     }
 
     public double formatPrice(ProductDTO product) {

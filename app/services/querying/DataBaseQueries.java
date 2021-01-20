@@ -1,5 +1,6 @@
 package services.querying;
 
+import com.thoughtworks.xstream.mapper.Mapper;
 import models.*;
 import play.db.jpa.JPA;
 
@@ -11,18 +12,22 @@ public class DataBaseQueries {
     public static void changePriceAccordingToCurrency(ProductDTO product, ShopDTO shop, String selectedCurrency){
 
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
-        if (!selectedCurrency.isEmpty()) {
+        if (selectedCurrency.isEmpty()){
+            currencyShop.selectedCurrency = null;
+            currencyShop.save();
+        } else {
             currencyShop.selectedCurrency = selectedCurrency;
             boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.selectedCurrency.equals(currencyShop.currency);
             if (isSelectedCurrencyNotEqualShopCurrency) {
-                CurrencyDTO currency = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
-                if (currency != null) {
-                    product.priceInCurrency = product.price / currency.sale;
-                    product.save();
+                CurrencyDTO currency = CurrencyDTO.find("select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2", currencyShop.currency, selectedCurrency).first();
+                if (currency == null) {
+                    product.priceInCurrency = changePriceToUsdOrEurCurrency(currencyShop.currency, selectedCurrency);
+//                    product.priceInCurrency = product.price * currency.sale;
+//                    System.out.println("currency in dollar => " + product.price +"*"+ currency.sale);
+//                    product.save();
+
                 } else {
-                    currency = CurrencyDTO.find("select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2", selectedCurrency, currencyShop.currency).first();
-                    product.priceInCurrency = product.price * currency.sale;
-                    System.out.println("currency in dollar => " + product.price +"*"+ currency.sale);
+                    product.priceInCurrency = product.price / currency.sale;
                     product.save();
                 }
 
@@ -30,6 +35,12 @@ public class DataBaseQueries {
             currencyShop.save();
         }
         shop.currencyShop = currencyShop;
+    }
+
+    private static double changePriceToUsdOrEurCurrency(String currency, String selectedCurrency) {
+        List<CurrencyDTO> currencyList = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1 and c.ccy = ?2", selectedCurrency, currency).fetch();
+        System.out.println("changePriceToUsdOrEurCurrency => " + currencyList);
+        return 0.0;
     }
 
 
