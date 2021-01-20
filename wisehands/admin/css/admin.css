@@ -240,7 +240,6 @@ td, th {
 }
 
 .flex-other-stores {
-	
 	padding-top: 70px !important;
 }
 
@@ -279,7 +278,6 @@ td, th {
 
 .networkShopCardEmail {
 	margin-top: 4px !important;
-	
 }
 
 #shopInfo {
@@ -429,7 +427,6 @@ input[type=date]::-webkit-inner-spin-button {
 }
 
 body {
-	margin-top: 4.7em;
 }
 
 .hiddenFileInput {
@@ -464,53 +461,53 @@ body {
 	.noRightPadding {
 		padding-right: 0;
 	}
-	
+
 	.cardTopPadding {
 		padding-top: 20px;
 	}
-	
+
 	.noPaddingLeft {
 		padding-left: 1px !important;
 	}
-	
+
 	.card .card-content {
 		padding: 0;
 	}
-	
+
 	.row {
 		margin-left: 0px;
 		margin-right: 0px;
 	}
-	
+
 	.discountContainer {
 		padding-left: 0;
 		padding-right: 0;
 	}
-	
+
 	/*.hidden-scrollbar {*/
 	/*overflow:hidden;*/
 	/*}*/
 	.card .card-content .card-title {
 		font-size: 16px;
 	}
-	
+
 	.card .card-content p {
 		font-size: 14px;
 	}
-	
+
 	.analyticsContainer {
 		padding-left: 0;
 		padding-right: 0;
 	}
-	
+
 	.navbar-fixed-top {
 		padding: 12px 0 !important;
 	}
-	
+
 	.collection {
 		margin-top: 0 !important;
 	}
-	
+
 	.noPaddingMobile {
 		padding-left: 0;
 		padding-right: 0;
@@ -522,50 +519,50 @@ body {
 	.noRightPadding {
 		padding-right: 0;
 	}
-	
+
 	.noPaddingLeft {
 		padding-left: 0;
 	}
-	
+
 	.cardTopPadding {
 		padding-top: 0;
 	}
-	
+
 	.row {
 		margin-left: 0px;
 		margin-right: 0px;
 	}
-	
+
 	.discountContainer {
 		padding-left: 0;
 		padding-right: 0;
-		
+
 	}
-	
+
 	/*.hidden-scrollbar {*/
 	/*overflow:auto;*/
 	/*}*/
 	.alignFlexStart {
 		align-self: flex-start;
 	}
-	
+
 	.alignFlexEnd {
 		align-self: flex-end;
 	}
-	
+
 	.analyticsContainer {
 		padding-left: 0;
 		padding-right: 0;
 	}
-	
+
 	.navbar-fixed-top {
 		padding: 12px 0 !important;
 	}
-	
+
 	.collection {
 		margin-top: 0 !important;
 	}
-	
+
 	.side-nav {
 		height: 100%;
 	}
@@ -576,22 +573,22 @@ body {
 	.noRightPadding {
 		padding-right: 0;
 	}
-	
+
 	.noPaddingLeft {
 		padding-left: 0;
 	}
-	
+
 	.row {
 		margin-left: 0px;
 		margin-right: 0px;
 	}
-	
+
 	.discountContainer {
 		padding-left: 0;
 		padding-right: 0;
-		
+
 	}
-	
+
 	/*.hidden-scrollbar {*/
 	/*overflow:auto;*/
 	/*}*/
@@ -599,7 +596,7 @@ body {
 		padding-left: 0;
 		padding-right: 0;
 	}
-	
+
 }
 
 @media (max-width: 767px) {
@@ -630,12 +627,12 @@ body {
 	.admin-all-orders, .admin-all-products {
 		flex-direction: column;
 	}
-	
+
 	.all-order-item, .all-products-item {
 		width: calc(100% - 2rem);
 		margin: 1rem 1rem 0 1rem;
 	}
-	
+
 	.all-products-item {
 		height: auto;
 	}
@@ -719,7 +716,7 @@ textarea {
 
 .noMarginForSearchInput:focus {
 	box-shadow: 0 1px 0 0 white !important;
-	
+
 }
 
 .noMarginForSearchInput::-webkit-input-placeholder {
@@ -855,7 +852,6 @@ label.whiteCheckBox::after {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	
 }
 
 .flexItems {
@@ -918,7 +914,7 @@ label.whiteCheckBox::after {
 }
 
 .collection {
-	margin-top: 78px;
+	margin-top: auto;
 }
 
 .namePhoneContainer {
@@ -2648,13 +2644,13 @@ ul.admin-breadcrumb li a:hover {
 	width: 100%;
 	padding: 1rem;
 }
-  
+
 @media screen and (max-width: 768px) {
-  
+
  .admin-nav form {
      width: 70%;
  }
-  
+
  .add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block, .working-hours-block, .settings-block {
      flex-direction: column;
  }
@@ -2958,25 +2954,25 @@ button[_ngcontent-addition-help] {
 	.add-product-block, .edit-product-block, .details-product-block, .payment-block-online, .addition-block, .working-hours-block, .settings-block {
 		flex-direction: column;
 	}
-	
+
 	.delivery-boundaries {
 		flex-direction: column-reverse;
 	}
-	
+
 	.m-left {
 		margin-left: 0;
 	}
-	
+
 	.load-product-image {
 		height: 100%;
 		min-height: 200px;
 		margin-bottom: 1rem;
 	}
-	
+
 	.save-button {
 		margin: 1rem auto;
 	}
-	
+
 	.admin-card-qr {
         width: 175px;
 	}
@@ -2984,40 +2980,40 @@ button[_ngcontent-addition-help] {
 	.addition-help-text p {
         text-align: center;
     }
-	
+
 	.delivery-list, .payment-list {
 		flex-direction: column;
 		align-items: center;
 	}
-	
+
 	.delivery-list-item {
 		margin: 1rem 0;
 	}
-	
+
 	.product-reviews-block {
 		flex-direction: column-reverse;
 	}
-	
+
 	.upload-favicon, .upload-logo {
 		height: auto;
 	}
-	
+
 	.upload-setting-img i {
 		margin: 1rem 0 0 0;
 	}
-	
+
 	.admin-card .upload-info-text {
 		height: auto;
 	}
-	
+
 	.translation-flex-row {
 		display: flex;
 	}
-	
+
 	.translation-flex-row .flex-row {
 		align-items: center;
 	}
-	
+
 	/*.admin-card h4 {*/
 	/*font-size: 1.8rem;*/
 	/*font-weight: 400;*/
@@ -3028,19 +3024,19 @@ button[_ngcontent-addition-help] {
 		margin-right: 5px;
 		object-fit: cover;
 	}
-	
+
 	.product-feedback-text {
 		margin-left: 65px;
 	}
-	
+
 	.admin-feedback-list .admin-card {
 		flex: 0 1 100%;
 	}
-	
+
 	.admin-contacts-card-gps {
 		padding: 0;
 	}
-	
+
 	#contactsForm .translation-flex-row {
 		display: flex;
 	}
@@ -3049,60 +3045,60 @@ button[_ngcontent-addition-help] {
 	    text-align: center;
 	    margin-top: .5rem;
 	}
-	
+
 	.img-present-qr {
 		align-self: center;
 		width: 270px;
 	}
-	
+
 	.qr-row-bet {
 		padding: 0;
 	}
-	
+
 	.qr-create-text p {
 		margin-bottom: 0;
 		font-size: 1.2em;
 		line-height: 1.7;
 		padding-bottom: 0;
 	}
-	
+
 	.qr-new-container {
 		flex-direction: column;
 	}
-	
+
 	.qr-input {
 		padding-right: 0;
 	}
-	
+
 	.qr-input, .qr-button button {
 		width: 100%
 	}
-	
+
 	.qr-button {
 		width: -webkit-fill-available;
 	}
-	
+
 	.m-l-r, .qr-detail-info {
 		padding: 0;
 	}
-	
+
 	.addition-edit-container {
 		flex-direction: column;
 	}
-	
+
 	.addition-edit-column {
 		width: -webkit-fill-available;
 	}
-	
+
 	.addition-edit-button button {
 		width: 100%;
 	}
-	
+
 	.img-present-addition {
 		margin: 10px;
 		width: 370px;
 	}
-	
+
     .carousel-gallery-container {
         margin: auto;
     }
