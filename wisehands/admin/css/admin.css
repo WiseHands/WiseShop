@@ -4,7 +4,7 @@
     align-items: center;
     position: sticky;
     top: 0;
-    background-color: #132935;
+    background-color: #0e2935;
     height: 69.125px;
     z-index: 111;
 }
@@ -23,6 +23,7 @@
 
 .nav-title {
     color: #fff;
+    margin: 0 auto;
 }
 
 .nav-title h5 {
@@ -33,13 +34,13 @@
     width: 85%;
 }
 
-.nav-search-btn {
+.nav-search-btn, .nav-edit-btn {
     font-size: 1.8rem;
     color: #fff;
     padding: 0 1rem;
 }
 
-.nav-search-btn:hover {
+.nav-search-btn:hover, .nav-edit-btn:hover {
     cursor: pointer;
 }
 
@@ -2891,8 +2892,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .qr-title-text, .additions-title-text {
-    margin-left: inherit;
-    margin-top: inherit;
+    margin: inherit;
 }
 
 .product-basic {
