@@ -1,30 +1,25 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-            <div class="col-xs-8 text-center white-text">
-                <h5>
-                    {{'qrDetails.title' | translate}}
-                </h5>
-            </div>
-            <a class="col-xs-2 noRightPadding nav-link dropdown-toggle"
-               id="dropdownMenu1"
-               type="button"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                <i class="fa fa-edit whiteColor pull-right">
-                </i>
-                <div class="dropdown-menu pull-right col-xs-1 rightDropdown" aria-labelledby="dropdownMenu1">
-                    <a class="col-xs-12 text-left" ng-click="redirectToEdit()" ><p> {{'qrDetails.edit' | translate}}</p></a>
-                    <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeQR"><p> {{'qrDetails.delete' | translate}}</p></a>
-                </div>
-            </a>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
     </div>
+    <div class="nav-title">
+        <h5>{{'qrDetails.title' | translate}}</h5>
+    </div>
+    <a class="double-navbar noRightPadding nav-link dropdown-toggle"
+       id="dropdownMenu"
+       type="button"
+       data-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+        <i class="fa fa-edit pull-right whiteColor nav-edit-btn">
+        </i>
+        <div class="dropdown-menu pull-right rightDropdown" aria-labelledby="dropdownMenu">
+            <a class="col-xs-12 text-left" ng-click="redirectToEdit()" ><p> {{'qrDetails.edit' | translate}}</p></a>
+            <a class="col-xs-12 text-left deleteOrderTopMargin" data-toggle="modal" data-target="#removeQR"><p> {{'qrDetails.delete' | translate}}</p></a>
+        </div>
+    </a>
 </nav>
+
 <div class="admin-container admin-column">
     <ul class="admin-breadcrumb qr-breadcrumb">
         <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>

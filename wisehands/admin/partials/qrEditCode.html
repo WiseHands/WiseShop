@@ -1,23 +1,18 @@
-<nav class="double-navbar navbar navbar-fixed-top unique-color z-depth-1 primaryColor" role="navigation">
-    <div class="container-fluid">
-        <div class="row vcentering">
-            <div class="col-xs-2 noPaddingLeft">
-                <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
-            </div>
-            <div class="col-xs-8 text-center white-text">
-                <h5>
-                    {{'qrEdit.title' | translate}}
-                </h5>
-            </div>
-        </div>
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
     </div>
+    <div class="text-center white-text">
+        <h5>{{'qrEdit.title' | translate}}</h5>
+    </div>
+    <div class="nav-menu"></div>
 </nav>
-<ul class="admin-breadcrumb qr-breadcrumb">
-    <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
-    <li><a href="#/qrcontroller">{{'qrBreadCrumb.menu' | translate}}</a></li>
-    <li>{{qr.name}}</li>
-</ul>
 <div class="admin-container admin-column">
+    <ul class="admin-breadcrumb qr-breadcrumb">
+        <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
+        <li><a href="#/qrcontroller">{{'qrBreadCrumb.menu' | translate}}</a></li>
+        <li>{{qr.name}}</li>
+    </ul>
     <div class="qr-title-container qr-edit">
         <img class="img-present-qr" src="\wisehands\assets\images\qr_link.png">
         <div class="qr-column  m-l-r">
