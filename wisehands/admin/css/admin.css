@@ -2412,6 +2412,10 @@ ul.admin-breadcrumb li a:hover {
     margin: 1rem 1rem 0 2rem;
 }
 
+.ng-element-in-setting {
+	width: 50%;
+}
+
 @media screen and (min-width: 1500px) {
     .admin-container {
         max-width: 1300px;
@@ -2544,6 +2548,11 @@ ul.admin-breadcrumb li a:hover {
         justify-content: flex-end;
         padding: 0 1rem 0 0;
     }
+	
+	.ng-element-in-setting {
+		width: 93.5%;
+	}
+	
 }
 
 @media screen and (max-width: 900px) {

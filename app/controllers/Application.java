@@ -611,7 +611,7 @@ public class Application extends Controller {
 
     private static String setSelectedCurrency(ShopDTO shop) {
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
-        if (!currencyShop.selectedCurrency.isEmpty()){
+        if (currencyShop.selectedCurrency != null && !currencyShop.selectedCurrency.isEmpty()){
             return currencyShop.selectedCurrency;
         } else {
             return currencyShop.currency;
