@@ -138,7 +138,7 @@ public class OrderAPI extends AuthController {
 
     public static void create(String client, String chosenLanguage) throws Exception {
         String jsonCart = "";
-        if (!request.params.get("cart").isEmpty()) {
+        if (request.params.get("cart") != null) {
             jsonCart = request.params.get("cart");
         }
 
