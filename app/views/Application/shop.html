@@ -266,7 +266,7 @@
                         <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
                         <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
                     </div>
-                    <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart('${_product.uuid}')">&{'page.product.buy'}</button>
+                    <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})">&{'page.product.buy'}</button>
                 </div>
             </div>
         </div>
