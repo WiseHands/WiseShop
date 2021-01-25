@@ -55,10 +55,12 @@
         width: 100%;
     }
     .category-name {
+        display: flex;
         text-align: left;
         font-size: 1.5rem;
         padding : 0.5rem;
         line-height: 1.2;
+        justify-content: center;
     }
     .cart-float {
         display: none;
@@ -175,6 +177,7 @@
     #{shop-header /}
 
     <div class="category-block">
+        <div class="category-name">${category.name}</div>
         <div class="category-nav">
             <div class="category-name">
                 <ul class="admin-breadcrumb">
@@ -211,7 +214,7 @@
                             <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                         </div>
                         <div class="item-card-action">
-                            <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart('${_product.uuid}')">&{'page.product.buy'}</button>
+                            <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})">&{'page.product.buy'}</button>
                             <!--<span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>-->
                         </div>
                     </div>
@@ -252,7 +255,7 @@
                             <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
                             <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
                         </div>
-                        <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart('${_product.uuid}')">&{'page.product.buy'}</button>
+                        <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})">&{'page.product.buy'}</button>
                         <!--<span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>-->
                     </div>
                 </div>
@@ -270,7 +273,7 @@
                 <i class="fa fa-check-circle"></i>
             </div>
         </div>
-        <div class="all-category-cards">
+<!--        <div class="all-category-cards">
             #{verbatim}
                 %{
                     for(_product in productList) {
@@ -319,7 +322,7 @@
                 </div>
             </div>
 
-        </div>
+        </div>-->
     </div>
     #{if shop.visualSettingsDTO.isFooterOn}
         #{footer-shop /}

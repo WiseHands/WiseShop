@@ -359,7 +359,7 @@ main {
 }
 
 /* Smartphones (portrait) ----------- */
-@media only screen and (max-device-width : 480px) {
+@media only screen and (max-width : 480px) {
     .productTitle {
         margin: 7.5px 0;
     }
@@ -375,7 +375,7 @@ main {
     }
 }
 /* Smartphones (landscape) ----------- */
-@media only screen and (min-device-width: 568px) and (max-device-width: 767px){
+@media only screen and (min-width: 568px) and (max-width: 767px){
     .productTitle {
         margin: 7.5px 0;
     }
@@ -388,7 +388,7 @@ main {
 
 
 /* Tablet ----------- */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
 
 }
 

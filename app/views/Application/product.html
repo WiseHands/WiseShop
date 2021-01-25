@@ -144,6 +144,7 @@
     }
 
     .price-buy-block button {
+        height: fit-content;
         border: 2px solid #000;
         color: #000 !important;
     }
@@ -196,7 +197,7 @@
         justify-content: space-between;
         width: 150px;
         height: 180px;
-        margin: 1.7rem;
+        margin: 1rem 1.7rem 0 0;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
 
     }
@@ -536,7 +537,7 @@
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
-    <!--    <script defer src="/wisehands/assets/bootstrap4.0.0/js/bootstrap.min.js"></script>-->
+
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 
     <script src="/wisehands/shop/js/services/WokingHoursService.js"></script>
@@ -600,9 +601,7 @@
         <h2>${product.name}</h2>
         <p class="text-justify">${product.description}</p>
 
-
         <div class="price-buy-block">
-
             <span class="product-price" price="${product.formatDecimal()}">
                 <div class="total-product-price">
                     <span>&{'page.product.price'}</span>
@@ -615,11 +614,9 @@
                 </div>
                 #{/if}
             </span>
-
-            <button class="buy-button" onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
+            <button class="buy-button btn btn-outline-primary btn-rounded" onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
                 &{'page.product.buy'}
             </button>
-
         </div>
         #{if product.selectedAdditions || product.defaultAdditions}
         <section class="additions">
