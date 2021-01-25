@@ -154,10 +154,10 @@
 <div  id="overlay-mobile" class="overlay-hidden-animation null-style">
 <div class="sidebar-mobile sibebar-swipe-off">
     #{if qr_uuid }
-        <a class="link" href="/?qr_uuid=${qr_uuid}">
+        <a class="link" href="/${language}?qr_uuid=${qr_uuid}">
     #{/if}
     #{else}
-        <a class="link" href="/">
+        <a class="link" href="/${language}">
     #{/else}
         <div class="sidebar-logo" title="${shop.shopName}">
 <!--            <img src="/public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopLogo}">-->
