@@ -128,7 +128,10 @@ public class OrderAPI extends AuthController {
     }
 
     public static String getTranslatedShopName(ShopDTO shop, String language) {
-        List<TranslationItemDTO> translationList = shop.shopNameTextTranslationBucket.translationList;
+        List<TranslationItemDTO> translationList = null;
+        if (shop.shopNameTextTranslationBucket != null) {
+            translationList = shop.shopNameTextTranslationBucket.translationList;
+        }
         TranslationItemDTO adminTranslationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(language)).collect(Collectors.toList()).get(0);
         if (!translationList.isEmpty() && !adminTranslationItemDTO.content.isEmpty()) {
             return adminTranslationItemDTO.content;
