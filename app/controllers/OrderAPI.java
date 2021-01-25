@@ -131,6 +131,8 @@ public class OrderAPI extends AuthController {
         List<TranslationItemDTO> translationList = null;
         if (shop.shopNameTextTranslationBucket != null) {
             translationList = shop.shopNameTextTranslationBucket.translationList;
+        } else {
+            return shop.shopName;
         }
         TranslationItemDTO adminTranslationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(language)).collect(Collectors.toList()).get(0);
         if (!translationList.isEmpty() && !adminTranslationItemDTO.content.isEmpty()) {
