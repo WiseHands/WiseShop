@@ -79,6 +79,10 @@ public class ShopAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         checkAuthentification(shop);
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (currencyShop != null) {
+            shop.currencyShop = currencyShop;
+        }
         renderJSON(json(shop));
     }
 

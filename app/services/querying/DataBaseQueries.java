@@ -1,9 +1,11 @@
 package services.querying;
 
-import models.AdditionDTO;
 import models.FeedbackDTO;
 import models.ProductDTO;
 import models.SelectedAdditionDTO;
+
+import models.*;
+
 import play.db.jpa.JPA;
 
 import java.util.ArrayList;
@@ -11,8 +13,55 @@ import java.util.List;
 
 public class DataBaseQueries {
 
+    public static void changePriceAccordingToCurrency(ProductDTO product, ShopDTO shop, String selectedCurrency){
 
-//    public static List<OrderDTO> getOrderList
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (selectedCurrency.isEmpty()){
+            currencyShop.selectedCurrency = null;
+            currencyShop.save();
+        } else {
+            currencyShop.selectedCurrency = selectedCurrency;
+            boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.currency.equals(currencyShop.selectedCurrency);
+            if (currencyShop.currency.equals("UAH")){
+                if (isSelectedCurrencyNotEqualShopCurrency) {
+                    String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
+                    CurrencyDTO currency = CurrencyDTO.find(currencyQuery, currencyShop.currency, selectedCurrency).first();
+                    product.priceInCurrency = product.price / currency.sale;
+                    product.save();
+                }
+            }
+            if (currencyShop.currency.equals("USD")){
+                if (isSelectedCurrencyNotEqualShopCurrency) {
+                    calculateProductPriceToCurrency(currencyShop.currency, selectedCurrency, product);
+                }
+            }
+            if (currencyShop.currency.equals("EUR")){
+                if (isSelectedCurrencyNotEqualShopCurrency) {
+                    calculateProductPriceToCurrency(currencyShop.currency, selectedCurrency, product);
+
+                }
+            }
+            currencyShop.save();
+        }
+        shop.currencyShop = currencyShop;
+    }
+
+    private static void calculateProductPriceToCurrency(String shopCurrency, String selectedCurrency, ProductDTO product) {
+        if (selectedCurrency.equals("UAH")){
+            String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
+            CurrencyDTO currency = CurrencyDTO.find(currencyQuery, selectedCurrency, shopCurrency).first();
+            product.priceInCurrency = product.price * currency.buy;
+        } else {
+            product.priceInCurrency = changePriceToUsdOrEurCurrency(shopCurrency, selectedCurrency, product);
+        }
+        product.save();
+    }
+
+    private static double changePriceToUsdOrEurCurrency(String currency, String selectedCurrency, ProductDTO product) {
+        CurrencyDTO currencyToShop = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", currency).first();
+        CurrencyDTO currencyToShopSelected = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
+        return product.price * (currencyToShop.buy / currencyToShopSelected.buy);
+    }
 
     public static List<FeedbackDTO> getFeedbackList(ProductDTO product) {
         String query = "SELECT customerName, feedbackTime, quality, review, FeedbackCommentDTO.comment FROM FeedbackDTO" +

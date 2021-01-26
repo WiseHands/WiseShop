@@ -128,20 +128,22 @@ public class OrderAPI extends AuthController {
     }
 
     public static String getTranslatedShopName(ShopDTO shop, String language) {
-        List<TranslationItemDTO> translationList = null;
-        if (shop.shopNameTextTranslationBucket != null) {
-            translationList = shop.shopNameTextTranslationBucket.translationList;
-        } else {
+        if (shop.shopNameTextTranslationBucket == null) {
             return shop.shopName;
-        }
-        TranslationItemDTO adminTranslationItemDTO = translationList.stream().filter(shopTranslate -> shopTranslate.language.equals(language)).collect(Collectors.toList()).get(0);
-        if (!translationList.isEmpty() && !adminTranslationItemDTO.content.isEmpty()) {
+        } else {
+            List<TranslationItemDTO> translationList = shop.shopNameTextTranslationBucket.translationList;
+            TranslationItemDTO adminTranslationItemDTO = translationList
+                    .stream()
+                    .filter(shopTranslate -> shopTranslate.language.equals(language))
+                    .collect(Collectors.toList()).get(0);
+
             return adminTranslationItemDTO.content;
         }
-        return shop.shopName;
+
     }
 
     public static void create(String client, String chosenLanguage) throws Exception {
+
         String jsonCart = "";
         if (request.params.get("cart") != null) {
             jsonCart = request.params.get("cart");
@@ -841,14 +843,13 @@ public class OrderAPI extends AuthController {
         return rendered;
 
     }
+
     private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order, String language) {
 
         Filter.registerFilter(new Filter("total"){
             @Override
             public Object apply(Object value, Object... params) {
-
                 DecimalFormat format = new DecimalFormat("0.##");
-
                 return format.format(value);
             }
         });
@@ -953,7 +954,7 @@ public class OrderAPI extends AuthController {
         String creditCardDeliveryPaymentType = Messages.get("mail.label.creditCardDeliveryPaymentType");
         map.put("creditCardDeliveryPaymentType", creditCardDeliveryPaymentType);
 
-        String labelCurrencyUah = Messages.get("mail.label.currency.uah");
+        String labelCurrencyUah = Messages.get("mail.label.currencyShop.uah");
         map.put("labelCurrencyUah", labelCurrencyUah);
 
         String rendered = template.render(map);

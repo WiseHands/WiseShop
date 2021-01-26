@@ -2,7 +2,12 @@
 #{set pageList:pageList /}
 #{set language:language /}
 #{set categories:categories /}
+
 #{set qr_uuid:qr_uuid /}
+
+#{set currencyList:currencyList /}
+#{set selectedCurrency:selectedCurrency /}
+
 
 <style>
     .flex-column-container{
@@ -227,7 +232,14 @@
                             <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                         </div>
                         <div class="item-card-action">
-                            <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})">&{'page.product.buy'}</button>
+                            <div class="item-card-action-price">
+                                <p class="current-price">${shop.currencyShop.formatPrice(_product)}
+                                    <span class="currency">${shop.currencyShop.showCurrency()}</span>
+                                </p>
+
+                                <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
+                            </div>
+                            <span class="" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
                         </div>
                     </div>
                 </div>

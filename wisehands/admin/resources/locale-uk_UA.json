@@ -417,6 +417,7 @@
   "deleteproperty.deleteMessage1": "Ви дійсно хочете видалити дану властивість?",
   "deleteproperty.deleteMessage2": "Властивість видалена.",
   "directives.language-select.Language": "Мова",
+  "directives.currency-select.Currency": "Валюта",
   "hourssetting.title": "Налаштування годин",
   "hourssetting.monday": "Понеділок",
   "hourssetting.tuesday": "Вівторок",

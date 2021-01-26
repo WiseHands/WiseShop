@@ -15,6 +15,21 @@ public class BalanceAPI extends AuthController {
     static MailSender mailSender = new MailSenderImpl();
     static LiqPayService liqPay = LiqPayServiceImpl.getInstance();
 
+    public static void setCurrencyToShop(String client, String currency) throws Exception {
+
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        if (!currency.isEmpty()){
+            shop.currencyShop.currency = currency;
+            shop.currencyShop.save();
+        }
+
+        renderJSON(json(shop));
+    }
 
     public static void getBalance(String client, String email) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

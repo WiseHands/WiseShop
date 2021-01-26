@@ -46,7 +46,7 @@ public class ProductAPI extends AuthController {
         }
 
         CategoryDTO cat = CategoryDTO.findById(category);
-        ProductDTO product = new ProductDTO(name, description, price, images, shop, cat, wholesaleCount, wholesalePrice);
+        ProductDTO product = new ProductDTO(nameUk, descriptionUk, price, images, shop, cat, wholesaleCount, wholesalePrice);
         product.mainImage = images.get(mainPhotoIndex);
         product.isActive = isActive;
         product.sortOrder = sortOrder;

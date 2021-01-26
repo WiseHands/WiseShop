@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import enums.FeedbackRequestState;
+
 import play.Play;
 import play.i18n.Lang;
 import play.i18n.Messages;
@@ -15,6 +16,7 @@ import services.translaiton.LanguageForShop;
 import services.translaiton.Translation;
 
 import java.io.IOException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -137,6 +139,13 @@ public class Application extends Controller {
             translationPageList.add(_page);
         }
         shop.pagesList = translationPageList;
+
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+        shop.currencyShop = setCurrencyToShop(shop);
+
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
         String qr_uuid = "";
@@ -146,6 +155,7 @@ public class Application extends Controller {
 
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
+            DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
@@ -165,7 +175,20 @@ public class Application extends Controller {
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
+
+        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
+
+    }
+
+    private static CurrencyShopDTO setCurrencyToShop(ShopDTO shop) {
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (currencyShop == null){
+            currencyShop = new CurrencyShopDTO(shop);
+            currencyShop.save();
+            return currencyShop;
+        } else {
+            return currencyShop;
+        }
     }
 
     public static void index(String client, String language) {
@@ -198,10 +221,6 @@ public class Application extends Controller {
             renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
         }
 
-        List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
-        products = ProductDTO.find(query, shop, false, true).fetch();
-
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
@@ -209,16 +228,23 @@ public class Application extends Controller {
             translationPageList.add(_page);
         }
         shop.pagesList = translationPageList;
-        List<ProductDTO> productList = new ArrayList<ProductDTO>();
-
 
         String qr_uuid = "";
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }
-
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+        shop.currencyShop = setCurrencyToShop(shop);
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true).fetch();
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
+            DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
@@ -232,15 +258,14 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        System.out.println("request.params qr_uuid.isEmpty() in Index => " + qr_uuid);
-
-
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
 
         System.out.println("DEBUG renderTemplate Application/shop.html");
-        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
+
+        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
+
     }
 
     public static void shop(String client, String language) {
@@ -292,8 +317,14 @@ public class Application extends Controller {
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
 
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+        shop.currencyShop = setCurrencyToShop(shop);
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
+            DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
@@ -307,10 +338,7 @@ public class Application extends Controller {
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        System.out.println("request.params qr_uuid.isEmpty() in Shop => " + qr_uuid);
-
-
-        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
+        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
     }
 
     public static void categoryOld(String client, String uuid) {
@@ -325,30 +353,33 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<CategoryDTO> categories = shop.getActiveCategories(language);
+
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
-        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
-        for(PageConstructorDTO _page: pageList){
-            _page = Translation.setTranslationForPage(language, _page);
-            translationPageList.add(_page);
+
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
         }
+        shop.currencyShop = setCurrencyToShop(shop);
 
         String qr_uuid = "";
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }
 
-        shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
+            DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
@@ -356,12 +387,19 @@ public class Application extends Controller {
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
             }
-
         }
+
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+        }
+        shop.pagesList = translationPageList;
+
         Translation.setTranslationForShop(language, shop);
 
-        System.out.println("request.params qr_uuid.isEmpty() in category => " + qr_uuid);
-        renderTemplate("Application/category.html", shop, category, categories, productList, language, qr_uuid);
+        renderTemplate("Application/category.html", shop, category, categories, productList, language, qr_uuid, selectedCurrency);
     }
 
     public static void productOld(String client, String uuid) {
@@ -410,8 +448,14 @@ public class Application extends Controller {
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
             product.defaultAdditions = defaultAdditions;
         }
-        System.out.println("request.params qr_uuid.isEmpty() in Product => " + qr_uuid);
 
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+        DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
+        shop.currencyShop = setCurrencyToShop(shop);
+        shop.save();
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
 
@@ -423,7 +467,7 @@ public class Application extends Controller {
         }
 
         render(product, category, categories, shop, language,
-               defaultAdditions, totalPriceForDefaultAdditions, qr_uuid, mainShopUrl, urlToCategory);
+               defaultAdditions, totalPriceForDefaultAdditions, qr_uuid, mainShopUrl, urlToCategory, selectedCurrency);
     }
 
     public static void shopHeader(String client){
@@ -431,11 +475,15 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        String qr_uuid = "";
+        String qr_uuid = "", selectedCurrency = "";
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
         }
-        renderTemplate("tags/footer-shop.html", shop, qr_uuid);
+
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+        renderTemplate("tags/footer-shop.html", shop, qr_uuid, selectedCurrency);
     }
 
     public static void footerShop(String client){
@@ -498,11 +546,12 @@ public class Application extends Controller {
         for(PageConstructorDTO _page: pageList){
             _page = Translation.setTranslationForPage(language, _page);
             translationPageList.add(_page);
-
         }
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         shop.pagesList = translationPageList;
-        render(shop, categories, language);
+        Translation.setTranslationForShop(language, shop);
+        render(shop, pageList, language, categories);
+
     }
 
     public static void pageOld(String client, String uuid) {
@@ -631,7 +680,25 @@ public class Application extends Controller {
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
 
-        render(shop, language, categories, qr_uuid);
+
+        String selectedCurrency = "";
+        if (request.params.get("currency") != null){
+            selectedCurrency = request.params.get("currency");
+        }
+        if (selectedCurrency.isEmpty()) {
+            selectedCurrency = setSelectedCurrency(shop);
+        }
+        System.out.println("selectedCurrency in shopping cart => " + selectedCurrency);
+        render(shop, language, categories, qr_uuid, selectedCurrency);
+    }
+
+    private static String setSelectedCurrency(ShopDTO shop) {
+        CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
+        if (currencyShop.selectedCurrency != null && !currencyShop.selectedCurrency.isEmpty()){
+            return currencyShop.selectedCurrency;
+        } else {
+            return currencyShop.currency;
+        }
     }
 
     public static void done(String client) {

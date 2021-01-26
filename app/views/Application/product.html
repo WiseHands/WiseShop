@@ -2,6 +2,8 @@
 #{set language:language /}
 #{set categories:categories /}
 #{set qr_uuid:qr_uuid /}
+#{set selectedCurrency:selectedCurrency /}
+
 
 <!DOCTYPE html>
 <style>
@@ -562,16 +564,14 @@
       }
       return;
     }
-
-
     fetch('/api/cart?uuid=' + product.uuid + '&qr_uuid=' + product.qrUuid + '&additionList=' + JSON.stringify(additionList), {
       method: 'POST'
     }).then(function (response) {
       if (response.ok) {
         #{verbatim}
-        #{if shop.faceBookPixelApiKey}
-        fbq('track', 'AddToCart', {content_ids: [uuid]});
-        #{/if}
+            #{if shop.faceBookPixelApiKey}
+                fbq('track', 'AddToCart', {content_ids: [uuid]});
+            #{/if}
         #{/verbatim}
         document.querySelector(".cart-float").style.display = 'block';
         setTimeout(setDelayShowCart, 2000);
@@ -602,16 +602,18 @@
         <p class="text-justify">${product.description}</p>
 
         <div class="price-buy-block">
-            <span class="product-price" price="${product.formatDecimal()}">
-                <div class="total-product-price">
-                    <span>&{'page.product.price'}</span>
-                    <span class="total-span"></span>
-                </div>
-                #{if product.selectedAdditions || product.defaultAdditions}
-                <div class="total-additions-price" ng-if="additions">
-                    <span>&{'page.product.additions.label'}:</span>
-                    <span class="additions-total-price" total="${totalPriceForDefaultAdditions}"></span>
-                </div>
+
+            <span class="product-price" price="${shop.currencyShop.formatPrice(product)}">
+                <span>&{'page.product.price'}
+                    #{if !(shop.currencyShop.currency.equals(selectedCurrency))}
+                        ~
+                    #{/if}
+                </span>
+                <span class="total-span"></span>
+                <span>${shop.currencyShop.showCurrency()}</span>
+                #{if !(shop.currencyShop.currency.equals(selectedCurrency))}
+                    <span>(${product.formatPrice()} ${shop.currencyShop.currency})</span>
+                    <p> ~ &{'page.product.changes.price'}</p>
                 #{/if}
             </span>
             <button class="buy-button btn btn-outline-primary btn-rounded" onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
@@ -741,52 +743,6 @@
         </div>
     </div>
 </div>
-
-<!--<div class="shop-product-tabs product-center-container">
-    <button class="product-tab" active onclick="openTab(event)">&{'page.product.about.product'}</button>
-    <button class="product-tab" onclick="openTab(event)">&{'page.product.reviews'}</button>
-</div>
-<div active class="shop-all-reviews w3-container w3-border item-tab">
-    <p>${product.description}</p>
-</div>
-<div class="shop-all-reviews w3-container w3-border item-tab">
-    #{if product.feedbackList}
-    %{
-    for(_review in product.feedbackList) {
-    }%
-    #{if !_review.isFeedbackDeleted}
-    <div class="shop-review-item">
-        <div class="shop-review-item-info">
-            <p>${_review.customerName}</p>
-            <div feedback-rate="${_review.quality}" class="feedback-stars">
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-            </div>
-        </div>
-        <div class="shop-review-item-text">
-            <p time="${_review.feedbackTime}"></p>
-            #{if _review.review} <p>${_review.review}</p> #{/if}
-            #{else} <p>&{'page.product.no.reviews.from.client'}</p> #{/else}
-            <div class="reply-for-review">
-                #{if _review.review && _review.comment}
-                <h4>${shop.shopName}</h4>
-                <p>${_review.comment}</p>
-                #{/if}
-            </div>
-        </div>
-    </div>
-    #{/if}
-    <hr>
-    %{
-    }
-    }%
-    #{/if}
-    #{else} <p>&{'page.product.no.reviews'}</p> #{/else}
-</div>-->
-
 #{if shop.faceBookPixelApiKey}
 <script>
   console.log('present faceBookPixelApiKey');
@@ -923,7 +879,7 @@
   }
 
   function _setTotal(total) {
-    totalSpan.innerText = total + ' UAH';
+    totalSpan.innerText = total;
   }
 
   function _setAdditionsTotalPrice() {

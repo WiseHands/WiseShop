@@ -65,6 +65,8 @@ page.product.additions.label = Wzbogacenie
 page.product.additions.cost = Wzbogacenie koszt
 page.product.price = Wartość:
 page.product.buy = Kupić
+page.product.changes.price = price can vary slightly due to changes in rates
+
 page.product.add.to.basket = Produkt dodany do koszyka
 page.product.about.product = O produkcie
 page.product.reviews = Opinie

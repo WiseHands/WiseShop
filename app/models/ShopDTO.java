@@ -124,6 +124,10 @@ public class ShopDTO extends GenericModel {
     @Expose
     public String locale;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public CurrencyShopDTO currencyShop;
+
     @OneToOne(cascade=CascadeType.ALL)
     public BalanceDTO balance;
 

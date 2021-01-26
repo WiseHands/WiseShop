@@ -51,6 +51,9 @@ public class WizardDTO extends GenericModel {
     public boolean payCash;
 
     @Expose
+    public String shopCurrency;
+
+    @Expose
     public String facebookLink;
 
     @Expose

@@ -3,6 +3,7 @@
 #{set language:language /}
 #{set categories:categories /}
 #{set qr_uuid:qr_uuid /}
+#{set selectedCurrency:selectedCurrency /}
 <style>
     .category-block {
         ;
@@ -213,8 +214,18 @@
                             <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                         </div>
                         <div class="item-card-action">
+<<<<<<< HEAD
                             <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})">&{'page.product.buy'}</button>
                             <!--<span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>-->
+=======
+                            <div class="item-card-action-price">
+                                <p class="current-price">${shop.currencyShop.formatPrice(_product)}
+                                    <span class="currency">${shop.currencyShop.showCurrency()}</span>
+                                </p>
+                                <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
+                            </div>
+                            <span class="" onclick="buyStart('${_product.uuid}')"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
+>>>>>>> addCurrencyToShop
                         </div>
                     </div>
                 </div>
