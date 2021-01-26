@@ -16,20 +16,14 @@ public class QrDTO extends GenericModel {
     public String uuid;
 
     @Expose
-    public String shopUuid;
-
-    @Expose
     public String name;
 
     @Expose
-    public boolean isQrDeleted;
+    public String shopUuid;
 
     public QrDTO(String name, String shopUuid) {
         this.name = name;
-        this.isQrDeleted = false;
         this.shopUuid = shopUuid;
     }
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    public ShopDTO shop;
 }

@@ -44,15 +44,7 @@ public class QrAPI extends AuthController {
     }
 
     public static void list(String client) throws Exception {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        List<QrDTO> qrList;
-        String query = "select q from QrDTO q where q.isQrDeleted = 0 and q.shopUuid = ?1";
-        qrList = QrDTO.find(query, shop.uuid).fetch();
-
-        System.out.println("qrList => " + qrList);
+        List<QrDTO> qrList = QrDTO.findAll();
         renderJSON(json(qrList));
     }
 
@@ -73,11 +65,6 @@ public class QrAPI extends AuthController {
     }
 
     public static void delete(String client) {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        System.out.println("delete");
         QrDTO qr = QrDTO.findById(request.params.get("uuid"));
         qr.delete();
         ok();
