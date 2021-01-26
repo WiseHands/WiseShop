@@ -140,7 +140,6 @@
       </div>
       <div class="all-team">
 
-        <!--Template for team-cards-->
         <template>
 
           <div class="team-card  wow bounceIn">
@@ -207,7 +206,75 @@
                   src="../../../wisehands/mainpage/images/github.png" title="View Github"></a>
               </div>
             </div>
+            <div class="all-team">
+              <div class="team-card  wow bounceIn">
+                    <div class="card-front team-1" id="bodya" onmouseenter="_onMouseEnter(event)"></div>
+                    <div class="card-about">
+                        <div class="card-text">
+                            <h4>Bogdan</h4>
+                            <p>Dude</p>
+                        </div>
+                        <div class="card-github">
+                            <a href="https://github.com/bohdaq" target="_blank"><img
+                                    src="../../../wisehands/mainpage/images/github.png" title="View Github"></a>
+                        </div>
+                    </div>
+                </div>
+              <div class="team-card  wow bounceIn">
+                    <div class="card-front team-2" id="reverie"></div>
+                    <div class="card-about">
+                        <div class="card-text">
+                            <h4>Volodymyr</h4>
+                            <p>Reverie</p>
+                        </div>
+                        <div class="card-github">
+                            <a href="https://github.com/ReverieSylve" target="_blank"><img
+                                    src="../../../wisehands/mainpage/images/github.png" title="View Github"></a>
+                        </div>
+                    </div>
+                </div>
+              <div class="team-card  wow bounceIn">
+                    <div class="card-front team-3" id="petrovych"></div>
+                    <div class="card-about">
+                        <div class="card-text">
+                            <h4>Oleksandr</h4>
+                            <p>Petrovych</p>
+                        </div>
+                        <div class="card-github">
+                            <a href="https://github.com/top802" target="_blank"><img
+                                    src="../../../wisehands/mainpage/images/github.png" title="View Github"></a>
+                        </div>
+                    </div>
+                </div>
+              <div class="team-card  wow bounceIn">
+                    <div class="card-front team-4" id="taras"></div>
+                    <div class="card-about">
+                        <div class="card-text">
+                            <h4>Taras</h4>
+                            <p>Gabe</p>
+                        </div>
+                        <div class="card-github">
+                            <a href="https://github.com/TarasH1" target="_blank"><img
+                                    src="../../../wisehands/mainpage/images/github.png" title="View Github"></a>
+                        </div>
+                    </div>
+                </div>
+              <div class="team-card  wow bounceIn">
+                    <div class="card-front team-5" id="tony"></div>
+                    <div class="card-about">
+                        <div class="card-text">
+                            <h4>Roman</h4>
+                            <p>Fat Tony</p>
+                        </div>
+                        <div class="card-github">
+                            <a href="https://github.com/toluene5019" target="_blank"><img
+                                    src="../../../wisehands/mainpage/images/github.png" title="View Github"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
+
 
         </template>
 
@@ -551,6 +618,49 @@
 		const url = '../../../wisehands/mainpage/images/gifs/' + id + '/' + id + '-' + randomGifNumber + '.gif';
 		return fetch(url, {mode: 'no-cors'});
 	}
+
+  const teamCards = document.querySelectorAll('.card-front');
+
+  const _onMouseEnter = event => {
+	  const eventTarget = event.target;
+	  generateGifPath(eventTarget.id).then(data => {
+			  const gifPath = '../../../wisehands/mainpage/images/gifs/' + eventTarget.id + '/' + eventTarget.id + '-';
+			  eventTarget.style.backgroundImage = data.responseOkState ? 'url(' + gifPath + data.gifId + '.gif' + ')' : 'url(' + gifPath + '0.gif)';
+		  }
+	  ).catch(error => console.log(error)
+	  );
+  };
+  // teamCards.forEach(card => {
+  //   card.addEventListener('mouseenter', event => {
+  //     const eventTarget = event.target;
+  //     generateGifPath(eventTarget.id).then(data => {
+  //         const gifPath = '../../../wisehands/mainpage/images/gifs/' + eventTarget.id + '/' + eventTarget.id + '-';
+  //         eventTarget.style.backgroundImage = data.responseOkState ? 'url(' + gifPath + data.gifId + '.gif' + ')' : 'url(' + gifPath + '0.gif)';
+  //       }
+  //     ).catch(error => console.log(error)
+  //     );
+  //   })
+  // });
+
+  teamCards.forEach(card => {
+    card.addEventListener('mouseleave', event => {
+      const eventTarget = event.target;
+      eventTarget.style.backgroundImage = '';
+    })
+  });
+
+  async function generateGifPath(id) {
+    const randomGifNumber = Math.floor(Math.random() * Math.floor(10));
+    const response = await checkGifForPresence(id, randomGifNumber);
+    const responseOkState = await response.ok;
+    return Object.assign({responseOkState: responseOkState, gifId: randomGifNumber});
+
+  }
+
+  function checkGifForPresence(id, randomGifNumber) {
+    const url = '../../../wisehands/mainpage/images/gifs/' + id + '/' + id + '-' + randomGifNumber + '.gif';
+    return fetch(url, {mode: 'no-cors'});
+  }
 
 </script>
 

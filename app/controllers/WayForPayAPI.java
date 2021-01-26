@@ -74,9 +74,6 @@ public class WayForPayAPI extends AuthController {
             this.serviceUrl = serviceUrl;
         }
 
-
-
-
     }
 
     static String merchantAccount = "wisehands_me";
@@ -176,6 +173,7 @@ public class WayForPayAPI extends AuthController {
         ShopDTO shop = ShopDTO.findById(shopUuid);
 
         String productName = "Поповнення власного рахунку для магазину " + shop.shopName;
+        // TODO check url
         String serviceUrl = "https://wstore.pro/wayforpay/payment-confirmation";
         Double amount = Double.valueOf(request.params.get("amount"));
         String formatDecimal = formatDecimal(amount);

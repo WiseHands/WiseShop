@@ -128,6 +128,11 @@ public class WizardAPI extends AuthController {
         boolean courierDelivery = (boolean) jsonBody.get("courierDelivery");
         boolean postDepartment = (boolean) jsonBody.get("postDepartment");
         boolean selfTake = (boolean) jsonBody.get("selfTake");
+
+        boolean uah = (boolean) jsonBody.get("uahCurrency");
+        boolean usd = (boolean) jsonBody.get("usdCurrency");
+        boolean eur = (boolean) jsonBody.get("eurCurrency");
+
         boolean payCash = true;
         boolean payOnline = false;
 
@@ -141,10 +146,21 @@ public class WizardAPI extends AuthController {
         user.wizard.selfTake = selfTake;
         user.wizard.payCash = payCash;
         user.wizard.payOnline = payOnline;
+        user.wizard.shopCurrency = setCurrencyToShop(uah, usd, eur);
 
         user.wizard.save();
         renderJSON(json(user.wizard));
 
+    }
+
+    private static String setCurrencyToShop(boolean uah, boolean usd, boolean eur) {
+        if (uah){
+            return "UAH";
+        } else if (usd) {
+            return "USD";
+        } else {
+            return "EUR";
+        }
     }
 
     public static void setSocialNetworkInfo() throws Exception{

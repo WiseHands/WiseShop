@@ -2641,6 +2641,7 @@ ul.admin-breadcrumb li a:hover {
 	word-break: break-word;
 }
 
+
 .items-center {
 	align-items: center;
 }
@@ -2648,6 +2649,23 @@ ul.admin-breadcrumb li a:hover {
 .addition-container .addition-edit-container {
 	width: 100%;
 	padding: 1rem;
+}
+
+.user-profile-container {
+    display: flex;
+}
+.select-currency {
+    margin: 1rem 1rem 0 2rem;
+}
+
+.ng-element-in-setting {
+	width: 50%;
+}
+
+@media screen and (min-width: 1500px) {
+    .admin-container {
+        max-width: 1300px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -3138,6 +3156,11 @@ button[_ngcontent-addition-help] {
         justify-content: flex-end;
         padding: 0 1rem 0 0;
     }
+	
+	.ng-element-in-setting {
+		width: 93.5%;
+	}
+	
 }
 
 @media screen and (max-width: 900px) {

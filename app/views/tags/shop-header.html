@@ -104,6 +104,7 @@
         padding-right: 0.5rem;
     }
     .dropbtn {
+        width: 27px;
         background-color: #9e9e9e;
         color: white;
         padding: 5px;
@@ -191,6 +192,18 @@
             </a>
         </div>
         <div class="header-right-part">
+            #{if shop.currencyShop.currencyList.size() > 0}
+              <div class="select-lang">
+                <button class="dropbtn">${shop.currencyShop.currencyFormat(selectedCurrency)}</button>
+                <div class="lang-list">
+                    <!-- TODO modify url in below function, without second parameter -->
+                  <a onclick="changeCurrency('USD', 'en')">Dollar</a>
+                  <a onclick="changeCurrency('UAH', 'uk')">Гривня</a>
+                  <a onclick="changeCurrency('EUR', 'en')">Euro</a>
+                </div>
+              </div>
+            #{/if}
+
             <div class="select-lang">
                 <button class="dropbtn">${language}</button>
                 <div class="lang-list">
@@ -262,6 +275,11 @@
       } else {
         window.location = window.location.origin + '/' + object.language + newUrl;
       }
+    };
 
+    changeCurrency = (currency, language) => {
+	    const url = window.location.pathname;
+	    const newUrl = url.slice(3);
+	    window.location = window.location.origin + '/' + language + newUrl + '?currency=' + currency;
     }
 </script>

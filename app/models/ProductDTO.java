@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.round;
+
 @Entity
 public class ProductDTO extends GenericModel {
     @Id
@@ -31,6 +33,9 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     public Double priceWithAdditions;
+
+    @Expose
+    public double priceInCurrency;
 
     @Expose
     public String fileName;
@@ -131,6 +136,11 @@ public class ProductDTO extends GenericModel {
         } else {
             return String.format("%10.2f", number); // dj_segfault
         }
+    }
+
+    public double formatPrice() {
+        double number = this.price;
+        return round(number, 2); // sdb
     }
 
     public String formatDecimalOldPrice() {

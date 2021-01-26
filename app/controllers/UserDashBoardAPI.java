@@ -1,15 +1,12 @@
 package controllers;
 
+import jobs.GetDailyCurrency;
 import models.*;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import play.i18n.Lang;
 import play.mvc.Before;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -70,19 +67,26 @@ public class UserDashBoardAPI extends AuthController{
         BalanceDTO balance = new BalanceDTO();
         VisualSettingsDTO visualSettings = new VisualSettingsDTO();
 
+        CurrencyShopDTO currencyShop = new CurrencyShopDTO();
+        currencyShop.currency = user.wizard.shopCurrency;
+
         ShopDTO shop = new ShopDTO(users, paymentSettings, delivery,
                 contact, balance, visualSettings, user.wizard.shopName,
-                "public liqpay key here", "private liqpay key here", user.wizard.shopDomain, "uk_UA"
-        );
+                "public liqpay key here", "private liqpay key here", user.wizard.shopDomain,
+                "uk_UA");
         shop.googleStaticMapsApiKey = "AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg";
         shop.googleMapsApiKey = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
         visualSettings.shop = shop;
+        currencyShop.shop = shop;
+        shop.currencyShop = currencyShop;
+        currencyShop.save();
 
         _appendDomainToList(user.wizard.shopDomain);
         shop.save();
         renderJSON(json(shop));
 
     }
+
 
     private static void setTranslationForCashPaymentLabel(PaymentSettingsDTO payment) {
         if (payment.manualPaymentTitleTranslationBucket == null){

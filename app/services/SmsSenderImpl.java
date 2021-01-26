@@ -49,7 +49,6 @@ public class SmsSenderImpl implements SmsSender {
         }
         sum.append(PRIVATE_KEY);
 
-
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(sum.toString().getBytes());
 
