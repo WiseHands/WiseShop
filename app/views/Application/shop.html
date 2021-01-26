@@ -2,9 +2,7 @@
 #{set pageList:pageList /}
 #{set language:language /}
 #{set categories:categories /}
-
 #{set qr_uuid:qr_uuid /}
-
 #{set currencyList:currencyList /}
 #{set selectedCurrency:selectedCurrency /}
 
@@ -223,8 +221,13 @@
                         <div class="item-card-title">
                             <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
                             <div class="item-card-action-price card-title">
-                                <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
+                              <div class="item-card-action-price">
+                                <p class="current-price">${shop.currencyShop.formatPrice(_product)}
+                                  <span class="currency">${shop.currencyShop.showCurrency()}</span>
+                                </p>
+
                                 <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
+                              </div>
                             </div>
                         </div>
                         <div class="card-footer"></div>
@@ -232,14 +235,7 @@
                             <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                         </div>
                         <div class="item-card-action">
-                            <div class="item-card-action-price">
-                                <p class="current-price">${shop.currencyShop.formatPrice(_product)}
-                                    <span class="currency">${shop.currencyShop.showCurrency()}</span>
-                                </p>
-
-                                <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
-                            </div>
-                            <span class="" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})"><a data-toggle="tooltip" data-placement="top"><i class="fa fa-shopping-cart"></i></a></span>
+                            <button type="button" class="btn btn-outline-primary btn-rounded"  onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})">&{'page.product.buy'}</button>
                         </div>
                     </div>
                 </div>
