@@ -12,6 +12,8 @@ angular.module('WiseHands')
                 $scope.activeShop = response.data;
                 localStorage.setItem('activeShop', $scope.activeShop.uuid);
                 localStorage.setItem('activeShopName', $scope.activeShop.shopName);
+                localStorage.setItem('activeShopLocale', $scope.activeShop.locale);
+                console.log("shopLocale", $scope.activeShop.locale);
                 console.log("/shop/details", response);
             }, function errorCallback(response) {
             });

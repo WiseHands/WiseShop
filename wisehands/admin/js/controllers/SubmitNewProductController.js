@@ -206,6 +206,24 @@ angular.module('WiseHands')
             $('.modal-backdrop').remove();
         };
 
+        function getProductName() {
+            let activeShopLocale = localStorage.getItem('activeShopLocale');
+            if (activeShopLocale === 'uk_UA') {
+                return $scope.product.nameUk;
+            } else {
+                return $scope.product.nameEn;
+            }
+        }
+
+        function getProductDescription() {
+            let activeShopLocale = localStorage.getItem('activeShopLocale');
+            if (activeShopLocale === 'uk_UA') {
+                return $scope.product.descriptionUk;
+            } else {
+                return $scope.product.descriptionEn;
+            }
+        }
+
         $scope.submitProduct = function () {
             if (!document.getElementById("imageLoader").value) {
                 document.querySelector(".error-text").style.display = "block";
@@ -221,8 +239,8 @@ angular.module('WiseHands')
                 var blob = $scope.productImagesDTO[i];
                 fd.append("photos[" + i + "]", blob);
             }
-            fd.append('name', $scope.product.name);
-            fd.append('description', $scope.product.description);
+            fd.append('name', getProductName());
+            fd.append('description', getProductDescription());
             fd.append('price', $scope.product.price);
             fd.append('mainPhotoIndex', $scope.product.mainPhoto);
             fd.append('category', $scope.selectedCategoryId);
