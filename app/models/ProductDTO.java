@@ -3,6 +3,7 @@ package models;
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
+import play.templates.JavaExtensions;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -154,6 +155,19 @@ public class ProductDTO extends GenericModel {
             }
         }
         return "";
+    }
+
+    public String getLinkToProductPage(ProductDTO product, String language, String qr_uuid, String selectedCurrency){
+        String link = "/" + language +"/product/" + product.uuid;
+        if (qr_uuid.isEmpty() && selectedCurrency.isEmpty()){
+            return link;
+        } else if (!qr_uuid.isEmpty()) {
+            return link + "?qr_uuid=" + qr_uuid;
+        } else if (!selectedCurrency.isEmpty()) {
+            return link + "?selectedCurrency=" + selectedCurrency;
+        } else {
+            return link + "?qr_uuid=" + qr_uuid + "&selectedCurrency=" + selectedCurrency;
+        }
     }
 
 }

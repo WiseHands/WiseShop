@@ -175,6 +175,7 @@ public class Application extends Controller {
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
+        System.out.println("in language chooser => " + "qr:" + qr_uuid + "seCurr:" + selectedCurrency);
 
         renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
 
@@ -263,6 +264,7 @@ public class Application extends Controller {
         }
 
         System.out.println("DEBUG renderTemplate Application/shop.html");
+        System.out.println("in index => " + "qr:" + qr_uuid + "seCurr:" + selectedCurrency);
 
         renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
 
@@ -337,6 +339,8 @@ public class Application extends Controller {
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
+
+        System.out.println("in Application/shop.html => " + "qr:" + qr_uuid + "seCurr:" + selectedCurrency);
 
         renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
     }

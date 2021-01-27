@@ -231,4 +231,6 @@ public class ShopDTO extends GenericModel {
     }
 
 
+
+
 }

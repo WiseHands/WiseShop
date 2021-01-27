@@ -205,21 +205,24 @@
             <div class="item-card">
                 <div class="card inline hoverable">
                     <div class="noselect hm-white-slight z-depth-1" >
-                            #{if qr_uuid}
-                            %{qrParam = "?qr_uuid="}%
-                            <a href="/${language}/product/${_product.uuid}${qrParam}${qr_uuid}">
+                            #{if qr_uuid || selectedCurrency}
+                            %{qrParam = "?qr_uuid="; currencyParam = "&currency="}%
+                            <a href="/${language}/product/${_product.uuid}${qrParam}${qr_uuid}${currencyParam}${selectedCurrency}">
                                  <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
                             </a>
                             #{/if}
                             #{else}
-                            <a href="/${language}/product/${_product.uuid}${qrParam}${qr_uuid}">
+                            <a href="/${language}/product/${_product.uuid}">
                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
                             </a>
                             #{/else}
                     </div>
                     <div class="card-block text-xs-center">
                         <div class="item-card-title">
-                            <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                            <h4 class="card-title productNameTruncate h4-responsive">
+                              <a
+                                href="${_product.getLinkToProductPage(_product, language, qr_uuid, selectedCurrency)}">
+                            <strong>${_product.name}</strong></a></h4>
                             <div class="item-card-action-price card-title">
                               <div class="item-card-action-price">
                                 <p class="current-price">${shop.currencyShop.formatPrice(_product)}

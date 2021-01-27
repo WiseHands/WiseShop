@@ -73,9 +73,10 @@ public class CurrencyShopDTO extends GenericModel {
         }
     }
 
-
-
-
-
+    public String getLinkToProductPage(ProductDTO product, String language, String qr_uuid, String selectedCurrency){
+        String link = product.uuid + language + qr_uuid + selectedCurrency;
+        System.out.println("link => " + link);
+        return link;
+    }
 
 }

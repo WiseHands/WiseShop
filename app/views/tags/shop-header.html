@@ -197,9 +197,9 @@
                 <button class="dropbtn">${shop.currencyShop.currencyFormat(selectedCurrency)}</button>
                 <div class="lang-list">
                     <!-- TODO modify url in below function, without second parameter -->
-                  <a onclick="changeCurrency('USD', 'en')">Dollar</a>
-                  <a onclick="changeCurrency('UAH', 'uk')">Гривня</a>
-                  <a onclick="changeCurrency('EUR', 'en')">Euro</a>
+                  <a onclick="changeCurrency('USD')">Dollar</a>
+                  <a onclick="changeCurrency('UAH')">Гривня</a>
+                  <a onclick="changeCurrency('EUR')">Euro</a>
                 </div>
               </div>
             #{/if}
@@ -269,7 +269,10 @@
 
     changeLanguage = (object) => {
       const url = window.location.pathname;
-      const newUrl = url.slice(3)
+	    console.log("changeLanguage => " + url);
+	    const newUrl = url.slice(3);
+	    console.log("changeLanguage newUrl => " + newUrl);
+
       if (object.qrUuid){
         window.location = window.location.origin + '/' + object.language + newUrl + '?qr_uuid=' + object.qrUuid;
       } else {
@@ -277,9 +280,9 @@
       }
     };
 
-    changeCurrency = (currency, language) => {
+    changeCurrency = (currency) => {
 	    const url = window.location.pathname;
-	    const newUrl = url.slice(3);
-	    window.location = window.location.origin + '/' + language + newUrl + '?currency=' + currency;
+	    console.log("changeCurrency => " + url);
+	    window.location = window.location.origin + url + '?currency=' + currency;
     }
 </script>
