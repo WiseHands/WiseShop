@@ -138,7 +138,8 @@ public class ShoppingCartDTO extends GenericModel {
         PaymentCreditCardConfiguration creditCard =
                 new PaymentCreditCardConfiguration(shop.paymentSettings.onlinePaymentTitle, shop.paymentSettings.onlinePaymentEnabled, shop.paymentSettings.clientPaysProcessingCommission,
                         shop.paymentSettings.onlinePaymentTitleTranslationBucket);
-        PaymentConfiguration payment = new PaymentConfiguration(cash, creditCard, shop.paymentSettings.minimumPayment);
+        CurrencyShopConfiguration currencyShop = new CurrencyShopConfiguration(shop.currencyShop.currency, shop.currencyShop.currencyList);
+        PaymentConfiguration payment = new PaymentConfiguration(cash, creditCard, shop.paymentSettings.minimumPayment, currencyShop);
 
         AdditionalConfiguration additionalConfiguration = new AdditionalConfiguration(shop.labelNameForBuyerNameFieldInShoppingCart);
 

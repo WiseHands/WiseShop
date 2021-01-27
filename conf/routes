@@ -85,7 +85,6 @@ OPTIONS     {client}/api/dashboard/shop/info                UserDashBoardAPI.all
 PUT         {client}/api/dashboard/shop/setting             UserDashBoardAPI.saveSettingsForShop
 PUT         {client}/api/dashboard/shop/save-name           UserDashBoardAPI.saveShopName
 
-
 # payment system for dashboard
 POST        {client}/wayforpay/payment-confirmation         WayForPayAPI.paymentConfirmation
 
