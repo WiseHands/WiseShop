@@ -197,9 +197,9 @@
                 <button class="dropbtn">${shop.currencyShop.currencyFormat(selectedCurrency)}</button>
                 <div class="lang-list">
                     <!-- TODO modify url in below function, without second parameter -->
-                  <a onclick="changeCurrency('USD')">Dollar</a>
-                  <a onclick="changeCurrency('UAH')">Гривня</a>
-                  <a onclick="changeCurrency('EUR')">Euro</a>
+                  <a onclick="changeCurrency({currency:'USD', qrUuid: '${qr_uuid}'})">Dollar</a>
+                  <a onclick="changeCurrency({currency:'UAH', qrUuid: '${qr_uuid}'})">Гривня</a>
+                  <a onclick="changeCurrency({currency:'EUR', qrUuid: '${qr_uuid}'})">Euro</a>
                 </div>
               </div>
             #{/if}
@@ -207,8 +207,8 @@
             <div class="select-lang">
                 <button class="dropbtn">${language}</button>
                 <div class="lang-list">
-                    <a onclick="changeLanguage({language:'en', qrUuid: '${qr_uuid}'})">English</a>
-                    <a onclick="changeLanguage({language:'uk', qrUuid: '${qr_uuid}'})">Українська</a>
+                    <a onclick="changeLanguage({language:'en', qrUuid: '${qr_uuid}', currency:'${selectedCurrency}'})">English</a>
+                    <a onclick="changeLanguage({language:'uk', qrUuid: '${qr_uuid}', currency:'${selectedCurrency}'})">Українська</a>
                 </div>
             </div>
             <div id="admin-icon" class="header-cart">
@@ -273,16 +273,22 @@
 	    const newUrl = url.slice(3);
 	    console.log("changeLanguage newUrl => " + newUrl);
 
-      if (object.qrUuid){
-        window.location = window.location.origin + '/' + object.language + newUrl + '?qr_uuid=' + object.qrUuid;
+      if (object.qrUuid && object.currency){
+        window.location = window.location.origin + '/' + object.language + newUrl
+          + '?qr_uuid=' + object.qrUuid + '&currency=' + object.currency;
       } else {
         window.location = window.location.origin + '/' + object.language + newUrl;
       }
     };
 
-    changeCurrency = (currency) => {
-	    const url = window.location.pathname;
-	    console.log("changeCurrency => " + url);
-	    window.location = window.location.origin + url + '?currency=' + currency;
+    changeCurrency = (object) => {
+	    const pathname = window.location.pathname;
+	    if (object.qrUuid){
+		    window.location = window.location.origin + pathname
+			    + '?qr_uuid=' + object.qrUuid + '&currency=' + object.currency;
+	    } else {
+		    window.location = window.location.origin + pathname + '?currency=' + object.currency;
+	    }
+
     }
 </script>

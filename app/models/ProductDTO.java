@@ -159,14 +159,14 @@ public class ProductDTO extends GenericModel {
 
     public String getLinkToProductPage(ProductDTO product, String language, String qr_uuid, String selectedCurrency){
         String link = "/" + language +"/product/" + product.uuid;
-        if (qr_uuid.isEmpty() && selectedCurrency.isEmpty()){
-            return link;
-        } else if (!qr_uuid.isEmpty()) {
+        if (!qr_uuid.isEmpty() && !selectedCurrency.isEmpty()){
+            return link + "?qr_uuid=" + qr_uuid + "&currency=" + selectedCurrency;
+        } else if (!qr_uuid.isEmpty() && selectedCurrency.isEmpty()) {
             return link + "?qr_uuid=" + qr_uuid;
-        } else if (!selectedCurrency.isEmpty()) {
-            return link + "?selectedCurrency=" + selectedCurrency;
+        } else if (!selectedCurrency.isEmpty() && qr_uuid.isEmpty()) {
+            return link + "?currency=" + selectedCurrency;
         } else {
-            return link + "?qr_uuid=" + qr_uuid + "&selectedCurrency=" + selectedCurrency;
+            return link;
         }
     }
 

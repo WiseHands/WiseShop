@@ -103,6 +103,7 @@ public class Application extends Controller {
     }
 
     public static void languageChooser(String client) {
+        System.out.println(" --- executing languageChooser ---");
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -194,6 +195,8 @@ public class Application extends Controller {
 
     public static void index(String client, String language) {
         System.out.println("client info " + client);
+        System.out.println(" --- executing index ---");
+
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -238,6 +241,8 @@ public class Application extends Controller {
         if (request.params.get("currency") != null){
             selectedCurrency = request.params.get("currency");
         }
+
+
         shop.currencyShop = setCurrencyToShop(shop);
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
         List<ProductDTO> products;
@@ -272,6 +277,7 @@ public class Application extends Controller {
 
     public static void shop(String client, String language) {
         Date date = new Date();
+        System.out.println(" --- executing shop ---");
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -357,6 +363,7 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+                System.out.println(" --- executing category ---");
 
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
@@ -414,6 +421,7 @@ public class Application extends Controller {
     }
 
     public static void product(String client, String uuid, String language){
+        System.out.println(" --- executing product ---");
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -635,30 +643,6 @@ public class Application extends Controller {
         return token;
     }
 
-    public static void orderFeedback(String client, String uuid) {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
-        boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
-        String shopName = shop.shopName;
-
-        Http.Header acceptLanguage = request.headers.get("accept-language");
-        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
-        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
-        List<OrderItemDTO> orderItemList = order.items;
-        for(OrderItemDTO _orderItem: orderItemList){
-            ProductDTO product = ProductDTO.findById(_orderItem.productUuid);
-            product = Translation.setTranslationForProduct(language, product);
-            _orderItem.name = product.name;
-            _orderItem.description = product.description;
-        }
-
-        String currency = "UAH";
-        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language, shopName);
-    }
-
     public static void shoppingCart(String client, String uuid, String language){
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null){
@@ -704,6 +688,31 @@ public class Application extends Controller {
             return currencyShop.currency;
         }
     }
+
+    public static void orderFeedback(String client, String uuid) {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        OrderDTO order = OrderDTO.find("byUuid",uuid).first();
+        boolean isSendRequest = order.feedbackRequestState.equals(FeedbackRequestState.REQUEST_SENT);
+        String shopName = shop.shopName;
+
+        Http.Header acceptLanguage = request.headers.get("accept-language");
+        String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
+        String language = LanguageForShop.setLanguageForShop(null, languageFromHeader);
+        List<OrderItemDTO> orderItemList = order.items;
+        for(OrderItemDTO _orderItem: orderItemList){
+            ProductDTO product = ProductDTO.findById(_orderItem.productUuid);
+            product = Translation.setTranslationForProduct(language, product);
+            _orderItem.name = product.name;
+            _orderItem.description = product.description;
+        }
+
+        String currency = "UAH";
+        renderTemplate("Application/orderFeedback.html", shop, order, isSendRequest, currency, language, shopName);
+    }
+
 
     public static void done(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
