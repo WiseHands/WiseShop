@@ -73,10 +73,17 @@ public class CurrencyShopDTO extends GenericModel {
         }
     }
 
-    public String getLinkToProductPage(ProductDTO product, String language, String qr_uuid, String selectedCurrency){
-        String link = product.uuid + language + qr_uuid + selectedCurrency;
-        System.out.println("link => " + link);
-        return link;
+    public boolean isDefaultCurrencyNotEqualSelectedCurrency(String selectedCurrency){
+        System.out.println("isDefaultCurrencyNotEqualSelectedCurrency selectedCurrency => " + selectedCurrency.isEmpty());
+
+        if (selectedCurrency.isEmpty()) {
+            System.out.println("isDefaultCurrencyNotEqualSelectedCurrency isEmpty()" + selectedCurrency.isEmpty());
+            return false;
+        } else {
+            System.out.println("isDefaultCurrencyNotEqualSelectedCurrency " + !this.currency.equals(selectedCurrency));
+            return !(this.currency.equals(selectedCurrency));
+        }
+
     }
 
 }

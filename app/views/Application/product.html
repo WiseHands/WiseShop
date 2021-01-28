@@ -606,13 +606,14 @@
 
             <span class="product-price" price="${shop.currencyShop.formatPrice(product)}">
                 <span>&{'page.product.price'}
-                    #{if !(shop.currencyShop.currency.equals(selectedCurrency))}
-                        ~
-                    #{/if}
+
+                  #{if shop.currencyShop.isDefaultCurrencyNotEqualSelectedCurrency(selectedCurrency)}
+                    ~
+                  #{/if}
                 </span>
                 <span class="total-span"></span>
                 <span>${shop.currencyShop.showCurrency()}</span>
-                #{if !(shop.currencyShop.currency.equals(selectedCurrency))}
+                #{if shop.currencyShop.isDefaultCurrencyNotEqualSelectedCurrency(selectedCurrency)}
                     <span>(${product.formatPrice()} ${shop.currencyShop.currency})</span>
                     <p> ~ &{'page.product.changes.price'}</p>
                 #{/if}
