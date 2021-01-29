@@ -49,5 +49,18 @@ public class CategoryDTO extends GenericModel {
         this.description = description;
     }
 
+    public String getLinkToCategoryPage(String uuid, String language, String qr_uuid, String selectedCurrency){
+        String link = "/" + language +"/category/" + uuid;
+        if (!qr_uuid.isEmpty() && !selectedCurrency.isEmpty()){
+            return link + "?qr_uuid=" + qr_uuid + "&currency=" + selectedCurrency;
+        } else if (!qr_uuid.isEmpty() && selectedCurrency.isEmpty()) {
+            return link + "?qr_uuid=" + qr_uuid;
+        } else if (!selectedCurrency.isEmpty() && qr_uuid.isEmpty()) {
+            return link + "?currency=" + selectedCurrency;
+        } else {
+            return link;
+        }
+    }
+
 
 }

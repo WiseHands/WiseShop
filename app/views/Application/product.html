@@ -637,7 +637,10 @@
                     <div class="addition-name">
                         <p>${defaultAddition.addition.title}</p>
                     </div>
-                    <p class="add-item-price">${defaultAddition.addition.formatDecimal()} UAH</p>
+                    <p class="add-item-price">
+                      ${defaultAddition.addition.formatDecimal()}
+                      ${shop.currencyShop.showCurrency()}
+                    </p>
                 </div>
                 %{
                   }
@@ -651,9 +654,6 @@
                      onclick="_addItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}'})">
-<!--                    <span class="material-icons">
-                        delete_forever
-                    </span>-->
                     <img src="${_selectedAddition.addition.imagePath}">
                     <div class="addition-name" title="${_selectedAddition.addition.title}">
                         <p id="add-item-title">${_selectedAddition.addition.title}</p>
@@ -673,7 +673,10 @@
                             add_circle
                         </span>
                     </div>
-                    <p class="add-item-price">${_selectedAddition.addition.formatDecimal()} UAH</p>
+                    <p class="add-item-price">
+                      ${_selectedAddition.addition.formatDecimal()}
+                      ${shop.currencyShop.showCurrency()}
+                    </p>
                 </div>
                 %{
                 }
