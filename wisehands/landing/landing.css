@@ -28,7 +28,7 @@ body a {
 }
 .header-logo-text img {
     width: 50px;
-    height: 50px;
+    height: auto;
     padding-right: 1rem;
 }
 .header-logo-text p {
@@ -515,7 +515,7 @@ footer a:hover {
 }
 .footer-logo img {
     width: 36px;
-    height: 36px;
+    height: auto;
     margin-right: 0.5rem;
 }
 .footer-logo p {
