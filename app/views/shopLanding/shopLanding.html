@@ -1,5 +1,6 @@
 #{set shop:shop /}
 #{set language:language /}
+#{set qr_uuid:qr_uuid /}
 <!DOCTYPE html>
 <html language="${language}">
 <head>
@@ -1011,8 +1012,15 @@
         <div class="sidebar-panel">
             <a class="link"  href="/${language}"><i class="fa fa-home" aria-hidden="true"></i>
                 &{'mobile.sidebar.link.main.page'}</a>
+            #{if qr_uuid}
+            %{qrParam = "?qr_uuid="}%
+            <a class="link"  href="/${language}/shop${qrParam}${qr_uuid}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                &{'landing.page.make.order.title'}</a>
+            #{/if}
+            #{else}
             <a class="link"  href="/${language}/shop"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 &{'landing.page.make.order.title'}</a>
+            #{/else}
             <a class="link" id="sidebar-contact" href="#footer-contact"><i class="fa fa-address-book" aria-hidden="true"></i>
                 &{'landing.page.contact.title'}</a>
         </div>

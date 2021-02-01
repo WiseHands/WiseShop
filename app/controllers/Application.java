@@ -163,7 +163,7 @@ public class Application extends Controller {
         Translation.setTranslationForShop(language, shop);
 
         if(client.equals("americano.lviv.ua")){
-            renderTemplate("app/views/shopLanding/shopLanding.html", language);
+            renderTemplate("app/views/shopLanding/shopLanding.html", language, qr_uuid);
         }
         renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
     }
