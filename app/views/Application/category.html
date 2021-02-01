@@ -180,8 +180,8 @@
         <div class="category-nav">
             <div class="category-name">
                 <ul class="admin-breadcrumb">
-                    <li><a href="#">&{'mobile.sidebar.title.categories'}</a></li>
-                    <li><a href="/${language}/category/${category.uuid}">${category.name}</a></li>
+                    <li><a href="${urlToMain}">&{'mobile.sidebar.title.categories'}</a></li>
+                    <li><a href="${urlToCategory}">${category.name}</a></li>
                 </ul>
             </div>
             <div class="view-block">
@@ -196,9 +196,17 @@
             <div class="item-card">
                 <div class="card inline hoverable">
                     <div class="noselect hm-white-slight z-depth-1" >
-                        <a href="/${language}/product/${_product.uuid}">
-                            <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
-                        </a>
+                      #{if qr_uuid}
+                      %{qrParam = "?qr_uuid="}%
+                      <a href="/${language}/product/${_product.uuid}${qrParam}${qr_uuid}">
+                        <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
+                      </a>
+                      #{/if}
+                      #{else}
+                      <a href="/${language}/product/${_product.uuid}${qrParam}${qr_uuid}">
+                        <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
+                      </a>
+                      #{/else}
                     </div>
                     <div class="card-block text-xs-center">
                         <div class="item-card-title">

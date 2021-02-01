@@ -742,51 +742,6 @@
     </div>
 </div>
 
-<!--<div class="shop-product-tabs product-center-container">
-    <button class="product-tab" active onclick="openTab(event)">&{'page.product.about.product'}</button>
-    <button class="product-tab" onclick="openTab(event)">&{'page.product.reviews'}</button>
-</div>
-<div active class="shop-all-reviews w3-container w3-border item-tab">
-    <p>${product.description}</p>
-</div>
-<div class="shop-all-reviews w3-container w3-border item-tab">
-    #{if product.feedbackList}
-    %{
-    for(_review in product.feedbackList) {
-    }%
-    #{if !_review.isFeedbackDeleted}
-    <div class="shop-review-item">
-        <div class="shop-review-item-info">
-            <p>${_review.customerName}</p>
-            <div feedback-rate="${_review.quality}" class="feedback-stars">
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-                <i class="fa"></i>
-            </div>
-        </div>
-        <div class="shop-review-item-text">
-            <p time="${_review.feedbackTime}"></p>
-            #{if _review.review} <p>${_review.review}</p> #{/if}
-            #{else} <p>&{'page.product.no.reviews.from.client'}</p> #{/else}
-            <div class="reply-for-review">
-                #{if _review.review && _review.comment}
-                <h4>${shop.shopName}</h4>
-                <p>${_review.comment}</p>
-                #{/if}
-            </div>
-        </div>
-    </div>
-    #{/if}
-    <hr>
-    %{
-    }
-    }%
-    #{/if}
-    #{else} <p>&{'page.product.no.reviews'}</p> #{/else}
-</div>-->
-
 #{if shop.faceBookPixelApiKey}
 <script>
   console.log('present faceBookPixelApiKey');

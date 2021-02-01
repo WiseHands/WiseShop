@@ -360,8 +360,15 @@ public class Application extends Controller {
         }
         Translation.setTranslationForShop(language, shop);
 
+        String urlToMain = "/" + language;
+        String urlToCategory = "/" + language + "/category/" + category.uuid;
+        if (qr_uuid != null){
+            urlToMain += "?qr_uuid=" + qr_uuid;
+            urlToCategory  += "?qr_uuid=" + qr_uuid;
+        }
+
         System.out.println("request.params qr_uuid.isEmpty() in category => " + qr_uuid);
-        renderTemplate("Application/category.html", shop, category, categories, productList, language, qr_uuid);
+        renderTemplate("Application/category.html", shop, category, categories, productList, language, qr_uuid, urlToMain, urlToCategory);
     }
 
     public static void productOld(String client, String uuid) {
