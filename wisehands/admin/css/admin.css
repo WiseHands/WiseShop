@@ -2719,6 +2719,7 @@ ul.admin-breadcrumb li a:hover {
 	width: 100%;
 	text-align: center;
 	line-height: 1.8;
+	padding: 0 1rem 0 1rem;
 }
 .review-product-image img {
     width: 100px;
@@ -2787,9 +2788,7 @@ ul.admin-breadcrumb li a:hover {
 .how-to-use {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-weight: 400;
     cursor: pointer;
-    font-style: normal;
 }
 
 .heading[_ngcontent-addition-help] {

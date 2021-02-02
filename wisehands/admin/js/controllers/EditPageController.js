@@ -125,6 +125,23 @@ angular.module('WiseHands')
                 });
         };
 
+            $scope.deleteButton = true;
+
+            $scope.removePage = () => {
+                $http({
+                    method: "DELETE",
+                    url: `/pageconstructor/${$routeParams.uuid}`,
+                }).then(response => {
+                    $('#removePage').modal('hide');
+                    if(response.status === 200){
+                        $window.location.href = `#/pageconstructor`
+                        $scope.loading = false;
+                    }
+                }, error => {
+                    console.error(error);
+                });
+            };
+
 
     }]);
 
