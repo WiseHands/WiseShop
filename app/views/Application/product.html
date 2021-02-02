@@ -603,10 +603,8 @@
         <p class="text-justify">${product.description}</p>
 
         <div class="price-buy-block">
-
             <span class="product-price" price="${shop.currencyShop.formatPrice(product)}">
                 <span>&{'page.product.price'}
-
                   #{if shop.currencyShop.isDefaultCurrencyNotEqualSelectedCurrency(selectedCurrency)}
                     ~
                   #{/if}
@@ -617,7 +615,17 @@
                     <span>(${product.formatPrice()} ${shop.currencyShop.currency})</span>
                     <p> ~ &{'page.product.changes.price'}</p>
                 #{/if}
+                #{if product.selectedAdditions || product.defaultAdditions}
+                <div class="total-additions-price">
+                  <span>&{'page.product.additions.label'}:</span>
+                  <span class="additions-total-price"
+                        total="${totalPriceForDefaultAdditions}"
+                        currency="${shop.currencyShop.showCurrency()}">
+                  </span>
+                </div>
+                #{/if}
             </span>
+
             <button class="buy-button btn btn-outline-primary btn-rounded" onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
                 &{'page.product.buy'}
             </button>
@@ -628,7 +636,7 @@
 
             <div class="additions-block">
                 %{
-                 for(defaultAddition in defaultAdditions) {
+                 for(defaultAddition in product.defaultAdditions) {
                 }%
                 <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}"
                     id="${defaultAddition.addition.uuid}">
@@ -890,13 +898,14 @@
   function _setAdditionsTotalPrice() {
     if (!additionsTotalPriceContainer) return;
     let additionsTotalPrice = Number(additionsTotalPriceContainer.getAttribute('total'));
+    let currency = additionsTotalPriceContainer.getAttribute('currency');
     const selectedAdditions = document.querySelectorAll('.add-item');
     selectedAdditions.forEach(addition => {
       const counter = addition.getAttribute('counter');
       const additionPrice = Number(addition.getAttribute('price'));
       additionsTotalPrice += counter * additionPrice;
     });
-    additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
+    additionsTotalPriceContainer.innerText = additionsTotalPrice + ' ' +currency;
   }
 
 </script>
