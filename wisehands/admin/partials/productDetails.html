@@ -42,7 +42,7 @@
                         </button>
                     </div>
 
-                    <label for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</label>
+                    <label for="price">{{'addNewProduct.productPrice' | translate}} {{currency}}</label>
                     <h5 id="price">{{product.price}} {{product.priceWithAdditions > 0 ? ('+ ') + (product.priceWithAdditions) +
                       (' ') + ('selectAdditions.additionsPrice' | translate) : ''}}</h5>
                     <label for="category">{{'productDetails.category' | translate}}</label>
@@ -87,7 +87,7 @@
                         <!--Main image-->
                         <div class="carousel-gallery-container">
                             <div class="flexContainerForPriceLabels card-label">
-                                <h5><span class="label primaryColor">{{product.price}} {{'products.currency' | translate}}</span></h5>
+                                <h5><span class="label primaryColor">{{product.price}} {{currency}}</span></h5>
                                 <h5><span ng-hide="product.oldPrice == null" class="label primaryColor crossedPriceFont"><strike>{{product.oldPrice}} {{'products.currency' | translate}}</strike></span></h5>
                             </div>
                             <!-- Wrapper for slides -->

@@ -1,9 +1,11 @@
 angular.module('WiseHands')
     .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', '$window', 'signout', function($http, $scope, $routeParams, $window, signout) {
-        $scope.uuid = $routeParams.uuid;
-        $scope.loading = true;
-
-        $http({
+      $scope.uuid = $routeParams.uuid;
+      $scope.loading = true;
+      $scope.currency = localStorage.getItem('currency');
+	
+	
+	    $http({
             method: 'GET',
             url: '/shop/details'
         })

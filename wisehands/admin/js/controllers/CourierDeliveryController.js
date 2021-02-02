@@ -1,6 +1,7 @@
 angular.module('WiseHands')
   .controller('CourierDeliveryController', ['$scope', '$http', '$location', 'sideNavInit', '$window', function ($scope, $http, $location, sideNavInit, $window) {
     $scope.loading = true;
+    $scope.currency = localStorage.getItem('currency');
 
     $http({
       method: 'GET',

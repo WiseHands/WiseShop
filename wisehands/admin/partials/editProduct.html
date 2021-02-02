@@ -38,7 +38,7 @@
                     </div>
                     <div class="input-field">
                         <input id="price" type="text" ng-model="product.price">
-                        <label class="active" for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</label>
+                        <label class="active" for="price">{{'addNewProduct.productPrice' | translate}} {{currency}}</label>
                     </div>
                     <div class="input-field">
                         <textarea id="description" class="materialize-textarea" ng-model="product.description"></textarea>

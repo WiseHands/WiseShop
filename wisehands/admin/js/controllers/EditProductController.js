@@ -3,10 +3,12 @@ angular.module('WiseHands')
         '$http', '$scope', '$routeParams', '$location', 'signout', '$uibModal',
         function($http, $scope, $routeParams, $location, signout, $uibModal) {
 
-            $scope.uuid = $routeParams.uuid;
-            $scope.loading = true;
-
-            // Edit image
+          $scope.uuid = $routeParams.uuid;
+          $scope.loading = true;
+	        $scope.currency = localStorage.getItem('currency');
+	
+	
+	        // Edit image
             $scope.editImage = function(image){
                 if ( image && image.uuid ){
                     var modal = $uibModal.open({

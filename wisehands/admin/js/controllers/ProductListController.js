@@ -1,6 +1,9 @@
 angular.module('WiseHands')
     .controller('ProductListController', ['$scope', '$http', 'spinnerService', 'sideNavInit', 'signout',
         function ($scope, $http, spinnerService, sideNavInit, signout) {
+	
+        $scope.currency = localStorage.getItem('currency');
+	
         $scope.loading = true;
         $scope.wrongMessage = false;
         $scope.getResource = function () {

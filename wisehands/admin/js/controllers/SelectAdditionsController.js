@@ -2,10 +2,12 @@ angular.module('WiseHands')
 	.controller('SelectAdditionsController', ['$scope', '$http', 'sideNavInit', '$routeParams',
 		function ($scope, $http, sideNavInit, $routeParams) {
 
-		    $scope.addition = {};
-		    $scope.addition.isSelected = false;
-		    $scope.addition.isDefault = false;
-
+	    $scope.addition = {};
+      $scope.addition.isSelected = false;
+	    $scope.addition.isDefault = false;
+			$scope.currency = localStorage.getItem('currency');
+			
+			
 			const productUuid = $routeParams.productUuid;
 
 			$http({
