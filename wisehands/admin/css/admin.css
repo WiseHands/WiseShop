@@ -2696,7 +2696,7 @@ ul.admin-breadcrumb li a:hover {
 }
 
 .selected-addition-item {
-	width: auto;
+	width: 175px;
 	display: flex;
 	flex-direction: column;
 	padding: 0;
@@ -2805,7 +2805,6 @@ ul.admin-breadcrumb li a:hover {
 .selected-addition-info {
 	display: flex;
 	justify-content: space-between;
-	width: 190px;
 }
 
 .selected-addition-info p {
@@ -3136,6 +3135,10 @@ button[_ngcontent-addition-help] {
         display: flex;
         justify-content: flex-end;
         padding: 0 1rem 0 0;
+    }
+
+    .qr-list-container {
+        justify-content: center;
     }
 }
 
