@@ -3,9 +3,10 @@ package models;
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
-import play.templates.JavaExtensions;
+
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +84,8 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     @OneToMany
-    public List<SelectedAdditionDTO> defaultAdditions;
+    @JoinColumn(name="defaultAdditions_id", insertable = false, updatable = false)
+    public List<SelectedAdditionDTO> defaultAdditions = new ArrayList<SelectedAdditionDTO>();
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)

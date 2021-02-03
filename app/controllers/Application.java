@@ -182,7 +182,7 @@ public class Application extends Controller {
 
     }
 
-    private static CurrencyShopDTO setCurrencyToShop(ShopDTO shop) {
+    public static CurrencyShopDTO setCurrencyToShop(ShopDTO shop) {
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (currencyShop == null){
             currencyShop = new CurrencyShopDTO(shop);
@@ -464,11 +464,12 @@ public class Application extends Controller {
         }
 
         if(qr_uuid == null || qr_uuid.isEmpty()) {
-            totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-            product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForDefaultAddition(totalPriceForDefaultAdditions, shop, selectedCurrency);
-            totalPriceForDefaultAdditions = product.priceWithAdditions;
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
             product.defaultAdditions = defaultAdditions;
+            totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
+            product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForDefaultAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
+            totalPriceForDefaultAdditions = product.priceWithAdditions;
+
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency, defaultAdditions);
         }
 

@@ -24,6 +24,7 @@ public class BalanceAPI extends AuthController {
         checkAuthentification(shop);
 
         if (!currency.isEmpty()){
+            shop.currencyShop = Application.setCurrencyToShop(shop);
             shop.currencyShop.currency = currency;
             shop.currencyShop.save();
         }

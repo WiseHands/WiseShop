@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DataBaseQueries {
 
-    public static double exchangeTotalPriceForDefaultAddition(double additionsPrice, ShopDTO shop, String selectedCurrency) {
+    public static double exchangeTotalPriceForDefaultAdditions(double additionsPrice, ShopDTO shop, String selectedCurrency) {
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (currencyShop == null) {
             return additionsPrice;
@@ -110,6 +110,7 @@ public class DataBaseQueries {
         } else {
             product.priceInCurrency = changePriceToUsdOrEurCurrency(shopCurrency, selectedCurrency, product, defaultAdditions);
         }
+        System.out.println("default additions list in product => " + product.defaultAdditions);
         product.save();
     }
 
