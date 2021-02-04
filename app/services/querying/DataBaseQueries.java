@@ -78,12 +78,19 @@ public class DataBaseQueries {
                 product.priceInCurrency = round(product.price / currency.sale, 2);
                 product.save();
                 exchangeCurrencyForAdditionsInUAHShop(product, currency, defaultAdditions);
-            }
-            if (currencyShop.currency.equals("USD") && isSelectedCurrencyNotEqualShopCurrency){
+            } else if (currencyShop.currency.equals("UAH") && !isSelectedCurrencyNotEqualShopCurrency){
+                product.priceInCurrency = 0;
+                product.save();
+            } else if (currencyShop.currency.equals("USD") && isSelectedCurrencyNotEqualShopCurrency){
                 exchangeCurrencyToProduct(currencyShop.currency, selectedCurrency, product, defaultAdditions);
-            }
-            if (currencyShop.currency.equals("EUR") && isSelectedCurrencyNotEqualShopCurrency){
+            } else if (currencyShop.currency.equals("USD") && !isSelectedCurrencyNotEqualShopCurrency){
+                product.priceInCurrency = 0;
+                product.save();
+            } else if (currencyShop.currency.equals("EUR") && isSelectedCurrencyNotEqualShopCurrency){
                 exchangeCurrencyToProduct(currencyShop.currency, selectedCurrency, product, defaultAdditions);
+            } else if (currencyShop.currency.equals("EUR") && !isSelectedCurrencyNotEqualShopCurrency){
+                product.priceInCurrency = 0;
+                product.save();
             }
             currencyShop.save();
         }
@@ -112,9 +119,11 @@ public class DataBaseQueries {
             String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
             CurrencyDTO currency = CurrencyDTO.find(currencyQuery, selectedCurrency, shopCurrency).first();
             product.priceInCurrency = round(product.price * currency.buy, 2);
+            product.save();
             exchangeCurrencyForAdditionsInUahSelected(product, currency, defaultAdditions);
         } else {
             product.priceInCurrency = changePriceToUsdOrEurCurrency(shopCurrency, selectedCurrency, product, defaultAdditions);
+            product.save();
         }
         product.save();
     }
