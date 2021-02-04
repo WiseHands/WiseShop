@@ -466,6 +466,7 @@ public class Application extends Controller {
         if(qr_uuid == null || qr_uuid.isEmpty()) {
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
             product.defaultAdditions = defaultAdditions;
+
             totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
             product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForDefaultAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
             totalPriceForDefaultAdditions = product.priceWithAdditions;

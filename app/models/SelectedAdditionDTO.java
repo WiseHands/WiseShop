@@ -24,6 +24,10 @@ public class SelectedAdditionDTO extends GenericModel {
     @Expose
     public boolean isSelected = false;
 
+    @ManyToOne
+    @JoinColumn(name="product_uuid")
+    private ProductDTO product;
+
     @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public AdditionDTO addition;

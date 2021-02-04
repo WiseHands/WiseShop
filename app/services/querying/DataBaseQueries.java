@@ -74,8 +74,8 @@ public class DataBaseQueries {
                 String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
                 CurrencyDTO currency = CurrencyDTO.find(currencyQuery, currencyShop.currency, selectedCurrency).first();
                 product.priceInCurrency = product.price / currency.sale;
-                exchangeCurrencyForAdditionsInUAHShop(product, currency, defaultAdditions);
                 product.save();
+                exchangeCurrencyForAdditionsInUAHShop(product, currency, defaultAdditions);
             }
             if (currencyShop.currency.equals("USD") && isSelectedCurrencyNotEqualShopCurrency){
                 exchangeCurrencyToProduct(currencyShop.currency, selectedCurrency, product, defaultAdditions);

@@ -79,24 +79,25 @@ public class ProductDTO extends GenericModel {
     public List<ProductImage> images;
 
     @Expose
-    @OneToMany
-    public List<SelectedAdditionDTO> selectedAdditions;
+    @OneToMany(mappedBy = "product")
+    @Column(columnDefinition = "varchar(255) null default null")
+    public List<SelectedAdditionDTO> selectedAdditions = null;
 
     @Expose
-    @OneToMany
-    @JoinColumn(name="defaultAdditions_id", insertable = false, updatable = false)
-    public List<SelectedAdditionDTO> defaultAdditions = new ArrayList<SelectedAdditionDTO>();
+    @OneToMany(mappedBy = "product")
+    @Column(columnDefinition = "varchar(255) null default null")
+    public List<SelectedAdditionDTO> defaultAdditions = null;
 
     @Expose
     @OneToMany(cascade = CascadeType.ALL)
     public List<FeedbackDTO> feedbackList;
 
     @Expose
-    @OneToOne(orphanRemoval=true)
+    @OneToOne
     public TranslationBucketDTO productNameTextTranslationBucket;
 
     @Expose
-    @OneToOne(orphanRemoval=true)
+    @OneToOne
     public TranslationBucketDTO productDescriptionTextTranslationBucket;
 
     public void addFeedback(FeedbackDTO orderFeedback) {
