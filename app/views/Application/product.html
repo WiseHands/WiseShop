@@ -905,7 +905,7 @@
       const additionPrice = Number(addition.getAttribute('price'));
       additionsTotalPrice += counter * additionPrice;
     });
-    additionsTotalPriceContainer.innerText = additionsTotalPrice + ' ' +currency;
+    additionsTotalPriceContainer.innerText = additionsTotalPrice.toFixed(2) + ' ' +currency;
   }
 
 </script>

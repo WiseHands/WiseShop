@@ -142,6 +142,7 @@ public class ProductDTO extends GenericModel {
         }
     }
 
+
     public double formatPrice() {
         double number = this.price;
         return round(number, 2); // sdb
