@@ -107,7 +107,8 @@ public class ShoppingCartService extends AuthController {
         String quantityParam = request.params.get("quantity");
         int quantity = _getProductQuantity(quantityParam);
 
-        if (product.priceInCurrency != 0){
+
+        if (shop.currencyShop.selectedCurrency != null){
             product.price = product.priceInCurrency;
         }
 
