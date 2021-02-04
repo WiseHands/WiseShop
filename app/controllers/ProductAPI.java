@@ -254,7 +254,7 @@ public class ProductAPI extends AuthController {
         for (ProductPropertyDTO property : properties) {
             property.delete();
         }
-        CategoryDTO category  = product.category;
+        CategoryDTO category = product.category;
         category.products.remove(product);
         category.save();
         product.delete();

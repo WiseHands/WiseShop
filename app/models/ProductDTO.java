@@ -84,11 +84,11 @@ public class ProductDTO extends GenericModel {
     public List<FeedbackDTO> feedbackList;
 
     @Expose
-    @OneToOne(orphanRemoval=true)
+    @OneToOne(cascade = CascadeType.ALL)
     public TranslationBucketDTO productNameTextTranslationBucket;
 
     @Expose
-    @OneToOne(orphanRemoval=true)
+    @OneToOne(cascade = CascadeType.ALL)
     public TranslationBucketDTO productDescriptionTextTranslationBucket;
 
     public void addFeedback(FeedbackDTO orderFeedback) {
