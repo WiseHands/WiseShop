@@ -205,12 +205,12 @@
                             #{if qr_uuid}
                             %{qrParam = "?qr_uuid="}%
                             <a href="/${language}/product/${_product.uuid}${qrParam}${qr_uuid}">
-                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
+                                 <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}" loading="lazy">
                             </a>
                             #{/if}
                             #{else}
                             <a href="/${language}/product/${_product.uuid}${qrParam}${qr_uuid}">
-                                <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}">
+                                <img src="/public/product_images/${shop.uuid}/${_product.mainImage.filename}" class="item-img" alt="${_product.name}" loading="lazy">
                             </a>
                             #{/else}
                     </div>

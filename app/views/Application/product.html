@@ -243,7 +243,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 30px;
+        /*height: 30px;*/
+        padding: .2rem 0 .2rem 0;
         background-color: #000;
         color: #fff;
         margin-bottom: 0;
@@ -590,7 +591,7 @@
 #{verbatim}
 <main class="product-center-container">
     <div class="product-photo hoverable">
-        <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide">
+        <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide" loading="lazy">
         <!--            <span class="product-price-on-photo">${product.formatDecimal()} UAH</span>-->
     </div>
     <div class="product-info">
@@ -629,7 +630,7 @@
                 <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}"
                     id="${defaultAddition.addition.uuid}">
                     <span class="material-icons check-circle">check_circle</span>
-                    <img src="${defaultAddition.addition.imagePath}">
+                    <img src="${defaultAddition.addition.imagePath}" loading="lazy">
                     <div class="addition-name">
                         <p>${defaultAddition.addition.title}</p>
                     </div>
