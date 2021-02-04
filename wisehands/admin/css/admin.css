@@ -1522,6 +1522,7 @@ input {
 	justify-content: center;
 	align-items: center;
 	height: 66px;
+	padding: .5rem;
 }
 
 .card-content .card-product-title h5 {
@@ -1852,7 +1853,7 @@ input {
 }
 
 .admin-breadcrumb {
-	margin: 1rem 0 1rem 1rem;
+	margin: 1rem;
 }
 
 .admin-breadcrumb:last-of-type {
@@ -1860,11 +1861,13 @@ input {
 }
 
 ul.admin-breadcrumb li {
-	display: inline-flex;
+	display: inline-block;
 	align-items: center;
 	max-width: 50%;
 	font-size: 18px;
 	white-space: nowrap;
+	overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 ul.admin-breadcrumb li + li:before {

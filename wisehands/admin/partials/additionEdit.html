@@ -18,7 +18,13 @@
         </div>
     </a>
 </nav>
-<div class="admin-container admin-column">
+
+<div class="text-center">
+    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+             show="loading"></spinner>
+</div>
+
+<div class="admin-container admin-column" ng-hide="loading">
     <ul class="admin-breadcrumb">
         <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
         <li><a href="#/addition">{{'additionBreadCrumb.additions' | translate}}</a></li>
@@ -82,10 +88,6 @@
                 </button>
                 <div class="col-xs-12 text-center">
                     <p ng-show="deleteButton"><i>{{'additionEdit.deleteMessage' | translate}}</i></p>
-                </div>
-                <div class="col-xs-9">
-                    <spinner class="col-xs-offset-8" name="mySpinner"
-                             img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
                 </div>
                 <div class="col-xs-offset-2 col-xs-8">
                     <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="removeQr()"

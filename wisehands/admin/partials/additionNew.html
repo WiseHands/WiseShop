@@ -8,7 +8,12 @@
     <div class="nav-menu"></div>
 </nav>
 
-<div class="admin-container admin-column">
+<div class="text-center">
+    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+             show="loading"></spinner>
+</div>
+
+<div class="admin-container admin-column" ng-hide="loading">
     <ul class="admin-breadcrumb qr-breadcrumb">
         <li><a href="#/">{{'additionBreadCrumb.admin' | translate}}</a></li>
         <li><a href="#/addition">{{'additionBreadCrumb.additions' | translate}}</a></li>
