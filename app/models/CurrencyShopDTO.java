@@ -48,7 +48,7 @@ public class CurrencyShopDTO extends GenericModel {
         this.currencyList = new ArrayList<CurrencyDTO>();
     }
 
-    public char currencyFormat(String currencyValue) {
+    public String currencyFormat(String currencyValue) {
         if (currencyValue.isEmpty()) {
             currencyValue = this.currency;
         }
@@ -74,13 +74,9 @@ public class CurrencyShopDTO extends GenericModel {
     }
 
     public boolean isDefaultCurrencyNotEqualSelectedCurrency(String selectedCurrency){
-        System.out.println("isDefaultCurrencyNotEqualSelectedCurrency selectedCurrency => " + selectedCurrency.isEmpty());
-
         if (selectedCurrency.isEmpty()) {
-            System.out.println("isDefaultCurrencyNotEqualSelectedCurrency isEmpty()" + selectedCurrency.isEmpty());
             return false;
         } else {
-            System.out.println("isDefaultCurrencyNotEqualSelectedCurrency " + !this.currency.equals(selectedCurrency));
             return !(this.currency.equals(selectedCurrency));
         }
 

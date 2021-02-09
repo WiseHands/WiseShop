@@ -1,6 +1,7 @@
 package jobs;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import models.CurrencyDTO;
 import models.CurrencyShopDTO;
 import models.ShopDTO;
@@ -22,19 +23,24 @@ public class GetDailyCurrency extends Job {
         WS.HttpResponse firstCurrencyResponse = WS.url("https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11").get();
         // TODO get PZt from second array and add to first array
         WS.HttpResponse secondCurrencyResponseGetPlz = WS.url("https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=12").get();
+
         String currencyJson = firstCurrencyResponse.getString();
+        String currencyPlzJson = secondCurrencyResponseGetPlz.getString();
+
         if (!currencyJson.isEmpty()){
             JSONParser parser = new JSONParser();
             JSONArray currencyJsonArray = (JSONArray) parser.parse(currencyJson);
+            JSONArray currencyPLZJsonArray = (JSONArray) parser.parse(currencyPlzJson);
+
             List<ShopDTO> shopList = ShopDTO.findAll();
             for (ShopDTO shop : shopList){
-                setCurrencyListToShop(shop, currencyJsonArray);
+                setCurrencyListToShop(shop, currencyJsonArray, currencyPLZJsonArray);
             }
         }
 
     }
 
-    private void setCurrencyListToShop(ShopDTO shop, JSONArray currencyJsonArray) {
+    private void setCurrencyListToShop(ShopDTO shop, JSONArray currencyJsonArray, JSONArray currencyPLZJsonArray) {
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (currencyShop == null){
             currencyShop = new CurrencyShopDTO(shop);
@@ -46,14 +52,29 @@ public class GetDailyCurrency extends Job {
                 JSONObject jsonObject = (JSONObject) object;
                 currencyShop.addCurrency(getCurrency(jsonObject));
             }
+            CurrencyDTO currencyPlz = getPlzCurrency(currencyPLZJsonArray);
+            currencyShop.addCurrency(currencyPlz);
         } else {
             for (int i = 0; i < currencyJsonArray.size(); i++) {
                 JSONObject jsonObject = (JSONObject) currencyJsonArray.get(i);
                 updateCurrency(jsonObject, currencyShop.currencyList.get(i));
             }
+            CurrencyDTO currencyPlz = getPlzCurrency(currencyPLZJsonArray);
+            currencyShop.addCurrency(currencyPlz);
             System.out.println("currencyList in job is full => " + currencyShop.currencyList);
         }
         currencyShop.save();
+    }
+
+    private CurrencyDTO getPlzCurrency(JSONArray currencyPLZJsonArray) {
+        CurrencyDTO currency = null;
+        for (Object object : currencyPLZJsonArray) {
+            JSONObject jsonObject = (JSONObject) object;
+            if(jsonObject.get("ccy").equals("PLZ")){
+                currency = getCurrency(jsonObject);
+            }
+        }
+        return currency;
     }
 
     private CurrencyDTO updateCurrency(JSONObject jsonObject, CurrencyDTO currency) {

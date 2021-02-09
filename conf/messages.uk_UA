@@ -8,6 +8,15 @@ title.add.product.to.basket.label = Додати до кошика
 
 # translation for pages
 
+# translation for shop header
+shop.header.currency.usd = Доллар
+shop.header.currency.eur = Євро
+shop.header.currency.uah = Гривня
+shop.header.currency.plz = Злотий
+
+shop.header.language.eu = Англійська
+shop.header.language.ua = Українська
+
 #landing page for americano 😋 Заходьте посмакувати! 😉
 landing.page.shop.title = Ресторан & кафе "Амерікано"
 landing.page.shop.name.title = Амерікано

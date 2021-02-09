@@ -8,6 +8,15 @@ title.add.product.to.basket.label = Dodaj do koszyka
 
 # translation for pages
 
+# translation for shop header
+shop.header.currency.usd = Dollar
+shop.header.currency.eur = Euro
+shop.header.currency.uah = Hryvnia
+shop.header.currency.plz = Zloty
+
+shop.header.language.eu = English
+shop.header.language.ua = Ukrainian
+
 landing.page.shop.title = Restaurant & Cafe "Americano"
 
 

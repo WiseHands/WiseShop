@@ -91,6 +91,11 @@ public class DataBaseQueries {
             } else if (currencyShop.currency.equals("EUR") && !isSelectedCurrencyNotEqualShopCurrency){
                 product.priceInCurrency = 0;
                 product.save();
+            } else if (currencyShop.currency.equals("PLZ") && isSelectedCurrencyNotEqualShopCurrency){
+                exchangeCurrencyToProduct(currencyShop.currency, selectedCurrency, product, defaultAdditions);
+            } else if (currencyShop.currency.equals("PLZ") && !isSelectedCurrencyNotEqualShopCurrency){
+                product.priceInCurrency = 0;
+                product.save();
             }
             currencyShop.save();
         }

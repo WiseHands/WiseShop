@@ -7,30 +7,34 @@ import java.util.Map;
 
 public class CurrencySign {
 
-    public  Character usd = '\u0024';
-    public  Character eur = '\u20ac';
-    public  Character uah = '\u20B4';
+    public  String usd = String.valueOf('\u0024');
+    public  String eur = String.valueOf('\u20ac');
+    public  String uah = String.valueOf('\u20B4');
+    public  String plz = "Zl";
 
-    public Map<String, Character> currencySigns = new HashMap<String, Character>();
+    public Map<String, String> currencySigns = new HashMap<String, String>();
 
 
     public CurrencySign() {
         currencySigns.put("USD", this.usd);
         currencySigns.put("EUR", this.eur);
         currencySigns.put("UAH", this.uah);
+        currencySigns.put("PLZ", this.plz);
     }
 
-    public char getUSD() {
+    public String getUSD() {
         return usd;
     }
 
-    public char getEUR() {
+    public String getEUR() {
         return eur;
     }
 
-    public char getUAH() {
+    public String getUAH() {
         return uah;
     }
+
+    public String getPLZ() {return plz; }
 
 
 
