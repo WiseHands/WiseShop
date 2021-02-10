@@ -1,12 +1,11 @@
 package services.analytics;
 
 import enums.OrderState;
-import json.PopularProucts;
+import json.PopularProducts;
 import models.ShopDTO;
 import play.db.jpa.JPA;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,17 +27,17 @@ public class PopularProductsService {
         return formattedQuery;
     }
 
-    public static List<PopularProucts> getPopularProducts(ShopDTO shop, int daysFromToday){
+    public static List<PopularProducts> getPopularProducts(ShopDTO shop, int daysFromToday){
         String stringQuery = PopularProductsService.formatQueryString(shop, daysFromToday);
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
-        List<PopularProucts> queryResultList = new ArrayList<PopularProucts>();
+        List<PopularProducts> queryResultList = new ArrayList<PopularProducts>();
         for (int i = 0; i < result.size(); i++){
             Object[] item = result.get(i);
             String uuid = (String) item[0];
             String name = (String) item[1];
             BigDecimal quantity = (BigDecimal) item[2];
-            PopularProucts popularProucts = new PopularProucts(uuid, name, quantity);
-            queryResultList.add(popularProucts);
+            PopularProducts popularProducts = new PopularProducts(uuid, name, quantity);
+            queryResultList.add(popularProducts);
         }
         return queryResultList;
     }

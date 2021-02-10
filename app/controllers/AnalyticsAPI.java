@@ -1,7 +1,7 @@
 package controllers;
 
 import json.FrequentBuyer;
-import json.PopularProucts;
+import json.PopularProducts;
 import models.*;
 import org.json.simple.JSONObject;
 import services.analytics.FrequentBuyersService;
@@ -43,7 +43,7 @@ public class AnalyticsAPI extends AuthController {
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
-        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, days);
+        List<PopularProducts> popularProductsList = PopularProductsService.getPopularProducts(shop, days);
         json.put("popularProducts", popularProductsList);
         System.out.println("popularProductsList => " +  popularProductsList);
 
