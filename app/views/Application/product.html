@@ -558,7 +558,7 @@
     document.querySelector(".cart-float").style.display = 'none';
   }
 
-  function buyStart(product) {
+  function addToBasket(product) {
     if (!window.IS_SHOP_OPENED) {
       if (window.MESSAGE) {
         toastr.warning(MESSAGE);
@@ -626,7 +626,7 @@
                 #{/if}
             </span>
 
-            <button class="buy-button btn btn-outline-primary btn-rounded" onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
+            <button class="buy-button btn btn-outline-primary btn-rounded" onClick="addToBasket({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
                 &{'page.product.buy'}
             </button>
         </div>

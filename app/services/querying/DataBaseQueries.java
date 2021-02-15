@@ -127,7 +127,7 @@ public class DataBaseQueries {
             product.save();
             exchangeCurrencyForAdditionsInUahSelected(product, currency, defaultAdditions);
         } else {
-            product.priceInCurrency = changePriceToUsdOrEurCurrency(shopCurrency, selectedCurrency, product, defaultAdditions);
+            product.priceInCurrency = changePriceToUsdEurPlzCurrency(shopCurrency, selectedCurrency, product, defaultAdditions);
             product.save();
         }
         product.save();
@@ -148,7 +148,7 @@ public class DataBaseQueries {
         }
     }
 
-    private static double changePriceToUsdOrEurCurrency(String currency, String selectedCurrency, ProductDTO product, List<SelectedAdditionDTO> defaultAdditions) {
+    private static double changePriceToUsdEurPlzCurrency(String currency, String selectedCurrency, ProductDTO product, List<SelectedAdditionDTO> defaultAdditions) {
         CurrencyDTO currencyDTO = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", currency).first();
         CurrencyDTO currencyDTOSelected = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
         exchangeCurrencyForAdditions(product, currencyDTO, currencyDTOSelected, defaultAdditions);
