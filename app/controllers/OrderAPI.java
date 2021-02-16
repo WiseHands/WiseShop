@@ -115,6 +115,9 @@ public class OrderAPI extends AuthController {
             orderItem.additionsList = additionList;
 
             orderItemList.add(orderItem);
+            if (product.priceInCurrency != 0) {
+                product.price = product.priceInCurrency;
+            }
             totalCost += product.price * orderItem.quantity;
         }
 
@@ -171,9 +174,7 @@ public class OrderAPI extends AuthController {
             String languageFromAccept = languageList.get(0).getRange();
             String[] strings = languageFromAccept.split("-");
             clientLanguage = strings[0];
-
         }
-
 
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
         order.clientLanguage = clientLanguage;
@@ -750,6 +751,7 @@ public class OrderAPI extends AuthController {
 
 
     }
+
     private static String generateHtmlEmailForOrderPaymentError(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_error.html");
         Template template = Template.parse(templateString);
@@ -772,6 +774,7 @@ public class OrderAPI extends AuthController {
         String rendered = template.render(map);
         return rendered;
     }
+
     private static String generateHtmlEmailForOrderPaymentDone(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_done.html");
         Template template = Template.parse(templateString);
@@ -794,6 +797,7 @@ public class OrderAPI extends AuthController {
         String rendered = template.render(map);
         return rendered;
     }
+
     private static String generateHtmlEmailForOrderPaymentWaitAccept(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_wait_accept.html");
         Template template = Template.parse(templateString);
@@ -816,6 +820,7 @@ public class OrderAPI extends AuthController {
         String rendered = template.render(map);
         return rendered;
     }
+
     private static String generateHtmlEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_feedback_to_order.html");
         Template template = Template.parse(templateString);
