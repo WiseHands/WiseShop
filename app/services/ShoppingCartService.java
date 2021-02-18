@@ -67,10 +67,10 @@ public class ShoppingCartService extends AuthController {
     public static String addProduct(String client) throws ParseException {
         ShopDTO shop = _getShop(client);
 
-        String qrUuid = request.params.get("qr_uuid");
         String productUuid = request.params.get("uuid");
         ProductDTO product = ProductDTO.findById(productUuid);
 
+        String qrUuid = request.params.get("qr_uuid");
         List<SelectedAdditionDTO> defaultAdditions = new ArrayList<>();
         if(qrUuid == null || qrUuid.isEmpty()){
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
@@ -103,12 +103,13 @@ public class ShoppingCartService extends AuthController {
         System.out.println("shoppingCart: " + shoppingCart);
 
         String stringAdditionList = request.params.get("additionList");
-        List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(stringAdditionList, shop, defaultAdditions, languageFromHeader);
+
+        List<AdditionLineItemDTO> additionOrderDTOList = _createAdditionListOrderDTO(product, stringAdditionList, shop, defaultAdditions, languageFromHeader);
         String quantityParam = request.params.get("quantity");
         int quantity = _getProductQuantity(quantityParam);
 
-
-        if (shop.currencyShop.selectedCurrency != null){
+        boolean isSelectedCurrency = shop.currencyShop.selectedCurrency != null && !shop.currencyShop.selectedCurrency.isEmpty();
+        if (isSelectedCurrency){
             product.price = product.priceInCurrency;
         }
 
@@ -151,9 +152,12 @@ public class ShoppingCartService extends AuthController {
         return quantity;
     }
 
-    private static List<AdditionLineItemDTO> _createAdditionListOrderDTO(String stringAdditionList, ShopDTO shop, 
+    private static List<AdditionLineItemDTO> _createAdditionListOrderDTO(ProductDTO product, String stringAdditionList, ShopDTO shop,
                                                                          List<SelectedAdditionDTO> defaultAdditions,
                                                                          String languageFromHeader){
+
+        CurrencyShopDTO currencyShopDTO = CurrencyShopDTO.find("byShop", shop).first();
+
         if (stringAdditionList == null){
             stringAdditionList = "[]";
         }
@@ -176,7 +180,9 @@ public class ShoppingCartService extends AuthController {
             AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
             AdditionLineItemDTO additionLineItem = new AdditionLineItemDTO();
             additionLineItem.title = additionDTO.getTitle();
-            additionLineItem.price = additionDTO.getPrice();
+            // TODO exchange price
+
+            additionLineItem.price = additionDTO.getPrice(product, shop);
             additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
             additionLineItem.quantity = (Long) object.get("quantity");
             if (additionDTO.additionNameTranslationBucket != null){
@@ -193,7 +199,7 @@ public class ShoppingCartService extends AuthController {
             AdditionDTO additionDTO = AdditionDTO.findById(selectedAddition.addition.uuid);
             AdditionLineItemDTO additionLineItem = new AdditionLineItemDTO();
             additionLineItem.title = additionDTO.getTitle();
-            additionLineItem.price = additionDTO.getPrice();
+            additionLineItem.price = additionDTO.getPrice(product, shop);
             additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
             additionLineItem.quantity = 1L;
             if (additionDTO.additionNameTranslationBucket != null){

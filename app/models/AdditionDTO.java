@@ -3,6 +3,7 @@ package models;
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
+import services.querying.DataBaseQueries;
 
 import javax.persistence.*;
 
@@ -38,7 +39,13 @@ public class AdditionDTO extends GenericModel {
         return title;
     }
 
-    public Double getPrice() {
+    public Double getPrice(ProductDTO product, ShopDTO shop) {
+//        if (shop.currencyShop != null && product.priceInCurrency != 0){
+//            // TODO exchange price on dependent selected currency and shop currency
+//            return price = DataBaseQueries.exchangeTotalPriceForAdditions(this.price, shop, shop.currencyShop.selectedCurrency);
+//        } else {
+//            return price;
+//        }
         return price;
     }
 

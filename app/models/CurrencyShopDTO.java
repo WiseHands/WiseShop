@@ -24,7 +24,7 @@ public class CurrencyShopDTO extends GenericModel {
     public String currency;
 
     @Expose
-    public String selectedCurrency;
+    public String selectedCurrency = "";
 
     @OneToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
@@ -52,6 +52,8 @@ public class CurrencyShopDTO extends GenericModel {
         if (currencyValue.isEmpty()) {
             currencyValue = this.currency;
         }
+        System.out.println("currencyFormat in currencyShopDTO => " + currencyValue);
+
         return new CurrencySign().currencySigns.get(currencyValue);
     }
 
