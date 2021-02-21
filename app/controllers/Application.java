@@ -446,21 +446,21 @@ public class Application extends Controller {
 
         double totalPriceForDefaultAdditions = 0;
         List<SelectedAdditionDTO> defaultAdditions = new ArrayList<>();
-        DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
-        if(qr_uuid == null || qr_uuid.isEmpty()) {
+
+        if(qr_uuid != null || !qr_uuid.isEmpty()) {
+            DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
+        } else {
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
             product.defaultAdditions = defaultAdditions;
 
             totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-
             product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
-
             totalPriceForDefaultAdditions = product.priceWithAdditions;
 
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
         }
 
-        System.out.println("selectedCurrency => " + selectedCurrency.isEmpty());
+        System.out.println("selectedCurrency => " + selectedCurrency.isEmpty() + "" + selectedCurrency);
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
 

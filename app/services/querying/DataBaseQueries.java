@@ -79,6 +79,18 @@ public class DataBaseQueries {
                 exchangeCurrencyForAdditionsInUAHShop(product, currency);
             } else if (currencyShop.currency.equals("UAH") && !isSelectedCurrencyNotEqualShopCurrency){
                 product.priceInCurrency = 0;
+                if (!product.selectedAdditions.isEmpty()){
+                    for(SelectedAdditionDTO selectedAddition : product.selectedAdditions){
+                        selectedAddition.addition.priceInCurrency = 0D;
+                        selectedAddition.addition.save();
+                    }
+                }
+                if (!product.defaultAdditions.isEmpty()){
+                    for(SelectedAdditionDTO selectedAddition : product.defaultAdditions){
+                        selectedAddition.addition.priceInCurrency = 0D;
+                        selectedAddition.addition.save();
+                    }
+                }
                 product.save();
             } else if (currencyShop.currency.equals("USD") && isSelectedCurrencyNotEqualShopCurrency){
                 exchangeCurrencyToProduct(currencyShop.currency, selectedCurrency, product);
@@ -104,18 +116,17 @@ public class DataBaseQueries {
     private static void exchangeCurrencyForAdditionsInUAHShop(ProductDTO product, CurrencyDTO currency) {
         if (!product.defaultAdditions.isEmpty()){
             for (int i = 0; i < product.defaultAdditions.size(); i++){
-                product.defaultAdditions.get(i).addition.price =
+                product.defaultAdditions.get(i).addition.priceInCurrency =
                         round(product.defaultAdditions.get(i).addition.price / currency.buy, 2);
-
-            }
-            if (!product.selectedAdditions.isEmpty()){
-                for (int i = 0; i < product.selectedAdditions.size(); i++){
-                    product.selectedAdditions.get(i).addition.price =
-                            round(product.selectedAdditions.get(i).addition.price / currency.buy, 2);
-
-                }
             }
         }
+        if (!product.selectedAdditions.isEmpty()){
+            for (int i = 0; i < product.selectedAdditions.size(); i++){
+                product.selectedAdditions.get(i).addition.priceInCurrency =
+                        round(product.selectedAdditions.get(i).addition.price / currency.buy, 2);
+            }
+        }
+
     }
 
     private static void exchangeCurrencyToProduct(String shopCurrency, String selectedCurrency, ProductDTO product) {
@@ -138,11 +149,11 @@ public class DataBaseQueries {
                 product.defaultAdditions.get(i).addition.price =
                         round(product.defaultAdditions.get(i).addition.price * currency.buy, 2);
             }
-            if (!product.selectedAdditions.isEmpty()){
-                for (int i = 0; i < product.selectedAdditions.size(); i++){
-                    product.selectedAdditions.get(i).addition.price =
-                            round(product.selectedAdditions.get(i).addition.price * currency.buy, 2);
-                }
+        }
+        if (!product.selectedAdditions.isEmpty()){
+            for (int i = 0; i < product.selectedAdditions.size(); i++){
+                product.selectedAdditions.get(i).addition.price =
+                        round(product.selectedAdditions.get(i).addition.price * currency.buy, 2);
             }
         }
     }
@@ -160,11 +171,11 @@ public class DataBaseQueries {
                 product.defaultAdditions.get(i).addition.price =
                         round(product.defaultAdditions.get(i).addition.price * (currencyDTO.buy / currencyDTOSelected.buy), 2);
             }
-            if (!product.selectedAdditions.isEmpty()){
-                for (int i = 0; i < product.selectedAdditions.size(); i++){
-                    product.selectedAdditions.get(i).addition.price =
-                            round(product.selectedAdditions.get(i).addition.price * (currencyDTO.buy / currencyDTOSelected.buy),2);
-                }
+        }
+        if (!product.selectedAdditions.isEmpty()){
+            for (int i = 0; i < product.selectedAdditions.size(); i++){
+                product.selectedAdditions.get(i).addition.price =
+                        round(product.selectedAdditions.get(i).addition.price * (currencyDTO.buy / currencyDTOSelected.buy),2);
             }
         }
     }

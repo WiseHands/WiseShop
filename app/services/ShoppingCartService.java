@@ -108,8 +108,8 @@ public class ShoppingCartService extends AuthController {
         String quantityParam = request.params.get("quantity");
         int quantity = _getProductQuantity(quantityParam);
 
-        boolean isSelectedCurrency = shop.currencyShop.selectedCurrency != null && !shop.currencyShop.selectedCurrency.isEmpty();
-        if (isSelectedCurrency){
+        boolean isCurrencyPresent = shop.currencyShop.selectedCurrency != null && !shop.currencyShop.selectedCurrency.isEmpty();
+        if (isCurrencyPresent){
             product.price = product.priceInCurrency;
         }
 
@@ -182,7 +182,7 @@ public class ShoppingCartService extends AuthController {
             additionLineItem.title = additionDTO.getTitle();
             // TODO exchange price
 
-            additionLineItem.price = additionDTO.getPrice(product, shop);
+            additionLineItem.price = additionDTO.getPrice();
             additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
             additionLineItem.quantity = (Long) object.get("quantity");
             if (additionDTO.additionNameTranslationBucket != null){
@@ -199,7 +199,7 @@ public class ShoppingCartService extends AuthController {
             AdditionDTO additionDTO = AdditionDTO.findById(selectedAddition.addition.uuid);
             AdditionLineItemDTO additionLineItem = new AdditionLineItemDTO();
             additionLineItem.title = additionDTO.getTitle();
-            additionLineItem.price = additionDTO.getPrice(product, shop);
+            additionLineItem.price = additionDTO.getPrice();
             additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
             additionLineItem.quantity = 1L;
             if (additionDTO.additionNameTranslationBucket != null){

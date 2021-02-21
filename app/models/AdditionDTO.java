@@ -23,6 +23,9 @@ public class AdditionDTO extends GenericModel {
     public Double price;
 
     @Expose
+    public Double priceInCurrency = 0.0;
+
+    @Expose
     public String imagePath;
 
     @Expose
@@ -39,14 +42,8 @@ public class AdditionDTO extends GenericModel {
         return title;
     }
 
-    public Double getPrice(ProductDTO product, ShopDTO shop) {
-//        if (shop.currencyShop != null && product.priceInCurrency != 0){
-//            // TODO exchange price on dependent selected currency and shop currency
-//            return price = DataBaseQueries.exchangeTotalPriceForAdditions(this.price, shop, shop.currencyShop.selectedCurrency);
-//        } else {
-//            return price;
-//        }
-        return price;
+    public Double getPrice() {
+        return this.priceInCurrency != 0 ? this.priceInCurrency : this.price;
     }
 
     public String getImagePath() {
@@ -54,7 +51,7 @@ public class AdditionDTO extends GenericModel {
     }
 
     public String formatDecimal() {
-        Double number = this.price;
+        Double number = this.getPrice();
         float epsilon = 0.004f; // 4 tenths of a cent
         if (Math.abs(Math.round(number) - number) < epsilon) {
             return String.format("%10.0f", number); // sdb
