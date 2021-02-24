@@ -602,7 +602,7 @@
         <p class="text-justify">${product.description}</p>
 
         <div class="price-buy-block">
-            <span class="product-price" price="${shop.currencyShop.formatPrice(product)}">
+            <span class="product-price" price="${product.formatPrice(shop.currencyShop.currency, selectedCurrency)}">
                 <span>&{'page.product.price'}
                   #{if shop.currencyShop.isDefaultCurrencyNotEqualSelectedCurrency(selectedCurrency)}
                     ~
@@ -611,7 +611,7 @@
                 <span class="total-span"></span>
                 <span>${shop.currencyShop.showCurrency()}</span>
                 #{if shop.currencyShop.isDefaultCurrencyNotEqualSelectedCurrency(selectedCurrency)}
-                    <span>(${product.formatPrice()} ${shop.currencyShop.currency})</span>
+                    <span>(${product.formatDefaultPrice()} ${shop.currencyShop.currency})</span>
                     <p> ~ &{'page.product.changes.price'}</p>
                 #{/if}
                 #{if product.selectedAdditions || product.defaultAdditions}

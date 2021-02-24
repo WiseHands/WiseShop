@@ -216,7 +216,7 @@
                             <strong>${_product.name}</strong></a></h4>
                             <div class="item-card-action-price card-title">
                               <div class="item-card-action-price">
-                                <p class="current-price">${shop.currencyShop.formatPrice(_product)}
+                                <p class="current-price">${_product.formatPrice(shop.currencyShop.currency, selectedCurrency)}
                                   <span class="currency">${shop.currencyShop.showCurrency()}</span>
                                 </p>
 
@@ -265,7 +265,8 @@
                     </div>
                 <div class="item-card-list-action">
                     <div class="item-card-list-action-price">
-                        <p class="current-price">${_product.formatPrice()} <span class="currency">uah</span></p>
+                        <p class="current-price">${_product.formatPrice(shop.currencyShop.currency, selectedCurrency)}
+                          <span class="currency">${shop.currencyShop.showCurrency()}</span></p>
                         <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
                     </div>
                     <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})">&{'page.product.buy'}</button>

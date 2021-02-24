@@ -129,12 +129,36 @@ public class ProductDTO extends GenericModel {
         this.wholesalePrice = wholesalePrice;
     }
 
-    public double formatPrice() {
+    public double formatDefaultPrice() {
+        double number = this.price;
+        return round(number, 2); // sdb
+    }
+
+    public double formatPrice(String currency, String selectedCurrency) {
+        boolean isSelectedCurrencyEqualShopCurrency = false;
+        if (selectedCurrency != null){
+            isSelectedCurrencyEqualShopCurrency = selectedCurrency.equals(currency);
+        }
+        if (selectedCurrency == null || selectedCurrency.isEmpty()){
+            return _formatPrice();
+        } else if (isSelectedCurrencyEqualShopCurrency){
+            return _formatPrice();
+        } else {
+            return round(this.priceInCurrency + this.priceWithAdditions, 2);
+        }
+    }
+
+    private double _formatPrice() {
         double number = this.price;
         if(this.priceWithAdditions != 0){
             number = number + this.priceWithAdditions;
         }
-        return round(number, 2); // sdb
+        return _roundAvoid(number, 2); // sdb
+    }
+
+    public double _roundAvoid(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
     }
 
     public String formatDecimalOldPrice() {

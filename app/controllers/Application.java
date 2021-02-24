@@ -435,6 +435,7 @@ public class Application extends Controller {
         if (request.params.get("currency") != null){
             selectedCurrency = request.params.get("currency");
             shop.currencyShop = setCurrencyToShop(shop);
+            shop.currencyShop.selectedCurrency = selectedCurrency;
             shop.save();
         }
 
