@@ -362,9 +362,10 @@ public class Application extends Controller {
         String selectedCurrency = "";
         if (request.params.get("currency") != null){
             selectedCurrency = request.params.get("currency");
+            shop.currencyShop = setCurrencyToShop(shop);
+            shop.currencyShop.selectedCurrency = selectedCurrency;
+            shop.save();
         }
-        System.out.println("selectedCurrency in category => " + selectedCurrency);
-        shop.currencyShop = setCurrencyToShop(shop);
 
         String qr_uuid = "";
         if (request.params.get("qr_uuid") != null){

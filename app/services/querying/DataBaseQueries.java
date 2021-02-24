@@ -29,7 +29,7 @@ public class DataBaseQueries {
                     String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
                     CurrencyDTO currency = CurrencyDTO.find(currencyQuery, currencyShop.currency, selectedCurrency).first();
                     double price = additionsPrice / currency.sale;
-                    return price;
+                    return ProductDTO._roundAvoid(price,2);
                 }
             }
             if (currencyShop.currency.equals("USD")){
@@ -37,11 +37,11 @@ public class DataBaseQueries {
                     if (selectedCurrency.equals("UAH")){
                         String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
                         CurrencyDTO currency = CurrencyDTO.find(currencyQuery, selectedCurrency, currencyShop.currency).first();
-                        return additionsPrice * currency.buy;
+                        return ProductDTO._roundAvoid(additionsPrice * currency.buy,2);
                     } else {
                         CurrencyDTO currencyDTO = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", currencyShop.currency).first();
                         CurrencyDTO currencyDTOSelected = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
-                        return additionsPrice * (currencyDTO.buy / currencyDTOSelected.buy);
+                        return ProductDTO._roundAvoid(additionsPrice * (currencyDTO.buy / currencyDTOSelected.buy), 2);
                     }
                 }
             }
@@ -50,15 +50,15 @@ public class DataBaseQueries {
                     if (selectedCurrency.equals("UAH")){
                         String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
                         CurrencyDTO currency = CurrencyDTO.find(currencyQuery, selectedCurrency, currencyShop.currency).first();
-                        return additionsPrice * currency.buy;
+                        return ProductDTO._roundAvoid(additionsPrice * currency.buy, 2);
                     } else {
                         CurrencyDTO currencyDTO = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", currencyShop.currency).first();
                         CurrencyDTO currencyDTOSelected = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
-                        return additionsPrice * (currencyDTO.buy / currencyDTOSelected.buy);
+                        return ProductDTO._roundAvoid(additionsPrice * (currencyDTO.buy / currencyDTOSelected.buy),2);
                     }
                 }
             }
-            return additionsPrice;
+            return ProductDTO._roundAvoid(additionsPrice, 2);
         }
     }
 

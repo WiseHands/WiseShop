@@ -540,6 +540,7 @@
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/9.0.0/decimal.js"></script>
 
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 
@@ -900,11 +901,15 @@
     let currency = additionsTotalPriceContainer.getAttribute('currency');
     const selectedAdditions = document.querySelectorAll('.add-item');
     selectedAdditions.forEach(addition => {
-      const counter = addition.getAttribute('counter');
+      const counter = Number(addition.getAttribute('counter'));
       const additionPrice = Number(addition.getAttribute('price'));
-      additionsTotalPrice += counter * additionPrice;
+      const totalPrice = Decimal.mul(counter, additionPrice).valueOf();
+      console.log('_setAdditionsTotalPrice => ', additionsTotalPrice, totalPrice);
+      additionsTotalPrice = Decimal.add(additionsTotalPrice, totalPrice).valueOf();
     });
-    additionsTotalPriceContainer.innerText = roundAccurately(additionsTotalPrice, 2)  + ' ' + currency;
+    console.log('additionsTotalPrice=>', additionsTotalPrice);
+
+	  additionsTotalPriceContainer.innerText = additionsTotalPrice  + ' ' + currency;
   }
 
   function roundAccurately(number, decimalPlaces) {

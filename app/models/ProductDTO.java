@@ -156,7 +156,7 @@ public class ProductDTO extends GenericModel {
         return _roundAvoid(number, 2); // sdb
     }
 
-    public double _roundAvoid(double value, int places) {
+    public static double _roundAvoid(double value, int places) {
         double scale = Math.pow(10, places);
         return Math.round(value * scale) / scale;
     }
