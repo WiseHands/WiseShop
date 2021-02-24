@@ -447,7 +447,7 @@ public class Application extends Controller {
         double totalPriceForDefaultAdditions = 0;
         List<SelectedAdditionDTO> defaultAdditions = new ArrayList<>();
 
-        if(qr_uuid != null || !qr_uuid.isEmpty()) {
+        if(qr_uuid != null) {
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
         } else {
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);

@@ -67,12 +67,26 @@ public class CurrencyShopDTO extends GenericModel {
             isSelectedCurrencyEqualShopCurrency = this.selectedCurrency.equals(this.currency);
         }
         if (this.selectedCurrency == null || this.selectedCurrency.isEmpty()){
-            return product.formatPrice();
+            return _formatPrice(product);
         } else if (isSelectedCurrencyEqualShopCurrency){
-            return product.formatPrice();
+            return _formatPrice(product);
         } else {
             return round(product.priceInCurrency, 2);
         }
+    }
+
+    private double _formatPrice(ProductDTO product) {
+        double number = product.price;
+        if(product.priceWithAdditions != 0){
+            number = number + product.priceWithAdditions;
+        }
+        System.out.println("formatPrice in currencySHOP => " + product.priceWithAdditions);
+        return _roundAvoid(number, 2); // sdb
+    }
+
+    public double _roundAvoid(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
     }
 
     public boolean isDefaultCurrencyNotEqualSelectedCurrency(String selectedCurrency){

@@ -592,7 +592,6 @@
 <main class="product-center-container">
     <div class="product-photo hoverable">
         <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide">
-        <!--            <span class="product-price-on-photo">${product.formatDecimal()} UAH</span>-->
     </div>
     <div class="product-info">
         <ul class="menu-breadcrumb">
@@ -892,7 +891,7 @@
   }
 
   function _setTotal(total) {
-    totalSpan.innerText = total;
+    totalSpan.innerText = roundAccurately(total, 2);
   }
 
   function _setAdditionsTotalPrice() {
@@ -905,7 +904,11 @@
       const additionPrice = Number(addition.getAttribute('price'));
       additionsTotalPrice += counter * additionPrice;
     });
-    additionsTotalPriceContainer.innerText = additionsTotalPrice.toFixed(2) + ' ' +currency;
+    additionsTotalPriceContainer.innerText = roundAccurately(additionsTotalPrice, 2)  + ' ' + currency;
+  }
+
+  function roundAccurately(number, decimalPlaces) {
+	  return Number(Math.round(number + 'e' + decimalPlaces)+'e-'+decimalPlaces);
   }
 
 </script>

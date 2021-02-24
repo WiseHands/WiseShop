@@ -129,22 +129,11 @@ public class ProductDTO extends GenericModel {
         this.wholesalePrice = wholesalePrice;
     }
 
-    public String formatDecimal() {
-        Double number = this.price;
-        if(this.priceWithAdditions != null){
-            number = number + this.priceWithAdditions;
-        }
-        float epsilon = 0.004f; // 4 tenths of a cent
-        if (Math.abs(Math.round(number) - number) < epsilon) {
-            return String.format("%10.0f", number); // sdb
-        } else {
-            return String.format("%10.2f", number); // dj_segfault
-        }
-    }
-
-
     public double formatPrice() {
         double number = this.price;
+        if(this.priceWithAdditions != 0){
+            number = number + this.priceWithAdditions;
+        }
         return round(number, 2); // sdb
     }
 
