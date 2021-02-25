@@ -151,14 +151,13 @@ public class Application extends Controller {
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
-            productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+                product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
             }
-
+            productList.add(product);
         }
         products = productList;
 
@@ -234,13 +233,13 @@ public class Application extends Controller {
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
-            productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+                product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
             }
+            productList.add(product);
         }
         products = productList;
 
@@ -319,13 +318,13 @@ public class Application extends Controller {
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
-            productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
                 product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
             }
+            productList.add(product);
         }
 
         products = productList;
@@ -380,13 +379,13 @@ public class Application extends Controller {
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
-            productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+                product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
             }
+            productList.add(product);
         }
 
 
