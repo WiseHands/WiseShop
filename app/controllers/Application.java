@@ -311,19 +311,23 @@ public class Application extends Controller {
         String selectedCurrency = "";
         if (request.params.get("currency") != null){
             selectedCurrency = request.params.get("currency");
+            shop.currencyShop = setCurrencyToShop(shop);
+            shop.currencyShop.selectedCurrency = selectedCurrency;
+            shop.save();
         }
-        shop.currencyShop = setCurrencyToShop(shop);
+
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+                product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
             }
         }
+
         products = productList;
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
@@ -385,6 +389,7 @@ public class Application extends Controller {
             }
         }
 
+
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
         for(PageConstructorDTO _page: pageList){
@@ -424,7 +429,6 @@ public class Application extends Controller {
 
         product.feedbackList = DataBaseQueries.getFeedbackList(product);
 
-        // TODO get selected additions
         String additionsListQuery = "select s from SelectedAdditionDTO s where s.isSelected = 1 and s.isDefault = 0 and s.productUuid = ?1";
         product.selectedAdditions = SelectedAdditionDTO.find(additionsListQuery, product.uuid).fetch();
         for(SelectedAdditionDTO addition: product.selectedAdditions){
@@ -439,7 +443,6 @@ public class Application extends Controller {
             shop.currencyShop.selectedCurrency = selectedCurrency;
             shop.save();
         }
-
 
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
@@ -462,7 +465,6 @@ public class Application extends Controller {
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
         }
 
-        System.out.println("selectedCurrency => " + selectedCurrency.isEmpty() + "" + selectedCurrency);
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
 

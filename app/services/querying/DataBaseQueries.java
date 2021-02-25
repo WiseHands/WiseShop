@@ -79,33 +79,25 @@ public class DataBaseQueries {
                 exchangeCurrencyForAdditionsInUAHShop(product, currency);
             } else if (currencyShop.currency.equals("UAH") && !isSelectedCurrencyNotEqualShopCurrency){
                 product.priceInCurrency = 0;
-                if (!product.selectedAdditions.isEmpty()){
-                    for(SelectedAdditionDTO selectedAddition : product.selectedAdditions){
-                        selectedAddition.addition.priceInCurrency = 0D;
-                        selectedAddition.addition.save();
-                    }
-                }
-                if (!product.defaultAdditions.isEmpty()){
-                    for(SelectedAdditionDTO selectedAddition : product.defaultAdditions){
-                        selectedAddition.addition.priceInCurrency = 0D;
-                        selectedAddition.addition.save();
-                    }
-                }
+                setZeroPriceToSelectedAdditions(product);
                 product.save();
             } else if (currencyShop.currency.equals("USD") && isSelectedCurrencyNotEqualShopCurrency){
                 exchangeCurrencyToProduct(currencyShop.currency, selectedCurrency, product);
             } else if (currencyShop.currency.equals("USD") && !isSelectedCurrencyNotEqualShopCurrency){
                 product.priceInCurrency = 0;
+                setZeroPriceToSelectedAdditions(product);
                 product.save();
             } else if (currencyShop.currency.equals("EUR") && isSelectedCurrencyNotEqualShopCurrency){
                 exchangeCurrencyToProduct(currencyShop.currency, selectedCurrency, product);
             } else if (currencyShop.currency.equals("EUR") && !isSelectedCurrencyNotEqualShopCurrency){
                 product.priceInCurrency = 0;
+                setZeroPriceToSelectedAdditions(product);
                 product.save();
             } else if (currencyShop.currency.equals("PLZ") && isSelectedCurrencyNotEqualShopCurrency){
                 exchangeCurrencyToProduct(currencyShop.currency, selectedCurrency, product);
             } else if (currencyShop.currency.equals("PLZ") && !isSelectedCurrencyNotEqualShopCurrency){
                 product.priceInCurrency = 0;
+                setZeroPriceToSelectedAdditions(product);
                 product.save();
             }
             currencyShop.save();
@@ -113,17 +105,34 @@ public class DataBaseQueries {
         shop.currencyShop = currencyShop;
     }
 
+    private static void setZeroPriceToSelectedAdditions(ProductDTO product) {
+        if (!product.selectedAdditions.isEmpty()){
+            for(SelectedAdditionDTO selectedAddition : product.selectedAdditions){
+                selectedAddition.addition.priceInCurrency = 0D;
+                selectedAddition.addition.save();
+            }
+        }
+        if (!product.defaultAdditions.isEmpty()){
+            for(SelectedAdditionDTO selectedAddition : product.defaultAdditions){
+                selectedAddition.addition.priceInCurrency = 0D;
+                selectedAddition.addition.save();
+            }
+        }
+    }
+
     private static void exchangeCurrencyForAdditionsInUAHShop(ProductDTO product, CurrencyDTO currency) {
         if (!product.defaultAdditions.isEmpty()){
             for (int i = 0; i < product.defaultAdditions.size(); i++){
                 product.defaultAdditions.get(i).addition.priceInCurrency =
                         round(product.defaultAdditions.get(i).addition.price / currency.buy, 2);
+                product.defaultAdditions.get(i).addition.save();
             }
         }
         if (!product.selectedAdditions.isEmpty()){
             for (int i = 0; i < product.selectedAdditions.size(); i++){
                 product.selectedAdditions.get(i).addition.priceInCurrency =
                         round(product.selectedAdditions.get(i).addition.price / currency.buy, 2);
+                product.selectedAdditions.get(i).addition.save();
             }
         }
 
@@ -148,12 +157,15 @@ public class DataBaseQueries {
             for (int i = 0; i < product.defaultAdditions.size(); i++){
                 product.defaultAdditions.get(i).addition.price =
                         round(product.defaultAdditions.get(i).addition.price * currency.buy, 2);
+                product.defaultAdditions.get(i).addition.save();
             }
         }
         if (!product.selectedAdditions.isEmpty()){
             for (int i = 0; i < product.selectedAdditions.size(); i++){
                 product.selectedAdditions.get(i).addition.price =
                         round(product.selectedAdditions.get(i).addition.price * currency.buy, 2);
+                product.selectedAdditions.get(i).addition.save();
+
             }
         }
     }
@@ -170,12 +182,14 @@ public class DataBaseQueries {
             for (int i = 0; i < product.defaultAdditions.size(); i++){
                 product.defaultAdditions.get(i).addition.price =
                         round(product.defaultAdditions.get(i).addition.price * (currencyDTO.buy / currencyDTOSelected.buy), 2);
+                product.defaultAdditions.get(i).addition.save();
             }
         }
         if (!product.selectedAdditions.isEmpty()){
             for (int i = 0; i < product.selectedAdditions.size(); i++){
                 product.selectedAdditions.get(i).addition.price =
                         round(product.selectedAdditions.get(i).addition.price * (currencyDTO.buy / currencyDTOSelected.buy),2);
+                product.selectedAdditions.get(i).addition.save();
             }
         }
     }
