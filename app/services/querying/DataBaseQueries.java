@@ -155,14 +155,14 @@ public class DataBaseQueries {
     private static void exchangeCurrencyForAdditionsInUahSelected(ProductDTO product, CurrencyDTO currency) {
         if (!product.defaultAdditions.isEmpty()){
             for (int i = 0; i < product.defaultAdditions.size(); i++){
-                product.defaultAdditions.get(i).addition.price =
+                product.defaultAdditions.get(i).addition.priceInCurrency =
                         round(product.defaultAdditions.get(i).addition.price * currency.buy, 2);
                 product.defaultAdditions.get(i).addition.save();
             }
         }
         if (!product.selectedAdditions.isEmpty()){
             for (int i = 0; i < product.selectedAdditions.size(); i++){
-                product.selectedAdditions.get(i).addition.price =
+                product.selectedAdditions.get(i).addition.priceInCurrency =
                         round(product.selectedAdditions.get(i).addition.price * currency.buy, 2);
                 product.selectedAdditions.get(i).addition.save();
 
@@ -180,14 +180,14 @@ public class DataBaseQueries {
     private static void exchangeCurrencyForAdditions(ProductDTO product, CurrencyDTO currencyDTO, CurrencyDTO currencyDTOSelected) {
         if (!product.defaultAdditions.isEmpty()){
             for (int i = 0; i < product.defaultAdditions.size(); i++){
-                product.defaultAdditions.get(i).addition.price =
+                product.defaultAdditions.get(i).addition.priceInCurrency =
                         round(product.defaultAdditions.get(i).addition.price * (currencyDTO.buy / currencyDTOSelected.buy), 2);
                 product.defaultAdditions.get(i).addition.save();
             }
         }
         if (!product.selectedAdditions.isEmpty()){
             for (int i = 0; i < product.selectedAdditions.size(); i++){
-                product.selectedAdditions.get(i).addition.price =
+                product.selectedAdditions.get(i).addition.priceInCurrency =
                         round(product.selectedAdditions.get(i).addition.price * (currencyDTO.buy / currencyDTOSelected.buy),2);
                 product.selectedAdditions.get(i).addition.save();
             }
