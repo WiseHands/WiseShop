@@ -82,7 +82,7 @@ public class WizardAPI extends AuthController {
         }
 
         if(isDomainNameInvalid(domain)){
-            JsonResponse jsonResponse = new JsonResponse(420, "ім'я не коректне");
+            JsonResponse jsonResponse = new JsonResponse(420, "назва не повинна містити: !, _");
             renderJSON(jsonResponse);
         }
 
