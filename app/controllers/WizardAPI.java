@@ -16,6 +16,8 @@ import play.i18n.Messages;
 import responses.InvalidPassword;
 import responses.JsonResponse;
 
+import java.util.regex.Pattern;
+
 import static controllers.UserAPI.*;
 
 public class WizardAPI extends AuthController {
@@ -66,13 +68,22 @@ public class WizardAPI extends AuthController {
 
     public static void checkDomainNameAvailability() throws Exception{
         String domain = request.params.get("shopDomain").toLowerCase();
-        String domainPath = "";
+
+
+
+
+        String domainPath;
         if (Application.isDevEnv) {
             domainPath = ".localhost";
             domain += domainPath;
         } else  {
             domainPath = ".wstore.pro";
             domain += domainPath;
+        }
+
+        if(isDomainNameInvalid(domain)){
+            JsonResponse jsonResponse = new JsonResponse(420, "ім'я не коректне");
+            renderJSON(jsonResponse);
         }
 
         String authorizationHeader = request.headers.get("authorization").value();
@@ -91,6 +102,13 @@ public class WizardAPI extends AuthController {
         JsonResponse jsonResponse = new JsonResponse(420, reason);
         renderJSON(jsonResponse);
 
+    }
+
+    private static boolean isDomainNameInvalid(String domainName) {
+        Pattern patternDomainName;
+        String DOMAIN_NAME_PATTERN = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\\.)+[a-zA-Z]{2,63}$)";
+        patternDomainName = Pattern.compile(DOMAIN_NAME_PATTERN);
+        return !patternDomainName.matcher(domainName).find();
     }
 
     public static void setShopContactInfo() throws Exception{

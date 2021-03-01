@@ -946,6 +946,7 @@
 
   function checkDomainNameAvailability(event) {
     const params = '?' + event.target.name + '=' + event.target.value;
+    console.log('checkDomainNameAvailability => ', params);
     const url = '/api/wizard/check-domain-name' + params;
     _generateRequest(url);
   }
