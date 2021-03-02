@@ -318,6 +318,9 @@ PUT     {client}/api/translation/save                        TranslationBucketAP
 *       {client}/server-error                           Application.serverError
 *       {client}/dashboard                              Application.userDashboard
 *       {client}/qrCode                                 Application.qrCode
+*       {client}/qrWizard                               Application.qrWizard
+*       {client}/testPage                               Application.testPage
+
 
 
 *       {client}/termsofservice                         Application.termsofservice

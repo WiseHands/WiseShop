@@ -1,0 +1,501 @@
+#{set shop:shop /}
+#{set language:language /}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <title>Створення QR-коду</title>
+
+    <link href="/wisehands/mainpage/css/reset.css" rel="stylesheet"/>
+    <link href="/wisehands/mainpage/css/animate.css" rel="stylesheet"/>
+    <link href="/wisehands/mainpage/css/animate.min.css" rel="stylesheet"/>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+    <script src="/wisehands/mainpage/js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@300;600;700&display=swap" rel="stylesheet">
+
+    <link rel="icon"
+          type="image/png"
+          href="wisehands/assets/images/favicon.png">
+</head>
+
+<style>
+    body {
+        font-size: 16px;
+        font-family: "Source Sans Pro",sans-serif;
+    }
+
+    body a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+        font-family: "Source Sans Pro",sans-serif;
+    }
+
+    .qr-wizard-form {
+        display: flex;
+        padding: 15px;
+        height: 100vh;
+    }
+
+    .qr-wizard-sidebar {
+        flex: 0 0 35%;
+        background-color: #fff;
+        padding-top: 50px;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        margin-left: 50px;
+    }
+
+    .logo img {
+        width: 40px;
+        height: 40px;
+        margin-right: 5px;
+    }
+
+    .qr-wizard-img {
+        display: none;
+        width: 220px;
+        object-fit: cover;
+        margin: 100px auto 10px;
+    }
+
+    .active-image {
+        display: block;
+    }
+
+    .qr-steps {
+        display: flex;
+        flex-direction: column;
+        margin:70px 20px 20px 50px;
+    }
+
+    .qr-step {
+        display: flex;
+        padding-bottom: 30px;
+        align-items: center;
+    }
+
+    .qr-bullet {
+        width: 30px;
+        height: 30px;
+        border: 2px solid #777;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        position: relative;
+    }
+
+    .qr-bullet.completed {
+        color: #fff;
+        background-color: #3ec776;
+        border: 2px solid #3ec776;
+        transition: 400ms;
+    }
+
+    .qr-bullet.completed::after {
+        content: '';
+        position: absolute;
+        top: 42px;
+        height: 2px;
+        width: 26px;
+        transform: rotate(90deg);
+        background-color: #3ec776;
+    }
+
+    .qr-wizard-panel {
+        flex: 0 0 65%;
+        background-color: #f7f7f7;
+        padding: 100px 50px;
+        position: relative;
+    }
+
+    .qr-form h4 {
+        margin: 20px 0 5px;
+        font-weight: 400;
+    }
+
+    .qr-form p {
+        font-size: 14px;
+        color: #777;
+    }
+
+    .qr-form input {
+        padding: 7px 10px;
+        width: 100%;
+        border: 1px solid #999;
+        border-radius: 3px;
+    }
+
+    .qr-form input:focus {
+        outline: none;
+        border: 1px solid #20b2aa;
+        box-shadow: 0 0 2px #20b2aa;
+    }
+
+    .form-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        width: calc(100% - 100px);
+        right: 50px;
+        bottom: 100px;
+    }
+
+    .form-button p {
+        font-size: 14px;
+        text-transform: uppercase;
+        color: #666;
+        transition: 250ms color;
+    }
+
+    .form-button p:hover  {
+        cursor: pointer;
+        color: #000;
+    }
+
+    #finishBtn {
+        display: none;
+    }
+
+    #store-name {
+        color: #888;
+    }
+
+    #store-name:focus {
+        color: #000;
+    }
+
+    button {
+        border: 1px solid #000;
+        padding: 5px 25px;
+        background-color: #fff;
+        transition: 250ms background-color;
+    }
+
+    button:hover {
+        cursor: pointer;
+        background-color: #000;
+        color: #fff;
+    }
+
+    .page {
+        display: none;
+    }
+
+    .active-page {
+        display: block;
+    }
+
+    @media screen and (max-width: 768px) {
+        .qr-wizard-form {
+            height: 100%;
+        }
+
+        .qr-wizard-sidebar {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+
+        .logo {
+            justify-content: center;
+        }
+
+        .qr-wizard-form {
+            flex-direction: column;
+        }
+
+        .qr-steps {
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 50px 20px 20px 20px;
+        }
+
+        .qr-step {
+            flex-direction: column;
+            padding: 0;
+        }
+
+        .qr-step-title {
+            display: none;
+        }
+
+        .qr-wizard-img {
+            margin: 10px;
+            align-self: center;
+        }
+
+        .qr-wizard-panel {
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 60%;
+            height: 100%;
+        }
+
+        .form-button {
+            position: static;
+            margin-top: 20px;
+            align-self: flex-end;
+        }
+    }
+
+</style>
+
+<body>
+    <div class="container qr-wizard-form">
+        <div class="qr-wizard-sidebar">
+            <div class="logo">
+                <img src="/wisehands/assets/images/wiseblack.png" alt="logo">
+                <p>WiseHands</p>
+            </div>
+            <div class="qr-steps">
+                <div class="qr-step">
+                    <div class="qr-bullet">1</div>
+                    <span class="qr-step-title">Створити магазин</span>
+                </div>
+                <div class="qr-step">
+                    <div class="qr-bullet">2</div>
+                    <span class="qr-step-title">Додати товар</span>
+                </div>
+                <div class="qr-step">
+                    <div class="qr-bullet">3</div>
+                    <span class="qr-step-title">Додати стіл</span>
+                </div>
+                <div class="qr-step">
+                    <div class="qr-bullet">4</div>
+                    <span class="qr-step-title">Роздрукувати QR-код</span>
+                </div>
+            </div>
+            <img id="qr-step1-img" class="qr-wizard-img  active-image wow zoomIn" src="../wisehands/landing/images/qr_wizard_1.svg" alt="img">
+            <img id="qr-step2-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_2.svg" alt="img">
+            <img id="qr-step3-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_3.svg" alt="img">
+            <img id="qr-step4-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_4.svg" alt="img">
+        </div>
+        <div class="qr-wizard-panel">
+            <form class="qr-form pages">
+                <section id="qr-step1" class="qr-step-page qr-step1 page active-page">
+                    <h3>Створіть магазин для використання QR-коду</h3>
+                    <p>Введіть назву компанії чи сайту</p>
+                    <h4>Назва сайту</h4>
+                    <input type="text" id="store-name" name="store-name" placeholder="введіть назву" value=".wstore.pro">
+                </section>
+                <section id="qr-step2" class="qr-step-page qr-step2 page">
+                    <h3>Додайте товар</h3>
+                    <p>Добавте перший товар з Вашого меню</p>
+                    <h4>Назва товару</h4>
+                    <input type="text" id="item-name" name="item-name" placeholder="введіть назву">
+                    <h4>Ціна товару</h4>
+                    <input  type="text" id="item-price" name="item-price" placeholder="введіть ціну">
+                </section>
+                <section id="qr-step3" class="qr-step-page qr-step3 page">
+                    <h3>Добавте cтіл</h3>
+                    <p>Добавте перший стіл Вашого закладу</p>
+                    <h4>Назва столу</h4>
+                    <input type="text" id="item-table" name="item-table" placeholder="введіть назву">
+                </section>
+                <section id="qr-step4" class="qr-step-page qr-step4 page">
+                    <h3>Роздрукуйте QR-код</h3>
+                </section>
+
+            </form>
+            <div class="form-button">
+                <p id="previousBtn" class="previous-step-button">Попередній крок</p>
+                <button id="nextBtn" type="submit" class="next-step-button">Далі</button>
+                <button id="finishBtn" type="submit" class="next-step-button">Готово</button>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    const  previousBtn  =  document.getElementById('previousBtn');
+    const  nextBtn  =  document.getElementById('nextBtn');
+    const  finishBtn  =  document.getElementById('finishBtn');
+    const  qrBullets  =  [...document.querySelectorAll('.qr-bullet')];
+    const qrPages = [...document.querySelectorAll('.qr-step-page')];
+    let pageActive  = document.querySelector(".active-page");
+    let imageActive  = document.querySelector(".active-image");
+
+
+    //    const nextPage = qrPages.nextElementSibling;
+//    const prevPage = qrPages.previousElementSibling;
+
+    const MAX_STEPS = 4;
+    let currentStep = 1;
+    let currentPage = 1;
+    previousBtn.style.visibility = 'hidden';
+    finishBtn.style.display = 'none';
+
+    nextBtn.addEventListener('click',  ()  =>  {
+        const currentQrBullet = qrBullets[currentStep - 1];
+        currentQrBullet.classList.add('completed');
+        currentStep++;
+        pageActive = pageActive.nextElementSibling;
+        pageActive.classList.add("active-page");
+        pageActive.previousElementSibling.classList.remove("active-page");
+        previousBtn.style.visibility = 'visible';
+        if  (currentStep  ===  MAX_STEPS)  {
+            nextBtn.style.display  =  'none';
+            finishBtn.style.display  =  'block';
+            document.getElementById('nextBtn').innerHTML = 'Готово';
+        }
+    });
+
+    previousBtn.addEventListener('click',  ()  =>  {
+        const previousQrItem = qrBullets[currentStep - 2];
+        previousQrItem.classList.remove('completed');
+        currentStep--;
+        pageActive = pageActive.previousElementSibling;
+        pageActive.classList.add("active-page");
+        pageActive.nextElementSibling.classList.remove("active-page");
+        nextBtn.style.display  =  'block';
+        nextBtn.innerHTML = 'Далі';
+        finishBtn.style.display = 'none';
+        if  (currentStep  ===  1)  {
+            previousBtn.style.visibility = 'hidden';
+        }
+    });
+
+    finishBtn.addEventListener('click',  ()  =>  {
+        location.reload();
+    });
+
+</script>
+
+    <!--<script>-->
+        <!--//    const circles = document.querySelectorAll(".circle");-->
+        <!--const pages = [...document.querySelectorAll(".page")];-->
+        <!--let currentPage = 1;-->
+
+        <!--const btnNext = document.getElementById("nextBtn");-->
+        <!--const btnPrev = document.getElementById("prevBtn");-->
+        <!--const progressBar = document.getElementById("progress-bar");-->
+
+        <!--//    let circleActive = document.querySelector(".active");-->
+        <!--let pageActive  = document.querySelector(".active-page");-->
+        <!--btnNext.addEventListener("click", function () {-->
+<!--//        circleActive = circleActive.nextElementSibling;-->
+<!--//        circleActive.classList.add("active");-->
+            <!--pageActive = pageActive.nextElementSibling;-->
+            <!--pageActive.classList.add("active-page");-->
+            <!--pageActive.previousElementSibling.classList.remove("active-page");-->
+<!--//        updateProgressBarWidth();-->
+            <!--updateCurrentPage();-->
+            <!--currentPage++;-->
+        <!--});-->
+
+
+        <!--btnPrev.addEventListener("click", function () {-->
+<!--//        circleActive.classList.remove("active");-->
+<!--//        circleActive = circleActive.previousElementSibling;-->
+            <!--pageActive = pageActive.previousElementSibling;-->
+            <!--pageActive.classList.add("active-page");-->
+            <!--pageActive.nextElementSibling.classList.remove("active-page");-->
+<!--//        updateProgressBarWidth();-->
+            <!--updateCurrentPage();-->
+            <!--currentPage&#45;&#45;;-->
+        <!--});-->
+
+        <!--function updateCurrentPage() {-->
+            <!--if (currentPage === 3) {-->
+                <!--btnNext.innerHTML = 'Готово';-->
+            <!--}-->
+            <!--if (currentPage < 3) {-->
+                <!--btnNext.innerHTML = 'Далі';-->
+            <!--}-->
+        <!--}-->
+        <!--function updateProgressBarWidth() {-->
+            <!--const actives = document.querySelectorAll(".active");-->
+            <!--const currentWidth = ((actives.length - 1) / (circles.length - 1)) * 100;-->
+            <!--progressBar.style.width = currentWidth + "%";-->
+
+            <!--if (currentWidth === 0) {-->
+                <!--btnPrev.setAttribute("disabled", true);-->
+            <!--} else if (currentWidth === 100) {-->
+                <!--btnNext.setAttribute("disabled", true);-->
+            <!--} else {-->
+                <!--btnPrev.removeAttribute("disabled");-->
+                <!--btnNext.removeAttribute("disabled");-->
+            <!--}-->
+        <!--}-->
+    <!--</script>-->
+
+    <!--<script>-->
+        <!--const steps = Array.from(document.querySelectorAll("form .qr-step-page"));-->
+        <!--const nextBtn = document.querySelectorAll("form .next-btn");-->
+        <!--const prevBtn = document.querySelectorAll("form .previous-btn");-->
+        <!--const form = document.querySelector("form");-->
+
+
+        <!--console.log('steap', steps);-->
+
+        <!--nextBtn.forEach((button) => {-->
+            <!--button.addEventListener("click", () => {-->
+                <!--changeStep("next");-->
+            <!--});-->
+        <!--});-->
+        <!--prevBtn.forEach((button) => {-->
+            <!--button.addEventListener("click", () => {-->
+                <!--changeStep("prev");-->
+            <!--});-->
+        <!--});-->
+
+        <!--form.addEventListener("submit", (e) => {-->
+            <!--e.preventDefault();-->
+            <!--const inputs = [];-->
+            <!--form.querySelectorAll("input").forEach((input) => {-->
+                <!--const { name, value } = input;-->
+                <!--inputs.push({ name, value });-->
+            <!--});-->
+            <!--console.log(inputs);-->
+            <!--form.reset();-->
+        <!--});-->
+
+        <!--function changeStep(btn) {-->
+            <!--let index = 0;-->
+            <!--const active = document.querySelector(".active");-->
+            <!--index = steps.indexOf(active);-->
+            <!--console.log('current step', index);-->
+
+            <!--steps[index].classList.remove("active");-->
+
+            <!--if (btn === "next") {-->
+                <!--index++;-->
+            <!--} else if (btn === "prev") {-->
+                <!--index&#45;&#45;;-->
+            <!--}-->
+            <!--steps[index].classList.add("active");-->
+        <!--}-->
+        <!--if (index === 3) {-->
+            <!--document.querySelector('.nextBtn').innerHTML = 'Готово';-->
+        <!--};-->
+
+    <!--</script>-->
+    </body>
+    </html>

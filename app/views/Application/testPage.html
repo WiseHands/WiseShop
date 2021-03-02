@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <title>test page</title>
+    <link href="/wisehands/mainpage/css/reset.css" rel="stylesheet"/>
+
+    <link href="wisehands/mainpage/css/animate.css" rel="stylesheet"/>
+    <script src="/wisehands/mainpage/js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+</head>
+
+<style>
+    body, html {
+        height: 100%;
+        font-family: "Open Sans", sans-serif;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .flex-row {
+        display: flex;
+    }
+    .flex-center {
+        align-items: center;
+    }
+
+    header {
+        background-color: #1b8876;
+    }
+
+    .header-block {
+        display: flex;
+        justify-content: space-between;
+        height: 44px;
+        align-items: center;
+    }
+    .nav-items {
+        display: flex;
+    }
+
+    .header-logo {
+        font-size: 24px;
+        color: #ff0;
+    }
+
+    .nav-item {
+        margin-left: 15px;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .nav-item:hover {
+        cursor: pointer;
+    }
+
+    .main {
+        height: 75%;
+        background-image: url('wisehands/landing/test3.jpg');
+        background-position: center;
+        background-size: cover;
+        opacity: 0.9;
+    }
+
+    .parallax {
+        background-image: url('wisehands/landing/eye1.jpg');
+        height: 60%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+
+    .parallax2 {
+        background-image: url('wisehands/landing/eye1.jpg');
+        height: 70%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: blur(3px);
+    }
+
+    .parallax3 {
+        position: relative;
+        background-image: url('wisehands/landing/eye1.jpg');
+        height: 65%;
+        opacity: 0.9;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: blur(6px);
+    }
+
+    .about-info {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        padding: 60px;
+        line-height: 2;
+        z-index: 10;
+        color: #fff;
+    }
+
+    .about-info h1 {
+        font-size: 36px;
+    }
+
+    .team {
+        height:600px;
+        background-color: #f1eeee;
+        font-size:36px;
+        display: flex;
+    }
+
+    .team-block {
+        display: flex;
+        align-items: center;
+        background:  linear-gradient(to right,#fff 35%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 66%), url("/wisehands/landing/test11.jpg");
+        background-position: center;
+        background-size: cover;
+    }
+
+    .team-text {
+        flex: 0 1 50%;
+        padding: 15px;
+    }
+
+    .team-img {
+        flex: 0 1 50%;
+    }
+
+    .reviews {
+        background-color: #00C851;
+        height: 300px;
+    }
+
+    .review-item-person {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+
+    .review-logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .review-text {
+        margin-left: 15px;
+    }
+
+    footer {
+        background-color: #000;
+        padding: 50px 30px;
+        width: 100%;
+        color: #fff;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+    }
+
+    .footer-logo {
+        padding: 15px;
+    }
+
+    .footer-info {
+        flex: 0 1 55%;
+    }
+
+    .footer-info p {
+        padding: 15px;
+    }
+
+    .footer-nav-items {
+        display: flex;
+    }
+
+    .footer-nav-item {
+        margin-left: 15px;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .footer-social {
+        flex: 0 1 40%;
+    }
+    /* Turn off parallax scrolling for tablets and phones. Increase the pixels if needed */
+    @media only screen and (max-device-width: 1366px) {
+        .parallax {
+            background-attachment: scroll;
+        }
+    }
+</style>
+
+<body>
+
+<header>
+    <div class="header-block container">
+        <div class="header-logo">
+            <p>Logo</p>
+        </div>
+        <nav>
+            <ul class="nav-items">
+                <li class="nav-item">
+                    Про нас
+                </li>
+                <li class="nav-item">
+                    Наші послуги
+                </li>
+                <li class="nav-item">
+                    Персонал
+                </li>
+                <li class="nav-item">
+                    Ціни
+                </li>
+                <li class="nav-item">
+                    Контакти
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</header>
+<section class="main">
+
+</section>
+<section class="about-info ">
+    <div class="container">
+        <h1 class="text-center">Lorem ipsum dolor sit amet</h1>
+        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur, nulla id tincidunt venenatis, augue sapien pretium dui, et ultrices mi justo vel sapien. Vestibulum in porttitor velit, ut condimentum lacus. Aliquam at consectetur ligula. </p>
+        <p class="text-center"> Cras ligula lorem, posuere et turpis vel, iaculis facilisis erat. Praesent dui elit, accumsan a eros et, faucibus vulputate tortor. Etiam sit amet pellentesque sapien. Sed imperdiet hendrerit nunc eu porttitor. Pellentesque et tincidunt nunc, at consectetur orci. Sed et metus eget enim interdum laoreet. Vivamus semper tempus erat ac fringilla. Cras consectetur, odio eu dignissim finibus, erat magna vestibulum metus, non pulvinar nulla elit vitae urna.</p>
+    </div>
+</section>
+<div class="parallax"></div>
+
+<div class="team">
+    <div class="team-block container flex-row flex-center">
+        <p class="team-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Donec efficitur, nulla id tincidunt venenatis, augue sapien pretium dui, et ultrices mi justo vel sapien.</p>
+        <div class="team-img">
+        </div>
+    </div>
+
+</div>
+
+<div class="parallax2"></div>
+
+</body>
+<section class="reviews flex-row flex-center">
+    <div class="container">
+        <div class="review-item flex-row flex-center">
+            <div class="review-item-person">
+                <img src="wisehands/landing/test11.jpg" alt="img-team" class="review-logo">
+                <h3>Customer</h3>
+            </div>
+            <p class="review-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur, nulla id tincidunt venenatis, augue sapien pretium dui, et ultrices mi justo vel sapien. Pellentesque et tincidunt nunc, at consectetur orci. Sed et metus eget enim interdum laoreet. Vivamus semper tempus erat ac fringilla. Cras consectetur, odio eu dignissim finibus, erat magna vestibulum metus, non pulvinar nulla elit vitae urna.</p>
+        </div>
+    </div>
+
+</section>
+<div class="parallax3">
+</div>
+<footer>
+    <div class="footer container">
+        <div class="footer-info">
+            <div class="footer-logo">
+                <h2>Company Logo</h2>
+            </div>
+            <ul class="footer-nav-items">
+                <li class="footer-nav-item">
+                    Про нас
+                </li>
+                <li class="footer-nav-item">
+                    Наші послуги
+                </li>
+                <li class="footer-nav-item">
+                    Персонал
+                </li>
+                <li class="footer-nav-item">
+                    Ціни
+                </li>
+                <li class="footer-nav-item">
+                    Контакти
+                </li>
+            </ul>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+        </div>
+        <div class="footer-social">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur, nulla id tincidunt venenatis, augue sapien pretium dui, et ultrices mi justo vel sapien. Vestibulum in porttitor velit, ut condimentum lacus. Aliquam at consectetur ligula.</p>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>
