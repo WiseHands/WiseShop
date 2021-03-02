@@ -53,7 +53,7 @@ angular.module('WiseHands')
                     .then((response) => {
                       console.log(response.data);
                       $scope.analytics = response.data;
-
+											console.log('/analytics/from/ => ', response.data);
                       $scope.popularProducts = response.data.popularProducts;
                       $scope.frequentBuyers = response.data.frequentBuyers;
 
