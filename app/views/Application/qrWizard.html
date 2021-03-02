@@ -80,10 +80,6 @@
         margin: 100px auto 10px;
     }
 
-    .active-image {
-        display: block;
-    }
-
     .qr-steps {
         display: flex;
         flex-direction: column;
@@ -207,6 +203,10 @@
     }
 
     .active-page {
+        display: block;
+    }
+
+    .active-image {
         display: block;
     }
 
@@ -338,13 +338,8 @@
     const  nextBtn  =  document.getElementById('nextBtn');
     const  finishBtn  =  document.getElementById('finishBtn');
     const  qrBullets  =  [...document.querySelectorAll('.qr-bullet')];
-    const qrPages = [...document.querySelectorAll('.qr-step-page')];
     let pageActive  = document.querySelector(".active-page");
     let imageActive  = document.querySelector(".active-image");
-
-
-    //    const nextPage = qrPages.nextElementSibling;
-//    const prevPage = qrPages.previousElementSibling;
 
     const MAX_STEPS = 4;
     let currentStep = 1;
@@ -359,6 +354,9 @@
         pageActive = pageActive.nextElementSibling;
         pageActive.classList.add("active-page");
         pageActive.previousElementSibling.classList.remove("active-page");
+        imageActive = imageActive.nextElementSibling;
+        imageActive.classList.add("active-image");
+        imageActive.previousElementSibling.classList.remove("active-image");
         previousBtn.style.visibility = 'visible';
         if  (currentStep  ===  MAX_STEPS)  {
             nextBtn.style.display  =  'none';
@@ -374,6 +372,9 @@
         pageActive = pageActive.previousElementSibling;
         pageActive.classList.add("active-page");
         pageActive.nextElementSibling.classList.remove("active-page");
+        imageActive = imageActive.previousElementSibling;
+        imageActive.classList.add("active-image");
+        imageActive.nextElementSibling.classList.remove("active-image");
         nextBtn.style.display  =  'block';
         nextBtn.innerHTML = 'Далі';
         finishBtn.style.display = 'none';
