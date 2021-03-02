@@ -842,4 +842,10 @@ public class Application extends Controller {
     public static void qrCode(String client){
         renderTemplate("Application/qrCode.html");
     }
+    public static void qrWizard(String client){
+        renderTemplate("Application/qrWizard.html");
+    }
+    public static void testPage(String client){
+        renderTemplate("Application/testPage.html");
+    }
 }

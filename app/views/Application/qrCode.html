@@ -1,6 +1,6 @@
+<!DOCTYPE html>
 #{set shop:shop /}
 #{set language:language /}
-<!DOCTYPE html>
 <html language="${language}">
 <head>
     <meta charset="utf-8"/>
@@ -21,18 +21,750 @@
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Muli:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@300;600;700&display=swap" rel="stylesheet">
 
     <link rel="icon"
           type="image/png"
           href="wisehands/assets/images/favicon.png">
 </head>
+<style>
+    body {
+        font-size: 16px;
+        font-family: "Source Sans Pro",sans-serif;
+    }
+
+    body a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+        font-family: "Source Sans Pro",sans-serif;
+    }
+
+    .header {
+        margin: 0 auto;
+        height: 65px;
+        padding: 0 0.5rem;
+    }
+
+    .header-block {
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        height: 100%;
+        margin: 0 auto;
+        padding: 10px 15px;
+    }
+
+    .header-logo-text, .header-links {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-logo-text img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    .header-logo-text p {
+        font-size: 2rem;
+        color: #000;
+    }
+
+    .header-logo-text {
+        justify-content: space-between;
+    }
+
+    .header-logo-text a {
+        text-decoration: none;
+        box-sizing: content-box;
+    }
+
+    .header-logo-text p, .header-links p {
+        font-size: 1.3rem;
+        padding: 0.6rem;
+        cursor: pointer;
+        color: #000;
+    }
+
+    .header-logo-text p:hover, .header-links p:hover {
+        color: lightseagreen;
+    }
+
+    .burger-menu {
+        display: none;
+    }
+
+    .burger-menu:hover {
+        cursor: pointer;
+    }
+
+    #overlay-mobile {
+        display: none;
+        background-color: rgba(0,0,0,0);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 100;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar-mobile {
+        width: 80%;
+        height: 100%;
+        background-color: rgba(255,255,255,1);
+        opacity: 1;
+        animation: sidebarmove 0.3s linear;
+        position: fixed;
+        top: 0;
+        left: 0;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .16), 0 2px 3px 0 rgba(0, 0, 0, .12);
+    }
+
+    .blur-block {
+        width: 20%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 80%;
+        background-color: #fff;
+        transition: 0.7s easy;
+        opacity: 0.8;
+    }
+
+    @keyframes sidebarmove {
+        from {
+            opacity: 0;
+            transform: translate3d(-100%, 0, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    .sibebar-swipe-off {
+        width: 0%;
+        height: 100%;
+        background-color: rgba(255,255,255,1);
+        opacity: 1;
+        transition-delay: 0.3s;
+        animation: sidebarswipeoff 0.3s linear;
+    }
+
+    @keyframes sidebarswipeoff {
+        from {
+            transform: translate3d(0, 0, 0);
+        }
+
+        to {
+            visibility: hidden;
+            transform: translate3d(-100%, 0, 0);
+        }
+    }
+
+    .sidebar-logo {
+        display: flex;
+        align-items: center;
+        height: 58px;
+        padding: 0.5rem;
+    }
+
+    .sidebar-logo img {
+        width: 36px;
+        height: 36px;
+        padding-right: 5px;
+    }
+
+    .sidebar-logo p {
+        font-size: 2rem;
+        margin-bottom: 0;
+    }
+
+    .sidebar-panel {
+        display: flex;
+        flex-direction: column;
+        line-height: 2;
+        padding: 10px;
+        font-size: 1.2rem;
+    }
+
+    .sidebar-panel a {
+        color: #262626;
+        line-height: 2.5;
+    }
+
+    .sidebar-panel a:hover {
+        color: lightseagreen;
+    }
+
+    .sidebar-panel p {
+        font-size: 1.3rem;
+        margin-bottom: 0;
+    }
+
+    .main {
+        height: 65vh;
+        display: flex;
+        padding: 50px 15px;
+        margin-top: 50px;
+    }
+
+    .main-info {
+        flex: 0 1 63%;
+    }
+
+    .main-info  h1 {
+        font-size: 59px;
+        font-weight: 300;
+        line-height: 1.1;
+        font-family: "Source Serif Pro", Sans-serif;
+    }
+
+    .create-qr-btn {
+        margin: 3rem 0;
+        padding: 0.5rem 2rem;
+        background-color: #fff;
+        color: #000;
+        border: 2px solid #000;
+        text-transform: uppercase;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+    .create-qr-btn:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .main-image {
+        flex: 0 0 37%;
+    }
+
+    .qr-create {
+        padding: 50px 15px;
+    }
+
+    .qr-create h2 {
+        font-family: "Source Serif Pro", Sans-serif;
+        font-size: 59px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .qr-create p {
+        font-family: "Source Serif Pro", Sans-serif;
+        font-size: 22px;
+        font-weight: 300;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .qr-create-steps {
+        padding: 50px 0 20px;
+        display: flex;
+    }
+
+    .qr-create-item {
+        display: flex;
+        flex: 0 0 33%;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .qr-create-item-icon {
+        background-color: #20b2aa;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        position: relative;
+    }
+
+    .qr-create-item i {
+        font-size: 50px;
+        color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .qr-create-item h3 {
+        font-family: "Source Serif Pro", Sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    .qr-create-item p {
+        font-family: "Source Serif Pro", Sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    .qr-photo {
+        display: flex;
+        justify-content: center;
+    }
+
+    .qr-photo img {
+        width: 800px;
+    }
+
+    footer {
+        min-height: 200px;
+        background-color: #f2f2f2;
+    }
+    footer a:hover {
+        color: #20b2aa;
+    }
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 2rem 1rem;
+    }
+    .footer-logo {
+        padding-bottom: 1rem;
+    }
+    .footer-logo a {
+        display: flex;
+        align-items: center;
+    }
+    .footer-logo img {
+        width: 36px;
+        height: 36px;
+        margin-right: 0.5rem;
+    }
+    .footer-logo p {
+        font-size: 1.4rem;
+    }
+    .footer-copyright a {
+        display: flex;
+        align-items: center;
+    }
+    .footer-address a, .footer-phone a, .footer-social {
+        display: flex;
+        align-items: center;
+    }
+    .footer-phone i, .footer-address i {
+        padding-right: 0.5rem;
+    }
+    .footer-item h4 {
+        font-size: 1.4rem;
+        color: #5B5C5E;
+        padding-bottom: 1rem;
+    }
+    .footer-item {
+        font-weight: 400;
+        color: #6E6E6E;
+        line-height: 2;
+    }
+    .footer-button button {
+        margin-top: 0.5rem;
+        padding: 0.5rem 3rem;
+        background-color: #f2f2f2;
+        color: #000;
+        border: 2px solid #000;
+        text-transform: uppercase;
+        cursor: pointer;
+        font: 400 13.3333px Arial;
+    }
+    .footer-button button:hover {
+        background-color: #000;
+        color: #f2f2f2;
+    }
+    .footer-bottom {
+        display: flex;
+        margin-top: 1rem;
+        padding: 2rem 1rem;
+        border-top: 1px solid #d4d4d4;
+        color: #6E6E6E;
+    }
+    .footer-phone {
+        min-width: 25%;
+    }
+    .footer-social {
+        width: 150px;
+        justify-content: space-around;
+    }
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 0;
+    }
+
+    .header-block {
+        display: none;
+    }
+
+    .burger-menu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+    }
+
+    .burger-menu a:hover {
+        color: #20b2aa;
+    }
+
+    .burger-menu p {
+        font-size: 1.3rem;
+    }
+
+    .main {
+        flex-direction: column;
+        padding: 20px 15px;
+        margin-top: 0;
+        height: 100%;
+    }
+
+    .main-info h1 {
+        font-size: 45px;
+    }
+
+    .main-image img {
+        max-height: 450px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .qr-create-steps {
+        flex-direction: column;
+        padding: 30px 0;
+    }
+
+    .qr-create h2 {
+        font-size: 45px;
+        line-height: 1.1;
+    }
+
+    .qr-create p {
+        font-size: 18px;
+    }
+
+    .qr-create-item {
+        padding: 20px 0;
+    }
+
+    .qr-create-item h3 {
+        padding: 15px 0;
+    }
+
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .footer-links a {
+        padding-right: 10px;
+    }
+
+    .footer-copyright p {
+        display: none;
+    }
+
+    .footer-item h4 {
+        padding: 1rem 0 0 0;
+    }
+
+    .footer-bottom {
+        align-items: center;
+        flex-direction: column;
+        padding: 1rem;
+        margin-top: 0;
+    }
+
+    .footer-phone {
+        padding-bottom: 0.5rem;
+    }
+}
+
+</style>
 <body>
-dasddddddddddddddddddd
+
+    <div  id="overlay-mobile" class="null-style">
+        <div class="sidebar-mobile sibebar-swipe-off">
+            <a class="link" href="/landing">
+                <div class="sidebar-logo">
+                    <img src="/wisehands/assets/images/wiseblack.png" alt="logo">
+                    <p>wisehands</p>
+                </div>
+            </a>
+            <div class="sidebar-panel">
+                <a class="link" id="opportLink" href="#opport">Можливості</a>
+                <a class="link" id="tariffLink" href="#tariff">Тарифи</a>
+                <a class="link" id="contactLink" href="#landContact">Контакти</a>
+            </div>
+        </div>
+        <div class="blur-block">
+
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="header-block">
+            <div class="header-logo-text">
+                <img src="wisehands/assets/images/main_logo_black.png" alt="logo">
+                <a href="#opport"><p id="headListServices">Можливості</p></a>
+                <a href="#tariff"><p id="headProjects">Тарифи</p></a>
+                <a href="#landContact"><p id="headTeam">Контакти</p></a>
+            </div>
+            <div class="header-links">
+                <a href="/signin"><p>Вхід</p></a>
+            </div>
+        </div>
+
+        <div class="burger-menu" >
+            <i id="mobile-menu" class="fa fa-bars" style="font-size:36px; color: #000"></i>
+            <a href="/signin"><p>Вхід</p></a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main">
+            <div class="main-info">
+                <h1>QR-код меню: поділись своїм цифровим меню в QR-коді зі своїми клієнтами</h1>
+                <!--<h1>QR code menu: share your digital menu in a QR Code with your customers</h1>-->
+                <a href="/qrWizard">
+                    <div class="create-qr-btn">
+                        <p>Створити QR-код меню</p>
+                        <!--<p>Create a menu QR code</p>-->
+                    </div>
+                </a>
+            </div>
+            <div class="main-image">
+                <img src="../../wisehands/landing/images/qrcode1.jpg" alt="qrcode">
+            </div>
+        </div>
+        <div class="qr-create">
+            <h2>Як створити QR-код меню</h2>
+            <!--<h2>How to create a menu QR Code</h2>-->
+            <p>Для створення простого QR-коду з безконтактним меню потрібно всього 3 хвилини за 3 простих кроки.</p>
+            <!--<p>It takes just 3 minutes to make a QR Code with multiple contactless menus, in 3 easy steps.</p>-->
+            <div class="qr-create-steps">
+                <div class="qr-create-item">
+                    <div class="qr-create-item-icon">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                    </div>
+                    <h3>Створіть магазин</h3>
+                    <!--<h3>Upload menu</h3>-->
+                    <p>Введіть назву своєї компанії для створення сайту, де ви надалі зможете створювати свої QR-коди. Добавте товари і створюйте відповідний QR-код для Вашого меню.</p>
+                    <!--<p>Log in to upload your menu in PDF or image format. We automatically attach it to your QR code. Upload multiple files to the same QR code, like multiple menus or in multiple languages</p>-->
+                </div>
+                <div class="qr-create-item">
+                    <div class="qr-create-item-icon">
+                        <i class="fa fa-qrcode" aria-hidden="true"></i>
+                    </div>
+                    <h3>Роздрукуйте QR-код</h3>
+                    <!--<h3>Print QR Code</h3>-->
+                    <p>Завантажте свій QR-код, роздрукуйте і користуйтесь! Ви можете завантажити QR-код у декількох форматах, ми рекомендуємо PNG для кращої якості друку</p>
+                    <!--<p>Download your QR Code, print it and voilà! The QR code menu is served. You can download the QR code in several formats, we recommend PNG for better printing quality</p>-->
+                </div>
+                <div class="qr-create-item">
+                    <div class="qr-create-item-icon">
+                        <i class="fa fa-asl-interpreting" aria-hidden="true"></i>
+                    </div>
+                    <h3>Розмістіть його</h3>
+                    <!--<h3>Place it</h3>-->
+                    <p> Щойно ваш новий QR-код буде надрукований, розмістіть його там, де люди зможуть легко його відсканувати. Наприклад, на столиках, плакатах, вікнах вашого ресторану або навіть на ваших серветках!</p>
+                    <!--<p>Once your brand new QR code is printed, place it where people can easily scan it. For example on table tents, posters, your restaurant’s windows, or even your napkins!</p>-->
+                </div>
+            </div>
+        </div>
+        <div class="qr-photo">
+            <img src="../../wisehands/landing/images/qrcode2.jpg" alt="qrcode2">
+        </div>
+        <div class="qr-create">
+            <h2>Ми полегшимо Вам життя</h2>
+            <!--<h2>We will make your life easier</h2>-->
+            <div class="qr-create-steps">
+                <div class="qr-create-item">
+                    <div class="qr-create-item-icon">
+                        <i class="fa fa-recycle" aria-hidden="true"></i>
+                    </div>
+                    <h3>Багаторазовий QR-код</h3>
+                    <!--<h3>Reusable QR Code</h3>-->
+                    <p>Змінюйте вміст свого QR-коду стільки разів, скільки вам потрібно. Змінюйте своє меню кожного дня, якщо це необхідно. Немає обмежень по кількості змін вашого меню в QR-коді.</p>
+                    <!--<p>Change the content of your QR Code as many times as you need. Change your menu every single day if necessary. There's no limit to how many times you can change your uploaded menus.</p>-->
+                </div>
+                <div class="qr-create-item">
+                    <div class="qr-create-item-icon">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </div>
+                    <h3>Декілька QR-кодів</h3>
+                    <!--<h3>Multiple Files per QR code</h3>-->
+                    <p>Створюйте QR-коди для кожного столу у Вашому закладі, для зручного обслуговування клієнтів.</p>
+                    <!--<p>Upload up to 10 PDF or images per QR Code. Make it simpler for your customers to choose from different food categories or languages.</p>-->
+                </div>
+                <div class="qr-create-item">
+                    <div class="qr-create-item-icon">
+                        <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                    </div>
+                    <h3>Більші можливості</h3>
+                    <!--<h3>Power Up Features</h3>-->
+                    <p>Спростіть для своїх клієнтів вибір з різних категорій продуктів або мов. Дозвольте Вашим клієнтам оплату через Paypal. Отримайте більше відгуків за допомогою функції Google Review.</p>
+                    <!--<p>Add a WhatsApp number to receive orders and inquiries. Let your customers pay you via Paypal or Stripe. Get more reviews with Google Review feature and ¡add emoticons to your titles and texts! Power Up your Menu QR code with uQR.me.</p>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container container">
+            <div class="footer-item">
+                <div class="footer-logo">
+                    <a href="https://wisehands.me/">
+                        <img src="wisehands/assets/images/main_logo_black.png" alt="logo">
+                        <p>WiseHands</p>
+                    </a>
+                </div>
+                <div class="footer-copyright">
+                    <a href="https://wisehands.me/" title="software development" id="wisehands" target="_blank">
+                        <p>&copy; WiseHands</p>
+                    </a>
+                </div>
+                <div class="footer-address">
+                </div>
+            </div>
+            <div class="footer-item">
+                <h4>Продукти</h4>
+                <a href="https://wstore.pro/"><p><WiseStore></WiseStore></p></a>
+                <a href="https://footgo-league.com"><p>FootGo</p></a>
+                <a href="https://cluster.dev"><p>Cluster.dev</p></a>
+            </div>
+            <div class="footer-item">
+                <h4>Рішення</h4>
+                <p>Онлайн магазини</p>
+                <p>Футбольні події</p>
+            </div>
+            <div class="footer-item">
+                <h4>Компанія</h4>
+                <p>Клієнти</p>
+                <p>Чому WiseHands</p>
+            </div>
+            <div class="footer-item">
+                <h4>Умови</h4>
+                <p><a href="/contract">Угода</a></p>
+                <p><a href="/privacy">Конфіденційність</a></p>
+            </div>
+            <div class="footer-item">
+                <div class="footer-button">
+                    <a href="/signup?plan=3">
+                        <button>Вхід</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <div class="footer-phone">
+                <a href="tel:+380630386173">
+                    <i class="fa fa-mobile-phone" style="font-size:2.3rem"></i>
+                    <p>+380 93 92 41 777</p>
+                </a>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/wisehands.me/"><i class="fa fa-facebook-f" style="font-size:32px"></i></a>
+                <a href="https://www.youtube.com/channel/UCSkvo3C7dB1lhChTlIx_EtA"><i class="fa fa-youtube-play" style="font-size:36px"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+        function setDisplayNoneToSidebarOverlay() {
+            document.querySelector("#overlay-mobile").style.display = 'none';
+        }
+
+        document.getElementById("overlay-mobile").addEventListener("click", closeMenu);
+        function closeMenu() {
+            document.querySelector(".sidebar-mobile").classList.add('sibebar-swipe-off');
+            setTimeout(setDisplayNoneToSidebarOverlay, 300);
+        }
+
+        document.querySelector(".sidebar-mobile").addEventListener("click", showSidebar);
+        function showSidebar(e) {
+            e.stopPropagation();
+        }
+
+        document.querySelector(".sidebar-mobile").addEventListener('touchstart', handleTouchStart, false);
+        document.querySelector(".sidebar-mobile").addEventListener('touchmove', handleTouchMove, false);
+
+        var xDown = null;
+        var yDown = null;
+
+        function getTouches(evt) {
+            return evt.touches ||             // browser API
+                    evt.originalEvent.touches; // jQuery
+        }
+
+        function handleTouchStart(evt) {
+            const firstTouch = getTouches(evt)[0];
+            xDown = firstTouch.clientX;
+            yDown = firstTouch.clientY;
+        };
+
+        function handleTouchMove(evt) {
+            if ( ! xDown || ! yDown ) {
+                return;
+            }
+
+            var xUp = evt.touches[0].clientX;
+            var yUp = evt.touches[0].clientY;
+
+            var xDiff = xDown - xUp;
+            var yDiff = yDown - yUp;
+
+            if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+                if ( xDiff > 0 ) {
+                    /* left swipe */
+                    console.log('left swipe:', yDiff);
+                    closeMenu()
+                } else {
+                    /* right swipe */
+                }
+            } else {
+                if ( yDiff > 0 ) {
+                    /* up swipe */
+                } else {
+                    /* down swipe */
+                }
+            }
+            /* reset values */
+            xDown = null;
+            yDown = null;
+        };
+
+    </script>
+    <script>
+        document.getElementById("mobile-menu").addEventListener("click", showMenu);
+        function showMenu() {
+            document.querySelector("#overlay-mobile").style.display = 'block';
+            document.querySelector(".sidebar-mobile").classList.remove('sibebar-swipe-off');
+        }
+    </script>
+    <script>
+        document.getElementById("opportLink").addEventListener("click", hideSidebar);
+        document.getElementById("tariffLink").addEventListener("click", hideSidebar);
+        document.getElementById("contactLink").addEventListener("click", hideSidebar);
+
+        function hideSidebar() {
+            document.querySelector("#overlay-mobile").style.display = 'none';
+        }
+    </script>
+
+
+
 </body>
 </html>
