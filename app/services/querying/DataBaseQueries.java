@@ -20,7 +20,7 @@ public class DataBaseQueries {
         if (currencyShop == null) {
             return additionsPrice;
         }
-        else if (selectedCurrency == null || selectedCurrency.isEmpty()){
+        else if (selectedCurrency.isEmpty()){
             return additionsPrice;
         } else {
             boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.currency.equals(selectedCurrency);
@@ -63,7 +63,7 @@ public class DataBaseQueries {
     }
 
     public static void changePriceAccordingToCurrency(ProductDTO product, ShopDTO shop, String selectedCurrency){
-
+        System.out.println("changePriceAccordingToCurrency empty => " + selectedCurrency.isEmpty());
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (selectedCurrency.isEmpty()){
             currencyShop.selectedCurrency = null;
