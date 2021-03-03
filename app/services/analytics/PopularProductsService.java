@@ -28,6 +28,7 @@ public class PopularProductsService {
     }
 
     public static List<PopularProducts> getPopularProducts(ShopDTO shop, int daysFromToday){
+
         String stringQuery = PopularProductsService.formatQueryString(shop, daysFromToday);
         List<Object[]> result = JPA.em().createNativeQuery(stringQuery).getResultList();
         List<PopularProducts> queryResultList = new ArrayList<PopularProducts>();

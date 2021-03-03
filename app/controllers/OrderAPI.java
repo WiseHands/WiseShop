@@ -113,7 +113,7 @@ public class OrderAPI extends AuthController {
                 createAddition(additionList, addition, totalCost);
             }
             orderItem.additionsList = additionList;
-
+            orderItem.save();
             orderItemList.add(orderItem);
             totalCost += product.price * orderItem.quantity;
         }
@@ -176,7 +176,7 @@ public class OrderAPI extends AuthController {
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
         order.clientLanguage = clientLanguage;
         order.chosenClientLanguage = chosenLanguage;
-
+        order.save();
         OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
         order.items = orderItemListResult.orderItemList;
 
