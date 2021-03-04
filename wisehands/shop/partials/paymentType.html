@@ -25,7 +25,7 @@
                        id="radio1"
                        ng-model="paymentType"
                        ng-required="!paymentType"
-                       value="CASHONSPOT">
+                       value="CASHONDELIVERY">
                 <label for="radio1"><i>{{manualPaymentTitle}}</i></label>
                 <!--<label for="radio1"><i>{{'shopView.cashOnDelivery' | translate}}</i></label>-->
             </fieldset>
@@ -37,7 +37,7 @@
                        ng-model="paymentType"
                        ng-show="onlinePaymentEnabled"
                        ng-required="!paymentType"
-                       value="PAYONLINE">
+                       value="CREDITCARD">
                 <!--<label for="radio2"><i>{{'shopView.onlinePay' | translate}}</i></label>-->
                 <label for="radio2"><i>{{onlinePaymentTitle}}</i></label>
 

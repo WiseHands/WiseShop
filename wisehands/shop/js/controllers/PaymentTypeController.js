@@ -43,7 +43,7 @@
                     paymentType = document.getElementById('radio2').value;
                 }
 
-                if (paymentType == 'CASHONSPOT') {
+                if (paymentType == 'CASHONDELIVERY') {
                   shared.setPaymentType(paymentType);
                     if ($scope.deliveryType == 'NOVAPOSHTA'){
                       location.hash = '#!/selectedpostdelivery';
@@ -53,7 +53,7 @@
                       location.hash = '#!/selectedcourierdelivery';
                     }
                   console.log('paymentType', paymentType);
-                } else if (paymentType == 'PAYONLINE') {
+                } else if (paymentType == 'CREDITCARD') {
                   shared.setPaymentType(paymentType);
                       if ($scope.deliveryType == 'NOVAPOSHTA'){
                       location.hash = '#!/selectedpostdelivery';
