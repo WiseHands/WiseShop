@@ -57,7 +57,7 @@
 
     .qr-wizard-sidebar {
         flex: 0 0 35%;
-        background-color: #fff;
+        background-color: #f5f5f5;
         padding-top: 50px;
     }
 
@@ -78,47 +78,6 @@
         width: 220px;
         object-fit: cover;
         margin: 100px auto 10px;
-    }
-
-    .qr-steps {
-        display: flex;
-        flex-direction: column;
-        margin:70px 20px 20px 50px;
-    }
-
-    .qr-step {
-        display: flex;
-        padding-bottom: 30px;
-        align-items: center;
-    }
-
-    .qr-bullet {
-        width: 30px;
-        height: 30px;
-        border: 2px solid #777;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 15px;
-        position: relative;
-    }
-
-    .qr-bullet.completed {
-        color: #fff;
-        background-color: #3ec776;
-        border: 2px solid #3ec776;
-        transition: 400ms;
-    }
-
-    .qr-bullet.completed::after {
-        content: '';
-        position: absolute;
-        top: 42px;
-        height: 2px;
-        width: 26px;
-        transform: rotate(90deg);
-        background-color: #3ec776;
     }
 
     .qr-wizard-panel {
@@ -210,6 +169,72 @@
         display: block;
     }
 
+    .progress-bar-container {
+        position: relative;
+    }
+
+    .progress-bar-container::before {
+        content: "";
+        position: absolute;
+        height: 10px;
+        width: 100%;
+        top: 50%;
+        left: 0px;
+        transform: translateY(-50%);
+    }
+
+    #progress-bar {
+        position: absolute;
+        background-color: #3ec776;
+        width: 5px;
+        height: 0%;
+        top: 0;
+        left: 68px;
+        transition: 0.3s ease;
+    }
+
+    .circles-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width: 100%;
+        height: 250px;
+        margin: 50px 20px 20px 50px;
+    }
+
+    .circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+        transition: 0.4s ease;
+        background-color: #fff;
+    }
+
+    .circle h3 {
+        position: absolute;
+        left: 37%;
+        top: 10%;
+        font-size: 20px;
+        color: #ccc;
+    }
+
+    .circle.active {
+        background-color: #3ec776;
+    }
+    .circle.active h3 {
+        color: #fff;
+    }
+
+    .qr-circle-title {
+        white-space: nowrap;
+        position: absolute;
+        left: 55px;
+        top: 7px;
+    }
+
+
     @media screen and (max-width: 768px) {
         .qr-wizard-form {
             height: 100%;
@@ -227,21 +252,6 @@
 
         .qr-wizard-form {
             flex-direction: column;
-        }
-
-        .qr-steps {
-            flex-direction: row;
-            justify-content: space-between;
-            margin: 50px 20px 20px 20px;
-        }
-
-        .qr-step {
-            flex-direction: column;
-            padding: 0;
-        }
-
-        .qr-step-title {
-            display: none;
         }
 
         .qr-wizard-img {
@@ -274,24 +284,28 @@
                 <img src="/wisehands/assets/images/wiseblack.png" alt="logo">
                 <p>WiseHands</p>
             </div>
-            <div class="qr-steps">
-                <div class="qr-step">
-                    <div class="qr-bullet">1</div>
-                    <span class="qr-step-title">Створити магазин</span>
-                </div>
-                <div class="qr-step">
-                    <div class="qr-bullet">2</div>
-                    <span class="qr-step-title">Додати товар</span>
-                </div>
-                <div class="qr-step">
-                    <div class="qr-bullet">3</div>
-                    <span class="qr-step-title">Додати стіл</span>
-                </div>
-                <div class="qr-step">
-                    <div class="qr-bullet">4</div>
-                    <span class="qr-step-title">Роздрукувати QR-код</span>
+            <div class="progress-bar-container">
+                <div id="progress-bar"></div>
+                <div class="circles-container">
+                    <div class="circle active">
+                        <h3>1</h3>
+                        <p class="qr-circle-title">Створити магазин</p>
+                    </div>
+                    <div class="circle">
+                        <h3>2</h3>
+                        <p class="qr-circle-title">Додати товар</p>
+                    </div>
+                    <div class="circle">
+                        <h3>3</h3>
+                        <p class="qr-circle-title">Додати стіл</p>
+                    </div>
+                    <div class="circle">
+                        <h3>4</h3>
+                        <p class="qr-circle-title">Роздрукувати QR-код</p>
+                    </div>
                 </div>
             </div>
+
             <img id="qr-step1-img" class="qr-wizard-img  active-image wow zoomIn" src="../wisehands/landing/images/qr_wizard_1.svg" alt="img">
             <img id="qr-step2-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_2.svg" alt="img">
             <img id="qr-step3-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_3.svg" alt="img">
@@ -322,7 +336,6 @@
                 <section id="qr-step4" class="qr-step-page qr-step4 page">
                     <h3>Роздрукуйте QR-код</h3>
                 </section>
-
             </form>
             <div class="form-button">
                 <p id="previousBtn" class="previous-step-button">Попередній крок</p>
@@ -332,24 +345,24 @@
         </div>
     </div>
 
-
 <script>
+    const circles = document.querySelectorAll(".circle");
     const  previousBtn  =  document.getElementById('previousBtn');
     const  nextBtn  =  document.getElementById('nextBtn');
     const  finishBtn  =  document.getElementById('finishBtn');
-    const  qrBullets  =  [...document.querySelectorAll('.qr-bullet')];
     let pageActive  = document.querySelector(".active-page");
     let imageActive  = document.querySelector(".active-image");
+    let circleActive = document.querySelector(".active");
+    const progressBar = document.getElementById("progress-bar");
 
-    const MAX_STEPS = 4;
+    const maxStep = 4;
     let currentStep = 1;
-    let currentPage = 1;
     previousBtn.style.visibility = 'hidden';
     finishBtn.style.display = 'none';
 
     nextBtn.addEventListener('click',  ()  =>  {
-        const currentQrBullet = qrBullets[currentStep - 1];
-        currentQrBullet.classList.add('completed');
+        circleActive = circleActive.nextElementSibling;
+        circleActive.classList.add("active");
         currentStep++;
         pageActive = pageActive.nextElementSibling;
         pageActive.classList.add("active-page");
@@ -358,7 +371,9 @@
         imageActive.classList.add("active-image");
         imageActive.previousElementSibling.classList.remove("active-image");
         previousBtn.style.visibility = 'visible';
-        if  (currentStep  ===  MAX_STEPS)  {
+        updateProgressBar();
+
+        if  (currentStep  ===  maxStep)  {
             nextBtn.style.display  =  'none';
             finishBtn.style.display  =  'block';
             document.getElementById('nextBtn').innerHTML = 'Готово';
@@ -366,8 +381,8 @@
     });
 
     previousBtn.addEventListener('click',  ()  =>  {
-        const previousQrItem = qrBullets[currentStep - 2];
-        previousQrItem.classList.remove('completed');
+        circleActive.classList.remove("active");
+        circleActive = circleActive.previousElementSibling;
         currentStep--;
         pageActive = pageActive.previousElementSibling;
         pageActive.classList.add("active-page");
@@ -378,6 +393,8 @@
         nextBtn.style.display  =  'block';
         nextBtn.innerHTML = 'Далі';
         finishBtn.style.display = 'none';
+        updateProgressBar();
+
         if  (currentStep  ===  1)  {
             previousBtn.style.visibility = 'hidden';
         }
@@ -387,116 +404,13 @@
         location.reload();
     });
 
+    function updateProgressBar() {
+        const actives = document.querySelectorAll(".active");
+        const currentHeight = ((actives.length - 1) / (circles.length - 1)) * 100;
+        progressBar.style.height = currentHeight + "%";
+
+    }
+
 </script>
-
-    <!--<script>-->
-        <!--//    const circles = document.querySelectorAll(".circle");-->
-        <!--const pages = [...document.querySelectorAll(".page")];-->
-        <!--let currentPage = 1;-->
-
-        <!--const btnNext = document.getElementById("nextBtn");-->
-        <!--const btnPrev = document.getElementById("prevBtn");-->
-        <!--const progressBar = document.getElementById("progress-bar");-->
-
-        <!--//    let circleActive = document.querySelector(".active");-->
-        <!--let pageActive  = document.querySelector(".active-page");-->
-        <!--btnNext.addEventListener("click", function () {-->
-<!--//        circleActive = circleActive.nextElementSibling;-->
-<!--//        circleActive.classList.add("active");-->
-            <!--pageActive = pageActive.nextElementSibling;-->
-            <!--pageActive.classList.add("active-page");-->
-            <!--pageActive.previousElementSibling.classList.remove("active-page");-->
-<!--//        updateProgressBarWidth();-->
-            <!--updateCurrentPage();-->
-            <!--currentPage++;-->
-        <!--});-->
-
-
-        <!--btnPrev.addEventListener("click", function () {-->
-<!--//        circleActive.classList.remove("active");-->
-<!--//        circleActive = circleActive.previousElementSibling;-->
-            <!--pageActive = pageActive.previousElementSibling;-->
-            <!--pageActive.classList.add("active-page");-->
-            <!--pageActive.nextElementSibling.classList.remove("active-page");-->
-<!--//        updateProgressBarWidth();-->
-            <!--updateCurrentPage();-->
-            <!--currentPage&#45;&#45;;-->
-        <!--});-->
-
-        <!--function updateCurrentPage() {-->
-            <!--if (currentPage === 3) {-->
-                <!--btnNext.innerHTML = 'Готово';-->
-            <!--}-->
-            <!--if (currentPage < 3) {-->
-                <!--btnNext.innerHTML = 'Далі';-->
-            <!--}-->
-        <!--}-->
-        <!--function updateProgressBarWidth() {-->
-            <!--const actives = document.querySelectorAll(".active");-->
-            <!--const currentWidth = ((actives.length - 1) / (circles.length - 1)) * 100;-->
-            <!--progressBar.style.width = currentWidth + "%";-->
-
-            <!--if (currentWidth === 0) {-->
-                <!--btnPrev.setAttribute("disabled", true);-->
-            <!--} else if (currentWidth === 100) {-->
-                <!--btnNext.setAttribute("disabled", true);-->
-            <!--} else {-->
-                <!--btnPrev.removeAttribute("disabled");-->
-                <!--btnNext.removeAttribute("disabled");-->
-            <!--}-->
-        <!--}-->
-    <!--</script>-->
-
-    <!--<script>-->
-        <!--const steps = Array.from(document.querySelectorAll("form .qr-step-page"));-->
-        <!--const nextBtn = document.querySelectorAll("form .next-btn");-->
-        <!--const prevBtn = document.querySelectorAll("form .previous-btn");-->
-        <!--const form = document.querySelector("form");-->
-
-
-        <!--console.log('steap', steps);-->
-
-        <!--nextBtn.forEach((button) => {-->
-            <!--button.addEventListener("click", () => {-->
-                <!--changeStep("next");-->
-            <!--});-->
-        <!--});-->
-        <!--prevBtn.forEach((button) => {-->
-            <!--button.addEventListener("click", () => {-->
-                <!--changeStep("prev");-->
-            <!--});-->
-        <!--});-->
-
-        <!--form.addEventListener("submit", (e) => {-->
-            <!--e.preventDefault();-->
-            <!--const inputs = [];-->
-            <!--form.querySelectorAll("input").forEach((input) => {-->
-                <!--const { name, value } = input;-->
-                <!--inputs.push({ name, value });-->
-            <!--});-->
-            <!--console.log(inputs);-->
-            <!--form.reset();-->
-        <!--});-->
-
-        <!--function changeStep(btn) {-->
-            <!--let index = 0;-->
-            <!--const active = document.querySelector(".active");-->
-            <!--index = steps.indexOf(active);-->
-            <!--console.log('current step', index);-->
-
-            <!--steps[index].classList.remove("active");-->
-
-            <!--if (btn === "next") {-->
-                <!--index++;-->
-            <!--} else if (btn === "prev") {-->
-                <!--index&#45;&#45;;-->
-            <!--}-->
-            <!--steps[index].classList.add("active");-->
-        <!--}-->
-        <!--if (index === 3) {-->
-            <!--document.querySelector('.nextBtn').innerHTML = 'Готово';-->
-        <!--};-->
-
-    <!--</script>-->
     </body>
     </html>
