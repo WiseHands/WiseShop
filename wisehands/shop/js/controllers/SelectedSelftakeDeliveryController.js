@@ -82,11 +82,11 @@
                         var modalContent = document.querySelector(".proceedWithPayment");
                         modalContent.innerHTML = response.data.button;
                         $scope.currentOrderUuid = response.data.uuid;
-                        if ($scope.paymentType == 'CASHONSPOT'){
+                        if ($scope.paymentType == 'CASHONDELIVERY'){
                           console.log('deliveryType', $scope.deliveryType);
                           console.log('paymentType', $scope.paymentType);
                           cashToCourier();
-                        } else if ($scope.paymentType == 'PAYONLINE') {
+                        } else if ($scope.paymentType == 'CREDITCARD') {
                           console.log('deliveryType', $scope.deliveryType);
                           console.log('paymentType', $scope.paymentType);
                           payOnline();

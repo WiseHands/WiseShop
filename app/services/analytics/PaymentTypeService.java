@@ -19,11 +19,11 @@ public class PaymentTypeService {
             "AND state <> '%s');";
 
     public static BigInteger getNumberOfPaymentsByCash(ShopDTO shop, int daysFromToday) {
-        return getOrdersCount(shop, PaymentTypeEnum.CASHONSPOT, daysFromToday);
+        return getOrdersCount(shop, PaymentTypeEnum.CASHONDELIVERY, daysFromToday);
     }
 
     public static BigInteger getNumberOfPaymentsByCard(ShopDTO shop, int daysFromToday) {
-        return getOrdersCount(shop, PaymentTypeEnum.PAYONLINE, daysFromToday);
+        return getOrdersCount(shop, PaymentTypeEnum.CREDITCARD, daysFromToday);
     }
 
     private static BigInteger getOrdersCount(ShopDTO shop, PaymentTypeEnum paymentType, int daysFromToday) {

@@ -80,9 +80,9 @@
                             var modalContent = document.querySelector(".proceedWithPayment");
                             modalContent.innerHTML = response.data.button;
                             $scope.currentOrderUuid = response.data.uuid;
-                            if ($scope.paymentType == 'CASHONSPOT'){
+                            if ($scope.paymentType == 'CASHONDELIVERY'){
                               cashToCourier();
-                            } else if ($scope.paymentType == 'PAYONLINE') {
+                            } else if ($scope.paymentType == 'CREDITCARD') {
                               payOnline();
                             }
 
