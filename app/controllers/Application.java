@@ -138,8 +138,10 @@ public class Application extends Controller {
         String selectedCurrency = "";
         if (request.params.get("currency") != null){
             selectedCurrency = request.params.get("currency");
+            shop.currencyShop = setCurrencyToShop(shop);
+            shop.currencyShop.selectedCurrency = selectedCurrency;
+            shop.save();
         }
-        shop.currencyShop = setCurrencyToShop(shop);
 
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
@@ -153,7 +155,7 @@ public class Application extends Controller {
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
+                product.priceWithAdditions = DataBaseQueries.exchangePrice(totalPriceForDefaultAdditions, shop, selectedCurrency);
                 DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
@@ -223,6 +225,9 @@ public class Application extends Controller {
         String selectedCurrency = "";
         if (request.params.get("currency") != null){
             selectedCurrency = request.params.get("currency");
+            shop.currencyShop = setCurrencyToShop(shop);
+            shop.currencyShop.selectedCurrency = selectedCurrency;
+            shop.save();
         }
 
 
@@ -236,7 +241,7 @@ public class Application extends Controller {
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
+                product.priceWithAdditions = DataBaseQueries.exchangePrice(totalPriceForDefaultAdditions, shop, selectedCurrency);
                 DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
@@ -322,7 +327,7 @@ public class Application extends Controller {
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
+                product.priceWithAdditions = DataBaseQueries.exchangePrice(totalPriceForDefaultAdditions, shop, selectedCurrency);
                 DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
@@ -384,7 +389,7 @@ public class Application extends Controller {
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
+                product.priceWithAdditions = DataBaseQueries.exchangePrice(totalPriceForDefaultAdditions, shop, selectedCurrency);
                 DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
@@ -444,6 +449,7 @@ public class Application extends Controller {
             shop.save();
         }
 
+
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");
             DataBaseQueries.hideDefaultAddition(product);
@@ -459,7 +465,7 @@ public class Application extends Controller {
             product.defaultAdditions = defaultAdditions;
 
             totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-            product.priceWithAdditions = DataBaseQueries.exchangeTotalPriceForAdditions(totalPriceForDefaultAdditions, shop, selectedCurrency);
+            product.priceWithAdditions = DataBaseQueries.exchangePrice(totalPriceForDefaultAdditions, shop, selectedCurrency);
             totalPriceForDefaultAdditions = product.priceWithAdditions;
 
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);

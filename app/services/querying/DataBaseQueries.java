@@ -15,21 +15,20 @@ import static org.codehaus.groovy.runtime.DefaultGroovyMethods.round;
 
 public class DataBaseQueries {
 
-    public static double exchangeTotalPriceForAdditions(double additionsPrice, ShopDTO shop, String selectedCurrency) {
+    public static double exchangePrice(double price, ShopDTO shop, String selectedCurrency) {
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (currencyShop == null) {
-            return additionsPrice;
+            return price;
         }
         else if (selectedCurrency.isEmpty()){
-            return additionsPrice;
+            return price;
         } else {
             boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.currency.equals(selectedCurrency);
             if (currencyShop.currency.equals("UAH")){
                 if (isSelectedCurrencyNotEqualShopCurrency) {
                     String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
                     CurrencyDTO currency = CurrencyDTO.find(currencyQuery, currencyShop.currency, selectedCurrency).first();
-                    double price = additionsPrice / currency.sale;
-                    return ProductDTO._roundAvoid(price,2);
+                    return ProductDTO._roundAvoid(price / currency.sale,2);
                 }
             }
             if (currencyShop.currency.equals("USD")){
@@ -37,11 +36,11 @@ public class DataBaseQueries {
                     if (selectedCurrency.equals("UAH")){
                         String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
                         CurrencyDTO currency = CurrencyDTO.find(currencyQuery, selectedCurrency, currencyShop.currency).first();
-                        return ProductDTO._roundAvoid(additionsPrice * currency.buy,2);
+                        return ProductDTO._roundAvoid(price * currency.buy,2);
                     } else {
                         CurrencyDTO currencyDTO = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", currencyShop.currency).first();
                         CurrencyDTO currencyDTOSelected = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
-                        return ProductDTO._roundAvoid(additionsPrice * (currencyDTO.buy / currencyDTOSelected.buy), 2);
+                        return ProductDTO._roundAvoid(price * (currencyDTO.buy / currencyDTOSelected.buy), 2);
                     }
                 }
             }
@@ -50,20 +49,19 @@ public class DataBaseQueries {
                     if (selectedCurrency.equals("UAH")){
                         String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
                         CurrencyDTO currency = CurrencyDTO.find(currencyQuery, selectedCurrency, currencyShop.currency).first();
-                        return ProductDTO._roundAvoid(additionsPrice * currency.buy, 2);
+                        return ProductDTO._roundAvoid(price * currency.buy, 2);
                     } else {
                         CurrencyDTO currencyDTO = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", currencyShop.currency).first();
                         CurrencyDTO currencyDTOSelected = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
-                        return ProductDTO._roundAvoid(additionsPrice * (currencyDTO.buy / currencyDTOSelected.buy),2);
+                        return ProductDTO._roundAvoid(price * (currencyDTO.buy / currencyDTOSelected.buy),2);
                     }
                 }
             }
-            return ProductDTO._roundAvoid(additionsPrice, 2);
+            return ProductDTO._roundAvoid(price, 2);
         }
     }
 
     public static void changePriceAccordingToCurrency(ProductDTO product, ShopDTO shop, String selectedCurrency){
-        System.out.println("changePriceAccordingToCurrency empty => " + selectedCurrency.isEmpty());
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (selectedCurrency.isEmpty()){
             currencyShop.selectedCurrency = null;

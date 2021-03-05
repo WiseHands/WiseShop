@@ -243,6 +243,7 @@ DELETE  {client}/api/delete-network/{uuid}              ShopNetworkAPI.deleteNet
 PUT     {client}/api/network/add-shop                   ShopNetworkAPI.addShopToNetwork
 
 
+GET     {client}/currency-list                          BalanceAPI.getCurrencyList
 GET     {client}/balance                                BalanceAPI.getBalance
 POST    {client}/pay                                    BalanceAPI.startPayment
 POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification

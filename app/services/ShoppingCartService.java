@@ -156,8 +156,6 @@ public class ShoppingCartService extends AuthController {
                                                                          List<SelectedAdditionDTO> defaultAdditions,
                                                                          String languageFromHeader){
 
-        CurrencyShopDTO currencyShopDTO = CurrencyShopDTO.find("byShop", shop).first();
-
         if (stringAdditionList == null){
             stringAdditionList = "[]";
         }

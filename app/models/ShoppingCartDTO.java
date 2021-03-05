@@ -7,6 +7,8 @@ import play.db.jpa.GenericModel;
 import javax.persistence.*;
 import java.util.List;
 
+import static services.querying.DataBaseQueries.exchangePrice;
+
 @Entity
 public class ShoppingCartDTO extends GenericModel {
 
@@ -119,10 +121,12 @@ public class ShoppingCartDTO extends GenericModel {
 
 
         ShopDTO shop = ShopDTO.find("byUuid", this.shopUuid).first();
+        String selectedCurrency = shop.currencyShop.selectedCurrency != null ? shop.currencyShop.selectedCurrency : "";
+        Double courierPrice = exchangePrice(shop.delivery.courierPrice, shop, selectedCurrency);
 
         DeliveryCourierConfiguration courier =
                 new DeliveryCourierConfiguration(shop.delivery.courierText, shop.delivery.isCourierAvailable,
-                        shop.delivery.courierFreeDeliveryLimit, shop.delivery.courierPrice,
+                        shop.delivery.courierFreeDeliveryLimit, courierPrice,
                         shop.delivery.courierTextTranslationBucket);
         DeliverySelfTakeConfiguration selfTake =
                 new DeliverySelfTakeConfiguration(shop.delivery.selfTakeText, shop.delivery.isSelfTakeAvailable,
@@ -147,4 +151,5 @@ public class ShoppingCartDTO extends GenericModel {
         this.configuration = configuration;
 
     }
+
 }
