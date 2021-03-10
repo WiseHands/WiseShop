@@ -35,6 +35,7 @@
     body {
         font-size: 16px;
         font-family: "Source Sans Pro",sans-serif;
+        min-width: 320px;
     }
 
     body a {
@@ -136,11 +137,19 @@
         display: none;
     }
 
-    #store-name {
+    .store-address-block p {
+        padding: 15px 0 0 0;
+    }
+
+    .store-address {
+        font-size: 22px;
+    }
+
+    #store-name, #input-store-address {
         color: #888;
     }
 
-    #store-name:focus {
+    #store-name:focus, #input-store-address:focus {
         color: #000;
     }
 
@@ -193,6 +202,20 @@
         transition: 0.3s ease;
     }
 
+    #progress-bar-mob {
+        display: none;
+        position: absolute;
+        background-color: #3ec776;
+        height: 7px;
+        width: 0%;
+        max-width: calc(100% - 20px);
+        top: 30px;
+        left: 0px;
+        transition: 0.3s ease;
+        transform: translateY(-50%);
+        margin-left: 10px;
+    }
+
     .circles-container {
         display: flex;
         flex-direction: column;
@@ -234,10 +257,10 @@
         top: 7px;
     }
 
-
     @media screen and (max-width: 768px) {
         .qr-wizard-form {
             height: 100%;
+            min-height: 100vh;
         }
 
         .qr-wizard-sidebar {
@@ -250,20 +273,44 @@
             justify-content: center;
         }
 
+        .circles-container {
+            flex-direction: row;
+            height: 70px;
+            margin: 10px;
+        }
+
+        .qr-circle-title {
+            display: none;
+        }
+
+        #progress-bar {
+            display: none;
+        }
+        #progress-bar-mob {
+            display: block;
+        }
+
         .qr-wizard-form {
             flex-direction: column;
         }
 
+
+        .qr-wizard-images {
+            align-self: center;
+            width: 180px;
+            height: 180px;
+        }
+
         .qr-wizard-img {
             margin: 10px;
-            align-self: center;
         }
 
         .qr-wizard-panel {
-            padding: 20px;
+            padding: 10px;
             margin-bottom: 20px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             flex: 1 0 60%;
             height: 100%;
         }
@@ -286,6 +333,8 @@
             </div>
             <div class="progress-bar-container">
                 <div id="progress-bar"></div>
+                <div id="progress-bar-mob"></div>
+
                 <div class="circles-container">
                     <div class="circle active">
                         <h3>1</h3>
@@ -305,19 +354,25 @@
                     </div>
                 </div>
             </div>
-
-            <img id="qr-step1-img" class="qr-wizard-img  active-image wow zoomIn" src="../wisehands/landing/images/qr_wizard_1.svg" alt="img">
-            <img id="qr-step2-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_2.svg" alt="img">
-            <img id="qr-step3-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_3.svg" alt="img">
-            <img id="qr-step4-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_4.svg" alt="img">
+            <div class="qr-wizard-images">
+                <img id="qr-step1-img" class="qr-wizard-img  active-image wow zoomIn" src="../wisehands/landing/images/qr_wizard_1.svg" alt="img">
+                <img id="qr-step2-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_2.svg" alt="img">
+                <img id="qr-step3-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_3.svg" alt="img">
+                <img id="qr-step4-img" class="qr-wizard-img  wow zoomIn" src="../wisehands/landing/images/qr_wizard_4.svg" alt="img">
+            </div>
         </div>
         <div class="qr-wizard-panel">
             <form class="qr-form pages">
                 <section id="qr-step1" class="qr-step-page qr-step1 page active-page">
                     <h3>Створіть магазин для використання QR-коду</h3>
-                    <p>Введіть назву компанії чи сайту</p>
-                    <h4>Назва сайту</h4>
-                    <input type="text" id="store-name" name="store-name" placeholder="введіть назву" value=".wstore.pro">
+                    <h4>Введіть назву компанії</h4>
+                    <input type="text" id="store-name" name="store-name" placeholder="введіть назву">
+                    <h4>Введіть адресу сайту</h4>
+                    <input type="text" id="input-store-address" name="store-address-name" placeholder="введіть адресу">
+                    <div class="store-address-block">
+                        <p>Ваша адреса сайту:</p>
+                        <div class='store-address' id='store-name-address'></div>
+                    </div>
                 </section>
                 <section id="qr-step2" class="qr-step-page qr-step2 page">
                     <h3>Додайте товар</h3>
@@ -354,6 +409,8 @@
     let imageActive  = document.querySelector(".active-image");
     let circleActive = document.querySelector(".active");
     const progressBar = document.getElementById("progress-bar");
+    const progressBarMob = document.getElementById("progress-bar-mob");
+    const screenSizeMobile = 768;
 
     const maxStep = 4;
     let currentStep = 1;
@@ -371,12 +428,17 @@
         imageActive.classList.add("active-image");
         imageActive.previousElementSibling.classList.remove("active-image");
         previousBtn.style.visibility = 'visible';
-        updateProgressBar();
 
         if  (currentStep  ===  maxStep)  {
             nextBtn.style.display  =  'none';
             finishBtn.style.display  =  'block';
             document.getElementById('nextBtn').innerHTML = 'Готово';
+        }
+        if (screen.width <= screenSizeMobile) {
+            updateProgressBarMob();
+        }
+        if (screen.width > screenSizeMobile) {
+            updateProgressBar();
         }
     });
 
@@ -398,6 +460,12 @@
         if  (currentStep  ===  1)  {
             previousBtn.style.visibility = 'hidden';
         }
+        if (screen.width <= screenSizeMobile) {
+            updateProgressBarMob();
+        }
+        if (screen.width >= screenSizeMobile) {
+            updateProgressBar();
+        }
     });
 
     finishBtn.addEventListener('click',  ()  =>  {
@@ -409,6 +477,18 @@
         const currentHeight = ((actives.length - 1) / (circles.length - 1)) * 100;
         progressBar.style.height = currentHeight + "%";
 
+    }
+    function updateProgressBarMob() {
+        const actives = document.querySelectorAll(".active");
+        const currentWidth = ((actives.length - 1) / (circles.length - 1)) * 100;
+        progressBarMob.style.width = currentWidth + "%";
+    }
+
+
+    let inputName = document.getElementById('input-store-address');
+
+    inputName.onkeyup = function(){
+        document.getElementById('store-name-address').innerHTML = inputName.value + '.wstore.pro';
     }
 
 </script>
