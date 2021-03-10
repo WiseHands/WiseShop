@@ -178,9 +178,7 @@ public class ShoppingCartService extends AuthController {
             AdditionDTO additionDTO = AdditionDTO.findById(object.get("uuid"));
             AdditionLineItemDTO additionLineItem = new AdditionLineItemDTO();
             additionLineItem.title = additionDTO.getTitle();
-            // TODO exchange price
-
-            additionLineItem.price = additionDTO.getPrice();
+            additionLineItem.price = additionDTO.getRightPrice();
             additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
             additionLineItem.quantity = (Long) object.get("quantity");
             if (additionDTO.additionNameTranslationBucket != null){
@@ -197,7 +195,7 @@ public class ShoppingCartService extends AuthController {
             AdditionDTO additionDTO = AdditionDTO.findById(selectedAddition.addition.uuid);
             AdditionLineItemDTO additionLineItem = new AdditionLineItemDTO();
             additionLineItem.title = additionDTO.getTitle();
-            additionLineItem.price = additionDTO.getPrice();
+            additionLineItem.price = additionDTO.getRightPrice();
             additionLineItem.imagePath = _getWholePath(String.valueOf(additionDTO.getImagePath()), shop);
             additionLineItem.quantity = 1L;
             if (additionDTO.additionNameTranslationBucket != null){

@@ -24,44 +24,35 @@ public class DataBaseQueries {
             return price;
         } else {
             boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.currency.equals(selectedCurrency);
-            if (currencyShop.currency.equals("UAH")){
-                if (isSelectedCurrencyNotEqualShopCurrency) {
-                    String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
-                    CurrencyDTO currency = CurrencyDTO.find(currencyQuery, currencyShop.currency, selectedCurrency).first();
-                    return ProductDTO._roundAvoid(price / currency.sale,2);
-                }
+            if (currencyShop.currency.equals("UAH") && isSelectedCurrencyNotEqualShopCurrency){
+                String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
+                CurrencyDTO currency = CurrencyDTO.find(currencyQuery, currencyShop.currency, selectedCurrency).first();
+                return ProductDTO._roundAvoid(price / currency.sale,2);
             }
-            if (currencyShop.currency.equals("USD")){
-                if (isSelectedCurrencyNotEqualShopCurrency) {
-                    if (selectedCurrency.equals("UAH")){
-                        String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
-                        CurrencyDTO currency = CurrencyDTO.find(currencyQuery, selectedCurrency, currencyShop.currency).first();
-                        return ProductDTO._roundAvoid(price * currency.buy,2);
-                    } else {
-                        CurrencyDTO currencyDTO = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", currencyShop.currency).first();
-                        CurrencyDTO currencyDTOSelected = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
-                        return ProductDTO._roundAvoid(price * (currencyDTO.buy / currencyDTOSelected.buy), 2);
-                    }
-                }
+            if (currencyShop.currency.equals("USD") && isSelectedCurrencyNotEqualShopCurrency){
+                exchange(currencyShop.currency, selectedCurrency, price);
             }
-            if (currencyShop.currency.equals("EUR")){
-                if (isSelectedCurrencyNotEqualShopCurrency) {
-                    if (selectedCurrency.equals("UAH")){
-                        String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
-                        CurrencyDTO currency = CurrencyDTO.find(currencyQuery, selectedCurrency, currencyShop.currency).first();
-                        return ProductDTO._roundAvoid(price * currency.buy, 2);
-                    } else {
-                        CurrencyDTO currencyDTO = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", currencyShop.currency).first();
-                        CurrencyDTO currencyDTOSelected = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
-                        return ProductDTO._roundAvoid(price * (currencyDTO.buy / currencyDTOSelected.buy),2);
-                    }
-                }
+            if (currencyShop.currency.equals("EUR") && isSelectedCurrencyNotEqualShopCurrency){
+                exchange(currencyShop.currency, selectedCurrency, price);
             }
             return ProductDTO._roundAvoid(price, 2);
         }
     }
 
+    private static double exchange(String shopCurrency, String selectedCurrency, double price) {
+            if (selectedCurrency.equals("UAH")){
+                String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
+                CurrencyDTO currency = CurrencyDTO.find(currencyQuery, selectedCurrency, shopCurrency).first();
+                return ProductDTO._roundAvoid(price * currency.buy,2);
+            } else {
+                CurrencyDTO currencyDTO = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", shopCurrency).first();
+                CurrencyDTO currencyDTOSelected = CurrencyDTO.find("select c from CurrencyDTO c where c.ccy = ?1", selectedCurrency).first();
+                return ProductDTO._roundAvoid(price * (currencyDTO.buy / currencyDTOSelected.buy), 2);
+            }
+    }
+
     public static void changePriceAccordingToCurrency(ProductDTO product, ShopDTO shop, String selectedCurrency){
+
         CurrencyShopDTO currencyShop = CurrencyShopDTO.find("byShop", shop).first();
         if (selectedCurrency.isEmpty()){
             currencyShop.selectedCurrency = null;
@@ -72,9 +63,9 @@ public class DataBaseQueries {
             if (currencyShop.currency.equals("UAH") && isSelectedCurrencyNotEqualShopCurrency){
                 String currencyQuery = "select c from CurrencyDTO c where c.base_ccy = ?1 and c.ccy = ?2";
                 CurrencyDTO currency = CurrencyDTO.find(currencyQuery, currencyShop.currency, selectedCurrency).first();
-                product.priceInCurrency = round(product.price / currency.sale, 2);
+                product.priceInCurrency = round(product.price / currency.buy, 2);
+                exchangeCurrencyForAdditionsInUAHShop(product, shop, selectedCurrency);
                 product.save();
-                exchangeCurrencyForAdditionsInUAHShop(product, currency);
             } else if (currencyShop.currency.equals("UAH") && !isSelectedCurrencyNotEqualShopCurrency){
                 product.priceInCurrency = 0;
                 setZeroPriceToSelectedAdditions(product);
@@ -118,19 +109,17 @@ public class DataBaseQueries {
         }
     }
 
-    private static void exchangeCurrencyForAdditionsInUAHShop(ProductDTO product, CurrencyDTO currency) {
+    private static void exchangeCurrencyForAdditionsInUAHShop(ProductDTO product, ShopDTO shop, String selectedCurrency) {
         if (!product.defaultAdditions.isEmpty()){
-            for (int i = 0; i < product.defaultAdditions.size(); i++){
-                product.defaultAdditions.get(i).addition.priceInCurrency =
-                        round(product.defaultAdditions.get(i).addition.price / currency.buy, 2);
-                product.defaultAdditions.get(i).addition.save();
+            for(SelectedAdditionDTO selectedAddition : product.defaultAdditions){
+                selectedAddition.addition.priceInCurrency = exchangePrice(selectedAddition.addition.price, shop, selectedCurrency);
+                selectedAddition.addition.save();
             }
         }
         if (!product.selectedAdditions.isEmpty()){
-            for (int i = 0; i < product.selectedAdditions.size(); i++){
-                product.selectedAdditions.get(i).addition.priceInCurrency =
-                        round(product.selectedAdditions.get(i).addition.price / currency.buy, 2);
-                product.selectedAdditions.get(i).addition.save();
+            for(SelectedAdditionDTO selectedAddition : product.selectedAdditions){
+                selectedAddition.addition.priceInCurrency = exchangePrice(selectedAddition.addition.price, shop, selectedCurrency);
+                selectedAddition.addition.save();
             }
         }
 
@@ -192,6 +181,8 @@ public class DataBaseQueries {
         }
     }
 
+
+
     public static List<FeedbackDTO> getFeedbackList(ProductDTO product) {
         String query = "SELECT customerName, feedbackTime, quality, review, FeedbackCommentDTO.comment FROM FeedbackDTO" +
                 " LEFT JOIN FeedbackCommentDTO" +
@@ -215,7 +206,6 @@ public class DataBaseQueries {
         String quality = (String) item[2];
         String review = (String) item[3];
         String comment = (String) item[4];
-        System.out.println("FeedbackDTO => " + customerName + feedbackTime + quality + review + comment);
         FeedbackDTO feedback = new FeedbackDTO(quality, review, customerName, feedbackTime);
         feedback.comment = comment;
         return feedback;

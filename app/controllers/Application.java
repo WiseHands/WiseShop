@@ -164,8 +164,6 @@ public class Application extends Controller {
         }
         products = productList;
 
-        System.out.println("request.params qr_uuid.isEmpty() in languageChooser => " + qr_uuid);
-
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
@@ -448,7 +446,6 @@ public class Application extends Controller {
             shop.currencyShop.selectedCurrency = selectedCurrency;
             shop.save();
         }
-
 
         if (request.params.get("qr_uuid") != null){
             qr_uuid = request.params.get("qr_uuid");

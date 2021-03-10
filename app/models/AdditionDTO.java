@@ -37,27 +37,19 @@ public class AdditionDTO extends GenericModel {
     @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public TranslationBucketDTO additionNameTranslationBucket;
+    
+    public AdditionDTO(){}
 
     public String getTitle() {
         return title;
     }
 
-    public Double getPrice() {
+    public Double getRightPrice() {
         return this.priceInCurrency != 0 ? this.priceInCurrency : this.price;
     }
-
+    
     public String getImagePath() {
         return imagePath;
-    }
-
-    public String formatDecimal() {
-        Double number = this.getPrice();
-        float epsilon = 0.004f; // 4 tenths of a cent
-        if (Math.abs(Math.round(number) - number) < epsilon) {
-            return String.format("%10.0f", number); // sdb
-        } else {
-            return String.format("%10.2f", number); // dj_segfault
-        }
     }
 
 }

@@ -646,7 +646,7 @@
                         <p>${defaultAddition.addition.title}</p>
                     </div>
                     <p class="add-item-price">
-                      ${defaultAddition.addition.price}
+                      ${defaultAddition.addition.getRightPrice()}
                       ${shop.currencyShop.showCurrency()}
                     </p>
                 </div>
@@ -661,7 +661,7 @@
                      price="${_selectedAddition.addition.price}" counter="0"
                      onclick="_addItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
-                                price: '${_selectedAddition.addition.price}'})">
+                                price: '${_selectedAddition.addition.getRightPrice()}'})">
                     <img src="${_selectedAddition.addition.imagePath}">
                     <div class="addition-name" title="${_selectedAddition.addition.title}">
                         <p id="add-item-title">${_selectedAddition.addition.title}</p>
@@ -669,20 +669,20 @@
                     <div class="add-item-count">
                         <span class="material-icons" onclick="_removeItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
-                                price: '${_selectedAddition.addition.price}'})">
+                                price: '${_selectedAddition.addition.getRightPrice()}'})">
                             remove_circle
                         </span>
                         <p class="addition-counter">0</p>
                         <span class="material-icons" onclick="_addItem({
                                 title: '${_selectedAddition.addition.title}',
                                 uuid: '${_selectedAddition.addition.uuid}',
-                                price: '${_selectedAddition.addition.price}',
+                                price: '${_selectedAddition.addition.getRightPrice()}',
                                 isDefault: '${_selectedAddition.isDefault}'})">
                             add_circle
                         </span>
                     </div>
                     <p class="add-item-price">
-                      ${_selectedAddition.addition.price}
+                      ${_selectedAddition.addition.getRightPrice()}
                       ${shop.currencyShop.showCurrency()}
                     </p>
                 </div>
