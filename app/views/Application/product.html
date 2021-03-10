@@ -658,7 +658,7 @@
                   for(_selectedAddition in product.selectedAdditions) {
                 }%
                 <div class="add-item hoverable selected" id="${_selectedAddition.addition.uuid}"
-                     price="${_selectedAddition.addition.price}" counter="0"
+                     price="${_selectedAddition.addition.getRightPrice()}" counter="0"
                      onclick="_addItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.getRightPrice()}'})">
