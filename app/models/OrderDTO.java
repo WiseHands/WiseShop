@@ -68,6 +68,9 @@ public class OrderDTO extends GenericModel {
     public Double total;
 
     @Expose
+    public String currency;
+
+    @Expose
     public String comment;
 
     @Expose

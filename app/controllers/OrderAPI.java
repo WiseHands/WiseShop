@@ -177,6 +177,8 @@ public class OrderAPI extends AuthController {
         }
 
         OrderDTO order = new OrderDTO(shoppingCart, shop, agent, ip);
+        String currency = shop.currencyShop.selectedCurrency != null ? shop.currencyShop.selectedCurrency : shop.currencyShop. currency;
+        order.currency = currency;
         order.clientLanguage = clientLanguage;
         order.chosenClientLanguage = chosenLanguage;
 

@@ -165,7 +165,7 @@
                         <h4>{{'singleOrder.titleOrder' | translate}}</h4>
                         <div class="admin-order-card-row">
                             <h5>{{'singleOrder.OrderAmount' | translate}}: </h5>
-                            <p>{{order.total}} {{'orderList.Currency' | translate}}</p>
+                            <p>{{order.total}} {{order.currency}}</p>
                         </div>
 
                         <div class="product-order-container" ng-repeat="item in order.items">
