@@ -245,6 +245,7 @@ public class OrderAPI extends AuthController {
             json.put("reason", "Total amount is less than minimum order amount");
             error(403, json.toString());
         }
+
         order.feedbackRequestState = FeedbackRequestState.REQUEST_NOT_SEND;
         order = order.save();
 

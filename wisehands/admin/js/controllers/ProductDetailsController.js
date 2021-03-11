@@ -2,14 +2,15 @@ angular.module('WiseHands')
     .controller('ProductDetailsController', ['$http', '$scope', '$routeParams', '$window', 'signout', function($http, $scope, $routeParams, $window, signout) {
       $scope.uuid = $routeParams.uuid;
       $scope.loading = true;
-      $scope.currency = localStorage.getItem('currency');
+      
 	
 	
-	    $http({
+	      $http({
             method: 'GET',
             url: '/shop/details'
         })
             .then(function successCallback(response) {
+	              $scope.currency = response.data.currencyShop.currency;
                 $scope.language = (response.data.locale).slice(0, 2);
                 $scope.loading = false;
             }, function errorCallback(error) {

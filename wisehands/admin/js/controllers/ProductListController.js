@@ -2,12 +2,21 @@ angular.module('WiseHands')
     .controller('ProductListController', ['$scope', '$http', 'spinnerService', 'sideNavInit', 'signout',
         function ($scope, $http, spinnerService, sideNavInit, signout) {
 	
-        $scope.currency = localStorage.getItem('currency');
-	
         $scope.loading = true;
         $scope.wrongMessage = false;
-        $scope.getResource = function () {
+	
+	        $http({
+		        method: 'GET',
+		        url: '/shop/details'
+	        })
+		        .then(function successCallback(response) {
+			        $scope.currency = response.data.currencyShop.currency;
+		        }, function errorCallback(error) {
+		        });
+	
+	        $scope.getResource = function () {
             spinnerService.show('mySpinner');
+            
         $http({
             method: 'GET',
             url: '/api/products'

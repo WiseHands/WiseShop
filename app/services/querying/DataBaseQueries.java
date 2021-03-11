@@ -57,6 +57,7 @@ public class DataBaseQueries {
         if (selectedCurrency.isEmpty()){
             currencyShop.selectedCurrency = null;
             currencyShop.save();
+            setZeroPriceToSelectedAdditions(product);
         } else {
             currencyShop.selectedCurrency = selectedCurrency;
             boolean isSelectedCurrencyNotEqualShopCurrency = !currencyShop.currency.equals(currencyShop.selectedCurrency);

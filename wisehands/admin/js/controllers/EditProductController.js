@@ -5,8 +5,16 @@ angular.module('WiseHands')
 
           $scope.uuid = $routeParams.uuid;
           $scope.loading = true;
-	        $scope.currency = localStorage.getItem('currency');
 	
+	        $http({
+		        method: 'GET',
+		        url: '/shop/details'
+	        })
+		        .then(function successCallback(response) {
+			        $scope.currency = response.data.currencyShop.currency;
+		        }, function errorCallback(error) {
+		        });
+          
 	
 	        // Edit image
             $scope.editImage = function(image){
