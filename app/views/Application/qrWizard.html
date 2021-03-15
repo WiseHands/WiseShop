@@ -98,7 +98,7 @@
         color: #777;
     }
 
-    .qr-form input {
+    .qr-form-input {
         padding: 7px 10px;
         width: 100%;
         border: 1px solid #999;
@@ -257,6 +257,11 @@
         top: 7px;
     }
 
+    .delivery-payment-container {
+        display: flex;
+        align-items: center;
+    }
+
     @media screen and (max-width: 768px) {
         .qr-wizard-form {
             height: 100%;
@@ -338,19 +343,19 @@
                 <div class="circles-container">
                     <div class="circle active">
                         <h3>1</h3>
-                        <p class="qr-circle-title">Створити магазин</p>
+                        <p class="qr-circle-title">Реєстрація</p>
                     </div>
                     <div class="circle">
                         <h3>2</h3>
-                        <p class="qr-circle-title">Додати товар</p>
+                        <p class="qr-circle-title">Назва</p>
                     </div>
                     <div class="circle">
                         <h3>3</h3>
-                        <p class="qr-circle-title">Додати стіл</p>
+                        <p class="qr-circle-title">Контакти</p>
                     </div>
                     <div class="circle">
                         <h3>4</h3>
-                        <p class="qr-circle-title">Роздрукувати QR-код</p>
+                        <p class="qr-circle-title">Налаштування</p>
                     </div>
                 </div>
             </div>
@@ -364,32 +369,83 @@
         <div class="qr-wizard-panel">
             <form class="qr-form pages">
                 <section id="qr-step1" class="qr-step-page qr-step1 page active-page">
-                    <h3>Створіть магазин для використання QR-коду</h3>
+                    <div id="login-form" class="signup-form">
+                        <h3>Реєстрація</h3>
+                        <div class="form-field">
+                            <h4>Ім'я</h4>
+                            <input  class="qr-form-input" id="signup-name" type="text" name="name" required placeholder=" ">
+                            <span class="highlight"></span>
+                        </div>
+                        <div class="form-field">
+                            <h4>Прізвище</h4>
+                            <input  class="qr-form-input" id="signup-surname" type="text" name="surname" required placeholder=" ">
+                            <span class="highlight"></span>
+                        </div>
+                        <div class="form-field">
+                            <h4>Номер телефону</h4>
+                            <input  class="qr-form-input" id="signup-phone" type="tel" name="surname" required placeholder=" "  pattern="^[0-9-+\s()]*$">
+                            <span class="highlight"></span>
+                        </div>
+                        <div class="form-field">
+                            <h4>Email</h4>
+                            <input  class="qr-form-input" id="signup-email" type="email" name="email" required placeholder=" ">
+                            <span class="highlight"></span>
+                        </div>
+                        <div class="form-field">
+                            <h4>Пароль</h4>
+                            <input  class="qr-form-input" id="signup-password" type="password" name="password" required placeholder=" ">
+                            <span class="highlight"></span>
+                        </div>
+                        <div class="form-oferta">
+                            <p>Реєструючись, ви погоджуєтесь з умовами <a href="/contract">Публічної оферти та Умовами надання послуг WiseStore</a>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section id="qr-step2" class="qr-step-page qr-step2 page ">
+                    <h3>Назва магазину і сайту</h3>
                     <h4>Введіть назву компанії</h4>
-                    <input type="text" id="store-name" name="store-name" placeholder="введіть назву">
+                    <input   class="qr-form-input" type="text" id="store-name" name="store-name" placeholder="введіть назву">
                     <h4>Введіть адресу сайту</h4>
-                    <input type="text" id="input-store-address" name="store-address-name" placeholder="введіть адресу">
+                    <input  class="qr-form-input" type="text" id="input-store-address" name="store-address-name" placeholder="введіть адресу">
                     <div class="store-address-block">
                         <p>Ваша адреса сайту:</p>
                         <div class='store-address' id='store-name-address'></div>
                     </div>
                 </section>
-                <section id="qr-step2" class="qr-step-page qr-step2 page">
-                    <h3>Додайте товар</h3>
-                    <p>Добавте перший товар з Вашого меню</p>
-                    <h4>Назва товару</h4>
-                    <input type="text" id="item-name" name="item-name" placeholder="введіть назву">
-                    <h4>Ціна товару</h4>
-                    <input  type="text" id="item-price" name="item-price" placeholder="введіть ціну">
-                </section>
                 <section id="qr-step3" class="qr-step-page qr-step3 page">
-                    <h3>Добавте cтіл</h3>
-                    <p>Добавте перший стіл Вашого закладу</p>
-                    <h4>Назва столу</h4>
-                    <input type="text" id="item-table" name="item-table" placeholder="введіть назву">
+                    <h3>Додайте контакти</h3>
+                    <h4>Місто</h4>
+                    <input  class="qr-form-input" type="text" id="city-name" name="city-name" placeholder="введіть назву міста">
+                    <h4>Вулиця</h4>
+                    <input  class="qr-form-input"  type="text" id="street-name" name="street-name" placeholder="введіть вулицю">
+                    <h4>Будинок</h4>
+                    <input  class="qr-form-input"  type="text" id="house-name" name="house-name" placeholder="введіть номер будинку">
                 </section>
                 <section id="qr-step4" class="qr-step-page qr-step4 page">
-                    <h3>Роздрукуйте QR-код</h3>
+                    <div class="qr-wizard-delivery">
+                        <h3>Добавте налаштування</h3>
+                        <h4>Виберіть варіанти отримання товару клієнтом</h4>
+                        <div class="delivery-payment-container">
+                            <div>
+                                <input type="checkbox" id="wizardСourier" name="courier" value="courier">
+                                <label for="wizardСourier">Кур'єр</label><br>
+                                <input type="checkbox" id="wizardPost" name="novaposhta" value="novaposhta">
+                                <label for="wizardPost">Нова пошта</label><br>
+                                <input type="checkbox" id="wizardSelftake" name="self" value="self">
+                                <label for="wizardSelftake">Самовивіз</label><br>
+                            </div>
+                        </div>
+                        <h4>Виберіть варіанти оплати</h4>
+                        <div class="delivery-payment-container">
+                            <div>
+                                <input type="checkbox" id="qrCash" name="courier" value="cash">
+                                <label for="wizardСourier">Готівка</label><br>
+                                <input type="checkbox" id="qrOnlinePayment" name="onlinepayment" value="novaposhta">
+                                <label for="wizardPost">Онлайн оплата</label><br>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </form>
             <div class="form-button">
