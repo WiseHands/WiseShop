@@ -239,12 +239,12 @@ body a {
     padding: 1rem 0;
 }
 .land-category-img {
-    background: url(../../wisehands/landing/images/category.svg) no-repeat;
+    background: url(../../wisehands/landing/images/category.webp) no-repeat;
     background-size: cover;
 }
 .land-options-img {
     background: url(../../wisehands/landing/images/options.svg) no-repeat;
-    background-size: contain;
+    background-size: cover;
 }
 .land-area-delivery-img {
     background: url(../../wisehands/landing/images/map.svg) no-repeat;
@@ -257,6 +257,10 @@ body a {
 .land-network-img {
     background: url(../../wisehands/landing/images/network.svg) no-repeat;
     background-size: cover;
+}
+
+.blur-tariff {
+    opacity: 0.3;
 }
 
 .tariff h2 {
@@ -277,11 +281,15 @@ body a {
     border-radius: 10px;
     transition: 0.5s ease;
 }
-.tariff-item:hover {
-    transform: scale(1.05);
-}
+/*.tariff-item:hover {*/
+    /*transform: scale(1.05);*/
+/*}*/
 .tariff-pro {
     border: 2px solid lightseagreen;
+}
+.tariff-pro:hover {
+    transform: scale(1.05);
+
 }
 .tariff-item-title, .tariff-price {
     text-align: center;
@@ -615,6 +623,9 @@ footer a:hover {
     .land-text-left {
         padding-right: 0;
         padding-left: 1rem;
+    }
+    .blur-tariff {
+        display: none;
     }
     .tariff-item {
         width: 90%;
