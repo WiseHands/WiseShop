@@ -245,7 +245,7 @@
   "addNewProduct.category": "Kategoria",
   "addNewProduct.errorChooseCategory": "Wymagana kategoria",
   "addNewProduct.createCategory": "Utwórz kategorię",
-  "addNewProduct.addPhoto": "Dodaj obraz (rozmiar 700 x 525 px)",
+  "addNewProduct.addPhoto": "Dodaj obraz (stosunek stron 4:3, stosunek stron 700 x 525 px)",
   "addNewProduct.errorLoadPhoto": "Wymagany obraz",
   "addNewProduct.makeMain": "Zrób głównym",
   "addNewProduct.deletePhoto": "Usuń zdjęcie",

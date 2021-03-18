@@ -252,7 +252,7 @@
   "addNewProduct.category": "Category",
   "addNewProduct.errorChooseCategory": "Category Required",
   "addNewProduct.createCategory": "Create category",
-  "addNewProduct.addPhoto": "Add image (size 700 x 525 px)",
+  "addNewProduct.addPhoto": "Add image (size ratio 4:3, e.g. 640*480px)",
   "addNewProduct.errorLoadPhoto": "Image Required",
   "addNewProduct.makeMain": "Make the main",
   "addNewProduct.deletePhoto": "Remove image",
