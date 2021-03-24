@@ -38,6 +38,9 @@
                     <input id="product_price" type="number" step="0.01" ng-model="product.price" required>
                     <label for="product_price">{{'addNewProduct.productPrice' | translate}}</label>
                 </div>
+                <input type="checkbox" class="filled-in checkBoxStyling" id="show-quantity" ng-model="checked"/>
+                <label for="show-quantity">{{'addNewProduct.addQuantity' | translate}}</label>
+                <input type="number" ng-show="checked">
             </div>
             <div class="admin-card hoverable">
                 <h4>{{'translationPage.title' | translate}}</h4>
@@ -83,6 +86,8 @@
                 <h4>{{'editProduct.properties' | translate}}</h4>
                 <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" />
                 <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
+                <input type="checkbox" class="filled-in checkBoxStyling" id="show-in-qrMenu" />
+                <label for="show-in-qrMenu">{{'addNewProduct.showInQrMenu' | translate}}</label>
                 <div class="input-field">
                     <input id="oldPrice" type="number" ng-model="product.oldPrice">
                     <label for="oldPrice" class="active">{{'addNewProduct.oldPrice' | translate}}</label>
@@ -91,9 +96,6 @@
                     <input id="productOrder" type="number" ng-model="product.sortOrder">
                     <label for="productOrder" class="active">{{'displayOrder' | translate}}</label>
                 </div>
-                <input type="checkbox" class="filled-in checkBoxStyling" id="show-quantity" ng-model="checked"/>
-                <label for="show-quantity">Ввести кількість товару</label>
-                <input type="number" ng-show="checked">
             </div>
             <button class="save-button"
                     type="submit"
