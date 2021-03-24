@@ -91,6 +91,9 @@
                     <input id="productOrder" type="number" ng-model="product.sortOrder">
                     <label for="productOrder" class="active">{{'displayOrder' | translate}}</label>
                 </div>
+                <input type="checkbox" class="filled-in checkBoxStyling" id="show-quantity" ng-model="checked"/>
+                <label for="show-quantity">Ввести кількість товару</label>
+                <input type="number" ng-show="checked">
             </div>
             <button class="save-button"
                     type="submit"
