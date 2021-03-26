@@ -87,6 +87,10 @@
     .no-items-store img {
         width: 300px;
     }
+    .product-quantity {
+        display: flex;
+        flex-direction: row;
+    }
     @media screen and (min-width: 1500px) {
         .center-container, .cart-float {
             max-width: 1300px;
@@ -219,6 +223,12 @@
                             <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
                             <div class="item-card-action-price card-title">
                                 <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
+                                #{if _product.quantity}
+                                <div class="product-quantity">
+                                    <p class="current-price">&{'page.product.quantity'}</p>
+                                    <p>${_product.quantity}</p>
+                                </div>
+                                #{/if}
                                 <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
                             </div>
                         </div>
@@ -264,6 +274,12 @@
                 <div class="item-card-list-action">
                     <div class="item-card-list-action-price">
                         <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
+                        #{if _product.quantity}
+                            <div class="product-quantity">
+                                <p class="current-price">&{'page.product.quantity'}</p>
+                                <p>${_product.quantity}</p>
+                            </div>
+                        #{/if}
                         <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
                     </div>
                     <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart({uuid: '${_product.uuid}', qrUuid: '${qr_uuid}'})">&{'page.product.buy'}</button>

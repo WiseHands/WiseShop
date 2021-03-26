@@ -106,6 +106,7 @@ page.product.main.label = Main
 page.product.additions.label = Additions
 page.product.additions.price = Additions price
 page.product.price = Price:
+page.product.quantity = Quantity:
 page.product.buy = Buy
 page.product.add.to.basket = Product added to cart
 page.product.about.product = About

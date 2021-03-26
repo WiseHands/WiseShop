@@ -56,8 +56,6 @@ public class ProductAPI extends AuthController {
         product.quantity = quantity;
         product = product.save();
 
-        System.out.println("product.quantity = " + product.quantity);
-
         List<ProductPropertyDTO> properties = ProductPropertyDTO.find("byCategoryUuidAndProductUuidIsNull", product.categoryUuid).fetch();
         for(ProductPropertyDTO property : properties) {
             ProductPropertyDTO propertyNew = new ProductPropertyDTO();
