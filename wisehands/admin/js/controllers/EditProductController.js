@@ -78,7 +78,7 @@ angular.module('WiseHands')
                 .then(function successCallback(response) {
 
                     $scope.product = response.data;
-
+                    $scope.product.quantity ? $scope.checked = true : $scope.checked = false;
                     console.log("$scope.product property :" , response.data);
 
                     $scope.activeShop = localStorage.getItem('activeShop');

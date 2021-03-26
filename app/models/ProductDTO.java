@@ -60,6 +60,9 @@ public class ProductDTO extends GenericModel {
     public Double wholesalePrice;
 
     @Expose
+    public int quantity;
+
+    @Expose
     @OneToOne
     public ProductImage mainImage;
 

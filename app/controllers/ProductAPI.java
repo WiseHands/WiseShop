@@ -21,7 +21,7 @@ public class ProductAPI extends AuthController {
 
 
     public static void create(String client, String name, String description,
-                              Double price, File fake, Integer mainPhotoIndex,
+                              Double price, Integer quantity, File fake, Integer mainPhotoIndex,
                               String category,
                               Integer sortOrder, Boolean isActive, Double oldPrice, Integer wholesaleCount, Double wholesalePrice,
                               String nameUk, String descriptionUk, String nameEn, String descriptionEn) throws Exception {
@@ -45,16 +45,18 @@ public class ProductAPI extends AuthController {
             images.add(productImage);
         }
 
-        CategoryDTO cat = CategoryDTO.findById(category);
-        ProductDTO product = new ProductDTO(name, description, price, images, shop, cat, wholesaleCount, wholesalePrice);
+        CategoryDTO categoryDTO = CategoryDTO.findById(category);
+        ProductDTO product = new ProductDTO(name, description, price, images, shop, categoryDTO, wholesaleCount, wholesalePrice);
         product.mainImage = images.get(mainPhotoIndex);
         product.isActive = isActive;
         product.sortOrder = sortOrder;
         product.oldPrice = oldPrice;
         product.wholesaleCount = wholesaleCount;
         product.wholesalePrice = wholesalePrice;
+        product.quantity = quantity;
         product = product.save();
 
+        System.out.println("product.quantity = " + product.quantity);
 
         List<ProductPropertyDTO> properties = ProductPropertyDTO.find("byCategoryUuidAndProductUuidIsNull", product.categoryUuid).fetch();
         for(ProductPropertyDTO property : properties) {
