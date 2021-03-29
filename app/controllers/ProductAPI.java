@@ -157,7 +157,7 @@ public class ProductAPI extends AuthController {
         renderJSON(json);
     }
 
-    public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
+    public static void update(String client, String uuid, String name, String description, Double price, Integer quantity, Upload photo,
                               Integer sortOrder, Boolean isActive, Double oldPrice, String properties, Integer wholesaleCount, Double wholesalePrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -211,6 +211,7 @@ public class ProductAPI extends AuthController {
 
         product.wholesaleCount = wholesaleCount;
         product.wholesalePrice = wholesalePrice;
+        product.quantity = quantity;
 
         product.save();
 

@@ -262,6 +262,18 @@
         align-items: center;
     }
 
+    .qr-form .error-message {
+        visibility: hidden;
+        color: red;
+    }
+    .qr-form-input .error {
+        border-color: red;
+    }
+
+    .qr-form-input .success {
+        border-color: green;
+    }
+
     @media screen and (max-width: 768px) {
         .qr-wizard-form {
             height: 100%;
@@ -367,33 +379,34 @@
             </div>
         </div>
         <div class="qr-wizard-panel">
-            <form class="qr-form pages">
+            <form id="qr-form" class="qr-form pages">
                 <section id="qr-step1" class="qr-step-page qr-step1 page active-page">
                     <div id="login-form" class="signup-form">
                         <h3>Реєстрація</h3>
                         <div class="form-field">
                             <h4>Ім'я</h4>
-                            <input  class="qr-form-input" id="signup-name" type="text" name="name" required placeholder=" ">
+                            <input  class="qr-form-input" id="qr-name" type="text" name="name" required placeholder=" ">
                             <span class="highlight"></span>
                         </div>
                         <div class="form-field">
                             <h4>Прізвище</h4>
-                            <input  class="qr-form-input" id="signup-surname" type="text" name="surname" required placeholder=" ">
+                            <input  class="qr-form-input" id="qr-surname" type="text" name="surname" required placeholder=" ">
                             <span class="highlight"></span>
                         </div>
                         <div class="form-field">
                             <h4>Номер телефону</h4>
-                            <input  class="qr-form-input" id="signup-phone" type="tel" name="surname" required placeholder=" "  pattern="^[0-9-+\s()]*$">
+                            <input  class="qr-form-input" id="qr-phone" type="tel" name="surname" required placeholder=" "  pattern="^[0-9-+\s()]*$">
                             <span class="highlight"></span>
                         </div>
                         <div class="form-field">
                             <h4>Email</h4>
-                            <input  class="qr-form-input" id="signup-email" type="email" name="email" required placeholder=" ">
+                            <input  class="qr-form-input" id="qr-email" type="email" name="email" required placeholder=" ">
+                            <p class="error-message">Error message</p>
                             <span class="highlight"></span>
                         </div>
                         <div class="form-field">
                             <h4>Пароль</h4>
-                            <input  class="qr-form-input" id="signup-password" type="password" name="password" required placeholder=" ">
+                            <input  class="qr-form-input" id="qr-password" type="password" name="password" required placeholder=" ">
                             <span class="highlight"></span>
                         </div>
                         <div class="form-oferta">
@@ -545,6 +558,30 @@
 
     inputName.onkeyup = function(){
         document.getElementById('store-name-address').innerHTML = inputName.value + '.wstore.pro';
+    };
+
+    const qrForm = document.getElementById('qr-form');
+    const qrEmail = document.getElementById('qr-email');
+    function showError(input, message) {
+        const formControl = input.parentElement;
+        formControl.className = 'qr-form-input error';
+        const errorMessage = formControl.querySelector('error-message');
+        errorMessage.innerText = message;
+    }
+
+
+    function showSuccess(input) {
+        const formControl = input.parentElement;
+        formControl.className = 'qr-form-input success';
+    }
+
+    function checkEmail(input) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (re.test(input.value.trim())) {
+            showSuccess(input);
+        } else {
+            showError(input, 'Email is not valid');
+        }
     }
 
 </script>
