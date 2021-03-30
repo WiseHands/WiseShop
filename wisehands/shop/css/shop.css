@@ -47,6 +47,9 @@
     flex-basis: calc(33.3% - 1rem);
     margin: 0 0.5rem;
 }
+.card-block {
+    padding: 1rem;
+}
 .item-img {
     width: 100%;
 }
@@ -130,11 +133,16 @@
 }
 .item-card-action-price {
     display: flex;
+    flex-direction: column;
     align-items: baseline;
     margin-top: auto;
 }
 .item-card-action-price .current-price {
     font-size: 20px;
+}
+
+.item-card-action-price .product-quantity p {
+    font-size: 14px;
 }
 .currency {
     font-size: 16px;
@@ -287,7 +295,7 @@
     text-overflow: ellipsis;
     position: relative;
     text-align: left;
-    margin-right: -1em;
+    overflow-wrap: anywhere;
 }
 
 .headerCentering:before {
