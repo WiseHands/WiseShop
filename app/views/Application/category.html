@@ -210,7 +210,7 @@
                     </div>
                     <div class="card-block text-xs-center">
                         <div class="item-card-title">
-                            <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
+                            <h4 class="card-title productNameTruncate"><a href="/${language}/product/${_product.uuid}"><p>${_product.name}</p></a></h4>
                             <div class="item-card-action-price card-title">
                                 <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
                                 <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
@@ -253,7 +253,7 @@
                 <div class="item-card-list-content">
                     <div class="item-card-list-info">
                         <a href="/${language}/product/${_product.uuid}">
-                            <h4 class="card-title productNameTruncate h4-responsive"><strong>${_product.name}</strong></h4>
+                            <h4 class="card-title productNameTruncate"><p>${_product.name}</p></h4>
                             <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${_product.description}">${_product.description}</p>
                         </a>
                     </div>

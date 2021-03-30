@@ -44,8 +44,11 @@
     color: #000;
 }
 .item-card {
-    flex-basis: calc(33.3% - 1rem);
+    width: calc(33.3% - 1rem);
     margin: 0 0.5rem;
+}
+.card-block {
+    padding: 1rem;
 }
 .item-img {
     width: 100%;
@@ -55,6 +58,8 @@
 }*/
 .item-card-title {
     height: 6rem;
+    display: flex;
+    flex-direction: column;
 }
 .item-card-text {
     height: 3.5rem;
@@ -134,7 +139,7 @@
     margin-top: auto;
 }
 .item-card-action-price .current-price {
-    font-size: 20px;
+    font-size: 24px;
 }
 .currency {
     font-size: 16px;
@@ -287,7 +292,11 @@
     text-overflow: ellipsis;
     position: relative;
     text-align: left;
-    margin-right: -1em;
+    font-size: 18px;
+    font-weight: 400;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    margin: 0;
 }
 
 .headerCentering:before {
@@ -588,12 +597,12 @@ main {
     .item-card-list-info h4, .item-card-grid-mob h4 {
         font-size: 16px;
         line-height: 1.2rem;
-        max-height: 2.35rem;
+        max-height: 2.4rem;
         margin-bottom: .5rem;
         margin-right: auto;
     }
     .item-card-list-info p, .item-card-grid-mob p {
-        font-size: 14px;
+        font-size: 13px;
         line-height: 1.2rem;
         max-height: 2.4rem;
     }
