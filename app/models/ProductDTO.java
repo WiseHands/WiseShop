@@ -141,9 +141,9 @@ public class ProductDTO extends GenericModel {
         if (number != null) {
             float epsilon = 0.004f; // 4 tenths of a cent
             if (Math.abs(Math.round(number) - number) < epsilon) {
-                return String.format("%10.0f", number) + " " + "uah"; // sdb
+                return String.format("%10.0f", number) + " " + "&#8372;"; // sdb
             } else {
-                return String.format("%10.2f", number) + " " + "uah"; // dj_segfault
+                return String.format("%10.2f", number) + " " + "&#8372;"; // dj_segfault
             }
         }
         return "";

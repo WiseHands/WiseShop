@@ -95,7 +95,7 @@
         display: flex;
     }
     .item-card-list-action .product-quantity p {
-        font-size: 14px;
+        font-size: 12px;
     }
     @media screen and (min-width: 1500px) {
         .center-container, .cart-float {
@@ -229,15 +229,14 @@
                             <h4 class="card-title productNameTruncate h4-responsive"><a href="/${language}/product/${_product.uuid}"><strong>${_product.name}</strong></a></h4>
                             <div class="item-card-action-price card-title">
                                 <div class="item-card-price">
-                                    <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
+                                    <p class="current-price">${_product.formatDecimal()} <span class="currency">&#8372;</span></p>
                                     <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
+                                    #{if _product.quantity}
+                                    <div class="product-quantity">
+                                        <p>(${_product.quantity} &{'page.product.quantity.psc'})</p>
+                                    </div>
+                                    #{/if}
                                 </div>
-                                #{if _product.quantity}
-                                <div class="product-quantity">
-                                    <p>&{'page.product.quantity'}</p>
-                                    <p>${_product.quantity}</p>
-                                </div>
-                                #{/if}
                             </div>
                         </div>
                         <div class="card-footer"></div>
@@ -281,12 +280,12 @@
                     </div>
                 <div class="item-card-list-action">
                     <div class="item-card-list-action-price">
-                        <p class="current-price">${_product.formatDecimal()} <span class="currency">uah</span></p>
+                        <p class="current-price">${_product.formatDecimal()} <span class="currency">&#8372;</span></p>
                         <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
                         #{if _product.quantity}
                         <div class="product-quantity">
                             <p>&{'page.product.quantity'}</p>
-                            <p>${_product.quantity}</p>
+                            <p>${_product.quantity} &{'page.product.quantity.psc'}</p>
                         </div>
                         #{/if}
                     </div>

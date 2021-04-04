@@ -82,6 +82,9 @@
 
     .product-info h2 {
         font-weight: 500;
+        overflow-wrap: anywhere;
+        line-height: 2rem;
+        max-height: 6rem;
     }
 
     .add-components {
@@ -614,6 +617,7 @@
                     <p>${product.quantity}</p>
                 </div>
                 #{/if}
+
                 #{if product.selectedAdditions || product.defaultAdditions}
                 <div class="total-additions-price">
                     <span>&{'page.product.additions.label'}:</span>

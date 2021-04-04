@@ -58,6 +58,9 @@
 }*/
 .item-card-title {
     height: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .item-card-text {
     height: 3.5rem;
@@ -135,21 +138,22 @@
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    margin-top: auto;
+    margin: 5px 0;
 }
 .item-card-action-price .current-price {
     font-size: 20px;
 }
 
 .item-card-action-price .product-quantity p {
-    font-size: 14px;
+    font-size: 12px;
 }
 .currency {
     font-size: 16px;
 }
 .item-card-list-action p, .item-card-action-price p {
-    margin: 0 0.5rem 0 0;
+    margin: 0 5px 0 0;
     font-size: 20px;
+    text-align: right;
 }
 .item-card-list-action i, .item-card-action i {
     font-size: 2rem;
@@ -536,6 +540,9 @@ main {
     }
 }
 @media screen and (max-width: 768px) {
+    .card-block {
+        padding: 0.5rem;
+    }
     .grid-view {
         display: none;
     }
@@ -623,6 +630,13 @@ main {
         flex-direction: column;
         align-items: center;
 /*        height: 40px;*/
+    }
+
+    .item-card-list-action p, .item-card-action-price p {
+        text-align: left;
+    }
+    .item-card-action-price .current-price {
+        font-size: 18px;
     }
     .item-card-list-action i {
         margin: 0 0.5rem 0.5rem 0;
