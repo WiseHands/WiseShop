@@ -51,9 +51,8 @@ angular.module('WiseHands')
                     toDate
                 })
                     .then((response) => {
-                      console.log(response.data);
+                      console.log('/analytics/from/ => ', response.data);
                       $scope.analytics = response.data;
-											console.log('/analytics/from/ => ', response.data);
                       $scope.popularProducts = response.data.popularProducts;
                       $scope.frequentBuyers = response.data.frequentBuyers;
 

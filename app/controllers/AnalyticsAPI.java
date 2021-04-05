@@ -37,7 +37,9 @@ public class AnalyticsAPI extends AuthController {
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long today = beginOfDay(new Date(fromDateInMillis));
-        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, today);
+
+        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, fromDateInMillis, toDateInMillis);
+
 
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
@@ -54,7 +56,6 @@ public class AnalyticsAPI extends AuthController {
         paymentCountByType.put("paidByCard", paidByCard);
         paymentCountByType.put("paidByCash", paidByCash);
         json.put("paymentCountByType", paymentCountByType);
-        System.out.println("paymentCountByType => " +  paymentCountByType.toJSONString());
 
         List<FrequentBuyer> frequentBuyerList = FrequentBuyersService.getFrequentBuyerList(shop, days);
         json.put("frequentBuyers", frequentBuyerList);
