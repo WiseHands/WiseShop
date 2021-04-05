@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <title>Реєстрація</title>
+    <link href="wisehands/mainpage/css/animate.css" rel="stylesheet"/>
+    <script src="/wisehands/mainpage/js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100&display=swap" rel="stylesheet">
+    <link rel="icon"
+          type="image/png"
+          href="wisehands/assets/images/favicon.png">
+
+</head>
+<style>
+    body, p, h1, h2, h3, h4, h5, h6, i, a {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', 'Helvetica', sans-serif;
+        overflow-x: hidden;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    .signup-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        margin:  1.5rem auto;
+        max-width: 1200px;
+    }
+    .signup-header img {
+        width: 75px;
+        height: 75px;
+        padding-right: 1rem;
+    }
+    .signup-header p {
+        font-size: 2rem;
+    }
+    .signup-header a {
+        text-decoration: none;
+        color: #000;
+    }
+    .signup-block {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        text-align: center;
+    }
+    .signup-block h1 {
+        font-size: 2.5rem;
+        font-weight: 500;
+    }
+
+    .signup-form {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+    .signup-form a {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .form-field {
+        position: relative;
+    }
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 1rem 0;
+        padding: 1rem 1rem 1rem 0;
+        border: none;
+        border-bottom: 1px solid #9e9e9e;
+    }
+    input:focus {
+        outline: none;
+    }
+    label {
+        font-size: 1rem;
+        position:absolute;
+        pointer-events:none;
+        left: 0;
+        top: 31px;
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+    input:focus ~ label, input:not(:placeholder-shown) ~ label 		{
+        top: 0;
+        font-size:0.9rem;
+        color:#20b2aa;
+    }
+    .highlight 	{
+        position:relative;
+        display:block;
+        width:350px;
+    }
+    .highlight:before, .highlight:after 	{
+        content:'';
+        height:2px;
+        width:0;
+        bottom:1px;
+        position:absolute;
+        top: -17px;
+        background:#20b2aa;
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+    .highlight:before {
+        left:50%;
+    }
+    .highlight:after {
+        right:50%;
+    }
+
+    /* active state */
+    input:focus ~ .highlight:before, input:focus ~ .highlight:after {
+        width:50%;
+    }
+
+    .signup-form button {
+        padding: 1rem;
+        text-transform: uppercase;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-weight: 700;
+        margin: 1rem 0;
+    }
+    .signup-form-button {
+        background-color: #20b2aa;
+        color: #fff;
+    }
+    .signup-form-button:hover {
+        background-color: #1d9f98;
+    }
+    .signup-form p {
+        margin: 0.5rem 0 1rem 0;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+    .signup-form p:hover {
+        cursor: pointer;
+        color: #20b2aa;
+    }
+
+    @media screen and (max-width: 768px) {
+        .signup-header {
+            margin-bottom: 1rem;
+        }
+        .signup-block h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .social-button button {
+            margin: 1rem 0;
+        }
+    }
+</style>
+<body>
+<div class="signup-header wow fadeIn"  data-wow-delay="0.2s" data-wow-duration="1">
+    <img src="/wisehands/assets/images/main_logo_black.png">
+</div>
+<div class="signup-block wow fadeIn" data-wow-delay="0.4s" data-wow-duration="1">
+    <form id="login-form" class="signup-form">
+        <div class="form-field">
+            <input id="signup-name" type="text" name="name" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-name">Ім'я</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-company" type="text" name="company" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-company">Назва компанії</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-phone" type="tel" name="phone" required placeholder=" "  pattern="^[0-9-+\s()]*$">
+            <span class="highlight"></span>
+            <label for="signup-phone">Номер телефону</label>
+        </div>
+        <div class="form-field">
+            <input id="signup-email" type="email" name="email" required placeholder=" ">
+            <span class="highlight"></span>
+            <label for="signup-email">Email</label>
+        </div>
+        <button class="signup-form-button" type="submit">Відправити</button>
+    </form>
+
+</div>
+</body>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-161672434-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-161672434-1');
+</script>
+<script>
+
+    function start() {
+        gapi.load('auth2', function() {
+            window.auth2 = gapi.auth2.init({
+                client_id: '${googleOauthClientId}'
+            });
+        });
+    }
+
+    function signUpThroughGoogle() {
+        console.log("here");
+        window.auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInCallback);
+
+    };
+
+    function signInCallback(authResult) {
+        if (authResult['code']) {
+            const url = '/storeauthcode?authCode=' + authResult['code'];
+
+            fetch(url, {
+                method: 'POST'
+            }).then(function(response){
+                //headers //status
+                if(response.ok) {
+                    let token = response.headers.get('JWT_TOKEN');
+                    localStorage.setItem('JWT_TOKEN', token);
+                }
+                console.log('signInCallback' + response);
+                return response.json();
+            }).then(function(data){
+                console.log('signInCallback' + data);
+
+                if (data){
+                    window.location = "/dashboard";
+                }
+
+            })
+        }
+    }
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
+<script>
+    function signUp() {
+        console.log("here");
+        let name = document.getElementById('signup-name').value;
+        let lastName = document.getElementById('signup-surname').value;
+        let phone = document.getElementById('signup-phone').value;
+        let email = document.getElementById('signup-email').value;
+        let password = document.getElementById('signup-password').value;
+        let clientInfo = {
+            name: name,
+            lastName: lastName,
+            phone: phone,
+            email: email,
+            password: password
+        };
+        let params = JSON.stringify(clientInfo);
+        fetch('/api/sign-up', {
+            method: 'POST',
+            body: params
+        }).then(function (response) {
+            if(response.ok) {
+                let token = response.headers.get('JWT_TOKEN');
+                localStorage.setItem('JWT_TOKEN', token);
+            }
+            return response.json();
+        }).then(function (data) {
+            console.log("response data: ", data);
+            checkUserByEmailOrPhoneNumber(data);
+            if (data.uuid){
+                window.location = "/dashboard";
+            }
+        });
+    }
+
+    let form = document.getElementById( "login-form" );
+    form.addEventListener( "submit", function ( event ) {
+        event.preventDefault();
+        signUp();
+    } );
+
+    function checkUserByEmailOrPhoneNumber(data) {
+        if (data.status === 420){
+            console.log("ERROR", data.message)
+        }
+        if (data.status === 421){
+            console.log("ERROR", data.message)
+        }
+    }
+
+</script>
+</html>
