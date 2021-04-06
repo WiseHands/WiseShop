@@ -320,7 +320,6 @@ PUT     {client}/api/translation/save                        TranslationBucketAP
 *       {client}/dashboard                              Application.userDashboard
 *       {client}/qrCode                                 Application.qrCode
 
-
 *       {client}/termsofservice                         Application.termsofservice
 *       {client}/privacypolicy                          Application.privacypolicy
 *       {client}/cookiespolicy                          Application.cookiespolicy

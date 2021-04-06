@@ -842,7 +842,6 @@ public class Application extends Controller {
     public static void qrCode(String client){
         renderTemplate("Application/qrCode.html");
     }
-
     public static void contactForm(String client){
         renderTemplate("Application/contactForm.html");
     }

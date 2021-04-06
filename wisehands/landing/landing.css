@@ -54,6 +54,7 @@ body a {
     overflow: hidden;
     display: flex;
 }
+
 .main-block {
     height: 100%;
     display: flex;
