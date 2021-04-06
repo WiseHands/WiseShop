@@ -153,7 +153,25 @@
         cursor: pointer;
         color: #20b2aa;
     }
-
+    .show-message-container {
+      max-width: 350px;
+      margin: auto;
+    }
+    .show-message-container p {
+      font-size: 18px;
+    }
+    .link-button {
+      background-color: #20b2aa;
+      color: #fff;
+      padding: 1rem;
+      text-transform: uppercase;
+      align-items: center;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 700;
+      margin: 1rem 0;
+    }
     @media screen and (max-width: 768px) {
         .signup-header {
             margin-bottom: 1rem;
@@ -172,6 +190,10 @@
     <img src="/wisehands/assets/images/main_logo_black.png">
 </div>
 <div class="signup-block wow fadeIn" data-wow-delay="0.4s" data-wow-duration="1">
+    <div id="show-message" class="show-message-container" style="display: none">
+        <p>Запит успішно виконаний, найближчим часом з Вами звяжуться</p>
+        <button class="link-button" onclick="linkToMain()">На головну</button>
+    </div>
     <form id="login-form" class="signup-form">
         <div class="form-field">
             <input id="client-name" type="text" name="name" required placeholder=" ">
@@ -207,6 +229,13 @@
     gtag('config', 'UA-161672434-1');
 </script>
 <script>
+
+    function linkToMain() {
+      window.location = "/landing"
+    }
+
+    let form = document.getElementById('login-form');
+
     function signUp() {
 
         let name = document.getElementById('client-name').value;
@@ -219,21 +248,22 @@
             phone: phone,
             email: email
         };
-        console.log("here => ", clientInfo);
+        console.log("clientInfo => ", clientInfo);
+
         let params = JSON.stringify(clientInfo);
         fetch('/api/email/send/to/admins', {
             method: 'POST',
             body: params
         }).then(function (response) {
+            if (response.status === 200){
+              form.style.display="none";
+              document.getElementById('show-message').style.display="block";
+            }
             console.log("response /api/email/send/to/admins: ", response);
-            return response.json();            
-        }).then(function (data) {
-            console.log("response /api/email/send/to/admins: ", data);
-                // window.location = "/landing";
+            return response.json();
         });
     }
 
-    let form = document.getElementById( "login-form" );
     form.addEventListener( "submit", function ( event ) {
         event.preventDefault();
         signUp();

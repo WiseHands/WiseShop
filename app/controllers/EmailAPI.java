@@ -29,6 +29,7 @@ public class EmailAPI extends AuthController {
                 + name + ", і я представляю " + company + ", телефонуйте мені за номером: " + phone + " або напишіть емейл " + email;
 
         String[] phoneNumbers = {"380936484003", "380638200123", "380630386173", "380938864304"};
+
         try {
             for(String number: phoneNumbers){
                 smsSender.sendSms(number, message);
