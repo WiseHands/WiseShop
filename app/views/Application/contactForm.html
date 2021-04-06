@@ -174,28 +174,27 @@
 <div class="signup-block wow fadeIn" data-wow-delay="0.4s" data-wow-duration="1">
     <form id="login-form" class="signup-form">
         <div class="form-field">
-            <input id="signup-name" type="text" name="name" required placeholder=" ">
+            <input id="client-name" type="text" name="name" required placeholder=" ">
             <span class="highlight"></span>
-            <label for="signup-name">Ім'я</label>
+            <label for="client-name">Ім'я</label>
         </div>
         <div class="form-field">
-            <input id="signup-company" type="text" name="company" required placeholder=" ">
+            <input id="client-company" type="text" name="company" required placeholder=" ">
             <span class="highlight"></span>
-            <label for="signup-company">Назва компанії</label>
+            <label for="client-company">Назва компанії</label>
         </div>
         <div class="form-field">
-            <input id="signup-phone" type="tel" name="phone" required placeholder=" "  pattern="^[0-9-+\s()]*$">
+            <input id="client-phone" type="tel" name="phone" required placeholder=" "  pattern="^[0-9-+\s()]*$">
             <span class="highlight"></span>
-            <label for="signup-phone">Номер телефону</label>
+            <label for="client-phone">Номер телефону</label>
         </div>
         <div class="form-field">
-            <input id="signup-email" type="email" name="email" required placeholder=" ">
+            <input id="client-email" type="email" name="email" required placeholder=" ">
             <span class="highlight"></span>
-            <label for="signup-email">Email</label>
+            <label for="client-email">Email</label>
         </div>
         <button class="signup-form-button" type="submit">Відправити</button>
     </form>
-
 </div>
 </body>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -208,78 +207,28 @@
     gtag('config', 'UA-161672434-1');
 </script>
 <script>
-
-    function start() {
-        gapi.load('auth2', function() {
-            window.auth2 = gapi.auth2.init({
-                client_id: '${googleOauthClientId}'
-            });
-        });
-    }
-
-    function signUpThroughGoogle() {
-        console.log("here");
-        window.auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInCallback);
-
-    };
-
-    function signInCallback(authResult) {
-        if (authResult['code']) {
-            const url = '/storeauthcode?authCode=' + authResult['code'];
-
-            fetch(url, {
-                method: 'POST'
-            }).then(function(response){
-                //headers //status
-                if(response.ok) {
-                    let token = response.headers.get('JWT_TOKEN');
-                    localStorage.setItem('JWT_TOKEN', token);
-                }
-                console.log('signInCallback' + response);
-                return response.json();
-            }).then(function(data){
-                console.log('signInCallback' + data);
-
-                if (data){
-                    window.location = "/dashboard";
-                }
-
-            })
-        }
-    }
-</script>
-<script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
-<script>
     function signUp() {
-        console.log("here");
-        let name = document.getElementById('signup-name').value;
-        let lastName = document.getElementById('signup-surname').value;
-        let phone = document.getElementById('signup-phone').value;
-        let email = document.getElementById('signup-email').value;
-        let password = document.getElementById('signup-password').value;
+
+        let name = document.getElementById('client-name').value;
+        let company = document.getElementById('client-company').value;
+        let phone = document.getElementById('client-phone').value;
+        let email = document.getElementById('client-email').value;
         let clientInfo = {
             name: name,
-            lastName: lastName,
+            company: company,
             phone: phone,
-            email: email,
-            password: password
+            email: email
         };
+        console.log("here => ", clientInfo);
         let params = JSON.stringify(clientInfo);
-        fetch('/api/sign-up', {
+        fetch('/api/email/send/to/admins', {
             method: 'POST',
             body: params
         }).then(function (response) {
-            if(response.ok) {
-                let token = response.headers.get('JWT_TOKEN');
-                localStorage.setItem('JWT_TOKEN', token);
-            }
-            return response.json();
+
         }).then(function (data) {
-            console.log("response data: ", data);
-            checkUserByEmailOrPhoneNumber(data);
-            if (data.uuid){
-                window.location = "/dashboard";
-            }
+            console.log("response /api/email/send/to/admins: ", data);
+                // window.location = "/landing";
         });
     }
 

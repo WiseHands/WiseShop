@@ -299,6 +299,9 @@ GET     {client}/api/get/translation/addition/name/{uuid}    TranslationBucketAP
 PUT     {client}/api/translation/save                        TranslationBucketAPI.saveTranslation
 
 
+POST    {client}/api/email/send/to/admins                    EmailAPI.sendEmailToAdmins
+
+
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
