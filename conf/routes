@@ -304,6 +304,7 @@ PUT     {client}/api/translation/save                        TranslationBucketAP
 *       {client}/login                                  Application.login
 *       {client}/main                                   Application.main
 *       {client}/landing                                Application.landing
+*       {client}/contactForm                            Application.contactForm
 #       {client}/{language}/shopLanding                 Application.shopLanding
 
 # remove /ua from below paths
