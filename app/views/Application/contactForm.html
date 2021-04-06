@@ -225,7 +225,8 @@
             method: 'POST',
             body: params
         }).then(function (response) {
-
+            console.log("response /api/email/send/to/admins: ", response);
+            return response.json();            
         }).then(function (data) {
             console.log("response /api/email/send/to/admins: ", data);
                 // window.location = "/landing";
