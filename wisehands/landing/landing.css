@@ -95,17 +95,57 @@ body a {
 }
 .comparison-table {
     display: flex;
-    width: 80%;
+    width: 95%;
+    flex-direction: column;
+}
+.comparison-table-mob {
+    display: none;
+    width: 90%;
     justify-content: space-between;
+    flex-direction: column;
+}
+.table-row {
+    display: flex;
+    width: 100%;
+    padding: 5px 0;
+}
+.table-row:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+}
+.table-title {
+    display: flex;
+    padding: 10px 0;
+    background-color: #1f6288;
+    color: #fff;
+}
+.table-h3 {
+    font-size: 40px;
+    padding: 5px 0 10px 0;
 }
 .comparison-table p, .comparison-table h4 {
     padding: 10px;
 }
-.rocket-item {
+.comparison-table h4 {
+    flex: 0 1 15%;
+}
+.table-title h4:not(:first-child) {
+    flex:  0 1 17%;
+}
+.comparison-table p {
+    flex: 0 1 17%;
+}
+.comparison-table p:last-child, .table-title h4:last-child {
+    text-align: center;
+    padding-right: 15px;
+}
+.rt-item {
     color: #ff4800;
 }
-.glovo-item {
+.gl-item {
     color: #ffc244;
+}
+.profit-text {
+    font-size: 20px;
 }
 .burger-menu {
     display: none;
@@ -600,7 +640,8 @@ footer a:hover {
 }
 @media screen and (max-width: 768px) {
     .main-block-text h1 {
-        font-size: 3rem;
+        font-size: 2.3rem;
+        padding: 10px;
     }
     .opport h2 {
         font-size: 2.5rem;
@@ -620,12 +661,18 @@ footer a:hover {
         font-size: 1.3rem;
     }
     .main-block {
-        height: 72vh;
+        height: 100%;
+    }
+    .main-block-info {
+        padding: 50px 0;
     }
     .landing-container {
         flex-direction: column;
     }
-    .main-block-image img, .land-payment-img img {
+    .main-block-image img {
+        max-width: 90%;
+    }
+    .land-payment-img img {
         max-width: 100%;
     }
     .land-text {
@@ -681,5 +728,40 @@ footer a:hover {
     }
     .footer-bottom {
         align-items: center;
+    }
+    .comparison-table {
+        display: none;
+    }
+    .comparison-table-mob {
+        display: flex;
+    }
+    .table-h3 {
+        font-size: 24px;
+    }
+    .table-col {
+        margin: 10px 0;
+        display: flex;
+        flex-flow: column;
+    }
+    .table-col h4 {
+        font-size: 18px;
+        padding-bottom: 5px;
+    }
+    .table-col-row {
+        display: flex;
+        justify-content: space-between;
+    }
+    .table-col-row p {
+        padding: 4px 0;
+        font-size: 14px;
+    }
+    .table-col-row .profit-text  {
+        font-size: 20px;
+    }
+    .start-btn-mob {
+        align-self: center;
+    }
+    .start-btn-mob button {
+        margin: 0;
     }
 }
