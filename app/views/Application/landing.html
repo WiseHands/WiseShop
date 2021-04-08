@@ -70,6 +70,32 @@
             </div>
         </div>
         <h3 class="table-h3">Чому вибирають WiseStore</h3>
+
+        <div class="compare-prices">
+            <div class="compare-item">
+                <p>Кількість замовлень</p>
+                <input type="number" class="input-table" id="quantity">
+            </div>
+            <div class="compare-item">
+                <p>Середній чек</p>
+                <input type="number" class="input-table" id="averageCheck">
+            </div>
+            <div class="compare-item">
+                <p>Вартість доставки</p>
+                <input type="number" class="input-table" id="delivery">
+            </div>
+            <div class="compare-item">
+                <p>Комісія</p>
+                <input type="number" class="input-table" id="commission">
+            </div>
+            <input type="button" id="calculateBtn" value="Calculate" onclick="calculateProfit()">
+
+            <div class="compare-item">
+                <p>Виручка</p>
+                <p class="profit-text" id="profit">0</p>
+            </div>
+        </div>
+
         <div class="comparison-table">
             <div class="table-title">
                 <h4>Компанія</h4>
@@ -634,6 +660,26 @@
             handlingMessageContainer.style.display = 'flex';
             showMessageItem.innerText = data.message;
         }
+    </script>
+
+    <script>
+        let quantity = Number(document.getElementById("quantity").value);
+        let averageCheck = Number(document.getElementById("averageCheck").value);
+        let delivery = Number(document.getElementById("delivery").value);
+        let commission = Number(document.getElementById("commission").value);
+
+        function calculateProfit() {
+            quantity = Number(document.getElementById("quantity").value);
+            averageCheck = Number(document.getElementById("averageCheck").value);
+            delivery = Number(document.getElementById("delivery").value);
+            commission = Number(document.getElementById("commission").value);
+
+            let profitValue = quantity * averageCheck * (1 - (commission / 100)) - (quantity * delivery);
+
+            document.getElementById("profit").innerHTML = profitValue;
+
+        }
+
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->

@@ -144,6 +144,14 @@ body a {
 .gl-item {
     color: #ffc244;
 }
+.compare-item {
+    display: flex;
+    width: 350px;
+    margin: 10px;
+}
+.compare-item p {
+    padding: 10px;
+}
 .profit-text {
     font-size: 20px;
 }
