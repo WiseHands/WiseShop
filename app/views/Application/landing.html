@@ -72,35 +72,37 @@
         <h3 class="table-h3">Чому вибирають WiseStore</h3>
 
         <div class="compare-prices">
-            <div class="compare-item">
-                <p>Кількість замовлень</p>
-                <input type="number" class="input-table" id="quantity">
+            <div class="compare-items">
+                <div class="compare-item">
+                    <input type="number" class="input-table" id="quantity" required>
+                    <label class="floating-label">Кількість замовлень</label>
+                </div>
+                <div class="compare-item">
+                    <input type="number" class="input-table" id="averageCheck" required>
+                    <label class="floating-label">Середній чек</label>
+                </div>
+                <input type="button" id="calculateBtn" value="Calculate" onclick="calculateProfit()">
             </div>
-            <div class="compare-item">
-                <p>Середній чек</p>
-                <input type="number" class="input-table" id="averageCheck">
-            </div>
-            <div class="compare-item">
-                <p>Вартість доставки</p>
-                <input type="number" class="input-table" id="delivery">
-            </div>
-            <div class="compare-item">
-                <p>Комісія</p>
-                <input type="number" class="input-table" id="commission">
-            </div>
-            <input type="button" id="calculateBtn" value="Calculate" onclick="calculateProfit()">
+            <!--<div class="compare-item">-->
+                <!--<p>Вартість доставки</p>-->
+                <!--<input type="number" class="input-table" id="delivery">-->
+            <!--</div>-->
+            <!--<div class="compare-item">-->
+                <!--<p>Комісія</p>-->
+                <!--<input type="number" class="input-table" id="commission">-->
+            <!--</div>-->
 
-            <div class="compare-item">
-                <p>Виручка</p>
-                <p class="profit-text" id="profit">0</p>
-            </div>
+            <!--<div class="compare-item">-->
+                <!--<p>Виручка</p>-->
+                <!--<p class="profit-text" id="profit">0</p>-->
+            <!--</div>-->
         </div>
 
         <div class="comparison-table">
             <div class="table-title">
                 <h4>Компанія</h4>
-                <h4>Кількість замовлень</h4>
-                <h4>Середній чек</h4>
+                <!--<h4>Кількість замовлень</h4>-->
+                <!--<h4>Середній чек</h4>-->
                 <h4>Доставка</h4>
                 <h4>Комісія</h4>
                 <h4>Виручка</h4>
@@ -112,27 +114,27 @@
                     <p>500&#8372;</p>
                     <p>50&#8372;</p>
                     <p>2%</p>
-                    <p class="profit-text">44 000&#8372;</p>
+                    <p class="profit-text" id="profit">44 000&#8372;</p>
                 </div>
             </div>
             <div class="rt-row  table-row">
                 <div class="table-row rt-item">
                     <h4>доставка 1</h4>
-                    <p>100</p>
+                    <p class="quantity">100</p>
                     <p>500&#8372;</p>
                     <p>0</p>
                     <p>37%</p>
-                    <p class="profit-text">31 500&#8372;</p>
+                    <p class="profit-text"  id="profitValueRt">31 500&#8372;</p>
                 </div>
             </div>
             <div class="gl-row  table-row">
                 <div class="table-row gl-item">
                     <h4>доставка 2</h4>
-                    <p>100</p>
+                    <p class="quantity">100</p>
                     <p>500&#8372;</p>
                     <p>0</p>
                     <p>35%</p>
-                    <p class="profit-text">32 500&#8372;</p>
+                    <p class="profit-text"  id="profitValueGl">32 500&#8372;</p>
                 </div>
             </div>
         </div>
@@ -165,7 +167,7 @@
                 <h4>доставка 1</h4>
                 <div class="table-col-row">
                     <p>Кількість замовлень</p>
-                    <p>100</p>
+                    <p class="quantity">100</p>
                 </div>
                 <div class="table-col-row">
                     <p>Середній чек</p>
@@ -181,14 +183,14 @@
                 </div>
                 <div class="table-col-row">
                     <p>Виручка</p>
-                    <p class="profit-text">31 500&#8372;</p>
+                    <p class="profit-text" id="profitValueRt">31 500&#8372;</p>
                 </div>
             </div>
             <div class="gl-mob gl-item table-col">
                 <h4>доставка 2</h4>
                 <div class="table-col-row">
                     <p>Кількість замовлень</p>
-                    <p>100</p>
+                    <p class="quantity">100</p>
                 </div>
                 <div class="table-col-row">
                     <p>Середній чек</p>
@@ -204,7 +206,7 @@
                 </div>
                 <div class="table-col-row">
                     <p>Виручка</p>
-                    <p class="profit-text">32 500&#8372;</p>
+                    <p class="profit-text"  id="profitValueGl">32 500&#8372;</p>
                 </div>
             </div>
         </div>
@@ -501,6 +503,12 @@
                 <a href="https://www.youtube.com/channel/UCSkvo3C7dB1lhChTlIx_EtA"><i class="fa fa-youtube-play" style="font-size:36px"></i></a>
             </div>
         </div>
+        <div class="footer-copyright landing-container">
+            <a href="https://wstore.pro/">
+                <img class="footer-copyright-img" src="wisehands/assets/images/main_logo_black.png">
+                <p>Powered by WiseStore</p>
+            </a>
+        </div>
     </footer>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -665,18 +673,25 @@
     <script>
         let quantity = Number(document.getElementById("quantity").value);
         let averageCheck = Number(document.getElementById("averageCheck").value);
-        let delivery = Number(document.getElementById("delivery").value);
-        let commission = Number(document.getElementById("commission").value);
+//        let delivery = Number(document.getElementById("delivery").value);
+//        let commission = Number(document.getElementById("commission").value);
 
         function calculateProfit() {
             quantity = Number(document.getElementById("quantity").value);
             averageCheck = Number(document.getElementById("averageCheck").value);
-            delivery = Number(document.getElementById("delivery").value);
-            commission = Number(document.getElementById("commission").value);
+//            delivery = Number(document.getElementById("delivery").value);
+//            commission = Number(document.getElementById("commission").value);
 
-            let profitValue = quantity * averageCheck * (1 - (commission / 100)) - (quantity * delivery);
+//            let profitValue = quantity * averageCheck * (1 - (commission / 100)) - (quantity * delivery);
+            let profitValue = (quantity * averageCheck * 0.98) - (quantity * 50);
+            let profitValueRt = (quantity * averageCheck * 0.63);
+            let profitValueGl = (quantity * averageCheck * 0.65);
 
-            document.getElementById("profit").innerHTML = profitValue;
+            document.getElementById("profit").innerHTML = Math.trunc(profitValue);
+            document.getElementById("profitValueRt").innerHTML = Math.trunc(profitValueRt);
+            document.getElementById("profitValueGl").innerHTML = Math.trunc(profitValueGl);
+//            document.getElementsByClassName("quantity").innerHTML = quantity;
+//            document.getElementById("profitValueGl").innerHTML = profitValueGl;
 
         }
 

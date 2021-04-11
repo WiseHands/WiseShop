@@ -95,8 +95,9 @@ body a {
 }
 .comparison-table {
     display: flex;
-    width: 95%;
+    width: 100%;
     flex-direction: column;
+    padding: 0 0.5rem;
 }
 .comparison-table-mob {
     display: none;
@@ -144,13 +145,72 @@ body a {
 .gl-item {
     color: #ffc244;
 }
+.compare-prices {
+    width: 100%;
+}
+.compare-items {
+    display: flex;
+    justify-content: space-between;
+}
 .compare-item {
+    position: relative;
     display: flex;
     width: 350px;
     margin: 10px;
 }
 .compare-item p {
     padding: 10px;
+}
+.compare-prices input[type=button] {
+    margin: 1.5rem 0;
+    padding: 0.5rem 2rem;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 200px;
+}
+.compare-prices input[type=button]:hover {
+    background-color: #000;
+    color: #fff;
+}
+.input-table {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
+}
+.input-table:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #1f6288;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+}
+
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label {
+    top: -15px;
+    bottom: 0px;
+    left: 5px;
+    font-size: 14px;
+    opacity: 1;
+    color: #404040;
+}
+.compare-item .floating-label {
+    font-size: 14px;
+    color: #cccccc;
+    position: absolute;
+    pointer-events: none;
+    top: 28px;
+    left: 12px;
+    transition: all 0.1s ease;
 }
 .profit-text {
     font-size: 20px;
@@ -645,6 +705,16 @@ footer a:hover {
 .footer-social {
     width: 150px;
     justify-content: space-around;
+}
+.footer-copyright {
+    display: flex;
+    align-items: center;
+    color: #6e6e6e;
+}
+.footer-copyright-img {
+    margin-right: 0.5rem;
+    width: 36px;
+    height: auto;
 }
 @media screen and (max-width: 768px) {
     .main-block-text h1 {
