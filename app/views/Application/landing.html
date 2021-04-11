@@ -159,7 +159,7 @@
                 </div>
                 <div class="table-col-row">
                     <p>Виручка</p>
-                    <p class="profit-text">44 000&#8372;</p>
+                    <p class="profit-text"  id="profitMob">44 000&#8372;</p>
                 </div>
                 <a href="/contactForm" class="start-btn-mob"><button>Розпочати</button></a>
             </div>
@@ -183,7 +183,7 @@
                 </div>
                 <div class="table-col-row">
                     <p>Виручка</p>
-                    <p class="profit-text" id="profitValueRt">31 500&#8372;</p>
+                    <p class="profit-text" id="profitValueRtMob">31 500&#8372;</p>
                 </div>
             </div>
             <div class="gl-mob gl-item table-col">
@@ -206,7 +206,7 @@
                 </div>
                 <div class="table-col-row">
                     <p>Виручка</p>
-                    <p class="profit-text"  id="profitValueGl">32 500&#8372;</p>
+                    <p class="profit-text"  id="profitValueGlMob">32 500&#8372;</p>
                 </div>
             </div>
         </div>
@@ -690,6 +690,9 @@
             document.getElementById("profit").innerHTML = Math.trunc(profitValue);
             document.getElementById("profitValueRt").innerHTML = Math.trunc(profitValueRt);
             document.getElementById("profitValueGl").innerHTML = Math.trunc(profitValueGl);
+            document.getElementById("profitMob").innerHTML = Math.trunc(profitValue);
+            document.getElementById("profitValueRtMob").innerHTML = Math.trunc(profitValueRt);
+            document.getElementById("profitValueGlMob").innerHTML = Math.trunc(profitValueGl);
 //            document.getElementsByClassName("quantity").innerHTML = quantity;
 //            document.getElementById("profitValueGl").innerHTML = profitValueGl;
 
