@@ -38,7 +38,7 @@ public class AnalyticsAPI extends AuthController {
 
         Long today = beginOfDay(new Date(fromDateInMillis));
 
-        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, fromDateInMillis, toDateInMillis);
+        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, today, toDateInMillis);
 
 
         JSONObject json = new JSONObject();
