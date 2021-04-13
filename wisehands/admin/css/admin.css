@@ -2256,6 +2256,24 @@ ul.admin-breadcrumb li a:hover {
 	left: 0;
 }
 
+.settings-shopcart-banner input {
+	margin: 20px 0;
+}
+
+.settings-shopcart-banner label {
+	margin: 5px 0 0 0;
+}
+
+.settings-shopcart-banner input:focus {
+	border-bottom: 1px solid #9e9e9e;
+}
+
+.settings-shopcart-banner textarea {
+	margin: 15px 0 0 0;
+	height: 5rem;
+	padding: 5px 10px;
+}
+
 .settings-footer-switch img {
 	max-width: 100%;
 	margin-top: 1rem;

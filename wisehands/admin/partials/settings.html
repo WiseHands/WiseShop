@@ -79,6 +79,16 @@
             </div>
         </div>
 
+        <div class="admin-card hoverable settings-shopcart-banner col-sm-12">
+            <h4>{{'settings.shoppingCartBanner' | translate}}</h4>
+            <p>{{'settings.shoppingCartBannerText' | translate}}</p>
+            <input id="show-banner" type="checkbox" class="filled-in checkBoxStyling"
+                   ng-model="checked"/>
+            <label for="show-banner">{{'settings.isShoppingCartBannerOn' | translate}}</label>
+            <input type="text" ng-show="checked" placeholder="{{'settings.enterBannerTitle' | translate}}">
+            <textarea name="bannerText" id="shoppingCartBannerText" cols="30" rows="10"  ng-show="checked" placeholder="{{'settings.enterBannerText' | translate}}"></textarea>
+        </div>
+
         <div class="admin-card hoverable settings-footer-switch input-field col-sm-12">
             <h4>{{'settings.footer' | translate}}</h4>
             <p>{{'settings.loadFooter' | translate}}</p>
@@ -86,7 +96,6 @@
                    ng-model="shopStyling.isFooterOn"/>
             <label for="filled-in-isFooterOn">{{'settings.isFooterOn' | translate}}</label>
             <img src="wisehands/assets/images/setting-img/footer.jpg">
-
         </div>
 
     </form>
