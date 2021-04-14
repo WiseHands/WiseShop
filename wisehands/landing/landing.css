@@ -75,6 +75,7 @@ body a {
     font-weight: 500;
 }
 .main-block button {
+    width: 200px;
     margin: 1.5rem 0;
     padding: 0.5rem 2rem;
     background-color: #fff;
@@ -847,6 +848,7 @@ footer a:hover {
         align-items: center;
     }
     .compare-item {
+        width: 90%;
         margin: 0;
     }
     .compare-prices input[type=button] {

@@ -110,8 +110,8 @@
             <div class="wstore  table-row">
                 <div class="table-row">
                     <h4>WiseStore</h4>
-                    <p>100</p>
-                    <p>500&#8372;</p>
+                    <p class="quantity">100</p>
+                    <p class="average-check-mob">500&#8372;</p>
                     <p>50&#8372;</p>
                     <p>2%</p>
                     <p class="profit-text" id="profit">44 000&#8372;</p>
@@ -120,8 +120,8 @@
             <div class="rt-row  table-row">
                 <div class="table-row rt-item">
                     <h4>доставка 1</h4>
-                    <p class="quantity">100</p>
-                    <p>500&#8372;</p>
+                    <p class="quantity-rt">100</p>
+                    <p class="average-check-rt-mob">500&#8372;</p>
                     <p>0</p>
                     <p>37%</p>
                     <p class="profit-text"  id="profitValueRt">31 500&#8372;</p>
@@ -130,8 +130,8 @@
             <div class="gl-row  table-row">
                 <div class="table-row gl-item">
                     <h4>доставка 2</h4>
-                    <p class="quantity">100</p>
-                    <p>500&#8372;</p>
+                    <p class="quantity-gl">100</p>
+                    <p class="average-check-gl-mob">500&#8372;</p>
                     <p>0</p>
                     <p>35%</p>
                     <p class="profit-text"  id="profitValueGl">32 500&#8372;</p>
@@ -143,11 +143,11 @@
                 <h4>WiseStore</h4>
                 <div class="table-col-row">
                     <p>Кількість замовлень</p>
-                    <p>100</p>
+                    <p class="quantity-mob">100</p>
                 </div>
                 <div class="table-col-row">
                     <p>Середній чек</p>
-                    <p>500&#8372;</p>
+                    <p class="average-check">500&#8372;</p>
                 </div>
                 <div class="table-col-row">
                     <p>Доставка</p>
@@ -167,11 +167,11 @@
                 <h4>доставка 1</h4>
                 <div class="table-col-row">
                     <p>Кількість замовлень</p>
-                    <p class="quantity">100</p>
+                    <p class="quantity-rt-mob">100</p>
                 </div>
                 <div class="table-col-row">
                     <p>Середній чек</p>
-                    <p>500&#8372;</p>
+                    <p class="average-check-rt">500&#8372;</p>
                 </div>
                 <div class="table-col-row">
                     <p>Доставка</p>
@@ -190,11 +190,11 @@
                 <h4>доставка 2</h4>
                 <div class="table-col-row">
                     <p>Кількість замовлень</p>
-                    <p class="quantity">100</p>
+                    <p class="quantity-gl-mob">100</p>
                 </div>
                 <div class="table-col-row">
                     <p>Середній чек</p>
-                    <p>500&#8372;</p>
+                    <p class="average-check-gl">500&#8372;</p>
                 </div>
                 <div class="table-col-row">
                     <p>Доставка</p>
@@ -671,18 +671,51 @@
     </script>
 
     <script>
+        const inputQuantity = document.getElementById('quantity');
+        const quantityWstore = document.querySelector('.quantity');
+        const quantityRt = document.querySelector('.quantity-rt');
+        const quantityGl = document.querySelector('.quantity-gl');
+        const quantityWstoreMob = document.querySelector('.quantity-mob');
+        const quantityRtMob = document.querySelector('.quantity-rt-mob');
+        const quantityGlMob = document.querySelector('.quantity-gl-mob');
+
+        const inputAverageCheck = document.getElementById('averageCheck');
+        const AverageCheckWstore = document.querySelector('.average-check');
+        const AverageCheckRt = document.querySelector('.average-check-rt');
+        const AverageCheckGl = document.querySelector('.average-check-gl');
+        const AverageCheckWstoreMob = document.querySelector('.average-check-mob');
+        const AverageCheckRtMob = document.querySelector('.average-check-rt-mob');
+        const AverageCheckGlMob = document.querySelector('.average-check-gl-mob');
+
+        inputQuantity.addEventListener('input', updateValueQuantity);
+        inputAverageCheck.addEventListener('input', updateAverageCheck);
+
+        function updateValueQuantity(e) {
+            quantityWstore.textContent = e.target.value;
+            quantityRt.textContent = e.target.value;
+            quantityGl.textContent = e.target.value;
+            quantityWstoreMob.textContent = e.target.value;
+            quantityRtMob.textContent = e.target.value;
+            quantityGlMob.textContent = e.target.value;
+        }
+
+        function updateAverageCheck(e) {
+            AverageCheckWstore.textContent = e.target.value;
+            AverageCheckRt.textContent = e.target.value;
+            AverageCheckGl.textContent = e.target.value;
+            AverageCheckWstoreMob.textContent = e.target.value;
+            AverageCheckRtMob.textContent = e.target.value;
+            AverageCheckGlMob.textContent = e.target.value;
+        }
+
+
         let quantity = Number(document.getElementById("quantity").value);
         let averageCheck = Number(document.getElementById("averageCheck").value);
-//        let delivery = Number(document.getElementById("delivery").value);
-//        let commission = Number(document.getElementById("commission").value);
 
         function calculateProfit() {
             quantity = Number(document.getElementById("quantity").value);
             averageCheck = Number(document.getElementById("averageCheck").value);
-//            delivery = Number(document.getElementById("delivery").value);
-//            commission = Number(document.getElementById("commission").value);
 
-//            let profitValue = quantity * averageCheck * (1 - (commission / 100)) - (quantity * delivery);
             let profitValue = (quantity * averageCheck * 0.98) - (quantity * 50);
             let profitValueRt = (quantity * averageCheck * 0.63);
             let profitValueGl = (quantity * averageCheck * 0.65);
@@ -693,8 +726,6 @@
             document.getElementById("profitMob").innerHTML = Math.trunc(profitValue);
             document.getElementById("profitValueRtMob").innerHTML = Math.trunc(profitValueRt);
             document.getElementById("profitValueGlMob").innerHTML = Math.trunc(profitValueGl);
-//            document.getElementsByClassName("quantity").innerHTML = quantity;
-//            document.getElementById("profitValueGl").innerHTML = profitValueGl;
 
         }
 
