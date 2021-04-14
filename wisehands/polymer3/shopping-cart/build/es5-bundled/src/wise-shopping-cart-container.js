@@ -26470,11 +26470,11 @@ class WiseShoppingCart extends PolymerElement {
         :host {
           display: block;
         }
-    
+
         iron-image {
             display: flex;
-        } 
-      
+        }
+
         .total-container h3 {
            white-space: nowrap;
            overflow: hidden;
@@ -26486,7 +26486,7 @@ class WiseShoppingCart extends PolymerElement {
             font-size: 1.25rem;
             text-align: center;
         }
-        
+
         paper-button {
             background-color: #fff;
             color: #000;
@@ -26513,19 +26513,34 @@ class WiseShoppingCart extends PolymerElement {
             width: 25%;
             height: auto;
         }
+        .banner-container {
+        		display: flex;
+					  flex-direction: column;
+					  align-items: flex-start;
+            width: 100%;
+            margin: 0 1em 1em 0;
+            padding: 5px 10px;
+        }
+        .margin-banner-container {
+        	margin: 10px 5px;
+        }
       </style>
       <template is="dom-if" if="[[_isInShoppingCartAnyItems(cartItems.length)]]">
-          <template is="dom-repeat" items="[[cartItems]]">
-            <wise-shopping-cart-item
-              selected-language="[[selectedLanguage]]"
-              start-shopping-label="[[startShoppingLabel]]"
-              basket-empty-label="[[basketEmptyLabel]]"
-              currency-label="[[currencyLabel]]"
-              cart-item="[[item]]">
-            </wise-shopping-cart-item>
-          </template>
+        <paper-card class="banner-container" hidden="[[!isBannerOn]]">
+          <h3 class="margin-banner-container">[[bannerName]]</h3>
+          <p class="margin-banner-container">[[bannerDescription]]</p>
+        </paper-card>
+        <template is="dom-repeat" items="[[cartItems]]">
+          <wise-shopping-cart-item
+            selected-language="[[selectedLanguage]]"
+            start-shopping-label="[[startShoppingLabel]]"
+            basket-empty-label="[[basketEmptyLabel]]"
+            currency-label="[[currencyLabel]]"
+            cart-item="[[item]]">
+          </wise-shopping-cart-item>
+        </template>
       </template>
-      
+
       <template is="dom-if" if="[[!_isInShoppingCartAnyItems(cartItems.length)]]">
       <div class="empty-cart-container">
           <div class="empty-cart-img">
@@ -26592,6 +26607,12 @@ class WiseShoppingCart extends PolymerElement {
     return {
       cartItems: Array,
       selectedLanguage: String,
+      bannerName: String,
+      bannerDescription: String,
+      isBannerOn: {
+        type: Boolean,
+        value: false
+      },
       startShoppingLabel: {
         type: String,
         value: 'START SHOPPING'
@@ -26693,7 +26714,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                     color: red;
                     min-height: 1.2em;
                 }
-                
+
                 .info-span{
                     padding-left: 15.5px;
                 }
@@ -26774,7 +26795,11 @@ class WiseShoppingCartContainer extends PolymerElement {
                 <div class="cart-container">
                     <div class="cart">
                         <div class="shopping-cart-container">
-                            <wise-shopping-cart selected-language = "[[selectedLanguage]]" currency-label="[[currencyLabel]]" cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]"
+                            <wise-shopping-cart banner-name="[[cart.configuration.additionalConfiguration.banner.bannerName]]"
+                                                banner-description="[[cart.configuration.additionalConfiguration.banner.bannerDescription]]"
+                                                is-banner-on="[[cart.configuration.additionalConfiguration.banner.isBannerOn]]"
+                                                selected-language = "[[selectedLanguage]]" currency-label="[[currencyLabel]]"
+                                                 cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]"
                                                 start-shopping-label="[[startShoppingLabel]]">
                             </wise-shopping-cart>
                         </div>
@@ -27050,7 +27075,8 @@ class WiseShoppingCartContainer extends PolymerElement {
   }
 
   ready() {
-    super.ready();
+    super.ready(); //rewrite this method
+
     this.hideDeliveryTypeIfQrPresent();
     console.log("qrUuid =>", this.qrUuid);
     const params = this.addCartIdParamIfAvailable(true);
