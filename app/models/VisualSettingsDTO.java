@@ -38,6 +38,16 @@ public class VisualSettingsDTO extends GenericModel {
     public boolean isFooterOn;
 
     @Expose
+    @Column(columnDefinition = "boolean default false")
+    public boolean isBannerOn;
+
+    @Expose
+    public String bannerName;
+
+    @Expose
+    public String bannerDescription;
+
+    @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public SidebarColorScheme sidebarColorScheme;
 
