@@ -20,6 +20,24 @@ public class ShoppingCartDTO extends GenericModel {
     @Expose
     public String shopUuid;
 
+    public String clientName;
+    public String clientPhone;
+    public String clientEmail;
+    public String clientComments;
+    public String clientAddressStreetName;
+    public String clientAddressBuildingNumber;
+    public String clientAddressApartmentNumber;
+    public String clientAddressApartmentFloor;
+    public String clientAddressApartmentEntrance;
+    public String clientAddressApartmentEntranceCode;
+    public String clientCity;
+    public String clientPostDepartmentNumber;
+    public String clientAddressStreetLat;
+    public String clientAddressStreetLng;
+    public Boolean clientAddressGpsPointInsideDeliveryBoundaries;
+    public Boolean isAddressSetFromMapView;
+
+
     public enum DeliveryType {
         SELFTAKE,
         COURIER,
@@ -82,22 +100,6 @@ public class ShoppingCartDTO extends GenericModel {
         this.clientAddressGpsPointInsideDeliveryBoundaries = clientAddressGpsPointInsideDeliveryBoundaries;
     }
 
-    public String clientName;
-    public String clientPhone;
-    public String clientEmail;
-    public String clientComments;
-    public String clientAddressStreetName;
-    public String clientAddressBuildingNumber;
-    public String clientAddressApartmentNumber;
-    public String clientAddressApartmentFloor;
-    public String clientAddressApartmentEntrance;
-    public String clientAddressApartmentEntranceCode;
-    public String clientCity;
-    public String clientPostDepartmentNumber;
-    public String clientAddressStreetLat;
-    public String clientAddressStreetLng;
-    public Boolean clientAddressGpsPointInsideDeliveryBoundaries;
-    public Boolean isAddressSetFromMapView;
 
     @PostLoad
     public void formatObject() {
@@ -136,7 +138,8 @@ public class ShoppingCartDTO extends GenericModel {
                         shop.paymentSettings.onlinePaymentTitleTranslationBucket);
         PaymentConfiguration payment = new PaymentConfiguration(cash, creditCard, shop.paymentSettings.minimumPayment);
 
-        AdditionalConfiguration additionalConfiguration = new AdditionalConfiguration(shop.labelNameForBuyerNameFieldInShoppingCart);
+        AdditionalConfiguration additionalConfiguration = new AdditionalConfiguration(shop.labelNameForBuyerNameFieldInShoppingCart,
+                new VisualSettingsDTO(shop.visualSettingsDTO.isBannerOn, shop.visualSettingsDTO.bannerName, shop.visualSettingsDTO.bannerDescription));
 
         ShoppingCartConfiguration configuration = new ShoppingCartConfiguration(delivery, payment, additionalConfiguration);
         this.configuration = configuration;

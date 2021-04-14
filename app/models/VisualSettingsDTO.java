@@ -39,7 +39,7 @@ public class VisualSettingsDTO extends GenericModel {
 
     @Expose
     @Column(columnDefinition = "boolean default false")
-    public boolean isBannerOn;
+    public boolean isBannerOn = false;
 
     @Expose
     public String bannerName;
@@ -56,6 +56,12 @@ public class VisualSettingsDTO extends GenericModel {
 
 
     public VisualSettingsDTO() {
+    }
+
+    public VisualSettingsDTO(boolean isBannerOn, String bannerName, String bannerDescription){
+        this.isBannerOn = isBannerOn;
+        this.bannerName = bannerName;
+        this.bannerDescription = bannerDescription;
     }
 
 }
