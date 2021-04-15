@@ -19,6 +19,13 @@
     <link rel="icon"
           type="image/png"
           href="wisehands/assets/images/favicon.png">
+
+    <!--wise-store-comparison-widget imports-->
+    <link rel="stylesheet" href="wisehands/landing/components/wise-store-comparison-widget/styles.css">
+    <script src="wisehands/landing/components/wise-store-comparison-widget/polyfills.js"></script>
+    <script src="wisehands/landing/components/wise-store-comparison-widget/vendor.js"></script>
+    <script src="wisehands/landing/components/wise-store-comparison-widget/runtime.js"></script>
+    <script src="wisehands/landing/components/wise-store-comparison-widget/main.js"></script>
 </head>
 <body>
     <div  id="overlay-mobile" class="null-style">
@@ -71,145 +78,8 @@
         </div>
         <h3 class="table-h3">Чому обирають WiseStore</h3>
 
-        <div class="compare-prices">
-            <div class="compare-items">
-                <div class="compare-item">
-                    <input type="number" class="input-table" id="quantity" required>
-                    <label class="floating-label">Кількість замовлень</label>
-                </div>
-                <div class="compare-item">
-                    <input type="number" class="input-table" id="averageCheck" required>
-                    <label class="floating-label">Середній чек</label>
-                </div>
-                <input type="button" id="calculateBtn" value="Порахувати" onclick="calculateProfit()">
-            </div>
-            <!--<div class="compare-item">-->
-                <!--<p>Вартість доставки</p>-->
-                <!--<input type="number" class="input-table" id="delivery">-->
-            <!--</div>-->
-            <!--<div class="compare-item">-->
-                <!--<p>Комісія</p>-->
-                <!--<input type="number" class="input-table" id="commission">-->
-            <!--</div>-->
+        <wise-store-comparison-widget></wise-store-comparison-widget>
 
-            <!--<div class="compare-item">-->
-                <!--<p>Виручка</p>-->
-                <!--<p class="profit-text" id="profit">0</p>-->
-            <!--</div>-->
-        </div>
-
-        <div class="comparison-table">
-            <div class="table-title">
-                <h4>Компанія</h4>
-                <h4>Кількість замовлень</h4>
-                <h4>Середній чек</h4>
-                <h4>Доставка</h4>
-                <h4>Комісія</h4>
-                <h4>Виручка</h4>
-            </div>
-            <div class="wstore  table-row">
-                <div class="table-row">
-                    <h4>WiseStore</h4>
-                    <p class="quantity">100</p>
-                    <p class="average-check-mob">500&#8372;</p>
-                    <p>50&#8372;</p>
-                    <p>2%</p>
-                    <p class="profit-text" id="profit">44 000&#8372;</p>
-                </div>
-            </div>
-            <div class="rt-row  table-row">
-                <div class="table-row rt-item">
-                    <h4>доставка 1</h4>
-                    <p class="quantity-rt">100</p>
-                    <p class="average-check-rt-mob">500&#8372;</p>
-                    <p>0</p>
-                    <p>37%</p>
-                    <p class="profit-text"  id="profitValueRt">31 500&#8372;</p>
-                </div>
-            </div>
-            <div class="gl-row  table-row">
-                <div class="table-row gl-item">
-                    <h4>доставка 2</h4>
-                    <p class="quantity-gl">100</p>
-                    <p class="average-check-gl-mob">500&#8372;</p>
-                    <p>0</p>
-                    <p>35%</p>
-                    <p class="profit-text"  id="profitValueGl">32 500&#8372;</p>
-                </div>
-            </div>
-        </div>
-        <div class="comparison-table-mob">
-            <div class="wstore-mob table-col">
-                <h4>WiseStore</h4>
-                <div class="table-col-row">
-                    <p>Кількість замовлень</p>
-                    <p class="quantity-mob">100</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Середній чек</p>
-                    <p class="average-check">500&#8372;</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Доставка</p>
-                    <p>50&#8372;</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Комісія</p>
-                    <p>2%</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Виручка</p>
-                    <p class="profit-text"  id="profitMob">44 000&#8372;</p>
-                </div>
-                <a href="/contactForm" class="start-btn-mob"><button>Розпочати</button></a>
-            </div>
-            <div class="rt-mob rt-item table-col">
-                <h4>доставка 1</h4>
-                <div class="table-col-row">
-                    <p>Кількість замовлень</p>
-                    <p class="quantity-rt-mob">100</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Середній чек</p>
-                    <p class="average-check-rt">500&#8372;</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Доставка</p>
-                    <p>0</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Комісія</p>
-                    <p>37%</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Виручка</p>
-                    <p class="profit-text" id="profitValueRtMob">31 500&#8372;</p>
-                </div>
-            </div>
-            <div class="gl-mob gl-item table-col">
-                <h4>доставка 2</h4>
-                <div class="table-col-row">
-                    <p>Кількість замовлень</p>
-                    <p class="quantity-gl-mob">100</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Середній чек</p>
-                    <p class="average-check-gl">500&#8372;</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Доставка</p>
-                    <p>0</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Комісія</p>
-                    <p>35%</p>
-                </div>
-                <div class="table-col-row">
-                    <p>Виручка</p>
-                    <p class="profit-text"  id="profitValueGlMob">32 500&#8372;</p>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="opport" id="opport">
         <h2 class="wow fadeIn" data-wow-delay="1s" data-wow-duration="1">Можливості</h2>
