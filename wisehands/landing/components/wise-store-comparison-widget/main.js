@@ -206,11 +206,11 @@ const TABLE_DATA = [
         ordersQuantity: 100,
         averageOrderPrice: 500,
         deliveryPrice: 50,
-        commissionFee: 2,
+        commissionFee: 5,
         profit: 44100
     },
     {
-        companyName: 'Rocket',
+        companyName: 'Delivery35m',
         ordersQuantity: 100,
         averageOrderPrice: 500,
         deliveryPrice: 0,
@@ -218,7 +218,7 @@ const TABLE_DATA = [
         profit: 31500
     },
     {
-        companyName: 'Glovo',
+        companyName: 'Delivery30m',
         ordersQuantity: 100,
         averageOrderPrice: 500,
         deliveryPrice: 0,
