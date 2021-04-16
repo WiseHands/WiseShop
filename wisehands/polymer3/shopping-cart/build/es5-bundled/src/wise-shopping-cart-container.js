@@ -26514,20 +26514,25 @@ class WiseShoppingCart extends PolymerElement {
             height: auto;
         }
         .banner-container {
-        		display: flex;
-					  flex-direction: column;
-					  align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
             width: 100%;
             margin: 0 1em 1em 0;
             padding: 5px 10px;
+            background-color: #3573e7;
         }
         .margin-banner-container {
         	margin: 10px 5px;
+        	color: #e9f0fc;
+        }
+        .fw-6 {
+            font-weight: 500;
         }
       </style>
       <template is="dom-if" if="[[_isInShoppingCartAnyItems(cartItems.length)]]">
         <paper-card class="banner-container" hidden="[[!isBannerOn]]">
-          <h3 class="margin-banner-container">[[bannerName]]</h3>
+          <p class="margin-banner-container fw-6">[[bannerName]]</p>
           <p class="margin-banner-container">[[bannerDescription]]</p>
         </paper-card>
         <template is="dom-repeat" items="[[cartItems]]">
