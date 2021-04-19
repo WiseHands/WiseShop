@@ -74,8 +74,7 @@ body a {
     font-size: 4rem;
     font-weight: 500;
 }
-.main-block button {
-    width: 200px;
+button {
     margin: 1.5rem 0;
     padding: 0.5rem 2rem;
     background-color: #fff;
@@ -84,9 +83,20 @@ body a {
     text-transform: uppercase;
     cursor: pointer;
 }
-.main-block button:hover, .tariff-button button:hover {
+button:hover, .tariff-button button:hover {
     background-color: #000;
     color: #fff;
+    transition: 0.6s ;
+}
+.header-btn {
+    padding: 0.3rem 1rem;
+    text-transform: capitalize;
+    font-size: 1.3rem;
+    margin-left: 1rem;
+}
+.table-btn {
+    display: flex;
+    justify-content: center;
 }
 .main-block-text button:focus {
     outline: none;
@@ -222,6 +232,10 @@ input:not(:focus):valid ~ .floating-label {
 }
 .burger-menu:hover {
     cursor: pointer;
+}
+.burger-menu-links {
+    display: flex;
+    align-items: center;
 }
 #overlay-mobile {
     display: none;
