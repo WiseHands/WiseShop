@@ -5,15 +5,18 @@ body, p, h1, h2, h3, h4, h5, h6, i, a {
     overflow-x: hidden;
     font-size: 16px;
 }
+
 body a {
     text-decoration: none;
     color: inherit;
 }
+
 .header {
     margin: 0 auto;
     height: 65px;
     padding: 0 0.5rem;
 }
+
 .header-block {
     max-width: 1200px;
     display: flex;
@@ -22,32 +25,40 @@ body a {
     margin: 0 auto;
     padding: 0.5rem;
 }
+
 .header-logo-text, .header-links {
     display: flex;
     align-items: center;
 }
+
 .header-logo-text img {
     width: 50px;
     height: auto;
     padding-right: 1rem;
 }
+
 .header-logo-text p {
     font-size: 2rem;
 }
+
 .header-logo-text {
     justify-content: space-between;
 }
+
 .header-logo-text a {
     text-decoration: none;
 }
+
 .header-logo-text p:hover, .header-links p:hover {
     color: lightseagreen;
 }
+
 .header-logo-text p, .header-links p {
     font-size: 1.3rem;
     padding: 0.6rem;
     cursor: pointer;
 }
+
 .landing-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -56,24 +67,27 @@ body a {
 }
 
 .main-block {
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .main-block-info {
     width: 100%;
     display: flex;
     justify-content: space-around;
     padding: 100px 0 50px 0;
 }
+
 .main-block-text {
     text-align: center;
 }
+
 .main-block-text h1 {
     font-size: 4rem;
     font-weight: 500;
 }
+
 button {
     margin: 1.5rem 0;
     padding: 0.5rem 2rem;
@@ -83,95 +97,118 @@ button {
     text-transform: uppercase;
     cursor: pointer;
 }
+
 button:hover, .tariff-button button:hover {
     background-color: #000;
     color: #fff;
-    transition: 0.6s ;
+    transition: 0.6s;
 }
+
 .header-btn {
     padding: 0.3rem 1rem;
     text-transform: capitalize;
     font-size: 1.3rem;
     margin-left: 1rem;
 }
+
 .table-btn {
     display: flex;
     justify-content: center;
 }
+
 .main-block-text button:focus {
     outline: none;
 }
+
 .main-block-image img {
     max-width: 320px;
 }
+
 .comparison-table {
     display: flex;
     width: 100%;
     flex-direction: column;
     padding: 0 0.5rem;
 }
+
 .comparison-table-mob {
     display: none;
     width: 90%;
     justify-content: space-between;
     flex-direction: column;
 }
+
 .table-row {
     display: flex;
     width: 100%;
     padding: 5px 0;
 }
+
 .table-row:not(:last-child) {
     border-bottom: 1px solid #ccc;
 }
+
 .table-title {
     display: flex;
     padding: 10px 0;
     background-color: #1f6288;
     color: #fff;
 }
+
 .table-h3 {
     font-size: 40px;
     padding: 5px 0 10px 0;
 }
+
 .comparison-table p, .comparison-table h4 {
     padding: 10px;
 }
+
 .comparison-table h4 {
     flex: 0 1 15%;
 }
+
 .table-title h4:not(:first-child) {
-    flex:  0 1 17%;
+    flex: 0 1 17%;
 }
+
 .comparison-table p {
     flex: 0 1 17%;
 }
+
 .comparison-table p:last-child, .table-title h4:last-child {
     text-align: center;
     padding-right: 15px;
 }
+
 .rt-item {
     color: #ff4800;
 }
+
 .gl-item {
     color: #ffc244;
 }
+
 .compare-prices {
     width: 100%;
 }
+
 .compare-items {
     display: flex;
     justify-content: space-between;
 }
+
 .compare-item {
     position: relative;
     display: flex;
     width: 350px;
     margin: 10px;
 }
+
 .compare-item p {
     padding: 10px;
 }
+
 .compare-prices input[type=button] {
     margin: 1.5rem 0;
     padding: 0.5rem 2rem;
@@ -182,10 +219,12 @@ button:hover, .tariff-button button:hover {
     cursor: pointer;
     width: 200px;
 }
+
 .compare-prices input[type=button]:hover {
     background-color: #000;
     color: #fff;
 }
+
 .input-table {
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
@@ -195,8 +234,9 @@ button:hover, .tariff-button button:hover {
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
+
 .input-table:focus {
     color: #495057;
     background-color: #fff;
@@ -214,6 +254,7 @@ input:not(:focus):valid ~ .floating-label {
     opacity: 1;
     color: #404040;
 }
+
 .compare-item .floating-label {
     font-size: 14px;
     color: #cccccc;
@@ -223,23 +264,28 @@ input:not(:focus):valid ~ .floating-label {
     left: 12px;
     transition: all 0.1s ease;
 }
+
 .profit-text {
     font-size: 20px;
 }
+
 .burger-menu {
     display: none;
     padding: 1rem;
 }
+
 .burger-menu:hover {
     cursor: pointer;
 }
+
 .burger-menu-links {
     display: flex;
     align-items: center;
 }
+
 #overlay-mobile {
     display: none;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     width: 100%;
     height: 100%;
     position: fixed;
@@ -247,10 +293,11 @@ input:not(:focus):valid ~ .floating-label {
     padding: 0;
     margin: 0;
 }
+
 .sidebar-mobile {
     width: 80%;
     height: 100%;
-    background-color: rgba(255,255,255,1);
+    background-color: rgba(255, 255, 255, 1);
     opacity: 1;
     animation: sidebarmove 0.3s linear;
     position: fixed;
@@ -258,6 +305,7 @@ input:not(:focus):valid ~ .floating-label {
     left: 0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .16), 0 2px 3px 0 rgba(0, 0, 0, .12);
 }
+
 .blur-block {
     width: 20%;
     height: 100%;
@@ -268,6 +316,7 @@ input:not(:focus):valid ~ .floating-label {
     transition: 0.7s easy;
     opacity: 0.8;
 }
+
 @keyframes sidebarmove {
     from {
         opacity: 0;
@@ -278,14 +327,16 @@ input:not(:focus):valid ~ .floating-label {
         transform: translate3d(0, 0, 0);
     }
 }
+
 .sibebar-swipe-off {
     width: 0%;
     height: 100%;
-    background-color: rgba(255,255,255,1);
+    background-color: rgba(255, 255, 255, 1);
     opacity: 1;
     transition-delay: 0.3s;
     animation: sidebarswipeoff 0.3s linear;
 }
+
 @keyframes sidebarswipeoff {
     from {
         transform: translate3d(0, 0, 0);
@@ -296,21 +347,25 @@ input:not(:focus):valid ~ .floating-label {
         transform: translate3d(-100%, 0, 0);
     }
 }
+
 .sidebar-logo {
     display: flex;
     align-items: center;
     height: 58px;
     padding: 0.5rem;
 }
+
 .sidebar-logo img {
     width: 36px;
     height: 36px;
     padding-right: 5px;
 }
+
 .sidebar-logo p {
     font-size: 2rem;
     margin-bottom: 0;
 }
+
 .sidebar-panel {
     display: flex;
     flex-direction: column;
@@ -318,13 +373,16 @@ input:not(:focus):valid ~ .floating-label {
     padding: 10px;
     font-size: 1.2rem;
 }
+
 .sidebar-panel a {
     color: #262626;
     line-height: 2.5;
 }
+
 .sidebar-panel a:hover {
     color: lightseagreen;
 }
+
 .sidebar-panel p {
     font-size: 1.3rem;
     margin-bottom: 0;
@@ -338,64 +396,78 @@ input:not(:focus):valid ~ .floating-label {
     justify-content: center;
     align-items: center;
 }
-.opport h2{
+
+.opport h2 {
     text-align: center;
     font-weight: 400;
     font-size: 3.5rem;
 }
+
 .land-payment, .land-category, .land-options, .land-area-delivery, .land-analytics, .land-network {
     width: 100%;
     background-color: #f2f2f2;
     padding: 5rem 0;
 }
+
 .land-img {
     flex-basis: 65%;
     height: 52vh;
 }
+
 .land-payment-img {
     background: url(../../wisehands/landing/images/pay.svg) no-repeat;
     background-size: cover;
 }
+
 .land-text {
     flex-basis: 35%;
     padding-left: 2rem;
 }
+
 .land-text-left {
     flex-basis: 35%;
     padding-right: 2rem;
 }
+
 .underline {
     width: 50px;
     border-bottom: 2px solid lightseagreen;
     margin: 0.5rem 0;
 }
+
 .land-h3 {
     font-size: 2.6rem;
     font-weight: 200;
     padding-bottom: 1rem;
 }
+
 .land-p {
     font-size: 1.3rem;
     font-weight: 400;
     line-height: 1.5;
     padding: 1rem 0;
 }
+
 .land-category-img {
     background: url(../../wisehands/landing/images/category.webp) no-repeat;
     background-size: cover;
 }
+
 .land-options-img {
     background: url(../../wisehands/landing/images/options.svg) no-repeat;
     background-size: cover;
 }
+
 .land-area-delivery-img {
     background: url(../../wisehands/landing/images/map.svg) no-repeat;
     background-size: contain;
 }
+
 .land-analytics-img {
     background: url(../../wisehands/landing/images/analytics.svg) no-repeat;
     background-size: cover;
 }
+
 .land-network-img {
     background: url(../../wisehands/landing/images/network.svg) no-repeat;
     background-size: cover;
@@ -411,71 +483,86 @@ input:not(:focus):valid ~ .floating-label {
     font-size: 3.5rem;
     padding: 3rem 0 0 0;
 }
+
 .all-tariffs {
     justify-content: space-around;
     padding: 3rem 0;
 }
+
 .tariff-item {
     flex-basis: 30%;
     flex-direction: column;
     height: 600px;
-    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12), 3px -3px 3px 0px rgba(0,0,0,0.14);
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.4), 0px 5px 5px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12), 3px -3px 3px 0px rgba(0, 0, 0, 0.14);
     border-radius: 10px;
     transition: 0.5s ease;
 }
+
 /*.tariff-item:hover {*/
-    /*transform: scale(1.05);*/
+/*transform: scale(1.05);*/
 /*}*/
 .tariff-pro {
     border: 2px solid lightseagreen;
 }
+
 .tariff-pro:hover {
     transform: scale(1.05);
 
 }
+
 .tariff-item-title, .tariff-price {
     text-align: center;
     padding: 2rem 0;
     border-bottom: 1px solid #9e9e9e;
 }
+
 .tariff-item-title h4 {
     font-size: 2rem;
     font-weight: 400;
     padding-bottom: 1rem;
 }
+
 .tariff-price h5 {
     font-size: 1.8rem;
     font-weight: 700;
     color: lightseagreen;
 }
+
 .tariff-pro h5 {
     text-decoration: line-through;
 }
+
 .tariff-price span {
     color: lightseagreen;
     font-weight: 600;
     padding-right: 0.3rem;
 }
+
 .tariff-padding {
     padding: 0.5rem 0;
 }
+
 .tariff-description {
     padding: 1rem;
     height: 200px;
 }
+
 .tariff-desc-row {
     display: flex;
     align-items: center;
     padding: 0.5rem 0;
 }
+
 .fa-check {
     color: lightseagreen;
     padding-right: 0.5rem;
 }
+
 .tariff-button {
     display: flex;
     justify-content: center;
 }
+
 .tariff-button button {
     margin: 1.5rem 0;
     padding: 0.5rem 2rem;
@@ -485,38 +572,45 @@ input:not(:focus):valid ~ .floating-label {
     text-transform: uppercase;
     cursor: pointer;
 }
+
 .land-contact {
     height: 100vh;
     display: flex;
 }
+
 .land-map {
     background: url(../../wisehands/landing/images/landmap.jpg);
     background-position: center;
     background-size: cover;
     flex-basis: 50%;
 }
+
 .land-contact-form {
     display: flex;
     flex-basis: 50%;
     flex-direction: column;
     justify-content: space-between;
 }
+
 .land-contact-form h2 {
     font-size: 3rem;
     text-align: center;
     padding-top: 3rem;
 }
+
 .contact-card {
     width: 70%;
     background-color: #fff;
     border-radius: 15px;
-    box-shadow: 8px 8px 8px 0px rgba(0,0,0,0.4), 0px 5px 5px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.4), 0px 5px 5px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
     margin: 0 auto;
 }
+
 .contact-card-text {
     width: 90%;
     margin: 0 auto;
 }
+
 .contact-card-text h5 {
     font-weight: 400;
     font-size: 1.7rem;
@@ -526,6 +620,7 @@ input:not(:focus):valid ~ .floating-label {
 .form-field {
     position: relative;
 }
+
 input {
     width: 100%;
     box-sizing: border-box;
@@ -534,56 +629,65 @@ input {
     border: none;
     border-bottom: 1px solid #9e9e9e;
 }
+
 input:focus {
     outline: none;
 }
+
 input[invalid=true] {
     border-bottom: 1px solid #b00020;
 }
+
 label {
     font-size: 1rem;
-    position:absolute;
-    pointer-events:none;
+    position: absolute;
+    pointer-events: none;
     top: 31px;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
 }
-label[invalid=true]{
+
+label[invalid=true] {
     color: red;
 }
-input:focus ~ label, input:not(:placeholder-shown) ~ label 		{
+
+input:focus ~ label, input:not(:placeholder-shown) ~ label {
     top: 0;
-    font-size:0.9rem;
-    color:#20b2aa;
+    font-size: 0.9rem;
+    color: #20b2aa;
 }
-.highlight 	{
-    position:relative;
-    display:block;
+
+.highlight {
+    position: relative;
+    display: block;
     width: 100%;
 }
-.highlight:before, .highlight:after 	{
-    content:'';
-    height:2px;
-    width:0;
-    bottom:1px;
-    position:absolute;
+
+.highlight:before, .highlight:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
     top: -17px;
-    background:#20b2aa;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
+    background: #20b2aa;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
 }
+
 .highlight:before {
-    left:50%;
+    left: 50%;
 }
+
 .highlight:after {
-    right:50%;
+    right: 50%;
 }
 
 /* active state */
 input:focus ~ .highlight:before, input:focus ~ .highlight:after {
-    width:50%;
+    width: 50%;
 }
 
 textarea {
@@ -597,10 +701,12 @@ textarea {
     margin-bottom: 16px;
     resize: vertical;
 }
+
 .contact-landing-button {
     display: flex;
     justify-content: center;
 }
+
 .contact-landing-button button {
     margin: 1.5rem 0;
     padding: 0.5rem 3rem;
@@ -610,91 +716,108 @@ textarea {
     text-transform: uppercase;
     cursor: pointer;
 }
+
 .contact-landing-button button:hover {
     background-color: #000;
     color: #fff;
 }
+
 .contact-address {
     padding: 1rem 0 1rem 3rem;
 }
+
 .contact-address-item, .contact-address-item a {
     display: flex;
     align-items: center;
     padding: 0.3rem 0;
 }
+
 .contact-address-item i {
     padding: 0 0.5rem;
 }
+
 /*.footer-block {*/
-    /*display: flex;*/
-    /*justify-content: space-between;*/
-    /*align-items: center;*/
-    /*padding: 1rem 0;*/
-    /*background-color: #000;*/
-    /*color: #fff;*/
+/*display: flex;*/
+/*justify-content: space-between;*/
+/*align-items: center;*/
+/*padding: 1rem 0;*/
+/*background-color: #000;*/
+/*color: #fff;*/
 /*}*/
 /*.footer-links {*/
-    /*display: flex;*/
-    /*padding-left: 1rem;*/
+/*display: flex;*/
+/*padding-left: 1rem;*/
 /*}*/
 /*.footer-links a {*/
-    /*padding-right: 20px;*/
-    /*cursor: pointer;*/
+/*padding-right: 20px;*/
+/*cursor: pointer;*/
 /*}*/
 /*.footer-copyright img {*/
-    /*width: 36px;*/
-    /*padding-left: 10px;*/
+/*width: 36px;*/
+/*padding-left: 10px;*/
 /*}*/
 
 footer {
     min-height: 200px;
     background-color: #f2f2f2;
 }
+
 footer a:hover {
     color: #20b2aa;
 }
+
 .footer-container {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 2rem 1rem;
 }
+
 .footer-logo {
     padding-bottom: 1rem;
 }
+
 .footer-logo a {
     display: flex;
     align-items: center;
 }
+
 .footer-logo img {
     width: 36px;
     height: auto;
     margin-right: 0.5rem;
 }
+
 .footer-logo p {
     font-size: 1.4rem;
 }
+
 .footer-copyright a {
     display: flex;
     align-items: center;
 }
+
 .footer-address a, .footer-phone a, .footer-social {
     display: flex;
     align-items: center;
 }
+
 .footer-phone i, .footer-address i {
     padding-right: 0.5rem;
 }
+
 .footer-item h4 {
     font-size: 1.4rem;
     color: #5B5C5E;
     padding-bottom: 1rem;
 }
+
 .footer-item {
     font-weight: 400;
     color: #6E6E6E;
     line-height: 2;
 }
+
 .footer-button button {
     margin-top: 0.5rem;
     padding: 0.5rem 3rem;
@@ -704,170 +827,213 @@ footer a:hover {
     text-transform: uppercase;
     cursor: pointer;
 }
+
 .footer-button button:hover {
     background-color: #000;
     color: #f2f2f2;
 }
+
 .footer-bottom {
     margin-top: 1rem;
     padding: 2rem 1rem;
     border-top: 1px solid #d4d4d4;
     color: #6E6E6E;
 }
+
 .footer-phone {
     min-width: 25%;
 }
+
 .footer-social {
     width: 150px;
     justify-content: space-around;
 }
+
 .footer-copyright {
     display: flex;
     align-items: center;
     color: #6e6e6e;
 }
+
 .footer-copyright-img {
     margin-right: 0.5rem;
     width: 36px;
     height: auto;
 }
+
 @media screen and (max-width: 768px) {
     .main-block-text h1 {
         font-size: 2.3rem;
         padding: 10px;
     }
+
     .opport h2 {
         font-size: 2.5rem;
     }
+
     .header-block {
         display: none;
     }
+
     .burger-menu {
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
+
     .burger-menu a:hover {
         color: #20b2aa;
     }
+
     .burger-menu p {
         font-size: 1.3rem;
     }
-    .main-block {
-        height: 100%;
-    }
+
     .main-block-info {
         padding: 50px 0;
     }
+
     .landing-container {
         flex-direction: column;
     }
+
     .main-block-image img {
         max-width: 90%;
     }
+
     .land-payment-img img {
         max-width: 100%;
     }
+
     .land-text {
         padding: 0 1rem;
     }
+
     .land-h3 {
         font-size: 2rem;
         padding: 1rem 0;
     }
+
     .land-category .landing-container, .land-area-delivery .landing-container, .land-network .landing-container {
         flex-direction: column-reverse;
     }
+
     .land-area-delivery-img {
         background-size: cover;
         background-position: center;
     }
+
     .land-text-left {
         padding-right: 0;
         padding-left: 1rem;
     }
+
     .blur-tariff {
         display: none;
     }
+
     .tariff-item {
         width: 90%;
         margin: 0 auto 2rem auto;
     }
+
     .land-contact {
         height: 100%;
         display: block;
     }
+
     .land-contact-form {
         flex-basis: unset;
     }
+
     .land-img {
         flex-basis: unset;
     }
+
     .land-map {
         display: none;
     }
+
     .contact-card {
         width: 90%;
         margin-bottom: 1rem;
     }
+
     .footer-links a {
         padding-right: 10px;
     }
+
     .footer-copyright p {
         display: none;
     }
+
     .footer-item h4 {
         padding: 1rem 0 0 0;
     }
+
     .footer-bottom {
         align-items: center;
     }
+
     .comparison-table {
         display: none;
     }
+
     .comparison-table-mob {
         display: flex;
     }
+
     .table-h3 {
         font-size: 24px;
     }
+
     .table-col {
         margin: 10px 0;
         display: flex;
         flex-flow: column;
     }
+
     .table-col h4 {
         font-size: 18px;
         padding-bottom: 5px;
     }
+
     .table-col-row {
         display: flex;
         justify-content: space-between;
     }
+
     .table-col-row p {
         padding: 4px 0;
         font-size: 14px;
     }
-    .table-col-row .profit-text  {
+
+    .table-col-row .profit-text {
         font-size: 20px;
     }
+
     .start-btn-mob {
         align-self: center;
     }
+
     .start-btn-mob button {
         margin: 0;
     }
+
     .compare-items {
         flex-direction: column;
         align-items: center;
     }
+
     .compare-item {
         width: 90%;
         margin: 0;
     }
+
     .compare-prices input[type=button] {
         margin: 5px;
     }
+
     input:focus ~ .floating-label,
     input:not(:focus):valid ~ .floating-label {
         top: -8px;
