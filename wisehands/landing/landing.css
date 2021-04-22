@@ -895,6 +895,7 @@ footer a:hover {
 
     .landing-container {
         flex-direction: column;
+        margin: 1rem;
     }
 
     .main-block-image img {
