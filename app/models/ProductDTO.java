@@ -1,12 +1,16 @@
 package models;
 
 import com.google.gson.annotations.Expose;
+import json.shoppingcart.LineItem;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
+import util.ShoppingCartUtil;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 @Entity
 public class ProductDTO extends GenericModel {
@@ -147,6 +151,21 @@ public class ProductDTO extends GenericModel {
             }
         }
         return "";
+    }
+
+    public int getProductQuantity() {
+        List<ShoppingCartDTO> cart = ShoppingCartDTO.findAll();
+        List<LineItem> lineItems = cart.get(cart.size() - 1).items;
+        LineItem _lineItem = lineItems.stream()
+                .filter(lineItem -> this.uuid.equals(lineItem.productId))
+                .findAny()
+                .orElse(null);
+        if (_lineItem != null) {
+            return this.quantity - _lineItem.quantity;
+        } else {
+            return this.quantity;
+        }
+
     }
 
 }
