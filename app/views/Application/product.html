@@ -559,6 +559,8 @@
     document.querySelector(".cart-float").style.display = 'none';
   }
 
+
+
   function addProductToCart(product) {
     if (!window.IS_SHOP_OPENED) {
       if (window.MESSAGE) {
@@ -576,6 +578,8 @@
     if (difference == 0){
         buttonContainerAddProduct.disabled = true;
         quantityContainer.style.display = "none";
+        document.querySelector('#product-is-over').style.display = 'block';
+
     } else {
         quantity.innerHTML = difference;
     }
@@ -626,7 +630,9 @@
                     <span class="total-span"></span>
                 </div>
                 #{if product.quantity}
-                <div id="product-quantity-container"class="total-additions-price">
+                <p id="product-is-over">&{'page.product.if.quantity.zero'}</p>
+
+                <div id="product-quantity-container" class="total-additions-price">
                     <span>&{'page.product.quantity'}</span>
                     <p id="product-quantity">${product.getProductQuantity()}</p>
                 </div>
@@ -804,6 +810,10 @@
   totalPrice = Number(totalPrice.replace(',', '.'));
   const totalSpan = document.querySelector('.total-span');
   const additionsTotalPriceContainer = document.querySelector('.additions-total-price');
+
+  document.querySelector('#product-is-over').style.display = 'none';
+
+
 
   (() => {
     const orderTimeList = document.querySelectorAll('[time]');

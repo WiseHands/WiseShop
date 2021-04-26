@@ -106,6 +106,8 @@ page.product.additions.cost = Вартість додатків:
 page.product.price = Вартість:
 page.product.quantity = Кількість:
 page.product.quantity.psc = шт.
+page.product.if.quantity.zero = Товар закінчився
+
 page.product.buy = Купити
 page.product.add.to.basket = Товар додано в кошик
 page.product.about.product = Про товар

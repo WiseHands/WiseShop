@@ -108,6 +108,7 @@ page.product.additions.price = Additions price
 page.product.price = Price:
 page.product.quantity = Quantity:
 page.product.quantity.psc = psc.
+page.product.if.quantity.zero = This product is over
 page.product.buy = Buy
 page.product.add.to.basket = Product added to cart
 page.product.about.product = About
