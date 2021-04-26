@@ -156,6 +156,7 @@ public class ProductDTO extends GenericModel {
     public int getProductQuantity() {
         List<ShoppingCartDTO> cart = ShoppingCartDTO.findAll();
         List<LineItem> lineItems = cart.get(cart.size() - 1).items;
+
         LineItem _lineItem = lineItems.stream()
                 .filter(lineItem -> this.uuid.equals(lineItem.productId))
                 .findAny()

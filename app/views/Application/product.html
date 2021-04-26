@@ -567,9 +567,19 @@
       return;
     }
 
-    let quantityContainer = document.getElementById("product-quantity");
-    let productQuantity = quantityContainer.textContent
-    quantityContainer.innerHTML = Number(productQuantity) - 1;
+    let quantityContainer = document.querySelector("#product-quantity-container");
+    let quantity = document.querySelector("#product-quantity");
+    let buttonContainerAddProduct = document.querySelector("#add-product-to-cart");
+
+    let productQuantity = quantity.textContent;
+    let difference = Number(productQuantity) - 1;
+    if (difference == 0){
+        buttonContainerAddProduct.disabled = true;
+        quantityContainer.style.display = "none";
+    } else {
+        quantity.innerHTML = difference;
+    }
+
     console.log('quantityContainer => ', Number(quantityContainer) - 1);
 
     fetch('/api/cart?uuid=' + product.uuid + '&qr_uuid=' + product.qrUuid + '&additionList=' + JSON.stringify(additionList), {
@@ -616,7 +626,7 @@
                     <span class="total-span"></span>
                 </div>
                 #{if product.quantity}
-                <div class="total-additions-price">
+                <div id="product-quantity-container"class="total-additions-price">
                     <span>&{'page.product.quantity'}</span>
                     <p id="product-quantity">${product.getProductQuantity()}</p>
                 </div>
@@ -629,7 +639,9 @@
                 </div>
                 #{/if}
             </span>
-            <button class="buy-button btn btn-outline-primary btn-rounded" onClick="addProductToCart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
+            <button id="add-product-to-cart"
+                    class="buy-button btn btn-outline-primary btn-rounded"
+                    onClick="addProductToCart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
                 &{'page.product.buy'}
             </button>
         </div>
