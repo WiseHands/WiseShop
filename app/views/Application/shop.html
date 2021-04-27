@@ -231,7 +231,7 @@
                                 <div class="item-card-price">
                                     <p class="current-price">${_product.formatDecimal()} <span class="currency">&#8372;</span></p>
                                     <p class="discount-price" ng-show="productDTO.oldPrice">${_product.formatDecimalOldPrice()}</p>
-                                    #{if _product.quantity}
+                                    #{if _product.isQuantityVisible}
                                     <div class="product-quantity">
                                         <p>(${_product.quantity} &{'page.product.quantity.psc'})</p>
                                     </div>

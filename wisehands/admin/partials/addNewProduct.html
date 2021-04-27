@@ -38,6 +38,10 @@
                     <input id="product_price" type="number" step="0.01" ng-model="product.price" required>
                     <label for="product_price">{{'addNewProduct.productPrice' | translate}}</label>
                 </div>
+
+                <input type="checkbox" class="filled-in checkBoxStyling" id="show-quantity-in-shop" ng-model="product.isQuantityVisible"/>
+                <label for="show-quantity-in-shop">{{'editProduct.showQuantity' | translate}}</label>
+
                 <input type="checkbox" class="filled-in checkBoxStyling" id="show-quantity" ng-model="checked"/>
                 <label for="show-quantity">{{'addNewProduct.addQuantity' | translate}}</label>
                 <input type="number" ng-show="checked" ng-model="product.quantity">
