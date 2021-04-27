@@ -180,6 +180,9 @@ public class OrderAPI extends AuthController {
         OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
         order.items = orderItemListResult.orderItemList;
 
+        order.items.stream()
+                .forEach(orderItemDTO -> reduceProductQuantity(orderItemDTO));
+
         DeliveryDTO delivery = shop.delivery;
         System.out.println("deliveryType in order creating => " + shoppingCart.deliveryType);
         if(shoppingCart.deliveryType != null){
@@ -295,6 +298,14 @@ public class OrderAPI extends AuthController {
         } else if(order.paymentType.equals(ShoppingCartDTO.PaymentType.CASHONDELIVERY)){
             json.put("status", "ok");
             renderJSON(json);
+        }
+    }
+
+    private static void reduceProductQuantity(OrderItemDTO orderItemDTO) {
+        ProductDTO product = ProductDTO.findById(orderItemDTO.productUuid);
+        if (product.quantity > 0) {
+            product.quantity = product.quantity - orderItemDTO.quantity;
+            product.save();
         }
     }
 
