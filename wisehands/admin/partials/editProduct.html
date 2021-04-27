@@ -58,9 +58,14 @@
                         <input id="productOrder" type="number" ng-model="product.sortOrder">
                         <label for="productOrder" class="active">{{'displayOrder' | translate}}</label>
                     </div>
+
+                    <input type="checkbox" class="filled-in checkBoxStyling" id="show-quantity-in-shop" ng-model="product.isQuantityVisible"/>
+                    <label for="show-quantity-in-shop">{{'editProduct.showQuantity' | translate}}</label>
+
                     <input type="checkbox" class="filled-in checkBoxStyling" id="show-quantity" ng-model="checked"/>
-                    <label for="show-quantity">Ввести кількість товару</label>
+                    <label for="show-quantity">{{'editProduct.setQuantity' | translate}}</label>
                     <input type="number" ng-show="checked" ng-model="product.quantity">
+
                 </div>
 
                 <div class="admin-card">

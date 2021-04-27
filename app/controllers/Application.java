@@ -417,7 +417,7 @@ public class Application extends Controller {
             defaultAdditions = DataBaseQueries.checkIsAdditionDefaultToProduct(product);
             product.defaultAdditions = defaultAdditions;
         }
-        System.out.println("request.params qr_uuid.isEmpty() in Product => " + qr_uuid);
+        System.out.println("request.params qr_uuid.isEmpty() in Product => " + product.isQuantityVisible);
 
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);

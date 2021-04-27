@@ -305,6 +305,9 @@
   "editProduct.additionPrice": "Price",
   "editProduct.additionImage": "Additional option image",
   "editProduct.additionAddPhoto": "Add image",
+  "editProduct.setQuantity": "Enter quantity of products",
+  "editProduct.showQuantity": "Show quantity in product page",
+
   "payment.payment": "Payment",
   "payment.paymentTypeCash": "Cash",
   "payment.paymentTypeOnline": "Online",

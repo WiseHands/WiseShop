@@ -283,6 +283,7 @@ angular.module('WiseHands')
                 fd.append('description', $scope.product.description);
                 fd.append('price', $scope.product.price);
                 fd.append('quantity', $scope.product.quantity);
+                fd.append('isQuantityVisible', $scope.product.isQuantityVisible);
                 fd.append('isActive', $scope.product.isActive);
                 fd.append('oldPrice', $scope.product.oldPrice);
                 fd.append('sortOrder', $scope.product.sortOrder);

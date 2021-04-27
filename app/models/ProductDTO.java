@@ -67,6 +67,9 @@ public class ProductDTO extends GenericModel {
     public int quantity;
 
     @Expose
+    public Boolean isQuantityVisible = false;
+
+    @Expose
     @OneToOne
     public ProductImage mainImage;
 

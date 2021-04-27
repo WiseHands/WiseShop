@@ -21,7 +21,7 @@ public class ProductAPI extends AuthController {
 
 
     public static void create(String client, String name, String description,
-                              Double price, Integer quantity, File fake, Integer mainPhotoIndex,
+                              Double price, Integer quantity, Boolean isQuantityVisible, File fake, Integer mainPhotoIndex,
                               String category,
                               Integer sortOrder, Boolean isActive, Double oldPrice, Integer wholesaleCount, Double wholesalePrice,
                               String nameUk, String descriptionUk, String nameEn, String descriptionEn) throws Exception {
@@ -53,7 +53,8 @@ public class ProductAPI extends AuthController {
         product.oldPrice = oldPrice;
         product.wholesaleCount = wholesaleCount;
         product.wholesalePrice = wholesalePrice;
-        product.quantity = quantity;
+        product.quantity = quantity == null ? 0 : quantity;
+        product.isQuantityVisible = isQuantityVisible;
         product = product.save();
 
         List<ProductPropertyDTO> properties = ProductPropertyDTO.find("byCategoryUuidAndProductUuidIsNull", product.categoryUuid).fetch();
@@ -157,8 +158,8 @@ public class ProductAPI extends AuthController {
         renderJSON(json);
     }
 
-    public static void update(String client, String uuid, String name, String description, Double price, Integer quantity, Upload photo,
-                              Integer sortOrder, Boolean isActive, Double oldPrice, String properties, Integer wholesaleCount, Double wholesalePrice) throws Exception {
+    public static void update(String client, String uuid, String name, String description, Double price, Integer quantity, Boolean isQuantityVisible,
+                              Upload photo, Integer sortOrder, Boolean isActive, Double oldPrice, String properties, Integer wholesaleCount, Double wholesalePrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -212,6 +213,7 @@ public class ProductAPI extends AuthController {
         product.wholesaleCount = wholesaleCount;
         product.wholesalePrice = wholesalePrice;
         product.quantity = quantity;
+        product.isQuantityVisible = isQuantityVisible;
 
         product.save();
 

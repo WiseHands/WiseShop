@@ -305,6 +305,9 @@
   "editProduct.optionName": "Назва опції",
   "editProduct.optionPrice": "Ціна опції",
   "editProduct.addAddition": "Додати опцію до товару (наприклад, до піци - рукола або томати)",
+  "editProduct.setQuantity": "Ввести кількість товару",
+  "editProduct.showQuantity": "Показувати кількість товарів у магазині",
+
   "payment.payment": "Оплата",
   "payment.paymentTypeCash": "Готівка",
   "payment.paymentTypeOnline": "Онлайн",

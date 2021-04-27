@@ -277,7 +277,7 @@
         margin-right: .5rem;
     }
 
-    .total-additions-price, .total-product-price {
+    .quantity-container, .total-additions-price, .total-product-price {
         display: flex;
     }
 
@@ -624,19 +624,19 @@
         <p class="text-justify">${product.description}</p>
 
         <div class="price-buy-block">
-            <span class="product-price" price="${product.formatDecimal()}">
+            <div class="product-price" price="${product.formatDecimal()}">
                 <div class="total-product-price">
                     <span>&{'page.product.price'}</span>
                     <span class="total-span"></span>
                 </div>
-                #{if product.quantity}
-                <p id="product-is-over">&{'page.product.if.quantity.zero'}</p>
+<!--                #{if product.isQuantityVisible}-->
+<!--                <p id="product-is-over">&{'page.product.if.quantity.zero'}</p>-->
 
-                <div id="product-quantity-container" class="total-additions-price">
-                    <span>&{'page.product.quantity'}</span>
-                    <p id="product-quantity">${product.getProductQuantity()}</p>
-                </div>
-                #{/if}
+<!--                <div id="product-quantity-container" class="quantity-container">-->
+<!--                    <span>&{'page.product.quantity'}</span>-->
+<!--                    <p id="product-quantity">${product.getProductQuantity()}</p>-->
+<!--                </div>-->
+<!--                #{/if}-->
 
                 #{if product.selectedAdditions || product.defaultAdditions}
                 <div class="total-additions-price">
@@ -644,7 +644,7 @@
                     <span class="additions-total-price" total="${totalPriceForDefaultAdditions}"></span>
                 </div>
                 #{/if}
-            </span>
+            </div>
             <button id="add-product-to-cart"
                     class="buy-button btn btn-outline-primary btn-rounded"
                     onClick="addProductToCart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
