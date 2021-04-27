@@ -629,14 +629,14 @@
                     <span>&{'page.product.price'}</span>
                     <span class="total-span"></span>
                 </div>
-<!--                #{if product.isQuantityVisible}-->
-<!--                <p id="product-is-over">&{'page.product.if.quantity.zero'}</p>-->
+                #{if product.isQuantityVisible}
+                <p id="product-is-over">&{'page.product.if.quantity.zero'}</p>
 
-<!--                <div id="product-quantity-container" class="quantity-container">-->
-<!--                    <span>&{'page.product.quantity'}</span>-->
-<!--                    <p id="product-quantity">${product.getProductQuantity()}</p>-->
-<!--                </div>-->
-<!--                #{/if}-->
+                <div id="product-quantity-container" class="quantity-container">
+                    <span>&{'page.product.quantity'}</span>
+                    <p id="product-quantity">${product.getProductQuantity()}</p>
+                </div>
+                #{/if}
 
                 #{if product.selectedAdditions || product.defaultAdditions}
                 <div class="total-additions-price">
@@ -811,9 +811,10 @@
   const totalSpan = document.querySelector('.total-span');
   const additionsTotalPriceContainer = document.querySelector('.additions-total-price');
 
-  document.querySelector('#product-is-over').style.display = 'none';
-
-
+  const productIsOver = document.querySelector('#product-is-over');
+  if (productIsOver !== null) {
+    productIsOver.style.display = 'none';
+  }
 
   (() => {
     const orderTimeList = document.querySelectorAll('[time]');
