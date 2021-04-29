@@ -221,6 +221,28 @@ public class ProductAPI extends AuthController {
         renderJSON(json);
     }
 
+
+    public static void setProductProperties(String client, String uuid, Boolean isActive, Boolean isDishOfDay, Integer discount) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        ProductDTO product = (ProductDTO) ProductDTO.findById(uuid);
+
+        product.isActive = isActive;
+        product.isDishOfDay = isDishOfDay;
+        if (isDishOfDay) {
+            product.oldPrice = product.price;
+            product.price = product.price * discount / 100;
+        }
+        product.save();
+
+        renderJSON(json(product));
+    }
+
+
     public static void delete(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

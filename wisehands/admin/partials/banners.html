@@ -1,0 +1,35 @@
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+    </div>
+    <div class="nav-title">
+        <h5>{{'banners.title' | translate}}</h5>
+    </div>
+    <div class="admin-nav-save-btn">
+        <i class="fa fa-save whiteColor pull-right"
+           ng-click="updateBanners()">
+        </i>
+    </div>
+</nav>
+
+<div class="row text-center">
+    <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+             show="loading"></spinner>
+</div>
+<div class="admin-container">
+
+    <div class="admin-card hoverable settings-shopcart-banner col-sm-12">
+        <h4>{{'banners.inShop' | translate}}</h4>
+        <p>{{'banners.inShopText' | translate}}</p>
+        <input id="show-banner" type="checkbox" class="filled-in checkBoxStyling"
+               ng-model="banner.isBannerOnInShop"/>
+        <label for="show-banner">{{'settings.isShoppingCartBannerOn' | translate}}</label>
+        <input type="text"
+               ng-model="banner.bannerName"
+               placeholder="{{'settings.enterBannerTitle' | translate}}">
+        <input type="number"
+               ng-model="banner.discount"
+               placeholder="{{'banners.enterBannerDiscount' | translate}}">
+    </div>
+
+</div>

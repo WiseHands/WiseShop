@@ -54,6 +54,9 @@ public class ProductDTO extends GenericModel {
     public Boolean isActive;
 
     @Expose
+    public Boolean isDishOfDay;
+
+    @Expose
     public Integer wholesaleCount;
 
     @Expose

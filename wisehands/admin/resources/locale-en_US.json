@@ -176,6 +176,7 @@
   "sideNav.categories": "Categories",
   "sideNav.Analytics": "Analytics",
   "sideNav.Products": "Products",
+  "sideNav.Gift": "Banners",
   "sideNav.Addition": "Addition",
   "sideNav.Feedback": "Feedback",
   "sideNav.QR": "QR Menu",
@@ -368,6 +369,12 @@
   "users.newUserExist": "User with such e-mail already exists",
   "users.deleteMessage1": "Do you really want to delete this user?",
   "users.deleteMessage2": "User deleted.",
+
+  "banners.title": "Banners",
+  "banners.inShop": "Baner w sklepie",
+  "banners.inShopText": "Aby wyświetlić baner informacyjny w sklepie, zaznacz poniższe pole",
+  "banners.enterBannerDiscount": "Wpisz rabat do bannera",
+
   "settings.commissionForClient": "The payment system commission is paid by the client when placing the order",
   "settings.settings": "Settings",
   "settings.favicon": "Favicon",

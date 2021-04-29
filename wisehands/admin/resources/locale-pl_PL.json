@@ -182,6 +182,7 @@
   "sideNav.categories": "Kategorie",
   "sideNav.Analytics": "Analityka",
   "sideNav.Products": "Produkty",
+  "sideNav.Gift": "Banery",
   "sideNav.Addition": "Dodatku",
   "sideNav.Feedback": "Opinie",
   "sideNav.QR": "QR kodu",
@@ -369,6 +370,12 @@
   "users.newUserExist": "Użytkownik z takim e-mailem już istnieje",
   "users.deleteMessage1": "Czy na pewno chcesz usunąć tego użytkownika?",
   "users.deleteMessage2": "Usunięto użytkownika.",
+
+  "banners.title": "Banners",
+  "banners.inShop": "Банер у магазині",
+  "banners.inShopText": "Щоб показувати в інформаційний банер відмітьте поле внизу",
+  "banners.enterBannerDiscount": "Введіть знижку для банера",
+
   "settings.commissionForClient": "Prowizja od systemu płatności jest wypłacana przez klienta podczas składania zamówienia",
   "settings.settings": "Ustawienia",
   "settings.favicon": "Favicon",
