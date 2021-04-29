@@ -23,20 +23,20 @@ angular.module('WiseHands')
       $scope.loading = true;
         console.log('updateBanners => ', $scope.banner);
 
-      //      $http({
-//        method: 'PUT',
-//        url: '/visualsettings',
-//        data: $scope.shopStyling
-//      })
-//        .success(response => {
-//          $scope.loading = false;
-//          $scope.shopStyling = response;
-//          showInfoMsg("SAVED");
-//        }).error(error => {
-//        $scope.loading = false;
-//        console.log(error);
-//        showWarningMsg("ERROR");
-//      });
+      $http({
+        method: 'PUT',
+        url: '/api/banners',
+        data: $scope.banner
+      })
+        .success(response => {
+          $scope.loading = false;
+          $scope.shopStyling = response;
+          showInfoMsg("SAVED");
+        }).error(error => {
+        $scope.loading = false;
+        console.log(error);
+        showWarningMsg("ERROR");
+      });
     };
 
 

@@ -32,6 +32,10 @@ POST    {client}/api/wizard/social-info                 WizardAPI.setSocialNetwo
 POST    {client}/api/sign-up                            WizardAPI.signUp
 POST    {client}/api/sign-in                            WizardAPI.signIn
 
+# ******************** BannerAPI
+PUT        {client}/api/banners                         BannerAPI.update
+
+
 # ******************** ShoppingCartAPI
 OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
 POST        {client}/api/cart                               ShoppingCartAPI.addProduct
