@@ -805,6 +805,7 @@ label.whiteCheckBox::after {
 
 .cardImageBlock {
 	display: block;
+	position: relative;
 }
 
 .price {
@@ -1519,15 +1520,25 @@ input {
 
 .card-product-title {
 	display: flex;
+	width: 100%;
 	justify-content: center;
 	align-items: center;
 	height: 66px;
 	padding: .5rem;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%)
+}
+
+.card-product-title .line-clamp {
+	padding: 0.5rem;
 }
 
 .card-content .card-product-title h5 {
 	border-bottom: none;
-	padding-bottom: 0;
+	padding: 0;
 }
 
 .delivery-list, .payment-list {
