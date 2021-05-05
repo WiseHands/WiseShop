@@ -45,11 +45,16 @@
                         <h5 class="white-text primaryColor text-center line-clamp">{{product.name}}</h5>
                     </div>
                 </div>
-                <div class="card-content">
-                    <input type="checkbox" class="filled-in checkBoxStyling" id="product-is-active" ng-model="product.isActive" />
-                    <label for="product-is-active">{{'products.showInShop' | translate}}</label>
-                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isDishOfDay" />
-                    <label for="filled-in-box">{{'products.isDishOfDay' | translate}}</label>
+                <div class="card-content product-setting-container">
+                    <div class="set-checkbox-content">
+                        <input type="checkbox" class="filled-in checkBoxStyling" id="product-is-active" ng-model="product.isActive" />
+                        <label for="product-is-active">{{'products.showInShop' | translate}}</label>
+                        <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isDishOfDay" />
+                        <label for="filled-in-box">{{'products.isDishOfDay' | translate}}</label>
+                    </div>
+                    <i class="fa fa-save"
+                       ng-click="setProductProperties()">
+                    </i>
                 </div>
             </div>
         </a>

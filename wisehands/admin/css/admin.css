@@ -2975,6 +2975,13 @@ button[_ngcontent-addition-help] {
 	color: black;
 }
 
+.product-setting-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 8px 8px 0 8px;
+}
+
 @media screen and (min-width: 1500px) {
 	.admin-container {
 		max-width: 1300px;
