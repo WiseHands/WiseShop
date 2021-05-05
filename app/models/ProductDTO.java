@@ -54,7 +54,6 @@ public class ProductDTO extends GenericModel {
     public Boolean isActive;
 
     @Expose
-    @Column(columnDefinition = "boolean default false")
     public Boolean isDishOfDay = false;
 
     @Expose

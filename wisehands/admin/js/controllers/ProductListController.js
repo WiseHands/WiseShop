@@ -25,6 +25,10 @@ angular.module('WiseHands')
             });
         };
 
+        $scope.setProductProperties = (event) => {
+            console.log('setProductProperties => ', event.product);
+        }
+
         sideNavInit.sideNav();
 
         function equalizeHeights(selector) {
