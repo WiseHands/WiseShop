@@ -15,6 +15,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static sun.awt.geom.Curve.round;
+
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
     private  static final int PAGE_SIZE = 6;
@@ -235,7 +237,7 @@ public class ProductAPI extends AuthController {
         product.isDishOfDay = isDishOfDay;
         if (isDishOfDay) {
             product.oldPrice = product.price;
-            product.price = product.price * discount / 100;
+            product.price = round(product.price * discount / 100);
         }
         product.save();
 

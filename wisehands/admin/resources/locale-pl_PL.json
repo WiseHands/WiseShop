@@ -208,6 +208,7 @@
   "analytics.tableProductName": "Product name",
   "analytics.tableProductQuantity": "Product quantity",
   "analytics.frequentBuyersTitle": "Często kupujący",
+
   "products.search": "Szukaj",
   "products.products": "Produkty",
   "products.categories": "Kategorie",
@@ -216,6 +217,9 @@
   "products.noAdditions": "Brak opcji",
   "products.addProduct": "Dodaj produkt",
   "products.showMore": "Show more",
+  "products.showInShop": "Show in shop",
+  "products.isDishOfDay": "Dish of day",
+
   "categories.categoryName": "Nazwa Kategorii",
   "categories.noCategory": "Brak kategorii",
   "categories.categoryDescription": "Opis kategorii",

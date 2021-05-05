@@ -25,7 +25,7 @@ angular.module('WiseHands')
 
       $http({
         method: 'PUT',
-        url: '/api/banners',
+        url: '/api/banner',
         data: $scope.banner
       })
         .success(response => {

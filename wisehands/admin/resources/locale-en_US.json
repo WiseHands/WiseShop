@@ -202,6 +202,7 @@
   "analytics.tableProductName": "Product name",
   "analytics.tableProductQuantity": "Product quantity",
   "analytics.frequentBuyersTitle": "Frequent Buyers",
+
   "products.search": "Search",
   "products.products": "Products",
   "products.categories": "Categories",
@@ -210,6 +211,9 @@
   "products.noAdditions": "No Options",
   "products.addProduct": "Add product",
   "products.showMore": "Show more",
+  "products.showInShop": "Show in shop",
+  "products.isDishOfDay": "Dish of day",
+
   "categories.categoryName": "Category name",
   "categories.noCategory": "No categories",
   "categories.categoryDescription": "Category description",

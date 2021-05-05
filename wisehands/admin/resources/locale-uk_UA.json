@@ -205,6 +205,7 @@
   "analytics.total": "Разом",
   "analytics.currency": "ГРН",
   "analytics.today": "Замовлено",
+
   "products.search": "Пошук",
   "products.products": "Товари",
   "products.categories": "Категорії",
@@ -213,6 +214,9 @@
   "products.noAdditions": "Немає додатків",
   "products.addProduct": "Додати товар",
   "products.showMore": "Показати ще",
+  "products.showInShop": "Показати в магазині",
+  "products.isDishOfDay": "Страва дня",
+
   "categories.categoryName": "Назва категорії",
   "categories.noCategory": "Категорії відсутні",
   "categories.addCategory": "Додати категорію",
@@ -381,7 +385,7 @@
   "settings.shoppingCartBannerText": "Щоб показувати в корзині інформаційний банер відмітьте поле внизу",
   "settings.isShoppingCartBannerOn": "Показати банер",
   "settings.enterBannerTitle": "Введіть назву банеру",
-  "settings.enterBannerText": "Введіть текст банеру",
+  "settings.enterBannerText": "Введіть текст для банера",
   "settings.footer": "Footer",
   "settings.loadFooter": "Щоб показувати на сайті внизу сторінки інформацію про Ваш магазин (графік роботи, посилання на сторінки, зворотній зв'язок, контактні дані і т.д.) відмітьте поле внизу",
   "settings.loadLogotype": "Щоб завантажити логотип натисніть сюди, логотип буде автоматично завантажено. Рекомендований розмір 512*512",
