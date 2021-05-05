@@ -26,6 +26,7 @@ angular.module('WiseHands')
         };
 
         $scope.setProductProperties = (event) => {
+
             console.log('setProductProperties => ', event.product);
         }
 
