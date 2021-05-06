@@ -3,6 +3,7 @@ package models;
 
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
+import play.db.jpa.GenericModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class BannerDTO {
+public class BannerDTO extends GenericModel {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -24,10 +25,21 @@ public class BannerDTO {
     public boolean isBannerInShopOn = false;
 
     @Expose
-    public String bannerName;
+    public String name;
 
     @Expose
-    public String bannerDescription;
+    public String description;
+
+    @Expose
+    public double discount;
+
+    public BannerDTO(){}
+
+    public BannerDTO(boolean isBannerInShopOn, String name, double discount){
+        this.isBannerInShopOn = isBannerInShopOn;
+        this.name = name;
+        this.discount = discount;
+    }
 
 
 }

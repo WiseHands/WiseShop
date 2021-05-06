@@ -33,6 +33,8 @@ POST    {client}/api/sign-up                            WizardAPI.signUp
 POST    {client}/api/sign-in                            WizardAPI.signIn
 
 # ******************** BannerAPI
+GET        {client}/api/banners                         BannerAPI.details
+PUT        {client}/api/banners                         BannerAPI.upDate
 PUT        {client}/api/banner/set/dish                 BannerAPI.setDishOfDay
 
 

@@ -6,11 +6,12 @@ angular.module('WiseHands')
 
     $http({
       method: 'GET',
-      url: '/shop/details',
+      url: '/api/banners',
     })
       .then(response => {
         $scope.loading = false;
-        console.log('response', response)
+        $scope.banner = response.data;
+        console.log('/api/banners response', response)
 
       }, error => {
         $scope.loading = false;
@@ -25,16 +26,14 @@ angular.module('WiseHands')
 
       $http({
         method: 'PUT',
-        url: '/api/banner',
+        url: '/api/banners',
         data: $scope.banner
       })
         .success(response => {
           $scope.loading = false;
-          $scope.shopStyling = response;
           showInfoMsg("SAVED");
         }).error(error => {
         $scope.loading = false;
-        console.log(error);
         showWarningMsg("ERROR");
       });
     };

@@ -124,8 +124,9 @@ public class ShopDTO extends GenericModel {
     @Expose
     public String locale;
 
-    @OneToMany(orphanRemoval=true)
-    public List<BannerDTO> bannerList;
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public BannerDTO banner;
 
     @OneToOne(cascade=CascadeType.ALL)
     public BalanceDTO balance;
