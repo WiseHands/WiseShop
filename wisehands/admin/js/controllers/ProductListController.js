@@ -41,7 +41,7 @@ angular.module('WiseHands')
       const _setDishOfDay = product => {
         $http({
           method: 'PUT',
-          url: '/api/products/',
+          url: '/api/banner/set/dish',
           data: product
         })
           .then(() => {},
