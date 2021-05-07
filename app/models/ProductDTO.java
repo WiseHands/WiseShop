@@ -128,7 +128,7 @@ public class ProductDTO extends GenericModel {
 
     public String formatDecimal() {
         Double number = this.price;
-        if(this.priceOfDay > 0) number = this.priceOfDay;
+        if(this.priceOfDay != null && this.priceOfDay > 0) number = this.priceOfDay;
         if(this.priceWithAdditions != null) number = number + this.priceWithAdditions;
 
         float epsilon = 0.004f; // 4 tenths of a cent
