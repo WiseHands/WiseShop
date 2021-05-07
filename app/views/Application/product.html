@@ -537,6 +537,7 @@
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}'
           type='image/x-icon'>
 
+    <link href="/wisehands/shop/css/shop.css" rel="stylesheet" />
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 
@@ -607,6 +608,7 @@
             <span class="product-price" price="${product.formatDecimal()}">
                 <div class="total-product-price">
                     <span>&{'page.product.price'}</span>
+                    <span class="discount-price">${product.formatDecimalOldPrice()}</span>
                     <span class="total-span"></span>
                 </div>
                 #{if product.selectedAdditions || product.defaultAdditions}

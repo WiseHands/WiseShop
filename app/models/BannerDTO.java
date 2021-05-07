@@ -31,11 +31,11 @@ public class BannerDTO extends GenericModel {
     public String description;
 
     @Expose
-    public double discount;
+    public int discount;
 
     public BannerDTO(){}
 
-    public BannerDTO(boolean isBannerInShopOn, String name, double discount){
+    public BannerDTO(boolean isBannerInShopOn, String name, int discount){
         this.isBannerInShopOn = isBannerInShopOn;
         this.name = name;
         this.discount = discount;
