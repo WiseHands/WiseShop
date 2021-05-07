@@ -33,6 +33,9 @@ public class ProductDTO extends GenericModel {
     public Double priceWithAdditions;
 
     @Expose
+    public Double priceOfDay = 0D;
+
+    @Expose
     public String fileName;
 
     @ManyToOne
@@ -125,9 +128,9 @@ public class ProductDTO extends GenericModel {
 
     public String formatDecimal() {
         Double number = this.price;
-        if(this.priceWithAdditions != null){
-            number = number + this.priceWithAdditions;
-        }
+        if(this.priceOfDay > 0) number = this.priceOfDay;
+        if(this.priceWithAdditions != null) number = number + this.priceWithAdditions;
+
         float epsilon = 0.004f; // 4 tenths of a cent
         if (Math.abs(Math.round(number) - number) < epsilon) {
             return String.format("%10.0f", number); // sdb

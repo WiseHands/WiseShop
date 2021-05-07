@@ -194,8 +194,44 @@
             </div>
         #{/if}
 
-
     <div class="all-items grid-view">
+        #{if dishOfDay}
+        <div class="item-card">
+            <div class="card inline hoverable" style="">
+                <div class="noselect hm-white-slight z-depth-1" >
+                    #{if qr_uuid}
+                    %{qrParam = "?qr_uuid="}%
+                    <a href="/${language}/product/${dishOfDay.uuid}${qrParam}${qr_uuid}">
+                        <img src="/public/product_images/${shop.uuid}/${dishOfDay.mainImage.filename}"
+                             class="item-img" alt="${dishOfDay.name}" loading="lazy">
+                    </a>
+                    #{/if}
+                    #{else}
+                    <a href="/${language}/product/${dishOfDay.uuid}${qrParam}${qr_uuid}">
+                        <img src="/public/product_images/${shop.uuid}/${dishOfDay.mainImage.filename}"
+                             class="item-img" alt="${dishOfDay.name}" loading="lazy">
+                    </a>
+                    #{/else}
+                </div>
+                <div class="card-block text-xs-center">
+                    <div class="item-card-title">
+                        <h4 class="card-title productNameTruncate"><a href="/${language}/product/${dishOfDay.uuid}">${dishOfDay.name}</a></h4>
+                        <div class="item-card-action-price card-title">
+                            <p class="current-price">${dishOfDay.formatDecimal()} <span class="currency">uah</span></p>
+                            <p class="discount-price">${dishOfDay.formatDecimalOldPrice()}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer"></div>
+                    <div class="item-card-text">
+                        <p class="card-text productDescriptionTruncate" data-toggle="tooltip" data-placement="top" title="${dishOfDay.description}">${dishOfDay.description}</p>
+                    </div>
+                    <div class="item-card-action">
+                        <button type="button" class="btn btn-outline-primary btn-rounded" onclick="buyStart({uuid: '${dishOfDay.uuid}', qrUuid: '${qr_uuid}'})">&{'page.product.buy'}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        #{/if}
         %{
            for(_product in products) {
         }%

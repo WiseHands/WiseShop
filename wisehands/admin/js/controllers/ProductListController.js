@@ -18,7 +18,6 @@ angular.module('WiseHands')
               $scope.isProductsInShop = true;
               $scope.hideMoreButton = true;
             }
-            console.log($scope.products);
 
           }, function errorCallback(data) {
             spinnerService.hide('mySpinner');
@@ -45,12 +44,13 @@ angular.module('WiseHands')
       const _setDishOfDay = product => {
         $http({
           method: 'PUT',
-          url: '/api/banner/set/dish',
+          url: '/api/product/set/dish',
           data: product
         })
-          .then(() => {
-            },
-            () => spinnerService.hide('mySpinner'))
+          .then((response) => {
+          $scope.products = response.data;
+          },
+            () => spinnerService.hide('mySpinner'));
       };
 
       sideNavInit.sideNav();

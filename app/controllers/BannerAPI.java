@@ -1,9 +1,7 @@
 package controllers;
 
 import models.BannerDTO;
-import models.ProductDTO;
 import models.ShopDTO;
-import models.VisualSettingsDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -51,36 +49,5 @@ public class BannerAPI extends AuthController{
         renderJSON(json(banner));
 
     }
-
-    public static void setDishOfDay(String client) throws Exception {
-        ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
-        checkAuthentification(shop);
-
-        JSONParser parser = new JSONParser();
-        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
-        System.out.println("jsonBody => " + jsonBody.get("isDishOfDay"));
-
-        Boolean isDishOfDay = Boolean.parseBoolean(String.valueOf(jsonBody.get("isDishOfDay")));
-        if (isDishOfDay){
-            String oldDishQuery = "select p from ProductDTO p where p.isDishOfDay = true";
-            ProductDTO oldDishProduct = ProductDTO.find(oldDishQuery).first();
-            if(oldDishProduct != null){
-                oldDishProduct.isDishOfDay = false;
-                oldDishProduct.save();
-            }
-
-        }
-
-        ProductDTO newDishProduct = ProductDTO.findById((String) jsonBody.get("uuid"));
-        newDishProduct.isDishOfDay = isDishOfDay;
-        newDishProduct.save();
-        renderJSON(json(newDishProduct));
-    }
-
-
-
 
 }

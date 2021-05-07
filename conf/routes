@@ -35,7 +35,6 @@ POST    {client}/api/sign-in                            WizardAPI.signIn
 # ******************** BannerAPI
 GET        {client}/api/banners                         BannerAPI.details
 PUT        {client}/api/banners                         BannerAPI.upDate
-PUT        {client}/api/banner/set/dish                 BannerAPI.setDishOfDay
 
 
 # ******************** ShoppingCartAPI
@@ -163,6 +162,8 @@ GET     {client}/api/product/{uuid}                         ProductAPI.details
 POST    {client}/api/product                                ProductAPI.create
 PUT     {client}/api/product                                ProductAPI.update
 DELETE  {client}/api/product/{uuid}                         ProductAPI.delete
+PUT     {client}/api/product/set/dish                       ProductAPI.setDishOfDay
+
 
 
 POST    {client}/product/{productUuid}/image              	ProductImageAPI.add

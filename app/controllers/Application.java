@@ -157,6 +157,8 @@ public class Application extends Controller {
         }
         products = productList;
 
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
         System.out.println("request.params qr_uuid.isEmpty() in languageChooser => " + qr_uuid);
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
@@ -165,7 +167,7 @@ public class Application extends Controller {
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language, qr_uuid);
         }
-        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
+        renderTemplate("Application/shop.html", shop, dishOfDay, products, language, categories, qr_uuid);
     }
 
     public static void index(String client, String language) {
@@ -229,6 +231,8 @@ public class Application extends Controller {
         }
         products = productList;
 
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
@@ -240,7 +244,7 @@ public class Application extends Controller {
         }
 
         System.out.println("DEBUG renderTemplate Application/shop.html");
-        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
+        renderTemplate("Application/shop.html", shop, dishOfDay, products, language, categories, qr_uuid);
     }
 
     public static void shop(String client, String language) {
@@ -304,13 +308,19 @@ public class Application extends Controller {
         }
         products = productList;
 
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
         System.out.println("request.params qr_uuid.isEmpty() in Shop => " + qr_uuid);
 
 
-        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid);
+
+
+
+
+        renderTemplate("Application/shop.html", shop, dishOfDay, products, language, categories, qr_uuid);
     }
 
     public static void categoryOld(String client, String uuid) {
