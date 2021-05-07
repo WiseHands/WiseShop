@@ -480,7 +480,28 @@ main {
                                   supported by Chrome and Opera */
     cursor: pointer;
     box-shadow: none;
+    position: relative;
 }
+
+.dish-0f-day-title {
+    position: absolute;
+    top: 0;
+    padding: 5px 10px;
+    background-color: #0e2935;
+    color: #fff;
+    font-size: 20px;
+}
+
+.dish-0f-day-discount {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px 10px;
+    background-color: #0e2935;
+    color: #fff;
+    font-size: 20px;
+}
+
 .fulltext {
     height:auto !important;
     /*line-height: 23px !important;*/
