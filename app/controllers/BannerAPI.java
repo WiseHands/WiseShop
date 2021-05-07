@@ -63,10 +63,21 @@ public class BannerAPI extends AuthController{
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         System.out.println("jsonBody => " + jsonBody.get("isDishOfDay"));
 
-        ProductDTO product = ProductDTO.findById((String) jsonBody.get("uuid"));
-        product.isDishOfDay = Boolean.parseBoolean(String.valueOf(jsonBody.get("isDishOfDay")));
-        product.save();
-        renderJSON(json(product));
+        Boolean isDishOfDay = Boolean.parseBoolean(String.valueOf(jsonBody.get("isDishOfDay")));
+        if (isDishOfDay){
+            String oldDishQuery = "select p from ProductDTO p where p.isDishOfDay = true";
+            ProductDTO oldDishProduct = ProductDTO.find(oldDishQuery).first();
+            if(oldDishProduct != null){
+                oldDishProduct.isDishOfDay = false;
+                oldDishProduct.save();
+            }
+
+        }
+
+        ProductDTO newDishProduct = ProductDTO.findById((String) jsonBody.get("uuid"));
+        newDishProduct.isDishOfDay = isDishOfDay;
+        newDishProduct.save();
+        renderJSON(json(newDishProduct));
     }
 
 

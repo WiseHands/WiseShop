@@ -32,9 +32,13 @@ angular.module('WiseHands')
         console.log('setProductProperties => ', event.product);
       };
 
-      $scope.setDishOfDay = product => {
-        const dishOfDayProduct = $scope.products.find(product => product.isDishOfDay) || {};
-        if (dishOfDayProduct.uuid !== product.uuid) dishOfDayProduct.isDishOfDay = false;
+      $scope.setDishOfDay = (event, product) => {
+        const isClickedProductIsDishOfDay = $scope.products.find(item => item.uuid === product.uuid && item.isDishOfDay);
+        if (isClickedProductIsDishOfDay) isClickedProductIsDishOfDay.isDishOfDay = false;
+        else {
+          $scope.products.forEach(product => product.isDishOfDay = false);
+          $scope.products.find(item => item.uuid === product.uuid).isDishOfDay = !product.isDishOfDay;
+        }
         _setDishOfDay(product);
       };
 
@@ -44,7 +48,8 @@ angular.module('WiseHands')
           url: '/api/banner/set/dish',
           data: product
         })
-          .then(() => {},
+          .then(() => {
+            },
             () => spinnerService.hide('mySpinner'))
       };
 

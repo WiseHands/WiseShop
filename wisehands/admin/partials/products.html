@@ -62,7 +62,7 @@
                            ng-model="product.isActive"/>
                     <label for="{{product.uuid}}">{{'products.showInShop' | translate}}</label>
                     <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid + $index}}"
-                           ng-model="product.isDishOfDay" ng-click="setDishOfDay(this.product)"/>
+                           ng-checked="product.isDishOfDay" ng-click="setDishOfDay($event, this.product)"/>
                     <label for="{{product.uuid + $index}}">{{'products.isDishOfDay'
                         | translate}}</label>
                 </div>
