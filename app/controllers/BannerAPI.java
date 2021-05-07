@@ -27,7 +27,7 @@ public class BannerAPI extends AuthController{
         System.out.println("upDate jsonBody => " + jsonBody);
         boolean isBannerInShopOn = Boolean.parseBoolean(String.valueOf(jsonBody.get("isBannerInShopOn")));
         String name = (String) jsonBody.get("name");
-        double discount = Double.parseDouble(String.valueOf(jsonBody.get("discount")));
+        Integer discount = Integer.parseInt(String.valueOf(jsonBody.get("discount")));
 
         BannerDTO banner = BannerDTO.find("byIsBannerInShopOn", isBannerInShopOn).first();
         if (banner == null) {

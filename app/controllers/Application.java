@@ -159,6 +159,7 @@ public class Application extends Controller {
 
         ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
 
+        System.out.println("dishOfDay language => " + dishOfDay);
         System.out.println("request.params qr_uuid.isEmpty() in languageChooser => " + qr_uuid);
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
@@ -232,6 +233,8 @@ public class Application extends Controller {
         products = productList;
 
         ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
+        System.out.println("dishOfDay in Index => " + dishOfDay);
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
@@ -310,15 +313,12 @@ public class Application extends Controller {
 
         ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
 
+        System.out.println("dishOfDay in Shop => " + dishOfDay);
+
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
         System.out.println("request.params qr_uuid.isEmpty() in Shop => " + qr_uuid);
-
-
-
-
-
 
         renderTemplate("Application/shop.html", shop, dishOfDay, products, language, categories, qr_uuid);
     }
