@@ -163,6 +163,8 @@ POST    {client}/api/product                                ProductAPI.create
 PUT     {client}/api/product                                ProductAPI.update
 DELETE  {client}/api/product/{uuid}                         ProductAPI.delete
 PUT     {client}/api/product/set/dish                       ProductAPI.setDishOfDay
+PUT     {client}/api/product/set/active/product             ProductAPI.setActiveProduct
+GET     {client}/api/products/marked                        ProductAPI.getMarkedProducts
 
 
 

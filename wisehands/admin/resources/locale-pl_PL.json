@@ -182,6 +182,7 @@
   "sideNav.categories": "Kategorie",
   "sideNav.Analytics": "Analityka",
   "sideNav.Products": "Produkty",
+  "sideNav.MarkedProducts": "Mark produkty",
   "sideNav.Gift": "Banery",
   "sideNav.Addition": "Dodatku",
   "sideNav.Feedback": "Opinie",
@@ -198,6 +199,7 @@
   "sideNav.Dashboard": "Błotnik",
   "sideNav.Pages": "Strony",
   "sideNav.SignOut": "Wyloguj się",
+
   "analytics.analytics": "Analityka",
   "analytics.days": "dni",
   "analytics.purchases": "Zakupy",

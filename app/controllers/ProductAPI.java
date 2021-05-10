@@ -161,6 +161,24 @@ public class ProductAPI extends AuthController {
         renderJSON(json);
     }
 
+    public static void getMarkedProducts(String client, int page) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        List<ProductDTO> products;
+
+        products = ProductDTO.find(
+                "select p from ProductDTO p, CategoryDTO c " +
+                        "where p.category = c and p.shop = ?1 and c.isHidden = ?2 " +
+                        "and p.isActive = 0 order by p.sortOrder asc", shop, false
+        ).fetch();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(products);
+        renderJSON(json);
+    }
+
     public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
                               Integer sortOrder, Boolean isActive, Double oldPrice, String properties,
                               Integer wholesaleCount, Double wholesalePrice) throws Exception {
@@ -310,6 +328,35 @@ public class ProductAPI extends AuthController {
 
         List<ProductDTO> products;
 
+        products = ProductDTO.find(
+                "select p from ProductDTO p, CategoryDTO c " +
+                        "where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc", shop, false
+        ).fetch();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(products);
+
+        renderJSON(json);
+
+    }
+
+    public static void setActiveProduct(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+
+        Boolean isActive = Boolean.parseBoolean(String.valueOf(jsonBody.get("isActive")));
+        System.out.println("setActiveProduct => " + isActive);
+
+        ProductDTO product = ProductDTO.findById((String) jsonBody.get("uuid"));
+        product.isActive = isActive;
+        product.save();
+        List<ProductDTO> products;
         products = ProductDTO.find(
                 "select p from ProductDTO p, CategoryDTO c " +
                         "where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc", shop, false

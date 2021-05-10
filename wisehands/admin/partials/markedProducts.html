@@ -4,7 +4,7 @@
     </div>
     <div class="nav-menu"></div>
     <div class="nav-title" ng-hide="searchField">
-        <h5>{{'sideNav.Products' | translate}}</h5>
+        <h5>{{'sideNav.MarkedProducts' | translate}}</h5>
     </div>
     <form class=" waves-effect waves-light" ng-show="searchField">
         <input class="search-orders form-control noMarginForSearchInput" type="text"
@@ -15,17 +15,10 @@
            ng-model="query"></i>
         <i ng-click="toggle()" ng-show="searchField" class="nav-search-btn  fa fa-search" aria-hidden="true"
            ng-model="query" style="color: #039be5"></i>
-        <a class="admin-nav-save-btn"
-           type="button"
-           href="#/products/new">
-            <i class="fa fa-plus-circle pull-right whiteColor">
-            </i>
-        </a>
     </div>
 </nav>
 
 <div class="noSidePadding cardTopPadding admin-all-products">
-
     <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
     <div class="spinner-block">
         <spinner class="center-spinner" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
@@ -62,10 +55,6 @@
                     <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid}}"
                            ng-model="product.isActive" ng-click="setActiveProduct($event, this.product)"/>
                     <label for="{{product.uuid}}">{{'products.showInShop' | translate}}</label>
-                    <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid + $index}}"
-                           ng-checked="product.isDishOfDay" ng-click="setDishOfDay($event, this.product)"/>
-                    <label for="{{product.uuid + $index}}">{{'products.isDishOfDay'
-                        | translate}}</label>
                 </div>
             </div>
         </div>
@@ -75,10 +64,10 @@
 <h4 ng-show="products.length === 0" class="text-center">
     <div class="no-items-store">
         <img src="/wisehands/assets/images/noproducts.svg">
-        <p>{{'products.noProducts' | translate}}</p>
-        <a href="#/products/new">
+        <p>{{'products.noMarkedProducts' | translate}}</p>
+        <a href="#/products">
             <div class="add-product-noproduct">
-                <p>{{'products.addProduct' | translate}}</p>
+                <p>{{'products.markProduct' | translate}}</p>
             </div>
         </a>
     </div>

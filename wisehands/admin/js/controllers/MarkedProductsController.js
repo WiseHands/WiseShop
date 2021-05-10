@@ -1,5 +1,5 @@
 angular.module('WiseHands')
-  .controller('ProductListController', ['$scope', '$http', 'spinnerService', 'sideNavInit', 'signout',
+  .controller('MarkedProductsController', ['$scope', '$http', 'spinnerService', 'sideNavInit', 'signout',
     function ($scope, $http, spinnerService, sideNavInit, signout) {
       $scope.loading = true;
       $scope.wrongMessage = false;
@@ -7,7 +7,7 @@ angular.module('WiseHands')
         spinnerService.show('mySpinner');
         $http({
           method: 'GET',
-          url: '/api/products'
+          url: '/api/products/marked'
         })
           .then(function successCallback(response) {
             spinnerService.hide('mySpinner');
@@ -26,6 +26,7 @@ angular.module('WiseHands')
           });
       };
 
+
       $scope.setActiveProduct = (event, product) => {
         $http({
           method: 'PUT',
@@ -33,29 +34,7 @@ angular.module('WiseHands')
           data: product
         })
           .then((response) => {
-          $scope.products = response.data;
-         },
-          () => spinnerService.hide('mySpinner'));
-       };
-
-      $scope.setDishOfDay = (event, product) => {
-        const isClickedProductIsDishOfDay = $scope.products.find(item => item.uuid === product.uuid && item.isDishOfDay);
-        if (isClickedProductIsDishOfDay) isClickedProductIsDishOfDay.isDishOfDay = false;
-        else {
-          $scope.products.forEach(product => product.isDishOfDay = false);
-          $scope.products.find(item => item.uuid === product.uuid).isDishOfDay = !product.isDishOfDay;
-        }
-        _setDishOfDay(product);
-      };
-
-      const _setDishOfDay = product => {
-        $http({
-          method: 'PUT',
-          url: '/api/product/set/dish',
-          data: product
-        })
-          .then((response) => {
-          $scope.products = response.data;
+          $scope.products = response.data.filter(product => product.isActive == false);
           },
             () => spinnerService.hide('mySpinner'));
       };
