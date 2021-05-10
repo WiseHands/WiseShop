@@ -126,8 +126,11 @@ public class Application extends Controller {
         Lang.change(language);
         System.out.println("LanguageForShop " + language);
 
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
         List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 " +
+                "and c.isHidden = ?2 and p.isActive = ?3 and p.isDishOfDay = 0 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
@@ -157,7 +160,6 @@ public class Application extends Controller {
         }
         products = productList;
 
-        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
 
         System.out.println("dishOfDay language => " + dishOfDay);
         System.out.println("request.params qr_uuid.isEmpty() in languageChooser => " + qr_uuid);
@@ -202,7 +204,9 @@ public class Application extends Controller {
         }
 
         List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c " +
+                "and p.shop = ?1 and c.isHidden = ?2 " +
+                "and p.isActive = ?3 and p.isDishOfDay = 0 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
@@ -296,7 +300,9 @@ public class Application extends Controller {
         }
 
         List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c " +
+                "and p.shop = ?1 and c.isHidden = ?2 " +
+                "and p.isActive = ?3 and p.isDishOfDay = 0 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
 
         for (ProductDTO product : products) {
@@ -335,27 +341,24 @@ public class Application extends Controller {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
+
         Http.Header acceptLanguage = request.headers.get("accept-language");
         String languageFromHeader = LanguageForShop.getLanguageFromAcceptHeaders(acceptLanguage);
         language = LanguageForShop.setLanguageForShop(language, languageFromHeader);
+
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<CategoryDTO> categories = shop.getActiveCategories(language);
+
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
         List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 " +
+                "and c.isHidden = ?2 and p.isActive = ?3 " +
+                "and p.isDishOfDay = 0 and p.categoryUuid = ?4 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
-        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
-        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
-        for(PageConstructorDTO _page: pageList){
-            _page = Translation.setTranslationForPage(language, _page);
-            translationPageList.add(_page);
-        }
 
-        String qr_uuid = "";
-        if (request.params.get("qr_uuid") != null){
-            qr_uuid = request.params.get("qr_uuid");
-        }
+        String qr_uuid = request.params.get("qr_uuid") != null ? request.params.get("qr_uuid") : "";
 
-        shop.pagesList = translationPageList;
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
@@ -370,7 +373,16 @@ public class Application extends Controller {
         }
         Translation.setTranslationForShop(language, shop);
 
-        String urlToMain = "/" + language;
+        List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
+        List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
+        for(PageConstructorDTO _page: pageList){
+            _page = Translation.setTranslationForPage(language, _page);
+            translationPageList.add(_page);
+        }
+
+        shop.pagesList = translationPageList;
+
+        String urlToMain = "/" + language + "/shop";
         String urlToCategory = "/" + language + "/category/" + category.uuid;
         if (qr_uuid != null){
             urlToMain += "?qr_uuid=" + qr_uuid;
@@ -378,7 +390,8 @@ public class Application extends Controller {
         }
 
         System.out.println("request.params qr_uuid.isEmpty() in category => " + qr_uuid);
-        renderTemplate("Application/category.html", shop, category, categories, productList, language, qr_uuid, urlToMain, urlToCategory);
+        renderTemplate("Application/category.html", shop, category, categories, productList, dishOfDay,
+                language, qr_uuid, urlToMain, urlToCategory);
     }
 
     public static void productOld(String client, String uuid) {
@@ -432,7 +445,7 @@ public class Application extends Controller {
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
 
-        String mainShopUrl = "/" + language;
+        String mainShopUrl = "/" + language + "/shop";
         String urlToCategory = "/" + language + "/category/" + product.category.uuid;
         if (qr_uuid != null){
             mainShopUrl += "?qr_uuid=" + qr_uuid;

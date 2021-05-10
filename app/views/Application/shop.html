@@ -287,7 +287,7 @@
     </div>
     <div class="all-items list-view">
         #{if dishOfDay}
-        <div class="card item-card-list hoverable">
+            <div class="card item-card-list hoverable">
             <div class="item-card-list-img noselect hm-white-slight" >
                 #{if qr_uuid}
                 %{qrParam = "?qr_uuid="}%
@@ -323,7 +323,6 @@
                 </div>
             </div>
         </div>
-
         #{/if}
         %{
         for(_product in products) {
