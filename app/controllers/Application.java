@@ -420,6 +420,8 @@ public class Application extends Controller {
         shop.pagesList = translationPageList;
 
         ProductDTO product = ProductDTO.findById(uuid);
+        System.out.println("product =>" + product.images);
+
         CategoryDTO category = product.category;
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         product.feedbackList = DataBaseQueries.getFeedbackList(product);

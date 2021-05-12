@@ -1160,6 +1160,7 @@ input {
 .load-product-image {
     flex: 50%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 525px;

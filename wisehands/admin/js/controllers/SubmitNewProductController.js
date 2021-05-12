@@ -48,7 +48,7 @@ angular.module('WiseHands')
         var file = e.target.files[0];
         var reader = new FileReader();
         if (file) {
-          document.querySelector(".error-text").style.display = "none";
+          // document.querySelector(".error-text").style.display = "none";
           document.getElementById("add-product-icon").style.display = "none";
           document.querySelector(".load-product-image").classList.remove("load-product-image-border");
         }
@@ -59,7 +59,7 @@ angular.module('WiseHands')
           img.onload = function () {
 
             var MAX_WIDTH = 700;
-            var MAX_HEIGHT = 525;
+            var MAX_HEIGHT = 325;
             height = MAX_HEIGHT;
             width = MAX_WIDTH;
 
@@ -86,7 +86,7 @@ angular.module('WiseHands')
 
           };
           img.src = event.target.result;
-          $scope.editImage(event.target.result, 0);
+          // $scope.editImage(event.target.result, 0);
 
         };
         if (file && file.type.match('image.*')) {
