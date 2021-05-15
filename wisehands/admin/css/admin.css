@@ -1159,10 +1159,6 @@ input {
 
 .load-product-image {
     flex: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 525px;
     margin: 1rem;
     cursor: pointer;
@@ -1206,11 +1202,12 @@ input {
 }
 
 .load-product-image img {
-    min-height: 525px;
     max-width: 100%;
     max-height: 100%;
-    overflow: hidden;
-    object-fit: cover;
+}
+
+.load-product-image .carousel-thumbnails {
+    margin-bottom: 0;
 }
 
 .error-text {

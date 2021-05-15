@@ -1,21 +1,20 @@
 angular.module('WiseHands')
   .controller('SubmitNewProductController', [
-    '$scope', '$location', '$http', 'signout', '$uibModal',
-    function ($scope, $location, $http, signout, $uibModal) {
-
-      $scope.product = {
-        isActive: true
-      };
+    '$scope', '$location', '$http', '$uibModal',
+    function ($scope, $location, $http, $uibModal) {
+      $scope.product = {isActive: true};
+      $scope.productImages = [];
+      $scope.productImagesDTO = [];
 
       $http({
         method: 'GET',
         url: '/api/category'
       })
-        .then(function successCallback(response) {
+        .then(response => {
           $scope.NumberOfCategoriesToShow = 6;
           $scope.categories = response.data;
           $scope.loading = false;
-        }, function errorCallback(error) {
+        }, error => {
           $scope.loading = false;
           console.log(error);
         });
@@ -32,76 +31,47 @@ angular.module('WiseHands')
         document.querySelector(".show-more-btn").style.display = 'block';
       }
 
-
-      var fd = new FormData();
-
-      var imageLoader = document.getElementById('imageLoader');
-      imageLoader.addEventListener('change', handleImage, false);
-      var canvas = document.getElementById('imageCanvas');
-      $scope.productImages = [];
-      $scope.productImagesDTO = [];
-
-      function handleImage(e) {
-        $scope.$apply(function () {
-          $scope.loading = true;
-        });
-        var file = e.target.files[0];
-        var reader = new FileReader();
-        if (file) {
-          // document.querySelector(".error-text").style.display = "none";
-          document.getElementById("add-product-icon").style.display = "none";
-          document.querySelector(".load-product-image").classList.remove("load-product-image-border");
-        }
-
-        reader.onloadend = function (event) {
-
-          var img = new Image();
-          img.onload = function () {
-
-            var MAX_WIDTH = 700;
-            var MAX_HEIGHT = 325;
-            height = MAX_HEIGHT;
-            width = MAX_WIDTH;
-
-            canvas.width = width;
-            canvas.height = height;
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-            var dataURL = canvas.toDataURL('image/jpeg', 0.9);
-
-            var blob = dataURItoBlob(dataURL);
-
-            $scope.$apply(function () {
-              if (!$scope.product || $scope.product.mainPhoto) {
-                $scope.product = {};
-                $scope.product.mainPhoto = 0;
-              }
-              $scope.product.mainPhoto = 0;
-              $scope.productImages.push(dataURL);
-              $scope.productImagesDTO.push(blob);
-              $scope.loading = false;
-
-            });
-
-
-          };
-          img.src = event.target.result;
-          // $scope.editImage(event.target.result, 0);
-
-        };
-        if (file && file.type.match('image.*')) {
-          reader.readAsDataURL(e.target.files[0]);
-        } else {
-          $scope.$apply(function () {
-            $scope.loading = false;
-          });
-        }
-
-      }
-
       $scope.loadImage = function () {
         $('#imageLoader').click();
       };
+
+      const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+
+      const dataURItoBlob = dataURI => {
+        const binary = atob(dataURI.split(',')[1]);
+        const binaryArray = [];
+        [...binary].forEach((item, index) => binaryArray.push(binary.charCodeAt(index)));
+
+        return new Blob([new Uint8Array(binaryArray)], {type: 'image/jpeg'});
+      }
+
+      $('#imageLoader').change(event => handleImage(event.originalEvent));
+
+      const handleImage = async event => {
+        const file = event.target.files[0];
+        const convertedFile = await toBase64(file);
+
+
+// TODO: handle this validation using data model + productImagesDto should be created on submit form
+        // if (file) {
+        //   document.querySelector(".error-text").style.display = "none";
+        //   document.querySelector(".load-product-image").classList.remove("load-product-image-border");
+        // }
+
+
+
+        $scope.$apply(() => {
+          $scope.product.mainPhoto = 0;
+          $scope.productImages.push(convertedFile);
+          $scope.productImagesDTO.push(dataURItoBlob(convertedFile));
+          $scope.loading = false;
+        })
+      }
 
       $scope.setMainPhotoIndex = function (index) {
         if ($scope.product) {
@@ -232,11 +202,12 @@ angular.module('WiseHands')
         }
 
         if (!$scope.selectedCategoryId) {
-            document.getElementById('error-select-category').style.display = "block";
-            return;
+          document.getElementById('error-select-category').style.display = "block";
+          return;
         }
 
         $scope.loading = true;
+        const fd = new FormData();
         for (var i = 0; i < $scope.productImagesDTO.length; i++) {
           var blob = $scope.productImagesDTO[i];
           fd.append("photos[" + i + "]", blob);
@@ -273,15 +244,6 @@ angular.module('WiseHands')
           });
       };
     }]);
-
-function dataURItoBlob(dataURI) {
-  var binary = atob(dataURI.split(',')[1]);
-  var array = [];
-  for (var i = 0; i < binary.length; i++) {
-    array.push(binary.charCodeAt(i));
-  }
-  return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
-}
 
 function showWarningMsg(msg) {
   toastr.clear();

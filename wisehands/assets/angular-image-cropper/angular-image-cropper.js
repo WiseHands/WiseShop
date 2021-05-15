@@ -1252,4 +1252,4 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-//# sourceMappingURL=angular-image-cropper.js.map
+//# sourceMappingURL=angular-image-cropper-component.js.map
