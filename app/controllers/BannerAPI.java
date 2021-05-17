@@ -12,7 +12,7 @@ public class BannerAPI extends AuthController{
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        renderJSON(json(BannerDTO.findAll().get(0)));
+        renderJSON(json(shop.banner));
     }
 
     public static void upDate(String client) throws Exception {
@@ -29,20 +29,17 @@ public class BannerAPI extends AuthController{
         String name = (String) jsonBody.get("name");
         Integer discount = Integer.parseInt(String.valueOf(jsonBody.get("discount")));
 
-        BannerDTO banner = BannerDTO.find("byIsBannerInShopOn", isBannerInShopOn).first();
+        BannerDTO banner = BannerDTO.find("select b from BannerDTO b where b.shop = ?1 and b.isBannerInShopOn = ?2", shop, isBannerInShopOn).first();
         if (banner == null) {
-            BannerDTO createBanner = new BannerDTO(isBannerInShopOn, name, discount);
-            createBanner.save();
-            shop.banner = createBanner; shop.save();
-            renderJSON(json(createBanner));
+            banner = new BannerDTO(shop, isBannerInShopOn, name, discount); banner.save();
+            shop.banner = banner; shop.save();
+            renderJSON(json(banner));
         } else {
             banner.isBannerInShopOn = isBannerInShopOn;
             banner.name = name;
-            banner.discount = discount;
+            banner.discount = discount; banner.save();
             shop.banner = banner; shop.save();
-
             System.out.println("createBanner => " + banner.isBannerInShopOn);
-
             banner.save();
         }
 

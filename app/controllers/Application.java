@@ -101,6 +101,7 @@ public class Application extends Controller {
     }
 
     public static void languageChooser(String client) {
+        System.out.println("client info in languageChooser() => " + client);
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -126,7 +127,7 @@ public class Application extends Controller {
         Lang.change(language);
         System.out.println("LanguageForShop " + language);
 
-        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1 and p.shop = ?2", true, shop).first();
 
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 " +
@@ -161,9 +162,6 @@ public class Application extends Controller {
         products = productList;
 
 
-        System.out.println("dishOfDay language => " + dishOfDay);
-        System.out.println("request.params qr_uuid.isEmpty() in languageChooser => " + qr_uuid);
-
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
@@ -174,7 +172,7 @@ public class Application extends Controller {
     }
 
     public static void index(String client, String language) {
-        System.out.println("client info " + client);
+        System.out.println("client info in index() =>" + client);
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -236,15 +234,11 @@ public class Application extends Controller {
         }
         products = productList;
 
-        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1 and p.shop = ?2", true, shop).first();
 
-        System.out.println("dishOfDay in Index => " + dishOfDay);
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
-
-        System.out.println("request.params qr_uuid.isEmpty() in Index => " + qr_uuid);
-
 
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
@@ -255,6 +249,8 @@ public class Application extends Controller {
     }
 
     public static void shop(String client, String language) {
+        System.out.println("client info in shop() => " + client);
+
         Date date = new Date();
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -317,14 +313,12 @@ public class Application extends Controller {
         }
         products = productList;
 
-        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1 and p.shop = ?2", true, shop).first();
 
         System.out.println("dishOfDay in Shop => " + dishOfDay);
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
-
-        System.out.println("request.params qr_uuid.isEmpty() in Shop => " + qr_uuid);
 
         renderTemplate("Application/shop.html", shop, dishOfDay, products, language, categories, qr_uuid);
     }
@@ -337,6 +331,8 @@ public class Application extends Controller {
     }
 
     public static void category(String client, String uuid, String language){
+        System.out.println("client info in category() => " + client);
+
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -349,7 +345,7 @@ public class Application extends Controller {
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<CategoryDTO> categories = shop.getActiveCategories(language);
 
-        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1 and p.shop = ?2", true, shop).first();
 
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 " +
