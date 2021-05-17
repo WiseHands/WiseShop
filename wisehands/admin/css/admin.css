@@ -1183,7 +1183,6 @@ input {
 }
 
 .load-product-image i {
-    position: absolute;
     color: #000;
     font-size: 50px;
     z-index: 100;
@@ -1193,8 +1192,6 @@ input {
 }
 
 .add-photo-text {
-    position: absolute;
-    top: 61%;
     background-color: #fff;
     border-radius: 2px;
     padding: 0.5rem;

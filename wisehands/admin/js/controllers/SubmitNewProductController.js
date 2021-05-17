@@ -4,7 +4,6 @@ angular.module('WiseHands')
     function ($scope, $location, $http, $uibModal) {
       $scope.product = {isActive: true};
       $scope.productImages = [];
-      $scope.productImagesDTO = [];
 
       $http({
         method: 'GET',
@@ -24,15 +23,16 @@ angular.module('WiseHands')
         document.querySelector(".show-more-btn").style.display = 'none';
         document.querySelector(".show-less-btn").style.display = 'block';
 
-      }
+      };
+
       $scope.showLess = function () {
         $scope.NumberOfCategoriesToShow = 6;
         document.querySelector(".show-less-btn").style.display = 'none';
         document.querySelector(".show-more-btn").style.display = 'block';
-      }
+      };
 
-      $scope.loadImage = function () {
-        $('#imageLoader').click();
+      $scope.loadImage = () => {
+        $('#imageLoader').trigger('click')
       };
 
       const toBase64 = file => new Promise((resolve, reject) => {
@@ -48,30 +48,23 @@ angular.module('WiseHands')
         [...binary].forEach((item, index) => binaryArray.push(binary.charCodeAt(index)));
 
         return new Blob([new Uint8Array(binaryArray)], {type: 'image/jpeg'});
-      }
+      };
 
       $('#imageLoader').change(event => handleImage(event.originalEvent));
 
       const handleImage = async event => {
+        $scope.loading = true;
         const file = event.target.files[0];
         const convertedFile = await toBase64(file);
+        $scope.product.mainPhoto = 0;
+        $scope.productImages.push(convertedFile);
+        $scope.loading = false;
+        $scope.$apply();
+      };
 
-
-// TODO: handle this validation using data model + productImagesDto should be created on submit form
-        // if (file) {
-        //   document.querySelector(".error-text").style.display = "none";
-        //   document.querySelector(".load-product-image").classList.remove("load-product-image-border");
-        // }
-
-
-
-        $scope.$apply(() => {
-          $scope.product.mainPhoto = 0;
-          $scope.productImages.push(convertedFile);
-          $scope.productImagesDTO.push(dataURItoBlob(convertedFile));
-          $scope.loading = false;
-        })
-      }
+      $scope.cropImage = event => {
+        console.log(event);
+      };
 
       $scope.setMainPhotoIndex = function (index) {
         if ($scope.product) {
@@ -81,42 +74,8 @@ angular.module('WiseHands')
 
       $scope.removeImage = function (index) {
         $scope.productImages.splice(index, 1);
-        $scope.productImagesDTO.splice(index, 1);
         if (index === $scope.product.mainPhoto) {
           $scope.product.mainPhoto = 0;
-        }
-      };
-
-      // Edit image
-      $scope.editImage = function (image, index) {
-        console.log('Dto', $scope.productImagesDTO);
-        console.log($scope.productImages);
-        if (image) {
-          var modal = $uibModal.open({
-            size: 'md',
-            templateUrl: '/wisehands/admin/partials/ImageCropper.html',
-            controller: 'ImageCropperController',
-            controllerAs: 'vm',
-            resolve: {
-              currentImage: function () {
-                return {
-                  dataURL: image
-                };
-              }
-            }
-          });
-          modal.result.then(
-            function (result) {
-              var idx = $scope.productImages.indexOf(image);
-              $scope.productImages[idx] = result;
-
-              var blob = dataURItoBlob(result);
-              $scope.productImagesDTO[index] = blob;
-            },
-            function (err) {
-              console.log(err);
-            }
-          )
         }
       };
 
@@ -196,10 +155,9 @@ angular.module('WiseHands')
       }
 
       $scope.submitProduct = () => {
-        if (!$scope.productImagesDTO.length) {
-          $('.error-text').css('display', 'block');
-          return;
-        }
+        const isImageUploaded = $scope.productImages.length;
+        $('.error-text').css('display', isImageUploaded ? 'none' :'block');
+        if (!isImageUploaded) return;
 
         if (!$scope.selectedCategoryId) {
           document.getElementById('error-select-category').style.display = "block";

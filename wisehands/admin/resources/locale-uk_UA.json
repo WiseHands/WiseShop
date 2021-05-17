@@ -255,7 +255,7 @@
   "addNewProduct.category": "Категорія",
   "addNewProduct.errorChooseCategory": "Категорія обов'язкова",
   "addNewProduct.createCategory": "Створити категорію",
-  "addNewProduct.addPhoto": "Додати зображення (співвідношення сторін 4:3, наприклад 640*480 пікс.)",
+  "addNewProduct.addPhoto": "Додати зображення",
   "addNewProduct.errorLoadPhoto": "Зображення обов'язкове",
   "addNewProduct.makeMain": "Зробити головною",
   "addNewProduct.deletePhoto": "Видалити",

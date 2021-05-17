@@ -1,5 +1,28 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<style>
+    #car-gall {
+        display: flex;
+        height: 100%;
+        justify-content: center;
+    }
+
+    .image-help-info-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center
+    }
+
+    input[type=file] {
+        display: none;
+    }
+
+    .imageFlex {
+        height: 150px;
+        width: 150px;
+    }
+</style>
 <nav class="admin-nav" role="navigation">
     <a class="admin-nav-back-btn"
        type="button"
@@ -22,34 +45,45 @@
         <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
                  show="loading"></spinner>
     </div>
+
+
     <form class="add-product-block noSidePadding" ng-submit="submitProduct()" id="addNewProductForm"
           name="addNewProductForm" ng-hide="loading">
-        <div ng-class="{'load-product-image-border' : !productImages[product.mainPhoto]}" class="load-product-image" ng-click="loadImage()">
-            <image-cropper-component ng-if="productImages[product.mainPhoto]"
-                                     current-image="productImages[product.mainPhoto]"></image-cropper-component>
-            <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
-                <input name="imageLoader" type="file" id="imageLoader"/>
-                <i id="add-product-icon" class="fa fa-plus" ng-hide="productImages.length"></i>
 
-                <!--                <ul class="images-list" ng-show="productImages.length">-->
-                <!--                    <li class="imageFlex" data-slide-to="{{$index}}" ng-repeat="image in productImages"-->
-                <!--                        ng-class="{'active' : $index === product.mainPhoto}">-->
-                <!--                        <img ng-src="{{image}}"-->
-                <!--                             class="images-list-img"-->
-                <!--                             data-toggle="tooltip"-->
-                <!--                             data-placement="top"-->
-                <!--                             title="{{'addNewProduct.makeMain' | translate}}"-->
-                <!--                             ng-click="setMainPhotoIndex($index); $event.stopPropagation();">-->
-                <!--                        <div class="label secondaryColor photoLabelStyle hoverable"-->
-                <!--                             data-toggle="tooltip"-->
-                <!--                             data-placement="top"-->
-                <!--                             title="{{'addNewProduct.deletePhoto' | translate}}"-->
-                <!--                             ng-click="removeImage($index); $event.stopPropagation();">-->
-                <!--                            <span class="secondaryColor glyphicon glyphicon-remove-sign"></span>-->
-                <!--                        </div>-->
-                <!--                        <button class="btn btn-default" ng-click="editImage(image, $index)">Edit image</button>-->
-                <!--                    </li>-->
-                <!--                </ul>-->
+        <input name="imageLoader" type="file" id="imageLoader"/>
+
+        <div ng-class="{'load-product-image-border' : !productImages[product.mainPhoto]}" class="load-product-image"
+             ng-click="loadImage()">
+
+            <image-cropper-component ng-if="productImages[product.mainPhoto]"
+                                     current-image="productImages[product.mainPhoto]"
+                                     ng-on-crop-image="cropImage($event)"></image-cropper-component>
+
+            <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
+                <div class="image-help-info-container">
+                    <i id="add-product-icon" class="fa fa-plus" ng-hide="productImages.length"></i>
+                    <p class="add-photo-text" ng-hide="productImages.length">{{'addNewProduct.addPhoto' |
+                        translate}}</p>
+                    <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
+                </div>
+                    <ul class="images-list" ng-show="productImages.length">
+                        <li class="imageFlex" data-slide-to="{{$index}}" ng-repeat="image in productImages"
+                            ng-class="{'active' : $index === product.mainPhoto}">
+                            <img ng-src="{{image}}"
+                                 class="images-list-img"
+                                 data-toggle="tooltip"
+                                 data-placement="top"
+                                 title="{{'addNewProduct.makeMain' | translate}}"
+                                 ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
+                            <div class="label secondaryColor photoLabelStyle hoverable"
+                                 data-toggle="tooltip"
+                                 data-placement="top"
+                                 title="{{'addNewProduct.deletePhoto' | translate}}"
+                                 ng-click="removeImage($index); $event.stopPropagation();">
+                                <span class="secondaryColor glyphicon glyphicon-remove-sign"></span>
+                            </div>
+                        </li>
+                    </ul>
             </div>
         </div>
 

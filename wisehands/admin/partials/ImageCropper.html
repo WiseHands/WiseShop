@@ -28,7 +28,7 @@
     justify-content: space-between;
   }
 </style>
-<div ng-init="onInit()">
+<div ng-init="onInit()" ng-click="$event.stopPropagation(); $event.preventDefault();">
     <div>
         <div ng-if="imageStatus.fetching">Loading...</div>
         <div ng-if="!imageStatus.fetching && imageStatus.error">
