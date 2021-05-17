@@ -68,8 +68,7 @@ function ImageCropperController(
 
     submitCrop: () => {
       const croppedImage = cropper.getCroppedCanvas().toDataURL();
-      const event = new CustomEvent('crop-image', {detail: croppedImage});
-      vm.dispatchEvent(event);
+      $scope.$emit('crop-image', croppedImage);
     }
   });
 

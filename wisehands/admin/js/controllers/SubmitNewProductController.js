@@ -1,9 +1,15 @@
 angular.module('WiseHands')
   .controller('SubmitNewProductController', [
-    '$scope', '$location', '$http', '$uibModal',
-    function ($scope, $location, $http, $uibModal) {
+    '$scope', '$location', '$http',
+    function ($scope, $location, $http) {
       $scope.product = {isActive: true};
       $scope.productImages = [];
+
+      $scope.$on('crop-image', (event, data) => handleCroppedImage(event, data));
+
+      const handleCroppedImage = (event, data) => {
+        $scope.productImages.push(data);
+      };
 
       $http({
         method: 'GET',
@@ -32,7 +38,7 @@ angular.module('WiseHands')
       };
 
       $scope.loadImage = () => {
-        $('#imageLoader').trigger('click')
+        $('#imageLoader').trigger('click');
       };
 
       const toBase64 = file => new Promise((resolve, reject) => {
@@ -57,13 +63,9 @@ angular.module('WiseHands')
         const file = event.target.files[0];
         const convertedFile = await toBase64(file);
         $scope.product.mainPhoto = 0;
-        $scope.productImages.push(convertedFile);
+        $scope.imageToCrop = convertedFile;
         $scope.loading = false;
         $scope.$apply();
-      };
-
-      $scope.cropImage = event => {
-        console.log(event);
       };
 
       $scope.setMainPhotoIndex = function (index) {
