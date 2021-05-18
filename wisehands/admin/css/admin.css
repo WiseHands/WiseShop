@@ -787,10 +787,6 @@ label.whiteCheckBox::after {
     min-width: 150px;
 }
 
-.imageFlex {
-    width: auto !important;
-}
-
 .correctImageDisplay {
     margin-bottom: 0 !important;
 }
@@ -1157,25 +1153,12 @@ input {
     flex-basis: 50%;
 }
 
-.load-product-image {
-    flex: 50%;
-    height: 525px;
-    margin: 1rem;
-    cursor: pointer;
-    padding: 0;
-    position: relative;
-}
-
 #price {
     padding-left: 0;
 }
 
 .m-left {
     margin-left: 0.5rem;
-}
-
-.load-product-image-border {
-    border: 2px dotted #666;
 }
 
 .load-product-image input {

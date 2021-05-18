@@ -9,6 +9,7 @@ angular.module('WiseHands')
 
       const handleCroppedImage = (event, data) => {
         $scope.productImages.push(data);
+        $scope.imageToCrop = '';
       };
 
       $http({
