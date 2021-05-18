@@ -23,10 +23,11 @@
         max-height: 520px;
     }
 
-  .button-group-cropper {
-    display: flex;
-    justify-content: space-between;
-  }
+    .button-group-cropper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
 </style>
 <div ng-init="onInit()" ng-click="$event.stopPropagation(); $event.preventDefault();">
     <div>

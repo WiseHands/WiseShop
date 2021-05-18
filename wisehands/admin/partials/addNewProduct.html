@@ -31,9 +31,36 @@
         display: none;
     }
 
-    .imageFlex {
-        height: 150px;
-        width: 150px;
+    ul.images-list {
+        margin-top: 1rem;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(160px, 1fr));
+        grid-template-rows: 1fr;
+        grid-gap: 1rem;
+    }
+
+    li {
+        display: flex;
+    }
+
+    li img {
+        max-height: 100%;
+        min-width: 100%;
+        object-fit: fill;
+        vertical-align: bottom;
+    }
+
+    @media all and (max-width: 768px) {
+        .images-container {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    @media all and (max-width: 550px) {
+        ul.images-list {
+            grid-template-columns: repeat(3, minmax(100px, 1fr));
+        }
     }
 </style>
 <nav class="admin-nav" role="navigation">
@@ -65,10 +92,10 @@
 
         <input name="imageLoader" type="file" id="imageLoader"/>
 
-        <div ng-class="{'load-product-image-border' : !imageToCrop}" class="images-container">
+        <div class="images-container">
             <image-cropper-component ng-if="imageToCrop"
                                      current-image="imageToCrop"></image-cropper-component>
-            <div class="load-product-image" ng-hide="imageToCrop"
+            <div class="load-product-image" ng-class="{'load-product-image-border' : !imageToCrop}" ng-hide="imageToCrop"
                  ng-click="loadImage()">
 
                 <div class="image-help-info-container">
@@ -79,20 +106,22 @@
                 </div>
 
             </div>
-            <ul class="images-list" ng-show="productImages.length">
-                <li class="imageFlex" ng-repeat="image in productImages"
-                    ng-class="{'active' : $index === product.mainPhoto}">
-                    <img ng-src="{{image}}"
-                         class="images-list-img"
-                         title="{{'addNewProduct.makeMain' | translate}}"
-                         ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
-                    <div class="label secondaryColor photoLabelStyle hoverable"
-                         title="{{'addNewProduct.deletePhoto' | translate}}"
-                         ng-click="removeImage($index); $event.stopPropagation();">
-                        <span class="secondaryColor glyphicon glyphicon-remove-sign"></span>
-                    </div>
-                </li>
-            </ul>
+            <div>
+                <ul class="images-list" ng-show="productImages.length">
+                    <li class="imageFlex" ng-repeat="image in productImages"
+                        ng-class="{'active' : $index === product.mainPhoto}">
+                        <img ng-src="{{image}}"
+                             class="images-list-img"
+                             title="{{'addNewProduct.makeMain' | translate}}"
+                             ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
+                        <!--                    <div class="label secondaryColor photoLabelStyle hoverable"-->
+                        <!--                         title="{{'addNewProduct.deletePhoto' | translate}}"-->
+                        <!--                         ng-click="removeImage($index); $event.stopPropagation();">-->
+                        <!--                        <span class="secondaryColor glyphicon glyphicon-remove-sign"></span>-->
+                        <!--                    </div>-->
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div class="add-product-info">
