@@ -100,7 +100,7 @@
 
                 <div class="image-help-info-container">
                     <i id="add-product-icon" class="fa fa-plus"></i>
-                    <p class="add-photo-text" ng-hide="imageToCrop">{{'addNewProduct.addPhoto' |
+                    <p class="add-photo-text" ng-hide="productImage.length">{{'addNewProduct.addPhoto' |
                         translate}}</p>
                     <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
                 </div>
@@ -114,11 +114,11 @@
                              class="images-list-img"
                              title="{{'addNewProduct.makeMain' | translate}}"
                              ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
-                        <!--                    <div class="label secondaryColor photoLabelStyle hoverable"-->
-                        <!--                         title="{{'addNewProduct.deletePhoto' | translate}}"-->
-                        <!--                         ng-click="removeImage($index); $event.stopPropagation();">-->
-                        <!--                        <span class="secondaryColor glyphicon glyphicon-remove-sign"></span>-->
-                        <!--                    </div>-->
+                        <div class="label secondaryColor photoLabelStyle hoverable"
+                             title="{{'addNewProduct.deletePhoto' | translate}}"
+                             ng-click="removeImage($index); $event.stopPropagation();">
+                            <span class="secondaryColor glyphicon glyphicon-remove-sign"></span>
+                        </div>
                     </li>
                 </ul>
             </div>

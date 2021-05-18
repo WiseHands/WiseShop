@@ -10,6 +10,7 @@ angular.module('WiseHands')
       const handleCroppedImage = (event, data) => {
         $scope.productImages.push(data);
         $scope.imageToCrop = '';
+        $('.error-text').css('display', 'none');
       };
 
       $http({
@@ -60,12 +61,11 @@ angular.module('WiseHands')
       $('#imageLoader').change(event => handleImage(event.originalEvent));
 
       const handleImage = async event => {
-        $scope.loading = true;
         const file = event.target.files[0];
+        if (!file) return;
         const convertedFile = await toBase64(file);
         $scope.product.mainPhoto = 0;
         $scope.imageToCrop = convertedFile;
-        $scope.loading = false;
         $scope.$apply();
       };
 
@@ -77,9 +77,7 @@ angular.module('WiseHands')
 
       $scope.removeImage = function (index) {
         $scope.productImages.splice(index, 1);
-        if (index === $scope.product.mainPhoto) {
-          $scope.product.mainPhoto = 0;
-        }
+        if (index === $scope.product.mainPhoto) $scope.product.mainPhoto = 0;
       };
 
       $scope.createCategory = function () {
@@ -122,6 +120,7 @@ angular.module('WiseHands')
             console.log(response);
           });
       };
+
       $scope.chooseCategory = function (categoryid) {
         console.log('categoryid', categoryid);
         $scope.selectedCategoryId = categoryid;
@@ -159,7 +158,7 @@ angular.module('WiseHands')
 
       $scope.submitProduct = () => {
         const isImageUploaded = $scope.productImages.length;
-        $('.error-text').css('display', isImageUploaded ? 'none' :'block');
+        $('.error-text').css('display', isImageUploaded ? 'none' : 'block');
         if (!isImageUploaded) return;
 
         if (!$scope.selectedCategoryId) {
@@ -169,10 +168,7 @@ angular.module('WiseHands')
 
         $scope.loading = true;
         const fd = new FormData();
-        for (var i = 0; i < $scope.productImagesDTO.length; i++) {
-          var blob = $scope.productImagesDTO[i];
-          fd.append("photos[" + i + "]", blob);
-        }
+        $scope.productImages.forEach((image, index) => fd.append(`photos[${index}]`, dataURItoBlob(image)));
         fd.append('name', getProductName());
         fd.append('description', getProductDescription());
         fd.append('price', $scope.product.price);
