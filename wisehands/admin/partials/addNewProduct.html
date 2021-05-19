@@ -41,6 +41,7 @@
 
     li {
         display: flex;
+        flex-direction: column;
     }
 
     li img {
@@ -95,7 +96,8 @@
         <div class="images-container">
             <image-cropper-component ng-if="imageToCrop"
                                      current-image="imageToCrop"></image-cropper-component>
-            <div class="load-product-image" ng-class="{'load-product-image-border' : !imageToCrop}" ng-hide="imageToCrop"
+            <div class="load-product-image" ng-class="{'load-product-image-border' : !imageToCrop}"
+                 ng-hide="imageToCrop"
                  ng-click="loadImage()">
 
                 <div class="image-help-info-container">
@@ -110,7 +112,7 @@
                 <ul class="images-list" ng-show="productImages.length">
                     <li class="imageFlex" ng-repeat="image in productImages"
                         ng-class="{'active' : $index === product.mainPhoto}">
-                        <img ng-src="{{image}}"
+                        <img ng-src="{{image.data}}"
                              class="images-list-img"
                              title="{{'addNewProduct.makeMain' | translate}}"
                              ng-click="setMainPhotoIndex($index); $event.stopPropagation();">

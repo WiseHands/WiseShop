@@ -8,7 +8,7 @@ angular.module('WiseHands')
       $scope.$on('crop-image', (event, data) => handleCroppedImage(event, data));
 
       const handleCroppedImage = (event, data) => {
-        $scope.productImages.push(data);
+        $scope.productImages.push({data});
         $scope.imageToCrop = '';
         $('.error-text').css('display', 'none');
       };
@@ -66,6 +66,7 @@ angular.module('WiseHands')
         const convertedFile = await toBase64(file);
         $scope.product.mainPhoto = 0;
         $scope.imageToCrop = convertedFile;
+        event.target.value = '';
         $scope.$apply();
       };
 
