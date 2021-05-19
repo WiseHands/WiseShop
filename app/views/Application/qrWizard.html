@@ -385,22 +385,22 @@
                         <h3>Реєстрація</h3>
                         <div class="form-field">
                             <h4>Ім'я</h4>
-                            <input  class="qr-form-input" id="qr-name" type="text" name="name" required placeholder=" ">
+                            <input class="qr-form-input" id="user-name" type="text" name="name" required>
                             <span class="highlight"></span>
                         </div>
                         <div class="form-field">
                             <h4>Прізвище</h4>
-                            <input  class="qr-form-input" id="qr-surname" type="text" name="surname" required placeholder=" ">
+                            <input  class="qr-form-input" id="user-surname" type="text" name="surname" required>
                             <span class="highlight"></span>
                         </div>
                         <div class="form-field">
                             <h4>Номер телефону</h4>
-                            <input  class="qr-form-input" id="qr-phone" type="tel" name="surname" required placeholder=" "  pattern="^[0-9-+\s()]*$">
+                            <input  class="qr-form-input" id="user-phone" type="tel" name="phone" required pattern="^[0-9-+\s()]*$">
                             <span class="highlight"></span>
                         </div>
                         <div class="form-field">
                             <h4>Email</h4>
-                            <input  class="qr-form-input" id="qr-email" type="email" name="email" required placeholder=" ">
+                            <input  class="qr-form-input" id="user-email" type="email" name="email" required placeholder=" ">
                             <p class="error-message">Error message</p>
                             <span class="highlight"></span>
                         </div>
@@ -418,9 +418,9 @@
                 <section id="qr-step2" class="qr-step-page qr-step2 page ">
                     <h3>Назва магазину і сайту</h3>
                     <h4>Введіть назву компанії</h4>
-                    <input   class="qr-form-input" type="text" id="store-name" name="store-name" placeholder="введіть назву">
+                    <input   class="qr-form-input" type="text" id="store-name" name="store-name" placeholder="введіть назву" required>
                     <h4>Введіть адресу сайту</h4>
-                    <input  class="qr-form-input" type="text" id="input-store-address" name="store-address-name" placeholder="введіть адресу">
+                    <input  class="qr-form-input" type="text" id="input-store-address" name="store-address-name" placeholder="введіть адресу" required>
                     <div class="store-address-block">
                         <p>Ваша адреса сайту:</p>
                         <div class='store-address' id='store-name-address'></div>
@@ -429,11 +429,11 @@
                 <section id="qr-step3" class="qr-step-page qr-step3 page">
                     <h3>Додайте контакти</h3>
                     <h4>Місто</h4>
-                    <input  class="qr-form-input" type="text" id="city-name" name="city-name" placeholder="введіть назву міста">
+                    <input  class="qr-form-input" type="text" id="city-name" name="city-name" placeholder="введіть назву міста" required>
                     <h4>Вулиця</h4>
-                    <input  class="qr-form-input"  type="text" id="street-name" name="street-name" placeholder="введіть вулицю">
+                    <input  class="qr-form-input"  type="text" id="street-name" name="street-name" placeholder="введіть вулицю"required>
                     <h4>Будинок</h4>
-                    <input  class="qr-form-input"  type="text" id="house-name" name="house-name" placeholder="введіть номер будинку">
+                    <input  class="qr-form-input"  type="text" id="house-name" name="house-name" placeholder="введіть номер будинку" required>
                 </section>
                 <section id="qr-step4" class="qr-step-page qr-step4 page">
                     <div class="qr-wizard-delivery">
@@ -486,7 +486,19 @@
     previousBtn.style.visibility = 'hidden';
     finishBtn.style.display = 'none';
 
-    nextBtn.addEventListener('click',  ()  =>  {
+    let form = document.getElementById("qr-form");
+
+
+
+    nextBtn.addEventListener('click',  (event)  =>  {
+    // TODO send user info to server
+        console.log("form.addEventListener => ", event)
+
+    form.addEventListener( "submit", function ( event ) {
+        // event.preventDefault();
+        console.log("form.addEventListener => ", event)
+    } );
+
         circleActive = circleActive.nextElementSibling;
         circleActive.classList.add("active");
         currentStep++;
