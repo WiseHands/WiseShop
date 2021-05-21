@@ -69,9 +69,6 @@ public class WizardAPI extends AuthController {
     public static void checkDomainNameAvailability() throws Exception{
         String domain = request.params.get("shopDomain").toLowerCase();
 
-
-
-
         String domainPath;
         if (Application.isDevEnv) {
             domainPath = ".localhost";
@@ -82,7 +79,7 @@ public class WizardAPI extends AuthController {
         }
 
         if(isDomainNameInvalid(domain)){
-            JsonResponse jsonResponse = new JsonResponse(420, "назва не повинна містити: !, _");
+            JsonResponse jsonResponse = new JsonResponse(420, "Назва не повинна містити: !, _");
             renderJSON(jsonResponse);
         }
 
@@ -91,7 +88,7 @@ public class WizardAPI extends AuthController {
         System.out.println("String userId " + userId);
         ShopDTO shop = ShopDTO.find("byDomain", domain).first();
         if (shop == null){
-            String reason = "адреса доступна";
+            String reason = "Адреса доступна";
             JsonResponse jsonResponse = new JsonResponse(421, reason);
             UserDTO user = UserDTO.find("byUuid", userId).first();
             user.wizard.shopDomain = domain;

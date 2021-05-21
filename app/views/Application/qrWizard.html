@@ -379,43 +379,43 @@
             </div>
         </div>
         <div class="qr-wizard-panel">
-            <form id="qr-form" class="qr-form pages">
-                <section id="qr-step1" class="qr-step-page qr-step1 page active-page">
-                    <div id="login-form" class="signup-form">
-                        <h3>Реєстрація</h3>
-                        <div class="form-field">
-                            <h4>Ім'я</h4>
-                            <input class="qr-form-input" id="user-name" type="text" name="name" required>
-                            <span class="highlight"></span>
-                        </div>
-                        <div class="form-field">
-                            <h4>Прізвище</h4>
-                            <input  class="qr-form-input" id="user-surname" type="text" name="surname" required>
-                            <span class="highlight"></span>
-                        </div>
-                        <div class="form-field">
-                            <h4>Номер телефону</h4>
-                            <input  class="qr-form-input" id="user-phone" type="tel" name="phone" required pattern="^[0-9-+\s()]*$">
-                            <span class="highlight"></span>
-                        </div>
-                        <div class="form-field">
-                            <h4>Email</h4>
-                            <input  class="qr-form-input" id="user-email" type="email" name="email" required placeholder=" ">
-                            <p class="error-message">Error message</p>
-                            <span class="highlight"></span>
-                        </div>
-                        <div class="form-field">
-                            <h4>Пароль</h4>
-                            <input  class="qr-form-input" id="qr-password" type="password" name="password" required placeholder=" ">
-                            <span class="highlight"></span>
-                        </div>
-                        <div class="form-oferta">
-                            <p>Реєструючись, ви погоджуєтесь з умовами <a href="/contract">Публічної оферти та Умовами надання послуг WiseStore</a>
-                            </p>
-                        </div>
+            <form id="qr-form" class="qr-form pages" onsubmit="return false">
+
+                <section id="qr-step1" class="qr-step-page qr-step1 page active-page" form-step="1" hidden>
+                    <h3>Реєстрація</h3>
+                    <div class="form-field">
+                        <h4>Ім'я</h4>
+                        <input class="qr-form-input" id="user-name" type="text" name="name" required="true">
+                        <span class="highlight"></span>
+                    </div>
+                    <div class="form-field">
+                        <h4>Прізвище</h4>
+                        <input  class="qr-form-input" id="user-surname" type="text" name="surname" required>
+                        <span class="highlight"></span>
+                    </div>
+                    <div class="form-field">
+                        <h4>Номер телефону</h4>
+                        <input  class="qr-form-input" id="user-phone" type="tel" name="phone" required pattern="^[0-9-+\s()]*$">
+                        <span class="highlight"></span>
+                    </div>
+                    <div class="form-field">
+                        <h4>Email</h4>
+                        <input  class="qr-form-input" id="user-email" type="email" name="email" required>
+                        <p class="error-message">Error message</p>
+                        <span class="highlight"></span>
+                    </div>
+                    <div class="form-field">
+                        <h4>Пароль</h4>
+                        <input  class="qr-form-input" id="qr-password" type="password" name="password" required>
+                        <span class="highlight"></span>
+                    </div>
+                    <div class="form-oferta">
+                        <p>Реєструючись, ви погоджуєтесь з умовами <a href="/contract">Публічної оферти та Умовами надання послуг WiseStore</a>
+                        </p>
                     </div>
                 </section>
-                <section id="qr-step2" class="qr-step-page qr-step2 page ">
+
+                <section id="qr-step2" class="qr-step-page qr-step2 page" form-step="2" hidden>
                     <h3>Назва магазину і сайту</h3>
                     <h4>Введіть назву компанії</h4>
                     <input   class="qr-form-input" type="text" id="store-name" name="store-name" placeholder="введіть назву" required>
@@ -426,7 +426,8 @@
                         <div class='store-address' id='store-name-address'></div>
                     </div>
                 </section>
-                <section id="qr-step3" class="qr-step-page qr-step3 page">
+
+                <section id="qr-step3" class="qr-step-page qr-step3 page" form-step="3" hidden>
                     <h3>Додайте контакти</h3>
                     <h4>Місто</h4>
                     <input  class="qr-form-input" type="text" id="city-name" name="city-name" placeholder="введіть назву міста" required>
@@ -435,7 +436,8 @@
                     <h4>Будинок</h4>
                     <input  class="qr-form-input"  type="text" id="house-name" name="house-name" placeholder="введіть номер будинку" required>
                 </section>
-                <section id="qr-step4" class="qr-step-page qr-step4 page">
+
+                <section id="qr-step4" class="qr-step-page qr-step4 page" form-step="4" hidden>
                     <div class="qr-wizard-delivery">
                         <h3>Добавте налаштування</h3>
                         <h4>Виберіть варіанти отримання товару клієнтом</h4>
@@ -462,83 +464,183 @@
                 </section>
             </form>
             <div class="form-button">
-                <p id="previousBtn" class="previous-step-button">Попередній крок</p>
-                <button id="nextBtn" type="submit" class="next-step-button">Далі</button>
-                <button id="finishBtn" type="submit" class="next-step-button">Готово</button>
+                <p id="previousBtn" class="previous-step-button" onclick="previousStep()" hidden>Попередній крок</p>
+                <button id="nextBtn" type="submit" class="next-step-button" onclick="proceedNext()">Далі</button>
+                <button id="finishBtn" class="next-step-button">Готово</button>
             </div>
         </div>
     </div>
 
 <script>
-    const circles = document.querySelectorAll(".circle");
     const  previousBtn  =  document.getElementById('previousBtn');
     const  nextBtn  =  document.getElementById('nextBtn');
     const  finishBtn  =  document.getElementById('finishBtn');
+
     let pageActive  = document.querySelector(".active-page");
     let imageActive  = document.querySelector(".active-image");
     let circleActive = document.querySelector(".active");
+
     const progressBar = document.getElementById("progress-bar");
     const progressBarMob = document.getElementById("progress-bar-mob");
     const screenSizeMobile = 768;
 
     const maxStep = 4;
-    let currentStep = 1;
-    previousBtn.style.visibility = 'hidden';
+    let currentFormStep = 1;
+    previousBtn.hidden = true;
     finishBtn.style.display = 'none';
 
     let form = document.getElementById("qr-form");
+    const wizardForms = document.querySelectorAll('section');
+    const currentStepIndicators = document.querySelectorAll(".circle");
 
 
-
-    nextBtn.addEventListener('click',  (event)  =>  {
-    // TODO send user info to server
-        console.log("form.addEventListener => ", event)
-
-    form.addEventListener( "submit", function ( event ) {
-        // event.preventDefault();
-        console.log("form.addEventListener => ", event)
-    } );
-
-        circleActive = circleActive.nextElementSibling;
-        circleActive.classList.add("active");
-        currentStep++;
-        pageActive = pageActive.nextElementSibling;
-        pageActive.classList.add("active-page");
-        pageActive.previousElementSibling.classList.remove("active-page");
-        imageActive = imageActive.nextElementSibling;
-        imageActive.classList.add("active-image");
-        imageActive.previousElementSibling.classList.remove("active-image");
-        previousBtn.style.visibility = 'visible';
-
-        if  (currentStep  ===  maxStep)  {
-            nextBtn.style.display  =  'none';
-            finishBtn.style.display  =  'block';
-            document.getElementById('nextBtn').innerHTML = 'Готово';
-        }
-        if (screen.width <= screenSizeMobile) {
-            updateProgressBarMob();
-        }
-        if (screen.width > screenSizeMobile) {
-            updateProgressBar();
-        }
+    const requiredFields = document.querySelectorAll('[required]');
+    requiredFields.forEach(requiredField => {
+	    requiredField.addEventListener('input', event => event.target.setCustomValidity(''));
     });
 
+
+    function proceedNext() {
+    	console.log("proceedNext");
+	    // const isLastSTep = currentFormStep === 4;
+	    // if (isLastSTep) {
+		    // settingVariantsOfDeliveryAndPaymentTypes();
+		   //  return;
+	    // }
+	    // currentFormStep++;
+	    // setCurrentFormAndFormStepIndicator();
+	    // setIsPreviousStepButtonHidden();
+	    // setNextButtonLabel();
+
+	    if (!validateCurrentForm()) return;
+	    currentFormStep++;
+
+	    circleActive = circleActive.nextElementSibling;
+	    circleActive.classList.add("active");
+
+	    pageActive = pageActive.nextElementSibling;
+	    pageActive.classList.add("active-page");
+	    pageActive.previousElementSibling.classList.remove("active-page");
+
+	    imageActive = imageActive.nextElementSibling;
+	    imageActive.classList.add("active-image");
+	    imageActive.previousElementSibling.classList.remove("active-image");
+
+	    previousBtn.hidden = false;
+
+	    if  (currentFormStep  ===  maxStep)  {
+		    nextBtn.style.display  =  'none';
+		    finishBtn.style.display  =  'block';
+		    document.getElementById('nextBtn').innerHTML = 'Готово';
+	    }
+	    if (screen.width <= screenSizeMobile) {
+		    updateProgressBarMob();
+	    }
+	    if (screen.width > screenSizeMobile) {
+		    updateProgressBar();
+	    }
+
+
+    }
+
+    function previousStep() {
+	    console.log("previousStep");
+	    // currentFormStep--;
+	    // setCurrentFormAndFormStepIndicator();
+	    // setIsPreviousStepButtonHidden();
+	    // setNextButtonLabel();
+    }
+
+
+    function validateCurrentForm() {
+	    const currentForm = document.querySelector('section[form-step="' + currentFormStep + '"]');
+	    const currentFormInputs = currentForm.querySelectorAll('[required]');
+	    let validInputs = 0;
+	    currentFormInputs.forEach(input => {
+		    input.value.trim() ? input.setCustomValidity('') : input.setCustomValidity('Заповніть, будь ласка, це поле');
+		    if (input.value.trim()) validInputs++;
+	    });
+	    return validInputs === currentFormInputs.length;
+    }
+
+    function setCurrentFormAndFormStepIndicator() {
+	    wizardForms.forEach(form => {
+		    const formStep = form.getAttribute('form-step');
+		    const isCurrentFormStepEqualsDisplayedFormStep = currentFormStep === Number(formStep);
+		    form.hidden = !isCurrentFormStepEqualsDisplayedFormStep;
+	    });
+
+	    currentStepIndicators.forEach((currentStepIndicator, index) => {
+		    const isCurrentStepIndicatorIndexEqualsToCurrentFormStep = index + 1 === currentFormStep;
+		    !isCurrentStepIndicatorIndexEqualsToCurrentFormStep ? currentStepIndicator.classList.remove('active') : currentStepIndicator.classList.add('active');
+
+	    });
+    }
+
+    function setIsPreviousStepButtonHidden() {
+	    previousBtn.hidden = currentFormStep === 1;
+    }
+
+    function setNextButtonLabel() {
+	    const isLastSTep = currentFormStep === 4;
+	    nextBtn.innerHTML = isLastSTep ? 'Готово' : 'Далі';
+    }
+
+    // nextBtn.addEventListener('click',  (event)  =>  {
+    // // TODO send user info to server
+    //     console.log("form.addEventListener => ", event);
+    //
+    //
+    //     circleActive = circleActive.nextElementSibling;
+    //     circleActive.classList.add("active");
+    //
+    //
+    //     pageActive = pageActive.nextElementSibling;
+    //     pageActive.classList.add("active-page");
+    //     pageActive.previousElementSibling.classList.remove("active-page");
+    //
+    //     imageActive = imageActive.nextElementSibling;
+    //     imageActive.classList.add("active-image");
+    //     imageActive.previousElementSibling.classList.remove("active-image");
+    //
+    //     previousBtn.style.visibility = 'visible';
+    //
+  	 //    currentFormStep++;
+    //
+	   //    if  (currentFormStep  ===  maxStep)  {
+    //         nextBtn.style.display  =  'none';
+    //         finishBtn.style.display  =  'block';
+    //         document.getElementById('nextBtn').innerHTML = 'Готово';
+    //     }
+    //     if (screen.width <= screenSizeMobile) {
+    //         updateProgressBarMob();
+    //     }
+    //     if (screen.width > screenSizeMobile) {
+    //         updateProgressBar();
+    //     }
+    // });
+
     previousBtn.addEventListener('click',  ()  =>  {
+
         circleActive.classList.remove("active");
         circleActive = circleActive.previousElementSibling;
-        currentStep--;
+
         pageActive = pageActive.previousElementSibling;
         pageActive.classList.add("active-page");
         pageActive.nextElementSibling.classList.remove("active-page");
+
         imageActive = imageActive.previousElementSibling;
         imageActive.classList.add("active-image");
         imageActive.nextElementSibling.classList.remove("active-image");
+
         nextBtn.style.display  =  'block';
         nextBtn.innerHTML = 'Далі';
         finishBtn.style.display = 'none';
-        updateProgressBar();
 
-        if  (currentStep  ===  1)  {
+        updateProgressBar();
+        currentFormStep--;
+
+        if  (currentFormStep  ===  1)  {
             previousBtn.style.visibility = 'hidden';
         }
         if (screen.width <= screenSizeMobile) {
@@ -555,13 +657,13 @@
 
     function updateProgressBar() {
         const actives = document.querySelectorAll(".active");
-        const currentHeight = ((actives.length - 1) / (circles.length - 1)) * 100;
+        const currentHeight = ((actives.length - 1) / (currentStepIndicators.length - 1)) * 100;
         progressBar.style.height = currentHeight + "%";
 
     }
     function updateProgressBarMob() {
         const actives = document.querySelectorAll(".active");
-        const currentWidth = ((actives.length - 1) / (circles.length - 1)) * 100;
+        const currentWidth = ((actives.length - 1) / (currentStepIndicators.length - 1)) * 100;
         progressBarMob.style.width = currentWidth + "%";
     }
 

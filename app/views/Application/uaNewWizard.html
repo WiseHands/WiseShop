@@ -864,14 +864,14 @@
 
   const wizardForms = document.querySelectorAll('section');
   const currentStepIndicators = document.querySelectorAll('.step');
+
   const previousActionButton = document.querySelector('.previous-step-button');
   const nextActionButton = document.querySelector('.next-step-button');
-  const requiredFields = document.querySelectorAll('[required]');
 
   const circleLoadingAnimation = document.querySelector('.circle-loading-animation');
   const form = document.querySelector('form');
 
-
+  const requiredFields = document.querySelectorAll('[required]');
   requiredFields.forEach(requiredField => {
     requiredField.addEventListener('input', event => event.target.setCustomValidity(''));
   });

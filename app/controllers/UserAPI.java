@@ -45,7 +45,6 @@ public class UserAPI extends AuthController {
                 forbidden(reason);
             }
 
-
             if (user != null && user.isGoogleSignIn) {
                 UserDTO userWithGivenPhone = UserDTO.find("byPhone", phone).first();
                 if(userWithGivenPhone != null) {
