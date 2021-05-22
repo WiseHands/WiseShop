@@ -4,6 +4,8 @@ angular.module('WiseHands')
     function ($scope, $location, $http) {
       $scope.product = {isActive: true};
       $scope.productImages = [];
+      $scope.numberOfCategoriesToShow = 2;
+      $scope.showMoreCategories = false;
 
       $scope.$on('crop-image', (event, data) => handleCroppedImage(event, data));
 
@@ -18,7 +20,6 @@ angular.module('WiseHands')
         url: '/api/category'
       })
         .then(response => {
-          $scope.NumberOfCategoriesToShow = 6;
           $scope.categories = response.data;
           $scope.loading = false;
         }, error => {
@@ -26,17 +27,9 @@ angular.module('WiseHands')
           console.log(error);
         });
 
-      $scope.showMore = function () {
-        $scope.NumberOfCategoriesToShow = $scope.categories.length;
-        document.querySelector(".show-more-btn").style.display = 'none';
-        document.querySelector(".show-less-btn").style.display = 'block';
-
-      };
-
-      $scope.showLess = function () {
-        $scope.NumberOfCategoriesToShow = 6;
-        document.querySelector(".show-less-btn").style.display = 'none';
-        document.querySelector(".show-more-btn").style.display = 'block';
+      $scope.toggleCategoriesShowHideState = () => {
+        $scope.showMoreCategories = !$scope.showMoreCategories;
+        $scope.numberOfCategoriesToShow = $scope.showMoreCategories ? $scope.categories.length : 2;
       };
 
       $scope.loadImage = () => {
@@ -158,18 +151,18 @@ angular.module('WiseHands')
       }
 
       $scope.submitProduct = () => {
+        if (!$scope.selectedCategoryId) {
+          $('#error-select-category').css('display', 'block');
+          return;
+        }
+
         const isImageUploaded = $scope.productImages.length;
         $('.error-text').css('display', isImageUploaded ? 'none' : 'block');
         if (!isImageUploaded) return;
 
-        if (!$scope.selectedCategoryId) {
-          document.getElementById('error-select-category').style.display = "block";
-          return;
-        }
-
         $scope.loading = true;
         const fd = new FormData();
-        $scope.productImages.forEach((image, index) => fd.append(`photos[${index}]`, dataURItoBlob(image)));
+        $scope.productImages.forEach(({data}, index) => fd.append(`photos[${index}]`, dataURItoBlob(data)));
         fd.append('name', getProductName());
         fd.append('description', getProductDescription());
         fd.append('price', $scope.product.price);

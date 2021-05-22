@@ -51,6 +51,15 @@
         vertical-align: bottom;
     }
 
+    .show-more-less-btn {
+        text-align: center;
+        font-size: 1.25rem;
+        padding: 0.5rem;
+        color: #000;
+    }
+
+
+
     @media all and (max-width: 768px) {
         .images-container {
             display: flex;
@@ -116,7 +125,7 @@
                              class="images-list-img"
                              title="{{'addNewProduct.makeMain' | translate}}"
                              ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
-                        <div class="label secondaryColor photoLabelStyle hoverable"
+                        <div class="label secondaryColor hoverable"
                              title="{{'addNewProduct.deletePhoto' | translate}}"
                              ng-click="removeImage($index); $event.stopPropagation();">
                             <span class="secondaryColor glyphicon glyphicon-remove-sign"></span>
@@ -166,17 +175,18 @@
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </div>
                         <div class="item-category"
-                             ng-repeat="category in categories | limitTo : NumberOfCategoriesToShow"
+                             ng-repeat="category in categories | limitTo : numberOfCategoriesToShow"
                              ng-class="{selected: category.uuid === selectedCategoryId}">
                             <div class="card-item hoverable" ng-click="chooseCategory(category.uuid)"
                                  title="{{category.name}}">
                                 <p>{{category.name}}</p></div>
                         </div>
-                        <div class="show-category" ng-hide="categories.length < 7">
-                            <p class="show-more-btn" ng-click="showMore()" ng-show="categories.length > 6">
+                        <div class="show-category" ng-hide="categories.length < 2"
+                             ng-click="toggleCategoriesShowHideState()">
+                            <p class="show-more-less-btn" ng-show="!showMoreCategories">
                                 {{'addNewProduct.showMoreButton' | translate}}</p>
-                            <p class="show-less-btn" ng-click="showLess()">{{'addNewProduct.showLessButton' |
-                                translate}}</p>
+                            <p class="show-more-less-btn" ng-show="showMoreCategories">
+                                {{'addNewProduct.showLessButton' | translate}}</p>
                         </div>
                     </div>
 
