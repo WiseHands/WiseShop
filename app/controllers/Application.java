@@ -573,7 +573,7 @@ public class Application extends Controller {
         }
 
         Http.Cookie userTokenCookie = request.cookies.get("JWT_TOKEN");
-        if(userTokenCookie == null) {
+        if(userTokenCookie == null && shop != null) {
             ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
             shoppingCart.shopUuid = shop.uuid;
             shoppingCart.save();
