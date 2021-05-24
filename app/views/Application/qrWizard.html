@@ -381,7 +381,7 @@
         <div class="qr-wizard-panel">
             <form id="qr-form" class="qr-form pages" onsubmit="return false">
 
-                <section id="qr-step1" class="qr-step-page qr-step1 page active-page" form-step="1" hidden>
+                <section id="qr-step1" class="qr-step-page qr-step" form-step="1">
                     <h3>Реєстрація</h3>
                     <div class="form-field">
                         <h4>Ім'я</h4>
@@ -406,7 +406,7 @@
                     </div>
                     <div class="form-field">
                         <h4>Пароль</h4>
-                        <input  class="qr-form-input" id="qr-password" type="password" name="password" required>
+                        <input  class="qr-form-input" id="user-password" type="password" name="password" required>
                         <span class="highlight"></span>
                     </div>
                     <div class="form-oferta">
@@ -415,7 +415,7 @@
                     </div>
                 </section>
 
-                <section id="qr-step2" class="qr-step-page qr-step2 page" form-step="2" hidden>
+                <section id="qr-step2" class="qr-step-page qr-step2" form-step="2" hidden>
                     <h3>Назва магазину і сайту</h3>
                     <h4>Введіть назву компанії</h4>
                     <input   class="qr-form-input" type="text" id="store-name" name="store-name" placeholder="введіть назву" required>
@@ -427,7 +427,7 @@
                     </div>
                 </section>
 
-                <section id="qr-step3" class="qr-step-page qr-step3 page" form-step="3" hidden>
+                <section id="qr-step3" class="qr-step-page qr-step3" form-step="3" hidden>
                     <h3>Додайте контакти</h3>
                     <h4>Місто</h4>
                     <input  class="qr-form-input" type="text" id="city-name" name="city-name" placeholder="введіть назву міста" required>
@@ -437,7 +437,7 @@
                     <input  class="qr-form-input"  type="text" id="house-name" name="house-name" placeholder="введіть номер будинку" required>
                 </section>
 
-                <section id="qr-step4" class="qr-step-page qr-step4 page" form-step="4" hidden>
+                <section id="qr-step4" class="qr-step-page qr-step4" form-step="4" hidden>
                     <div class="qr-wizard-delivery">
                         <h3>Добавте налаштування</h3>
                         <h4>Виберіть варіанти отримання товару клієнтом</h4>
@@ -494,7 +494,6 @@
     const wizardForms = document.querySelectorAll('section');
     const currentStepIndicators = document.querySelectorAll(".circle");
 
-
     const requiredFields = document.querySelectorAll('[required]');
     requiredFields.forEach(requiredField => {
 	    requiredField.addEventListener('input', event => event.target.setCustomValidity(''));
@@ -503,29 +502,33 @@
 
     function proceedNext() {
     	console.log("proceedNext");
-	    // const isLastSTep = currentFormStep === 4;
-	    // if (isLastSTep) {
-		    // settingVariantsOfDeliveryAndPaymentTypes();
-		   //  return;
-	    // }
-	    // currentFormStep++;
-	    // setCurrentFormAndFormStepIndicator();
-	    // setIsPreviousStepButtonHidden();
-	    // setNextButtonLabel();
-
 	    if (!validateCurrentForm()) return;
+
+	    const isLastSTep = currentFormStep === 4;
+	    if (isLastSTep) {
+		    console.log("proceedNext last step", currentFormStep);
+
+		    settingVariantsOfDeliveryAndPaymentTypes();
+		    return;
+	    }
+
+	    // signUp();
+
 	    currentFormStep++;
+	    setCurrentFormAndFormStepIndicator();
+
 
 	    circleActive = circleActive.nextElementSibling;
 	    circleActive.classList.add("active");
 
-	    pageActive = pageActive.nextElementSibling;
-	    pageActive.classList.add("active-page");
-	    pageActive.previousElementSibling.classList.remove("active-page");
+	    // pageActive = pageActive.nextElementSibling;
+	    // pageActive.classList.add("active-page");
+	    // pageActive.previousElementSibling.classList.remove("active-page");
+      //
+	    // imageActive = imageActive.nextElementSibling;
+	    // imageActive.classList.add("active-image");
+	    // imageActive.previousElementSibling.classList.remove("active-image");
 
-	    imageActive = imageActive.nextElementSibling;
-	    imageActive.classList.add("active-image");
-	    imageActive.previousElementSibling.classList.remove("active-image");
 
 	    previousBtn.hidden = false;
 
@@ -540,18 +543,50 @@
 	    if (screen.width > screenSizeMobile) {
 		    updateProgressBar();
 	    }
-
-
     }
 
     function previousStep() {
-	    console.log("previousStep");
-	    // currentFormStep--;
-	    // setCurrentFormAndFormStepIndicator();
-	    // setIsPreviousStepButtonHidden();
-	    // setNextButtonLabel();
+	    circleActive.classList.remove("active");
+	    circleActive = circleActive.previousElementSibling;
+
+	    // pageActive = pageActive.previousElementSibling;
+	    // pageActive.classList.add("active-page");
+	    // pageActive.nextElementSibling.classList.remove("active-page");
+      //
+	    // imageActive = imageActive.previousElementSibling;
+	    // imageActive.classList.add("active-image");
+	    // imageActive.nextElementSibling.classList.remove("active-image");
+
+	    currentFormStep--;
+	    setCurrentFormAndFormStepIndicator();
+
+	    nextBtn.style.display  =  'block';
+	    nextBtn.innerHTML = 'Далі';
+	    finishBtn.style.display = 'none';
+
+	    updateProgressBar();
+
+
+	    if  (currentFormStep  ===  1)  {
+		    previousBtn.style.visibility = 'hidden';
+	    }
+	    if (screen.width <= screenSizeMobile) {
+		    updateProgressBarMob();
+	    }
+	    if (screen.width >= screenSizeMobile) {
+		    updateProgressBar();
+	    }
     }
 
+    function showCurrentForm(){
+	    pageActive = pageActive.nextElementSibling;
+	    pageActive.classList.add("active-page");
+	    pageActive.previousElementSibling.classList.remove("active-page");
+
+	    imageActive = imageActive.nextElementSibling;
+	    imageActive.classList.add("active-image");
+	    imageActive.previousElementSibling.classList.remove("active-image");
+    }
 
     function validateCurrentForm() {
 	    const currentForm = document.querySelector('section[form-step="' + currentFormStep + '"]');
@@ -573,7 +608,7 @@
 
 	    currentStepIndicators.forEach((currentStepIndicator, index) => {
 		    const isCurrentStepIndicatorIndexEqualsToCurrentFormStep = index + 1 === currentFormStep;
-		    !isCurrentStepIndicatorIndexEqualsToCurrentFormStep ? currentStepIndicator.classList.remove('active') : currentStepIndicator.classList.add('active');
+		    !isCurrentStepIndicatorIndexEqualsToCurrentFormStep ? currentStepIndicator.classList.remove('active-image') : currentStepIndicator.classList.add('active-image');
 
 	    });
     }
@@ -586,71 +621,6 @@
 	    const isLastSTep = currentFormStep === 4;
 	    nextBtn.innerHTML = isLastSTep ? 'Готово' : 'Далі';
     }
-
-    // nextBtn.addEventListener('click',  (event)  =>  {
-    // // TODO send user info to server
-    //     console.log("form.addEventListener => ", event);
-    //
-    //
-    //     circleActive = circleActive.nextElementSibling;
-    //     circleActive.classList.add("active");
-    //
-    //
-    //     pageActive = pageActive.nextElementSibling;
-    //     pageActive.classList.add("active-page");
-    //     pageActive.previousElementSibling.classList.remove("active-page");
-    //
-    //     imageActive = imageActive.nextElementSibling;
-    //     imageActive.classList.add("active-image");
-    //     imageActive.previousElementSibling.classList.remove("active-image");
-    //
-    //     previousBtn.style.visibility = 'visible';
-    //
-  	 //    currentFormStep++;
-    //
-	   //    if  (currentFormStep  ===  maxStep)  {
-    //         nextBtn.style.display  =  'none';
-    //         finishBtn.style.display  =  'block';
-    //         document.getElementById('nextBtn').innerHTML = 'Готово';
-    //     }
-    //     if (screen.width <= screenSizeMobile) {
-    //         updateProgressBarMob();
-    //     }
-    //     if (screen.width > screenSizeMobile) {
-    //         updateProgressBar();
-    //     }
-    // });
-
-    previousBtn.addEventListener('click',  ()  =>  {
-
-        circleActive.classList.remove("active");
-        circleActive = circleActive.previousElementSibling;
-
-        pageActive = pageActive.previousElementSibling;
-        pageActive.classList.add("active-page");
-        pageActive.nextElementSibling.classList.remove("active-page");
-
-        imageActive = imageActive.previousElementSibling;
-        imageActive.classList.add("active-image");
-        imageActive.nextElementSibling.classList.remove("active-image");
-
-        nextBtn.style.display  =  'block';
-        nextBtn.innerHTML = 'Далі';
-        finishBtn.style.display = 'none';
-
-        updateProgressBar();
-        currentFormStep--;
-
-        if  (currentFormStep  ===  1)  {
-            previousBtn.style.visibility = 'hidden';
-        }
-        if (screen.width <= screenSizeMobile) {
-            updateProgressBarMob();
-        }
-        if (screen.width >= screenSizeMobile) {
-            updateProgressBar();
-        }
-    });
 
     finishBtn.addEventListener('click',  ()  =>  {
         location.reload();
@@ -668,13 +638,45 @@
         progressBarMob.style.width = currentWidth + "%";
     }
 
+    function signUp() {
+	    console.log("here");
+	    let name = document.getElementById('user-name').value;
+	    let lastName = document.getElementById('user-surname').value;
+	    let phone = document.getElementById('user-phone').value;
+	    let email = document.getElementById('user-email').value;
+	    let password = document.getElementById('user-password').value;
+	    let clientInfo = {
+		    name: name,
+		    lastName: lastName,
+		    phone: phone,
+		    email: email,
+		    password: password
+	    };
+	    let params = JSON.stringify(clientInfo);
+	    console.log('params', params);
+	    // fetch('/api/sign-up', {
+	    //  method: 'POST',
+	    //  body: params
+	    // }).then(function (response) {
+	    //  if(response.ok) {
+	    //    let token = response.headers.get('JWT_TOKEN');
+	    //    localStorage.setItem('JWT_TOKEN', token);
+	    //  }
+	    //  return response.json();
+	    // }).then(function (data) {
+	    //  console.log("response data: ", data);
+	    //  checkUserByEmailOrPhoneNumber(data);
+	    //  if (data.uuid){
+	    //    window.location = "/dashboard";
+	    //  }
+	    // });
+    }
+
 
     let inputName = document.getElementById('input-store-address');
-
     inputName.onkeyup = function(){
         document.getElementById('store-name-address').innerHTML = inputName.value + '.wstore.pro';
     };
-
     const qrForm = document.getElementById('qr-form');
     const qrEmail = document.getElementById('qr-email');
     function showError(input, message) {
@@ -683,13 +685,10 @@
         const errorMessage = formControl.querySelector('error-message');
         errorMessage.innerText = message;
     }
-
-
     function showSuccess(input) {
         const formControl = input.parentElement;
         formControl.className = 'qr-form-input success';
     }
-
     function checkEmail(input) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (re.test(input.value.trim())) {
