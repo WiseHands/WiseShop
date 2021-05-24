@@ -417,13 +417,17 @@
 
                 <section id="qr-step2" class="qr-step-page qr-step2" form-step="2" hidden>
                     <h3>Назва магазину і сайту</h3>
-                    <h4>Введіть назву компанії</h4>
-                    <input   class="qr-form-input" type="text" id="store-name" name="store-name" placeholder="введіть назву" required>
+                    <h4>Введіть назву магазину</h4>
+                    <input   class="qr-form-input" type="text" id="store-name" name="shopName"
+                             placeholder="введіть назву" required
+                             onblur="setShopNameForShop(event)">
                     <h4>Введіть адресу сайту</h4>
-                    <input  class="qr-form-input" type="text" id="input-store-address" name="store-address-name" placeholder="введіть адресу" required>
+                    <input  class="qr-form-input" type="text" id="input-store-address" name="shopDomain" placeholder="введіть адресу" required
+                            onblur="checkDomainNameAvailability(event)">
                     <div class="store-address-block">
                         <p>Ваша адреса сайту:</p>
                         <div class='store-address' id='store-name-address'></div>
+                        <p id="store-domain-error"></p>
                     </div>
                 </section>
 
@@ -473,12 +477,11 @@
     </div>
 
 <script>
+
     const  previousBtn  =  document.getElementById('previousBtn');
     const  nextBtn  =  document.getElementById('nextBtn');
     const  finishBtn  =  document.getElementById('finishBtn');
 
-    let pageActive  = document.querySelector(".active-page");
-    let imageActive  = document.querySelector(".active-image");
     let circleActive = document.querySelector(".active");
 
     const progressBar = document.getElementById("progress-bar");
@@ -504,33 +507,28 @@
     	console.log("proceedNext");
 	    if (!validateCurrentForm()) return;
 
-	    const isLastSTep = currentFormStep === 4;
-	    if (isLastSTep) {
-		    console.log("proceedNext last step", currentFormStep);
-
-		    settingVariantsOfDeliveryAndPaymentTypes();
-		    return;
-	    }
-
-	    // signUp();
-
-	    currentFormStep++;
-	    setCurrentFormAndFormStepIndicator();
-
-
 	    circleActive = circleActive.nextElementSibling;
 	    circleActive.classList.add("active");
 
-	    // pageActive = pageActive.nextElementSibling;
-	    // pageActive.classList.add("active-page");
-	    // pageActive.previousElementSibling.classList.remove("active-page");
-      //
-	    // imageActive = imageActive.nextElementSibling;
-	    // imageActive.classList.add("active-image");
-	    // imageActive.previousElementSibling.classList.remove("active-image");
-
-
-	    previousBtn.hidden = false;
+	    switch (currentFormStep) {
+		    case 1:
+			    previousBtn.hidden = false;
+			    registerUser();
+			    break;
+		    case 2:
+			    console.log(2);
+			    currentFormStep++;
+			    setCurrentFormAndFormStepIndicator();
+			    break;
+		    case 3:
+			    console.log(3);
+			    setCurrentFormAndFormStepIndicator();
+			    break;
+		    case 4:
+			    settingVariantsOfDeliveryAndPaymentTypes();
+			    console.log(4);
+			    break;
+	    }
 
 	    if  (currentFormStep  ===  maxStep)  {
 		    nextBtn.style.display  =  'none';
@@ -548,14 +546,6 @@
     function previousStep() {
 	    circleActive.classList.remove("active");
 	    circleActive = circleActive.previousElementSibling;
-
-	    // pageActive = pageActive.previousElementSibling;
-	    // pageActive.classList.add("active-page");
-	    // pageActive.nextElementSibling.classList.remove("active-page");
-      //
-	    // imageActive = imageActive.previousElementSibling;
-	    // imageActive.classList.add("active-image");
-	    // imageActive.nextElementSibling.classList.remove("active-image");
 
 	    currentFormStep--;
 	    setCurrentFormAndFormStepIndicator();
@@ -576,16 +566,6 @@
 	    if (screen.width >= screenSizeMobile) {
 		    updateProgressBar();
 	    }
-    }
-
-    function showCurrentForm(){
-	    pageActive = pageActive.nextElementSibling;
-	    pageActive.classList.add("active-page");
-	    pageActive.previousElementSibling.classList.remove("active-page");
-
-	    imageActive = imageActive.nextElementSibling;
-	    imageActive.classList.add("active-image");
-	    imageActive.previousElementSibling.classList.remove("active-image");
     }
 
     function validateCurrentForm() {
@@ -638,8 +618,8 @@
         progressBarMob.style.width = currentWidth + "%";
     }
 
-    function signUp() {
-	    console.log("here");
+    function registerUser() {
+	    console.log("registerUser");
 	    let name = document.getElementById('user-name').value;
 	    let lastName = document.getElementById('user-surname').value;
 	    let phone = document.getElementById('user-phone').value;
@@ -654,31 +634,81 @@
 	    };
 	    let params = JSON.stringify(clientInfo);
 	    console.log('params', params);
-	    // fetch('/api/sign-up', {
-	    //  method: 'POST',
-	    //  body: params
-	    // }).then(function (response) {
-	    //  if(response.ok) {
-	    //    let token = response.headers.get('JWT_TOKEN');
-	    //    localStorage.setItem('JWT_TOKEN', token);
-	    //  }
-	    //  return response.json();
-	    // }).then(function (data) {
-	    //  console.log("response data: ", data);
-	    //  checkUserByEmailOrPhoneNumber(data);
-	    //  if (data.uuid){
-	    //    window.location = "/dashboard";
-	    //  }
-	    // });
+	    fetch('/api/sign-up', {
+	     method: 'POST',
+	     body: params
+	    }).then(function (response) {
+	     if(response.ok) {
+	       let token = response.headers.get('JWT_TOKEN');
+	       localStorage.setItem('JWT_TOKEN', token);
+	     }
+	     return response.json();
+	    }).then(function (data) {
+	     console.log("response data: ", data);
+	     // checkUserByEmailOrPhoneNumber(data);
+       currentFormStep++;
+       setCurrentFormAndFormStepIndicator();
+	    });
     }
 
+    function setShopNameForShop(event) {
+	    localStorage.setItem('isShopCreated', 'true');
+	    console.log('setShopNameForShop: ', event.target.name, event.target.value);
+	    const params = '?' + event.target.name + '=' + event.target.value;
+	    const url = '/api/wizard/update' + params;
+	    _generateRequest(url);
+    }
+
+    function checkDomainNameAvailability(event) {
+	    const params = '?' + event.target.name + '=' + event.target.value;
+	    console.log('checkDomainNameAvailability => ', params);
+	    const url = '/api/wizard/check-domain-name' + params;
+	    _generateRequest(url);
+    }
+
+    function _generateRequest(url, json) {
+	    let token = localStorage.getItem('JWT_TOKEN');
+	    // const isUrlEqualDelivPayType = url == urlForDeliveryPaymentType;
+	    // console.log("check isUrlEqualDelivPayType for creating shop: ", isUrlEqualDelivPayType);
+	    fetch(url, {
+		    method: 'POST',
+		    body: json,
+		    headers: {
+			    authorization: 'Bearer ' + token
+		    }
+	    }).then(function (response) {
+		    console.log("response response: ", response);
+		    return response.json();
+	    }).then(function (data) {
+		    console.log("response to prepare for creating shop: ", data.shopName);
+		    handlingErrorForDomainName(data);
+		    if (data && isUrlEqualDelivPayType) {
+			    setTimeout(function() {
+				    generateRequestForCreatingShop().then(() => window.location = '/dashboard');
+			    },10000);
+		    }
+	    });
+    }
+
+    function handlingErrorForDomainName(data) {
+	    const containerError = document.getElementById('store-domain-error');
+	    if (data.status === 420) {
+		    containerError.style.display = "block";
+		    containerError.innerText = data.message;
+		    isValidateAddressDomainName = false;
+	    }
+	    if (data.status === 421) {
+		    containerError.style.display = "none";
+		    isValidateAddressDomainName = true;
+
+	    }
+    }
 
     let inputName = document.getElementById('input-store-address');
     inputName.onkeyup = function(){
         document.getElementById('store-name-address').innerHTML = inputName.value + '.wstore.pro';
     };
-    const qrForm = document.getElementById('qr-form');
-    const qrEmail = document.getElementById('qr-email');
+
     function showError(input, message) {
         const formControl = input.parentElement;
         formControl.className = 'qr-form-input error';

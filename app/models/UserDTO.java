@@ -82,6 +82,7 @@ public class UserDTO extends GenericModel {
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.token = UUID.randomUUID().toString();
     }
 
 }

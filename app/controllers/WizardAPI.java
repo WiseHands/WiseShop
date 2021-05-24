@@ -68,7 +68,7 @@ public class WizardAPI extends AuthController {
 
     public static void checkDomainNameAvailability() throws Exception{
         String domain = request.params.get("shopDomain").toLowerCase();
-
+        System.out.println("checkDomainNameAvailability => " + domain);
         String domainPath;
         if (Application.isDevEnv) {
             domainPath = ".localhost";
