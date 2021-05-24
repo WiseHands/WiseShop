@@ -76,9 +76,10 @@ customer.comment.label = Коментар
 amount.products.label= Товарів на суму:
 delivery.label= Доставка:
 general.payment.label= РАЗОМ:
+
 error.message.please.write.label = Заповніть, будь ласка, це поле
-error.message.please.chose.delivery.label = Вкажіть, будь ласка, тип доставки
-error.message.please.chose.payment.label = Вкажіть, будь ласка, тип оплати
+error.message.please.choose.delivery.label = Вкажіть, будь ласка, тип доставки
+error.message.please.choose.payment.label = Вкажіть, будь ласка, тип оплати
 error.message.please.minimum.delivery.label = Мінімальна сума замовлення становить
 error.message.fill.info = Перевірте заповнену інформацію
 address.general.label = Адреса
