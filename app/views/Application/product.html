@@ -1015,8 +1015,14 @@
       for (i = 0; i < slides.length; i++) {
           slides[i].style.display = "none";
       }
+
+      console.log('slides:', slides)
       slides[slideIndex-1].style.display = "block";
 
+      if (slides.length == 1) {
+            document.querySelector('.next-arrow').style.display = 'none';
+            document.querySelector('.prev-arrow').style.display = 'none';
+      }
       // for (i = 0; i < dots.length; i++) {
       //     dots[i].className = dots[i].className.replace(" active", "");
       // }
