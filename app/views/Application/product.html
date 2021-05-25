@@ -10,7 +10,7 @@
         margin: 0 auto;
         /*overflow: hidden;*/
         display: flex;
-        padding: 1rem 0.5rem;
+        padding: 1rem 0.5rem 0.5rem;
     }
 
     .slideshow-container {
@@ -31,8 +31,9 @@
         cursor: pointer;
         position: absolute;
         top: 50%;
+        transform: translateY(-50%);
         width: auto;
-        margin-top: -22px;
+        margin-top: -9px;
         padding: 16px;
         color: white;
         font-weight: bold;
@@ -55,7 +56,7 @@
         cursor: pointer;
         height: 15px;
         width: 15px;
-        margin: 0 2px;
+        margin: 5px 2px 0;
         background-color: #bbb;
         border-radius: 50%;
         display: inline-block;
@@ -670,23 +671,22 @@
 <main class="product-center-container">
     <div class="slideshow-container">
             %{
-            for(_product in product.images) {
+                for(_product in product.images) {
             }%
                 <div class="slide-photo">
                     <img src="/public/product_images/${shop.uuid}/${_product.filename}">
                 </div>
             %{
-            }
+                }
             }%
 
         <span class="prev-arrow" onclick="plusSlides(-1)">&#10094;</span>
         <span class="next-arrow" onclick="plusSlides(1)">&#10095;</span>
 
-        <div style="text-align:center">
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-        </div>
+<!--        <div style="text-align:center">&ndash;&gt;-->
+<!--            <span class="dot" onclick="currentSlide(${product.images.indexOf(_product)})"></span>-->
+<!--        </div>-->
+
     </div>
 
 
@@ -992,31 +992,33 @@
     additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
   }
 
-  let slideIndex = 1;
+  let slideIndex = 0;
   showSlides(slideIndex);
 
   function plusSlides(n) {
       showSlides(slideIndex += n);
   }
 
-  function currentSlide(n) {
-      showSlides(slideIndex = n);
+  function currentSlide(index) {
+      showSlides(slideIndex = index);
   }
 
-  function showSlides(n) {
+  function showSlides(index) {
       let i;
-      let slides = document.getElementsByClassName("slide-photo");
-      let dots = document.getElementsByClassName("dot");
-      if (n > slides.length) {slideIndex = 1}
-      if (n < 1) {slideIndex = slides.length}
+      let slides = document.querySelectorAll(".slide-photo");
+      // let dots = document.getElementsByClassName("dot");
+      if (index > slides.length) {slideIndex = 1}
+      if (index < 1) {slideIndex = slides.length}
+
       for (i = 0; i < slides.length; i++) {
           slides[i].style.display = "none";
       }
-      for (i = 0; i < dots.length; i++) {
-          dots[i].className = dots[i].className.replace(" active", "");
-      }
       slides[slideIndex-1].style.display = "block";
-      dots[slideIndex-1].className += "active";
+
+      // for (i = 0; i < dots.length; i++) {
+      //     dots[i].className = dots[i].className.replace(" active", "");
+      // }
+      // dots[slideIndex-1].className += "active";
   }
 
 </script>
