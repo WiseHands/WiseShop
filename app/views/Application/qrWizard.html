@@ -469,7 +469,6 @@
                 <div class="form-button">
                     <p id="previousBtn" class="previous-step-button" onclick="previousStep()" hidden>Попередній крок</p>
                     <button id="nextBtn" type="submit" class="next-step-button" onclick="proceedNext()">Далі</button>
-                    <button id="finishBtn" class="next-step-button">Готово</button>
                 </div>
             </form>
 
@@ -480,7 +479,6 @@
 
     const  previousBtn  =  document.getElementById('previousBtn');
     const  nextBtn  =  document.getElementById('nextBtn');
-    const  finishBtn  =  document.getElementById('finishBtn');
 
     let circleActive = document.querySelector(".active");
 
@@ -488,12 +486,9 @@
     const progressBarMob = document.getElementById("progress-bar-mob");
     const screenSizeMobile = 768;
 
-    const maxStep = 4;
     let currentFormStep = 1;
     previousBtn.hidden = true;
-    finishBtn.style.display = 'none';
 
-    let form = document.getElementById("qr-form");
     const wizardForms = document.querySelectorAll('section');
     const currentStepIndicators = document.querySelectorAll(".circle");
 
@@ -508,12 +503,14 @@
 	    if (!validateCurrentForm()) return;
 
 	    circleActive = circleActive.nextElementSibling;
-	    circleActive.classList.add("active");
+	    if (currentFormStep !== 4) circleActive.classList.add("active");
 
 	    switch (currentFormStep) {
 		    case 1:
-			    previousBtn.hidden = false;
-			    registerUser();
+			    console.log(1);
+			    currentFormStep++;
+			    setCurrentFormAndFormStepIndicator();
+			    // registerUser();
 			    break;
 		    case 2:
 			    console.log(2);
@@ -522,19 +519,20 @@
 			    break;
 		    case 3:
 			    console.log(3);
+			    currentFormStep++;
 			    setCurrentFormAndFormStepIndicator();
 			    break;
 		    case 4:
-			    settingVariantsOfDeliveryAndPaymentTypes();
 			    console.log(4);
+			    // settingVariantsOfDeliveryAndPaymentTypes();
+			    currentFormStep++;
+			    setCurrentFormAndFormStepIndicator();
 			    break;
 	    }
 
-	    if  (currentFormStep  ===  maxStep)  {
-		    nextBtn.style.display  =  'none';
-		    finishBtn.style.display  =  'block';
-		    document.getElementById('nextBtn').innerHTML = 'Готово';
-	    }
+	    setIsPreviousStepButtonHidden();
+	    setNextButtonLabel();
+	    
 	    if (screen.width <= screenSizeMobile) {
 		    updateProgressBarMob();
 	    }
@@ -549,17 +547,9 @@
 
 	    currentFormStep--;
 	    setCurrentFormAndFormStepIndicator();
+	    setIsPreviousStepButtonHidden();
+	    setNextButtonLabel();
 
-	    nextBtn.style.display  =  'block';
-	    nextBtn.innerHTML = 'Далі';
-	    finishBtn.style.display = 'none';
-
-	    updateProgressBar();
-
-
-	    if  (currentFormStep  ===  1)  {
-		    previousBtn.style.visibility = 'hidden';
-	    }
 	    if (screen.width <= screenSizeMobile) {
 		    updateProgressBarMob();
 	    }
@@ -578,7 +568,6 @@
 	    });
 	    return validInputs === currentFormInputs.length;
     }
-
     function setCurrentFormAndFormStepIndicator() {
 	    wizardForms.forEach(form => {
 		    const formStep = form.getAttribute('form-step');
@@ -601,10 +590,6 @@
 	    const isLastSTep = currentFormStep === 4;
 	    nextBtn.innerHTML = isLastSTep ? 'Готово' : 'Далі';
     }
-
-    finishBtn.addEventListener('click',  ()  =>  {
-        location.reload();
-    });
 
     function updateProgressBar() {
         const actives = document.querySelectorAll(".active");
@@ -634,21 +619,21 @@
 	    };
 	    let params = JSON.stringify(clientInfo);
 	    console.log('params', params);
-	    fetch('/api/sign-up', {
-	     method: 'POST',
-	     body: params
-	    }).then(function (response) {
-	     if(response.ok) {
-	       let token = response.headers.get('JWT_TOKEN');
-	       localStorage.setItem('JWT_TOKEN', token);
-	     }
-	     return response.json();
-	    }).then(function (data) {
-	     console.log("response data: ", data);
-	     // checkUserByEmailOrPhoneNumber(data);
-       currentFormStep++;
-       setCurrentFormAndFormStepIndicator();
-	    });
+	    // fetch('/api/sign-up', {
+	    //  method: 'POST',
+	    //  body: params
+	    // }).then(function (response) {
+	    //  if(response.ok) {
+	    //    let token = response.headers.get('JWT_TOKEN');
+	    //    localStorage.setItem('JWT_TOKEN', token);
+	    //  }
+	    //  return response.json();
+	    // }).then(function (data) {
+	    //  console.log("response data: ", data);
+	    //  // checkUserByEmailOrPhoneNumber(data);
+       // currentFormStep++;
+       // setCurrentFormAndFormStepIndicator();
+	    // });
     }
 
     function setShopNameForShop(event) {
@@ -680,13 +665,13 @@
 		    console.log("response response: ", response);
 		    return response.json();
 	    }).then(function (data) {
-		    console.log("response to prepare for creating shop: ", data.shopName);
-		    handlingErrorForDomainName(data);
-		    if (data && isUrlEqualDelivPayType) {
-			    setTimeout(function() {
-				    generateRequestForCreatingShop().then(() => window.location = '/dashboard');
-			    },10000);
-		    }
+		    console.log("response to prepare for creating shop: ", data);
+		    // handlingErrorForDomainName(data);
+		    // if (data && isUrlEqualDelivPayType) {
+			   //  setTimeout(function() {
+				 //    generateRequestForCreatingShop().then(() => window.location = '/dashboard');
+			   //  },10000);
+		    // }
 	    });
     }
 
