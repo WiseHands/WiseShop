@@ -13,6 +13,76 @@
         padding: 1rem 0.5rem;
     }
 
+    .slideshow-container {
+        flex: 0 1 40%;
+        position: relative;
+        margin: auto;
+    }
+
+    .slide-photo {
+        display: none;
+    }
+
+    .slide-photo img  {
+        width: 100%;
+    }
+
+    .prev-arrow, .next-arrow {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+
+    .next-arrow {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    .prev-arrow:hover, .next-arrow:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+
+    .dot.active, .dot:hover {
+        background-color: #717171;
+    }
+
+    .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    @-webkit-keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+    }
+
+    @keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+    }
+
     .product-photo {
         max-width: 40%;
         height: fit-content;
@@ -30,17 +100,13 @@
         color: #fff;
     }
 
-    .product-photo img {
-        max-width: 100%;
-        margin: 0 auto;
-    }
-
     .product-info {
         display: flex;
         flex-flow: column wrap;
-        width: 60%;
+        flex: 0 1 60%;
         /*overflow: hidden;*/
         text-overflow: ellipsis;
+        padding-left: 1rem;
     }
 
     .product-info h2, .product-info p, .add-items-title p {
@@ -433,26 +499,6 @@
         font-size: 0.9rem;
         margin-left: 0.5rem;
     }
-    ul.images-list {
-        margin-top: 1rem;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(160px, 1fr));
-        grid-template-rows: 1fr;
-        grid-gap: 1rem;
-    }
-
-    li {
-        display: flex;
-        flex-direction: column;
-    }
-
-    li img {
-        max-height: 100%;
-        min-width: 100%;
-        object-fit: fill;
-        vertical-align: bottom;
-    }
-
 
     @media screen and (min-width: 1500px) {
         .product-center-container, .shop-all-reviews, .tabs-container {
@@ -622,25 +668,28 @@
 <body>
 #{verbatim}
 <main class="product-center-container">
-    <div>
-        <div class="product-photo hoverable">
-            <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide" loading="lazy">
-            <!--            <span class="product-price-on-photo">${product.formatDecimal()} UAH</span>-->
+    <div class="slideshow-container">
+            %{
+            for(_product in product.images) {
+            }%
+                <div class="slide-photo">
+                    <img src="/public/product_images/${shop.uuid}/${_product.filename}">
+                </div>
+            %{
+            }
+            }%
+
+        <span class="prev-arrow" onclick="plusSlides(-1)">&#10094;</span>
+        <span class="next-arrow" onclick="plusSlides(1)">&#10095;</span>
+
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
         </div>
-
-        <ul class="images-list">
-            %{
-                for(_product in product.images) {
-            }%
-            <li class="imageFlex">
-                <img src="/public/product_images/${shop.uuid}/${_product.filename}">
-            </li>
-            %{
-                }
-            }%
-        </ul>
-
     </div>
+
+
 
     <div class="product-info">
         <ul class="menu-breadcrumb">
@@ -941,6 +990,33 @@
       additionsTotalPrice += counter * additionPrice;
     });
     additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
+  }
+
+  let slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+      showSlides(slideIndex += n);
+  }
+
+  function currentSlide(n) {
+      showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("slide-photo");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += "active";
   }
 
 </script>
