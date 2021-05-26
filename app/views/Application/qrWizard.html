@@ -434,11 +434,20 @@
                 <section id="qr-step3" class="qr-step-page qr-step3" form-step="3" hidden>
                     <h3>Додайте контакти</h3>
                     <h4>Місто</h4>
-                    <input  class="qr-form-input" type="text" id="city-name" name="city-name" placeholder="введіть назву міста" required>
+                    <input  class="qr-form-input" type="text"
+                            id="city-name" name="cityName"
+                            placeholder="введіть назву міста"
+                            required>
                     <h4>Вулиця</h4>
-                    <input  class="qr-form-input"  type="text" id="street-name" name="street-name" placeholder="введіть вулицю"required>
+                    <input  class="qr-form-input" type="text"
+                            id="street-name" name="streetName"
+                            placeholder="введіть вулицю"
+                            required>
                     <h4>Будинок</h4>
-                    <input  class="qr-form-input"  type="text" id="house-name" name="house-name" placeholder="введіть номер будинку" required>
+                    <input  class="qr-form-input"  type="text"
+                            id="house-number" name="buildingNumber"
+                            placeholder="введіть номер будинку"
+                            required>
                 </section>
 
                 <section id="qr-step4" class="qr-step-page qr-step4" form-step="4" hidden>
@@ -519,6 +528,7 @@
 			    break;
 		    case 3:
 			    console.log(3);
+			    setShopContactInfo();
 			    currentFormStep++;
 			    setCurrentFormAndFormStepIndicator();
 			    break;
@@ -532,7 +542,7 @@
 
 	    setIsPreviousStepButtonHidden();
 	    setNextButtonLabel();
-	    
+
 	    if (screen.width <= screenSizeMobile) {
 		    updateProgressBarMob();
 	    }
@@ -581,11 +591,9 @@
 
 	    });
     }
-
     function setIsPreviousStepButtonHidden() {
 	    previousBtn.hidden = currentFormStep === 1;
     }
-
     function setNextButtonLabel() {
 	    const isLastSTep = currentFormStep === 4;
 	    nextBtn.innerHTML = isLastSTep ? 'Готово' : 'Далі';
@@ -643,12 +651,21 @@
 	    const url = '/api/wizard/update' + params;
 	    _generateRequest(url);
     }
-
     function checkDomainNameAvailability(event) {
 	    const params = '?' + event.target.name + '=' + event.target.value;
 	    console.log('checkDomainNameAvailability => ', params);
 	    const url = '/api/wizard/check-domain-name' + params;
 	    _generateRequest(url);
+    }
+
+    function setShopContactInfo() {
+	    let city = document.getElementById('city-name').value;
+	    let street = document.getElementById('street-name').value;
+	    let house = document.getElementById('house-number').value;
+	    let json = JSON.stringify({city:city, street:street, house:house});
+	    const url = '/api/wizard/shop-contact-info';
+	    console.log('setShopContactInfo =>', url, json);
+	    _generateRequest(url, json);
     }
 
     function _generateRequest(url, json) {

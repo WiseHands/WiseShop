@@ -109,9 +109,20 @@ public class WizardAPI extends AuthController {
     }
 
     public static void setShopContactInfo() throws Exception{
-        String cityName = request.params.get("cityName");
-        String streetName = request.params.get("streetName");
-        String buildingNumber = request.params.get("buildingNumber");
+        String cityName, streetName, buildingNumber;
+              cityName = request.params.get("cityName");
+              streetName = request.params.get("streetName");
+              buildingNumber = request.params.get("buildingNumber");
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        System.out.println("setShopContactInfo jsonBody\n" + jsonBody);
+
+        if (jsonBody != null){
+            cityName = (String) jsonBody.get("city");
+            streetName = (String) jsonBody.get("street");
+            buildingNumber = (String) jsonBody.get("house");
+        }
 
         System.out.println("setShopContactInfo\n" + cityName + "\n" + streetName + "\n" + buildingNumber);
 
@@ -122,13 +133,13 @@ public class WizardAPI extends AuthController {
         UserDTO user = UserDTO.find("byUuid", userId).first();
         System.out.println("setShopContactInfo get userDTO\n" + userId);
 
-        if(cityName != null){
+        if(cityName != null && !cityName.isEmpty()){
             user.wizard.cityName = cityName;
         }
-        if(streetName != null){
+        if(streetName != null && !streetName.isEmpty()){
             user.wizard.streetName = streetName;
         }
-        if(buildingNumber != null){
+        if(buildingNumber != null && !buildingNumber.isEmpty()){
             user.wizard.buildingNumber =buildingNumber;
         }
 
