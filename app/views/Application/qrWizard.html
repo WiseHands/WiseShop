@@ -485,7 +485,7 @@
                 </section>
                 <div class="form-button">
                     <p id="previousBtn" class="previous-step-button" onclick="previousStep()" hidden>Попередній крок</p>
-                    <button id="nextBtn" type="submit" class="next-step-button" onclick="proceedNext()">Далі</button>
+                    <button id="nextBtn" type="submit" class="next-step-button" onclick="proceedNext(event)">Далі</button>
                 </div>
             </form>
 
@@ -494,18 +494,18 @@
 
 <script>
 
-    const  previousBtn  =  document.getElementById('previousBtn');
-    const  nextBtn  =  document.getElementById('nextBtn');
-
     let circleActive = document.querySelector(".active");
+    const urlForDeliveryPaymentType = '/api/wizard/delivery-payment-info';
 
-    const progressBar = document.getElementById("progress-bar");
-    const progressBarMob = document.getElementById("progress-bar-mob");
+    const  previousBtn  =  document.querySelector('#previousBtn');
+    previousBtn.hidden = true;
+    const  nextBtn  =  document.querySelector('#nextBtn');
+
+    const progressBar = document.querySelector('#progress-bar');
+    const progressBarMob = document.querySelector('#progress-bar-mob');
     const screenSizeMobile = 768;
 
     let currentFormStep = 1;
-    previousBtn.hidden = true;
-
     const wizardForms = document.querySelectorAll('section');
     const currentStepIndicators = document.querySelectorAll(".circle");
 
@@ -515,7 +515,8 @@
     });
 
 
-    function proceedNext() {
+    function proceedNext(event) {
+	    event.preventDefault();
     	console.log("proceedNext");
 	    if (!validateCurrentForm()) return;
 
@@ -526,7 +527,6 @@
 		    case 1:
 			    console.log(1);
 			    registerUser();
-			    setCurrentFormAndFormStepIndicator();
 			    break;
 		    case 2:
 			    console.log(2);
@@ -634,22 +634,31 @@
 	    };
 	    let params = JSON.stringify(clientInfo);
 	    console.log('params', params);
-	    // fetch('/api/sign-up', {
-	    //  method: 'POST',
-	    //  body: params
-	    // }).then(function (response) {
-	    //  if(response.ok) {
-	    //    let token = response.headers.get('JWT_TOKEN');
-	    //    localStorage.setItem('JWT_TOKEN', token);
-	    //  }
-	    //  return response.json();
-	    // }).then(function (data) {
-	    //  console.log("response data: ", data);
-	    //  checkUserByEmailOrPhoneNumber(data);
-       // currentFormStep++;
-       // setCurrentFormAndFormStepIndicator();
-	    // });
+	    fetch('/api/sign-up', {
+	     method: 'POST',
+	     body: params
+	    }).then(function (response) {
+	     if(response.ok) {
+	       let token = response.headers.get('JWT_TOKEN');
+	       localStorage.setItem('JWT_TOKEN', token);
+	     }
+	     return response.json();
+	    }).then(function (data) {
+	     console.log("response data: ", data);
+	     checkUserByEmailOrPhoneNumber(data);
+       setCurrentFormAndFormStepIndicator();
+	    });
     }
+
+    function checkUserByEmailOrPhoneNumber(data) {
+	    if (data.status === 420){
+		    console.log("ERROR", data.message)
+	    }
+	    if (data.status === 421){
+		    console.log("ERROR", data.message)
+	    }
+    }
+
     function checkDomainNameAvailability() {
 	    let json = JSON.stringify({
         shopName : document.querySelector('#store-name').value,
@@ -659,6 +668,7 @@
 	    const url = '/api/wizard/check-domain-name';
 	    _generateRequest(url, json);
     }
+
     function setShopContactInfo() {
 	    let city = document.getElementById('city-name').value;
 	    let street = document.getElementById('street-name').value;
@@ -668,6 +678,7 @@
 	    console.log('setShopContactInfo =>', url, json);
 	    _generateRequest(url, json);
     }
+
     function settingVariantsOfDeliveryAndPaymentTypes() {
 	    const courier = document.querySelector('#courier').checked;
 	    const post = document.querySelector('#post').checked;
@@ -694,15 +705,15 @@
 	    const bodyParams = JSON.stringify(toolInfo);
 
 	    _generateRequest(urlForDeliveryPaymentType, bodyParams);
-	    showLoadingCircleAnimation();
+	    // showLoadingCircleAnimation();
 
     }
 
 
     function _generateRequest(url, json) {
 	    let token = localStorage.getItem('JWT_TOKEN');
-	    // const isUrlEqualDelivPayType = url == urlForDeliveryPaymentType;
-	    // console.log("check isUrlEqualDelivPayType for creating shop: ", isUrlEqualDelivPayType);
+	    const isUrlEqualDelivPayType = url == urlForDeliveryPaymentType;
+	    console.log("check isUrlEqualDelivPayType for creating shop: ", isUrlEqualDelivPayType);
 	    fetch(url, {
 		    method: 'POST',
 		    body: json,
@@ -715,12 +726,28 @@
 	    }).then(function (data) {
 		    console.log("response to prepare for creating shop: ", data);
 		    // handlingErrorForDomainName(data);
-		    // if (data && isUrlEqualDelivPayType) {
-			   //  setTimeout(function() {
-				 //    generateRequestForCreatingShop().then(() => window.location = '/dashboard');
-			   //  },10000);
-		    // }
+		    if (data && isUrlEqualDelivPayType) {
+			    setTimeout(function() {
+				    generateRequestForCreatingShop().then(() => window.location = '/dashboard');
+			    },10000);
+		    }
 	    });
+    }
+
+    function generateRequestForCreatingShop() {
+	    let token = localStorage.getItem('JWT_TOKEN');
+	    const fetchRequest = fetch('/api/dashboard/shop/create', {
+		    method: 'POST',
+		    headers: {
+			    authorization: 'Bearer ' + token
+		    }
+	    }).then(function (response) {
+		    console.log("response response: ", response);
+		    return response.json();
+	    }).then(function (data) {
+
+	    });
+	    return fetchRequest;
     }
 
     function handlingErrorForDomainName(data) {
