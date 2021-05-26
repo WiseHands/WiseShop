@@ -67,7 +67,13 @@ public class WizardAPI extends AuthController {
     }
 
     public static void checkDomainNameAvailability() throws Exception{
-        String domain = request.params.get("shopDomain").toLowerCase();
+
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+        System.out.println(" checkDomainNameAvailability => " + jsonBody);
+
+        String domain = (String) jsonBody.get("domain");
         System.out.println("checkDomainNameAvailability => " + domain);
         String domainPath;
         if (Application.isDevEnv) {
@@ -86,11 +92,14 @@ public class WizardAPI extends AuthController {
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
         System.out.println("String userId " + userId);
+        UserDTO user = UserDTO.find("byUuid", userId).first();
+        String shopName = (String) jsonBody.get("shopName");
+
         ShopDTO shop = ShopDTO.find("byDomain", domain).first();
         if (shop == null){
             String reason = "Адреса доступна";
             JsonResponse jsonResponse = new JsonResponse(421, reason);
-            UserDTO user = UserDTO.find("byUuid", userId).first();
+            user.wizard.shopName = shopName;
             user.wizard.shopDomain = domain;
             user.wizard.save();
             renderJSON(jsonResponse);
@@ -148,19 +157,21 @@ public class WizardAPI extends AuthController {
     }
 
     public static void setVariantsOfDeliveryAndPaymentTypes() throws Exception{
+        String authorizationHeader = request.headers.get("authorization").value();
+        String userId = getUserIdFromAuthorization(authorizationHeader);
+        UserDTO user = UserDTO.find("byUuid", userId).first();
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
         boolean courierDelivery = (boolean) jsonBody.get("courierDelivery");
         boolean postDepartment = (boolean) jsonBody.get("postDepartment");
         boolean selfTake = (boolean) jsonBody.get("selfTake");
-        boolean payCash = true;
-        boolean payOnline = false;
 
-        String authorizationHeader = request.headers.get("authorization").value();
-        String userId = getUserIdFromAuthorization(authorizationHeader);
-        UserDTO user = UserDTO.find("byUuid", userId).first();
-        System.out.println("setVariantsOfDeliveryAndPaymentTypes\n" + user.givenName);
+        boolean payCash = false, payOnline = false;
+        if (jsonBody.get("payCash") != null) payCash = (boolean) jsonBody.get("payCash");
+        if (jsonBody.get("payOnline") != null) payOnline = (boolean) jsonBody.get("payOnline");
+
+        System.out.println("setVariantsOfDeliveryAndPaymentTypes\n" + jsonBody + user.givenName);
 
         user.wizard.courierDelivery = courierDelivery;
         user.wizard.postDepartment = postDepartment;
