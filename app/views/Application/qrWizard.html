@@ -494,7 +494,7 @@
 
 <script>
 
-    let circleActive = document.querySelector(".active");
+    let circleActive = document.querySelector('.active');
     const urlForDeliveryPaymentType = '/api/wizard/delivery-payment-info';
 
     const  previousBtn  =  document.querySelector('#previousBtn');
@@ -516,8 +516,8 @@
 
 
     function proceedNext(event) {
-	    event.preventDefault();
     	console.log("proceedNext");
+	    event.preventDefault();
 	    if (!validateCurrentForm()) return;
 
 	    circleActive = circleActive.nextElementSibling;
@@ -531,17 +531,15 @@
 		    case 2:
 			    console.log(2);
 			    checkDomainNameAvailability();
-			    setCurrentFormAndFormStepIndicator();
 			    break;
 		    case 3:
 			    console.log(3);
 			    setShopContactInfo();
-			    setCurrentFormAndFormStepIndicator();
 			    break;
 		    case 4:
 			    console.log(4);
-			    settingVariantsOfDeliveryAndPaymentTypes();
 			    setCurrentFormAndFormStepIndicator();
+			    settingVariantsOfDeliveryAndPaymentTypes();
 			    break;
 	    }
 
@@ -646,13 +644,13 @@
 	    }).then(function (data) {
 	     console.log("response data: ", data);
 	     checkUserByEmailOrPhoneNumber(data);
-       setCurrentFormAndFormStepIndicator();
+
 	    });
     }
 
     function checkUserByEmailOrPhoneNumber(data) {
-	    if (data.status === 420){
-		    console.log("ERROR", data.message)
+	    if (!data.status || data.status === 420){
+		    setCurrentFormAndFormStepIndicator();
 	    }
 	    if (data.status === 421){
 		    console.log("ERROR", data.message)
@@ -725,7 +723,7 @@
 		    return response.json();
 	    }).then(function (data) {
 		    console.log("response to prepare for creating shop: ", data);
-		    // handlingErrorForDomainName(data);
+		    handlingErrorForCurrentForm(data);
 		    if (data && isUrlEqualDelivPayType) {
 			    setTimeout(function() {
 				    generateRequestForCreatingShop().then(() => window.location = '/dashboard');
@@ -750,17 +748,20 @@
 	    return fetchRequest;
     }
 
-    function handlingErrorForDomainName(data) {
+    function handlingErrorForCurrentForm(data) {
 	    const containerError = document.getElementById('store-domain-error');
-	    if (data.status === 420) {
+	    if (data.status === 103) {
+		    setCurrentFormAndFormStepIndicator();
+	    }
+	    if (data.status === 421) {
 		    containerError.style.display = "block";
 		    containerError.innerText = data.message;
 		    isValidateAddressDomainName = false;
 	    }
-	    if (data.status === 421) {
+	    if (!data.status || data.status === 420) {
 		    containerError.style.display = "none";
 		    isValidateAddressDomainName = true;
-
+		    setCurrentFormAndFormStepIndicator();
 	    }
     }
 

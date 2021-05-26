@@ -85,7 +85,7 @@ public class WizardAPI extends AuthController {
         }
 
         if(isDomainNameInvalid(domain)){
-            JsonResponse jsonResponse = new JsonResponse(420, "Назва не повинна містити: !, _");
+            JsonResponse jsonResponse = new JsonResponse(421, "Назва не повинна містити: !, _");
             renderJSON(jsonResponse);
         }
 
@@ -94,18 +94,25 @@ public class WizardAPI extends AuthController {
         System.out.println("String userId " + userId);
         UserDTO user = UserDTO.find("byUuid", userId).first();
         String shopName = (String) jsonBody.get("shopName");
-
+        System.out.println("shopName => " + shopName);
         ShopDTO shop = ShopDTO.find("byDomain", domain).first();
         if (shop == null){
             String reason = "Адреса доступна";
-            JsonResponse jsonResponse = new JsonResponse(421, reason);
-            user.wizard.shopName = shopName;
+            JsonResponse jsonResponse = new JsonResponse(420, reason);
+            if (user.wizard == null){
+                WizardDTO wizardDTO = new WizardDTO();
+                wizardDTO.user = user;
+                user.wizard = wizardDTO;
+                wizardDTO.save();
+            }
             user.wizard.shopDomain = domain;
+            user.wizard.shopName = shopName;
+
             user.wizard.save();
             renderJSON(jsonResponse);
         }
         String reason = "адреса недоступна";
-        JsonResponse jsonResponse = new JsonResponse(420, reason);
+        JsonResponse jsonResponse = new JsonResponse(421, reason);
         renderJSON(jsonResponse);
 
     }
@@ -153,7 +160,7 @@ public class WizardAPI extends AuthController {
         }
 
         user.wizard.save();
-        renderJSON(json(user.wizard));
+        renderJSON(json(new JsonResponse(103, "save")));
     }
 
     public static void setVariantsOfDeliveryAndPaymentTypes() throws Exception{
@@ -225,7 +232,7 @@ public class WizardAPI extends AuthController {
             if (user != null) {
                 System.out.println("user.with.email.already.exist");
                 String reason = Messages.get("user.with.email.already.exist");
-                JsonResponse jsonResponse = new JsonResponse(420, reason);
+                JsonResponse jsonResponse = new JsonResponse(421, reason);
                 renderJSON(jsonResponse);
             }
 
