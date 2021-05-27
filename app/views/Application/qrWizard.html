@@ -526,14 +526,20 @@
 	    switch (currentFormStep) {
 		    case 1:
 			    console.log(1);
+			    currentFormStep++;
+
 			    registerUser();
 			    break;
 		    case 2:
 			    console.log(2);
+			    currentFormStep++;
+
 			    checkDomainNameAvailability();
 			    break;
 		    case 3:
 			    console.log(3);
+			    currentFormStep++;
+			
 			    setShopContactInfo();
 			    break;
 		    case 4:
@@ -582,8 +588,6 @@
 	    return validInputs === currentFormInputs.length;
     }
     function setCurrentFormAndFormStepIndicator() {
-	    currentFormStep++;
-
 	    wizardForms.forEach(form => {
 		    const formStep = form.getAttribute('form-step');
 		    const isCurrentFormStepEqualsDisplayedFormStep = currentFormStep === Number(formStep);
@@ -601,6 +605,7 @@
     }
     function setNextButtonLabel() {
 	    const isLastSTep = currentFormStep === 4;
+	    previousBtn.hidden = isLastSTep;
 	    nextBtn.innerHTML = isLastSTep ? 'Готово' : 'Далі';
     }
 
