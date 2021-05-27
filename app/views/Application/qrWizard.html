@@ -115,7 +115,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        position: absolute;
+        margin: 10px 0;
         width: calc(100% - 100px);
         right: 50px;
         bottom: 100px;
@@ -280,7 +280,371 @@
         border-color: green;
     }
 
+    /*start circle loading animation*/
+
+    .circle-loading-animation {
+      margin-top: 20%;
+      margin-left: 40%;
+      position: relative;
+      width: 120px;
+      height:120px;
+    }
+
+    .circle-loading-animation .wBall {
+      position: absolute;
+      width: 114px;
+      height: 114px;
+      opacity: 0;
+      transform: rotate(225deg);
+      -o-transform: rotate(225deg);
+      -ms-transform: rotate(225deg);
+      -webkit-transform: rotate(225deg);
+      -moz-transform: rotate(225deg);
+      animation: orbit 4.5325s infinite;
+      -o-animation: orbit 4.5325s infinite;
+      -ms-animation: orbit 4.5325s infinite;
+      -webkit-animation: orbit 4.5325s infinite;
+      -moz-animation: orbit 4.5325s infinite;
+    }
+
+    .circle-loading-animation .wBall .wInnerBall{
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: rgb(0,0,0);
+      left:0px;
+      top:0px;
+      border-radius: 15px;
+    }
+
+    .circle-loading-animation #wBall_1 {
+      animation-delay: 0.986s;
+      -o-animation-delay: 0.986s;
+      -ms-animation-delay: 0.986s;
+      -webkit-animation-delay: 0.986s;
+      -moz-animation-delay: 0.986s;
+    }
+
+    .circle-loading-animation #wBall_2 {
+      animation-delay: 0.193s;
+      -o-animation-delay: 0.193s;
+      -ms-animation-delay: 0.193s;
+      -webkit-animation-delay: 0.193s;
+      -moz-animation-delay: 0.193s;
+    }
+
+    .circle-loading-animation #wBall_3 {
+      animation-delay: 0.3965s;
+      -o-animation-delay: 0.3965s;
+      -ms-animation-delay: 0.3965s;
+      -webkit-animation-delay: 0.3965s;
+      -moz-animation-delay: 0.3965s;
+    }
+
+    .circle-loading-animation #wBall_4 {
+      animation-delay: 0.5895s;
+      -o-animation-delay: 0.5895s;
+      -ms-animation-delay: 0.5895s;
+      -webkit-animation-delay: 0.5895s;
+      -moz-animation-delay: 0.5895s;
+    }
+
+    .circle-loading-animation #wBall_5 {
+      animation-delay: 0.793s;
+      -o-animation-delay: 0.793s;
+      -ms-animation-delay: 0.793s;
+      -webkit-animation-delay: 0.793s;
+      -moz-animation-delay: 0.793s;
+    }
+
+    @keyframes orbit {
+      0% {
+        opacity: 1;
+        z-index:99;
+        transform: rotate(180deg);
+        animation-timing-function: ease-out;
+      }
+
+      7% {
+        opacity: 1;
+        transform: rotate(300deg);
+        animation-timing-function: linear;
+        origin:0%;
+      }
+
+      30% {
+        opacity: 1;
+        transform:rotate(410deg);
+        animation-timing-function: ease-in-out;
+        origin:7%;
+      }
+
+      39% {
+        opacity: 1;
+        transform: rotate(645deg);
+        animation-timing-function: linear;
+        origin:30%;
+      }
+
+      70% {
+        opacity: 1;
+        transform: rotate(770deg);
+        animation-timing-function: ease-out;
+        origin:39%;
+      }
+
+      75% {
+        opacity: 1;
+        transform: rotate(900deg);
+        animation-timing-function: ease-out;
+        origin:70%;
+      }
+
+      76% {
+        opacity: 0;
+        transform:rotate(900deg);
+      }
+
+      100% {
+        opacity: 0;
+        transform: rotate(900deg);
+      }
+    }
+
+    @-o-keyframes orbit {
+      0% {
+        opacity: 1;
+        z-index:99;
+        -o-transform: rotate(180deg);
+        -o-animation-timing-function: ease-out;
+      }
+
+      7% {
+        opacity: 1;
+        -o-transform: rotate(300deg);
+        -o-animation-timing-function: linear;
+        -o-origin:0%;
+      }
+
+      30% {
+        opacity: 1;
+        -o-transform:rotate(410deg);
+        -o-animation-timing-function: ease-in-out;
+        -o-origin:7%;
+      }
+
+      39% {
+        opacity: 1;
+        -o-transform: rotate(645deg);
+        -o-animation-timing-function: linear;
+        -o-origin:30%;
+      }
+
+      70% {
+        opacity: 1;
+        -o-transform: rotate(770deg);
+        -o-animation-timing-function: ease-out;
+        -o-origin:39%;
+      }
+
+      75% {
+        opacity: 1;
+        -o-transform: rotate(900deg);
+        -o-animation-timing-function: ease-out;
+        -o-origin:70%;
+      }
+
+      76% {
+        opacity: 0;
+        -o-transform:rotate(900deg);
+      }
+
+      100% {
+        opacity: 0;
+        -o-transform: rotate(900deg);
+      }
+    }
+
+    @-ms-keyframes orbit {
+      0% {
+        opacity: 1;
+        z-index:99;
+        -ms-transform: rotate(180deg);
+        -ms-animation-timing-function: ease-out;
+      }
+
+      7% {
+        opacity: 1;
+        -ms-transform: rotate(300deg);
+        -ms-animation-timing-function: linear;
+        -ms-origin:0%;
+      }
+
+      30% {
+        opacity: 1;
+        -ms-transform:rotate(410deg);
+        -ms-animation-timing-function: ease-in-out;
+        -ms-origin:7%;
+      }
+
+      39% {
+        opacity: 1;
+        -ms-transform: rotate(645deg);
+        -ms-animation-timing-function: linear;
+        -ms-origin:30%;
+      }
+
+      70% {
+        opacity: 1;
+        -ms-transform: rotate(770deg);
+        -ms-animation-timing-function: ease-out;
+        -ms-origin:39%;
+      }
+
+      75% {
+        opacity: 1;
+        -ms-transform: rotate(900deg);
+        -ms-animation-timing-function: ease-out;
+        -ms-origin:70%;
+      }
+
+      76% {
+        opacity: 0;
+        -ms-transform:rotate(900deg);
+      }
+
+      100% {
+        opacity: 0;
+        -ms-transform: rotate(900deg);
+      }
+    }
+
+    @-webkit-keyframes orbit {
+      0% {
+        opacity: 1;
+        z-index:99;
+        -webkit-transform: rotate(180deg);
+        -webkit-animation-timing-function: ease-out;
+      }
+
+      7% {
+        opacity: 1;
+        -webkit-transform: rotate(300deg);
+        -webkit-animation-timing-function: linear;
+        -webkit-origin:0%;
+      }
+
+      30% {
+        opacity: 1;
+        -webkit-transform:rotate(410deg);
+        -webkit-animation-timing-function: ease-in-out;
+        -webkit-origin:7%;
+      }
+
+      39% {
+        opacity: 1;
+        -webkit-transform: rotate(645deg);
+        -webkit-animation-timing-function: linear;
+        -webkit-origin:30%;
+      }
+
+      70% {
+        opacity: 1;
+        -webkit-transform: rotate(770deg);
+        -webkit-animation-timing-function: ease-out;
+        -webkit-origin:39%;
+      }
+
+      75% {
+        opacity: 1;
+        -webkit-transform: rotate(900deg);
+        -webkit-animation-timing-function: ease-out;
+        -webkit-origin:70%;
+      }
+
+      76% {
+        opacity: 0;
+        -webkit-transform:rotate(900deg);
+      }
+
+      100% {
+        opacity: 0;
+        -webkit-transform: rotate(900deg);
+      }
+    }
+
+    @-moz-keyframes orbit {
+      0% {
+        opacity: 1;
+        z-index:99;
+        -moz-transform: rotate(180deg);
+        -moz-animation-timing-function: ease-out;
+      }
+
+      7% {
+        opacity: 1;
+        -moz-transform: rotate(300deg);
+        -moz-animation-timing-function: linear;
+        -moz-origin:0%;
+      }
+
+      30% {
+        opacity: 1;
+        -moz-transform:rotate(410deg);
+        -moz-animation-timing-function: ease-in-out;
+        -moz-origin:7%;
+      }
+
+      39% {
+        opacity: 1;
+        -moz-transform: rotate(645deg);
+        -moz-animation-timing-function: linear;
+        -moz-origin:30%;
+      }
+
+      70% {
+        opacity: 1;
+        -moz-transform: rotate(770deg);
+        -moz-animation-timing-function: ease-out;
+        -moz-origin:39%;
+      }
+
+      75% {
+        opacity: 1;
+        -moz-transform: rotate(900deg);
+        -moz-animation-timing-function: ease-out;
+        -moz-origin:70%;
+      }
+
+      76% {
+        opacity: 0;
+        -moz-transform:rotate(900deg);
+      }
+
+      100% {
+        opacity: 0;
+        -moz-transform: rotate(900deg);
+      }
+    }
+
+    @media screen and (max-width: 1100px){
+      .circle-loading-animation{
+        margin-top: 20%;
+      }
+      .wizard-form{
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    }
+
+
+    /*end circle loading animation*/
+
     @media screen and (max-width: 768px) {
+        .circle-loading-animation{
+          margin-left: 30%;
+        }
         .qr-wizard-form {
             height: 100%;
             min-height: 100vh;
@@ -488,13 +852,30 @@
                     <button id="nextBtn" type="submit" class="next-step-button" onclick="proceedNext(event)">Далі</button>
                 </div>
             </form>
-
+            <div class="circle-loading-animation" hidden>
+                <div class="wBall" id="wBall_1">
+                  <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_2">
+                  <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_3">
+                  <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_4">
+                  <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_5">
+                  <div class="wInnerBall"></div>
+                </div>
+            </div>
         </div>
     </div>
 
 <script>
 
     let circleActive = document.querySelector('.active');
+    const circleLoadingAnimation = document.querySelector('.circle-loading-animation');
     const urlForDeliveryPaymentType = '/api/wizard/delivery-payment-info';
 
     const  previousBtn  =  document.querySelector('#previousBtn');
@@ -506,7 +887,8 @@
     const screenSizeMobile = 768;
 
     let currentFormStep = 1;
-    const wizardForms = document.querySelectorAll('section');
+    const form = document.querySelector('form');
+    const formList = document.querySelectorAll('section');
     const currentStepIndicators = document.querySelectorAll(".circle");
 
     const requiredFields = document.querySelectorAll('[required]');
@@ -539,13 +921,14 @@
 		    case 3:
 			    console.log(3);
 			    currentFormStep++;
-			
+
 			    setShopContactInfo();
 			    break;
 		    case 4:
 			    console.log(4);
 			    setCurrentFormAndFormStepIndicator();
 			    settingVariantsOfDeliveryAndPaymentTypes();
+			    showLoadingCircleAnimation();
 			    break;
 	    }
 
@@ -588,7 +971,7 @@
 	    return validInputs === currentFormInputs.length;
     }
     function setCurrentFormAndFormStepIndicator() {
-	    wizardForms.forEach(form => {
+	    formList.forEach(form => {
 		    const formStep = form.getAttribute('form-step');
 		    const isCurrentFormStepEqualsDisplayedFormStep = currentFormStep === Number(formStep);
 		    form.hidden = !isCurrentFormStepEqualsDisplayedFormStep;
@@ -708,7 +1091,7 @@
 	    const bodyParams = JSON.stringify(toolInfo);
 
 	    _generateRequest(urlForDeliveryPaymentType, bodyParams);
-	    // showLoadingCircleAnimation();
+
 
     }
 
@@ -768,6 +1151,11 @@
 		    isValidateAddressDomainName = true;
 		    setCurrentFormAndFormStepIndicator();
 	    }
+    }
+
+    function showLoadingCircleAnimation(){
+	    form.hidden = true;
+	    circleLoadingAnimation.hidden = false;
     }
 
     let inputName = document.getElementById('input-store-address');
