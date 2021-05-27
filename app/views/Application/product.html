@@ -20,10 +20,10 @@
     }
 
     .slide-photo {
-        display: none;
+        display: block;
     }
 
-    .slide-photo img  {
+    .slide-photo img {
         width: 100%;
     }
 
@@ -49,7 +49,7 @@
     }
 
     .prev-arrow:hover, .next-arrow:hover {
-        background-color: rgba(0,0,0,0.8);
+        background-color: rgba(0, 0, 0, 0.8);
     }
 
     .dot {
@@ -75,13 +75,21 @@
     }
 
     @-webkit-keyframes fade {
-        from {opacity: .4}
-        to {opacity: 1}
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
     }
 
     @keyframes fade {
-        from {opacity: .4}
-        to {opacity: 1}
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
     }
 
     .product-photo {
@@ -328,14 +336,13 @@
     }
 
     .add-item-count p {
-      padding: 0 15px 0 15px;
-      margin: 0;
+        padding: 0 15px 0 15px;
+        margin: 0;
     }
 
     .add-item-count span {
-      user-select: none;
+        user-select: none;
     }
-
 
     .total-product-price span:first-child, .total-additions-price span:first-child {
         margin-right: .5rem;
@@ -614,7 +621,7 @@
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}'
           type='image/x-icon'>
 
-    <link href="/wisehands/shop/css/shop.css" rel="stylesheet" />
+    <link href="/wisehands/shop/css/shop.css" rel="stylesheet"/>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 
@@ -669,28 +676,35 @@
 <body>
 #{verbatim}
 <main class="product-center-container">
-<!--     TODO copy div element with main photo from previous commit 0.0.1-->
+    <!--     TODO copy div element with main photo from previous commit 0.0.1-->
     <div class="slideshow-container">
 
             %{
                 for(_product in product.images) {
             }%
-                <div class="slide-photo">
-                    <img src="/public/product_images/${shop.uuid}/${_product.filename}">
-                </div>
+            <span img-src="/public/product_images/${shop.uuid}/${_product.filename}"></span>
             %{
                 }
             }%
+        </template>
 
-        <span class="prev-arrow" onclick="plusSlides(-1)">&#10094;</span>
-        <span class="next-arrow" onclick="plusSlides(1)">&#10095;</span>
+        <div class="slide-photo">
+            <img class="product-image" src="/public/product_images/${shop.uuid}/${product.images[0].filename}">
+        </div>
 
-<!--        <div style="text-align:center">&ndash;&gt;-->
-<!--            <span class="dot" onclick="currentSlide(${product.images.indexOf(_product)})"></span>-->
-<!--        </div>-->
+        #{if product.images.size() > 1}
+        <div>
+            <span class="prev-arrow" onclick="showPreviousImage()">&#10094;</span>
+            <span class="next-arrow" onclick="showNextImage()">&#10095;</span>
+        </div>
+        #{/if}
+
+
+        <!--        <div style="text-align:center">&ndash;&gt;-->
+        <!--            <span class="dot" onclick="currentSlide(${product.images.indexOf(_product)})"></span>-->
+        <!--        </div>-->
 
     </div>
-
 
 
     <div class="product-info">
@@ -715,7 +729,8 @@
                 </div>
                 #{/if}
             </span>
-            <button class="buy-button btn btn-outline-primary btn-rounded" onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
+            <button class="buy-button btn btn-outline-primary btn-rounded"
+                    onClick="buyStart({uuid:'${product.uuid}', qrUuid:'${qr_uuid}'})">
                 &{'page.product.buy'}
             </button>
         </div>
@@ -725,10 +740,10 @@
 
             <div class="additions-block">
                 %{
-                 for(defaultAddition in defaultAdditions) {
+                    for(defaultAddition in defaultAdditions) {
                 }%
                 <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}"
-                    id="${defaultAddition.addition.uuid}">
+                     id="${defaultAddition.addition.uuid}">
                     <span class="material-icons check-circle">check_circle</span>
                     <img src="${defaultAddition.addition.imagePath}" loading="lazy">
                     <div class="addition-name">
@@ -737,20 +752,20 @@
                     <p class="add-item-price">${defaultAddition.addition.formatDecimal()} ₴</p>
                 </div>
                 %{
-                  }
+                    }
                 }%
 
                 %{
-                  for(_selectedAddition in product.selectedAdditions) {
+                    for(_selectedAddition in product.selectedAdditions) {
                 }%
                 <div class="add-item hoverable selected" id="${_selectedAddition.addition.uuid}"
                      price="${_selectedAddition.addition.price}" counter="0"
                      onclick="_addItem({
                                 uuid: '${_selectedAddition.addition.uuid}',
                                 price: '${_selectedAddition.addition.price}'})">
-<!--                    <span class="material-icons">
-                        delete_forever
-                    </span>-->
+                    <!--                    <span class="material-icons">
+                                            delete_forever
+                                        </span>-->
                     <img src="${_selectedAddition.addition.imagePath}">
                     <div class="addition-name" title="${_selectedAddition.addition.title}">
                         <p id="add-item-title">${_selectedAddition.addition.title}</p>
@@ -773,7 +788,7 @@
                     <p class="add-item-price">${_selectedAddition.addition.formatDecimal()} ₴</p>
                 </div>
                 %{
-                }
+                    }
                 }%
             </div>
         </section>
@@ -794,7 +809,8 @@
                 <a class="nav-link waves-effect active" data-toggle="tab" href="#about" role="tab">&{'page.product.about.product'}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link waves-effect" data-toggle="tab" href="#reviews" role="tab">&{'page.product.reviews'}</a>
+                <a class="nav-link waves-effect" data-toggle="tab" href="#reviews"
+                   role="tab">&{'page.product.reviews'}</a>
             </li>
         </ul>
     </div>
@@ -806,7 +822,7 @@
         <div class="tab-pane fade" id="reviews" role="tabpanel">
             #{if product.feedbackList}
             %{
-            for(_review in product.feedbackList) {
+                for(_review in product.feedbackList) {
             }%
             #{if !_review.isFeedbackDeleted}
             <div class="shop-review-item">
@@ -925,7 +941,7 @@
     quantity = counter + operand;
     selectedAddition.setAttribute('counter', quantity);
     const counterLabel = selectedAddition.querySelector('.addition-counter');
-	  if (quantity === 0) selectedAddition.style.backgroundColor = 'white';
+    if (quantity === 0) selectedAddition.style.backgroundColor = 'white';
     counterLabel.innerHTML = quantity;
     addAdditionToList(selectedAddition, quantity)
   }
@@ -934,18 +950,18 @@
     if (additionList.length === 0) {
       additionList.push({uuid: selectedAddition.id, quantity: 1});
     } else {
-	    const isAdditionInList = additionList.find(addition => addition.uuid === selectedAddition.id);
-	    if (isAdditionInList === undefined) {
-		    additionList.push({uuid: selectedAddition.id, quantity: quantity});
+      const isAdditionInList = additionList.find(addition => addition.uuid === selectedAddition.id);
+      if (isAdditionInList === undefined) {
+        additionList.push({uuid: selectedAddition.id, quantity: quantity});
       }
-	    additionList.find(addition => addition.uuid === selectedAddition.id).quantity = quantity;
+      additionList.find(addition => addition.uuid === selectedAddition.id).quantity = quantity;
     }
   }
 
   function _addItem(addition) {
     event.stopPropagation();
     const selectedAddition = document.getElementById(addition.uuid);
-	 selectedAddition.style.backgroundColor = '#20b2aa1c';
+    selectedAddition.style.backgroundColor = '#20b2aa1c';
     setAttributeToSelectedAddition(selectedAddition, 1);
     _setAdditionsTotalPrice();
     _calculateTotal(addition);
@@ -994,40 +1010,33 @@
     additionsTotalPriceContainer.innerText = additionsTotalPrice + ' UAH';
   }
 
-  let slideIndex = 1;
-  showSlides(slideIndex);
+  //
 
-  function plusSlides(n) {
-      showSlides(slideIndex += n);
-  }
+  const templateContent = document.querySelector('template').content;
+  const productImageSpans = templateContent.querySelectorAll('span');
+  const imagesArrayLength = productImageSpans.length;
+  const productImage = document.querySelector('.product-image');
+  let productImageIndex = 0;
 
-  function currentSlide(index) {
-      showSlides(slideIndex = index);
-  }
+  const showPreviousImage = () => {
+    const result = productImageIndex - 1;
+    productImageIndex = result < 0 ? imagesArrayLength - 1 : result;
+    productImage.src = getImageSrc(productImageIndex);
+  };
 
-  function showSlides(index) {
-      let i;
-      let slides = document.querySelectorAll(".slide-photo");
-      // let dots = document.getElementsByClassName("dot");
-      if (index > slides.length) {slideIndex = 1}
-      if (index < 1) {slideIndex = slides.length}
+  const showNextImage = () => {
+    const result = productImageIndex + 1;
+    productImageIndex = result > imagesArrayLength - 1 ? 0 : result;
+    productImage.src = getImageSrc(productImageIndex);
 
-      for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
-      }
+    // let dots = document.getElementsByClassName("dot");
+    // for (i = 0; i < dots.length; i++) {
+    //     dots[i].className = dots[i].className.replace(" active", "");
+    // }
+    // dots[slideIndex-1].className += "active";
+  };
 
-      console.log('slides:', slides)
-      slides[slideIndex-1].style.display = "block";
-
-      if (slides.length == 1) {
-            document.querySelector('.next-arrow').style.display = 'none';
-            document.querySelector('.prev-arrow').style.display = 'none';
-      }
-      // for (i = 0; i < dots.length; i++) {
-      //     dots[i].className = dots[i].className.replace(" active", "");
-      // }
-      // dots[slideIndex-1].className += "active";
-  }
+  const getImageSrc = index => productImageSpans[index].getAttribute('img-src');
 
 </script>
 
