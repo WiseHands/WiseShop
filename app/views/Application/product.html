@@ -14,7 +14,7 @@
     }
 
     .slideshow-container {
-        flex: 0 1 40%;
+        flex: 0 0 40%;
         position: relative;
         margin: auto;
     }
@@ -113,7 +113,7 @@
         display: flex;
         flex-flow: column wrap;
         flex: 0 1 60%;
-        /*overflow: hidden;*/
+        overflow: hidden;
         text-overflow: ellipsis;
         padding-left: 1rem;
     }
@@ -242,7 +242,7 @@
     }
 
     .buy-button {
-        width: 270px;
+        width: 250px;
     }
 
     .buy-button:hover {
@@ -546,6 +546,10 @@
         .price-buy-block {
             flex-direction: column;
             margin-bottom: inherit;
+        }
+
+        .price-buy-block .btn {
+            margin: 0;
         }
 
         .buy-button {
