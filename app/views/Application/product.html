@@ -678,13 +678,13 @@
 <main class="product-center-container">
     <!--     TODO copy div element with main photo from previous commit 0.0.1-->
     <div class="slideshow-container">
-
+        <template>
             %{
-                for(_product in product.images) {
+            for(_product in product.images) {
             }%
             <span img-src="/public/product_images/${shop.uuid}/${_product.filename}"></span>
             %{
-                }
+            }
             }%
         </template>
 
@@ -740,7 +740,7 @@
 
             <div class="additions-block">
                 %{
-                    for(defaultAddition in defaultAdditions) {
+                for(defaultAddition in defaultAdditions) {
                 }%
                 <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}"
                      id="${defaultAddition.addition.uuid}">
@@ -752,11 +752,11 @@
                     <p class="add-item-price">${defaultAddition.addition.formatDecimal()} ₴</p>
                 </div>
                 %{
-                    }
+                }
                 }%
 
                 %{
-                    for(_selectedAddition in product.selectedAdditions) {
+                for(_selectedAddition in product.selectedAdditions) {
                 }%
                 <div class="add-item hoverable selected" id="${_selectedAddition.addition.uuid}"
                      price="${_selectedAddition.addition.price}" counter="0"
@@ -788,7 +788,7 @@
                     <p class="add-item-price">${_selectedAddition.addition.formatDecimal()} ₴</p>
                 </div>
                 %{
-                    }
+                }
                 }%
             </div>
         </section>
@@ -822,7 +822,7 @@
         <div class="tab-pane fade" id="reviews" role="tabpanel">
             #{if product.feedbackList}
             %{
-                for(_review in product.feedbackList) {
+            for(_review in product.feedbackList) {
             }%
             #{if !_review.isFeedbackDeleted}
             <div class="shop-review-item">
