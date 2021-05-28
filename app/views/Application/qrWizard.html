@@ -280,6 +280,12 @@
         border-color: green;
     }
 
+    .registration-title-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     /*start circle loading animation*/
 
     .circle-loading-animation {
@@ -752,7 +758,10 @@
             <form id="qr-form" class="qr-form pages" onsubmit="return false">
 
                 <section id="qr-step1" class="qr-step-page qr-step" form-step="1">
-                    <h3>Реєстрація</h3>
+                    <div class="registration-title-container">
+                      <h3>Реєстрація</h3>
+                      <span id="show-user-error" hidden></span>
+                    </div>
                     <div class="form-field">
                         <h4>Ім'я</h4>
                         <input class="qr-form-input" id="user-name" type="text" name="name" required="true">
@@ -1037,13 +1046,22 @@
     }
 
     function checkUserByEmailOrPhoneNumber(data) {
-	    if (!data.status || data.status === 420){
+	    if (!data.status || data.status === 420) {
+		    displayInfoErrorMessage('black', data.message);
+		    // setTimeout(, 2000);
 		    setCurrentFormAndFormStepIndicator();
-	    }
+      }
 	    if (data.status === 421){
-		    console.log("ERROR", data.message)
+		    displayInfoErrorMessage('red', data.message)
 	    }
     }
+
+    const displayInfoErrorMessage = (color, message) => {
+	    const errorMessage = document.querySelector('#show-user-error');
+	    errorMessage.hidden = false;
+	    errorMessage.style.color = color;
+	    errorMessage.innerHTML = message;
+    };
 
     function checkDomainNameAvailability() {
 	    let json = JSON.stringify({
@@ -1163,24 +1181,24 @@
         document.getElementById('store-name-address').innerHTML = inputName.value + '.wstore.pro';
     };
 
-    function showError(input, message) {
-        const formControl = input.parentElement;
-        formControl.className = 'qr-form-input error';
-        const errorMessage = formControl.querySelector('error-message');
-        errorMessage.innerText = message;
-    }
-    function showSuccess(input) {
-        const formControl = input.parentElement;
-        formControl.className = 'qr-form-input success';
-    }
-    function checkEmail(input) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (re.test(input.value.trim())) {
-            showSuccess(input);
-        } else {
-            showError(input, 'Email is not valid');
-        }
-    }
+    // function showError(input, message) {
+    //     const formControl = input.parentElement;
+    //     formControl.className = 'qr-form-input error';
+    //     const errorMessage = formControl.querySelector('error-message');
+    //     errorMessage.innerText = message;
+    // }
+    // function showSuccess(input) {
+    //     const formControl = input.parentElement;
+    //     formControl.className = 'qr-form-input success';
+    // }
+    // function checkEmail(input) {
+    //     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //     if (re.test(input.value.trim())) {
+    //         showSuccess(input);
+    //     } else {
+    //         showError(input, 'Email is not valid');
+    //     }
+    // }
 
 </script>
     </body>
