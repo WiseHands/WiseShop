@@ -145,11 +145,11 @@
         font-size: 22px;
     }
 
-    #store-name, #input-store-address {
+    #store-name, #domain-address {
         color: #888;
     }
 
-    #store-name:focus, #input-store-address:focus {
+    #store-name:focus, #domain-address:focus {
         color: #000;
     }
 
@@ -802,9 +802,9 @@
                     <h4>Введіть адресу сайту</h4>
                     <input  class="qr-form-input" type="text" id="domain-address" name="shopDomain"
                             placeholder="введіть адресу" required>
-                    <div class="store-address-block">
+                    <div class="store-address-block" hidden>
                         <p>Ваша адреса сайту:</p>
-                        <div class='store-address' id='store-name-address'></div>
+                        <div class='store-address' id='store-domain-address'></div>
                         <p id="store-domain-error"></p>
                     </div>
                 </section>
@@ -1160,7 +1160,8 @@
 		    setCurrentFormAndFormStepIndicator();
 	    }
 	    if (data.status === 421) {
-		    containerError.style.display = "block";
+		    containerError.style.display = 'block';
+		    containerError.style.color = 'red';
 		    containerError.innerText = data.message;
 		    isValidateAddressDomainName = false;
 	    }
@@ -1176,9 +1177,11 @@
 	    circleLoadingAnimation.hidden = false;
     }
 
-    let inputName = document.getElementById('input-store-address');
-    inputName.onkeyup = function(){
-        document.getElementById('store-name-address').innerHTML = inputName.value + '.wstore.pro';
+    let inputName = document.querySelector('#domain-address');
+    let domainContainer = document.querySelector('.store-address-block');
+    inputName.onkeyup = () => {
+      domainContainer.hidden = false;
+      document.querySelector('#store-domain-address').innerHTML = inputName.value + '.wstore.pro';
     };
 
     // function showError(input, message) {
