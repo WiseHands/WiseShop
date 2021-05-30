@@ -73,20 +73,24 @@ public class MailOrder {
     public MailOrderItem createMailOrderItem(OrderItemDTO item) {
         MailOrderItem mailOrderItem = new MailOrderItem();
         ProductDTO product = ProductDTO.find("byUuid", item.productUuid).first();
-        List<TranslationItemDTO> translationList = product.productNameTextTranslationBucket.translationList;
-        if (!translationList.isEmpty()) {
+        TranslationBucketDTO translationBucket = product.productNameTextTranslationBucket;
+        if (translationBucket != null) {
+            List<TranslationItemDTO> translationList = translationBucket.translationList;
             TranslationItemDTO translationItemDTO = translationList
                     .stream()
                     .filter(language -> language.language.equals(this.language))
                     .collect(Collectors.toList())
                     .get(0);
-            mailOrderItem.name = translationItemDTO.content;
-        } else {
-            mailOrderItem.name = product.name;
+            if (translationList.isEmpty()) {
+                mailOrderItem.name = product.name;
+            } else {
+                mailOrderItem.name = translationItemDTO.content;
+            }
+            mailOrderItem.price = item.price;
+            mailOrderItem.quantity = item.quantity;
+            mailOrderItem.imagePath = item.imagePath;
         }
-        mailOrderItem.price = item.price;
-        mailOrderItem.quantity = item.quantity;
-        mailOrderItem.imagePath = item.imagePath;
+
         return mailOrderItem;
     }
 }
