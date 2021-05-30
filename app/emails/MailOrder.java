@@ -86,10 +86,12 @@ public class MailOrder {
             } else {
                 mailOrderItem.name = translationItemDTO.content;
             }
-            mailOrderItem.price = item.price;
-            mailOrderItem.quantity = item.quantity;
-            mailOrderItem.imagePath = item.imagePath;
+        } else {
+            mailOrderItem.name = product.name;
         }
+        mailOrderItem.price = item.price;
+        mailOrderItem.quantity = item.quantity;
+        mailOrderItem.imagePath = item.imagePath;
 
         return mailOrderItem;
     }
