@@ -919,6 +919,7 @@
 			    currentFormStep++;
 
 			    registerUser();
+                showProgressBar();
 			    break;
 		    case 2:
 			    console.log(2);
@@ -931,6 +932,7 @@
 			    currentFormStep++;
 
 			    setShopContactInfo();
+                showProgressBar();
 			    break;
 		    case 4:
 			    console.log(4);
@@ -942,13 +944,9 @@
 
 	    setIsPreviousStepButtonHidden();
 	    setNextButtonLabel();
-
-	    if (screen.width <= screenSizeMobile) {
-		    updateProgressBarMob();
-	    }
-	    if (screen.width > screenSizeMobile) {
-		    updateProgressBar();
-	    }
+        
+        
+	    
     }
 
     previousStep = () => {
@@ -959,11 +957,15 @@
 	    setCurrentFormAndFormStepIndicator();
 	    setIsPreviousStepButtonHidden();
 	    setNextButtonLabel();
-
-	    if (screen.width <= screenSizeMobile) {
+        showProgressBar();
+	    
+    }
+    
+    showProgressBar = () => {
+        if (screen.width <= screenSizeMobile) {
 		    updateProgressBarMob();
 	    }
-	    if (screen.width >= screenSizeMobile) {
+	    if (screen.width > screenSizeMobile) {
 		    updateProgressBar();
 	    }
     }
@@ -1045,8 +1047,9 @@
 
     checkUserByEmailOrPhoneNumber = (data) => {
 	    if (!data.status || data.status === 420) {
-            const message = !data.status ? 'Користувача зареєстровано' : data.message
+            const message = !data.status ? 'Користувача зареєстровано' : data.message;
 		    displayInfoErrorMessage('black', message);
+            if (currentFormStep === 2) showProgressBar();
 		    setTimeout(() => setCurrentFormAndFormStepIndicator(), 2000);
         }
 	    if (data.status === 421){
@@ -1160,11 +1163,14 @@
 		    containerError.style.display = 'block';
 		    containerError.style.color = 'red';
 		    containerError.innerText = data.message;
-		    isValidateAddressDomainName = false;
+            console.log("proceedNext", currentFormStep);
+            currentFormStep = 2;
+            console.log("in error", currentFormStep);
 	    }
 	    if (!data.status || data.status === 420) {
 		    containerError.style.display = "none";
-		    isValidateAddressDomainName = true;
+            console.log("proceedNext", currentFormStep);
+            if (currentFormStep === 3) showProgressBar();
 		    setCurrentFormAndFormStepIndicator();
 	    }
     }
