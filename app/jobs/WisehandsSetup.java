@@ -44,13 +44,12 @@ public class WisehandsSetup extends Job {
             boolean hasPages = listsPage.size() != 0;
 
             AdditionalSettingForShop additionalSettingForShop = new AdditionalSettingForShop();
-            additionalSettingForShop.setWorkkingTime(shop);
+            additionalSettingForShop.setWorkingTime(shop);
             shop = shop.save();
             if (!hasPages){
               additionalSettingForShop.setPageListForFooter(shop);
             }
         }
-
     }
 
     private void createShop(String shopName, String domain) {

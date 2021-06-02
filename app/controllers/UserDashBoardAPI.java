@@ -1,5 +1,6 @@
 package controllers;
 
+import jobs.AdditionalSettingForShop;
 import models.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -77,6 +78,9 @@ public class UserDashBoardAPI extends AuthController{
         shop.googleStaticMapsApiKey = "AIzaSyCcBhIqH-XMcNu99hnEKvWIZTrazd9XgXg";
         shop.googleMapsApiKey = "AIzaSyAuKg9jszEEgoGfUlIqmd4n9czbQsgcYRM";
         visualSettings.shop = shop;
+
+        AdditionalSettingForShop additionalSettingForShop = new AdditionalSettingForShop();
+        additionalSettingForShop.setWorkingTime(shop);
 
         _appendDomainToList(user.wizard.shopDomain);
         shop.save();
