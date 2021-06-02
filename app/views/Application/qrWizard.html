@@ -907,7 +907,7 @@
 
 
     function proceedNext(event) {
-    	console.log("proceedNext");
+    	console.log("proceedNext", currentFormStep);
 	    event.preventDefault();
 	    if (!validateCurrentForm()) return;
 
@@ -1047,12 +1047,14 @@
 
     function checkUserByEmailOrPhoneNumber(data) {
 	    if (!data.status || data.status === 420) {
-		    displayInfoErrorMessage('black', data.message);
-		    // setTimeout(, 2000);
-		    setCurrentFormAndFormStepIndicator();
+            const message = !data.status ? 'Користувача зареєстровано' : data.message
+		    displayInfoErrorMessage('black', message);
+		     setTimeout(() => setCurrentFormAndFormStepIndicator(), 2000);
+		    
       }
 	    if (data.status === 421){
 		    displayInfoErrorMessage('red', data.message)
+            currentFormStep = 1;
 	    }
     }
 
@@ -1131,9 +1133,7 @@
 		    console.log("response to prepare for creating shop: ", data);
 		    handlingErrorForCurrentForm(data);
 		    if (data && isUrlEqualDelivPayType) {
-			    setTimeout(function() {
-				    generateRequestForCreatingShop().then(() => window.location = '/dashboard');
-			    },10000);
+			    setTimeout(() => generateRequestForCreatingShop().then(() => window.location = '/dashboard'),10000);
 		    }
 	    });
     }
