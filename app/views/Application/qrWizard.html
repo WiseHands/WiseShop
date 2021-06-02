@@ -115,8 +115,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 10px 0;
-        width: calc(100% - 100px);
+        margin: 10px 0;        
         right: 50px;
         bottom: 100px;
     }
@@ -906,7 +905,7 @@
     });
 
 
-    function proceedNext(event) {
+    proceedNext = (event) => {
     	console.log("proceedNext", currentFormStep);
 	    event.preventDefault();
 	    if (!validateCurrentForm()) return;
@@ -952,7 +951,7 @@
 	    }
     }
 
-    function previousStep() {
+    previousStep = () => {
 	    circleActive.classList.remove("active");
 	    circleActive = circleActive.previousElementSibling;
 
@@ -969,7 +968,7 @@
 	    }
     }
 
-    function validateCurrentForm() {
+    validateCurrentForm = () => {
 	    const currentForm = document.querySelector('section[form-step="' + currentFormStep + '"]');
 	    const currentFormInputs = currentForm.querySelectorAll('[required]');
 	    let validInputs = 0;
@@ -979,7 +978,7 @@
 	    });
 	    return validInputs === currentFormInputs.length;
     }
-    function setCurrentFormAndFormStepIndicator() {
+    setCurrentFormAndFormStepIndicator = () => {
 	    formList.forEach(form => {
 		    const formStep = form.getAttribute('form-step');
 		    const isCurrentFormStepEqualsDisplayedFormStep = currentFormStep === Number(formStep);
@@ -992,28 +991,28 @@
 
 	    });
     }
-    function setIsPreviousStepButtonHidden() {
+    setIsPreviousStepButtonHidden = () => {
 	    previousBtn.hidden = currentFormStep === 1;
     }
-    function setNextButtonLabel() {
+    setNextButtonLabel = () => {
 	    const isLastSTep = currentFormStep === 4;
 	    previousBtn.hidden = isLastSTep;
 	    nextBtn.innerHTML = isLastSTep ? 'Готово' : 'Далі';
     }
 
-    function updateProgressBar() {
+    updateProgressBar = () => {
         const actives = document.querySelectorAll(".active");
         const currentHeight = ((actives.length - 1) / (currentStepIndicators.length - 1)) * 100;
         progressBar.style.height = currentHeight + "%";
 
     }
-    function updateProgressBarMob() {
+    updateProgressBarMob = () => {
         const actives = document.querySelectorAll(".active");
         const currentWidth = ((actives.length - 1) / (currentStepIndicators.length - 1)) * 100;
         progressBarMob.style.width = currentWidth + "%";
     }
 
-    function registerUser() {
+    registerUser = () => {
 	    console.log("registerUser");
 	    let name = document.querySelector('#user-name').value;
 	    let lastName = document.querySelector('#user-surname').value;
@@ -1032,26 +1031,24 @@
 	    fetch('/api/sign-up', {
 	     method: 'POST',
 	     body: params
-	    }).then(function (response) {
+	    }).then(response => {
 	     if(response.ok) {
 	       let token = response.headers.get('JWT_TOKEN');
 	       localStorage.setItem('JWT_TOKEN', token);
 	     }
 	     return response.json();
-	    }).then(function (data) {
+	    }).then(data => {
 	     console.log("response data: ", data);
 	     checkUserByEmailOrPhoneNumber(data);
-
 	    });
     }
 
-    function checkUserByEmailOrPhoneNumber(data) {
+    checkUserByEmailOrPhoneNumber = (data) => {
 	    if (!data.status || data.status === 420) {
             const message = !data.status ? 'Користувача зареєстровано' : data.message
 		    displayInfoErrorMessage('black', message);
-		     setTimeout(() => setCurrentFormAndFormStepIndicator(), 2000);
-		    
-      }
+		    setTimeout(() => setCurrentFormAndFormStepIndicator(), 2000);
+        }
 	    if (data.status === 421){
 		    displayInfoErrorMessage('red', data.message)
             currentFormStep = 1;
@@ -1065,17 +1062,17 @@
 	    errorMessage.innerHTML = message;
     };
 
-    function checkDomainNameAvailability() {
+    checkDomainNameAvailability = () => {
 	    let json = JSON.stringify({
         shopName : document.querySelector('#store-name').value,
         domain : document.querySelector('#domain-address').value
 	    });
-	    console.log(json);
+	    console.log('check domain availability', json);
 	    const url = '/api/wizard/check-domain-name';
 	    _generateRequest(url, json);
     }
 
-    function setShopContactInfo() {
+    setShopContactInfo = () => {
 	    let city = document.getElementById('city-name').value;
 	    let street = document.getElementById('street-name').value;
 	    let house = document.getElementById('house-number').value;
@@ -1085,7 +1082,7 @@
 	    _generateRequest(url, json);
     }
 
-    function settingVariantsOfDeliveryAndPaymentTypes() {
+    settingVariantsOfDeliveryAndPaymentTypes = () => {
 	    const courier = document.querySelector('#courier').checked;
 	    const post = document.querySelector('#post').checked;
 	    const selftake = document.querySelector('#selftake').checked;
@@ -1116,7 +1113,7 @@
     }
 
 
-    function _generateRequest(url, json) {
+    _generateRequest = (url, json) => {
 	    let token = localStorage.getItem('JWT_TOKEN');
 	    const isUrlEqualDelivPayType = url == urlForDeliveryPaymentType;
 	    console.log("check isUrlEqualDelivPayType for creating shop: ", isUrlEqualDelivPayType);
@@ -1126,10 +1123,10 @@
 		    headers: {
 			    authorization: 'Bearer ' + token
 		    }
-	    }).then(function (response) {
+	    }).then(response => {
 		    console.log("response response: ", response);
 		    return response.json();
-	    }).then(function (data) {
+	    }).then(data => {
 		    console.log("response to prepare for creating shop: ", data);
 		    handlingErrorForCurrentForm(data);
 		    if (data && isUrlEqualDelivPayType) {
@@ -1138,23 +1135,23 @@
 	    });
     }
 
-    function generateRequestForCreatingShop() {
+    generateRequestForCreatingShop = () => {
 	    let token = localStorage.getItem('JWT_TOKEN');
 	    const fetchRequest = fetch('/api/dashboard/shop/create', {
 		    method: 'POST',
 		    headers: {
 			    authorization: 'Bearer ' + token
 		    }
-	    }).then(function (response) {
+	    }).then(response =>{
 		    console.log("response response: ", response);
 		    return response.json();
-	    }).then(function (data) {
+	    }).then( data => {
 
 	    });
 	    return fetchRequest;
     }
 
-    function handlingErrorForCurrentForm(data) {
+    handlingErrorForCurrentForm = (data) => {
 	    const containerError = document.getElementById('store-domain-error');
 	    if (data.status === 103) {
 		    setCurrentFormAndFormStepIndicator();
@@ -1172,7 +1169,7 @@
 	    }
     }
 
-    function showLoadingCircleAnimation(){
+    showLoadingCircleAnimation = () => {
 	    form.hidden = true;
 	    circleLoadingAnimation.hidden = false;
     }
