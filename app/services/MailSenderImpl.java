@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
@@ -23,6 +24,19 @@ public class MailSenderImpl implements MailSender {
     static Properties mailServerProperties;
     static Session getMailSession;
     static MimeMessage generateMailMessage;
+
+    public static String validateEmail(String clientEmail, String shopEmail){
+        String email;
+
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        email = pat.matcher(clientEmail != null ? clientEmail : shopEmail).matches() ? clientEmail : shopEmail;
+        return email;
+    }
 
     public void sendEmail(List<String> emailList, String subject, String htmlContent, String hostname) throws Exception {
         HtmlEmail email = new HtmlEmail();

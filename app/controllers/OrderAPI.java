@@ -265,7 +265,7 @@ public class OrderAPI extends AuthController {
         shopName = getTranslatedShopName(shop, parsedLanguage);
         String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
         List<String> clientEmailList = new ArrayList<>();
-        clientEmailList.add(order.email);
+        clientEmailList.add(MailSenderImpl.validateEmail(order.email, shop.contact.email));
         mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
 
 
@@ -519,7 +519,7 @@ public class OrderAPI extends AuthController {
             String htmlContentForClient = generateHtmlEmailForFeedbackToOrder(shop, order, order.chosenClientLanguage);
             String clientSubject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shop.shopName;
             List<String> clientEmailList = new ArrayList<>();
-            clientEmailList.add(order.email);
+            clientEmailList.add(MailSenderImpl.validateEmail(order.email, shop.contact.email));
             mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
 
             JsonResponse jsonHandle = new JsonResponse(420, "feedback was sent");
@@ -638,9 +638,9 @@ public class OrderAPI extends AuthController {
                 subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
                 htmlContent = generateHtmlEmailForOrderPaymentError(shop, order, parsedLanguage);
                 List<String> clientEmailList = new ArrayList<>();
-                clientEmailList.add(order.email);
+                clientEmailList.add(MailSenderImpl.validateEmail(order.email, shop.contact.email));
                 mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
-                System.out.println("liqpay message about payment error was sent to: " + order.email);
+                System.out.println("liqpay message about payment error was sent to: " + MailSenderImpl.validateEmail(order.email, shop.contact.email));
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -683,9 +683,9 @@ public class OrderAPI extends AuthController {
                 subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
                 htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
                 List<String> clientEmailList = new ArrayList<>();
-                clientEmailList.add(order.email);
+                clientEmailList.add(MailSenderImpl.validateEmail(order.email, shop.contact.email));
                 mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
-                System.out.println("liqpay message about success payment was sent to: " + order.email);
+                System.out.println("liqpay message about success payment was sent to: " + MailSenderImpl.validateEmail(order.email, shop.contact.email));
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
@@ -730,9 +730,9 @@ public class OrderAPI extends AuthController {
                 subject = Messages.get("mail.label.order") + ' ' + Messages.get("mail.label.number") + orderListSize + ' ' + '|' + ' ' + shopName;
                 htmlContent = generateHtmlEmailForOrderPaymentDone(shop, order, parsedLanguage);
                 List<String> clientEmailList = new ArrayList<>();
-                clientEmailList.add(order.email);
+                clientEmailList.add(MailSenderImpl.validateEmail(order.email, shop.contact.email));
                 mailSender.sendEmail(clientEmailList, subject, htmlContent, shop.domain);
-                System.out.println("LiqPay message about payment status was sent to: " + order.email);
+                System.out.println("LiqPay message about payment status was sent to: " + MailSenderImpl.validateEmail(order.email, shop.contact.email));
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
