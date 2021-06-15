@@ -292,7 +292,7 @@ public class OrderAPI extends AuthController {
             } catch (Exception e) {
                 renderJSON(json);
             }
-        } else if(order.paymentType.equals(ShoppingCartDTO.PaymentType.CASHONDELIVERY)){
+        } else if(order.paymentType.equals(ShoppingCartDTO.PaymentType.CASHONDELIVERY.toString())){
             json.put("status", "ok");
             renderJSON(json);
         }
