@@ -170,7 +170,7 @@ public class Application extends Controller {
         if(client.equals("americano.lviv.ua")){
             renderTemplate("app/views/shopLanding/shopLanding.html", language);
         }
-        System.out.println("in language chooser => " + "qr:" + qr_uuid + "seCurr:" + selectedCurrency);
+        System.out.println("in language chooser => " + "qr:" + qr_uuid + "selectedCurrency:" + selectedCurrency);
 
         renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
 
