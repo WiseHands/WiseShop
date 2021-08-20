@@ -48,9 +48,12 @@
     </div>
   </div>
   <div class="admin-column" ng-show="availableAdditions != 0">
-    <div _ngcontent-addition-help class="content-wrapper collapsed" data-toggle="collapse" data-target="#collapseAdditionHelp">
+    <div _ngcontent-addition-help class="content-wrapper collapsed admin-card hoverable" data-toggle="collapse" data-target="#collapseAdditionHelp">
       <div _ngcontent-addition-help class="heading">
-        <h5 class="addition-no-selected how-to-use">{{'selectAdditions.additionsHowToUseHeader' | translate}}</h5>
+        <span class="material-icons">
+          help
+        </span>
+        <h4 class="addition-no-selected how-to-use">{{'selectAdditions.additionsHowToUseHeader' | translate}}</h4>
         <button _ngcontent-addition-help aria-label="Collapse undefined Section"></button>
       </div>
     </div>

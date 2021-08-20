@@ -145,13 +145,15 @@
     }
 
     .store-domain p {
-        font-weight: 600;
+        font-size: 20px;
+        font-weight: 400;
+        color: #6a6a6a;
         margin-bottom: 1rem;
     }
 
     #store-domain-error {
         color: red;
-        margin-left: 15px;
+        font-size: 14px;
     }
 
     #handle-delivery-error {
@@ -703,7 +705,7 @@
         }
 
         .form-field-store-domain {
-            width: auto;
+            width: calc(100% - 100px);
         }
 
         textarea {
@@ -753,12 +755,14 @@
                         <label for="store-name">Назва магазину</label>
                     </div>
                     <p class="store-domain-text">Вкажіть веб-адресу Вашого магазину</p>
-                    <div class="store-domain form-field">
-                        <div class="form-field-store-domain">
-                            <input id="store-domain" type="text" name="shopDomain" required
-                                   onblur="checkDomainNameAvailability(event)">
+                    <div class="form-field">
+                        <div class="store-domain">
+                            <div class="form-field-store-domain">
+                                <input id="store-domain" type="text" name="shopDomain" required
+                                       onblur="checkDomainNameAvailability(event)">
+                            </div>
+                            <p class="store-domain-name">.wstore.pro</p>
                         </div>
-                        <p>.wstore.pro</p>
                         <p id="store-domain-error"></p>
                     </div>
                     <div class="form-field">
@@ -967,6 +971,7 @@
 
   function checkDomainNameAvailability(event) {
     const params = '?' + event.target.name + '=' + event.target.value;
+    console.log('checkDomainNameAvailability => ', params);
     const url = '/api/wizard/check-domain-name' + params;
     _generateRequest(url);
   }

@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class TranslationItemDTO extends GenericModel {
@@ -22,9 +21,6 @@ public class TranslationItemDTO extends GenericModel {
    @Expose
    @Lob
    public String content;
-
-   @ManyToOne
-   public TranslationBucketDTO translationBucket;
 
    public TranslationItemDTO(){}
 

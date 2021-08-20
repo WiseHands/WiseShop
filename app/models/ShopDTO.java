@@ -128,6 +128,10 @@ public class ShopDTO extends GenericModel {
     @OneToOne(cascade=CascadeType.ALL)
     public CurrencyShopDTO currencyShop;
 
+    @Expose
+    @OneToOne(cascade=CascadeType.ALL)
+    public BannerDTO banner;
+
     @OneToOne(cascade=CascadeType.ALL)
     public BalanceDTO balance;
 
@@ -229,8 +233,6 @@ public class ShopDTO extends GenericModel {
         this.alwaysOpen = true;
         this.isTemporaryClosed = false;
     }
-
-
 
 
 }

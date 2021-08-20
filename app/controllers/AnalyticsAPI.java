@@ -1,7 +1,7 @@
 package controllers;
 
 import json.FrequentBuyer;
-import json.PopularProucts;
+import json.PopularProducts;
 import models.*;
 import org.json.simple.JSONObject;
 import services.analytics.FrequentBuyersService;
@@ -37,13 +37,15 @@ public class AnalyticsAPI extends AuthController {
         TotalsDataService.TotalsData countAndTotalSumOfOrders = TotalsDataService.getCountAndTotalSumOfOrders(shop);
 
         Long today = beginOfDay(new Date(fromDateInMillis));
-        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersDayBefore(shop, today);
+
+        TotalsDataService.TotalsData countAndTotalSumOfOrdersDayBefore = TotalsDataService.getCountAndTotalSumOfOrdersInGivenDateRange(shop, today, toDateInMillis);
+
 
         JSONObject json = new JSONObject();
         json.put("allTime", countAndTotalSumOfOrders);
         json.put("dayBefore", countAndTotalSumOfOrdersDayBefore);
 
-        List<PopularProucts> popularProductsList = PopularProductsService.getPopularProducts(shop, days);
+        List<PopularProducts> popularProductsList = PopularProductsService.getPopularProducts(shop, days);
         json.put("popularProducts", popularProductsList);
         System.out.println("popularProductsList => " +  popularProductsList);
 
@@ -54,7 +56,6 @@ public class AnalyticsAPI extends AuthController {
         paymentCountByType.put("paidByCard", paidByCard);
         paymentCountByType.put("paidByCash", paidByCash);
         json.put("paymentCountByType", paymentCountByType);
-        System.out.println("paymentCountByType => " +  paymentCountByType.toJSONString());
 
         List<FrequentBuyer> frequentBuyerList = FrequentBuyersService.getFrequentBuyerList(shop, days);
         json.put("frequentBuyers", frequentBuyerList);

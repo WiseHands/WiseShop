@@ -113,7 +113,7 @@ public class OrderAPI extends AuthController {
                 createAddition(additionList, addition, totalCost);
             }
             orderItem.additionsList = additionList;
-
+            orderItem.save();
             orderItemList.add(orderItem);
             if (product.priceInCurrency != 0) {
                 product.price = product.priceInCurrency;
@@ -181,7 +181,7 @@ public class OrderAPI extends AuthController {
         order.currency = currency;
         order.clientLanguage = clientLanguage;
         order.chosenClientLanguage = chosenLanguage;
-
+        order.save();
         OrderItemListResult orderItemListResult = _parseOrderItemsList(shoppingCart.items, order);
         order.items = orderItemListResult.orderItemList;
 

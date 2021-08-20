@@ -1,7 +1,7 @@
 angular.module('WiseHands')
     .controller('AdditionNewController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$window',
         function ($scope, $http, signout, sideNavInit, shared, $window) {
-        $scope.loading = true;
+        $scope.loading = false;
 
         let additionName = document.querySelector("#addition_name");
         let additionLabel = document.querySelector("#name_label");
@@ -96,6 +96,7 @@ angular.module('WiseHands')
         };
 
         sendAddition = () => {
+            $scope.loading = true;
             $http({
                 method: 'POST',
                 url: '/api/addition/new',

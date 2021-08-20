@@ -129,8 +129,11 @@ public class Application extends Controller {
         Lang.change(language);
         System.out.println("LanguageForShop " + language);
 
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
         List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 " +
+                "and c.isHidden = ?2 and p.isActive = ?3 and p.isDishOfDay = 0 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
 
         shop.pagesList = translatePageList(shop, language);
@@ -164,22 +167,21 @@ public class Application extends Controller {
         }
         products = productList;
 
+
+        System.out.println("dishOfDay language => " + dishOfDay);
+        System.out.println("request.params qr_uuid.isEmpty() in languageChooser => " + qr_uuid);
+
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
         if(client.equals("americano.lviv.ua")){
-            renderTemplate("app/views/shopLanding/shopLanding.html", language);
+            renderTemplate("app/views/shopLanding/shopLanding.html", language, qr_uuid);
         }
-        System.out.println("in language chooser => " + "qr:" + qr_uuid + "selectedCurrency:" + selectedCurrency);
-
-        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
-
+        renderTemplate("Application/shop.html", shop, dishOfDay, products, language, categories, qr_uuid);
     }
 
     public static void index(String client, String language) {
         System.out.println("client info " + client);
-        System.out.println(" --- executing index ---");
-
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -207,6 +209,12 @@ public class Application extends Controller {
         if (coinAccount != null && coinAccount.balance < 0) {
             renderTemplate("Application/closedDueToInsufficientFunds.html", shop);
         }
+
+        List<ProductDTO> products;
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c " +
+                "and p.shop = ?1 and c.isHidden = ?2 " +
+                "and p.isActive = ?3 and p.isDishOfDay = 0 order by p.sortOrder asc";
+        products = ProductDTO.find(query, shop, false, true).fetch();
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
@@ -248,6 +256,10 @@ public class Application extends Controller {
         }
         products = productList;
 
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
+        System.out.println("dishOfDay in Index => " + dishOfDay);
+
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
@@ -256,10 +268,7 @@ public class Application extends Controller {
         }
 
         System.out.println("DEBUG renderTemplate Application/shop.html");
-        System.out.println("in index => " + "qr:" + qr_uuid + "seCurr:" + selectedCurrency);
-
-        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
-
+        renderTemplate("Application/shop.html", shop, dishOfDay, products, language, categories, qr_uuid);
     }
 
     public static void shop(String client, String language) {
@@ -309,7 +318,9 @@ public class Application extends Controller {
         }
 
         List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c " +
+                "and p.shop = ?1 and c.isHidden = ?2 " +
+                "and p.isActive = ?3 and p.isDishOfDay = 0 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
 
         String selectedCurrency = "";
@@ -332,15 +343,18 @@ public class Application extends Controller {
             }
             productList.add(product);
         }
-
         products = productList;
+
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
+        System.out.println("dishOfDay in Shop => " + dishOfDay);
 
         List<CategoryDTO> categories = shop.getActiveCategories(language);
         Translation.setTranslationForShop(language, shop);
 
-        System.out.println("in Application/shop.html => " + "qr:" + qr_uuid + "seCurr:" + selectedCurrency);
+        System.out.println("request.params qr_uuid.isEmpty() in Shop => " + qr_uuid);
 
-        renderTemplate("Application/shop.html", shop, products, language, categories, qr_uuid, selectedCurrency);
+        renderTemplate("Application/shop.html", shop, dishOfDay, products, language, categories, qr_uuid, selectedCurrency);
     }
 
     public static void categoryOld(String client, String uuid) {
@@ -364,8 +378,12 @@ public class Application extends Controller {
         CategoryDTO category = CategoryDTO.findById(uuid);
         List<CategoryDTO> categories = shop.getActiveCategories(language);
 
+        ProductDTO dishOfDay = ProductDTO.find("select p from ProductDTO p where p.isDishOfDay = ?1", true).first();
+
         List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 and p.categoryUuid = ?4 order by p.sortOrder asc";
+        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 " +
+                "and c.isHidden = ?2 and p.isActive = ?3 " +
+                "and p.isDishOfDay = 0 and p.categoryUuid = ?4 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
 
         String selectedCurrency = "";
@@ -376,10 +394,7 @@ public class Application extends Controller {
             shop.save();
         }
 
-        String qr_uuid = "";
-        if (request.params.get("qr_uuid") != null){
-            qr_uuid = request.params.get("qr_uuid");
-        }
+        String qr_uuid = request.params.get("qr_uuid") != null ? request.params.get("qr_uuid") : "";
 
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
         for (ProductDTO product : products) {
@@ -395,6 +410,8 @@ public class Application extends Controller {
             productList.add(product);
         }
 
+        }
+        Translation.setTranslationForShop(language, shop);
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();
         List<PageConstructorDTO> translationPageList = new ArrayList<PageConstructorDTO>();
@@ -402,11 +419,19 @@ public class Application extends Controller {
             _page = Translation.setTranslationForPage(language, _page);
             translationPageList.add(_page);
         }
+
         shop.pagesList = translationPageList;
 
-        Translation.setTranslationForShop(language, shop);
+        String urlToMain = "/" + language + "/shop";
+        String urlToCategory = "/" + language + "/category/" + category.uuid;
+        if (qr_uuid != null){
+            urlToMain += "?qr_uuid=" + qr_uuid;
+            urlToCategory  += "?qr_uuid=" + qr_uuid;
+        }
 
-        renderTemplate("Application/category.html", shop, category, categories, productList, language, qr_uuid, selectedCurrency);
+        System.out.println("request.params qr_uuid.isEmpty() in category => " + qr_uuid);
+        renderTemplate("Application/category.html", shop, category, categories, productList, dishOfDay,
+                language, qr_uuid, urlToMain, urlToCategory);
     }
 
     public static void productOld(String client, String uuid) {
@@ -471,12 +496,13 @@ public class Application extends Controller {
         Translation.setTranslationForProduct(language, product);
         Translation.setTranslationForShop(language, shop);
 
-        String mainShopUrl = "/" + language;
+        String mainShopUrl = "/" + language + "/shop";
         String urlToCategory = "/" + language + "/category/" + product.category.uuid;
         if (qr_uuid != null){
             mainShopUrl += "?qr_uuid=" + qr_uuid;
             urlToCategory  += "?qr_uuid=" + qr_uuid;
         }
+
         render(product, category, categories, shop, language,
                defaultAdditions, totalPriceForDefaultAdditions, qr_uuid, mainShopUrl, urlToCategory, selectedCurrency);
     }
@@ -920,5 +946,8 @@ public class Application extends Controller {
     }
     public static void qrCode(String client){
         renderTemplate("Application/qrCode.html");
+    }
+    public static void contactForm(String client){
+        renderTemplate("Application/contactForm.html");
     }
 }

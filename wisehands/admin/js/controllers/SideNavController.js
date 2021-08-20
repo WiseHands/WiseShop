@@ -14,6 +14,9 @@ angular.module('WiseHands')
                 localStorage.setItem('activeShopName', $scope.activeShop.shopName);
                 localStorage.setItem('currency', $scope.activeShop.currencyShop.currency);
                 console.log("shop in SideNavController", response);
+                localStorage.setItem('activeShopLocale', $scope.activeShop.locale);
+                console.log("shopLocale", $scope.activeShop.locale);
+                console.log("/shop/details", response);
             }, function errorCallback(response) {
             });
 

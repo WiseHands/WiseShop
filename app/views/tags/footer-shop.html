@@ -129,8 +129,23 @@
     #address {
         word-break: break-word;
     }
+    .footer-copyright {
+        max-width: 900px;
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        color: #6e6e6e;
+    }
+    .footer-copyright-img {
+        margin-right: 0.5rem;
+        width: 36px;
+        height: auto;
+    }
+    .footer-copyright p {
+        margin: 0;
+    }
     @media screen and (min-width: 1500px) {
-        .footer {
+        .footer, .footer-copyright {
             max-width: 1300px;
         }
     }
@@ -335,6 +350,12 @@
 
     </div>
 </footer>
+<div class="footer-copyright landing-container">
+    <a href="https://wstore.pro/">
+        <img class="footer-copyright-img" src="wisehands/assets/images/main_logo_black.png">
+        <p>Powered by WiseStore</p>
+    </a>
+</div>
 <script>
 
     let subEmail = document.getElementById("subEmail").value;

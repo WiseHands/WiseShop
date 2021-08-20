@@ -65,13 +65,13 @@
                     <div class="mask waves-effect activator"></div>
                 </div>
                 <div class="card-content">
-                    <div class="row vcentering">
-                        <div class="col-sm-8 text-left noSidePadding">
+                    <div class="orderlist-row vcentering">
+                        <div class=" text-left">
                             <h5 class="truncate normal-400">{{item.name}}</h5>
                             <h6 class="grey-text">{{item.phone}}</h6>
                         </div>
-                        <div class="col-sm-4 text-right noSidePadding">
-                            <h5 class="normal-400">{{item.total}}{{item.currency}}</h5>
+                        <div class=" text-right">
+                            <h5 class="normal-400 truncate">{{'orderList.Currency' | translate}}{{item.total}}</h5>
                             <h6 class="grey-text" ng-show="!item.yesterdayString">{{item.properDate}}</h6>
                             <h6 class="grey-text" ng-show="item.yesterdayString">{{'orderList.yesterday' | translate}}</h6>
                         </div>

@@ -32,6 +32,11 @@ POST    {client}/api/wizard/social-info                 WizardAPI.setSocialNetwo
 POST    {client}/api/sign-up                            WizardAPI.signUp
 POST    {client}/api/sign-in                            WizardAPI.signIn
 
+# ******************** BannerAPI
+GET        {client}/api/banners                         BannerAPI.details
+PUT        {client}/api/banners                         BannerAPI.upDate
+
+
 # ******************** ShoppingCartAPI
 OPTIONS     {client}/api/cart                               ShoppingCartAPI.allowCors
 POST        {client}/api/cart                               ShoppingCartAPI.addProduct
@@ -156,6 +161,10 @@ GET     {client}/api/product/{uuid}                         ProductAPI.details
 POST    {client}/api/product                                ProductAPI.create
 PUT     {client}/api/product                                ProductAPI.update
 DELETE  {client}/api/product/{uuid}                         ProductAPI.delete
+PUT     {client}/api/product/set/dish                       ProductAPI.setDishOfDay
+PUT     {client}/api/product/set/active/product             ProductAPI.setActiveProduct
+GET     {client}/api/products/marked                        ProductAPI.getMarkedProducts
+
 
 
 POST    {client}/product/{productUuid}/image              	ProductImageAPI.add
@@ -300,11 +309,15 @@ GET     {client}/api/get/translation/addition/name/{uuid}    TranslationBucketAP
 PUT     {client}/api/translation/save                        TranslationBucketAPI.saveTranslation
 
 
+POST    {client}/api/email/send/to/admins                    EmailAPI.sendEmailToAdmins
+
+
 *       {client}/done                                   Application.done
 *       {client}/fail                                   Application.fail
 *       {client}/login                                  Application.login
 *       {client}/main                                   Application.main
 *       {client}/landing                                Application.landing
+*       {client}/contactForm                            Application.contactForm
 #       {client}/{language}/shopLanding                 Application.shopLanding
 
 # remove /ua from below paths
@@ -319,7 +332,6 @@ PUT     {client}/api/translation/save                        TranslationBucketAP
 *       {client}/server-error                           Application.serverError
 *       {client}/dashboard                              Application.userDashboard
 *       {client}/qrCode                                 Application.qrCode
-
 
 *       {client}/termsofservice                         Application.termsofservice
 *       {client}/privacypolicy                          Application.privacypolicy

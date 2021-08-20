@@ -19,6 +19,13 @@
     <link rel="icon"
           type="image/png"
           href="wisehands/assets/images/favicon.png">
+
+    <!--wise-store-comparison-widget imports-->
+    <link rel="stylesheet" href="wisehands/landing/components/wise-store-comparison-widget/styles.css">
+    <script src="wisehands/landing/components/wise-store-comparison-widget/polyfills.js"></script>
+    <script src="wisehands/landing/components/wise-store-comparison-widget/vendor.js"></script>
+    <script src="wisehands/landing/components/wise-store-comparison-widget/runtime.js"></script>
+    <script src="wisehands/landing/components/wise-store-comparison-widget/main.js"></script>
 </head>
 <body>
     <div  id="overlay-mobile" class="null-style">
@@ -45,30 +52,45 @@
                 <img src="wisehands/assets/images/main_logo_black.png">
                 <a href="#opport"><p id="headListServices">Можливості</p></a>
                 <a href="#tariff"><p id="headProjects">Тарифи</p></a>
-                <a href="#landContact"><p id="headTeam">Контакти</p></a>
-            </div>
+                <!--<a href="#landContact"><p id="headTeam">Контакти</p></a>-->
+                </div>
             <div class="header-links">
                 <a href="/signin"><p>Вхід</p></a>
-                <a href="/signup"><p>Реєстрація</p></a>
+                <a href="/contactForm">
+                    <button class="header-btn">Приєднатись</button>
+                </a>
             </div>
         </div>
 
 
         <div class="burger-menu" >
             <i id="mobile-menu" class="fa fa-bars" style="font-size:36px; color: #000"></i>
-             <a href="/signin"><p>Вхід</p></a>
+            <div class="burger-menu-links">
+                <a href="/signin"><p>Вхід</p></a>
+                <a href="/contactForm">
+                    <button class="header-btn">Приєднатись</button>
+                </a>
+            </div>
         </div>
     </div>
 
     <div class="main-block landing-container">
+        <div class="main-block-info">
             <div class="main-block-text wow fadeInRight" data-wow-delay="0.5s" data-wow-duration="1.3s">
                 <h1>Продавай Онлайн</h1>
-                <a href="/signup"><button>Розпочати</button></a>
-                <p>*від 99 грн/місяць</p>
             </div>
             <div class="main-block-image wow fadeIn" data-wow-delay="1.2s" data-wow-duration="1.3s">
                 <img src="../../wisehands/landing/images/webshop.svg">
             </div>
+        </div>
+        <h3 class="table-h3 wow zoomIn">Чому обирають WiseStore</h3>
+        <div class="wow zoomIn">
+            <wise-store-comparison-widget></wise-store-comparison-widget>
+            <a href="/contactForm"  class="table-btn">
+                <button>Приєднатись</button>
+            </a>
+        </div>
+
     </div>
     <div class="opport" id="opport">
         <h2 class="wow fadeIn" data-wow-delay="1s" data-wow-duration="1">Можливості</h2>
@@ -88,9 +110,9 @@
     <section class="land-category">
         <div class="landing-container">
             <div class="land-text-left wow fadeInLeft"  data-wow-delay="0.3s" data-wow-duration="1.3s">
-                <h3 class="land-h3">Категорії</h3>
+                <h3 class="land-h3">QR-коди</h3>
                 <div class="underline"></div>
-                <p class="land-p">Структуруйте асортимент ваших товарів по категоріях</p>
+                <p class="land-p">Створюйте QR-коди для кожного столу у Вашому закладі, для зручного обслуговування клієнтів</p>
             </div>
             <div class="land-img land-category-img wow fadeIn" data-wow-delay="0.7s" data-wow-duration="1.3s"></div>
         </div>
@@ -121,7 +143,7 @@
             <div class="land-text wow fadeInRight"  data-wow-delay="0.3s" data-wow-duration="1.3s">
                 <h3 class="land-h3">Аналітика</h3>
                 <div class="underline"></div>
-                <p class="land-p">Детальний аналіз Вашого бізнесу: відвідувачі, замовлення, виручка</виручка></p>
+                <p class="land-p">Детальний аналіз Вашого бізнесу: відвідувачі, замовлення, виручка</p>
             </div>
         </div>
     </section>
@@ -139,7 +161,7 @@
     <section class="tariff" id="tariff">
         <h2>Тарифи</h2>
         <div class="all-tariffs landing-container">
-            <div class="tariff-item">
+            <div class="tariff-item blur-tariff">
                 <div class="tariff-item-title">
                     <h4>Lite</h4>
                     <p>Для малого бізнесу</p>
@@ -147,7 +169,7 @@
                 <div class="tariff-price">
                     <h5>99 грн/міс</h5>
                     <p class="tariff-padding">+</p>
-                    <p><span>7%</span>від місячного обороту</p>
+                    <p><span>7%</span>комісія за замовлення</p>
                 </div>
                 <div class="tariff-description">
                     <div class="tariff-desc-row">
@@ -163,47 +185,47 @@
                         <p>до 50 000 грн/міс обороту</p>
                     </div>
                 </div>
-                <div class="tariff-button">
-                    <a href="/signup?plan=1">
-                        <button>Створити магазин</button>
-                    </a>
-                </div>
+<!--                <div class="tariff-button">-->
+<!--                    <a href="/signup?plan=1">-->
+<!--                        <button>Створити магазин</button>-->
+<!--                    </a>-->
+<!--                </div>-->
             </div>
             <div class="tariff-item tariff-pro">
                 <div class="tariff-item-title">
-                    <h4>Pro</h4>
-                    <p>Для власного брендінгу</p>
+                    <h4>Special</h4>
+                    <p>акція триває до кінця 2021 року</p>
                 </div>
                 <div class="tariff-price">
-                    <h5>199 грн/міс</h5>
+                    <h5>99 грн/міс</h5>
                     <p class="tariff-padding">+</p>
-                    <p><span>5%</span>від місячного обороту</p>
+                    <p><span>2%</span>комісія за замовлення</p>
                 </div>
                 <div class="tariff-description">
                     <div class="tariff-desc-row">
                         <i class="fa fa-check" style="font-size:20px"></i>
-                        <p>до 10 категорій</p>
+                        <p>онлайн оплата на Ваш рахунок</p>
                     </div>
                     <div class="tariff-desc-row">
                         <i class="fa fa-check" style="font-size:20px"></i>
-                        <p>до 50 товарів</p>
+                        <p>використання QR-коду</p>
                     </div>
                     <div class="tariff-desc-row">
                         <i class="fa fa-check" style="font-size:20px"></i>
-                        <p>до 100 000 грн/міс обороту</p>
+                        <p>вибір зони доставки</p>
                     </div>
                     <div class="tariff-desc-row">
                         <i class="fa fa-check" style="font-size:20px"></i>
-                        <p>інтеграції</p>
+                        <p>гнучка аналітика</p>
                     </div>
                 </div>
                 <div class="tariff-button">
-                    <a href="/signup?plan=2">
+                    <a href="/contactForm">
                         <button>Створити магазин</button>
                     </a>
                 </div>
             </div>
-            <div class="tariff-item">
+            <div class="tariff-item blur-tariff">
                 <div class="tariff-item-title">
                     <h4>Premium</h4>
                     <p>Для великих гравців на ринку</p>
@@ -211,7 +233,7 @@
                 <div class="tariff-price">
                     <h5>499 грн/міс</h5>
                     <p class="tariff-padding">+</p>
-                    <p><span>3%</span>від місячного обороту</p>
+                    <p><span>3%</span>комісія за замовлення</p>
                 </div>
                 <div class="tariff-description">
                     <div class="tariff-desc-row">
@@ -236,15 +258,14 @@
                     </div>
 
                 </div>
-                <div class="tariff-button">
-                    <a href="/signup?plan=3">
-                        <button>Створити магазин</button>
-                    </a>
-                </div>
+<!--                <div class="tariff-button">-->
+<!--                    <a href="/signup?plan=3">-->
+<!--                        <button>Створити магазин</button>-->
+<!--                    </a>-->
+<!--                </div>-->
             </div>
         </div>
     </section>
-
     <!--<section class="land-contact" id="landContact">-->
         <!--<div class="land-map"></div>-->
         <!--<div class="land-contact-form">-->
@@ -355,13 +376,19 @@
             <div class="footer-phone">
                 <a href="tel:+380630386173">
                     <i class="fa fa-mobile-phone" style="font-size:2.3rem"></i>
-                    <p>+380 93 92 41 777</p>
+                    <p>+380 93 648 40 03</p>
                 </a>
             </div>
             <div class="footer-social">
                 <a href="https://www.facebook.com/wisehands.me/"><i class="fa fa-facebook-f" style="font-size:32px"></i></a>
                 <a href="https://www.youtube.com/channel/UCSkvo3C7dB1lhChTlIx_EtA"><i class="fa fa-youtube-play" style="font-size:36px"></i></a>
             </div>
+        </div>
+        <div class="footer-copyright landing-container">
+            <a href="https://wstore.pro/">
+                <img class="footer-copyright-img" src="wisehands/assets/images/main_logo_black.png">
+                <p>Powered by WiseStore</p>
+            </a>
         </div>
     </footer>
 
@@ -522,6 +549,67 @@
             handlingMessageContainer.style.display = 'flex';
             showMessageItem.innerText = data.message;
         }
+    </script>
+
+    <script>
+        const inputQuantity = document.getElementById('quantity');
+        const quantityWstore = document.querySelector('.quantity');
+        const quantityRt = document.querySelector('.quantity-rt');
+        const quantityGl = document.querySelector('.quantity-gl');
+        const quantityWstoreMob = document.querySelector('.quantity-mob');
+        const quantityRtMob = document.querySelector('.quantity-rt-mob');
+        const quantityGlMob = document.querySelector('.quantity-gl-mob');
+
+        const inputAverageCheck = document.getElementById('averageCheck');
+        const AverageCheckWstore = document.querySelector('.average-check');
+        const AverageCheckRt = document.querySelector('.average-check-rt');
+        const AverageCheckGl = document.querySelector('.average-check-gl');
+        const AverageCheckWstoreMob = document.querySelector('.average-check-mob');
+        const AverageCheckRtMob = document.querySelector('.average-check-rt-mob');
+        const AverageCheckGlMob = document.querySelector('.average-check-gl-mob');
+
+        inputQuantity.addEventListener('input', updateValueQuantity);
+        inputAverageCheck.addEventListener('input', updateAverageCheck);
+
+        function updateValueQuantity(e) {
+            quantityWstore.textContent = e.target.value;
+            quantityRt.textContent = e.target.value;
+            quantityGl.textContent = e.target.value;
+            quantityWstoreMob.textContent = e.target.value;
+            quantityRtMob.textContent = e.target.value;
+            quantityGlMob.textContent = e.target.value;
+        }
+
+        function updateAverageCheck(e) {
+            AverageCheckWstore.textContent = e.target.value;
+            AverageCheckRt.textContent = e.target.value;
+            AverageCheckGl.textContent = e.target.value;
+            AverageCheckWstoreMob.textContent = e.target.value;
+            AverageCheckRtMob.textContent = e.target.value;
+            AverageCheckGlMob.textContent = e.target.value;
+        }
+
+
+        let quantity = Number(document.getElementById("quantity").value);
+        let averageCheck = Number(document.getElementById("averageCheck").value);
+
+        function calculateProfit() {
+            quantity = Number(document.getElementById("quantity").value);
+            averageCheck = Number(document.getElementById("averageCheck").value);
+
+            let profitValue = (quantity * averageCheck * 0.98) - (quantity * 50);
+            let profitValueRt = (quantity * averageCheck * 0.63);
+            let profitValueGl = (quantity * averageCheck * 0.65);
+
+            document.getElementById("profit").innerHTML = Math.trunc(profitValue);
+            document.getElementById("profitValueRt").innerHTML = Math.trunc(profitValueRt);
+            document.getElementById("profitValueGl").innerHTML = Math.trunc(profitValueGl);
+            document.getElementById("profitMob").innerHTML = Math.trunc(profitValue);
+            document.getElementById("profitValueRtMob").innerHTML = Math.trunc(profitValueRt);
+            document.getElementById("profitValueGlMob").innerHTML = Math.trunc(profitValueGl);
+
+        }
+
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->

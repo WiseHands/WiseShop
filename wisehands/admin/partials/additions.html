@@ -36,8 +36,8 @@
         <div ng-repeat="addition in additionList" on-finish-render="ngRepeatFinished">
             <a href="#/additionedit/{{addition.uuid}}" >
                 <div class="admin-card hoverable addition-item">
-                    <img class="addition-img" src="{{addition.imagePath}}">
-                    <p>{{addition.title}}</p>
+                    <img class="addition-img" src="{{addition.imagePath}}" loading="lazy">
+                    <p title="{{addition.title}}">{{addition.title}}</p>
                     <p>{{addition.price}}</p>
                 </div>
             </a>

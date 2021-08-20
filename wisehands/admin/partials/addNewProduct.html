@@ -1,5 +1,78 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<style>
+    .images-container {
+        flex: 50%;
+        height: 525px;
+        margin: 1rem;
+        cursor: pointer;
+        padding: 0;
+        position: relative;
+    }
+
+    .load-product-image-border {
+        border: 2px dotted #666;
+    }
+
+    .load-product-image {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .image-help-info-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center;
+    }
+
+    input[type=file] {
+        display: none;
+    }
+
+    ul.images-list {
+        margin-top: 1rem;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(160px, 1fr));
+        grid-template-rows: 1fr;
+        grid-gap: 1rem;
+    }
+
+    li {
+        display: flex;
+        flex-direction: column;
+    }
+
+    li img {
+        max-height: 100%;
+        min-width: 100%;
+        object-fit: fill;
+        vertical-align: bottom;
+    }
+
+    .show-more-less-btn {
+        text-align: center;
+        font-size: 1.25rem;
+        padding: 0.5rem;
+        color: #000;
+    }
+
+
+
+    @media all and (max-width: 768px) {
+        .images-container {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    @media all and (max-width: 550px) {
+        ul.images-list {
+            grid-template-columns: repeat(3, minmax(100px, 1fr));
+        }
+    }
+</style>
 <nav class="admin-nav" role="navigation">
     <a class="admin-nav-back-btn"
        type="button"
@@ -19,18 +92,49 @@
 
 <div class=" noSidePadding">
     <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+                 show="loading"></spinner>
     </div>
-    <form class="add-product-block noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
-        <div class="load-product-image load-product-image-border" ng-click="loadImage()">
-            <input name="imageLoader" type="file" id="imageLoader"/>
-            <i id="add-product-icon" class="fa fa-plus"></i>
-            <div class="item active loaded-photo" ng-show="productImages.length >= 1">
-                <img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">
+
+
+    <form class="add-product-block noSidePadding" ng-submit="submitProduct()" id="addNewProductForm"
+          name="addNewProductForm" ng-hide="loading">
+
+        <input name="imageLoader" type="file" id="imageLoader"/>
+
+        <div class="images-container">
+            <image-cropper-component ng-if="imageToCrop"
+                                     current-image="imageToCrop"></image-cropper-component>
+            <div class="load-product-image" ng-class="{'load-product-image-border' : !imageToCrop}"
+                 ng-hide="imageToCrop"
+                 ng-click="loadImage()">
+
+                <div class="image-help-info-container">
+                    <i id="add-product-icon" class="fa fa-plus"></i>
+                    <p class="add-photo-text" ng-hide="productImage.length">{{'addNewProduct.addPhoto' |
+                        translate}}</p>
+                    <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
+                </div>
+
             </div>
-            <p class="add-photo-text">{{'addNewProduct.addPhoto' | translate}}</p>
-            <p class="error-text">{{'addNewProduct.errorLoadPhoto' | translate}}</p>
+            <div>
+                <ul class="images-list" ng-show="productImages.length">
+                    <li class="imageFlex" ng-repeat="image in productImages"
+                        ng-class="{'active' : $index === product.mainPhoto}">
+                        <img ng-src="{{image.data}}"
+                             class="images-list-img"
+                             title="{{'addNewProduct.makeMain' | translate}}"
+                             ng-click="setMainPhotoIndex($index); $event.stopPropagation();">
+                        <div class="label secondaryColor hoverable"
+                             title="{{'addNewProduct.deletePhoto' | translate}}"
+                             ng-click="removeImage($index); $event.stopPropagation();">
+                            <span class="secondaryColor glyphicon glyphicon-remove-sign"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
+
         <div class="add-product-info">
             <div class="admin-card hoverable">
                 <h4>{{'editProduct.general' | translate}}</h4>
@@ -47,7 +151,8 @@
                     <label for="nameUk">{{'addNewProduct.productName' | translate}}</label>
                 </div>
                 <div class="input-field m-left">
-                    <textarea id="descriptionUk" class="materialize-textarea" ng-model="product.descriptionUk" required></textarea>
+                    <textarea id="descriptionUk" class="materialize-textarea" ng-model="product.descriptionUk"
+                              required></textarea>
                     <label for="descriptionUk">{{'addNewProduct.productDescription' | translate}}</label>
                 </div>
                 <h5>{{'translationPage.english' | translate}}</h5>
@@ -56,7 +161,8 @@
                     <label for="nameEn">{{'addNewProduct.productName' | translate}}</label>
                 </div>
                 <div class="input-field m-left">
-                    <textarea id="descriptionEn" class="materialize-textarea" ng-model="product.descriptionEn" required></textarea>
+                    <textarea id="descriptionEn" class="materialize-textarea" ng-model="product.descriptionEn"
+                              required></textarea>
                     <label for="descriptionEn">{{'addNewProduct.productDescription' | translate}}</label>
                 </div>
             </div>
@@ -68,90 +174,46 @@
                         <div class="create-category hoverable" data-toggle="modal" data-target="#categoryModal">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </div>
-                        <div class="item-category"  ng-repeat="category in categories | limitTo : NumberOfCategoriesToShow" ng-class="{selected: category.uuid === selectedCategoryId}">
-                            <div class="card-item hoverable"  ng-click="chooseCategory(category.uuid)" title="{{category.name}}">
+                        <div class="item-category"
+                             ng-repeat="category in categories | limitTo : numberOfCategoriesToShow"
+                             ng-class="{selected: category.uuid === selectedCategoryId}">
+                            <div class="card-item hoverable" ng-click="chooseCategory(category.uuid)"
+                                 title="{{category.name}}">
                                 <p>{{category.name}}</p></div>
                         </div>
-                        <div class="show-category" ng-hide="categories.length < 7">
-                            <p  class="show-more-btn" ng-click="showMore()" ng-show="categories.length > 6" >{{'addNewProduct.showMoreButton' | translate}}</p>
-                            <p  class="show-less-btn" ng-click="showLess()">{{'addNewProduct.showLessButton' | translate}}</p>
+                        <div class="show-category" ng-hide="categories.length < 2"
+                             ng-click="toggleCategoriesShowHideState()">
+                            <p class="show-more-less-btn" ng-show="!showMoreCategories">
+                                {{'addNewProduct.showMoreButton' | translate}}</p>
+                            <p class="show-more-less-btn" ng-show="showMoreCategories">
+                                {{'addNewProduct.showLessButton' | translate}}</p>
                         </div>
-                </div>
+                    </div>
 
-            </div>
-            <div class="admin-card hoverable">
-                <h4>{{'editProduct.properties' | translate}}</h4>
-                <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" />
-                <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
-                <div class="input-field">
-                    <input id="oldPrice" type="number" ng-model="product.oldPrice">
-                    <label for="oldPrice" class="active">{{'addNewProduct.oldPrice' | translate}}</label>
                 </div>
-                <div class="input-field ">
-                    <input id="productOrder" type="number" ng-model="product.sortOrder">
-                    <label for="productOrder" class="active">{{'displayOrder' | translate}}</label>
+                <div class="admin-card hoverable">
+                    <h4>{{'editProduct.properties' | translate}}</h4>
+                    <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box"
+                           ng-model="product.isActive"/>
+                    <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
+                    <div class="input-field">
+                        <input id="oldPrice" type="number" ng-model="product.oldPrice">
+                        <label for="oldPrice" class="active">{{'addNewProduct.oldPrice' | translate}}</label>
+                    </div>
+                    <div class="input-field ">
+                        <input id="productOrder" type="number" ng-model="product.sortOrder">
+                        <label for="productOrder" class="active">{{'displayOrder' | translate}}</label>
+                    </div>
                 </div>
+                <button class="save-button"
+                        type="submit"
+                        form="addNewProductForm">
+                    {{'addNewProduct.save' | translate}}
+                </button>
             </div>
-            <button class="save-button"
-                    type="submit"
-                    form="addNewProductForm">
-                {{'addNewProduct.save' | translate}}
-            </button>
-            <!--<div class="input-field z-index">-->
-            <!--&lt;!&ndash;<label for="category" class="active categoryLabelFontSize">{{'addNewProduct.category' | translate}}</label>&ndash;&gt;-->
-            <!--<select class="form-control"-->
-            <!--id="category"-->
-            <!--ng-model="product.category"-->
-            <!--ng-options="category as category.name for category in categories track by category.uuid" required>-->
-            <!--<option></option>-->
-            <!--</select>-->
-            <!--</div>-->
-            <!--<div class="input-field white-text">-->
-            <!--<button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" data-toggle="modal" data-target="#categoryModal">-->
-            <!--<span>{{'addNewProduct.createCategory' | translate}}</span>-->
-            <!--</button>-->
-            <!--</div>-->
         </div>
-
-
-
-
-
-        <!--<button type="button" class="btn secondaryColor waves-effect waves-light pull-right btn-block" ng-click="loadImage()">-->
-        <!--<span>{{'addNewProduct.addPhoto' | translate}}</span>-->
-        <!--</button>-->
-
     </form>
-    <!--<div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">-->
-    <!--<div class="col-sm-7">-->
-    <!--<div class="carousel-inner hoverable" role="listbox">-->
-    <!--<div class="item active" ng-show="productImages.length >= 1">-->
-    <!--<img id="main" class="center-block" ng-src="{{productImages[product.mainPhoto]}}" alt="slide1">-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-sm-5">-->
-    <!--<ul class="carousel-indicators" ng-show="productImages.length">-->
-    <!--<li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">-->
-    <!--<img ng-src="{{image}}"-->
-    <!--class="img-responsive z-depth-1 hoverable"-->
-    <!--data-toggle="tooltip"-->
-    <!--data-placement="top"-->
-    <!--title="{{'addNewProduct.makeMain' | translate}}"-->
-    <!--ng-click="setMainPhotoIndex($index); $event.stopPropagation();">-->
-    <!--<div class="label secondaryColor photoLabelStyle hoverable"-->
-    <!--data-toggle="tooltip"-->
-    <!--data-placement="top"-->
-    <!--title="{{'addNewProduct.deletePhoto' | translate}}"-->
-    <!--ng-click="removeImage($index); $event.stopPropagation();">-->
-    <!--<span class="secondaryColor glyphicon glyphicon-remove-sign"></span>-->
-    <!--</div>-->
-    <!--<button class="btn btn-default" ng-click="editImage(image, $index)">Edit image</button>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
-    <canvas id="imageCanvas" class="productImage"></canvas>
+
 </div>
 
 <div class="modal fade" id="categoryModal" role="dialog">
@@ -168,11 +230,15 @@
                             <label for="password">{{'categories.categoryName' | translate}}</label>
                         </div>
                         <div class="input-field col-md-12">
-                            <textarea id="textarea2" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
+                            <textarea id="textarea2" class="materialize-textarea"
+                                      ng-model="newCategory.description"></textarea>
                             <label for="textarea2">{{'categories.categoryDescription' | translate}}</label>
                         </div>
-                        <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                        <button type="submit" class="btn secondaryColor white-text waves-effect waves-light pull-right" ng-hide="loading">{{'categories.create' | translate}}</button>
+                        <spinner class="col-xs-offset-11" name="mySpinner"
+                                 img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
+                        <button type="submit" class="btn secondaryColor white-text waves-effect waves-light pull-right"
+                                ng-hide="loading">{{'categories.create' | translate}}
+                        </button>
                     </div>
                 </form>
             </div>

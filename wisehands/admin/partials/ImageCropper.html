@@ -1,62 +1,70 @@
 <style>
-  .img-container,
-  .img-preview {
-    background-color: #f7f7f7;
-    text-align: center;
-    width: 100%;
-  }
-
-  .img-container {
-    margin-bottom: 1rem;
-    max-height: 497px;
-    min-height: 200px;
-  }
-
-  @media (min-width: 768px) {
-    .img-container {
-      min-height: 497px;
+    .img-container,
+    .img-preview {
+        background-color: #f7f7f7;
+        text-align: center;
+        width: 100%;
     }
-  }
 
-  .img-container > img {
-    max-width: 100%;
-    max-height: 520px;
-  }
+    .img-container {
+        margin-bottom: 1rem;
+        max-height: 497px;
+        min-height: 200px;
+    }
+
+    @media (min-width: 768px) {
+        .img-container {
+            min-height: 497px;
+        }
+    }
+
+    .img-container > img {
+        max-width: 100%;
+        max-height: 520px;
+    }
+
+    .button-group-cropper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    button {
+        flex: 1;
+    }
 </style>
+<div ng-init="onInit()" ng-click="$event.stopPropagation(); $event.preventDefault();">
+    <div>
+        <div ng-if="imageStatus.fetching">Loading...</div>
+        <div ng-if="!imageStatus.fetching && imageStatus.error">
+            Image not loaded or not found!!
+        </div>
+        <div ng-if="!imageStatus.fetching && imageStatus.fetched">
+            <div class="img-container" ng-class="{'-is-visible': imageStatus.isVisible}">
+                <img id="image" ng-src="{{currentImage}}"/>
+            </div>
+            <div class="button-group button-group-cropper">
+                <button class="btn btn-default btn-sm"
+                        ng-click="zoomOut()">
+                    Zoom Out
+                </button>
+                <button class="btn btn-default btn-sm"
+                        ng-click="zoomIn()">
+                    Zoom in
+                </button>
+                <button class="btn btn-default btn-sm"
+                        ng-click="rotateLeft()">
+                    Rotate left
+                </button>
+                <button class="btn btn-default btn-sm"
+                        ng-click="rotateRight()">
+                    Rotate right
+                </button>
 
-<div ng-init="onInit()">
-  <div class="modal-body" id="modal-body">
-    <div ng-if="vm.imageStatus.fetching">Loading...</div>
-    <div ng-if="!vm.imageStatus.fetching && vm.imageStatus.error">
-      Image not loaded or not found!!
-    </div>
-    <div ng-if="!vm.imageStatus.fetching && vm.imageStatus.fetched">
-      <div class="img-container" ng-class="{'-is-visible': vm.imageStatus.isVisible}">
-        <img id="image" ng-src="{{vm.image.dataURL}}" />
-      </div>
-      <div class="button-group button-group-cropper">
-        <button class="btn btn-default btn-sm"
-                ng-click="zoomOut()">
-          Zoom Out
-        </button>
-        <button class="btn btn-default btn-sm"
-                ng-click="zoomIn()">
-          Zoom in
-        </button>
-        <button class="btn btn-default btn-sm"
-                ng-click="rotateLeft()">
-          Rotate left
-        </button>
-        <button class="btn btn-default btn-sm"
-                ng-click="rotateRight()">
-          Rotate right
-        </button>
-      </div>
-    </div>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="submitCrop()">Crop</button>
 
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary btn-sm" type="button" ng-click="submitCrop()">Crop</button>
-    <button class="btn btn-default btn-sm" type="button" ng-click="cancelCrop()">Cancel</button>
-  </div>
+            </div>
+        </div>
+
+    </div>
 </div>

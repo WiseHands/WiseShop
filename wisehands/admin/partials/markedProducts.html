@@ -1,0 +1,74 @@
+<nav class="admin-nav" role="navigation">
+    <div class="nav-menu">
+        <a data-activates="slide-out" class="button-collapse sideNavButtonStyling"><i class="fa fa-bars"></i></a>
+    </div>
+    <div class="nav-menu"></div>
+    <div class="nav-title" ng-hide="searchField">
+        <h5>{{'sideNav.MarkedProducts' | translate}}</h5>
+    </div>
+    <form class=" waves-effect waves-light" ng-show="searchField">
+        <input class="search-orders form-control noMarginForSearchInput" type="text"
+               placeholder="{{'orderList.Search' | translate}}" ng-model="query">
+    </form>
+    <div class="admin-nav-block-btn">
+        <i ng-click="toggle()" ng-hide="searchField" class="nav-search-btn  fa fa-search" aria-hidden="true"
+           ng-model="query"></i>
+        <i ng-click="toggle()" ng-show="searchField" class="nav-search-btn  fa fa-search" aria-hidden="true"
+           ng-model="query" style="color: #039be5"></i>
+    </div>
+</nav>
+
+<div class="noSidePadding cardTopPadding admin-all-products">
+    <h4 ng-show="wrongMessage" class="text-center"><i>{{'orderList.wrongMessage' | translate}}</i></h4>
+    <div class="spinner-block">
+        <spinner class="center-spinner" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+                 on-loaded="getResource()"></spinner>
+    </div>
+    <div class="all-products-item" ng-repeat="product in products | filter:search | orderBy:'sortOrder'"
+         on-finish-render="ngRepeatFinished">
+        <div class="card card-product hoverable">
+            <a href="#/product/details/{{product.uuid}}">
+
+                <div class="card-image waves-effect waves-block waves-light view cardImageBlock">
+                    <div class="flexContainerForPriceLabels2 card-label">
+                        <h5 class="white-text"><span class="label primaryColor">
+                            {{product.priceOfDay > 0 ? product.priceOfDay : product.price}} {{'products.currency' | translate}}</span>
+                        </h5>
+                        <h5><span ng-hide="product.oldPrice == null"
+                                  class="label primaryColor crossedPriceFont"><strike>{{product.oldPrice}} {{'products.currency' | translate}}</strike></span>
+                        </h5>
+                    </div>
+                    <img ng-src="/public/product_images/{{activeShop}}/{{product.mainImage.filename}}">
+                    <div class="mask">
+                        <div class="verticalcenter" ng-hide="product.isActive">
+                            <p class="white-text text-center">Не активний</p>
+                        </div>
+                    </div>
+                    <div class="card-product-title">
+                        <h5 class="white-text primaryColor text-center line-clamp">{{product.name}}</h5>
+                    </div>
+                </div>
+            </a>
+
+            <div class="card-content product-setting-container">
+                <div class="set-checkbox-content">
+                    <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid}}"
+                           ng-model="product.isActive" ng-click="setActiveProduct($event, this.product)"/>
+                    <label for="{{product.uuid}}">{{'products.showInShop' | translate}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<h4 ng-show="products.length === 0" class="text-center">
+    <div class="no-items-store">
+        <img src="/wisehands/assets/images/noproducts.svg">
+        <p>{{'products.noMarkedProducts' | translate}}</p>
+        <a href="#/products">
+            <div class="add-product-noproduct">
+                <p>{{'products.markProduct' | translate}}</p>
+            </div>
+        </a>
+    </div>
+</h4>

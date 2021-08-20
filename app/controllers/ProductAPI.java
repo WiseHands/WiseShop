@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.*;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import play.data.Upload;
 
 import java.io.File;
@@ -14,6 +16,8 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static sun.awt.geom.Curve.round;
 
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
@@ -157,8 +161,27 @@ public class ProductAPI extends AuthController {
         renderJSON(json);
     }
 
+    public static void getMarkedProducts(String client, int page) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        List<ProductDTO> products;
+
+        products = ProductDTO.find(
+                "select p from ProductDTO p, CategoryDTO c " +
+                        "where p.category = c and p.shop = ?1 and c.isHidden = ?2 " +
+                        "and p.isActive = 0 order by p.sortOrder asc", shop, false
+        ).fetch();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(products);
+        renderJSON(json);
+    }
+
     public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
-                              Integer sortOrder, Boolean isActive, Double oldPrice, String properties, Integer wholesaleCount, Double wholesalePrice) throws Exception {
+                              Integer sortOrder, Boolean isActive, Double oldPrice, String properties,
+                              Integer wholesaleCount, Double wholesalePrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
@@ -221,6 +244,7 @@ public class ProductAPI extends AuthController {
         renderJSON(json);
     }
 
+
     public static void delete(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -254,7 +278,7 @@ public class ProductAPI extends AuthController {
         for (ProductPropertyDTO property : properties) {
             property.delete();
         }
-        CategoryDTO category  = product.category;
+        CategoryDTO category = product.category;
         category.products.remove(product);
         category.save();
         product.delete();
@@ -264,6 +288,85 @@ public class ProductAPI extends AuthController {
         System.out.println("Deleted product " + product.name + " at " + dateFormat.format(date));
 
         ok();
+    }
+
+    public static void setDishOfDay(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+
+        Boolean isDishOfDay = Boolean.parseBoolean(String.valueOf(jsonBody.get("isDishOfDay")));
+        System.out.println("setDishOfDay => " + isDishOfDay);
+
+        if (isDishOfDay){
+            String oldDishQuery = "select p from ProductDTO p where p.isDishOfDay = true";
+            ProductDTO oldDishProduct = ProductDTO.find(oldDishQuery).first();
+            if(oldDishProduct != null){
+                oldDishProduct.isDishOfDay = false;
+                oldDishProduct.priceOfDay = 0d;
+                oldDishProduct.oldPrice = null;
+                oldDishProduct.save();
+            }
+        }
+
+        ProductDTO newDishProduct = ProductDTO.findById((String) jsonBody.get("uuid"));
+        newDishProduct.isDishOfDay = isDishOfDay;
+
+        if (newDishProduct.isDishOfDay) {
+            newDishProduct.oldPrice = newDishProduct.price;
+            newDishProduct.priceOfDay = newDishProduct.price - round(newDishProduct.price * (double) shop.banner.discount / 100);
+        } else {
+            newDishProduct.priceOfDay = 0d;
+            newDishProduct.oldPrice = null;
+        }
+        newDishProduct.save();
+
+        List<ProductDTO> products;
+
+        products = ProductDTO.find(
+                "select p from ProductDTO p, CategoryDTO c " +
+                        "where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc", shop, false
+        ).fetch();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(products);
+
+        renderJSON(json);
+
+    }
+
+    public static void setActiveProduct(String client) throws Exception {
+        ShopDTO shop = ShopDTO.find("byDomain", client).first();
+        if (shop == null) {
+            shop = ShopDTO.find("byDomain", "localhost").first();
+        }
+        checkAuthentification(shop);
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+
+        Boolean isActive = Boolean.parseBoolean(String.valueOf(jsonBody.get("isActive")));
+        System.out.println("setActiveProduct => " + isActive);
+
+        ProductDTO product = ProductDTO.findById((String) jsonBody.get("uuid"));
+        product.isActive = isActive;
+        product.save();
+        List<ProductDTO> products;
+        products = ProductDTO.find(
+                "select p from ProductDTO p, CategoryDTO c " +
+                        "where p.category = c and p.shop = ?1 and c.isHidden = ?2 order by p.sortOrder asc", shop, false
+        ).fetch();
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(products);
+
+        renderJSON(json);
+
     }
 
 }

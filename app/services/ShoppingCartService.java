@@ -113,9 +113,11 @@ public class ShoppingCartService extends AuthController {
             product.price = product.priceInCurrency;
         }
 
+        double price = (product.priceOfDay != null && product.priceOfDay > 0) ? product.priceOfDay : product.price;
+
         LineItem lineItem = new LineItem(
                 product.uuid, product.name, product.mainImage.filename,
-                quantity, product.price, shop, additionOrderDTOList,
+                quantity, price, shop, additionOrderDTOList,
                 product.productNameTextTranslationBucket);
         lineItem.save();
 

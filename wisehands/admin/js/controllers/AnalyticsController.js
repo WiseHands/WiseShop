@@ -28,7 +28,7 @@ angular.module('WiseHands')
                 let withoutOffset = withOffset - offset;
 
                 return withoutOffset;
-            }
+            };
 
             $scope.performRequestInGivenRange = () => {
                 let fromDate = convertDateToMilissecondsWithoutTimezoneOffset(fromDateInput.value);
@@ -50,10 +50,9 @@ angular.module('WiseHands')
                     '/to/' +
                     toDate
                 })
-                    .then(successCallback = (response) => {
-                      console.log(response.data);
+                    .then((response) => {
+                      console.log('/analytics/from/ => ', response.data);
                       $scope.analytics = response.data;
-
                       $scope.popularProducts = response.data.popularProducts;
                       $scope.frequentBuyers = response.data.frequentBuyers;
 
@@ -81,7 +80,7 @@ angular.module('WiseHands')
                           data
                       ];
 
-                    }, errorCallback = (response) =>{
+                    }, (error) =>{
                         $scope.status = 'Щось пішло не так...';
                     });
 
@@ -91,9 +90,9 @@ angular.module('WiseHands')
             const currentDate = new Date();
             const formattedCurrentDate = convertDateToMilissecondsWithoutTimezoneOffset(currentDate);
             const pastWeekDate = currentDate.setDate(currentDate.getDate()- week);
-            const formattedPassWeekDate = convertDateToMilissecondsWithoutTimezoneOffset(pastWeekDate);
+            const formattedPastWeekDate = convertDateToMilissecondsWithoutTimezoneOffset(pastWeekDate);
 
-            $scope.calculateDayRange(formattedPassWeekDate, formattedCurrentDate);
+            $scope.calculateDayRange(formattedPastWeekDate, formattedCurrentDate);
 
             sideNavInit.sideNav();
 

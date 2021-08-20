@@ -7,10 +7,17 @@
     <div class="nav-title">
         <h5>{{'editPage.title' | translate}}</h5>
     </div>
-    <a class="admin-nav-save-btn">
-        <i class="fa fa-save whiteColor pull-right"
-           ng-click="saveThisPage()">
+    <a class="double-navbar noRightPadding nav-link dropdown-toggle"
+       id="dropdownMenu"
+       type="button"
+       data-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+        <i class="fa fa-edit pull-right whiteColor nav-edit-btn">
         </i>
+        <div class="dropdown-menu pull-right rightDropdown" aria-labelledby="dropdownMenu">
+            <a class="col-xs-12 text-left" data-toggle="modal" data-target="#removePage"><p> {{'qrDetails.delete' | translate}}</p></a>
+        </div>
     </a>
 </nav>
 
@@ -30,7 +37,7 @@
         <!--</div>-->
     </div>
     <div class="container-fluid">
-        <div class="col-sm-6 flex-baseline flex-baseline">
+        <div class="col-sm-6 flex-baseline">
             <p>{{'addNewPage.setBody' | translate}}</p>
             <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right" ng-click="redirectToTranslationBodyPage(pageUuid)"><i class="material-icons">translate</i></button>
 
@@ -47,3 +54,26 @@
     <!--<img src="{uploadme}" class="img-setting">-->
 <!--</div>-->
 <!--<canvas id="imageCanvas" class="productImage"></canvas>-->
+<div class="modal fade" id="removePage" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12 text-center">
+                    <p ng-show="deleteButton"><i>{{'additionEdit.deleteMessage' | translate}}</i></p>
+                </div>
+                <div class="col-xs-9">
+                    <spinner class="col-xs-offset-8" name="mySpinner"
+                             img-src="wisehands/assets/images/spinner/box-xs.gif" show="modalSpinner"></spinner>
+                </div>
+                <div class="col-xs-offset-2 col-xs-8">
+                    <button type="button" class="btn secondaryColor btn-sm btn-block " ng-click="removePage()"
+                            ng-show="deleteButton">{{'singleOrder.Delete' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

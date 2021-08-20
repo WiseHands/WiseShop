@@ -3,107 +3,80 @@ angular
   .factory('CropperFactory', CropperFactory)
   .controller('ImageCropperController', ImageCropperController);
 
-  // Injection: CropperFactory
-  CropperFactory.$inject = ['$window'];
+CropperFactory.$inject = ['$window'];
 
-  function CropperFactory($window) {
-    return function(callback) {
-      if ( !$window.Cropper ) {
-        var script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.min.js';
-        document.head.appendChild(script);
-        script.onload = function() {
-          callback($window.Cropper)
-        }
-      } else {
-        callback($window.Cropper);
-      }
-    }
+function CropperFactory($window) {
+  return callback => {
+    if (!$window.Cropper) {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.min.js';
+      document.head.appendChild(script);
+      script.onload = () => callback($window.Cropper);
+    } else callback($window.Cropper);
   }
+}
 
-  ImageCropperController.$inject = [
-    '$scope',
-    '$document',
-    '$uibModalInstance',
-    'CropperFactory',
-    'currentImage'
-  ]
+ImageCropperController.$inject = [
+  '$scope',
+  '$document',
+  'CropperFactory',
+];
 
-  function ImageCropperController(
-    $scope,
-    $document,
-    $uibModalInstance,
-    CropperFactory,
-    currentImage
-  ){
-    var vm = this;
-    var cropper = null;
-    vm.image = currentImage;
+function ImageCropperController(
+  $scope,
+  $document,
+  CropperFactory,
+) {
+  const vm = $scope;
+  let cropper = null;
+  vm.currentImage = this.currentImage;
+  // Image statuses
+  vm.imageStatus = {
+    isVisible: true,
+    fetching: true,
+    fetched: false,
+    error: false
+  };
 
-    // Image statuses
-    vm.imageStatus = {
-      isVisible: true,
-      fething: true,
-      fetched: false,
-      error: false
-    };
+  angular.extend($scope, {
+    onInit: () => {
+      const image = new Image();
+      image.onload = () => {
+        vm.imageStatus.isVisible = true;
+        vm.imageStatus.fetching = false;
+        vm.imageStatus.fetched = true;
+        $scope.$apply();
 
-    angular.extend($scope, {
-      onInit: function(){
-        var image = new Image();
-        image.onload = function(){
-          vm.imageStatus.isVisible = true;
-          vm.imageStatus.fetching = false;
-          vm.imageStatus.fetched = true;
-          $scope.$apply();
-
-          CropperFactory(function(Cropper){
-            var image = $document[0].getElementById('image');
-            cropper = new Cropper(image, {
-              aspectRatio: 4/3,
-              viewMode: 0,
-              ready: function(evt){
-                console.log('Cropper status', evt.type);
-                vm.imageStatus.isVisible = false;
-                $scope.$apply();
-              }
-            });
+        CropperFactory(Cropper => {
+          const image = $document[0].getElementById('image');
+          cropper = new Cropper(image, {
+            aspectRatio: 4 / 3,
+            viewMode: 0,
+            ready: () => {
+              vm.imageStatus.isVisible = false;
+              $scope.$apply();
+            }
           });
-        };
-        image.onerror = function(){
-          vm.imageStatus.fetching = false;
-          vm.imageStatus.error = true;
-        }
-        image.src = vm.image.dataURL;
-      },
-
-      submitCrop: function(){
-        var croppedImage = cropper.getCroppedCanvas().toDataURL();
-        $uibModalInstance.close(croppedImage);
-      },
-
-      cancelCrop: function(){
-        $uibModalInstance.dismiss('cancel');
+        });
+      };
+      image.onerror = () => {
+        vm.imageStatus.fetching = false;
+        vm.imageStatus.error = true;
       }
-    });
+      image.src = vm.currentImage;
+    },
 
-    // Image cropper handler
-    angular.extend($scope, {
-      zoomIn: function(){
-        cropper.zoom(0.1);
-      },
-      zoomOut: function(){
-        cropper.zoom(-0.1);
-      },
-      rotateRight: function(){
-        cropper.rotate(45);
-      },
-      rotateLeft: function(){
-        cropper.rotate(-45);
-      }
-      // aspectRatio: function(ration){
-      //   cropper.setAspectRatio(ration);
-      // }
-    });
+    submitCrop: () => {
+      const croppedImage = cropper.getCroppedCanvas().toDataURL();
+      $scope.$emit('crop-image', croppedImage);
+    }
+  });
 
-  }
+  // Image cropper handler
+  angular.extend($scope, {
+    zoomIn: () => cropper.zoom(0.1),
+    zoomOut: () => cropper.zoom(-0.1),
+    rotateRight: () => cropper.rotate(45),
+    rotateLeft: () => cropper.rotate(-45)
+  });
+}

@@ -1,7 +1,7 @@
 angular.module('WiseHands')
     .controller('AdditionEditController', ['$scope', '$http', 'signout', 'sideNavInit', 'shared', '$window', '$routeParams',
         function ($scope, $http, signout, sideNavInit, shared, $window, $routeParams) {
-        $scope.loading = true;
+        $scope.loading = false;
 
         $http({
             method: 'GET',
@@ -13,6 +13,7 @@ angular.module('WiseHands')
             let additionSelectedImage = document.createElement("img");
             additionSelectedImage.className = "selected-image"
             additionSelectedImage.id = "selectedImage"
+            additionSelectedImage.setAttribute("loading", "lazy");
 
             additionSelectedImage.src = response.data.imagePath;
             imageName.appendChild(additionSelectedImage);

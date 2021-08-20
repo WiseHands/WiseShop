@@ -64,6 +64,16 @@
                         controller:'ProductListController',
                         activetab: 'productlist'
                     }).
+                    when('/markedproducts',{
+                        templateUrl:'wisehands/admin/partials/markedProducts.html',
+                        controller:'MarkedProductsController',
+                        activetab: 'markedProducts'
+                    }).
+                    when('/banners',{
+                        templateUrl:'wisehands/admin/partials/banners.html',
+                        controller:'BannersController',
+                        activetab: 'banner'
+                    }).
                     when('/feedback',{
                         templateUrl:'wisehands/admin/partials/feedbackList.html',
                         controller:'FeedbackListController',

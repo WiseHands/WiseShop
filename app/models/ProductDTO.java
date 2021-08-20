@@ -40,6 +40,9 @@ public class ProductDTO extends GenericModel {
     public double priceInCurrency;
 
     @Expose
+    public Double priceOfDay = 0D;
+
+    @Expose
     public String fileName;
 
     @ManyToOne
@@ -59,6 +62,10 @@ public class ProductDTO extends GenericModel {
 
     @Expose
     public Boolean isActive;
+
+    @Expose
+    @Column(columnDefinition = "boolean default false")
+    public Boolean isDishOfDay = false;
 
     @Expose
     public Integer wholesaleCount;
@@ -93,11 +100,11 @@ public class ProductDTO extends GenericModel {
     public List<FeedbackDTO> feedbackList;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     public TranslationBucketDTO productNameTextTranslationBucket;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     public TranslationBucketDTO productDescriptionTextTranslationBucket;
 
     public void addFeedback(FeedbackDTO orderFeedback) {
@@ -129,9 +136,18 @@ public class ProductDTO extends GenericModel {
         this.wholesalePrice = wholesalePrice;
     }
 
+    // copy in price service
+
     public double formatDefaultPrice() {
         double number = this.price;
-        return round(number, 2); // sdb
+        return _roundAvoid(number, 2); // sdb
+    }
+
+    private double _formatPrice() {
+        double number = this.price;
+        if(this.priceOfDay != null && this.priceOfDay > 0) number = this.priceOfDay;
+        if(this.priceWithAdditions != null) number = number + this.priceWithAdditions;
+        return _roundAvoid(number, 2); // sdb
     }
 
     public double formatPrice(String currency, String selectedCurrency) {
@@ -148,30 +164,15 @@ public class ProductDTO extends GenericModel {
         }
     }
 
-    private double _formatPrice() {
-        double number = this.price;
-        if(this.priceWithAdditions != 0){
-            number = number + this.priceWithAdditions;
-        }
-        return _roundAvoid(number, 2); // sdb
-    }
-
     public static double _roundAvoid(double value, int places) {
         double scale = Math.pow(10, places);
         return Math.round(value * scale) / scale;
     }
 
+
+
     public String formatDecimalOldPrice() {
-        Double number = this.oldPrice;
-        if (number != null) {
-            float epsilon = 0.004f; // 4 tenths of a cent
-            if (Math.abs(Math.round(number) - number) < epsilon) {
-                return String.format("%10.0f", number) + " " + "uah"; // sdb
-            } else {
-                return String.format("%10.2f", number) + " " + "uah"; // dj_segfault
-            }
-        }
-        return "";
+        return _roundAvoid(this.oldPrice, 2);
     }
 
     public String getLinkToProductPage(ProductDTO product, String language, String qr_uuid, String selectedCurrency){

@@ -12,7 +12,86 @@
         margin: 0 auto;
         /*overflow: hidden;*/
         display: flex;
-        padding: 1rem 0.5rem;
+        padding: 1rem 0.5rem 0.5rem;
+    }
+
+    .slideshow-container {
+        flex: 0 0 40%;
+        position: relative;
+        margin: auto;
+    }
+
+    .slide-photo {
+        display: block;
+    }
+
+    .slide-photo img {
+        width: 100%;
+    }
+
+    .prev-arrow, .next-arrow {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: auto;
+        margin-top: -9px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+
+    .next-arrow {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    .prev-arrow:hover, .next-arrow:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 5px 2px 0;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+
+    .dot.active, .dot:hover {
+        background-color: #717171;
+    }
+
+    .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    @-webkit-keyframes fade {
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
+    }
+
+    @keyframes fade {
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
     }
 
     .product-photo {
@@ -32,22 +111,19 @@
         color: #fff;
     }
 
-    .product-photo img {
-        max-width: 100%;
-        margin: 0 auto;
-    }
-
     .product-info {
         display: flex;
         flex-flow: column wrap;
-        width: 60%;
-        /*overflow: hidden;*/
+        flex: 0 1 60%;
+        overflow: hidden;
         text-overflow: ellipsis;
+        padding-left: 1rem;
     }
 
     .product-info h2, .product-info p, .add-items-title p {
         overflow: hidden;
         text-overflow: ellipsis;
+        word-break: break-all;
     }
 
     .product-info p {
@@ -103,7 +179,6 @@
 
     .add-components-main a {
         color: inherit;
-
     }
 
     .add-components i {
@@ -170,7 +245,7 @@
     }
 
     .buy-button {
-        width: 270px;
+        width: 250px;
     }
 
     .buy-button:hover {
@@ -202,7 +277,6 @@
         height: 180px;
         margin: 1rem 1.7rem 0 0;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-
     }
 
     .defaultItem {
@@ -246,7 +320,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 30px;
+        /*height: 30px;*/
+        padding: .2rem 0 .2rem 0;
         background-color: #000;
         color: #fff;
         margin-bottom: 0;
@@ -264,12 +339,12 @@
     }
 
     .add-item-count p {
-      padding: 0 15px 0 15px;
-      margin: 0;
+        padding: 0 15px 0 15px;
+        margin: 0;
     }
 
     .add-item-count span {
-      user-select: none;
+        user-select: none;
     }
 
     .total-product-price span:first-child, .total-additions-price span:first-child {
@@ -278,6 +353,10 @@
 
     .total-additions-price, .total-product-price {
         display: flex;
+    }
+
+    .total-product-price {
+        align-items: center;
     }
 
     .cart-float {
@@ -425,6 +504,13 @@
         display: none;
     }
 
+    .old-price {
+        text-decoration: line-through;
+        color: #9e9e9e;
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+    }
+
     @media screen and (min-width: 1500px) {
         .product-center-container, .shop-all-reviews, .tabs-container {
             max-width: 1300px;
@@ -463,6 +549,10 @@
         .price-buy-block {
             flex-direction: column;
             margin-bottom: inherit;
+        }
+
+        .price-buy-block .btn {
+            margin: 0;
         }
 
         .buy-button {
@@ -538,6 +628,7 @@
     <link rel='shortcut icon' href='public/shop_logo/${shop.uuid}/${shop.visualSettingsDTO.shopFavicon}'
           type='image/x-icon'>
 
+    <link href="/wisehands/shop/css/shop.css" rel="stylesheet"/>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/9.0.0/decimal.js"></script>
@@ -593,7 +684,37 @@
 <main class="product-center-container">
     <div class="product-photo hoverable">
         <img class="" src="/public/product_images/${shop.uuid}/${product.mainImage.filename}" alt="First slide">
+    <!--     TODO copy div element with main photo from previous commit 0.0.1-->
+    <div class="slideshow-container">
+        <template>
+            %{
+            for(_product in product.images) {
+            }%
+            <span img-src="/public/product_images/${shop.uuid}/${_product.filename}"></span>
+            %{
+            }
+            }%
+        </template>
+
+        <div class="slide-photo">
+            <img class="product-image" src="/public/product_images/${shop.uuid}/${product.images[0].filename}">
+        </div>
+
+        #{if product.images.size() > 1}
+        <div>
+            <span class="prev-arrow" onclick="showPreviousImage()">&#10094;</span>
+            <span class="next-arrow" onclick="showNextImage()">&#10095;</span>
+        </div>
+        #{/if}
+
+
+        <!--        <div style="text-align:center">&ndash;&gt;-->
+        <!--            <span class="dot" onclick="currentSlide(${product.images.indexOf(_product)})"></span>-->
+        <!--        </div>-->
+
     </div>
+
+
     <div class="product-info">
         <ul class="menu-breadcrumb">
             <li><a href="${mainShopUrl}">&{'page.product.main.label'}</a></li>
@@ -641,7 +762,7 @@
                 <div class="add-item defaultItem" is-default="${defaultAddition.isDefault}"
                     id="${defaultAddition.addition.uuid}">
                     <span class="material-icons check-circle">check_circle</span>
-                    <img src="${defaultAddition.addition.imagePath}">
+                    <img src="${defaultAddition.addition.imagePath}" loading="lazy">
                     <div class="addition-name">
                         <p>${defaultAddition.addition.title}</p>
                     </div>
@@ -708,7 +829,8 @@
                 <a class="nav-link waves-effect active" data-toggle="tab" href="#about" role="tab">&{'page.product.about.product'}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link waves-effect" data-toggle="tab" href="#reviews" role="tab">&{'page.product.reviews'}</a>
+                <a class="nav-link waves-effect" data-toggle="tab" href="#reviews"
+                   role="tab">&{'page.product.reviews'}</a>
             </li>
         </ul>
     </div>
@@ -756,6 +878,7 @@
         </div>
     </div>
 </div>
+
 #{if shop.faceBookPixelApiKey}
 <script>
   console.log('present faceBookPixelApiKey');
@@ -915,6 +1038,34 @@
   function roundAccurately(number, decimalPlaces) {
 	  return Number(Math.round(number + 'e' + decimalPlaces)+'e-'+decimalPlaces);
   }
+
+  //
+
+  const templateContent = document.querySelector('template').content;
+  const productImageSpans = templateContent.querySelectorAll('span');
+  const imagesArrayLength = productImageSpans.length;
+  const productImage = document.querySelector('.product-image');
+  let productImageIndex = 0;
+
+  const showPreviousImage = () => {
+    const result = productImageIndex - 1;
+    productImageIndex = result < 0 ? imagesArrayLength - 1 : result;
+    productImage.src = getImageSrc(productImageIndex);
+  };
+
+  const showNextImage = () => {
+    const result = productImageIndex + 1;
+    productImageIndex = result > imagesArrayLength - 1 ? 0 : result;
+    productImage.src = getImageSrc(productImageIndex);
+
+    // let dots = document.getElementsByClassName("dot");
+    // for (i = 0; i < dots.length; i++) {
+    //     dots[i].className = dots[i].className.replace(" active", "");
+    // }
+    // dots[slideIndex-1].className += "active";
+  };
+
+  const getImageSrc = index => productImageSpans[index].getAttribute('img-src');
 
 </script>
 

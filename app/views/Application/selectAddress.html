@@ -19,7 +19,7 @@
         margin: 5px;
     }
     .coogle-map-container {
-        height: 400px;
+        height: 450px;
         width: 100%;
         margin: 5px;
     }
@@ -202,56 +202,68 @@
 
         const input = document.getElementById("pac-input");
         const searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        map.controls[google.maps.ControlPosition.BOTTOM].push(input);
         map.addListener("bounds_changed", () => {
         searchBox.setBounds(map.getBounds());
         });
-        let markers = [];
+        
         searchBox.addListener("places_changed", () => {
-          const places = searchBox.getPlaces();
+            const places = searchBox.getPlaces();
 
-          if (places.length == 0) {
-            return;
-          }
-          // Clear out the old markers.
-          markers.forEach((marker) => {
-            marker.setMap(null);
-          });
-          markers = [];
-          // For each place, get the icon, name and location.
-          const bounds = new google.maps.LatLngBounds();
-          places.forEach((place) => {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
+            if (places.length == 0) {
+                return;
             }
-            const icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25),
-            };
-          // Create a marker for each place.
-            markers.push(
-              new google.maps.Marker({
-                map,
-                icon,
-                title: place.name,
-                position: place.geometry.location,
-              })
-            );
 
-            if (place.geometry.viewport) {
-            // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
+            const bounds = new google.maps.LatLngBounds();
+
+            console.log('var_location', var_location);
+
+            let isLocationInsidePolygon = google.maps.geometry.poly.containsLocation(var_location, polygon);
+
+            console.log('isLocationInsidePolygon', isLocationInsidePolygon);
+
+            console.log('polygon', polygon);
+
+            places.forEach((place) => {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+
+                let address = place.formatted_address.split(',');
+                console.log("address for courier before", address);
+                let street = address[0];
+
+                let house = address[1];
+                document.getElementById('building').value = house;
+                document.getElementById('street').value = street.toString().replace(",", " ");
+
+                console.log("address for courier", street.toString().replace(",", " "), house);
+                console.log('geocoding result: ', address, var_location.lat(), var_location.lng());
+
+                localStorage.setItem('address', address);
+
+                showInfoMsg(address);
+ 
+                if (marker) marker.setMap(null);
+                if (!isLocationInsidePolygon) {
+                    map.setCenter(place.geometry.location);
+                    showWarningMsg('Address out of delivery range');
+                } else {
+                if (marker) {
+                    marker.setMap(null);
+                    }
+                    marker = new google.maps.Marker({
+                        position: place.geometry.location,
+                        title: place.name,
+                        map: map,
+                    });
+                    
+                    map.setCenter(place.geometry.location);
+                }
+            });
         });
-
+        
         let geocoder = new google.maps.Geocoder();
         document.getElementById('check-address-button').addEventListener('click', function () {
             geocodeAddress(geocoder, map);

@@ -117,7 +117,7 @@ function clean(cssText) {
 } // super simple {...} lexer that returns a node tree
 /**
  * @param {string} text
- * @return {StyleNode}
+ * @return {!StyleNode}
  */
 
 function lex(text) {
@@ -150,7 +150,7 @@ function lex(text) {
 /**
  * @param {StyleNode} node
  * @param {string} text
- * @return {StyleNode}
+ * @return {!StyleNode}
  */
 
 function parseCss(node, text) {
@@ -366,7 +366,9 @@ function processUnscopedStyle(style) {
 
   if (!styleTextSet.has(text)) {
     styleTextSet.add(text);
-    const newStyle = style.cloneNode(true);
+    const newStyle = document.createElement('style');
+    newStyle.setAttribute('shady-unscoped', '');
+    newStyle.textContent = text;
     document.head.appendChild(newStyle);
   }
 } /**
@@ -488,7 +490,7 @@ function applyCss(cssText, moniker, target, contextNode) {
 } /**
    * @param {string} cssText
    * @param {string} moniker
-   * @return {HTMLStyleElement}
+   * @return {!HTMLStyleElement}
    */
 
 function createScopeStyle(cssText, moniker) {
@@ -2030,8 +2032,8 @@ window.ShadyCSS.ApplyShim = applyShim$1; /**
                                                                                  * When using Closure Compiler, JSCompiler_renameProperty(property, object) is replaced by the munged name for object[property]
                                                                                  * We cannot alias this function, so we have to use a small shim that has the same behavior when not compiling.
                                                                                  *
-                                                                                 * @param {string} prop Property name
-                                                                                 * @param {?Object} obj Reference object
+                                                                                 * @param {?} prop Property name
+                                                                                 * @param {*} obj Reference object
                                                                                  * @return {string} Potentially renamed property name
                                                                                  */
 
@@ -2130,23 +2132,40 @@ var resolveUrl$1 = {
   resolveCss: resolveCss,
   pathFromUrl: pathFromUrl
 };
-const useShadow = !window.ShadyDOM;
+const useShadow = !window.ShadyDOM || !window.ShadyDOM.inUse;
 const useNativeCSSProperties = Boolean(!window.ShadyCSS || window.ShadyCSS.nativeCss);
-const useNativeCustomElements = !window.customElements.polyfillWrapFlushCallback; /**
-                                                                                          * Globally settable property that is automatically assigned to
-                                                                                          * `ElementMixin` instances, useful for binding in templates to
-                                                                                          * make URL's relative to an application's root.  Defaults to the main
-                                                                                          * document URL, but can be overridden by users.  It may be useful to set
-                                                                                          * `rootPath` to provide a stable application mount path when
-                                                                                          * using client side routing.
-                                                                                          */
-let rootPath = pathFromUrl(document.baseURI || window.location.href); /**
-                                                                              * Sets the global rootPath property used by `ElementMixin` and
-                                                                              * available via `rootPath`.
-                                                                              *
-                                                                              * @param {string} path The new root path
-                                                                              * @return {void}
-                                                                              */
+const useNativeCustomElements = !window.customElements.polyfillWrapFlushCallback;
+
+const supportsAdoptingStyleSheets = useShadow && 'adoptedStyleSheets' in Document.prototype && 'replaceSync' in CSSStyleSheet.prototype && // Since spec may change, feature detect exact API we need
+(() => {
+  try {
+    const sheet = new CSSStyleSheet();
+    sheet.replaceSync('');
+    const host = document.createElement('div');
+    host.attachShadow({
+      mode: 'open'
+    });
+    host.shadowRoot.adoptedStyleSheets = [sheet];
+    return host.shadowRoot.adoptedStyleSheets[0] === sheet;
+  } catch (e) {
+    return false;
+  }
+})(); /**
+       * Globally settable property that is automatically assigned to
+       * `ElementMixin` instances, useful for binding in templates to
+       * make URL's relative to an application's root.  Defaults to the main
+       * document URL, but can be overridden by users.  It may be useful to set
+       * `rootPath` to provide a stable application mount path when
+       * using client side routing.
+       */
+
+let rootPath = window.Polymer && window.Polymer.rootPath || pathFromUrl(document.baseURI || window.location.href); /**
+                                                                                                                           * Sets the global rootPath property used by `ElementMixin` and
+                                                                                                                           * available via `rootPath`.
+                                                                                                                           *
+                                                                                                                           * @param {string} path The new root path
+                                                                                                                           * @return {void}
+                                                                                                                           */
 
 const setRootPath = function (path) {
   rootPath = path;
@@ -2163,19 +2182,27 @@ const setRootPath = function (path) {
     * `type` indicates where the value is being inserted: one of property, attribute, or text.
     * `node` is the node where the value is being inserted.
     *
-    * @type {(function(*,string,string,Node):*)|undefined}
+    * @type {(function(*,string,string,?Node):*)|undefined}
     */
 
 let sanitizeDOMValue = window.Polymer && window.Polymer.sanitizeDOMValue || undefined; /**
                                                                                                * Sets the global sanitizeDOMValue available via this module's exported
                                                                                                * `sanitizeDOMValue` variable.
                                                                                                *
-                                                                                               * @param {(function(*,string,string,Node):*)|undefined} newSanitizeDOMValue the global sanitizeDOMValue callback
+                                                                                               * @param {(function(*,string,string,?Node):*)|undefined} newSanitizeDOMValue the global sanitizeDOMValue callback
                                                                                                * @return {void}
                                                                                                */
 
 const setSanitizeDOMValue = function (newSanitizeDOMValue) {
   sanitizeDOMValue = newSanitizeDOMValue;
+}; /**
+    * Gets sanitizeDOMValue, for environments that don't well support `export let`.
+    *
+    * @return {(function(*,string,string,?Node):*)|undefined} sanitizeDOMValue
+    */
+
+const getSanitizeDOMValue = function () {
+  return sanitizeDOMValue;
 }; /**
     * Globally settable property to make Polymer Gestures use passive TouchEvent listeners when recognizing gestures.
     * When set to `true`, gestures made from touch will not be able to prevent scrolling, allowing for smoother
@@ -2183,12 +2210,12 @@ const setSanitizeDOMValue = function (newSanitizeDOMValue) {
     * Defaults to `false` for backwards compatibility.
     */
 
-let passiveTouchGestures = false; /**
-                                          * Sets `passiveTouchGestures` globally for all elements using Polymer Gestures.
-                                          *
-                                          * @param {boolean} usePassive enable or disable passive touch gestures globally
-                                          * @return {void}
-                                          */
+let passiveTouchGestures = window.Polymer && window.Polymer.setPassiveTouchGestures || false; /**
+                                                                                                      * Sets `passiveTouchGestures` globally for all elements using Polymer Gestures.
+                                                                                                      *
+                                                                                                      * @param {boolean} usePassive enable or disable passive touch gestures globally
+                                                                                                      * @return {void}
+                                                                                                      */
 
 const setPassiveTouchGestures = function (usePassive) {
   passiveTouchGestures = usePassive;
@@ -2199,13 +2226,13 @@ const setPassiveTouchGestures = function (usePassive) {
     * templates will only evaluate in the context of a trusted element template.
     */
 
-let strictTemplatePolicy = false; /**
-                                          * Sets `strictTemplatePolicy` globally for all elements
-                                          *
-                                          * @param {boolean} useStrictPolicy enable or disable strict template policy
-                                          *   globally
-                                          * @return {void}
-                                          */
+let strictTemplatePolicy = window.Polymer && window.Polymer.strictTemplatePolicy || false; /**
+                                                                                                   * Sets `strictTemplatePolicy` globally for all elements
+                                                                                                   *
+                                                                                                   * @param {boolean} useStrictPolicy enable or disable strict template policy
+                                                                                                   *   globally
+                                                                                                   * @return {void}
+                                                                                                   */
 
 const setStrictTemplatePolicy = function (useStrictPolicy) {
   strictTemplatePolicy = useStrictPolicy;
@@ -2216,13 +2243,13 @@ const setStrictTemplatePolicy = function (useStrictPolicy) {
     * via dom-module, set this flag to true.
     */
 
-let allowTemplateFromDomModule = false; /**
-                                                * Sets `lookupTemplateFromDomModule` globally for all elements
-                                                *
-                                                * @param {boolean} allowDomModule enable or disable template lookup
-                                                *   globally
-                                                * @return {void}
-                                                */
+let allowTemplateFromDomModule = window.Polymer && window.Polymer.allowTemplateFromDomModule || false; /**
+                                                                                                               * Sets `lookupTemplateFromDomModule` globally for all elements
+                                                                                                               *
+                                                                                                               * @param {boolean} allowDomModule enable or disable template lookup
+                                                                                                               *   globally
+                                                                                                               * @return {void}
+                                                                                                               */
 
 const setAllowTemplateFromDomModule = function (allowDomModule) {
   allowTemplateFromDomModule = allowDomModule;
@@ -2234,33 +2261,78 @@ const setAllowTemplateFromDomModule = function (allowDomModule) {
     * skipped as an optimization.
     */
 
-let legacyOptimizations = false; /**
-                                         * Sets `legacyOptimizations` globally for all elements to enable optimizations
-                                         * when only legacy based elements are used.
-                                         *
-                                         * @param {boolean} useLegacyOptimizations enable or disable legacy optimizations
-                                         * includes and url rewriting
-                                         * @return {void}
-                                         */
+let legacyOptimizations = window.Polymer && window.Polymer.legacyOptimizations || false; /**
+                                                                                                 * Sets `legacyOptimizations` globally for all elements to enable optimizations
+                                                                                                 * when only legacy based elements are used.
+                                                                                                 *
+                                                                                                 * @param {boolean} useLegacyOptimizations enable or disable legacy optimizations
+                                                                                                 * includes and url rewriting
+                                                                                                 * @return {void}
+                                                                                                 */
 
 const setLegacyOptimizations = function (useLegacyOptimizations) {
   legacyOptimizations = useLegacyOptimizations;
+}; /**
+    * Setting to add warnings useful when migrating from Polymer 1.x to 2.x.
+    */
+
+let legacyWarnings = window.Polymer && window.Polymer.legacyWarnings || false; /**
+                                                                                       * Sets `legacyWarnings` globally for all elements to migration warnings.
+                                                                                       *
+                                                                                       * @param {boolean} useLegacyWarnings enable or disable warnings
+                                                                                       * @return {void}
+                                                                                       */
+
+const setLegacyWarnings = function (useLegacyWarnings) {
+  legacyWarnings = useLegacyWarnings;
 }; /**
     * Setting to perform initial rendering synchronously when running under ShadyDOM.
     * This matches the behavior of Polymer 1.
     */
 
-let syncInitialRender = false; /**
-                                       * Sets `syncInitialRender` globally for all elements to enable synchronous
-                                       * initial rendering.
-                                       *
-                                       * @param {boolean} useSyncInitialRender enable or disable synchronous initial
-                                       * rendering globally.
-                                       * @return {void}
-                                       */
+let syncInitialRender = window.Polymer && window.Polymer.syncInitialRender || false; /**
+                                                                                             * Sets `syncInitialRender` globally for all elements to enable synchronous
+                                                                                             * initial rendering.
+                                                                                             *
+                                                                                             * @param {boolean} useSyncInitialRender enable or disable synchronous initial
+                                                                                             * rendering globally.
+                                                                                             * @return {void}
+                                                                                             */
 
 const setSyncInitialRender = function (useSyncInitialRender) {
   syncInitialRender = useSyncInitialRender;
+}; /**
+    * Setting to retain the legacy Polymer 1 behavior for multi-property
+    * observers around undefined values. Observers and computed property methods
+    * are not called until no argument is undefined.
+    */
+
+let legacyUndefined = window.Polymer && window.Polymer.legacyUndefined || false; /**
+                                                                                         * Sets `legacyUndefined` globally for all elements to enable legacy
+                                                                                         * multi-property behavior for undefined values.
+                                                                                         *
+                                                                                         * @param {boolean} useLegacyUndefined enable or disable legacy
+                                                                                         * multi-property behavior for undefined.
+                                                                                         * @return {void}
+                                                                                         */
+
+const setLegacyUndefined = function (useLegacyUndefined) {
+  legacyUndefined = useLegacyUndefined;
+}; /**
+    * Setting to ensure computed properties are computed in order to ensure
+    * re-computation never occurs in a given turn.
+    */
+
+let orderedComputed = window.Polymer && window.Polymer.orderedComputed || false; /**
+                                                                                         * Sets `orderedComputed` globally for all elements to enable ordered computed
+                                                                                         * property computation.
+                                                                                         *
+                                                                                         * @param {boolean} useOrderedComputed enable or disable ordered computed effects
+                                                                                         * @return {void}
+                                                                                         */
+
+const setOrderedComputed = function (useOrderedComputed) {
+  orderedComputed = useOrderedComputed;
 }; /**
     * Setting to cancel synthetic click events fired by older mobile browsers. Modern browsers
     * no longer fire synthetic click events, and the cancellation behavior can interfere
@@ -2277,12 +2349,96 @@ let cancelSyntheticClickEvents = true; /**
 
 const setCancelSyntheticClickEvents = function (useCancelSyntheticClickEvents) {
   cancelSyntheticClickEvents = useCancelSyntheticClickEvents;
+}; /**
+    * Setting to remove nested templates inside `dom-if` and `dom-repeat` as
+    * part of element template parsing.  This is a performance optimization that
+    * eliminates most of the tax of needing two elements due to the loss of
+    * type-extended templates as a result of the V1 specification changes.
+    */
+
+let removeNestedTemplates = window.Polymer && window.Polymer.removeNestedTemplates || false; /**
+                                                                                                     * Sets `removeNestedTemplates` globally, to eliminate nested templates
+                                                                                                     * inside `dom-if` and `dom-repeat` as part of template parsing.
+                                                                                                     *
+                                                                                                     * @param {boolean} useRemoveNestedTemplates enable or disable removing nested
+                                                                                                     *   templates during parsing
+                                                                                                     * @return {void}
+                                                                                                     */
+
+const setRemoveNestedTemplates = function (useRemoveNestedTemplates) {
+  removeNestedTemplates = useRemoveNestedTemplates;
+}; /**
+    * Setting to place `dom-if` elements in a performance-optimized mode that takes
+    * advantage of lighter-weight host runtime template stamping to eliminate the
+    * need for an intermediate Templatizer `TemplateInstance` to mange the nodes
+    * stamped by `dom-if`.  Under this setting, any Templatizer-provided API's
+    * such as `modelForElement` will not be available for nodes stamped by
+    * `dom-if`.
+    */
+
+let fastDomIf = window.Polymer && window.Polymer.fastDomIf || false; /**
+                                                                             * Sets `fastDomIf` globally, to put `dom-if` in a performance-optimized mode.
+                                                                             *
+                                                                             * @param {boolean} useFastDomIf enable or disable `dom-if` fast-mode
+                                                                             * @return {void}
+                                                                             */
+
+const setFastDomIf = function (useFastDomIf) {
+  fastDomIf = useFastDomIf;
+}; /**
+    * Setting to disable `dom-change` and `rendered-item-count` events from
+    * `dom-if` and `dom-repeat`. Users can opt back into `dom-change` events by
+    * setting the `notify-dom-change` attribute (`notifyDomChange: true` property)
+    * to `dom-if`/`don-repeat` instances.
+    */
+
+let suppressTemplateNotifications = window.Polymer && window.Polymer.suppressTemplateNotifications || false; /**
+                                                                                                                     * Sets `suppressTemplateNotifications` globally, to disable `dom-change` and
+                                                                                                                     * `rendered-item-count` events from `dom-if` and `dom-repeat`.
+                                                                                                                     *
+                                                                                                                     * @param {boolean} suppress enable or disable `suppressTemplateNotifications`
+                                                                                                                     * @return {void}
+                                                                                                                     */
+
+const setSuppressTemplateNotifications = function (suppress) {
+  suppressTemplateNotifications = suppress;
+}; /**
+    * Setting to disable use of dynamic attributes. This is an optimization
+    * to avoid setting `observedAttributes`. Instead attributes are read
+    * once at create time and set/removeAttribute are patched.
+    */
+
+let legacyNoObservedAttributes = window.Polymer && window.Polymer.legacyNoObservedAttributes || false; /**
+                                                                                                               * Sets `legacyNoObservedAttributes` globally, to disable `observedAttributes`.
+                                                                                                               *
+                                                                                                               * @param {boolean} noObservedAttributes enable or disable `legacyNoObservedAttributes`
+                                                                                                               * @return {void}
+                                                                                                               */
+
+const setLegacyNoObservedAttributes = function (noObservedAttributes) {
+  legacyNoObservedAttributes = noObservedAttributes;
+}; /**
+    * Setting to enable use of `adoptedStyleSheets` for sharing style sheets
+    * between component instances' shadow roots, if the app uses built Shady CSS
+    * styles.
+    */
+
+let useAdoptedStyleSheetsWithBuiltCSS = window.Polymer && window.Polymer.useAdoptedStyleSheetsWithBuiltCSS || false; /**
+                                                                                                                             * Sets `useAdoptedStyleSheetsWithBuiltCSS` globally.
+                                                                                                                             *
+                                                                                                                             * @param {boolean} value enable or disable `useAdoptedStyleSheetsWithBuiltCSS`
+                                                                                                                             * @return {void}
+                                                                                                                             */
+
+const setUseAdoptedStyleSheetsWithBuiltCSS = function (value) {
+  useAdoptedStyleSheetsWithBuiltCSS = value;
 };
 
 var settings = {
   useShadow: useShadow,
   useNativeCSSProperties: useNativeCSSProperties,
   useNativeCustomElements: useNativeCustomElements,
+  supportsAdoptingStyleSheets: supportsAdoptingStyleSheets,
 
   get rootPath() {
     return rootPath;
@@ -2295,6 +2451,7 @@ var settings = {
   },
 
   setSanitizeDOMValue: setSanitizeDOMValue,
+  getSanitizeDOMValue: getSanitizeDOMValue,
 
   get passiveTouchGestures() {
     return passiveTouchGestures;
@@ -2320,17 +2477,65 @@ var settings = {
 
   setLegacyOptimizations: setLegacyOptimizations,
 
+  get legacyWarnings() {
+    return legacyWarnings;
+  },
+
+  setLegacyWarnings: setLegacyWarnings,
+
   get syncInitialRender() {
     return syncInitialRender;
   },
 
   setSyncInitialRender: setSyncInitialRender,
 
+  get legacyUndefined() {
+    return legacyUndefined;
+  },
+
+  setLegacyUndefined: setLegacyUndefined,
+
+  get orderedComputed() {
+    return orderedComputed;
+  },
+
+  setOrderedComputed: setOrderedComputed,
+
   get cancelSyntheticClickEvents() {
     return cancelSyntheticClickEvents;
   },
 
-  setCancelSyntheticClickEvents: setCancelSyntheticClickEvents
+  setCancelSyntheticClickEvents: setCancelSyntheticClickEvents,
+
+  get removeNestedTemplates() {
+    return removeNestedTemplates;
+  },
+
+  setRemoveNestedTemplates: setRemoveNestedTemplates,
+
+  get fastDomIf() {
+    return fastDomIf;
+  },
+
+  setFastDomIf: setFastDomIf,
+
+  get suppressTemplateNotifications() {
+    return suppressTemplateNotifications;
+  },
+
+  setSuppressTemplateNotifications: setSuppressTemplateNotifications,
+
+  get legacyNoObservedAttributes() {
+    return legacyNoObservedAttributes;
+  },
+
+  setLegacyNoObservedAttributes: setLegacyNoObservedAttributes,
+
+  get useAdoptedStyleSheetsWithBuiltCSS() {
+    return useAdoptedStyleSheetsWithBuiltCSS;
+  },
+
+  setUseAdoptedStyleSheetsWithBuiltCSS: setUseAdoptedStyleSheetsWithBuiltCSS
 };
 let dedupeId = 0; /**
                    * @constructor
@@ -2375,15 +2580,15 @@ const dedupingMixin = function (mixin) {
 
     if (!extended) {
       extended = /** @type {!Function} */mixin(base);
-      map.set(base, extended);
-    } // copy inherited mixin set from the extended class, or the base class
-    // NOTE: we avoid use of Set here because some browser (IE11)
-    // cannot extend a base Set via the constructor.
+      map.set(base, extended); // copy inherited mixin set from the extended class, or the base class
+      // NOTE: we avoid use of Set here because some browser (IE11)
+      // cannot extend a base Set via the constructor.
 
+      let mixinSet = Object.create( /** @type {!MixinFunction} */extended.__mixinSet || baseSet || null);
+      mixinSet[mixinDedupeId] = true; /** @type {!MixinFunction} */
+      extended.__mixinSet = mixinSet;
+    }
 
-    let mixinSet = Object.create( /** @type {!MixinFunction} */extended.__mixinSet || baseSet || null);
-    mixinSet[mixinDedupeId] = true; /** @type {!MixinFunction} */
-    extended.__mixinSet = mixinSet;
     return extended;
   }
 
@@ -3115,12 +3320,14 @@ let microtaskCurrHandle = 0;
 let microtaskLastHandle = 0;
 let microtaskCallbacks = [];
 let microtaskNodeContent = 0;
+let microtaskScheduled = false;
 let microtaskNode = document.createTextNode('');
 new window.MutationObserver(microtaskFlush).observe(microtaskNode, {
   characterData: true
 });
 
 function microtaskFlush() {
+  microtaskScheduled = false;
   const len = microtaskCallbacks.length;
 
   for (let i = 0; i < len; i++) {
@@ -3241,7 +3448,11 @@ const microTask = {
    * @param {!Function=} callback Callback to run
    * @return {number} Handle used for canceling task
    */run(callback) {
-    microtaskNode.textContent = microtaskNodeContent++;
+    if (!microtaskScheduled) {
+      microtaskScheduled = true;
+      microtaskNode.textContent = microtaskNodeContent++;
+    }
+
     microtaskCallbacks.push(callback);
     return microtaskCurrHandle++;
   },
@@ -3383,12 +3594,22 @@ const PropertiesChanged = dedupingMixin( /**
     _addPropertyToAttributeMap(property) {
       if (!this.hasOwnProperty(JSCompiler_renameProperty('__dataAttributes', this))) {
         this.__dataAttributes = Object.assign({}, this.__dataAttributes);
-      }
+      } // This check is technically not correct; it's an optimization that
+      // assumes that if a _property_ name is already in the map (note this is
+      // an attr->property map), the property mapped directly to the attribute
+      // and it has already been mapped.  This would fail if
+      // `attributeNameForProperty` were overridden such that this was not the
+      // case.
 
-      if (!this.__dataAttributes[property]) {
-        const attr = this.constructor.attributeNameForProperty(property);
+
+      let attr = this.__dataAttributes[property];
+
+      if (!attr) {
+        attr = this.constructor.attributeNameForProperty(property);
         this.__dataAttributes[attr] = property;
       }
+
+      return attr;
     } /**
        * Defines a property accessor for the given property.
        * @param {string} property Name of the property
@@ -3400,11 +3621,15 @@ const PropertiesChanged = dedupingMixin( /**
     _definePropertyAccessor(property, readOnly) {
       Object.defineProperty(this, property, {
         /* eslint-disable valid-jsdoc */ /** @this {PropertiesChanged} */get() {
-          return this._getProperty(property);
+          // Inline for perf instead of using `_getProperty`
+          return this.__data[property];
         },
 
         /** @this {PropertiesChanged} */set: readOnly ? function () {} : function (value) {
-          this._setProperty(property, value);
+          // Inline for perf instead of using `_setProperty`
+          if (this._setPendingProperty(property, value, true)) {
+            this._invalidateProperties();
+          }
         } /* eslint-enable */
       });
     }
@@ -3417,7 +3642,9 @@ const PropertiesChanged = dedupingMixin( /**
       this.__data = {};
       this.__dataPending = null;
       this.__dataOld = null;
-      this.__dataInstanceProps = null;
+      this.__dataInstanceProps = null; /** @type {number} */ // NOTE: used to track re-entrant calls to `_flushProperties`
+
+      this.__dataCounter = 0;
       this.__serializing = false;
 
       this._initializeProperties();
@@ -3541,13 +3768,20 @@ const PropertiesChanged = dedupingMixin( /**
 
       return changed;
     } /* eslint-enable */ /**
-                           * Marks the properties as invalid, and enqueues an async
-                           * `_propertiesChanged` callback.
-                           *
-                           * @return {void}
-                           * @protected
-                           * @override
+                           * @param {string} property Name of the property
+                           * @return {boolean} Returns true if the property is pending.
                            */
+
+    _isPropertyPending(property) {
+      return !!(this.__dataPending && this.__dataPending.hasOwnProperty(property));
+    } /**
+       * Marks the properties as invalid, and enqueues an async
+       * `_propertiesChanged` callback.
+       *
+       * @return {void}
+       * @protected
+       * @override
+       */
 
     _invalidateProperties() {
       if (!this.__dataInvalid && this.__dataReady) {
@@ -3597,6 +3831,7 @@ const PropertiesChanged = dedupingMixin( /**
        */
 
     _flushProperties() {
+      this.__dataCounter++;
       const props = this.__data;
       const changedProps = this.__dataPending;
       const old = this.__dataOld;
@@ -3607,6 +3842,8 @@ const PropertiesChanged = dedupingMixin( /**
 
         this._propertiesChanged(props, changedProps, old);
       }
+
+      this.__dataCounter--;
     } /**
        * Called in `_flushProperties` to determine if `_propertiesChanged`
        * should be called. The default implementation returns true if
@@ -4226,9 +4463,11 @@ function applyEventListener(inst, node, nodeInfo) {
 } // push configuration references at configure time
 
 
-function applyTemplateContent(inst, node, nodeInfo) {
+function applyTemplateInfo(inst, node, nodeInfo, parentTemplateInfo) {
   if (nodeInfo.templateInfo) {
+    // Give the node an instance of this templateInfo and set its parent
     node._templateInfo = nodeInfo.templateInfo;
+    node._parentTemplateInfo = parentTemplateInfo;
   }
 }
 
@@ -4258,9 +4497,6 @@ function createNodeEventHandler(context, eventName, methodName) {
    * @mixinFunction
    * @polymer
    * @summary Element class mixin that provides basic template parsing and stamping
-   * @template T
-   * @param {function(new:T)} superClass Class to apply mixin to.
-   * @return {function(new:T)} superClass with mixin applied.
    */
 
 const TemplateStamp = dedupingMixin( /**
@@ -4354,6 +4590,7 @@ const TemplateStamp = dedupingMixin( /**
         // TODO(rictic): fix typing
         let /** ? */templateInfo = template._templateInfo = {};
         templateInfo.nodeInfoList = [];
+        templateInfo.nestedTemplate = Boolean(outerTemplateInfo);
         templateInfo.stripWhiteSpace = outerTemplateInfo && outerTemplateInfo.stripWhiteSpace || template.hasAttribute('strip-whitespace'); // TODO(rictic): fix typing
 
         this._parseTemplateContent(template, templateInfo, /** @type {?} */{
@@ -4408,9 +4645,13 @@ const TemplateStamp = dedupingMixin( /**
 
       if (element.hasAttributes && element.hasAttributes()) {
         noted = this._parseTemplateNodeAttributes(element, templateInfo, nodeInfo) || noted;
-      }
+      } // Checking `nodeInfo.noted` allows a child node of this node (who gets
+      // access to `parentInfo`) to cause the parent to be noted, which
+      // otherwise has no return path via `_parseTemplateChildNodes` (used by
+      // some optimizations)
 
-      return noted;
+
+      return noted || nodeInfo.noted;
     } /**
        * Parses template child nodes for the given root node.
        *
@@ -4595,18 +4836,23 @@ const TemplateStamp = dedupingMixin( /**
        * is removed and stored in notes as well.
        *
        * @param {!HTMLTemplateElement} template Template to stamp
+       * @param {TemplateInfo=} templateInfo Optional template info associated
+       *   with the template to be stamped; if omitted the template will be
+       *   automatically parsed.
        * @return {!StampedTemplate} Cloned template content
        * @override
        */
 
-    _stampTemplate(template) {
+    _stampTemplate(template, templateInfo) {
       // Polyfill support: bootstrap the template if it has not already been
       if (template && !template.content && window.HTMLTemplateElement && HTMLTemplateElement.decorate) {
         HTMLTemplateElement.decorate(template);
-      }
+      } // Accepting the `templateInfo` via an argument allows for creating
+      // instances of the `templateInfo` by the caller, useful for adding
+      // instance-time information to the prototypical data
 
-      let templateInfo = this.constructor._parseTemplate(template);
 
+      templateInfo = templateInfo || this.constructor._parseTemplate(template);
       let nodeInfo = templateInfo.nodeInfoList;
       let content = templateInfo.content || template.content;
       let dom = /** @type {DocumentFragment} */document.importNode(content, true); // NOTE: ShadyDom optimization indicating there is an insertion point
@@ -4618,7 +4864,7 @@ const TemplateStamp = dedupingMixin( /**
       for (let i = 0, l = nodeInfo.length, info; i < l && (info = nodeInfo[i]); i++) {
         let node = nodes[i] = findTemplateNode(dom, info);
         applyIdToMap(this, dom.$, node, info);
-        applyTemplateContent(this, node, info);
+        applyTemplateInfo(this, node, info, templateInfo);
         applyEventListener(this, node, info);
       }
 
@@ -4681,10 +4927,11 @@ var templateStamp = {
   TemplateStamp: TemplateStamp
 }; // from multiple properties in the same turn
 
-let dedupeId$1 = 0; /**
-                    * Property effect types; effects are stored on the prototype using these keys
-                    * @enum {string}
-                    */
+let dedupeId$1 = 0;
+const NOOP = []; /**
+                  * Property effect types; effects are stored on the prototype using these keys
+                  * @enum {string}
+                  */
 const TYPES = {
   COMPUTE: '__computeEffects',
   REFLECT: '__reflectEffects',
@@ -4692,7 +4939,8 @@ const TYPES = {
   PROPAGATE: '__propagateEffects',
   OBSERVE: '__observeEffects',
   READ_ONLY: '__readOnly'
-}; /** @const {!RegExp} */
+};
+const COMPUTE_INFO = '__computeInfo'; /** @const {!RegExp} */
 const capitalAttributeRegex = /[A-Z]/; /**
                                         * @typedef {{
                                         * name: (string | undefined),
@@ -4728,11 +4976,13 @@ let DataEffect; //eslint-disable-line no-unused-vars
  *
  * @param {Object} model Prototype or instance
  * @param {string} type Property effect type
+ * @param {boolean=} cloneArrays Clone any arrays assigned to the map when
+ *   extending a superclass map onto this subclass
  * @return {Object} The own-property map of effects for the given type
  * @private
  */
 
-function ensureOwnEffectMap(model, type) {
+function ensureOwnEffectMap(model, type, cloneArrays) {
   let effects = model[type];
 
   if (!effects) {
@@ -4740,12 +4990,15 @@ function ensureOwnEffectMap(model, type) {
   } else if (!model.hasOwnProperty(type)) {
     effects = model[type] = Object.create(model[type]);
 
-    for (let p in effects) {
-      let protoFx = effects[p];
-      let instFx = effects[p] = Array(protoFx.length);
+    if (cloneArrays) {
+      for (let p in effects) {
+        let protoFx = effects[p]; // Perf optimization over Array.slice
 
-      for (let i = 0; i < protoFx.length; i++) {
-        instFx[i] = protoFx[i];
+        let instFx = effects[p] = Array(protoFx.length);
+
+        for (let i = 0; i < protoFx.length; i++) {
+          instFx[i] = protoFx[i];
+        }
       }
     }
   }
@@ -4769,11 +5022,24 @@ function ensureOwnEffectMap(model, type) {
 function runEffects(inst, effects, props, oldProps, hasPaths, extraArgs) {
   if (effects) {
     let ran = false;
-    let id = dedupeId$1++;
+    const id = dedupeId$1++;
 
     for (let prop in props) {
-      if (runEffectsForProperty(inst, /** @type {!Object} */effects, id, prop, props, oldProps, hasPaths, extraArgs)) {
-        ran = true;
+      // Inline `runEffectsForProperty` for perf.
+      let rootProperty = hasPaths ? root(prop) : prop;
+      let fxs = effects[rootProperty];
+
+      if (fxs) {
+        for (let i = 0, l = fxs.length, fx; i < l && (fx = fxs[i]); i++) {
+          if ((!fx.info || fx.info.lastRun !== id) && (!hasPaths || pathMatchesTrigger(prop, fx.trigger))) {
+            if (fx.info) {
+              fx.info.lastRun = id;
+            }
+
+            fx.fn(inst, prop, props, oldProps, fx.info, hasPaths, extraArgs);
+            ran = true;
+          }
+        }
       }
     }
 
@@ -4954,7 +5220,12 @@ function dispatchNotifyEvent(inst, eventName, value, path) {
 
   if (path) {
     detail.path = path;
-  }
+  } // As a performance optimization, we could elide the wrap here since notifying
+  // events are non-bubbling and shouldn't need retargeting. However, a very
+  // small number of internal tests failed in obscure ways, which may indicate
+  // user code relied on timing differences resulting from ShadyDOM flushing
+  // as a result of the wrapped `dispatchEvent`.
+
 
   wrap$1( /** @type {!HTMLElement} */inst).dispatchEvent(new CustomEvent(eventName, {
     detail
@@ -5067,15 +5338,211 @@ function runComputedEffects(inst, changedProps, oldProps, hasPaths) {
   let computeEffects = inst[TYPES.COMPUTE];
 
   if (computeEffects) {
-    let inputProps = changedProps;
+    if (orderedComputed) {
+      // Runs computed effects in efficient order by keeping a topologically-
+      // sorted queue of compute effects to run, and inserting subsequently
+      // invalidated effects as they are run
+      dedupeId$1++;
+      const order = getComputedOrder(inst);
+      const queue = [];
 
-    while (runEffects(inst, computeEffects, inputProps, oldProps, hasPaths)) {
+      for (let p in changedProps) {
+        enqueueEffectsFor(p, computeEffects, queue, order, hasPaths);
+      }
+
+      let info;
+
+      while (info = queue.shift()) {
+        if (runComputedEffect(inst, '', changedProps, oldProps, info)) {
+          enqueueEffectsFor(info.methodInfo, computeEffects, queue, order, hasPaths);
+        }
+      }
+
       Object.assign( /** @type {!Object} */oldProps, inst.__dataOld);
       Object.assign( /** @type {!Object} */changedProps, inst.__dataPending);
-      inputProps = inst.__dataPending;
       inst.__dataPending = null;
+    } else {
+      // Original Polymer 2.x computed effects order, which continues running
+      // effects until no further computed properties have been invalidated
+      let inputProps = changedProps;
+
+      while (runEffects(inst, computeEffects, inputProps, oldProps, hasPaths)) {
+        Object.assign( /** @type {!Object} */oldProps, inst.__dataOld);
+        Object.assign( /** @type {!Object} */changedProps, inst.__dataPending);
+        inputProps = inst.__dataPending;
+        inst.__dataPending = null;
+      }
     }
   }
+} /**
+   * Inserts a computed effect into a queue, given the specified order. Performs
+   * the insert using a binary search.
+   *
+   * Used by `orderedComputed: true` computed property algorithm.
+   *
+   * @param {Object} info Property effects metadata
+   * @param {Array<Object>} queue Ordered queue of effects
+   * @param {Map<string,number>} order Map of computed property name->topological
+   *   sort order
+   */
+
+const insertEffect = (info, queue, order) => {
+  let start = 0;
+  let end = queue.length - 1;
+  let idx = -1;
+
+  while (start <= end) {
+    const mid = start + end >> 1; // Note `methodInfo` is where the computed property name is stored in
+    // the effect metadata
+
+    const cmp = order.get(queue[mid].methodInfo) - order.get(info.methodInfo);
+
+    if (cmp < 0) {
+      start = mid + 1;
+    } else if (cmp > 0) {
+      end = mid - 1;
+    } else {
+      idx = mid;
+      break;
+    }
+  }
+
+  if (idx < 0) {
+    idx = end + 1;
+  }
+
+  queue.splice(idx, 0, info);
+}; /**
+    * Inserts all downstream computed effects invalidated by the specified property
+    * into the topologically-sorted queue of effects to be run.
+    *
+    * Used by `orderedComputed: true` computed property algorithm.
+    *
+    * @param {string} prop Property name
+    * @param {Object} computeEffects Computed effects for this element
+    * @param {Array<Object>} queue Topologically-sorted queue of computed effects
+    *   to be run
+    * @param {Map<string,number>} order Map of computed property name->topological
+    *   sort order
+    * @param {boolean} hasPaths True with `changedProps` contains one or more paths
+    */
+
+const enqueueEffectsFor = (prop, computeEffects, queue, order, hasPaths) => {
+  const rootProperty = hasPaths ? root(prop) : prop;
+  const fxs = computeEffects[rootProperty];
+
+  if (fxs) {
+    for (let i = 0; i < fxs.length; i++) {
+      const fx = fxs[i];
+
+      if (fx.info.lastRun !== dedupeId$1 && (!hasPaths || pathMatchesTrigger(prop, fx.trigger))) {
+        fx.info.lastRun = dedupeId$1;
+        insertEffect(fx.info, queue, order);
+      }
+    }
+  }
+}; /**
+    * Generates and retrieves a memoized map of computed property name to its
+    * topologically-sorted order.
+    *
+    * The map is generated by first assigning a "dependency count" to each property
+    * (defined as number properties it depends on, including its method for
+    * "dynamic functions"). Any properties that have no dependencies are added to
+    * the `ready` queue, which are properties whose order can be added to the final
+    * order map. Properties are popped off the `ready` queue one by one and a.) added as
+    * the next property in the order map, and b.) each property that it is a
+    * dependency for has its dep count decremented (and if that property's dep
+    * count goes to zero, it is added to the `ready` queue), until all properties
+    * have been visited and ordered.
+    *
+    * Used by `orderedComputed: true` computed property algorithm.
+    *
+    * @param {!Polymer_PropertyEffects} inst The instance to retrieve the computed
+    *   effect order for.
+    * @return {Map<string,number>} Map of computed property name->topological sort
+    *   order
+    */
+
+function getComputedOrder(inst) {
+  let ordered = inst.constructor.__orderedComputedDeps;
+
+  if (!ordered) {
+    ordered = new Map();
+    const effects = inst[TYPES.COMPUTE];
+    let {
+      counts,
+      ready,
+      total
+    } = dependencyCounts(inst);
+    let curr;
+
+    while (curr = ready.shift()) {
+      ordered.set(curr, ordered.size);
+      const computedByCurr = effects[curr];
+
+      if (computedByCurr) {
+        computedByCurr.forEach(fx => {
+          // Note `methodInfo` is where the computed property name is stored
+          const computedProp = fx.info.methodInfo;
+          --total;
+
+          if (--counts[computedProp] === 0) {
+            ready.push(computedProp);
+          }
+        });
+      }
+    }
+
+    if (total !== 0) {
+      const el = /** @type {HTMLElement} */inst;
+      console.warn(`Computed graph for ${el.localName} incomplete; circular?`);
+    }
+
+    inst.constructor.__orderedComputedDeps = ordered;
+  }
+
+  return ordered;
+} /**
+   * Generates a map of property-to-dependency count (`counts`, where "dependency
+   * count" is the number of dependencies a given property has assuming it is a
+   * computed property, otherwise 0).  It also returns a pre-populated list of
+   * `ready` properties that have no dependencies and a `total` count, which is
+   * used for error-checking the graph.
+   *
+   * Used by `orderedComputed: true` computed property algorithm.
+   *
+   * @param {!Polymer_PropertyEffects} inst The instance to generate dependency
+   *   counts for.
+   * @return {!Object} Object containing `counts` map (property-to-dependency
+   *   count) and pre-populated `ready` array of properties that had zero
+   *   dependencies.
+   */
+
+function dependencyCounts(inst) {
+  const infoForComputed = inst[COMPUTE_INFO];
+  const counts = {};
+  const computedDeps = inst[TYPES.COMPUTE];
+  const ready = [];
+  let total = 0; // Count dependencies for each computed property
+
+  for (let p in infoForComputed) {
+    const info = infoForComputed[p]; // Be sure to add the method name itself in case of "dynamic functions"
+
+    total += counts[p] = info.args.filter(a => !a.literal).length + (info.dynamicFn ? 1 : 0);
+  } // Build list of ready properties (that aren't themselves computed)
+
+
+  for (let p in computedDeps) {
+    if (!infoForComputed[p]) {
+      ready.push(p);
+    }
+  }
+
+  return {
+    counts,
+    ready,
+    total
+  };
 } /**
    * Implements the "computed property" effect by running the method with the
    * values of the arguments specified in the `info` object and setting the
@@ -5083,21 +5550,28 @@ function runComputedEffects(inst, changedProps, oldProps, hasPaths) {
    *
    * @param {!Polymer_PropertyEffects} inst The instance the effect will be run on
    * @param {string} property Name of property
-   * @param {?Object} props Bag of current property changes
+   * @param {?Object} changedProps Bag of current property changes
    * @param {?Object} oldProps Bag of previous values for changed properties
    * @param {?} info Effect metadata
-   * @return {void}
+   * @return {boolean} True when the property being computed changed
    * @private
    */
 
-function runComputedEffect(inst, property, props, oldProps, info) {
-  let result = runMethodEffect(inst, property, props, oldProps, info);
+function runComputedEffect(inst, property, changedProps, oldProps, info) {
+  // Dirty check dependencies and run if any invalid
+  let result = runMethodEffect(inst, property, changedProps, oldProps, info); // Abort if method returns a no-op result
+
+  if (result === NOOP) {
+    return false;
+  }
+
   let computedProp = info.methodInfo;
 
   if (inst.__dataHasAccessor && inst.__dataHasAccessor[computedProp]) {
-    inst._setPendingProperty(computedProp, result, true);
+    return inst._setPendingProperty(computedProp, result, true);
   } else {
     inst[computedProp] = result;
+    return false;
   }
 } /**
    * Computes path changes based on path links set up using the `linkPaths`
@@ -5256,9 +5730,12 @@ function runBindingEffect(inst, path, props, oldProps, info, hasPaths, nodeList)
     }
   } else {
     let value = info.evaluator._evaluateBinding(inst, part, path, props, oldProps, hasPaths); // Propagate value to child
+    // Abort if value is a no-op result
 
 
-    applyBindingValue(inst, node, binding, part, value);
+    if (value !== NOOP) {
+      applyBindingValue(inst, node, binding, part, value);
+    }
   }
 } /**
    * Sets the value for an "binding" (binding) effect to a node,
@@ -5294,6 +5771,8 @@ function applyBindingValue(inst, node, binding, part, value) {
         }
       }
     } else {
+      // In legacy no-batching mode, bindings applied before dataReady are
+      // equivalent to the "apply config" phase, which only set managed props
       inst._setUnmanagedPropertyToNode(node, prop, value);
     }
   }
@@ -5370,7 +5849,9 @@ function setupBindings(inst, templateInfo) {
           setupCompoundStorage(node, binding);
           addNotifyListener(node, inst, binding);
         }
-      }
+      } // This ensures all bound elements have a host set, regardless
+      // of whether they upgrade synchronous to creation
+
 
       node.__dataHost = inst;
     }
@@ -5449,7 +5930,7 @@ function addNotifyListener(node, inst, binding) {
  * @param {boolean|Object=} dynamicFn Boolean or object map indicating whether
  *   method names should be included as a dependency to the effect. Note,
  *   defaults to true if the signature is static (sig.static is true).
- * @return {void}
+ * @return {!Object} Effect metadata for this method effect
  * @private
  */
 
@@ -5478,6 +5959,8 @@ function createMethodEffect(model, sig, type, effectFn, methodInfo, dynamicFn) {
       info: info
     });
   }
+
+  return info;
 } /**
    * Calls a method with arguments marshaled from properties on the instance
    * based on the method signature contained in the effect metadata.
@@ -5504,7 +5987,7 @@ function runMethodEffect(inst, property, props, oldProps, info) {
   if (fn) {
     let args = inst._marshalArgs(info.args, property, props);
 
-    return fn.apply(context, args);
+    return args === NOOP ? NOOP : fn.apply(context, args);
   } else if (!info.dynamicFn) {
     console.warn('method `' + info.methodName + '` not defined');
   }
@@ -5697,10 +6180,21 @@ function getArgValue(data, props, path) {
  */
 
 function notifySplices(inst, array, path, splices) {
-  inst.notifyPath(path + '.splices', {
+  const splicesData = {
     indexSplices: splices
-  });
-  inst.notifyPath(path + '.length', array.length);
+  }; // Legacy behavior stored splices in `__data__` so it was *not* ephemeral.
+  // To match this behavior, we store splices directly on the array.
+
+  if (legacyUndefined && !inst._overrideLegacyUndefined) {
+    array.splices = splicesData;
+  }
+
+  inst.notifyPath(path + '.splices', splicesData);
+  inst.notifyPath(path + '.length', array.length); // Clear splice data only when it's stored on the array.
+
+  if (legacyUndefined && !inst._overrideLegacyUndefined) {
+    splicesData.indexSplices = [];
+  }
 } /**
    * Creates a splice record and sends an array splice notification for
    * the described mutation
@@ -5769,9 +6263,6 @@ function upper(name) {
    * @appliesMixin PropertyAccessors
    * @summary Element class mixin that provides meta-programming for Polymer's
    * template binding and data observation system.
-   * @template T
-   * @param {function(new:T)} superClass Class to apply mixin to.
-   * @return {function(new:T)} superClass with mixin applied.
    */
 
 const PropertyEffects = dedupingMixin(superClass => {
@@ -5793,11 +6284,7 @@ const PropertyEffects = dedupingMixin(superClass => {
     constructor() {
       super(); /** @type {boolean} */ // Used to identify users of this mixin, ala instanceof
 
-      this.__isPropertyEffectsClient = true; /** @type {number} */ // NOTE: used to track re-entrant calls to `_flushProperties`
-      // path changes dirty check against `__dataTemp` only during one "turn"
-      // and are cleared when `__dataCounter` returns to 0.
-
-      this.__dataCounter = 0; /** @type {boolean} */
+      this.__isPropertyEffectsClient = true; /** @type {boolean} */
       this.__dataClientsReady; /** @type {Array} */
       this.__dataPendingClients; /** @type {Object} */
       this.__dataToNotify; /** @type {Object} */
@@ -5811,15 +6298,15 @@ const PropertyEffects = dedupingMixin(superClass => {
       this.__dataPending; /** @type {!Object} */
       this.__dataOld; /** @type {Object} */
       this.__computeEffects; /** @type {Object} */
+      this.__computeInfo; /** @type {Object} */
       this.__reflectEffects; /** @type {Object} */
       this.__notifyEffects; /** @type {Object} */
       this.__propagateEffects; /** @type {Object} */
       this.__observeEffects; /** @type {Object} */
       this.__readOnly; /** @type {!TemplateInfo} */
-      this.__templateInfo;
-    } /**
-       * @return {!Object<string, string>} Effect prototype property name map.
-       */
+      this.__templateInfo; /** @type {boolean} */
+      this._overrideLegacyUndefined;
+    }
 
     get PROPERTY_EFFECT_TYPES() {
       return TYPES;
@@ -5831,7 +6318,8 @@ const PropertyEffects = dedupingMixin(superClass => {
     _initializeProperties() {
       super._initializeProperties();
 
-      hostStack.registerHost(this);
+      this._registerHost();
+
       this.__dataClientsReady = false;
       this.__dataPendingClients = null;
       this.__dataToNotify = null;
@@ -5842,6 +6330,18 @@ const PropertyEffects = dedupingMixin(superClass => {
       this.__dataHost = this.__dataHost || null;
       this.__dataTemp = {};
       this.__dataClientsInitialized = false;
+    }
+
+    _registerHost() {
+      if (hostStack.length) {
+        let host = hostStack[hostStack.length - 1];
+
+        host._enqueueClient(this); // This ensures even non-bound elements have a host set, as
+        // long as they upgrade synchronously
+
+
+        this.__dataHost = host;
+      }
     } /**
        * Overrides `PropertyAccessors` implementation to provide a
        * more efficient implementation of initializing properties from
@@ -5893,7 +6393,7 @@ const PropertyEffects = dedupingMixin(superClass => {
       this._createPropertyAccessor(property, type == TYPES.READ_ONLY); // effects are accumulated into arrays per property based on type
 
 
-      let effects = ensureOwnEffectMap(this, type)[property];
+      let effects = ensureOwnEffectMap(this, type, true)[property];
 
       if (!effects) {
         effects = this[type][property] = [];
@@ -5911,7 +6411,7 @@ const PropertyEffects = dedupingMixin(superClass => {
        */
 
     _removePropertyEffect(property, type, effect) {
-      let effects = ensureOwnEffectMap(this, type)[property];
+      let effects = ensureOwnEffectMap(this, type, true)[property];
       let idx = effects.indexOf(effect);
 
       if (idx >= 0) {
@@ -6202,20 +6702,6 @@ const PropertyEffects = dedupingMixin(superClass => {
         this.__dataPendingClients.push(client);
       }
     } /**
-       * Overrides superclass implementation.
-       *
-       * @override
-       * @return {void}
-       * @protected
-       */
-
-    _flushProperties() {
-      this.__dataCounter++;
-
-      super._flushProperties();
-
-      this.__dataCounter--;
-    } /**
        * Flushes any clients previously enqueued via `_enqueueClient`, causing
        * their `_flushProperties` method to run.
        *
@@ -6358,12 +6844,13 @@ const PropertyEffects = dedupingMixin(superClass => {
       // if (window.debug) { debugger; }
       // ----------------------------
       let hasPaths = this.__dataHasPaths;
-      this.__dataHasPaths = false; // Compute properties
+      this.__dataHasPaths = false;
+      let notifyProps; // Compute properties
 
       runComputedEffects(this, changedProps, oldProps, hasPaths); // Clear notify properties prior to possible reentry (propagate, observe),
       // but after computing effects have a chance to add to them
 
-      let notifyProps = this.__dataToNotify;
+      notifyProps = this.__dataToNotify;
       this.__dataToNotify = null; // Propagate properties to clients
 
       this._propagatePropertyChanges(changedProps, oldProps, hasPaths); // Flush clients
@@ -6404,11 +6891,24 @@ const PropertyEffects = dedupingMixin(superClass => {
         runEffects(this, this[TYPES.PROPAGATE], changedProps, oldProps, hasPaths);
       }
 
-      let templateInfo = this.__templateInfo;
+      if (this.__templateInfo) {
+        this._runEffectsForTemplate(this.__templateInfo, changedProps, oldProps, hasPaths);
+      }
+    }
 
-      while (templateInfo) {
+    _runEffectsForTemplate(templateInfo, changedProps, oldProps, hasPaths) {
+      const baseRunEffects = (changedProps, hasPaths) => {
         runEffects(this, templateInfo.propertyEffects, changedProps, oldProps, hasPaths, templateInfo.nodeList);
-        templateInfo = templateInfo.nextTemplateInfo;
+
+        for (let info = templateInfo.firstChild; info; info = info.nextSibling) {
+          this._runEffectsForTemplate(info, changedProps, oldProps, hasPaths);
+        }
+      };
+
+      if (templateInfo.runEffects) {
+        templateInfo.runEffects(baseRunEffects, changedProps, hasPaths);
+      } else {
+        baseRunEffects(changedProps, hasPaths);
       }
     } /**
        * Aliases one data path as another, such that path notifications from one
@@ -6613,7 +7113,7 @@ const PropertyEffects = dedupingMixin(superClass => {
        * @param {number} start Index from which to start removing/inserting.
        * @param {number=} deleteCount Number of items to remove.
        * @param {...*} items Items to insert into array.
-       * @return {Array} Array of removed items.
+       * @return {!Array} Array of removed items.
        * @public
        */
 
@@ -6895,7 +7395,10 @@ const PropertyEffects = dedupingMixin(superClass => {
         throw new Error("Malformed computed expression '" + expression + "'");
       }
 
-      createMethodEffect(this, sig, TYPES.COMPUTE, runComputedEffect, property, dynamicFn);
+      const info = createMethodEffect(this, sig, TYPES.COMPUTE, runComputedEffect, property, dynamicFn); // Effects are normally stored as map of dependency->effect, but for
+      // ordered computation, we also need tree of computedProp->dependencies
+
+      ensureOwnEffectMap(this, COMPUTE_INFO)[property] = info;
     } /**
        * Gather the argument values for a method specified in the provided array
        * of argument metadata.
@@ -6906,7 +7409,7 @@ const PropertyEffects = dedupingMixin(superClass => {
        * @param {!Array<!MethodArg>} args Array of argument metadata
        * @param {string} path Property/path name that triggered the method effect
        * @param {Object} props Bag of current property changes
-       * @return {Array<*>} Array of argument values
+       * @return {!Array<*>} Array of argument values
        * @private
        */
 
@@ -6935,6 +7438,12 @@ const PropertyEffects = dedupingMixin(superClass => {
           } else {
             value = structured ? getArgValue(data, props, name) : data[name];
           }
+        } // When the `legacyUndefined` flag is enabled, pass a no-op value
+        // so that the observer, computed property, or compound binding is aborted.
+
+
+        if (legacyUndefined && !this._overrideLegacyUndefined && value === undefined && args.length > 1) {
+          return NOOP;
         }
 
         values[i] = value;
@@ -7092,35 +7601,66 @@ const PropertyEffects = dedupingMixin(superClass => {
     static bindTemplate(template) {
       return this.prototype._bindTemplate(template);
     } // -- binding ----------------------------------------------
-    /**
-     * Equivalent to static `bindTemplate` API but can be called on
-     * an instance to add effects at runtime.  See that method for
-     * full API docs.
+    /*
+     * Overview of binding flow:
      *
-     * This method may be called on the prototype (for prototypical template
-     * binding, to avoid creating accessors every instance) once per prototype,
-     * and will be called with `runtimeBinding: true` by `_stampTemplate` to
-     * create and link an instance of the template metadata associated with a
-     * particular stamping.
+     * During finalization (`instanceBinding==false`, `wasPreBound==false`):
+     *  `_bindTemplate(t, false)` called directly during finalization - parses
+     *  the template (for the first time), and then assigns that _prototypical_
+     *  template info to `__preboundTemplateInfo` _on the prototype_; note in
+     *  this case `wasPreBound` is false; this is the first time we're binding
+     *  it, thus we create accessors.
      *
-     * @override
-     * @param {!HTMLTemplateElement} template Template containing binding
-     *   bindings
-     * @param {boolean=} instanceBinding When false (default), performs
-     *   "prototypical" binding of the template and overwrites any previously
-     *   bound template for the class. When true (as passed from
-     *   `_stampTemplate`), the template info is instanced and linked into
-     *   the list of bound templates.
-     * @return {!TemplateInfo} Template metadata object; for `runtimeBinding`,
-     *   this is an instance of the prototypical template info
-     * @protected
-     * @suppress {missingProperties} go/missingfnprops
-     */
+     * During first stamping (`instanceBinding==true`, `wasPreBound==true`):
+     *   `_stampTemplate` calls `_bindTemplate(t, true)`: the `templateInfo`
+     *   returned matches the prebound one, and so this is `wasPreBound == true`
+     *   state; thus we _skip_ creating accessors, but _do_ create an instance
+     *   of the template info to serve as the start of our linked list (needs to
+     *   be an instance, not the prototypical one, so that we can add `nodeList`
+     *   to it to contain the `nodeInfo`-ordered list of instance nodes for
+     *   bindings, and so we can chain runtime-stamped template infos off of
+     *   it). At this point, the call to `_stampTemplate` calls
+     *   `applyTemplateInfo` for each nested `<template>` found during parsing
+     *   to hand prototypical `_templateInfo` to them; we also pass the _parent_
+     *   `templateInfo` to the `<template>` so that we have the instance-time
+     *   parent to link the `templateInfo` under in the case it was
+     *   runtime-stamped.
+     *
+     * During subsequent runtime stamping (`instanceBinding==true`,
+     *   `wasPreBound==false`): `_stampTemplate` calls `_bindTemplate(t, true)`
+     *   - here `templateInfo` is guaranteed to _not_ match the prebound one,
+     *   because it was either a different template altogether, or even if it
+     *   was the same template, the step above created a instance of the info;
+     *   in this case `wasPreBound == false`, so we _do_ create accessors, _and_
+     *   link a instance into the linked list.
+     */ /**
+         * Equivalent to static `bindTemplate` API but can be called on an instance
+         * to add effects at runtime.  See that method for full API docs.
+         *
+         * This method may be called on the prototype (for prototypical template
+         * binding, to avoid creating accessors every instance) once per prototype,
+         * and will be called with `runtimeBinding: true` by `_stampTemplate` to
+         * create and link an instance of the template metadata associated with a
+         * particular stamping.
+         *
+         * @override
+         * @param {!HTMLTemplateElement} template Template containing binding
+         * bindings
+         * @param {boolean=} instanceBinding When false (default), performs
+         * "prototypical" binding of the template and overwrites any previously
+         * bound template for the class. When true (as passed from
+         * `_stampTemplate`), the template info is instanced and linked into the
+         * list of bound templates.
+         * @return {!TemplateInfo} Template metadata object; for `runtimeBinding`,
+         * this is an instance of the prototypical template info
+         * @protected
+         * @suppress {missingProperties} go/missingfnprops
+         */
 
     _bindTemplate(template, instanceBinding) {
       let templateInfo = this.constructor._parseTemplate(template);
 
-      let wasPreBound = this.__templateInfo == templateInfo; // Optimization: since this is called twice for proto-bound templates,
+      let wasPreBound = this.__preBoundTemplateInfo == templateInfo; // Optimization: since this is called twice for proto-bound templates,
       // don't attempt to recreate accessors if this template was pre-bound
 
       if (!wasPreBound) {
@@ -7131,19 +7671,43 @@ const PropertyEffects = dedupingMixin(superClass => {
 
       if (instanceBinding) {
         // For instance-time binding, create instance of template metadata
-        // and link into list of templates if necessary
+        // and link into tree of templates if necessary
         templateInfo = /** @type {!TemplateInfo} */Object.create(templateInfo);
         templateInfo.wasPreBound = wasPreBound;
 
-        if (!wasPreBound && this.__templateInfo) {
-          let last = this.__templateInfoLast || this.__templateInfo;
-          this.__templateInfoLast = last.nextTemplateInfo = templateInfo;
-          templateInfo.previousTemplateInfo = last;
-          return templateInfo;
+        if (!this.__templateInfo) {
+          // Set the info to the root of the tree
+          this.__templateInfo = templateInfo;
+        } else {
+          // Append this template info onto the end of its parent template's
+          // list, which will determine the tree structure via which property
+          // effects are run; if this template was not nested in another
+          // template, use the root template (the first stamped one) as the
+          // parent. Note, `parent` is the `templateInfo` instance for this
+          // template's parent (containing) template, which was set up in
+          // `applyTemplateInfo`.  While a given template's `parent` is set
+          // apriori, it is only added to the parent's child list at the point
+          // that it is being bound, since a template may or may not ever be
+          // stamped, and may be stamped more than once (in which case instances
+          // of the template info will be in the tree under its parent more than
+          // once).
+          const parent = template._parentTemplateInfo || this.__templateInfo;
+          const previous = parent.lastChild;
+          templateInfo.parent = parent;
+          parent.lastChild = templateInfo;
+          templateInfo.previousSibling = previous;
+
+          if (previous) {
+            previous.nextSibling = templateInfo;
+          } else {
+            parent.firstChild = templateInfo;
+          }
         }
+      } else {
+        this.__preBoundTemplateInfo = templateInfo;
       }
 
-      return this.__templateInfo = templateInfo;
+      return templateInfo;
     } /**
        * Adds a property effect to the given template metadata, which is run
        * at the "propagate" stage of `_propertiesChanged` when the template
@@ -7181,22 +7745,23 @@ const PropertyEffects = dedupingMixin(superClass => {
        * in the main element template.
        *
        * @param {!HTMLTemplateElement} template Template to stamp
+       * @param {TemplateInfo=} templateInfo Optional bound template info associated
+       *   with the template to be stamped; if omitted the template will be
+       *   automatically bound.
        * @return {!StampedTemplate} Cloned template content
        * @override
        * @protected
        */
 
-    _stampTemplate(template) {
-      // Ensures that created dom is `_enqueueClient`'d to this element so
+    _stampTemplate(template, templateInfo) {
+      templateInfo = templateInfo || /** @type {!TemplateInfo} */this._bindTemplate(template, true); // Ensures that created dom is `_enqueueClient`'d to this element so
       // that it can be flushed on next call to `_flushProperties`
-      hostStack.beginHosting(this);
 
-      let dom = super._stampTemplate(template);
+      hostStack.push(this);
 
-      hostStack.endHosting(this);
+      let dom = super._stampTemplate(template, templateInfo);
 
-      let templateInfo = /** @type {!TemplateInfo} */this._bindTemplate(template, true); // Add template-instance-specific data to instanced templateInfo
-
+      hostStack.pop(); // Add template-instance-specific data to instanced templateInfo
 
       templateInfo.nodeList = dom.nodeList; // Capture child nodes to allow unstamping of non-prototypical templates
 
@@ -7210,10 +7775,20 @@ const PropertyEffects = dedupingMixin(superClass => {
 
       dom.templateInfo = templateInfo; // Setup compound storage, 2-way listeners, and dataHost for bindings
 
-      setupBindings(this, templateInfo); // Flush properties into template nodes if already booted
+      setupBindings(this, templateInfo); // Flush properties into template nodes; the check on `__dataClientsReady`
+      // ensures we don't needlessly run effects for an element's initial
+      // prototypical template stamping since they will happen as a part of the
+      // first call to `_propertiesChanged`. This flag is set to true
+      // after running the initial propagate effects, and immediately before
+      // flushing clients. Since downstream clients could cause stamping on
+      // this host (e.g. a fastDomIf `dom-if` being forced to render
+      // synchronously), this flag ensures effects for runtime-stamped templates
+      // are run at this point during the initial element boot-up.
 
-      if (this.__dataReady) {
-        runEffects(this, templateInfo.propertyEffects, this.__data, null, false, templateInfo.nodeList);
+      if (this.__dataClientsReady) {
+        this._runEffectsForTemplate(templateInfo, this.__data, null, false);
+
+        this._flushClients();
       }
 
       return dom;
@@ -7229,28 +7804,36 @@ const PropertyEffects = dedupingMixin(superClass => {
        */
 
     _removeBoundDom(dom) {
-      // Unlink template info
-      let templateInfo = dom.templateInfo;
+      // Unlink template info; Note that while the child is unlinked from its
+      // parent list, a template's `parent` reference is never removed, since
+      // this is is determined by the tree structure and applied at
+      // `applyTemplateInfo` time.
+      const templateInfo = dom.templateInfo;
+      const {
+        previousSibling,
+        nextSibling,
+        parent
+      } = templateInfo;
 
-      if (templateInfo.previousTemplateInfo) {
-        templateInfo.previousTemplateInfo.nextTemplateInfo = templateInfo.nextTemplateInfo;
+      if (previousSibling) {
+        previousSibling.nextSibling = nextSibling;
+      } else if (parent) {
+        parent.firstChild = nextSibling;
       }
 
-      if (templateInfo.nextTemplateInfo) {
-        templateInfo.nextTemplateInfo.previousTemplateInfo = templateInfo.previousTemplateInfo;
+      if (nextSibling) {
+        nextSibling.previousSibling = previousSibling;
+      } else if (parent) {
+        parent.lastChild = previousSibling;
       }
 
-      if (this.__templateInfoLast == templateInfo) {
-        this.__templateInfoLast = templateInfo.previousTemplateInfo;
-      }
-
-      templateInfo.previousTemplateInfo = templateInfo.nextTemplateInfo = null; // Remove stamped nodes
+      templateInfo.nextSibling = templateInfo.previousSibling = null; // Remove stamped nodes
 
       let nodes = templateInfo.childNodes;
 
       for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
-        node.parentNode.removeChild(node);
+        wrap$1(wrap$1(node).parentNode).removeChild(node);
       }
     } /**
        * Overrides default `TemplateStamp` implementation to add support for
@@ -7337,6 +7920,11 @@ const PropertyEffects = dedupingMixin(superClass => {
           }
 
           node.setAttribute(name, literal);
+        } // support disable-upgrade
+
+
+        if (kind == 'attribute' && origName == 'disable-upgrade$') {
+          node.setAttribute(name, '');
         } // Clear attribute before removing, since IE won't allow removing
         // `value` attribute if it previously had a value (can't
         // unconditionally set '' before removing since attributes with `$`
@@ -7382,19 +7970,58 @@ const PropertyEffects = dedupingMixin(superClass => {
     static _parseTemplateNestedTemplate(node, templateInfo, nodeInfo) {
       // TODO(https://github.com/google/closure-compiler/issues/3240):
       //     Change back to just super.methodCall()
-      let noted = propertyEffectsBase._parseTemplateNestedTemplate.call(this, node, templateInfo, nodeInfo); // Merge host props into outer template and add bindings
+      let noted = propertyEffectsBase._parseTemplateNestedTemplate.call(this, node, templateInfo, nodeInfo);
+
+      const parent = node.parentNode;
+      const nestedTemplateInfo = nodeInfo.templateInfo;
+      const isDomIf = parent.localName === 'dom-if';
+      const isDomRepeat = parent.localName === 'dom-repeat'; // Remove nested template and redirect its host bindings & templateInfo
+      // onto the parent (dom-if/repeat element)'s nodeInfo
+
+      if (removeNestedTemplates && (isDomIf || isDomRepeat)) {
+        parent.removeChild(node); // Use the parent's nodeInfo (for the dom-if/repeat) to record the
+        // templateInfo, and use that for any host property bindings below
+
+        nodeInfo = nodeInfo.parentInfo;
+        nodeInfo.templateInfo = nestedTemplateInfo; // Ensure the parent dom-if/repeat is noted since it now may have host
+        // bindings; it may not have been if it did not have its own bindings
+
+        nodeInfo.noted = true;
+        noted = false;
+      } // Merge host props into outer template and add bindings
 
 
-      let hostProps = nodeInfo.templateInfo.hostProps;
-      let mode = '{';
+      let hostProps = nestedTemplateInfo.hostProps;
 
-      for (let source in hostProps) {
-        let parts = [{
-          mode,
-          source,
-          dependencies: [source]
-        }];
-        addBinding(this, templateInfo, nodeInfo, 'property', '_host_' + source, parts);
+      if (fastDomIf && isDomIf) {
+        // `fastDomIf` mode uses runtime-template stamping to add accessors/
+        // effects to properties used in its template; as such we don't need to
+        // tax the host element with `_host_` bindings for the `dom-if`.
+        // However, in the event it is nested in a `dom-repeat`, it is still
+        // important that its host properties are added to the
+        // TemplateInstance's `hostProps` so that they are forwarded to the
+        // TemplateInstance.
+        if (hostProps) {
+          templateInfo.hostProps = Object.assign(templateInfo.hostProps || {}, hostProps); // Ensure the dom-if is noted so that it has a __dataHost, since
+          // `fastDomIf` uses the host for runtime template stamping; note this
+          // was already ensured above in the `removeNestedTemplates` case
+
+          if (!removeNestedTemplates) {
+            nodeInfo.parentInfo.noted = true;
+          }
+        }
+      } else {
+        let mode = '{';
+
+        for (let source in hostProps) {
+          let parts = [{
+            mode,
+            source,
+            dependencies: [source],
+            hostProp: true
+          }];
+          addBinding(this, templateInfo, nodeInfo, 'property', '_host_' + source, parts);
+        }
       }
 
       return noted;
@@ -7575,7 +8202,7 @@ const PropertyEffects = dedupingMixin(superClass => {
 
   return PropertyEffects;
 }); /**
-     * Helper api for enqueuing client dom created by a host element.
+     * Stack for enqueuing client dom created by a host element.
      *
      * By default elements are flushed via `_flushProperties` when
      * `connectedCallback` is called. Elements attach their client dom to
@@ -7597,44 +8224,7 @@ const PropertyEffects = dedupingMixin(superClass => {
      *
      * @private
      */
-
-class HostStack {
-  constructor() {
-    this.stack = [];
-  } /**
-     * @param {*} inst Instance to add to hostStack
-     * @return {void}
-     */
-
-  registerHost(inst) {
-    if (this.stack.length) {
-      let host = this.stack[this.stack.length - 1];
-
-      host._enqueueClient(inst);
-    }
-  } /**
-     * @param {*} inst Instance to begin hosting
-     * @return {void}
-     */
-
-  beginHosting(inst) {
-    this.stack.push(inst);
-  } /**
-     * @param {*} inst Instance to end hosting
-     * @return {void}
-     */
-
-  endHosting(inst) {
-    let stackLen = this.stack.length;
-
-    if (stackLen && this.stack[stackLen - 1] == inst) {
-      this.stack.pop();
-    }
-  }
-
-}
-
-const hostStack = new HostStack();
+const hostStack = [];
 var propertyEffects = {
   PropertyEffects: PropertyEffects
 }; /**
@@ -7788,7 +8378,7 @@ const PropertiesMixin = dedupingMixin(superClass => {
       if (!this.hasOwnProperty(JSCompiler_renameProperty('__observedAttributes', this))) {
         register(this.prototype);
         const props = this._properties;
-        this.__observedAttributes = props ? Object.keys(props).map(p => this.attributeNameForProperty(p)) : [];
+        this.__observedAttributes = props ? Object.keys(props).map(p => this.prototype._addPropertyToAttributeMap(p)) : [];
       }
 
       return this.__observedAttributes;
@@ -7908,78 +8498,78 @@ var propertiesMixin = {
 const bundledImportMeta = { ...import.meta,
   url: new URL('../node_modules/%40polymer/polymer/lib/mixins/element-mixin.js', import.meta.url).href
 };
-const version = '3.3.1';
+const version = '3.4.1';
 const builtCSS = window.ShadyCSS && window.ShadyCSS['cssBuild']; /**
-                                                                  * Element class mixin that provides the core API for Polymer's meta-programming
-                                                                  * features including template stamping, data-binding, attribute deserialization,
-                                                                  * and property change observation.
-                                                                  *
-                                                                  * Subclassers may provide the following static getters to return metadata
-                                                                  * used to configure Polymer's features for the class:
-                                                                  *
-                                                                  * - `static get is()`: When the template is provided via a `dom-module`,
-                                                                  *   users should return the `dom-module` id from a static `is` getter.  If
-                                                                  *   no template is needed or the template is provided directly via the
-                                                                  *   `template` getter, there is no need to define `is` for the element.
-                                                                  *
-                                                                  * - `static get template()`: Users may provide the template directly (as
-                                                                  *   opposed to via `dom-module`) by implementing a static `template` getter.
-                                                                  *   The getter must return an `HTMLTemplateElement`.
-                                                                  *
-                                                                  * - `static get properties()`: Should return an object describing
-                                                                  *   property-related metadata used by Polymer features (key: property name
-                                                                  *   value: object containing property metadata). Valid keys in per-property
-                                                                  *   metadata include:
-                                                                  *   - `type` (String|Number|Object|Array|...): Used by
-                                                                  *     `attributeChangedCallback` to determine how string-based attributes
-                                                                  *     are deserialized to JavaScript property values.
-                                                                  *   - `notify` (boolean): Causes a change in the property to fire a
-                                                                  *     non-bubbling event called `<property>-changed`. Elements that have
-                                                                  *     enabled two-way binding to the property use this event to observe changes.
-                                                                  *   - `readOnly` (boolean): Creates a getter for the property, but no setter.
-                                                                  *     To set a read-only property, use the private setter method
-                                                                  *     `_setProperty(property, value)`.
-                                                                  *   - `observer` (string): Observer method name that will be called when
-                                                                  *     the property changes. The arguments of the method are
-                                                                  *     `(value, previousValue)`.
-                                                                  *   - `computed` (string): String describing method and dependent properties
-                                                                  *     for computing the value of this property (e.g. `'computeFoo(bar, zot)'`).
-                                                                  *     Computed properties are read-only by default and can only be changed
-                                                                  *     via the return value of the computing method.
-                                                                  *
-                                                                  * - `static get observers()`: Array of strings describing multi-property
-                                                                  *   observer methods and their dependent properties (e.g.
-                                                                  *   `'observeABC(a, b, c)'`).
-                                                                  *
-                                                                  * The base class provides default implementations for the following standard
-                                                                  * custom element lifecycle callbacks; users may override these, but should
-                                                                  * call the super method to ensure
-                                                                  * - `constructor`: Run when the element is created or upgraded
-                                                                  * - `connectedCallback`: Run each time the element is connected to the
-                                                                  *   document
-                                                                  * - `disconnectedCallback`: Run each time the element is disconnected from
-                                                                  *   the document
-                                                                  * - `attributeChangedCallback`: Run each time an attribute in
-                                                                  *   `observedAttributes` is set or removed (note: this element's default
-                                                                  *   `observedAttributes` implementation will automatically return an array
-                                                                  *   of dash-cased attributes based on `properties`)
-                                                                  *
-                                                                  * @mixinFunction
-                                                                  * @polymer
-                                                                  * @appliesMixin PropertyEffects
-                                                                  * @appliesMixin PropertiesMixin
-                                                                  * @property rootPath {string} Set to the value of `rootPath`,
-                                                                  *   which defaults to the main document path
-                                                                  * @property importPath {string} Set to the value of the class's static
-                                                                  *   `importPath` property, which defaults to the path of this element's
-                                                                  *   `dom-module` (when `is` is used), but can be overridden for other
-                                                                  *   import strategies.
-                                                                  * @summary Element class mixin that provides the core API for Polymer's
-                                                                  * meta-programming features.
-                                                                  * @template T
-                                                                  * @param {function(new:T)} superClass Class to apply mixin to.
-                                                                  * @return {function(new:T)} superClass with mixin applied.
-                                                                  */
+                                                                         * Element class mixin that provides the core API for Polymer's meta-programming
+                                                                         * features including template stamping, data-binding, attribute deserialization,
+                                                                         * and property change observation.
+                                                                         *
+                                                                         * Subclassers may provide the following static getters to return metadata
+                                                                         * used to configure Polymer's features for the class:
+                                                                         *
+                                                                         * - `static get is()`: When the template is provided via a `dom-module`,
+                                                                         *   users should return the `dom-module` id from a static `is` getter.  If
+                                                                         *   no template is needed or the template is provided directly via the
+                                                                         *   `template` getter, there is no need to define `is` for the element.
+                                                                         *
+                                                                         * - `static get template()`: Users may provide the template directly (as
+                                                                         *   opposed to via `dom-module`) by implementing a static `template` getter.
+                                                                         *   The getter must return an `HTMLTemplateElement`.
+                                                                         *
+                                                                         * - `static get properties()`: Should return an object describing
+                                                                         *   property-related metadata used by Polymer features (key: property name
+                                                                         *   value: object containing property metadata). Valid keys in per-property
+                                                                         *   metadata include:
+                                                                         *   - `type` (String|Number|Object|Array|...): Used by
+                                                                         *     `attributeChangedCallback` to determine how string-based attributes
+                                                                         *     are deserialized to JavaScript property values.
+                                                                         *   - `notify` (boolean): Causes a change in the property to fire a
+                                                                         *     non-bubbling event called `<property>-changed`. Elements that have
+                                                                         *     enabled two-way binding to the property use this event to observe changes.
+                                                                         *   - `readOnly` (boolean): Creates a getter for the property, but no setter.
+                                                                         *     To set a read-only property, use the private setter method
+                                                                         *     `_setProperty(property, value)`.
+                                                                         *   - `observer` (string): Observer method name that will be called when
+                                                                         *     the property changes. The arguments of the method are
+                                                                         *     `(value, previousValue)`.
+                                                                         *   - `computed` (string): String describing method and dependent properties
+                                                                         *     for computing the value of this property (e.g. `'computeFoo(bar, zot)'`).
+                                                                         *     Computed properties are read-only by default and can only be changed
+                                                                         *     via the return value of the computing method.
+                                                                         *
+                                                                         * - `static get observers()`: Array of strings describing multi-property
+                                                                         *   observer methods and their dependent properties (e.g.
+                                                                         *   `'observeABC(a, b, c)'`).
+                                                                         *
+                                                                         * The base class provides default implementations for the following standard
+                                                                         * custom element lifecycle callbacks; users may override these, but should
+                                                                         * call the super method to ensure
+                                                                         * - `constructor`: Run when the element is created or upgraded
+                                                                         * - `connectedCallback`: Run each time the element is connected to the
+                                                                         *   document
+                                                                         * - `disconnectedCallback`: Run each time the element is disconnected from
+                                                                         *   the document
+                                                                         * - `attributeChangedCallback`: Run each time an attribute in
+                                                                         *   `observedAttributes` is set or removed (note: this element's default
+                                                                         *   `observedAttributes` implementation will automatically return an array
+                                                                         *   of dash-cased attributes based on `properties`)
+                                                                         *
+                                                                         * @mixinFunction
+                                                                         * @polymer
+                                                                         * @appliesMixin PropertyEffects
+                                                                         * @appliesMixin PropertiesMixin
+                                                                         * @property rootPath {string} Set to the value of `rootPath`,
+                                                                         *   which defaults to the main document path
+                                                                         * @property importPath {string} Set to the value of the class's static
+                                                                         *   `importPath` property, which defaults to the path of this element's
+                                                                         *   `dom-module` (when `is` is used), but can be overridden for other
+                                                                         *   import strategies.
+                                                                         * @summary Element class mixin that provides the core API for Polymer's
+                                                                         * meta-programming features.
+                                                                         * @template T
+                                                                         * @param {function(new:T)} superClass Class to apply mixin to.
+                                                                         * @return {function(new:T)} superClass with mixin applied.
+                                                                         */
 const ElementMixin = dedupingMixin(base => {
   /**
    * @constructor
@@ -8177,6 +8767,32 @@ const ElementMixin = dedupingMixin(base => {
 
     if (window.ShadyCSS) {
       window.ShadyCSS.prepareTemplate(template, is);
+    } // Support for `adoptedStylesheets` relies on using native Shadow DOM
+    // and built CSS. Built CSS is required because runtime transformation of
+    // `@apply` is not supported. This is because ShadyCSS relies on being able
+    // to update a `style` element in the element template and this is
+    // removed when using `adoptedStyleSheets`.
+    // Note, it would be more efficient to allow style includes to become
+    // separate stylesheets; however, because of `@apply` these are
+    // potentially not shareable and sharing the ones that could be shared
+    // would require some coordination. To keep it simple, all the includes
+    // and styles are collapsed into a single shareable stylesheet.
+
+
+    if (useAdoptedStyleSheetsWithBuiltCSS && builtCSS && supportsAdoptingStyleSheets) {
+      // Remove styles in template and make a shareable stylesheet
+      const styles = template.content.querySelectorAll('style');
+
+      if (styles) {
+        let css = '';
+        Array.from(styles).forEach(s => {
+          css += s.textContent;
+          s.parentNode.removeChild(s);
+        });
+        klass._styleSheet = new CSSStyleSheet();
+
+        klass._styleSheet.replaceSync(css);
+      }
     }
   } /**
      * Look up template from dom-module for element
@@ -8288,9 +8904,13 @@ const ElementMixin = dedupingMixin(base => {
     } /**
        * Returns the template that will be stamped into this element's shadow root.
        *
-       * If a `static get is()` getter is defined, the default implementation
-       * will return the first `<template>` in a `dom-module` whose `id`
-       * matches this element's `is`.
+       * If a `static get is()` getter is defined, the default implementation will
+       * return the first `<template>` in a `dom-module` whose `id` matches this
+       * element's `is` (note that a `_template` property on the class prototype
+       * takes precedence over the `dom-module` template, to maintain legacy
+       * element semantics; a subclass will subsequently fall back to its super
+       * class template if neither a `prototype._template` or a `dom-module` for
+       * the class's `is` was found).
        *
        * Users may override this getter to return an arbitrary template
        * (in which case the `is` getter is unnecessary). The template returned
@@ -8338,10 +8958,15 @@ const ElementMixin = dedupingMixin(base => {
       //     or set in registered(); once the static getter runs, a clone of it
       //     will overwrite it on the prototype as the working template.
       if (!this.hasOwnProperty(JSCompiler_renameProperty('_template', this))) {
+        const protoTemplate = this.prototype.hasOwnProperty(JSCompiler_renameProperty('_template', this.prototype)) ? this.prototype._template : undefined;
         this._template = // If user has put template on prototype (e.g. in legacy via registered
-        // callback or info object), prefer that first
-        this.prototype.hasOwnProperty(JSCompiler_renameProperty('_template', this.prototype)) ? this.prototype._template : // Look in dom-module associated with this element's is
-        getTemplateFromDomModule( /** @type {PolymerElementConstructor}*/this.is) || // Next look for superclass template (call the super impl this
+        // callback or info object), prefer that first. Note that `null` is
+        // used as a sentinel to indicate "no template" and can be used to
+        // override a super template, whereas `undefined` is used as a
+        // sentinel to mean "fall-back to default template lookup" via
+        // dom-module and/or super.template.
+        protoTemplate !== undefined ? protoTemplate : // Look in dom-module associated with this element's is
+        this.hasOwnProperty(JSCompiler_renameProperty('is', this)) && getTemplateFromDomModule( /** @type {PolymerElementConstructor}*/this.is) || // Next look for superclass template (call the super impl this
         // way so that `this` points to the superclass)
         Object.getPrototypeOf( /** @type {PolymerElementConstructor}*/this.prototype).constructor.template;
       }
@@ -8432,11 +9057,9 @@ const ElementMixin = dedupingMixin(base => {
       }
 
       for (let p in p$) {
-        let info = p$[p]; // Don't set default value if there is already an own property, which
-        // happens when a `properties` property with default but no effects had
-        // a property set (e.g. bound) by its host before upgrade
+        let info = p$[p];
 
-        if (!this.hasOwnProperty(p)) {
+        if (this._canApplyPropertyDefault(p)) {
           let value = typeof info.value == 'function' ? info.value.call(this) : info.value; // Set via `_setProperty` if there is an accessor, to enable
           // initializing readOnly property defaults
 
@@ -8447,6 +9070,17 @@ const ElementMixin = dedupingMixin(base => {
           }
         }
       }
+    } /**
+       * Determines if a property dfeault can be applied. For example, this
+       * prevents a default from being applied when a property that has no
+       * accessor is overridden by its host before upgrade (e.g. via a binding).
+       * @override
+       * @param {string} property Name of the property
+       * @return {boolean} Returns true if the property default can be applied.
+       */
+
+    _canApplyPropertyDefault(property) {
+      return !this.hasOwnProperty(property);
     } /**
        * Gather style text for a style element in the template.
        *
@@ -8560,7 +9194,12 @@ const ElementMixin = dedupingMixin(base => {
               mode: 'open',
               shadyUpgradeFragment: dom
             });
-            n.shadowRoot.appendChild(dom);
+            n.shadowRoot.appendChild(dom); // When `adoptedStyleSheets` is supported a stylesheet is made
+            // available on the element constructor.
+
+            if (this.constructor._styleSheet) {
+              n.shadowRoot.adoptedStyleSheets = [this.constructor._styleSheet];
+            }
           }
 
           if (syncInitialRender && window.ShadyDOM) {
@@ -8666,7 +9305,13 @@ const ElementMixin = dedupingMixin(base => {
       // The warning is only enabled in `legacyOptimizations` mode, since
       // we don't want to spam existing users who might have adopted the
       // shorthand when attribute deserialization is not important.
-      if (legacyOptimizations && !(prop in this._properties)) {
+      if (legacyWarnings && !(prop in this._properties) && // Methods used in templates with no dependencies (or only literal
+      // dependencies) become accessors with template effects; ignore these
+      !(effect.info.part.signature && effect.info.part.signature.static) && // Warnings for bindings added to nested templates are handled by
+      // templatizer so ignore both the host-to-template bindings
+      // (`hostProp`) and TemplateInstance-to-child bindings
+      // (`nestedTemplate`)
+      !effect.info.part.hostProp && !templateInfo.nestedTemplate) {
         console.warn(`Property '${prop}' used in template but not declared in 'properties'; ` + `attribute will not be observed.`);
       } // TODO(https://github.com/google/closure-compiler/issues/3240):
       //     Change back to just super.methodCall()
@@ -8704,6 +9349,7 @@ const updateStyles = function (props) {
 
 var elementMixin = {
   version: version,
+  builtCSS: builtCSS,
   ElementMixin: ElementMixin,
   updateStyles: updateStyles
 };
@@ -11011,7 +11657,7 @@ class DomApiNative {
   } /**
      * Returns the root node of this node.  Equivalent to `getRootNode()`.
      *
-     * @return {Node} Top most element in the dom tree in which the node
+     * @return {!Node} Top most element in the dom tree in which the node
      * exists. If the node is connected to a document this is either a
      * shadowRoot or the document; otherwise, it may be the node
      * itself or a node or document fragment containing it.
@@ -11452,9 +12098,156 @@ function scopeSubtree(container, shouldObserve = false) {
 var scopeSubtree$1 = {
   scopeSubtree: scopeSubtree
 };
+const DISABLED_ATTR = 'disable-upgrade';
+
+const findObservedAttributesGetter = ctor => {
+  while (ctor) {
+    const desc = Object.getOwnPropertyDescriptor(ctor, 'observedAttributes');
+
+    if (desc) {
+      return desc.get;
+    }
+
+    ctor = Object.getPrototypeOf(ctor.prototype).constructor;
+  }
+
+  return () => [];
+}; /**
+    * Element class mixin that allows the element to boot up in a non-enabled
+    * state when the `disable-upgrade` attribute is present. This mixin is
+    * designed to be used with element classes like PolymerElement that perform
+    * initial startup work when they are first connected. When the
+    * `disable-upgrade` attribute is removed, if the element is connected, it
+    * boots up and "enables" as it otherwise would; if it is not connected, the
+    * element boots up when it is next connected.
+    *
+    * Using `disable-upgrade` with PolymerElement prevents any data propagation
+    * to the element, any element DOM from stamping, or any work done in
+    * connected/disconnctedCallback from occuring, but it does not prevent work
+    * done in the element constructor.
+    *
+    * Note, this mixin must be applied on top of any element class that
+    * itself implements a `connectedCallback` so that it can control the work
+    * done in `connectedCallback`. For example,
+    *
+    *     MyClass = DisableUpgradeMixin(class extends BaseClass {...});
+    *
+    * @mixinFunction
+    * @polymer
+    * @appliesMixin ElementMixin
+    * @template T
+    * @param {function(new:T)} superClass Class to apply mixin to.
+    * @return {function(new:T)} superClass with mixin applied.
+    */
+
+const DisableUpgradeMixin = dedupingMixin(base => {
+  /**
+   * @constructor
+   * @implements {Polymer_ElementMixin}
+   * @extends {HTMLElement}
+   * @private
+   */const superClass = ElementMixin(base); // Work around for closure bug #126934458. Using `super` in a property
+  // getter does not work so instead we search the Base prototype for an
+  // implementation of observedAttributes so that we can override and call
+  // the `super` getter. Note, this is done one time ever because we assume
+  // that `Base` is always comes from `Polymer.LegacyElementMixn`.
+
+  let observedAttributesGetter = findObservedAttributesGetter(superClass); /**
+                                                                            * @polymer
+                                                                            * @mixinClass
+                                                                            * @implements {Polymer_DisableUpgradeMixin}
+                                                                            */
+
+  class DisableUpgradeClass extends superClass {
+    constructor() {
+      super(); /** @type {boolean|undefined} */
+      this.__isUpgradeDisabled;
+    }
+
+    static get observedAttributes() {
+      return observedAttributesGetter.call(this).concat(DISABLED_ATTR);
+    } // Prevent element from initializing properties when it's upgrade disabled.
+    /** @override */
+
+    _initializeProperties() {
+      if (this.hasAttribute(DISABLED_ATTR)) {
+        this.__isUpgradeDisabled = true;
+      } else {
+        super._initializeProperties();
+      }
+    } // Prevent element from enabling properties when it's upgrade disabled.
+    // Normally overriding connectedCallback would be enough, but dom-* elements
+    /** @override */
+
+    _enableProperties() {
+      if (!this.__isUpgradeDisabled) {
+        super._enableProperties();
+      }
+    } // If the element starts upgrade-disabled and a property is set for
+    // which an accessor exists, the default should not be applied.
+    // This additional check is needed because defaults are applied via
+    // `_initializeProperties` which is called after initial properties
+    // have been set when the element starts upgrade-disabled.
+    /** @override */
+
+    _canApplyPropertyDefault(property) {
+      return super._canApplyPropertyDefault(property) && !(this.__isUpgradeDisabled && this._isPropertyPending(property));
+    } /**
+       * @override
+       * @param {string} name Attribute name.
+       * @param {?string} old The previous value for the attribute.
+       * @param {?string} value The new value for the attribute.
+       * @param {?string} namespace The XML namespace for the attribute.
+       * @return {void}
+       */
+
+    attributeChangedCallback(name, old, value, namespace) {
+      if (name == DISABLED_ATTR) {
+        // When disable-upgrade is removed, intialize properties and
+        // provoke connectedCallback if the element is already connected.
+        if (this.__isUpgradeDisabled && value == null) {
+          super._initializeProperties();
+
+          this.__isUpgradeDisabled = false;
+
+          if (wrap$1(this).isConnected) {
+            super.connectedCallback();
+          }
+        }
+      } else {
+        super.attributeChangedCallback(name, old, value, /** @type {null|string} */namespace);
+      }
+    } // Prevent element from connecting when it's upgrade disabled.
+    // This prevents user code in `attached` from being called.
+    /** @override */
+
+    connectedCallback() {
+      if (!this.__isUpgradeDisabled) {
+        super.connectedCallback();
+      }
+    } // Prevent element from disconnecting when it's upgrade disabled.
+    // This avoids allowing user code `detached` from being called without a
+    // paired call to `attached`.
+    /** @override */
+
+    disconnectedCallback() {
+      if (!this.__isUpgradeDisabled) {
+        super.disconnectedCallback();
+      }
+    }
+
+  }
+
+  return DisableUpgradeClass;
+});
+var disableUpgradeMixin = {
+  findObservedAttributesGetter: findObservedAttributesGetter,
+  DisableUpgradeMixin: DisableUpgradeMixin
+};
 const bundledImportMeta$1 = { ...import.meta,
   url: new URL('../node_modules/%40polymer/polymer/lib/legacy/legacy-element-mixin.js', import.meta.url).href
 };
+const DISABLED_ATTR$1 = 'disable-upgrade';
 let styleInterface = window.ShadyCSS; /**
                                        * Element class mixin that provides Polymer's "legacy" API intended to be
                                        * backward-compatible to the greatest extent possible with the API
@@ -11465,11 +12258,14 @@ let styleInterface = window.ShadyCSS; /**
                                        * @polymer
                                        * @appliesMixin ElementMixin
                                        * @appliesMixin GestureEventListeners
+                                       * @appliesMixin DirMixin
                                        * @property isAttached {boolean} Set to `true` in this element's
                                        *   `connectedCallback` and `false` in `disconnectedCallback`
                                        * @summary Element class mixin that provides Polymer's "legacy" API
                                        */
 const LegacyElementMixin = dedupingMixin(base => {
+  // TODO(kschaaf): Note, the `@implements {Polymer_DirMixin}` is required here
+  // (rather than on legacyElementBase) for unknown reasons.
   /**
    * @constructor
    * @implements {Polymer_ElementMixin}
@@ -11477,7 +12273,15 @@ const LegacyElementMixin = dedupingMixin(base => {
    * @implements {Polymer_DirMixin}
    * @extends {HTMLElement}
    * @private
-   */const legacyElementBase = DirMixin(GestureEventListeners(ElementMixin(base))); /**
+   */const GesturesElement = GestureEventListeners(ElementMixin(base)); // Note, the DirMixin does nothing if css is built so avoid including it
+  // in that case.
+  /**
+   * @constructor
+   * @extends {GesturesElement}
+   * @private
+   */
+  const legacyElementBase = builtCSS ? GesturesElement : DirMixin(GesturesElement);
+  const observedAttributesGetter = findObservedAttributesGetter(legacyElementBase); /**
                                                                                      * Map of simple names to touch action names
                                                                                      * @dict
                                                                                      */
@@ -11499,7 +12303,11 @@ const LegacyElementMixin = dedupingMixin(base => {
       super(); /** @type {boolean} */
       this.isAttached; /** @type {?WeakMap<!Element, !Object<string, !Function>>} */
       this.__boundListeners; /** @type {?Object<string, ?Function>} */
-      this._debouncers;
+      this._debouncers; // NOTE: Inlined for perf from version of DisableUpgradeMixin.
+      /** @type {boolean|undefined} */
+      this.__isUpgradeDisabled; /** @type {boolean|undefined} */
+      this.__needsAttributesAtConnected; /** @type {boolean|undefined} */
+      this._legacyForceObservedAttributes;
     } /**
        * Forwards `importMeta` from the prototype (i.e. from the info object
        * passed to `Polymer({...})`) to the static API.
@@ -11520,16 +12328,101 @@ const LegacyElementMixin = dedupingMixin(base => {
        */
 
     created() {} /**
-                  * Provides an implementation of `connectedCallback`
-                  * which adds Polymer legacy API's `attached` method.
+                  * Processes an attribute reaction when the `legacyNoObservedAttributes`
+                  * setting is in use.
+                  * @param {string} name Name of attribute that changed
+                  * @param {?string} old Old attribute value
+                  * @param {?string} value New attribute value
                   * @return {void}
-                  * @override
                   */
 
+    __attributeReaction(name, old, value) {
+      if (this.__dataAttributes && this.__dataAttributes[name] || name === DISABLED_ATTR$1) {
+        this.attributeChangedCallback(name, old, value, null);
+      }
+    } /**
+       * Sets the value of an attribute.
+       * @override
+       * @param {string} name The name of the attribute to change.
+       * @param {string|number|boolean|!TrustedHTML|!TrustedScriptURL|!TrustedURL} value The new attribute value.
+       */
+
+    setAttribute(name, value) {
+      if (legacyNoObservedAttributes && !this._legacyForceObservedAttributes) {
+        const oldValue = this.getAttribute(name);
+        super.setAttribute(name, value); // value coerced to String for closure's benefit
+
+        this.__attributeReaction(name, oldValue, String(value));
+      } else {
+        super.setAttribute(name, value);
+      }
+    } /**
+       * Removes an attribute.
+       * @override
+       * @param {string} name The name of the attribute to remove.
+       */
+
+    removeAttribute(name) {
+      if (legacyNoObservedAttributes && !this._legacyForceObservedAttributes) {
+        const oldValue = this.getAttribute(name);
+        super.removeAttribute(name);
+
+        this.__attributeReaction(name, oldValue, null);
+      } else {
+        super.removeAttribute(name);
+      }
+    } // NOTE: Inlined for perf from version of DisableUpgradeMixin.
+
+
+    static get observedAttributes() {
+      if (legacyNoObservedAttributes && !this.prototype._legacyForceObservedAttributes) {
+        // Ensure this element is property registered with the telemetry system.
+        if (!this.hasOwnProperty(JSCompiler_renameProperty('__observedAttributes', this))) {
+          this.__observedAttributes = [];
+          register(this.prototype);
+        }
+
+        return this.__observedAttributes;
+      } else {
+        return observedAttributesGetter.call(this).concat(DISABLED_ATTR$1);
+      }
+    } // NOTE: Inlined for perf from version of DisableUpgradeMixin.
+    // Prevent element from enabling properties when it's upgrade disabled.
+    // Normally overriding connectedCallback would be enough, but dom-* elements
+    /** @override */
+
+    _enableProperties() {
+      if (!this.__isUpgradeDisabled) {
+        super._enableProperties();
+      }
+    } // NOTE: Inlined for perf from version of DisableUpgradeMixin.
+    // If the element starts upgrade-disabled and a property is set for
+    // which an accessor exists, the default should not be applied.
+    // This additional check is needed because defaults are applied via
+    // `_initializeProperties` which is called after initial properties
+    // have been set when the element starts upgrade-disabled.
+    /** @override */
+
+    _canApplyPropertyDefault(property) {
+      return super._canApplyPropertyDefault(property) && !(this.__isUpgradeDisabled && this._isPropertyPending(property));
+    } /**
+       * Provides an implementation of `connectedCallback`
+       * which adds Polymer legacy API's `attached` method.
+       * @return {void}
+       * @override
+       */
+
     connectedCallback() {
-      super.connectedCallback();
-      this.isAttached = true;
-      this.attached();
+      if (this.__needsAttributesAtConnected) {
+        this._takeAttributes();
+      } // NOTE: Inlined for perf from version of DisableUpgradeMixin.
+
+
+      if (!this.__isUpgradeDisabled) {
+        super.connectedCallback();
+        this.isAttached = true;
+        this.attached();
+      }
     } /**
        * Legacy callback called during `connectedCallback`, for overriding
        * by the user.
@@ -11545,9 +12438,12 @@ const LegacyElementMixin = dedupingMixin(base => {
                    */
 
     disconnectedCallback() {
-      super.disconnectedCallback();
-      this.isAttached = false;
-      this.detached();
+      // NOTE: Inlined for perf from version of DisableUpgradeMixin.
+      if (!this.__isUpgradeDisabled) {
+        super.disconnectedCallback();
+        this.isAttached = false;
+        this.detached();
+      }
     } /**
        * Legacy callback called during `disconnectedCallback`, for overriding
        * by the user.
@@ -11568,8 +12464,23 @@ const LegacyElementMixin = dedupingMixin(base => {
 
     attributeChangedCallback(name, old, value, namespace) {
       if (old !== value) {
-        super.attributeChangedCallback(name, old, value, namespace);
-        this.attributeChanged(name, old, value);
+        // NOTE: Inlined for perf from version of DisableUpgradeMixin.
+        if (name == DISABLED_ATTR$1) {
+          // When disable-upgrade is removed, intialize properties and
+          // provoke connectedCallback if the element is already connected.
+          if (this.__isUpgradeDisabled && value == null) {
+            this._initializeProperties();
+
+            this.__isUpgradeDisabled = false;
+
+            if (wrap$1(this).isConnected) {
+              this.connectedCallback();
+            }
+          }
+        } else {
+          super.attributeChangedCallback(name, old, value, namespace);
+          this.attributeChanged(name, old, value);
+        }
       }
     } /**
        * Legacy callback called during `attributeChangedChallback`, for overriding
@@ -11593,24 +12504,50 @@ const LegacyElementMixin = dedupingMixin(base => {
      */
 
     _initializeProperties() {
-      let proto = Object.getPrototypeOf(this);
+      // NOTE: Inlined for perf from version of DisableUpgradeMixin.
+      // Only auto-use disable-upgrade if legacyOptimizations is set.
+      if (legacyOptimizations && this.hasAttribute(DISABLED_ATTR$1)) {
+        this.__isUpgradeDisabled = true;
+      } else {
+        let proto = Object.getPrototypeOf(this);
 
-      if (!proto.hasOwnProperty(JSCompiler_renameProperty('__hasRegisterFinished', proto))) {
-        this._registered(); // backstop in case the `_registered` implementation does not set this
+        if (!proto.hasOwnProperty(JSCompiler_renameProperty('__hasRegisterFinished', proto))) {
+          this._registered(); // backstop in case the `_registered` implementation does not set this
 
 
-        proto.__hasRegisterFinished = true;
+          proto.__hasRegisterFinished = true;
+        }
+
+        super._initializeProperties();
+
+        this.root = /** @type {HTMLElement} */this;
+        this.created(); // Pull all attribute values 1x if `legacyNoObservedAttributes` is set.
+
+        if (legacyNoObservedAttributes && !this._legacyForceObservedAttributes) {
+          if (this.hasAttributes()) {
+            this._takeAttributes(); // Element created from scratch or parser generated
+
+          } else if (!this.parentNode) {
+            this.__needsAttributesAtConnected = true;
+          }
+        } // Ensure listeners are applied immediately so that they are
+        // added before declarative event listeners. This allows an element to
+        // decorate itself via an event prior to any declarative listeners
+        // seeing the event. Note, this ensures compatibility with 1.x ordering.
+
+
+        this._applyListeners();
       }
+    }
 
-      super._initializeProperties();
+    _takeAttributes() {
+      const a = this.attributes;
 
-      this.root = /** @type {HTMLElement} */this;
-      this.created(); // Ensure listeners are applied immediately so that they are
-      // added before declarative event listeners. This allows an element to
-      // decorate itself via an event prior to any declarative listeners
-      // seeing the event. Note, this ensures compatibility with 1.x ordering.
+      for (let i = 0, l = a.length; i < l; i++) {
+        const attr = a[i];
 
-      this._applyListeners();
+        this.__attributeReaction(attr.name, null, attr.value);
+      }
     } /**
        * Called automatically when an element is initializing.
        * Users may override this method to perform class registration time
@@ -12426,7 +13363,7 @@ const LegacyElementMixin = dedupingMixin(base => {
        *
        * @param {string} methodName Method name to associate with message
        * @param {...*} args Array of strings or objects to log
-       * @return {Array} Array with formatting information for `console`
+       * @return {!Array} Array with formatting information for `console`
        *   logging.
        * @override
        */
@@ -12611,35 +13548,37 @@ function mergeProperties(target, source) {
       target[p] = sourceInfo;
     }
   }
-} /* Note about construction and extension of legacy classes.
-    [Changed in Q4 2018 to optimize performance.]
-  
-    When calling `Polymer` or `mixinBehaviors`, the generated class below is
-    made. The list of behaviors was previously made into one generated class per
-    behavior, but this is no longer the case as behaviors are now called
-    manually. Note, there may *still* be multiple generated classes in the
-    element's prototype chain if extension is used with `mixinBehaviors`.
-  
-    The generated class is directly tied to the info object and behaviors
-    used to create it. That list of behaviors is filtered so it's only the
-    behaviors not active on the superclass. In order to call through to the
-    entire list of lifecycle methods, it's important to call `super`.
-  
-    The element's `properties` and `observers` are controlled via the finalization
-    mechanism provided by `PropertiesMixin`. `Properties` and `observers` are
-    collected by manually traversing the prototype chain and merging.
-  
-    To limit changes, the `_registered` method is called via `_initializeProperties`
-    and not `_finalizeClass`.
-  
-  */ /**
-      * @param {!PolymerInit} info Polymer info object
-      * @param {function(new:HTMLElement)} Base base class to extend with info object
-      * @param {Object=} behaviors behaviors to copy into the element
-      * @return {function(new:HTMLElement)} Generated class
-      * @suppress {checkTypes}
-      * @private
-      */
+}
+
+const LegacyElement = LegacyElementMixin(HTMLElement); /* Note about construction and extension of legacy classes.
+                                                         [Changed in Q4 2018 to optimize performance.]
+                                                       
+                                                         When calling `Polymer` or `mixinBehaviors`, the generated class below is
+                                                         made. The list of behaviors was previously made into one generated class per
+                                                         behavior, but this is no longer the case as behaviors are now called
+                                                         manually. Note, there may *still* be multiple generated classes in the
+                                                         element's prototype chain if extension is used with `mixinBehaviors`.
+                                                       
+                                                         The generated class is directly tied to the info object and behaviors
+                                                         used to create it. That list of behaviors is filtered so it's only the
+                                                         behaviors not active on the superclass. In order to call through to the
+                                                         entire list of lifecycle methods, it's important to call `super`.
+                                                       
+                                                         The element's `properties` and `observers` are controlled via the finalization
+                                                         mechanism provided by `PropertiesMixin`. `Properties` and `observers` are
+                                                         collected by manually traversing the prototype chain and merging.
+                                                       
+                                                         To limit changes, the `_registered` method is called via `_initializeProperties`
+                                                         and not `_finalizeClass`.
+                                                       
+                                                       */ /**
+                                                           * @param {!PolymerInit} info Polymer info object
+                                                           * @param {function(new:HTMLElement)} Base base class to extend with info object
+                                                           * @param {Object=} behaviors behaviors to copy into the element
+                                                           * @return {function(new:HTMLElement)} Generated class
+                                                           * @suppress {checkTypes}
+                                                           * @private
+                                                           */
 
 function GenerateClassFromInfo(info, Base, behaviors) {
   // manages behavior and lifecycle processing (filled in after class definition)
@@ -12980,7 +13919,7 @@ const Class = function (info, mixin) {
     console.warn('Polymer.Class requires `info` argument');
   }
 
-  let klass = mixin ? mixin(LegacyElementMixin(HTMLElement)) : LegacyElementMixin(HTMLElement);
+  let klass = mixin ? mixin(LegacyElement) : LegacyElement;
   klass = GenerateClassFromInfo(info, klass, info.behaviors); // decorate klass with registration info
 
   klass.is = klass.prototype.is = info.is;
@@ -13001,6 +13940,11 @@ const Polymer = function (info) {
     klass = info;
   } else {
     klass = Polymer.Class(info);
+  } // Copy opt out for `legacyNoObservedAttributes` from info object to class.
+
+
+  if (info._legacyForceObservedAttributes) {
+    klass.prototype._legacyForceObservedAttributes = info._legacyForceObservedAttributes;
   }
 
   customElements.define(klass.is, /** @type {!HTMLElement} */klass);
@@ -13236,14 +14180,56 @@ function upgradeTemplate(template, constructor) {
    * @private
    */
 
-const templateInstanceBase = PropertyEffects( // This cast shouldn't be neccessary, but Closure doesn't understand that
-// "class {}" is a constructor function.
-/** @type {function(new:Object)} */class {}); /**
-                                               * @polymer
-                                               * @customElement
-                                               * @appliesMixin PropertyEffects
-                                               * @unrestricted
-                                               */
+const templateInstanceBase = PropertyEffects(class {});
+
+function showHideChildren(hide, children) {
+  for (let i = 0; i < children.length; i++) {
+    let n = children[i]; // Ignore non-changes
+
+    if (Boolean(hide) != Boolean(n.__hideTemplateChildren__)) {
+      // clear and restore text
+      if (n.nodeType === Node.TEXT_NODE) {
+        if (hide) {
+          n.__polymerTextContent__ = n.textContent;
+          n.textContent = '';
+        } else {
+          n.textContent = n.__polymerTextContent__;
+        } // remove and replace slot
+
+      } else if (n.localName === 'slot') {
+        if (hide) {
+          n.__polymerReplaced__ = document.createComment('hidden-slot');
+          wrap$1(wrap$1(n).parentNode).replaceChild(n.__polymerReplaced__, n);
+        } else {
+          const replace = n.__polymerReplaced__;
+
+          if (replace) {
+            wrap$1(wrap$1(replace).parentNode).replaceChild(n, replace);
+          }
+        }
+      } // hide and show nodes
+      else if (n.style) {
+          if (hide) {
+            n.__polymerDisplay__ = n.style.display;
+            n.style.display = 'none';
+          } else {
+            n.style.display = n.__polymerDisplay__;
+          }
+        }
+    }
+
+    n.__hideTemplateChildren__ = hide;
+
+    if (n._showHideChildren) {
+      n._showHideChildren(hide);
+    }
+  }
+} /**
+   * @polymer
+   * @customElement
+   * @appliesMixin PropertyEffects
+   * @unrestricted
+   */
 
 class TemplateInstanceBase extends templateInstanceBase {
   constructor(props) {
@@ -13348,47 +14334,7 @@ class TemplateInstanceBase extends templateInstanceBase {
      */
 
   _showHideChildren(hide) {
-    let c = this.children;
-
-    for (let i = 0; i < c.length; i++) {
-      let n = c[i]; // Ignore non-changes
-
-      if (Boolean(hide) != Boolean(n.__hideTemplateChildren__)) {
-        if (n.nodeType === Node.TEXT_NODE) {
-          if (hide) {
-            n.__polymerTextContent__ = n.textContent;
-            n.textContent = '';
-          } else {
-            n.textContent = n.__polymerTextContent__;
-          } // remove and replace slot
-
-        } else if (n.localName === 'slot') {
-          if (hide) {
-            n.__polymerReplaced__ = document.createComment('hidden-slot');
-            wrap$1(wrap$1(n).parentNode).replaceChild(n.__polymerReplaced__, n);
-          } else {
-            const replace = n.__polymerReplaced__;
-
-            if (replace) {
-              wrap$1(wrap$1(replace).parentNode).replaceChild(n, replace);
-            }
-          }
-        } else if (n.style) {
-          if (hide) {
-            n.__polymerDisplay__ = n.style.display;
-            n.style.display = 'none';
-          } else {
-            n.style.display = n.__polymerDisplay__;
-          }
-        }
-      }
-
-      n.__hideTemplateChildren__ = hide;
-
-      if (n._showHideChildren) {
-        n._showHideChildren(hide);
-      }
-    }
+    showHideChildren(hide, this.children);
   } /**
      * Overrides default property-effects implementation to intercept
      * textContent bindings while children are "hidden" and cache in
@@ -13459,8 +14405,8 @@ TemplateInstanceBase.prototype.__hostProps; /**
                                              * @implements {Polymer_MutableData}
                                              * @private
                                              */
-const MutableTemplateInstanceBase = MutableData( // This cast shouldn't be necessary, but Closure doesn't seem to understand
-// this constructor.
+const MutableTemplateInstanceBase = MutableData( // This cast shouldn't be neccessary, but Closure doesn't understand that
+// TemplateInstanceBase is a constructor function.
 /** @type {function(new:TemplateInstanceBase)} */TemplateInstanceBase);
 
 function findMethodHost(template) {
@@ -13499,24 +14445,52 @@ function createTemplatizerClass(template, templateInfo, options) {
 } /**
    * Adds propagate effects from the template to the template instance for
    * properties that the host binds to the template using the `_host_` prefix.
-   * 
+   *
    * @suppress {missingProperties} class.prototype is not defined for some reason
    */
 
-function addPropagateEffects(template, templateInfo, options) {
+function addPropagateEffects(target, templateInfo, options, methodHost) {
   let userForwardHostProp = options.forwardHostProp;
 
   if (userForwardHostProp && templateInfo.hasHostProps) {
-    // Provide data API and property effects on memoized template class
+    // Under the `removeNestedTemplates` optimization, a custom element like
+    // `dom-if` or `dom-repeat` can itself be treated as the "template"; this
+    // flag is used to switch between upgrading a `<template>` to be a property
+    // effects client vs. adding the effects directly to the custom element
+    const isTemplate = target.localName == 'template'; // Provide data API and property effects on memoized template class
+
     let klass = templateInfo.templatizeTemplateClass;
 
     if (!klass) {
-      /**
-       * @constructor
-       * @extends {DataTemplate}
-       */let templatizedBase = options.mutableData ? MutableDataTemplate : DataTemplate; /** @private */
-      klass = templateInfo.templatizeTemplateClass = class TemplatizedTemplate extends templatizedBase {}; // Add template - >instances effects
+      if (isTemplate) {
+        /**
+         * @constructor
+         * @extends {DataTemplate}
+         */let templatizedBase = options.mutableData ? MutableDataTemplate : DataTemplate; // NOTE: due to https://github.com/google/closure-compiler/issues/2928,
+        // combining the next two lines into one assignment causes a spurious
+        // type error.
+        /** @private */
+
+        class TemplatizedTemplate extends templatizedBase {}
+
+        klass = templateInfo.templatizeTemplateClass = TemplatizedTemplate;
+      } else {
+        /**
+         * @constructor
+         * @extends {PolymerElement}
+         */const templatizedBase = target.constructor; // Create a cached subclass of the base custom element class onto which
+        // to put the template-specific propagate effects
+        // NOTE: due to https://github.com/google/closure-compiler/issues/2928,
+        // combining the next two lines into one assignment causes a spurious
+        // type error.
+        /** @private */
+
+        class TemplatizedTemplateExtension extends templatizedBase {}
+
+        klass = templateInfo.templatizeTemplateClass = TemplatizedTemplateExtension;
+      } // Add template - >instances effects
       // and host <- template effects
+
 
       let hostProps = templateInfo.hostProps;
 
@@ -13527,23 +14501,46 @@ function addPropagateEffects(template, templateInfo, options) {
 
         klass.prototype._createNotifyingProperty('_host_' + prop);
       }
-    }
 
-    upgradeTemplate(template, klass); // Mix any pre-bound data into __data; no need to flush this to
+      if (legacyWarnings && methodHost) {
+        warnOnUndeclaredProperties(templateInfo, options, methodHost);
+      }
+    } // Mix any pre-bound data into __data; no need to flush this to
     // instances since they pull from the template at instance-time
 
-    if (template.__dataProto) {
+
+    if (target.__dataProto) {
       // Note, generally `__dataProto` could be chained, but it's guaranteed
       // to not be since this is a vanilla template we just added effects to
-      Object.assign(template.__data, template.__dataProto);
-    } // Clear any pending data for performance
+      Object.assign(target.__data, target.__dataProto);
+    }
 
+    if (isTemplate) {
+      upgradeTemplate(target, klass); // Clear any pending data for performance
 
-    template.__dataTemp = {};
-    template.__dataPending = null;
-    template.__dataOld = null;
+      target.__dataTemp = {};
+      target.__dataPending = null;
+      target.__dataOld = null;
 
-    template._enableProperties();
+      target._enableProperties();
+    } else {
+      // Swizzle the cached subclass prototype onto the custom element
+      Object.setPrototypeOf(target, klass.prototype); // Check for any pre-bound instance host properties, and do the
+      // instance property delete/assign dance for those (directly into data;
+      // not need to go through accessor since they are pulled at instance time)
+
+      const hostProps = templateInfo.hostProps;
+
+      for (let prop in hostProps) {
+        prop = '_host_' + prop;
+
+        if (prop in target) {
+          const val = target[prop];
+          delete target[prop];
+          target.__data[prop] = val;
+        }
+      }
+    }
   }
 } /* eslint-enable valid-jsdoc */
 
@@ -13700,19 +14697,49 @@ function templatize(template, owner, options) {
   if (!baseClass) {
     baseClass = createTemplatizerClass(template, templateInfo, options);
     templateInfo.templatizeInstanceClass = baseClass;
-  } // Host property forwarding must be installed onto template instance
+  }
 
+  const methodHost = findMethodHost(template); // Host property forwarding must be installed onto template instance
 
-  addPropagateEffects(template, templateInfo, options); // Subclass base class and add reference for this specific template
+  addPropagateEffects(template, templateInfo, options, methodHost); // Subclass base class and add reference for this specific template
   /** @private */
   let klass = class TemplateInstance extends baseClass {}; /** @override */
-  klass.prototype._methodHost = findMethodHost(template); /** @override */
+  klass.prototype._methodHost = methodHost; /** @override */
   klass.prototype.__dataHost = /** @type {!DataTemplate} */template; /** @override */
   klass.prototype.__templatizeOwner = /** @type {!Object} */owner; /** @override */
   klass.prototype.__hostProps = templateInfo.hostProps;
   klass = /** @type {function(new:TemplateInstanceBase)} */klass; //eslint-disable-line no-self-assign
 
   return klass;
+}
+
+function warnOnUndeclaredProperties(templateInfo, options, methodHost) {
+  const declaredProps = methodHost.constructor._properties;
+  const {
+    propertyEffects
+  } = templateInfo;
+  const {
+    instanceProps
+  } = options;
+
+  for (let prop in propertyEffects) {
+    // Ensure properties with template effects are declared on the outermost
+    // host (`methodHost`), unless they are instance props or static functions
+    if (!declaredProps[prop] && !(instanceProps && instanceProps[prop])) {
+      const effects = propertyEffects[prop];
+
+      for (let i = 0; i < effects.length; i++) {
+        const {
+          part
+        } = effects[i].info;
+
+        if (!(part.signature && part.signature.static)) {
+          console.warn(`Property '${prop}' used in template but not ` + `declared in 'properties'; attribute will not be observed.`);
+          break;
+        }
+      }
+    }
+  }
 } /**
    * Returns the template "model" associated with a given element, which
    * serves as the binding scope for the template instance the element is
@@ -13727,8 +14754,10 @@ function templatize(template, owner, options) {
    *     model.set('item.checked', true);
    *   }
    *
-   * @param {HTMLTemplateElement} template The model will be returned for
-   *   elements stamped from this template
+   * @param {HTMLElement} template The model will be returned for
+   *   elements stamped from this template (accepts either an HTMLTemplateElement)
+   *   or a `<dom-if>`/`<dom-repeat>` element when using `removeNestedTemplates`
+   *   optimization.
    * @param {Node=} node Node for which to return a template model.
    * @return {TemplateInstanceBase} Template instance representing the
    *   binding scope for the element
@@ -13741,7 +14770,7 @@ function modelForElement(template, node) {
     // An element with a __templatizeInstance marks the top boundary
     // of a scope; walk up until we find one, and then ensure that
     // its __dataHost matches `this`, meaning this dom-repeat stamped it
-    if (model = node.__templatizeInstance) {
+    if (model = node.__dataHost ? node : node.__templatizeInstance) {
       // Found an element stamped by another template; keep walking up
       // from its __dataHost
       if (model.__dataHost != template) {
@@ -13760,6 +14789,7 @@ function modelForElement(template, node) {
 }
 
 var templatize$1 = {
+  showHideChildren: showHideChildren,
   templatize: templatize,
   modelForElement: modelForElement,
   TemplateInstanceBase: TemplateInstanceBase
@@ -14361,18 +15391,18 @@ class DomRepeat extends domRepeatBase {
        *
        */renderedItemCount: {
         type: Number,
-        notify: true,
+        notify: !suppressTemplateNotifications,
         readOnly: true
       },
       /**
-       * Defines an initial count of template instances to render after setting
-       * the `items` array, before the next paint, and puts the `dom-repeat`
-       * into "chunking mode".  The remaining items will be created and rendered
-       * incrementally at each animation frame therof until all instances have
-       * been rendered.
+       * When greater than zero, defines an initial count of template instances
+       * to render after setting the `items` array, before the next paint, and
+       * puts the `dom-repeat` into "chunking mode".  The remaining items (and
+       * any future items as a result of pushing onto the array) will be created
+       * and rendered incrementally at each animation frame thereof until all
+       * instances have been rendered.
        */initialCount: {
-        type: Number,
-        observer: '__initializeChunking'
+        type: Number
       },
       /**
        * When `initialCount` is used, this property defines a frame rate (in
@@ -14392,6 +15422,30 @@ class DomRepeat extends domRepeatBase {
       _targetFrameTime: {
         type: Number,
         computed: '__computeFrameTime(targetFramerate)'
+      },
+      /**
+       * When the global `suppressTemplateNotifications` setting is used, setting
+       * `notifyDomChange: true` will enable firing `dom-change` events on this
+       * element.
+       */notifyDomChange: {
+        type: Boolean
+      },
+      /**
+       * When chunking is enabled via `initialCount` and the `items` array is
+       * set to a new array, this flag controls whether the previously rendered
+       * instances are reused or not.
+       *
+       * When `true`, any previously rendered template instances are updated in
+       * place to their new item values synchronously in one shot, and then any
+       * further items (if any) are chunked out.  When `false`, the list is
+       * returned back to its `initialCount` (any instances over the initial
+       * count are discarded) and the remainder of the list is chunked back in.
+       * Set this to `true` to avoid re-creating the list and losing scroll
+       * position, although note that when changing the list to completely
+       * different data the render thread will be blocked until all existing
+       * instances are updated to their new data.
+       */reuseChunkedInstances: {
+        type: Boolean
       }
     };
   }
@@ -14403,18 +15457,21 @@ class DomRepeat extends domRepeatBase {
   constructor() {
     super();
     this.__instances = [];
-    this.__limit = Infinity;
-    this.__pool = [];
     this.__renderDebouncer = null;
     this.__itemsIdxToInstIdx = {};
     this.__chunkCount = null;
-    this.__lastChunkTime = null;
+    this.__renderStartTime = null;
+    this.__itemsArrayChanged = false;
+    this.__shouldMeasureChunk = false;
+    this.__shouldContinueChunking = false;
+    this.__chunkingId = 0;
     this.__sortFn = null;
     this.__filterFn = null;
     this.__observePaths = null; /** @type {?function(new:TemplateInstanceBase, Object=)} */
     this.__ctor = null;
     this.__isDetached = true;
-    this.template = null;
+    this.template = null; /** @type {TemplateInfo} */
+    this._templateInfo;
   } /**
      * @override
      * @return {void}
@@ -14455,10 +15512,13 @@ class DomRepeat extends domRepeatBase {
     // until ready, since won't have its template content handed back to
     // it until then
     if (!this.__ctor) {
-      let template = this.template = /** @type {HTMLTemplateElement} */this.querySelector('template');
+      // When `removeNestedTemplates` is true, the "template" is the element
+      // itself, which has been given a `_templateInfo` property
+      const thisAsTemplate = /** @type {!HTMLTemplateElement} */ /** @type {!HTMLElement} */this;
+      let template = this.template = thisAsTemplate._templateInfo ? thisAsTemplate : /** @type {!HTMLTemplateElement} */this.querySelector('template');
 
       if (!template) {
-        // // Wait until childList changes and template should be there by then
+        // Wait until childList changes and template should be there by then
         let observer = new MutationObserver(() => {
           if (this.querySelector('template')) {
             observer.disconnect();
@@ -14560,57 +15620,8 @@ class DomRepeat extends domRepeatBase {
     return Math.ceil(1000 / rate);
   }
 
-  __initializeChunking() {
-    if (this.initialCount) {
-      this.__limit = this.initialCount;
-      this.__chunkCount = this.initialCount;
-      this.__lastChunkTime = performance.now();
-    }
-  }
-
-  __tryRenderChunk() {
-    // Debounced so that multiple calls through `_render` between animation
-    // frames only queue one new rAF (e.g. array mutation & chunked render)
-    if (this.items && this.__limit < this.items.length) {
-      this.__debounceRender(this.__requestRenderChunk);
-    }
-  }
-
-  __requestRenderChunk() {
-    requestAnimationFrame(() => this.__renderChunk());
-  }
-
-  __renderChunk() {
-    // Simple auto chunkSize throttling algorithm based on feedback loop:
-    // measure actual time between frames and scale chunk count by ratio
-    // of target/actual frame time
-    let currChunkTime = performance.now();
-    let ratio = this._targetFrameTime / (currChunkTime - this.__lastChunkTime);
-    this.__chunkCount = Math.round(this.__chunkCount * ratio) || 1;
-    this.__limit += this.__chunkCount;
-    this.__lastChunkTime = currChunkTime;
-
-    this.__debounceRender(this.__render);
-  }
-
   __observeChanged() {
     this.__observePaths = this.observe && this.observe.replace('.*', '.').split(' ');
-  }
-
-  __itemsChanged(change) {
-    if (this.items && !Array.isArray(this.items)) {
-      console.warn('dom-repeat expected array for `items`, found', this.items);
-    } // If path was to an item (e.g. 'items.3' or 'items.3.foo'), forward the
-    // path to that instance synchronously (returns false for non-item paths)
-
-
-    if (!this.__handleItemPath(change.path, change.value)) {
-      // Otherwise, the array was reset ('items') or spliced ('items.splices'),
-      // so queue a full refresh
-      this.__initializeChunking();
-
-      this.__debounceRender(this.__render);
-    }
   }
 
   __handleObservedPaths(path) {
@@ -14629,6 +15640,25 @@ class DomRepeat extends domRepeatBase {
           }
         }
       }
+    }
+  }
+
+  __itemsChanged(change) {
+    if (this.items && !Array.isArray(this.items)) {
+      console.warn('dom-repeat expected array for `items`, found', this.items);
+    } // If path was to an item (e.g. 'items.3' or 'items.3.foo'), forward the
+    // path to that instance synchronously (returns false for non-item paths)
+
+
+    if (!this.__handleItemPath(change.path, change.value)) {
+      // Otherwise, the array was reset ('items') or spliced ('items.splices'),
+      // so queue a render.  Restart chunking when the items changed (for
+      // backward compatibility), unless `reuseChunkedInstances` option is set
+      if (change.path === 'items') {
+        this.__itemsArrayChanged = true;
+      }
+
+      this.__debounceRender(this.__render);
     }
   } /**
      * @param {function(this:DomRepeat)} fn Function to debounce.
@@ -14660,28 +15690,40 @@ class DomRepeat extends domRepeatBase {
       return;
     }
 
-    this.__applyFullRefresh(); // Reset the pool
-    // TODO(kschaaf): Reuse pool across turns and nested templates
-    // Now that objects/arrays are re-evaluated when set, we can safely
-    // reuse pooled instances across turns, however we still need to decide
-    // semantics regarding how long to hold, how many to hold, etc.
+    let items = this.items || []; // Sort and filter the items into a mapping array from instance->item
+
+    const isntIdxToItemsIdx = this.__sortAndFilterItems(items); // If we're chunking, increase the limit if there are new instances to
+    // create and schedule the next chunk
 
 
-    this.__pool.length = 0; // Set rendered item count
+    const limit = this.__calculateLimit(isntIdxToItemsIdx.length); // Create, update, and/or remove instances
+
+
+    this.__updateInstances(items, limit, isntIdxToItemsIdx); // If we're chunking, schedule a rAF task to measure/continue chunking.     
+    // Do this before any notifying events (renderedItemCount & dom-change)
+    // since those could modify items and enqueue a new full render which will
+    // pre-empt this measurement.
+
+
+    if (this.initialCount && (this.__shouldMeasureChunk || this.__shouldContinueChunking)) {
+      cancelAnimationFrame(this.__chunkingId);
+      this.__chunkingId = requestAnimationFrame(() => this.__continueChunking());
+    } // Set rendered item count
+
 
     this._setRenderedItemCount(this.__instances.length); // Notify users
 
 
-    this.dispatchEvent(new CustomEvent('dom-change', {
-      bubbles: true,
-      composed: true
-    })); // Check to see if we need to render more items
-
-    this.__tryRenderChunk();
+    if (!suppressTemplateNotifications || this.notifyDomChange) {
+      this.dispatchEvent(new CustomEvent('dom-change', {
+        bubbles: true,
+        composed: true
+      }));
+    }
   }
 
-  __applyFullRefresh() {
-    let items = this.items || [];
+  __sortAndFilterItems(items) {
+    // Generate array maping the instance index to the items array index
     let isntIdxToItemsIdx = new Array(items.length);
 
     for (let i = 0; i < items.length; i++) {
@@ -14696,15 +15738,73 @@ class DomRepeat extends domRepeatBase {
 
     if (this.__sortFn) {
       isntIdxToItemsIdx.sort((a, b) => this.__sortFn(items[a], items[b]));
-    } // items->inst map kept for item path forwarding
+    }
+
+    return isntIdxToItemsIdx;
+  }
+
+  __calculateLimit(filteredItemCount) {
+    let limit = filteredItemCount;
+    const currentCount = this.__instances.length; // When chunking, we increase the limit from the currently rendered count
+    // by the chunk count that is re-calculated after each rAF (with special
+    // cases for reseting the limit to initialCount after changing items)
+
+    if (this.initialCount) {
+      let newCount;
+
+      if (!this.__chunkCount || this.__itemsArrayChanged && !this.reuseChunkedInstances) {
+        // Limit next render to the initial count
+        limit = Math.min(filteredItemCount, this.initialCount); // Subtract off any existing instances to determine the number of
+        // instances that will be created
+
+        newCount = Math.max(limit - currentCount, 0); // Initialize the chunk size with how many items we're creating
+
+        this.__chunkCount = newCount || 1;
+      } else {
+        // The number of new instances that will be created is based on the
+        // existing instances, the new list size, and the chunk size
+        newCount = Math.min(Math.max(filteredItemCount - currentCount, 0), this.__chunkCount); // Update the limit based on how many new items we're making, limited
+        // buy the total size of the list
+
+        limit = Math.min(currentCount + newCount, filteredItemCount);
+      } // Record some state about chunking for use in `__continueChunking`
 
 
+      this.__shouldMeasureChunk = newCount === this.__chunkCount;
+      this.__shouldContinueChunking = limit < filteredItemCount;
+      this.__renderStartTime = performance.now();
+    }
+
+    this.__itemsArrayChanged = false;
+    return limit;
+  }
+
+  __continueChunking() {
+    // Simple auto chunkSize throttling algorithm based on feedback loop:
+    // measure actual time between frames and scale chunk count by ratio of
+    // target/actual frame time.  Only modify chunk size if our measurement
+    // reflects the cost of a creating a full chunk's worth of instances; this
+    // avoids scaling up the chunk size if we e.g. quickly re-rendered instances
+    // in place
+    if (this.__shouldMeasureChunk) {
+      const renderTime = performance.now() - this.__renderStartTime;
+
+      const ratio = this._targetFrameTime / renderTime;
+      this.__chunkCount = Math.round(this.__chunkCount * ratio) || 1;
+    } // Enqueue a new render if we haven't reached the full size of the list
+
+
+    if (this.__shouldContinueChunking) {
+      this.__debounceRender(this.__render);
+    }
+  }
+
+  __updateInstances(items, limit, isntIdxToItemsIdx) {
+    // items->inst map kept for item path forwarding
     const itemsIdxToInstIdx = this.__itemsIdxToInstIdx = {};
-    let instIdx = 0; // Generate instances and assign items
+    let instIdx; // Generate instances and assign items
 
-    const limit = Math.min(isntIdxToItemsIdx.length, this.__limit);
-
-    for (; instIdx < limit; instIdx++) {
+    for (instIdx = 0; instIdx < limit; instIdx++) {
       let inst = this.__instances[instIdx];
       let itemIdx = isntIdxToItemsIdx[instIdx];
       let item = items[itemIdx];
@@ -14748,11 +15848,7 @@ class DomRepeat extends domRepeatBase {
   }
 
   __detachAndRemoveInstance(idx) {
-    let inst = this.__detachInstance(idx);
-
-    if (inst) {
-      this.__pool.push(inst);
-    }
+    this.__detachInstance(idx);
 
     this.__instances.splice(idx, 1);
   }
@@ -14766,21 +15862,7 @@ class DomRepeat extends domRepeatBase {
   }
 
   __insertInstance(item, instIdx, itemIdx) {
-    let inst = this.__pool.pop();
-
-    if (inst) {
-      // TODO(kschaaf): If the pool is shared across turns, hostProps
-      // need to be re-set to reused instances in addition to item
-      inst._setPendingProperty(this.as, item);
-
-      inst._setPendingProperty(this.indexAs, instIdx);
-
-      inst._setPendingProperty(this.itemsIndexAs, itemIdx);
-
-      inst._flushProperties();
-    } else {
-      inst = this.__stampInstance(item, instIdx, itemIdx);
-    }
+    const inst = this.__stampInstance(item, instIdx, itemIdx);
 
     let beforeRow = this.__instances[instIdx + 1];
     let beforeNode = beforeRow ? beforeRow.children[0] : this;
@@ -14892,7 +15974,7 @@ var domRepeat = {
   DomRepeat: DomRepeat
 };
 
-class DomIf extends PolymerElement {
+class DomIfBase extends PolymerElement {
   // Not needed to find template; can be removed once the analyzer
   // can find the tag name from customElements.define call
   static get is() {
@@ -14926,6 +16008,13 @@ class DomIf extends PolymerElement {
        */restamp: {
         type: Boolean,
         observer: '__debounceRender'
+      },
+      /**
+       * When the global `suppressTemplateNotifications` setting is used, setting
+       * `notifyDomChange: true` will enable firing `dom-change` events on this
+       * element.
+       */notifyDomChange: {
+        type: Boolean
       }
     };
   }
@@ -14933,11 +16022,10 @@ class DomIf extends PolymerElement {
   constructor() {
     super();
     this.__renderDebouncer = null;
-    this.__invalidProps = null;
-    this.__instance = null;
     this._lastIf = false;
-    this.__ctor = null;
-    this.__hideTemplateChildren__ = false;
+    this.__hideTemplateChildren__ = false; /** @type {!HTMLTemplateElement|undefined} */
+    this.__template; /** @type {!TemplateInfo|undefined} */
+    this._templateInfo;
   }
 
   __debounceRender() {
@@ -14987,17 +16075,113 @@ class DomIf extends PolymerElement {
       this.__debounceRender();
     }
   } /**
+     * Ensures a template has been assigned to `this.__template`.  If it has not
+     * yet been, it querySelectors for it in its children and if it does not yet
+     * exist (e.g. in parser-generated case), opens a mutation observer and
+     * waits for it to appear (returns false if it has not yet been found,
+     * otherwise true).  In the `removeNestedTemplates` case, the "template" will
+     * be the `dom-if` element itself.
+     *
+     * @return {boolean} True when a template has been found, false otherwise
+     */
+
+  __ensureTemplate() {
+    if (!this.__template) {
+      // When `removeNestedTemplates` is true, the "template" is the element
+      // itself, which has been given a `_templateInfo` property
+      const thisAsTemplate = /** @type {!HTMLTemplateElement} */ /** @type {!HTMLElement} */this;
+      let template = thisAsTemplate._templateInfo ? thisAsTemplate : /** @type {!HTMLTemplateElement} */wrap$1(thisAsTemplate).querySelector('template');
+
+      if (!template) {
+        // Wait until childList changes and template should be there by then
+        let observer = new MutationObserver(() => {
+          if (wrap$1(this).querySelector('template')) {
+            observer.disconnect();
+
+            this.__render();
+          } else {
+            throw new Error('dom-if requires a <template> child');
+          }
+        });
+        observer.observe(this, {
+          childList: true
+        });
+        return false;
+      }
+
+      this.__template = template;
+    }
+
+    return true;
+  } /**
+     * Ensures a an instance of the template has been created and inserted. This
+     * method may return false if the template has not yet been found or if
+     * there is no `parentNode` to insert the template into (in either case,
+     * connection or the template-finding mutation observer firing will queue
+     * another render, causing this method to be called again at a more
+     * appropriate time).
+     *
+     * Subclasses should implement the following methods called here:
+     * - `__hasInstance`
+     * - `__createAndInsertInstance`
+     * - `__getInstanceNodes`
+     *
+     * @return {boolean} True if the instance was created, false otherwise.
+     */
+
+  __ensureInstance() {
+    let parentNode = wrap$1(this).parentNode;
+
+    if (!this.__hasInstance()) {
+      // Guard against element being detached while render was queued
+      if (!parentNode) {
+        return false;
+      } // Find the template (when false, there was no template yet)
+
+
+      if (!this.__ensureTemplate()) {
+        return false;
+      }
+
+      this.__createAndInsertInstance(parentNode);
+    } else {
+      // Move instance children if necessary
+      let children = this.__getInstanceNodes();
+
+      if (children && children.length) {
+        // Detect case where dom-if was re-attached in new position
+        let lastChild = wrap$1(this).previousSibling;
+
+        if (lastChild !== children[children.length - 1]) {
+          for (let i = 0, n; i < children.length && (n = children[i]); i++) {
+            wrap$1(parentNode).insertBefore(n, this);
+          }
+        }
+      }
+    }
+
+    return true;
+  } /**
      * Forces the element to render its content. Normally rendering is
      * asynchronous to a provoking change. This is done for efficiency so
      * that multiple changes trigger only a single render. The render method
      * should be called if, for example, template rendering is required to
      * validate application state.
+     *
      * @return {void}
      */
 
   render() {
     flush$1();
-  }
+  } /**
+     * Performs the key rendering steps:
+     * 1. Ensure a template instance has been stamped (when true)
+     * 2. Remove the template instance (when false and restamp:true)
+     * 3. Sync the hidden state of the instance nodes with the if/restamp state
+     * 4. Fires the `dom-change` event when necessary
+     *
+     * @return {void}
+     */
 
   __render() {
     if (this.if) {
@@ -15005,111 +16189,332 @@ class DomIf extends PolymerElement {
         // No template found yet
         return;
       }
-
-      this._showHideChildren();
     } else if (this.restamp) {
       this.__teardownInstance();
     }
 
-    if (!this.restamp && this.__instance) {
-      this._showHideChildren();
-    }
+    this._showHideChildren();
 
-    if (this.if != this._lastIf) {
+    if ((!suppressTemplateNotifications || this.notifyDomChange) && this.if != this._lastIf) {
       this.dispatchEvent(new CustomEvent('dom-change', {
         bubbles: true,
         composed: true
       }));
       this._lastIf = this.if;
     }
-  }
+  } // Ideally these would be annotated as abstract methods in an abstract class,
+  // but closure compiler is finnicky
+  /* eslint-disable valid-jsdoc */ /**
+                                    * Abstract API to be implemented by subclass: Returns true if a template
+                                    * instance has been created and inserted.
+                                    *
+                                    * @protected
+                                    * @return {boolean} True when an instance has been created.
+                                    */
 
-  __ensureInstance() {
-    let parentNode = wrap$1(this).parentNode; // Guard against element being detached while render was queued
+  __hasInstance() {} /**
+                      * Abstract API to be implemented by subclass: Returns the child nodes stamped
+                      * from a template instance.
+                      *
+                      * @protected
+                      * @return {Array<Node>} Array of child nodes stamped from the template
+                      * instance.
+                      */
 
-    if (parentNode) {
-      if (!this.__ctor) {
-        let template = /** @type {HTMLTemplateElement} */wrap$1(this).querySelector('template');
+  __getInstanceNodes() {} /**
+                           * Abstract API to be implemented by subclass: Creates an instance of the
+                           * template and inserts it into the given parent node.
+                           *
+                           * @protected
+                           * @param {Node} parentNode The parent node to insert the instance into
+                           * @return {void}
+                           */
 
-        if (!template) {
-          // Wait until childList changes and template should be there by then
-          let observer = new MutationObserver(() => {
-            if (wrap$1(this).querySelector('template')) {
-              observer.disconnect();
+  __createAndInsertInstance(parentNode) {} // eslint-disable-line no-unused-vars
+  /**
+   * Abstract API to be implemented by subclass: Removes nodes created by an
+   * instance of a template and any associated cleanup.
+   *
+   * @protected
+   * @return {void}
+   */
 
-              this.__render();
-            } else {
-              throw new Error('dom-if requires a <template> child');
-            }
-          });
-          observer.observe(this, {
-            childList: true
-          });
-          return false;
+  __teardownInstance() {} /**
+                           * Abstract API to be implemented by subclass: Shows or hides any template
+                           * instance childNodes based on the `if` state of the element and its
+                           * `__hideTemplateChildren__` property.
+                           *
+                           * @protected
+                           * @return {void}
+                           */
+
+  _showHideChildren() {} /* eslint-enable valid-jsdoc */
+
+} /**
+   * The version of DomIf used when `fastDomIf` setting is in use, which is
+   * optimized for first-render (but adds a tax to all subsequent property updates
+   * on the host, whether they were used in a given `dom-if` or not).
+   *
+   * This implementation avoids use of `Templatizer`, which introduces a new scope
+   * (a non-element PropertyEffects instance), which is not strictly necessary
+   * since `dom-if` never introduces new properties to its scope (unlike
+   * `dom-repeat`). Taking advantage of this fact, the `dom-if` reaches up to its
+   * `__dataHost` and stamps the template directly from the host using the host's
+   * runtime `_stampTemplate` API, which binds the property effects of the
+   * template directly to the host. This both avoids the intermediary
+   * `Templatizer` instance, but also avoids the need to bind host properties to
+   * the `<template>` element and forward those into the template instance.
+   *
+   * In this version of `dom-if`, the `this.__instance` method is the
+   * `DocumentFragment` returned from `_stampTemplate`, which also serves as the
+   * handle for later removing it using the `_removeBoundDom` method.
+   */
+
+class DomIfFast extends DomIfBase {
+  constructor() {
+    super();
+    this.__instance = null;
+    this.__syncInfo = null;
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
+     * @override
+     * @return {boolean} True when an instance has been created.
+     */
+
+  __hasInstance() {
+    return Boolean(this.__instance);
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
+     * @override
+     * @return {Array<Node>} Array of child nodes stamped from the template
+     * instance.
+     */
+
+  __getInstanceNodes() {
+    return this.__instance.templateInfo.childNodes;
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
+     * Stamps the template by calling `_stampTemplate` on the `__dataHost` of this
+     * element and then inserts the resulting nodes into the given `parentNode`.
+     *
+     * @override
+     * @param {Node} parentNode The parent node to insert the instance into
+     * @return {void}
+     */
+
+  __createAndInsertInstance(parentNode) {
+    const host = this.__dataHost || this;
+
+    if (strictTemplatePolicy) {
+      if (!this.__dataHost) {
+        throw new Error('strictTemplatePolicy: template owner not trusted');
+      }
+    } // Pre-bind and link the template into the effects system
+
+
+    const templateInfo = host._bindTemplate( /** @type {!HTMLTemplateElement} */this.__template, true); // Install runEffects hook that prevents running property effects
+    // (and any nested template effects) when the `if` is false
+
+
+    templateInfo.runEffects = (runEffects, changedProps, hasPaths) => {
+      let syncInfo = this.__syncInfo;
+
+      if (this.if) {
+        // Mix any props that changed while the `if` was false into `changedProps`
+        if (syncInfo) {
+          // If there were properties received while the `if` was false, it is
+          // important to sync the hidden state with the element _first_, so that
+          // new bindings to e.g. `textContent` do not get stomped on by
+          // pre-hidden values if `_showHideChildren` were to be called later at
+          // the next render. Clearing `__invalidProps` here ensures
+          // `_showHideChildren`'s call to `__syncHostProperties` no-ops, so
+          // that we don't call `runEffects` more often than necessary.
+          this.__syncInfo = null;
+
+          this._showHideChildren();
+
+          changedProps = Object.assign(syncInfo.changedProps, changedProps);
         }
 
-        this.__ctor = templatize(template, this, {
-          // dom-if templatizer instances require `mutable: true`, as
-          // `__syncHostProperties` relies on that behavior to sync objects
-          mutableData: true,
-          /**
-           * @param {string} prop Property to forward
-           * @param {*} value Value of property
-           * @this {DomIf}
-           */forwardHostProp: function (prop, value) {
-            if (this.__instance) {
-              if (this.if) {
-                this.__instance.forwardHostProp(prop, value);
-              } else {
-                // If we have an instance but are squelching host property
-                // forwarding due to if being false, note the invalidated
-                // properties so `__syncHostProperties` can sync them the next
-                // time `if` becomes true
-                this.__invalidProps = this.__invalidProps || Object.create(null);
-                this.__invalidProps[root(prop)] = true;
-              }
-            }
-          }
-        });
-      }
-
-      if (!this.__instance) {
-        this.__instance = new this.__ctor();
-        wrap$1(parentNode).insertBefore(this.__instance.root, this);
+        runEffects(changedProps, hasPaths);
       } else {
-        this.__syncHostProperties();
+        // Accumulate any values changed while `if` was false, along with the
+        // runEffects method to sync them, so that we can replay them once `if`
+        // becomes true
+        if (this.__instance) {
+          if (!syncInfo) {
+            syncInfo = this.__syncInfo = {
+              runEffects,
+              changedProps: {}
+            };
+          }
 
-        let c$ = this.__instance.children;
-
-        if (c$ && c$.length) {
-          // Detect case where dom-if was re-attached in new position
-          let lastChild = wrap$1(this).previousSibling;
-
-          if (lastChild !== c$[c$.length - 1]) {
-            for (let i = 0, n; i < c$.length && (n = c$[i]); i++) {
-              wrap$1(parentNode).insertBefore(n, this);
+          if (hasPaths) {
+            // Store root object of any paths; this will ensure direct bindings
+            // like [[obj.foo]] bindings run after a `set('obj.foo', v)`, but
+            // note that path notifications like `set('obj.foo.bar', v)` will
+            // not propagate. Since batched path notifications are not
+            // supported, we cannot simply accumulate path notifications. This
+            // is equivalent to the non-fastDomIf case, which stores root(p) in
+            // __invalidProps.
+            for (const p in changedProps) {
+              const rootProp = root(p);
+              syncInfo.changedProps[rootProp] = this.__dataHost[rootProp];
             }
+          } else {
+            Object.assign(syncInfo.changedProps, changedProps);
           }
         }
       }
-    }
+    }; // Stamp the template, and set its DocumentFragment to the "instance"
 
-    return true;
-  }
+
+    this.__instance = host._stampTemplate( /** @type {!HTMLTemplateElement} */this.__template, templateInfo);
+    wrap$1(parentNode).insertBefore(this.__instance, this);
+  } /**
+     * Run effects for any properties that changed while the `if` was false.
+     *
+     * @return {void}
+     */
 
   __syncHostProperties() {
-    let props = this.__invalidProps;
+    const syncInfo = this.__syncInfo;
 
-    if (props) {
-      for (let prop in props) {
-        this.__instance._setPendingProperty(prop, this.__dataHost[prop]);
-      }
+    if (syncInfo) {
+      this.__syncInfo = null;
+      syncInfo.runEffects(syncInfo.changedProps, false);
+    }
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
+     * Remove the instance and any nodes it created.  Uses the `__dataHost`'s
+     * runtime `_removeBoundDom` method.
+     *
+     * @override
+     * @return {void}
+     */
 
-      this.__invalidProps = null;
+  __teardownInstance() {
+    const host = this.__dataHost || this;
 
-      this.__instance._flushProperties();
+    if (this.__instance) {
+      host._removeBoundDom(this.__instance);
+
+      this.__instance = null;
+      this.__syncInfo = null;
+    }
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
+     * Shows or hides the template instance top level child nodes. For
+     * text nodes, `textContent` is removed while "hidden" and replaced when
+     * "shown."
+     *
+     * @override
+     * @return {void}
+     * @protected
+     * @suppress {visibility}
+     */
+
+  _showHideChildren() {
+    const hidden = this.__hideTemplateChildren__ || !this.if;
+
+    if (this.__instance && Boolean(this.__instance.__hidden) !== hidden) {
+      this.__instance.__hidden = hidden;
+      showHideChildren(hidden, this.__instance.templateInfo.childNodes);
+    }
+
+    if (!hidden) {
+      this.__syncHostProperties();
     }
   }
+
+} /**
+   * The "legacy" implementation of `dom-if`, implemented using `Templatizer`.
+   *
+   * In this version, `this.__instance` is the `TemplateInstance` returned
+   * from the templatized constructor.
+   */
+
+class DomIfLegacy extends DomIfBase {
+  constructor() {
+    super();
+    this.__ctor = null;
+    this.__instance = null;
+    this.__invalidProps = null;
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
+     * @override
+     * @return {boolean} True when an instance has been created.
+     */
+
+  __hasInstance() {
+    return Boolean(this.__instance);
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
+     * @override
+     * @return {Array<Node>} Array of child nodes stamped from the template
+     * instance.
+     */
+
+  __getInstanceNodes() {
+    return this.__instance.children;
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
+     * Stamps the template by creating a new instance of the templatized
+     * constructor (which is created lazily if it does not yet exist), and then
+     * inserts its resulting `root` doc fragment into the given `parentNode`.
+     *
+     * @override
+     * @param {Node} parentNode The parent node to insert the instance into
+     * @return {void}
+     */
+
+  __createAndInsertInstance(parentNode) {
+    // Ensure we have an instance constructor
+    if (!this.__ctor) {
+      this.__ctor = templatize( /** @type {!HTMLTemplateElement} */this.__template, this, {
+        // dom-if templatizer instances require `mutable: true`, as
+        // `__syncHostProperties` relies on that behavior to sync objects
+        mutableData: true,
+        /**
+         * @param {string} prop Property to forward
+         * @param {*} value Value of property
+         * @this {DomIfLegacy}
+         */forwardHostProp: function (prop, value) {
+          if (this.__instance) {
+            if (this.if) {
+              this.__instance.forwardHostProp(prop, value);
+            } else {
+              // If we have an instance but are squelching host property
+              // forwarding due to if being false, note the invalidated
+              // properties so `__syncHostProperties` can sync them the next
+              // time `if` becomes true
+              this.__invalidProps = this.__invalidProps || Object.create(null);
+              this.__invalidProps[root(prop)] = true;
+            }
+          }
+        }
+      });
+    } // Create and insert the instance
+
+
+    this.__instance = new this.__ctor();
+    wrap$1(parentNode).insertBefore(this.__instance.root, this);
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
+     * Removes the instance and any nodes it created.
+     *
+     * @override
+     * @return {void}
+     */
 
   __teardownInstance() {
     if (this.__instance) {
@@ -15129,28 +16534,79 @@ class DomIf extends PolymerElement {
         }
       }
 
-      this.__instance = null;
       this.__invalidProps = null;
+      this.__instance = null;
     }
   } /**
+     * Forwards any properties that changed while the `if` was false into the
+     * template instance and flushes it.
+     *
+     * @return {void}
+     */
+
+  __syncHostProperties() {
+    let props = this.__invalidProps;
+
+    if (props) {
+      this.__invalidProps = null;
+
+      for (let prop in props) {
+        this.__instance._setPendingProperty(prop, this.__dataHost[prop]);
+      }
+
+      this.__instance._flushProperties();
+    }
+  } /**
+     * Implementation of abstract API needed by DomIfBase.
+     *
      * Shows or hides the template instance top level child elements. For
      * text nodes, `textContent` is removed while "hidden" and replaced when
      * "shown."
-     * @return {void}
+     *
+     * @override
      * @protected
+     * @return {void}
      * @suppress {visibility}
      */
 
   _showHideChildren() {
-    let hidden = this.__hideTemplateChildren__ || !this.if;
+    const hidden = this.__hideTemplateChildren__ || !this.if;
 
-    if (this.__instance) {
+    if (this.__instance && Boolean(this.__instance.__hidden) !== hidden) {
+      this.__instance.__hidden = hidden;
+
       this.__instance._showHideChildren(hidden);
+    }
+
+    if (!hidden) {
+      this.__syncHostProperties();
     }
   }
 
-}
+} /**
+   * The `<dom-if>` element will stamp a light-dom `<template>` child when
+   * the `if` property becomes truthy, and the template can use Polymer
+   * data-binding and declarative event features when used in the context of
+   * a Polymer element's template.
+   *
+   * When `if` becomes falsy, the stamped content is hidden but not
+   * removed from dom. When `if` subsequently becomes truthy again, the content
+   * is simply re-shown. This approach is used due to its favorable performance
+   * characteristics: the expense of creating template content is paid only
+   * once and lazily.
+   *
+   * Set the `restamp` property to true to force the stamped content to be
+   * created / destroyed when the `if` condition changes.
+   *
+   * @customElement
+   * @polymer
+   * @extends DomIfBase
+   * @constructor
+   * @summary Custom element that conditionally stamps and hides or removes
+   *   template content based on a boolean flag.
+   */
 
+const DomIf = fastDomIf ? DomIfFast : DomIfLegacy;
 customElements.define(DomIf.is, DomIf);
 var domIf = {
   DomIf: DomIf
@@ -22533,6 +23989,8 @@ const PaperInputBehaviorImpl = {
      * If you're using PaperInputBehavior to implement your own paper-input-like
      * element, bind this to the `<input is="iron-input">`'s `autofocus`
      * property.
+     *
+     * @type {!boolean}
      */autofocus: {
       type: Boolean,
       observer: '_autofocusChanged'
@@ -24876,6 +26334,7 @@ class WiseShoppingCartItem extends PolymerElement {
   static get properties() {
     return {
       cartItem: Object,
+      selectedLanguage: String,
       startShoppingLabel: {
         type: String
       },
@@ -24888,28 +26347,8 @@ class WiseShoppingCartItem extends PolymerElement {
     };
   }
 
-  _translateAdditionTitle(item) {
-      const language = document.querySelector('html').getAttribute('language');
-      let label = '';
-
-      if (item.translationBucket) {
-        let translationList = item.translationBucket.translationList;
-        translationList.forEach(itemTranslation => {
-          if (itemTranslation.language === language && itemTranslation.content != '') {
-            label = itemTranslation.content;
-          }
-          if (itemTranslation.language === language && itemTranslation.content === '') {
-            label = item.title;
-          }
-        });
-      } else {
-        label = item.title;
-      }
-      return label;
-    }
-
   _translateProductName(product) {
-    const language = document.querySelector('html').getAttribute('language');
+    const language = this.selectedLanguage;
     let label = '';
 
     if (product.translationBucket) {
@@ -24918,6 +26357,7 @@ class WiseShoppingCartItem extends PolymerElement {
         if (item.language === language && item.content != '') {
           label = item.content;
         }
+
         if (item.language === language && item.content === '') {
           label = product.name;
         }
@@ -24929,12 +26369,35 @@ class WiseShoppingCartItem extends PolymerElement {
     return label;
   }
 
+  _translateAdditionTitle(item) {
+    const language = this.selectedLanguage;
+    let label = '';
+
+    if (item.translationBucket) {
+      let translationList = item.translationBucket.translationList;
+      translationList.forEach(itemTranslation => {
+        if (itemTranslation.language === language && itemTranslation.content != '') {
+          label = itemTranslation.content;
+        }
+
+        if (itemTranslation.language === language && itemTranslation.content === '') {
+          label = item.title;
+        }
+      });
+    } else {
+      label = item.title;
+    }
+
+    return label;
+  }
+
   _calculateTotalPrice(quantity, productPrice, additionList) {
     let additionPrice = 0;
     additionList.forEach(item => {
       additionPrice += item.price * item.quantity;
     });
-    return quantity * (productPrice + additionPrice);
+    let total = quantity * (productPrice + additionPrice);
+    return +(Math.round(Number(total) + "e+2") + "e-2");
   }
 
   _decreaseItemQuantity() {
@@ -25007,11 +26470,11 @@ class WiseShoppingCart extends PolymerElement {
         :host {
           display: block;
         }
-    
+
         iron-image {
             display: flex;
-        } 
-      
+        }
+
         .total-container h3 {
            white-space: nowrap;
            overflow: hidden;
@@ -25023,7 +26486,7 @@ class WiseShoppingCart extends PolymerElement {
             font-size: 1.25rem;
             text-align: center;
         }
-        
+
         paper-button {
             background-color: #fff;
             color: #000;
@@ -25050,18 +26513,43 @@ class WiseShoppingCart extends PolymerElement {
             width: 25%;
             height: auto;
         }
+        .banner-container {
+        		display: flex;
+					  flex-direction: column;
+					  align-items: flex-start;
+            width: 100%;
+            margin: 0 1em 1em 0;
+            padding: 5px 10px;
+            background-color: #3573e7;
+
+        }
+        .banner-container p {
+            text-align: left;
+        }
+        .margin-banner-container {
+        	margin: 10px 5px;
+          color: #e9f0fc;
+        }
+        .banner-title {
+          font-weight: 500;
+        }
       </style>
       <template is="dom-if" if="[[_isInShoppingCartAnyItems(cartItems.length)]]">
-          <template is="dom-repeat" items="[[cartItems]]">
-            <wise-shopping-cart-item
-              start-shopping-label="[[startShoppingLabel]]"
-              basket-empty-label="[[basketEmptyLabel]]"
-              currency-label="[[currencyLabel]]"
-              cart-item="[[item]]">
-            </wise-shopping-cart-item>
-          </template>
+        <paper-card class="banner-container" hidden="[[!isBannerOn]]">
+          <h3 class="margin-banner-container banner-title">[[bannerName]]</h3>
+          <p class="margin-banner-container">[[bannerDescription]]</p>
+        </paper-card>
+        <template is="dom-repeat" items="[[cartItems]]">
+          <wise-shopping-cart-item
+            selected-language="[[selectedLanguage]]"
+            start-shopping-label="[[startShoppingLabel]]"
+            basket-empty-label="[[basketEmptyLabel]]"
+            currency-label="[[currencyLabel]]"
+            cart-item="[[item]]">
+          </wise-shopping-cart-item>
+        </template>
       </template>
-      
+
       <template is="dom-if" if="[[!_isInShoppingCartAnyItems(cartItems.length)]]">
       <div class="empty-cart-container">
           <div class="empty-cart-img">
@@ -25127,6 +26615,13 @@ class WiseShoppingCart extends PolymerElement {
   static get properties() {
     return {
       cartItems: Array,
+      selectedLanguage: String,
+      bannerName: String,
+      bannerDescription: String,
+      isBannerOn: {
+        type: Boolean,
+        value: false
+      },
       startShoppingLabel: {
         type: String,
         value: 'START SHOPPING'
@@ -25144,7 +26639,6 @@ class WiseShoppingCart extends PolymerElement {
 
   _startBuyingProducts() {
     this.dispatchEvent(new CustomEvent('start-shopping', {
-
       bubbles: true,
       composed: true
     }));
@@ -25162,7 +26656,6 @@ var wiseShoppingCart = {
 };
 
 class WiseShoppingCartContainer extends PolymerElement {
-
   static get template() {
     // language=HTML
     return html`
@@ -25230,7 +26723,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                     color: red;
                     min-height: 1.2em;
                 }
-                
+
                 .info-span{
                     padding-left: 15.5px;
                 }
@@ -25311,7 +26804,11 @@ class WiseShoppingCartContainer extends PolymerElement {
                 <div class="cart-container">
                     <div class="cart">
                         <div class="shopping-cart-container">
-                            <wise-shopping-cart currency-label="[[currencyLabel]]" cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]"
+                            <wise-shopping-cart banner-name="[[cart.configuration.additionalConfiguration.banner.bannerName]]"
+                                                banner-description="[[cart.configuration.additionalConfiguration.banner.bannerDescription]]"
+                                                is-banner-on="[[cart.configuration.additionalConfiguration.banner.isBannerOn]]"
+                                                selected-language = "[[selectedLanguage]]" currency-label="[[currencyLabel]]"
+                                                 cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]"
                                                 start-shopping-label="[[startShoppingLabel]]">
                             </wise-shopping-cart>
                         </div>
@@ -25376,7 +26873,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                                         <h3>[[addressGeneralLabel]]</h3>
                                         <div hidden="[[!_isCourierDeliveryType(cart.deliveryType)]]">
                                             <span class="info-span" hidden="[[!cart.client.address.isAddressSetFromMapView]]">
-                                                [[mapChooseYourPlaceLabel]] <a href="/[[language]]/selectaddress">[[mapLabel]]</a>.</span>
+                                                [[mapChooseYourPlaceLabel]] <a href="/[[selectedLanguage]]/selectaddress">[[mapLabel]]</a>.</span>
                                             <paper-input id="street" pattern=".*\\S.*" label="[[pageSelectAddressPlaceholderStreet]]"
                                                          disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          value="{{cart.client.address.street}}" required
@@ -25443,7 +26940,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   static get properties() {
     return {
-      language: String,
+      selectedLanguage: String,
       cart: {
         type: Object,
         value: {
@@ -25516,6 +27013,7 @@ class WiseShoppingCartContainer extends PolymerElement {
     if (labelForCustomerName) {
       return labelForCustomerName;
     }
+
     return this.customerNameLabel;
   }
 
@@ -25523,84 +27021,103 @@ class WiseShoppingCartContainer extends PolymerElement {
     if (creditCardInfo.clientPaysProcessingCommission) {
       return `${paymentInfo.label} (+${paymentInfo.paymentComission * 100} %)`;
     }
+
     let label = '';
+
     if (creditCardInfo.translationBucket) {
       creditCardInfo.translationBucket.translationList.forEach(item => {
-        if (item.language === this.language) {
+        if (item.language === this.selectedLanguage) {
           label = item.content;
         }
       });
     } else {
       label = creditCardInfo.label;
     }
+
     return label;
   }
 
   _computeCourierLabel(courierInfo) {
     let label = '';
+
     if (this.total < courierInfo.minimumPaymentForFreeDelivery) {
       label = ` ( + ${courierInfo.deliveryPrice} ${this.currencyLabel})`;
     }
+
     return label;
   }
 
   _translateLabel(object) {
     let label = '';
+
     if (object.translationBucket) {
       object.translationBucket.translationList.forEach(item => {
-        if (item.language === this.language) {
+        if (item.language === this.selectedLanguage) {
           label = item.content;
         }
       });
     } else {
       label = object.label;
     }
+
     return label;
   }
 
   addCartIdParamIfAvailable(isFirst) {
     let param = '';
+
     if (!this.cartId) {
       return param;
     }
+
     if (isFirst) {
       param += '?';
     } else {
       param += '&';
     }
+
     if (this.cartId) {
       param += `cartId=${this.cartId}`;
     }
+
     return param;
   }
 
   ready() {
-    super.ready();
+    super.ready(); //rewrite this method
+
     this.hideDeliveryTypeIfQrPresent();
     console.log("qrUuid =>", this.qrUuid);
     const params = this.addCartIdParamIfAvailable(true);
+
     const url = this._generateRequestUrl('/api/cart', params);
+
     this._generateRequest('GET', url);
+
     this.addEventListener('update-quantity', event => {
       console.log("/api/cart/update-quantity =>", event.detail);
       let params = `?uuid=${event.detail.itemUuid}&quantity=${event.detail.quantity}${this.addCartIdParamIfAvailable(false)}`;
+
       this._generateRequest('POST', this._generateRequestUrl('/api/cart/update-quantity', params));
     });
     this.addEventListener('increase-item-quantity', event => {
       let params = `?uuid=${event.detail}${this.addCartIdParamIfAvailable(false)}`;
+
       this._generateRequest('POST', this._generateRequestUrl('/api/cart/increase-quantity', params));
     });
     this.addEventListener('decrease-item-quantity', event => {
       let params = `?uuid=${event.detail}${this.addCartIdParamIfAvailable(false)}`;
+
       this._generateRequest('DELETE', this._generateRequestUrl('/api/cart/decrease-quantity', params));
     });
     this.addEventListener('remove-item', event => {
       let params = `?uuid=${event.detail}${this.addCartIdParamIfAvailable(false)}`;
+
       this._generateRequest('DELETE', this._generateRequestUrl('/api/cart', params));
     });
     this.addEventListener('start-shopping', function (e) {
       console.log('start-shopping', e);
-      window.location = this._generateLinkWithQrCode(this.qrUuid, `/${this.language}/shop`);
+      window.location = this._generateLinkWithQrCode(this.qrUuid, `/${this.selectedLanguage}/shop`);
     });
     this.addEventListener('order-created', function (e) {
       console.log('order-created for credit card payment', e);
@@ -25646,15 +27163,16 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   _generateRequestUrl(urlPath, params) {
     let url = this.hostname + urlPath;
+
     if (params) {
       url = url + params;
     }
+
     return url;
   }
 
   async _proceed() {
     console.log("get cart before make order");
-
     const deliveryType = this.$.deliveryType;
     const paymentType = this.$.paymentType;
     const requiredInputs = Array.from(this.shadowRoot.querySelectorAll('paper-input[required]')).filter(input => input.offsetWidth > 0 && input.offsetHeight > 0);
@@ -25696,16 +27214,17 @@ class WiseShoppingCartContainer extends PolymerElement {
       }
 
       const cart = {
-            deliveryType : this.cart.deliveryType,
-            paymentType : this.cart.paymentType,
-            clientName : this.cart.client.name,
-            clientPhone : this.cart.client.phone,
-            clientEmail : this.cart.client.email,
-            clientComments : this.cart.client.comments,
-            clientCity : this.cart.client.postDepartamentInfo.city,
-            clientPostDepartmentNumber : this.cart.client.postDepartamentInfo.postDepartmentNumber
-      }
+        deliveryType: this.cart.deliveryType,
+        paymentType: this.cart.paymentType,
+        clientName: this.cart.client.name,
+        clientPhone: this.cart.client.phone,
+        clientEmail: this.cart.client.email,
+        clientComments: this.cart.client.comments,
+        clientCity: this.cart.client.postDepartamentInfo.city,
+        clientPostDepartmentNumber: this.cart.client.postDepartamentInfo.postDepartmentNumber
+      };
       console.log("get cart before make order after validation => ", cart);
+
       this._makeOrderRequest(JSON.stringify(cart));
     }
 
@@ -25725,16 +27244,15 @@ class WiseShoppingCartContainer extends PolymerElement {
       } else if (!isValid) {
         this.errorMessage = `${this.errorMessageFillInfo}`;
       } else {
-        this.errorMessage = `${this.mapErrorMessage} <a href="${this.hostname}/${this.language}/selectaddress">${this.mapLabel}</a>.`;
+        this.errorMessage = `${this.mapErrorMessage} <a href="${this.hostname}/${this.selectedLanguage}/selectaddress">${this.mapLabel}</a>.`;
       }
     }
   }
 
   _makeOrderRequest(cart) {
-
     if (this.isMakeOrderRequestRunning) return;
     const ajax = this.$.makeOrderAjax;
-    const url = `${this.hostname}/order/${this.language}`;
+    const url = `${this.hostname}/order/${this.selectedLanguage}`;
     ajax.url = this._generateLinkWithQrCode(this.qrUuid, url);
     ajax.method = 'POST';
     this.isMakeOrderRequestRunning = true;
@@ -25817,15 +27335,16 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   _computeProductsTotal(items) {
     let total = 0;
-    items.forEach(item => total += item.quantity * (item.price + this._computeAdditionsTotal(item)));
+    items.forEach(item => total += item.quantity * (item.price + this._computeAdditionsTotal(item))); //total += this._computeAdditionsTotal(items);
+
     return total;
   }
 
   _computeAdditionsTotal(additions) {
     let additionsTotal = 0;
-      additions.additionList.forEach(addition => {
-        additionsTotal += addition.price * addition.quantity;
-      });
+    additions.additionList.forEach(addition => {
+      additionsTotal += addition.price * addition.quantity;
+    });
     return additionsTotal;
   }
 
@@ -25843,7 +27362,9 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   _validateAndGeocodeAddress(event) {
     this._validateAndSendClientAddressInfo(event);
+
     const address = this.cart.client.address;
+
     if (address.street && address.building) {
       this._geocode();
     }
@@ -25851,6 +27372,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   async _geocode() {
     let response = await this._sendGeocodeRequest();
+
     try {
       const results = response.results;
       const firstResult = results[0];
@@ -25858,7 +27380,7 @@ class WiseShoppingCartContainer extends PolymerElement {
       this.cart = await this.updateCartWithAddressLocation(location);
       return this.cart;
     } catch (e) {
-      this.errorMessage = `${this.mapErrorMessage} <a href="${this.hostname}/${this.language}/selectaddress">${this.mapLabel}</a>.`;
+      this.errorMessage = `${this.mapErrorMessage} <a href="${this.hostname}/${this.selectedLanguage}/selectaddress">${this.mapLabel}</a>.`;
     }
   }
 
@@ -25870,7 +27392,9 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   async updateCartWithAddressLocation(location) {
     const params = `?lat=${location.lat}&lng=${location.lng}${this.addCartIdParamIfAvailable(false)}`;
+
     let url = this._generateRequestUrl('/api/cart/address/info', params);
+
     let response = await fetch(url, {
       method: 'PUT'
     });
@@ -25888,6 +27412,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (targetElement.value) {
       const params = `?${targetElement.id}=${targetElement.value}${this.addCartIdParamIfAvailable(false)}`;
+
       this._generateRequest('PUT', this._generateRequestUrl('/api/cart/client/info', params));
     }
   }
@@ -25897,6 +27422,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (targetElement.validate() && targetElement.value) {
       const params = `?${targetElement.id}=${targetElement.value}${this.addCartIdParamIfAvailable(false)}`;
+
       this._generateRequest('PUT', this._generateRequestUrl('/api/cart/address/info', params));
     }
   }
@@ -25906,17 +27432,20 @@ class WiseShoppingCartContainer extends PolymerElement {
 
     if (targetElement.validate() && targetElement.value) {
       const params = `?${targetElement.id}=${targetElement.value}${this.addCartIdParamIfAvailable(false)}`;
+
       this._generateRequest('PUT', this._generateRequestUrl('/api/cart/post/info', params));
     }
   }
 
   _onDeliveryTypeChange(event, data) {
     const params = `?deliverytype=${data.value}${this.addCartIdParamIfAvailable(false)}`;
+
     this._generateRequest('PUT', this._generateRequestUrl('/api/cart/delivery', params));
   }
 
   _onPaymentTypeChange(event, data) {
     const params = `?paymenttype=${data.value}${this.addCartIdParamIfAvailable(false)}`;
+
     this._generateRequest('PUT', this._generateRequestUrl('/api/cart/payment', params));
   }
 
@@ -25933,4 +27462,4 @@ class WiseShoppingCartContainer extends PolymerElement {
 }
 
 window.customElements.define('wise-shopping-cart-container', WiseShoppingCartContainer);
-export { ironA11yAnnouncer as $ironA11yAnnouncer, ironA11yKeysBehavior as $ironA11yKeysBehavior, ironButtonState as $ironButtonState, ironControlState as $ironControlState, ironCheckedElementBehavior as $ironCheckedElementBehavior, ironFormElementBehavior as $ironFormElementBehavior, ironMenuBehavior as $ironMenuBehavior, ironMenubarBehavior as $ironMenubarBehavior, ironMeta as $ironMeta, ironMultiSelectable as $ironMultiSelectable, ironSelectable as $ironSelectable, ironSelection as $ironSelection, ironValidatableBehavior as $ironValidatableBehavior, paperButtonBehavior as $paperButtonBehavior, paperCheckedElementBehavior as $paperCheckedElementBehavior, paperInkyFocusBehavior as $paperInkyFocusBehavior, paperRippleBehavior as $paperRippleBehavior, paperInputAddonBehavior as $paperInputAddonBehavior, paperInputBehavior as $paperInputBehavior, paperSpinnerBehavior as $paperSpinnerBehavior, arraySelector as $arraySelector, customStyle as $customStyle, domBind as $domBind, domIf as $domIf, domModule as $domModule, domRepeat as $domRepeat, _class as $class, legacyElementMixin as $legacyElementMixin, mutableDataBehavior as $mutableDataBehavior, polymerFn as $polymerFn, polymer_dom as $polymerDom, templatizerBehavior as $templatizerBehavior, dirMixin as $dirMixin, elementMixin as $elementMixin, gestureEventListeners as $gestureEventListeners, mutableData as $mutableData, propertiesChanged as $propertiesChanged, propertiesMixin as $propertiesMixin, propertyAccessors as $propertyAccessors, propertyEffects as $propertyEffects, templateStamp as $templateStamp, arraySplice as $arraySplice, async as $async, caseMap$1 as $caseMap, debounce as $debounce, flattenedNodesObserver as $flattenedNodesObserver, flush$2 as $flush, gestures$1 as $gestures, hideTemplateControls as $hideTemplateControls, htmlTag as $htmlTag, mixin as $mixin, path as $path, renderStatus as $renderStatus, resolveUrl$1 as $resolveUrl, scopeSubtree$1 as $scopeSubtree, settings as $settings, styleGather as $styleGather, telemetry as $telemetry, templatize$1 as $templatize, wrap$2 as $wrap, polymerElement as $polymerElement, polymerLegacy as $polymerLegacy, applyShimUtils as $applyShimUtils, applyShim as $applyShim$1, commonRegex as $commonRegex, commonUtils as $commonUtils, cssParse as $cssParse, customStyleInterface as $customStyleInterface$1, documentWait$1 as $documentWait, styleSettings as $styleSettings, styleUtil as $styleUtil, templateMap$1 as $templateMap, unscopedStyleHandler as $unscopedStyleHandler, wiseShoppingCartItem as $wiseShoppingCartItem, wiseShoppingCart as $wiseShoppingCart, IronA11yAnnouncer, IronA11yKeysBehavior, IronButtonStateImpl, IronButtonState, IronControlState, IronCheckedElementBehaviorImpl, IronCheckedElementBehavior, IronFormElementBehavior, IronMenuBehaviorImpl, IronMenuBehavior, IronMenubarBehaviorImpl, IronMenubarBehavior, IronMeta, IronMultiSelectableBehaviorImpl, IronMultiSelectableBehavior, IronSelectableBehavior, IronSelection, IronValidatableBehaviorMeta, IronValidatableBehavior, PaperButtonBehaviorImpl, PaperButtonBehavior, PaperCheckedElementBehaviorImpl, PaperCheckedElementBehavior, PaperInkyFocusBehaviorImpl, PaperInkyFocusBehavior, PaperRippleBehavior, PaperInputAddonBehavior, PaperInputHelper, PaperInputBehaviorImpl, PaperInputBehavior, PaperSpinnerBehavior, ArraySelectorMixin, ArraySelector, CustomStyle, DomBind, DomIf, DomModule, DomRepeat, mixinBehaviors, Class, LegacyElementMixin, MutableDataBehavior, OptionalMutableDataBehavior, Polymer, flush$1 as flush, enqueueDebouncer as addDebouncer, matchesSelector, EventApi, DomApi, dom, Templatizer, DirMixin, version, ElementMixin, updateStyles, GestureEventListeners, MutableData, OptionalMutableData, PropertiesChanged, PropertiesMixin, PropertyAccessors, PropertyEffects, TemplateStamp, calculateSplices, timeOut, animationFrame, idlePeriod, microTask, dashToCamelCase, camelToDashCase, Debouncer, enqueueDebouncer, flushDebouncers, FlattenedNodesObserver, enqueueDebouncer as enqueueDebouncer$1, flush$1, gestures, recognizers, deepTargetFind, addListener, removeListener, register$1 as register, setTouchAction, prevent, resetMouseCanceller, findOriginalTarget, add, remove, hideElementsGlobally, html, htmlLiteral, dedupingMixin, isPath, root, isAncestor, isDescendant, translate, matches, normalize, split, get, set, isDeep, flush as flush$2, beforeNextRender, afterNextRender, resolveUrl, resolveCss, pathFromUrl, scopeSubtree, useShadow, useNativeCSSProperties, useNativeCustomElements, rootPath, setRootPath, sanitizeDOMValue, setSanitizeDOMValue, passiveTouchGestures, setPassiveTouchGestures, strictTemplatePolicy, setStrictTemplatePolicy, allowTemplateFromDomModule, setAllowTemplateFromDomModule, legacyOptimizations, setLegacyOptimizations, syncInitialRender, setSyncInitialRender, cancelSyntheticClickEvents, setCancelSyntheticClickEvents, stylesFromModules, stylesFromModule, stylesFromTemplate, stylesFromModuleImports, cssFromModules, cssFromModule, cssFromTemplate, cssFromModuleImports, instanceCount, incrementInstanceCount, registrations, register as register$1, dumpRegistrations, templatize, modelForElement, TemplateInstanceBase, wrap$1 as wrap, html as html$1, version as version$1, PolymerElement, Polymer as Polymer$1, html as html$2, Base, invalidate, invalidateTemplate, isValid, templateIsValid, isValidating, templateIsValidating, startValidating, startValidatingTemplate, elementsAreInvalid, ApplyShim as $applyShimDefault, VAR_ASSIGN, MIXIN_MATCH, VAR_CONSUMED, ANIMATION_MATCH, MEDIA_MATCH, IS_VAR, BRACKETED, HOST_PREFIX, HOST_SUFFIX, updateNativeProperties, getComputedStyleValue, detectMixin, StyleNode, parse, stringify, removeCustomPropAssignment, types, CustomStyleProvider, CustomStyleInterface as $customStyleInterfaceDefault, CustomStyleInterfaceInterface, documentWait as $documentWaitDefault, nativeShadow, cssBuild, disableRuntime, nativeCssVariables, toCssText, rulesForStyle, isKeyframesSelector, forEachRule, applyCss, createScopeStyle, applyStylePlaceHolder, applyStyle, isTargetedBuild, findMatchingParen, processVariableAndFallback, setElementClassRaw, wrap as wrap$1, getIsExtends, gatherStyleText, splitSelectorList, getCssBuild, elementHasBuiltCss, getBuildComment, isOptimalCssBuild, templateMap as $templateMapDefault, scopingAttribute, processUnscopedStyle, isUnscopedStyle, WiseShoppingCartItem, WiseShoppingCart };
+export { ironA11yAnnouncer as $ironA11yAnnouncer, ironA11yKeysBehavior as $ironA11yKeysBehavior, ironButtonState as $ironButtonState, ironControlState as $ironControlState, ironCheckedElementBehavior as $ironCheckedElementBehavior, ironFormElementBehavior as $ironFormElementBehavior, ironMenuBehavior as $ironMenuBehavior, ironMenubarBehavior as $ironMenubarBehavior, ironMeta as $ironMeta, ironMultiSelectable as $ironMultiSelectable, ironSelectable as $ironSelectable, ironSelection as $ironSelection, ironValidatableBehavior as $ironValidatableBehavior, paperButtonBehavior as $paperButtonBehavior, paperCheckedElementBehavior as $paperCheckedElementBehavior, paperInkyFocusBehavior as $paperInkyFocusBehavior, paperRippleBehavior as $paperRippleBehavior, paperInputAddonBehavior as $paperInputAddonBehavior, paperInputBehavior as $paperInputBehavior, paperSpinnerBehavior as $paperSpinnerBehavior, arraySelector as $arraySelector, customStyle as $customStyle, domBind as $domBind, domIf as $domIf, domModule as $domModule, domRepeat as $domRepeat, _class as $class, legacyElementMixin as $legacyElementMixin, mutableDataBehavior as $mutableDataBehavior, polymerFn as $polymerFn, polymer_dom as $polymerDom, templatizerBehavior as $templatizerBehavior, dirMixin as $dirMixin, disableUpgradeMixin as $disableUpgradeMixin, elementMixin as $elementMixin, gestureEventListeners as $gestureEventListeners, mutableData as $mutableData, propertiesChanged as $propertiesChanged, propertiesMixin as $propertiesMixin, propertyAccessors as $propertyAccessors, propertyEffects as $propertyEffects, templateStamp as $templateStamp, arraySplice as $arraySplice, async as $async, caseMap$1 as $caseMap, debounce as $debounce, flattenedNodesObserver as $flattenedNodesObserver, flush$2 as $flush, gestures$1 as $gestures, hideTemplateControls as $hideTemplateControls, htmlTag as $htmlTag, mixin as $mixin, path as $path, renderStatus as $renderStatus, resolveUrl$1 as $resolveUrl, scopeSubtree$1 as $scopeSubtree, settings as $settings, styleGather as $styleGather, telemetry as $telemetry, templatize$1 as $templatize, wrap$2 as $wrap, polymerElement as $polymerElement, polymerLegacy as $polymerLegacy, applyShimUtils as $applyShimUtils, applyShim as $applyShim$1, commonRegex as $commonRegex, commonUtils as $commonUtils, cssParse as $cssParse, customStyleInterface as $customStyleInterface$1, documentWait$1 as $documentWait, styleSettings as $styleSettings, styleUtil as $styleUtil, templateMap$1 as $templateMap, unscopedStyleHandler as $unscopedStyleHandler, wiseShoppingCartItem as $wiseShoppingCartItem, wiseShoppingCart as $wiseShoppingCart, IronA11yAnnouncer, IronA11yKeysBehavior, IronButtonStateImpl, IronButtonState, IronControlState, IronCheckedElementBehaviorImpl, IronCheckedElementBehavior, IronFormElementBehavior, IronMenuBehaviorImpl, IronMenuBehavior, IronMenubarBehaviorImpl, IronMenubarBehavior, IronMeta, IronMultiSelectableBehaviorImpl, IronMultiSelectableBehavior, IronSelectableBehavior, IronSelection, IronValidatableBehaviorMeta, IronValidatableBehavior, PaperButtonBehaviorImpl, PaperButtonBehavior, PaperCheckedElementBehaviorImpl, PaperCheckedElementBehavior, PaperInkyFocusBehaviorImpl, PaperInkyFocusBehavior, PaperRippleBehavior, PaperInputAddonBehavior, PaperInputHelper, PaperInputBehaviorImpl, PaperInputBehavior, PaperSpinnerBehavior, ArraySelectorMixin, ArraySelector, CustomStyle, DomBind, DomIf, DomModule, DomRepeat, mixinBehaviors, Class, LegacyElementMixin, MutableDataBehavior, OptionalMutableDataBehavior, Polymer, flush$1 as flush, enqueueDebouncer as addDebouncer, matchesSelector, EventApi, DomApi, dom, Templatizer, DirMixin, findObservedAttributesGetter, DisableUpgradeMixin, version, builtCSS, ElementMixin, updateStyles, GestureEventListeners, MutableData, OptionalMutableData, PropertiesChanged, PropertiesMixin, PropertyAccessors, PropertyEffects, TemplateStamp, calculateSplices, timeOut, animationFrame, idlePeriod, microTask, dashToCamelCase, camelToDashCase, Debouncer, enqueueDebouncer, flushDebouncers, FlattenedNodesObserver, enqueueDebouncer as enqueueDebouncer$1, flush$1, gestures, recognizers, deepTargetFind, addListener, removeListener, register$1 as register, setTouchAction, prevent, resetMouseCanceller, findOriginalTarget, add, remove, hideElementsGlobally, html, htmlLiteral, dedupingMixin, isPath, root, isAncestor, isDescendant, translate, matches, normalize, split, get, set, isDeep, flush as flush$2, beforeNextRender, afterNextRender, resolveUrl, resolveCss, pathFromUrl, scopeSubtree, useShadow, useNativeCSSProperties, useNativeCustomElements, supportsAdoptingStyleSheets, rootPath, setRootPath, sanitizeDOMValue, setSanitizeDOMValue, getSanitizeDOMValue, passiveTouchGestures, setPassiveTouchGestures, strictTemplatePolicy, setStrictTemplatePolicy, allowTemplateFromDomModule, setAllowTemplateFromDomModule, legacyOptimizations, setLegacyOptimizations, legacyWarnings, setLegacyWarnings, syncInitialRender, setSyncInitialRender, legacyUndefined, setLegacyUndefined, orderedComputed, setOrderedComputed, cancelSyntheticClickEvents, setCancelSyntheticClickEvents, removeNestedTemplates, setRemoveNestedTemplates, fastDomIf, setFastDomIf, suppressTemplateNotifications, setSuppressTemplateNotifications, legacyNoObservedAttributes, setLegacyNoObservedAttributes, useAdoptedStyleSheetsWithBuiltCSS, setUseAdoptedStyleSheetsWithBuiltCSS, stylesFromModules, stylesFromModule, stylesFromTemplate, stylesFromModuleImports, cssFromModules, cssFromModule, cssFromTemplate, cssFromModuleImports, instanceCount, incrementInstanceCount, registrations, register as register$1, dumpRegistrations, showHideChildren, templatize, modelForElement, TemplateInstanceBase, wrap$1 as wrap, html as html$1, version as version$1, PolymerElement, Polymer as Polymer$1, html as html$2, Base, invalidate, invalidateTemplate, isValid, templateIsValid, isValidating, templateIsValidating, startValidating, startValidatingTemplate, elementsAreInvalid, ApplyShim as $applyShimDefault, VAR_ASSIGN, MIXIN_MATCH, VAR_CONSUMED, ANIMATION_MATCH, MEDIA_MATCH, IS_VAR, BRACKETED, HOST_PREFIX, HOST_SUFFIX, updateNativeProperties, getComputedStyleValue, detectMixin, StyleNode, parse, stringify, removeCustomPropAssignment, types, CustomStyleProvider, CustomStyleInterface as $customStyleInterfaceDefault, CustomStyleInterfaceInterface, documentWait as $documentWaitDefault, nativeShadow, cssBuild, disableRuntime, nativeCssVariables, toCssText, rulesForStyle, isKeyframesSelector, forEachRule, applyCss, createScopeStyle, applyStylePlaceHolder, applyStyle, isTargetedBuild, findMatchingParen, processVariableAndFallback, setElementClassRaw, wrap as wrap$1, getIsExtends, gatherStyleText, splitSelectorList, getCssBuild, elementHasBuiltCss, getBuildComment, isOptimalCssBuild, templateMap as $templateMapDefault, scopingAttribute, processUnscopedStyle, isUnscopedStyle, WiseShoppingCartItem, WiseShoppingCart };
