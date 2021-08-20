@@ -239,9 +239,6 @@ public class Application extends Controller {
 
         shop.currencyShop = setCurrencyToShop(shop);
         List<ProductDTO> productList = new ArrayList<ProductDTO>();
-        List<ProductDTO> products;
-        String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 and c.isHidden = ?2 and p.isActive = ?3 order by p.sortOrder asc";
-        products = ProductDTO.find(query, shop, false, true).fetch();
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             DataBaseQueries.changePriceAccordingToCurrency(product, shop, selectedCurrency);
@@ -410,7 +407,6 @@ public class Application extends Controller {
             productList.add(product);
         }
 
-        }
         Translation.setTranslationForShop(language, shop);
 
         List<PageConstructorDTO> pageList = PageConstructorDTO.find("byShop", shop).fetch();

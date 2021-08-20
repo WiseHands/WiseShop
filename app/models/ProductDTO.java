@@ -171,8 +171,9 @@ public class ProductDTO extends GenericModel {
 
 
 
-    public String formatDecimalOldPrice() {
-        return _roundAvoid(this.oldPrice, 2);
+    public double formatDecimalOldPrice() {
+        double price = this.oldPrice != null ? this.oldPrice : 0;
+        return _roundAvoid(price, 2);
     }
 
     public String getLinkToProductPage(ProductDTO product, String language, String qr_uuid, String selectedCurrency){
