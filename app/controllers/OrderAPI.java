@@ -88,13 +88,14 @@ public class OrderAPI extends AuthController {
         orderItem.imagePath = lineItem.imagePath;
     }
 
-    private static void createAddition(List<AdditionOrderDTO> additionList, AdditionLineItemDTO addition, Double totalCost) {
+    private static Double createAdditionAndGetAdditionPrice(List<AdditionOrderDTO> additionList, AdditionLineItemDTO addition) {
         AdditionOrderDTO additionOrderDTO = new AdditionOrderDTO();
         additionOrderDTO.title = addition.title;
         additionOrderDTO.price = addition.price;
         additionOrderDTO.quantity = addition.quantity;
-        totalCost += additionOrderDTO.price * additionOrderDTO.quantity;
         additionList.add(additionOrderDTO);
+
+        return additionOrderDTO.price * additionOrderDTO.quantity;
     }
 
     private static OrderItemListResult _parseOrderItemsList(List<LineItem> items, OrderDTO order) {
@@ -110,7 +111,7 @@ public class OrderAPI extends AuthController {
 
             List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
             for(AdditionLineItemDTO addition : lineItem.additionList){
-                createAddition(additionList, addition, totalCost);
+                totalCost += createAdditionAndGetAdditionPrice(additionList, addition);
             }
             orderItem.additionsList = additionList;
             orderItem.save();
