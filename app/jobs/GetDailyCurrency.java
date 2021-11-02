@@ -22,6 +22,9 @@ public class GetDailyCurrency extends Job {
 
         String currencyJson = firstCurrencyResponse.getString();
         String currencyPlzJson = secondCurrencyResponseGetPlz.getString();
+        System.out.println("currencyJson => " + currencyJson);
+        System.out.println("currencyPlzJson => " + currencyPlzJson);
+
 
         if (!currencyJson.isEmpty() || !currencyPlzJson.isEmpty()){
             JSONParser parser = new JSONParser();
@@ -46,10 +49,12 @@ public class GetDailyCurrency extends Job {
         if (currencyShop.currencyList.isEmpty()) {
             for (Object object : currencyJsonArray) {
                 JSONObject jsonObject = (JSONObject) object;
-                currencyShop.addCurrency(getCurrency(jsonObject).save());
+                currencyShop.addCurrency(getCurrency(jsonObject));
             }
             CurrencyDTO currencyPlz = getPlzCurrency(currencyPLZJsonArray);
             currencyShop.addCurrency(currencyPlz);
+            System.out.println("currencyList in job isEmpty => " + currencyShop.currencyList);
+
         } else {
             for (int i = 0; i < currencyJsonArray.size(); i++) {
                 JSONObject jsonObject = (JSONObject) currencyJsonArray.get(i);
@@ -75,10 +80,7 @@ public class GetDailyCurrency extends Job {
         CurrencyDTO currency = null;
         for (Object object : currencyPLZJsonArray) {
             JSONObject jsonObject = (JSONObject) object;
-            if(jsonObject.get("ccy").equals("PLZ")){
-                currency = getCurrency(jsonObject);
-                currency.save();
-            }
+            if (jsonObject.get("ccy").equals("PLZ")) currency = getCurrency(jsonObject);
         }
         return currency;
     }
@@ -107,6 +109,7 @@ public class GetDailyCurrency extends Job {
         double sale = Double.parseDouble((String) jsonObject.get("sale"));
 
         CurrencyDTO currency = new CurrencyDTO(ccy, baseCurrency, buy, sale);
+        currency.save();
         return currency;
     }
 

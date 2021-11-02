@@ -27,7 +27,7 @@ public class BalanceAPI extends AuthController {
         }
     }
 
-    public static void setCurrencyToShop(String client, String currency) throws Exception {
+    public static void setCurrency(String client, String currency) throws Exception {
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {

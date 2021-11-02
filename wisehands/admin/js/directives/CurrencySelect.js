@@ -22,7 +22,7 @@ angular.module('WiseHands')
 			    url: '/shop/details',
 		    })
 			    .then(response => {
-				    console.log("response in currency drop-btn => ", response.data.currencyShop.currency);
+				    console.log("response in currency drop-btn => ", response.data);
 				    $scope.shopCurrency = response.data.currencyShop.currency;
 			    }, error => {
 				    console.log(error);

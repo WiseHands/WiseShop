@@ -508,10 +508,8 @@ public class Application extends Controller {
         if (currencyShop == null){
             currencyShop = new CurrencyShopDTO(shop);
             currencyShop.save();
-            return currencyShop;
-        } else {
-            return currencyShop;
         }
+        return currencyShop;
     }
 
     private static List<PageConstructorDTO> translatePageList(ShopDTO shop, String language) {

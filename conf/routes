@@ -256,7 +256,7 @@ GET     {client}/currency-list                          BalanceAPI.getCurrencyLi
 GET     {client}/balance                                BalanceAPI.getBalance
 POST    {client}/pay                                    BalanceAPI.startPayment
 POST    {client}/payment-verification                   BalanceAPI.balancePaymentVerification
-PUT     {client}/currency/shop/{currency}               BalanceAPI.setCurrencyToShop
+PUT     {client}/currency/shop/{currency}               BalanceAPI.setCurrency
 
 GET	    {client}/api/category				            CategoryAPI.all
 GET	    {client}/api/category/{uuid}			        CategoryAPI.details
