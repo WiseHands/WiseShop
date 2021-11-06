@@ -1710,6 +1710,10 @@ input {
     padding: 0.5rem;
     text-align: center;
 }
+.edit-product-checking-panel {
+    display: flex;
+    flex-direction: column;
+}
 
 .details-product-block .admin-card h5 {
     margin: 0 0 1.3rem 0;
