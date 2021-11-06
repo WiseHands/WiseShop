@@ -1,3 +1,4 @@
+
 ﻿{
   "selectAdditions.title": "Additions",
   "selectProductAdditions.title": "Additions for product",
@@ -268,18 +269,23 @@
   "addNewShops.coords": "Współrzędne sklepu",
   "addNewShops.details": "Informacje o sklepie",
   "addNewShops.createNetworkShops": "Utwórz sieć sklepów",
+  
+  "shopDetails.deleteMessage1": "Czy na pewno chcesz usunąć ten sklep?",
+  "shopDetails.deleteMessage2": "Sklep usunięty.",
+
   "productDetails.category": "Kategoria",
   "productDetails.details": "Produkt",
   "productDetails.edit": "Edytować",
   "productDetails.delete": "Usunąć",
   "productDetails.deleteMessage1": "Czy na pewno chcesz usunąć ten produkt?",
   "productDetails.deleteMessage2": "Produkt usunięty.",
-  "shopDetails.deleteMessage1": "Czy na pewno chcesz usunąć ten sklep?",
-  "shopDetails.deleteMessage2": "Sklep usunięty.",
   "productDetails.reviews": "Opinie",
   "productDetails.customersReviews": "Opinie klientów o produkcie",
   "productDetails.viewCustomersReviews": "Przejrzeć",
   "productDetails.translate": "Przekładać",
+  "productDetails.isDishOfDay": "Selected as dish of day",
+  "productDetails.isPromotionalProduct": "Promotional in action",
+
   "productReviews.byDate": "Według daty",
   "productReviews.byRating": "Według oceny",
   "productReviews.reviewDisplayed": "Opinię jest wyświetlana",

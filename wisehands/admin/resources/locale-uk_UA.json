@@ -269,6 +269,7 @@
   "addNewShops.coords": "Координати магазину",
   "addNewShops.details": "Деталі магазину",
   "addNewShops.createNetworkShops": "Створення мережі магазинів",
+
   "productDetails.category": "Категорія",
   "productDetails.details": "Товар",
   "productDetails.edit": "Редагувати",
@@ -279,6 +280,9 @@
   "productDetails.customersReviews": "Відгуки клієнтів про товар",
   "productDetails.viewCustomersReviews": "Переглянути",
   "productDetails.translate": "Перекласти",
+  "productDetails.isDishOfDay": "Вибрано як страва дня",
+  "productDetails.isPromotionalProduct": "Товар під акцією",
+
   "productReviews.byDate": "По даті",
   "productReviews.byRating": "По рейтингу",
   "productReviews.reviewDisplayed": "Відгук відображається",

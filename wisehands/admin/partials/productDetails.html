@@ -65,6 +65,8 @@
                     <h4>{{'editProduct.properties' | translate}}</h4>
                     <p ng-show="product.isActive" >{{'addNewProduct.isShowInShop' | translate}}</p>
                     <p ng-show="!product.isActive" >{{'addNewProduct.isNotShowInShop' | translate}}</p>
+                    <p ng-show="product.isPromotionalProduct" >{{'productDetails.isPromotionalProduct' | translate}}</p>
+                    <p ng-show="product.isDishOfDay" >{{'productDetails.isDishOfDay' | translate}}</p>
                     <label ng-show="product.oldPrice" for="oldPrice">{{'addNewProduct.oldPrice' | translate}}</label>
                     <p ng-show="product.oldPrice" id="oldPrice">{{product.oldPrice}}</p>
                     <label ng-show="product.sortOrder" for="productOrder">{{'displayOrder' | translate}}</label>

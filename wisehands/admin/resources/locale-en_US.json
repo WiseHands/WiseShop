@@ -269,6 +269,7 @@
   "addNewProduct.deletePhoto": "Remove image",
   "addNewProduct.addProperty": "Add property",
   "addNewProduct.description": "Description",
+
   "productDetails.category": "Category",
   "productDetails.details": "Product",
   "productDetails.edit": "Edit",
@@ -279,6 +280,9 @@
   "productDetails.customersReviews": "Customer reviews about the product",
   "productDetails.viewCustomersReviews": "View",
   "productDetails.translate": "Translate",
+  "productDetails.isDishOfDay": "Selected as dish of day",
+  "productDetails.isPromotionalProduct": "Promotional in action",
+
   "productReviews.byDate": "By date",
   "productReviews.byRating": "By rating",
   "productReviews.reviewDisplayed": "Review is displayed",

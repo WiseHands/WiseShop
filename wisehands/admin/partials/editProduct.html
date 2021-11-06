@@ -49,10 +49,12 @@
                 <div class="admin-card">
                     <h4>{{'editProduct.properties' | translate}}</h4>
                     <div class="edit-product-checking-panel">
-                      <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid}}" ng-model="product.isPromotionalProduct"/>
-                      <label for="{{product.uuid}}">{{'editProduct.isPromotionalProduct' | translate}}</label>
-                      <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box" ng-model="product.isActive" />
-                      <label for="filled-in-box">{{'addNewProduct.showInShop' | translate}}</label>
+                      <input type="checkbox" class="filled-in checkBoxStyling" id="is-active" ng-model="product.isActive" />
+                      <label for="is-active">{{'addNewProduct.showInShop' | translate}}</label>
+                      <input type="checkbox" id="is-promotional-product" class="filled-in checkBoxStyling" ng-model="product.isPromotionalProduct"/>
+                      <label for="is-promotional-product">{{'editProduct.isPromotionalProduct' | translate}}</label>
+                      <input type="checkbox" id="is-dish-of-day" class="filled-in checkBoxStyling" ng-model="product.isDishOfDay"/>
+                      <label for="is-dish-of-day">{{'products.isDishOfDay' | translate}}</label>
                     </div>
 
                     <div class="input-field">

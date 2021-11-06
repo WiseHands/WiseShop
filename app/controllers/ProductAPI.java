@@ -178,7 +178,7 @@ public class ProductAPI extends AuthController {
     }
 
     public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
-                              Integer sortOrder, Boolean isActive, Boolean isPromotionalProduct, Double oldPrice, String properties,
+                              Integer sortOrder, Boolean isActive, Boolean isPromotionalProduct, Boolean isDishOfDay, Double oldPrice, String properties,
                               Integer wholesaleCount, Double wholesalePrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -227,7 +227,7 @@ public class ProductAPI extends AuthController {
         }
 
         product.isActive = isActive;
-        System.out.println("isPromotionalProduct => " + isPromotionalProduct);
+        product.isDishOfDay = isDishOfDay;
         product.isPromotionalProduct = isPromotionalProduct;
         product.sortOrder = sortOrder;
         product.oldPrice = oldPrice;

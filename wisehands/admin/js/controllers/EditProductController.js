@@ -284,6 +284,7 @@ angular.module('WiseHands')
                 fd.append('price', $scope.product.price);
                 fd.append('isActive', $scope.product.isActive);
                 fd.append('isPromotionalProduct', $scope.product.isPromotionalProduct);
+                fd.append('isDishOfDay', $scope.product.isDishOfDay);
 
                 fd.append('oldPrice', $scope.product.oldPrice);
                 fd.append('sortOrder', $scope.product.sortOrder);
