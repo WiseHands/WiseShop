@@ -3003,6 +3003,13 @@ button[_ngcontent-addition-help] {
     display: flex;
     flex-direction: column;
 }
+.set-checkbox-content span {
+  display: flex;
+}
+.is-promotional-product{
+  margin-left: 20px;
+}
+
 
 @media screen and (min-width: 1500px) {
     .admin-container {

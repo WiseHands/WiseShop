@@ -62,12 +62,16 @@
                     <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid}}"
                            ng-model="product.isActive" ng-click="setActiveProduct($event, this.product)"/>
                     <label for="{{product.uuid}}">{{'products.showInShop' | translate}}</label>
-                    <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid + $index}}"
-                           ng-checked="product.isDishOfDay" ng-click="setDishOfDay($event, this.product)"/>
-                    <label for="{{product.uuid + $index}}">{{'products.isDishOfDay' | translate}}</label>
-                    <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid + $index}}"
-                           ng-checked="product.isDishOfDay" ng-click="setDishOfDay($event, this.product)"/>
-                    <label for="{{product.uuid + $index}}">{{'products.isDishOfDay' | translate}}</label>
+                    <span>
+                      <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid + $index}}"
+                             ng-checked="product.isDishOfDay" ng-click="setDishOfDay($event, this.product)"/>
+                      <label for="{{product.uuid + $index}}">{{'products.isDishOfDay' | translate}}</label>
+                      <div class="is-promotional-product" ng-show="product.isPromotionalProduct">
+                        <input type="checkbox" class="filled-in checkBoxStyling" id="{{product.uuid + 1 + $index}}"
+                            ng-disabled="true" ng-model="product.isPromotionalProduct"/>
+                        <label for="{{product.uuid + 1 + $index}}">{{'products.isPromotionProduct' | translate}}</label>
+                      </div>
+                    </span>
                 </div>
             </div>
         </div>

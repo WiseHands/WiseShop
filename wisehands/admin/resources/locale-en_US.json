@@ -300,7 +300,6 @@
   "editProduct.additionQuantity": "Quantity",
   "editProduct.isDefault": "By default *",
   "editProduct.isDefaultDescription": "* except QR code scan",
-
   "editProduct.general": "General",
   "editProduct.edit": "Edit product",
   "editProduct.property": "Property",
@@ -314,6 +313,8 @@
   "editProduct.additionPrice": "Price",
   "editProduct.additionImage": "Additional option image",
   "editProduct.additionAddPhoto": "Add image",
+  "editProduct.isPromotionalProduct": "Promotional product",
+
   "payment.payment": "Payment",
   "payment.paymentTypeCash": "Cash",
   "payment.paymentTypeOnline": "Online",

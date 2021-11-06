@@ -283,6 +283,8 @@ angular.module('WiseHands')
                 fd.append('description', $scope.product.description);
                 fd.append('price', $scope.product.price);
                 fd.append('isActive', $scope.product.isActive);
+                fd.append('isPromotionalProduct', $scope.product.isPromotionalProduct);
+
                 fd.append('oldPrice', $scope.product.oldPrice);
                 fd.append('sortOrder', $scope.product.sortOrder);
                 fd.append('properties', JSON.stringify($scope.product.properties));

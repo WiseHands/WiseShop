@@ -221,6 +221,7 @@
   "products.showMore": "Show more",
   "products.showInShop": "Show in shop",
   "products.isDishOfDay": "Dish of day",
+  "products.isPromotionProduct": "With promotion",
 
   "categories.categoryName": "Nazwa Kategorii",
   "categories.noCategory": "Brak kategorii",
@@ -292,13 +293,12 @@
   "productReviews.cancelReplyForComment": "Anuluj",
   "productReviews.noReviews": "Opinię net",
   "productReviews.removeReviews": "Remove",
+  "productReviews.noComments": "Brak recenzji tego produktu",
 
   "editProduct.selectAdditions": "Select special addition",
   "editProduct.additionQuantity": "Quantity",
   "editProduct.isDefault": "By default *",
   "editProduct.isDefaultDescription": "* except QR code scan",
-
-  "productReviews.noComments": "Brak recenzji tego produktu",
   "editProduct.general": "Wspólne",
   "editProduct.edit": "Edytuj produkt",
   "editProduct.property": "Właściwość",
@@ -312,6 +312,8 @@
   "editProduct.additionPrice": "Cena opcji",
   "editProduct.additionImage": "Obraz opciji",
   "editProduct.additionAddPhoto": "Dodaj obraz",
+  "editProduct.isPromotionalProduct": "Promotional product",
+
   "payment.payment": "Płatność",
   "payment.paymentTypeCash": "Gotówką",
   "payment.paymentTypeOnline": "Online",

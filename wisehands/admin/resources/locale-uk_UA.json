@@ -300,7 +300,6 @@
   "editProduct.additionQuantity": "Кількість",
   "editProduct.isDefault": "За замовчуванням *",
   "editProduct.isDefaultDescription": "* окрім сканування через QR код (додатки, вибрані за замовчуванням — не будуть враховуватись у QR-замовленні)",
-
   "editProduct.general": "Основне",
   "editProduct.edit": "Редагувати товар",
   "editProduct.property": "Додаток",
@@ -314,6 +313,8 @@
   "editProduct.optionName": "Назва опції",
   "editProduct.optionPrice": "Ціна опції",
   "editProduct.addAddition": "Додати опцію до товару (наприклад, до піци - рукола або томати)",
+  "editProduct.isPromotionalProduct": "Акційний товар",
+
   "payment.payment": "Оплата",
   "payment.paymentTypeCash": "Готівка",
   "payment.paymentTypeOnline": "Онлайн",

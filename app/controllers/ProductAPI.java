@@ -17,8 +17,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static sun.awt.geom.Curve.round;
-
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
     private  static final int PAGE_SIZE = 6;
@@ -180,7 +178,7 @@ public class ProductAPI extends AuthController {
     }
 
     public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
-                              Integer sortOrder, Boolean isActive, Double oldPrice, String properties,
+                              Integer sortOrder, Boolean isActive, Boolean isPromotionalProduct, Double oldPrice, String properties,
                               Integer wholesaleCount, Double wholesalePrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
@@ -229,6 +227,8 @@ public class ProductAPI extends AuthController {
         }
 
         product.isActive = isActive;
+        System.out.println("isPromotionalProduct => " + isPromotionalProduct);
+        product.isPromotionalProduct = isPromotionalProduct;
         product.sortOrder = sortOrder;
         product.oldPrice = oldPrice;
 
@@ -319,7 +319,7 @@ public class ProductAPI extends AuthController {
 
         if (newDishProduct.isDishOfDay) {
             newDishProduct.oldPrice = newDishProduct.price;
-            newDishProduct.priceOfDay = newDishProduct.price - round(newDishProduct.price * (double) shop.banner.discount / 100);
+            newDishProduct.priceOfDay = newDishProduct.price - Math.round(newDishProduct.price * (double) shop.banner.discount / 100);
         } else {
             newDishProduct.priceOfDay = 0d;
             newDishProduct.oldPrice = null;
