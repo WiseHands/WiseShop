@@ -61,7 +61,6 @@ public class BannerDTO extends GenericModel {
         this.bannerDescription = bannerDescription;
     }
 
-
     @Override
     public String toString() {
         return "BannerDTO{" +

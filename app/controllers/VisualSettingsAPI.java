@@ -44,9 +44,6 @@ public class VisualSettingsAPI extends AuthController {
         visualSettings.navbarShopItemsColor = (String) jsonBody.get("navbarShopItemsColor");
         visualSettings.logoHref = (String) jsonBody.get("logoHref");
         visualSettings.isFooterOn = Boolean.parseBoolean(String.valueOf(jsonBody.get("isFooterOn")));
-        visualSettings.isBannerOn = Boolean.parseBoolean(String.valueOf(jsonBody.get("isBannerOn")));
-        visualSettings.bannerName = (String) jsonBody.get("bannerName");
-        visualSettings.bannerDescription = (String) jsonBody.get("bannerDescription");
 
         visualSettings = visualSettings.save();
         shop.save();

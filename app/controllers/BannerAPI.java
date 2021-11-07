@@ -22,9 +22,8 @@ public class BannerAPI extends AuthController{
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
 
-        System.out.println("setBannerForProductOfDay => " + jsonBody);
         boolean isForDishOfDayOn = Boolean.parseBoolean(String.valueOf(jsonBody.get("isForDishOfDayOn")));
-        String bannerName = (String) jsonBody.get("name");
+        String bannerName = (String) jsonBody.get("bannerName");
         Integer discount = Integer.parseInt(String.valueOf(jsonBody.get("discount")));
 
         BannerDTO banner = BannerDTO.find("select b from BannerDTO b where b.shop = ?1 and b.isForDishOfDayOn = ?2", shop, isForDishOfDayOn).first();
@@ -33,10 +32,9 @@ public class BannerAPI extends AuthController{
             shop.bannerList.add(banner); shop.save();
             renderJSON(json(banner));
         } else {
-            banner.isBannerInShopBasketOn = isForDishOfDayOn;
+            banner.isForDishOfDayOn = isForDishOfDayOn;
             banner.bannerName = bannerName;
             banner.discount = discount; banner.save();
-            shop.bannerList.add(banner); shop.save();
             System.out.println("createBanner => " + banner.toString());
         }
     }
@@ -53,8 +51,8 @@ public class BannerAPI extends AuthController{
         System.out.println("setBannerForShopBasket => " + jsonBody);
 
         boolean isBannerInShopOn = Boolean.parseBoolean(String.valueOf(jsonBody.get("isBannerOn")));
-        String bannerName = (String) jsonBody.get("name");
-        String bannerDescription = (String) jsonBody.get("description");
+        String bannerName = (String) jsonBody.get("bannerName");
+        String bannerDescription = (String) jsonBody.get("bannerDescription");
 
         BannerDTO banner = BannerDTO.find("select b from BannerDTO b where b.shop = ?1 and b.isBannerOn = ?2", shop, isBannerInShopOn).first();
         if (banner == null) {
@@ -65,7 +63,6 @@ public class BannerAPI extends AuthController{
             banner.isBannerOn = isBannerInShopOn;
             banner.bannerName = bannerName;
             banner.bannerDescription = bannerDescription; banner.save();
-            shop.bannerList.add(banner); shop.save();
             System.out.println("createBanner => " + banner.toString());
         }
 

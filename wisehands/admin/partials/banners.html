@@ -34,7 +34,7 @@
                ng-model="bannerProductOfDay.isForDishOfDayOn"/>
         <label for="banner-product-of-day">{{'settings.isShoppingCartBannerOn' | translate}}</label>
         <input type="text"
-               ng-model="bannerProductOfDay.name"
+               ng-model="bannerProductOfDay.bannerName"
                placeholder="{{'settings.enterBannerText' | translate}}">
         <input type="number"
                ng-model="bannerProductOfDay.discount"
@@ -61,7 +61,7 @@
                placeholder="{{'settings.enterBannerTitle' | translate}}">
         <textarea name="bannerText"
                   id="shoppingCartBannerText" cols="30" rows="10"
-                  ng-model="bannerForShopBasket.description" ng-show="bannerForShopBasket.isBannerOn"
+                  ng-model="bannerForShopBasket.bannerDescription" ng-show="bannerForShopBasket.isBannerOn"
                   placeholder="{{'settings.enterBannerText' | translate}}">
         </textarea>
     </div>

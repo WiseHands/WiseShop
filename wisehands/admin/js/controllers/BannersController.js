@@ -10,7 +10,10 @@ angular.module('WiseHands')
     })
       .then(response => {
         $scope.loading = false;
-        // $scope.banner = response.data;
+        $scope.bannerProductOfDay = response.data[0]
+        console.log('/api/banners response', $scope.bannerProductOfDay)
+        $scope.bannerForShopBasket = response.data[1]
+        console.log('/api/banners response', $scope.bannerForShopBasket)
         console.log('/api/banners response', response.data)
 
       }, error => {
