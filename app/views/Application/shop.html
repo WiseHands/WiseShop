@@ -205,16 +205,16 @@
                         <img src="/public/product_images/${shop.uuid}/${dishOfDay.mainImage.filename}"
                              class="item-img" alt="${dishOfDay.name}" loading="lazy">
                     </a>
-                    <div class="dish-0f-day-title">${shop.banner.name}</div>
-                    <div class="dish-0f-day-discount">-${shop.banner.discount}%</div>
+                    <div class="dish-0f-day-title">${shop.bannerList[0].bannerName}</div>
+                    <div class="dish-0f-day-discount">-${shop.bannerList[0].discount}%</div>
                     #{/if}
                     #{else}
                     <a href="/${language}/product/${dishOfDay.uuid}${qrParam}${qr_uuid}">
                         <img src="/public/product_images/${shop.uuid}/${dishOfDay.mainImage.filename}"
                              class="item-img" alt="${dishOfDay.name}" loading="lazy">
                     </a>
-                        <div class="dish-0f-day-title">${shop.banner.name}</div>
-                        <div class="dish-0f-day-discount">-${shop.banner.discount}%</div>
+                        <div class="dish-0f-day-title">${shop.bannerList[0].bannerName}</div>
+                        <div class="dish-0f-day-discount">-${shop.bannerList[0].discount}%</div>
                     #{/else}
                 </div>
                 <div class="card-block text-xs-center">
@@ -295,16 +295,16 @@
                     <img src="/public/product_images/${shop.uuid}/${dishOfDay.mainImage.filename}"
                          class="item-img" alt="${dishOfDay.name}" loading="lazy">
                 </a>
-                <div class="dish-0f-day-title">${shop.banner.name}</div>
-                <div class="dish-0f-day-discount">-${shop.banner.discount}%</div>
+                <div class="dish-0f-day-title">${shop.bannerList[0].bannerName}</div>
+                <div class="dish-0f-day-discount">-${shop.bannerList[0].discount}%</div>
                 #{/if}
                 #{else}
                 <a href="/${language}/product/${dishOfDay.uuid}${qrParam}${qr_uuid}">
                     <img src="/public/product_images/${shop.uuid}/${dishOfDay.mainImage.filename}"
                          class="item-img" alt="${dishOfDay.name}" loading="lazy">
                 </a>
-                <div class="dish-0f-day-title">${shop.banner.name}</div>
-                <div class="dish-0f-day-discount">-${shop.banner.discount}%</div>
+                <div class="dish-0f-day-title">${shop.bannerList[0].bannerName}</div>
+                <div class="dish-0f-day-discount">-${shop.bannerList[0].discount}%</div>
                 #{/else}
             </div>
             <div class="item-card-list-content">

@@ -153,7 +153,7 @@ public class Application extends Controller {
             productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+                product.priceWithAdditions = (double) totalPriceForDefaultAdditions;
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
             }
@@ -306,7 +306,7 @@ public class Application extends Controller {
             productList.add(product);
             if(qr_uuid == null || qr_uuid.isEmpty()){
                 int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-                product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+                product.priceWithAdditions = (double) totalPriceForDefaultAdditions;
             } else {
                 DataBaseQueries.hideDefaultAddition(product);
             }
