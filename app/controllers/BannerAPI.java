@@ -9,17 +9,14 @@ public class BannerAPI extends AuthController{
 
     public static void details(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
+        if (shop == null) shop = ShopDTO.find("byDomain", "localhost").first();
+        checkAuthentification(shop);
         renderJSON(json(shop.bannerList));
     }
 
-    public static void upDate(String client) throws Exception {
+    public static void setBannerForShop(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
-        }
+        if (shop == null) shop = ShopDTO.find("byDomain", "localhost").first();
         checkAuthentification(shop);
 
         JSONParser parser = new JSONParser();
@@ -27,6 +24,8 @@ public class BannerAPI extends AuthController{
         System.out.println("upDate jsonBody => " + jsonBody);
         boolean isBannerInShopOn = Boolean.parseBoolean(String.valueOf(jsonBody.get("isBannerInShopOn")));
         String name = (String) jsonBody.get("name");
+        System.out.println("upDate jsonBody => " + name);
+
         Integer discount = Integer.parseInt(String.valueOf(jsonBody.get("discount")));
 
         BannerDTO banner = BannerDTO.find("select b from BannerDTO b where b.shop = ?1 and b.isBannerInShopOn = ?2", shop, isBannerInShopOn).first();
@@ -43,7 +42,7 @@ public class BannerAPI extends AuthController{
             banner.save();
         }
 
-        renderJSON(json(banner));
+        renderJSON(json(shop));
 
     }
 

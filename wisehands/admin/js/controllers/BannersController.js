@@ -10,7 +10,7 @@ angular.module('WiseHands')
     })
       .then(response => {
         $scope.loading = false;
-        $scope.banner = response.data;
+        // $scope.banner = response.data;
         console.log('/api/banners response', response.data)
 
       }, error => {
@@ -20,22 +20,38 @@ angular.module('WiseHands')
 
 
 
-    $scope.setBanner = () => {
+    $scope.setBannerForProductOfDay = () => {
       $scope.loading = true;
-        console.log('updateBanners => ', $scope.banner);
+        console.log('updateBanners => ', $scope.bannerProductOfDay);
+      // $http({
+      //   method: 'PUT',
+      //   url: '/api/banners',
+      //   data: $scope.bannerProductOfDay
+      // })
+      //   .success(response => {
+      //     $scope.loading = false;
+      //     showInfoMsg("SAVED");
+      //   }).error(error => {
+      //   $scope.loading = false;
+      //   showWarningMsg("ERROR");
+      // });
+    };
 
-      $http({
-        method: 'PUT',
-        url: '/api/banners',
-        data: $scope.banner
-      })
-        .success(response => {
-          $scope.loading = false;
-          showInfoMsg("SAVED");
-        }).error(error => {
-        $scope.loading = false;
-        showWarningMsg("ERROR");
-      });
+    $scope.setBannerForShopBasket = () => {
+      $scope.loading = true;
+        console.log('updateBanners => ', $scope.bannerForShopBasket);
+      // $http({
+      //   method: 'PUT',
+      //   url: '/api/banners',
+      //   data: $scope.bannerForShopBasket
+      // })
+      //   .success(response => {
+      //     $scope.loading = false;
+      //     showInfoMsg("SAVED");
+      //   }).error(error => {
+      //   $scope.loading = false;
+      //   showWarningMsg("ERROR");
+      // });
     };
 
 

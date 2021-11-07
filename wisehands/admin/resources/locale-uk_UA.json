@@ -384,10 +384,16 @@
   "users.newUserExist": "Користувач з такою поштою вже зареєстрований",
   "users.deleteMessage1": "Ви дійсно хочете видалити даного користувача?",
   "users.deleteMessage2": "Користувач видалений.",
+
   "banners.title": "Банери",
-  "banners.inShop": "Банер у магазині",
-  "banners.inShopText": "Щоб показувати банер у магазині відмітьте поле внизу",
-  "banners.enterBannerDiscount": "Введіть знижку для банера",
+  "banners.productOfDay": "Банер для товару дня",
+  "banners.productOfDayCheck": "Щоб товар дня був доступний у магазині відмітьте поле внизу",
+  "banners.productOfDayDiscount": "Введіть знижку для товару дня",
+
+  "banners.inShopBasket": "Банер для корзини",
+  "banners.inShopBasketCheck": "Щоб банер відображався у корзині магазину відмітьте поле внизу",
+  "banners.enterBannerDiscount": "Wpisz rabat do bannera",
+
   "settings.settings": "Налаштування",
   "settings.favicon": "Favicon",
   "settings.loadFavicon": "Щоб завантажити favicon (іконка сайту, що зображається поряд з адресою сайту в адресному рядку, біля заголовку сторінки у вкладці або в списку закладок браузера) натисніть сюди. Рекомендований розмір 180*180px",

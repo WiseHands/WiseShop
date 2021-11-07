@@ -386,6 +386,10 @@
   "users.deleteMessage2": "User deleted.",
 
   "banners.title": "Banners",
+  "banners.productOfDay": "Товар дня",
+  "banners.productOfDayText": "Щоб товар дня був доступний у магазині відмітьте поле внизу",
+  "banners.productOfDayDiscount": "Введіть знижку для товару дня",
+
   "banners.inShop": "Baner w sklepie",
   "banners.inShopText": "Aby wyświetlić baner informacyjny w sklepie, zaznacz poniższe pole",
   "banners.enterBannerDiscount": "Wpisz rabat do bannera",
