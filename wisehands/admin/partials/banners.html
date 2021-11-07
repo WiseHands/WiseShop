@@ -19,7 +19,16 @@
 <div class="admin-container">
 
     <div class="admin-card hoverable settings-shopcart-banner col-sm-12">
+      <div class="banner-title-save-container">
         <h4>{{'banners.inShop' | translate}}</h4>
+        <div class="admin-nav-save-btn">
+            <i class="fa fa-save blackColor pull-right"
+               ng-click="updateBanners()">
+            </i>
+        </div>
+      </div>
+
+
         <p>{{'banners.inShopText' | translate}}</p>
         <input id="show-banner" type="checkbox" class="filled-in checkBoxStyling"
                ng-model="banner.isBannerInShopOn"/>
@@ -30,6 +39,7 @@
         <input type="number"
                ng-model="banner.discount"
                placeholder="{{'banners.enterBannerDiscount' | translate}}">
+
     </div>
 
     <div class="admin-card hoverable settings-shopcart-banner col-sm-12">

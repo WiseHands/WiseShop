@@ -3009,6 +3009,14 @@ button[_ngcontent-addition-help] {
 .is-promotional-product{
   margin-left: 20px;
 }
+.banner-title-save-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.banner-title-save-container .admin-nav-save-btn {
+  margin-right: 0;
+}
 
 
 @media screen and (min-width: 1500px) {

@@ -20,7 +20,7 @@ angular.module('WiseHands')
 
 
 
-    $scope.updateBanners = () => {
+    $scope.setBanner = () => {
       $scope.loading = true;
         console.log('updateBanners => ', $scope.banner);
 
