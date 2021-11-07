@@ -48,8 +48,6 @@ public class BannerAPI extends AuthController{
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
 
-        System.out.println("setBannerForShopBasket => " + jsonBody);
-
         boolean isBannerInShopOn = Boolean.parseBoolean(String.valueOf(jsonBody.get("isBannerOn")));
         String bannerName = (String) jsonBody.get("bannerName");
         String bannerDescription = (String) jsonBody.get("bannerDescription");
@@ -63,7 +61,6 @@ public class BannerAPI extends AuthController{
             banner.isBannerOn = isBannerInShopOn;
             banner.bannerName = bannerName;
             banner.bannerDescription = bannerDescription; banner.save();
-            System.out.println("createBanner => " + banner.toString());
         }
 
         renderJSON(json(shop));
