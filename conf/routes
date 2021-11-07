@@ -34,7 +34,8 @@ POST    {client}/api/sign-in                            WizardAPI.signIn
 
 # ******************** BannerAPI
 GET        {client}/api/banners                         BannerAPI.details
-PUT        {client}/api/banners                         BannerAPI.setBannerForShop
+PUT        {client}/api/banner/in/basket                BannerAPI.setBannerForShopBasket
+PUT        {client}/api/banner/for/product              BannerAPI.setBannerForProductOfDay
 
 
 # ******************** ShoppingCartAPI

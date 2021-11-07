@@ -38,30 +38,13 @@ public class VisualSettingsDTO extends GenericModel {
     public boolean isFooterOn;
 
     @Expose
-    @Column(columnDefinition = "boolean default false")
-    public boolean isBannerOn = false;
-
-    @Expose
-    public String bannerName;
-
-    @Expose
-    public String bannerDescription;
-
-    @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public SidebarColorScheme sidebarColorScheme;
 
     @OneToOne(cascade=CascadeType.ALL)
     public ShopDTO shop;
 
-
     public VisualSettingsDTO() {
-    }
-
-    public VisualSettingsDTO(boolean isBannerOn, String bannerName, String bannerDescription){
-        this.isBannerOn = isBannerOn;
-        this.bannerName = bannerName;
-        this.bannerDescription = bannerDescription;
     }
 
 }

@@ -6,6 +6,9 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
+
+import static javax.xml.bind.JAXBIntrospector.getValue;
 
 @Entity
 public class ShoppingCartDTO extends GenericModel {
@@ -139,10 +142,32 @@ public class ShoppingCartDTO extends GenericModel {
         PaymentConfiguration payment = new PaymentConfiguration(cash, creditCard, shop.paymentSettings.minimumPayment);
 
         AdditionalConfiguration additionalConfiguration = new AdditionalConfiguration(shop.labelNameForBuyerNameFieldInShoppingCart,
-                new VisualSettingsDTO(shop.visualSettingsDTO.isBannerOn, shop.visualSettingsDTO.bannerName, shop.visualSettingsDTO.bannerDescription));
+                new BannerDTO(isBannerOnForShop(shop), getNameForBanner(shop), getDescriptionForBanner(shop)));
 
         ShoppingCartConfiguration configuration = new ShoppingCartConfiguration(delivery, payment, additionalConfiguration);
         this.configuration = configuration;
 
+    }
+
+    private boolean isBannerOnForShop(ShopDTO shop) {
+        BannerDTO bannerForBasket = shop.bannerList.stream()
+                .filter(banner -> banner.isBannerOn)
+                .findAny()
+                .orElse(null);
+        return bannerForBasket != null ? true : false;
+    }
+    private String getNameForBanner(ShopDTO shop) {
+        BannerDTO bannerForBasket = shop.bannerList.stream()
+                .filter(banner -> banner.isBannerOn)
+                .findAny()
+                .orElse(null);
+        return bannerForBasket != null ? bannerForBasket.bannerName : "";
+    }
+    private String getDescriptionForBanner(ShopDTO shop) {
+        BannerDTO bannerForBasket = shop.bannerList.stream()
+                .filter(banner -> banner.isBannerOn)
+                .findAny()
+                .orElse(null);
+        return bannerForBasket != null ? bannerForBasket.bannerDescription : "";
     }
 }

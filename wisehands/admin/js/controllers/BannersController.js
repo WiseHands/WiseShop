@@ -23,35 +23,35 @@ angular.module('WiseHands')
     $scope.setBannerForProductOfDay = () => {
       $scope.loading = true;
         console.log('updateBanners => ', $scope.bannerProductOfDay);
-      // $http({
-      //   method: 'PUT',
-      //   url: '/api/banners',
-      //   data: $scope.bannerProductOfDay
-      // })
-      //   .success(response => {
-      //     $scope.loading = false;
-      //     showInfoMsg("SAVED");
-      //   }).error(error => {
-      //   $scope.loading = false;
-      //   showWarningMsg("ERROR");
-      // });
+      $http({
+        method: 'PUT',
+        url: '/api/banner/for/product',
+        data: $scope.bannerProductOfDay
+      })
+        .success(response => {
+          $scope.loading = false;
+          showInfoMsg("SAVED");
+        }).error(error => {
+        $scope.loading = false;
+        showWarningMsg("ERROR");
+      });
     };
 
     $scope.setBannerForShopBasket = () => {
       $scope.loading = true;
         console.log('updateBanners => ', $scope.bannerForShopBasket);
-      // $http({
-      //   method: 'PUT',
-      //   url: '/api/banners',
-      //   data: $scope.bannerForShopBasket
-      // })
-      //   .success(response => {
-      //     $scope.loading = false;
-      //     showInfoMsg("SAVED");
-      //   }).error(error => {
-      //   $scope.loading = false;
-      //   showWarningMsg("ERROR");
-      // });
+      $http({
+        method: 'PUT',
+        url: '/api/banner/in/basket',
+        data: $scope.bannerForShopBasket
+      })
+        .success(response => {
+          $scope.loading = false;
+          showInfoMsg("SAVED");
+        }).error(error => {
+        $scope.loading = false;
+        showWarningMsg("ERROR");
+      });
     };
 
 

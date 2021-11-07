@@ -1,12 +1,10 @@
 package models;
 
-
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
-
 
 @Entity
 public class BannerDTO extends GenericModel {
@@ -19,17 +17,21 @@ public class BannerDTO extends GenericModel {
 
     @Expose
     @Column(columnDefinition = "boolean default false")
-    public boolean isBannerInShopOn = false;
+    public boolean isBannerInShopBasketOn = false;
 
     @Expose
     @Column(columnDefinition = "boolean default false")
-    public boolean isForDishOfDay = false;
+    public boolean isForDishOfDayOn = false;
 
     @Expose
-    public String name;
+    @Column(columnDefinition = "boolean default false")
+    public boolean isBannerOn = false;
 
     @Expose
-    public String description;
+    public String bannerName;
+
+    @Expose
+    public String bannerDescription;
 
     @Expose
     public int discount;
@@ -39,21 +41,35 @@ public class BannerDTO extends GenericModel {
 
     public BannerDTO(){}
 
-    public BannerDTO(ShopDTO shop, boolean isBannerInShopOn, String name, int discount){
+    public BannerDTO(ShopDTO shop, boolean isBannerOn, String bannerName, String bannerDescription){
         this.shop = shop;
-        this.isBannerInShopOn = isBannerInShopOn;
-        this.name = name;
+        this.isBannerOn = isBannerOn;
+        this.bannerName = bannerName;
+        this.bannerDescription = bannerDescription;
+    }
+
+    public BannerDTO(ShopDTO shop, boolean isForDishOfDayOn, String name, int discount){
+        this.shop = shop;
+        this.isForDishOfDayOn = isForDishOfDayOn;
+        this.bannerName = name;
         this.discount = discount;
     }
+
+    public BannerDTO(boolean isBannerOn, String bannerName, String bannerDescription){
+        this.isBannerOn = isBannerOn;
+        this.bannerName = bannerName;
+        this.bannerDescription = bannerDescription;
+    }
+
 
     @Override
     public String toString() {
         return "BannerDTO{" +
                 "uuid='" + uuid + '\'' +
-                ", isBannerInShopOn=" + isBannerInShopOn +
-                ", isForDishOfDay=" + isForDishOfDay +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", isBannerInShopOn=" + isBannerInShopBasketOn +
+                ", isForDishOfDay=" + isForDishOfDayOn +
+                ", name='" + bannerName + '\'' +
+                ", description='" + bannerDescription + '\'' +
                 ", discount=" + discount +
                 ", shop=" + shop +
                 '}';
