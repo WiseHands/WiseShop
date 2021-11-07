@@ -124,10 +124,6 @@ public class ShopDTO extends GenericModel {
     @Expose
     public String locale;
 
-    @Expose
-    @OneToOne(cascade=CascadeType.ALL)
-    public BannerDTO banner;
-
     @OneToOne(cascade=CascadeType.ALL)
     public BalanceDTO balance;
 
@@ -149,6 +145,10 @@ public class ShopDTO extends GenericModel {
     @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public ContactDTO contact;
+
+    @Expose
+    @OneToMany(orphanRemoval=true)
+    public List<BannerDTO> bannerList;
 
     @OneToMany(orphanRemoval=true)
     public List<ProductDTO> productList;

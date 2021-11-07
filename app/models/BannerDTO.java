@@ -22,6 +22,10 @@ public class BannerDTO extends GenericModel {
     public boolean isBannerInShopOn = false;
 
     @Expose
+    @Column(columnDefinition = "boolean default false")
+    public boolean isForDishOfDay = false;
+
+    @Expose
     public String name;
 
     @Expose
@@ -30,7 +34,7 @@ public class BannerDTO extends GenericModel {
     @Expose
     public int discount;
 
-    @OneToOne
+    @ManyToOne
     public ShopDTO shop;
 
     public BannerDTO(){}
@@ -42,5 +46,16 @@ public class BannerDTO extends GenericModel {
         this.discount = discount;
     }
 
-
+    @Override
+    public String toString() {
+        return "BannerDTO{" +
+                "uuid='" + uuid + '\'' +
+                ", isBannerInShopOn=" + isBannerInShopOn +
+                ", isForDishOfDay=" + isForDishOfDay +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", discount=" + discount +
+                ", shop=" + shop +
+                '}';
+    }
 }

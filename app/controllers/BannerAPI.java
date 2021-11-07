@@ -1,9 +1,9 @@
 package controllers;
 
-import models.BannerDTO;
-import models.ShopDTO;
+import models.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 
 public class BannerAPI extends AuthController{
 
@@ -12,7 +12,7 @@ public class BannerAPI extends AuthController{
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        renderJSON(json(shop.banner));
+        renderJSON(json(shop.bannerList));
     }
 
     public static void upDate(String client) throws Exception {
@@ -32,14 +32,14 @@ public class BannerAPI extends AuthController{
         BannerDTO banner = BannerDTO.find("select b from BannerDTO b where b.shop = ?1 and b.isBannerInShopOn = ?2", shop, isBannerInShopOn).first();
         if (banner == null) {
             banner = new BannerDTO(shop, isBannerInShopOn, name, discount); banner.save();
-            shop.banner = banner; shop.save();
+            shop.bannerList.add(banner); shop.save();
             renderJSON(json(banner));
         } else {
             banner.isBannerInShopOn = isBannerInShopOn;
             banner.name = name;
             banner.discount = discount; banner.save();
-            shop.banner = banner; shop.save();
-            System.out.println("createBanner => " + banner.isBannerInShopOn);
+            shop.bannerList.add(banner); shop.save();
+            System.out.println("createBanner => " + banner.toString());
             banner.save();
         }
 

@@ -319,7 +319,7 @@ public class ProductAPI extends AuthController {
 
         if (newDishProduct.isDishOfDay) {
             newDishProduct.oldPrice = newDishProduct.price;
-            newDishProduct.priceOfDay = newDishProduct.price - Math.round(newDishProduct.price * (double) shop.banner.discount / 100);
+//            newDishProduct.priceOfDay = newDishProduct.price - Math.round(newDishProduct.price * (double) shop.banner.discount / 100);
         } else {
             newDishProduct.priceOfDay = 0d;
             newDishProduct.oldPrice = null;

@@ -11,7 +11,7 @@ angular.module('WiseHands')
       .then(response => {
         $scope.loading = false;
         $scope.banner = response.data;
-        console.log('/api/banners response', response)
+        console.log('/api/banners response', response.data)
 
       }, error => {
         $scope.loading = false;

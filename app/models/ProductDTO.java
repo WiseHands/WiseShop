@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 public class ProductDTO extends GenericModel {
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
