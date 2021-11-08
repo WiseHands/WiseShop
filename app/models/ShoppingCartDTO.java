@@ -149,25 +149,24 @@ public class ShoppingCartDTO extends GenericModel {
 
     }
 
-    private boolean isBannerOnForShop(ShopDTO shop) {
+    private BannerDTO getBannerForShoppingCart(ShopDTO shop) {
         BannerDTO bannerForBasket = shop.bannerList.stream()
                 .filter(banner -> banner.isBannerOn)
                 .findAny()
                 .orElse(null);
-        return bannerForBasket != null ? true : false;
+        return bannerForBasket;
+    }
+
+    private boolean isBannerOnForShop(ShopDTO shop) {
+        BannerDTO bannerForBasket = getBannerForShoppingCart(shop);
+        return bannerForBasket != null;
     }
     private String getNameForBanner(ShopDTO shop) {
-        BannerDTO bannerForBasket = shop.bannerList.stream()
-                .filter(banner -> banner.isBannerOn)
-                .findAny()
-                .orElse(null);
+        BannerDTO bannerForBasket = getBannerForShoppingCart(shop);
         return bannerForBasket != null ? bannerForBasket.bannerName : "";
     }
     private String getDescriptionForBanner(ShopDTO shop) {
-        BannerDTO bannerForBasket = shop.bannerList.stream()
-                .filter(banner -> banner.isBannerOn)
-                .findAny()
-                .orElse(null);
+        BannerDTO bannerForBasket = getBannerForShoppingCart(shop);
         return bannerForBasket != null ? bannerForBasket.bannerDescription : "";
     }
 }
