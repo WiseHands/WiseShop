@@ -338,6 +338,7 @@
   "payment.systemPay": "Systemy płatności",
   "delivery.delivery": "Dostawa",
   "delivery.newPost": "Przesyłka",
+  "delivery.personal": "Personal",
   "delivery.courier": "Dostawa kurierska",
   "delivery.selftake": "Odbiór osobisty",
   "delivery.orderMessage": "Wiadomość, którą zobaczy klient po złożeniu zamówienia",
