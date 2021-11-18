@@ -139,6 +139,11 @@
                         controller:'NewPostDeliveryController',
                         activetab: 'delivery'
                     }).
+                    when('/delivery/personal',{
+                        templateUrl:'wisehands/admin/partials/personalDelivery.html',
+                        controller:'PersonalDeliveryController',
+                        activetab: 'delivery'
+                    }).
                     when('/delivery/courier',{
                         templateUrl:'wisehands/admin/partials/courierDelivery.html',
                         controller:'CourierDeliveryController',

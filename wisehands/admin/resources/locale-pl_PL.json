@@ -339,6 +339,8 @@
   "delivery.delivery": "Dostawa",
   "delivery.newPost": "Przesyłka",
   "delivery.personal": "Personal",
+  "delivery.personalEnabled": "Pozwól klientowi wybrać osobisty opcję dostawy",
+
   "delivery.courier": "Dostawa kurierska",
   "delivery.selftake": "Odbiór osobisty",
   "delivery.orderMessage": "Wiadomość, którą zobaczy klient po złożeniu zamówienia",

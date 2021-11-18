@@ -1,0 +1,35 @@
+<nav class="admin-nav" role="navigation">
+    <a class="admin-nav-back-btn"
+       type="button"
+       href="#/delivery">
+        <i class="fa fa-arrow-circle-left whiteColor pull-left"></i>
+    </a>
+    <div class="nav-title">
+        <h5>{{'delivery.personal' | translate}}</h5>
+    </div>
+    <a class="admin-nav-save-btn">
+        <i class="fa fa-save whiteColor pull-right"
+           ng-click="setDeliveryOptions()">
+        </i>
+    </a>
+</nav>
+
+<div class="admin-container noSidePadding">
+    <div class="row text-center">
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+    </div>
+    <form class="admin-card hoverable noSidePadding" ng-submit="submitProduct()" id="addNewProductForm" name="addNewProductForm" ng-hide="loading">
+        <h4>{{'editProduct.general' | translate}}</h4>
+        <div class="input-field">
+            <input type="checkbox" class="filled-in pull-left checkBoxStyling" id="filled-in-box" ng-model="delivery.isNewPostAvailable" />
+            <label for="filled-in-box">{{'delivery.personalEnabled' | translate}}</label>
+        </div>
+        <div class="delivery-message input-field">
+            <div class="delivery-edit-message">
+                <p>{{'delivery.messageText' | translate}}</p>
+                <button class="btn-floating btn-xsmall waves-effect waves-light lightseagreen pull-right"
+                        ng-click="redirectToTranslation()"><i class="material-icons">translate</i></button>
+            </div>
+        </div>
+    </form>
+</div>

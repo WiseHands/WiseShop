@@ -338,6 +338,8 @@
   "delivery.delivery": "Доставка",
   "delivery.newPost": "Нова Пошта",
   "delivery.personal": "Персональна",
+  "delivery.personalEnabled": "Надати клієнту можливість вибрати особливий тип доставки",
+
   "delivery.courier": "Кур'єр",
   "delivery.selftake": "Самовивіз",
   "delivery.postservice": "Нова Пошта",

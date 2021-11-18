@@ -339,6 +339,8 @@
   "delivery.delivery": "Delivery",
   "delivery.newPost": "New Post",
   "delivery.personal": "Personal",
+  "delivery.personalEnabled": "Allow customer to choose personal as a delivery option",
+
   "delivery.courier": "Courier",
   "delivery.selftake": "Self take",
   "delivery.orderMessage": "Message that the customer will see after placing the order",
