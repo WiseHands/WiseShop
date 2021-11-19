@@ -78,6 +78,7 @@ angular.module('WiseHands')
                     textInEnglish.value = englishDescriptionLabel;
                 }
             };
+
             setContentForCategoryLabels = (category) => {
                 if (!category) { return }
                 console.log('setContentForCategoryLabels', category);
@@ -102,6 +103,7 @@ angular.module('WiseHands')
                 }
 
             };
+
             setContentForPageLabels = (page) => {
                 if (!page) { return }
                 console.log('setContentForPageLabels', $scope.translationObject);
@@ -125,6 +127,7 @@ angular.module('WiseHands')
                 }
 
             };
+
             setContentForContactLabels = (contacts) => {
                 if (!contacts){ return }
                 console.log('setContentForContactLabels', contacts);
@@ -163,6 +166,7 @@ angular.module('WiseHands')
                     textInEnglish.value = englishAddressStreetLabel;
                 }
             };
+
             setContentForShopLabels = (shop) => {
                 if (!shop) { return }
                 console.log('setContentForShopLabels', shop);
@@ -211,6 +215,8 @@ angular.module('WiseHands')
 		        }
 		
 	        };
+
+
 
             $scope.saveTranslation = () => {
                 saveTranslationForProduct($scope.translationObject);

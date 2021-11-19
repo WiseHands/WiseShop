@@ -43,6 +43,16 @@ public class DeliveryDTO extends GenericModel {
     @Expose
     public String selfTakeText;
 
+    // TODO set API and Translation
+    @Expose
+    public boolean isSpecialDeliveryAvailable;
+
+    @Expose
+    public String specialDeliveryAddress;
+
+    @Expose
+    public TranslationBucketDTO specialDeliveryTranslationBucket;
+
     @Expose
     @OneToOne(cascade=CascadeType.ALL)
     public TranslationBucketDTO selfTakeTranslationBucket;

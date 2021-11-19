@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static java.lang.Double.*;
+
 public class DeliveryAPI extends AuthController {
 
     public static void checkCourierDeliveryBoundaries(String client) throws Exception{
@@ -178,25 +180,28 @@ public class DeliveryAPI extends AuthController {
         String selfTakeText = (String) jsonBody.get("selfTakeText");
         String newPostText = (String) jsonBody.get("newPostText");
         String orderMessage = (String) jsonBody.get("orderMessage");
+        String specialDeliveryAddress = (String) jsonBody.get("specialDeliveryAddress");
 
-        Double courierPrice = Double.parseDouble(String.valueOf(jsonBody.get("courierPrice")));
+        Double courierPrice = parseDouble(String.valueOf(jsonBody.get("courierPrice")));
 
         Object courierFreeDeliveryLimitObject = jsonBody.get("courierFreeDeliveryLimit");
         DeliveryDTO delivery = DeliveryDTO.findById(uuid);
         if(courierFreeDeliveryLimitObject != null) {
-            Double courierFreeDeliveryLimit = Double.parseDouble(String.valueOf(courierFreeDeliveryLimitObject));
-            delivery.courierFreeDeliveryLimit = courierFreeDeliveryLimit;
+            delivery.courierFreeDeliveryLimit = parseDouble(String.valueOf(courierFreeDeliveryLimitObject));
         }
 
         Boolean isCourierAvailable = (Boolean) jsonBody.get("isCourierAvailable");
         Boolean isSelfTakeAvailable = (Boolean) jsonBody.get("isSelfTakeAvailable");
         Boolean isNewPostAvailable = (Boolean) jsonBody.get("isNewPostAvailable");
+        Boolean isSpecialDeliveryAvailable = (Boolean) jsonBody.get("isSpecialDeliveryAvailable");
 
         delivery.isCourierAvailable = isCourierAvailable;
         delivery.courierText = courierText;
         delivery.isSelfTakeAvailable = isSelfTakeAvailable;
         delivery.selfTakeText = selfTakeText;
         delivery.isNewPostAvailable = isNewPostAvailable;
+        delivery.isSpecialDeliveryAvailable = isSpecialDeliveryAvailable;
+        delivery.specialDeliveryAddress = specialDeliveryAddress;
         delivery.newPostText = newPostText;
         delivery.courierPrice = courierPrice;
         delivery.orderMessage = orderMessage;

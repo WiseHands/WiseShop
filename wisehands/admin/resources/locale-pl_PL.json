@@ -339,6 +339,7 @@
   "delivery.delivery": "Dostawa",
   "delivery.newPost": "Przesyłka",
   "delivery.personal": "Personal",
+  "delivery.personalAddress": "Adresa",
   "delivery.personalEnabled": "Pozwól klientowi wybrać osobisty opcję dostawy",
 
   "delivery.courier": "Dostawa kurierska",

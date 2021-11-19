@@ -339,6 +339,7 @@
   "delivery.delivery": "Delivery",
   "delivery.newPost": "New Post",
   "delivery.personal": "Personal",
+  "delivery.personalAddress": "Address",
   "delivery.personalEnabled": "Allow customer to choose personal as a delivery option",
 
   "delivery.courier": "Courier",
