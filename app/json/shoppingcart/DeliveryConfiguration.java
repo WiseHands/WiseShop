@@ -18,11 +18,18 @@ public class DeliveryConfiguration {
     @Transient
     public DeliverySelfTakeConfiguration selfTake;
 
-    public DeliveryConfiguration(DeliveryCourierConfiguration courier, DeliveryPostDepartmentConfiguration postDepartment, DeliverySelfTakeConfiguration selfTake){
+    @Expose
+    @Transient
+    public DeliverySpecialConfiguration special;
+
+
+
+    public DeliveryConfiguration(DeliveryCourierConfiguration courier, DeliveryPostDepartmentConfiguration postDepartment,
+                                 DeliverySelfTakeConfiguration selfTake, DeliverySpecialConfiguration special){
         this.courier = courier;
         this.postDepartment = postDepartment;
         this.selfTake = selfTake;
-
+        this.special = special;
     }
 
 }

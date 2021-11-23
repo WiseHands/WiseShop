@@ -344,6 +344,9 @@ public class ShoppingCartService extends AuthController {
             case "SELFTAKE":
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.SELFTAKE;
                 break;
+            case "SPECIAL":
+                shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.SPECIAL;
+                break;
         }
         shoppingCart.save();
         shoppingCart.formatObject();

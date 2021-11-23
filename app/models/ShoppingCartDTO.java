@@ -44,7 +44,8 @@ public class ShoppingCartDTO extends GenericModel {
     public enum DeliveryType {
         SELFTAKE,
         COURIER,
-        POSTSERVICE
+        POSTSERVICE,
+        SPECIAL
     }
 
     @Expose
@@ -131,7 +132,10 @@ public class ShoppingCartDTO extends GenericModel {
         DeliveryPostDepartmentConfiguration postDepartment =
                 new DeliveryPostDepartmentConfiguration(shop.delivery.newPostText, shop.delivery.isNewPostAvailable,
                         shop.delivery.newPostTranslationBucket);
-        DeliveryConfiguration delivery = new DeliveryConfiguration(courier, postDepartment, selfTake);
+        DeliverySpecialConfiguration specialDelivery = new DeliverySpecialConfiguration(
+                shop.delivery.specialDeliveryAddress, shop.delivery.isSpecialDeliveryAvailable,
+                shop.delivery.specialDeliveryTranslationBucket);
+        DeliveryConfiguration delivery = new DeliveryConfiguration(courier, postDepartment, selfTake, specialDelivery);
 
         PaymentCashConfiguration cash =
                 new PaymentCashConfiguration(shop.paymentSettings.manualPaymentTitle, shop.paymentSettings.manualPaymentEnabled,
