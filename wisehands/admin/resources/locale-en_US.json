@@ -340,6 +340,7 @@
   "delivery.newPost": "New Post",
   "delivery.personal": "Personal",
   "delivery.personalAddress": "Address",
+  "delivery.addressPlaceHolder": "Town, Street, № bld",
   "delivery.personalEnabled": "Allow customer to choose personal as a delivery option",
 
   "delivery.courier": "Courier",

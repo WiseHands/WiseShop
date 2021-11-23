@@ -63,6 +63,7 @@ public class TranslationBucketAPI extends AuthController {
         }
         renderJSON(json(product.productNameTextTranslationBucket));
     }
+
     public static void createTranslationBucketForProductDescription() throws Exception {
         String productUuid = request.params.get("uuid");
         System.out.println("createTranslationBucketForProductDescription " + productUuid);
@@ -74,6 +75,7 @@ public class TranslationBucketAPI extends AuthController {
         }
         renderJSON(json(product.productDescriptionTextTranslationBucket ));
     }
+
     public static void createTranslationBucketForCategory() throws Exception {
         String categoryUuid = request.params.get("uuid");
         System.out.println("createTranslationBucketForCategory" + categoryUuid);
@@ -86,6 +88,7 @@ public class TranslationBucketAPI extends AuthController {
         }
         renderJSON(json(category.categoryNameTextTranslationBucket));
     }
+
     public static void createTranslationBucketForPage() throws Exception {
         String pageUuid = request.params.get("uuid");
         System.out.println("createTranslationBucketForPage" + pageUuid);
@@ -140,6 +143,16 @@ public class TranslationBucketAPI extends AuthController {
             shop.save();
         }
         renderJSON(json(shop.shopNameTextTranslationBucket));
+    }
+
+    public static void createTranslationBucketForPersonalDeliveryType(String uuid) throws Exception {
+        DeliveryDTO delivery = DeliveryDTO.findById(uuid);
+        if (delivery.specialDeliveryTranslationBucket == null){
+            TranslationBucketDTO translationBucket = createTranslationBucket();
+            delivery.specialDeliveryTranslationBucket = translationBucket;
+            delivery.save();
+        }
+        renderJSON(json(delivery.specialDeliveryTranslationBucket));
     }
 
     public static void saveTranslation(String client) throws Exception {

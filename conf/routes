@@ -297,16 +297,17 @@ POST    {client}/pageconstructor                        PageConstructorAPI.creat
 PUT     {client}/pageconstructor/{uuid}                 PageConstructorAPI.update
 DELETE  {client}/pageconstructor/{uuid}                 PageConstructorAPI.delete
 
-GET     {client}/api/get/translation/shop/name/{uuid}        TranslationBucketAPI.createTranslationBucketForShopName
-GET     {client}/api/get/translation/name/{uuid}             TranslationBucketAPI.createTranslationBucketForProductName
-GET     {client}/api/get/translation/description/{uuid}      TranslationBucketAPI.createTranslationBucketForProductDescription
-GET     {client}/api/get/translation/category/{uuid}         TranslationBucketAPI.createTranslationBucketForCategory
-GET     {client}/api/get/translation/page/{uuid}             TranslationBucketAPI.createTranslationBucketForPage
-GET     {client}/api/get/translation/body/page/{uuid}        TranslationBucketAPI.createTranslationBucketForBodyPage
-GET     {client}/api/get/translation/contact/city/{uuid}     TranslationBucketAPI.createTranslationBucketForContactCity
-GET     {client}/api/get/translation/contact/street/{uuid}   TranslationBucketAPI.createTranslationBucketForContactStreet
-GET     {client}/api/get/translation/addition/name/{uuid}    TranslationBucketAPI.createTranslationBucketForAdditionName
-PUT     {client}/api/translation/save                        TranslationBucketAPI.saveTranslation
+GET     {client}/api/get/translation/delivery/personal/{uuid}   TranslationBucketAPI.createTranslationBucketForPersonalDeliveryType
+GET     {client}/api/get/translation/shop/name/{uuid}           TranslationBucketAPI.createTranslationBucketForShopName
+GET     {client}/api/get/translation/name/{uuid}                TranslationBucketAPI.createTranslationBucketForProductName
+GET     {client}/api/get/translation/description/{uuid}         TranslationBucketAPI.createTranslationBucketForProductDescription
+GET     {client}/api/get/translation/category/{uuid}            TranslationBucketAPI.createTranslationBucketForCategory
+GET     {client}/api/get/translation/page/{uuid}                TranslationBucketAPI.createTranslationBucketForPage
+GET     {client}/api/get/translation/body/page/{uuid}           TranslationBucketAPI.createTranslationBucketForBodyPage
+GET     {client}/api/get/translation/contact/city/{uuid}        TranslationBucketAPI.createTranslationBucketForContactCity
+GET     {client}/api/get/translation/contact/street/{uuid}      TranslationBucketAPI.createTranslationBucketForContactStreet
+GET     {client}/api/get/translation/addition/name/{uuid}       TranslationBucketAPI.createTranslationBucketForAdditionName
+PUT     {client}/api/translation/save                           TranslationBucketAPI.saveTranslation
 
 
 POST    {client}/api/email/send/to/admins                    EmailAPI.sendEmailToAdmins

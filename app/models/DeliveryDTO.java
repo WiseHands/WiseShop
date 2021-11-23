@@ -51,6 +51,7 @@ public class DeliveryDTO extends GenericModel {
     public String specialDeliveryAddress;
 
     @Expose
+    @OneToOne(cascade=CascadeType.ALL)
     public TranslationBucketDTO specialDeliveryTranslationBucket;
 
     @Expose

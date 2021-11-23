@@ -77,9 +77,7 @@ public class DeliveryAPI extends AuthController {
         setNewPostDefaultLabel(delivery);
         setCourierDefaultLabel(delivery);
         setSelfTakeDefaultLabel(delivery);
-        System.out.println("json(delivery) \n" + json(delivery.courierTextTranslationBucket) + "\n"
-                + json(delivery.newPostTranslationBucket)  + "\n"
-                + json(delivery.selfTakeTranslationBucket));
+
         renderJSON(json(delivery));
     }
 

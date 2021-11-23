@@ -12,8 +12,19 @@ angular.module('WiseHands')
         $scope.delivery = response.data;
       },errorCallback = (error) => $scope.loading = false );
 
-// TODO change link to translation
-    $scope.redirectToTranslation = () => $window.location.href = `#/translation/newPost`;
+    $scope.redirectToTranslation = () => {
+        $http({
+            method: 'GET',
+            url: '/api/get/translation/delivery/personal/' + $scope.delivery.uuid
+        })
+            .then(function successCallback(response) {
+                const translation = response.data;
+                $window.location.href = `#/translation/${$scope.delivery.uuid}/${translation.uuid}`;
+            }, function errorCallback(error) {
+                $scope.loading = false;
+                console.log(error);
+            });
+    };
 
     $scope.setDeliveryOptions = () => {
       if (!validate()) return;

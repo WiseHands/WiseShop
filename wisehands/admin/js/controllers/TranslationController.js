@@ -21,6 +21,7 @@ angular.module('WiseHands')
                         $scope.loading = false;
                         $scope.translationObject = response.data;
                         console.log('getRequest for translation object ',$scope.translationObject);
+                        setContentForDeliveryLabels($scope.translationObject);
                         setContentForProductLabels($scope.translationObject);
                         setContentForCategoryLabels($scope.translationObject);
                         setContentForPageLabels($scope.translationObject);
@@ -34,11 +35,34 @@ angular.module('WiseHands')
             };
 
             getRequest(`/api/product/${$scope.translationObjectUuid}`);
+            getRequest(`/delivery`);
             getRequest(`/api/category/details/${$scope.translationObjectUuid}`);
             getRequest(`/pageconstructor/${$scope.translationObjectUuid}`);
             getRequest(`/contact/details/${$scope.translationObjectUuid}`);
             getRequest(`/shop/translate/${$scope.translationObjectUuid}`);
             getRequest(`/api/addition/details/${$scope.translationObjectUuid}`);
+
+            setContentForDeliveryLabels = (delivery) => {
+                if (!delivery){ return }
+                console.log('setContentForProductLabels', delivery);
+                let specialDeliveryTranslationBucket = '';
+                let englishNameLabel = '';
+                let ukrainianNameLabel = '';
+                if(delivery.specialDeliveryTranslationBucket){
+                    specialDeliveryTranslationBucket = delivery.specialDeliveryTranslationBucket.uuid;
+                    ukrainianNameLabel = delivery.specialDeliveryTranslationBucket.translationList[0].content;
+                    englishNameLabel = delivery.specialDeliveryTranslationBucket.translationList[1].content;
+                }
+                let isTranslationForSpecialDelivery = $scope.translationBucketUuid === specialDeliveryTranslationBucket;
+                if (isTranslationForSpecialDelivery){
+                    if(ukrainianNameLabel === ""){
+                        textInUkrainian.value = delivery.specialDeliveryAddress;
+                    } else {
+                        textInUkrainian.value = ukrainianNameLabel;
+                    }
+                    textInEnglish.value = englishNameLabel;
+                }
+            };
 
             setContentForProductLabels = (product) => {
                 if (!product){ return }
@@ -219,6 +243,7 @@ angular.module('WiseHands')
 
 
             $scope.saveTranslation = () => {
+                saveTranslationForSpecialDelivery($scope.translationObject);
                 saveTranslationForProduct($scope.translationObject);
                 saveTranslationForCategory($scope.translationObject);
                 saveTranslationForPage($scope.translationObject);
@@ -243,6 +268,19 @@ angular.module('WiseHands')
                 };
                 console.log('sendData to create transl bucket => ', data);
                 sendData(data);
+            };
+
+            saveTranslationForSpecialDelivery = (delivery) => {
+                if (!delivery){ return }
+                let specialDeliveryTranslationBucketUuid = '';
+                if (delivery.specialDeliveryTranslationBucket){
+                    specialDeliveryTranslationBucketUuid = delivery.specialDeliveryTranslationBucket.uuid;
+                }
+                let isTranslationForDelivery = $scope.translationBucketUuid === specialDeliveryTranslationBucketUuid;
+                if (isTranslationForDelivery){
+                    $scope.ukUuid = delivery.specialDeliveryTranslationBucket.translationList[0].uuid;
+                    $scope.enUuid = delivery.specialDeliveryTranslationBucket.translationList[1].uuid;
+                }
             };
 
             saveTranslationForProduct = (product) => {
