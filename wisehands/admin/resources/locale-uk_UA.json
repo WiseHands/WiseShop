@@ -143,6 +143,8 @@
   "singleOrder.deliveryTypeSelfPickUp": "Самовивіз",
   "singleOrder.deliveryTypeCourier": "Кур'єр",
   "singleOrder.deliveryTypePostService": "Нова Пошта",
+  "singleOrder.deliveryTypeSpecial": "Персональна",
+
   "singleOrder.paymentType": "Тип",
   "singleOrder.paymentTypeOnline": "Онлайн",
   "singleOrder.paymentTypeCash": "Готівка",

@@ -142,6 +142,7 @@
   "singleOrder.deliveryTypeSelfPickUp": "Odbiór w sklepie",
   "singleOrder.deliveryTypeCourier": "Kurier",
   "singleOrder.deliveryTypePostService": "Nowa Poczta",
+  "singleOrder.deliveryTypeSpecail": "Osobova",
   "singleOrder.paymentType": "Typ",
   "singleOrder.paymentTypeOnline": "Online",
   "singleOrder.paymentTypeCash": "Gotówkowe",

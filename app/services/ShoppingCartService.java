@@ -337,15 +337,21 @@ public class ShoppingCartService extends AuthController {
         switch (delivery) {
             case "COURIER":
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.COURIER;
+                clearAddressInShoppingCart(shoppingCart);
                 break;
             case "POSTSERVICE":
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.POSTSERVICE;
+                clearAddressInShoppingCart(shoppingCart);
+
                 break;
             case "SELFTAKE":
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.SELFTAKE;
+                clearAddressInShoppingCart(shoppingCart);
+
                 break;
             case "SPECIAL":
                 shoppingCart.deliveryType = ShoppingCartDTO.DeliveryType.SPECIAL;
+                setAddressForSpecialTypeDelivery(shop, shoppingCart);
                 break;
         }
         shoppingCart.save();
@@ -353,6 +359,30 @@ public class ShoppingCartService extends AuthController {
 
         return json(shoppingCart);
     }
+
+    private static ShoppingCartDTO clearAddressInShoppingCart(ShoppingCartDTO shoppingCart) {
+        shoppingCart.clientCity = null;
+        shoppingCart.clientAddressStreetName = null;
+        shoppingCart.clientAddressBuildingNumber = null;
+        shoppingCart.clientAddressApartmentFloor = null;
+        shoppingCart.clientAddressApartmentNumber = null;
+        shoppingCart.isAddressSetFromMapView = false;
+        return shoppingCart;
+    }
+
+    private static ShoppingCartDTO setAddressForSpecialTypeDelivery(ShopDTO shop, ShoppingCartDTO shoppingCartDTO) {
+        DeliveryDTO delivery = shop.delivery;
+        String[] addressList = delivery.specialDeliveryAddress.split(",");
+        shoppingCartDTO.clientCity = addressList[0];
+        shoppingCartDTO.clientAddressStreetName = addressList[1];
+        shoppingCartDTO.clientAddressBuildingNumber = addressList[2];
+        shoppingCartDTO.clientAddressApartmentFloor = addressList[3];
+        shoppingCartDTO.clientAddressApartmentNumber = addressList[4];
+        shoppingCartDTO.isAddressSetFromMapView = true;
+        return shoppingCartDTO;
+    }
+
+
 
     public static String selectPaymentType(String client) {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();

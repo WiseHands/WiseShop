@@ -26831,6 +26831,10 @@ class WiseShoppingCartContainer extends PolymerElement {
                                                   if="[[cart.configuration.delivery.selfTake.isSelfTakeActive]]">
                                             <paper-radio-button name="SELFTAKE">[[_translateLabel(cart.configuration.delivery.selfTake)]]</paper-radio-button>
                                         </template>
+                                        <template is="dom-if"
+                                                  if="[[cart.configuration.delivery.special.isSpecialDeliveryActive]]">
+                                            <paper-radio-button name="SPECIAL">[[_translateLabel(cart.configuration.delivery.special)]]</paper-radio-button>
+                                        </template>
                                     </paper-radio-group>
                                 </paper-card>
 
@@ -26872,7 +26876,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                                     <paper-card>
                                         <h3>[[addressGeneralLabel]]</h3>
                                         <div hidden="[[!_isCourierDeliveryType(cart.deliveryType)]]">
-                                            <span class="info-span" hidden="[[!cart.client.address.isAddressSetFromMapView]]">
+                                            <span class="info-span" hidden="[[cart.client.address.isAddressSetFromMapView]]">
                                                 [[mapChooseYourPlaceLabel]] <a href="/[[selectedLanguage]]/selectaddress">[[mapLabel]]</a>.</span>
                                             <paper-input id="street" pattern=".*\\S.*" label="[[pageSelectAddressPlaceholderStreet]]"
                                                          disabled="[[cart.client.address.isAddressSetFromMapView]]"
@@ -26885,15 +26889,19 @@ class WiseShoppingCartContainer extends PolymerElement {
                                                          required error-message="[[errorMessagePleaseWriteLabel]]"
                                                          on-blur="_validateAndGeocodeAddress"></paper-input>
                                             <paper-input id="entrance" label="[[addressEntranceLabel]]"
+                                                         disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          value="[[cart.client.address.entrance]]"
                                                          on-blur="_validateAndSendClientAddressInfo"></paper-input>
                                             <paper-input id="entranceCode" label="[[addressEntranceCodeLabel]]"
+                                                         disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          value="[[cart.client.address.entranceCode]]"
                                                          on-blur="_validateAndSendClientAddressInfo"></paper-input>
                                             <paper-input id="floor" label="[[addressFloorLabel]]"
+                                                         disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          value="[[cart.client.address.floor]]"
                                                          on-blur="_validateAndSendClientAddressInfo"></paper-input>
                                             <paper-input id="apartment" label="[[addressApartmentLabel]]"
+                                                         disabled="[[cart.client.address.isAddressSetFromMapView]]"
                                                          value="[[cart.client.address.apartment]]"
                                                          on-blur="_validateAndSendClientAddressInfo"></paper-input>
                                         </div>
@@ -27085,6 +27093,7 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   ready() {
     super.ready(); //rewrite this method
+
 
     this.hideDeliveryTypeIfQrPresent();
     console.log("qrUuid =>", this.qrUuid);
@@ -27361,6 +27370,8 @@ class WiseShoppingCartContainer extends PolymerElement {
   }
 
   _validateAndGeocodeAddress(event) {
+
+
     this._validateAndSendClientAddressInfo(event);
 
     const address = this.cart.client.address;
@@ -27438,6 +27449,7 @@ class WiseShoppingCartContainer extends PolymerElement {
   }
 
   _onDeliveryTypeChange(event, data) {
+
     const params = `?deliverytype=${data.value}${this.addCartIdParamIfAvailable(false)}`;
 
     this._generateRequest('PUT', this._generateRequestUrl('/api/cart/delivery', params));
@@ -27452,11 +27464,12 @@ class WiseShoppingCartContainer extends PolymerElement {
   _isAddressCardVisible(deliveryType) {
     const isCourier = deliveryType === 'COURIER';
     const isPostService = deliveryType === 'POSTSERVICE';
-    return isCourier || isPostService;
+    const isSpecial = deliveryType === 'SPECIAL';
+    return isCourier || isPostService || isSpecial;
   }
 
   _isCourierDeliveryType(deliveryType) {
-    return deliveryType === 'COURIER';
+    return deliveryType === 'COURIER' || deliveryType === 'SPECIAL';
   }
 
 }

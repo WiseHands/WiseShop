@@ -139,6 +139,7 @@
   "singleOrder.deliveryTypeSelfPickUp": "Self PickUp",
   "singleOrder.deliveryTypeCourier": "Courier",
   "singleOrder.deliveryTypePostService": "Nova Poshta",
+  "singleOrder.deliveryTypeSpecial": "Specail",
   "singleOrder.paymentType": "Type",
   "singleOrder.paymentTypeOnline": "Online",
   "singleOrder.paymentTypeCash": "Cash",

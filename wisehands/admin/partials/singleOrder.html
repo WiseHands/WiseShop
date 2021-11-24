@@ -82,6 +82,9 @@
                             <div ng-show="order.deliveryType === 'POSTSERVICE'">
                                 <p>{{'singleOrder.deliveryTypePostService' | translate}}</p>
                             </div>
+                            <div ng-show="order.deliveryType === 'SPECIAL'">
+                                <p>{{'singleOrder.deliveryTypeSpecial' | translate}}</p>
+                            </div>
                         </div>
                         <div class="address-order-container"
                              ng-hide="order.deliveryType === 'SELFTAKE' || order.deliveryType === 'POSTSERVICE'">
