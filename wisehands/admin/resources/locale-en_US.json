@@ -337,10 +337,12 @@
   "payment.minOrder": "Min. order amount",
   "payment.couponsIds": "Coupons IDs (each from new line)",
   "payment.systemPay": "Payment Systems",
+
   "delivery.delivery": "Delivery",
   "delivery.newPost": "New Post",
   "delivery.personal": "Personal",
   "delivery.personalAddress": "Address",
+  "delivery.personalFreeDelivery": "Minimum order amount",
   "delivery.addressPlaceHolder": "Town, Street, № bld",
   "delivery.personalEnabled": "Allow customer to choose personal as a delivery option",
 

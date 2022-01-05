@@ -342,8 +342,8 @@
   "delivery.newPost": "Przesyłka",
   "delivery.personal": "Personal",
   "delivery.personalAddress": "Adresa",
-  "delivery.addressPlaceHolder": "Місто, Вулиця, № будинку",
-
+  "delivery.addressPlaceHolder": "Miasto, ulica, № domy",
+  "delivery.personalFreeDelivery": "Minimalna kwota zamówienia",
   "delivery.personalEnabled": "Pozwól klientowi wybrać osobisty opcję dostawy",
 
   "delivery.courier": "Dostawa kurierska",

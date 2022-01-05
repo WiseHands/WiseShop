@@ -341,6 +341,7 @@
   "delivery.newPost": "Нова Пошта",
   "delivery.personal": "Персональна",
   "delivery.personalAddress": "Адреса",
+  "delivery.personalFreeDelivery": "Мінімальна сума замовлення",
   "delivery.addressPlaceHolder": "Місто, Вулиця, № будинку",
   "delivery.personalEnabled": "Надати клієнту можливість вибрати особливий тип доставки",
 
