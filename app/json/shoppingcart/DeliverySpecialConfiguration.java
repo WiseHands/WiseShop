@@ -9,15 +9,19 @@ public class DeliverySpecialConfiguration {
     String label;
 
     @Expose
+    Double minimumAmountOrder;
+
+    @Expose
     Boolean isSpecialDeliveryActive;
 
     @Expose
     TranslationBucketDTO translationBucket;
 
-    public DeliverySpecialConfiguration(String label, Boolean isSpecialDeliveryActive, TranslationBucketDTO translationBucket){
+    public DeliverySpecialConfiguration(String label, Boolean isSpecialDeliveryActive, TranslationBucketDTO translationBucket, Double minimumAmountOrder){
         this.label = label;
         this.isSpecialDeliveryActive = isSpecialDeliveryActive;
         this.translationBucket = translationBucket;
+        this.minimumAmountOrder = minimumAmountOrder;
     }
 
 }

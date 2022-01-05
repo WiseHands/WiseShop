@@ -179,9 +179,9 @@ public class DeliveryAPI extends AuthController {
         String newPostText = (String) jsonBody.get("newPostText");
         String orderMessage = (String) jsonBody.get("orderMessage");
         String specialDeliveryAddress = (String) jsonBody.get("specialDeliveryAddress");
+        Double specialDeliveryMinimumAmountOrder = parseDouble(String.valueOf(jsonBody.get("specialDeliveryMinimumAmountOrder")));
 
         Double courierPrice = parseDouble(String.valueOf(jsonBody.get("courierPrice")));
-
         Object courierFreeDeliveryLimitObject = jsonBody.get("courierFreeDeliveryLimit");
         DeliveryDTO delivery = DeliveryDTO.findById(uuid);
         if(courierFreeDeliveryLimitObject != null) {
@@ -200,6 +200,7 @@ public class DeliveryAPI extends AuthController {
         delivery.isNewPostAvailable = isNewPostAvailable;
         delivery.isSpecialDeliveryAvailable = isSpecialDeliveryAvailable;
         delivery.specialDeliveryAddress = specialDeliveryAddress;
+        delivery.specialDeliveryMinimumAmountOrder = specialDeliveryMinimumAmountOrder;
         delivery.newPostText = newPostText;
         delivery.courierPrice = courierPrice;
         delivery.orderMessage = orderMessage;
