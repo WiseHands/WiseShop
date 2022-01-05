@@ -27329,6 +27329,19 @@ class WiseShoppingCartContainer extends PolymerElement {
       this.deliveryPrice = 0;
     }
 
+    if (this.cart.deliveryType === 'SPECIAL') {
+      const freeDelivery = this.cart.configuration.delivery.special.minimumAmountOrder;
+      const isTotalLessOrEqualThenFreeDeliveryOrder = total <= freeDelivery;
+      this.deliveryPrice = isTotalLessOrEqualThenFreeDeliveryOrder ? cart.configuration.delivery.courier.deliveryPrice : 0;
+
+      if (isTotalLessOrEqualThenFreeDeliveryOrder) {
+        total += this.cart.configuration.delivery.courier.deliveryPrice;
+      }
+    } else {
+      this.deliveryPrice = 0;
+    }
+
+
     const isClientPaysProcessingCommission = this.cart.paymentType === 'CREDITCARD' && this.cart.configuration.payment.creditCard.clientPaysProcessingCommission;
 
     if (isClientPaysProcessingCommission) {
