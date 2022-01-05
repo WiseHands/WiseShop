@@ -281,6 +281,7 @@ public class ProductAPI extends AuthController {
         CategoryDTO category = product.category;
         category.products.remove(product);
         category.save();
+        product.feedbackList = null;
         product.delete();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
