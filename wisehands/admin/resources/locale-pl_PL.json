@@ -1,5 +1,4 @@
-
-﻿{
+{
   "selectAdditions.title": "Additions",
   "selectProductAdditions.title": "Additions for product",
   "selectAdditions.selectedAdditionsTitle": " Selected Additions:",
@@ -235,6 +234,7 @@
   "categories.deleteMessage1": "Czy na pewno chcesz usunąć tę kategorię?",
   "categories.deleteMessage2": "Kategoria usunięta.",
   "categories.deleteMessage1Warning": "(Usunięcie kategorii spowoduje usunięcie wszystkich produktów w niej!)",
+
   "addNewProduct.add": "Dodaj produkt",
   "addNewProduct.productName": "Nazwa",
   "addNewProduct.productPrice": "Cena",
@@ -261,6 +261,7 @@
   "addNewProduct.deletePhoto": "Usuń zdjęcie",
   "addNewProduct.addProperty": "Dodaj właściwość",
   "addNewProduct.description": "Opis",
+
   "addNewShops.add": "Dodaj nowy sklep",
   "addNewShops.edit": "Edytuj sklep",
   "addNewShops.shopName": "Magazune",
@@ -363,6 +364,7 @@
   "deliveryBoundaries.instructionStep22":"składowiska i wybierz granice dostawy",
   "deliveryBoundaries.instructionStep3":"Po zakończeniu wybierania granic dostawy kliknij przycisk ",
   "deliveryBoundaries.instructionNote":"Notatka :obecnie możesz mieć tylko jeden obszar dostawy",
+
   "contacts.contacts": "Kontakt",
   "contacts.phone": "Telefon",
   "contacts.address": "Adres",
@@ -392,10 +394,10 @@
   "users.deleteMessage1": "Czy na pewno chcesz usunąć tego użytkownika?",
   "users.deleteMessage2": "Usunięto użytkownika.",
 
-  "banners.title": "Banners",
-  "banners.inShop": "Банер у магазині",
-  "banners.inShopText": "Щоб показувати в інформаційний банер відмітьте поле внизу",
-  "banners.enterBannerDiscount": "Введіть знижку для банера",
+  "banners.title": "Banery",
+  "banners.productOfDay": "Produkt dnia",
+  "banners.productOfDayCheck": "Aby produkt dnia był dostępny w sklepie, zaznacz pole poniżej",
+  "banners.productOfDayDiscount": "Wpisz rabat na produkt dnia",
 
   "settings.commissionForClient": "Prowizja od systemu płatności jest wypłacana przez klienta podczas składania zamówienia",
   "settings.settings": "Ustawienia",
