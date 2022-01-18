@@ -337,10 +337,12 @@
   "payment.minOrder": "Min. order amount",
   "payment.couponsIds": "Coupons IDs (each from new line)",
   "payment.systemPay": "Payment Systems",
+
   "delivery.delivery": "Delivery",
   "delivery.newPost": "New Post",
   "delivery.personal": "Personal",
   "delivery.personalAddress": "Address",
+  "delivery.personalFreeDelivery": "Minimum order amount",
   "delivery.addressPlaceHolder": "Town, Street, № bld",
   "delivery.personalEnabled": "Allow customer to choose personal as a delivery option",
 
@@ -392,13 +394,9 @@
   "users.deleteMessage2": "User deleted.",
 
   "banners.title": "Banners",
-  "banners.productOfDay": "Товар дня",
-  "banners.productOfDayText": "Щоб товар дня був доступний у магазині відмітьте поле внизу",
-  "banners.productOfDayDiscount": "Введіть знижку для товару дня",
-
-  "banners.inShop": "Baner w sklepie",
-  "banners.inShopText": "Aby wyświetlić baner informacyjny w sklepie, zaznacz poniższe pole",
-  "banners.enterBannerDiscount": "Wpisz rabat do bannera",
+  "banners.productOfDay": "Product of day",
+  "banners.productOfDayCheck": "To make the item of the day available in the store, check the box below",
+  "banners.productOfDayDiscount": "Enter discount for a product of the day",
 
   "settings.commissionForClient": "The payment system commission is paid by the client when placing the order",
   "settings.settings": "Settings",

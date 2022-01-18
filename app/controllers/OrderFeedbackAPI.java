@@ -210,8 +210,8 @@ public class OrderFeedbackAPI extends AuthController{
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         String orderUuid = request.params.get("uuid");
+        OrderDTO order = OrderDTO.find("byUuid", orderUuid).first();
 
-        OrderDTO order = OrderDTO.findById(orderUuid);
         order.orderFeedback.showReview = false;
         for(OrderItemDTO item: order.items){
             item.feedbackToOrderItem.showReview = false;
@@ -226,8 +226,8 @@ public class OrderFeedbackAPI extends AuthController{
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         String orderUuid = request.params.get("uuid");
+        OrderDTO order = OrderDTO.find("byUuid", orderUuid).first();
 
-        OrderDTO order = OrderDTO.findById(orderUuid);
         order.feedbackRequestState = FeedbackRequestState.DELETED;
         order.orderFeedback.isFeedbackDeleted = true;
         for(OrderItemDTO item: order.items){
@@ -244,8 +244,8 @@ public class OrderFeedbackAPI extends AuthController{
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         String orderUuid = request.params.get("uuid");
+        OrderDTO order = OrderDTO.find("byUuid", orderUuid).first();
 
-        OrderDTO order = OrderDTO.findById(orderUuid);
         order.feedbackRequestState = FeedbackRequestState.REQUEST_SENT;
         order.orderFeedback.isFeedbackDeleted = true;
         for(OrderItemDTO item: order.items){

@@ -134,7 +134,7 @@ public class ShoppingCartDTO extends GenericModel {
                         shop.delivery.newPostTranslationBucket);
         DeliverySpecialConfiguration specialDelivery = new DeliverySpecialConfiguration(
                 shop.delivery.specialDeliveryAddress, shop.delivery.isSpecialDeliveryAvailable,
-                shop.delivery.specialDeliveryTranslationBucket);
+                shop.delivery.specialDeliveryTranslationBucket, shop.delivery.specialDeliveryMinimumAmountOrder);
         DeliveryConfiguration delivery = new DeliveryConfiguration(courier, postDepartment, selfTake, specialDelivery);
 
         PaymentCashConfiguration cash =

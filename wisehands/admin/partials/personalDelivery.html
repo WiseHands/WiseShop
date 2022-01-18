@@ -25,10 +25,15 @@
                    ng-model="delivery.isSpecialDeliveryAvailable" />
             <label for="filled-in-box">{{'delivery.personalEnabled' | translate}}</label>
         </div>
-        <div class=" input-field">
+        <div class="input-field">
             <p>{{'delivery.personalAddress' | translate}}</p>
             <input id="special-delivery-description" type="text" placeholder="{{'delivery.addressPlaceHolder' | translate}}"
                    ng-model="delivery.specialDeliveryAddress"/>
+        </div>
+        <div class="input-field">
+            <p>{{'delivery.personalFreeDelivery' | translate}}</p>
+            <input id="special-delivery-discount" type="number"
+                   ng-model="delivery.specialDeliveryMinimumAmountOrder"/>
         </div>
         <div class="delivery-message input-field">
             <div class="delivery-edit-message">
