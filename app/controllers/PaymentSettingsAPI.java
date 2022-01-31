@@ -107,10 +107,17 @@ public class PaymentSettingsAPI extends AuthController {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
+
         Double minimumPayment = Double.parseDouble(String.valueOf(jsonBody.get("minimumPayment")));
+        Boolean additionalPaymentEnabled = Boolean.parseBoolean(String.valueOf(jsonBody.get("additionalPaymentEnabled")));
+        Double additionalPaymentPrice = Double.parseDouble(String.valueOf(jsonBody.get("additionalPaymentPrice")));
+        String additionalPaymentDescription = (String) jsonBody.get("additionalPaymentDescription");
 
         PaymentSettingsDTO paymentSettings = shop.paymentSettings;
         paymentSettings.minimumPayment = minimumPayment;
+        paymentSettings.additionalPaymentEnabled = additionalPaymentEnabled;
+        paymentSettings.additionalPaymentPrice = additionalPaymentPrice;
+        paymentSettings.additionalPaymentDescription = additionalPaymentDescription;
         paymentSettings = paymentSettings.save();
 
         renderJSON(json(paymentSettings));
