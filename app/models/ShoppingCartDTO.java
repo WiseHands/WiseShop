@@ -146,7 +146,8 @@ public class ShoppingCartDTO extends GenericModel {
         PaymentConfiguration payment = new PaymentConfiguration(cash, creditCard, shop.paymentSettings.minimumPayment);
 
         AdditionalConfiguration additionalConfiguration = new AdditionalConfiguration(shop.labelNameForBuyerNameFieldInShoppingCart,
-                new BannerDTO(isBannerOnForShop(shop), getNameForBanner(shop), getDescriptionForBanner(shop)));
+                new BannerDTO(isBannerOnForShop(shop), getNameForBanner(shop), getDescriptionForBanner(shop)),
+                new PaymentSettingsDTO(shop.paymentSettings.additionalPaymentEnabled, shop.paymentSettings.additionalPaymentPrice, shop.paymentSettings.additionalPaymentDescription));
 
         ShoppingCartConfiguration configuration = new ShoppingCartConfiguration(delivery, payment, additionalConfiguration);
         this.configuration = configuration;
