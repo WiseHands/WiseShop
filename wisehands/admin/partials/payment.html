@@ -14,7 +14,8 @@
 
 <div class="">
     <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+                 show="loading"></spinner>
     </div>
     <div class="payment-list">
         <div class="payment-item">
@@ -42,18 +43,44 @@
         <div class="row min-payment-block">
             <div class="input-field ">
                 <p>{{'payment.minPayment' | translate}}</p>
-                <input type="text" id="filled-in-minimumPayment" placeholder="{{'payment.minPaymentPlaceholder' | translate}}" ng-model="payment.minimumPayment"/>
+                <input type="text" id="filled-in-minimumPayment"
+                       placeholder="{{'payment.minPaymentPlaceholder' | translate}}" ng-model="payment.minimumPayment"/>
             </div>
+
+            <!--Additional payment options-->
+            <div class="input-field">
+                <input type="checkbox" class="filled-in checkBoxStyling" id="filled-in-box"
+                       ng-model="payment.additionalPaymentEnabled"/>
+                <label for="filled-in-box">{{'payment.additionalPaymentEnabled' | translate}}</label>
+            </div>
+            <div ng-hide="!payment.additionalPaymentEnabled">
+                <div class="input-field ">
+                    <p>{{'payment.additionalPaymentPlaceholder' | translate}}</p>
+                    <input type="number" id="filled-in-additionPayment"
+                           placeholder="{{'payment.additionalPaymentPlaceholder' | translate}}"
+                           ng-model="payment.additionalPaymentPrice"/>
+                </div>
+                <div class="input-field ">
+                    <p>{{'payment.additionalPaymentDescription' | translate}}</p>
+                    <input type="text" id="filled-in-additionPaymentText"
+                           placeholder="{{'payment.additionalPaymentDescription' | translate}}"
+                           ng-model="payment.additionalPaymentDescription"/>
+                </div>
+            </div>
+            <!--Additional payment options-->
 
         </div>
         <div class="displayFlex" ng-show="coupons.length > 0">
-            <a ng-repeat="coupon in coupons" href="#/discount/{{coupon.uuid}}" class="btn-sm secondaryColor rectangle waves-effect waves-light col-xs-12 col-sm-3 text-center"><h6>{{'payment.coupons' | translate}}: {{coupon.couponIds.length}}
-                <br>
-                <br>
-                <div ng-repeat="plan in coupon.plans">
-                    {{plan.minimalOrderTotal}} {{'products.currency' | translate}} - {{plan.percentDiscount}}%
-                </div>
-                </h6></a>
+            <a ng-repeat="coupon in coupons" href="#/discount/{{coupon.uuid}}"
+               class="btn-sm secondaryColor rectangle waves-effect waves-light col-xs-12 col-sm-3 text-center">
+                <h6>{{'payment.coupons' | translate}}: {{coupon.couponIds.length}}
+                    <br>
+                    <br>
+                    <div ng-repeat="plan in coupon.plans">
+                        {{plan.minimalOrderTotal}} {{'products.currency' | translate}} - {{plan.percentDiscount}}%
+                    </div>
+                </h6>
+            </a>
         </div>
     </div>
 
