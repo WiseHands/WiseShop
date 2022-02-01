@@ -26306,7 +26306,7 @@ class WiseShoppingCartItem extends PolymerElement {
         }
       </style>
     <paper-card class="paper-card-container">
-        <div class="image-container">
+        <div class="image-container" hidden="[[!visualSettings.showImage]]">
             <iron-image sizing="cover" height="100" width="100" src="[[cartItem.imagePath]]" on-click="_openProductPageByUuid">
         </div>
         <div class="total-container">
@@ -26319,12 +26319,15 @@ class WiseShoppingCartItem extends PolymerElement {
                     </template>        
                 </h4>
             </div>        
-            <div class="product-calculated-container">  
-                <paper-icon-button icon="remove" on-tap="_decreaseItemQuantity"></paper-icon-button>
-                <paper-input allowed-pattern="[0-9]" on-change="_quantityChange" value="[[cartItem.quantity]]" class="quantity-input" id="quantityItem"></paper-input>
-                <paper-icon-button icon="add" on-tap="_increaseItemQuantity"></paper-icon-button>
+            <div class="product-calculated-container">
+                <template is="dom-if" if="[[visualSettings.showQuantityCounter]]">
+                    <paper-icon-button icon="remove" on-tap="_decreaseItemQuantity"></paper-icon-button>
+                    <paper-input allowed-pattern="[0-9]" on-change="_quantityChange" value="[[cartItem.quantity]]"
+                                 class="quantity-input" id="quantityItem"></paper-input>
+                    <paper-icon-button icon="add" on-tap="_increaseItemQuantity"></paper-icon-button>
+                </template>
                 <div class="total-span">[[_calculateTotalPrice(cartItem.quantity, cartItem.price, cartItem.additionList)]]<br>[[currencyLabel]]</div>
-                <paper-icon-button icon="close" on-tap="_removeItem"></paper-icon-button>
+                <paper-icon-button icon="close" on-tap="_removeItem" hidden="[[!visualSettings.dismissable]]"></paper-icon-button>
             </div>
         </div>
     </paper-card>
@@ -26343,6 +26346,14 @@ class WiseShoppingCartItem extends PolymerElement {
       },
       currencyLabel: {
         type: String
+      },
+      visualSettings: {
+        type: Object,
+        value: {
+            showImage: true,
+            showQuantityCounter: true,
+            dismissable: true
+        }
       }
     };
   }
@@ -26548,6 +26559,18 @@ class WiseShoppingCart extends PolymerElement {
             cart-item="[[item]]">
           </wise-shopping-cart-item>
         </template>
+          
+          <template is="dom-if" if="[[configuration.additionalConfiguration.additionalPayment.additionalPaymentEnabled]]">
+              <wise-shopping-cart-item
+                      selected-language="[[selectedLanguage]]"
+                      start-shopping-label="[[startShoppingLabel]]"
+                      basket-empty-label="[[basketEmptyLabel]]"
+                      currency-label="[[currencyLabel]]"
+                      cart-item="[[additionalPaymentItem]]"
+                      visual-settings="[[_getVisualSettings(configuration.additionalConfiguration.additionalPayment)]]">
+              </wise-shopping-cart-item>
+          </template>
+          
       </template>
 
       <template is="dom-if" if="[[!_isInShoppingCartAnyItems(cartItems.length)]]">
@@ -26633,8 +26656,30 @@ class WiseShoppingCart extends PolymerElement {
       currencyLabel: {
         type: String,
         value: 'USD'
+      },
+      configuration: Object,
+      additionalPaymentItem: {
+          type: Object,
+          computed: '_computeAdditionalPaymentItem(configuration.additionalConfiguration.additionalPayment)'
+      },
+      visualSettings: {
+          type: Object,
+          value: {
+              showImage: false,
+              showQuantityCounter: false,
+              dismissable: false
+          }
       }
     };
+  }
+
+   _computeAdditionalPaymentItem({additionalPaymentDescription, additionalPaymentPrice}) {
+    return {
+        additionList: [],
+        name: additionalPaymentDescription,
+        price: additionalPaymentPrice,
+        quantity: 1
+    }
   }
 
   _startBuyingProducts() {
@@ -26808,8 +26853,8 @@ class WiseShoppingCartContainer extends PolymerElement {
                                                 banner-description="[[cart.configuration.additionalConfiguration.banner.bannerDescription]]"
                                                 is-banner-on="[[cart.configuration.additionalConfiguration.banner.isBannerOn]]"
                                                 selected-language = "[[selectedLanguage]]" currency-label="[[currencyLabel]]"
-                                                 cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]"
-                                                start-shopping-label="[[startShoppingLabel]]">
+                                                cart-items="[[cart.items]]" basket-empty-label="[[basketEmptyLabel]]"
+                                                start-shopping-label="[[startShoppingLabel]]" configuration="[[cart.configuration]]">
                             </wise-shopping-cart>
                         </div>
                         <div hidden="[[!areThereItems(cart.items)]]" class="order-details-container">
@@ -26925,7 +26970,7 @@ class WiseShoppingCartContainer extends PolymerElement {
                                 </template>
                                 <span class="error-span" inner-h-t-m-l="[[errorMessage]]"></span>
                                 <div class="total-container">
-                                    <h3>[[amountProductsLabel]] [[_computeProductsTotal(cart.items)]] [[currencyLabel]]</h3>
+                                    <h3>[[amountProductsLabel]] [[_computeProductsTotal(cart)]] [[currencyLabel]]</h3>
                                     <h3>[[deliveryLabel]] [[deliveryPrice]] [[currencyLabel]]</h3>
                                     <h3 hidden="[[!cart.configuration.payment.creditCard.clientPaysProcessingCommission]]">
                                         Комісія онлайн оплати: [[_calculatePaymentOnlineCommission(total, cart.paymentType, cart.configuration.payment.creditCard)]] [[currencyLabel]]
@@ -27304,41 +27349,38 @@ class WiseShoppingCartContainer extends PolymerElement {
     });
   }
 
-  _calculateTotal(cart) {
-    if (!this.cart.configuration) return;
-    let total = 0;
-    let additionPrice;
-    let items = cart.items;
-    items.forEach(item => {
-      additionPrice = 0;
-      item.additionList.forEach(addition => {
-        additionPrice += addition.price * addition.quantity;
-      });
-      total += item.quantity * (item.price + additionPrice);
-    });
-
-    if (this.cart.deliveryType === 'COURIER') {
-      const freeDelivery = this.cart.configuration.delivery.courier.minimumPaymentForFreeDelivery;
-      const isTotalLessOrEqualThenFreeDeliveryOrder = total <= freeDelivery;
-      this.deliveryPrice = isTotalLessOrEqualThenFreeDeliveryOrder ? cart.configuration.delivery.courier.deliveryPrice : 0;
-
-      if (isTotalLessOrEqualThenFreeDeliveryOrder) {
-        total += this.cart.configuration.delivery.courier.deliveryPrice;
-      }
-    } else {
-      this.deliveryPrice = 0;
+    _computeProductsTotal({items, configuration}) {
+        if (!configuration) return;
+        let result = items.reduce((total, item) => total + item.quantity * (item.price + this._computeAdditionsTotal(item)), 0);
+        const {additionalPaymentEnabled, additionalPaymentPrice} = configuration.additionalConfiguration.additionalPayment;
+        result = additionalPaymentEnabled ? result + additionalPaymentPrice : result;
+        return result;
     }
 
-    if (this.cart.deliveryType === 'SPECIAL') {
-      const freeDelivery = this.cart.configuration.delivery.special.minimumAmountOrder;
-      const isTotalLessOrEqualThenFreeDeliveryOrder = total <= freeDelivery;
-      this.deliveryPrice = isTotalLessOrEqualThenFreeDeliveryOrder ? cart.configuration.delivery.courier.deliveryPrice : 0;
+    _computeAdditionsTotal(additions) {
+        let additionsTotal = 0;
+        additions.additionList.forEach(addition => {
+            additionsTotal += addition.price * addition.quantity;
+        });
+        return additionsTotal;
+    }
 
-      if (isTotalLessOrEqualThenFreeDeliveryOrder) {
-        total += this.cart.configuration.delivery.courier.deliveryPrice;
-      }
-    } else {
+  _calculateTotal(cart) {
+    if (!this.cart.configuration) return;
+    let total = this._computeProductsTotal(cart);
+
       this.deliveryPrice = 0;
+      const isDeliveryTypeCourier = this.cart.deliveryType === 'COURIER';
+      const isDeliveryTypeSpecial = this.cart.deliveryType === 'SPECIAL';
+      if (isDeliveryTypeCourier || isDeliveryTypeSpecial) {
+          const delivery =  this.cart.configuration.delivery;
+          const freeDelivery = isDeliveryTypeCourier ? delivery.courier.minimumPaymentForFreeDelivery : delivery.special.minimumAmountOrder;
+          const isTotalLessOrEqualThenFreeDeliveryOrder = total <= freeDelivery;
+          this.deliveryPrice = isTotalLessOrEqualThenFreeDeliveryOrder ? cart.configuration.delivery.courier.deliveryPrice : 0;
+
+          if (isTotalLessOrEqualThenFreeDeliveryOrder) {
+            total += this.cart.configuration.delivery.courier.deliveryPrice;
+          }
     }
 
 
@@ -27353,21 +27395,6 @@ class WiseShoppingCartContainer extends PolymerElement {
 
   roundToTwo(num) {
     return +(Math.round(num + "e+2") + "e-2");
-  }
-
-  _computeProductsTotal(items) {
-    let total = 0;
-    items.forEach(item => total += item.quantity * (item.price + this._computeAdditionsTotal(item))); //total += this._computeAdditionsTotal(items);
-
-    return total;
-  }
-
-  _computeAdditionsTotal(additions) {
-    let additionsTotal = 0;
-    additions.additionList.forEach(addition => {
-      additionsTotal += addition.price * addition.quantity;
-    });
-    return additionsTotal;
   }
 
   _calculatePaymentOnlineCommission(total, paymentType, paymentConfig) {
