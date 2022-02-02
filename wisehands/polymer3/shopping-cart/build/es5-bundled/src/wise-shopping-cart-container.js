@@ -26674,17 +26674,17 @@ class WiseShoppingCart extends PolymerElement {
   }
 
    _computeAdditionalPaymentItem(configuration) {
-         const additionalPaymentConfiguration = configuration?.additionalConfiguration?.additionalPayment;
-         if (!additionalPaymentConfiguration) return;
-         const {additionalPaymentDescription = '', additionalPaymentPrice = 0} = additionalPaymentConfiguration;
 
-       return {
-           additionList: [],
-           name: additionalPaymentDescription,
-           price: additionalPaymentPrice,
-           quantity: 1
-       }
-     }
+      const additionalPaymentConfiguration = configuration?.additionalConfiguration?.additionalPayment || {};
+      const {additionalPaymentDescription = '', additionalPaymentPrice = 0} = additionalPaymentConfiguration;
+
+    return {
+        additionList: [],
+        name: additionalPaymentDescription,
+        price: additionalPaymentPrice,
+        quantity: 1
+    }
+  }
 
   _startBuyingProducts() {
     this.dispatchEvent(new CustomEvent('start-shopping', {
