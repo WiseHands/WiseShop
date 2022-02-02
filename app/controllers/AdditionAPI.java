@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import services.querying.DataBaseQueries;
+
 import java.util.List;
 
 public class AdditionAPI extends AuthController {
@@ -19,7 +20,7 @@ public class AdditionAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -49,7 +50,7 @@ public class AdditionAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         List<AdditionDTO> additionList;
         String query = "select a from AdditionDTO a where a.shopUuid = ?1";
@@ -63,7 +64,7 @@ public class AdditionAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         ProductDTO productDTO = ProductDTO.findById(productUuid);
 /*        List<Object> additionList = AdditionDTO.find("byProduct", productDTO).fetch();*/
@@ -76,7 +77,7 @@ public class AdditionAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
         renderJSON(json(addition));
@@ -87,7 +88,7 @@ public class AdditionAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -112,7 +113,7 @@ public class AdditionAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
         System.out.println("delete addition => " + uuid);
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         AdditionDTO addition = AdditionDTO.find("byUuid", uuid).first();
         List<SelectedAdditionDTO> selectedAdditionList = SelectedAdditionDTO.find("byAddition_uuid", uuid).fetch();
@@ -138,13 +139,13 @@ public class AdditionAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONArray jsonArray = (JSONArray) parser.parse(params.get("body"));
 
-        for(int i = 0; i < jsonArray.size(); i++){
-            JSONObject object = (JSONObject) jsonArray.get(i);
+        for (Object o : jsonArray) {
+            JSONObject object = (JSONObject) o;
             assignAdditionToProduct(object);
         }
         renderProduct(jsonArray);
@@ -190,7 +191,7 @@ public class AdditionAPI extends AuthController {
 
         ProductDTO product = ProductDTO.find("byUuid", productUuid).first();
         int totalPriceForDefaultAdditions = DataBaseQueries.getTotalPriceForDefaultAdditions(product.uuid);
-        product.priceWithAdditions = Double.valueOf(totalPriceForDefaultAdditions);
+        product.priceWithAdditions = (double) totalPriceForDefaultAdditions;
         product.save();
     }
 

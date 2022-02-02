@@ -1,6 +1,8 @@
 package controllers;
 
-import models.*;
+import models.CouponDTO;
+import models.ShopDTO;
+import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.i18n.Messages;
@@ -10,10 +12,8 @@ import util.DomainValidation;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 public class ShopAPI extends AuthController {
 
@@ -26,7 +26,7 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         File myFile = new File("newDomainCert.txt");
 
@@ -66,7 +66,7 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
         String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user.shopList));
@@ -78,15 +78,15 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
         renderJSON(json(shop));
     }
 
-    public static void shopLabelsForTranslation(String client, String uuid) throws Exception { // /shop/details/public
+    public static void shopLabelsForTranslation(String client, String uuid) throws Exception {
         String shopUuid = request.params.get("uuid");
         System.out.println("shopUuid " + shopUuid);
         ShopDTO shop = ShopDTO.findById(shopUuid);
-        if (shop == null){
+        if (shop == null) {
             renderJSON(json(null));
         }
         JSONObject json = new JSONObject();
@@ -154,7 +154,7 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         shop.locale = locale;
 
@@ -169,7 +169,7 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -217,7 +217,7 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -274,7 +274,7 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         renderJSON(json(shop.userList));
 
@@ -285,7 +285,7 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         boolean isEmailProvided = !email.equals("");
         boolean isPhoneProvided = !phone.equals("");
@@ -303,8 +303,7 @@ public class ShopAPI extends AuthController {
             user.phone = phone;
             if(isPhoneProvided) {
                 Random r = new Random();
-                String code = String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10));
-                user.password = code;
+                user.password = r.nextInt(10) + String.valueOf(r.nextInt(10)) + r.nextInt(10) + r.nextInt(10);
             }
 
         } else if (user.shopList.contains(shop)) {
@@ -331,7 +330,7 @@ public class ShopAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         boolean isEmailProvided = !email.equals("");
         UserDTO user = null;
@@ -364,7 +363,7 @@ public class ShopAPI extends AuthController {
 
     public static void create(String name, String domain) {
 
-        checkAuthentification(null);
+        checkAuthentication(null);
 
         String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);

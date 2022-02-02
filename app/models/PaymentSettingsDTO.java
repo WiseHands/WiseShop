@@ -42,7 +42,7 @@ public class PaymentSettingsDTO extends GenericModel {
     public String buttonPaymentTitle;
 
     @Expose
-    public Double minimumPayment;
+    public Double minimumPayment = 0D;
 
     @Expose
     public Boolean additionalPaymentEnabled = false;

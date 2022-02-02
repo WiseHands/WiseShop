@@ -2,7 +2,7 @@ package controllers;
 
 import json.FrequentBuyer;
 import json.PopularProducts;
-import models.*;
+import models.ShopDTO;
 import org.json.simple.JSONObject;
 import services.analytics.FrequentBuyersService;
 import services.analytics.PaymentTypeService;
@@ -24,7 +24,7 @@ public class AnalyticsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         // calculate amount of days
         long diffInMillis = toDateInMillis - fromDateInMillis;
@@ -62,7 +62,7 @@ public class AnalyticsAPI extends AuthController {
 
 
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        List<JSONObject> list = new ArrayList<JSONObject>();
+        List<JSONObject> list = new ArrayList<>();
 
         long currentDate = fromDateInMillis - oneDayInMillis;
         while (currentDate <= toDateInMillis - oneDayInMillis) {

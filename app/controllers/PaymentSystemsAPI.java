@@ -4,15 +4,17 @@ import models.ShopDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class PaymentSystemsAPI  extends AuthController {
+import static java.util.Objects.nonNull;
 
-    public static void detailLiqpayPayment(String client) throws Exception{
+public class PaymentSystemsAPI extends AuthController {
+
+    public static void detailLiqpayPayment(String client) throws Exception {
 
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONObject json = new JSONObject();
         json.put("liqpayPublicKey", shop.liqpayPublicKey);
@@ -28,7 +30,7 @@ public class PaymentSystemsAPI  extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -37,7 +39,9 @@ public class PaymentSystemsAPI  extends AuthController {
         Boolean clientPaysProcessingCommission = (Boolean) jsonBody.get("clientPaysProcessingCommission");
         shop.liqpayPublicKey = liqpayPublicKey;
         shop.liqpayPrivateKey = liqpayPrivateKey;
-        shop.paymentSettings.clientPaysProcessingCommission = clientPaysProcessingCommission;
+        if (nonNull(clientPaysProcessingCommission)) {
+            shop.paymentSettings.clientPaysProcessingCommission = clientPaysProcessingCommission;
+        }
         shop = shop.save();
         renderJSON(json(shop));
     }

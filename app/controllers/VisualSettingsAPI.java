@@ -1,8 +1,7 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import models.*;
+import models.ShopDTO;
+import models.VisualSettingsDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.data.Upload;
@@ -12,7 +11,6 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +31,7 @@ public class VisualSettingsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
 
@@ -56,7 +54,7 @@ public class VisualSettingsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
 
@@ -79,7 +77,7 @@ public class VisualSettingsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
 
@@ -103,7 +101,7 @@ public class VisualSettingsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
 
@@ -122,7 +120,7 @@ public class VisualSettingsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         VisualSettingsDTO visualSettings = shop.visualSettingsDTO;
 
