@@ -26660,7 +26660,7 @@ class WiseShoppingCart extends PolymerElement {
       configuration: Object,
       additionalPaymentItem: {
           type: Object,
-          computed: '_computeAdditionalPaymentItem(configuration.additionalConfiguration.additionalPayment)'
+          computed: '_computeAdditionalPaymentItem(configuration)'
       },
       visualSettings: {
           type: Object,
@@ -26673,14 +26673,18 @@ class WiseShoppingCart extends PolymerElement {
     };
   }
 
-   _computeAdditionalPaymentItem({additionalPaymentDescription, additionalPaymentPrice}) {
-    return {
-        additionList: [],
-        name: additionalPaymentDescription,
-        price: additionalPaymentPrice,
-        quantity: 1
-    }
-  }
+   _computeAdditionalPaymentItem(configuration) {
+         const additionalPaymentConfiguration = configuration?.additionalConfiguration?.additionalPayment;
+         if (!additionalPaymentConfiguration) return;
+         const {additionalPaymentDescription = '', additionalPaymentPrice = 0} = additionalPaymentConfiguration;
+
+       return {
+           additionList: [],
+           name: additionalPaymentDescription,
+           price: additionalPaymentPrice,
+           quantity: 1
+       }
+     }
 
   _startBuyingProducts() {
     this.dispatchEvent(new CustomEvent('start-shopping', {
