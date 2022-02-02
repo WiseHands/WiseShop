@@ -6,7 +6,8 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import models.*;
+import models.ShopDTO;
+import models.UserDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.Play;
@@ -29,8 +30,8 @@ import java.util.Date;
 
 public class UserAPI extends AuthController {
     public static final String JWT_TOKEN = "JWT_TOKEN";
-    private static ShopService shopService = ShopServiceImpl.getInstance();
-    private static SmsSender smsSender = new SmsSenderImpl();
+    private static final ShopService shopService = ShopServiceImpl.getInstance();
+    private static final SmsSender smsSender = new SmsSenderImpl();
 
     public static void register(String email, String password, String passwordConfirmation,
                                 String shopName, String name, String language,
@@ -94,7 +95,7 @@ public class UserAPI extends AuthController {
         if(user == null)
             forbidden(json(new UserDoesNotExist()));
 
-        if(user.isGoogleSignIn == true) // if the user used google sign in and hacker tries to login via empty password
+        if (user.isGoogleSignIn) // if the user used google sign in and hacker tries to login via empty password
             forbidden(json(new UserDoesNotExist()));
 
         if(!user.password.equals(password)) {
@@ -114,7 +115,7 @@ public class UserAPI extends AuthController {
     }
 
     public static void profile() throws Exception {
-        checkAuthentification(null);
+        checkAuthentication(null);
         String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
         renderJSON(json(user));
@@ -122,7 +123,7 @@ public class UserAPI extends AuthController {
     }
 
     public static void updateProfile() throws Exception {
-        checkAuthentification(null);
+        checkAuthentication(null);
         String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);
 
@@ -169,7 +170,7 @@ public class UserAPI extends AuthController {
         GoogleIdToken.Payload payload = idToken.getPayload();
         String userId = payload.getSubject();  // Use this value as a key to identify a user.
         String email = payload.getEmail();
-        boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+        boolean emailVerified = payload.getEmailVerified();
         String name = (String) payload.get("name");
         String pictureUrl = (String) payload.get("picture");
         String locale = (String) payload.get("locale");
@@ -220,7 +221,7 @@ public class UserAPI extends AuthController {
 
     public static void details(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         UserDTO user = UserDTO.find("byUuid",uuid).first();
 

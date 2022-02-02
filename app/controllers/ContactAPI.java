@@ -66,7 +66,7 @@ public class ContactAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -113,7 +113,7 @@ public class ContactAPI extends AuthController {
         if(addressNumberHouse != null){
             contact.addressNumberHouse = addressNumberHouse;
         }
-        contact.latLng = String.valueOf(shopLatitude) + "," + String.valueOf(shopLongitude);
+        contact.latLng = shopLatitude + "," + shopLongitude;
         System.out.println("contact.latLng " + contact.latLng);
         contact.linkfacebook = linkfacebook;
         contact.linkinstagram = linkinstagram;

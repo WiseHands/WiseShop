@@ -1,16 +1,8 @@
 package controllers;
 
-import models.ProductDTO;
 import models.ProductPropertyDTO;
 import models.PropertyTagDTO;
 import models.ShopDTO;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class PropertyTagAPI extends AuthController {
 
@@ -20,7 +12,7 @@ public class PropertyTagAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         PropertyTagDTO tag = PropertyTagDTO.find("byUuid", uuid).first();
         ProductPropertyDTO property = ProductPropertyDTO.find("byUuid", propertyUuid).first();

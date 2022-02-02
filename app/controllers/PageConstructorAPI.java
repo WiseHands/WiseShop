@@ -5,7 +5,6 @@ import models.ShopDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PageConstructorAPI extends AuthController {
@@ -20,7 +19,7 @@ public class PageConstructorAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -49,7 +48,7 @@ public class PageConstructorAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -73,7 +72,7 @@ public class PageConstructorAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         PageConstructorDTO pageConstructorDTO = PageConstructorDTO.findById(uuid);
 

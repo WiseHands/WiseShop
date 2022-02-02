@@ -1,15 +1,9 @@
 package controllers;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.*;
-import play.Play;
-import play.i18n.Lang;
+import models.ShopDTO;
+import models.UserDTO;
 import play.mvc.Before;
 import play.mvc.Controller;
 
@@ -26,11 +20,11 @@ public class AuthController extends Controller {
         response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
-    static void checkAuthentification(ShopDTO shop) {
+    static void checkAuthentication(ShopDTO shop) {
         String authorizationHeader = request.headers.get(AUTHORIZATION).value();
-        String jwtToken = authorizationHeader.replace("Bearer ","");
+        String jwtToken = authorizationHeader.replace("Bearer ", "");
         loggedInUser = verifyToken(jwtToken);
-        if(shop != null && !shop.userList.contains(loggedInUser)) {
+        if (shop != null && !shop.userList.contains(loggedInUser)) {
             forbidden("This user do not belong to given shop: " + loggedInUser.name);
         }
 
@@ -39,8 +33,7 @@ public class AuthController extends Controller {
     static UserDTO verifyToken(String token) {
         String authorizationHeader = request.headers.get("authorization").value();
         String userId = getUserIdFromAuthorization(authorizationHeader);
-        UserDTO user = UserDTO.findById(userId);
-        return user;
+        return UserDTO.findById(userId);
     }
 
     static void checkSudoAuthentification() {

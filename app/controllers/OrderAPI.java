@@ -68,8 +68,8 @@ public class OrderAPI extends AuthController {
     }
 
     public static class OrderItemListResult {
-        Double total = 0.0;
-        List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
+        Double total = 0D;
+        List<OrderItemDTO> orderItemList = new ArrayList<>();
 
         public OrderItemListResult(Double totalCost, List<OrderItemDTO> orderItemList) {
             this.total = totalCost;
@@ -99,8 +99,8 @@ public class OrderAPI extends AuthController {
     }
 
     private static OrderItemListResult _parseOrderItemsList(List<LineItem> items, OrderDTO order) {
-        List<OrderItemDTO> orderItemList = new ArrayList<OrderItemDTO>();
-        Double totalCost = Double.parseDouble("0");
+        List<OrderItemDTO> orderItemList = new ArrayList<>();
+        Double totalCost = 0D;
         for (LineItem lineItem : items) {
             OrderItemDTO orderItem = new OrderItemDTO();
 
@@ -109,8 +109,8 @@ public class OrderAPI extends AuthController {
 
             productParamsInitialization(order, orderItem, product, lineItem, quantity);
 
-            List<AdditionOrderDTO> additionList = new ArrayList<AdditionOrderDTO>();
-            for(AdditionLineItemDTO addition : lineItem.additionList){
+            List<AdditionOrderDTO> additionList = new ArrayList<>();
+            for (AdditionLineItemDTO addition : lineItem.additionList) {
                 totalCost += createAdditionAndGetAdditionPrice(additionList, addition);
             }
             orderItem.additionsList = additionList;
@@ -119,8 +119,7 @@ public class OrderAPI extends AuthController {
             totalCost += lineItem.price * orderItem.quantity;
         }
 
-        OrderItemListResult result = new OrderItemListResult(totalCost, orderItemList);
-        return result;
+        return new OrderItemListResult(totalCost, orderItemList);
     }
 
     private static String getLanguagePartWithoutLocale(String language) {
@@ -129,7 +128,7 @@ public class OrderAPI extends AuthController {
     }
 
     public static String getTranslatedShopName(ShopDTO shop, String language) {
-        List<TranslationItemDTO> translationList = null;
+        List<TranslationItemDTO> translationList;
         if (shop.shopNameTextTranslationBucket != null) {
             translationList = shop.shopNameTextTranslationBucket.translationList;
         } else {
@@ -183,27 +182,32 @@ public class OrderAPI extends AuthController {
 
         DeliveryDTO delivery = shop.delivery;
         System.out.println("deliveryType in order creating => " + shoppingCart.deliveryType);
-        if(shoppingCart.deliveryType != null){
-            if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)){
-                if (orderItemListResult.total < delivery.courierFreeDeliveryLimit){
+        if (shoppingCart.deliveryType != null) {
+            if (shoppingCart.deliveryType.name().equals(DeliveryType.COURIER)) {
+                if (orderItemListResult.total < delivery.courierFreeDeliveryLimit) {
                     orderItemListResult.total += delivery.courierPrice;
                 }
             }
         }
 
         order.total = orderItemListResult.total;
+        if (shop.paymentSettings.additionalPaymentEnabled) {
+            order.total += shop.paymentSettings.additionalPaymentPrice;
+        }
         order.paymentState = PaymentState.PENDING;
 
         String qrUuid = request.params.get("qr_uuid");
         System.out.println("qrUuid in order => " + qrUuid);
-        if(qrUuid != null && !qrUuid.equals("undefined")){
+        if (qrUuid != null && !qrUuid.equals("undefined")) {
             QrDTO qr = QrDTO.findById(qrUuid);
-            if (qr != null) { order.qrName = qr.name; }
+            if (qr != null) {
+                order.qrName = qr.name;
+            }
         }
         order = order.save();
 
         if (shop.pricingPlan != null){
-            Double percentage = order.total * shop.pricingPlan.commissionFee / 100;
+            double percentage = order.total * shop.pricingPlan.commissionFee / 100;
             CoinAccountDTO coinAccount = CoinAccountDTO.find("byShop", shop).first();
             if (coinAccount != null) {
                 CoinTransactionDTO transaction = new CoinTransactionDTO();
@@ -270,9 +274,8 @@ public class OrderAPI extends AuthController {
         mailSender.sendEmail(clientEmailList, clientSubject, htmlContentForClient, shop.domain);
 
 
-
         JSONObject json = new JSONObject();
-        Boolean isOrderPaidByCreditCart = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
+        boolean isOrderPaidByCreditCart = order.paymentType.equals(ShoppingCartDTO.PaymentType.CREDITCARD.name());
         if(isOrderPaidByCreditCart) {
 
             try {
@@ -403,7 +406,7 @@ public class OrderAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         OrderDTO orderDTO = OrderDTO.find("byUuid",uuid).first();
 
@@ -416,9 +419,9 @@ public class OrderAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
             renderJSON(json(OrderDTO.find("byShop", shop).fetch()));
         }
-        checkAuthentification(shop);
-        List<OrderDTO> orders = null;
-        if(page == 0) {
+        checkAuthentication(shop);
+        List<OrderDTO> orders;
+        if (page == 0) {
             orders = OrderDTO.find("shop is ?1 and state is not ?2 order by time desc", shop, OrderState.DELETED).fetch(PAGE_SIZE);
         } else {
             int offset = PAGE_SIZE * page;
@@ -446,7 +449,7 @@ public class OrderAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.DELETED;
@@ -474,7 +477,7 @@ public class OrderAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.SHIPPED;
@@ -506,7 +509,7 @@ public class OrderAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.feedbackRequestState = FeedbackRequestState.PENDING_REQUEST;
@@ -538,7 +541,7 @@ public class OrderAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
         order.state = OrderState.CANCELLED;
@@ -575,7 +578,7 @@ public class OrderAPI extends AuthController {
     public static void manuallyPayed(String client, String uuid) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) {
-            shop = ShopDTO.find("byDomain", "localhost").first();
+            ShopDTO.find("byDomain", "localhost").first();
         }
 
         OrderDTO order = OrderDTO.find("byUuid",uuid).first();
@@ -619,9 +622,6 @@ public class OrderAPI extends AuthController {
                 order.paymentState = PaymentState.PAYMENT_ERROR;
                 order = order.save();
                 String smsText = Messages.get("payment.error.total", order.name, order.total);
-/*                for (UserDTO user : shop.userList) {
-                    smsSender.sendSms(user.phone, smsText);
-                }*/
                 smsSender.sendSms(shop.contact.phone, smsText);
                 smsSender.sendSms(order.phone, smsText);
 
@@ -743,7 +743,6 @@ public class OrderAPI extends AuthController {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
             error();
         }
 
@@ -752,7 +751,7 @@ public class OrderAPI extends AuthController {
     private static String generateHtmlEmailForOrderPaymentError(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_error.html");
         Template template = Template.parse(templateString);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date resultDate = new Date(order.time);
@@ -768,13 +767,12 @@ public class OrderAPI extends AuthController {
         String labelPaymentStatus = Messages.get("mail.label.paymentStatus");
         map.put("labelPaymentStatus", labelPaymentStatus);
 
-        String rendered = template.render(map);
-        return rendered;
+        return template.render(map);
     }
     private static String generateHtmlEmailForOrderPaymentDone(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_done.html");
         Template template = Template.parse(templateString);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date resultDate = new Date(order.time);
@@ -790,13 +788,12 @@ public class OrderAPI extends AuthController {
         String labelPaymentStatus = Messages.get("mail.label.paymentStatus");
         map.put("labelPaymentStatus", labelPaymentStatus);
 
-        String rendered = template.render(map);
-        return rendered;
+        return template.render(map);
     }
     private static String generateHtmlEmailForOrderPaymentWaitAccept(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_notification_payment_wait_accept.html");
         Template template = Template.parse(templateString);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Date resultDate = new Date(order.time);
@@ -812,13 +809,12 @@ public class OrderAPI extends AuthController {
         String labelPaymentStatus = Messages.get("mail.label.paymentStatus");
         map.put("labelPaymentStatus", labelPaymentStatus);
 
-        String rendered = template.render(map);
-        return rendered;
+        return template.render(map);
     }
     private static String generateHtmlEmailForFeedbackToOrder(ShopDTO shop, OrderDTO order, String changeLanguage) {
         String templateString = MailSenderImpl.readAllBytesJava7("app/emails/email_feedback_to_order.html");
         Template template = Template.parse(templateString);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("shopName", shop.shopName);
         map.put("orderUuid", order.uuid);
         String path = shop.domain;
@@ -838,8 +834,7 @@ public class OrderAPI extends AuthController {
         String writeFeedback = Messages.get("feedback.write.feedback");
         map.put("writeFeedback", writeFeedback);
 
-        String rendered = template.render(map);
-        return rendered;
+        return template.render(map);
 
     }
     private static String generateHtmlEmailForNewOrder(ShopDTO shop, OrderDTO order, String language) {
@@ -957,8 +952,7 @@ public class OrderAPI extends AuthController {
         String labelCurrencyUah = Messages.get("mail.label.currency.uah");
         map.put("labelCurrencyUah", labelCurrencyUah);
 
-        String rendered = template.render(map);
-        return rendered;
+        return template.render(map);
     }
 
     final void updateOrder(String uuid) {

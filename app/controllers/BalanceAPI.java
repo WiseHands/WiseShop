@@ -1,7 +1,10 @@
 package controllers;
 
 import enums.OrderState;
-import models.*;
+import models.BalanceDTO;
+import models.BalanceTransactionDTO;
+import models.ShopDTO;
+import models.UserDTO;
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,7 +24,7 @@ public class BalanceAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         renderJSON(json(shop.balance));
     }
@@ -31,7 +34,7 @@ public class BalanceAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         String userId = loggedInUser.uuid;
         UserDTO user = UserDTO.findById(userId);

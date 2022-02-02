@@ -1,12 +1,13 @@
 package controllers;
 
-import models.*;
+import models.PaymentSettingsDTO;
+import models.ShopDTO;
+import models.TranslationBucketDTO;
+import models.TranslationItemDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static java.util.Objects.nonNull;
 
 public class PaymentSettingsAPI extends AuthController {
 
@@ -22,7 +23,7 @@ public class PaymentSettingsAPI extends AuthController {
     }
 
     private static void setTranslationForCashPaymentLabel(PaymentSettingsDTO payment) {
-        if (payment.manualPaymentTitleTranslationBucket == null){
+        if (payment.manualPaymentTitleTranslationBucket == null) {
             System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
             TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Готівкою");
@@ -38,7 +39,7 @@ public class PaymentSettingsAPI extends AuthController {
     }
 
     private static void setTranslationForOnlinePaymentLabel(PaymentSettingsDTO payment) {
-        if (payment.onlinePaymentTitleTranslationBucket == null){
+        if (payment.onlinePaymentTitleTranslationBucket == null) {
             System.out.println("delivery.selfTakeTranslationBucket is null and will be creating NEW");
             TranslationBucketDTO translationBucket = new TranslationBucketDTO();
             TranslationItemDTO translationItemUk = new TranslationItemDTO("uk", "Карткою");
@@ -58,7 +59,7 @@ public class PaymentSettingsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         PaymentSettingsDTO paymentSettings = shop.paymentSettings;
 
@@ -83,7 +84,7 @@ public class PaymentSettingsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -103,15 +104,28 @@ public class PaymentSettingsAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
 
-        Double minimumPayment = Double.parseDouble(String.valueOf(jsonBody.get("minimumPayment")));
-        Boolean additionalPaymentEnabled = Boolean.parseBoolean(String.valueOf(jsonBody.get("additionalPaymentEnabled")));
-        Double additionalPaymentPrice = Double.parseDouble(String.valueOf(jsonBody.get("additionalPaymentPrice")));
-        String additionalPaymentDescription = (String) jsonBody.get("additionalPaymentDescription");
+        Double minimumPayment = 0D;
+        Boolean additionalPaymentEnabled = false;
+        Double additionalPaymentPrice = 0D;
+        String additionalPaymentDescription = "";
+
+        if (nonNull(jsonBody.get("minimumPayment"))) {
+            minimumPayment = Double.parseDouble(String.valueOf(jsonBody.get("minimumPayment")));
+        }
+        if (nonNull(jsonBody.get("additionalPaymentEnabled"))) {
+            additionalPaymentEnabled = Boolean.parseBoolean(String.valueOf(jsonBody.get("additionalPaymentEnabled")));
+        }
+        if (nonNull(jsonBody.get("additionalPaymentPrice"))) {
+            additionalPaymentPrice = Double.parseDouble(String.valueOf(jsonBody.get("additionalPaymentPrice")));
+        }
+        if (nonNull(jsonBody.get("additionalPaymentDescription"))) {
+            additionalPaymentDescription = (String) jsonBody.get("additionalPaymentDescription");
+        }
 
         PaymentSettingsDTO paymentSettings = shop.paymentSettings;
         paymentSettings.minimumPayment = minimumPayment;

@@ -9,7 +9,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class ProductPropertyAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -36,7 +35,7 @@ public class ProductPropertyAPI extends AuthController {
 
 
         Iterator<JSONObject> iterator = tags.iterator();
-        List<PropertyTagDTO> tagsList = new ArrayList<PropertyTagDTO>();
+        List<PropertyTagDTO> tagsList = new ArrayList<>();
         while (iterator.hasNext()) {
             JSONObject tagJson =  iterator.next();
             String val = (String) tagJson.get("text");
@@ -60,7 +59,7 @@ public class ProductPropertyAPI extends AuthController {
             propertyNew = propertyNew.save();
 
 
-            List<PropertyTagDTO> tagsListNew = new ArrayList<PropertyTagDTO>();
+            List<PropertyTagDTO> tagsListNew = new ArrayList<>();
             for(PropertyTagDTO tag : property.tags) {
                 PropertyTagDTO tagNew = new PropertyTagDTO();
                 tagNew.value = tag.value;
@@ -84,7 +83,7 @@ public class ProductPropertyAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -144,7 +143,7 @@ public class ProductPropertyAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
 
         ProductPropertyDTO property = ProductPropertyDTO.find("byUuid", uuid).first();
@@ -167,7 +166,7 @@ public class ProductPropertyAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         ProductPropertyDTO property = ProductPropertyDTO.find("byUuid", uuid).first();
 
@@ -180,7 +179,7 @@ public class ProductPropertyAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         List<ProductPropertyDTO> properties = ProductPropertyDTO.find("byCategoryUuid", categoryUuid).fetch();
 
@@ -192,7 +191,7 @@ public class ProductPropertyAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         List<ProductPropertyDTO> properties = ProductPropertyDTO.find("byCategoryUuid", categoryUuid).fetch();
         for(ProductPropertyDTO property : properties) {

@@ -1,11 +1,16 @@
 package controllers;
 
-import models.*;
+import models.CouponDTO;
+import models.CouponId;
+import models.CouponPlan;
+import models.ShopDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CouponAPI extends AuthController {
 
@@ -15,7 +20,7 @@ public class CouponAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -23,13 +28,13 @@ public class CouponAPI extends AuthController {
         JSONArray plans = (JSONArray) jsonBody.get("plans");
         String coupons = (String) jsonBody.get("coupons");
 
-        List<CouponId> couponIds = new ArrayList<CouponId>();
-        List<CouponPlan> couponPlans = new ArrayList<CouponPlan>();
+        List<CouponId> couponIds = new ArrayList<>();
+        List<CouponPlan> couponPlans = new ArrayList<>();
         CouponDTO couponDTO = new CouponDTO(couponPlans, couponIds, shop.uuid);
         couponDTO = couponDTO.save();
 
-        for (int i = 0; i < plans.size(); i++) {
-            JSONObject plan = (JSONObject) plans.get(i);
+        for (Object o : plans) {
+            JSONObject plan = (JSONObject) o;
             Long percentDiscount = (Long) plan.get("percentDiscount");
             Long total = (Long) plan.get("total");
             CouponPlan couponPlan = new CouponPlan(percentDiscount, total, couponDTO.uuid);
@@ -38,7 +43,7 @@ public class CouponAPI extends AuthController {
         }
 
         List<String> couponList = Arrays.asList(coupons.split("\\r?\\n"));
-        for (String coupon: couponList) {
+        for (String coupon : couponList) {
             CouponId couponId = new CouponId(coupon, couponDTO.uuid);
             couponId = couponId.save();
             couponIds.add(couponId);
@@ -54,7 +59,7 @@ public class CouponAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
 
         CouponDTO coupon = CouponDTO.findById(uuid);
@@ -69,7 +74,7 @@ public class CouponAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
 
         CouponId coupon = CouponId.findById(uuid);
@@ -93,7 +98,7 @@ public class CouponAPI extends AuthController {
         List<CouponId> coupons = CouponId.find("byCouponId", couponId).fetch();
         CouponId unusedCoupon = null;
         for (CouponId coupon : coupons) {
-            if (coupon.used == null || coupon.used == false) {
+            if (coupon.used == null || !coupon.used) {
                 unusedCoupon = coupon;
             }
         }
@@ -110,7 +115,7 @@ public class CouponAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
 
         List<CouponDTO> coupons = CouponDTO.find("byShopUuid", shop.uuid).fetch();
@@ -125,7 +130,7 @@ public class CouponAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
 
         List<CouponDTO> coupons = CouponDTO.find("byShopUuid", shop.uuid).fetch();

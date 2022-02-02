@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.ShopDTO;
 import models.ShopNetworkDTO;
-import play.db.jpa.JPA;
 
-import javax.persistence.Query;
 import java.util.*;
 
 public class ShopNetworkAPI extends AuthController {
@@ -17,10 +15,10 @@ public class ShopNetworkAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         List<String> uuidList =
-                new ArrayList<String>(Arrays.asList(shopUuidList.split(",")));
+                new ArrayList<>(Arrays.asList(shopUuidList.split(",")));
 
         ShopNetworkDTO shopNetwork = new ShopNetworkDTO();
         shopNetwork.networkName = networkName;
@@ -29,7 +27,7 @@ public class ShopNetworkAPI extends AuthController {
 
         System.out.println("shopNetwork " + shopNetwork.networkName + " " + shopNetwork.shopList);
 
-        List<ShopDTO> selectedShops = new ArrayList<ShopDTO>();
+        List<ShopDTO> selectedShops = new ArrayList<>();
         for(String uuid: uuidList){
             ShopDTO _shop = ShopDTO.findById(uuid);
             _shop.networkUuid = shopNetwork.uuid;
@@ -47,10 +45,10 @@ public class ShopNetworkAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
         System.out.println("network parameter " + networkUuid);
 
-        List<String> shopList = new ArrayList<String>(Arrays.asList(shopUuidList.split(",")));
+        List<String> shopList = new ArrayList<>(Arrays.asList(shopUuidList.split(",")));
 
         ShopNetworkDTO networkDTO = ShopNetworkDTO.findById(networkUuid);
         networkDTO.addUuidShopListToNetwork(shopList);
@@ -70,9 +68,9 @@ public class ShopNetworkAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
-        List<String> shopList = new ArrayList<String>(Arrays.asList(shopUuidList.split(",")));
+        List<String> shopList = new ArrayList<>(Arrays.asList(shopUuidList.split(",")));
 
         ShopNetworkDTO networkDTO = ShopNetworkDTO.findById(networkUuid);
         networkDTO.removeUuidShopListToNetwork(shopList);
@@ -93,7 +91,7 @@ public class ShopNetworkAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         ShopNetworkDTO network = ShopNetworkDTO.findById(uuid);
         for (ShopDTO _shop : network.shopList) {
@@ -135,9 +133,9 @@ public class ShopNetworkAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
-        Set<ShopNetworkDTO> networkSet = new HashSet<ShopNetworkDTO>();
+        Set<ShopNetworkDTO> networkSet = new HashSet<>();
 
         for(ShopDTO _shop : loggedInUser.shopList) {
             if(_shop.getNetwork() != null) {
@@ -147,7 +145,7 @@ public class ShopNetworkAPI extends AuthController {
         }
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(new ArrayList<ShopNetworkDTO>(networkSet));
+        String json = gson.toJson(new ArrayList<>(networkSet));
         renderJSON(json);
     }
 
@@ -157,7 +155,7 @@ public class ShopNetworkAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        List<ShopDTO> shopListToReturn = new ArrayList<ShopDTO>();
+        List<ShopDTO> shopListToReturn = new ArrayList<>();
         for (ShopDTO _shop : loggedInUser.shopList){
              if(_shop.getNetwork() == null) {
                  shopListToReturn.add(_shop);

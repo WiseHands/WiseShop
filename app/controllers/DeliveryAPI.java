@@ -1,6 +1,5 @@
 package controllers;
 
-import com.google.gson.Gson;
 import models.DeliveryDTO;
 import models.ShopDTO;
 import models.TranslationBucketDTO;
@@ -10,14 +9,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import util.PolygonUtil;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static java.lang.Double.*;
+import static java.lang.Double.parseDouble;
 
 public class DeliveryAPI extends AuthController {
 
@@ -39,9 +37,9 @@ public class DeliveryAPI extends AuthController {
         JSONArray coordinates = (JSONArray) geometry.get("coordinates");
         JSONArray newCoordinates = (JSONArray) coordinates.get(0);
 
-        List<PolygonUtil.Point> polygonPoints = new ArrayList<PolygonUtil.Point>();
-        for (int i=0; i<newCoordinates.size(); i++) {
-            JSONArray point = (JSONArray) newCoordinates.get(i);
+        List<PolygonUtil.Point> polygonPoints = new ArrayList<>();
+        for (Object newCoordinate : newCoordinates) {
+            JSONArray point = (JSONArray) newCoordinate;
             Double latitude = (Double) point.get(0);
             Double longtitude = (Double) point.get(1);
             PolygonUtil.Point points = new PolygonUtil.Point(longtitude, latitude);
@@ -133,7 +131,7 @@ public class DeliveryAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         String polygonData = params.get("body");
         shop.delivery.courierPolygonData = polygonData;
@@ -146,7 +144,7 @@ public class DeliveryAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         String polygonData = params.get("body");
         shop.delivery.courierPolygonData = polygonData;
@@ -169,7 +167,7 @@ public class DeliveryAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));

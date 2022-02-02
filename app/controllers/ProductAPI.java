@@ -15,7 +15,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
@@ -32,7 +35,7 @@ public class ProductAPI extends AuthController {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
 
-        checkAuthentification(shop);
+        checkAuthentication(shop);
         Files.createDirectories(Paths.get(USERIMAGESPATH + shop.uuid));
 
         List<Upload> photos = (List<Upload>) request.args.get("__UPLOADS");
@@ -184,14 +187,14 @@ public class ProductAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         Type collectionType = new TypeToken<List<ProductPropertyDTO>>(){}.getType();
         List<ProductPropertyDTO> propertiesList = gson.fromJson(properties, collectionType);
         for(ProductPropertyDTO updatedProperty : propertiesList) {
             ProductPropertyDTO attachedProperty = ProductPropertyDTO.find("byUuid", updatedProperty.uuid).first();
-            List<PropertyTagDTO> tagList = new ArrayList<PropertyTagDTO>();
+            List<PropertyTagDTO> tagList = new ArrayList<>();
             for(PropertyTagDTO tag : updatedProperty.tags) {
                 PropertyTagDTO attachedTag = PropertyTagDTO.find("byUuid", tag.uuid).first();
                 attachedTag.selected = tag.selected;
@@ -200,7 +203,7 @@ public class ProductAPI extends AuthController {
             }
         }
 
-        ProductDTO product = (ProductDTO) ProductDTO.findById(uuid);
+        ProductDTO product = ProductDTO.findById(uuid);
 
         if(photo != null) {
             File file = new File(USERIMAGESPATH + product.fileName);
@@ -250,12 +253,12 @@ public class ProductAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         ProductDTO product = ProductDTO.findById(uuid);
         product.mainImage = null;
         product = product.save();
-        List<ProductImage> images = new ArrayList<ProductImage>(product.images);
+        List<ProductImage> images = new ArrayList<>(product.images);
         //delete files on fs
         for (ProductImage image: images) {
             File file = new File(USERIMAGESPATH + shop.uuid + "/" + image.filename);
@@ -270,9 +273,9 @@ public class ProductAPI extends AuthController {
             image.delete();
         }
         shop.productList.remove(product);
-        shop = shop.save();
+        shop.save();
 
-        List<ProductPropertyDTO> properties = new ArrayList<ProductPropertyDTO>(product.properties);
+        List<ProductPropertyDTO> properties = new ArrayList<>(product.properties);
         product.properties.clear();
         product = product.save();
         for (ProductPropertyDTO property : properties) {
@@ -296,7 +299,7 @@ public class ProductAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -315,7 +318,7 @@ public class ProductAPI extends AuthController {
             }
         }
 
-        ProductDTO newDishProduct = ProductDTO.findById((String) jsonBody.get("uuid"));
+        ProductDTO newDishProduct = ProductDTO.findById(jsonBody.get("uuid"));
         newDishProduct.isDishOfDay = isDishOfDay;
 
         if (newDishProduct.isDishOfDay) {
@@ -354,7 +357,7 @@ public class ProductAPI extends AuthController {
         if (shop == null) {
             shop = ShopDTO.find("byDomain", "localhost").first();
         }
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -362,7 +365,7 @@ public class ProductAPI extends AuthController {
         Boolean isActive = Boolean.parseBoolean(String.valueOf(jsonBody.get("isActive")));
         System.out.println("setActiveProduct => " + isActive);
 
-        ProductDTO product = ProductDTO.findById((String) jsonBody.get("uuid"));
+        ProductDTO product = ProductDTO.findById(jsonBody.get("uuid"));
         product.isActive = isActive;
         product.save();
         List<ProductDTO> products;

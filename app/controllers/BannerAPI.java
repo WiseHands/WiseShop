@@ -1,6 +1,7 @@
 package controllers;
 
-import models.*;
+import models.BannerDTO;
+import models.ShopDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -10,14 +11,14 @@ public class BannerAPI extends AuthController{
     public static void details(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) shop = ShopDTO.find("byDomain", "localhost").first();
-        checkAuthentification(shop);
+        checkAuthentication(shop);
         renderJSON(json(shop.bannerList));
     }
 
     public static void setBannerForProductOfDay(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) shop = ShopDTO.find("byDomain", "localhost").first();
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
@@ -43,7 +44,7 @@ public class BannerAPI extends AuthController{
     public static void setBannerForShopBasket(String client) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
         if (shop == null) shop = ShopDTO.find("byDomain", "localhost").first();
-        checkAuthentification(shop);
+        checkAuthentication(shop);
 
         JSONParser parser = new JSONParser();
         JSONObject jsonBody = (JSONObject) parser.parse(params.get("body"));
