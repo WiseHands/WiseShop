@@ -30,6 +30,9 @@ public class BannerDTO extends GenericModel {
     @Expose
     public String bannerName;
 
+     @Expose
+     public String type;
+
     @Expose
     public String bannerDescription;
 
@@ -68,6 +71,7 @@ public class BannerDTO extends GenericModel {
                 ", isBannerInShopOn=" + isBannerInShopBasketOn +
                 ", isForDishOfDay=" + isForDishOfDayOn +
                 ", name='" + bannerName + '\'' +
+                ", isBannerOn='" + isBannerOn + '\'' +
                 ", description='" + bannerDescription + '\'' +
                 ", discount=" + discount +
                 ", shop=" + shop +
