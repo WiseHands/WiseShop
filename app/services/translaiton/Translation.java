@@ -1,9 +1,11 @@
 package services.translaiton;
 
 import models.*;
+import play.i18n.Lang;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class Translation {
 
@@ -46,7 +48,8 @@ public class Translation {
                     item.language = language;
                 }
                 if (item.language.equals(language) && !item.content.equals("")){
-                    product.name = item.content;
+                System.out.println("product.name = " + product.name);
+                    product.name = showSpiciness(item.content);
                 }
             }
         }
@@ -63,6 +66,36 @@ public class Translation {
         }
         translateProductAdditions(product.uuid, language);
         return product;
+    }
+
+    private static String showSpiciness(String productNameWithParams){
+        String[] result = productNameWithParams.split("&");
+        if(result.length >= 2){
+            String productName = result[0];
+                String parameters = result[result.length - 1];
+                String[] spicyResult = parameters.split("=");
+                int spicyLevel = Integer.parseInt(spicyResult[spicyResult.length - 1]);
+                String level = "";
+                for(int i = 0; i < spicyLevel; i++){
+                    level += "🌶️️️️️️";
+                }
+                return level + productName;
+        }
+        return result[0];
+
+    }
+
+    public static void changeTranslationBucketForProductName(ProductDTO product){
+        TranslationItemDTO translationItem =
+                product.productNameTextTranslationBucket
+                .translationList.stream()
+                .filter(item -> item.language.equals(Lang.get().split("_")[0]))
+                .findAny()
+                .orElse(null);
+        if (translationItem != null){
+            translationItem.content = product.name;
+            translationItem.save();
+        }
     }
 
     private static void translateProductAdditions(String uuid, String language) {

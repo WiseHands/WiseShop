@@ -288,7 +288,6 @@ public class Application extends Controller {
             translationPageList.add(_page);
         }
         shop.pagesList = translationPageList;
-        List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
         String qr_uuid = "";
         if (request.params.get("qr_uuid") != null){
@@ -300,7 +299,7 @@ public class Application extends Controller {
                 "and p.shop = ?1 and c.isHidden = ?2 " +
                 "and p.isActive = ?3 and p.isDishOfDay = 0 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true).fetch();
-
+        List<ProductDTO> productList = new ArrayList<ProductDTO>();
         for (ProductDTO product : products) {
             product = Translation.setTranslationForProduct(language, product);
             productList.add(product);

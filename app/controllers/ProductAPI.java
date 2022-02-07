@@ -20,6 +20,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import services.translaiton.Translation;
+import play.i18n.Lang;
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import java.lang.StringBuffer;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class ProductAPI extends AuthController {
     public static final String USERIMAGESPATH = "public/product_images/";
     private  static final int PAGE_SIZE = 6;
@@ -204,6 +213,8 @@ public class ProductAPI extends AuthController {
         }
 
         ProductDTO product = ProductDTO.findById(uuid);
+                System.out.println("emoji in name: " + name);
+
 
         if(photo != null) {
             File file = new File(USERIMAGESPATH + product.fileName);
@@ -221,6 +232,7 @@ public class ProductAPI extends AuthController {
 
         if (name != null){
             product.name = name;
+            Translation.changeTranslationBucketForProductName(product);
         }
         if (description != null){
             product.description = description;
@@ -246,6 +258,31 @@ public class ProductAPI extends AuthController {
         System.out.println("User " + loggedInUser.name + " updated product " + product.name + " at " + dateFormat.format(date));
         renderJSON(json);
     }
+
+//      public static String emojiConvertor(String str)
+//                 throws UnsupportedEncodingException {
+//             String patternString = "([\\x {10000}-\\x {10ffff}\ud800-\udfff])";
+//
+//             Pattern pattern = Pattern.compile (patternString);
+//             Matcher matcher = pattern.matcher (str);
+//             StringBuffer sb = new StringBuffer ();
+//             while (matcher.find ()) {
+//                 try {
+//                     matcher.appendReplacement (
+//                             sb,
+//                             "[["
+//                                     + URLEncoder.encode (matcher.group (1),
+//                                             "UTF-8") + "]]");
+//                 } catch (UnsupportedEncodingException e) {
+//
+//                           LOG.error ("emojiConvert error", e);
+//                      throw e;
+//                 }
+//             }
+//             matcher.appendTail (sb);
+//                     LOG.debug ("emojiConvert" + str + "to" + sb.toString () + ", len:" + sb.length ());
+//             return sb.toString ();
+//         }
 
 
     public static void delete(String client, String uuid) throws Exception {

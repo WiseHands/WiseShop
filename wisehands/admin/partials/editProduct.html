@@ -1,3 +1,9 @@
+<style>
+    .input-field {
+        display: flex;
+    }
+</style>
+
 <nav class="admin-nav" role="navigation">
     <a class="admin-nav-back-btn"
        type="button"
@@ -16,45 +22,57 @@
 
 <div class="container-fluid">
     <div class="row text-center">
-        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif" show="loading"></spinner>
+        <spinner class="center-block" name="mySpinner" img-src="wisehands/assets/images/spinner/box.gif"
+                 show="loading"></spinner>
     </div>
     <div ng-hide="loading">
         <div class="card-min edit-product-block">
             <div class="admin-column card-content ">
                 <!--<div class="input-field col-md-12" ng-show="categories.length >= 1">-->
-                    <!--<label class="active" for="categories">{{'addNewProduct.category' | translate}}</label>-->
-                    <!--<select id="categories"-->
-                            <!--class="form-control"-->
-                            <!--ng-model="product.category"-->
-                            <!--ng-change="changeCategory(product.category)"-->
-                            <!--ng-options="category as category.name for category in categories track by category.uuid">-->
-                    <!--</select>-->
+                <!--<label class="active" for="categories">{{'addNewProduct.category' | translate}}</label>-->
+                <!--<select id="categories"-->
+                <!--class="form-control"-->
+                <!--ng-model="product.category"-->
+                <!--ng-change="changeCategory(product.category)"-->
+                <!--ng-options="category as category.name for category in categories track by category.uuid">-->
+                <!--</select>-->
                 <!--</div>-->
-                <div class="admin-card ">
+                <div class="admin-card">
                     <h4>{{'editProduct.general' | translate}}</h4>
                     <div class="input-field">
                         <input id="name" type="text" ng-model="product.name">
                         <label class="active" for="name">{{'addNewProduct.productName' | translate}}</label>
+
+                        <button class="edit-btn btn-floating btn-xsmall waves-effect waves-light pull-right lightseagreen"
+                                ng-click="setSpiciness()">
+                            <span>&#127798;&#65039;</span>
+                        </button>
                     </div>
                     <div class="input-field">
                         <input id="price" type="text" ng-model="product.price">
-                        <label class="active" for="price">{{'addNewProduct.productPrice' | translate}} {{'products.currency' | translate}}</label>
+                        <label class="active" for="price">{{'addNewProduct.productPrice' | translate}}
+                            {{'products.currency' | translate}}</label>
                     </div>
                     <div class="input-field">
-                        <textarea id="description" class="materialize-textarea" ng-model="product.description"></textarea>
-                        <label class="active" for="description">{{'addNewProduct.productDescription' | translate}}</label>
+                        <textarea id="description" class="materialize-textarea"
+                                  ng-model="product.description"></textarea>
+                        <label class="active"
+                               for="description">{{'addNewProduct.productDescription' | translate}}</label>
                     </div>
                 </div>
 
                 <div class="admin-card">
                     <h4>{{'editProduct.properties' | translate}}</h4>
                     <div class="edit-product-checking-panel">
-                      <input type="checkbox" class="filled-in checkBoxStyling" id="is-active" ng-model="product.isActive" />
-                      <label for="is-active">{{'addNewProduct.showInShop' | translate}}</label>
-                      <input type="checkbox" id="is-promotional-product" class="filled-in checkBoxStyling" ng-model="product.isPromotionalProduct"/>
-                      <label for="is-promotional-product">{{'editProduct.isPromotionalProduct' | translate}}</label>
-                      <input type="checkbox" id="is-dish-of-day" class="filled-in checkBoxStyling" ng-model="product.isDishOfDay"/>
-                      <label for="is-dish-of-day">{{'products.isDishOfDay' | translate}}</label>
+                        <input type="checkbox" class="filled-in checkBoxStyling" id="is-active"
+                               ng-model="product.isActive"/>
+                        <label for="is-active">{{'addNewProduct.showInShop' | translate}}</label>
+                        <input type="checkbox" id="is-promotional-product" class="filled-in checkBoxStyling"
+                               ng-model="product.isPromotionalProduct"/>
+                        <label for="is-promotional-product">{{'editProduct.isPromotionalProduct' | translate}}</label>
+                        <input type="checkbox" id="is-dish-of-day" class="filled-in checkBoxStyling"
+                               ng-model="product.isDishOfDay"/>
+                        <label for="is-dish-of-day">{{'products.isDishOfDay' | translate}}</label>
                     </div>
 
                     <div class="input-field">
@@ -80,49 +98,51 @@
                 <div class="admin-card">
                     <div id="car-gall" class="carousel slide carousel-fade carousel-thumbnails carousel-gallery">
                         <!--Main image-->
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner z-depth-1 hoverable" role="listbox">
-                                <!-- First slide -->
-                                <div class="edit-product-image item active" ng-click="uploadNewProductImage()">
-                                    <img src="{{productImages[product.mainPhoto].dataURL}}" alt="slide1" >
-                                    <p class="edit-product-image-text">{{'addNewProduct.addPhoto' | translate}}</p>
-                                </div>
-                                <canvas class="img-responsive center-block landscapeImageScale" id="editCanvas" ng-click="uploadNewProductImage()" style="display: none"></canvas>
-                                <input id="imageLoader"
-                                       class="input-file hiddenFileInput"
-                                       type="file"/>
-                                <!-- /.item -->
-
-                                <!-- Second slide -->
-                                <!--<div class="item" ng-repeat="image in productImages">-->
-                                <!--<img src="{{image}}" alt="slide2">-->
-                                <!--</div>-->
-                                <!-- /.item -->
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner z-depth-1 hoverable" role="listbox">
+                            <!-- First slide -->
+                            <div class="edit-product-image item active" ng-click="uploadNewProductImage()">
+                                <img src="{{productImages[product.mainPhoto].dataURL}}" alt="slide1">
+                                <p class="edit-product-image-text">{{'addNewProduct.addPhoto' | translate}}</p>
                             </div>
-                            <!-- /.carousel-inner -->
+                            <canvas class="img-responsive center-block landscapeImageScale" id="editCanvas"
+                                    ng-click="uploadNewProductImage()" style="display: none"></canvas>
+                            <input id="imageLoader"
+                                   class="input-file hiddenFileInput"
+                                   type="file"/>
+                            <!-- /.item -->
+
+                            <!-- Second slide -->
+                            <!--<div class="item" ng-repeat="image in productImages">-->
+                            <!--<img src="{{image}}" alt="slide2">-->
+                            <!--</div>-->
+                            <!-- /.item -->
+                        </div>
+                        <!-- /.carousel-inner -->
                         <!--/.Main image-->
 
                         <!-- Indicators -->
-                            <ul class="carousel-indicators correctImageDisplay" ng-show="productImages.length">
-                                <div class="edit-product-edit-image">
-                                    <li class="imageFlex" data-slide-to="{{$index}}"  ng-repeat="image in productImages" ng-class="{'active' : $index === product.mainPhoto}">
-                                        <img src="{{image.dataURL}}"
-                                             class="img-responsive z-depth-1 hoverable"
-                                             data-toggle="tooltip"
-                                             data-placement="top"
-                                             title="{{'addNewProduct.makeMain' | translate}}"
-                                             ng-click="setMainPhotoIndex($index, image.uuid); $event.stopPropagation();">
-                                        <div class="label secondaryColor photoLabelStyle hoverable"
-                                             data-toggle="tooltip"
-                                             data-placement="top"
-                                             title="{{'addNewProduct.deletePhoto' | translate}}"
-                                             ng-click="removeImage(image.uuid); $event.stopPropagation();">
-                                            <span class="glyphicon glyphicon-remove-sign"></span>
-                                        </div>
-                                        <button class="btn btn-default" ng-click="editImage(image)">Edit image</button>
-                                    </li>
-                                </div>
-                            </ul>
+                        <ul class="carousel-indicators correctImageDisplay" ng-show="productImages.length">
+                            <div class="edit-product-edit-image">
+                                <li class="imageFlex" data-slide-to="{{$index}}" ng-repeat="image in productImages"
+                                    ng-class="{'active' : $index === product.mainPhoto}">
+                                    <img src="{{image.dataURL}}"
+                                         class="img-responsive z-depth-1 hoverable"
+                                         data-toggle="tooltip"
+                                         data-placement="top"
+                                         title="{{'addNewProduct.makeMain' | translate}}"
+                                         ng-click="setMainPhotoIndex($index, image.uuid); $event.stopPropagation();">
+                                    <div class="label secondaryColor photoLabelStyle hoverable"
+                                         data-toggle="tooltip"
+                                         data-placement="top"
+                                         title="{{'addNewProduct.deletePhoto' | translate}}"
+                                         ng-click="removeImage(image.uuid); $event.stopPropagation();">
+                                        <span class="glyphicon glyphicon-remove-sign"></span>
+                                    </div>
+                                    <button class="btn btn-default" ng-click="editImage(image)">Edit image</button>
+                                </li>
+                            </div>
+                        </ul>
                         <!-- Indicators -->
 
                     </div>
@@ -145,11 +165,15 @@
                             <label for="password">{{'categories.categoryName' | translate}}</label>
                         </div>
                         <div class="input-field col-md-12">
-                            <textarea id="textarea1" class="materialize-textarea"  ng-model="newCategory.description"></textarea>
+                            <textarea id="textarea1" class="materialize-textarea"
+                                      ng-model="newCategory.description"></textarea>
                             <label for="textarea1">{{'categories.categoryDescription' | translate}}</label>
                         </div>
-                        <spinner class="col-xs-offset-11" name="mySpinner" img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
-                        <button type="submit" class="btn secondaryColor pull-right" ng-hide="loading">{{'categories.create' | translate}}</button>
+                        <spinner class="col-xs-offset-11" name="mySpinner"
+                                 img-src="wisehands/assets/images/spinner/box-xs.gif" show="loading"></spinner>
+                        <button type="submit" class="btn secondaryColor pull-right" ng-hide="loading">
+                            {{'categories.create' | translate}}
+                        </button>
                     </div>
                 </form>
             </div>
