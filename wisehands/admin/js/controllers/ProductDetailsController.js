@@ -78,11 +78,10 @@ angular.module('WiseHands')
             });
 
         setProductName = (product) => {
-            console.log('$scope.product', product);
             if (product.productNameTextTranslationBucket) {
                 product.productNameTextTranslationBucket.translationList.forEach(item => {
                     if (item.language === $scope.language) {
-                        product.name = item.content;
+                        product.name = product.spicinessLevel > 0 ? product.name : item.content;
                     }
                 });
             }

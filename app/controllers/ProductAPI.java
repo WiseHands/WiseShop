@@ -148,10 +148,18 @@ public class ProductAPI extends AuthController {
             String query = "select a from SelectedAdditionDTO a where a.isSelected = 1 and a.productUuid = ?1";
             productDTO.selectedAdditions = AdditionDTO.find(query, productDTO.uuid).fetch();
         }
-
+        productDTO.name = setSpicinessLevel(productDTO);
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(productDTO);
         renderJSON(json);
+    }
+
+    private static String setSpicinessLevel(ProductDTO product) {
+        String level = "";
+        for(int i = 0; i < product.spicinessLevel; i++){
+            level += "🌶️️️️️️";
+        }
+        return level + product.name;
     }
 
     public static void list(String client, int page) throws Exception {
@@ -189,7 +197,7 @@ public class ProductAPI extends AuthController {
         renderJSON(json);
     }
 
-    public static void update(String client, String uuid, String name, String description, Double price, Upload photo,
+    public static void update(String client, String uuid, String name, Integer spicinessLevel, String description, Double price, Upload photo,
                               Integer sortOrder, Boolean isActive, Boolean isPromotionalProduct, Boolean isDishOfDay, Double oldPrice, String properties,
                               Integer wholesaleCount, Double wholesalePrice) throws Exception {
         ShopDTO shop = ShopDTO.find("byDomain", client).first();
@@ -213,8 +221,6 @@ public class ProductAPI extends AuthController {
         }
 
         ProductDTO product = ProductDTO.findById(uuid);
-                System.out.println("emoji in name: " + name);
-
 
         if(photo != null) {
             File file = new File(USERIMAGESPATH + product.fileName);
@@ -241,6 +247,7 @@ public class ProductAPI extends AuthController {
             product.price = price;
         }
 
+        product.spicinessLevel = spicinessLevel;
         product.isActive = isActive;
         product.isDishOfDay = isDishOfDay;
         product.isPromotionalProduct = isPromotionalProduct;

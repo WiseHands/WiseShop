@@ -277,19 +277,21 @@ angular.module('WiseHands')
             };
 
 // TODO: Filthy hack!!! We should find proper way to handle it on BE side (type conversion etc.)
-            const _convertNameWithEmojisToStringWithParameters = string => {
+            const _removePepperEmojis = string => string.replaceAll('\u{1F336}', '');
+
+            const _countSpicinessLevel = string => {
                 const spicinessLevel = [...string].reduce((level, char) => {
                     if (char === '\u{1F336}') level ++;
                     return level;
                 }, 0);
-                const stringWithoutPeppers = string.replaceAll('\u{1F336}', '');
-                return `${stringWithoutPeppers}&spicinessLevel=${spicinessLevel}`
+                return spicinessLevel;
             };
 
             $scope.updateProduct = function () {
                 $scope.loading = true;
                 fd.append('uuid', $scope.product.uuid);
-                fd.append('name', _convertNameWithEmojisToStringWithParameters($scope.product.name));
+                fd.append('name', _removePepperEmojis($scope.product.name));
+                fd.append('spicinessLevel', _countSpicinessLevel($scope.product.name));
                 fd.append('description', $scope.product.description);
                 fd.append('price', $scope.product.price);
                 fd.append('isActive', $scope.product.isActive);
@@ -328,8 +330,8 @@ angular.module('WiseHands')
             };
 
             $scope.setSpiciness = () => {
-              const hotPepperEmojiCodePoint = '🌶️';
-              $scope.product.name = hotPepperEmojiCodePoint + $scope.product.name;
+                const hotPepperEmojiCodePoint = '🌶️';
+                $scope.product.name = hotPepperEmojiCodePoint + $scope.product.name;
             };
 
             $scope.createCategory = function () {
