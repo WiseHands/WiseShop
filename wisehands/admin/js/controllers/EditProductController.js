@@ -75,21 +75,19 @@ angular.module('WiseHands')
                 method: 'GET',
                 url: '/api/product/' + $routeParams.uuid
             })
-                .then(function successCallback(response) {
+                .then(({data = {}}) => {
 
-                    $scope.product = response.data;
-
-                    console.log("$scope.product property :", response.data);
+                    $scope.product = data;
+                    $scope.showSpicinessLevelButton = data?.spicinessLevel > 0;
+                    console.log("$scope.product property :", data);
 
                     $scope.activeShop = localStorage.getItem('activeShop');
-                    $scope.product.images.forEach(function (image, index) {
-                        if (image.uuid === $scope.product.mainImage.uuid) {
-                            $scope.product.mainPhoto = index;
-                        }
+                    $scope.product.images.forEach((image, index) => {
+                        if (image.uuid === $scope.product.mainImage.uuid) $scope.product.mainPhoto = index;
                     });
                     $scope.loadImgOntoCanvas();
                     $scope.loading = false;
-                }, function errorCallback(error) {
+                }, error => {
                     $scope.loading = false;
                     console.log(error);
                 });
@@ -281,7 +279,7 @@ angular.module('WiseHands')
 
             const _countSpicinessLevel = string => {
                 const spicinessLevel = [...string].reduce((level, char) => {
-                    if (char === '\u{1F336}') level ++;
+                    if (char === '\u{1F336}') level++;
                     return level;
                 }, 0);
                 return spicinessLevel;
@@ -330,8 +328,7 @@ angular.module('WiseHands')
             };
 
             $scope.setSpiciness = () => {
-                const hotPepperEmojiCodePoint = '🌶️';
-                $scope.product.name = hotPepperEmojiCodePoint + $scope.product.name;
+                $scope.product.name = `🌶️${$scope.product.name}`;
             };
 
             $scope.createCategory = function () {

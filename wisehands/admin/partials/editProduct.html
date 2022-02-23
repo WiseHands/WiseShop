@@ -39,12 +39,15 @@
                 <!--</div>-->
                 <div class="admin-card">
                     <h4>{{'editProduct.general' | translate}}</h4>
+                    <input type="checkbox" class="filled-in checkBoxStyling" id="is-emoji"
+                           ng-model="showSpicinessLevelButton"/>
+                    <label for="is-emoji">{{'addNewProduct.showEmoji' | translate}}</label>
                     <div class="input-field">
                         <input id="name" type="text" ng-model="product.name">
                         <label class="active" for="name">{{'addNewProduct.productName' | translate}}</label>
 
                         <button class="edit-btn btn-floating btn-xsmall waves-effect waves-light pull-right lightseagreen"
-                                ng-click="setSpiciness()">
+                                ng-click="setSpiciness()" ng-show="showSpicinessLevelButton">
                             <span>&#127798;&#65039;</span>
                         </button>
                     </div>

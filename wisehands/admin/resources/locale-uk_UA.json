@@ -248,6 +248,7 @@
   "addNewProduct.additional": "Додатки",
   "addNewProduct.add": "Додати товар",
   "addNewProduct.showInShop": "Показувати клієнтам товар в магазині",
+  "addNewProduct.showEmoji": "Показувати емодзі для товару",
   "addNewProduct.isShowInShop": "Товар показується клієнтам",
   "addNewProduct.isNotShowInShop": "Товар не показується клієнтам",
   "addNewProduct.oldPrice": "Ціна без знижки",

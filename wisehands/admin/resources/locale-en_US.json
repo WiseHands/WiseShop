@@ -241,6 +241,7 @@
   "addNewProduct.showLessButton": "Show Less",
   "addNewProduct.additional": "Additions",
   "addNewProduct.showInShop": "Display product in shop for clients",
+  "addNewProduct.showEmoji": "Display emoji for product",
   "addNewProduct.isShowInShop": "Product is shown to the clients",
   "addNewProduct.isNotShowInShop": "Product is not shown to the client",
   "addNewProduct.oldPrice": "Price without discount",
