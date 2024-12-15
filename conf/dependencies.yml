@@ -6,10 +6,9 @@ require:
     - com.owlike -> genson 1.4
     - com.fasterxml.jackson.core -> jackson-databind 2.8.4
     - com.google.api-client -> google-api-client 1.19.1
-    - org.json -> json 20151123
+    - com.googlecode.json-simple -> json-simple 1.1.1
     - com.googlecode.htmlcompressor -> htmlcompressor 1.4
     - com.google.code -> sitemapgen4j 1.0.1
-    - com.liqpay -> liqpay-sdk 0.6
     - nl.big-o -> liqp 0.7.9
     - javax.xml.bind -> jaxb-api 2.1
     - com.auth0 -> java-jwt 3.4.1

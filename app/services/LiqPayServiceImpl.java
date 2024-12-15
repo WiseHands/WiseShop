@@ -1,6 +1,5 @@
 package services;
 
-import com.liqpay.LiqPay;
 import models.BalanceTransactionDTO;
 import models.OrderDTO;
 import models.ShopDTO;
@@ -27,8 +26,7 @@ public class LiqPayServiceImpl implements LiqPayService {
         params.put("description", "New Order");
         params.put("order_id", order.uuid);
 
-        LiqPay liqpay = new LiqPay(shop.liqpayPublicKey, shop.liqpayPrivateKey);
-        return liqpay.cnb_form(params);
+        return "";
     };
 
     public String payForService(BalanceTransactionDTO balanceTransaction, ShopDTO shop){
@@ -39,7 +37,6 @@ public class LiqPayServiceImpl implements LiqPayService {
         params.put("description", "Balance transaction for " + shop.shopName);
         params.put("order_id", balanceTransaction.uuid);
 
-        LiqPay liqpay = new LiqPay(WISEHANDS_PUBLIC_KEY, WISEHANDS_PRIVATE_KEY);
-        return liqpay.cnb_form(params);
+        return "";
     };
 }

@@ -34,7 +34,7 @@ public class DeliveryDTO extends GenericModel {
     }
 
     @Expose
-    @Column(length=1431655765)
+    @Column(length=10485760)
     public String courierPolygonData;
 
     @Expose
