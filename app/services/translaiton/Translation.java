@@ -46,10 +46,6 @@ public class Translation {
                 if (item.language == null){
                     item.language = language;
                 }
-                if (item.language.equals(language) && !item.content.equals("")){
-                System.out.println("product.name = " + product.name);
-                    product.name = showSpiciness(item.content, product);
-                }
             }
         }
         if(product.productDescriptionTextTranslationBucket !=null){

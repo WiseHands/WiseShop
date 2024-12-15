@@ -77,7 +77,7 @@ public class DataBaseQueries {
     public static int getTotalPriceForDefaultAdditions(String productUuid) {
         String query = "SELECT sum(price) FROM AdditionDTO WHERE" +
                 " uuid IN (SELECT addition_uuid FROM SelectedAdditionDTO" +
-                " where productUuid='%s' AND isDefault = 1);";
+                " where productUuid='%s' AND isDefault = true);";
         String stringQueryFormat = String.format(query, productUuid);
         Double totalPrice = (Double) JPA.em().createNativeQuery(stringQueryFormat).getSingleResult();
         if (totalPrice == null)
