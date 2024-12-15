@@ -380,6 +380,7 @@ GET     {client}/product/{uuid}              Application.productOld
 
 GET     {client}/{language}                             Application.index
 GET     {client}/{language}/shop                        Application.shop
+GET     /@{client}                                      Application.shopDefault
 GET     {client}/{language}/page/{uuid}                 Application.page
 GET     {client}/{language}/category/{uuid}             Application.category
 GET     {client}/{language}/product/{uuid}              Application.product

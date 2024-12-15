@@ -248,6 +248,9 @@ public class Application extends Controller {
         renderTemplate("Application/shop.html", shop, dishOfDay, products, language, categories, qr_uuid);
     }
 
+    public static void shopDefault(String client) {
+        shop(client, "en");
+    }
     public static void shop(String client, String language) {
         System.out.println("client info in shop() => " + client);
 
