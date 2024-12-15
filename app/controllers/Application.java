@@ -352,7 +352,7 @@ public class Application extends Controller {
         List<ProductDTO> products;
         String query = "select p from ProductDTO p, CategoryDTO c where p.category = c and p.shop = ?1 " +
                 "and c.isHidden = ?2 and p.isActive = ?3 " +
-                "and p.isDishOfDay = 0 and p.categoryUuid = ?4 order by p.sortOrder asc";
+                "and p.isDishOfDay = false and p.categoryUuid = ?4 order by p.sortOrder asc";
         products = ProductDTO.find(query, shop, false, true, category.uuid).fetch();
 
         String qr_uuid = request.params.get("qr_uuid") != null ? request.params.get("qr_uuid") : "";
